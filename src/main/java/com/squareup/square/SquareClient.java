@@ -8,6 +8,7 @@ import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
+import com.squareup.square.api.CustomerCustomAttributesApi;
 import com.squareup.square.api.CustomerGroupsApi;
 import com.squareup.square.api.CustomerSegmentsApi;
 import com.squareup.square.api.CustomersApi;
@@ -18,6 +19,7 @@ import com.squareup.square.api.DefaultCardsApi;
 import com.squareup.square.api.DefaultCashDrawersApi;
 import com.squareup.square.api.DefaultCatalogApi;
 import com.squareup.square.api.DefaultCheckoutApi;
+import com.squareup.square.api.DefaultCustomerCustomAttributesApi;
 import com.squareup.square.api.DefaultCustomerGroupsApi;
 import com.squareup.square.api.DefaultCustomerSegmentsApi;
 import com.squareup.square.api.DefaultCustomersApi;
@@ -102,6 +104,7 @@ public final class SquareClient implements SquareClientInterface {
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
     private CustomersApi customers;
+    private CustomerCustomAttributesApi customerCustomAttributes;
     private CustomerGroupsApi customerGroups;
     private CustomerSegmentsApi customerSegments;
     private DevicesApi devices;
@@ -220,6 +223,8 @@ public final class SquareClient implements SquareClientInterface {
                 this.httpCallback);
         customers = new DefaultCustomersApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
+        customerCustomAttributes = new DefaultCustomerCustomAttributesApi(this, this.httpClient,
+                this.authManagers, this.httpCallback);
         customerGroups = new DefaultCustomerGroupsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
         customerSegments = new DefaultCustomerSegmentsApi(this, this.httpClient, this.authManagers,
@@ -353,6 +358,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public CustomersApi getCustomersApi() {
         return customers;
+    }
+
+    /**
+     * Get the instance of CustomerCustomAttributesApi.
+     * @return customerCustomAttributes
+     */
+    public CustomerCustomAttributesApi getCustomerCustomAttributesApi() {
+        return customerCustomAttributes;
     }
 
     /**
@@ -632,7 +645,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "19.0.0.20220420";
+        return "20.0.0.20220512";
     }
 
     /**
@@ -734,7 +747,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2022-04-20";
+        private String squareVersion = "2022-05-12";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;

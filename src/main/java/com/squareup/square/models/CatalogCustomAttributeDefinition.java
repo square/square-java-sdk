@@ -105,7 +105,7 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for SourceApplication.
-     * Provides information about the application used to generate a change.
+     * Represents information about the application used to generate a change.
      * @return Returns the SourceApplication
      */
     @JsonGetter("source_application")
@@ -184,10 +184,9 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for CustomAttributeUsageCount.
-     * __Read-only.__ The number of custom attributes that reference this custom attribute
-     * definition. Set by the server in response to a ListCatalog request with `include_counts` set
-     * to `true`. If the actual count is greater than 100, `custom_attribute_usage_count` will be
-     * set to `100`.
+     * The number of custom attributes that reference this custom attribute definition. Set by the
+     * server in response to a ListCatalog request with `include_counts` set to `true`. If the
+     * actual count is greater than 100, `custom_attribute_usage_count` will be set to `100`.
      * @return Returns the Integer
      */
     @JsonGetter("custom_attribute_usage_count")

@@ -51,15 +51,7 @@ CompletableFuture<ListPayoutsResponse> listPayoutsAsync(
 ## Example Usage
 
 ```java
-String locationId = "location_id4";
-String status = "PAID";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-String sortOrder = "DESC";
-String cursor = "cursor6";
-Integer limit = 172;
-
-payoutsApi.listPayoutsAsync(locationId, status, beginTime, endTime, sortOrder, cursor, limit).thenAccept(result -> {
+payoutsApi.listPayoutsAsync(null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -132,11 +124,8 @@ CompletableFuture<ListPayoutEntriesResponse> listPayoutEntriesAsync(
 
 ```java
 String payoutId = "payout_id6";
-String sortOrder = "DESC";
-String cursor = "cursor6";
-Integer limit = 172;
 
-payoutsApi.listPayoutEntriesAsync(payoutId, sortOrder, cursor, limit).thenAccept(result -> {
+payoutsApi.listPayoutEntriesAsync(payoutId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

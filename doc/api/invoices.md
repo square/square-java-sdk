@@ -49,10 +49,8 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
 
 ```java
 String locationId = "location_id4";
-String cursor = "cursor6";
-Integer limit = 172;
 
-invoicesApi.listInvoicesAsync(locationId, cursor, limit).thenAccept(result -> {
+invoicesApi.listInvoicesAsync(locationId, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -87,43 +85,22 @@ CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
-    .addressLine1("address_line_10")
-    .addressLine2("address_line_20")
-    .addressLine3("address_line_36")
-    .locality("locality0")
-    .sublocality("sublocality0")
-    .build();
 InvoiceRecipient invoiceRecipient = new InvoiceRecipient.Builder()
     .customerId("JDKYHBWT1D4F8MFH63DBMEN8Y4")
-    .givenName("given_name6")
-    .familyName("family_name8")
-    .emailAddress("email_address2")
-    .address(invoiceRecipientAddress)
     .build();
 List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
 
-Money money = new Money.Builder()
-    .amount(52L)
-    .currency("USS")
-    .build();
 List<InvoicePaymentReminder> bodyInvoicePaymentRequests0Reminders = new LinkedList<>();
 
 InvoicePaymentReminder bodyInvoicePaymentRequests0Reminders0 = new InvoicePaymentReminder.Builder()
-    .uid("uid2")
     .relativeScheduledDays(-1)
     .message("Your invoice is due tomorrow")
-    .status("PENDING")
-    .sentAt("sent_at2")
     .build();
 bodyInvoicePaymentRequests0Reminders.add(bodyInvoicePaymentRequests0Reminders0);
 
 InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
-    .uid("uid4")
-    .requestMethod("SMS_CHARGE_CARD_ON_FILE")
     .requestType("BALANCE")
     .dueDate("2030-01-24")
-    .fixedAmountRequestedMoney(bodyInvoicePaymentRequests0FixedAmountRequestedMoney)
     .tippingEnabled(true)
     .automaticPaymentSource("NONE")
     .reminders(bodyInvoicePaymentRequests0Reminders)
@@ -152,8 +129,6 @@ InvoiceCustomField bodyInvoiceCustomFields1 = new InvoiceCustomField.Builder()
 bodyInvoiceCustomFields.add(bodyInvoiceCustomFields1);
 
 Invoice invoice = new Invoice.Builder()
-    .id("id0")
-    .version(38)
     .locationId("ES0RJRZYEC39A")
     .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
     .primaryRecipient(invoicePrimaryRecipient)
@@ -227,8 +202,6 @@ InvoiceQuery invoiceQuery = new InvoiceQuery.Builder(
     .build();
 SearchInvoicesRequest body = new SearchInvoicesRequest.Builder(
         query)
-    .limit(164)
-    .cursor("cursor0")
     .build();
 
 invoicesApi.searchInvoicesAsync(body).thenAccept(result -> {
@@ -267,9 +240,8 @@ CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
 
 ```java
 String invoiceId = "invoice_id0";
-Integer version = 172;
 
-invoicesApi.deleteInvoiceAsync(invoiceId, version).thenAccept(result -> {
+invoicesApi.deleteInvoiceAsync(invoiceId, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -339,42 +311,15 @@ CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
 
 ```java
 String invoiceId = "invoice_id0";
-Address address = new Address.Builder()
-    .addressLine1("address_line_10")
-    .addressLine2("address_line_20")
-    .addressLine3("address_line_36")
-    .locality("locality0")
-    .sublocality("sublocality0")
-    .build();
-InvoiceRecipient invoiceRecipient = new InvoiceRecipient.Builder()
-    .customerId("customer_id2")
-    .givenName("given_name6")
-    .familyName("family_name8")
-    .emailAddress("email_address2")
-    .address(invoiceRecipientAddress)
-    .build();
 List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
 
-Money money = new Money.Builder()
-    .amount(52L)
-    .currency("USS")
-    .build();
 InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
     .uid("2da7964f-f3d2-4f43-81e8-5aa220bf3355")
-    .requestMethod("SMS_CHARGE_CARD_ON_FILE")
-    .requestType("DEPOSIT")
-    .dueDate("due_date2")
-    .fixedAmountRequestedMoney(bodyInvoicePaymentRequests0FixedAmountRequestedMoney)
     .tippingEnabled(false)
     .build();
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
 
 Invoice invoice = new Invoice.Builder()
-    .id("id0")
-    .version(38)
-    .locationId("location_id4")
-    .orderId("order_id6")
-    .primaryRecipient(invoicePrimaryRecipient)
     .paymentRequests(invoicePaymentRequests)
     .build();
 List<String> bodyFieldsToClear = new LinkedList<>();

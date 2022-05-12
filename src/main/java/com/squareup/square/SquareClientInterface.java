@@ -8,6 +8,7 @@ import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
 import com.squareup.square.api.CatalogApi;
 import com.squareup.square.api.CheckoutApi;
+import com.squareup.square.api.CustomerCustomAttributesApi;
 import com.squareup.square.api.CustomerGroupsApi;
 import com.squareup.square.api.CustomerSegmentsApi;
 import com.squareup.square.api.CustomersApi;
@@ -103,6 +104,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the CustomersApi instance
      */
     CustomersApi getCustomersApi();
+
+    /**
+     * Provides access to CustomerCustomAttributes controller.
+     * @return Returns the CustomerCustomAttributesApi instance
+     */
+    CustomerCustomAttributesApi getCustomerCustomAttributesApi();
 
     /**
      * Provides access to CustomerGroups controller.

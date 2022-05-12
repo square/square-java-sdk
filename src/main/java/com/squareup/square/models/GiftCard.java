@@ -113,7 +113,8 @@ public class GiftCard {
 
     /**
      * Getter for Gan.
-     * The gift card account number.
+     * The gift card account number (GAN). Buyers can use the GAN to make purchases or check the
+     * gift card balance.
      * @return Returns the String
      */
     @JsonGetter("gan")
@@ -138,7 +139,7 @@ public class GiftCard {
 
     /**
      * Getter for CustomerIds.
-     * The IDs of the customers to whom this gift card is linked.
+     * The IDs of the [customer profiles]($m/Customer) to whom this gift card is linked.
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")

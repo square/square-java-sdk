@@ -139,7 +139,7 @@ public class CreateCheckoutRequest {
      * The URL to redirect to after the checkout is completed with `checkoutId`, `transactionId`,
      * and `referenceId` appended as URL parameters. For example, if the provided redirect URL is
      * `http://www.example.com/order-complete`, a successful transaction redirects the customer to:
-     * &lt;pre&gt;&lt;code&gt;http://www.example.com/order-complete?checkoutId=xxxxxx&amp;referenceId=xxxxxx&amp;transactionId=xxxxxx&lt;/code&gt;&lt;/pre&gt;
+     * `http://www.example.com/order-complete?checkoutId=xxxxxx&amp;referenceId=xxxxxx&amp;transactionId=xxxxxx`
      * If you do not provide a redirect URL, Square Checkout displays an order confirmation page on
      * your behalf; however, it is strongly recommended that you provide a redirect URL so you can
      * verify the transaction results and finalize the order through your existing/normal

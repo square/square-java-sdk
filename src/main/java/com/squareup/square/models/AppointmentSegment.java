@@ -12,7 +12,7 @@ import java.util.Objects;
  * This is a model class for AppointmentSegment type.
  */
 public class AppointmentSegment {
-    private final int durationMinutes;
+    private final Integer durationMinutes;
     private final String serviceVariationId;
     private final String teamMemberId;
     private final long serviceVariationVersion;
@@ -22,20 +22,20 @@ public class AppointmentSegment {
 
     /**
      * Initialization constructor.
-     * @param  durationMinutes  int value for durationMinutes.
      * @param  serviceVariationId  String value for serviceVariationId.
      * @param  teamMemberId  String value for teamMemberId.
      * @param  serviceVariationVersion  long value for serviceVariationVersion.
+     * @param  durationMinutes  Integer value for durationMinutes.
      * @param  intermissionMinutes  Integer value for intermissionMinutes.
      * @param  anyTeamMember  Boolean value for anyTeamMember.
      * @param  resourceIds  List of String value for resourceIds.
      */
     @JsonCreator
     public AppointmentSegment(
-            @JsonProperty("duration_minutes") int durationMinutes,
             @JsonProperty("service_variation_id") String serviceVariationId,
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("service_variation_version") long serviceVariationVersion,
+            @JsonProperty("duration_minutes") Integer durationMinutes,
             @JsonProperty("intermission_minutes") Integer intermissionMinutes,
             @JsonProperty("any_team_member") Boolean anyTeamMember,
             @JsonProperty("resource_ids") List<String> resourceIds) {
@@ -51,10 +51,11 @@ public class AppointmentSegment {
     /**
      * Getter for DurationMinutes.
      * The time span in minutes of an appointment segment.
-     * @return Returns the int
+     * @return Returns the Integer
      */
     @JsonGetter("duration_minutes")
-    public int getDurationMinutes() {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getDurationMinutes() {
         return durationMinutes;
     }
 
@@ -154,11 +155,11 @@ public class AppointmentSegment {
      */
     @Override
     public String toString() {
-        return "AppointmentSegment [" + "durationMinutes=" + durationMinutes
-                + ", serviceVariationId=" + serviceVariationId + ", teamMemberId=" + teamMemberId
-                + ", serviceVariationVersion=" + serviceVariationVersion + ", intermissionMinutes="
-                + intermissionMinutes + ", anyTeamMember=" + anyTeamMember + ", resourceIds="
-                + resourceIds + "]";
+        return "AppointmentSegment [" + "serviceVariationId=" + serviceVariationId
+                + ", teamMemberId=" + teamMemberId + ", serviceVariationVersion="
+                + serviceVariationVersion + ", durationMinutes=" + durationMinutes
+                + ", intermissionMinutes=" + intermissionMinutes + ", anyTeamMember="
+                + anyTeamMember + ", resourceIds=" + resourceIds + "]";
     }
 
     /**
@@ -167,8 +168,8 @@ public class AppointmentSegment {
      * @return a new {@link AppointmentSegment.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(durationMinutes, serviceVariationId, teamMemberId,
-                serviceVariationVersion)
+        Builder builder = new Builder(serviceVariationId, teamMemberId, serviceVariationVersion)
+                .durationMinutes(getDurationMinutes())
                 .intermissionMinutes(getIntermissionMinutes())
                 .anyTeamMember(getAnyTeamMember())
                 .resourceIds(getResourceIds());
@@ -179,37 +180,25 @@ public class AppointmentSegment {
      * Class to build instances of {@link AppointmentSegment}.
      */
     public static class Builder {
-        private int durationMinutes;
         private String serviceVariationId;
         private String teamMemberId;
         private long serviceVariationVersion;
+        private Integer durationMinutes;
         private Integer intermissionMinutes;
         private Boolean anyTeamMember;
         private List<String> resourceIds;
 
         /**
          * Initialization constructor.
-         * @param  durationMinutes  int value for durationMinutes.
          * @param  serviceVariationId  String value for serviceVariationId.
          * @param  teamMemberId  String value for teamMemberId.
          * @param  serviceVariationVersion  long value for serviceVariationVersion.
          */
-        public Builder(int durationMinutes, String serviceVariationId, String teamMemberId,
+        public Builder(String serviceVariationId, String teamMemberId,
                 long serviceVariationVersion) {
-            this.durationMinutes = durationMinutes;
             this.serviceVariationId = serviceVariationId;
             this.teamMemberId = teamMemberId;
             this.serviceVariationVersion = serviceVariationVersion;
-        }
-
-        /**
-         * Setter for durationMinutes.
-         * @param  durationMinutes  int value for durationMinutes.
-         * @return Builder
-         */
-        public Builder durationMinutes(int durationMinutes) {
-            this.durationMinutes = durationMinutes;
-            return this;
         }
 
         /**
@@ -239,6 +228,16 @@ public class AppointmentSegment {
          */
         public Builder serviceVariationVersion(long serviceVariationVersion) {
             this.serviceVariationVersion = serviceVariationVersion;
+            return this;
+        }
+
+        /**
+         * Setter for durationMinutes.
+         * @param  durationMinutes  Integer value for durationMinutes.
+         * @return Builder
+         */
+        public Builder durationMinutes(Integer durationMinutes) {
+            this.durationMinutes = durationMinutes;
             return this;
         }
 
@@ -277,8 +276,8 @@ public class AppointmentSegment {
          * @return {@link AppointmentSegment}
          */
         public AppointmentSegment build() {
-            return new AppointmentSegment(durationMinutes, serviceVariationId, teamMemberId,
-                    serviceVariationVersion, intermissionMinutes, anyTeamMember, resourceIds);
+            return new AppointmentSegment(serviceVariationId, teamMemberId, serviceVariationVersion,
+                    durationMinutes, intermissionMinutes, anyTeamMember, resourceIds);
         }
     }
 }

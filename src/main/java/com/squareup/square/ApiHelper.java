@@ -74,7 +74,20 @@ public class ApiHelper {
         try {
             return serializerAnnotation.using().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Get a JsonSerializer instance for a collection from the provided annotation.
+     * @param serializerAnnotation The Annotation containing information about the serializer of a collection.
+     * @return The JsonSerializer instance of the required type.
+     */
+    @SuppressWarnings("rawtypes")
+    private static JsonSerializer getCollectionSerializer(JsonSerialize serializerAnnotation) {
+        try {
+            return serializerAnnotation.contentUsing().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
             return null;
         }
     }
@@ -96,41 +109,34 @@ public class ApiHelper {
 
     /**
      * Json Serialization of a given object using a specified JsonSerializer.
-     * @param  obj The object to serialize into Json.
-     * @param  serializer The instance of JsonSerializer to use.
+     * @param obj The object to serialize into Json.
+     * @param serializer The instance of JsonSerializer to use.
      * @return The serialized Json string representation of the given object.
      * @throws JsonProcessingException Signals that a Json Processing Exception has occurred.
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static String serialize(Object obj, final JsonSerializer serializer)
             throws JsonProcessingException {
         if (obj == null || serializer == null) {
             return null;
         }
-        
+
+        Class<? extends Object> cls = null;
         if (obj.getClass().getName().equals("java.util.ArrayList")) {
             // need to find the generic type if it's an ArrayList
-            final Class<? extends Object> cls = ((ArrayList) obj).get(0).getClass();
-
-            return new ObjectMapper() {
-                private static final long serialVersionUID = -1639089569991988232L;
-                {
-                    SimpleModule module = new SimpleModule();
-                    module.addSerializer(cls, serializer);
-                    this.registerModule(module);
-                }
-            }.writeValueAsString(obj);
+            cls = ((ArrayList) obj).get(0).getClass();
+        } else if (obj.getClass().getName().equals("java.util.LinkedHashMap")) {
+            cls = ((LinkedHashMap) obj).values().toArray()[0].getClass();
+        } else {
+            cls = obj.getClass();
         }
 
-        final Class<? extends Object> cls = obj.getClass();
-        return new ObjectMapper() {
-            private static final long serialVersionUID = -1639089569991988232L;
-            {
-                SimpleModule module = new SimpleModule();
-                module.addSerializer(cls, serializer);
-                this.registerModule(module);
-            }
-        }.writeValueAsString(obj);
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(cls, serializer);
+        mapper.registerModule(module);
+
+        return mapper.writeValueAsString(obj);
     }
 
     /**
@@ -664,11 +670,22 @@ public class ApiHelper {
         }
 
         try {
-            value = serialize(value, getSerializer(serializerAnnotation));
-            if (value.toString().startsWith("\"")) {
-                value = value.toString().substring(1, value.toString().length() - 1);
+            JsonSerializer serializer = getSerializer(serializerAnnotation);
+            if (serializer == null) {
+                serializer = getCollectionSerializer(serializerAnnotation);
             }
-            objectList.add(new SimpleEntry<String, Object>(key, value));
+
+            value = serialize(value, serializer);
+            
+            Object obj = deserializeAsObject(value.toString());
+            if (obj instanceof List<?> || obj instanceof Map<?, ?>) {
+                loadKeyValuePairForEncoding(key, obj, objectList, processed);
+            } else {
+                if (value.toString().startsWith("\"")) {
+                    value = value.toString().substring(1, value.toString().length() - 1);
+                }
+                objectList.add(new SimpleEntry<String, Object>(key, value));
+            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

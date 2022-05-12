@@ -174,23 +174,8 @@ CompletableFuture<CreateVendorResponse> createVendorAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
-    .addressLine1("address_line_18")
-    .addressLine2("address_line_28")
-    .addressLine3("address_line_34")
-    .locality("locality8")
-    .sublocality("sublocality8")
-    .build();
-Vendor vendor = new Vendor.Builder()
-    .id("id2")
-    .createdAt("created_at0")
-    .updatedAt("updated_at8")
-    .name("name2")
-    .address(vendorAddress)
-    .build();
 CreateVendorRequest body = new CreateVendorRequest.Builder(
         "idempotency_key2")
-    .vendor(bodyVendor)
     .build();
 
 vendorsApi.createVendorAsync(body).thenAccept(result -> {
@@ -224,23 +209,7 @@ CompletableFuture<SearchVendorsResponse> searchVendorsAsync(
 ## Example Usage
 
 ```java
-List<String> bodyFilterName = new LinkedList<>();
-bodyFilterName.add("name8");
-bodyFilterName.add("name9");
-List<String> bodyFilterStatus = new LinkedList<>();
-bodyFilterStatus.add("ACTIVE");
-SearchVendorsRequestFilter searchVendorsRequestFilter = new SearchVendorsRequestFilter.Builder()
-    .name(searchVendorsRequestFilterName)
-    .status(searchVendorsRequestFilterStatus)
-    .build();
-SearchVendorsRequestSort searchVendorsRequestSort = new SearchVendorsRequestSort.Builder()
-    .field("NAME")
-    .order("DESC")
-    .build();
 SearchVendorsRequest body = new SearchVendorsRequest.Builder()
-    .filter(bodyFilter)
-    .sort(bodySort)
-    .cursor("cursor0")
     .build();
 
 vendorsApi.searchVendorsAsync(body).thenAccept(result -> {
@@ -309,19 +278,9 @@ CompletableFuture<UpdateVendorResponse> updateVendorAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
-    .addressLine1("address_line_18")
-    .addressLine2("address_line_28")
-    .addressLine3("address_line_34")
-    .locality("locality8")
-    .sublocality("sublocality8")
-    .build();
 Vendor vendor = new Vendor.Builder()
     .id("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
-    .createdAt("created_at0")
-    .updatedAt("updated_at8")
     .name("Jack's Chicken Shack")
-    .address(vendorAddress)
     .version(1)
     .status("ACTIVE")
     .build();

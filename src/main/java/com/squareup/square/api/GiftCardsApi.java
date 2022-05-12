@@ -83,9 +83,10 @@ public interface GiftCardsApi {
             final String customerId);
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. You must activate
-     * the gift card before it can be used for payment. For more information, see [Selling gift
-     * cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-square-gift-cards).
+     * Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
+     * is created, you must call
+     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) to activate the card
+     * with an initial balance before it can be used for payment.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardResponse response from the API call
@@ -96,9 +97,10 @@ public interface GiftCardsApi {
             final CreateGiftCardRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. You must activate
-     * the gift card before it can be used for payment. For more information, see [Selling gift
-     * cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-square-gift-cards).
+     * Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
+     * is created, you must call
+     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) to activate the card
+     * with an initial balance before it can be used for payment.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardResponse response from the API call
@@ -195,7 +197,7 @@ public interface GiftCardsApi {
             final UnlinkCustomerFromGiftCardRequest body);
 
     /**
-     * Retrieves a gift card using its ID.
+     * Retrieves a gift card using the gift card ID.
      * @param  id  Required parameter: The ID of the gift card to retrieve.
      * @return    Returns the RetrieveGiftCardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -205,7 +207,7 @@ public interface GiftCardsApi {
             final String id) throws ApiException, IOException;
 
     /**
-     * Retrieves a gift card using its ID.
+     * Retrieves a gift card using the gift card ID.
      * @param  id  Required parameter: The ID of the gift card to retrieve.
      * @return    Returns the RetrieveGiftCardResponse response from the API call
      */

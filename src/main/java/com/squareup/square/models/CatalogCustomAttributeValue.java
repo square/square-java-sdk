@@ -76,9 +76,8 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for CustomAttributeDefinitionId.
-     * __Read-only.__ The id of the
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) this value belongs
-     * to.
+     * The id of the [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) this
+     * value belongs to.
      * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
@@ -134,7 +133,7 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for Key.
-     * __Read-only.__ A copy of key from the associated `CatalogCustomAttributeDefinition`.
+     * A copy of key from the associated `CatalogCustomAttributeDefinition`.
      * @return Returns the String
      */
     @JsonGetter("key")

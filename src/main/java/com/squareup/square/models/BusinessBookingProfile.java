@@ -18,6 +18,7 @@ public class BusinessBookingProfile {
     private final String bookingPolicy;
     private final Boolean allowUserCancel;
     private final BusinessAppointmentSettings businessAppointmentSettings;
+    private final Boolean supportSellerLevelWrites;
 
     /**
      * Initialization constructor.
@@ -29,6 +30,7 @@ public class BusinessBookingProfile {
      * @param  allowUserCancel  Boolean value for allowUserCancel.
      * @param  businessAppointmentSettings  BusinessAppointmentSettings value for
      *         businessAppointmentSettings.
+     * @param  supportSellerLevelWrites  Boolean value for supportSellerLevelWrites.
      */
     @JsonCreator
     public BusinessBookingProfile(
@@ -38,7 +40,8 @@ public class BusinessBookingProfile {
             @JsonProperty("customer_timezone_choice") String customerTimezoneChoice,
             @JsonProperty("booking_policy") String bookingPolicy,
             @JsonProperty("allow_user_cancel") Boolean allowUserCancel,
-            @JsonProperty("business_appointment_settings") BusinessAppointmentSettings businessAppointmentSettings) {
+            @JsonProperty("business_appointment_settings") BusinessAppointmentSettings businessAppointmentSettings,
+            @JsonProperty("support_seller_level_writes") Boolean supportSellerLevelWrites) {
         this.sellerId = sellerId;
         this.createdAt = createdAt;
         this.bookingEnabled = bookingEnabled;
@@ -46,6 +49,7 @@ public class BusinessBookingProfile {
         this.bookingPolicy = bookingPolicy;
         this.allowUserCancel = allowUserCancel;
         this.businessAppointmentSettings = businessAppointmentSettings;
+        this.supportSellerLevelWrites = supportSellerLevelWrites;
     }
 
     /**
@@ -126,10 +130,24 @@ public class BusinessBookingProfile {
         return businessAppointmentSettings;
     }
 
+    /**
+     * Getter for SupportSellerLevelWrites.
+     * Indicates whether the seller's subscription to Square Appointments supports creating,
+     * updating or canceling an appointment through the API (`true`) or not (`false`) using seller
+     * permission.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("support_seller_level_writes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSupportSellerLevelWrites() {
+        return supportSellerLevelWrites;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(sellerId, createdAt, bookingEnabled, customerTimezoneChoice,
-                bookingPolicy, allowUserCancel, businessAppointmentSettings);
+                bookingPolicy, allowUserCancel, businessAppointmentSettings,
+                supportSellerLevelWrites);
     }
 
     @Override
@@ -147,7 +165,8 @@ public class BusinessBookingProfile {
             && Objects.equals(customerTimezoneChoice, other.customerTimezoneChoice)
             && Objects.equals(bookingPolicy, other.bookingPolicy)
             && Objects.equals(allowUserCancel, other.allowUserCancel)
-            && Objects.equals(businessAppointmentSettings, other.businessAppointmentSettings);
+            && Objects.equals(businessAppointmentSettings, other.businessAppointmentSettings)
+            && Objects.equals(supportSellerLevelWrites, other.supportSellerLevelWrites);
     }
 
     /**
@@ -160,7 +179,7 @@ public class BusinessBookingProfile {
                 + ", bookingEnabled=" + bookingEnabled + ", customerTimezoneChoice="
                 + customerTimezoneChoice + ", bookingPolicy=" + bookingPolicy + ", allowUserCancel="
                 + allowUserCancel + ", businessAppointmentSettings=" + businessAppointmentSettings
-                + "]";
+                + ", supportSellerLevelWrites=" + supportSellerLevelWrites + "]";
     }
 
     /**
@@ -176,7 +195,8 @@ public class BusinessBookingProfile {
                 .customerTimezoneChoice(getCustomerTimezoneChoice())
                 .bookingPolicy(getBookingPolicy())
                 .allowUserCancel(getAllowUserCancel())
-                .businessAppointmentSettings(getBusinessAppointmentSettings());
+                .businessAppointmentSettings(getBusinessAppointmentSettings())
+                .supportSellerLevelWrites(getSupportSellerLevelWrites());
         return builder;
     }
 
@@ -191,6 +211,7 @@ public class BusinessBookingProfile {
         private String bookingPolicy;
         private Boolean allowUserCancel;
         private BusinessAppointmentSettings businessAppointmentSettings;
+        private Boolean supportSellerLevelWrites;
 
 
 
@@ -267,13 +288,23 @@ public class BusinessBookingProfile {
         }
 
         /**
+         * Setter for supportSellerLevelWrites.
+         * @param  supportSellerLevelWrites  Boolean value for supportSellerLevelWrites.
+         * @return Builder
+         */
+        public Builder supportSellerLevelWrites(Boolean supportSellerLevelWrites) {
+            this.supportSellerLevelWrites = supportSellerLevelWrites;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BusinessBookingProfile} object using the set fields.
          * @return {@link BusinessBookingProfile}
          */
         public BusinessBookingProfile build() {
             return new BusinessBookingProfile(sellerId, createdAt, bookingEnabled,
                     customerTimezoneChoice, bookingPolicy, allowUserCancel,
-                    businessAppointmentSettings);
+                    businessAppointmentSettings, supportSellerLevelWrites);
         }
     }
 }

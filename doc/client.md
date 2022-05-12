@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-04-20"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-05-12"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2022-04-20")
+    .squareVersion("2022-05-12")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -45,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2022-04-20")
+            .squareVersion("2022-05-12")
             .accessToken("AccessToken")
             .build();
         
@@ -79,6 +79,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getCashDrawersApi()` | Provides access to CashDrawers controller. | `CashDrawersApi` |
 | `getCatalogApi()` | Provides access to Catalog controller. | `CatalogApi` |
 | `getCustomersApi()` | Provides access to Customers controller. | `CustomersApi` |
+| `getCustomerCustomAttributesApi()` | Provides access to CustomerCustomAttributes controller. | `CustomerCustomAttributesApi` |
 | `getCustomerGroupsApi()` | Provides access to CustomerGroups controller. | `CustomerGroupsApi` |
 | `getCustomerSegmentsApi()` | Provides access to CustomerSegments controller. | `CustomerSegmentsApi` |
 | `getDevicesApi()` | Provides access to Devices controller. | `DevicesApi` |

@@ -15,6 +15,7 @@ public class DeviceCheckoutOptions {
     private final Boolean skipReceiptScreen;
     private final Boolean collectSignature;
     private final TipSettings tipSettings;
+    private final Boolean showItemizedCart;
 
     /**
      * Initialization constructor.
@@ -22,17 +23,20 @@ public class DeviceCheckoutOptions {
      * @param  skipReceiptScreen  Boolean value for skipReceiptScreen.
      * @param  collectSignature  Boolean value for collectSignature.
      * @param  tipSettings  TipSettings value for tipSettings.
+     * @param  showItemizedCart  Boolean value for showItemizedCart.
      */
     @JsonCreator
     public DeviceCheckoutOptions(
             @JsonProperty("device_id") String deviceId,
             @JsonProperty("skip_receipt_screen") Boolean skipReceiptScreen,
             @JsonProperty("collect_signature") Boolean collectSignature,
-            @JsonProperty("tip_settings") TipSettings tipSettings) {
+            @JsonProperty("tip_settings") TipSettings tipSettings,
+            @JsonProperty("show_itemized_cart") Boolean showItemizedCart) {
         this.deviceId = deviceId;
         this.skipReceiptScreen = skipReceiptScreen;
         this.collectSignature = collectSignature;
         this.tipSettings = tipSettings;
+        this.showItemizedCart = showItemizedCart;
     }
 
     /**
@@ -79,9 +83,22 @@ public class DeviceCheckoutOptions {
         return tipSettings;
     }
 
+    /**
+     * Getter for ShowItemizedCart.
+     * Show the itemization screen prior to taking a payment. This field is only meaningful when the
+     * checkout includes an order ID. Defaults to true.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("show_itemized_cart")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getShowItemizedCart() {
+        return showItemizedCart;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(deviceId, skipReceiptScreen, collectSignature, tipSettings);
+        return Objects.hash(deviceId, skipReceiptScreen, collectSignature, tipSettings,
+                showItemizedCart);
     }
 
     @Override
@@ -96,7 +113,8 @@ public class DeviceCheckoutOptions {
         return Objects.equals(deviceId, other.deviceId)
             && Objects.equals(skipReceiptScreen, other.skipReceiptScreen)
             && Objects.equals(collectSignature, other.collectSignature)
-            && Objects.equals(tipSettings, other.tipSettings);
+            && Objects.equals(tipSettings, other.tipSettings)
+            && Objects.equals(showItemizedCart, other.showItemizedCart);
     }
 
     /**
@@ -107,7 +125,7 @@ public class DeviceCheckoutOptions {
     public String toString() {
         return "DeviceCheckoutOptions [" + "deviceId=" + deviceId + ", skipReceiptScreen="
                 + skipReceiptScreen + ", collectSignature=" + collectSignature + ", tipSettings="
-                + tipSettings + "]";
+                + tipSettings + ", showItemizedCart=" + showItemizedCart + "]";
     }
 
     /**
@@ -119,7 +137,8 @@ public class DeviceCheckoutOptions {
         Builder builder = new Builder(deviceId)
                 .skipReceiptScreen(getSkipReceiptScreen())
                 .collectSignature(getCollectSignature())
-                .tipSettings(getTipSettings());
+                .tipSettings(getTipSettings())
+                .showItemizedCart(getShowItemizedCart());
         return builder;
     }
 
@@ -131,6 +150,7 @@ public class DeviceCheckoutOptions {
         private Boolean skipReceiptScreen;
         private Boolean collectSignature;
         private TipSettings tipSettings;
+        private Boolean showItemizedCart;
 
         /**
          * Initialization constructor.
@@ -181,12 +201,22 @@ public class DeviceCheckoutOptions {
         }
 
         /**
+         * Setter for showItemizedCart.
+         * @param  showItemizedCart  Boolean value for showItemizedCart.
+         * @return Builder
+         */
+        public Builder showItemizedCart(Boolean showItemizedCart) {
+            this.showItemizedCart = showItemizedCart;
+            return this;
+        }
+
+        /**
          * Builds a new {@link DeviceCheckoutOptions} object using the set fields.
          * @return {@link DeviceCheckoutOptions}
          */
         public DeviceCheckoutOptions build() {
             return new DeviceCheckoutOptions(deviceId, skipReceiptScreen, collectSignature,
-                    tipSettings);
+                    tipSettings, showItemizedCart);
         }
     }
 }

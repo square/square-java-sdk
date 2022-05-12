@@ -16,6 +16,8 @@ public class TerminalCheckout {
     private final Money amountMoney;
     private final String referenceId;
     private final String note;
+    private final String orderId;
+    private final PaymentOptions paymentOptions;
     private final DeviceCheckoutOptions deviceOptions;
     private final String deadlineDuration;
     private final String status;
@@ -27,6 +29,7 @@ public class TerminalCheckout {
     private final String locationId;
     private final String paymentType;
     private final String customerId;
+    private final Money appFeeMoney;
 
     /**
      * Initialization constructor.
@@ -35,6 +38,8 @@ public class TerminalCheckout {
      * @param  id  String value for id.
      * @param  referenceId  String value for referenceId.
      * @param  note  String value for note.
+     * @param  orderId  String value for orderId.
+     * @param  paymentOptions  PaymentOptions value for paymentOptions.
      * @param  deadlineDuration  String value for deadlineDuration.
      * @param  status  String value for status.
      * @param  cancelReason  String value for cancelReason.
@@ -45,6 +50,7 @@ public class TerminalCheckout {
      * @param  locationId  String value for locationId.
      * @param  paymentType  String value for paymentType.
      * @param  customerId  String value for customerId.
+     * @param  appFeeMoney  Money value for appFeeMoney.
      */
     @JsonCreator
     public TerminalCheckout(
@@ -53,6 +59,8 @@ public class TerminalCheckout {
             @JsonProperty("id") String id,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("note") String note,
+            @JsonProperty("order_id") String orderId,
+            @JsonProperty("payment_options") PaymentOptions paymentOptions,
             @JsonProperty("deadline_duration") String deadlineDuration,
             @JsonProperty("status") String status,
             @JsonProperty("cancel_reason") String cancelReason,
@@ -62,11 +70,14 @@ public class TerminalCheckout {
             @JsonProperty("app_id") String appId,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("payment_type") String paymentType,
-            @JsonProperty("customer_id") String customerId) {
+            @JsonProperty("customer_id") String customerId,
+            @JsonProperty("app_fee_money") Money appFeeMoney) {
         this.id = id;
         this.amountMoney = amountMoney;
         this.referenceId = referenceId;
         this.note = note;
+        this.orderId = orderId;
+        this.paymentOptions = paymentOptions;
         this.deviceOptions = deviceOptions;
         this.deadlineDuration = deadlineDuration;
         this.status = status;
@@ -78,6 +89,7 @@ public class TerminalCheckout {
         this.locationId = locationId;
         this.paymentType = paymentType;
         this.customerId = customerId;
+        this.appFeeMoney = appFeeMoney;
     }
 
     /**
@@ -129,6 +141,27 @@ public class TerminalCheckout {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNote() {
         return note;
+    }
+
+    /**
+     * Getter for OrderId.
+     * The reference to the Square order ID for the checkout request.
+     * @return Returns the String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getOrderId() {
+        return orderId;
+    }
+
+    /**
+     * Getter for PaymentOptions.
+     * @return Returns the PaymentOptions
+     */
+    @JsonGetter("payment_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentOptions getPaymentOptions() {
+        return paymentOptions;
     }
 
     /**
@@ -251,11 +284,27 @@ public class TerminalCheckout {
         return customerId;
     }
 
+    /**
+     * Getter for AppFeeMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getAppFeeMoney() {
+        return appFeeMoney;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, amountMoney, referenceId, note, deviceOptions, deadlineDuration,
-                status, cancelReason, paymentIds, createdAt, updatedAt, appId, locationId,
-                paymentType, customerId);
+        return Objects.hash(id, amountMoney, referenceId, note, orderId, paymentOptions,
+                deviceOptions, deadlineDuration, status, cancelReason, paymentIds, createdAt,
+                updatedAt, appId, locationId, paymentType, customerId, appFeeMoney);
     }
 
     @Override
@@ -271,6 +320,8 @@ public class TerminalCheckout {
             && Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(note, other.note)
+            && Objects.equals(orderId, other.orderId)
+            && Objects.equals(paymentOptions, other.paymentOptions)
             && Objects.equals(deviceOptions, other.deviceOptions)
             && Objects.equals(deadlineDuration, other.deadlineDuration)
             && Objects.equals(status, other.status)
@@ -281,7 +332,8 @@ public class TerminalCheckout {
             && Objects.equals(appId, other.appId)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(paymentType, other.paymentType)
-            && Objects.equals(customerId, other.customerId);
+            && Objects.equals(customerId, other.customerId)
+            && Objects.equals(appFeeMoney, other.appFeeMoney);
     }
 
     /**
@@ -292,10 +344,12 @@ public class TerminalCheckout {
     public String toString() {
         return "TerminalCheckout [" + "amountMoney=" + amountMoney + ", deviceOptions="
                 + deviceOptions + ", id=" + id + ", referenceId=" + referenceId + ", note=" + note
+                + ", orderId=" + orderId + ", paymentOptions=" + paymentOptions
                 + ", deadlineDuration=" + deadlineDuration + ", status=" + status
                 + ", cancelReason=" + cancelReason + ", paymentIds=" + paymentIds + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId + ", locationId="
-                + locationId + ", paymentType=" + paymentType + ", customerId=" + customerId + "]";
+                + locationId + ", paymentType=" + paymentType + ", customerId=" + customerId
+                + ", appFeeMoney=" + appFeeMoney + "]";
     }
 
     /**
@@ -308,6 +362,8 @@ public class TerminalCheckout {
                 .id(getId())
                 .referenceId(getReferenceId())
                 .note(getNote())
+                .orderId(getOrderId())
+                .paymentOptions(getPaymentOptions())
                 .deadlineDuration(getDeadlineDuration())
                 .status(getStatus())
                 .cancelReason(getCancelReason())
@@ -317,7 +373,8 @@ public class TerminalCheckout {
                 .appId(getAppId())
                 .locationId(getLocationId())
                 .paymentType(getPaymentType())
-                .customerId(getCustomerId());
+                .customerId(getCustomerId())
+                .appFeeMoney(getAppFeeMoney());
         return builder;
     }
 
@@ -330,6 +387,8 @@ public class TerminalCheckout {
         private String id;
         private String referenceId;
         private String note;
+        private String orderId;
+        private PaymentOptions paymentOptions;
         private String deadlineDuration;
         private String status;
         private String cancelReason;
@@ -340,6 +399,7 @@ public class TerminalCheckout {
         private String locationId;
         private String paymentType;
         private String customerId;
+        private Money appFeeMoney;
 
         /**
          * Initialization constructor.
@@ -398,6 +458,26 @@ public class TerminalCheckout {
          */
         public Builder note(String note) {
             this.note = note;
+            return this;
+        }
+
+        /**
+         * Setter for orderId.
+         * @param  orderId  String value for orderId.
+         * @return Builder
+         */
+        public Builder orderId(String orderId) {
+            this.orderId = orderId;
+            return this;
+        }
+
+        /**
+         * Setter for paymentOptions.
+         * @param  paymentOptions  PaymentOptions value for paymentOptions.
+         * @return Builder
+         */
+        public Builder paymentOptions(PaymentOptions paymentOptions) {
+            this.paymentOptions = paymentOptions;
             return this;
         }
 
@@ -502,13 +582,23 @@ public class TerminalCheckout {
         }
 
         /**
+         * Setter for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
+         * @return Builder
+         */
+        public Builder appFeeMoney(Money appFeeMoney) {
+            this.appFeeMoney = appFeeMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalCheckout} object using the set fields.
          * @return {@link TerminalCheckout}
          */
         public TerminalCheckout build() {
-            return new TerminalCheckout(amountMoney, deviceOptions, id, referenceId, note,
-                    deadlineDuration, status, cancelReason, paymentIds, createdAt, updatedAt, appId,
-                    locationId, paymentType, customerId);
+            return new TerminalCheckout(amountMoney, deviceOptions, id, referenceId, note, orderId,
+                    paymentOptions, deadlineDuration, status, cancelReason, paymentIds, createdAt,
+                    updatedAt, appId, locationId, paymentType, customerId, appFeeMoney);
         }
     }
 }

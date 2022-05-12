@@ -54,12 +54,7 @@ CompletableFuture<ListCustomersResponse> listCustomersAsync(
 ## Example Usage
 
 ```java
-String cursor = "cursor6";
-Integer limit = 172;
-String sortField = "DEFAULT";
-String sortOrder = "DESC";
-
-customersApi.listCustomersAsync(cursor, limit, sortField, sortOrder).thenAccept(result -> {
+customersApi.listCustomersAsync(null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -102,19 +97,14 @@ CompletableFuture<CreateCustomerResponse> createCustomerAsync(
 Address address = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
-    .addressLine3("address_line_38")
     .locality("New York")
-    .sublocality("sublocality2")
     .administrativeDistrictLevel1("NY")
     .postalCode("10003")
     .country("US")
     .build();
 CreateCustomerRequest body = new CreateCustomerRequest.Builder()
-    .idempotencyKey("idempotency_key2")
     .givenName("Amelia")
     .familyName("Earhart")
-    .companyName("company_name2")
-    .nickname("nickname2")
     .emailAddress("Amelia.Earhart@example.com")
     .address(bodyAddress)
     .phoneNumber("1-212-555-4240")
@@ -171,38 +161,18 @@ TimeRange timeRange = new TimeRange.Builder()
     .startAt("2018-01-01T00:00:00-00:00")
     .endAt("2018-02-01T00:00:00-00:00")
     .build();
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at4")
-    .endAt("end_at8")
-    .build();
 CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
-    .exact("exact0")
     .fuzzy("example.com")
-    .build();
-CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
-    .exact("exact0")
-    .fuzzy("fuzzy6")
     .build();
 List<String> bodyQueryFilterGroupIdsAll = new LinkedList<>();
 bodyQueryFilterGroupIdsAll.add("545AXB44B4XXWMVQ4W8SBT3HHF");
-List<String> bodyQueryFilterGroupIdsAny = new LinkedList<>();
-bodyQueryFilterGroupIdsAny.add("any0");
-bodyQueryFilterGroupIdsAny.add("any1");
-bodyQueryFilterGroupIdsAny.add("any2");
-List<String> bodyQueryFilterGroupIdsNone = new LinkedList<>();
-bodyQueryFilterGroupIdsNone.add("none5");
-bodyQueryFilterGroupIdsNone.add("none6");
 FilterValue filterValue = new FilterValue.Builder()
     .all(filterValueAll)
-    .any(filterValueAny)
-    .none(filterValueNone)
     .build();
 CustomerFilter customerFilter = new CustomerFilter.Builder()
     .creationSource(customerFilterCreationSource)
     .createdAt(customerFilterCreatedAt)
-    .updatedAt(customerFilterUpdatedAt)
     .emailAddress(customerFilterEmailAddress)
-    .phoneNumber(customerFilterPhoneNumber)
     .groupIds(customerFilterGroupIds)
     .build();
 CustomerSort customerSort = new CustomerSort.Builder()
@@ -214,7 +184,6 @@ CustomerQuery customerQuery = new CustomerQuery.Builder()
     .sort(customerQuerySort)
     .build();
 SearchCustomersRequest body = new SearchCustomersRequest.Builder()
-    .cursor("cursor0")
     .limit(2L)
     .query(bodyQuery)
     .build();
@@ -257,9 +226,8 @@ CompletableFuture<DeleteCustomerResponse> deleteCustomerAsync(
 
 ```java
 String customerId = "customer_id8";
-Long version = 172L;
 
-customersApi.deleteCustomerAsync(customerId, version).thenAccept(result -> {
+customersApi.deleteCustomerAsync(customerId, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -333,10 +301,6 @@ CompletableFuture<UpdateCustomerResponse> updateCustomerAsync(
 ```java
 String customerId = "customer_id8";
 UpdateCustomerRequest body = new UpdateCustomerRequest.Builder()
-    .givenName("given_name8")
-    .familyName("family_name0")
-    .companyName("company_name2")
-    .nickname("nickname2")
     .emailAddress("New.Amelia.Earhart@example.com")
     .phoneNumber("")
     .note("updated customer note")
@@ -386,9 +350,7 @@ String customerId = "customer_id8";
 Address address = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
-    .addressLine3("address_line_38")
     .locality("New York")
-    .sublocality("sublocality2")
     .administrativeDistrictLevel1("NY")
     .postalCode("10003")
     .country("US")
@@ -397,7 +359,6 @@ CreateCustomerCardRequest body = new CreateCustomerCardRequest.Builder(
         "YOUR_CARD_NONCE")
     .billingAddress(bodyBillingAddress)
     .cardholderName("Amelia Earhart")
-    .verificationToken("verification_token0")
     .build();
 
 customersApi.createCustomerCardAsync(customerId, body).thenAccept(result -> {

@@ -106,8 +106,6 @@ bodyObjectIds.add("AA27W3M2GGTF3H6AVPNB77CK");
 BatchRetrieveCatalogObjectsRequest body = new BatchRetrieveCatalogObjectsRequest.Builder(
         bodyObjectIds)
     .includeRelatedObjects(true)
-    .catalogVersion(118L)
-    .includeDeletedObjects(false)
     .build();
 
 catalogApi.batchRetrieveCatalogObjectsAsync(body).thenAccept(result -> {
@@ -153,82 +151,18 @@ List<CatalogObjectBatch> bodyBatches = new LinkedList<>();
 
 List<CatalogObject> bodyBatches0Objects = new LinkedList<>();
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects0CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name1")
-    .stringValue("string_value5")
-    .customAttributeDefinitionId("custom_attribute_definition_id1")
-    .type("SELECTION")
-    .numberValue("number_value1")
-    .build();
-bodyBatches0Objects0CustomAttributeValues.put("key0",bodyBatches0Objects0CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyBatches0Objects0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name0")
-    .stringValue("string_value4")
-    .customAttributeDefinitionId("custom_attribute_definition_id2")
-    .type("STRING")
-    .numberValue("number_value0")
-    .build();
-bodyBatches0Objects0CustomAttributeValues.put("key1",bodyBatches0Objects0CustomAttributeValues1);
-
-List<CatalogV1Id> bodyBatches0Objects0CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects0CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id4")
-    .locationId("location_id4")
-    .build();
-bodyBatches0Objects0CatalogV1Ids.add(bodyBatches0Objects0CatalogV1Ids0);
-
 List<String> bodyBatches0Objects0ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects0ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects0ItemDataVariations = new LinkedList<>();
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects0ItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name0")
-    .stringValue("string_value4")
-    .customAttributeDefinitionId("custom_attribute_definition_id2")
-    .type("STRING")
-    .numberValue("number_value0")
-    .build();
-bodyBatches0Objects0ItemDataVariations0CustomAttributeValues.put("key0",bodyBatches0Objects0ItemDataVariations0CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyBatches0Objects0ItemDataVariations0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name1")
-    .stringValue("string_value5")
-    .customAttributeDefinitionId("custom_attribute_definition_id1")
-    .type("SELECTION")
-    .numberValue("number_value1")
-    .build();
-bodyBatches0Objects0ItemDataVariations0CustomAttributeValues.put("key1",bodyBatches0Objects0ItemDataVariations0CustomAttributeValues1);
-
-List<CatalogV1Id> bodyBatches0Objects0ItemDataVariations0CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id3")
-    .locationId("location_id3")
-    .build();
-bodyBatches0Objects0ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects0ItemDataVariations0CatalogV1Ids0);
-
 CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Tea")
     .name("Mug")
-    .sku("sku9")
-    .upc("upc7")
-    .ordinal(149)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects0ItemDataVariations0 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Tea_Mug")
-    .updatedAt("updated_at5")
-    .version(99L)
-    .isDeleted(true)
-    .customAttributeValues(bodyBatches0Objects0ItemDataVariations0CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects0ItemDataVariations0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects0ItemDataVariations0ItemVariationData)
     .build();
@@ -237,9 +171,6 @@ bodyBatches0Objects0ItemDataVariations.add(bodyBatches0Objects0ItemDataVariation
 CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Tea")
     .description("Hot Leaf Juice")
-    .abbreviation("abbreviation0")
-    .labelColor("label_color0")
-    .availableOnline(false)
     .categoryId("#Beverages")
     .taxIds(catalogItemTaxIds)
     .variations(catalogItemVariations)
@@ -247,156 +178,36 @@ CatalogItem catalogItem = new CatalogItem.Builder()
 CatalogObject bodyBatches0Objects0 = new CatalogObject.Builder(
         "ITEM",
         "#Tea")
-    .updatedAt("updated_at6")
-    .version(252L)
-    .isDeleted(false)
-    .customAttributeValues(bodyBatches0Objects0CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemData(bodyBatches0Objects0ItemData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects0);
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name2")
-    .stringValue("string_value6")
-    .customAttributeDefinitionId("custom_attribute_definition_id0")
-    .type("NUMBER")
-    .numberValue("number_value2")
-    .build();
-bodyBatches0Objects1CustomAttributeValues.put("key0",bodyBatches0Objects1CustomAttributeValues0);
-
-List<CatalogV1Id> bodyBatches0Objects1CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects1CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id5")
-    .locationId("location_id5")
-    .build();
-bodyBatches0Objects1CatalogV1Ids.add(bodyBatches0Objects1CatalogV1Ids0);
-
-CatalogV1Id bodyBatches0Objects1CatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id6")
-    .locationId("location_id6")
-    .build();
-bodyBatches0Objects1CatalogV1Ids.add(bodyBatches0Objects1CatalogV1Ids1);
-
 List<String> bodyBatches0Objects1ItemDataTaxIds = new LinkedList<>();
 bodyBatches0Objects1ItemDataTaxIds.add("#SalesTax");
 List<CatalogObject> bodyBatches0Objects1ItemDataVariations = new LinkedList<>();
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1ItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name9")
-    .stringValue("string_value3")
-    .customAttributeDefinitionId("custom_attribute_definition_id3")
-    .type("BOOLEAN")
-    .numberValue("number_value9")
-    .build();
-bodyBatches0Objects1ItemDataVariations0CustomAttributeValues.put("key0",bodyBatches0Objects1ItemDataVariations0CustomAttributeValues0);
-
-List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations0CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id4")
-    .locationId("location_id4")
-    .build();
-bodyBatches0Objects1ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids0);
-
-CatalogV1Id bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id5")
-    .locationId("location_id5")
-    .build();
-bodyBatches0Objects1ItemDataVariations0CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids1);
-
 CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Regular")
-    .sku("sku8")
-    .upc("upc6")
-    .ordinal(150)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects1ItemDataVariations0 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Coffee_Regular")
-    .updatedAt("updated_at4")
-    .version(100L)
-    .isDeleted(false)
-    .customAttributeValues(bodyBatches0Objects1ItemDataVariations0CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects1ItemDataVariations0CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects1ItemDataVariations0ItemVariationData)
     .build();
 bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariations0);
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects1ItemDataVariations1CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name8")
-    .stringValue("string_value2")
-    .customAttributeDefinitionId("custom_attribute_definition_id4")
-    .type("NUMBER")
-    .numberValue("number_value8")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key0",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name9")
-    .stringValue("string_value3")
-    .customAttributeDefinitionId("custom_attribute_definition_id3")
-    .type("BOOLEAN")
-    .numberValue("number_value9")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key1",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues1);
-
-CatalogCustomAttributeValue bodyBatches0Objects1ItemDataVariations1CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
-    .name("name0")
-    .stringValue("string_value4")
-    .customAttributeDefinitionId("custom_attribute_definition_id2")
-    .type("STRING")
-    .numberValue("number_value0")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CustomAttributeValues.put("key2",bodyBatches0Objects1ItemDataVariations1CustomAttributeValues2);
-
-List<CatalogV1Id> bodyBatches0Objects1ItemDataVariations1CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id5")
-    .locationId("location_id5")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids0);
-
-CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id6")
-    .locationId("location_id6")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids1);
-
-CatalogV1Id bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id7")
-    .locationId("location_id7")
-    .build();
-bodyBatches0Objects1ItemDataVariations1CatalogV1Ids.add(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids2);
-
 CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Large")
-    .sku("sku7")
-    .upc("upc5")
-    .ordinal(151)
     .pricingType("FIXED_PRICING")
     .build();
 CatalogObject bodyBatches0Objects1ItemDataVariations1 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Coffee_Large")
-    .updatedAt("updated_at3")
-    .version(101L)
-    .isDeleted(true)
-    .customAttributeValues(bodyBatches0Objects1ItemDataVariations1CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects1ItemDataVariations1CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemVariationData(bodyBatches0Objects1ItemDataVariations1ItemVariationData)
     .build();
@@ -405,9 +216,6 @@ bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariation
 CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Coffee")
     .description("Hot Bean Juice")
-    .abbreviation("abbreviation9")
-    .labelColor("label_color9")
-    .availableOnline(true)
     .categoryId("#Beverages")
     .taxIds(catalogItemTaxIds)
     .variations(catalogItemVariations)
@@ -415,112 +223,21 @@ CatalogItem catalogItem = new CatalogItem.Builder()
 CatalogObject bodyBatches0Objects1 = new CatalogObject.Builder(
         "ITEM",
         "#Coffee")
-    .updatedAt("updated_at7")
-    .version(253L)
-    .isDeleted(true)
-    .customAttributeValues(bodyBatches0Objects1CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects1CatalogV1Ids)
     .presentAtAllLocations(true)
     .itemData(bodyBatches0Objects1ItemData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects1);
 
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects2CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name3")
-    .stringValue("string_value7")
-    .customAttributeDefinitionId("custom_attribute_definition_id9")
-    .type("BOOLEAN")
-    .numberValue("number_value3")
-    .build();
-bodyBatches0Objects2CustomAttributeValues.put("key0",bodyBatches0Objects2CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name2")
-    .stringValue("string_value6")
-    .customAttributeDefinitionId("custom_attribute_definition_id0")
-    .type("NUMBER")
-    .numberValue("number_value2")
-    .build();
-bodyBatches0Objects2CustomAttributeValues.put("key1",bodyBatches0Objects2CustomAttributeValues1);
-
-CatalogCustomAttributeValue bodyBatches0Objects2CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
-    .name("name1")
-    .stringValue("string_value5")
-    .customAttributeDefinitionId("custom_attribute_definition_id1")
-    .type("SELECTION")
-    .numberValue("number_value1")
-    .build();
-bodyBatches0Objects2CustomAttributeValues.put("key2",bodyBatches0Objects2CustomAttributeValues2);
-
-List<CatalogV1Id> bodyBatches0Objects2CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects2CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id6")
-    .locationId("location_id6")
-    .build();
-bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids0);
-
-CatalogV1Id bodyBatches0Objects2CatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id7")
-    .locationId("location_id7")
-    .build();
-bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids1);
-
-CatalogV1Id bodyBatches0Objects2CatalogV1Ids2 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id8")
-    .locationId("location_id8")
-    .build();
-bodyBatches0Objects2CatalogV1Ids.add(bodyBatches0Objects2CatalogV1Ids2);
-
-List<String> bodyBatches0Objects2CategoryDataImageIds = new LinkedList<>();
-bodyBatches0Objects2CategoryDataImageIds.add("image_ids1");
-bodyBatches0Objects2CategoryDataImageIds.add("image_ids2");
 CatalogCategory catalogCategory = new CatalogCategory.Builder()
     .name("Beverages")
-    .imageIds(catalogCategoryImageIds)
     .build();
 CatalogObject bodyBatches0Objects2 = new CatalogObject.Builder(
         "CATEGORY",
         "#Beverages")
-    .updatedAt("updated_at8")
-    .version(254L)
-    .isDeleted(false)
-    .customAttributeValues(bodyBatches0Objects2CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects2CatalogV1Ids)
     .presentAtAllLocations(true)
     .categoryData(bodyBatches0Objects2CategoryData)
     .build();
 bodyBatches0Objects.add(bodyBatches0Objects2);
-
-Map<String, CatalogCustomAttributeValue> bodyBatches0Objects3CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name4")
-    .stringValue("string_value8")
-    .customAttributeDefinitionId("custom_attribute_definition_id8")
-    .type("STRING")
-    .numberValue("number_value4")
-    .build();
-bodyBatches0Objects3CustomAttributeValues.put("key0",bodyBatches0Objects3CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyBatches0Objects3CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name3")
-    .stringValue("string_value7")
-    .customAttributeDefinitionId("custom_attribute_definition_id9")
-    .type("BOOLEAN")
-    .numberValue("number_value3")
-    .build();
-bodyBatches0Objects3CustomAttributeValues.put("key1",bodyBatches0Objects3CustomAttributeValues1);
-
-List<CatalogV1Id> bodyBatches0Objects3CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyBatches0Objects3CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id7")
-    .locationId("location_id7")
-    .build();
-bodyBatches0Objects3CatalogV1Ids.add(bodyBatches0Objects3CatalogV1Ids0);
 
 CatalogTax catalogTax = new CatalogTax.Builder()
     .name("Sales Tax")
@@ -533,11 +250,6 @@ CatalogTax catalogTax = new CatalogTax.Builder()
 CatalogObject bodyBatches0Objects3 = new CatalogObject.Builder(
         "TAX",
         "#SalesTax")
-    .updatedAt("updated_at9")
-    .version(255L)
-    .isDeleted(true)
-    .customAttributeValues(bodyBatches0Objects3CustomAttributeValues)
-    .catalogV1Ids(bodyBatches0Objects3CatalogV1Ids)
     .presentAtAllLocations(true)
     .taxData(bodyBatches0Objects3TaxData)
     .build();
@@ -591,49 +303,21 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 ## Example Usage
 
 ```java
-Map<String, CatalogCustomAttributeValue> requestImageCustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue requestImageCustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .build();
-requestImageCustomAttributeValues.put("",requestImageCustomAttributeValues0);
-
-CatalogCustomAttributeValue requestImageCustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .build();
-requestImageCustomAttributeValues.put("",requestImageCustomAttributeValues1);
-
-List<CatalogV1Id> requestImageCatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id requestImageCatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id4")
-    .locationId("location_id4")
-    .build();
-requestImageCatalogV1Ids.add(requestImageCatalogV1Ids0);
-
 CatalogImage catalogImage = new CatalogImage.Builder()
-    .name("name0")
-    .url("url4")
     .caption("A picture of a cup of coffee")
-    .photoStudioOrderId("photo_studio_order_id2")
     .build();
 CatalogObject catalogObject = new CatalogObject.Builder(
         "IMAGE",
         "#TEMP_ID")
-    .updatedAt("updated_at4")
-    .version(68L)
-    .isDeleted(false)
-    .customAttributeValues(catalogObjectCustomAttributeValues)
-    .catalogV1Ids(catalogObjectCatalogV1Ids)
     .imageData(catalogObjectImageData)
     .build();
 CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
         "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
         image)
     .objectId("ND6EA5AAJEO5WL3JNNIAQA32")
-    .isPrimary(false)
     .build();
-FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
 
-catalogApi.createCatalogImageAsync(request, imageFile).thenAccept(result -> {
+catalogApi.createCatalogImageAsync(request, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -675,9 +359,8 @@ String imageId = "image_id4";
 UpdateCatalogImageRequest request = new UpdateCatalogImageRequest.Builder(
         "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86")
     .build();
-FileWrapper imageFile = new FileWrapper(new File("dummy_file"), "optional-content-type");
 
-catalogApi.updateCatalogImageAsync(imageId, request, imageFile).thenAccept(result -> {
+catalogApi.updateCatalogImageAsync(imageId, request, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -744,11 +427,7 @@ CompletableFuture<ListCatalogResponse> listCatalogAsync(
 ## Example Usage
 
 ```java
-String cursor = "cursor6";
-String types = "types6";
-Long catalogVersion = 126L;
-
-catalogApi.listCatalogAsync(cursor, types, catalogVersion).thenAccept(result -> {
+catalogApi.listCatalogAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -779,138 +458,19 @@ CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
 ## Example Usage
 
 ```java
-Map<String, CatalogCustomAttributeValue> bodyObjectCustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyObjectCustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .build();
-bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyObjectCustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .build();
-bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues1);
-
-CatalogCustomAttributeValue bodyObjectCustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
-    .build();
-bodyObjectCustomAttributeValues.put("",bodyObjectCustomAttributeValues2);
-
-List<CatalogV1Id> bodyObjectCatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyObjectCatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id0")
-    .locationId("location_id0")
-    .build();
-bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids0);
-
-CatalogV1Id bodyObjectCatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id1")
-    .locationId("location_id1")
-    .build();
-bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids1);
-
-CatalogV1Id bodyObjectCatalogV1Ids2 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id2")
-    .locationId("location_id2")
-    .build();
-bodyObjectCatalogV1Ids.add(bodyObjectCatalogV1Ids2);
-
 List<CatalogObject> bodyObjectItemDataVariations = new LinkedList<>();
-
-Map<String, CatalogCustomAttributeValue> bodyObjectItemDataVariations0CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyObjectItemDataVariations0CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name4")
-    .stringValue("string_value8")
-    .customAttributeDefinitionId("custom_attribute_definition_id8")
-    .type("NUMBER")
-    .numberValue("number_value4")
-    .build();
-bodyObjectItemDataVariations0CustomAttributeValues.put("key0",bodyObjectItemDataVariations0CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyObjectItemDataVariations0CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name5")
-    .stringValue("string_value9")
-    .customAttributeDefinitionId("custom_attribute_definition_id7")
-    .type("BOOLEAN")
-    .numberValue("number_value5")
-    .build();
-bodyObjectItemDataVariations0CustomAttributeValues.put("key1",bodyObjectItemDataVariations0CustomAttributeValues1);
-
-List<CatalogV1Id> bodyObjectItemDataVariations0CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyObjectItemDataVariations0CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id9")
-    .locationId("location_id9")
-    .build();
-bodyObjectItemDataVariations0CatalogV1Ids.add(bodyObjectItemDataVariations0CatalogV1Ids0);
 
 CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Cocoa")
     .name("Small")
-    .sku("sku3")
-    .upc("upc1")
-    .ordinal(119)
     .pricingType("VARIABLE_PRICING")
     .build();
 CatalogObject bodyObjectItemDataVariations0 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Small")
-    .updatedAt("updated_at9")
-    .version(69L)
-    .isDeleted(true)
-    .customAttributeValues(bodyObjectItemDataVariations0CustomAttributeValues)
-    .catalogV1Ids(bodyObjectItemDataVariations0CatalogV1Ids)
     .itemVariationData(bodyObjectItemDataVariations0ItemVariationData)
     .build();
 bodyObjectItemDataVariations.add(bodyObjectItemDataVariations0);
-
-Map<String, CatalogCustomAttributeValue> bodyObjectItemDataVariations1CustomAttributeValues = new LinkedHashMap<>();
-
-CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues0 = new CatalogCustomAttributeValue.Builder()
-    .name("name5")
-    .stringValue("string_value9")
-    .customAttributeDefinitionId("custom_attribute_definition_id7")
-    .type("BOOLEAN")
-    .numberValue("number_value5")
-    .build();
-bodyObjectItemDataVariations1CustomAttributeValues.put("key0",bodyObjectItemDataVariations1CustomAttributeValues0);
-
-CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues1 = new CatalogCustomAttributeValue.Builder()
-    .name("name6")
-    .stringValue("string_value0")
-    .customAttributeDefinitionId("custom_attribute_definition_id6")
-    .type("STRING")
-    .numberValue("number_value6")
-    .build();
-bodyObjectItemDataVariations1CustomAttributeValues.put("key1",bodyObjectItemDataVariations1CustomAttributeValues1);
-
-CatalogCustomAttributeValue bodyObjectItemDataVariations1CustomAttributeValues2 = new CatalogCustomAttributeValue.Builder()
-    .name("name7")
-    .stringValue("string_value1")
-    .customAttributeDefinitionId("custom_attribute_definition_id5")
-    .type("SELECTION")
-    .numberValue("number_value7")
-    .build();
-bodyObjectItemDataVariations1CustomAttributeValues.put("key2",bodyObjectItemDataVariations1CustomAttributeValues2);
-
-List<CatalogV1Id> bodyObjectItemDataVariations1CatalogV1Ids = new LinkedList<>();
-
-CatalogV1Id bodyObjectItemDataVariations1CatalogV1Ids0 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id8")
-    .locationId("location_id8")
-    .build();
-bodyObjectItemDataVariations1CatalogV1Ids.add(bodyObjectItemDataVariations1CatalogV1Ids0);
-
-CatalogV1Id bodyObjectItemDataVariations1CatalogV1Ids1 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id9")
-    .locationId("location_id9")
-    .build();
-bodyObjectItemDataVariations1CatalogV1Ids.add(bodyObjectItemDataVariations1CatalogV1Ids1);
-
-CatalogV1Id bodyObjectItemDataVariations1CatalogV1Ids2 = new CatalogV1Id.Builder()
-    .catalogV1Id("catalog_v1_id0")
-    .locationId("location_id0")
-    .build();
-bodyObjectItemDataVariations1CatalogV1Ids.add(bodyObjectItemDataVariations1CatalogV1Ids2);
 
 Money money = new Money.Builder()
     .amount(400L)
@@ -919,20 +479,12 @@ Money money = new Money.Builder()
 CatalogItemVariation catalogItemVariation = new CatalogItemVariation.Builder()
     .itemId("#Cocoa")
     .name("Large")
-    .sku("sku4")
-    .upc("upc2")
-    .ordinal(118)
     .pricingType("FIXED_PRICING")
     .priceMoney(catalogItemVariationPriceMoney)
     .build();
 CatalogObject bodyObjectItemDataVariations1 = new CatalogObject.Builder(
         "ITEM_VARIATION",
         "#Large")
-    .updatedAt("updated_at0")
-    .version(68L)
-    .isDeleted(false)
-    .customAttributeValues(bodyObjectItemDataVariations1CustomAttributeValues)
-    .catalogV1Ids(bodyObjectItemDataVariations1CatalogV1Ids)
     .itemVariationData(bodyObjectItemDataVariations1ItemVariationData)
     .build();
 bodyObjectItemDataVariations.add(bodyObjectItemDataVariations1);
@@ -941,18 +493,11 @@ CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Cocoa")
     .description("Hot Chocolate")
     .abbreviation("Ch")
-    .labelColor("label_color4")
-    .availableOnline(false)
     .variations(catalogItemVariations)
     .build();
 CatalogObject catalogObject = new CatalogObject.Builder(
         "ITEM",
         "#Cocoa")
-    .updatedAt("updated_at8")
-    .version(252L)
-    .isDeleted(false)
-    .customAttributeValues(catalogObjectCustomAttributeValues)
-    .catalogV1Ids(catalogObjectCatalogV1Ids)
     .itemData(catalogObjectItemData)
     .build();
 UpsertCatalogObjectRequest body = new UpsertCatalogObjectRequest.Builder(
@@ -1041,9 +586,8 @@ CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
 ```java
 String objectId = "object_id8";
 Boolean includeRelatedObjects = false;
-Long catalogVersion = 126L;
 
-catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects, catalogVersion).thenAccept(result -> {
+catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -1085,43 +629,15 @@ CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
 ```java
 List<String> bodyObjectTypes = new LinkedList<>();
 bodyObjectTypes.add("ITEM");
-CatalogQuerySortedAttribute catalogQuerySortedAttribute = new CatalogQuerySortedAttribute.Builder(
-        "attribute_name6")
-    .initialAttributeValue("initial_attribute_value4")
-    .sortOrder("DESC")
-    .build();
-CatalogQueryExact catalogQueryExact = new CatalogQueryExact.Builder(
-        "attribute_name2",
-        "attribute_value2")
-    .build();
-List<String> bodyQuerySetQueryAttributeValues = new LinkedList<>();
-bodyQuerySetQueryAttributeValues.add("attribute_values0");
-CatalogQuerySet catalogQuerySet = new CatalogQuerySet.Builder(
-        "attribute_name8",
-        catalogQuerySetAttributeValues)
-    .build();
 CatalogQueryPrefix catalogQueryPrefix = new CatalogQueryPrefix.Builder(
         "name",
         "tea")
     .build();
-CatalogQueryRange catalogQueryRange = new CatalogQueryRange.Builder(
-        "attribute_name6")
-    .attributeMinValue(14L)
-    .attributeMaxValue(180L)
-    .build();
 CatalogQuery catalogQuery = new CatalogQuery.Builder()
-    .sortedAttributeQuery(catalogQuerySortedAttributeQuery)
-    .exactQuery(catalogQueryExactQuery)
-    .setQuery(catalogQuerySetQuery)
     .prefixQuery(catalogQueryPrefixQuery)
-    .rangeQuery(catalogQueryRangeQuery)
     .build();
 SearchCatalogObjectsRequest body = new SearchCatalogObjectsRequest.Builder()
-    .cursor("cursor0")
     .objectTypes(bodyObjectTypes)
-    .includeDeletedObjects(false)
-    .includeRelatedObjects(false)
-    .beginTime("begin_time4")
     .query(bodyQuery)
     .limit(100)
     .build();
@@ -1177,35 +693,15 @@ List<String> bodyProductTypes = new LinkedList<>();
 bodyProductTypes.add("REGULAR");
 List<CustomAttributeFilter> bodyCustomAttributeFilters = new LinkedList<>();
 
-Range range = new Range.Builder()
-    .min("min0")
-    .max("max2")
-    .build();
-List<String> bodyCustomAttributeFilters0SelectionUidsFilter = new LinkedList<>();
-bodyCustomAttributeFilters0SelectionUidsFilter.add("selection_uids_filter2");
-bodyCustomAttributeFilters0SelectionUidsFilter.add("selection_uids_filter3");
 CustomAttributeFilter bodyCustomAttributeFilters0 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("VEGAN_DEFINITION_ID")
-    .key("key2")
-    .stringFilter("string_filter4")
-    .numberFilter(bodyCustomAttributeFilters0NumberFilter)
-    .selectionUidsFilter(bodyCustomAttributeFilters0SelectionUidsFilter)
     .boolFilter(true)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters0);
 
-Range range = new Range.Builder()
-    .min("min1")
-    .max("max1")
-    .build();
-List<String> bodyCustomAttributeFilters1SelectionUidsFilter = new LinkedList<>();
-bodyCustomAttributeFilters1SelectionUidsFilter.add("selection_uids_filter1");
 CustomAttributeFilter bodyCustomAttributeFilters1 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("BRAND_DEFINITION_ID")
-    .key("key3")
     .stringFilter("Dark Horse")
-    .numberFilter(bodyCustomAttributeFilters1NumberFilter)
-    .selectionUidsFilter(bodyCustomAttributeFilters1SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters1);
 
@@ -1213,32 +709,14 @@ Range range = new Range.Builder()
     .min("2017")
     .max("2018")
     .build();
-List<String> bodyCustomAttributeFilters2SelectionUidsFilter = new LinkedList<>();
-bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter0");
-bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter1");
-bodyCustomAttributeFilters2SelectionUidsFilter.add("selection_uids_filter2");
 CustomAttributeFilter bodyCustomAttributeFilters2 = new CustomAttributeFilter.Builder()
-    .customAttributeDefinitionId("custom_attribute_definition_id8")
     .key("VINTAGE")
-    .stringFilter("string_filter6")
     .numberFilter(bodyCustomAttributeFilters2NumberFilter)
-    .selectionUidsFilter(bodyCustomAttributeFilters2SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters2);
 
-Range range = new Range.Builder()
-    .min("min3")
-    .max("max9")
-    .build();
-List<String> bodyCustomAttributeFilters3SelectionUidsFilter = new LinkedList<>();
-bodyCustomAttributeFilters3SelectionUidsFilter.add("selection_uids_filter9");
-bodyCustomAttributeFilters3SelectionUidsFilter.add("selection_uids_filter0");
 CustomAttributeFilter bodyCustomAttributeFilters3 = new CustomAttributeFilter.Builder()
     .customAttributeDefinitionId("VARIETAL_DEFINITION_ID")
-    .key("key5")
-    .stringFilter("string_filter7")
-    .numberFilter(bodyCustomAttributeFilters3NumberFilter)
-    .selectionUidsFilter(bodyCustomAttributeFilters3SelectionUidsFilter)
     .build();
 bodyCustomAttributeFilters.add(bodyCustomAttributeFilters3);
 
@@ -1247,7 +725,6 @@ SearchCatalogItemsRequest body = new SearchCatalogItemsRequest.Builder()
     .categoryIds(bodyCategoryIds)
     .stockLevels(bodyStockLevels)
     .enabledLocationIds(bodyEnabledLocationIds)
-    .cursor("cursor0")
     .limit(100)
     .sortOrder("ASC")
     .productTypes(bodyProductTypes)

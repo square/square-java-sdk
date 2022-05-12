@@ -123,51 +123,17 @@ CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAs
 List<InventoryChange> bodyChanges = new LinkedList<>();
 
 InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
-    .id("id0")
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
-    .catalogObjectType("catalog_object_type4")
     .state("IN_STOCK")
     .locationId("C6W5YS5QM06F5")
     .quantity("53")
     .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()
-    .id("id6")
-    .referenceId("reference_id4")
-    .fromState("SOLD")
-    .toState("SOLD_ONLINE")
-    .locationId("location_id0")
-    .build();
-InventoryTransfer inventoryTransfer = new InventoryTransfer.Builder()
-    .id("id0")
-    .referenceId("reference_id8")
-    .state("UNLINKED_RETURN")
-    .fromLocationId("from_location_id2")
-    .toLocationId("to_location_id2")
-    .build();
-MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
-        "name0",
-        "abbreviation2")
-    .build();
-MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
-    .customUnit(measurementUnitCustomUnit)
-    .areaUnit("IMPERIAL_SQUARE_FOOT")
-    .lengthUnit("METRIC_METER")
-    .volumeUnit("METRIC_MILLILITER")
-    .weightUnit("IMPERIAL_WEIGHT_OUNCE")
-    .build();
-CatalogMeasurementUnit catalogMeasurementUnit = new CatalogMeasurementUnit.Builder()
-    .measurementUnit(catalogMeasurementUnitMeasurementUnit)
-    .precision(26)
-    .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
     .physicalCount(bodyChanges0PhysicalCount)
-    .adjustment(bodyChanges0Adjustment)
-    .transfer(bodyChanges0Transfer)
-    .measurementUnit(bodyChanges0MeasurementUnit)
     .build();
 bodyChanges.add(bodyChanges0);
 
@@ -266,14 +232,10 @@ List<String> bodyCatalogObjectIds = new LinkedList<>();
 bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
 List<String> bodyLocationIds = new LinkedList<>();
 bodyLocationIds.add("59TNP9SA8VGDA");
-List<String> bodyStates = new LinkedList<>();
-bodyStates.add("SUPPORTED_BY_NEWER_VERSION");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)
     .updatedAfter("2016-11-16T00:00:00.000Z")
-    .cursor("cursor0")
-    .states(bodyStates)
     .build();
 
 inventoryApi.deprecatedBatchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
@@ -314,51 +276,17 @@ CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
 List<InventoryChange> bodyChanges = new LinkedList<>();
 
 InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
-    .id("id0")
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
-    .catalogObjectType("catalog_object_type4")
     .state("IN_STOCK")
     .locationId("C6W5YS5QM06F5")
     .quantity("53")
     .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryAdjustment inventoryAdjustment = new InventoryAdjustment.Builder()
-    .id("id6")
-    .referenceId("reference_id4")
-    .fromState("SOLD")
-    .toState("SOLD_ONLINE")
-    .locationId("location_id0")
-    .build();
-InventoryTransfer inventoryTransfer = new InventoryTransfer.Builder()
-    .id("id0")
-    .referenceId("reference_id8")
-    .state("UNLINKED_RETURN")
-    .fromLocationId("from_location_id2")
-    .toLocationId("to_location_id2")
-    .build();
-MeasurementUnitCustom measurementUnitCustom = new MeasurementUnitCustom.Builder(
-        "name0",
-        "abbreviation2")
-    .build();
-MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
-    .customUnit(measurementUnitCustomUnit)
-    .areaUnit("IMPERIAL_SQUARE_FOOT")
-    .lengthUnit("METRIC_METER")
-    .volumeUnit("METRIC_MILLILITER")
-    .weightUnit("IMPERIAL_WEIGHT_OUNCE")
-    .build();
-CatalogMeasurementUnit catalogMeasurementUnit = new CatalogMeasurementUnit.Builder()
-    .measurementUnit(catalogMeasurementUnitMeasurementUnit)
-    .precision(26)
-    .build();
 InventoryChange bodyChanges0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
     .physicalCount(bodyChanges0PhysicalCount)
-    .adjustment(bodyChanges0Adjustment)
-    .transfer(bodyChanges0Transfer)
-    .measurementUnit(bodyChanges0MeasurementUnit)
     .build();
 bodyChanges.add(bodyChanges0);
 
@@ -468,14 +396,10 @@ List<String> bodyCatalogObjectIds = new LinkedList<>();
 bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
 List<String> bodyLocationIds = new LinkedList<>();
 bodyLocationIds.add("59TNP9SA8VGDA");
-List<String> bodyStates = new LinkedList<>();
-bodyStates.add("SUPPORTED_BY_NEWER_VERSION");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)
     .updatedAfter("2016-11-16T00:00:00.000Z")
-    .cursor("cursor0")
-    .states(bodyStates)
     .build();
 
 inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
@@ -621,10 +545,8 @@ CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
 
 ```java
 String catalogObjectId = "catalog_object_id6";
-String locationIds = "location_ids0";
-String cursor = "cursor6";
 
-inventoryApi.retrieveInventoryCountAsync(catalogObjectId, locationIds, cursor).thenAccept(result -> {
+inventoryApi.retrieveInventoryCountAsync(catalogObjectId, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -674,10 +596,8 @@ CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsyn
 
 ```java
 String catalogObjectId = "catalog_object_id6";
-String locationIds = "location_ids0";
-String cursor = "cursor6";
 
-inventoryApi.retrieveInventoryChangesAsync(catalogObjectId, locationIds, cursor).thenAccept(result -> {
+inventoryApi.retrieveInventoryChangesAsync(catalogObjectId, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

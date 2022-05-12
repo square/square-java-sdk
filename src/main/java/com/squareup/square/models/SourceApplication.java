@@ -33,7 +33,7 @@ public class SourceApplication {
 
     /**
      * Getter for Product.
-     * Indicates the Square product used to generate an inventory change.
+     * Indicates the Square product used to generate a change.
      * @return Returns the String
      */
     @JsonGetter("product")
@@ -44,8 +44,8 @@ public class SourceApplication {
 
     /**
      * Getter for ApplicationId.
-     * Read-only Square ID assigned to the application. Only used for [Product]($m/Product) type
-     * `EXTERNAL_API`.
+     * __Read only__ The Square-assigned ID of the application. This field is used only if the
+     * [product]($m/Product) type is `EXTERNAL_API`.
      * @return Returns the String
      */
     @JsonGetter("application_id")
@@ -56,8 +56,8 @@ public class SourceApplication {
 
     /**
      * Getter for Name.
-     * Read-only display name assigned to the application (e.g. `"Custom Application"`, `"Square POS
-     * 4.74 for Android"`).
+     * __Read only__ The display name of the application (for example, `"Custom Application"` or
+     * `"Square POS 4.74 for Android"`).
      * @return Returns the String
      */
     @JsonGetter("name")

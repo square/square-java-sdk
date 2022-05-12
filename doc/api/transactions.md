@@ -54,12 +54,8 @@ CompletableFuture<ListTransactionsResponse> listTransactionsAsync(
 
 ```java
 String locationId = "location_id4";
-String beginTime = "begin_time2";
-String endTime = "end_time2";
-String sortOrder = "DESC";
-String cursor = "cursor6";
 
-transactionsApi.listTransactionsAsync(locationId, beginTime, endTime, sortOrder, cursor).thenAccept(result -> {
+transactionsApi.listTransactionsAsync(locationId, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

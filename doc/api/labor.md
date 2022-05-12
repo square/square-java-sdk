@@ -54,11 +54,7 @@ CompletableFuture<ListBreakTypesResponse> listBreakTypesAsync(
 ## Example Usage
 
 ```java
-String locationId = "location_id4";
-Integer limit = 172;
-String cursor = "cursor6";
-
-laborApi.listBreakTypesAsync(locationId, limit, cursor).thenAccept(result -> {
+laborApi.listBreakTypesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -107,10 +103,6 @@ BreakType breakType = new BreakType.Builder(
         "Lunch Break",
         "PT30M",
         true)
-    .id("id2")
-    .version(124)
-    .createdAt("created_at0")
-    .updatedAt("updated_at8")
     .build();
 CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
         breakType)
@@ -224,10 +216,7 @@ BreakType breakType = new BreakType.Builder(
         "Lunch",
         "PT50M",
         true)
-    .id("id2")
     .version(1)
-    .createdAt("created_at0")
-    .updatedAt("updated_at8")
     .build();
 UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
         breakType)
@@ -270,11 +259,7 @@ CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
 ## Example Usage
 
 ```java
-String employeeId = "employee_id0";
-Integer limit = 172;
-String cursor = "cursor6";
-
-laborApi.listEmployeeWagesAsync(employeeId, limit, cursor).thenAccept(result -> {
+laborApi.listEmployeeWagesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -374,17 +359,13 @@ Break bodyShiftBreaks0 = new Break.Builder(
         "Tea Break",
         "PT5M",
         true)
-    .id("id4")
     .endAt("2019-01-25T06:16:00-05:00")
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift shift = new Shift.Builder(
         "2019-01-25T03:11:00-05:00")
-    .id("id8")
-    .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
-    .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(shiftWage)
     .breaks(shiftBreaks)
@@ -441,51 +422,7 @@ CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
 ## Example Usage
 
 ```java
-List<String> bodyQueryFilterLocationIds = new LinkedList<>();
-bodyQueryFilterLocationIds.add("location_ids2");
-List<String> bodyQueryFilterTeamMemberIds = new LinkedList<>();
-bodyQueryFilterTeamMemberIds.add("team_member_ids9");
-bodyQueryFilterTeamMemberIds.add("team_member_ids0");
-List<String> bodyQueryFilterEmployeeIds = new LinkedList<>();
-bodyQueryFilterEmployeeIds.add("employee_ids7");
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at8")
-    .endAt("end_at4")
-    .build();
-TimeRange timeRange = new TimeRange.Builder()
-    .startAt("start_at2")
-    .endAt("end_at0")
-    .build();
-DateRange dateRange = new DateRange.Builder()
-    .startDate("start_date8")
-    .endDate("end_date4")
-    .build();
-ShiftWorkday shiftWorkday = new ShiftWorkday.Builder()
-    .dateRange(shiftWorkdayDateRange)
-    .matchShiftsBy("START_AT")
-    .defaultTimezone("default_timezone8")
-    .build();
-ShiftFilter shiftFilter = new ShiftFilter.Builder(
-        shiftFilterLocationIds,
-        shiftFilterTeamMemberIds)
-    .employeeIds(shiftFilterEmployeeIds)
-    .status("OPEN")
-    .start(shiftFilterStart)
-    .end(shiftFilterEnd)
-    .workday(shiftFilterWorkday)
-    .build();
-ShiftSort shiftSort = new ShiftSort.Builder()
-    .field("CREATED_AT")
-    .order("DESC")
-    .build();
-ShiftQuery shiftQuery = new ShiftQuery.Builder()
-    .filter(shiftQueryFilter)
-    .sort(shiftQuerySort)
-    .build();
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
-    .query(bodyQuery)
-    .limit(164)
-    .cursor("cursor0")
     .build();
 
 laborApi.searchShiftsAsync(body).thenAccept(result -> {
@@ -617,10 +554,7 @@ bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift shift = new Shift.Builder(
         "2019-01-25T03:11:00-05:00")
-    .id("id8")
-    .employeeId("employee_id2")
     .locationId("PAA1RJZZKXBFG")
-    .timezone("timezone2")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(shiftWage)
     .breaks(shiftBreaks)
@@ -666,11 +600,7 @@ CompletableFuture<ListTeamMemberWagesResponse> listTeamMemberWagesAsync(
 ## Example Usage
 
 ```java
-String teamMemberId = "team_member_id0";
-Integer limit = 172;
-String cursor = "cursor6";
-
-laborApi.listTeamMemberWagesAsync(teamMemberId, limit, cursor).thenAccept(result -> {
+laborApi.listTeamMemberWagesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -736,10 +666,7 @@ CompletableFuture<ListWorkweekConfigsResponse> listWorkweekConfigsAsync(
 ## Example Usage
 
 ```java
-Integer limit = 172;
-String cursor = "cursor6";
-
-laborApi.listWorkweekConfigsAsync(limit, cursor).thenAccept(result -> {
+laborApi.listWorkweekConfigsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -776,10 +703,7 @@ String id = "id0";
 WorkweekConfig workweekConfig = new WorkweekConfig.Builder(
         "MON",
         "10:00")
-    .id("id4")
     .version(10)
-    .createdAt("created_at2")
-    .updatedAt("updated_at0")
     .build();
 UpdateWorkweekConfigRequest body = new UpdateWorkweekConfigRequest.Builder(
         workweekConfig)

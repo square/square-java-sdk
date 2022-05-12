@@ -8,12 +8,26 @@ CheckoutApi checkoutApi = client.getCheckoutApi();
 
 `CheckoutApi`
 
+## Methods
+
+* [Create Checkout](../../doc/api/checkout.md#create-checkout)
+* [List Payment Links](../../doc/api/checkout.md#list-payment-links)
+* [Create Payment Link](../../doc/api/checkout.md#create-payment-link)
+* [Delete Payment Link](../../doc/api/checkout.md#delete-payment-link)
+* [Retrieve Payment Link](../../doc/api/checkout.md#retrieve-payment-link)
+* [Update Payment Link](../../doc/api/checkout.md#update-payment-link)
+
 
 # Create Checkout
 
 Links a `checkoutId` to a `checkout_page_url` that customers are
 directed to in order to provide their payment information using a
 payment processing workflow hosted on connect.squareup.com.
+
+NOTE: The Checkout API has been updated with new features.
+For more information, see [Checkout API highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights).
+We recommend that you use the new [CreatePaymentLink](../../doc/api/checkout.md#create-payment-link) 
+endpoint in place of this previously released endpoint.
 
 ```java
 CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
@@ -36,46 +50,19 @@ CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
 
 ```java
 String locationId = "location_id4";
-OrderSource orderSource = new OrderSource.Builder()
-    .name("name8")
-    .build();
 List<OrderLineItem> bodyOrderOrderLineItems = new LinkedList<>();
 
-MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
-    .areaUnit("IMPERIAL_SQUARE_YARD")
-    .lengthUnit("METRIC_CENTIMETER")
-    .volumeUnit("GENERIC_SHOT")
-    .weightUnit("METRIC_MILLIGRAM")
-    .build();
-OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(orderQuantityUnitMeasurementUnit)
-    .precision(191)
-    .catalogObjectId("catalog_object_id7")
-    .catalogVersion(131L)
-    .build();
 List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
 
-Money money = new Money.Builder()
-    .amount(53L)
-    .currency("GBP")
-    .build();
 OrderLineItemAppliedTax bodyOrderOrderLineItems0AppliedTaxes0 = new OrderLineItemAppliedTax.Builder(
         "38ze1696-z1e3-5628-af6d-f1e04d947fg3")
-    .uid("uid3")
-    .appliedMoney(bodyOrderOrderLineItems0AppliedTaxes0AppliedMoney)
     .build();
 bodyOrderOrderLineItems0AppliedTaxes.add(bodyOrderOrderLineItems0AppliedTaxes0);
 
 List<OrderLineItemAppliedDiscount> bodyOrderOrderLineItems0AppliedDiscounts = new LinkedList<>();
 
-Money money = new Money.Builder()
-    .amount(161L)
-    .currency("LSL")
-    .build();
 OrderLineItemAppliedDiscount bodyOrderOrderLineItems0AppliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
         "56ae1696-z1e3-9328-af6d-f1e04d947gd4")
-    .uid("uid7")
-    .appliedMoney(bodyOrderOrderLineItems0AppliedDiscounts0AppliedMoney)
     .build();
 bodyOrderOrderLineItems0AppliedDiscounts.add(bodyOrderOrderLineItems0AppliedDiscounts0);
 
@@ -85,67 +72,31 @@ Money money = new Money.Builder()
     .build();
 OrderLineItem bodyOrderOrderLineItems0 = new OrderLineItem.Builder(
         "2")
-    .uid("uid3")
     .name("Printed T Shirt")
-    .quantityUnit(bodyOrderOrderLineItems0QuantityUnit)
-    .note("note1")
-    .catalogObjectId("catalog_object_id3")
     .appliedTaxes(bodyOrderOrderLineItems0AppliedTaxes)
     .appliedDiscounts(bodyOrderOrderLineItems0AppliedDiscounts)
     .basePriceMoney(bodyOrderOrderLineItems0BasePriceMoney)
     .build();
 bodyOrderOrderLineItems.add(bodyOrderOrderLineItems0);
 
-MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
-    .areaUnit("IMPERIAL_SQUARE_MILE")
-    .lengthUnit("METRIC_MILLIMETER")
-    .volumeUnit("GENERIC_CUP")
-    .weightUnit("IMPERIAL_STONE")
-    .build();
-OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(orderQuantityUnitMeasurementUnit)
-    .precision(192)
-    .catalogObjectId("catalog_object_id6")
-    .catalogVersion(130L)
-    .build();
 Money money = new Money.Builder()
     .amount(2500L)
     .currency("USD")
     .build();
 OrderLineItem bodyOrderOrderLineItems1 = new OrderLineItem.Builder(
         "1")
-    .uid("uid4")
     .name("Slim Jeans")
-    .quantityUnit(bodyOrderOrderLineItems1QuantityUnit)
-    .note("note0")
-    .catalogObjectId("catalog_object_id2")
     .basePriceMoney(bodyOrderOrderLineItems1BasePriceMoney)
     .build();
 bodyOrderOrderLineItems.add(bodyOrderOrderLineItems1);
 
-MeasurementUnit measurementUnit = new MeasurementUnit.Builder()
-    .areaUnit("METRIC_SQUARE_CENTIMETER")
-    .lengthUnit("IMPERIAL_MILE")
-    .volumeUnit("GENERIC_PINT")
-    .weightUnit("IMPERIAL_POUND")
-    .build();
-OrderQuantityUnit orderQuantityUnit = new OrderQuantityUnit.Builder()
-    .measurementUnit(orderQuantityUnitMeasurementUnit)
-    .precision(193)
-    .catalogObjectId("catalog_object_id5")
-    .catalogVersion(129L)
-    .build();
 Money money = new Money.Builder()
     .amount(3500L)
     .currency("USD")
     .build();
 OrderLineItem bodyOrderOrderLineItems2 = new OrderLineItem.Builder(
         "3")
-    .uid("uid5")
     .name("Woven Sweater")
-    .quantityUnit(bodyOrderOrderLineItems2QuantityUnit)
-    .note("note9")
-    .catalogObjectId("catalog_object_id1")
     .basePriceMoney(bodyOrderOrderLineItems2BasePriceMoney)
     .build();
 bodyOrderOrderLineItems.add(bodyOrderOrderLineItems2);
@@ -154,9 +105,6 @@ List<OrderLineItemTax> bodyOrderOrderTaxes = new LinkedList<>();
 
 OrderLineItemTax bodyOrderOrderTaxes0 = new OrderLineItemTax.Builder()
     .uid("38ze1696-z1e3-5628-af6d-f1e04d947fg3")
-    .catalogObjectId("catalog_object_id7")
-    .catalogVersion(47L)
-    .name("name9")
     .type("INCLUSIVE")
     .percentage("7.75")
     .scope("LINE_ITEM")
@@ -171,9 +119,6 @@ Money money = new Money.Builder()
     .build();
 OrderLineItemDiscount bodyOrderOrderDiscounts0 = new OrderLineItemDiscount.Builder()
     .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
-    .catalogObjectId("catalog_object_id1")
-    .catalogVersion(73L)
-    .name("name7")
     .type("FIXED_AMOUNT")
     .amountMoney(bodyOrderOrderDiscounts0AmountMoney)
     .scope("LINE_ITEM")
@@ -182,9 +127,7 @@ bodyOrderOrderDiscounts.add(bodyOrderOrderDiscounts0);
 
 Order order = new Order.Builder(
         "location_id")
-    .id("id6")
     .referenceId("reference_id")
-    .source(orderSource)
     .customerId("customer_id")
     .lineItems(orderLineItems)
     .taxes(orderTaxes)
@@ -197,9 +140,7 @@ CreateOrderRequest createOrderRequest = new CreateOrderRequest.Builder()
 Address address = new Address.Builder()
     .addressLine1("1455 Market St.")
     .addressLine2("Suite 600")
-    .addressLine3("address_line_36")
     .locality("San Francisco")
-    .sublocality("sublocality0")
     .administrativeDistrictLevel1("CA")
     .postalCode("94103")
     .country("US")
@@ -229,6 +170,197 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
     .build();
 
 checkoutApi.createCheckoutAsync(locationId, body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# List Payment Links
+
+Lists all payment links.
+
+```java
+CompletableFuture<ListPaymentLinksResponse> listPaymentLinksAsync(
+    final String cursor,
+    final Integer limit)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>If a cursor is not provided, the endpoint returns the first page of the results.<br>For more  information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
+| `limit` | `Integer` | Query, Optional | A limit on the number of results to return per page. The limit is advisory and<br>the implementation might return more or less results. If the supplied limit is negative, zero, or<br>greater than the maximum limit of 1000, it is ignored.<br><br>Default value: `100` |
+
+## Response Type
+
+[`ListPaymentLinksResponse`](../../doc/models/list-payment-links-response.md)
+
+## Example Usage
+
+```java
+checkoutApi.listPaymentLinksAsync(null, null).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Create Payment Link
+
+Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
+
+```java
+CompletableFuture<CreatePaymentLinkResponse> createPaymentLinkAsync(
+    final CreatePaymentLinkRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`CreatePaymentLinkRequest`](../../doc/models/create-payment-link-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`CreatePaymentLinkResponse`](../../doc/models/create-payment-link-response.md)
+
+## Example Usage
+
+```java
+Money money = new Money.Builder()
+    .amount(10000L)
+    .currency("USD")
+    .build();
+QuickPay quickPay = new QuickPay.Builder(
+        "Auto Detailing",
+        priceMoney,
+        "A9Y43N9ABXZBP")
+    .build();
+CreatePaymentLinkRequest body = new CreatePaymentLinkRequest.Builder()
+    .idempotencyKey("cd9e25dc-d9f2-4430-aedb-61605070e95f")
+    .quickPay(bodyQuickPay)
+    .build();
+
+checkoutApi.createPaymentLinkAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Delete Payment Link
+
+Deletes a payment link.
+
+```java
+CompletableFuture<DeletePaymentLinkResponse> deletePaymentLinkAsync(
+    final String id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `String` | Template, Required | The ID of the payment link to delete. |
+
+## Response Type
+
+[`DeletePaymentLinkResponse`](../../doc/models/delete-payment-link-response.md)
+
+## Example Usage
+
+```java
+String id = "id0";
+
+checkoutApi.deletePaymentLinkAsync(id).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Retrieve Payment Link
+
+Retrieves a payment link.
+
+```java
+CompletableFuture<RetrievePaymentLinkResponse> retrievePaymentLinkAsync(
+    final String id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `String` | Template, Required | The ID of link to retrieve. |
+
+## Response Type
+
+[`RetrievePaymentLinkResponse`](../../doc/models/retrieve-payment-link-response.md)
+
+## Example Usage
+
+```java
+String id = "id0";
+
+checkoutApi.retrievePaymentLinkAsync(id).thenAccept(result -> {
+    // TODO success callback handler
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    return null;
+});
+```
+
+
+# Update Payment Link
+
+Updates a payment link. You can update the `payment_link` fields such as
+`description`, `checkout_options`, and  `pre_populated_data`.
+You cannot update other fields such as the `order_id`, `version`, `URL`, or `timestamp` field.
+
+```java
+CompletableFuture<UpdatePaymentLinkResponse> updatePaymentLinkAsync(
+    final String id,
+    final UpdatePaymentLinkRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `String` | Template, Required | The ID of the payment link to update. |
+| `body` | [`UpdatePaymentLinkRequest`](../../doc/models/update-payment-link-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`UpdatePaymentLinkResponse`](../../doc/models/update-payment-link-response.md)
+
+## Example Usage
+
+```java
+String id = "id0";
+CheckoutOptions checkoutOptions = new CheckoutOptions.Builder()
+    .askForShippingAddress(true)
+    .build();
+PaymentLink paymentLink = new PaymentLink.Builder(
+        1)
+    .checkoutOptions(paymentLinkCheckoutOptions)
+    .build();
+UpdatePaymentLinkRequest body = new UpdatePaymentLinkRequest.Builder(
+        paymentLink)
+    .build();
+
+checkoutApi.updatePaymentLinkAsync(id, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

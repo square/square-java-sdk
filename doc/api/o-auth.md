@@ -122,8 +122,6 @@ CompletableFuture<RevokeTokenResponse> revokeTokenAsync(
 RevokeTokenRequest body = new RevokeTokenRequest.Builder()
     .clientId("CLIENT_ID")
     .accessToken("ACCESS_TOKEN")
-    .merchantId("merchant_id6")
-    .revokeOnlyAccessToken(false)
     .build();
 String authorization = "Client CLIENT_SECRET";
 
@@ -176,19 +174,11 @@ CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
 ## Example Usage
 
 ```java
-List<String> bodyScopes = new LinkedList<>();
-bodyScopes.add("scopes6");
-bodyScopes.add("scopes7");
-bodyScopes.add("scopes8");
 ObtainTokenRequest body = new ObtainTokenRequest.Builder(
         "APPLICATION_ID",
         "APPLICATION_SECRET",
         "authorization_code")
     .code("CODE_FROM_AUTHORIZE")
-    .redirectUri("redirect_uri4")
-    .refreshToken("refresh_token6")
-    .migrationToken("migration_token4")
-    .scopes(bodyScopes)
     .build();
 
 oAuthApi.obtainTokenAsync(body).thenAccept(result -> {
