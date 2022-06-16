@@ -67,9 +67,9 @@ public class PaymentOptions {
      * `amount_money` equal to less than what was requested. For example, a request for $20 when
      * charging a Square Gift Card with a balance of $5 results in an APPROVED payment of $5. You
      * might choose to prompt the buyer for an additional payment to cover the remainder or cancel
-     * the Gift Card payment. This field cannot be `true` when `autocomplete = true`. For more
-     * information, see [Partial amount with Square Gift
-     * Cards](https://developer.squareup.com/docs/payments-api/take-payments#partial-payment-gift-card).
+     * the Gift Card payment. This field cannot be `true` when `autocomplete = true`. This field
+     * cannot be `true` when an `order_id` isn't specified. For more information, see [Take Partial
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/partial-payments-with-gift-cards).
      * Default: false
      * @return Returns the Boolean
      */

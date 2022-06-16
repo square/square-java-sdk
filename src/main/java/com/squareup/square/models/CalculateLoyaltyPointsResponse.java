@@ -49,7 +49,8 @@ public class CalculateLoyaltyPointsResponse {
 
     /**
      * Getter for Points.
-     * The points that the buyer can earn from a specified purchase.
+     * The points that the buyer can earn from a specified purchase. This value does not include
+     * additional points earned from a loyalty promotion.
      * @return Returns the Integer
      */
     @JsonGetter("points")

@@ -43,6 +43,7 @@ public class GiftCardActivityAdjustDecrement {
 
     /**
      * Getter for Reason.
+     * Indicates the reason for deducting money from a [gift card]($m/GiftCard).
      * @return Returns the String
      */
     @JsonGetter("reason")

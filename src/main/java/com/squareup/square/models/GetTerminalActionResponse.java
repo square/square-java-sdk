@@ -49,6 +49,7 @@ public class GetTerminalActionResponse {
 
     /**
      * Getter for Action.
+     * Represents an action processed by the Square Terminal.
      * @return Returns the TerminalAction
      */
     @JsonGetter("action")

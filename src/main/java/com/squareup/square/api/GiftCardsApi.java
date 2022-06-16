@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 public interface GiftCardsApi {
     /**
      * Lists all gift cards. You can specify optional filters to retrieve a subset of the gift
-     * cards.
+     * cards. Results are sorted by `created_at` in ascending order.
      * @param  type  Optional parameter: If a [type]($m/GiftCardType) is provided, the endpoint
      *         returns gift cards of the specified type. Otherwise, the endpoint returns gift cards
      *         of all types.
@@ -55,7 +55,7 @@ public interface GiftCardsApi {
 
     /**
      * Lists all gift cards. You can specify optional filters to retrieve a subset of the gift
-     * cards.
+     * cards. Results are sorted by `created_at` in ascending order.
      * @param  type  Optional parameter: If a [type]($m/GiftCardType) is provided, the endpoint
      *         returns gift cards of the specified type. Otherwise, the endpoint returns gift cards
      *         of all types.

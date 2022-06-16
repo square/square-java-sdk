@@ -19,6 +19,7 @@ public class BatchRetrieveInventoryChangesRequest {
     private final String updatedAfter;
     private final String updatedBefore;
     private final String cursor;
+    private final Integer limit;
 
     /**
      * Initialization constructor.
@@ -29,6 +30,7 @@ public class BatchRetrieveInventoryChangesRequest {
      * @param  updatedAfter  String value for updatedAfter.
      * @param  updatedBefore  String value for updatedBefore.
      * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public BatchRetrieveInventoryChangesRequest(
@@ -38,7 +40,8 @@ public class BatchRetrieveInventoryChangesRequest {
             @JsonProperty("states") List<String> states,
             @JsonProperty("updated_after") String updatedAfter,
             @JsonProperty("updated_before") String updatedBefore,
-            @JsonProperty("cursor") String cursor) {
+            @JsonProperty("cursor") String cursor,
+            @JsonProperty("limit") Integer limit) {
         this.catalogObjectIds = catalogObjectIds;
         this.locationIds = locationIds;
         this.types = types;
@@ -46,6 +49,7 @@ public class BatchRetrieveInventoryChangesRequest {
         this.updatedAfter = updatedAfter;
         this.updatedBefore = updatedBefore;
         this.cursor = cursor;
+        this.limit = limit;
     }
 
     /**
@@ -136,10 +140,20 @@ public class BatchRetrieveInventoryChangesRequest {
         return cursor;
     }
 
+    /**
+     * Getter for Limit.
+     * @return Returns the Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getLimit() {
+        return limit;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(catalogObjectIds, locationIds, types, states, updatedAfter,
-                updatedBefore, cursor);
+                updatedBefore, cursor, limit);
     }
 
     @Override
@@ -157,7 +171,8 @@ public class BatchRetrieveInventoryChangesRequest {
             && Objects.equals(states, other.states)
             && Objects.equals(updatedAfter, other.updatedAfter)
             && Objects.equals(updatedBefore, other.updatedBefore)
-            && Objects.equals(cursor, other.cursor);
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(limit, other.limit);
     }
 
     /**
@@ -169,7 +184,7 @@ public class BatchRetrieveInventoryChangesRequest {
         return "BatchRetrieveInventoryChangesRequest [" + "catalogObjectIds=" + catalogObjectIds
                 + ", locationIds=" + locationIds + ", types=" + types + ", states=" + states
                 + ", updatedAfter=" + updatedAfter + ", updatedBefore=" + updatedBefore
-                + ", cursor=" + cursor + "]";
+                + ", cursor=" + cursor + ", limit=" + limit + "]";
     }
 
     /**
@@ -185,7 +200,8 @@ public class BatchRetrieveInventoryChangesRequest {
                 .states(getStates())
                 .updatedAfter(getUpdatedAfter())
                 .updatedBefore(getUpdatedBefore())
-                .cursor(getCursor());
+                .cursor(getCursor())
+                .limit(getLimit());
         return builder;
     }
 
@@ -200,6 +216,7 @@ public class BatchRetrieveInventoryChangesRequest {
         private String updatedAfter;
         private String updatedBefore;
         private String cursor;
+        private Integer limit;
 
 
 
@@ -274,12 +291,22 @@ public class BatchRetrieveInventoryChangesRequest {
         }
 
         /**
+         * Setter for limit.
+         * @param  limit  Integer value for limit.
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchRetrieveInventoryChangesRequest} object using the set fields.
          * @return {@link BatchRetrieveInventoryChangesRequest}
          */
         public BatchRetrieveInventoryChangesRequest build() {
             return new BatchRetrieveInventoryChangesRequest(catalogObjectIds, locationIds, types,
-                    states, updatedAfter, updatedBefore, cursor);
+                    states, updatedAfter, updatedBefore, cursor, limit);
         }
     }
 }

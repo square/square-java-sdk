@@ -172,7 +172,7 @@ public class Payout {
 
     /**
      * Getter for PayoutFee.
-     * A list of processing fees and any taxes on the fees assessed by Square for this payout.
+     * A list of transfer fees and any taxes on the fees assessed by Square for this payout.
      * @return Returns the List of PayoutFee
      */
     @JsonGetter("payout_fee")

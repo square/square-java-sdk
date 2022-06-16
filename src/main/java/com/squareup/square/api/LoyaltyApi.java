@@ -102,12 +102,14 @@ public interface LoyaltyApi {
             final String accountId);
 
     /**
-     * Adds points to a loyalty account. - If you are using the Orders API to manage orders, you
-     * only provide the `order_id`. The endpoint reads the order to compute points to add to the
-     * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
-     * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can first call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the
-     * points that you provide to this endpoint.
+     * Adds points earned from the base loyalty program to a loyalty account. - If you are using the
+     * Orders API to manage orders, you only provide the `order_id`. The endpoint reads the order to
+     * compute points to add to the buyer's account. - If you are not using the Orders API to manage
+     * orders, you first perform a client-side computation to compute the points. For spend-based
+     * and visit-based programs, you can first call
+     * [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points that you
+     * provide to this endpoint. This endpoint excludes additional points earned from loyalty
+     * promotions.
      * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
      *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -121,12 +123,14 @@ public interface LoyaltyApi {
             final AccumulateLoyaltyPointsRequest body) throws ApiException, IOException;
 
     /**
-     * Adds points to a loyalty account. - If you are using the Orders API to manage orders, you
-     * only provide the `order_id`. The endpoint reads the order to compute points to add to the
-     * buyer's account. - If you are not using the Orders API to manage orders, you first perform a
-     * client-side computation to compute the points. For spend-based and visit-based programs, you
-     * can first call [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the
-     * points that you provide to this endpoint.
+     * Adds points earned from the base loyalty program to a loyalty account. - If you are using the
+     * Orders API to manage orders, you only provide the `order_id`. The endpoint reads the order to
+     * compute points to add to the buyer's account. - If you are not using the Orders API to manage
+     * orders, you first perform a client-side computation to compute the points. For spend-based
+     * and visit-based programs, you can first call
+     * [CalculateLoyaltyPoints]($e/Loyalty/CalculateLoyaltyPoints) to compute the points that you
+     * provide to this endpoint. This endpoint excludes additional points earned from loyalty
+     * promotions.
      * @param  accountId  Required parameter: The [loyalty account]($m/LoyaltyAccount) ID to which
      *         to add the points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -259,13 +263,13 @@ public interface LoyaltyApi {
             final String programId);
 
     /**
-     * Calculates the points a purchase earns. - If you are using the Orders API to manage orders,
-     * you provide the `order_id` in the request. The endpoint calculates the points by reading the
-     * order. - If you are not using the Orders API to manage orders, you provide the purchase
-     * amount in the request for the endpoint to calculate the points. An application might call
-     * this endpoint to show the points that a buyer can earn with the specific purchase. For
-     * spend-based and visit-based programs, the `tax_mode` setting of the accrual rule indicates
-     * how taxes should be treated for loyalty points accrual.
+     * Calculates the points a purchase earns from the base loyalty program. - If you are using the
+     * Orders API to manage orders, you provide the `order_id` in the request. The endpoint
+     * calculates the points by reading the order. - If you are not using the Orders API to manage
+     * orders, you provide the purchase amount in the request for the endpoint to calculate the
+     * points. An application might call this endpoint to show the points that a buyer can earn with
+     * the specific purchase. For spend-based and visit-based programs, the `tax_mode` setting of
+     * the accrual rule indicates how taxes should be treated for loyalty points accrual.
      * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -279,13 +283,13 @@ public interface LoyaltyApi {
             final CalculateLoyaltyPointsRequest body) throws ApiException, IOException;
 
     /**
-     * Calculates the points a purchase earns. - If you are using the Orders API to manage orders,
-     * you provide the `order_id` in the request. The endpoint calculates the points by reading the
-     * order. - If you are not using the Orders API to manage orders, you provide the purchase
-     * amount in the request for the endpoint to calculate the points. An application might call
-     * this endpoint to show the points that a buyer can earn with the specific purchase. For
-     * spend-based and visit-based programs, the `tax_mode` setting of the accrual rule indicates
-     * how taxes should be treated for loyalty points accrual.
+     * Calculates the points a purchase earns from the base loyalty program. - If you are using the
+     * Orders API to manage orders, you provide the `order_id` in the request. The endpoint
+     * calculates the points by reading the order. - If you are not using the Orders API to manage
+     * orders, you provide the purchase amount in the request for the endpoint to calculate the
+     * points. An application might call this endpoint to show the points that a buyer can earn with
+     * the specific purchase. For spend-based and visit-based programs, the `tax_mode` setting of
+     * the accrual rule indicates how taxes should be treated for loyalty points accrual.
      * @param  programId  Required parameter: The [loyalty program]($m/LoyaltyProgram) ID, which
      *         defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

@@ -24,6 +24,7 @@ public class GiftCardActivityUnblock {
 
     /**
      * Getter for Reason.
+     * Indicates the reason for unblocking a [gift card]($m/GiftCard).
      * @return Returns the String
      */
     @JsonGetter("reason")

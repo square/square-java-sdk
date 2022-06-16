@@ -349,8 +349,8 @@ public class Payment {
 
     /**
      * Getter for DelayAction.
-     * The action to be applied to the payment when the `delay_duration` has elapsed. This field is
-     * read-only. Current values include `CANCEL`.
+     * The action to be applied to the payment when the `delay_duration` has elapsed. Current values
+     * include `CANCEL` and `COMPLETE`.
      * @return Returns the String
      */
     @JsonGetter("delay_action")
@@ -613,7 +613,7 @@ public class Payment {
      * Actions that can be performed on this payment: - `EDIT_AMOUNT_UP` - The payment amount can be
      * edited up. - `EDIT_AMOUNT_DOWN` - The payment amount can be edited down. -
      * `EDIT_TIP_AMOUNT_UP` - The tip amount can be edited up. - `EDIT_TIP_AMOUNT_DOWN` - The tip
-     * amount can be edited down.
+     * amount can be edited down. - `EDIT_DELAY_ACTION` - The delay_action can be edited.
      * @return Returns the List of String
      */
     @JsonGetter("capabilities")

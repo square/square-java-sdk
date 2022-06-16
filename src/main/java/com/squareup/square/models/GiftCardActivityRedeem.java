@@ -14,21 +14,25 @@ public class GiftCardActivityRedeem {
     private final Money amountMoney;
     private final String paymentId;
     private final String referenceId;
+    private final String status;
 
     /**
      * Initialization constructor.
      * @param  amountMoney  Money value for amountMoney.
      * @param  paymentId  String value for paymentId.
      * @param  referenceId  String value for referenceId.
+     * @param  status  String value for status.
      */
     @JsonCreator
     public GiftCardActivityRedeem(
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("payment_id") String paymentId,
-            @JsonProperty("reference_id") String referenceId) {
+            @JsonProperty("reference_id") String referenceId,
+            @JsonProperty("status") String status) {
         this.amountMoney = amountMoney;
         this.paymentId = paymentId;
         this.referenceId = referenceId;
+        this.status = status;
     }
 
     /**
@@ -48,9 +52,8 @@ public class GiftCardActivityRedeem {
 
     /**
      * Getter for PaymentId.
-     * When the Square Payments API is used, Redeem is not called on the Gift Cards API. However,
-     * when Square reads a Redeem activity from the Gift Cards API, developers need to know the
-     * associated `payment_id`.
+     * The ID of the payment that represents the gift card redemption. Square populates this field
+     * if the payment was processed by Square.
      * @return Returns the String
      */
     @JsonGetter("payment_id")
@@ -61,9 +64,9 @@ public class GiftCardActivityRedeem {
 
     /**
      * Getter for ReferenceId.
-     * A client-specified ID to associate an entity, in another system, with this gift card
-     * activity. This can be used to track the order or payment related information when the Square
-     * Orders API is not being used.
+     * A client-specified ID that associates the gift card activity with an entity in another
+     * system. Applications that use a custom payment processing system can use this field to track
+     * information related to an order or payment.
      * @return Returns the String
      */
     @JsonGetter("reference_id")
@@ -72,9 +75,23 @@ public class GiftCardActivityRedeem {
         return referenceId;
     }
 
+    /**
+     * Getter for Status.
+     * Indicates the status of a [gift card]($m/GiftCard) redemption. This status is relevant only
+     * for redemptions made from Square products (such as Square Point of Sale) because Square
+     * products use a two-state process. Gift cards redeemed using the Gift Card Activities API
+     * always have a `COMPLETED` status.
+     * @return Returns the String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getStatus() {
+        return status;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(amountMoney, paymentId, referenceId);
+        return Objects.hash(amountMoney, paymentId, referenceId, status);
     }
 
     @Override
@@ -88,7 +105,8 @@ public class GiftCardActivityRedeem {
         GiftCardActivityRedeem other = (GiftCardActivityRedeem) obj;
         return Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(paymentId, other.paymentId)
-            && Objects.equals(referenceId, other.referenceId);
+            && Objects.equals(referenceId, other.referenceId)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -98,7 +116,7 @@ public class GiftCardActivityRedeem {
     @Override
     public String toString() {
         return "GiftCardActivityRedeem [" + "amountMoney=" + amountMoney + ", paymentId="
-                + paymentId + ", referenceId=" + referenceId + "]";
+                + paymentId + ", referenceId=" + referenceId + ", status=" + status + "]";
     }
 
     /**
@@ -109,7 +127,8 @@ public class GiftCardActivityRedeem {
     public Builder toBuilder() {
         Builder builder = new Builder(amountMoney)
                 .paymentId(getPaymentId())
-                .referenceId(getReferenceId());
+                .referenceId(getReferenceId())
+                .status(getStatus());
         return builder;
     }
 
@@ -120,6 +139,7 @@ public class GiftCardActivityRedeem {
         private Money amountMoney;
         private String paymentId;
         private String referenceId;
+        private String status;
 
         /**
          * Initialization constructor.
@@ -160,11 +180,21 @@ public class GiftCardActivityRedeem {
         }
 
         /**
+         * Setter for status.
+         * @param  status  String value for status.
+         * @return Builder
+         */
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        /**
          * Builds a new {@link GiftCardActivityRedeem} object using the set fields.
          * @return {@link GiftCardActivityRedeem}
          */
         public GiftCardActivityRedeem build() {
-            return new GiftCardActivityRedeem(amountMoney, paymentId, referenceId);
+            return new GiftCardActivityRedeem(amountMoney, paymentId, referenceId, status);
         }
     }
 }

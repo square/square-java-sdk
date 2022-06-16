@@ -17,6 +17,7 @@ public class BatchRetrieveInventoryCountsRequest {
     private final String updatedAfter;
     private final String cursor;
     private final List<String> states;
+    private final Integer limit;
 
     /**
      * Initialization constructor.
@@ -25,6 +26,7 @@ public class BatchRetrieveInventoryCountsRequest {
      * @param  updatedAfter  String value for updatedAfter.
      * @param  cursor  String value for cursor.
      * @param  states  List of String value for states.
+     * @param  limit  Integer value for limit.
      */
     @JsonCreator
     public BatchRetrieveInventoryCountsRequest(
@@ -32,12 +34,14 @@ public class BatchRetrieveInventoryCountsRequest {
             @JsonProperty("location_ids") List<String> locationIds,
             @JsonProperty("updated_after") String updatedAfter,
             @JsonProperty("cursor") String cursor,
-            @JsonProperty("states") List<String> states) {
+            @JsonProperty("states") List<String> states,
+            @JsonProperty("limit") Integer limit) {
         this.catalogObjectIds = catalogObjectIds;
         this.locationIds = locationIds;
         this.updatedAfter = updatedAfter;
         this.cursor = cursor;
         this.states = states;
+        this.limit = limit;
     }
 
     /**
@@ -103,9 +107,19 @@ public class BatchRetrieveInventoryCountsRequest {
         return states;
     }
 
+    /**
+     * Getter for Limit.
+     * @return Returns the Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getLimit() {
+        return limit;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(catalogObjectIds, locationIds, updatedAfter, cursor, states);
+        return Objects.hash(catalogObjectIds, locationIds, updatedAfter, cursor, states, limit);
     }
 
     @Override
@@ -121,7 +135,8 @@ public class BatchRetrieveInventoryCountsRequest {
             && Objects.equals(locationIds, other.locationIds)
             && Objects.equals(updatedAfter, other.updatedAfter)
             && Objects.equals(cursor, other.cursor)
-            && Objects.equals(states, other.states);
+            && Objects.equals(states, other.states)
+            && Objects.equals(limit, other.limit);
     }
 
     /**
@@ -132,7 +147,7 @@ public class BatchRetrieveInventoryCountsRequest {
     public String toString() {
         return "BatchRetrieveInventoryCountsRequest [" + "catalogObjectIds=" + catalogObjectIds
                 + ", locationIds=" + locationIds + ", updatedAfter=" + updatedAfter + ", cursor="
-                + cursor + ", states=" + states + "]";
+                + cursor + ", states=" + states + ", limit=" + limit + "]";
     }
 
     /**
@@ -146,7 +161,8 @@ public class BatchRetrieveInventoryCountsRequest {
                 .locationIds(getLocationIds())
                 .updatedAfter(getUpdatedAfter())
                 .cursor(getCursor())
-                .states(getStates());
+                .states(getStates())
+                .limit(getLimit());
         return builder;
     }
 
@@ -159,6 +175,7 @@ public class BatchRetrieveInventoryCountsRequest {
         private String updatedAfter;
         private String cursor;
         private List<String> states;
+        private Integer limit;
 
 
 
@@ -213,12 +230,22 @@ public class BatchRetrieveInventoryCountsRequest {
         }
 
         /**
+         * Setter for limit.
+         * @param  limit  Integer value for limit.
+         * @return Builder
+         */
+        public Builder limit(Integer limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchRetrieveInventoryCountsRequest} object using the set fields.
          * @return {@link BatchRetrieveInventoryCountsRequest}
          */
         public BatchRetrieveInventoryCountsRequest build() {
             return new BatchRetrieveInventoryCountsRequest(catalogObjectIds, locationIds,
-                    updatedAfter, cursor, states);
+                    updatedAfter, cursor, states, limit);
         }
     }
 }
