@@ -24,6 +24,7 @@ public class GiftCardActivityDeactivate {
 
     /**
      * Getter for Reason.
+     * Indicates the reason for deactivating a [gift card]($m/GiftCard).
      * @return Returns the String
      */
     @JsonGetter("reason")

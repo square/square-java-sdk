@@ -15,27 +15,27 @@ public class AppointmentSegment {
     private final Integer durationMinutes;
     private final String serviceVariationId;
     private final String teamMemberId;
-    private final long serviceVariationVersion;
+    private final Long serviceVariationVersion;
     private final Integer intermissionMinutes;
     private final Boolean anyTeamMember;
     private final List<String> resourceIds;
 
     /**
      * Initialization constructor.
-     * @param  serviceVariationId  String value for serviceVariationId.
      * @param  teamMemberId  String value for teamMemberId.
-     * @param  serviceVariationVersion  long value for serviceVariationVersion.
      * @param  durationMinutes  Integer value for durationMinutes.
+     * @param  serviceVariationId  String value for serviceVariationId.
+     * @param  serviceVariationVersion  Long value for serviceVariationVersion.
      * @param  intermissionMinutes  Integer value for intermissionMinutes.
      * @param  anyTeamMember  Boolean value for anyTeamMember.
      * @param  resourceIds  List of String value for resourceIds.
      */
     @JsonCreator
     public AppointmentSegment(
-            @JsonProperty("service_variation_id") String serviceVariationId,
             @JsonProperty("team_member_id") String teamMemberId,
-            @JsonProperty("service_variation_version") long serviceVariationVersion,
             @JsonProperty("duration_minutes") Integer durationMinutes,
+            @JsonProperty("service_variation_id") String serviceVariationId,
+            @JsonProperty("service_variation_version") Long serviceVariationVersion,
             @JsonProperty("intermission_minutes") Integer intermissionMinutes,
             @JsonProperty("any_team_member") Boolean anyTeamMember,
             @JsonProperty("resource_ids") List<String> resourceIds) {
@@ -66,6 +66,7 @@ public class AppointmentSegment {
      * @return Returns the String
      */
     @JsonGetter("service_variation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getServiceVariationId() {
         return serviceVariationId;
     }
@@ -84,10 +85,11 @@ public class AppointmentSegment {
     /**
      * Getter for ServiceVariationVersion.
      * The current version of the item variation representing the service booked in this segment.
-     * @return Returns the long
+     * @return Returns the Long
      */
     @JsonGetter("service_variation_version")
-    public long getServiceVariationVersion() {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getServiceVariationVersion() {
         return serviceVariationVersion;
     }
 
@@ -155,11 +157,11 @@ public class AppointmentSegment {
      */
     @Override
     public String toString() {
-        return "AppointmentSegment [" + "serviceVariationId=" + serviceVariationId
-                + ", teamMemberId=" + teamMemberId + ", serviceVariationVersion="
-                + serviceVariationVersion + ", durationMinutes=" + durationMinutes
-                + ", intermissionMinutes=" + intermissionMinutes + ", anyTeamMember="
-                + anyTeamMember + ", resourceIds=" + resourceIds + "]";
+        return "AppointmentSegment [" + "teamMemberId=" + teamMemberId + ", durationMinutes="
+                + durationMinutes + ", serviceVariationId=" + serviceVariationId
+                + ", serviceVariationVersion=" + serviceVariationVersion + ", intermissionMinutes="
+                + intermissionMinutes + ", anyTeamMember=" + anyTeamMember + ", resourceIds="
+                + resourceIds + "]";
     }
 
     /**
@@ -168,8 +170,10 @@ public class AppointmentSegment {
      * @return a new {@link AppointmentSegment.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(serviceVariationId, teamMemberId, serviceVariationVersion)
+        Builder builder = new Builder(teamMemberId)
                 .durationMinutes(getDurationMinutes())
+                .serviceVariationId(getServiceVariationId())
+                .serviceVariationVersion(getServiceVariationVersion())
                 .intermissionMinutes(getIntermissionMinutes())
                 .anyTeamMember(getAnyTeamMember())
                 .resourceIds(getResourceIds());
@@ -180,35 +184,20 @@ public class AppointmentSegment {
      * Class to build instances of {@link AppointmentSegment}.
      */
     public static class Builder {
-        private String serviceVariationId;
         private String teamMemberId;
-        private long serviceVariationVersion;
         private Integer durationMinutes;
+        private String serviceVariationId;
+        private Long serviceVariationVersion;
         private Integer intermissionMinutes;
         private Boolean anyTeamMember;
         private List<String> resourceIds;
 
         /**
          * Initialization constructor.
-         * @param  serviceVariationId  String value for serviceVariationId.
          * @param  teamMemberId  String value for teamMemberId.
-         * @param  serviceVariationVersion  long value for serviceVariationVersion.
          */
-        public Builder(String serviceVariationId, String teamMemberId,
-                long serviceVariationVersion) {
-            this.serviceVariationId = serviceVariationId;
+        public Builder(String teamMemberId) {
             this.teamMemberId = teamMemberId;
-            this.serviceVariationVersion = serviceVariationVersion;
-        }
-
-        /**
-         * Setter for serviceVariationId.
-         * @param  serviceVariationId  String value for serviceVariationId.
-         * @return Builder
-         */
-        public Builder serviceVariationId(String serviceVariationId) {
-            this.serviceVariationId = serviceVariationId;
-            return this;
         }
 
         /**
@@ -222,22 +211,32 @@ public class AppointmentSegment {
         }
 
         /**
-         * Setter for serviceVariationVersion.
-         * @param  serviceVariationVersion  long value for serviceVariationVersion.
-         * @return Builder
-         */
-        public Builder serviceVariationVersion(long serviceVariationVersion) {
-            this.serviceVariationVersion = serviceVariationVersion;
-            return this;
-        }
-
-        /**
          * Setter for durationMinutes.
          * @param  durationMinutes  Integer value for durationMinutes.
          * @return Builder
          */
         public Builder durationMinutes(Integer durationMinutes) {
             this.durationMinutes = durationMinutes;
+            return this;
+        }
+
+        /**
+         * Setter for serviceVariationId.
+         * @param  serviceVariationId  String value for serviceVariationId.
+         * @return Builder
+         */
+        public Builder serviceVariationId(String serviceVariationId) {
+            this.serviceVariationId = serviceVariationId;
+            return this;
+        }
+
+        /**
+         * Setter for serviceVariationVersion.
+         * @param  serviceVariationVersion  Long value for serviceVariationVersion.
+         * @return Builder
+         */
+        public Builder serviceVariationVersion(Long serviceVariationVersion) {
+            this.serviceVariationVersion = serviceVariationVersion;
             return this;
         }
 
@@ -276,8 +275,8 @@ public class AppointmentSegment {
          * @return {@link AppointmentSegment}
          */
         public AppointmentSegment build() {
-            return new AppointmentSegment(serviceVariationId, teamMemberId, serviceVariationVersion,
-                    durationMinutes, intermissionMinutes, anyTeamMember, resourceIds);
+            return new AppointmentSegment(teamMemberId, durationMinutes, serviceVariationId,
+                    serviceVariationVersion, intermissionMinutes, anyTeamMember, resourceIds);
         }
     }
 }

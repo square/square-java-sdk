@@ -24,6 +24,7 @@ public class GiftCardActivityClearBalance {
 
     /**
      * Getter for Reason.
+     * Indicates the reason for clearing the balance of a [gift card]($m/GiftCard).
      * @return Returns the String
      */
     @JsonGetter("reason")

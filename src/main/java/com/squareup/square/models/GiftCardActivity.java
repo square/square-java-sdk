@@ -107,7 +107,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for Id.
-     * The unique ID of the gift card activity.
+     * The Square-assigned ID of the gift card activity.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -118,7 +118,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for Type.
-     * Indicates the gift card activity type.
+     * Indicates the type of [gift card activity]($m/GiftCardActivity).
      * @return Returns the String
      */
     @JsonGetter("type")
@@ -128,7 +128,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for LocationId.
-     * The ID of the location at which the activity occurred.
+     * The ID of the [business location]($m/Location) where the activity occurred.
      * @return Returns the String
      */
     @JsonGetter("location_id")
@@ -149,7 +149,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for GiftCardId.
-     * The gift card ID. The ID is not required if a GAN is present.
+     * The gift card ID. When creating a gift card activity, `gift_card_id` is not required if
+     * `gift_card_gan` is specified.
      * @return Returns the String
      */
     @JsonGetter("gift_card_id")
@@ -160,7 +161,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for GiftCardGan.
-     * The gift card GAN. The GAN is not required if `gift_card_id` is present.
+     * The gift card account number (GAN). When creating a gift card activity, `gift_card_gan` is
+     * not required if `gift_card_id` is specified.
      * @return Returns the String
      */
     @JsonGetter("gift_card_gan")
@@ -187,7 +189,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for LoadActivityDetails.
-     * Present only when `GiftCardActivityType` is LOAD.
+     * Represents details about a `LOAD` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityLoad
      */
     @JsonGetter("load_activity_details")
@@ -198,7 +200,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for ActivateActivityDetails.
-     * Describes a gift card activity of the ACTIVATE type.
+     * Represents details about an `ACTIVATE` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityActivate
      */
     @JsonGetter("activate_activity_details")
@@ -209,7 +211,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for RedeemActivityDetails.
-     * Present only when `GiftCardActivityType` is REDEEM.
+     * Represents details about a `REDEEM` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityRedeem
      */
     @JsonGetter("redeem_activity_details")
@@ -220,7 +222,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for ClearBalanceActivityDetails.
-     * Describes a gift card activity of the CLEAR_BALANCE type.
+     * Represents details about a `CLEAR_BALANCE` [gift card activity
+     * type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityClearBalance
      */
     @JsonGetter("clear_balance_activity_details")
@@ -231,7 +234,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for DeactivateActivityDetails.
-     * Describes a gift card activity of the DEACTIVATE type.
+     * Represents details about a `DEACTIVATE` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityDeactivate
      */
     @JsonGetter("deactivate_activity_details")
@@ -242,7 +245,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for AdjustIncrementActivityDetails.
-     * Describes a gift card activity of the ADJUST_INCREMENT type.
+     * Represents details about an `ADJUST_INCREMENT` [gift card activity
+     * type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityAdjustIncrement
      */
     @JsonGetter("adjust_increment_activity_details")
@@ -253,7 +257,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for AdjustDecrementActivityDetails.
-     * Describes a gift card activity of the ADJUST_DECREMENT type.
+     * Represents details about an `ADJUST_DECREMENT` [gift card activity
+     * type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityAdjustDecrement
      */
     @JsonGetter("adjust_decrement_activity_details")
@@ -264,7 +269,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for RefundActivityDetails.
-     * Present only when `GiftCardActivityType` is REFUND.
+     * Represents details about a `REFUND` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityRefund
      */
     @JsonGetter("refund_activity_details")
@@ -275,7 +280,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for UnlinkedActivityRefundActivityDetails.
-     * Present only when `GiftCardActivityType` is UNLINKED_ACTIVITY_REFUND.
+     * Represents details about an `UNLINKED_ACTIVITY_REFUND` [gift card activity
+     * type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityUnlinkedActivityRefund
      */
     @JsonGetter("unlinked_activity_refund_activity_details")
@@ -286,8 +292,9 @@ public class GiftCardActivity {
 
     /**
      * Getter for ImportActivityDetails.
-     * Describes a gift card activity of the IMPORT type and the `GiftCardGANSource` is OTHER (a
-     * third-party gift card).
+     * Represents details about an `IMPORT` [gift card activity type]($m/GiftCardActivityType). This
+     * activity type is used when Square imports a third-party gift card, in which case the
+     * `gan_source` of the gift card is set to `OTHER`.
      * @return Returns the GiftCardActivityImport
      */
     @JsonGetter("import_activity_details")
@@ -298,7 +305,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for BlockActivityDetails.
-     * Describes a gift card activity of the BLOCK type.
+     * Represents details about a `BLOCK` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityBlock
      */
     @JsonGetter("block_activity_details")
@@ -309,7 +316,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for UnblockActivityDetails.
-     * Present only when `GiftCardActivityType` is UNBLOCK.
+     * Represents details about an `UNBLOCK` [gift card activity type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityUnblock
      */
     @JsonGetter("unblock_activity_details")
@@ -320,7 +327,8 @@ public class GiftCardActivity {
 
     /**
      * Getter for ImportReversalActivityDetails.
-     * Present only when GiftCardActivityType is IMPORT_REVERSAL and GiftCardGANSource is OTHER
+     * Represents details about an `IMPORT_REVERSAL` [gift card activity
+     * type]($m/GiftCardActivityType).
      * @return Returns the GiftCardActivityImportReversal
      */
     @JsonGetter("import_reversal_activity_details")

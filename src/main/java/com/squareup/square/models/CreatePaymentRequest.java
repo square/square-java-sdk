@@ -17,6 +17,7 @@ public class CreatePaymentRequest {
     private final Money tipMoney;
     private final Money appFeeMoney;
     private final String delayDuration;
+    private final String delayAction;
     private final Boolean autocomplete;
     private final String orderId;
     private final String customerId;
@@ -41,6 +42,7 @@ public class CreatePaymentRequest {
      * @param  tipMoney  Money value for tipMoney.
      * @param  appFeeMoney  Money value for appFeeMoney.
      * @param  delayDuration  String value for delayDuration.
+     * @param  delayAction  String value for delayAction.
      * @param  autocomplete  Boolean value for autocomplete.
      * @param  orderId  String value for orderId.
      * @param  customerId  String value for customerId.
@@ -65,6 +67,7 @@ public class CreatePaymentRequest {
             @JsonProperty("tip_money") Money tipMoney,
             @JsonProperty("app_fee_money") Money appFeeMoney,
             @JsonProperty("delay_duration") String delayDuration,
+            @JsonProperty("delay_action") String delayAction,
             @JsonProperty("autocomplete") Boolean autocomplete,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("customer_id") String customerId,
@@ -86,6 +89,7 @@ public class CreatePaymentRequest {
         this.tipMoney = tipMoney;
         this.appFeeMoney = appFeeMoney;
         this.delayDuration = delayDuration;
+        this.delayAction = delayAction;
         this.autocomplete = autocomplete;
         this.orderId = orderId;
         this.customerId = customerId;
@@ -180,20 +184,34 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for DelayDuration.
-     * The duration of time after the payment's creation when Square automatically cancels the
-     * payment. This automatic cancellation applies only to payments that do not reach a terminal
-     * state (COMPLETED, CANCELED, or FAILED) before the `delay_duration` time period. This
-     * parameter should be specified as a time duration, in RFC 3339 format, with a minimum value of
-     * 1 minute. Note: This feature is only supported for card payments. This parameter can only be
-     * set for a delayed capture payment (`autocomplete=false`). Default: - Card-present payments:
-     * "PT36H" (36 hours) from the creation time. - Card-not-present payments: "P7D" (7 days) from
-     * the creation time.
+     * The duration of time after the payment's creation when Square automatically either completes
+     * or cancels the payment depending on the `delay_action` field value. For more information, see
+     * [Time
+     * threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold).
+     * This parameter should be specified as a time duration, in RFC 3339 format. Note: This feature
+     * is only supported for card payments. This parameter can only be set for a delayed capture
+     * payment (`autocomplete=false`). Default: - Card-present payments: "PT36H" (36 hours) from the
+     * creation time. - Card-not-present payments: "P7D" (7 days) from the creation time.
      * @return Returns the String
      */
     @JsonGetter("delay_duration")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDelayDuration() {
         return delayDuration;
+    }
+
+    /**
+     * Getter for DelayAction.
+     * The action to be applied to the payment when the `delay_duration` has elapsed. The action
+     * must be CANCEL or COMPLETE. For more information, see [Time
+     * Threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold).
+     * Default: CANCEL
+     * @return Returns the String
+     */
+    @JsonGetter("delay_action")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getDelayAction() {
+        return delayAction;
     }
 
     /**
@@ -394,10 +412,10 @@ public class CreatePaymentRequest {
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
-                delayDuration, autocomplete, orderId, customerId, locationId, teamMemberId,
-                referenceId, verificationToken, acceptPartialAuthorization, buyerEmailAddress,
-                billingAddress, shippingAddress, note, statementDescriptionIdentifier, cashDetails,
-                externalDetails);
+                delayDuration, delayAction, autocomplete, orderId, customerId, locationId,
+                teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
+                buyerEmailAddress, billingAddress, shippingAddress, note,
+                statementDescriptionIdentifier, cashDetails, externalDetails);
     }
 
     @Override
@@ -415,6 +433,7 @@ public class CreatePaymentRequest {
             && Objects.equals(tipMoney, other.tipMoney)
             && Objects.equals(appFeeMoney, other.appFeeMoney)
             && Objects.equals(delayDuration, other.delayDuration)
+            && Objects.equals(delayAction, other.delayAction)
             && Objects.equals(autocomplete, other.autocomplete)
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(customerId, other.customerId)
@@ -442,14 +461,15 @@ public class CreatePaymentRequest {
         return "CreatePaymentRequest [" + "sourceId=" + sourceId + ", idempotencyKey="
                 + idempotencyKey + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney
                 + ", appFeeMoney=" + appFeeMoney + ", delayDuration=" + delayDuration
-                + ", autocomplete=" + autocomplete + ", orderId=" + orderId + ", customerId="
-                + customerId + ", locationId=" + locationId + ", teamMemberId=" + teamMemberId
-                + ", referenceId=" + referenceId + ", verificationToken=" + verificationToken
-                + ", acceptPartialAuthorization=" + acceptPartialAuthorization
-                + ", buyerEmailAddress=" + buyerEmailAddress + ", billingAddress=" + billingAddress
-                + ", shippingAddress=" + shippingAddress + ", note=" + note
-                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
-                + ", cashDetails=" + cashDetails + ", externalDetails=" + externalDetails + "]";
+                + ", delayAction=" + delayAction + ", autocomplete=" + autocomplete + ", orderId="
+                + orderId + ", customerId=" + customerId + ", locationId=" + locationId
+                + ", teamMemberId=" + teamMemberId + ", referenceId=" + referenceId
+                + ", verificationToken=" + verificationToken + ", acceptPartialAuthorization="
+                + acceptPartialAuthorization + ", buyerEmailAddress=" + buyerEmailAddress
+                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
+                + ", note=" + note + ", statementDescriptionIdentifier="
+                + statementDescriptionIdentifier + ", cashDetails=" + cashDetails
+                + ", externalDetails=" + externalDetails + "]";
     }
 
     /**
@@ -462,6 +482,7 @@ public class CreatePaymentRequest {
                 .tipMoney(getTipMoney())
                 .appFeeMoney(getAppFeeMoney())
                 .delayDuration(getDelayDuration())
+                .delayAction(getDelayAction())
                 .autocomplete(getAutocomplete())
                 .orderId(getOrderId())
                 .customerId(getCustomerId())
@@ -490,6 +511,7 @@ public class CreatePaymentRequest {
         private Money tipMoney;
         private Money appFeeMoney;
         private String delayDuration;
+        private String delayAction;
         private Boolean autocomplete;
         private String orderId;
         private String customerId;
@@ -575,6 +597,16 @@ public class CreatePaymentRequest {
          */
         public Builder delayDuration(String delayDuration) {
             this.delayDuration = delayDuration;
+            return this;
+        }
+
+        /**
+         * Setter for delayAction.
+         * @param  delayAction  String value for delayAction.
+         * @return Builder
+         */
+        public Builder delayAction(String delayAction) {
+            this.delayAction = delayAction;
             return this;
         }
 
@@ -734,10 +766,10 @@ public class CreatePaymentRequest {
          */
         public CreatePaymentRequest build() {
             return new CreatePaymentRequest(sourceId, idempotencyKey, amountMoney, tipMoney,
-                    appFeeMoney, delayDuration, autocomplete, orderId, customerId, locationId,
-                    teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
-                    buyerEmailAddress, billingAddress, shippingAddress, note,
-                    statementDescriptionIdentifier, cashDetails, externalDetails);
+                    appFeeMoney, delayDuration, delayAction, autocomplete, orderId, customerId,
+                    locationId, teamMemberId, referenceId, verificationToken,
+                    acceptPartialAuthorization, buyerEmailAddress, billingAddress, shippingAddress,
+                    note, statementDescriptionIdentifier, cashDetails, externalDetails);
         }
     }
 }

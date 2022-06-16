@@ -27,6 +27,7 @@ public class Card {
     private final String prepaidType;
     private final String bin;
     private final Long version;
+    private final String cardCoBrand;
 
     /**
      * Initialization constructor.
@@ -46,6 +47,7 @@ public class Card {
      * @param  prepaidType  String value for prepaidType.
      * @param  bin  String value for bin.
      * @param  version  Long value for version.
+     * @param  cardCoBrand  String value for cardCoBrand.
      */
     @JsonCreator
     public Card(
@@ -64,7 +66,8 @@ public class Card {
             @JsonProperty("card_type") String cardType,
             @JsonProperty("prepaid_type") String prepaidType,
             @JsonProperty("bin") String bin,
-            @JsonProperty("version") Long version) {
+            @JsonProperty("version") Long version,
+            @JsonProperty("card_co_brand") String cardCoBrand) {
         this.id = id;
         this.cardBrand = cardBrand;
         this.last4 = last4;
@@ -81,6 +84,7 @@ public class Card {
         this.prepaidType = prepaidType;
         this.bin = bin;
         this.version = version;
+        this.cardCoBrand = cardCoBrand;
     }
 
     /**
@@ -266,11 +270,22 @@ public class Card {
         return version;
     }
 
+    /**
+     * Getter for CardCoBrand.
+     * Indicates the brand for a co-branded card.
+     * @return Returns the String
+     */
+    @JsonGetter("card_co_brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCardCoBrand() {
+        return cardCoBrand;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
                 fingerprint, customerId, merchantId, referenceId, enabled, cardType, prepaidType,
-                bin, version);
+                bin, version, cardCoBrand);
     }
 
     @Override
@@ -297,7 +312,8 @@ public class Card {
             && Objects.equals(cardType, other.cardType)
             && Objects.equals(prepaidType, other.prepaidType)
             && Objects.equals(bin, other.bin)
-            && Objects.equals(version, other.version);
+            && Objects.equals(version, other.version)
+            && Objects.equals(cardCoBrand, other.cardCoBrand);
     }
 
     /**
@@ -311,7 +327,8 @@ public class Card {
                 + cardholderName + ", billingAddress=" + billingAddress + ", fingerprint="
                 + fingerprint + ", customerId=" + customerId + ", merchantId=" + merchantId
                 + ", referenceId=" + referenceId + ", enabled=" + enabled + ", cardType=" + cardType
-                + ", prepaidType=" + prepaidType + ", bin=" + bin + ", version=" + version + "]";
+                + ", prepaidType=" + prepaidType + ", bin=" + bin + ", version=" + version
+                + ", cardCoBrand=" + cardCoBrand + "]";
     }
 
     /**
@@ -336,7 +353,8 @@ public class Card {
                 .cardType(getCardType())
                 .prepaidType(getPrepaidType())
                 .bin(getBin())
-                .version(getVersion());
+                .version(getVersion())
+                .cardCoBrand(getCardCoBrand());
         return builder;
     }
 
@@ -360,6 +378,7 @@ public class Card {
         private String prepaidType;
         private String bin;
         private Long version;
+        private String cardCoBrand;
 
 
 
@@ -524,13 +543,23 @@ public class Card {
         }
 
         /**
+         * Setter for cardCoBrand.
+         * @param  cardCoBrand  String value for cardCoBrand.
+         * @return Builder
+         */
+        public Builder cardCoBrand(String cardCoBrand) {
+            this.cardCoBrand = cardCoBrand;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Card} object using the set fields.
          * @return {@link Card}
          */
         public Card build() {
             return new Card(id, cardBrand, last4, expMonth, expYear, cardholderName, billingAddress,
                     fingerprint, customerId, merchantId, referenceId, enabled, cardType,
-                    prepaidType, bin, version);
+                    prepaidType, bin, version, cardCoBrand);
         }
     }
 }

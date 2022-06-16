@@ -21,6 +21,7 @@ public class TerminalAction {
     private final String appId;
     private final String type;
     private final SaveCardOptions saveCardOptions;
+    private final DeviceMetadata deviceMetadata;
 
     /**
      * Initialization constructor.
@@ -34,6 +35,7 @@ public class TerminalAction {
      * @param  appId  String value for appId.
      * @param  type  String value for type.
      * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
+     * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
      */
     @JsonCreator
     public TerminalAction(
@@ -46,7 +48,8 @@ public class TerminalAction {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("app_id") String appId,
             @JsonProperty("type") String type,
-            @JsonProperty("save_card_options") SaveCardOptions saveCardOptions) {
+            @JsonProperty("save_card_options") SaveCardOptions saveCardOptions,
+            @JsonProperty("device_metadata") DeviceMetadata deviceMetadata) {
         this.id = id;
         this.deviceId = deviceId;
         this.deadlineDuration = deadlineDuration;
@@ -57,6 +60,7 @@ public class TerminalAction {
         this.appId = appId;
         this.type = type;
         this.saveCardOptions = saveCardOptions;
+        this.deviceMetadata = deviceMetadata;
     }
 
     /**
@@ -173,10 +177,20 @@ public class TerminalAction {
         return saveCardOptions;
     }
 
+    /**
+     * Getter for DeviceMetadata.
+     * @return Returns the DeviceMetadata
+     */
+    @JsonGetter("device_metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public DeviceMetadata getDeviceMetadata() {
+        return deviceMetadata;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, deviceId, deadlineDuration, status, cancelReason, createdAt,
-                updatedAt, appId, type, saveCardOptions);
+                updatedAt, appId, type, saveCardOptions, deviceMetadata);
     }
 
     @Override
@@ -197,7 +211,8 @@ public class TerminalAction {
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(appId, other.appId)
             && Objects.equals(type, other.type)
-            && Objects.equals(saveCardOptions, other.saveCardOptions);
+            && Objects.equals(saveCardOptions, other.saveCardOptions)
+            && Objects.equals(deviceMetadata, other.deviceMetadata);
     }
 
     /**
@@ -209,7 +224,8 @@ public class TerminalAction {
         return "TerminalAction [" + "id=" + id + ", deviceId=" + deviceId + ", deadlineDuration="
                 + deadlineDuration + ", status=" + status + ", cancelReason=" + cancelReason
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId
-                + ", type=" + type + ", saveCardOptions=" + saveCardOptions + "]";
+                + ", type=" + type + ", saveCardOptions=" + saveCardOptions + ", deviceMetadata="
+                + deviceMetadata + "]";
     }
 
     /**
@@ -228,7 +244,8 @@ public class TerminalAction {
                 .updatedAt(getUpdatedAt())
                 .appId(getAppId())
                 .type(getType())
-                .saveCardOptions(getSaveCardOptions());
+                .saveCardOptions(getSaveCardOptions())
+                .deviceMetadata(getDeviceMetadata());
         return builder;
     }
 
@@ -246,6 +263,7 @@ public class TerminalAction {
         private String appId;
         private String type;
         private SaveCardOptions saveCardOptions;
+        private DeviceMetadata deviceMetadata;
 
 
 
@@ -350,12 +368,22 @@ public class TerminalAction {
         }
 
         /**
+         * Setter for deviceMetadata.
+         * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
+         * @return Builder
+         */
+        public Builder deviceMetadata(DeviceMetadata deviceMetadata) {
+            this.deviceMetadata = deviceMetadata;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalAction} object using the set fields.
          * @return {@link TerminalAction}
          */
         public TerminalAction build() {
             return new TerminalAction(id, deviceId, deadlineDuration, status, cancelReason,
-                    createdAt, updatedAt, appId, type, saveCardOptions);
+                    createdAt, updatedAt, appId, type, saveCardOptions, deviceMetadata);
         }
     }
 }

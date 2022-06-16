@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
-| `Action` | [`TerminalAction`](../../doc/models/terminal-action.md) | Optional | - | TerminalAction getAction() |
+| `Action` | [`TerminalAction`](../../doc/models/terminal-action.md) | Optional | Represents an action processed by the Square Terminal. | TerminalAction getAction() |
 
 ## Example (as JSON)
 

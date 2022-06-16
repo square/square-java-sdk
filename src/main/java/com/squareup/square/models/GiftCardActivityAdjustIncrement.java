@@ -43,6 +43,7 @@ public class GiftCardActivityAdjustIncrement {
 
     /**
      * Getter for Reason.
+     * Indicates the reason for adding money to a [gift card]($m/GiftCard).
      * @return Returns the String
      */
     @JsonGetter("reason")

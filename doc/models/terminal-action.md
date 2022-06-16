@@ -1,6 +1,8 @@
 
 # Terminal Action
 
+Represents an action processed by the Square Terminal.
+
 ## Structure
 
 `TerminalAction`
@@ -19,6 +21,7 @@
 | `AppId` | `String` | Optional | The ID of the application that created the action. | String getAppId() |
 | `Type` | [`String`](../../doc/models/terminal-action-action-type.md) | Optional | Describes the type of this unit and indicates which field contains the unit information. This is an ‘open’ enum. | String getType() |
 | `SaveCardOptions` | [`SaveCardOptions`](../../doc/models/save-card-options.md) | Optional | Describes save-card action fields. | SaveCardOptions getSaveCardOptions() |
+| `DeviceMetadata` | [`DeviceMetadata`](../../doc/models/device-metadata.md) | Optional | - | DeviceMetadata getDeviceMetadata() |
 
 ## Example (as JSON)
 
@@ -33,7 +36,8 @@
   "updated_at": null,
   "app_id": null,
   "type": null,
-  "save_card_options": null
+  "save_card_options": null,
+  "device_metadata": null
 }
 ```
 

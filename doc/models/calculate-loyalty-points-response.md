@@ -13,7 +13,7 @@ a specified purchase.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred during the request. | List<Error> getErrors() |
-| `Points` | `Integer` | Optional | The points that the buyer can earn from a specified purchase. | Integer getPoints() |
+| `Points` | `Integer` | Optional | The points that the buyer can earn from a specified purchase.<br>This value does not include additional points earned from a loyalty promotion. | Integer getPoints() |
 
 ## Example (as JSON)
 

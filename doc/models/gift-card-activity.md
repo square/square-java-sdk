@@ -1,7 +1,9 @@
 
 # Gift Card Activity
 
-Represents an action performed on a gift card that affects its state or balance.
+Represents an action performed on a [gift card](../../doc/models/gift-card.md) that affects its state or balance.
+A gift card activity contains information about a specific activity type. For example, a `REDEEM` activity
+includes a `redeem_activity_details` field that contains information about the redemption.
 
 ## Structure
 
@@ -11,26 +13,26 @@ Represents an action performed on a gift card that affects its state or balance.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | The unique ID of the gift card activity. | String getId() |
-| `Type` | [`String`](../../doc/models/gift-card-activity-type.md) | Required | Indicates the gift card activity type. | String getType() |
-| `LocationId` | `String` | Required | The ID of the location at which the activity occurred. | String getLocationId() |
+| `Id` | `String` | Optional | The Square-assigned ID of the gift card activity. | String getId() |
+| `Type` | [`String`](../../doc/models/gift-card-activity-type.md) | Required | Indicates the type of [gift card activity](../../doc/models/gift-card-activity.md). | String getType() |
+| `LocationId` | `String` | Required | The ID of the [business location](../../doc/models/location.md) where the activity occurred. | String getLocationId() |
 | `CreatedAt` | `String` | Optional | The timestamp when the gift card activity was created, in RFC 3339 format. | String getCreatedAt() |
-| `GiftCardId` | `String` | Optional | The gift card ID. The ID is not required if a GAN is present. | String getGiftCardId() |
-| `GiftCardGan` | `String` | Optional | The gift card GAN. The GAN is not required if `gift_card_id` is present. | String getGiftCardGan() |
+| `GiftCardId` | `String` | Optional | The gift card ID. When creating a gift card activity, `gift_card_id` is not required if<br>`gift_card_gan` is specified. | String getGiftCardId() |
+| `GiftCardGan` | `String` | Optional | The gift card account number (GAN). When creating a gift card activity, `gift_card_gan`<br>is not required if `gift_card_id` is specified. | String getGiftCardGan() |
 | `GiftCardBalanceMoney` | [`Money`](../../doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | Money getGiftCardBalanceMoney() |
-| `LoadActivityDetails` | [`GiftCardActivityLoad`](../../doc/models/gift-card-activity-load.md) | Optional | Present only when `GiftCardActivityType` is LOAD. | GiftCardActivityLoad getLoadActivityDetails() |
-| `ActivateActivityDetails` | [`GiftCardActivityActivate`](../../doc/models/gift-card-activity-activate.md) | Optional | Describes a gift card activity of the ACTIVATE type. | GiftCardActivityActivate getActivateActivityDetails() |
-| `RedeemActivityDetails` | [`GiftCardActivityRedeem`](../../doc/models/gift-card-activity-redeem.md) | Optional | Present only when `GiftCardActivityType` is REDEEM. | GiftCardActivityRedeem getRedeemActivityDetails() |
-| `ClearBalanceActivityDetails` | [`GiftCardActivityClearBalance`](../../doc/models/gift-card-activity-clear-balance.md) | Optional | Describes a gift card activity of the CLEAR_BALANCE type. | GiftCardActivityClearBalance getClearBalanceActivityDetails() |
-| `DeactivateActivityDetails` | [`GiftCardActivityDeactivate`](../../doc/models/gift-card-activity-deactivate.md) | Optional | Describes a gift card activity of the DEACTIVATE type. | GiftCardActivityDeactivate getDeactivateActivityDetails() |
-| `AdjustIncrementActivityDetails` | [`GiftCardActivityAdjustIncrement`](../../doc/models/gift-card-activity-adjust-increment.md) | Optional | Describes a gift card activity of the ADJUST_INCREMENT type. | GiftCardActivityAdjustIncrement getAdjustIncrementActivityDetails() |
-| `AdjustDecrementActivityDetails` | [`GiftCardActivityAdjustDecrement`](../../doc/models/gift-card-activity-adjust-decrement.md) | Optional | Describes a gift card activity of the ADJUST_DECREMENT type. | GiftCardActivityAdjustDecrement getAdjustDecrementActivityDetails() |
-| `RefundActivityDetails` | [`GiftCardActivityRefund`](../../doc/models/gift-card-activity-refund.md) | Optional | Present only when `GiftCardActivityType` is REFUND. | GiftCardActivityRefund getRefundActivityDetails() |
-| `UnlinkedActivityRefundActivityDetails` | [`GiftCardActivityUnlinkedActivityRefund`](../../doc/models/gift-card-activity-unlinked-activity-refund.md) | Optional | Present only when `GiftCardActivityType` is UNLINKED_ACTIVITY_REFUND. | GiftCardActivityUnlinkedActivityRefund getUnlinkedActivityRefundActivityDetails() |
-| `ImportActivityDetails` | [`GiftCardActivityImport`](../../doc/models/gift-card-activity-import.md) | Optional | Describes a gift card activity of the IMPORT type and the `GiftCardGANSource` is OTHER<br>(a third-party gift card). | GiftCardActivityImport getImportActivityDetails() |
-| `BlockActivityDetails` | [`GiftCardActivityBlock`](../../doc/models/gift-card-activity-block.md) | Optional | Describes a gift card activity of the BLOCK type. | GiftCardActivityBlock getBlockActivityDetails() |
-| `UnblockActivityDetails` | [`GiftCardActivityUnblock`](../../doc/models/gift-card-activity-unblock.md) | Optional | Present only when `GiftCardActivityType` is UNBLOCK. | GiftCardActivityUnblock getUnblockActivityDetails() |
-| `ImportReversalActivityDetails` | [`GiftCardActivityImportReversal`](../../doc/models/gift-card-activity-import-reversal.md) | Optional | Present only when GiftCardActivityType is IMPORT_REVERSAL and GiftCardGANSource is OTHER | GiftCardActivityImportReversal getImportReversalActivityDetails() |
+| `LoadActivityDetails` | [`GiftCardActivityLoad`](../../doc/models/gift-card-activity-load.md) | Optional | Represents details about a `LOAD` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityLoad getLoadActivityDetails() |
+| `ActivateActivityDetails` | [`GiftCardActivityActivate`](../../doc/models/gift-card-activity-activate.md) | Optional | Represents details about an `ACTIVATE` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityActivate getActivateActivityDetails() |
+| `RedeemActivityDetails` | [`GiftCardActivityRedeem`](../../doc/models/gift-card-activity-redeem.md) | Optional | Represents details about a `REDEEM` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityRedeem getRedeemActivityDetails() |
+| `ClearBalanceActivityDetails` | [`GiftCardActivityClearBalance`](../../doc/models/gift-card-activity-clear-balance.md) | Optional | Represents details about a `CLEAR_BALANCE` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityClearBalance getClearBalanceActivityDetails() |
+| `DeactivateActivityDetails` | [`GiftCardActivityDeactivate`](../../doc/models/gift-card-activity-deactivate.md) | Optional | Represents details about a `DEACTIVATE` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityDeactivate getDeactivateActivityDetails() |
+| `AdjustIncrementActivityDetails` | [`GiftCardActivityAdjustIncrement`](../../doc/models/gift-card-activity-adjust-increment.md) | Optional | Represents details about an `ADJUST_INCREMENT` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityAdjustIncrement getAdjustIncrementActivityDetails() |
+| `AdjustDecrementActivityDetails` | [`GiftCardActivityAdjustDecrement`](../../doc/models/gift-card-activity-adjust-decrement.md) | Optional | Represents details about an `ADJUST_DECREMENT` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityAdjustDecrement getAdjustDecrementActivityDetails() |
+| `RefundActivityDetails` | [`GiftCardActivityRefund`](../../doc/models/gift-card-activity-refund.md) | Optional | Represents details about a `REFUND` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityRefund getRefundActivityDetails() |
+| `UnlinkedActivityRefundActivityDetails` | [`GiftCardActivityUnlinkedActivityRefund`](../../doc/models/gift-card-activity-unlinked-activity-refund.md) | Optional | Represents details about an `UNLINKED_ACTIVITY_REFUND` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityUnlinkedActivityRefund getUnlinkedActivityRefundActivityDetails() |
+| `ImportActivityDetails` | [`GiftCardActivityImport`](../../doc/models/gift-card-activity-import.md) | Optional | Represents details about an `IMPORT` [gift card activity type](../../doc/models/gift-card-activity-type.md).<br>This activity type is used when Square imports a third-party gift card, in which case the<br>`gan_source` of the gift card is set to `OTHER`. | GiftCardActivityImport getImportActivityDetails() |
+| `BlockActivityDetails` | [`GiftCardActivityBlock`](../../doc/models/gift-card-activity-block.md) | Optional | Represents details about a `BLOCK` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityBlock getBlockActivityDetails() |
+| `UnblockActivityDetails` | [`GiftCardActivityUnblock`](../../doc/models/gift-card-activity-unblock.md) | Optional | Represents details about an `UNBLOCK` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityUnblock getUnblockActivityDetails() |
+| `ImportReversalActivityDetails` | [`GiftCardActivityImportReversal`](../../doc/models/gift-card-activity-import-reversal.md) | Optional | Represents details about an `IMPORT_REVERSAL` [gift card activity type](../../doc/models/gift-card-activity-type.md). | GiftCardActivityImportReversal getImportReversalActivityDetails() |
 
 ## Example (as JSON)
 

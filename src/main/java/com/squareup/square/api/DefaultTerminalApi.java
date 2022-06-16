@@ -66,8 +66,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Creates a Terminal action request and sends it to the specified device to take a payment for
-     * the requested amount.
+     * Creates a Terminal action request and sends it to the specified device.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalActionResponse response from the API call
@@ -86,8 +85,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
-     * Creates a Terminal action request and sends it to the specified device to take a payment for
-     * the requested amount.
+     * Creates a Terminal action request and sends it to the specified device.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalActionResponse response from the API call

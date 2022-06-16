@@ -29,8 +29,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface TerminalApi {
     /**
-     * Creates a Terminal action request and sends it to the specified device to take a payment for
-     * the requested amount.
+     * Creates a Terminal action request and sends it to the specified device.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalActionResponse response from the API call
@@ -41,8 +40,7 @@ public interface TerminalApi {
             final CreateTerminalActionRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a Terminal action request and sends it to the specified device to take a payment for
-     * the requested amount.
+     * Creates a Terminal action request and sends it to the specified device.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateTerminalActionResponse response from the API call

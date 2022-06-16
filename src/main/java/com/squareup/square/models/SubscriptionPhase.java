@@ -20,17 +20,17 @@ public class SubscriptionPhase {
     /**
      * Initialization constructor.
      * @param  cadence  String value for cadence.
-     * @param  recurringPriceMoney  Money value for recurringPriceMoney.
      * @param  uid  String value for uid.
      * @param  periods  Integer value for periods.
+     * @param  recurringPriceMoney  Money value for recurringPriceMoney.
      * @param  ordinal  Long value for ordinal.
      */
     @JsonCreator
     public SubscriptionPhase(
             @JsonProperty("cadence") String cadence,
-            @JsonProperty("recurring_price_money") Money recurringPriceMoney,
             @JsonProperty("uid") String uid,
             @JsonProperty("periods") Integer periods,
+            @JsonProperty("recurring_price_money") Money recurringPriceMoney,
             @JsonProperty("ordinal") Long ordinal) {
         this.uid = uid;
         this.cadence = cadence;
@@ -84,6 +84,7 @@ public class SubscriptionPhase {
      * @return Returns the Money
      */
     @JsonGetter("recurring_price_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getRecurringPriceMoney() {
         return recurringPriceMoney;
     }
@@ -127,9 +128,9 @@ public class SubscriptionPhase {
      */
     @Override
     public String toString() {
-        return "SubscriptionPhase [" + "cadence=" + cadence + ", recurringPriceMoney="
-                + recurringPriceMoney + ", uid=" + uid + ", periods=" + periods + ", ordinal="
-                + ordinal + "]";
+        return "SubscriptionPhase [" + "cadence=" + cadence + ", uid=" + uid + ", periods="
+                + periods + ", recurringPriceMoney=" + recurringPriceMoney + ", ordinal=" + ordinal
+                + "]";
     }
 
     /**
@@ -138,9 +139,10 @@ public class SubscriptionPhase {
      * @return a new {@link SubscriptionPhase.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(cadence, recurringPriceMoney)
+        Builder builder = new Builder(cadence)
                 .uid(getUid())
                 .periods(getPeriods())
+                .recurringPriceMoney(getRecurringPriceMoney())
                 .ordinal(getOrdinal());
         return builder;
     }
@@ -150,19 +152,17 @@ public class SubscriptionPhase {
      */
     public static class Builder {
         private String cadence;
-        private Money recurringPriceMoney;
         private String uid;
         private Integer periods;
+        private Money recurringPriceMoney;
         private Long ordinal;
 
         /**
          * Initialization constructor.
          * @param  cadence  String value for cadence.
-         * @param  recurringPriceMoney  Money value for recurringPriceMoney.
          */
-        public Builder(String cadence, Money recurringPriceMoney) {
+        public Builder(String cadence) {
             this.cadence = cadence;
-            this.recurringPriceMoney = recurringPriceMoney;
         }
 
         /**
@@ -172,16 +172,6 @@ public class SubscriptionPhase {
          */
         public Builder cadence(String cadence) {
             this.cadence = cadence;
-            return this;
-        }
-
-        /**
-         * Setter for recurringPriceMoney.
-         * @param  recurringPriceMoney  Money value for recurringPriceMoney.
-         * @return Builder
-         */
-        public Builder recurringPriceMoney(Money recurringPriceMoney) {
-            this.recurringPriceMoney = recurringPriceMoney;
             return this;
         }
 
@@ -206,6 +196,16 @@ public class SubscriptionPhase {
         }
 
         /**
+         * Setter for recurringPriceMoney.
+         * @param  recurringPriceMoney  Money value for recurringPriceMoney.
+         * @return Builder
+         */
+        public Builder recurringPriceMoney(Money recurringPriceMoney) {
+            this.recurringPriceMoney = recurringPriceMoney;
+            return this;
+        }
+
+        /**
          * Setter for ordinal.
          * @param  ordinal  Long value for ordinal.
          * @return Builder
@@ -220,7 +220,7 @@ public class SubscriptionPhase {
          * @return {@link SubscriptionPhase}
          */
         public SubscriptionPhase build() {
-            return new SubscriptionPhase(cadence, recurringPriceMoney, uid, periods, ordinal);
+            return new SubscriptionPhase(cadence, uid, periods, recurringPriceMoney, ordinal);
         }
     }
 }

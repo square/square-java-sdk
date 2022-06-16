@@ -154,7 +154,7 @@ loyaltyApi.retrieveLoyaltyAccountAsync(accountId).thenAccept(result -> {
 
 # Accumulate Loyalty Points
 
-Adds points to a loyalty account.
+Adds points earned from the base loyalty program to a loyalty account.
 
 - If you are using the Orders API to manage orders, you only provide the `order_id`.
   The endpoint reads the order to compute points to add to the buyer's account.
@@ -163,6 +163,8 @@ Adds points to a loyalty account.
   For spend-based and visit-based programs, you can first call
   [CalculateLoyaltyPoints](../../doc/api/loyalty.md#calculate-loyalty-points) to compute the points  
   that you provide to this endpoint.
+
+This endpoint excludes additional points earned from loyalty promotions.
 
 ```java
 CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
@@ -368,7 +370,7 @@ loyaltyApi.retrieveLoyaltyProgramAsync(programId).thenAccept(result -> {
 
 # Calculate Loyalty Points
 
-Calculates the points a purchase earns.
+Calculates the points a purchase earns from the base loyalty program.
 
 - If you are using the Orders API to manage orders, you provide the `order_id` in the request. The
   endpoint calculates the points by reading the order.
