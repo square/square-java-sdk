@@ -109,6 +109,7 @@ public class BatchRetrieveInventoryCountsRequest {
 
     /**
      * Getter for Limit.
+     * The number of [records]($m/InventoryCount) to return.
      * @return Returns the Integer
      */
     @JsonGetter("limit")

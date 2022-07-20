@@ -170,10 +170,10 @@ bodyBatches0Objects0ItemDataVariations.add(bodyBatches0Objects0ItemDataVariation
 
 CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Tea")
-    .description("Hot Leaf Juice")
     .categoryId("#Beverages")
     .taxIds(catalogItemTaxIds)
     .variations(catalogItemVariations)
+    .descriptionHtml("<p><strong>Hot</strong> Leaf Juice</p>")
     .build();
 CatalogObject bodyBatches0Objects0 = new CatalogObject.Builder(
         "ITEM",
@@ -215,10 +215,10 @@ bodyBatches0Objects1ItemDataVariations.add(bodyBatches0Objects1ItemDataVariation
 
 CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Coffee")
-    .description("Hot Bean Juice")
     .categoryId("#Beverages")
     .taxIds(catalogItemTaxIds)
     .variations(catalogItemVariations)
+    .descriptionHtml("<p>Hot <em>Bean Juice</em></p>")
     .build();
 CatalogObject bodyBatches0Objects1 = new CatalogObject.Builder(
         "ITEM",
@@ -293,7 +293,7 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `request` | [`CreateCatalogImageRequest`](../../doc/models/create-catalog-image-request.md) | Form, Optional | - |
+| `request` | [`CreateCatalogImageRequest`](../../doc/models/create-catalog-image-request.md) | Form (JSON-Encoded), Optional | - |
 | `imageFile` | `FileWrapper` | Form, Optional | - |
 
 ## Response Type
@@ -345,7 +345,7 @@ CompletableFuture<UpdateCatalogImageResponse> updateCatalogImageAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `imageId` | `String` | Template, Required | The ID of the `CatalogImage` object to update the encapsulated image file. |
-| `request` | [`UpdateCatalogImageRequest`](../../doc/models/update-catalog-image-request.md) | Form, Optional | - |
+| `request` | [`UpdateCatalogImageRequest`](../../doc/models/update-catalog-image-request.md) | Form (JSON-Encoded), Optional | - |
 | `imageFile` | `FileWrapper` | Form, Optional | - |
 
 ## Response Type
@@ -491,9 +491,9 @@ bodyObjectItemDataVariations.add(bodyObjectItemDataVariations1);
 
 CatalogItem catalogItem = new CatalogItem.Builder()
     .name("Cocoa")
-    .description("Hot Chocolate")
     .abbreviation("Ch")
     .variations(catalogItemVariations)
+    .descriptionHtml("<p><strong>Hot</strong> Chocolate</p>")
     .build();
 CatalogObject catalogObject = new CatalogObject.Builder(
         "ITEM",

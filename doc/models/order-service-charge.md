@@ -12,7 +12,7 @@ Represents a service charge applied to an order.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | A unique ID that identifies the service charge only within this order.<br>**Constraints**: *Maximum Length*: `60` | String getUid() |
-| `Name` | `String` | Optional | The name of the service charge.<br>**Constraints**: *Maximum Length*: `255` | String getName() |
+| `Name` | `String` | Optional | The name of the service charge.<br>**Constraints**: *Maximum Length*: `512` | String getName() |
 | `CatalogObjectId` | `String` | Optional | The catalog object ID referencing the service charge [CatalogObject](../../doc/models/catalog-object.md).<br>**Constraints**: *Maximum Length*: `192` | String getCatalogObjectId() |
 | `CatalogVersion` | `Long` | Optional | The version of the catalog object that this service charge references. | Long getCatalogVersion() |
 | `Percentage` | `String` | Optional | The service charge percentage as a string representation of a<br>decimal number. For example, `"7.25"` indicates a service charge of 7.25%.<br><br>Exactly 1 of `percentage` or `amount_money` should be set.<br>**Constraints**: *Maximum Length*: `10` | String getPercentage() |

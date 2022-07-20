@@ -190,8 +190,8 @@ BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesReq
     .locationIds(bodyLocationIds)
     .types(bodyTypes)
     .states(bodyStates)
-    .updatedAfter("2016-11-01T00:00:00.000Z")
-    .updatedBefore("2016-12-01T00:00:00.000Z")
+    .updatedAfter("2016-11-01T00:00:00Z")
+    .updatedBefore("2016-12-01T00:00:00Z")
     .build();
 
 inventoryApi.deprecatedBatchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
@@ -235,7 +235,7 @@ bodyLocationIds.add("59TNP9SA8VGDA");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)
-    .updatedAfter("2016-11-16T00:00:00.000Z")
+    .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 
 inventoryApi.deprecatedBatchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
@@ -347,8 +347,8 @@ BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesReq
     .locationIds(bodyLocationIds)
     .types(bodyTypes)
     .states(bodyStates)
-    .updatedAfter("2016-11-01T00:00:00.000Z")
-    .updatedBefore("2016-12-01T00:00:00.000Z")
+    .updatedAfter("2016-11-01T00:00:00Z")
+    .updatedBefore("2016-12-01T00:00:00Z")
     .build();
 
 inventoryApi.batchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
@@ -399,7 +399,7 @@ bodyLocationIds.add("59TNP9SA8VGDA");
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
     .catalogObjectIds(bodyCatalogObjectIds)
     .locationIds(bodyLocationIds)
-    .updatedAfter("2016-11-16T00:00:00.000Z")
+    .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 
 inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {

@@ -23,22 +23,22 @@ public class ShiftFilter {
     /**
      * Initialization constructor.
      * @param  locationIds  List of String value for locationIds.
-     * @param  teamMemberIds  List of String value for teamMemberIds.
      * @param  employeeIds  List of String value for employeeIds.
      * @param  status  String value for status.
      * @param  start  TimeRange value for start.
      * @param  end  TimeRange value for end.
      * @param  workday  ShiftWorkday value for workday.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
      */
     @JsonCreator
     public ShiftFilter(
             @JsonProperty("location_ids") List<String> locationIds,
-            @JsonProperty("team_member_ids") List<String> teamMemberIds,
             @JsonProperty("employee_ids") List<String> employeeIds,
             @JsonProperty("status") String status,
             @JsonProperty("start") TimeRange start,
             @JsonProperty("end") TimeRange end,
-            @JsonProperty("workday") ShiftWorkday workday) {
+            @JsonProperty("workday") ShiftWorkday workday,
+            @JsonProperty("team_member_ids") List<String> teamMemberIds) {
         this.locationIds = locationIds;
         this.employeeIds = employeeIds;
         this.status = status;
@@ -54,6 +54,7 @@ public class ShiftFilter {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -127,6 +128,7 @@ public class ShiftFilter {
      * @return Returns the List of String
      */
     @JsonGetter("team_member_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getTeamMemberIds() {
         return teamMemberIds;
     }
@@ -160,9 +162,9 @@ public class ShiftFilter {
      */
     @Override
     public String toString() {
-        return "ShiftFilter [" + "locationIds=" + locationIds + ", teamMemberIds=" + teamMemberIds
-                + ", employeeIds=" + employeeIds + ", status=" + status + ", start=" + start
-                + ", end=" + end + ", workday=" + workday + "]";
+        return "ShiftFilter [" + "locationIds=" + locationIds + ", employeeIds=" + employeeIds
+                + ", status=" + status + ", start=" + start + ", end=" + end + ", workday="
+                + workday + ", teamMemberIds=" + teamMemberIds + "]";
     }
 
     /**
@@ -171,12 +173,14 @@ public class ShiftFilter {
      * @return a new {@link ShiftFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationIds, teamMemberIds)
+        Builder builder = new Builder()
+                .locationIds(getLocationIds())
                 .employeeIds(getEmployeeIds())
                 .status(getStatus())
                 .start(getStart())
                 .end(getEnd())
-                .workday(getWorkday());
+                .workday(getWorkday())
+                .teamMemberIds(getTeamMemberIds());
         return builder;
     }
 
@@ -185,22 +189,14 @@ public class ShiftFilter {
      */
     public static class Builder {
         private List<String> locationIds;
-        private List<String> teamMemberIds;
         private List<String> employeeIds;
         private String status;
         private TimeRange start;
         private TimeRange end;
         private ShiftWorkday workday;
+        private List<String> teamMemberIds;
 
-        /**
-         * Initialization constructor.
-         * @param  locationIds  List of String value for locationIds.
-         * @param  teamMemberIds  List of String value for teamMemberIds.
-         */
-        public Builder(List<String> locationIds, List<String> teamMemberIds) {
-            this.locationIds = locationIds;
-            this.teamMemberIds = teamMemberIds;
-        }
+
 
         /**
          * Setter for locationIds.
@@ -209,16 +205,6 @@ public class ShiftFilter {
          */
         public Builder locationIds(List<String> locationIds) {
             this.locationIds = locationIds;
-            return this;
-        }
-
-        /**
-         * Setter for teamMemberIds.
-         * @param  teamMemberIds  List of String value for teamMemberIds.
-         * @return Builder
-         */
-        public Builder teamMemberIds(List<String> teamMemberIds) {
-            this.teamMemberIds = teamMemberIds;
             return this;
         }
 
@@ -273,12 +259,22 @@ public class ShiftFilter {
         }
 
         /**
+         * Setter for teamMemberIds.
+         * @param  teamMemberIds  List of String value for teamMemberIds.
+         * @return Builder
+         */
+        public Builder teamMemberIds(List<String> teamMemberIds) {
+            this.teamMemberIds = teamMemberIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ShiftFilter} object using the set fields.
          * @return {@link ShiftFilter}
          */
         public ShiftFilter build() {
-            return new ShiftFilter(locationIds, teamMemberIds, employeeIds, status, start, end,
-                    workday);
+            return new ShiftFilter(locationIds, employeeIds, status, start, end, workday,
+                    teamMemberIds);
         }
     }
 }

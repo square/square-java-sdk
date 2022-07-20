@@ -354,19 +354,19 @@ ShiftWage shiftWage = new ShiftWage.Builder()
 List<Break> bodyShiftBreaks = new LinkedList<>();
 
 Break bodyShiftBreaks0 = new Break.Builder(
-        "2019-01-25T06:11:00-05:00",
+        "2019-01-25T11:11:00+00:00",
         "REGS1EQR1TPZ5",
         "Tea Break",
         "PT5M",
         true)
-    .endAt("2019-01-25T06:16:00-05:00")
+    .endAt("2019-01-25T11:16:00+00:00")
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift shift = new Shift.Builder(
-        "2019-01-25T03:11:00-05:00")
+        "2019-01-25T08:11:00+00:00")
     .locationId("PAA1RJZZKXBFG")
-    .endAt("2019-01-25T13:11:00-05:00")
+    .endAt("2019-01-25T18:11:00+00:00")
     .wage(shiftWage)
     .breaks(shiftBreaks)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
@@ -422,7 +422,24 @@ CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
 ## Example Usage
 
 ```java
+DateRange dateRange = new DateRange.Builder()
+    .startDate("2019-01-20")
+    .endDate("2019-02-03")
+    .build();
+ShiftWorkday shiftWorkday = new ShiftWorkday.Builder()
+    .dateRange(shiftWorkdayDateRange)
+    .matchShiftsBy("START_AT")
+    .defaultTimezone("America/Los_Angeles")
+    .build();
+ShiftFilter shiftFilter = new ShiftFilter.Builder()
+    .workday(shiftFilterWorkday)
+    .build();
+ShiftQuery shiftQuery = new ShiftQuery.Builder()
+    .filter(shiftQueryFilter)
+    .build();
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
+    .query(bodyQuery)
+    .limit(100)
     .build();
 
 laborApi.searchShiftsAsync(body).thenAccept(result -> {
@@ -542,20 +559,20 @@ ShiftWage shiftWage = new ShiftWage.Builder()
 List<Break> bodyShiftBreaks = new LinkedList<>();
 
 Break bodyShiftBreaks0 = new Break.Builder(
-        "2019-01-25T06:11:00-05:00",
+        "2019-01-25T11:11:00+00:00",
         "REGS1EQR1TPZ5",
         "Tea Break",
         "PT5M",
         true)
     .id("X7GAQYVVRRG6P")
-    .endAt("2019-01-25T06:16:00-05:00")
+    .endAt("2019-01-25T11:16:00+00:00")
     .build();
 bodyShiftBreaks.add(bodyShiftBreaks0);
 
 Shift shift = new Shift.Builder(
-        "2019-01-25T03:11:00-05:00")
+        "2019-01-25T08:11:00+00:00")
     .locationId("PAA1RJZZKXBFG")
-    .endAt("2019-01-25T13:11:00-05:00")
+    .endAt("2019-01-25T18:11:00+00:00")
     .wage(shiftWage)
     .breaks(shiftBreaks)
     .version(1)

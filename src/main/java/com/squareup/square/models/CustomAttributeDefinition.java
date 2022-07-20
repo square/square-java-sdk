@@ -16,7 +16,6 @@ public class CustomAttributeDefinition {
     private final JsonObject schema;
     private final String name;
     private final String description;
-    private final SourceApplication sourceApplication;
     private final String visibility;
     private final Integer version;
     private final String updatedAt;
@@ -28,7 +27,6 @@ public class CustomAttributeDefinition {
      * @param  schema  JsonObject value for schema.
      * @param  name  String value for name.
      * @param  description  String value for description.
-     * @param  sourceApplication  SourceApplication value for sourceApplication.
      * @param  visibility  String value for visibility.
      * @param  version  Integer value for version.
      * @param  updatedAt  String value for updatedAt.
@@ -40,7 +38,6 @@ public class CustomAttributeDefinition {
             @JsonProperty("schema") JsonObject schema,
             @JsonProperty("name") String name,
             @JsonProperty("description") String description,
-            @JsonProperty("source_application") SourceApplication sourceApplication,
             @JsonProperty("visibility") String visibility,
             @JsonProperty("version") Integer version,
             @JsonProperty("updated_at") String updatedAt,
@@ -49,7 +46,6 @@ public class CustomAttributeDefinition {
         this.schema = schema;
         this.name = name;
         this.description = description;
-        this.sourceApplication = sourceApplication;
         this.visibility = visibility;
         this.version = version;
         this.updatedAt = updatedAt;
@@ -116,17 +112,6 @@ public class CustomAttributeDefinition {
     }
 
     /**
-     * Getter for SourceApplication.
-     * Represents information about the application used to generate a change.
-     * @return Returns the SourceApplication
-     */
-    @JsonGetter("source_application")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SourceApplication getSourceApplication() {
-        return sourceApplication;
-    }
-
-    /**
      * Getter for Visibility.
      * The level of permission that a seller or other applications requires to view this custom
      * attribute definition. The `Visibility` field controls who can read and write the custom
@@ -184,8 +169,8 @@ public class CustomAttributeDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, schema, name, description, sourceApplication, visibility, version,
-                updatedAt, createdAt);
+        return Objects.hash(key, schema, name, description, visibility, version, updatedAt,
+                createdAt);
     }
 
     @Override
@@ -201,7 +186,6 @@ public class CustomAttributeDefinition {
             && Objects.equals(schema, other.schema)
             && Objects.equals(name, other.name)
             && Objects.equals(description, other.description)
-            && Objects.equals(sourceApplication, other.sourceApplication)
             && Objects.equals(visibility, other.visibility)
             && Objects.equals(version, other.version)
             && Objects.equals(updatedAt, other.updatedAt)
@@ -215,9 +199,9 @@ public class CustomAttributeDefinition {
     @Override
     public String toString() {
         return "CustomAttributeDefinition [" + "key=" + key + ", schema=" + schema + ", name="
-                + name + ", description=" + description + ", sourceApplication=" + sourceApplication
-                + ", visibility=" + visibility + ", version=" + version + ", updatedAt=" + updatedAt
-                + ", createdAt=" + createdAt + "]";
+                + name + ", description=" + description + ", visibility=" + visibility
+                + ", version=" + version + ", updatedAt=" + updatedAt + ", createdAt=" + createdAt
+                + "]";
     }
 
     /**
@@ -231,7 +215,6 @@ public class CustomAttributeDefinition {
                 .schema(getSchema())
                 .name(getName())
                 .description(getDescription())
-                .sourceApplication(getSourceApplication())
                 .visibility(getVisibility())
                 .version(getVersion())
                 .updatedAt(getUpdatedAt())
@@ -247,7 +230,6 @@ public class CustomAttributeDefinition {
         private JsonObject schema;
         private String name;
         private String description;
-        private SourceApplication sourceApplication;
         private String visibility;
         private Integer version;
         private String updatedAt;
@@ -296,16 +278,6 @@ public class CustomAttributeDefinition {
         }
 
         /**
-         * Setter for sourceApplication.
-         * @param  sourceApplication  SourceApplication value for sourceApplication.
-         * @return Builder
-         */
-        public Builder sourceApplication(SourceApplication sourceApplication) {
-            this.sourceApplication = sourceApplication;
-            return this;
-        }
-
-        /**
          * Setter for visibility.
          * @param  visibility  String value for visibility.
          * @return Builder
@@ -350,8 +322,8 @@ public class CustomAttributeDefinition {
          * @return {@link CustomAttributeDefinition}
          */
         public CustomAttributeDefinition build() {
-            return new CustomAttributeDefinition(key, schema, name, description, sourceApplication,
-                    visibility, version, updatedAt, createdAt);
+            return new CustomAttributeDefinition(key, schema, name, description, visibility,
+                    version, updatedAt, createdAt);
         }
     }
 }
