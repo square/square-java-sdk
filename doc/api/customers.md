@@ -158,8 +158,8 @@ CustomerCreationSourceFilter customerCreationSourceFilter = new CustomerCreation
     .rule("INCLUDE")
     .build();
 TimeRange timeRange = new TimeRange.Builder()
-    .startAt("2018-01-01T00:00:00-00:00")
-    .endAt("2018-02-01T00:00:00-00:00")
+    .startAt("2018-01-01T00:00:00+00:00")
+    .endAt("2018-02-01T00:00:00+00:00")
     .build();
 CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
     .fuzzy("example.com")

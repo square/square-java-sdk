@@ -16,7 +16,7 @@
 | `UpdatedAfter` | `String` | Optional | The filter to return results with their `calculated_at` value<br>after the given time as specified in an RFC 3339 timestamp.<br>The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`). | String getUpdatedAfter() |
 | `UpdatedBefore` | `String` | Optional | The filter to return results with their `created_at` or `calculated_at` value<br>strictly before the given time as specified in an RFC 3339 timestamp.<br>The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`). | String getUpdatedBefore() |
 | `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. | String getCursor() |
-| `Limit` | `Integer` | Optional | **Constraints**: `>= 1`, `<= 1000` | Integer getLimit() |
+| `Limit` | `Integer` | Optional | The number of [records](../../doc/models/inventory-change.md) to return.<br>**Constraints**: `>= 1`, `<= 1000` | Integer getLimit() |
 
 ## Example (as JSON)
 

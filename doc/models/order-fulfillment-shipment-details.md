@@ -11,7 +11,7 @@ Contains the details necessary to fulfill a shipment order.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Recipient` | [`OrderFulfillmentRecipient`](../../doc/models/order-fulfillment-recipient.md) | Optional | Contains information about the recipient of a fulfillment. | OrderFulfillmentRecipient getRecipient() |
+| `Recipient` | [`OrderFulfillmentRecipient`](../../doc/models/order-fulfillment-recipient.md) | Optional | Information about the fulfillment recipient. | OrderFulfillmentRecipient getRecipient() |
 | `Carrier` | `String` | Optional | The shipping carrier being used to ship this fulfillment (such as UPS, FedEx, or USPS).<br>**Constraints**: *Maximum Length*: `50` | String getCarrier() |
 | `ShippingNote` | `String` | Optional | A note with additional information for the shipping carrier.<br>**Constraints**: *Maximum Length*: `500` | String getShippingNote() |
 | `ShippingType` | `String` | Optional | A description of the type of shipping product purchased from the carrier<br>(such as First Class, Priority, or Express).<br>**Constraints**: *Maximum Length*: `50` | String getShippingType() |

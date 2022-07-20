@@ -43,6 +43,7 @@ public class Order {
     private final String ticketName;
     private final OrderPricingOptions pricingOptions;
     private final List<OrderReward> rewards;
+    private final Money netAmountDueMoney;
 
     /**
      * Initialization constructor.
@@ -76,6 +77,7 @@ public class Order {
      * @param  ticketName  String value for ticketName.
      * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
      * @param  rewards  List of OrderReward value for rewards.
+     * @param  netAmountDueMoney  Money value for netAmountDueMoney.
      */
     @JsonCreator
     public Order(
@@ -108,7 +110,8 @@ public class Order {
             @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney,
             @JsonProperty("ticket_name") String ticketName,
             @JsonProperty("pricing_options") OrderPricingOptions pricingOptions,
-            @JsonProperty("rewards") List<OrderReward> rewards) {
+            @JsonProperty("rewards") List<OrderReward> rewards,
+            @JsonProperty("net_amount_due_money") Money netAmountDueMoney) {
         this.id = id;
         this.locationId = locationId;
         this.referenceId = referenceId;
@@ -139,6 +142,7 @@ public class Order {
         this.ticketName = ticketName;
         this.pricingOptions = pricingOptions;
         this.rewards = rewards;
+        this.netAmountDueMoney = netAmountDueMoney;
     }
 
     /**
@@ -538,13 +542,29 @@ public class Order {
         return rewards;
     }
 
+    /**
+     * Getter for NetAmountDueMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("net_amount_due_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getNetAmountDueMoney() {
+        return netAmountDueMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, referenceId, source, customerId, lineItems, taxes,
                 discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
                 roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt,
                 state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
-                totalServiceChargeMoney, ticketName, pricingOptions, rewards);
+                totalServiceChargeMoney, ticketName, pricingOptions, rewards, netAmountDueMoney);
     }
 
     @Override
@@ -585,7 +605,8 @@ public class Order {
             && Objects.equals(totalServiceChargeMoney, other.totalServiceChargeMoney)
             && Objects.equals(ticketName, other.ticketName)
             && Objects.equals(pricingOptions, other.pricingOptions)
-            && Objects.equals(rewards, other.rewards);
+            && Objects.equals(rewards, other.rewards)
+            && Objects.equals(netAmountDueMoney, other.netAmountDueMoney);
     }
 
     /**
@@ -606,7 +627,7 @@ public class Order {
                 + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney + ", totalTipMoney="
                 + totalTipMoney + ", totalServiceChargeMoney=" + totalServiceChargeMoney
                 + ", ticketName=" + ticketName + ", pricingOptions=" + pricingOptions + ", rewards="
-                + rewards + "]";
+                + rewards + ", netAmountDueMoney=" + netAmountDueMoney + "]";
     }
 
     /**
@@ -644,7 +665,8 @@ public class Order {
                 .totalServiceChargeMoney(getTotalServiceChargeMoney())
                 .ticketName(getTicketName())
                 .pricingOptions(getPricingOptions())
-                .rewards(getRewards());
+                .rewards(getRewards())
+                .netAmountDueMoney(getNetAmountDueMoney());
         return builder;
     }
 
@@ -682,6 +704,7 @@ public class Order {
         private String ticketName;
         private OrderPricingOptions pricingOptions;
         private List<OrderReward> rewards;
+        private Money netAmountDueMoney;
 
         /**
          * Initialization constructor.
@@ -992,6 +1015,16 @@ public class Order {
         }
 
         /**
+         * Setter for netAmountDueMoney.
+         * @param  netAmountDueMoney  Money value for netAmountDueMoney.
+         * @return Builder
+         */
+        public Builder netAmountDueMoney(Money netAmountDueMoney) {
+            this.netAmountDueMoney = netAmountDueMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Order} object using the set fields.
          * @return {@link Order}
          */
@@ -1000,7 +1033,8 @@ public class Order {
                     discounts, serviceCharges, fulfillments, returns, returnAmounts, netAmounts,
                     roundingAdjustment, tenders, refunds, metadata, createdAt, updatedAt, closedAt,
                     state, version, totalMoney, totalTaxMoney, totalDiscountMoney, totalTipMoney,
-                    totalServiceChargeMoney, ticketName, pricingOptions, rewards);
+                    totalServiceChargeMoney, ticketName, pricingOptions, rewards,
+                    netAmountDueMoney);
         }
     }
 }

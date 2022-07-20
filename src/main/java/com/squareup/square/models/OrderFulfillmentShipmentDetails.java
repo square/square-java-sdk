@@ -81,7 +81,7 @@ public class OrderFulfillmentShipmentDetails {
 
     /**
      * Getter for Recipient.
-     * Contains information about the recipient of a fulfillment.
+     * Information about the fulfillment recipient.
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")

@@ -142,6 +142,7 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for Limit.
+     * The number of [records]($m/InventoryChange) to return.
      * @return Returns the Integer
      */
     @JsonGetter("limit")

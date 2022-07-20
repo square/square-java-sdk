@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,7 +37,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * This is a Helper class with commonly used utilities for the SDK.
@@ -69,8 +67,7 @@ public class ApiHelper {
      * @param serializerAnnotation The Annotation containing information about the serializer.
      * @return The JsonSerializer instance of the required type.
      */
-    @SuppressWarnings("rawtypes")
-    private static JsonSerializer getSerializer(JsonSerialize serializerAnnotation) {
+    private static JsonSerializer<?> getSerializer(JsonSerialize serializerAnnotation) {
         try {
             return serializerAnnotation.using().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
@@ -80,11 +77,11 @@ public class ApiHelper {
 
     /**
      * Get a JsonSerializer instance for a collection from the provided annotation.
-     * @param serializerAnnotation The Annotation containing information about the serializer of a collection.
+     * @param serializerAnnotation The Annotation containing information about the serializer of a
+     *        collection.
      * @return The JsonSerializer instance of the required type.
      */
-    @SuppressWarnings("rawtypes")
-    private static JsonSerializer getCollectionSerializer(JsonSerialize serializerAnnotation) {
+    private static JsonSerializer<?> getCollectionSerializer(JsonSerialize serializerAnnotation) {
         try {
             return serializerAnnotation.contentUsing().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
@@ -608,6 +605,32 @@ public class ApiHelper {
     }
 
     /**
+     * Processes the value and load into objectList against key.
+     * 
+     * @param key The key to used for creation of key value pair.
+     * @param value The value to process against the given key.
+     * @param objectList The object list to process with key value pair.
+     * @param processed List of processed objects hashCodes.
+     * @param serializer The serializer for serialize the object
+     * @throws JsonProcessingException Signals that a Json Processing Exception has occurred.
+     */
+    private static void loadKeyValueUsingSerializer(String key, Object value,
+        List<SimpleEntry<String, Object>> objectList, HashSet<Integer> processed,
+        JsonSerializer<?> serializer) throws JsonProcessingException {
+        value = serialize(value, serializer);
+
+        Object obj = deserializeAsObject(value.toString());
+        if (obj instanceof List<?> || obj instanceof Map<?, ?>) {
+            loadKeyValuePairForEncoding(key, obj, objectList, processed);
+        } else {
+            if (value.toString().startsWith("\"")) {
+                value = value.toString().substring(1, value.toString().length() - 1);
+            }
+            objectList.add(new SimpleEntry<String, Object>(key, value));
+        }
+    }
+   
+    /**
      * While processing objects to map, decides whether to perform recursion or load value.
      * @param key The key for creating key value pair.
      * @param value The value to process against the given key.
@@ -659,17 +682,7 @@ public class ApiHelper {
                 serializer = getCollectionSerializer(serializerAnnotation);
             }
 
-            value = serialize(value, serializer);
-            
-            Object obj = deserializeAsObject(value.toString());
-            if (obj instanceof List<?> || obj instanceof Map<?, ?>) {
-                loadKeyValuePairForEncoding(key, obj, objectList, processed);
-            } else {
-                if (value.toString().startsWith("\"")) {
-                    value = value.toString().substring(1, value.toString().length() - 1);
-                }
-                objectList.add(new SimpleEntry<String, Object>(key, value));
-            }
+            loadKeyValueUsingSerializer(key, value, objectList, processed, serializer);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

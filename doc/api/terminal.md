@@ -93,7 +93,7 @@ CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
 
 ```java
 TimeRange timeRange = new TimeRange.Builder()
-    .startAt("2022-04-01T00:00:00.000Z")
+    .startAt("2022-04-01T00:00:00Z")
     .build();
 TerminalActionQueryFilter terminalActionQueryFilter = new TerminalActionQueryFilter.Builder()
     .createdAt(terminalActionQueryFilterCreatedAt)

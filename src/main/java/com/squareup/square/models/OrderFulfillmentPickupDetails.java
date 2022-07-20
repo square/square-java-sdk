@@ -94,7 +94,7 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for Recipient.
-     * Contains information about the recipient of a fulfillment.
+     * Information about the fulfillment recipient.
      * @return Returns the OrderFulfillmentRecipient
      */
     @JsonGetter("recipient")
@@ -184,7 +184,7 @@ public class OrderFulfillmentPickupDetails {
 
     /**
      * Getter for Note.
-     * A note meant to provide additional instructions about the pickup fulfillment displayed in the
+     * A note to provide additional instructions about the pickup fulfillment displayed in the
      * Square Point of Sale application and set by the API.
      * @return Returns the String
      */

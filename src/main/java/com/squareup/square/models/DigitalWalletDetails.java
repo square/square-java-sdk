@@ -45,7 +45,7 @@ public class DigitalWalletDetails {
 
     /**
      * Getter for Brand.
-     * The brand used for the `WALLET` payment. The brand can be `CASH_APP` or `UNKNOWN`.
+     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY` or `UNKNOWN`.
      * @return Returns the String
      */
     @JsonGetter("brand")

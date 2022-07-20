@@ -145,7 +145,7 @@ public class TerminalCheckout {
 
     /**
      * Getter for OrderId.
-     * The reference to the Square order ID for the checkout request.
+     * The reference to the Square order ID for the checkout request. Supported only in the US.
      * @return Returns the String
      */
     @JsonGetter("order_id")
