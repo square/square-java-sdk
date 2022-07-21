@@ -21,6 +21,7 @@ public class ObtainTokenRequest {
     private final String migrationToken;
     private final List<String> scopes;
     private final Boolean shortLived;
+    private final String codeVerifier;
 
     /**
      * Initialization constructor.
@@ -33,6 +34,7 @@ public class ObtainTokenRequest {
      * @param  migrationToken  String value for migrationToken.
      * @param  scopes  List of String value for scopes.
      * @param  shortLived  Boolean value for shortLived.
+     * @param  codeVerifier  String value for codeVerifier.
      */
     @JsonCreator
     public ObtainTokenRequest(
@@ -44,7 +46,8 @@ public class ObtainTokenRequest {
             @JsonProperty("refresh_token") String refreshToken,
             @JsonProperty("migration_token") String migrationToken,
             @JsonProperty("scopes") List<String> scopes,
-            @JsonProperty("short_lived") Boolean shortLived) {
+            @JsonProperty("short_lived") Boolean shortLived,
+            @JsonProperty("code_verifier") String codeVerifier) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.code = code;
@@ -54,6 +57,7 @@ public class ObtainTokenRequest {
         this.migrationToken = migrationToken;
         this.scopes = scopes;
         this.shortLived = shortLived;
+        this.codeVerifier = codeVerifier;
     }
 
     /**
@@ -168,10 +172,22 @@ public class ObtainTokenRequest {
         return shortLived;
     }
 
+    /**
+     * Getter for CodeVerifier.
+     * Must be provided when using PKCE OAuth flow. The `code_verifier` will be used to verify
+     * against the `code_challenge` associated with the `authorization_code`.
+     * @return Returns the String
+     */
+    @JsonGetter("code_verifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCodeVerifier() {
+        return codeVerifier;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(clientId, clientSecret, code, redirectUri, grantType, refreshToken,
-                migrationToken, scopes, shortLived);
+                migrationToken, scopes, shortLived, codeVerifier);
     }
 
     @Override
@@ -191,7 +207,8 @@ public class ObtainTokenRequest {
             && Objects.equals(refreshToken, other.refreshToken)
             && Objects.equals(migrationToken, other.migrationToken)
             && Objects.equals(scopes, other.scopes)
-            && Objects.equals(shortLived, other.shortLived);
+            && Objects.equals(shortLived, other.shortLived)
+            && Objects.equals(codeVerifier, other.codeVerifier);
     }
 
     /**
@@ -203,7 +220,8 @@ public class ObtainTokenRequest {
         return "ObtainTokenRequest [" + "clientId=" + clientId + ", clientSecret=" + clientSecret
                 + ", grantType=" + grantType + ", code=" + code + ", redirectUri=" + redirectUri
                 + ", refreshToken=" + refreshToken + ", migrationToken=" + migrationToken
-                + ", scopes=" + scopes + ", shortLived=" + shortLived + "]";
+                + ", scopes=" + scopes + ", shortLived=" + shortLived + ", codeVerifier="
+                + codeVerifier + "]";
     }
 
     /**
@@ -218,7 +236,8 @@ public class ObtainTokenRequest {
                 .refreshToken(getRefreshToken())
                 .migrationToken(getMigrationToken())
                 .scopes(getScopes())
-                .shortLived(getShortLived());
+                .shortLived(getShortLived())
+                .codeVerifier(getCodeVerifier());
         return builder;
     }
 
@@ -235,6 +254,7 @@ public class ObtainTokenRequest {
         private String migrationToken;
         private List<String> scopes;
         private Boolean shortLived;
+        private String codeVerifier;
 
         /**
          * Initialization constructor.
@@ -339,12 +359,22 @@ public class ObtainTokenRequest {
         }
 
         /**
+         * Setter for codeVerifier.
+         * @param  codeVerifier  String value for codeVerifier.
+         * @return Builder
+         */
+        public Builder codeVerifier(String codeVerifier) {
+            this.codeVerifier = codeVerifier;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ObtainTokenRequest} object using the set fields.
          * @return {@link ObtainTokenRequest}
          */
         public ObtainTokenRequest build() {
             return new ObtainTokenRequest(clientId, clientSecret, grantType, code, redirectUri,
-                    refreshToken, migrationToken, scopes, shortLived);
+                    refreshToken, migrationToken, scopes, shortLived, codeVerifier);
         }
     }
 }
