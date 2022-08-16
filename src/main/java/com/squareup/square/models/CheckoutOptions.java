@@ -19,6 +19,8 @@ public class CheckoutOptions {
     private final String merchantSupportEmail;
     private final Boolean askForShippingAddress;
     private final AcceptedPaymentMethods acceptedPaymentMethods;
+    private final Money appFeeMoney;
+    private final ShippingFee shippingFee;
 
     /**
      * Initialization constructor.
@@ -29,6 +31,8 @@ public class CheckoutOptions {
      * @param  merchantSupportEmail  String value for merchantSupportEmail.
      * @param  askForShippingAddress  Boolean value for askForShippingAddress.
      * @param  acceptedPaymentMethods  AcceptedPaymentMethods value for acceptedPaymentMethods.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  shippingFee  ShippingFee value for shippingFee.
      */
     @JsonCreator
     public CheckoutOptions(
@@ -38,7 +42,9 @@ public class CheckoutOptions {
             @JsonProperty("redirect_url") String redirectUrl,
             @JsonProperty("merchant_support_email") String merchantSupportEmail,
             @JsonProperty("ask_for_shipping_address") Boolean askForShippingAddress,
-            @JsonProperty("accepted_payment_methods") AcceptedPaymentMethods acceptedPaymentMethods) {
+            @JsonProperty("accepted_payment_methods") AcceptedPaymentMethods acceptedPaymentMethods,
+            @JsonProperty("app_fee_money") Money appFeeMoney,
+            @JsonProperty("shipping_fee") ShippingFee shippingFee) {
         this.allowTipping = allowTipping;
         this.customFields = customFields;
         this.subscriptionPlanId = subscriptionPlanId;
@@ -46,6 +52,8 @@ public class CheckoutOptions {
         this.merchantSupportEmail = merchantSupportEmail;
         this.askForShippingAddress = askForShippingAddress;
         this.acceptedPaymentMethods = acceptedPaymentMethods;
+        this.appFeeMoney = appFeeMoney;
+        this.shippingFee = shippingFee;
     }
 
     /**
@@ -126,10 +134,37 @@ public class CheckoutOptions {
         return acceptedPaymentMethods;
     }
 
+    /**
+     * Getter for AppFeeMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("app_fee_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getAppFeeMoney() {
+        return appFeeMoney;
+    }
+
+    /**
+     * Getter for ShippingFee.
+     * @return Returns the ShippingFee
+     */
+    @JsonGetter("shipping_fee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ShippingFee getShippingFee() {
+        return shippingFee;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(allowTipping, customFields, subscriptionPlanId, redirectUrl,
-                merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods);
+                merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods, appFeeMoney,
+                shippingFee);
     }
 
     @Override
@@ -147,7 +182,9 @@ public class CheckoutOptions {
             && Objects.equals(redirectUrl, other.redirectUrl)
             && Objects.equals(merchantSupportEmail, other.merchantSupportEmail)
             && Objects.equals(askForShippingAddress, other.askForShippingAddress)
-            && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods);
+            && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods)
+            && Objects.equals(appFeeMoney, other.appFeeMoney)
+            && Objects.equals(shippingFee, other.shippingFee);
     }
 
     /**
@@ -160,7 +197,8 @@ public class CheckoutOptions {
                 + customFields + ", subscriptionPlanId=" + subscriptionPlanId + ", redirectUrl="
                 + redirectUrl + ", merchantSupportEmail=" + merchantSupportEmail
                 + ", askForShippingAddress=" + askForShippingAddress + ", acceptedPaymentMethods="
-                + acceptedPaymentMethods + "]";
+                + acceptedPaymentMethods + ", appFeeMoney=" + appFeeMoney + ", shippingFee="
+                + shippingFee + "]";
     }
 
     /**
@@ -176,7 +214,9 @@ public class CheckoutOptions {
                 .redirectUrl(getRedirectUrl())
                 .merchantSupportEmail(getMerchantSupportEmail())
                 .askForShippingAddress(getAskForShippingAddress())
-                .acceptedPaymentMethods(getAcceptedPaymentMethods());
+                .acceptedPaymentMethods(getAcceptedPaymentMethods())
+                .appFeeMoney(getAppFeeMoney())
+                .shippingFee(getShippingFee());
         return builder;
     }
 
@@ -191,6 +231,8 @@ public class CheckoutOptions {
         private String merchantSupportEmail;
         private Boolean askForShippingAddress;
         private AcceptedPaymentMethods acceptedPaymentMethods;
+        private Money appFeeMoney;
+        private ShippingFee shippingFee;
 
 
 
@@ -265,12 +307,33 @@ public class CheckoutOptions {
         }
 
         /**
+         * Setter for appFeeMoney.
+         * @param  appFeeMoney  Money value for appFeeMoney.
+         * @return Builder
+         */
+        public Builder appFeeMoney(Money appFeeMoney) {
+            this.appFeeMoney = appFeeMoney;
+            return this;
+        }
+
+        /**
+         * Setter for shippingFee.
+         * @param  shippingFee  ShippingFee value for shippingFee.
+         * @return Builder
+         */
+        public Builder shippingFee(ShippingFee shippingFee) {
+            this.shippingFee = shippingFee;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CheckoutOptions} object using the set fields.
          * @return {@link CheckoutOptions}
          */
         public CheckoutOptions build() {
             return new CheckoutOptions(allowTipping, customFields, subscriptionPlanId, redirectUrl,
-                    merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods);
+                    merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods,
+                    appFeeMoney, shippingFee);
         }
     }
 }

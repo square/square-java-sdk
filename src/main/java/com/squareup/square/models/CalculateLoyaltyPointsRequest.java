@@ -13,18 +13,22 @@ import java.util.Objects;
 public class CalculateLoyaltyPointsRequest {
     private final String orderId;
     private final Money transactionAmountMoney;
+    private final String loyaltyAccountId;
 
     /**
      * Initialization constructor.
      * @param  orderId  String value for orderId.
      * @param  transactionAmountMoney  Money value for transactionAmountMoney.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
      */
     @JsonCreator
     public CalculateLoyaltyPointsRequest(
             @JsonProperty("order_id") String orderId,
-            @JsonProperty("transaction_amount_money") Money transactionAmountMoney) {
+            @JsonProperty("transaction_amount_money") Money transactionAmountMoney,
+            @JsonProperty("loyalty_account_id") String loyaltyAccountId) {
         this.orderId = orderId;
         this.transactionAmountMoney = transactionAmountMoney;
+        this.loyaltyAccountId = loyaltyAccountId;
     }
 
     /**
@@ -56,9 +60,26 @@ public class CalculateLoyaltyPointsRequest {
         return transactionAmountMoney;
     }
 
+    /**
+     * Getter for LoyaltyAccountId.
+     * The ID of the target [loyalty account]($m/LoyaltyAccount). Optionally specify this field if
+     * your application uses the Orders API to process orders. If specified, the `promotion_points`
+     * field in the response shows the number of points the buyer would earn from the purchase. In
+     * this case, Square uses the account ID to determine whether the promotion's `trigger_limit`
+     * (the maximum number of times that a buyer can trigger the promotion) has been reached. If not
+     * specified, the `promotion_points` field shows the number of points the purchase qualifies for
+     * regardless of the trigger limit.
+     * @return Returns the String
+     */
+    @JsonGetter("loyalty_account_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLoyaltyAccountId() {
+        return loyaltyAccountId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, transactionAmountMoney);
+        return Objects.hash(orderId, transactionAmountMoney, loyaltyAccountId);
     }
 
     @Override
@@ -71,7 +92,8 @@ public class CalculateLoyaltyPointsRequest {
         }
         CalculateLoyaltyPointsRequest other = (CalculateLoyaltyPointsRequest) obj;
         return Objects.equals(orderId, other.orderId)
-            && Objects.equals(transactionAmountMoney, other.transactionAmountMoney);
+            && Objects.equals(transactionAmountMoney, other.transactionAmountMoney)
+            && Objects.equals(loyaltyAccountId, other.loyaltyAccountId);
     }
 
     /**
@@ -81,7 +103,8 @@ public class CalculateLoyaltyPointsRequest {
     @Override
     public String toString() {
         return "CalculateLoyaltyPointsRequest [" + "orderId=" + orderId
-                + ", transactionAmountMoney=" + transactionAmountMoney + "]";
+                + ", transactionAmountMoney=" + transactionAmountMoney + ", loyaltyAccountId="
+                + loyaltyAccountId + "]";
     }
 
     /**
@@ -92,7 +115,8 @@ public class CalculateLoyaltyPointsRequest {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .orderId(getOrderId())
-                .transactionAmountMoney(getTransactionAmountMoney());
+                .transactionAmountMoney(getTransactionAmountMoney())
+                .loyaltyAccountId(getLoyaltyAccountId());
         return builder;
     }
 
@@ -102,6 +126,7 @@ public class CalculateLoyaltyPointsRequest {
     public static class Builder {
         private String orderId;
         private Money transactionAmountMoney;
+        private String loyaltyAccountId;
 
 
 
@@ -126,11 +151,22 @@ public class CalculateLoyaltyPointsRequest {
         }
 
         /**
+         * Setter for loyaltyAccountId.
+         * @param  loyaltyAccountId  String value for loyaltyAccountId.
+         * @return Builder
+         */
+        public Builder loyaltyAccountId(String loyaltyAccountId) {
+            this.loyaltyAccountId = loyaltyAccountId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CalculateLoyaltyPointsRequest} object using the set fields.
          * @return {@link CalculateLoyaltyPointsRequest}
          */
         public CalculateLoyaltyPointsRequest build() {
-            return new CalculateLoyaltyPointsRequest(orderId, transactionAmountMoney);
+            return new CalculateLoyaltyPointsRequest(orderId, transactionAmountMoney,
+                    loyaltyAccountId);
         }
     }
 }

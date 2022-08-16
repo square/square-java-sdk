@@ -17,18 +17,22 @@ public class CreatePaymentLinkResponse {
     private HttpContext httpContext;
     private final List<Error> errors;
     private final PaymentLink paymentLink;
+    private final PaymentLinkRelatedResources relatedResources;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  paymentLink  PaymentLink value for paymentLink.
+     * @param  relatedResources  PaymentLinkRelatedResources value for relatedResources.
      */
     @JsonCreator
     public CreatePaymentLinkResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("payment_link") PaymentLink paymentLink) {
+            @JsonProperty("payment_link") PaymentLink paymentLink,
+            @JsonProperty("related_resources") PaymentLinkRelatedResources relatedResources) {
         this.errors = errors;
         this.paymentLink = paymentLink;
+        this.relatedResources = relatedResources;
     }
 
     @JsonIgnore
@@ -57,9 +61,19 @@ public class CreatePaymentLinkResponse {
         return paymentLink;
     }
 
+    /**
+     * Getter for RelatedResources.
+     * @return Returns the PaymentLinkRelatedResources
+     */
+    @JsonGetter("related_resources")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentLinkRelatedResources getRelatedResources() {
+        return relatedResources;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, paymentLink);
+        return Objects.hash(errors, paymentLink, relatedResources);
     }
 
     @Override
@@ -72,7 +86,8 @@ public class CreatePaymentLinkResponse {
         }
         CreatePaymentLinkResponse other = (CreatePaymentLinkResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(paymentLink, other.paymentLink);
+            && Objects.equals(paymentLink, other.paymentLink)
+            && Objects.equals(relatedResources, other.relatedResources);
     }
 
     /**
@@ -82,7 +97,7 @@ public class CreatePaymentLinkResponse {
     @Override
     public String toString() {
         return "CreatePaymentLinkResponse [" + "errors=" + errors + ", paymentLink=" + paymentLink
-                + "]";
+                + ", relatedResources=" + relatedResources + "]";
     }
 
     /**
@@ -93,7 +108,8 @@ public class CreatePaymentLinkResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .paymentLink(getPaymentLink());
+                .paymentLink(getPaymentLink())
+                .relatedResources(getRelatedResources());
         return builder;
     }
 
@@ -104,6 +120,7 @@ public class CreatePaymentLinkResponse {
         private HttpContext httpContext;
         private List<Error> errors;
         private PaymentLink paymentLink;
+        private PaymentLinkRelatedResources relatedResources;
 
 
 
@@ -138,12 +155,22 @@ public class CreatePaymentLinkResponse {
         }
 
         /**
+         * Setter for relatedResources.
+         * @param  relatedResources  PaymentLinkRelatedResources value for relatedResources.
+         * @return Builder
+         */
+        public Builder relatedResources(PaymentLinkRelatedResources relatedResources) {
+            this.relatedResources = relatedResources;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreatePaymentLinkResponse} object using the set fields.
          * @return {@link CreatePaymentLinkResponse}
          */
         public CreatePaymentLinkResponse build() {
             CreatePaymentLinkResponse model =
-                    new CreatePaymentLinkResponse(errors, paymentLink);
+                    new CreatePaymentLinkResponse(errors, paymentLink, relatedResources);
             model.httpContext = httpContext;
             return model;
         }

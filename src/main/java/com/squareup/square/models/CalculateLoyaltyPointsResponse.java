@@ -17,18 +17,22 @@ public class CalculateLoyaltyPointsResponse {
     private HttpContext httpContext;
     private final List<Error> errors;
     private final Integer points;
+    private final Integer promotionPoints;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  points  Integer value for points.
+     * @param  promotionPoints  Integer value for promotionPoints.
      */
     @JsonCreator
     public CalculateLoyaltyPointsResponse(
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("points") Integer points) {
+            @JsonProperty("points") Integer points,
+            @JsonProperty("promotion_points") Integer promotionPoints) {
         this.errors = errors;
         this.points = points;
+        this.promotionPoints = promotionPoints;
     }
 
     @JsonIgnore
@@ -49,8 +53,7 @@ public class CalculateLoyaltyPointsResponse {
 
     /**
      * Getter for Points.
-     * The points that the buyer can earn from a specified purchase. This value does not include
-     * additional points earned from a loyalty promotion.
+     * The number of points that the buyer can earn from the base loyalty program.
      * @return Returns the Integer
      */
     @JsonGetter("points")
@@ -59,9 +62,22 @@ public class CalculateLoyaltyPointsResponse {
         return points;
     }
 
+    /**
+     * Getter for PromotionPoints.
+     * The number of points that the buyer can earn from a loyalty promotion. To be eligible to earn
+     * promotion points, the purchase must first qualify for program points. When `order_id` is not
+     * provided in the request, this value is always 0.
+     * @return Returns the Integer
+     */
+    @JsonGetter("promotion_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getPromotionPoints() {
+        return promotionPoints;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, points);
+        return Objects.hash(errors, points, promotionPoints);
     }
 
     @Override
@@ -74,7 +90,8 @@ public class CalculateLoyaltyPointsResponse {
         }
         CalculateLoyaltyPointsResponse other = (CalculateLoyaltyPointsResponse) obj;
         return Objects.equals(errors, other.errors)
-            && Objects.equals(points, other.points);
+            && Objects.equals(points, other.points)
+            && Objects.equals(promotionPoints, other.promotionPoints);
     }
 
     /**
@@ -83,7 +100,8 @@ public class CalculateLoyaltyPointsResponse {
      */
     @Override
     public String toString() {
-        return "CalculateLoyaltyPointsResponse [" + "errors=" + errors + ", points=" + points + "]";
+        return "CalculateLoyaltyPointsResponse [" + "errors=" + errors + ", points=" + points
+                + ", promotionPoints=" + promotionPoints + "]";
     }
 
     /**
@@ -94,7 +112,8 @@ public class CalculateLoyaltyPointsResponse {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .errors(getErrors())
-                .points(getPoints());
+                .points(getPoints())
+                .promotionPoints(getPromotionPoints());
         return builder;
     }
 
@@ -105,6 +124,7 @@ public class CalculateLoyaltyPointsResponse {
         private HttpContext httpContext;
         private List<Error> errors;
         private Integer points;
+        private Integer promotionPoints;
 
 
 
@@ -139,12 +159,22 @@ public class CalculateLoyaltyPointsResponse {
         }
 
         /**
+         * Setter for promotionPoints.
+         * @param  promotionPoints  Integer value for promotionPoints.
+         * @return Builder
+         */
+        public Builder promotionPoints(Integer promotionPoints) {
+            this.promotionPoints = promotionPoints;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CalculateLoyaltyPointsResponse} object using the set fields.
          * @return {@link CalculateLoyaltyPointsResponse}
          */
         public CalculateLoyaltyPointsResponse build() {
             CalculateLoyaltyPointsResponse model =
-                    new CalculateLoyaltyPointsResponse(errors, points);
+                    new CalculateLoyaltyPointsResponse(errors, points, promotionPoints);
             model.httpContext = httpContext;
             return model;
         }

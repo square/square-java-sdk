@@ -18,6 +18,7 @@ public class CustomerFilter {
     private final CustomerTextFilter phoneNumber;
     private final CustomerTextFilter referenceId;
     private final FilterValue groupIds;
+    private final CustomerCustomAttributeFilters customAttribute;
 
     /**
      * Initialization constructor.
@@ -28,6 +29,7 @@ public class CustomerFilter {
      * @param  phoneNumber  CustomerTextFilter value for phoneNumber.
      * @param  referenceId  CustomerTextFilter value for referenceId.
      * @param  groupIds  FilterValue value for groupIds.
+     * @param  customAttribute  CustomerCustomAttributeFilters value for customAttribute.
      */
     @JsonCreator
     public CustomerFilter(
@@ -37,7 +39,8 @@ public class CustomerFilter {
             @JsonProperty("email_address") CustomerTextFilter emailAddress,
             @JsonProperty("phone_number") CustomerTextFilter phoneNumber,
             @JsonProperty("reference_id") CustomerTextFilter referenceId,
-            @JsonProperty("group_ids") FilterValue groupIds) {
+            @JsonProperty("group_ids") FilterValue groupIds,
+            @JsonProperty("custom_attribute") CustomerCustomAttributeFilters customAttribute) {
         this.creationSource = creationSource;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -45,6 +48,7 @@ public class CustomerFilter {
         this.phoneNumber = phoneNumber;
         this.referenceId = referenceId;
         this.groupIds = groupIds;
+        this.customAttribute = customAttribute;
     }
 
     /**
@@ -139,10 +143,24 @@ public class CustomerFilter {
         return groupIds;
     }
 
+    /**
+     * Getter for CustomAttribute.
+     * The custom attribute filters in a set of [customer filters]($m/CustomerFilter) used in a
+     * search query. Use this filter to search based on [custom attributes]($m/CustomAttribute) that
+     * are assigned to customer profiles. For more information, see [Search by custom
+     * attribute](https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#search-by-custom-attribute).
+     * @return Returns the CustomerCustomAttributeFilters
+     */
+    @JsonGetter("custom_attribute")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CustomerCustomAttributeFilters getCustomAttribute() {
+        return customAttribute;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(creationSource, createdAt, updatedAt, emailAddress, phoneNumber,
-                referenceId, groupIds);
+                referenceId, groupIds, customAttribute);
     }
 
     @Override
@@ -160,7 +178,8 @@ public class CustomerFilter {
             && Objects.equals(emailAddress, other.emailAddress)
             && Objects.equals(phoneNumber, other.phoneNumber)
             && Objects.equals(referenceId, other.referenceId)
-            && Objects.equals(groupIds, other.groupIds);
+            && Objects.equals(groupIds, other.groupIds)
+            && Objects.equals(customAttribute, other.customAttribute);
     }
 
     /**
@@ -171,7 +190,8 @@ public class CustomerFilter {
     public String toString() {
         return "CustomerFilter [" + "creationSource=" + creationSource + ", createdAt=" + createdAt
                 + ", updatedAt=" + updatedAt + ", emailAddress=" + emailAddress + ", phoneNumber="
-                + phoneNumber + ", referenceId=" + referenceId + ", groupIds=" + groupIds + "]";
+                + phoneNumber + ", referenceId=" + referenceId + ", groupIds=" + groupIds
+                + ", customAttribute=" + customAttribute + "]";
     }
 
     /**
@@ -187,7 +207,8 @@ public class CustomerFilter {
                 .emailAddress(getEmailAddress())
                 .phoneNumber(getPhoneNumber())
                 .referenceId(getReferenceId())
-                .groupIds(getGroupIds());
+                .groupIds(getGroupIds())
+                .customAttribute(getCustomAttribute());
         return builder;
     }
 
@@ -202,6 +223,7 @@ public class CustomerFilter {
         private CustomerTextFilter phoneNumber;
         private CustomerTextFilter referenceId;
         private FilterValue groupIds;
+        private CustomerCustomAttributeFilters customAttribute;
 
 
 
@@ -276,12 +298,22 @@ public class CustomerFilter {
         }
 
         /**
+         * Setter for customAttribute.
+         * @param  customAttribute  CustomerCustomAttributeFilters value for customAttribute.
+         * @return Builder
+         */
+        public Builder customAttribute(CustomerCustomAttributeFilters customAttribute) {
+            this.customAttribute = customAttribute;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CustomerFilter} object using the set fields.
          * @return {@link CustomerFilter}
          */
         public CustomerFilter build() {
             return new CustomerFilter(creationSource, createdAt, updatedAt, emailAddress,
-                    phoneNumber, referenceId, groupIds);
+                    phoneNumber, referenceId, groupIds, customAttribute);
         }
     }
 }

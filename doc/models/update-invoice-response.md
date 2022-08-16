@@ -11,13 +11,14 @@ Describes a `UpdateInvoice` response.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Optional | Stores information about an invoice. You use the Invoices API to create and manage<br>invoices. For more information, see [Manage Invoices Using the Invoices API](https://developer.squareup.com/docs/invoices-api/overview). | Invoice getInvoice() |
+| `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Optional | Stores information about an invoice. You use the Invoices API to create and manage<br>invoices. For more information, see [Invoices API Overview](https://developer.squareup.com/docs/invoices-api/overview). | Invoice getInvoice() |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)
 
 ```json
 {
+  "errors": [],
   "invoice": {
     "accepted_payment_methods": {
       "bank_account": false,
@@ -55,6 +56,7 @@ Describes a `UpdateInvoice` response.
           "currency": "USD"
         },
         "due_date": "2030-01-24",
+        "reminders": [],
         "request_type": "BALANCE",
         "tipping_enabled": false,
         "total_completed_amount_money": {

@@ -294,13 +294,13 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
     }
 
     /**
-     * Searches the customer profiles associated with a Square account using a supported query
-     * filter. Calling `SearchCustomers` without any explicit query filter returns all customer
-     * profiles ordered alphabetically based on `given_name` and `family_name`. Under normal
-     * operating conditions, newly created or updated customer profiles become available for the
-     * search operation in well under 30 seconds. Occasionally, propagation of the new or updated
-     * profiles can take closer to one minute or longer, especially during network incidents and
-     * outages.
+     * Searches the customer profiles associated with a Square account using one or more supported
+     * query filters. Calling `SearchCustomers` without any explicit query filter returns all
+     * customer profiles ordered alphabetically based on `given_name` and `family_name`. Under
+     * normal operating conditions, newly created or updated customer profiles become available for
+     * the search operation in well under 30 seconds. Occasionally, propagation of the new or
+     * updated profiles can take closer to one minute or longer, especially during network incidents
+     * and outages.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchCustomersResponse response from the API call
@@ -319,13 +319,13 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
     }
 
     /**
-     * Searches the customer profiles associated with a Square account using a supported query
-     * filter. Calling `SearchCustomers` without any explicit query filter returns all customer
-     * profiles ordered alphabetically based on `given_name` and `family_name`. Under normal
-     * operating conditions, newly created or updated customer profiles become available for the
-     * search operation in well under 30 seconds. Occasionally, propagation of the new or updated
-     * profiles can take closer to one minute or longer, especially during network incidents and
-     * outages.
+     * Searches the customer profiles associated with a Square account using one or more supported
+     * query filters. Calling `SearchCustomers` without any explicit query filter returns all
+     * customer profiles ordered alphabetically based on `given_name` and `family_name`. Under
+     * normal operating conditions, newly created or updated customer profiles become available for
+     * the search operation in well under 30 seconds. Occasionally, propagation of the new or
+     * updated profiles can take closer to one minute or longer, especially during network incidents
+     * and outages.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchCustomersResponse response from the API call

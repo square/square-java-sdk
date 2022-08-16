@@ -37,7 +37,7 @@ public class AcceptedPaymentMethods {
 
     /**
      * Getter for ApplePay.
-     * Whether Apple Pay is accepted at checkout
+     * Whether Apple Pay is accepted at checkout.
      * @return Returns the Boolean
      */
     @JsonGetter("apple_pay")
@@ -48,7 +48,7 @@ public class AcceptedPaymentMethods {
 
     /**
      * Getter for GooglePay.
-     * Whether Google Pay is accepted at checkout
+     * Whether Google Pay is accepted at checkout.
      * @return Returns the Boolean
      */
     @JsonGetter("google_pay")
@@ -59,7 +59,7 @@ public class AcceptedPaymentMethods {
 
     /**
      * Getter for CashAppPay.
-     * Whether Cash App Pay is accepted at checkout
+     * Whether Cash App Pay is accepted at checkout.
      * @return Returns the Boolean
      */
     @JsonGetter("cash_app_pay")
@@ -70,7 +70,7 @@ public class AcceptedPaymentMethods {
 
     /**
      * Getter for AfterpayClearpay.
-     * Whether Afterpay/Clearpay is accepted at checkout
+     * Whether Afterpay/Clearpay is accepted at checkout.
      * @return Returns the Boolean
      */
     @JsonGetter("afterpay_clearpay")

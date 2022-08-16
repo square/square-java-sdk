@@ -25,7 +25,8 @@ public class DisputeEvidenceCreatedWebhookObject {
 
     /**
      * Getter for Object.
-     * Represents a dispute a cardholder initiated with their bank.
+     * Represents a [dispute](https://developer.squareup.com/docs/disputes-api/overview) a
+     * cardholder initiated with their bank.
      * @return Returns the Dispute
      */
     @JsonGetter("object")

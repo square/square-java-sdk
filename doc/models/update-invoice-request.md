@@ -11,9 +11,9 @@ Describes a `UpdateInvoice` request.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Required | Stores information about an invoice. You use the Invoices API to create and manage<br>invoices. For more information, see [Manage Invoices Using the Invoices API](https://developer.squareup.com/docs/invoices-api/overview). | Invoice getInvoice() |
+| `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Required | Stores information about an invoice. You use the Invoices API to create and manage<br>invoices. For more information, see [Invoices API Overview](https://developer.squareup.com/docs/invoices-api/overview). | Invoice getInvoice() |
 | `IdempotencyKey` | `String` | Optional | A unique string that identifies the `UpdateInvoice` request. If you do not<br>provide `idempotency_key` (or provide an empty string as the value), the endpoint<br>treats each request as independent.<br><br>For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).<br>**Constraints**: *Maximum Length*: `128` | String getIdempotencyKey() |
-| `FieldsToClear` | `List<String>` | Optional | The list of fields to clear.<br>For examples, see [Update an invoice](https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice). | List<String> getFieldsToClear() |
+| `FieldsToClear` | `List<String>` | Optional | The list of fields to clear.<br>For examples, see [Update an Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices). | List<String> getFieldsToClear() |
 
 ## Example (as JSON)
 
@@ -29,7 +29,8 @@ Describes a `UpdateInvoice` request.
         "tipping_enabled": false,
         "uid": "2da7964f-f3d2-4f43-81e8-5aa220bf3355"
       }
-    ]
+    ],
+    "version": 1
   }
 }
 ```

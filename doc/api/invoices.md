@@ -320,6 +320,7 @@ InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Bu
 bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
 
 Invoice invoice = new Invoice.Builder()
+    .version(1)
     .paymentRequests(invoicePaymentRequests)
     .build();
 List<String> bodyFieldsToClear = new LinkedList<>();

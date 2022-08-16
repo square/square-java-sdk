@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-07-20"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-08-17"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2022-07-20")
+    .squareVersion("2022-08-17")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -45,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2022-07-20")
+            .squareVersion("2022-08-17")
             .accessToken("AccessToken")
             .build();
         
@@ -105,6 +105,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getTeamApi()` | Provides access to Team controller. | `TeamApi` |
 | `getTerminalApi()` | Provides access to Terminal controller. | `TerminalApi` |
 | `getVendorsApi()` | Provides access to Vendors controller. | `VendorsApi` |
+| `getWebhookSubscriptionsApi()` | Provides access to WebhookSubscriptions controller. | `WebhookSubscriptionsApi` |
 
 ### Methods
 

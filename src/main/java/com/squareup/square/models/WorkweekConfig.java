@@ -66,7 +66,7 @@ public class WorkweekConfig {
 
     /**
      * Getter for StartOfDayLocalTime.
-     * The local time at which a business week ends. Represented as a string in `HH:MM` format
+     * The local time at which a business week starts. Represented as a string in `HH:MM` format
      * (`HH:MM:SS` is also accepted, but seconds are truncated).
      * @return Returns the String
      */

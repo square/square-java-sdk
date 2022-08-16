@@ -507,9 +507,7 @@ public class Order {
     /**
      * Getter for TicketName.
      * A short-term identifier for the order (such as a customer first name, table number, or
-     * auto-generated order number that resets daily). For orders created in Square Point of Sale,
-     * the `ticket_name` is printed on in-person tickets and stubs. It converts to the
-     * `kitchen_printing.name` field in the bill cart feature details.
+     * auto-generated order number that resets daily).
      * @return Returns the String
      */
     @JsonGetter("ticket_name")

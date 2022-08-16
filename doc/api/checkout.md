@@ -20,6 +20,8 @@ CheckoutApi checkoutApi = client.getCheckoutApi();
 
 # Create Checkout
 
+**This endpoint is deprecated.**
+
 Links a `checkoutId` to a `checkout_page_url` that customers are
 directed to in order to provide their payment information using a
 payment processing workflow hosted on connect.squareup.com.
@@ -144,6 +146,8 @@ Address address = new Address.Builder()
     .administrativeDistrictLevel1("CA")
     .postalCode("94103")
     .country("US")
+    .firstName("Jane")
+    .lastName("Doe")
     .build();
 List<ChargeRequestAdditionalRecipient> bodyAdditionalRecipients = new LinkedList<>();
 

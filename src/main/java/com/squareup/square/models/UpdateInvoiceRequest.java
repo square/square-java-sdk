@@ -35,8 +35,8 @@ public class UpdateInvoiceRequest {
     /**
      * Getter for Invoice.
      * Stores information about an invoice. You use the Invoices API to create and manage invoices.
-     * For more information, see [Manage Invoices Using the Invoices
-     * API](https://developer.squareup.com/docs/invoices-api/overview).
+     * For more information, see [Invoices API
+     * Overview](https://developer.squareup.com/docs/invoices-api/overview).
      * @return Returns the Invoice
      */
     @JsonGetter("invoice")
@@ -61,7 +61,7 @@ public class UpdateInvoiceRequest {
     /**
      * Getter for FieldsToClear.
      * The list of fields to clear. For examples, see [Update an
-     * invoice](https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice).
+     * Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices).
      * @return Returns the List of String
      */
     @JsonGetter("fields_to_clear")
