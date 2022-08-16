@@ -37,6 +37,7 @@ import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.api.VendorsApi;
+import com.squareup.square.api.WebhookSubscriptionsApi;
 
 /**
  * Gateway interface for the library.
@@ -260,6 +261,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the VendorsApi instance
      */
     VendorsApi getVendorsApi();
+
+    /**
+     * Provides access to WebhookSubscriptions controller.
+     * @return Returns the WebhookSubscriptionsApi instance
+     */
+    WebhookSubscriptionsApi getWebhookSubscriptionsApi();
 
     /**
      * Current SDK Version.

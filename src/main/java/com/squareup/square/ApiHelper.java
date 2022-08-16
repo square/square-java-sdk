@@ -135,7 +135,6 @@ public class ApiHelper {
 
         return mapper.writeValueAsString(obj);
     }
-
     /**
      * Json deserialization of the given Json string.
      * @param   <T> The type of the object to deserialize into

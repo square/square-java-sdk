@@ -33,7 +33,7 @@ public class CreateDisputeEvidenceFileRequest {
 
     /**
      * Getter for IdempotencyKey.
-     * The Unique ID. For more information, see
+     * A unique key identifying the request. For more information, see
      * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */

@@ -27,6 +27,8 @@ public interface CheckoutApi {
      * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights). We
      * recommend that you use the new [CreatePaymentLink]($e/Checkout/CreatePaymentLink)  endpoint
      * in place of this previously released endpoint.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the business location to associate the
      *         checkout with.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -35,7 +37,7 @@ public interface CheckoutApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    CreateCheckoutResponse createCheckout(
+    @Deprecated    CreateCheckoutResponse createCheckout(
             final String locationId,
             final CreateCheckoutRequest body) throws ApiException, IOException;
 
@@ -47,12 +49,15 @@ public interface CheckoutApi {
      * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights). We
      * recommend that you use the new [CreatePaymentLink]($e/Checkout/CreatePaymentLink)  endpoint
      * in place of this previously released endpoint.
+     * @deprecated
+     * 
      * @param  locationId  Required parameter: The ID of the business location to associate the
      *         checkout with.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateCheckoutResponse response from the API call
      */
+    @Deprecated
     CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
             final String locationId,
             final CreateCheckoutRequest body);

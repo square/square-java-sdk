@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**  
  * Contains utility methods for comparing objects, arrays and files.
@@ -120,7 +121,7 @@ public class TestHelper {
                     return false;
                 }
             } else {
-                // Value comparison if checkValues 
+                 // Value comparison if checkValues 
                 if (checkValues) {
                     // If left value is a primitive, check if it equals right value
                     if (leftVal == null) {
@@ -131,28 +132,64 @@ public class TestHelper {
                         if (!(rightVal instanceof List)) {
                             return false;
                         }
-                        // If both lists are empty then move on
-                        if (((List) leftVal).isEmpty() && (((List) rightVal).isEmpty())) {
-                            continue;
-                        }
-                        if (((List) leftVal).get(0) instanceof Map) {
-                            if (!isArrayOfJsonObjectsProperSubsetOf(
-                                    (List<LinkedHashMap<String, Object>>) leftVal,
-                                    (List<LinkedHashMap<String, Object>>) rightVal,
-                                    checkValues, allowExtra, isOrdered)) {
-                                return false;
-                            }
-                        } else {
-                            if (!isListProperSubsetOf(
-                                    (List<Object>) leftVal,
-                                    (List<Object>) rightVal,
-                                    allowExtra, isOrdered)) {
-                                return false;
-                            }
-                        }
-                    } else if (!leftVal.equals((rightTree).get(key)) && leftVal != nullString) {
-                        return false;
-                    }
+                        List leftList = (List) leftVal;
+						List rightList = (List) rightVal;
+
+						// If both lists are empty then move on
+						if (leftList.isEmpty() && rightList.isEmpty()) {
+							continue;
+						}
+
+						// check if both list contents are of same data type
+						boolean isContentDataTypeSame = leftList.stream()
+								.allMatch(rightList.get(0).getClass()::isInstance);
+
+						if (!isContentDataTypeSame) {
+                            // filter out the instances of Map
+							List<LinkedHashMap<String, Object>> leftListOfMap = 
+									(List<LinkedHashMap<String, Object>>) leftList
+									.stream().filter(x -> x instanceof Map)
+									.collect(Collectors.toList());
+							List<LinkedHashMap<String, Object>> rightListOfMap = 
+									(List<LinkedHashMap<String, Object>>) rightList
+									.stream().filter(x -> x instanceof Map)
+									.collect(Collectors.toList());
+							
+							if (!isArrayOfJsonObjectsProperSubsetOf(leftListOfMap, rightListOfMap, 
+									checkValues,allowExtra, isOrdered)) {
+								return false;
+							}
+                            // prepare the list of other instances (other than map)
+							List<Object> remainingLeftList = (List<Object>) leftList
+									.stream()
+									.filter(x -> !leftListOfMap.contains(x))
+									.collect(Collectors.toList());
+							List<Object> remainingRightList = (List<Object>) rightList
+									.stream()
+									.filter(x -> !rightListOfMap.contains(x))
+									.collect(Collectors.toList());
+
+							if (!isListProperSubsetOf(remainingLeftList, remainingRightList, 
+									allowExtra, isOrdered)) {
+								return false;
+							}
+						} else if (leftList.get(0) instanceof Map & isContentDataTypeSame) {
+							if (!isArrayOfJsonObjectsProperSubsetOf(
+									(List<LinkedHashMap<String, Object>>) leftVal,
+									(List<LinkedHashMap<String, Object>>) rightVal,
+									checkValues, allowExtra,isOrdered)) {
+								return false;
+							}
+						} else {
+							if (!isListProperSubsetOf(
+									(List<Object>) leftVal, (List<Object>) rightVal, 
+									allowExtra, isOrdered)) {
+								return false;
+							}
+						}
+					} else if (!leftVal.equals((rightTree).get(key)) && leftVal != nullString) {
+						return false;
+					}
                 }
             }
         }
@@ -266,7 +303,41 @@ public class TestHelper {
         LinkedList<LinkedHashMap<String, Object>> right = ApiHelper.deserialize(rightObject,
             obj.getClass());
         
-        return isArrayOfJsonObjectsProperSubsetOf(left, right, checkValues, allowExtra, isOrdered);
+        boolean containsMap = true;
+
+		for (int i = 0; i < left.size(); i++) {
+			if (!(left.get(i) instanceof Map)) {
+				containsMap = false;
+				break;
+			}
+		}
+
+		if (!containsMap) {
+			List<Object> leftList = new LinkedList<Object>();
+			List<Object> rightList = new LinkedList<Object>();
+			for (int i = 0; i < left.size(); i++) {
+				if (!(left.get(i) instanceof Map)) {
+					leftList.add(left.get(i));
+				}
+			}
+
+			for (int i = 0; i < right.size(); i++) {
+				if (!(right.get(i) instanceof Map)) {
+					rightList.add(right.get(i));
+
+				}
+			}
+
+			// remove the other elements which are not an instance of Map
+			left.removeAll(leftList);
+			right.removeAll(rightList);
+
+			if (!isListProperSubsetOf(leftList, rightList, allowExtra, isOrdered)) {
+				return false;
+			}
+		}
+
+		return isArrayOfJsonObjectsProperSubsetOf(left, right, checkValues, allowExtra, isOrdered);
     }
 
     /**

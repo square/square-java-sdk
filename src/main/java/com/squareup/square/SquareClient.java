@@ -48,6 +48,7 @@ import com.squareup.square.api.DefaultTerminalApi;
 import com.squareup.square.api.DefaultTransactionsApi;
 import com.squareup.square.api.DefaultV1TransactionsApi;
 import com.squareup.square.api.DefaultVendorsApi;
+import com.squareup.square.api.DefaultWebhookSubscriptionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
@@ -73,6 +74,7 @@ import com.squareup.square.api.TerminalApi;
 import com.squareup.square.api.TransactionsApi;
 import com.squareup.square.api.V1TransactionsApi;
 import com.squareup.square.api.VendorsApi;
+import com.squareup.square.api.WebhookSubscriptionsApi;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
 import com.squareup.square.http.client.HttpClient;
@@ -130,6 +132,7 @@ public final class SquareClient implements SquareClientInterface {
     private TeamApi team;
     private TerminalApi terminal;
     private VendorsApi vendors;
+    private WebhookSubscriptionsApi webhookSubscriptions;
 
     /**
      * Current API environment.
@@ -271,6 +274,8 @@ public final class SquareClient implements SquareClientInterface {
                 this.httpCallback);
         vendors = new DefaultVendorsApi(this, this.httpClient, this.authManagers,
                 this.httpCallback);
+        webhookSubscriptions = new DefaultWebhookSubscriptionsApi(this, this.httpClient,
+                this.authManagers, this.httpCallback);
     }
 
     /**
@@ -569,6 +574,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of WebhookSubscriptionsApi.
+     * @return webhookSubscriptions
+     */
+    public WebhookSubscriptionsApi getWebhookSubscriptionsApi() {
+        return webhookSubscriptions;
+    }
+
+    /**
      * Current API environment.
      * @return environment
      */
@@ -645,7 +658,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "22.0.0.20220720";
+        return "23.0.0.20220817";
     }
 
     /**
@@ -747,7 +760,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2022-07-20";
+        private String squareVersion = "2022-08-17";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;

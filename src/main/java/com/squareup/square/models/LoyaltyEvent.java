@@ -24,6 +24,7 @@ public class LoyaltyEvent {
     private final String source;
     private final LoyaltyEventExpirePoints expirePoints;
     private final LoyaltyEventOther otherEvent;
+    private final LoyaltyEventAccumulatePromotionPoints accumulatePromotionPoints;
 
     /**
      * Initialization constructor.
@@ -40,6 +41,8 @@ public class LoyaltyEvent {
      * @param  locationId  String value for locationId.
      * @param  expirePoints  LoyaltyEventExpirePoints value for expirePoints.
      * @param  otherEvent  LoyaltyEventOther value for otherEvent.
+     * @param  accumulatePromotionPoints  LoyaltyEventAccumulatePromotionPoints value for
+     *         accumulatePromotionPoints.
      */
     @JsonCreator
     public LoyaltyEvent(
@@ -55,7 +58,8 @@ public class LoyaltyEvent {
             @JsonProperty("adjust_points") LoyaltyEventAdjustPoints adjustPoints,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("expire_points") LoyaltyEventExpirePoints expirePoints,
-            @JsonProperty("other_event") LoyaltyEventOther otherEvent) {
+            @JsonProperty("other_event") LoyaltyEventOther otherEvent,
+            @JsonProperty("accumulate_promotion_points") LoyaltyEventAccumulatePromotionPoints accumulatePromotionPoints) {
         this.id = id;
         this.type = type;
         this.createdAt = createdAt;
@@ -69,6 +73,7 @@ public class LoyaltyEvent {
         this.source = source;
         this.expirePoints = expirePoints;
         this.otherEvent = otherEvent;
+        this.accumulatePromotionPoints = accumulatePromotionPoints;
     }
 
     /**
@@ -158,7 +163,7 @@ public class LoyaltyEvent {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The ID of the [loyalty account]($m/LoyaltyAccount) in which the event occurred.
+     * The ID of the [loyalty account]($m/LoyaltyAccount) associated with the event.
      * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")
@@ -209,11 +214,22 @@ public class LoyaltyEvent {
         return otherEvent;
     }
 
+    /**
+     * Getter for AccumulatePromotionPoints.
+     * Provides metadata when the event `type` is `ACCUMULATE_PROMOTION_POINTS`.
+     * @return Returns the LoyaltyEventAccumulatePromotionPoints
+     */
+    @JsonGetter("accumulate_promotion_points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public LoyaltyEventAccumulatePromotionPoints getAccumulatePromotionPoints() {
+        return accumulatePromotionPoints;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, type, createdAt, accumulatePoints, createReward, redeemReward,
                 deleteReward, adjustPoints, loyaltyAccountId, locationId, source, expirePoints,
-                otherEvent);
+                otherEvent, accumulatePromotionPoints);
     }
 
     @Override
@@ -237,7 +253,8 @@ public class LoyaltyEvent {
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(source, other.source)
             && Objects.equals(expirePoints, other.expirePoints)
-            && Objects.equals(otherEvent, other.otherEvent);
+            && Objects.equals(otherEvent, other.otherEvent)
+            && Objects.equals(accumulatePromotionPoints, other.accumulatePromotionPoints);
     }
 
     /**
@@ -251,7 +268,8 @@ public class LoyaltyEvent {
                 + ", accumulatePoints=" + accumulatePoints + ", createReward=" + createReward
                 + ", redeemReward=" + redeemReward + ", deleteReward=" + deleteReward
                 + ", adjustPoints=" + adjustPoints + ", locationId=" + locationId
-                + ", expirePoints=" + expirePoints + ", otherEvent=" + otherEvent + "]";
+                + ", expirePoints=" + expirePoints + ", otherEvent=" + otherEvent
+                + ", accumulatePromotionPoints=" + accumulatePromotionPoints + "]";
     }
 
     /**
@@ -268,7 +286,8 @@ public class LoyaltyEvent {
                 .adjustPoints(getAdjustPoints())
                 .locationId(getLocationId())
                 .expirePoints(getExpirePoints())
-                .otherEvent(getOtherEvent());
+                .otherEvent(getOtherEvent())
+                .accumulatePromotionPoints(getAccumulatePromotionPoints());
         return builder;
     }
 
@@ -289,6 +308,7 @@ public class LoyaltyEvent {
         private String locationId;
         private LoyaltyEventExpirePoints expirePoints;
         private LoyaltyEventOther otherEvent;
+        private LoyaltyEventAccumulatePromotionPoints accumulatePromotionPoints;
 
         /**
          * Initialization constructor.
@@ -438,13 +458,25 @@ public class LoyaltyEvent {
         }
 
         /**
+         * Setter for accumulatePromotionPoints.
+         * @param  accumulatePromotionPoints  LoyaltyEventAccumulatePromotionPoints value for
+         *         accumulatePromotionPoints.
+         * @return Builder
+         */
+        public Builder accumulatePromotionPoints(
+                LoyaltyEventAccumulatePromotionPoints accumulatePromotionPoints) {
+            this.accumulatePromotionPoints = accumulatePromotionPoints;
+            return this;
+        }
+
+        /**
          * Builds a new {@link LoyaltyEvent} object using the set fields.
          * @return {@link LoyaltyEvent}
          */
         public LoyaltyEvent build() {
             return new LoyaltyEvent(id, type, createdAt, loyaltyAccountId, source, accumulatePoints,
                     createReward, redeemReward, deleteReward, adjustPoints, locationId,
-                    expirePoints, otherEvent);
+                    expirePoints, otherEvent, accumulatePromotionPoints);
         }
     }
 }

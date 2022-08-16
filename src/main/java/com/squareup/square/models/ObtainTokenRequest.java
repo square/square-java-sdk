@@ -26,8 +26,8 @@ public class ObtainTokenRequest {
     /**
      * Initialization constructor.
      * @param  clientId  String value for clientId.
-     * @param  clientSecret  String value for clientSecret.
      * @param  grantType  String value for grantType.
+     * @param  clientSecret  String value for clientSecret.
      * @param  code  String value for code.
      * @param  redirectUri  String value for redirectUri.
      * @param  refreshToken  String value for refreshToken.
@@ -39,8 +39,8 @@ public class ObtainTokenRequest {
     @JsonCreator
     public ObtainTokenRequest(
             @JsonProperty("client_id") String clientId,
-            @JsonProperty("client_secret") String clientSecret,
             @JsonProperty("grant_type") String grantType,
+            @JsonProperty("client_secret") String clientSecret,
             @JsonProperty("code") String code,
             @JsonProperty("redirect_uri") String redirectUri,
             @JsonProperty("refresh_token") String refreshToken,
@@ -74,10 +74,14 @@ public class ObtainTokenRequest {
     /**
      * Getter for ClientSecret.
      * The Square-issued application secret for your application, which is available in the OAuth
-     * page in the [Developer Dashboard](https://developer.squareup.com/apps).
+     * page in the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is
+     * only required when you are not using the [OAuth PKCE (Proof Key for Code Exchange)
+     * flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE flow
+     * requires a `code_verifier` instead of a `client_secret`.
      * @return Returns the String
      */
     @JsonGetter("client_secret")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getClientSecret() {
         return clientSecret;
     }
@@ -217,11 +221,11 @@ public class ObtainTokenRequest {
      */
     @Override
     public String toString() {
-        return "ObtainTokenRequest [" + "clientId=" + clientId + ", clientSecret=" + clientSecret
-                + ", grantType=" + grantType + ", code=" + code + ", redirectUri=" + redirectUri
-                + ", refreshToken=" + refreshToken + ", migrationToken=" + migrationToken
-                + ", scopes=" + scopes + ", shortLived=" + shortLived + ", codeVerifier="
-                + codeVerifier + "]";
+        return "ObtainTokenRequest [" + "clientId=" + clientId + ", grantType=" + grantType
+                + ", clientSecret=" + clientSecret + ", code=" + code + ", redirectUri="
+                + redirectUri + ", refreshToken=" + refreshToken + ", migrationToken="
+                + migrationToken + ", scopes=" + scopes + ", shortLived=" + shortLived
+                + ", codeVerifier=" + codeVerifier + "]";
     }
 
     /**
@@ -230,7 +234,8 @@ public class ObtainTokenRequest {
      * @return a new {@link ObtainTokenRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(clientId, clientSecret, grantType)
+        Builder builder = new Builder(clientId, grantType)
+                .clientSecret(getClientSecret())
                 .code(getCode())
                 .redirectUri(getRedirectUri())
                 .refreshToken(getRefreshToken())
@@ -246,8 +251,8 @@ public class ObtainTokenRequest {
      */
     public static class Builder {
         private String clientId;
-        private String clientSecret;
         private String grantType;
+        private String clientSecret;
         private String code;
         private String redirectUri;
         private String refreshToken;
@@ -259,12 +264,10 @@ public class ObtainTokenRequest {
         /**
          * Initialization constructor.
          * @param  clientId  String value for clientId.
-         * @param  clientSecret  String value for clientSecret.
          * @param  grantType  String value for grantType.
          */
-        public Builder(String clientId, String clientSecret, String grantType) {
+        public Builder(String clientId, String grantType) {
             this.clientId = clientId;
-            this.clientSecret = clientSecret;
             this.grantType = grantType;
         }
 
@@ -279,22 +282,22 @@ public class ObtainTokenRequest {
         }
 
         /**
-         * Setter for clientSecret.
-         * @param  clientSecret  String value for clientSecret.
-         * @return Builder
-         */
-        public Builder clientSecret(String clientSecret) {
-            this.clientSecret = clientSecret;
-            return this;
-        }
-
-        /**
          * Setter for grantType.
          * @param  grantType  String value for grantType.
          * @return Builder
          */
         public Builder grantType(String grantType) {
             this.grantType = grantType;
+            return this;
+        }
+
+        /**
+         * Setter for clientSecret.
+         * @param  clientSecret  String value for clientSecret.
+         * @return Builder
+         */
+        public Builder clientSecret(String clientSecret) {
+            this.clientSecret = clientSecret;
             return this;
         }
 
@@ -373,7 +376,7 @@ public class ObtainTokenRequest {
          * @return {@link ObtainTokenRequest}
          */
         public ObtainTokenRequest build() {
-            return new ObtainTokenRequest(clientId, clientSecret, grantType, code, redirectUri,
+            return new ObtainTokenRequest(clientId, grantType, clientSecret, code, redirectUri,
                     refreshToken, migrationToken, scopes, shortLived, codeVerifier);
         }
     }

@@ -54,7 +54,6 @@ Money money = new Money.Builder()
     .currency("USD")
     .build();
 SubscriptionSource subscriptionSource = new SubscriptionSource.Builder()
-    .name("My App")
     .build();
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "S8GWD5R9QB376",
@@ -424,7 +423,7 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 ```java
 String subscriptionId = "subscription_id0";
 SwapPlanRequest body = new SwapPlanRequest.Builder(
-        "new_plan_id2")
+        null)
     .build();
 
 subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {

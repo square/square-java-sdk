@@ -24,11 +24,12 @@ CustomerCustomAttributesApi customerCustomAttributesApi = client.getCustomerCust
 
 # List Customer Custom Attribute Definitions
 
-Lists the customer-related custom attribute definitions that belong to a Square seller account.
+Lists the customer-related [custom attribute definitions](../../doc/models/custom-attribute-definition.md) that belong to a Square seller account.
 
 When all response pages are retrieved, the results include all custom attribute definitions
 that are visible to the requesting application, including those that are created by other
-applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that
+seller-defined custom attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<ListCustomerCustomAttributeDefinitionsResponse> listCustomerCustomAttributeDefinitionsAsync(
@@ -61,8 +62,8 @@ customerCustomAttributesApi.listCustomerCustomAttributeDefinitionsAsync(null, nu
 
 # Create Customer Custom Attribute Definition
 
-Creates a customer-related custom attribute definition for a Square seller account. Use this
-endpoint to define a custom attribute that can be associated with customer profiles.
+Creates a customer-related [custom attribute definition](../../doc/models/custom-attribute-definition.md) for a Square seller account.
+Use this endpoint to define a custom attribute that can be associated with customer profiles.
 
 A custom attribute definition specifies the `key`, `visibility`, `schema`, and other properties
 for a custom attribute. After the definition is created, you can call
@@ -112,7 +113,7 @@ customerCustomAttributesApi.createCustomerCustomAttributeDefinitionAsync(body).t
 
 # Delete Customer Custom Attribute Definition
 
-Deletes a customer-related custom attribute definition from a Square seller account.
+Deletes a customer-related [custom attribute definition](../../doc/models/custom-attribute-definition.md) from a Square seller account.
 
 Deleting a custom attribute definition also deletes the corresponding custom attribute from
 all customer profiles in the seller's Customer Directory.
@@ -150,10 +151,11 @@ customerCustomAttributesApi.deleteCustomerCustomAttributeDefinitionAsync(key).th
 
 # Retrieve Customer Custom Attribute Definition
 
-Retrieves a customer-related custom attribute definition from a Square seller account.
+Retrieves a customer-related [custom attribute definition](../../doc/models/custom-attribute-definition.md) from a Square seller account.
 
 To retrieve a custom attribute definition created by another application, the `visibility`
-setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<RetrieveCustomerCustomAttributeDefinitionResponse> retrieveCustomerCustomAttributeDefinitionAsync(
@@ -188,7 +190,7 @@ customerCustomAttributesApi.retrieveCustomerCustomAttributeDefinitionAsync(key, 
 
 # Update Customer Custom Attribute Definition
 
-Updates a customer-related custom attribute definition for a Square seller account.
+Updates a customer-related [custom attribute definition](../../doc/models/custom-attribute-definition.md) for a Square seller account.
 
 Use this endpoint to update the following fields: `name`, `description`, `visibility`, or the
 `schema` for a `Selection` data type.
@@ -236,7 +238,7 @@ customerCustomAttributesApi.updateCustomerCustomAttributeDefinitionAsync(key, bo
 
 # Bulk Upsert Customer Custom Attributes
 
-Creates or updates custom attributes for customer profiles as a bulk operation.
+Creates or updates [custom attributes](../../doc/models/custom-attribute.md) for customer profiles as a bulk operation.
 
 Use this endpoint to set the value of one or more custom attributes for one or more customer profiles.
 A custom attribute is based on a custom attribute definition in a Square seller account, which is
@@ -248,7 +250,8 @@ and provides a customer ID and custom attribute. Each upsert response is returne
 of the corresponding request.
 
 To create or update a custom attribute owned by another application, the `visibility` setting
-must be `VISIBILITY_READ_WRITE_VALUES`.
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomerCustomAttributesAsync(
@@ -325,7 +328,7 @@ customerCustomAttributesApi.bulkUpsertCustomerCustomAttributesAsync(body).thenAc
 
 # List Customer Custom Attributes
 
-Lists the custom attributes associated with a customer profile.
+Lists the [custom attributes](../../doc/models/custom-attribute.md) associated with a customer profile.
 
 You can use the `with_definitions` query parameter to also retrieve custom attribute definitions
 in the same call.
@@ -372,10 +375,11 @@ customerCustomAttributesApi.listCustomerCustomAttributesAsync(customerId, null, 
 
 # Delete Customer Custom Attribute
 
-Deletes a custom attribute associated with a customer profile.
+Deletes a [custom attribute](../../doc/models/custom-attribute.md) associated with a customer profile.
 
 To delete a custom attribute owned by another application, the `visibility` setting must be
-`VISIBILITY_READ_WRITE_VALUES`.
+`VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<DeleteCustomerCustomAttributeResponse> deleteCustomerCustomAttributeAsync(
@@ -411,13 +415,14 @@ customerCustomAttributesApi.deleteCustomerCustomAttributeAsync(customerId, key).
 
 # Retrieve Customer Custom Attribute
 
-Retrieves a custom attribute associated with a customer profile.
+Retrieves a [custom attribute](../../doc/models/custom-attribute.md) associated with a customer profile.
 
 You can use the `with_definition` query parameter to also retrieve the custom attribute definition
 in the same call.
 
 To retrieve a custom attribute owned by another application, the `visibility` setting must be
-`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<RetrieveCustomerCustomAttributeResponse> retrieveCustomerCustomAttributeAsync(
@@ -458,14 +463,15 @@ customerCustomAttributesApi.retrieveCustomerCustomAttributeAsync(customerId, key
 
 # Upsert Customer Custom Attribute
 
-Creates or updates a custom attribute for a customer profile.
+Creates or updates a [custom attribute](../../doc/models/custom-attribute.md) for a customer profile.
 
 Use this endpoint to set the value of a custom attribute for a specified customer profile.
 A custom attribute is based on a custom attribute definition in a Square seller account, which
 is created using the [CreateCustomerCustomAttributeDefinition](../../doc/api/customer-custom-attributes.md#create-customer-custom-attribute-definition) endpoint.
 
 To create or update a custom attribute owned by another application, the `visibility` setting
-must be `VISIBILITY_READ_WRITE_VALUES`.
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
 
 ```java
 CompletableFuture<UpsertCustomerCustomAttributeResponse> upsertCustomerCustomAttributeAsync(

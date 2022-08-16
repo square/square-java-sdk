@@ -28,11 +28,11 @@ public class LoyaltyProgram {
      * @param  status  String value for status.
      * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
      * @param  terminology  LoyaltyProgramTerminology value for terminology.
-     * @param  locationIds  List of String value for locationIds.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
      * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
+     * @param  locationIds  List of String value for locationIds.
      */
     @JsonCreator
     public LoyaltyProgram(
@@ -40,11 +40,11 @@ public class LoyaltyProgram {
             @JsonProperty("status") String status,
             @JsonProperty("reward_tiers") List<LoyaltyProgramRewardTier> rewardTiers,
             @JsonProperty("terminology") LoyaltyProgramTerminology terminology,
-            @JsonProperty("location_ids") List<String> locationIds,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("accrual_rules") List<LoyaltyProgramAccrualRule> accrualRules,
-            @JsonProperty("expiration_policy") LoyaltyProgramExpirationPolicy expirationPolicy) {
+            @JsonProperty("expiration_policy") LoyaltyProgramExpirationPolicy expirationPolicy,
+            @JsonProperty("location_ids") List<String> locationIds) {
         this.id = id;
         this.status = status;
         this.rewardTiers = rewardTiers;
@@ -114,6 +114,7 @@ public class LoyaltyProgram {
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<String> getLocationIds() {
         return locationIds;
     }
@@ -140,7 +141,9 @@ public class LoyaltyProgram {
 
     /**
      * Getter for AccrualRules.
-     * Defines how buyers can earn loyalty points.
+     * Defines how buyers can earn loyalty points from the base loyalty program. To check for
+     * associated [loyalty promotions]($m/LoyaltyPromotion) that enable buyers to earn extra points,
+     * call [ListLoyaltyPromotions]($e/Loyalty/ListLoyaltyPromotions).
      * @return Returns the List of LoyaltyProgramAccrualRule
      */
     @JsonGetter("accrual_rules")
@@ -181,9 +184,9 @@ public class LoyaltyProgram {
     @Override
     public String toString() {
         return "LoyaltyProgram [" + "id=" + id + ", status=" + status + ", rewardTiers="
-                + rewardTiers + ", terminology=" + terminology + ", locationIds=" + locationIds
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", accrualRules="
-                + accrualRules + ", expirationPolicy=" + expirationPolicy + "]";
+                + rewardTiers + ", terminology=" + terminology + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", accrualRules=" + accrualRules
+                + ", expirationPolicy=" + expirationPolicy + ", locationIds=" + locationIds + "]";
     }
 
     /**
@@ -192,9 +195,10 @@ public class LoyaltyProgram {
      * @return a new {@link LoyaltyProgram.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, status, rewardTiers, terminology, locationIds, createdAt,
-                updatedAt, accrualRules)
-                .expirationPolicy(getExpirationPolicy());
+        Builder builder = new Builder(id, status, rewardTiers, terminology, createdAt, updatedAt,
+                accrualRules)
+                .expirationPolicy(getExpirationPolicy())
+                .locationIds(getLocationIds());
         return builder;
     }
 
@@ -206,11 +210,11 @@ public class LoyaltyProgram {
         private String status;
         private List<LoyaltyProgramRewardTier> rewardTiers;
         private LoyaltyProgramTerminology terminology;
-        private List<String> locationIds;
         private String createdAt;
         private String updatedAt;
         private List<LoyaltyProgramAccrualRule> accrualRules;
         private LoyaltyProgramExpirationPolicy expirationPolicy;
+        private List<String> locationIds;
 
         /**
          * Initialization constructor.
@@ -218,19 +222,17 @@ public class LoyaltyProgram {
          * @param  status  String value for status.
          * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
          * @param  terminology  LoyaltyProgramTerminology value for terminology.
-         * @param  locationIds  List of String value for locationIds.
          * @param  createdAt  String value for createdAt.
          * @param  updatedAt  String value for updatedAt.
          * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
          */
         public Builder(String id, String status, List<LoyaltyProgramRewardTier> rewardTiers,
-                LoyaltyProgramTerminology terminology, List<String> locationIds, String createdAt,
-                String updatedAt, List<LoyaltyProgramAccrualRule> accrualRules) {
+                LoyaltyProgramTerminology terminology, String createdAt, String updatedAt,
+                List<LoyaltyProgramAccrualRule> accrualRules) {
             this.id = id;
             this.status = status;
             this.rewardTiers = rewardTiers;
             this.terminology = terminology;
-            this.locationIds = locationIds;
             this.createdAt = createdAt;
             this.updatedAt = updatedAt;
             this.accrualRules = accrualRules;
@@ -277,16 +279,6 @@ public class LoyaltyProgram {
         }
 
         /**
-         * Setter for locationIds.
-         * @param  locationIds  List of String value for locationIds.
-         * @return Builder
-         */
-        public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
-            return this;
-        }
-
-        /**
          * Setter for createdAt.
          * @param  createdAt  String value for createdAt.
          * @return Builder
@@ -327,12 +319,22 @@ public class LoyaltyProgram {
         }
 
         /**
+         * Setter for locationIds.
+         * @param  locationIds  List of String value for locationIds.
+         * @return Builder
+         */
+        public Builder locationIds(List<String> locationIds) {
+            this.locationIds = locationIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link LoyaltyProgram} object using the set fields.
          * @return {@link LoyaltyProgram}
          */
         public LoyaltyProgram build() {
-            return new LoyaltyProgram(id, status, rewardTiers, terminology, locationIds, createdAt,
-                    updatedAt, accrualRules, expirationPolicy);
+            return new LoyaltyProgram(id, status, rewardTiers, terminology, createdAt, updatedAt,
+                    accrualRules, expirationPolicy, locationIds);
         }
     }
 }

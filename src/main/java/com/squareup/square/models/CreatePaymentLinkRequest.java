@@ -17,7 +17,6 @@ public class CreatePaymentLinkRequest {
     private final Order order;
     private final CheckoutOptions checkoutOptions;
     private final PrePopulatedData prePopulatedData;
-    private final String source;
     private final String paymentNote;
 
     /**
@@ -28,7 +27,6 @@ public class CreatePaymentLinkRequest {
      * @param  order  Order value for order.
      * @param  checkoutOptions  CheckoutOptions value for checkoutOptions.
      * @param  prePopulatedData  PrePopulatedData value for prePopulatedData.
-     * @param  source  String value for source.
      * @param  paymentNote  String value for paymentNote.
      */
     @JsonCreator
@@ -39,7 +37,6 @@ public class CreatePaymentLinkRequest {
             @JsonProperty("order") Order order,
             @JsonProperty("checkout_options") CheckoutOptions checkoutOptions,
             @JsonProperty("pre_populated_data") PrePopulatedData prePopulatedData,
-            @JsonProperty("source") String source,
             @JsonProperty("payment_note") String paymentNote) {
         this.idempotencyKey = idempotencyKey;
         this.description = description;
@@ -47,7 +44,6 @@ public class CreatePaymentLinkRequest {
         this.order = order;
         this.checkoutOptions = checkoutOptions;
         this.prePopulatedData = prePopulatedData;
-        this.source = source;
         this.paymentNote = paymentNote;
     }
 
@@ -128,17 +124,6 @@ public class CreatePaymentLinkRequest {
     }
 
     /**
-     * Getter for Source.
-     * The application that created the payment link.
-     * @return Returns the String
-     */
-    @JsonGetter("source")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSource() {
-        return source;
-    }
-
-    /**
      * Getter for PaymentNote.
      * A note for the payment. After processing the payment, Square adds this note to the resulting
      * `Payment`.
@@ -153,7 +138,7 @@ public class CreatePaymentLinkRequest {
     @Override
     public int hashCode() {
         return Objects.hash(idempotencyKey, description, quickPay, order, checkoutOptions,
-                prePopulatedData, source, paymentNote);
+                prePopulatedData, paymentNote);
     }
 
     @Override
@@ -171,7 +156,6 @@ public class CreatePaymentLinkRequest {
             && Objects.equals(order, other.order)
             && Objects.equals(checkoutOptions, other.checkoutOptions)
             && Objects.equals(prePopulatedData, other.prePopulatedData)
-            && Objects.equals(source, other.source)
             && Objects.equals(paymentNote, other.paymentNote);
     }
 
@@ -183,8 +167,8 @@ public class CreatePaymentLinkRequest {
     public String toString() {
         return "CreatePaymentLinkRequest [" + "idempotencyKey=" + idempotencyKey + ", description="
                 + description + ", quickPay=" + quickPay + ", order=" + order + ", checkoutOptions="
-                + checkoutOptions + ", prePopulatedData=" + prePopulatedData + ", source=" + source
-                + ", paymentNote=" + paymentNote + "]";
+                + checkoutOptions + ", prePopulatedData=" + prePopulatedData + ", paymentNote="
+                + paymentNote + "]";
     }
 
     /**
@@ -200,7 +184,6 @@ public class CreatePaymentLinkRequest {
                 .order(getOrder())
                 .checkoutOptions(getCheckoutOptions())
                 .prePopulatedData(getPrePopulatedData())
-                .source(getSource())
                 .paymentNote(getPaymentNote());
         return builder;
     }
@@ -215,7 +198,6 @@ public class CreatePaymentLinkRequest {
         private Order order;
         private CheckoutOptions checkoutOptions;
         private PrePopulatedData prePopulatedData;
-        private String source;
         private String paymentNote;
 
 
@@ -281,16 +263,6 @@ public class CreatePaymentLinkRequest {
         }
 
         /**
-         * Setter for source.
-         * @param  source  String value for source.
-         * @return Builder
-         */
-        public Builder source(String source) {
-            this.source = source;
-            return this;
-        }
-
-        /**
          * Setter for paymentNote.
          * @param  paymentNote  String value for paymentNote.
          * @return Builder
@@ -306,7 +278,7 @@ public class CreatePaymentLinkRequest {
          */
         public CreatePaymentLinkRequest build() {
             return new CreatePaymentLinkRequest(idempotencyKey, description, quickPay, order,
-                    checkoutOptions, prePopulatedData, source, paymentNote);
+                    checkoutOptions, prePopulatedData, paymentNote);
         }
     }
 }

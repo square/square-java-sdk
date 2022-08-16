@@ -176,8 +176,8 @@ CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
 ```java
 ObtainTokenRequest body = new ObtainTokenRequest.Builder(
         "APPLICATION_ID",
-        "APPLICATION_SECRET",
         "authorization_code")
+    .clientSecret("APPLICATION_SECRET")
     .code("CODE_FROM_AUTHORIZE")
     .build();
 

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
 | `Action` | [`List<TerminalAction>`](../../doc/models/terminal-action.md) | Optional | The requested search result of `TerminalAction`s. | List<TerminalAction> getAction() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. | String getCursor() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more<br>information. | String getCursor() |
 
 ## Example (as JSON)
 

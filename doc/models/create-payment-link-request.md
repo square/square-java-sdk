@@ -15,7 +15,6 @@
 | `Order` | [`Order`](../../doc/models/order.md) | Optional | Contains all information related to a single order to process with Square,<br>including line items that specify the products to purchase. `Order` objects also<br>include information about any associated tenders, refunds, and returns.<br><br>All Connect V2 Transactions have all been converted to Orders including all associated<br>itemization data. | Order getOrder() |
 | `CheckoutOptions` | [`CheckoutOptions`](../../doc/models/checkout-options.md) | Optional | - | CheckoutOptions getCheckoutOptions() |
 | `PrePopulatedData` | [`PrePopulatedData`](../../doc/models/pre-populated-data.md) | Optional | Describes buyer data to prepopulate in the payment form.<br>For more information,<br>see [Optional Checkout Configurations](https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations). | PrePopulatedData getPrePopulatedData() |
-| `Source` | `String` | Optional | The application that created the payment link. | String getSource() |
 | `PaymentNote` | `String` | Optional | A note for the payment. After processing the payment, Square adds this note to the resulting `Payment`.<br>**Constraints**: *Maximum Length*: `500` | String getPaymentNote() |
 
 ## Example (as JSON)
