@@ -22,7 +22,7 @@ public abstract class BaseApi {
 
     protected String internalUserAgent;
 
-    private static String userAgent = "Square-Java-SDK/23.0.0.20220817 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/23.1.0.20220823 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Protected variables to hold an instance of Configuration.

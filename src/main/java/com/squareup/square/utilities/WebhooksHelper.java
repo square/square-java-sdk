@@ -20,7 +20,7 @@ public class WebhooksHelper {
    * @param signatureHeader The value for the {@code x-square-hmacsha256-signature} header.
    * @param signatureKey    The signature key from the <a href="https://developer.squareup.com/apps">Square Developer portal</a> for the webhook subscription.
    * @param notificationUrl The notification endpoint URL as defined in the <a href="https://developer.squareup.com/apps">Square Developer portal</a> for the webhook subscription.
-   * @return {@code true} if the signature is valid, indicating that the event can be trusted as it came from Square.
+   * @return {@code true} if the signature is valid, indicating that the event can be trusted as it came from Square.<br/>
    * {@code false} if the signature validation fails, indicating that the event did not come from Square, so it may be malicious and should be discarded.
    */
   public static boolean isValidWebhookEventSignature(String requestBody, String signatureHeader,
