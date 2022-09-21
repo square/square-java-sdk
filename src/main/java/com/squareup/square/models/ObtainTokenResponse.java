@@ -26,8 +26,6 @@ public class ObtainTokenResponse {
     private final Boolean shortLived;
     private final List<Error> errors;
     private final String refreshTokenExpiresAt;
-    private final String appSubscriptionId;
-    private final String appPlanId;
 
     /**
      * Initialization constructor.
@@ -42,8 +40,6 @@ public class ObtainTokenResponse {
      * @param  shortLived  Boolean value for shortLived.
      * @param  errors  List of Error value for errors.
      * @param  refreshTokenExpiresAt  String value for refreshTokenExpiresAt.
-     * @param  appSubscriptionId  String value for appSubscriptionId.
-     * @param  appPlanId  String value for appPlanId.
      */
     @JsonCreator
     public ObtainTokenResponse(
@@ -57,9 +53,7 @@ public class ObtainTokenResponse {
             @JsonProperty("refresh_token") String refreshToken,
             @JsonProperty("short_lived") Boolean shortLived,
             @JsonProperty("errors") List<Error> errors,
-            @JsonProperty("refresh_token_expires_at") String refreshTokenExpiresAt,
-            @JsonProperty("app_subscription_id") String appSubscriptionId,
-            @JsonProperty("app_plan_id") String appPlanId) {
+            @JsonProperty("refresh_token_expires_at") String refreshTokenExpiresAt) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresAt = expiresAt;
@@ -71,8 +65,6 @@ public class ObtainTokenResponse {
         this.shortLived = shortLived;
         this.errors = errors;
         this.refreshTokenExpiresAt = refreshTokenExpiresAt;
-        this.appSubscriptionId = appSubscriptionId;
-        this.appPlanId = appPlanId;
     }
 
     @JsonIgnore
@@ -211,35 +203,10 @@ public class ObtainTokenResponse {
         return refreshTokenExpiresAt;
     }
 
-    /**
-     * Getter for AppSubscriptionId.
-     * The subscription id of a v2 subscription the merchant signed up for. The subscription id is
-     * only present if the merchant signed up for a subscription during authorization.
-     * @return Returns the String
-     */
-    @JsonGetter("app_subscription_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAppSubscriptionId() {
-        return appSubscriptionId;
-    }
-
-    /**
-     * Getter for AppPlanId.
-     * The plan id of a v2 subscription plan the merchant signed up for. The plan id is only present
-     * if the merchant signed up for a subscription plan during authorization.
-     * @return Returns the String
-     */
-    @JsonGetter("app_plan_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAppPlanId() {
-        return appPlanId;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(accessToken, tokenType, expiresAt, merchantId, subscriptionId, planId,
-                idToken, refreshToken, shortLived, errors, refreshTokenExpiresAt, appSubscriptionId,
-                appPlanId);
+                idToken, refreshToken, shortLived, errors, refreshTokenExpiresAt);
     }
 
     @Override
@@ -261,9 +228,7 @@ public class ObtainTokenResponse {
             && Objects.equals(refreshToken, other.refreshToken)
             && Objects.equals(shortLived, other.shortLived)
             && Objects.equals(errors, other.errors)
-            && Objects.equals(refreshTokenExpiresAt, other.refreshTokenExpiresAt)
-            && Objects.equals(appSubscriptionId, other.appSubscriptionId)
-            && Objects.equals(appPlanId, other.appPlanId);
+            && Objects.equals(refreshTokenExpiresAt, other.refreshTokenExpiresAt);
     }
 
     /**
@@ -276,8 +241,7 @@ public class ObtainTokenResponse {
                 + ", expiresAt=" + expiresAt + ", merchantId=" + merchantId + ", subscriptionId="
                 + subscriptionId + ", planId=" + planId + ", idToken=" + idToken + ", refreshToken="
                 + refreshToken + ", shortLived=" + shortLived + ", errors=" + errors
-                + ", refreshTokenExpiresAt=" + refreshTokenExpiresAt + ", appSubscriptionId="
-                + appSubscriptionId + ", appPlanId=" + appPlanId + "]";
+                + ", refreshTokenExpiresAt=" + refreshTokenExpiresAt + "]";
     }
 
     /**
@@ -297,9 +261,7 @@ public class ObtainTokenResponse {
                 .refreshToken(getRefreshToken())
                 .shortLived(getShortLived())
                 .errors(getErrors())
-                .refreshTokenExpiresAt(getRefreshTokenExpiresAt())
-                .appSubscriptionId(getAppSubscriptionId())
-                .appPlanId(getAppPlanId());
+                .refreshTokenExpiresAt(getRefreshTokenExpiresAt());
         return builder;
     }
 
@@ -319,8 +281,6 @@ public class ObtainTokenResponse {
         private Boolean shortLived;
         private List<Error> errors;
         private String refreshTokenExpiresAt;
-        private String appSubscriptionId;
-        private String appPlanId;
 
 
 
@@ -445,26 +405,6 @@ public class ObtainTokenResponse {
         }
 
         /**
-         * Setter for appSubscriptionId.
-         * @param  appSubscriptionId  String value for appSubscriptionId.
-         * @return Builder
-         */
-        public Builder appSubscriptionId(String appSubscriptionId) {
-            this.appSubscriptionId = appSubscriptionId;
-            return this;
-        }
-
-        /**
-         * Setter for appPlanId.
-         * @param  appPlanId  String value for appPlanId.
-         * @return Builder
-         */
-        public Builder appPlanId(String appPlanId) {
-            this.appPlanId = appPlanId;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ObtainTokenResponse} object using the set fields.
          * @return {@link ObtainTokenResponse}
          */
@@ -472,7 +412,7 @@ public class ObtainTokenResponse {
             ObtainTokenResponse model =
                     new ObtainTokenResponse(accessToken, tokenType, expiresAt, merchantId,
                             subscriptionId, planId, idToken, refreshToken, shortLived, errors,
-                            refreshTokenExpiresAt, appSubscriptionId, appPlanId);
+                            refreshTokenExpiresAt);
             model.httpContext = httpContext;
             return model;
         }

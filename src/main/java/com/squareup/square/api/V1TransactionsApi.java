@@ -32,7 +32,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    List<V1Order> listOrders(
+    @Deprecated    List<V1Order> v1ListOrders(
             final String locationId,
             final String order,
             final Integer limit,
@@ -52,7 +52,7 @@ public interface V1TransactionsApi {
      * @return    Returns the List of V1Order response from the API call
      */
     @Deprecated
-    CompletableFuture<List<V1Order>> listOrdersAsync(
+    CompletableFuture<List<V1Order>> v1ListOrdersAsync(
             final String locationId,
             final String order,
             final Integer limit,
@@ -70,7 +70,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    V1Order retrieveOrder(
+    @Deprecated    V1Order v1RetrieveOrder(
             final String locationId,
             final String orderId) throws ApiException, IOException;
 
@@ -85,7 +85,7 @@ public interface V1TransactionsApi {
      * @return    Returns the V1Order response from the API call
      */
     @Deprecated
-    CompletableFuture<V1Order> retrieveOrderAsync(
+    CompletableFuture<V1Order> v1RetrieveOrderAsync(
             final String locationId,
             final String orderId);
 
@@ -103,7 +103,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    V1Order updateOrder(
+    @Deprecated    V1Order v1UpdateOrder(
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) throws ApiException, IOException;
@@ -121,7 +121,7 @@ public interface V1TransactionsApi {
      * @return    Returns the V1Order response from the API call
      */
     @Deprecated
-    CompletableFuture<V1Order> updateOrderAsync(
+    CompletableFuture<V1Order> v1UpdateOrderAsync(
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body);
@@ -158,7 +158,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    List<V1Payment> listPayments(
+    @Deprecated    List<V1Payment> v1ListPayments(
             final String locationId,
             final String order,
             final String beginTime,
@@ -198,7 +198,7 @@ public interface V1TransactionsApi {
      * @return    Returns the List of V1Payment response from the API call
      */
     @Deprecated
-    CompletableFuture<List<V1Payment>> listPaymentsAsync(
+    CompletableFuture<List<V1Payment>> v1ListPaymentsAsync(
             final String locationId,
             final String order,
             final String beginTime,
@@ -220,7 +220,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    V1Payment retrievePayment(
+    @Deprecated    V1Payment v1RetrievePayment(
             final String locationId,
             final String paymentId) throws ApiException, IOException;
 
@@ -236,7 +236,7 @@ public interface V1TransactionsApi {
      * @return    Returns the V1Payment response from the API call
      */
     @Deprecated
-    CompletableFuture<V1Payment> retrievePaymentAsync(
+    CompletableFuture<V1Payment> v1RetrievePaymentAsync(
             final String locationId,
             final String paymentId);
 
@@ -264,7 +264,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    List<V1Refund> listRefunds(
+    @Deprecated    List<V1Refund> v1ListRefunds(
             final String locationId,
             final String order,
             final String beginTime,
@@ -295,7 +295,7 @@ public interface V1TransactionsApi {
      * @return    Returns the List of V1Refund response from the API call
      */
     @Deprecated
-    CompletableFuture<List<V1Refund>> listRefundsAsync(
+    CompletableFuture<List<V1Refund>> v1ListRefundsAsync(
             final String locationId,
             final String order,
             final String beginTime,
@@ -320,7 +320,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    V1Refund createRefund(
+    @Deprecated    V1Refund v1CreateRefund(
             final String locationId,
             final V1CreateRefundRequest body) throws ApiException, IOException;
 
@@ -340,7 +340,7 @@ public interface V1TransactionsApi {
      * @return    Returns the V1Refund response from the API call
      */
     @Deprecated
-    CompletableFuture<V1Refund> createRefundAsync(
+    CompletableFuture<V1Refund> v1CreateRefundAsync(
             final String locationId,
             final V1CreateRefundRequest body);
 
@@ -370,7 +370,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    List<V1Settlement> listSettlements(
+    @Deprecated    List<V1Settlement> v1ListSettlements(
             final String locationId,
             final String order,
             final String beginTime,
@@ -404,7 +404,7 @@ public interface V1TransactionsApi {
      * @return    Returns the List of V1Settlement response from the API call
      */
     @Deprecated
-    CompletableFuture<List<V1Settlement>> listSettlementsAsync(
+    CompletableFuture<List<V1Settlement>> v1ListSettlementsAsync(
             final String locationId,
             final String order,
             final String beginTime,
@@ -433,7 +433,7 @@ public interface V1TransactionsApi {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    @Deprecated    V1Settlement retrieveSettlement(
+    @Deprecated    V1Settlement v1RetrieveSettlement(
             final String locationId,
             final String settlementId) throws ApiException, IOException;
 
@@ -456,7 +456,7 @@ public interface V1TransactionsApi {
      * @return    Returns the V1Settlement response from the API call
      */
     @Deprecated
-    CompletableFuture<V1Settlement> retrieveSettlementAsync(
+    CompletableFuture<V1Settlement> v1RetrieveSettlementAsync(
             final String locationId,
             final String settlementId);
 

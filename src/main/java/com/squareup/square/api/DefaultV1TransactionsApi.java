@@ -70,18 +70,18 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public List<V1Order> listOrders(
+    public List<V1Order> v1ListOrders(
             final String locationId,
             final String order,
             final Integer limit,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListOrdersRequest(locationId, order, limit, batchToken);
+        HttpRequest request = buildV1ListOrdersRequest(locationId, order, limit, batchToken);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleListOrdersResponse(context);
+        return handleV1ListOrdersResponse(context);
     }
 
     /**
@@ -98,22 +98,23 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the List of V1Order response from the API call
      */
     @Deprecated
-    public CompletableFuture<List<V1Order>> listOrdersAsync(
+    public CompletableFuture<List<V1Order>> v1ListOrdersAsync(
             final String locationId,
             final String order,
             final Integer limit,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildListOrdersRequest(locationId, order, limit, batchToken),
+        return makeHttpCallAsync(() -> buildV1ListOrdersRequest(locationId, order, limit,
+                batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleListOrdersResponse(context));
+            context -> handleV1ListOrdersResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listOrders.
+     * Builds the HttpRequest object for v1ListOrders.
      */
-    private HttpRequest buildListOrdersRequest(
+    private HttpRequest buildV1ListOrdersRequest(
             final String locationId,
             final String order,
             final Integer limit,
@@ -157,10 +158,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for listOrders.
+     * Processes the response for v1ListOrders.
      * @return An object of type List of V1Order
      */
-    private List<V1Order> handleListOrdersResponse(
+    private List<V1Order> handleV1ListOrdersResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -195,16 +196,16 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public V1Order retrieveOrder(
+    public V1Order v1RetrieveOrder(
             final String locationId,
             final String orderId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveOrderRequest(locationId, orderId);
+        HttpRequest request = buildV1RetrieveOrderRequest(locationId, orderId);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleRetrieveOrderResponse(context);
+        return handleV1RetrieveOrderResponse(context);
     }
 
     /**
@@ -218,20 +219,20 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the V1Order response from the API call
      */
     @Deprecated
-    public CompletableFuture<V1Order> retrieveOrderAsync(
+    public CompletableFuture<V1Order> v1RetrieveOrderAsync(
             final String locationId,
             final String orderId) {
-        return makeHttpCallAsync(() -> buildRetrieveOrderRequest(locationId, orderId),
+        return makeHttpCallAsync(() -> buildV1RetrieveOrderRequest(locationId, orderId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleRetrieveOrderResponse(context));
+            context -> handleV1RetrieveOrderResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveOrder.
+     * Builds the HttpRequest object for v1RetrieveOrder.
      */
-    private HttpRequest buildRetrieveOrderRequest(
+    private HttpRequest buildV1RetrieveOrderRequest(
             final String locationId,
             final String orderId) {
         //the base uri for api requests
@@ -268,10 +269,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for retrieveOrder.
+     * Processes the response for v1RetrieveOrder.
      * @return An object of type V1Order
      */
-    private V1Order handleRetrieveOrderResponse(
+    private V1Order handleV1RetrieveOrderResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -307,17 +308,17 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public V1Order updateOrder(
+    public V1Order v1UpdateOrder(
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateOrderRequest(locationId, orderId, body);
+        HttpRequest request = buildV1UpdateOrderRequest(locationId, orderId, body);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleUpdateOrderResponse(context);
+        return handleV1UpdateOrderResponse(context);
     }
 
     /**
@@ -333,21 +334,21 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the V1Order response from the API call
      */
     @Deprecated
-    public CompletableFuture<V1Order> updateOrderAsync(
+    public CompletableFuture<V1Order> v1UpdateOrderAsync(
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateOrderRequest(locationId, orderId, body),
+        return makeHttpCallAsync(() -> buildV1UpdateOrderRequest(locationId, orderId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleUpdateOrderResponse(context));
+            context -> handleV1UpdateOrderResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for updateOrder.
+     * Builds the HttpRequest object for v1UpdateOrder.
      */
-    private HttpRequest buildUpdateOrderRequest(
+    private HttpRequest buildV1UpdateOrderRequest(
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) throws JsonProcessingException {
@@ -387,10 +388,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for updateOrder.
+     * Processes the response for v1UpdateOrder.
      * @return An object of type V1Order
      */
-    private V1Order handleUpdateOrderResponse(
+    private V1Order handleV1UpdateOrderResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -444,7 +445,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public List<V1Payment> listPayments(
+    public List<V1Payment> v1ListPayments(
             final String locationId,
             final String order,
             final String beginTime,
@@ -452,14 +453,14 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String batchToken,
             final Boolean includePartial) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentsRequest(locationId, order, beginTime, endTime, limit,
-                batchToken, includePartial);
+        HttpRequest request = buildV1ListPaymentsRequest(locationId, order, beginTime, endTime,
+                limit, batchToken, includePartial);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleListPaymentsResponse(context);
+        return handleV1ListPaymentsResponse(context);
     }
 
     /**
@@ -493,7 +494,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the List of V1Payment response from the API call
      */
     @Deprecated
-    public CompletableFuture<List<V1Payment>> listPaymentsAsync(
+    public CompletableFuture<List<V1Payment>> v1ListPaymentsAsync(
             final String locationId,
             final String order,
             final String beginTime,
@@ -501,18 +502,18 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String batchToken,
             final Boolean includePartial) {
-        return makeHttpCallAsync(() -> buildListPaymentsRequest(locationId, order, beginTime,
+        return makeHttpCallAsync(() -> buildV1ListPaymentsRequest(locationId, order, beginTime,
                 endTime, limit, batchToken, includePartial),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleListPaymentsResponse(context));
+            context -> handleV1ListPaymentsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listPayments.
+     * Builds the HttpRequest object for v1ListPayments.
      */
-    private HttpRequest buildListPaymentsRequest(
+    private HttpRequest buildV1ListPaymentsRequest(
             final String locationId,
             final String order,
             final String beginTime,
@@ -563,10 +564,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for listPayments.
+     * Processes the response for v1ListPayments.
      * @return An object of type List of V1Payment
      */
-    private List<V1Payment> handleListPaymentsResponse(
+    private List<V1Payment> handleV1ListPaymentsResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -602,16 +603,16 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public V1Payment retrievePayment(
+    public V1Payment v1RetrievePayment(
             final String locationId,
             final String paymentId) throws ApiException, IOException {
-        HttpRequest request = buildRetrievePaymentRequest(locationId, paymentId);
+        HttpRequest request = buildV1RetrievePaymentRequest(locationId, paymentId);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleRetrievePaymentResponse(context);
+        return handleV1RetrievePaymentResponse(context);
     }
 
     /**
@@ -626,20 +627,20 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the V1Payment response from the API call
      */
     @Deprecated
-    public CompletableFuture<V1Payment> retrievePaymentAsync(
+    public CompletableFuture<V1Payment> v1RetrievePaymentAsync(
             final String locationId,
             final String paymentId) {
-        return makeHttpCallAsync(() -> buildRetrievePaymentRequest(locationId, paymentId),
+        return makeHttpCallAsync(() -> buildV1RetrievePaymentRequest(locationId, paymentId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleRetrievePaymentResponse(context));
+            context -> handleV1RetrievePaymentResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrievePayment.
+     * Builds the HttpRequest object for v1RetrievePayment.
      */
-    private HttpRequest buildRetrievePaymentRequest(
+    private HttpRequest buildV1RetrievePaymentRequest(
             final String locationId,
             final String paymentId) {
         //the base uri for api requests
@@ -676,10 +677,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for retrievePayment.
+     * Processes the response for v1RetrievePayment.
      * @return An object of type V1Payment
      */
-    private V1Payment handleRetrievePaymentResponse(
+    private V1Payment handleV1RetrievePaymentResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -725,21 +726,21 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public List<V1Refund> listRefunds(
+    public List<V1Refund> v1ListRefunds(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListRefundsRequest(locationId, order, beginTime, endTime, limit,
-                batchToken);
+        HttpRequest request = buildV1ListRefundsRequest(locationId, order, beginTime, endTime,
+                limit, batchToken);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleListRefundsResponse(context);
+        return handleV1ListRefundsResponse(context);
     }
 
     /**
@@ -765,25 +766,25 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the List of V1Refund response from the API call
      */
     @Deprecated
-    public CompletableFuture<List<V1Refund>> listRefundsAsync(
+    public CompletableFuture<List<V1Refund>> v1ListRefundsAsync(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildListRefundsRequest(locationId, order, beginTime,
+        return makeHttpCallAsync(() -> buildV1ListRefundsRequest(locationId, order, beginTime,
                 endTime, limit, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleListRefundsResponse(context));
+            context -> handleV1ListRefundsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listRefunds.
+     * Builds the HttpRequest object for v1ListRefunds.
      */
-    private HttpRequest buildListRefundsRequest(
+    private HttpRequest buildV1ListRefundsRequest(
             final String locationId,
             final String order,
             final String beginTime,
@@ -831,10 +832,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for listRefunds.
+     * Processes the response for v1ListRefunds.
      * @return An object of type List of V1Refund
      */
-    private List<V1Refund> handleListRefundsResponse(
+    private List<V1Refund> handleV1ListRefundsResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -874,16 +875,16 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public V1Refund createRefund(
+    public V1Refund v1CreateRefund(
             final String locationId,
             final V1CreateRefundRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateRefundRequest(locationId, body);
+        HttpRequest request = buildV1CreateRefundRequest(locationId, body);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleCreateRefundResponse(context);
+        return handleV1CreateRefundResponse(context);
     }
 
     /**
@@ -902,20 +903,20 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the V1Refund response from the API call
      */
     @Deprecated
-    public CompletableFuture<V1Refund> createRefundAsync(
+    public CompletableFuture<V1Refund> v1CreateRefundAsync(
             final String locationId,
             final V1CreateRefundRequest body) {
-        return makeHttpCallAsync(() -> buildCreateRefundRequest(locationId, body),
+        return makeHttpCallAsync(() -> buildV1CreateRefundRequest(locationId, body),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleCreateRefundResponse(context));
+            context -> handleV1CreateRefundResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for createRefund.
+     * Builds the HttpRequest object for v1CreateRefund.
      */
-    private HttpRequest buildCreateRefundRequest(
+    private HttpRequest buildV1CreateRefundRequest(
             final String locationId,
             final V1CreateRefundRequest body) throws JsonProcessingException {
         //the base uri for api requests
@@ -952,10 +953,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for createRefund.
+     * Processes the response for v1CreateRefund.
      * @return An object of type V1Refund
      */
-    private V1Refund handleCreateRefundResponse(
+    private V1Refund handleV1CreateRefundResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -1003,7 +1004,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public List<V1Settlement> listSettlements(
+    public List<V1Settlement> v1ListSettlements(
             final String locationId,
             final String order,
             final String beginTime,
@@ -1011,14 +1012,14 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String status,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildListSettlementsRequest(locationId, order, beginTime, endTime,
+        HttpRequest request = buildV1ListSettlementsRequest(locationId, order, beginTime, endTime,
                 limit, status, batchToken);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleListSettlementsResponse(context);
+        return handleV1ListSettlementsResponse(context);
     }
 
     /**
@@ -1046,7 +1047,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the List of V1Settlement response from the API call
      */
     @Deprecated
-    public CompletableFuture<List<V1Settlement>> listSettlementsAsync(
+    public CompletableFuture<List<V1Settlement>> v1ListSettlementsAsync(
             final String locationId,
             final String order,
             final String beginTime,
@@ -1054,18 +1055,18 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String status,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildListSettlementsRequest(locationId, order, beginTime,
+        return makeHttpCallAsync(() -> buildV1ListSettlementsRequest(locationId, order, beginTime,
                 endTime, limit, status, batchToken),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleListSettlementsResponse(context));
+            context -> handleV1ListSettlementsResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for listSettlements.
+     * Builds the HttpRequest object for v1ListSettlements.
      */
-    private HttpRequest buildListSettlementsRequest(
+    private HttpRequest buildV1ListSettlementsRequest(
             final String locationId,
             final String order,
             final String beginTime,
@@ -1115,10 +1116,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for listSettlements.
+     * Processes the response for v1ListSettlements.
      * @return An object of type List of V1Settlement
      */
-    private List<V1Settlement> handleListSettlementsResponse(
+    private List<V1Settlement> handleV1ListSettlementsResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 
@@ -1161,16 +1162,16 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public V1Settlement retrieveSettlement(
+    public V1Settlement v1RetrieveSettlement(
             final String locationId,
             final String settlementId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveSettlementRequest(locationId, settlementId);
+        HttpRequest request = buildV1RetrieveSettlementRequest(locationId, settlementId);
         authManagers.get("global").apply(request);
 
         HttpResponse response = getClientInstance().execute(request, false);
         HttpContext context = new HttpContext(request, response);
 
-        return handleRetrieveSettlementResponse(context);
+        return handleV1RetrieveSettlementResponse(context);
     }
 
     /**
@@ -1192,20 +1193,20 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
      * @return    Returns the V1Settlement response from the API call
      */
     @Deprecated
-    public CompletableFuture<V1Settlement> retrieveSettlementAsync(
+    public CompletableFuture<V1Settlement> v1RetrieveSettlementAsync(
             final String locationId,
             final String settlementId) {
-        return makeHttpCallAsync(() -> buildRetrieveSettlementRequest(locationId, settlementId),
+        return makeHttpCallAsync(() -> buildV1RetrieveSettlementRequest(locationId, settlementId),
             req -> authManagers.get("global").applyAsync(req)
                 .thenCompose(request -> getClientInstance()
                         .executeAsync(request, false)),
-            context -> handleRetrieveSettlementResponse(context));
+            context -> handleV1RetrieveSettlementResponse(context));
     }
 
     /**
-     * Builds the HttpRequest object for retrieveSettlement.
+     * Builds the HttpRequest object for v1RetrieveSettlement.
      */
-    private HttpRequest buildRetrieveSettlementRequest(
+    private HttpRequest buildV1RetrieveSettlementRequest(
             final String locationId,
             final String settlementId) {
         //the base uri for api requests
@@ -1242,10 +1243,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     }
 
     /**
-     * Processes the response for retrieveSettlement.
+     * Processes the response for v1RetrieveSettlement.
      * @return An object of type V1Settlement
      */
-    private V1Settlement handleRetrieveSettlementResponse(
+    private V1Settlement handleV1RetrieveSettlementResponse(
             HttpContext context) throws ApiException, IOException {
         HttpResponse response = context.getResponse();
 

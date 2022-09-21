@@ -56,9 +56,7 @@ public interface WebhookSubscriptionsApi {
      *         field defaults to ASC.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
-     *         page. The default value of 100 is also the maximum allowed value. If the provided
-     *         value is greater than 100, it is ignored and the default value is used instead.
-     *         Default: 100
+     *         page. The default value of 100 is also the maximum allowed value. Default: 100
      * @return    Returns the ListWebhookSubscriptionsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -83,9 +81,7 @@ public interface WebhookSubscriptionsApi {
      *         field defaults to ASC.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
-     *         page. The default value of 100 is also the maximum allowed value. If the provided
-     *         value is greater than 100, it is ignored and the default value is used instead.
-     *         Default: 100
+     *         page. The default value of 100 is also the maximum allowed value. Default: 100
      * @return    Returns the ListWebhookSubscriptionsResponse response from the API call
      */
     CompletableFuture<ListWebhookSubscriptionsResponse> listWebhookSubscriptionsAsync(

@@ -59,8 +59,8 @@ public class TerminalCheckoutQueryFilter {
 
     /**
      * Getter for Status.
-     * Filtered results with the desired status of the `TerminalCheckout`. Options: PENDING,
-     * IN_PROGRESS, CANCELED, COMPLETED
+     * Filtered results with the desired status of the `TerminalCheckout`. Options: `PENDING`,
+     * `IN_PROGRESS`, `CANCEL_REQUESTED`, `CANCELED`, `COMPLETED`
      * @return Returns the String
      */
     @JsonGetter("status")

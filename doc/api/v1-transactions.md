@@ -10,25 +10,25 @@ V1TransactionsApi v1TransactionsApi = client.getV1TransactionsApi();
 
 ## Methods
 
-* [List Orders](../../doc/api/v1-transactions.md#list-orders)
-* [Retrieve Order](../../doc/api/v1-transactions.md#retrieve-order)
-* [Update Order](../../doc/api/v1-transactions.md#update-order)
-* [List Payments](../../doc/api/v1-transactions.md#list-payments)
-* [Retrieve Payment](../../doc/api/v1-transactions.md#retrieve-payment)
-* [List Refunds](../../doc/api/v1-transactions.md#list-refunds)
-* [Create Refund](../../doc/api/v1-transactions.md#create-refund)
-* [List Settlements](../../doc/api/v1-transactions.md#list-settlements)
-* [Retrieve Settlement](../../doc/api/v1-transactions.md#retrieve-settlement)
+* [V1 List Orders](../../doc/api/v1-transactions.md#v1-list-orders)
+* [V1 Retrieve Order](../../doc/api/v1-transactions.md#v1-retrieve-order)
+* [V1 Update Order](../../doc/api/v1-transactions.md#v1-update-order)
+* [V1 List Payments](../../doc/api/v1-transactions.md#v1-list-payments)
+* [V1 Retrieve Payment](../../doc/api/v1-transactions.md#v1-retrieve-payment)
+* [V1 List Refunds](../../doc/api/v1-transactions.md#v1-list-refunds)
+* [V1 Create Refund](../../doc/api/v1-transactions.md#v1-create-refund)
+* [V1 List Settlements](../../doc/api/v1-transactions.md#v1-list-settlements)
+* [V1 Retrieve Settlement](../../doc/api/v1-transactions.md#v1-retrieve-settlement)
 
 
-# List Orders
+# V1 List Orders
 
 **This endpoint is deprecated.**
 
 Provides summary information for a merchant's online store orders.
 
 ```java
-CompletableFuture<List<V1Order>> listOrdersAsync(
+CompletableFuture<List<V1Order>> v1ListOrdersAsync(
     final String locationId,
     final String order,
     final Integer limit,
@@ -53,7 +53,7 @@ CompletableFuture<List<V1Order>> listOrdersAsync(
 ```java
 String locationId = "location_id4";
 
-v1TransactionsApi.listOrdersAsync(locationId, null, null, null).thenAccept(result -> {
+v1TransactionsApi.v1ListOrdersAsync(locationId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -62,14 +62,14 @@ v1TransactionsApi.listOrdersAsync(locationId, null, null, null).thenAccept(resul
 ```
 
 
-# Retrieve Order
+# V1 Retrieve Order
 
 **This endpoint is deprecated.**
 
 Provides comprehensive information for a single online store order, including the order's history.
 
 ```java
-CompletableFuture<V1Order> retrieveOrderAsync(
+CompletableFuture<V1Order> v1RetrieveOrderAsync(
     final String locationId,
     final String orderId)
 ```
@@ -91,7 +91,7 @@ CompletableFuture<V1Order> retrieveOrderAsync(
 String locationId = "location_id4";
 String orderId = "order_id6";
 
-v1TransactionsApi.retrieveOrderAsync(locationId, orderId).thenAccept(result -> {
+v1TransactionsApi.v1RetrieveOrderAsync(locationId, orderId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -100,14 +100,14 @@ v1TransactionsApi.retrieveOrderAsync(locationId, orderId).thenAccept(result -> {
 ```
 
 
-# Update Order
+# V1 Update Order
 
 **This endpoint is deprecated.**
 
 Updates the details of an online store order. Every update you perform on an order corresponds to one of three actions:
 
 ```java
-CompletableFuture<V1Order> updateOrderAsync(
+CompletableFuture<V1Order> v1UpdateOrderAsync(
     final String locationId,
     final String orderId,
     final V1UpdateOrderRequest body)
@@ -134,7 +134,7 @@ V1UpdateOrderRequest body = new V1UpdateOrderRequest.Builder(
         "REFUND")
     .build();
 
-v1TransactionsApi.updateOrderAsync(locationId, orderId, body).thenAccept(result -> {
+v1TransactionsApi.v1UpdateOrderAsync(locationId, orderId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -143,7 +143,7 @@ v1TransactionsApi.updateOrderAsync(locationId, orderId, body).thenAccept(result 
 ```
 
 
-# List Payments
+# V1 List Payments
 
 **This endpoint is deprecated.**
 
@@ -160,7 +160,7 @@ list an offline payment chronologically between online payments that
 were seen in a previous request.
 
 ```java
-CompletableFuture<List<V1Payment>> listPaymentsAsync(
+CompletableFuture<List<V1Payment>> v1ListPaymentsAsync(
     final String locationId,
     final String order,
     final String beginTime,
@@ -192,7 +192,7 @@ CompletableFuture<List<V1Payment>> listPaymentsAsync(
 String locationId = "location_id4";
 Boolean includePartial = false;
 
-v1TransactionsApi.listPaymentsAsync(locationId, null, null, null, null, null, includePartial).thenAccept(result -> {
+v1TransactionsApi.v1ListPaymentsAsync(locationId, null, null, null, null, null, includePartial).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -201,14 +201,14 @@ v1TransactionsApi.listPaymentsAsync(locationId, null, null, null, null, null, in
 ```
 
 
-# Retrieve Payment
+# V1 Retrieve Payment
 
 **This endpoint is deprecated.**
 
 Provides comprehensive information for a single payment.
 
 ```java
-CompletableFuture<V1Payment> retrievePaymentAsync(
+CompletableFuture<V1Payment> v1RetrievePaymentAsync(
     final String locationId,
     final String paymentId)
 ```
@@ -230,7 +230,7 @@ CompletableFuture<V1Payment> retrievePaymentAsync(
 String locationId = "location_id4";
 String paymentId = "payment_id0";
 
-v1TransactionsApi.retrievePaymentAsync(locationId, paymentId).thenAccept(result -> {
+v1TransactionsApi.v1RetrievePaymentAsync(locationId, paymentId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -239,14 +239,14 @@ v1TransactionsApi.retrievePaymentAsync(locationId, paymentId).thenAccept(result 
 ```
 
 
-# List Refunds
+# V1 List Refunds
 
 **This endpoint is deprecated.**
 
 Provides the details for all refunds initiated by a merchant or any of the merchant's mobile staff during a date range. Date ranges cannot exceed one year in length.
 
 ```java
-CompletableFuture<List<V1Refund>> listRefundsAsync(
+CompletableFuture<List<V1Refund>> v1ListRefundsAsync(
     final String locationId,
     final String order,
     final String beginTime,
@@ -275,7 +275,7 @@ CompletableFuture<List<V1Refund>> listRefundsAsync(
 ```java
 String locationId = "location_id4";
 
-v1TransactionsApi.listRefundsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
+v1TransactionsApi.v1ListRefundsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -284,7 +284,7 @@ v1TransactionsApi.listRefundsAsync(locationId, null, null, null, null, null).the
 ```
 
 
-# Create Refund
+# V1 Create Refund
 
 **This endpoint is deprecated.**
 
@@ -302,7 +302,7 @@ purposes, you can create fake cash payments in Square Point of Sale and
 refund them.
 
 ```java
-CompletableFuture<V1Refund> createRefundAsync(
+CompletableFuture<V1Refund> v1CreateRefundAsync(
     final String locationId,
     final V1CreateRefundRequest body)
 ```
@@ -328,7 +328,7 @@ V1CreateRefundRequest body = new V1CreateRefundRequest.Builder(
         "reason8")
     .build();
 
-v1TransactionsApi.createRefundAsync(locationId, body).thenAccept(result -> {
+v1TransactionsApi.v1CreateRefundAsync(locationId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -337,7 +337,7 @@ v1TransactionsApi.createRefundAsync(locationId, body).thenAccept(result -> {
 ```
 
 
-# List Settlements
+# V1 List Settlements
 
 **This endpoint is deprecated.**
 
@@ -349,7 +349,7 @@ ranges cannot exceed one year in length.
 information.
 
 ```java
-CompletableFuture<List<V1Settlement>> listSettlementsAsync(
+CompletableFuture<List<V1Settlement>> v1ListSettlementsAsync(
     final String locationId,
     final String order,
     final String beginTime,
@@ -380,7 +380,7 @@ CompletableFuture<List<V1Settlement>> listSettlementsAsync(
 ```java
 String locationId = "location_id4";
 
-v1TransactionsApi.listSettlementsAsync(locationId, null, null, null, null, null, null).thenAccept(result -> {
+v1TransactionsApi.v1ListSettlementsAsync(locationId, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler
@@ -389,7 +389,7 @@ v1TransactionsApi.listSettlementsAsync(locationId, null, null, null, null, null,
 ```
 
 
-# Retrieve Settlement
+# V1 Retrieve Settlement
 
 **This endpoint is deprecated.**
 
@@ -412,7 +412,7 @@ a bank account within 3 business days, but in exceptional cases it may
 take longer.
 
 ```java
-CompletableFuture<V1Settlement> retrieveSettlementAsync(
+CompletableFuture<V1Settlement> v1RetrieveSettlementAsync(
     final String locationId,
     final String settlementId)
 ```
@@ -434,7 +434,7 @@ CompletableFuture<V1Settlement> retrieveSettlementAsync(
 String locationId = "location_id4";
 String settlementId = "settlement_id0";
 
-v1TransactionsApi.retrieveSettlementAsync(locationId, settlementId).thenAccept(result -> {
+v1TransactionsApi.v1RetrieveSettlementAsync(locationId, settlementId).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
     // TODO failure callback handler

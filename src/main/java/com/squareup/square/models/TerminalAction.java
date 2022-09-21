@@ -101,8 +101,8 @@ public class TerminalAction {
 
     /**
      * Getter for Status.
-     * The status of the `TerminalAction`. Options: `PENDING`, `IN_PROGRESS`, `CANCELED`,
-     * `COMPLETED`
+     * The status of the `TerminalAction`. Options: `PENDING`, `IN_PROGRESS`, `CANCEL_REQUESTED`,
+     * `CANCELED`, `COMPLETED`
      * @return Returns the String
      */
     @JsonGetter("status")

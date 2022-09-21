@@ -141,6 +141,7 @@ Invoice invoice = new Invoice.Builder()
     .acceptedPaymentMethods(invoiceAcceptedPaymentMethods)
     .customFields(invoiceCustomFields)
     .saleOrServiceDate("2030-01-24")
+    .storePaymentMethodEnabled(false)
     .build();
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
         invoice)
