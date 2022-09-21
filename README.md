@@ -8,6 +8,14 @@
 
 Use this library to integrate Square payments into your app and grow your business with Square APIs including Catalog, Customers, Employees, Inventory, Labor, Locations, and Orders.
 
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Quickstart](#quickstart)
+* [Usage](#usage)
+* [Tests](#tests)
+* [SDK Reference](#sdk-reference)
+* [Deprecated APIs](#deprecated-apis)
+
 ## Requirements
 
 Use of the Square Java SDK requires:
@@ -109,16 +117,17 @@ mvn test
 * [Sites]
 * [Snippets]
 
-### Authorization APIs
+### Authorization
 * [Mobile Authorization]
 * [OAuth]
 
-### Deprecated APIs
-* [Employees]
-* [V1 Employees]
-* [V1 Transactions]
-* [V1 Items]
-* [Transactions]
+## Deprecated APIs
+
+The following Square APIs are [deprecated](https://developer.squareup.com/docs/build-basics/api-lifecycle):
+ 
+* [Employees] - replaced by the [Team] API. For more information, see [Migrate from the Employees API](https://developer.squareup.com/docs/team/migrate-from-v2-employees).
+ 
+* [Transactions] - replaced by the [Orders] and [Payments] APIs.  For more information, see [Migrate from the Transactions API](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api).
 
 #### Usage Notes for V1 Transactions
 
@@ -150,7 +159,6 @@ You'll also need to provide logic to handle paginated results.  For more informa
 [Catalog]: doc/api/catalog.md
 [Customers]: doc/api/customers.md
 [Customer Custom Attributes]: doc/api/customer-custom-attributes.md
-[Employees]: doc/api/employees.md
 [Inventory]: doc/api/inventory.md
 [Labor]: doc/api/labor.md
 [Loyalty]: doc/api/loyalty.md
@@ -164,14 +172,12 @@ You'll also need to provide logic to handle paginated results.  For more informa
 [Subscriptions]: doc/api/subscriptions.md
 [Mobile Authorization]: doc/api/mobile-authorization.md
 [OAuth]: doc/api/o-auth.md
-[V1 Employees]: doc/api/v1-employees.md
-[V1 Transactions]: doc/api/v1-transactions.md
-[V1 Items]: doc/api/v1-items.md
 [Team]: doc/api/team.md
-[Transactions]: doc/api/transactions.md
 [Sites]: doc/api/sites.md
 [Snippets]: doc/api/snippets.md
 [Cards]: doc/api/cards.md
 [Payouts]: doc/api/payouts.md
 [Gift Cards]: doc/api/gift-cards.md
 [Gift Card Activities]: doc/api/gift-card-activities.md
+[Employees]: doc/api/employees.md
+[Transactions]: doc/api/transactions.md

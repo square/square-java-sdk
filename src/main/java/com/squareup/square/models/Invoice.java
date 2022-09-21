@@ -34,6 +34,7 @@ public class Invoice {
     private final String subscriptionId;
     private final String saleOrServiceDate;
     private final String paymentConditions;
+    private final Boolean storePaymentMethodEnabled;
 
     /**
      * Initialization constructor.
@@ -60,6 +61,7 @@ public class Invoice {
      * @param  subscriptionId  String value for subscriptionId.
      * @param  saleOrServiceDate  String value for saleOrServiceDate.
      * @param  paymentConditions  String value for paymentConditions.
+     * @param  storePaymentMethodEnabled  Boolean value for storePaymentMethodEnabled.
      */
     @JsonCreator
     public Invoice(
@@ -84,7 +86,8 @@ public class Invoice {
             @JsonProperty("custom_fields") List<InvoiceCustomField> customFields,
             @JsonProperty("subscription_id") String subscriptionId,
             @JsonProperty("sale_or_service_date") String saleOrServiceDate,
-            @JsonProperty("payment_conditions") String paymentConditions) {
+            @JsonProperty("payment_conditions") String paymentConditions,
+            @JsonProperty("store_payment_method_enabled") Boolean storePaymentMethodEnabled) {
         this.id = id;
         this.version = version;
         this.locationId = locationId;
@@ -107,6 +110,7 @@ public class Invoice {
         this.subscriptionId = subscriptionId;
         this.saleOrServiceDate = saleOrServiceDate;
         this.paymentConditions = paymentConditions;
+        this.storePaymentMethodEnabled = storePaymentMethodEnabled;
     }
 
     /**
@@ -398,13 +402,27 @@ public class Invoice {
         return paymentConditions;
     }
 
+    /**
+     * Getter for StorePaymentMethodEnabled.
+     * Indicates whether to allow a customer to save a credit or debit card as a card on file or a
+     * bank transfer as a bank account on file. If `true`, Square displays a __Save my card on
+     * file__ or __Save my bank on file__ checkbox on the invoice payment page. Stored payment
+     * information can be used for future automatic payments. The default value is `false`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("store_payment_method_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getStorePaymentMethodEnabled() {
+        return storePaymentMethodEnabled;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                 deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                 nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
                 acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
-                paymentConditions);
+                paymentConditions, storePaymentMethodEnabled);
     }
 
     @Override
@@ -437,7 +455,8 @@ public class Invoice {
             && Objects.equals(customFields, other.customFields)
             && Objects.equals(subscriptionId, other.subscriptionId)
             && Objects.equals(saleOrServiceDate, other.saleOrServiceDate)
-            && Objects.equals(paymentConditions, other.paymentConditions);
+            && Objects.equals(paymentConditions, other.paymentConditions)
+            && Objects.equals(storePaymentMethodEnabled, other.storePaymentMethodEnabled);
     }
 
     /**
@@ -455,7 +474,8 @@ public class Invoice {
                 + ", timezone=" + timezone + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", acceptedPaymentMethods=" + acceptedPaymentMethods + ", customFields="
                 + customFields + ", subscriptionId=" + subscriptionId + ", saleOrServiceDate="
-                + saleOrServiceDate + ", paymentConditions=" + paymentConditions + "]";
+                + saleOrServiceDate + ", paymentConditions=" + paymentConditions
+                + ", storePaymentMethodEnabled=" + storePaymentMethodEnabled + "]";
     }
 
     /**
@@ -486,7 +506,8 @@ public class Invoice {
                 .customFields(getCustomFields())
                 .subscriptionId(getSubscriptionId())
                 .saleOrServiceDate(getSaleOrServiceDate())
-                .paymentConditions(getPaymentConditions());
+                .paymentConditions(getPaymentConditions())
+                .storePaymentMethodEnabled(getStorePaymentMethodEnabled());
         return builder;
     }
 
@@ -516,6 +537,7 @@ public class Invoice {
         private String subscriptionId;
         private String saleOrServiceDate;
         private String paymentConditions;
+        private Boolean storePaymentMethodEnabled;
 
 
 
@@ -742,6 +764,16 @@ public class Invoice {
         }
 
         /**
+         * Setter for storePaymentMethodEnabled.
+         * @param  storePaymentMethodEnabled  Boolean value for storePaymentMethodEnabled.
+         * @return Builder
+         */
+        public Builder storePaymentMethodEnabled(Boolean storePaymentMethodEnabled) {
+            this.storePaymentMethodEnabled = storePaymentMethodEnabled;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -750,7 +782,7 @@ public class Invoice {
                     deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                     nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
                     acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
-                    paymentConditions);
+                    paymentConditions, storePaymentMethodEnabled);
         }
     }
 }
