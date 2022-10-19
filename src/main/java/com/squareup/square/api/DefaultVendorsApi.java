@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.BulkCreateVendorsRequest;
 import com.squareup.square.models.BulkCreateVendorsResponse;
 import com.squareup.square.models.BulkRetrieveVendorsRequest;
@@ -26,11 +20,11 @@ import com.squareup.square.models.SearchVendorsRequest;
 import com.squareup.square.models.SearchVendorsResponse;
 import com.squareup.square.models.UpdateVendorRequest;
 import com.squareup.square.models.UpdateVendorResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -39,25 +33,10 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultVendorsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultVendorsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultVendorsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -70,13 +49,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public BulkCreateVendorsResponse bulkCreateVendors(
             final BulkCreateVendorsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkCreateVendorsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkCreateVendorsResponse(context);
+        return prepareBulkCreateVendorsRequest(body).execute();
     }
 
     /**
@@ -87,68 +60,38 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<BulkCreateVendorsResponse> bulkCreateVendorsAsync(
             final BulkCreateVendorsRequest body) {
-        return makeHttpCallAsync(() -> buildBulkCreateVendorsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkCreateVendorsResponse(context));
+        try { 
+            return prepareBulkCreateVendorsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkCreateVendors.
+     * Builds the ApiCall object for bulkCreateVendors.
      */
-    private HttpRequest buildBulkCreateVendorsRequest(
-            final BulkCreateVendorsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/bulk-create");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkCreateVendors.
-     * @return An object of type BulkCreateVendorsResponse
-     */
-    private BulkCreateVendorsResponse handleBulkCreateVendorsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkCreateVendorsResponse result = ApiHelper.deserialize(responseBody,
-                BulkCreateVendorsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkCreateVendorsResponse, ApiException> prepareBulkCreateVendorsRequest(
+            final BulkCreateVendorsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkCreateVendorsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/bulk-create")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkCreateVendorsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -161,13 +104,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public BulkRetrieveVendorsResponse bulkRetrieveVendors(
             final BulkRetrieveVendorsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkRetrieveVendorsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkRetrieveVendorsResponse(context);
+        return prepareBulkRetrieveVendorsRequest(body).execute();
     }
 
     /**
@@ -178,68 +115,38 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<BulkRetrieveVendorsResponse> bulkRetrieveVendorsAsync(
             final BulkRetrieveVendorsRequest body) {
-        return makeHttpCallAsync(() -> buildBulkRetrieveVendorsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkRetrieveVendorsResponse(context));
+        try { 
+            return prepareBulkRetrieveVendorsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkRetrieveVendors.
+     * Builds the ApiCall object for bulkRetrieveVendors.
      */
-    private HttpRequest buildBulkRetrieveVendorsRequest(
-            final BulkRetrieveVendorsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/bulk-retrieve");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkRetrieveVendors.
-     * @return An object of type BulkRetrieveVendorsResponse
-     */
-    private BulkRetrieveVendorsResponse handleBulkRetrieveVendorsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkRetrieveVendorsResponse result = ApiHelper.deserialize(responseBody,
-                BulkRetrieveVendorsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkRetrieveVendorsResponse, ApiException> prepareBulkRetrieveVendorsRequest(
+            final BulkRetrieveVendorsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkRetrieveVendorsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/bulk-retrieve")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkRetrieveVendorsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -252,13 +159,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public BulkUpdateVendorsResponse bulkUpdateVendors(
             final BulkUpdateVendorsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkUpdateVendorsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkUpdateVendorsResponse(context);
+        return prepareBulkUpdateVendorsRequest(body).execute();
     }
 
     /**
@@ -269,68 +170,38 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<BulkUpdateVendorsResponse> bulkUpdateVendorsAsync(
             final BulkUpdateVendorsRequest body) {
-        return makeHttpCallAsync(() -> buildBulkUpdateVendorsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkUpdateVendorsResponse(context));
+        try { 
+            return prepareBulkUpdateVendorsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkUpdateVendors.
+     * Builds the ApiCall object for bulkUpdateVendors.
      */
-    private HttpRequest buildBulkUpdateVendorsRequest(
-            final BulkUpdateVendorsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/bulk-update");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkUpdateVendors.
-     * @return An object of type BulkUpdateVendorsResponse
-     */
-    private BulkUpdateVendorsResponse handleBulkUpdateVendorsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkUpdateVendorsResponse result = ApiHelper.deserialize(responseBody,
-                BulkUpdateVendorsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkUpdateVendorsResponse, ApiException> prepareBulkUpdateVendorsRequest(
+            final BulkUpdateVendorsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkUpdateVendorsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/bulk-update")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkUpdateVendorsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -343,13 +214,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CreateVendorResponse createVendor(
             final CreateVendorRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateVendorRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateVendorResponse(context);
+        return prepareCreateVendorRequest(body).execute();
     }
 
     /**
@@ -360,68 +225,38 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<CreateVendorResponse> createVendorAsync(
             final CreateVendorRequest body) {
-        return makeHttpCallAsync(() -> buildCreateVendorRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateVendorResponse(context));
+        try { 
+            return prepareCreateVendorRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createVendor.
+     * Builds the ApiCall object for createVendor.
      */
-    private HttpRequest buildCreateVendorRequest(
-            final CreateVendorRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/create");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createVendor.
-     * @return An object of type CreateVendorResponse
-     */
-    private CreateVendorResponse handleCreateVendorResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateVendorResponse result = ApiHelper.deserialize(responseBody,
-                CreateVendorResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateVendorResponse, ApiException> prepareCreateVendorRequest(
+            final CreateVendorRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateVendorResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/create")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateVendorResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -435,13 +270,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public SearchVendorsResponse searchVendors(
             final SearchVendorsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchVendorsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchVendorsResponse(context);
+        return prepareSearchVendorsRequest(body).execute();
     }
 
     /**
@@ -453,68 +282,38 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<SearchVendorsResponse> searchVendorsAsync(
             final SearchVendorsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchVendorsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchVendorsResponse(context));
+        try { 
+            return prepareSearchVendorsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchVendors.
+     * Builds the ApiCall object for searchVendors.
      */
-    private HttpRequest buildSearchVendorsRequest(
-            final SearchVendorsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchVendors.
-     * @return An object of type SearchVendorsResponse
-     */
-    private SearchVendorsResponse handleSearchVendorsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchVendorsResponse result = ApiHelper.deserialize(responseBody,
-                SearchVendorsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchVendorsResponse, ApiException> prepareSearchVendorsRequest(
+            final SearchVendorsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchVendorsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchVendorsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -526,13 +325,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public RetrieveVendorResponse retrieveVendor(
             final String vendorId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveVendorRequest(vendorId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveVendorResponse(context);
+        return prepareRetrieveVendorRequest(vendorId).execute();
     }
 
     /**
@@ -542,72 +335,36 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
      */
     public CompletableFuture<RetrieveVendorResponse> retrieveVendorAsync(
             final String vendorId) {
-        return makeHttpCallAsync(() -> buildRetrieveVendorRequest(vendorId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveVendorResponse(context));
+        try { 
+            return prepareRetrieveVendorRequest(vendorId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveVendor.
+     * Builds the ApiCall object for retrieveVendor.
      */
-    private HttpRequest buildRetrieveVendorRequest(
-            final String vendorId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/{vendor_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("vendor_id",
-                new SimpleEntry<Object, Boolean>(vendorId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveVendor.
-     * @return An object of type RetrieveVendorResponse
-     */
-    private RetrieveVendorResponse handleRetrieveVendorResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveVendorResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveVendorResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveVendorResponse, ApiException> prepareRetrieveVendorRequest(
+            final String vendorId) throws IOException {
+        return new ApiCall.Builder<RetrieveVendorResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/{vendor_id}")
+                        .templateParam(param -> param.key("vendor_id").value(vendorId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveVendorResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -622,13 +379,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
     public UpdateVendorResponse updateVendor(
             final UpdateVendorRequest body,
             final String vendorId) throws ApiException, IOException {
-        HttpRequest request = buildUpdateVendorRequest(body, vendorId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateVendorResponse(context);
+        return prepareUpdateVendorRequest(body, vendorId).execute();
     }
 
     /**
@@ -641,75 +392,40 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
     public CompletableFuture<UpdateVendorResponse> updateVendorAsync(
             final UpdateVendorRequest body,
             final String vendorId) {
-        return makeHttpCallAsync(() -> buildUpdateVendorRequest(body, vendorId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateVendorResponse(context));
+        try { 
+            return prepareUpdateVendorRequest(body, vendorId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateVendor.
+     * Builds the ApiCall object for updateVendor.
      */
-    private HttpRequest buildUpdateVendorRequest(
+    private ApiCall<UpdateVendorResponse, ApiException> prepareUpdateVendorRequest(
             final UpdateVendorRequest body,
-            final String vendorId) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/vendors/{vendor_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("vendor_id",
-                new SimpleEntry<Object, Boolean>(vendorId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final String vendorId) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateVendorResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/vendors/{vendor_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("vendor_id").value(vendorId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateVendorResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for updateVendor.
-     * @return An object of type UpdateVendorResponse
-     */
-    private UpdateVendorResponse handleUpdateVendorResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateVendorResponse result = ApiHelper.deserialize(responseBody,
-                UpdateVendorResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

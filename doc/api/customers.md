@@ -107,7 +107,7 @@ CreateCustomerRequest body = new CreateCustomerRequest.Builder()
     .familyName("Earhart")
     .emailAddress("Amelia.Earhart@example.com")
     .address(bodyAddress)
-    .phoneNumber("1-212-555-4240")
+    .phoneNumber("+1-212-555-4240")
     .referenceId("YOUR_REFERENCE_ID")
     .note("a customer")
     .build();

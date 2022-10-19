@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -12,15 +13,19 @@ import java.util.Objects;
  */
 public class PaymentBalanceActivityTaxOnFeeDetail {
     private final String paymentId;
+    private final String taxRateDescription;
 
     /**
      * Initialization constructor.
      * @param  paymentId  String value for paymentId.
+     * @param  taxRateDescription  String value for taxRateDescription.
      */
     @JsonCreator
     public PaymentBalanceActivityTaxOnFeeDetail(
-            @JsonProperty("payment_id") String paymentId) {
+            @JsonProperty("payment_id") String paymentId,
+            @JsonProperty("tax_rate_description") String taxRateDescription) {
         this.paymentId = paymentId;
+        this.taxRateDescription = taxRateDescription;
     }
 
     /**
@@ -34,9 +39,20 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
         return paymentId;
     }
 
+    /**
+     * Getter for TaxRateDescription.
+     * The description of the tax rate being applied. For example: "GST", "HST".
+     * @return Returns the String
+     */
+    @JsonGetter("tax_rate_description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTaxRateDescription() {
+        return taxRateDescription;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(paymentId);
+        return Objects.hash(paymentId, taxRateDescription);
     }
 
     @Override
@@ -48,7 +64,8 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
             return false;
         }
         PaymentBalanceActivityTaxOnFeeDetail other = (PaymentBalanceActivityTaxOnFeeDetail) obj;
-        return Objects.equals(paymentId, other.paymentId);
+        return Objects.equals(paymentId, other.paymentId)
+            && Objects.equals(taxRateDescription, other.taxRateDescription);
     }
 
     /**
@@ -57,7 +74,8 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      */
     @Override
     public String toString() {
-        return "PaymentBalanceActivityTaxOnFeeDetail [" + "paymentId=" + paymentId + "]";
+        return "PaymentBalanceActivityTaxOnFeeDetail [" + "paymentId=" + paymentId
+                + ", taxRateDescription=" + taxRateDescription + "]";
     }
 
     /**
@@ -67,7 +85,8 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .paymentId(getPaymentId());
+                .paymentId(getPaymentId())
+                .taxRateDescription(getTaxRateDescription());
         return builder;
     }
 
@@ -76,6 +95,7 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      */
     public static class Builder {
         private String paymentId;
+        private String taxRateDescription;
 
 
 
@@ -90,11 +110,21 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
         }
 
         /**
+         * Setter for taxRateDescription.
+         * @param  taxRateDescription  String value for taxRateDescription.
+         * @return Builder
+         */
+        public Builder taxRateDescription(String taxRateDescription) {
+            this.taxRateDescription = taxRateDescription;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PaymentBalanceActivityTaxOnFeeDetail} object using the set fields.
          * @return {@link PaymentBalanceActivityTaxOnFeeDetail}
          */
         public PaymentBalanceActivityTaxOnFeeDetail build() {
-            return new PaymentBalanceActivityTaxOnFeeDetail(paymentId);
+            return new PaymentBalanceActivityTaxOnFeeDetail(paymentId, taxRateDescription);
         }
     }
 }

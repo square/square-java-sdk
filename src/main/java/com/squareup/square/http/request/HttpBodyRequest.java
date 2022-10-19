@@ -10,11 +10,6 @@ import java.util.Map;
 public class HttpBodyRequest extends HttpRequest {
 
     /**
-     * Private store for properties.
-     */
-    private Object body;
-
-    /**
      * Create a request with explicit body.
      * @param method          The HTTP method to use. Can be PUT, POST, DELETE and PATCH
      * @param queryUrlBuilder The fully qualified absolute http url to create the HTTP Request.
@@ -24,16 +19,7 @@ public class HttpBodyRequest extends HttpRequest {
      */
     public HttpBodyRequest(HttpMethod method, StringBuilder queryUrlBuilder, Headers headers, 
              Map<String, Object> queryParams, Object body) {
-        super(method, queryUrlBuilder, headers, queryParams, null);
-        this.body = body != null ? body : "";
-    }
-
-    /**
-     * Body for the http request.
-     * @return Object body
-     */
-    public Object getBody() {
-        return body;
+        super(method, queryUrlBuilder, headers, queryParams, body);
     }
 
     /**
@@ -44,6 +30,6 @@ public class HttpBodyRequest extends HttpRequest {
     public String toString() {
         return "HttpBodyRequest [httpMethod=" + getHttpMethod()
                 + ", headers=" + getHeaders() + ", queryUrlBuilder=" + getQueryUrl()
-                + ", queryParameters=" + getQueryParameters() + ", body=" + body + "]";
+                + ", queryParameters=" + getQueryParameters() + ", body=" + getBody() + "]";
     }
 }

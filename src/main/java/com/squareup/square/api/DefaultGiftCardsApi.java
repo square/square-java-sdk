@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateGiftCardRequest;
 import com.squareup.square.models.CreateGiftCardResponse;
 import com.squareup.square.models.LinkCustomerToGiftCardRequest;
@@ -25,11 +19,11 @@ import com.squareup.square.models.RetrieveGiftCardFromNonceResponse;
 import com.squareup.square.models.RetrieveGiftCardResponse;
 import com.squareup.square.models.UnlinkCustomerFromGiftCardRequest;
 import com.squareup.square.models.UnlinkCustomerFromGiftCardResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -38,25 +32,10 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultGiftCardsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultGiftCardsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultGiftCardsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -89,13 +68,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
             final Integer limit,
             final String cursor,
             final String customerId) throws ApiException, IOException {
-        HttpRequest request = buildListGiftCardsRequest(type, state, limit, cursor, customerId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListGiftCardsResponse(context);
+        return prepareListGiftCardsRequest(type, state, limit, cursor, customerId).execute();
     }
 
     /**
@@ -126,80 +99,48 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
             final Integer limit,
             final String cursor,
             final String customerId) {
-        return makeHttpCallAsync(() -> buildListGiftCardsRequest(type, state, limit, cursor,
-                customerId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListGiftCardsResponse(context));
+        try { 
+            return prepareListGiftCardsRequest(type, state, limit, cursor, customerId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listGiftCards.
+     * Builds the ApiCall object for listGiftCards.
      */
-    private HttpRequest buildListGiftCardsRequest(
+    private ApiCall<ListGiftCardsResponse, ApiException> prepareListGiftCardsRequest(
             final String type,
             final String state,
             final Integer limit,
             final String cursor,
-            final String customerId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("type", type);
-        queryParameters.put("state", state);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("customer_id", customerId);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listGiftCards.
-     * @return An object of type ListGiftCardsResponse
-     */
-    private ListGiftCardsResponse handleListGiftCardsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListGiftCardsResponse result = ApiHelper.deserialize(responseBody,
-                ListGiftCardsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String customerId) throws IOException {
+        return new ApiCall.Builder<ListGiftCardsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards")
+                        .queryParam(param -> param.key("type")
+                                .value(type).isRequired(false))
+                        .queryParam(param -> param.key("state")
+                                .value(state).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("customer_id")
+                                .value(customerId).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListGiftCardsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -215,13 +156,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public CreateGiftCardResponse createGiftCard(
             final CreateGiftCardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateGiftCardRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateGiftCardResponse(context);
+        return prepareCreateGiftCardRequest(body).execute();
     }
 
     /**
@@ -235,68 +170,38 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
             final CreateGiftCardRequest body) {
-        return makeHttpCallAsync(() -> buildCreateGiftCardRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateGiftCardResponse(context));
+        try { 
+            return prepareCreateGiftCardRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createGiftCard.
+     * Builds the ApiCall object for createGiftCard.
      */
-    private HttpRequest buildCreateGiftCardRequest(
-            final CreateGiftCardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createGiftCard.
-     * @return An object of type CreateGiftCardResponse
-     */
-    private CreateGiftCardResponse handleCreateGiftCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateGiftCardResponse result = ApiHelper.deserialize(responseBody,
-                CreateGiftCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateGiftCardResponse, ApiException> prepareCreateGiftCardRequest(
+            final CreateGiftCardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateGiftCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateGiftCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -309,13 +214,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public RetrieveGiftCardFromGANResponse retrieveGiftCardFromGAN(
             final RetrieveGiftCardFromGANRequest body) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveGiftCardFromGANRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveGiftCardFromGANResponse(context);
+        return prepareRetrieveGiftCardFromGANRequest(body).execute();
     }
 
     /**
@@ -326,68 +225,38 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public CompletableFuture<RetrieveGiftCardFromGANResponse> retrieveGiftCardFromGANAsync(
             final RetrieveGiftCardFromGANRequest body) {
-        return makeHttpCallAsync(() -> buildRetrieveGiftCardFromGANRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveGiftCardFromGANResponse(context));
+        try { 
+            return prepareRetrieveGiftCardFromGANRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveGiftCardFromGAN.
+     * Builds the ApiCall object for retrieveGiftCardFromGAN.
      */
-    private HttpRequest buildRetrieveGiftCardFromGANRequest(
-            final RetrieveGiftCardFromGANRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/from-gan");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveGiftCardFromGAN.
-     * @return An object of type RetrieveGiftCardFromGANResponse
-     */
-    private RetrieveGiftCardFromGANResponse handleRetrieveGiftCardFromGANResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveGiftCardFromGANResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveGiftCardFromGANResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveGiftCardFromGANResponse, ApiException> prepareRetrieveGiftCardFromGANRequest(
+            final RetrieveGiftCardFromGANRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<RetrieveGiftCardFromGANResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/from-gan")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveGiftCardFromGANResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -400,13 +269,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public RetrieveGiftCardFromNonceResponse retrieveGiftCardFromNonce(
             final RetrieveGiftCardFromNonceRequest body) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveGiftCardFromNonceRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveGiftCardFromNonceResponse(context);
+        return prepareRetrieveGiftCardFromNonceRequest(body).execute();
     }
 
     /**
@@ -417,68 +280,38 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public CompletableFuture<RetrieveGiftCardFromNonceResponse> retrieveGiftCardFromNonceAsync(
             final RetrieveGiftCardFromNonceRequest body) {
-        return makeHttpCallAsync(() -> buildRetrieveGiftCardFromNonceRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveGiftCardFromNonceResponse(context));
+        try { 
+            return prepareRetrieveGiftCardFromNonceRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveGiftCardFromNonce.
+     * Builds the ApiCall object for retrieveGiftCardFromNonce.
      */
-    private HttpRequest buildRetrieveGiftCardFromNonceRequest(
-            final RetrieveGiftCardFromNonceRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/from-nonce");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveGiftCardFromNonce.
-     * @return An object of type RetrieveGiftCardFromNonceResponse
-     */
-    private RetrieveGiftCardFromNonceResponse handleRetrieveGiftCardFromNonceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveGiftCardFromNonceResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveGiftCardFromNonceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveGiftCardFromNonceResponse, ApiException> prepareRetrieveGiftCardFromNonceRequest(
+            final RetrieveGiftCardFromNonceRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<RetrieveGiftCardFromNonceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/from-nonce")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveGiftCardFromNonceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -493,13 +326,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
     public LinkCustomerToGiftCardResponse linkCustomerToGiftCard(
             final String giftCardId,
             final LinkCustomerToGiftCardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildLinkCustomerToGiftCardRequest(giftCardId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleLinkCustomerToGiftCardResponse(context);
+        return prepareLinkCustomerToGiftCardRequest(giftCardId, body).execute();
     }
 
     /**
@@ -512,75 +339,41 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
     public CompletableFuture<LinkCustomerToGiftCardResponse> linkCustomerToGiftCardAsync(
             final String giftCardId,
             final LinkCustomerToGiftCardRequest body) {
-        return makeHttpCallAsync(() -> buildLinkCustomerToGiftCardRequest(giftCardId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleLinkCustomerToGiftCardResponse(context));
+        try { 
+            return prepareLinkCustomerToGiftCardRequest(giftCardId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for linkCustomerToGiftCard.
+     * Builds the ApiCall object for linkCustomerToGiftCard.
      */
-    private HttpRequest buildLinkCustomerToGiftCardRequest(
+    private ApiCall<LinkCustomerToGiftCardResponse, ApiException> prepareLinkCustomerToGiftCardRequest(
             final String giftCardId,
-            final LinkCustomerToGiftCardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/{gift_card_id}/link-customer");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("gift_card_id",
-                new SimpleEntry<Object, Boolean>(giftCardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for linkCustomerToGiftCard.
-     * @return An object of type LinkCustomerToGiftCardResponse
-     */
-    private LinkCustomerToGiftCardResponse handleLinkCustomerToGiftCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        LinkCustomerToGiftCardResponse result = ApiHelper.deserialize(responseBody,
-                LinkCustomerToGiftCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final LinkCustomerToGiftCardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<LinkCustomerToGiftCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/{gift_card_id}/link-customer")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("gift_card_id").value(giftCardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, LinkCustomerToGiftCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -595,13 +388,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
     public UnlinkCustomerFromGiftCardResponse unlinkCustomerFromGiftCard(
             final String giftCardId,
             final UnlinkCustomerFromGiftCardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUnlinkCustomerFromGiftCardRequest(giftCardId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUnlinkCustomerFromGiftCardResponse(context);
+        return prepareUnlinkCustomerFromGiftCardRequest(giftCardId, body).execute();
     }
 
     /**
@@ -614,75 +401,41 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
     public CompletableFuture<UnlinkCustomerFromGiftCardResponse> unlinkCustomerFromGiftCardAsync(
             final String giftCardId,
             final UnlinkCustomerFromGiftCardRequest body) {
-        return makeHttpCallAsync(() -> buildUnlinkCustomerFromGiftCardRequest(giftCardId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUnlinkCustomerFromGiftCardResponse(context));
+        try { 
+            return prepareUnlinkCustomerFromGiftCardRequest(giftCardId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for unlinkCustomerFromGiftCard.
+     * Builds the ApiCall object for unlinkCustomerFromGiftCard.
      */
-    private HttpRequest buildUnlinkCustomerFromGiftCardRequest(
+    private ApiCall<UnlinkCustomerFromGiftCardResponse, ApiException> prepareUnlinkCustomerFromGiftCardRequest(
             final String giftCardId,
-            final UnlinkCustomerFromGiftCardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/{gift_card_id}/unlink-customer");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("gift_card_id",
-                new SimpleEntry<Object, Boolean>(giftCardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for unlinkCustomerFromGiftCard.
-     * @return An object of type UnlinkCustomerFromGiftCardResponse
-     */
-    private UnlinkCustomerFromGiftCardResponse handleUnlinkCustomerFromGiftCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UnlinkCustomerFromGiftCardResponse result = ApiHelper.deserialize(responseBody,
-                UnlinkCustomerFromGiftCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UnlinkCustomerFromGiftCardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UnlinkCustomerFromGiftCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/{gift_card_id}/unlink-customer")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("gift_card_id").value(giftCardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UnlinkCustomerFromGiftCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -694,13 +447,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public RetrieveGiftCardResponse retrieveGiftCard(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveGiftCardRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveGiftCardResponse(context);
+        return prepareRetrieveGiftCardRequest(id).execute();
     }
 
     /**
@@ -710,72 +457,35 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      */
     public CompletableFuture<RetrieveGiftCardResponse> retrieveGiftCardAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildRetrieveGiftCardRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveGiftCardResponse(context));
+        try { 
+            return prepareRetrieveGiftCardRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveGiftCard.
+     * Builds the ApiCall object for retrieveGiftCard.
      */
-    private HttpRequest buildRetrieveGiftCardRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<RetrieveGiftCardResponse, ApiException> prepareRetrieveGiftCardRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<RetrieveGiftCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveGiftCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for retrieveGiftCard.
-     * @return An object of type RetrieveGiftCardResponse
-     */
-    private RetrieveGiftCardResponse handleRetrieveGiftCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveGiftCardResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveGiftCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

@@ -2,24 +2,18 @@
 package com.squareup.square.api;
 
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.GetPayoutResponse;
 import com.squareup.square.models.ListPayoutEntriesResponse;
 import com.squareup.square.models.ListPayoutsResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -28,25 +22,10 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultPayoutsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultPayoutsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultPayoutsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -86,14 +65,8 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
             final String sortOrder,
             final String cursor,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListPayoutsRequest(locationId, status, beginTime, endTime,
-                sortOrder, cursor, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListPayoutsResponse(context);
+        return prepareListPayoutsRequest(locationId, status, beginTime, endTime, sortOrder, cursor,
+                limit).execute();
     }
 
     /**
@@ -131,84 +104,55 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
             final String sortOrder,
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListPayoutsRequest(locationId, status, beginTime,
-                endTime, sortOrder, cursor, limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListPayoutsResponse(context));
+        try { 
+            return prepareListPayoutsRequest(locationId, status, beginTime, endTime, sortOrder, cursor,
+            limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listPayouts.
+     * Builds the ApiCall object for listPayouts.
      */
-    private HttpRequest buildListPayoutsRequest(
+    private ApiCall<ListPayoutsResponse, ApiException> prepareListPayoutsRequest(
             final String locationId,
             final String status,
             final String beginTime,
             final String endTime,
             final String sortOrder,
             final String cursor,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/payouts");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("status", status);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listPayouts.
-     * @return An object of type ListPayoutsResponse
-     */
-    private ListPayoutsResponse handleListPayoutsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListPayoutsResponse result = ApiHelper.deserialize(responseBody,
-                ListPayoutsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListPayoutsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/payouts")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .queryParam(param -> param.key("status")
+                                .value(status).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListPayoutsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -221,13 +165,7 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
      */
     public GetPayoutResponse getPayout(
             final String payoutId) throws ApiException, IOException {
-        HttpRequest request = buildGetPayoutRequest(payoutId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetPayoutResponse(context);
+        return prepareGetPayoutRequest(payoutId).execute();
     }
 
     /**
@@ -238,72 +176,36 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
      */
     public CompletableFuture<GetPayoutResponse> getPayoutAsync(
             final String payoutId) {
-        return makeHttpCallAsync(() -> buildGetPayoutRequest(payoutId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetPayoutResponse(context));
+        try { 
+            return prepareGetPayoutRequest(payoutId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getPayout.
+     * Builds the ApiCall object for getPayout.
      */
-    private HttpRequest buildGetPayoutRequest(
-            final String payoutId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/payouts/{payout_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("payout_id",
-                new SimpleEntry<Object, Boolean>(payoutId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getPayout.
-     * @return An object of type GetPayoutResponse
-     */
-    private GetPayoutResponse handleGetPayoutResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetPayoutResponse result = ApiHelper.deserialize(responseBody,
-                GetPayoutResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetPayoutResponse, ApiException> prepareGetPayoutRequest(
+            final String payoutId) throws IOException {
+        return new ApiCall.Builder<GetPayoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/payouts/{payout_id}")
+                        .templateParam(param -> param.key("payout_id").value(payoutId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetPayoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -331,13 +233,7 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
             final String sortOrder,
             final String cursor,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListPayoutEntriesRequest(payoutId, sortOrder, cursor, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListPayoutEntriesResponse(context);
+        return prepareListPayoutEntriesRequest(payoutId, sortOrder, cursor, limit).execute();
     }
 
     /**
@@ -363,83 +259,44 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
             final String sortOrder,
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListPayoutEntriesRequest(payoutId, sortOrder, cursor,
-                limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListPayoutEntriesResponse(context));
+        try { 
+            return prepareListPayoutEntriesRequest(payoutId, sortOrder, cursor, limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listPayoutEntries.
+     * Builds the ApiCall object for listPayoutEntries.
      */
-    private HttpRequest buildListPayoutEntriesRequest(
+    private ApiCall<ListPayoutEntriesResponse, ApiException> prepareListPayoutEntriesRequest(
             final String payoutId,
             final String sortOrder,
             final String cursor,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/payouts/{payout_id}/payout-entries");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("payout_id",
-                new SimpleEntry<Object, Boolean>(payoutId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListPayoutEntriesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/payouts/{payout_id}/payout-entries")
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .templateParam(param -> param.key("payout_id").value(payoutId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListPayoutEntriesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for listPayoutEntries.
-     * @return An object of type ListPayoutEntriesResponse
-     */
-    private ListPayoutEntriesResponse handleListPayoutEntriesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListPayoutEntriesResponse result = ApiHelper.deserialize(responseBody,
-                ListPayoutEntriesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

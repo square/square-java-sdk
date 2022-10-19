@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -376,7 +377,7 @@ public class Payment {
     /**
      * Getter for SourceType.
      * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`,
-     * `BUY_NOW_PAY_LATER`, `CASH`, or `EXTERNAL`. For information about these payment source types,
+     * `BUY_NOW_PAY_LATER`, `CASH` and `EXTERNAL`. For information about these payment source types,
      * see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      * @return Returns the String
      */
@@ -491,7 +492,15 @@ public class Payment {
 
     /**
      * Getter for CustomerId.
-     * The [Customer]($m/Customer) ID of the customer associated with the payment.
+     * The ID of the customer associated with the payment. If the ID is not provided in the
+     * `CreatePayment` request that was used to create the `Payment`, Square may use information in
+     * the request (such as the billing and shipping address, email address, and payment source) to
+     * identify a matching customer profile in the Customer Directory. If found, the profile ID is
+     * used. If a profile is not found, the API attempts to create an [instant
+     * profile](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles). If
+     * the API cannot create an instant profile (either because the seller has disabled it or the
+     * seller's region prevents creating it), this field remains unset. Note that this process is
+     * asynchronous and it may take some time before a customer ID is added to the payment.
      * @return Returns the String
      */
     @JsonGetter("customer_id")

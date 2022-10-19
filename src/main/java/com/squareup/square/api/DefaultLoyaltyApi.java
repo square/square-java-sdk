@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.AccumulateLoyaltyPointsRequest;
 import com.squareup.square.models.AccumulateLoyaltyPointsResponse;
 import com.squareup.square.models.AdjustLoyaltyPointsRequest;
@@ -41,11 +35,11 @@ import com.squareup.square.models.SearchLoyaltyEventsRequest;
 import com.squareup.square.models.SearchLoyaltyEventsResponse;
 import com.squareup.square.models.SearchLoyaltyRewardsRequest;
 import com.squareup.square.models.SearchLoyaltyRewardsResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -54,25 +48,10 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultLoyaltyApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultLoyaltyApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultLoyaltyApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -86,13 +65,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CreateLoyaltyAccountResponse createLoyaltyAccount(
             final CreateLoyaltyAccountRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateLoyaltyAccountRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateLoyaltyAccountResponse(context);
+        return prepareCreateLoyaltyAccountRequest(body).execute();
     }
 
     /**
@@ -104,68 +77,38 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
             final CreateLoyaltyAccountRequest body) {
-        return makeHttpCallAsync(() -> buildCreateLoyaltyAccountRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateLoyaltyAccountResponse(context));
+        try { 
+            return prepareCreateLoyaltyAccountRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createLoyaltyAccount.
+     * Builds the ApiCall object for createLoyaltyAccount.
      */
-    private HttpRequest buildCreateLoyaltyAccountRequest(
-            final CreateLoyaltyAccountRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/accounts");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createLoyaltyAccount.
-     * @return An object of type CreateLoyaltyAccountResponse
-     */
-    private CreateLoyaltyAccountResponse handleCreateLoyaltyAccountResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateLoyaltyAccountResponse result = ApiHelper.deserialize(responseBody,
-                CreateLoyaltyAccountResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateLoyaltyAccountResponse, ApiException> prepareCreateLoyaltyAccountRequest(
+            final CreateLoyaltyAccountRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateLoyaltyAccountResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/accounts")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateLoyaltyAccountResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -181,13 +124,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public SearchLoyaltyAccountsResponse searchLoyaltyAccounts(
             final SearchLoyaltyAccountsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchLoyaltyAccountsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchLoyaltyAccountsResponse(context);
+        return prepareSearchLoyaltyAccountsRequest(body).execute();
     }
 
     /**
@@ -201,68 +138,38 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<SearchLoyaltyAccountsResponse> searchLoyaltyAccountsAsync(
             final SearchLoyaltyAccountsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchLoyaltyAccountsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchLoyaltyAccountsResponse(context));
+        try { 
+            return prepareSearchLoyaltyAccountsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchLoyaltyAccounts.
+     * Builds the ApiCall object for searchLoyaltyAccounts.
      */
-    private HttpRequest buildSearchLoyaltyAccountsRequest(
-            final SearchLoyaltyAccountsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/accounts/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchLoyaltyAccounts.
-     * @return An object of type SearchLoyaltyAccountsResponse
-     */
-    private SearchLoyaltyAccountsResponse handleSearchLoyaltyAccountsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchLoyaltyAccountsResponse result = ApiHelper.deserialize(responseBody,
-                SearchLoyaltyAccountsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchLoyaltyAccountsResponse, ApiException> prepareSearchLoyaltyAccountsRequest(
+            final SearchLoyaltyAccountsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchLoyaltyAccountsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/accounts/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchLoyaltyAccountsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -275,13 +182,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public RetrieveLoyaltyAccountResponse retrieveLoyaltyAccount(
             final String accountId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveLoyaltyAccountRequest(accountId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveLoyaltyAccountResponse(context);
+        return prepareRetrieveLoyaltyAccountRequest(accountId).execute();
     }
 
     /**
@@ -292,72 +193,36 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
             final String accountId) {
-        return makeHttpCallAsync(() -> buildRetrieveLoyaltyAccountRequest(accountId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveLoyaltyAccountResponse(context));
+        try { 
+            return prepareRetrieveLoyaltyAccountRequest(accountId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveLoyaltyAccount.
+     * Builds the ApiCall object for retrieveLoyaltyAccount.
      */
-    private HttpRequest buildRetrieveLoyaltyAccountRequest(
-            final String accountId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/accounts/{account_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("account_id",
-                new SimpleEntry<Object, Boolean>(accountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveLoyaltyAccount.
-     * @return An object of type RetrieveLoyaltyAccountResponse
-     */
-    private RetrieveLoyaltyAccountResponse handleRetrieveLoyaltyAccountResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveLoyaltyAccountResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveLoyaltyAccountResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveLoyaltyAccountResponse, ApiException> prepareRetrieveLoyaltyAccountRequest(
+            final String accountId) throws IOException {
+        return new ApiCall.Builder<RetrieveLoyaltyAccountResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/accounts/{account_id}")
+                        .templateParam(param -> param.key("account_id").value(accountId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLoyaltyAccountResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -386,13 +251,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public AccumulateLoyaltyPointsResponse accumulateLoyaltyPoints(
             final String accountId,
             final AccumulateLoyaltyPointsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildAccumulateLoyaltyPointsRequest(accountId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleAccumulateLoyaltyPointsResponse(context);
+        return prepareAccumulateLoyaltyPointsRequest(accountId, body).execute();
     }
 
     /**
@@ -419,75 +278,41 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
             final String accountId,
             final AccumulateLoyaltyPointsRequest body) {
-        return makeHttpCallAsync(() -> buildAccumulateLoyaltyPointsRequest(accountId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleAccumulateLoyaltyPointsResponse(context));
+        try { 
+            return prepareAccumulateLoyaltyPointsRequest(accountId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for accumulateLoyaltyPoints.
+     * Builds the ApiCall object for accumulateLoyaltyPoints.
      */
-    private HttpRequest buildAccumulateLoyaltyPointsRequest(
+    private ApiCall<AccumulateLoyaltyPointsResponse, ApiException> prepareAccumulateLoyaltyPointsRequest(
             final String accountId,
-            final AccumulateLoyaltyPointsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/accounts/{account_id}/accumulate");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("account_id",
-                new SimpleEntry<Object, Boolean>(accountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for accumulateLoyaltyPoints.
-     * @return An object of type AccumulateLoyaltyPointsResponse
-     */
-    private AccumulateLoyaltyPointsResponse handleAccumulateLoyaltyPointsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        AccumulateLoyaltyPointsResponse result = ApiHelper.deserialize(responseBody,
-                AccumulateLoyaltyPointsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final AccumulateLoyaltyPointsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<AccumulateLoyaltyPointsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/accounts/{account_id}/accumulate")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("account_id").value(accountId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, AccumulateLoyaltyPointsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -506,13 +331,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public AdjustLoyaltyPointsResponse adjustLoyaltyPoints(
             final String accountId,
             final AdjustLoyaltyPointsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildAdjustLoyaltyPointsRequest(accountId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleAdjustLoyaltyPointsResponse(context);
+        return prepareAdjustLoyaltyPointsRequest(accountId, body).execute();
     }
 
     /**
@@ -529,75 +348,41 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
             final String accountId,
             final AdjustLoyaltyPointsRequest body) {
-        return makeHttpCallAsync(() -> buildAdjustLoyaltyPointsRequest(accountId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleAdjustLoyaltyPointsResponse(context));
+        try { 
+            return prepareAdjustLoyaltyPointsRequest(accountId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for adjustLoyaltyPoints.
+     * Builds the ApiCall object for adjustLoyaltyPoints.
      */
-    private HttpRequest buildAdjustLoyaltyPointsRequest(
+    private ApiCall<AdjustLoyaltyPointsResponse, ApiException> prepareAdjustLoyaltyPointsRequest(
             final String accountId,
-            final AdjustLoyaltyPointsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/accounts/{account_id}/adjust");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("account_id",
-                new SimpleEntry<Object, Boolean>(accountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for adjustLoyaltyPoints.
-     * @return An object of type AdjustLoyaltyPointsResponse
-     */
-    private AdjustLoyaltyPointsResponse handleAdjustLoyaltyPointsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        AdjustLoyaltyPointsResponse result = ApiHelper.deserialize(responseBody,
-                AdjustLoyaltyPointsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final AdjustLoyaltyPointsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<AdjustLoyaltyPointsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/accounts/{account_id}/adjust")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("account_id").value(accountId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, AdjustLoyaltyPointsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -614,13 +399,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public SearchLoyaltyEventsResponse searchLoyaltyEvents(
             final SearchLoyaltyEventsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchLoyaltyEventsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchLoyaltyEventsResponse(context);
+        return prepareSearchLoyaltyEventsRequest(body).execute();
     }
 
     /**
@@ -635,68 +414,38 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
             final SearchLoyaltyEventsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchLoyaltyEventsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchLoyaltyEventsResponse(context));
+        try { 
+            return prepareSearchLoyaltyEventsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchLoyaltyEvents.
+     * Builds the ApiCall object for searchLoyaltyEvents.
      */
-    private HttpRequest buildSearchLoyaltyEventsRequest(
-            final SearchLoyaltyEventsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/events/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchLoyaltyEvents.
-     * @return An object of type SearchLoyaltyEventsResponse
-     */
-    private SearchLoyaltyEventsResponse handleSearchLoyaltyEventsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchLoyaltyEventsResponse result = ApiHelper.deserialize(responseBody,
-                SearchLoyaltyEventsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchLoyaltyEventsResponse, ApiException> prepareSearchLoyaltyEventsRequest(
+            final SearchLoyaltyEventsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchLoyaltyEventsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/events/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchLoyaltyEventsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -715,13 +464,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     @Deprecated
     public ListLoyaltyProgramsResponse listLoyaltyPrograms() throws ApiException, IOException {
-        HttpRequest request = buildListLoyaltyProgramsRequest();
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListLoyaltyProgramsResponse(context);
+        return prepareListLoyaltyProgramsRequest().execute();
     }
 
     /**
@@ -738,65 +481,33 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     @Deprecated
     public CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync() {
-        return makeHttpCallAsync(() -> buildListLoyaltyProgramsRequest(),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListLoyaltyProgramsResponse(context));
+        try { 
+            return prepareListLoyaltyProgramsRequest().executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listLoyaltyPrograms.
+     * Builds the ApiCall object for listLoyaltyPrograms.
      */
-    private HttpRequest buildListLoyaltyProgramsRequest() {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listLoyaltyPrograms.
-     * @return An object of type ListLoyaltyProgramsResponse
-     */
-    private ListLoyaltyProgramsResponse handleListLoyaltyProgramsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListLoyaltyProgramsResponse result = ApiHelper.deserialize(responseBody,
-                ListLoyaltyProgramsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<ListLoyaltyProgramsResponse, ApiException> prepareListLoyaltyProgramsRequest() throws IOException {
+        return new ApiCall.Builder<ListLoyaltyProgramsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs")
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListLoyaltyProgramsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -814,13 +525,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public RetrieveLoyaltyProgramResponse retrieveLoyaltyProgram(
             final String programId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveLoyaltyProgramRequest(programId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveLoyaltyProgramResponse(context);
+        return prepareRetrieveLoyaltyProgramRequest(programId).execute();
     }
 
     /**
@@ -836,72 +541,36 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<RetrieveLoyaltyProgramResponse> retrieveLoyaltyProgramAsync(
             final String programId) {
-        return makeHttpCallAsync(() -> buildRetrieveLoyaltyProgramRequest(programId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveLoyaltyProgramResponse(context));
+        try { 
+            return prepareRetrieveLoyaltyProgramRequest(programId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveLoyaltyProgram.
+     * Builds the ApiCall object for retrieveLoyaltyProgram.
      */
-    private HttpRequest buildRetrieveLoyaltyProgramRequest(
-            final String programId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveLoyaltyProgram.
-     * @return An object of type RetrieveLoyaltyProgramResponse
-     */
-    private RetrieveLoyaltyProgramResponse handleRetrieveLoyaltyProgramResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveLoyaltyProgramResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveLoyaltyProgramResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveLoyaltyProgramResponse, ApiException> prepareRetrieveLoyaltyProgramRequest(
+            final String programId) throws IOException {
+        return new ApiCall.Builder<RetrieveLoyaltyProgramResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}")
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLoyaltyProgramResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -930,13 +599,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CalculateLoyaltyPointsResponse calculateLoyaltyPoints(
             final String programId,
             final CalculateLoyaltyPointsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCalculateLoyaltyPointsRequest(programId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCalculateLoyaltyPointsResponse(context);
+        return prepareCalculateLoyaltyPointsRequest(programId, body).execute();
     }
 
     /**
@@ -963,75 +626,41 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
             final String programId,
             final CalculateLoyaltyPointsRequest body) {
-        return makeHttpCallAsync(() -> buildCalculateLoyaltyPointsRequest(programId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCalculateLoyaltyPointsResponse(context));
+        try { 
+            return prepareCalculateLoyaltyPointsRequest(programId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for calculateLoyaltyPoints.
+     * Builds the ApiCall object for calculateLoyaltyPoints.
      */
-    private HttpRequest buildCalculateLoyaltyPointsRequest(
+    private ApiCall<CalculateLoyaltyPointsResponse, ApiException> prepareCalculateLoyaltyPointsRequest(
             final String programId,
-            final CalculateLoyaltyPointsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}/calculate");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for calculateLoyaltyPoints.
-     * @return An object of type CalculateLoyaltyPointsResponse
-     */
-    private CalculateLoyaltyPointsResponse handleCalculateLoyaltyPointsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CalculateLoyaltyPointsResponse result = ApiHelper.deserialize(responseBody,
-                CalculateLoyaltyPointsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final CalculateLoyaltyPointsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CalculateLoyaltyPointsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}/calculate")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CalculateLoyaltyPointsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1060,13 +689,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
             final String status,
             final String cursor,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListLoyaltyPromotionsRequest(programId, status, cursor, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListLoyaltyPromotionsResponse(context);
+        return prepareListLoyaltyPromotionsRequest(programId, status, cursor, limit).execute();
     }
 
     /**
@@ -1093,83 +716,45 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
             final String status,
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListLoyaltyPromotionsRequest(programId, status, cursor,
-                limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListLoyaltyPromotionsResponse(context));
+        try { 
+            return prepareListLoyaltyPromotionsRequest(programId, status, cursor, limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listLoyaltyPromotions.
+     * Builds the ApiCall object for listLoyaltyPromotions.
      */
-    private HttpRequest buildListLoyaltyPromotionsRequest(
+    private ApiCall<ListLoyaltyPromotionsResponse, ApiException> prepareListLoyaltyPromotionsRequest(
             final String programId,
             final String status,
             final String cursor,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}/promotions");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("status", status);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listLoyaltyPromotions.
-     * @return An object of type ListLoyaltyPromotionsResponse
-     */
-    private ListLoyaltyPromotionsResponse handleListLoyaltyPromotionsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListLoyaltyPromotionsResponse result = ApiHelper.deserialize(responseBody,
-                ListLoyaltyPromotionsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListLoyaltyPromotionsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}/promotions")
+                        .queryParam(param -> param.key("status")
+                                .value(status).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListLoyaltyPromotionsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1190,13 +775,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CreateLoyaltyPromotionResponse createLoyaltyPromotion(
             final String programId,
             final CreateLoyaltyPromotionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateLoyaltyPromotionRequest(programId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateLoyaltyPromotionResponse(context);
+        return prepareCreateLoyaltyPromotionRequest(programId, body).execute();
     }
 
     /**
@@ -1215,75 +794,41 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<CreateLoyaltyPromotionResponse> createLoyaltyPromotionAsync(
             final String programId,
             final CreateLoyaltyPromotionRequest body) {
-        return makeHttpCallAsync(() -> buildCreateLoyaltyPromotionRequest(programId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateLoyaltyPromotionResponse(context));
+        try { 
+            return prepareCreateLoyaltyPromotionRequest(programId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createLoyaltyPromotion.
+     * Builds the ApiCall object for createLoyaltyPromotion.
      */
-    private HttpRequest buildCreateLoyaltyPromotionRequest(
+    private ApiCall<CreateLoyaltyPromotionResponse, ApiException> prepareCreateLoyaltyPromotionRequest(
             final String programId,
-            final CreateLoyaltyPromotionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}/promotions");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createLoyaltyPromotion.
-     * @return An object of type CreateLoyaltyPromotionResponse
-     */
-    private CreateLoyaltyPromotionResponse handleCreateLoyaltyPromotionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateLoyaltyPromotionResponse result = ApiHelper.deserialize(responseBody,
-                CreateLoyaltyPromotionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final CreateLoyaltyPromotionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateLoyaltyPromotionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}/promotions")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateLoyaltyPromotionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1300,13 +845,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public RetrieveLoyaltyPromotionResponse retrieveLoyaltyPromotion(
             final String promotionId,
             final String programId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveLoyaltyPromotionRequest(promotionId, programId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveLoyaltyPromotionResponse(context);
+        return prepareRetrieveLoyaltyPromotionRequest(promotionId, programId).execute();
     }
 
     /**
@@ -1321,75 +860,39 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<RetrieveLoyaltyPromotionResponse> retrieveLoyaltyPromotionAsync(
             final String promotionId,
             final String programId) {
-        return makeHttpCallAsync(() -> buildRetrieveLoyaltyPromotionRequest(promotionId, programId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveLoyaltyPromotionResponse(context));
+        try { 
+            return prepareRetrieveLoyaltyPromotionRequest(promotionId, programId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveLoyaltyPromotion.
+     * Builds the ApiCall object for retrieveLoyaltyPromotion.
      */
-    private HttpRequest buildRetrieveLoyaltyPromotionRequest(
+    private ApiCall<RetrieveLoyaltyPromotionResponse, ApiException> prepareRetrieveLoyaltyPromotionRequest(
             final String promotionId,
-            final String programId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}/promotions/{promotion_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("promotion_id",
-                new SimpleEntry<Object, Boolean>(promotionId, true));
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveLoyaltyPromotion.
-     * @return An object of type RetrieveLoyaltyPromotionResponse
-     */
-    private RetrieveLoyaltyPromotionResponse handleRetrieveLoyaltyPromotionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveLoyaltyPromotionResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveLoyaltyPromotionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String programId) throws IOException {
+        return new ApiCall.Builder<RetrieveLoyaltyPromotionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}/promotions/{promotion_id}")
+                        .templateParam(param -> param.key("promotion_id").value(promotionId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLoyaltyPromotionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1410,13 +913,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CancelLoyaltyPromotionResponse cancelLoyaltyPromotion(
             final String promotionId,
             final String programId) throws ApiException, IOException {
-        HttpRequest request = buildCancelLoyaltyPromotionRequest(promotionId, programId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCancelLoyaltyPromotionResponse(context);
+        return prepareCancelLoyaltyPromotionRequest(promotionId, programId).execute();
     }
 
     /**
@@ -1435,75 +932,39 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<CancelLoyaltyPromotionResponse> cancelLoyaltyPromotionAsync(
             final String promotionId,
             final String programId) {
-        return makeHttpCallAsync(() -> buildCancelLoyaltyPromotionRequest(promotionId, programId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCancelLoyaltyPromotionResponse(context));
+        try { 
+            return prepareCancelLoyaltyPromotionRequest(promotionId, programId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for cancelLoyaltyPromotion.
+     * Builds the ApiCall object for cancelLoyaltyPromotion.
      */
-    private HttpRequest buildCancelLoyaltyPromotionRequest(
+    private ApiCall<CancelLoyaltyPromotionResponse, ApiException> prepareCancelLoyaltyPromotionRequest(
             final String promotionId,
-            final String programId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/programs/{program_id}/promotions/{promotion_id}/cancel");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("promotion_id",
-                new SimpleEntry<Object, Boolean>(promotionId, true));
-        templateParameters.put("program_id",
-                new SimpleEntry<Object, Boolean>(programId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for cancelLoyaltyPromotion.
-     * @return An object of type CancelLoyaltyPromotionResponse
-     */
-    private CancelLoyaltyPromotionResponse handleCancelLoyaltyPromotionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CancelLoyaltyPromotionResponse result = ApiHelper.deserialize(responseBody,
-                CancelLoyaltyPromotionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String programId) throws IOException {
+        return new ApiCall.Builder<CancelLoyaltyPromotionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/programs/{program_id}/promotions/{promotion_id}/cancel")
+                        .templateParam(param -> param.key("promotion_id").value(promotionId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("program_id").value(programId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CancelLoyaltyPromotionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1520,13 +981,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CreateLoyaltyRewardResponse createLoyaltyReward(
             final CreateLoyaltyRewardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateLoyaltyRewardRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateLoyaltyRewardResponse(context);
+        return prepareCreateLoyaltyRewardRequest(body).execute();
     }
 
     /**
@@ -1541,68 +996,38 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<CreateLoyaltyRewardResponse> createLoyaltyRewardAsync(
             final CreateLoyaltyRewardRequest body) {
-        return makeHttpCallAsync(() -> buildCreateLoyaltyRewardRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateLoyaltyRewardResponse(context));
+        try { 
+            return prepareCreateLoyaltyRewardRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createLoyaltyReward.
+     * Builds the ApiCall object for createLoyaltyReward.
      */
-    private HttpRequest buildCreateLoyaltyRewardRequest(
-            final CreateLoyaltyRewardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/rewards");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createLoyaltyReward.
-     * @return An object of type CreateLoyaltyRewardResponse
-     */
-    private CreateLoyaltyRewardResponse handleCreateLoyaltyRewardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateLoyaltyRewardResponse result = ApiHelper.deserialize(responseBody,
-                CreateLoyaltyRewardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateLoyaltyRewardResponse, ApiException> prepareCreateLoyaltyRewardRequest(
+            final CreateLoyaltyRewardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateLoyaltyRewardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/rewards")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateLoyaltyRewardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1619,13 +1044,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public SearchLoyaltyRewardsResponse searchLoyaltyRewards(
             final SearchLoyaltyRewardsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchLoyaltyRewardsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchLoyaltyRewardsResponse(context);
+        return prepareSearchLoyaltyRewardsRequest(body).execute();
     }
 
     /**
@@ -1640,68 +1059,38 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
             final SearchLoyaltyRewardsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchLoyaltyRewardsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchLoyaltyRewardsResponse(context));
+        try { 
+            return prepareSearchLoyaltyRewardsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchLoyaltyRewards.
+     * Builds the ApiCall object for searchLoyaltyRewards.
      */
-    private HttpRequest buildSearchLoyaltyRewardsRequest(
-            final SearchLoyaltyRewardsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/rewards/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchLoyaltyRewards.
-     * @return An object of type SearchLoyaltyRewardsResponse
-     */
-    private SearchLoyaltyRewardsResponse handleSearchLoyaltyRewardsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchLoyaltyRewardsResponse result = ApiHelper.deserialize(responseBody,
-                SearchLoyaltyRewardsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchLoyaltyRewardsResponse, ApiException> prepareSearchLoyaltyRewardsRequest(
+            final SearchLoyaltyRewardsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchLoyaltyRewardsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/rewards/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchLoyaltyRewardsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1718,13 +1107,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public DeleteLoyaltyRewardResponse deleteLoyaltyReward(
             final String rewardId) throws ApiException, IOException {
-        HttpRequest request = buildDeleteLoyaltyRewardRequest(rewardId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteLoyaltyRewardResponse(context);
+        return prepareDeleteLoyaltyRewardRequest(rewardId).execute();
     }
 
     /**
@@ -1739,72 +1122,36 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<DeleteLoyaltyRewardResponse> deleteLoyaltyRewardAsync(
             final String rewardId) {
-        return makeHttpCallAsync(() -> buildDeleteLoyaltyRewardRequest(rewardId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteLoyaltyRewardResponse(context));
+        try { 
+            return prepareDeleteLoyaltyRewardRequest(rewardId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteLoyaltyReward.
+     * Builds the ApiCall object for deleteLoyaltyReward.
      */
-    private HttpRequest buildDeleteLoyaltyRewardRequest(
-            final String rewardId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/rewards/{reward_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("reward_id",
-                new SimpleEntry<Object, Boolean>(rewardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteLoyaltyReward.
-     * @return An object of type DeleteLoyaltyRewardResponse
-     */
-    private DeleteLoyaltyRewardResponse handleDeleteLoyaltyRewardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteLoyaltyRewardResponse result = ApiHelper.deserialize(responseBody,
-                DeleteLoyaltyRewardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteLoyaltyRewardResponse, ApiException> prepareDeleteLoyaltyRewardRequest(
+            final String rewardId) throws IOException {
+        return new ApiCall.Builder<DeleteLoyaltyRewardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/rewards/{reward_id}")
+                        .templateParam(param -> param.key("reward_id").value(rewardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteLoyaltyRewardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1817,13 +1164,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public RetrieveLoyaltyRewardResponse retrieveLoyaltyReward(
             final String rewardId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveLoyaltyRewardRequest(rewardId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveLoyaltyRewardResponse(context);
+        return prepareRetrieveLoyaltyRewardRequest(rewardId).execute();
     }
 
     /**
@@ -1834,72 +1175,36 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
      */
     public CompletableFuture<RetrieveLoyaltyRewardResponse> retrieveLoyaltyRewardAsync(
             final String rewardId) {
-        return makeHttpCallAsync(() -> buildRetrieveLoyaltyRewardRequest(rewardId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveLoyaltyRewardResponse(context));
+        try { 
+            return prepareRetrieveLoyaltyRewardRequest(rewardId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveLoyaltyReward.
+     * Builds the ApiCall object for retrieveLoyaltyReward.
      */
-    private HttpRequest buildRetrieveLoyaltyRewardRequest(
-            final String rewardId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/rewards/{reward_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("reward_id",
-                new SimpleEntry<Object, Boolean>(rewardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveLoyaltyReward.
-     * @return An object of type RetrieveLoyaltyRewardResponse
-     */
-    private RetrieveLoyaltyRewardResponse handleRetrieveLoyaltyRewardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveLoyaltyRewardResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveLoyaltyRewardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveLoyaltyRewardResponse, ApiException> prepareRetrieveLoyaltyRewardRequest(
+            final String rewardId) throws IOException {
+        return new ApiCall.Builder<RetrieveLoyaltyRewardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/rewards/{reward_id}")
+                        .templateParam(param -> param.key("reward_id").value(rewardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLoyaltyRewardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1919,13 +1224,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public RedeemLoyaltyRewardResponse redeemLoyaltyReward(
             final String rewardId,
             final RedeemLoyaltyRewardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildRedeemLoyaltyRewardRequest(rewardId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRedeemLoyaltyRewardResponse(context);
+        return prepareRedeemLoyaltyRewardRequest(rewardId, body).execute();
     }
 
     /**
@@ -1943,75 +1242,40 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
     public CompletableFuture<RedeemLoyaltyRewardResponse> redeemLoyaltyRewardAsync(
             final String rewardId,
             final RedeemLoyaltyRewardRequest body) {
-        return makeHttpCallAsync(() -> buildRedeemLoyaltyRewardRequest(rewardId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRedeemLoyaltyRewardResponse(context));
+        try { 
+            return prepareRedeemLoyaltyRewardRequest(rewardId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for redeemLoyaltyReward.
+     * Builds the ApiCall object for redeemLoyaltyReward.
      */
-    private HttpRequest buildRedeemLoyaltyRewardRequest(
+    private ApiCall<RedeemLoyaltyRewardResponse, ApiException> prepareRedeemLoyaltyRewardRequest(
             final String rewardId,
-            final RedeemLoyaltyRewardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/loyalty/rewards/{reward_id}/redeem");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("reward_id",
-                new SimpleEntry<Object, Boolean>(rewardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final RedeemLoyaltyRewardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<RedeemLoyaltyRewardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/loyalty/rewards/{reward_id}/redeem")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("reward_id").value(rewardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RedeemLoyaltyRewardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for redeemLoyaltyReward.
-     * @return An object of type RedeemLoyaltyRewardResponse
-     */
-    private RedeemLoyaltyRewardResponse handleRedeemLoyaltyRewardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RedeemLoyaltyRewardResponse result = ApiHelper.deserialize(responseBody,
-                RedeemLoyaltyRewardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

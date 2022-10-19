@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -81,7 +82,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for GivenName.
-     * The given name (that is, the first name) associated with the customer profile.
+     * The given name (that is, the first name) associated with the customer profile. The maximum
+     * length for this value is 300 characters.
      * @return Returns the String
      */
     @JsonGetter("given_name")
@@ -92,7 +94,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for FamilyName.
-     * The family name (that is, the last name) associated with the customer profile.
+     * The family name (that is, the last name) associated with the customer profile. The maximum
+     * length for this value is 300 characters.
      * @return Returns the String
      */
     @JsonGetter("family_name")
@@ -103,7 +106,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for CompanyName.
-     * A business name associated with the customer profile.
+     * A business name associated with the customer profile. The maximum length for this value is
+     * 500 characters.
      * @return Returns the String
      */
     @JsonGetter("company_name")
@@ -114,7 +118,7 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for Nickname.
-     * A nickname for the customer profile.
+     * A nickname for the customer profile. The maximum length for this value is 100 characters.
      * @return Returns the String
      */
     @JsonGetter("nickname")
@@ -125,7 +129,8 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for EmailAddress.
-     * The email address associated with the customer profile.
+     * The email address associated with the customer profile. The maximum length for this value is
+     * 254 characters.
      * @return Returns the String
      */
     @JsonGetter("email_address")
@@ -148,8 +153,10 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for PhoneNumber.
-     * The phone number associated with the customer profile. A phone number can contain 9–16
-     * digits, with an optional `+` prefix.
+     * The phone number associated with the customer profile. The phone number must be valid and can
+     * contain 9–16 digits, with an optional `+` prefix and country code. For more information, see
+     * [Customer phone
+     * numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number).
      * @return Returns the String
      */
     @JsonGetter("phone_number")
@@ -161,7 +168,7 @@ public class CreateCustomerRequest {
     /**
      * Getter for ReferenceId.
      * An optional second ID used to associate the customer profile with an entity in another
-     * system.
+     * system. The maximum length for this value is 100 characters.
      * @return Returns the String
      */
     @JsonGetter("reference_id")
@@ -183,10 +190,10 @@ public class CreateCustomerRequest {
 
     /**
      * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional.
-     * The timezone and time are not allowed. For example, `0000-09-21T00:00:00-00:00` represents a
-     * birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September
-     * 21, 1998. You can also specify this value in `YYYY-MM-DD` format.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` or `MM-DD` format. For
+     * example, specify `1998-09-21` for September 21, 1998, or `09-21` for September 21. Birthdays
+     * are returned in `YYYY-MM-DD` format, where `YYYY` is the specified birth year or `0000` if a
+     * birth year is not specified.
      * @return Returns the String
      */
     @JsonGetter("birthday")

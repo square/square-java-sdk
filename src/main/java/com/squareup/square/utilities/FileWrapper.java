@@ -3,11 +3,12 @@ package com.squareup.square.utilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.File;
+import io.apimatic.coreinterfaces.type.CoreFileWrapper;
 
 /**
  * Class to wrap file and contentType to be sent as part of a HTTP request.
  */
-public class FileWrapper {
+public class FileWrapper implements CoreFileWrapper {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private File file;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -14,21 +15,25 @@ public class InvoiceAcceptedPaymentMethods {
     private final Boolean card;
     private final Boolean squareGiftCard;
     private final Boolean bankAccount;
+    private final Boolean buyNowPayLater;
 
     /**
      * Initialization constructor.
      * @param  card  Boolean value for card.
      * @param  squareGiftCard  Boolean value for squareGiftCard.
      * @param  bankAccount  Boolean value for bankAccount.
+     * @param  buyNowPayLater  Boolean value for buyNowPayLater.
      */
     @JsonCreator
     public InvoiceAcceptedPaymentMethods(
             @JsonProperty("card") Boolean card,
             @JsonProperty("square_gift_card") Boolean squareGiftCard,
-            @JsonProperty("bank_account") Boolean bankAccount) {
+            @JsonProperty("bank_account") Boolean bankAccount,
+            @JsonProperty("buy_now_pay_later") Boolean buyNowPayLater) {
         this.card = card;
         this.squareGiftCard = squareGiftCard;
         this.bankAccount = bankAccount;
+        this.buyNowPayLater = buyNowPayLater;
     }
 
     /**
@@ -57,7 +62,7 @@ public class InvoiceAcceptedPaymentMethods {
     /**
      * Getter for BankAccount.
      * Indicates whether bank transfer payments are accepted. The default value is `false`. This
-     * option is allowed only for invoices that have a single payment request of type `BALANCE`.
+     * option is allowed only for invoices that have a single payment request of the `BALANCE` type.
      * @return Returns the Boolean
      */
     @JsonGetter("bank_account")
@@ -66,9 +71,27 @@ public class InvoiceAcceptedPaymentMethods {
         return bankAccount;
     }
 
+    /**
+     * Getter for BuyNowPayLater.
+     * Indicates whether Afterpay (also known as Clearpay) payments are accepted. The default value
+     * is `false`. This option is allowed only for invoices that have a single payment request of
+     * the `BALANCE` type. This payment method is supported if the seller account accepts Afterpay
+     * payments and the seller location is in a country where Afterpay invoice payments are
+     * supported. As a best practice, consider enabling an additional payment method when allowing
+     * `buy_now_pay_later` payments. For more information, including detailed requirements and
+     * processing limits, see [Buy Now Pay Later payments with
+     * Afterpay](https://developer.squareup.com/docs/invoices-api/overview#buy-now-pay-later).
+     * @return Returns the Boolean
+     */
+    @JsonGetter("buy_now_pay_later")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getBuyNowPayLater() {
+        return buyNowPayLater;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(card, squareGiftCard, bankAccount);
+        return Objects.hash(card, squareGiftCard, bankAccount, buyNowPayLater);
     }
 
     @Override
@@ -82,7 +105,8 @@ public class InvoiceAcceptedPaymentMethods {
         InvoiceAcceptedPaymentMethods other = (InvoiceAcceptedPaymentMethods) obj;
         return Objects.equals(card, other.card)
             && Objects.equals(squareGiftCard, other.squareGiftCard)
-            && Objects.equals(bankAccount, other.bankAccount);
+            && Objects.equals(bankAccount, other.bankAccount)
+            && Objects.equals(buyNowPayLater, other.buyNowPayLater);
     }
 
     /**
@@ -92,7 +116,8 @@ public class InvoiceAcceptedPaymentMethods {
     @Override
     public String toString() {
         return "InvoiceAcceptedPaymentMethods [" + "card=" + card + ", squareGiftCard="
-                + squareGiftCard + ", bankAccount=" + bankAccount + "]";
+                + squareGiftCard + ", bankAccount=" + bankAccount + ", buyNowPayLater="
+                + buyNowPayLater + "]";
     }
 
     /**
@@ -104,7 +129,8 @@ public class InvoiceAcceptedPaymentMethods {
         Builder builder = new Builder()
                 .card(getCard())
                 .squareGiftCard(getSquareGiftCard())
-                .bankAccount(getBankAccount());
+                .bankAccount(getBankAccount())
+                .buyNowPayLater(getBuyNowPayLater());
         return builder;
     }
 
@@ -115,6 +141,7 @@ public class InvoiceAcceptedPaymentMethods {
         private Boolean card;
         private Boolean squareGiftCard;
         private Boolean bankAccount;
+        private Boolean buyNowPayLater;
 
 
 
@@ -149,11 +176,22 @@ public class InvoiceAcceptedPaymentMethods {
         }
 
         /**
+         * Setter for buyNowPayLater.
+         * @param  buyNowPayLater  Boolean value for buyNowPayLater.
+         * @return Builder
+         */
+        public Builder buyNowPayLater(Boolean buyNowPayLater) {
+            this.buyNowPayLater = buyNowPayLater;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceAcceptedPaymentMethods} object using the set fields.
          * @return {@link InvoiceAcceptedPaymentMethods}
          */
         public InvoiceAcceptedPaymentMethods build() {
-            return new InvoiceAcceptedPaymentMethods(card, squareGiftCard, bankAccount);
+            return new InvoiceAcceptedPaymentMethods(card, squareGiftCard, bankAccount,
+                    buyNowPayLater);
         }
     }
 }

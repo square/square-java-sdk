@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateWebhookSubscriptionRequest;
 import com.squareup.square.models.CreateWebhookSubscriptionResponse;
 import com.squareup.square.models.DeleteWebhookSubscriptionResponse;
@@ -25,11 +19,11 @@ import com.squareup.square.models.UpdateWebhookSubscriptionRequest;
 import com.squareup.square.models.UpdateWebhookSubscriptionResponse;
 import com.squareup.square.models.UpdateWebhookSubscriptionSignatureKeyRequest;
 import com.squareup.square.models.UpdateWebhookSubscriptionSignatureKeyResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -38,25 +32,10 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultWebhookSubscriptionsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultWebhookSubscriptionsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultWebhookSubscriptionsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -69,13 +48,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public ListWebhookEventTypesResponse listWebhookEventTypes(
             final String apiVersion) throws ApiException, IOException {
-        HttpRequest request = buildListWebhookEventTypesRequest(apiVersion);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListWebhookEventTypesResponse(context);
+        return prepareListWebhookEventTypesRequest(apiVersion).execute();
     }
 
     /**
@@ -86,71 +59,36 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public CompletableFuture<ListWebhookEventTypesResponse> listWebhookEventTypesAsync(
             final String apiVersion) {
-        return makeHttpCallAsync(() -> buildListWebhookEventTypesRequest(apiVersion),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListWebhookEventTypesResponse(context));
+        try { 
+            return prepareListWebhookEventTypesRequest(apiVersion).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listWebhookEventTypes.
+     * Builds the ApiCall object for listWebhookEventTypes.
      */
-    private HttpRequest buildListWebhookEventTypesRequest(
-            final String apiVersion) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/event-types");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("api_version", apiVersion);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listWebhookEventTypes.
-     * @return An object of type ListWebhookEventTypesResponse
-     */
-    private ListWebhookEventTypesResponse handleListWebhookEventTypesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListWebhookEventTypesResponse result = ApiHelper.deserialize(responseBody,
-                ListWebhookEventTypesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<ListWebhookEventTypesResponse, ApiException> prepareListWebhookEventTypesRequest(
+            final String apiVersion) throws IOException {
+        return new ApiCall.Builder<ListWebhookEventTypesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/event-types")
+                        .queryParam(param -> param.key("api_version")
+                                .value(apiVersion).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListWebhookEventTypesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -177,14 +115,8 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
             final Boolean includeDisabled,
             final String sortOrder,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListWebhookSubscriptionsRequest(cursor, includeDisabled,
-                sortOrder, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListWebhookSubscriptionsResponse(context);
+        return prepareListWebhookSubscriptionsRequest(cursor, includeDisabled, sortOrder,
+                limit).execute();
     }
 
     /**
@@ -209,79 +141,46 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
             final Boolean includeDisabled,
             final String sortOrder,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListWebhookSubscriptionsRequest(cursor, includeDisabled,
-                sortOrder, limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListWebhookSubscriptionsResponse(context));
+        try { 
+            return prepareListWebhookSubscriptionsRequest(cursor, includeDisabled, sortOrder,
+            limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listWebhookSubscriptions.
+     * Builds the ApiCall object for listWebhookSubscriptions.
      */
-    private HttpRequest buildListWebhookSubscriptionsRequest(
+    private ApiCall<ListWebhookSubscriptionsResponse, ApiException> prepareListWebhookSubscriptionsRequest(
             final String cursor,
             final Boolean includeDisabled,
             final String sortOrder,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("include_disabled",
-                (includeDisabled != null) ? includeDisabled : false);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listWebhookSubscriptions.
-     * @return An object of type ListWebhookSubscriptionsResponse
-     */
-    private ListWebhookSubscriptionsResponse handleListWebhookSubscriptionsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListWebhookSubscriptionsResponse result = ApiHelper.deserialize(responseBody,
-                ListWebhookSubscriptionsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListWebhookSubscriptionsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("include_disabled")
+                                .value((includeDisabled != null) ? includeDisabled : false).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListWebhookSubscriptionsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -294,13 +193,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public CreateWebhookSubscriptionResponse createWebhookSubscription(
             final CreateWebhookSubscriptionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateWebhookSubscriptionRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateWebhookSubscriptionResponse(context);
+        return prepareCreateWebhookSubscriptionRequest(body).execute();
     }
 
     /**
@@ -311,68 +204,38 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public CompletableFuture<CreateWebhookSubscriptionResponse> createWebhookSubscriptionAsync(
             final CreateWebhookSubscriptionRequest body) {
-        return makeHttpCallAsync(() -> buildCreateWebhookSubscriptionRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateWebhookSubscriptionResponse(context));
+        try { 
+            return prepareCreateWebhookSubscriptionRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createWebhookSubscription.
+     * Builds the ApiCall object for createWebhookSubscription.
      */
-    private HttpRequest buildCreateWebhookSubscriptionRequest(
-            final CreateWebhookSubscriptionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createWebhookSubscription.
-     * @return An object of type CreateWebhookSubscriptionResponse
-     */
-    private CreateWebhookSubscriptionResponse handleCreateWebhookSubscriptionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateWebhookSubscriptionResponse result = ApiHelper.deserialize(responseBody,
-                CreateWebhookSubscriptionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateWebhookSubscriptionResponse, ApiException> prepareCreateWebhookSubscriptionRequest(
+            final CreateWebhookSubscriptionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateWebhookSubscriptionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateWebhookSubscriptionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -385,13 +248,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public DeleteWebhookSubscriptionResponse deleteWebhookSubscription(
             final String subscriptionId) throws ApiException, IOException {
-        HttpRequest request = buildDeleteWebhookSubscriptionRequest(subscriptionId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteWebhookSubscriptionResponse(context);
+        return prepareDeleteWebhookSubscriptionRequest(subscriptionId).execute();
     }
 
     /**
@@ -402,72 +259,36 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public CompletableFuture<DeleteWebhookSubscriptionResponse> deleteWebhookSubscriptionAsync(
             final String subscriptionId) {
-        return makeHttpCallAsync(() -> buildDeleteWebhookSubscriptionRequest(subscriptionId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteWebhookSubscriptionResponse(context));
+        try { 
+            return prepareDeleteWebhookSubscriptionRequest(subscriptionId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteWebhookSubscription.
+     * Builds the ApiCall object for deleteWebhookSubscription.
      */
-    private HttpRequest buildDeleteWebhookSubscriptionRequest(
-            final String subscriptionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions/{subscription_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id",
-                new SimpleEntry<Object, Boolean>(subscriptionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteWebhookSubscription.
-     * @return An object of type DeleteWebhookSubscriptionResponse
-     */
-    private DeleteWebhookSubscriptionResponse handleDeleteWebhookSubscriptionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteWebhookSubscriptionResponse result = ApiHelper.deserialize(responseBody,
-                DeleteWebhookSubscriptionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteWebhookSubscriptionResponse, ApiException> prepareDeleteWebhookSubscriptionRequest(
+            final String subscriptionId) throws IOException {
+        return new ApiCall.Builder<DeleteWebhookSubscriptionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions/{subscription_id}")
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteWebhookSubscriptionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -480,13 +301,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public RetrieveWebhookSubscriptionResponse retrieveWebhookSubscription(
             final String subscriptionId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveWebhookSubscriptionRequest(subscriptionId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveWebhookSubscriptionResponse(context);
+        return prepareRetrieveWebhookSubscriptionRequest(subscriptionId).execute();
     }
 
     /**
@@ -497,72 +312,36 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      */
     public CompletableFuture<RetrieveWebhookSubscriptionResponse> retrieveWebhookSubscriptionAsync(
             final String subscriptionId) {
-        return makeHttpCallAsync(() -> buildRetrieveWebhookSubscriptionRequest(subscriptionId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveWebhookSubscriptionResponse(context));
+        try { 
+            return prepareRetrieveWebhookSubscriptionRequest(subscriptionId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveWebhookSubscription.
+     * Builds the ApiCall object for retrieveWebhookSubscription.
      */
-    private HttpRequest buildRetrieveWebhookSubscriptionRequest(
-            final String subscriptionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions/{subscription_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id",
-                new SimpleEntry<Object, Boolean>(subscriptionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveWebhookSubscription.
-     * @return An object of type RetrieveWebhookSubscriptionResponse
-     */
-    private RetrieveWebhookSubscriptionResponse handleRetrieveWebhookSubscriptionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveWebhookSubscriptionResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveWebhookSubscriptionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveWebhookSubscriptionResponse, ApiException> prepareRetrieveWebhookSubscriptionRequest(
+            final String subscriptionId) throws IOException {
+        return new ApiCall.Builder<RetrieveWebhookSubscriptionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions/{subscription_id}")
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveWebhookSubscriptionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -578,13 +357,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public UpdateWebhookSubscriptionResponse updateWebhookSubscription(
             final String subscriptionId,
             final UpdateWebhookSubscriptionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateWebhookSubscriptionRequest(subscriptionId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateWebhookSubscriptionResponse(context);
+        return prepareUpdateWebhookSubscriptionRequest(subscriptionId, body).execute();
     }
 
     /**
@@ -598,75 +371,41 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public CompletableFuture<UpdateWebhookSubscriptionResponse> updateWebhookSubscriptionAsync(
             final String subscriptionId,
             final UpdateWebhookSubscriptionRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateWebhookSubscriptionRequest(subscriptionId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateWebhookSubscriptionResponse(context));
+        try { 
+            return prepareUpdateWebhookSubscriptionRequest(subscriptionId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateWebhookSubscription.
+     * Builds the ApiCall object for updateWebhookSubscription.
      */
-    private HttpRequest buildUpdateWebhookSubscriptionRequest(
+    private ApiCall<UpdateWebhookSubscriptionResponse, ApiException> prepareUpdateWebhookSubscriptionRequest(
             final String subscriptionId,
-            final UpdateWebhookSubscriptionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions/{subscription_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id",
-                new SimpleEntry<Object, Boolean>(subscriptionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateWebhookSubscription.
-     * @return An object of type UpdateWebhookSubscriptionResponse
-     */
-    private UpdateWebhookSubscriptionResponse handleUpdateWebhookSubscriptionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateWebhookSubscriptionResponse result = ApiHelper.deserialize(responseBody,
-                UpdateWebhookSubscriptionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateWebhookSubscriptionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateWebhookSubscriptionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions/{subscription_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateWebhookSubscriptionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -682,14 +421,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public UpdateWebhookSubscriptionSignatureKeyResponse updateWebhookSubscriptionSignatureKey(
             final String subscriptionId,
             final UpdateWebhookSubscriptionSignatureKeyRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateWebhookSubscriptionSignatureKeyRequest(subscriptionId,
-                body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateWebhookSubscriptionSignatureKeyResponse(context);
+        return prepareUpdateWebhookSubscriptionSignatureKeyRequest(subscriptionId, body).execute();
     }
 
     /**
@@ -703,76 +435,41 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public CompletableFuture<UpdateWebhookSubscriptionSignatureKeyResponse> updateWebhookSubscriptionSignatureKeyAsync(
             final String subscriptionId,
             final UpdateWebhookSubscriptionSignatureKeyRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateWebhookSubscriptionSignatureKeyRequest(
-                subscriptionId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateWebhookSubscriptionSignatureKeyResponse(context));
+        try { 
+            return prepareUpdateWebhookSubscriptionSignatureKeyRequest(subscriptionId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateWebhookSubscriptionSignatureKey.
+     * Builds the ApiCall object for updateWebhookSubscriptionSignatureKey.
      */
-    private HttpRequest buildUpdateWebhookSubscriptionSignatureKeyRequest(
+    private ApiCall<UpdateWebhookSubscriptionSignatureKeyResponse, ApiException> prepareUpdateWebhookSubscriptionSignatureKeyRequest(
             final String subscriptionId,
-            final UpdateWebhookSubscriptionSignatureKeyRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions/{subscription_id}/signature-key");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id",
-                new SimpleEntry<Object, Boolean>(subscriptionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateWebhookSubscriptionSignatureKey.
-     * @return An object of type UpdateWebhookSubscriptionSignatureKeyResponse
-     */
-    private UpdateWebhookSubscriptionSignatureKeyResponse handleUpdateWebhookSubscriptionSignatureKeyResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateWebhookSubscriptionSignatureKeyResponse result = ApiHelper.deserialize(responseBody,
-                UpdateWebhookSubscriptionSignatureKeyResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateWebhookSubscriptionSignatureKeyRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateWebhookSubscriptionSignatureKeyResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions/{subscription_id}/signature-key")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateWebhookSubscriptionSignatureKeyResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -788,13 +485,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public TestWebhookSubscriptionResponse testWebhookSubscription(
             final String subscriptionId,
             final TestWebhookSubscriptionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildTestWebhookSubscriptionRequest(subscriptionId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleTestWebhookSubscriptionResponse(context);
+        return prepareTestWebhookSubscriptionRequest(subscriptionId, body).execute();
     }
 
     /**
@@ -808,75 +499,40 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     public CompletableFuture<TestWebhookSubscriptionResponse> testWebhookSubscriptionAsync(
             final String subscriptionId,
             final TestWebhookSubscriptionRequest body) {
-        return makeHttpCallAsync(() -> buildTestWebhookSubscriptionRequest(subscriptionId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleTestWebhookSubscriptionResponse(context));
+        try { 
+            return prepareTestWebhookSubscriptionRequest(subscriptionId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for testWebhookSubscription.
+     * Builds the ApiCall object for testWebhookSubscription.
      */
-    private HttpRequest buildTestWebhookSubscriptionRequest(
+    private ApiCall<TestWebhookSubscriptionResponse, ApiException> prepareTestWebhookSubscriptionRequest(
             final String subscriptionId,
-            final TestWebhookSubscriptionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/webhooks/subscriptions/{subscription_id}/test");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("subscription_id",
-                new SimpleEntry<Object, Boolean>(subscriptionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final TestWebhookSubscriptionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<TestWebhookSubscriptionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/webhooks/subscriptions/{subscription_id}/test")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, TestWebhookSubscriptionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for testWebhookSubscription.
-     * @return An object of type TestWebhookSubscriptionResponse
-     */
-    private TestWebhookSubscriptionResponse handleTestWebhookSubscriptionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        TestWebhookSubscriptionResponse result = ApiHelper.deserialize(responseBody,
-                TestWebhookSubscriptionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

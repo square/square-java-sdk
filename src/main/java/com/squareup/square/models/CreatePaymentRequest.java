@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -254,8 +255,8 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for LocationId.
-     * The location ID to associate with the payment. If not specified, the default location is
-     * used.
+     * The location ID to associate with the payment. If not specified, the [main
+     * location](https://developer.squareup.com/docs/locations-api#about-the-main-location) is used.
      * @return Returns the String
      */
     @JsonGetter("location_id")

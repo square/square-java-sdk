@@ -21,8 +21,8 @@ Represents a Square customer profile in the Customer Directory of a Square selle
 | `CompanyName` | `String` | Optional | A business name associated with the customer profile. | String getCompanyName() |
 | `EmailAddress` | `String` | Optional | The email address associated with the customer profile. | String getEmailAddress() |
 | `Address` | [`Address`](../../doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses). | Address getAddress() |
-| `PhoneNumber` | `String` | Optional | The phone number associated with the customer profile. A phone number can contain 9–16 digits, with an optional `+` prefix. | String getPhoneNumber() |
-| `Birthday` | `String` | Optional | The birthday associated with the customer profile, in RFC 3339 format. The year is optional. The timezone and time are not allowed.<br>For example, `0000-09-21T00:00:00-00:00` represents a birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September 21, 1998. | String getBirthday() |
+| `PhoneNumber` | `String` | Optional | The phone number associated with the customer profile. | String getPhoneNumber() |
+| `Birthday` | `String` | Optional | The birthday associated with the customer profile, in `YYYY-MM-DD` format. For example, `1998-09-21`<br>represents September 21, 1998, and `0000-09-21` represents September 21 (without a birth year). | String getBirthday() |
 | `ReferenceId` | `String` | Optional | An optional second ID used to associate the customer profile with an<br>entity in another system. | String getReferenceId() |
 | `Note` | `String` | Optional | A custom note associated with the customer profile. | String getNote() |
 | `Preferences` | [`CustomerPreferences`](../../doc/models/customer-preferences.md) | Optional | Represents communication preferences for the customer profile. | CustomerPreferences getPreferences() |

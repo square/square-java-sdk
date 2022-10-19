@@ -1,13 +1,14 @@
 
 package com.squareup.square.http.client;
 
+import io.apimatic.coreinterfaces.http.Context;
 import com.squareup.square.http.request.HttpRequest;
 import com.squareup.square.http.response.HttpResponse;
 
 /**
  * Class to wrap the request sent to the server and the response received from the server.
  */
-public class HttpContext {
+public class HttpContext implements Context {
     private HttpRequest request;
     private HttpResponse response;
 

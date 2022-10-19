@@ -3,18 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.request.MultipartFileWrapper;
-import com.squareup.square.http.request.MultipartWrapper;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.BatchDeleteCatalogObjectsRequest;
 import com.squareup.square.models.BatchDeleteCatalogObjectsResponse;
 import com.squareup.square.models.BatchRetrieveCatalogObjectsRequest;
@@ -40,11 +32,12 @@ import com.squareup.square.models.UpdateItemTaxesResponse;
 import com.squareup.square.models.UpsertCatalogObjectRequest;
 import com.squareup.square.models.UpsertCatalogObjectResponse;
 import com.squareup.square.utilities.FileWrapper;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
+import io.apimatic.coreinterfaces.http.request.MutliPartRequestType;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -53,25 +46,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultCatalogApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultCatalogApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultCatalogApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -89,13 +67,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public BatchDeleteCatalogObjectsResponse batchDeleteCatalogObjects(
             final BatchDeleteCatalogObjectsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBatchDeleteCatalogObjectsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBatchDeleteCatalogObjectsResponse(context);
+        return prepareBatchDeleteCatalogObjectsRequest(body).execute();
     }
 
     /**
@@ -111,68 +83,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDeleteCatalogObjectsAsync(
             final BatchDeleteCatalogObjectsRequest body) {
-        return makeHttpCallAsync(() -> buildBatchDeleteCatalogObjectsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBatchDeleteCatalogObjectsResponse(context));
+        try { 
+            return prepareBatchDeleteCatalogObjectsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for batchDeleteCatalogObjects.
+     * Builds the ApiCall object for batchDeleteCatalogObjects.
      */
-    private HttpRequest buildBatchDeleteCatalogObjectsRequest(
-            final BatchDeleteCatalogObjectsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/batch-delete");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for batchDeleteCatalogObjects.
-     * @return An object of type BatchDeleteCatalogObjectsResponse
-     */
-    private BatchDeleteCatalogObjectsResponse handleBatchDeleteCatalogObjectsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BatchDeleteCatalogObjectsResponse result = ApiHelper.deserialize(responseBody,
-                BatchDeleteCatalogObjectsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BatchDeleteCatalogObjectsResponse, ApiException> prepareBatchDeleteCatalogObjectsRequest(
+            final BatchDeleteCatalogObjectsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BatchDeleteCatalogObjectsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/batch-delete")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BatchDeleteCatalogObjectsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -189,13 +131,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public BatchRetrieveCatalogObjectsResponse batchRetrieveCatalogObjects(
             final BatchRetrieveCatalogObjectsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBatchRetrieveCatalogObjectsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBatchRetrieveCatalogObjectsResponse(context);
+        return prepareBatchRetrieveCatalogObjectsRequest(body).execute();
     }
 
     /**
@@ -210,68 +146,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<BatchRetrieveCatalogObjectsResponse> batchRetrieveCatalogObjectsAsync(
             final BatchRetrieveCatalogObjectsRequest body) {
-        return makeHttpCallAsync(() -> buildBatchRetrieveCatalogObjectsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBatchRetrieveCatalogObjectsResponse(context));
+        try { 
+            return prepareBatchRetrieveCatalogObjectsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for batchRetrieveCatalogObjects.
+     * Builds the ApiCall object for batchRetrieveCatalogObjects.
      */
-    private HttpRequest buildBatchRetrieveCatalogObjectsRequest(
-            final BatchRetrieveCatalogObjectsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/batch-retrieve");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for batchRetrieveCatalogObjects.
-     * @return An object of type BatchRetrieveCatalogObjectsResponse
-     */
-    private BatchRetrieveCatalogObjectsResponse handleBatchRetrieveCatalogObjectsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BatchRetrieveCatalogObjectsResponse result = ApiHelper.deserialize(responseBody,
-                BatchRetrieveCatalogObjectsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BatchRetrieveCatalogObjectsResponse, ApiException> prepareBatchRetrieveCatalogObjectsRequest(
+            final BatchRetrieveCatalogObjectsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BatchRetrieveCatalogObjectsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/batch-retrieve")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BatchRetrieveCatalogObjectsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -290,13 +196,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public BatchUpsertCatalogObjectsResponse batchUpsertCatalogObjects(
             final BatchUpsertCatalogObjectsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBatchUpsertCatalogObjectsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBatchUpsertCatalogObjectsResponse(context);
+        return prepareBatchUpsertCatalogObjectsRequest(body).execute();
     }
 
     /**
@@ -313,68 +213,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsertCatalogObjectsAsync(
             final BatchUpsertCatalogObjectsRequest body) {
-        return makeHttpCallAsync(() -> buildBatchUpsertCatalogObjectsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBatchUpsertCatalogObjectsResponse(context));
+        try { 
+            return prepareBatchUpsertCatalogObjectsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for batchUpsertCatalogObjects.
+     * Builds the ApiCall object for batchUpsertCatalogObjects.
      */
-    private HttpRequest buildBatchUpsertCatalogObjectsRequest(
-            final BatchUpsertCatalogObjectsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/batch-upsert");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for batchUpsertCatalogObjects.
-     * @return An object of type BatchUpsertCatalogObjectsResponse
-     */
-    private BatchUpsertCatalogObjectsResponse handleBatchUpsertCatalogObjectsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BatchUpsertCatalogObjectsResponse result = ApiHelper.deserialize(responseBody,
-                BatchUpsertCatalogObjectsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BatchUpsertCatalogObjectsResponse, ApiException> prepareBatchUpsertCatalogObjectsRequest(
+            final BatchUpsertCatalogObjectsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BatchUpsertCatalogObjectsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/batch-upsert")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BatchUpsertCatalogObjectsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -392,13 +262,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     public CreateCatalogImageResponse createCatalogImage(
             final CreateCatalogImageRequest request,
             final FileWrapper imageFile) throws ApiException, IOException {
-        HttpRequest internalRequest = buildCreateCatalogImageRequest(request, imageFile);
-        authManagers.get("global").apply(internalRequest);
-
-        HttpResponse response = getClientInstance().execute(internalRequest, false);
-        HttpContext context = new HttpContext(internalRequest, response);
-
-        return handleCreateCatalogImageResponse(context);
+        return prepareCreateCatalogImageRequest(request, imageFile).execute();
     }
 
     /**
@@ -414,81 +278,45 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     public CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
             final CreateCatalogImageRequest request,
             final FileWrapper imageFile) {
-        return makeHttpCallAsync(() -> buildCreateCatalogImageRequest(request, imageFile),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(internalRequest -> getClientInstance()
-                        .executeAsync(internalRequest, false)),
-            context -> handleCreateCatalogImageResponse(context));
+        try { 
+            return prepareCreateCatalogImageRequest(request, imageFile).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createCatalogImage.
+     * Builds the ApiCall object for createCatalogImage.
      */
-    private HttpRequest buildCreateCatalogImageRequest(
+    private ApiCall<CreateCatalogImageResponse, ApiException> prepareCreateCatalogImageRequest(
             final CreateCatalogImageRequest request,
-            final FileWrapper imageFile) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/images");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-        Headers requestHeaders = new Headers();
-        requestHeaders.add("Content-Type", "application/json; charset=utf-8");
-        MultipartWrapper requestWrapper = new MultipartWrapper(
-                ApiHelper.serialize(request), requestHeaders);
-        Headers imageFileHeaders = new Headers();
-        imageFileHeaders.add("Content-Type", "image/jpeg");
-        MultipartFileWrapper imageFileWrapper =
-                new MultipartFileWrapper(imageFile, imageFileHeaders);
-
-        //load all fields for the outgoing API request
-        Map<String, Object> formParameters = new HashMap<>();
-        formParameters.put("request", requestWrapper);
-        formParameters.put("image_file", imageFileWrapper);
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest internalRequest = getClientInstance().post(queryBuilder, headers, null,
-                ApiHelper.prepareFormFields(formParameters));
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(internalRequest);
-        }
-
-        return internalRequest;
-    }
-
-    /**
-     * Processes the response for createCatalogImage.
-     * @return An object of type CreateCatalogImageResponse
-     */
-    private CreateCatalogImageResponse handleCreateCatalogImageResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateCatalogImageResponse result = ApiHelper.deserialize(responseBody,
-                CreateCatalogImageResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final FileWrapper imageFile) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateCatalogImageResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/images")
+                        .formParam(param -> param.key("request")
+                                .value(request)
+                                .multipartSerializer(() -> 
+                                        ApiHelper.serialize(request))
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART)
+                                .multipartHeaders("Content-Type", "application/json; charset=utf-8"))
+                        .formParam(param -> param.key("image_file")
+                                .value(imageFile)
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART_FILE)
+                                .multipartHeaders("Content-Type", "image/jpeg"))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateCatalogImageResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -508,13 +336,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String imageId,
             final UpdateCatalogImageRequest request,
             final FileWrapper imageFile) throws ApiException, IOException {
-        HttpRequest internalRequest = buildUpdateCatalogImageRequest(imageId, request, imageFile);
-        authManagers.get("global").apply(internalRequest);
-
-        HttpResponse response = getClientInstance().execute(internalRequest, false);
-        HttpContext context = new HttpContext(internalRequest, response);
-
-        return handleUpdateCatalogImageResponse(context);
+        return prepareUpdateCatalogImageRequest(imageId, request, imageFile).execute();
     }
 
     /**
@@ -532,88 +354,48 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String imageId,
             final UpdateCatalogImageRequest request,
             final FileWrapper imageFile) {
-        return makeHttpCallAsync(() -> buildUpdateCatalogImageRequest(imageId, request, imageFile),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(internalRequest -> getClientInstance()
-                        .executeAsync(internalRequest, false)),
-            context -> handleUpdateCatalogImageResponse(context));
+        try { 
+            return prepareUpdateCatalogImageRequest(imageId, request, imageFile).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateCatalogImage.
+     * Builds the ApiCall object for updateCatalogImage.
      */
-    private HttpRequest buildUpdateCatalogImageRequest(
+    private ApiCall<UpdateCatalogImageResponse, ApiException> prepareUpdateCatalogImageRequest(
             final String imageId,
             final UpdateCatalogImageRequest request,
-            final FileWrapper imageFile) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/images/{image_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("image_id",
-                new SimpleEntry<Object, Boolean>(imageId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-        Headers requestHeaders = new Headers();
-        requestHeaders.add("Content-Type", "application/json; charset=utf-8");
-        MultipartWrapper requestWrapper = new MultipartWrapper(
-                ApiHelper.serialize(request), requestHeaders);
-        Headers imageFileHeaders = new Headers();
-        imageFileHeaders.add("Content-Type", "image/jpeg");
-        MultipartFileWrapper imageFileWrapper =
-                new MultipartFileWrapper(imageFile, imageFileHeaders);
-
-        //load all fields for the outgoing API request
-        Map<String, Object> formParameters = new HashMap<>();
-        formParameters.put("request", requestWrapper);
-        formParameters.put("image_file", imageFileWrapper);
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest internalRequest = getClientInstance().put(queryBuilder, headers, null,
-                ApiHelper.prepareFormFields(formParameters));
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(internalRequest);
-        }
-
-        return internalRequest;
-    }
-
-    /**
-     * Processes the response for updateCatalogImage.
-     * @return An object of type UpdateCatalogImageResponse
-     */
-    private UpdateCatalogImageResponse handleUpdateCatalogImageResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateCatalogImageResponse result = ApiHelper.deserialize(responseBody,
-                UpdateCatalogImageResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final FileWrapper imageFile) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateCatalogImageResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/images/{image_id}")
+                        .formParam(param -> param.key("request")
+                                .value(request)
+                                .multipartSerializer(() -> 
+                                        ApiHelper.serialize(request))
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART)
+                                .multipartHeaders("Content-Type", "application/json; charset=utf-8"))
+                        .formParam(param -> param.key("image_file")
+                                .value(imageFile)
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART_FILE)
+                                .multipartHeaders("Content-Type", "image/jpeg"))
+                        .templateParam(param -> param.key("image_id").value(imageId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateCatalogImageResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -624,13 +406,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CatalogInfoResponse catalogInfo() throws ApiException, IOException {
-        HttpRequest request = buildCatalogInfoRequest();
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCatalogInfoResponse(context);
+        return prepareCatalogInfoRequest().execute();
     }
 
     /**
@@ -639,65 +415,33 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * @return    Returns the CatalogInfoResponse response from the API call
      */
     public CompletableFuture<CatalogInfoResponse> catalogInfoAsync() {
-        return makeHttpCallAsync(() -> buildCatalogInfoRequest(),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCatalogInfoResponse(context));
+        try { 
+            return prepareCatalogInfoRequest().executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for catalogInfo.
+     * Builds the ApiCall object for catalogInfo.
      */
-    private HttpRequest buildCatalogInfoRequest() {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/info");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for catalogInfo.
-     * @return An object of type CatalogInfoResponse
-     */
-    private CatalogInfoResponse handleCatalogInfoResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CatalogInfoResponse result = ApiHelper.deserialize(responseBody,
-                CatalogInfoResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CatalogInfoResponse, ApiException> prepareCatalogInfoRequest() throws IOException {
+        return new ApiCall.Builder<CatalogInfoResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/info")
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CatalogInfoResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -735,13 +479,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String cursor,
             final String types,
             final Long catalogVersion) throws ApiException, IOException {
-        HttpRequest request = buildListCatalogRequest(cursor, types, catalogVersion);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCatalogResponse(context);
+        return prepareListCatalogRequest(cursor, types, catalogVersion).execute();
     }
 
     /**
@@ -777,75 +515,42 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String cursor,
             final String types,
             final Long catalogVersion) {
-        return makeHttpCallAsync(() -> buildListCatalogRequest(cursor, types, catalogVersion),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCatalogResponse(context));
+        try { 
+            return prepareListCatalogRequest(cursor, types, catalogVersion).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCatalog.
+     * Builds the ApiCall object for listCatalog.
      */
-    private HttpRequest buildListCatalogRequest(
+    private ApiCall<ListCatalogResponse, ApiException> prepareListCatalogRequest(
             final String cursor,
             final String types,
-            final Long catalogVersion) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/list");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("types", types);
-        queryParameters.put("catalog_version", catalogVersion);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listCatalog.
-     * @return An object of type ListCatalogResponse
-     */
-    private ListCatalogResponse handleListCatalogResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCatalogResponse result = ApiHelper.deserialize(responseBody,
-                ListCatalogResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Long catalogVersion) throws IOException {
+        return new ApiCall.Builder<ListCatalogResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/list")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("types")
+                                .value(types).isRequired(false))
+                        .queryParam(param -> param.key("catalog_version")
+                                .value(catalogVersion).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCatalogResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -858,13 +563,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public UpsertCatalogObjectResponse upsertCatalogObject(
             final UpsertCatalogObjectRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpsertCatalogObjectRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpsertCatalogObjectResponse(context);
+        return prepareUpsertCatalogObjectRequest(body).execute();
     }
 
     /**
@@ -875,68 +574,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
             final UpsertCatalogObjectRequest body) {
-        return makeHttpCallAsync(() -> buildUpsertCatalogObjectRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpsertCatalogObjectResponse(context));
+        try { 
+            return prepareUpsertCatalogObjectRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for upsertCatalogObject.
+     * Builds the ApiCall object for upsertCatalogObject.
      */
-    private HttpRequest buildUpsertCatalogObjectRequest(
-            final UpsertCatalogObjectRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/object");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for upsertCatalogObject.
-     * @return An object of type UpsertCatalogObjectResponse
-     */
-    private UpsertCatalogObjectResponse handleUpsertCatalogObjectResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpsertCatalogObjectResponse result = ApiHelper.deserialize(responseBody,
-                UpsertCatalogObjectResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<UpsertCatalogObjectResponse, ApiException> prepareUpsertCatalogObjectRequest(
+            final UpsertCatalogObjectRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpsertCatalogObjectResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/object")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpsertCatalogObjectResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -955,13 +624,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public DeleteCatalogObjectResponse deleteCatalogObject(
             final String objectId) throws ApiException, IOException {
-        HttpRequest request = buildDeleteCatalogObjectRequest(objectId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteCatalogObjectResponse(context);
+        return prepareDeleteCatalogObjectRequest(objectId).execute();
     }
 
     /**
@@ -978,72 +641,36 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<DeleteCatalogObjectResponse> deleteCatalogObjectAsync(
             final String objectId) {
-        return makeHttpCallAsync(() -> buildDeleteCatalogObjectRequest(objectId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteCatalogObjectResponse(context));
+        try { 
+            return prepareDeleteCatalogObjectRequest(objectId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteCatalogObject.
+     * Builds the ApiCall object for deleteCatalogObject.
      */
-    private HttpRequest buildDeleteCatalogObjectRequest(
-            final String objectId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/object/{object_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("object_id",
-                new SimpleEntry<Object, Boolean>(objectId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteCatalogObject.
-     * @return An object of type DeleteCatalogObjectResponse
-     */
-    private DeleteCatalogObjectResponse handleDeleteCatalogObjectResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteCatalogObjectResponse result = ApiHelper.deserialize(responseBody,
-                DeleteCatalogObjectResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteCatalogObjectResponse, ApiException> prepareDeleteCatalogObjectRequest(
+            final String objectId) throws IOException {
+        return new ApiCall.Builder<DeleteCatalogObjectResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/object/{object_id}")
+                        .templateParam(param -> param.key("object_id").value(objectId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteCatalogObjectResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1080,14 +707,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String objectId,
             final Boolean includeRelatedObjects,
             final Long catalogVersion) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
-                catalogVersion);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveCatalogObjectResponse(context);
+        return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
+                catalogVersion).execute();
     }
 
     /**
@@ -1122,82 +743,43 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
             final String objectId,
             final Boolean includeRelatedObjects,
             final Long catalogVersion) {
-        return makeHttpCallAsync(() -> buildRetrieveCatalogObjectRequest(objectId,
-                includeRelatedObjects, catalogVersion),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveCatalogObjectResponse(context));
+        try { 
+            return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
+            catalogVersion).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCatalogObject.
+     * Builds the ApiCall object for retrieveCatalogObject.
      */
-    private HttpRequest buildRetrieveCatalogObjectRequest(
+    private ApiCall<RetrieveCatalogObjectResponse, ApiException> prepareRetrieveCatalogObjectRequest(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/object/{object_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("object_id",
-                new SimpleEntry<Object, Boolean>(objectId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("include_related_objects",
-                (includeRelatedObjects != null) ? includeRelatedObjects : false);
-        queryParameters.put("catalog_version", catalogVersion);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveCatalogObject.
-     * @return An object of type RetrieveCatalogObjectResponse
-     */
-    private RetrieveCatalogObjectResponse handleRetrieveCatalogObjectResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveCatalogObjectResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveCatalogObjectResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Long catalogVersion) throws IOException {
+        return new ApiCall.Builder<RetrieveCatalogObjectResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/object/{object_id}")
+                        .queryParam(param -> param.key("include_related_objects")
+                                .value((includeRelatedObjects != null) ? includeRelatedObjects : false).isRequired(false))
+                        .queryParam(param -> param.key("catalog_version")
+                                .value(catalogVersion).isRequired(false))
+                        .templateParam(param -> param.key("object_id").value(objectId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveCatalogObjectResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1220,13 +802,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public SearchCatalogObjectsResponse searchCatalogObjects(
             final SearchCatalogObjectsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchCatalogObjectsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchCatalogObjectsResponse(context);
+        return prepareSearchCatalogObjectsRequest(body).execute();
     }
 
     /**
@@ -1247,68 +823,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
             final SearchCatalogObjectsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchCatalogObjectsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchCatalogObjectsResponse(context));
+        try { 
+            return prepareSearchCatalogObjectsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchCatalogObjects.
+     * Builds the ApiCall object for searchCatalogObjects.
      */
-    private HttpRequest buildSearchCatalogObjectsRequest(
-            final SearchCatalogObjectsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchCatalogObjects.
-     * @return An object of type SearchCatalogObjectsResponse
-     */
-    private SearchCatalogObjectsResponse handleSearchCatalogObjectsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchCatalogObjectsResponse result = ApiHelper.deserialize(responseBody,
-                SearchCatalogObjectsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchCatalogObjectsResponse, ApiException> prepareSearchCatalogObjectsRequest(
+            final SearchCatalogObjectsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchCatalogObjectsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchCatalogObjectsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1331,13 +877,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public SearchCatalogItemsResponse searchCatalogItems(
             final SearchCatalogItemsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchCatalogItemsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchCatalogItemsResponse(context);
+        return prepareSearchCatalogItemsRequest(body).execute();
     }
 
     /**
@@ -1358,68 +898,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<SearchCatalogItemsResponse> searchCatalogItemsAsync(
             final SearchCatalogItemsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchCatalogItemsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchCatalogItemsResponse(context));
+        try { 
+            return prepareSearchCatalogItemsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchCatalogItems.
+     * Builds the ApiCall object for searchCatalogItems.
      */
-    private HttpRequest buildSearchCatalogItemsRequest(
-            final SearchCatalogItemsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/search-catalog-items");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchCatalogItems.
-     * @return An object of type SearchCatalogItemsResponse
-     */
-    private SearchCatalogItemsResponse handleSearchCatalogItemsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchCatalogItemsResponse result = ApiHelper.deserialize(responseBody,
-                SearchCatalogItemsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchCatalogItemsResponse, ApiException> prepareSearchCatalogItemsRequest(
+            final SearchCatalogItemsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchCatalogItemsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/search-catalog-items")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchCatalogItemsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1433,13 +943,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public UpdateItemModifierListsResponse updateItemModifierLists(
             final UpdateItemModifierListsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateItemModifierListsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateItemModifierListsResponse(context);
+        return prepareUpdateItemModifierListsRequest(body).execute();
     }
 
     /**
@@ -1451,68 +955,38 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<UpdateItemModifierListsResponse> updateItemModifierListsAsync(
             final UpdateItemModifierListsRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateItemModifierListsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateItemModifierListsResponse(context));
+        try { 
+            return prepareUpdateItemModifierListsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateItemModifierLists.
+     * Builds the ApiCall object for updateItemModifierLists.
      */
-    private HttpRequest buildUpdateItemModifierListsRequest(
-            final UpdateItemModifierListsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/update-item-modifier-lists");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateItemModifierLists.
-     * @return An object of type UpdateItemModifierListsResponse
-     */
-    private UpdateItemModifierListsResponse handleUpdateItemModifierListsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateItemModifierListsResponse result = ApiHelper.deserialize(responseBody,
-                UpdateItemModifierListsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<UpdateItemModifierListsResponse, ApiException> prepareUpdateItemModifierListsRequest(
+            final UpdateItemModifierListsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateItemModifierListsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/update-item-modifier-lists")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateItemModifierListsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1526,13 +1000,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public UpdateItemTaxesResponse updateItemTaxes(
             final UpdateItemTaxesRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateItemTaxesRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateItemTaxesResponse(context);
+        return prepareUpdateItemTaxesRequest(body).execute();
     }
 
     /**
@@ -1544,68 +1012,37 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      */
     public CompletableFuture<UpdateItemTaxesResponse> updateItemTaxesAsync(
             final UpdateItemTaxesRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateItemTaxesRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateItemTaxesResponse(context));
+        try { 
+            return prepareUpdateItemTaxesRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateItemTaxes.
+     * Builds the ApiCall object for updateItemTaxes.
      */
-    private HttpRequest buildUpdateItemTaxesRequest(
-            final UpdateItemTaxesRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/catalog/update-item-taxes");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<UpdateItemTaxesResponse, ApiException> prepareUpdateItemTaxesRequest(
+            final UpdateItemTaxesRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateItemTaxesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/catalog/update-item-taxes")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateItemTaxesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for updateItemTaxes.
-     * @return An object of type UpdateItemTaxesResponse
-     */
-    private UpdateItemTaxesResponse handleUpdateItemTaxesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateItemTaxesResponse result = ApiHelper.deserialize(responseBody,
-                UpdateItemTaxesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

@@ -1,13 +1,13 @@
 
 package com.squareup.square;
 
-import com.squareup.square.http.request.HttpRequest;
-import java.util.concurrent.CompletableFuture;
+import io.apimatic.core.authentication.HeaderAuth;
+import java.util.Collections;
 
 /**
  * Utility class for authorization and token management.
  */
-public class BearerAuthManager implements AuthManager, BearerAuthCredentials {
+public class BearerAuthManager extends HeaderAuth implements BearerAuthCredentials {
 
     private String accessToken;
 
@@ -16,6 +16,8 @@ public class BearerAuthManager implements AuthManager, BearerAuthCredentials {
      * @param accessToken String value for accessToken.
      */
     public BearerAuthManager(String accessToken) {
+        super(Collections.singletonMap("Authorization",
+                "Bearer " + accessToken));
         this.accessToken = accessToken;
     }
 
@@ -45,18 +47,4 @@ public class BearerAuthManager implements AuthManager, BearerAuthCredentials {
         return "BearerAuthManager [" + "accessToken=" + accessToken + "]";
     }
 
-    /**
-     * Adds authentication to the given HttpRequest.
-     */
-    public HttpRequest apply(HttpRequest httpRequest) {
-        httpRequest.getHeaders().add("Authorization", "Bearer " + accessToken);
-        return httpRequest;
-    }
-    
-    /**
-     * Asynchronously adds authentication to the given HttpRequest.
-     */
-    public CompletableFuture<HttpRequest> applyAsync(HttpRequest httpRequest) {
-        return CompletableFuture.completedFuture(apply(httpRequest));
-    }
 }

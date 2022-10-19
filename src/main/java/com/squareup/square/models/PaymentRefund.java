@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +16,9 @@ public class PaymentRefund {
     private final String id;
     private final String status;
     private final String locationId;
+    private final Boolean unlinked;
+    private final String destinationType;
+    private final DestinationDetails destinationDetails;
     private final Money amountMoney;
     private final Money appFeeMoney;
     private final List<ProcessingFee> processingFee;
@@ -31,6 +35,9 @@ public class PaymentRefund {
      * @param  amountMoney  Money value for amountMoney.
      * @param  status  String value for status.
      * @param  locationId  String value for locationId.
+     * @param  unlinked  Boolean value for unlinked.
+     * @param  destinationType  String value for destinationType.
+     * @param  destinationDetails  DestinationDetails value for destinationDetails.
      * @param  appFeeMoney  Money value for appFeeMoney.
      * @param  processingFee  List of ProcessingFee value for processingFee.
      * @param  paymentId  String value for paymentId.
@@ -46,6 +53,9 @@ public class PaymentRefund {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("status") String status,
             @JsonProperty("location_id") String locationId,
+            @JsonProperty("unlinked") Boolean unlinked,
+            @JsonProperty("destination_type") String destinationType,
+            @JsonProperty("destination_details") DestinationDetails destinationDetails,
             @JsonProperty("app_fee_money") Money appFeeMoney,
             @JsonProperty("processing_fee") List<ProcessingFee> processingFee,
             @JsonProperty("payment_id") String paymentId,
@@ -57,6 +67,9 @@ public class PaymentRefund {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
+        this.unlinked = unlinked;
+        this.destinationType = destinationType;
+        this.destinationDetails = destinationDetails;
         this.amountMoney = amountMoney;
         this.appFeeMoney = appFeeMoney;
         this.processingFee = processingFee;
@@ -99,6 +112,40 @@ public class PaymentRefund {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLocationId() {
         return locationId;
+    }
+
+    /**
+     * Getter for Unlinked.
+     * Flag indicating whether or not the refund is linked to an existing payment in Square.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("unlinked")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getUnlinked() {
+        return unlinked;
+    }
+
+    /**
+     * Getter for DestinationType.
+     * The destination type for this refund. Current values include `CARD`, `BANK_ACCOUNT`,
+     * `WALLET`, `CASH`, or `EXTERNAL`.
+     * @return Returns the String
+     */
+    @JsonGetter("destination_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getDestinationType() {
+        return destinationType;
+    }
+
+    /**
+     * Getter for DestinationDetails.
+     * Details about a refund's destination.
+     * @return Returns the DestinationDetails
+     */
+    @JsonGetter("destination_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public DestinationDetails getDestinationDetails() {
+        return destinationDetails;
     }
 
     /**
@@ -211,8 +258,9 @@ public class PaymentRefund {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, locationId, amountMoney, appFeeMoney, processingFee,
-                paymentId, orderId, reason, createdAt, updatedAt, teamMemberId);
+        return Objects.hash(id, status, locationId, unlinked, destinationType, destinationDetails,
+                amountMoney, appFeeMoney, processingFee, paymentId, orderId, reason, createdAt,
+                updatedAt, teamMemberId);
     }
 
     @Override
@@ -227,6 +275,9 @@ public class PaymentRefund {
         return Objects.equals(id, other.id)
             && Objects.equals(status, other.status)
             && Objects.equals(locationId, other.locationId)
+            && Objects.equals(unlinked, other.unlinked)
+            && Objects.equals(destinationType, other.destinationType)
+            && Objects.equals(destinationDetails, other.destinationDetails)
             && Objects.equals(amountMoney, other.amountMoney)
             && Objects.equals(appFeeMoney, other.appFeeMoney)
             && Objects.equals(processingFee, other.processingFee)
@@ -245,10 +296,12 @@ public class PaymentRefund {
     @Override
     public String toString() {
         return "PaymentRefund [" + "id=" + id + ", amountMoney=" + amountMoney + ", status="
-                + status + ", locationId=" + locationId + ", appFeeMoney=" + appFeeMoney
-                + ", processingFee=" + processingFee + ", paymentId=" + paymentId + ", orderId="
-                + orderId + ", reason=" + reason + ", createdAt=" + createdAt + ", updatedAt="
-                + updatedAt + ", teamMemberId=" + teamMemberId + "]";
+                + status + ", locationId=" + locationId + ", unlinked=" + unlinked
+                + ", destinationType=" + destinationType + ", destinationDetails="
+                + destinationDetails + ", appFeeMoney=" + appFeeMoney + ", processingFee="
+                + processingFee + ", paymentId=" + paymentId + ", orderId=" + orderId + ", reason="
+                + reason + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", teamMemberId=" + teamMemberId + "]";
     }
 
     /**
@@ -260,6 +313,9 @@ public class PaymentRefund {
         Builder builder = new Builder(id, amountMoney)
                 .status(getStatus())
                 .locationId(getLocationId())
+                .unlinked(getUnlinked())
+                .destinationType(getDestinationType())
+                .destinationDetails(getDestinationDetails())
                 .appFeeMoney(getAppFeeMoney())
                 .processingFee(getProcessingFee())
                 .paymentId(getPaymentId())
@@ -279,6 +335,9 @@ public class PaymentRefund {
         private Money amountMoney;
         private String status;
         private String locationId;
+        private Boolean unlinked;
+        private String destinationType;
+        private DestinationDetails destinationDetails;
         private Money appFeeMoney;
         private List<ProcessingFee> processingFee;
         private String paymentId;
@@ -335,6 +394,36 @@ public class PaymentRefund {
          */
         public Builder locationId(String locationId) {
             this.locationId = locationId;
+            return this;
+        }
+
+        /**
+         * Setter for unlinked.
+         * @param  unlinked  Boolean value for unlinked.
+         * @return Builder
+         */
+        public Builder unlinked(Boolean unlinked) {
+            this.unlinked = unlinked;
+            return this;
+        }
+
+        /**
+         * Setter for destinationType.
+         * @param  destinationType  String value for destinationType.
+         * @return Builder
+         */
+        public Builder destinationType(String destinationType) {
+            this.destinationType = destinationType;
+            return this;
+        }
+
+        /**
+         * Setter for destinationDetails.
+         * @param  destinationDetails  DestinationDetails value for destinationDetails.
+         * @return Builder
+         */
+        public Builder destinationDetails(DestinationDetails destinationDetails) {
+            this.destinationDetails = destinationDetails;
             return this;
         }
 
@@ -423,8 +512,9 @@ public class PaymentRefund {
          * @return {@link PaymentRefund}
          */
         public PaymentRefund build() {
-            return new PaymentRefund(id, amountMoney, status, locationId, appFeeMoney,
-                    processingFee, paymentId, orderId, reason, createdAt, updatedAt, teamMemberId);
+            return new PaymentRefund(id, amountMoney, status, locationId, unlinked, destinationType,
+                    destinationDetails, appFeeMoney, processingFee, paymentId, orderId, reason,
+                    createdAt, updatedAt, teamMemberId);
         }
     }
 }

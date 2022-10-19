@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -12,15 +13,19 @@ import java.util.Objects;
  */
 public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
     private final String paymentId;
+    private final String refundId;
 
     /**
      * Initialization constructor.
      * @param  paymentId  String value for paymentId.
+     * @param  refundId  String value for refundId.
      */
     @JsonCreator
     public PaymentBalanceActivityThirdPartyFeeRefundDetail(
-            @JsonProperty("payment_id") String paymentId) {
+            @JsonProperty("payment_id") String paymentId,
+            @JsonProperty("refund_id") String refundId) {
         this.paymentId = paymentId;
+        this.refundId = refundId;
     }
 
     /**
@@ -34,9 +39,20 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
         return paymentId;
     }
 
+    /**
+     * Getter for RefundId.
+     * The public refund id associated with this activity.
+     * @return Returns the String
+     */
+    @JsonGetter("refund_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getRefundId() {
+        return refundId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(paymentId);
+        return Objects.hash(paymentId, refundId);
     }
 
     @Override
@@ -49,7 +65,8 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
         }
         PaymentBalanceActivityThirdPartyFeeRefundDetail other =
                 (PaymentBalanceActivityThirdPartyFeeRefundDetail) obj;
-        return Objects.equals(paymentId, other.paymentId);
+        return Objects.equals(paymentId, other.paymentId)
+            && Objects.equals(refundId, other.refundId);
     }
 
     /**
@@ -58,7 +75,8 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
      */
     @Override
     public String toString() {
-        return "PaymentBalanceActivityThirdPartyFeeRefundDetail [" + "paymentId=" + paymentId + "]";
+        return "PaymentBalanceActivityThirdPartyFeeRefundDetail [" + "paymentId=" + paymentId
+                + ", refundId=" + refundId + "]";
     }
 
     /**
@@ -68,7 +86,8 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .paymentId(getPaymentId());
+                .paymentId(getPaymentId())
+                .refundId(getRefundId());
         return builder;
     }
 
@@ -77,6 +96,7 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
      */
     public static class Builder {
         private String paymentId;
+        private String refundId;
 
 
 
@@ -91,12 +111,22 @@ public class PaymentBalanceActivityThirdPartyFeeRefundDetail {
         }
 
         /**
+         * Setter for refundId.
+         * @param  refundId  String value for refundId.
+         * @return Builder
+         */
+        public Builder refundId(String refundId) {
+            this.refundId = refundId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PaymentBalanceActivityThirdPartyFeeRefundDetail} object using the set
          * fields.
          * @return {@link PaymentBalanceActivityThirdPartyFeeRefundDetail}
          */
         public PaymentBalanceActivityThirdPartyFeeRefundDetail build() {
-            return new PaymentBalanceActivityThirdPartyFeeRefundDetail(paymentId);
+            return new PaymentBalanceActivityThirdPartyFeeRefundDetail(paymentId, refundId);
         }
     }
 }

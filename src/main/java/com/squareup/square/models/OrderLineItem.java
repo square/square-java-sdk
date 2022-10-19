@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -367,8 +368,8 @@ public class OrderLineItem {
 
     /**
      * Getter for PricingBlocklists.
-     * Describes pricing adjustments that are blocked from manual and automatic application to a
-     * line item. For more information, see [Apply Taxes and
+     * Describes pricing adjustments that are blocked from automatic application to a line item. For
+     * more information, see [Apply Taxes and
      * Discounts](https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts).
      * @return Returns the OrderLineItemPricingBlocklists
      */

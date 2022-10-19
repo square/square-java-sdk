@@ -3,23 +3,18 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateGiftCardActivityRequest;
 import com.squareup.square.models.CreateGiftCardActivityResponse;
 import com.squareup.square.models.ListGiftCardActivitiesResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -28,25 +23,10 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultGiftCardActivitiesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultGiftCardActivitiesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultGiftCardActivitiesApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -93,14 +73,8 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
             final Integer limit,
             final String cursor,
             final String sortOrder) throws ApiException, IOException {
-        HttpRequest request = buildListGiftCardActivitiesRequest(giftCardId, type, locationId,
-                beginTime, endTime, limit, cursor, sortOrder);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListGiftCardActivitiesResponse(context);
+        return prepareListGiftCardActivitiesRequest(giftCardId, type, locationId, beginTime,
+                endTime, limit, cursor, sortOrder).execute();
     }
 
     /**
@@ -145,18 +119,18 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
             final Integer limit,
             final String cursor,
             final String sortOrder) {
-        return makeHttpCallAsync(() -> buildListGiftCardActivitiesRequest(giftCardId, type,
-                locationId, beginTime, endTime, limit, cursor, sortOrder),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListGiftCardActivitiesResponse(context));
+        try { 
+            return prepareListGiftCardActivitiesRequest(giftCardId, type, locationId, beginTime, endTime,
+            limit, cursor, sortOrder).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listGiftCardActivities.
+     * Builds the ApiCall object for listGiftCardActivities.
      */
-    private HttpRequest buildListGiftCardActivitiesRequest(
+    private ApiCall<ListGiftCardActivitiesResponse, ApiException> prepareListGiftCardActivitiesRequest(
             final String giftCardId,
             final String type,
             final String locationId,
@@ -164,67 +138,39 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
             final String endTime,
             final Integer limit,
             final String cursor,
-            final String sortOrder) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/activities");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("gift_card_id", giftCardId);
-        queryParameters.put("type", type);
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("sort_order", sortOrder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listGiftCardActivities.
-     * @return An object of type ListGiftCardActivitiesResponse
-     */
-    private ListGiftCardActivitiesResponse handleListGiftCardActivitiesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListGiftCardActivitiesResponse result = ApiHelper.deserialize(responseBody,
-                ListGiftCardActivitiesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String sortOrder) throws IOException {
+        return new ApiCall.Builder<ListGiftCardActivitiesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/activities")
+                        .queryParam(param -> param.key("gift_card_id")
+                                .value(giftCardId).isRequired(false))
+                        .queryParam(param -> param.key("type")
+                                .value(type).isRequired(false))
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListGiftCardActivitiesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -239,13 +185,7 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
      */
     public CreateGiftCardActivityResponse createGiftCardActivity(
             final CreateGiftCardActivityRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateGiftCardActivityRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateGiftCardActivityResponse(context);
+        return prepareCreateGiftCardActivityRequest(body).execute();
     }
 
     /**
@@ -258,68 +198,37 @@ public final class DefaultGiftCardActivitiesApi extends BaseApi implements GiftC
      */
     public CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
             final CreateGiftCardActivityRequest body) {
-        return makeHttpCallAsync(() -> buildCreateGiftCardActivityRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateGiftCardActivityResponse(context));
+        try { 
+            return prepareCreateGiftCardActivityRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createGiftCardActivity.
+     * Builds the ApiCall object for createGiftCardActivity.
      */
-    private HttpRequest buildCreateGiftCardActivityRequest(
-            final CreateGiftCardActivityRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/gift-cards/activities");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<CreateGiftCardActivityResponse, ApiException> prepareCreateGiftCardActivityRequest(
+            final CreateGiftCardActivityRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateGiftCardActivityResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/gift-cards/activities")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateGiftCardActivityResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for createGiftCardActivity.
-     * @return An object of type CreateGiftCardActivityResponse
-     */
-    private CreateGiftCardActivityResponse handleCreateGiftCardActivityResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateGiftCardActivityResponse result = ApiHelper.deserialize(responseBody,
-                CreateGiftCardActivityResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -221,8 +222,7 @@ public class Customer {
 
     /**
      * Getter for PhoneNumber.
-     * The phone number associated with the customer profile. A phone number can contain 9–16
-     * digits, with an optional `+` prefix.
+     * The phone number associated with the customer profile.
      * @return Returns the String
      */
     @JsonGetter("phone_number")
@@ -233,10 +233,9 @@ public class Customer {
 
     /**
      * Getter for Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional.
-     * The timezone and time are not allowed. For example, `0000-09-21T00:00:00-00:00` represents a
-     * birthday on September 21 and `1998-09-21T00:00:00-00:00` represents a birthday on September
-     * 21, 1998.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` format. For example,
+     * `1998-09-21` represents September 21, 1998, and `0000-09-21` represents September 21 (without
+     * a birth year).
      * @return Returns the String
      */
     @JsonGetter("birthday")
