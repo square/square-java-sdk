@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,9 +31,9 @@ public class SearchOrdersFulfillmentFilter {
 
     /**
      * Getter for FulfillmentTypes.
-     * A list of [fulfillment types]($m/OrderFulfillmentType) to filter for. The list returns orders
-     * if any of its fulfillments match any of the fulfillment types listed in this field. See
-     * [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values
+     * A list of [fulfillment types]($m/FulfillmentType) to filter for. The list returns orders if
+     * any of its fulfillments match any of the fulfillment types listed in this field. See
+     * [FulfillmentType](#type-fulfillmenttype) for possible values
      * @return Returns the List of String
      */
     @JsonGetter("fulfillment_types")
@@ -43,9 +44,9 @@ public class SearchOrdersFulfillmentFilter {
 
     /**
      * Getter for FulfillmentStates.
-     * A list of [fulfillment states]($m/OrderFulfillmentState) to filter for. The list returns
-     * orders if any of its fulfillments match any of the fulfillment states listed in this field.
-     * See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values
+     * A list of [fulfillment states]($m/FulfillmentState) to filter for. The list returns orders if
+     * any of its fulfillments match any of the fulfillment states listed in this field. See
+     * [FulfillmentState](#type-fulfillmentstate) for possible values
      * @return Returns the List of String
      */
     @JsonGetter("fulfillment_states")

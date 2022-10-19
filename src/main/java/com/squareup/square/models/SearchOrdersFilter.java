@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -72,7 +73,7 @@ public class SearchOrdersFilter {
 
     /**
      * Getter for FulfillmentFilter.
-     * Filter based on [order fulfillment]($m/OrderFulfillment) information.
+     * Filter based on [order fulfillment]($m/Fulfillment) information.
      * @return Returns the SearchOrdersFulfillmentFilter
      */
     @JsonGetter("fulfillment_filter")
@@ -95,7 +96,7 @@ public class SearchOrdersFilter {
     /**
      * Getter for CustomerFilter.
      * A filter based on the order `customer_id` and any tender `customer_id` associated with the
-     * order. It does not filter based on the [FulfillmentRecipient]($m/OrderFulfillmentRecipient)
+     * order. It does not filter based on the [FulfillmentRecipient]($m/FulfillmentRecipient)
      * `customer_id`.
      * @return Returns the SearchOrdersCustomerFilter
      */

@@ -2,24 +2,18 @@
 package com.squareup.square.api;
 
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.GetBankAccountByV1IdResponse;
 import com.squareup.square.models.GetBankAccountResponse;
 import com.squareup.square.models.ListBankAccountsResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -28,25 +22,10 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultBankAccountsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultBankAccountsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultBankAccountsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -69,13 +48,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
             final String cursor,
             final Integer limit,
             final String locationId) throws ApiException, IOException {
-        HttpRequest request = buildListBankAccountsRequest(cursor, limit, locationId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListBankAccountsResponse(context);
+        return prepareListBankAccountsRequest(cursor, limit, locationId).execute();
     }
 
     /**
@@ -96,75 +69,42 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
             final String cursor,
             final Integer limit,
             final String locationId) {
-        return makeHttpCallAsync(() -> buildListBankAccountsRequest(cursor, limit, locationId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListBankAccountsResponse(context));
+        try { 
+            return prepareListBankAccountsRequest(cursor, limit, locationId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listBankAccounts.
+     * Builds the ApiCall object for listBankAccounts.
      */
-    private HttpRequest buildListBankAccountsRequest(
+    private ApiCall<ListBankAccountsResponse, ApiException> prepareListBankAccountsRequest(
             final String cursor,
             final Integer limit,
-            final String locationId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/bank-accounts");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-        queryParameters.put("location_id", locationId);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listBankAccounts.
-     * @return An object of type ListBankAccountsResponse
-     */
-    private ListBankAccountsResponse handleListBankAccountsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListBankAccountsResponse result = ApiHelper.deserialize(responseBody,
-                ListBankAccountsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String locationId) throws IOException {
+        return new ApiCall.Builder<ListBankAccountsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bank-accounts")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListBankAccountsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -179,13 +119,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
      */
     public GetBankAccountByV1IdResponse getBankAccountByV1Id(
             final String v1BankAccountId) throws ApiException, IOException {
-        HttpRequest request = buildGetBankAccountByV1IdRequest(v1BankAccountId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetBankAccountByV1IdResponse(context);
+        return prepareGetBankAccountByV1IdRequest(v1BankAccountId).execute();
     }
 
     /**
@@ -198,72 +132,36 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
      */
     public CompletableFuture<GetBankAccountByV1IdResponse> getBankAccountByV1IdAsync(
             final String v1BankAccountId) {
-        return makeHttpCallAsync(() -> buildGetBankAccountByV1IdRequest(v1BankAccountId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetBankAccountByV1IdResponse(context));
+        try { 
+            return prepareGetBankAccountByV1IdRequest(v1BankAccountId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getBankAccountByV1Id.
+     * Builds the ApiCall object for getBankAccountByV1Id.
      */
-    private HttpRequest buildGetBankAccountByV1IdRequest(
-            final String v1BankAccountId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/bank-accounts/by-v1-id/{v1_bank_account_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("v1_bank_account_id",
-                new SimpleEntry<Object, Boolean>(v1BankAccountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getBankAccountByV1Id.
-     * @return An object of type GetBankAccountByV1IdResponse
-     */
-    private GetBankAccountByV1IdResponse handleGetBankAccountByV1IdResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetBankAccountByV1IdResponse result = ApiHelper.deserialize(responseBody,
-                GetBankAccountByV1IdResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetBankAccountByV1IdResponse, ApiException> prepareGetBankAccountByV1IdRequest(
+            final String v1BankAccountId) throws IOException {
+        return new ApiCall.Builder<GetBankAccountByV1IdResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bank-accounts/by-v1-id/{v1_bank_account_id}")
+                        .templateParam(param -> param.key("v1_bank_account_id").value(v1BankAccountId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetBankAccountByV1IdResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -275,13 +173,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
      */
     public GetBankAccountResponse getBankAccount(
             final String bankAccountId) throws ApiException, IOException {
-        HttpRequest request = buildGetBankAccountRequest(bankAccountId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetBankAccountResponse(context);
+        return prepareGetBankAccountRequest(bankAccountId).execute();
     }
 
     /**
@@ -291,72 +183,35 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
      */
     public CompletableFuture<GetBankAccountResponse> getBankAccountAsync(
             final String bankAccountId) {
-        return makeHttpCallAsync(() -> buildGetBankAccountRequest(bankAccountId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetBankAccountResponse(context));
+        try { 
+            return prepareGetBankAccountRequest(bankAccountId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getBankAccount.
+     * Builds the ApiCall object for getBankAccount.
      */
-    private HttpRequest buildGetBankAccountRequest(
-            final String bankAccountId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/bank-accounts/{bank_account_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("bank_account_id",
-                new SimpleEntry<Object, Boolean>(bankAccountId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<GetBankAccountResponse, ApiException> prepareGetBankAccountRequest(
+            final String bankAccountId) throws IOException {
+        return new ApiCall.Builder<GetBankAccountResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bank-accounts/{bank_account_id}")
+                        .templateParam(param -> param.key("bank_account_id").value(bankAccountId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetBankAccountResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for getBankAccount.
-     * @return An object of type GetBankAccountResponse
-     */
-    private GetBankAccountResponse handleGetBankAccountResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetBankAccountResponse result = ApiHelper.deserialize(responseBody,
-                GetBankAccountResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

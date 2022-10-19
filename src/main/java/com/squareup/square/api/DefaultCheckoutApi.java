@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateCheckoutRequest;
 import com.squareup.square.models.CreateCheckoutResponse;
 import com.squareup.square.models.CreatePaymentLinkRequest;
@@ -22,11 +16,11 @@ import com.squareup.square.models.ListPaymentLinksResponse;
 import com.squareup.square.models.RetrievePaymentLinkResponse;
 import com.squareup.square.models.UpdatePaymentLinkRequest;
 import com.squareup.square.models.UpdatePaymentLinkResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -35,25 +29,10 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultCheckoutApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultCheckoutApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultCheckoutApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -78,13 +57,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public CreateCheckoutResponse createCheckout(
             final String locationId,
             final CreateCheckoutRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateCheckoutRequest(locationId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateCheckoutResponse(context);
+        return prepareCreateCheckoutRequest(locationId, body).execute();
     }
 
     /**
@@ -107,75 +80,41 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
             final String locationId,
             final CreateCheckoutRequest body) {
-        return makeHttpCallAsync(() -> buildCreateCheckoutRequest(locationId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateCheckoutResponse(context));
+        try { 
+            return prepareCreateCheckoutRequest(locationId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createCheckout.
+     * Builds the ApiCall object for createCheckout.
      */
-    private HttpRequest buildCreateCheckoutRequest(
+    private ApiCall<CreateCheckoutResponse, ApiException> prepareCreateCheckoutRequest(
             final String locationId,
-            final CreateCheckoutRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/locations/{location_id}/checkouts");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createCheckout.
-     * @return An object of type CreateCheckoutResponse
-     */
-    private CreateCheckoutResponse handleCreateCheckoutResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateCheckoutResponse result = ApiHelper.deserialize(responseBody,
-                CreateCheckoutResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final CreateCheckoutRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateCheckoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/locations/{location_id}/checkouts")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -196,13 +135,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public ListPaymentLinksResponse listPaymentLinks(
             final String cursor,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentLinksRequest(cursor, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListPaymentLinksResponse(context);
+        return prepareListPaymentLinksRequest(cursor, limit).execute();
     }
 
     /**
@@ -221,73 +154,39 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public CompletableFuture<ListPaymentLinksResponse> listPaymentLinksAsync(
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListPaymentLinksRequest(cursor, limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListPaymentLinksResponse(context));
+        try { 
+            return prepareListPaymentLinksRequest(cursor, limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listPaymentLinks.
+     * Builds the ApiCall object for listPaymentLinks.
      */
-    private HttpRequest buildListPaymentLinksRequest(
+    private ApiCall<ListPaymentLinksResponse, ApiException> prepareListPaymentLinksRequest(
             final String cursor,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/online-checkout/payment-links");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listPaymentLinks.
-     * @return An object of type ListPaymentLinksResponse
-     */
-    private ListPaymentLinksResponse handleListPaymentLinksResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListPaymentLinksResponse result = ApiHelper.deserialize(responseBody,
-                ListPaymentLinksResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListPaymentLinksResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/payment-links")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListPaymentLinksResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -301,13 +200,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public CreatePaymentLinkResponse createPaymentLink(
             final CreatePaymentLinkRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreatePaymentLinkRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreatePaymentLinkResponse(context);
+        return prepareCreatePaymentLinkRequest(body).execute();
     }
 
     /**
@@ -319,68 +212,38 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public CompletableFuture<CreatePaymentLinkResponse> createPaymentLinkAsync(
             final CreatePaymentLinkRequest body) {
-        return makeHttpCallAsync(() -> buildCreatePaymentLinkRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreatePaymentLinkResponse(context));
+        try { 
+            return prepareCreatePaymentLinkRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createPaymentLink.
+     * Builds the ApiCall object for createPaymentLink.
      */
-    private HttpRequest buildCreatePaymentLinkRequest(
-            final CreatePaymentLinkRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/online-checkout/payment-links");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createPaymentLink.
-     * @return An object of type CreatePaymentLinkResponse
-     */
-    private CreatePaymentLinkResponse handleCreatePaymentLinkResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreatePaymentLinkResponse result = ApiHelper.deserialize(responseBody,
-                CreatePaymentLinkResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreatePaymentLinkResponse, ApiException> prepareCreatePaymentLinkRequest(
+            final CreatePaymentLinkRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreatePaymentLinkResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/payment-links")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreatePaymentLinkResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -392,13 +255,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public DeletePaymentLinkResponse deletePaymentLink(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildDeletePaymentLinkRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeletePaymentLinkResponse(context);
+        return prepareDeletePaymentLinkRequest(id).execute();
     }
 
     /**
@@ -408,72 +265,36 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public CompletableFuture<DeletePaymentLinkResponse> deletePaymentLinkAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildDeletePaymentLinkRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeletePaymentLinkResponse(context));
+        try { 
+            return prepareDeletePaymentLinkRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deletePaymentLink.
+     * Builds the ApiCall object for deletePaymentLink.
      */
-    private HttpRequest buildDeletePaymentLinkRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/online-checkout/payment-links/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deletePaymentLink.
-     * @return An object of type DeletePaymentLinkResponse
-     */
-    private DeletePaymentLinkResponse handleDeletePaymentLinkResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeletePaymentLinkResponse result = ApiHelper.deserialize(responseBody,
-                DeletePaymentLinkResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeletePaymentLinkResponse, ApiException> prepareDeletePaymentLinkRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<DeletePaymentLinkResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/payment-links/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeletePaymentLinkResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -485,13 +306,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public RetrievePaymentLinkResponse retrievePaymentLink(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildRetrievePaymentLinkRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrievePaymentLinkResponse(context);
+        return prepareRetrievePaymentLinkRequest(id).execute();
     }
 
     /**
@@ -501,72 +316,36 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      */
     public CompletableFuture<RetrievePaymentLinkResponse> retrievePaymentLinkAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildRetrievePaymentLinkRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrievePaymentLinkResponse(context));
+        try { 
+            return prepareRetrievePaymentLinkRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrievePaymentLink.
+     * Builds the ApiCall object for retrievePaymentLink.
      */
-    private HttpRequest buildRetrievePaymentLinkRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/online-checkout/payment-links/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrievePaymentLink.
-     * @return An object of type RetrievePaymentLinkResponse
-     */
-    private RetrievePaymentLinkResponse handleRetrievePaymentLinkResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrievePaymentLinkResponse result = ApiHelper.deserialize(responseBody,
-                RetrievePaymentLinkResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrievePaymentLinkResponse, ApiException> prepareRetrievePaymentLinkRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<RetrievePaymentLinkResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/payment-links/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrievePaymentLinkResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -583,13 +362,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public UpdatePaymentLinkResponse updatePaymentLink(
             final String id,
             final UpdatePaymentLinkRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdatePaymentLinkRequest(id, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdatePaymentLinkResponse(context);
+        return prepareUpdatePaymentLinkRequest(id, body).execute();
     }
 
     /**
@@ -604,75 +377,40 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
     public CompletableFuture<UpdatePaymentLinkResponse> updatePaymentLinkAsync(
             final String id,
             final UpdatePaymentLinkRequest body) {
-        return makeHttpCallAsync(() -> buildUpdatePaymentLinkRequest(id, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdatePaymentLinkResponse(context));
+        try { 
+            return prepareUpdatePaymentLinkRequest(id, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updatePaymentLink.
+     * Builds the ApiCall object for updatePaymentLink.
      */
-    private HttpRequest buildUpdatePaymentLinkRequest(
+    private ApiCall<UpdatePaymentLinkResponse, ApiException> prepareUpdatePaymentLinkRequest(
             final String id,
-            final UpdatePaymentLinkRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/online-checkout/payment-links/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final UpdatePaymentLinkRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdatePaymentLinkResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/payment-links/{id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdatePaymentLinkResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for updatePaymentLink.
-     * @return An object of type UpdatePaymentLinkResponse
-     */
-    private UpdatePaymentLinkResponse handleUpdatePaymentLinkResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdatePaymentLinkResponse result = ApiHelper.deserialize(responseBody,
-                UpdatePaymentLinkResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

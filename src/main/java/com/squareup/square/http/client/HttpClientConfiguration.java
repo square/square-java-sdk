@@ -2,84 +2,26 @@
 package com.squareup.square.http.client;
 
 import com.squareup.square.http.request.HttpMethod;
-import java.util.Arrays;
-import java.util.HashSet;
+import io.apimatic.core.configurations.http.client.CoreHttpClientConfiguration;
+import io.apimatic.coreinterfaces.http.ClientConfiguration;
+import io.apimatic.coreinterfaces.http.HttpMethodType;
+import io.apimatic.coreinterfaces.http.Method;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class to hold HTTP Client Configuration.
  */
 public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration {
 
-    /**
-     * The timeout in seconds to use for making HTTP requests.
-     */
-    private final long timeout;
-
-    /**
-     * The number of retries to make.
-     */
-    private final int numberOfRetries;
-
-    /**
-     * To use in calculation of wait time for next request in case of failure.
-     */
-    private final int backOffFactor;
-
-    /**
-     * To use in calculation of wait time for next request in case of failure.
-     */
-    private final long retryInterval;
-
-    /**
-     * Http status codes to retry against.
-     */
-    private final Set<Integer> httpStatusCodesToRetry;
-
-    /**
-     * Http methods to retry against.
-     */
-    private final Set<HttpMethod> httpMethodsToRetry;
-
-    /**
-     * The maximum wait time for overall retrying requests.
-     */
-    private final long maximumRetryWaitTime;
-
-    /**
-     * Whether to retry on request timeout.
-     */
-    private final boolean shouldRetryOnTimeout;
-
-    /**
-     * The OkHttpClient instance used to make the HTTP calls.
-     */
-    private final okhttp3.OkHttpClient httpClientInstance;
-
-    /**
-     * Allow the SDK to override HTTP client instance's settings used for features like retries,
-     * timeouts etc.
-     */
-    private final boolean overrideHttpClientConfigurations;
+    private final ClientConfiguration configuration;
 
     /**
      * Default Constructor.
      */
-    private HttpClientConfiguration(long timeout, int numberOfRetries, int backOffFactor,
-            long retryInterval, Set<Integer> httpStatusCodesToRetry,
-            Set<HttpMethod> httpMethodsToRetry, long maximumRetryWaitTime,
-            boolean shouldRetryOnTimeout, okhttp3.OkHttpClient httpClientInstance,
-            boolean overrideHttpClientConfigurations) {
-        this.timeout = timeout;
-        this.numberOfRetries = numberOfRetries;
-        this.backOffFactor = backOffFactor;
-        this.retryInterval = retryInterval;
-        this.httpStatusCodesToRetry = httpStatusCodesToRetry;
-        this.httpMethodsToRetry = httpMethodsToRetry;
-        this.maximumRetryWaitTime = maximumRetryWaitTime;
-        this.shouldRetryOnTimeout = shouldRetryOnTimeout;
-        this.httpClientInstance = httpClientInstance;
-        this.overrideHttpClientConfigurations = overrideHttpClientConfigurations;
+    private HttpClientConfiguration(CoreHttpClientConfiguration.Builder configurationBuilder) {
+        this.configuration  = configurationBuilder.build();
     }
 
     /**
@@ -87,7 +29,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return timeout
      */
     public long getTimeout() {
-        return timeout;
+        return configuration.getTimeout();
     }
 
     /**
@@ -95,7 +37,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return numberOfRetries
      */
     public int getNumberOfRetries() {
-        return numberOfRetries;
+        return configuration.getNumberOfRetries();
     }
 
     /**
@@ -103,7 +45,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return backOffFactor
      */
     public int getBackOffFactor() {
-        return backOffFactor;
+        return configuration.getBackOffFactor();
     }
 
     /**
@@ -111,7 +53,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return retryInterval
      */
     public long getRetryInterval() {
-        return retryInterval;
+        return configuration.getRetryInterval();
     }
 
     /**
@@ -119,7 +61,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return httpStatusCodesToRetry
      */
     public Set<Integer> getHttpStatusCodesToRetry() {
-        return httpStatusCodesToRetry;
+        return configuration.getHttpStatusCodesToRetry();
     }
 
     /**
@@ -127,7 +69,12 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return httpMethodsToRetry
      */
     public Set<HttpMethod> getHttpMethodsToRetry() {
-        return httpMethodsToRetry;
+        if (configuration.getHttpMethodsToRetry() == null) {
+            return null;
+        }
+        return configuration.getHttpMethodsToRetry().stream()
+                .map(httpMethod -> HttpMethod.valueOf(httpMethod.toString()))
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -135,7 +82,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return maximumRetryWaitTime
      */
     public long getMaximumRetryWaitTime() {
-        return maximumRetryWaitTime;
+        return configuration.getMaximumRetryWaitTime();
     }
 
     /**
@@ -143,7 +90,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return shouldRetryOnTimeout
      */
     public boolean shouldRetryOnTimeout() {
-        return shouldRetryOnTimeout;
+        return configuration.shouldRetryOnTimeout();
     }
 
     /**
@@ -151,7 +98,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return httpClientInstance
      */
     public okhttp3.OkHttpClient getHttpClientInstance() {
-        return httpClientInstance;
+        return configuration.getHttpClientInstance();
     }
 
     /**
@@ -160,7 +107,15 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      * @return overrideHttpClientConfigurations
      */
     public boolean shouldOverrideHttpClientConfigurations() {
-        return overrideHttpClientConfigurations;
+        return configuration.shouldOverrideHttpClientConfigurations();
+    }
+
+    /**
+    * Returns the ClientConfiguration instance.
+    * @return ClientConfiguration
+    */
+    public ClientConfiguration getConfiguration() {
+        return this.configuration;
     }
 
     /**
@@ -169,13 +124,14 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      */
     @Override
     public String toString() {
-        return "HttpClientConfiguration [" + "timeout=" + timeout + ", numberOfRetries="
-                + numberOfRetries + ", backOffFactor=" + backOffFactor + ", retryInterval="
-                + retryInterval + ", httpStatusCodesToRetry=" + httpStatusCodesToRetry
-                + ", httpMethodsToRetry=" + httpMethodsToRetry + ", maximumRetryWaitTime="
-                + maximumRetryWaitTime + ", shouldRetryOnTimeout=" + shouldRetryOnTimeout
-                + ", httpClientInstance=" + httpClientInstance
-                + ", overrideHttpClientConfigurations=" + overrideHttpClientConfigurations + "]";
+        return "HttpClientConfiguration [" + "timeout=" + getTimeout() + ", numberOfRetries="
+                + getNumberOfRetries() + ", backOffFactor=" + getBackOffFactor()
+                + ", retryInterval=" + getRetryInterval() + ", httpStatusCodesToRetry="
+                + getHttpStatusCodesToRetry() + ", httpMethodsToRetry=" + getHttpMethodsToRetry()
+                + ", maximumRetryWaitTime=" + getMaximumRetryWaitTime() + ", shouldRetryOnTimeout="
+                + shouldRetryOnTimeout() + ", httpClientInstance=" + getHttpClientInstance()
+                + ", overrideHttpClientConfigurations=" + shouldOverrideHttpClientConfigurations()
+                + "]";
     }
 
     /**
@@ -186,15 +142,15 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      */
     public Builder newBuilder() {
         return new Builder()
-                .timeout(timeout)
-                .numberOfRetries(numberOfRetries)
-                .backOffFactor(backOffFactor)
-                .retryInterval(retryInterval)
-                .httpStatusCodesToRetry(httpStatusCodesToRetry)
-                .httpMethodsToRetry(httpMethodsToRetry)
-                .maximumRetryWaitTime(maximumRetryWaitTime)
-                .shouldRetryOnTimeout(shouldRetryOnTimeout)
-                .httpClientInstance(httpClientInstance, overrideHttpClientConfigurations);
+                .timeout(getTimeout())
+                .numberOfRetries(getNumberOfRetries())
+                .backOffFactor(getBackOffFactor())
+                .retryInterval(getRetryInterval())
+                .httpStatusCodesToRetry(getHttpStatusCodesToRetry())
+                .httpMethodsToRetry(getHttpMethodsToRetry())
+                .maximumRetryWaitTime(getMaximumRetryWaitTime())
+                .shouldRetryOnTimeout(shouldRetryOnTimeout())
+                .httpClientInstance(getHttpClientInstance(), shouldOverrideHttpClientConfigurations());
     }
 
     /**
@@ -202,25 +158,18 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
      */
     public static class Builder {
      
-        private long timeout = 60;
-        private int numberOfRetries = 0;
-        private int backOffFactor = 2;
-        private long retryInterval = 1;
-        private Set<Integer> httpStatusCodesToRetry = new HashSet<>();
-        private Set<HttpMethod> httpMethodsToRetry = new HashSet<>();
-        private long maximumRetryWaitTime = 0;
-        private boolean shouldRetryOnTimeout = true;
-        private okhttp3.OkHttpClient httpClientInstance;
-        private boolean overrideHttpClientConfigurations = true;
-   
+        private final CoreHttpClientConfiguration.Builder configurationBuilder =
+            new CoreHttpClientConfiguration.Builder();
+
         /**
          * Default Constructor to initiate builder with default properties.
          */
         public Builder() {
             // setting default values
-            httpStatusCodesToRetry.addAll(Arrays.asList(408, 413, 429, 500, 502, 503, 504, 521, 522,
-                    524));
-            httpMethodsToRetry.addAll(Arrays.asList(HttpMethod.GET, HttpMethod.PUT));
+            configurationBuilder.httpStatusCodesToRetry(Stream.of(408, 413, 429, 500, 502, 503, 504,
+                    521, 522, 524).collect(Collectors.toSet()));
+            configurationBuilder.httpMethodsToRetry(Stream.of(Method.GET,
+                    Method.PUT).collect(Collectors.toSet()));
         }
 
         /**
@@ -229,9 +178,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder timeout(long timeout) {
-            if (timeout > 0) { 
-                this.timeout = timeout;
-            }
+            configurationBuilder.timeout(timeout);
             return this;
         }
 
@@ -241,9 +188,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder numberOfRetries(int numberOfRetries) {
-            if (numberOfRetries >= 0) { 
-                this.numberOfRetries = numberOfRetries;
-            }
+            configurationBuilder.numberOfRetries(numberOfRetries);
             return this;
         }
 
@@ -253,9 +198,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder backOffFactor(int backOffFactor) {
-            if (backOffFactor >= 1) { 
-                this.backOffFactor = backOffFactor;
-            }
+            configurationBuilder.backOffFactor(backOffFactor);
             return this;
         }
 
@@ -265,9 +208,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder retryInterval(long retryInterval) {
-            if (retryInterval >= 0) { 
-                this.retryInterval = retryInterval;
-            }
+            configurationBuilder.retryInterval(retryInterval);
             return this;
         }
 
@@ -277,10 +218,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder httpStatusCodesToRetry(Set<Integer> httpStatusCodesToRetry) {
-            this.httpStatusCodesToRetry.clear();
-            if (httpStatusCodesToRetry != null) {
-                this.httpStatusCodesToRetry.addAll(httpStatusCodesToRetry);
-            }
+            configurationBuilder.httpStatusCodesToRetry(httpStatusCodesToRetry);
             return this;
         }
 
@@ -290,10 +228,13 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder httpMethodsToRetry(Set<HttpMethod> httpMethodsToRetry) {
-            this.httpMethodsToRetry.clear();
+            Set<Method> convertedHttpMethodsToRetry = null;
             if (httpMethodsToRetry != null) {
-                this.httpMethodsToRetry.addAll(httpMethodsToRetry);
+                convertedHttpMethodsToRetry = httpMethodsToRetry.stream()
+                    .map(httpMethod -> HttpMethodType.valueOf(httpMethod.toString()))
+                    .collect(Collectors.toSet());
             }
+            configurationBuilder.httpMethodsToRetry(convertedHttpMethodsToRetry);
             return this;
         }
 
@@ -303,9 +244,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder maximumRetryWaitTime(long maximumRetryWaitTime) {
-            if (maximumRetryWaitTime > 0) { 
-                this.maximumRetryWaitTime = maximumRetryWaitTime;
-            }
+            configurationBuilder.maximumRetryWaitTime(maximumRetryWaitTime);
             return this;
         }
 
@@ -315,7 +254,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder shouldRetryOnTimeout(boolean shouldRetryOnTimeout) {
-            this.shouldRetryOnTimeout = shouldRetryOnTimeout;
+            configurationBuilder.shouldRetryOnTimeout(shouldRetryOnTimeout);
             return this;
         }
 
@@ -325,7 +264,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return Builder
          */
         public Builder httpClientInstance(okhttp3.OkHttpClient httpClientInstance) {
-            this.httpClientInstance = httpClientInstance;
+            configurationBuilder.httpClientInstance(httpClientInstance);
             return this;
         }
 
@@ -337,8 +276,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          */
         public Builder httpClientInstance(okhttp3.OkHttpClient httpClientInstance,
                 boolean overrideHttpClientConfigurations) {
-            this.httpClientInstance = httpClientInstance;
-            this.overrideHttpClientConfigurations = overrideHttpClientConfigurations;
+            configurationBuilder.httpClientInstance(httpClientInstance, overrideHttpClientConfigurations);
             return this;
         }
 
@@ -347,9 +285,7 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
          * @return {@link HttpClientConfiguration}
          */
         public HttpClientConfiguration build() {
-            return new HttpClientConfiguration(timeout, numberOfRetries, backOffFactor,
-                    retryInterval, httpStatusCodesToRetry, httpMethodsToRetry, maximumRetryWaitTime,
-                    shouldRetryOnTimeout, httpClientInstance, overrideHttpClientConfigurations);
+            return new HttpClientConfiguration(configurationBuilder);
         }
     }
 }

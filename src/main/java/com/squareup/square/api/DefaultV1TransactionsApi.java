@@ -3,28 +3,22 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.V1CreateRefundRequest;
 import com.squareup.square.models.V1Order;
 import com.squareup.square.models.V1Payment;
 import com.squareup.square.models.V1Refund;
 import com.squareup.square.models.V1Settlement;
 import com.squareup.square.models.V1UpdateOrderRequest;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -33,25 +27,10 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultV1TransactionsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultV1TransactionsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultV1TransactionsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -75,13 +54,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String order,
             final Integer limit,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildV1ListOrdersRequest(locationId, order, limit, batchToken);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1ListOrdersResponse(context);
+        return prepareV1ListOrdersRequest(locationId, order, limit, batchToken).execute();
     }
 
     /**
@@ -103,84 +76,51 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String order,
             final Integer limit,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildV1ListOrdersRequest(locationId, order, limit,
-                batchToken),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1ListOrdersResponse(context));
+        try { 
+            return prepareV1ListOrdersRequest(locationId, order, limit, batchToken).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1ListOrders.
+     * Builds the ApiCall object for v1ListOrders.
      */
-    private HttpRequest buildV1ListOrdersRequest(
+    private ApiCall<List<V1Order>, ApiException> prepareV1ListOrdersRequest(
             final String locationId,
             final String order,
             final Integer limit,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/orders");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1ListOrders.
-     * @return An object of type List of V1Order
-     */
-    private List<V1Order> handleV1ListOrdersResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        List<V1Order> result = ApiHelper.deserializeArray(responseBody,
-                V1Order[].class);
-        for (int i = 0; i < result.size(); i++) {
-            result.set(i, result.get(i).toBuilder().httpContext(context).build());
-        }
-        return result;
+            final String batchToken) throws IOException {
+        return new ApiCall.Builder<List<V1Order>, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/orders")
+                        .queryParam(param -> param.key("order")
+                                .value(order).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("batch_token")
+                                .value(batchToken).isRequired(false))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserializeArray(response,
+                                        V1Order[].class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) -> {
+                                for (int i = 0; i < result.size(); i++) {
+                                result.set(i, result.get(i).toBuilder()
+                                        .httpContext((HttpContext)context).build());
+                                }
+                                return result;
+                                })
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -199,13 +139,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public V1Order v1RetrieveOrder(
             final String locationId,
             final String orderId) throws ApiException, IOException {
-        HttpRequest request = buildV1RetrieveOrderRequest(locationId, orderId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1RetrieveOrderResponse(context);
+        return prepareV1RetrieveOrderRequest(locationId, orderId).execute();
     }
 
     /**
@@ -222,75 +156,39 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public CompletableFuture<V1Order> v1RetrieveOrderAsync(
             final String locationId,
             final String orderId) {
-        return makeHttpCallAsync(() -> buildV1RetrieveOrderRequest(locationId, orderId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1RetrieveOrderResponse(context));
+        try { 
+            return prepareV1RetrieveOrderRequest(locationId, orderId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1RetrieveOrder.
+     * Builds the ApiCall object for v1RetrieveOrder.
      */
-    private HttpRequest buildV1RetrieveOrderRequest(
+    private ApiCall<V1Order, ApiException> prepareV1RetrieveOrderRequest(
             final String locationId,
-            final String orderId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/orders/{order_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        templateParameters.put("order_id",
-                new SimpleEntry<Object, Boolean>(orderId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1RetrieveOrder.
-     * @return An object of type V1Order
-     */
-    private V1Order handleV1RetrieveOrderResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1Order result = ApiHelper.deserialize(responseBody,
-                V1Order.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String orderId) throws IOException {
+        return new ApiCall.Builder<V1Order, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/orders/{order_id}")
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("order_id").value(orderId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, V1Order.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -312,13 +210,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) throws ApiException, IOException {
-        HttpRequest request = buildV1UpdateOrderRequest(locationId, orderId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1UpdateOrderResponse(context);
+        return prepareV1UpdateOrderRequest(locationId, orderId, body).execute();
     }
 
     /**
@@ -338,78 +230,44 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String locationId,
             final String orderId,
             final V1UpdateOrderRequest body) {
-        return makeHttpCallAsync(() -> buildV1UpdateOrderRequest(locationId, orderId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1UpdateOrderResponse(context));
+        try { 
+            return prepareV1UpdateOrderRequest(locationId, orderId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1UpdateOrder.
+     * Builds the ApiCall object for v1UpdateOrder.
      */
-    private HttpRequest buildV1UpdateOrderRequest(
+    private ApiCall<V1Order, ApiException> prepareV1UpdateOrderRequest(
             final String locationId,
             final String orderId,
-            final V1UpdateOrderRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/orders/{order_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        templateParameters.put("order_id",
-                new SimpleEntry<Object, Boolean>(orderId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1UpdateOrder.
-     * @return An object of type V1Order
-     */
-    private V1Order handleV1UpdateOrderResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1Order result = ApiHelper.deserialize(responseBody,
-                V1Order.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final V1UpdateOrderRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<V1Order, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/orders/{order_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("order_id").value(orderId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, V1Order.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -453,14 +311,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String batchToken,
             final Boolean includePartial) throws ApiException, IOException {
-        HttpRequest request = buildV1ListPaymentsRequest(locationId, order, beginTime, endTime,
-                limit, batchToken, includePartial);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1ListPaymentsResponse(context);
+        return prepareV1ListPaymentsRequest(locationId, order, beginTime, endTime, limit,
+                batchToken, includePartial).execute();
     }
 
     /**
@@ -502,91 +354,61 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String batchToken,
             final Boolean includePartial) {
-        return makeHttpCallAsync(() -> buildV1ListPaymentsRequest(locationId, order, beginTime,
-                endTime, limit, batchToken, includePartial),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1ListPaymentsResponse(context));
+        try { 
+            return prepareV1ListPaymentsRequest(locationId, order, beginTime, endTime, limit, batchToken,
+            includePartial).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1ListPayments.
+     * Builds the ApiCall object for v1ListPayments.
      */
-    private HttpRequest buildV1ListPaymentsRequest(
+    private ApiCall<List<V1Payment>, ApiException> prepareV1ListPaymentsRequest(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String batchToken,
-            final Boolean includePartial) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/payments");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-        queryParameters.put("include_partial",
-                (includePartial != null) ? includePartial : false);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1ListPayments.
-     * @return An object of type List of V1Payment
-     */
-    private List<V1Payment> handleV1ListPaymentsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        List<V1Payment> result = ApiHelper.deserializeArray(responseBody,
-                V1Payment[].class);
-        for (int i = 0; i < result.size(); i++) {
-            result.set(i, result.get(i).toBuilder().httpContext(context).build());
-        }
-        return result;
+            final Boolean includePartial) throws IOException {
+        return new ApiCall.Builder<List<V1Payment>, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/payments")
+                        .queryParam(param -> param.key("order")
+                                .value(order).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("batch_token")
+                                .value(batchToken).isRequired(false))
+                        .queryParam(param -> param.key("include_partial")
+                                .value((includePartial != null) ? includePartial : false).isRequired(false))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserializeArray(response,
+                                        V1Payment[].class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) -> {
+                                for (int i = 0; i < result.size(); i++) {
+                                result.set(i, result.get(i).toBuilder()
+                                        .httpContext((HttpContext)context).build());
+                                }
+                                return result;
+                                })
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -606,13 +428,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public V1Payment v1RetrievePayment(
             final String locationId,
             final String paymentId) throws ApiException, IOException {
-        HttpRequest request = buildV1RetrievePaymentRequest(locationId, paymentId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1RetrievePaymentResponse(context);
+        return prepareV1RetrievePaymentRequest(locationId, paymentId).execute();
     }
 
     /**
@@ -630,75 +446,39 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public CompletableFuture<V1Payment> v1RetrievePaymentAsync(
             final String locationId,
             final String paymentId) {
-        return makeHttpCallAsync(() -> buildV1RetrievePaymentRequest(locationId, paymentId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1RetrievePaymentResponse(context));
+        try { 
+            return prepareV1RetrievePaymentRequest(locationId, paymentId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1RetrievePayment.
+     * Builds the ApiCall object for v1RetrievePayment.
      */
-    private HttpRequest buildV1RetrievePaymentRequest(
+    private ApiCall<V1Payment, ApiException> prepareV1RetrievePaymentRequest(
             final String locationId,
-            final String paymentId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/payments/{payment_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        templateParameters.put("payment_id",
-                new SimpleEntry<Object, Boolean>(paymentId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1RetrievePayment.
-     * @return An object of type V1Payment
-     */
-    private V1Payment handleV1RetrievePaymentResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1Payment result = ApiHelper.deserialize(responseBody,
-                V1Payment.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String paymentId) throws IOException {
+        return new ApiCall.Builder<V1Payment, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/payments/{payment_id}")
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("payment_id").value(paymentId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, V1Payment.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -733,14 +513,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String endTime,
             final Integer limit,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildV1ListRefundsRequest(locationId, order, beginTime, endTime,
-                limit, batchToken);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1ListRefundsResponse(context);
+        return prepareV1ListRefundsRequest(locationId, order, beginTime, endTime, limit,
+                batchToken).execute();
     }
 
     /**
@@ -773,88 +547,58 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final String endTime,
             final Integer limit,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildV1ListRefundsRequest(locationId, order, beginTime,
-                endTime, limit, batchToken),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1ListRefundsResponse(context));
+        try { 
+            return prepareV1ListRefundsRequest(locationId, order, beginTime, endTime, limit,
+            batchToken).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1ListRefunds.
+     * Builds the ApiCall object for v1ListRefunds.
      */
-    private HttpRequest buildV1ListRefundsRequest(
+    private ApiCall<List<V1Refund>, ApiException> prepareV1ListRefundsRequest(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/refunds");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("batch_token", batchToken);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1ListRefunds.
-     * @return An object of type List of V1Refund
-     */
-    private List<V1Refund> handleV1ListRefundsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        List<V1Refund> result = ApiHelper.deserializeArray(responseBody,
-                V1Refund[].class);
-        for (int i = 0; i < result.size(); i++) {
-            result.set(i, result.get(i).toBuilder().httpContext(context).build());
-        }
-        return result;
+            final String batchToken) throws IOException {
+        return new ApiCall.Builder<List<V1Refund>, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/refunds")
+                        .queryParam(param -> param.key("order")
+                                .value(order).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("batch_token")
+                                .value(batchToken).isRequired(false))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserializeArray(response,
+                                        V1Refund[].class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) -> {
+                                for (int i = 0; i < result.size(); i++) {
+                                result.set(i, result.get(i).toBuilder()
+                                        .httpContext((HttpContext)context).build());
+                                }
+                                return result;
+                                })
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -878,13 +622,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public V1Refund v1CreateRefund(
             final String locationId,
             final V1CreateRefundRequest body) throws ApiException, IOException {
-        HttpRequest request = buildV1CreateRefundRequest(locationId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1CreateRefundResponse(context);
+        return prepareV1CreateRefundRequest(locationId, body).execute();
     }
 
     /**
@@ -906,75 +644,41 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public CompletableFuture<V1Refund> v1CreateRefundAsync(
             final String locationId,
             final V1CreateRefundRequest body) {
-        return makeHttpCallAsync(() -> buildV1CreateRefundRequest(locationId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1CreateRefundResponse(context));
+        try { 
+            return prepareV1CreateRefundRequest(locationId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1CreateRefund.
+     * Builds the ApiCall object for v1CreateRefund.
      */
-    private HttpRequest buildV1CreateRefundRequest(
+    private ApiCall<V1Refund, ApiException> prepareV1CreateRefundRequest(
             final String locationId,
-            final V1CreateRefundRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/refunds");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1CreateRefund.
-     * @return An object of type V1Refund
-     */
-    private V1Refund handleV1CreateRefundResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1Refund result = ApiHelper.deserialize(responseBody,
-                V1Refund.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final V1CreateRefundRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<V1Refund, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/refunds")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, V1Refund.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1012,14 +716,8 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String status,
             final String batchToken) throws ApiException, IOException {
-        HttpRequest request = buildV1ListSettlementsRequest(locationId, order, beginTime, endTime,
-                limit, status, batchToken);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1ListSettlementsResponse(context);
+        return prepareV1ListSettlementsRequest(locationId, order, beginTime, endTime, limit, status,
+                batchToken).execute();
     }
 
     /**
@@ -1055,90 +753,61 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
             final Integer limit,
             final String status,
             final String batchToken) {
-        return makeHttpCallAsync(() -> buildV1ListSettlementsRequest(locationId, order, beginTime,
-                endTime, limit, status, batchToken),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1ListSettlementsResponse(context));
+        try { 
+            return prepareV1ListSettlementsRequest(locationId, order, beginTime, endTime, limit, status,
+            batchToken).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1ListSettlements.
+     * Builds the ApiCall object for v1ListSettlements.
      */
-    private HttpRequest buildV1ListSettlementsRequest(
+    private ApiCall<List<V1Settlement>, ApiException> prepareV1ListSettlementsRequest(
             final String locationId,
             final String order,
             final String beginTime,
             final String endTime,
             final Integer limit,
             final String status,
-            final String batchToken) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/settlements");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("order", order);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("status", status);
-        queryParameters.put("batch_token", batchToken);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for v1ListSettlements.
-     * @return An object of type List of V1Settlement
-     */
-    private List<V1Settlement> handleV1ListSettlementsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        List<V1Settlement> result = ApiHelper.deserializeArray(responseBody,
-                V1Settlement[].class);
-        for (int i = 0; i < result.size(); i++) {
-            result.set(i, result.get(i).toBuilder().httpContext(context).build());
-        }
-        return result;
+            final String batchToken) throws IOException {
+        return new ApiCall.Builder<List<V1Settlement>, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/settlements")
+                        .queryParam(param -> param.key("order")
+                                .value(order).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("status")
+                                .value(status).isRequired(false))
+                        .queryParam(param -> param.key("batch_token")
+                                .value(batchToken).isRequired(false))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserializeArray(response,
+                                        V1Settlement[].class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) -> {
+                                for (int i = 0; i < result.size(); i++) {
+                                result.set(i, result.get(i).toBuilder()
+                                        .httpContext((HttpContext)context).build());
+                                }
+                                return result;
+                                })
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1165,13 +834,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public V1Settlement v1RetrieveSettlement(
             final String locationId,
             final String settlementId) throws ApiException, IOException {
-        HttpRequest request = buildV1RetrieveSettlementRequest(locationId, settlementId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleV1RetrieveSettlementResponse(context);
+        return prepareV1RetrieveSettlementRequest(locationId, settlementId).execute();
     }
 
     /**
@@ -1196,75 +859,38 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
     public CompletableFuture<V1Settlement> v1RetrieveSettlementAsync(
             final String locationId,
             final String settlementId) {
-        return makeHttpCallAsync(() -> buildV1RetrieveSettlementRequest(locationId, settlementId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleV1RetrieveSettlementResponse(context));
+        try { 
+            return prepareV1RetrieveSettlementRequest(locationId, settlementId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for v1RetrieveSettlement.
+     * Builds the ApiCall object for v1RetrieveSettlement.
      */
-    private HttpRequest buildV1RetrieveSettlementRequest(
+    private ApiCall<V1Settlement, ApiException> prepareV1RetrieveSettlementRequest(
             final String locationId,
-            final String settlementId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v1/{location_id}/settlements/{settlement_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("location_id",
-                new SimpleEntry<Object, Boolean>(locationId, true));
-        templateParameters.put("settlement_id",
-                new SimpleEntry<Object, Boolean>(settlementId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final String settlementId) throws IOException {
+        return new ApiCall.Builder<V1Settlement, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v1/{location_id}/settlements/{settlement_id}")
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("settlement_id").value(settlementId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, V1Settlement.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for v1RetrieveSettlement.
-     * @return An object of type V1Settlement
-     */
-    private V1Settlement handleV1RetrieveSettlementResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        V1Settlement result = ApiHelper.deserialize(responseBody,
-                V1Settlement.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

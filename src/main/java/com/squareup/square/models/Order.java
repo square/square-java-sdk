@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -22,7 +23,7 @@ public class Order {
     private final List<OrderLineItemTax> taxes;
     private final List<OrderLineItemDiscount> discounts;
     private final List<OrderServiceCharge> serviceCharges;
-    private final List<OrderFulfillment> fulfillments;
+    private final List<Fulfillment> fulfillments;
     private final List<OrderReturn> returns;
     private final OrderMoneyAmounts returnAmounts;
     private final OrderMoneyAmounts netAmounts;
@@ -56,7 +57,7 @@ public class Order {
      * @param  taxes  List of OrderLineItemTax value for taxes.
      * @param  discounts  List of OrderLineItemDiscount value for discounts.
      * @param  serviceCharges  List of OrderServiceCharge value for serviceCharges.
-     * @param  fulfillments  List of OrderFulfillment value for fulfillments.
+     * @param  fulfillments  List of Fulfillment value for fulfillments.
      * @param  returns  List of OrderReturn value for returns.
      * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
      * @param  netAmounts  OrderMoneyAmounts value for netAmounts.
@@ -90,7 +91,7 @@ public class Order {
             @JsonProperty("taxes") List<OrderLineItemTax> taxes,
             @JsonProperty("discounts") List<OrderLineItemDiscount> discounts,
             @JsonProperty("service_charges") List<OrderServiceCharge> serviceCharges,
-            @JsonProperty("fulfillments") List<OrderFulfillment> fulfillments,
+            @JsonProperty("fulfillments") List<Fulfillment> fulfillments,
             @JsonProperty("returns") List<OrderReturn> returns,
             @JsonProperty("return_amounts") OrderMoneyAmounts returnAmounts,
             @JsonProperty("net_amounts") OrderMoneyAmounts netAmounts,
@@ -264,11 +265,11 @@ public class Order {
      * Getter for Fulfillments.
      * Details about order fulfillment. Orders can only be created with at most one fulfillment.
      * However, orders returned by the API might contain multiple fulfillments.
-     * @return Returns the List of OrderFulfillment
+     * @return Returns the List of Fulfillment
      */
     @JsonGetter("fulfillments")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<OrderFulfillment> getFulfillments() {
+    public List<Fulfillment> getFulfillments() {
         return fulfillments;
     }
 
@@ -681,7 +682,7 @@ public class Order {
         private List<OrderLineItemTax> taxes;
         private List<OrderLineItemDiscount> discounts;
         private List<OrderServiceCharge> serviceCharges;
-        private List<OrderFulfillment> fulfillments;
+        private List<Fulfillment> fulfillments;
         private List<OrderReturn> returns;
         private OrderMoneyAmounts returnAmounts;
         private OrderMoneyAmounts netAmounts;
@@ -804,10 +805,10 @@ public class Order {
 
         /**
          * Setter for fulfillments.
-         * @param  fulfillments  List of OrderFulfillment value for fulfillments.
+         * @param  fulfillments  List of Fulfillment value for fulfillments.
          * @return Builder
          */
-        public Builder fulfillments(List<OrderFulfillment> fulfillments) {
+        public Builder fulfillments(List<Fulfillment> fulfillments) {
             this.fulfillments = fulfillments;
             return this;
         }

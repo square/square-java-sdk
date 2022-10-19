@@ -1,7 +1,10 @@
 
 package com.squareup.square.http.request;
 
+import com.squareup.square.ApiHelper;
 import com.squareup.square.http.Headers;
+import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
+import io.apimatic.coreinterfaces.http.request.Request;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.Map;
 /**
  * Class for creating and managing HTTP Requests.
  */
-public class HttpRequest {
+public class HttpRequest implements Request {
 
     /**
      * Private store for properties.
@@ -20,6 +23,7 @@ public class HttpRequest {
     private StringBuilder queryUrlBuilder;
     private List<SimpleEntry<String, Object>> parameters;
     private Map<String, Object> queryParameters;
+    private Object body;
 
     /**
      * Initializes a simple http request.
@@ -36,6 +40,21 @@ public class HttpRequest {
         this.headers = headers;
         this.queryParameters = queryParameters;
         this.parameters = parameters;
+    }
+
+    /**
+     * Initializes a simple http request.
+     * 
+     * @param method The HTTP method to use. Can be GET, HEAD, PUT, POST, DELETE and PATCH
+     * @param queryUrlBuilder The fully qualified absolute http url to create the HTTP Request.
+     * @param headers The key-value map of all http headers to be sent
+     * @param queryParameters The query parameters in a key-value map
+     * @param body The object to be sent as body after serialization
+     */
+    public HttpRequest(HttpMethod method, StringBuilder queryUrlBuilder, Headers headers,
+            Map<String, Object> queryParameters, Object body) {
+        this(method, queryUrlBuilder, headers, queryParameters, null);
+        this.body = body != null ? body : "";
     }
 
     /**
@@ -79,6 +98,15 @@ public class HttpRequest {
     }
 
     /**
+     * Body for the http request.
+     * 
+     * @return Object body
+     */
+    public Object getBody() {
+        return body;
+    }
+
+    /**
      * Add Query parameter in http request.
      * @param key   The key of query parameter to be added
      * @param value The value for respective query parameter
@@ -103,4 +131,17 @@ public class HttpRequest {
                 + ", queryUrlBuilder=" + queryUrlBuilder + ", queryParameters=" + queryParameters
                 + ", parameters=" + parameters + "]";
     }
+
+    @Override
+    public String getUrl(ArraySerializationFormat arraySerializationFormat) {
+        StringBuilder urlBuilder = new StringBuilder(getQueryUrl());
+
+        // set query parameters
+        ApiHelper.appendUrlWithQueryParameters(urlBuilder, getQueryParameters(),
+                arraySerializationFormat);
+
+        // validate and preprocess url
+        return ApiHelper.cleanUrl(urlBuilder);
+    }
+
 }

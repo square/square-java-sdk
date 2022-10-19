@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.BulkUpsertCustomerCustomAttributesRequest;
 import com.squareup.square.models.BulkUpsertCustomerCustomAttributesResponse;
 import com.squareup.square.models.CreateCustomerCustomAttributeDefinitionRequest;
@@ -27,11 +21,11 @@ import com.squareup.square.models.UpdateCustomerCustomAttributeDefinitionRequest
 import com.squareup.square.models.UpdateCustomerCustomAttributeDefinitionResponse;
 import com.squareup.square.models.UpsertCustomerCustomAttributeRequest;
 import com.squareup.square.models.UpsertCustomerCustomAttributeResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -40,25 +34,10 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultCustomerCustomAttributesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultCustomerCustomAttributesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultCustomerCustomAttributesApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -84,13 +63,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public ListCustomerCustomAttributeDefinitionsResponse listCustomerCustomAttributeDefinitions(
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCustomerCustomAttributeDefinitionsRequest(limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCustomerCustomAttributeDefinitionsResponse(context);
+        return prepareListCustomerCustomAttributeDefinitionsRequest(limit, cursor).execute();
     }
 
     /**
@@ -114,74 +87,39 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public CompletableFuture<ListCustomerCustomAttributeDefinitionsResponse> listCustomerCustomAttributeDefinitionsAsync(
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListCustomerCustomAttributeDefinitionsRequest(limit,
-                cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCustomerCustomAttributeDefinitionsResponse(context));
+        try { 
+            return prepareListCustomerCustomAttributeDefinitionsRequest(limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCustomerCustomAttributeDefinitions.
+     * Builds the ApiCall object for listCustomerCustomAttributeDefinitions.
      */
-    private HttpRequest buildListCustomerCustomAttributeDefinitionsRequest(
+    private ApiCall<ListCustomerCustomAttributeDefinitionsResponse, ApiException> prepareListCustomerCustomAttributeDefinitionsRequest(
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attribute-definitions");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listCustomerCustomAttributeDefinitions.
-     * @return An object of type ListCustomerCustomAttributeDefinitionsResponse
-     */
-    private ListCustomerCustomAttributeDefinitionsResponse handleListCustomerCustomAttributeDefinitionsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCustomerCustomAttributeDefinitionsResponse result = ApiHelper.deserialize(responseBody,
-                ListCustomerCustomAttributeDefinitionsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListCustomerCustomAttributeDefinitionsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attribute-definitions")
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCustomerCustomAttributeDefinitionsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -203,13 +141,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public CreateCustomerCustomAttributeDefinitionResponse createCustomerCustomAttributeDefinition(
             final CreateCustomerCustomAttributeDefinitionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateCustomerCustomAttributeDefinitionRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateCustomerCustomAttributeDefinitionResponse(context);
+        return prepareCreateCustomerCustomAttributeDefinitionRequest(body).execute();
     }
 
     /**
@@ -229,68 +161,38 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public CompletableFuture<CreateCustomerCustomAttributeDefinitionResponse> createCustomerCustomAttributeDefinitionAsync(
             final CreateCustomerCustomAttributeDefinitionRequest body) {
-        return makeHttpCallAsync(() -> buildCreateCustomerCustomAttributeDefinitionRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateCustomerCustomAttributeDefinitionResponse(context));
+        try { 
+            return prepareCreateCustomerCustomAttributeDefinitionRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createCustomerCustomAttributeDefinition.
+     * Builds the ApiCall object for createCustomerCustomAttributeDefinition.
      */
-    private HttpRequest buildCreateCustomerCustomAttributeDefinitionRequest(
-            final CreateCustomerCustomAttributeDefinitionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attribute-definitions");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createCustomerCustomAttributeDefinition.
-     * @return An object of type CreateCustomerCustomAttributeDefinitionResponse
-     */
-    private CreateCustomerCustomAttributeDefinitionResponse handleCreateCustomerCustomAttributeDefinitionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateCustomerCustomAttributeDefinitionResponse result = ApiHelper.deserialize(responseBody,
-                CreateCustomerCustomAttributeDefinitionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateCustomerCustomAttributeDefinitionResponse, ApiException> prepareCreateCustomerCustomAttributeDefinitionRequest(
+            final CreateCustomerCustomAttributeDefinitionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateCustomerCustomAttributeDefinitionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attribute-definitions")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateCustomerCustomAttributeDefinitionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -305,13 +207,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public DeleteCustomerCustomAttributeDefinitionResponse deleteCustomerCustomAttributeDefinition(
             final String key) throws ApiException, IOException {
-        HttpRequest request = buildDeleteCustomerCustomAttributeDefinitionRequest(key);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteCustomerCustomAttributeDefinitionResponse(context);
+        return prepareDeleteCustomerCustomAttributeDefinitionRequest(key).execute();
     }
 
     /**
@@ -324,72 +220,36 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public CompletableFuture<DeleteCustomerCustomAttributeDefinitionResponse> deleteCustomerCustomAttributeDefinitionAsync(
             final String key) {
-        return makeHttpCallAsync(() -> buildDeleteCustomerCustomAttributeDefinitionRequest(key),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteCustomerCustomAttributeDefinitionResponse(context));
+        try { 
+            return prepareDeleteCustomerCustomAttributeDefinitionRequest(key).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteCustomerCustomAttributeDefinition.
+     * Builds the ApiCall object for deleteCustomerCustomAttributeDefinition.
      */
-    private HttpRequest buildDeleteCustomerCustomAttributeDefinitionRequest(
-            final String key) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attribute-definitions/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteCustomerCustomAttributeDefinition.
-     * @return An object of type DeleteCustomerCustomAttributeDefinitionResponse
-     */
-    private DeleteCustomerCustomAttributeDefinitionResponse handleDeleteCustomerCustomAttributeDefinitionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteCustomerCustomAttributeDefinitionResponse result = ApiHelper.deserialize(responseBody,
-                DeleteCustomerCustomAttributeDefinitionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteCustomerCustomAttributeDefinitionResponse, ApiException> prepareDeleteCustomerCustomAttributeDefinitionRequest(
+            final String key) throws IOException {
+        return new ApiCall.Builder<DeleteCustomerCustomAttributeDefinitionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attribute-definitions/{key}")
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteCustomerCustomAttributeDefinitionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -413,13 +273,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public RetrieveCustomerCustomAttributeDefinitionResponse retrieveCustomerCustomAttributeDefinition(
             final String key,
             final Integer version) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCustomerCustomAttributeDefinitionRequest(key, version);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveCustomerCustomAttributeDefinitionResponse(context);
+        return prepareRetrieveCustomerCustomAttributeDefinitionRequest(key, version).execute();
     }
 
     /**
@@ -441,79 +295,39 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public CompletableFuture<RetrieveCustomerCustomAttributeDefinitionResponse> retrieveCustomerCustomAttributeDefinitionAsync(
             final String key,
             final Integer version) {
-        return makeHttpCallAsync(() -> buildRetrieveCustomerCustomAttributeDefinitionRequest(key,
-                version),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveCustomerCustomAttributeDefinitionResponse(context));
+        try { 
+            return prepareRetrieveCustomerCustomAttributeDefinitionRequest(key, version).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCustomerCustomAttributeDefinition.
+     * Builds the ApiCall object for retrieveCustomerCustomAttributeDefinition.
      */
-    private HttpRequest buildRetrieveCustomerCustomAttributeDefinitionRequest(
+    private ApiCall<RetrieveCustomerCustomAttributeDefinitionResponse, ApiException> prepareRetrieveCustomerCustomAttributeDefinitionRequest(
             final String key,
-            final Integer version) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attribute-definitions/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("version", version);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveCustomerCustomAttributeDefinition.
-     * @return An object of type RetrieveCustomerCustomAttributeDefinitionResponse
-     */
-    private RetrieveCustomerCustomAttributeDefinitionResponse handleRetrieveCustomerCustomAttributeDefinitionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveCustomerCustomAttributeDefinitionResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveCustomerCustomAttributeDefinitionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer version) throws IOException {
+        return new ApiCall.Builder<RetrieveCustomerCustomAttributeDefinitionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attribute-definitions/{key}")
+                        .queryParam(param -> param.key("version")
+                                .value(version).isRequired(false))
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveCustomerCustomAttributeDefinitionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -532,13 +346,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public UpdateCustomerCustomAttributeDefinitionResponse updateCustomerCustomAttributeDefinition(
             final String key,
             final UpdateCustomerCustomAttributeDefinitionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateCustomerCustomAttributeDefinitionRequest(key, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateCustomerCustomAttributeDefinitionResponse(context);
+        return prepareUpdateCustomerCustomAttributeDefinitionRequest(key, body).execute();
     }
 
     /**
@@ -555,76 +363,41 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public CompletableFuture<UpdateCustomerCustomAttributeDefinitionResponse> updateCustomerCustomAttributeDefinitionAsync(
             final String key,
             final UpdateCustomerCustomAttributeDefinitionRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateCustomerCustomAttributeDefinitionRequest(key,
-                body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateCustomerCustomAttributeDefinitionResponse(context));
+        try { 
+            return prepareUpdateCustomerCustomAttributeDefinitionRequest(key, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateCustomerCustomAttributeDefinition.
+     * Builds the ApiCall object for updateCustomerCustomAttributeDefinition.
      */
-    private HttpRequest buildUpdateCustomerCustomAttributeDefinitionRequest(
+    private ApiCall<UpdateCustomerCustomAttributeDefinitionResponse, ApiException> prepareUpdateCustomerCustomAttributeDefinitionRequest(
             final String key,
-            final UpdateCustomerCustomAttributeDefinitionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attribute-definitions/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateCustomerCustomAttributeDefinition.
-     * @return An object of type UpdateCustomerCustomAttributeDefinitionResponse
-     */
-    private UpdateCustomerCustomAttributeDefinitionResponse handleUpdateCustomerCustomAttributeDefinitionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateCustomerCustomAttributeDefinitionResponse result = ApiHelper.deserialize(responseBody,
-                UpdateCustomerCustomAttributeDefinitionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateCustomerCustomAttributeDefinitionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateCustomerCustomAttributeDefinitionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attribute-definitions/{key}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateCustomerCustomAttributeDefinitionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -648,13 +421,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public BulkUpsertCustomerCustomAttributesResponse bulkUpsertCustomerCustomAttributes(
             final BulkUpsertCustomerCustomAttributesRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkUpsertCustomerCustomAttributesRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkUpsertCustomerCustomAttributesResponse(context);
+        return prepareBulkUpsertCustomerCustomAttributesRequest(body).execute();
     }
 
     /**
@@ -676,68 +443,38 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
      */
     public CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomerCustomAttributesAsync(
             final BulkUpsertCustomerCustomAttributesRequest body) {
-        return makeHttpCallAsync(() -> buildBulkUpsertCustomerCustomAttributesRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkUpsertCustomerCustomAttributesResponse(context));
+        try { 
+            return prepareBulkUpsertCustomerCustomAttributesRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkUpsertCustomerCustomAttributes.
+     * Builds the ApiCall object for bulkUpsertCustomerCustomAttributes.
      */
-    private HttpRequest buildBulkUpsertCustomerCustomAttributesRequest(
-            final BulkUpsertCustomerCustomAttributesRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/custom-attributes/bulk-upsert");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkUpsertCustomerCustomAttributes.
-     * @return An object of type BulkUpsertCustomerCustomAttributesResponse
-     */
-    private BulkUpsertCustomerCustomAttributesResponse handleBulkUpsertCustomerCustomAttributesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkUpsertCustomerCustomAttributesResponse result = ApiHelper.deserialize(responseBody,
-                BulkUpsertCustomerCustomAttributesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkUpsertCustomerCustomAttributesResponse, ApiException> prepareBulkUpsertCustomerCustomAttributesRequest(
+            final BulkUpsertCustomerCustomAttributesRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkUpsertCustomerCustomAttributesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/custom-attributes/bulk-upsert")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkUpsertCustomerCustomAttributesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -770,14 +507,8 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final Integer limit,
             final String cursor,
             final Boolean withDefinitions) throws ApiException, IOException {
-        HttpRequest request = buildListCustomerCustomAttributesRequest(customerId, limit, cursor,
-                withDefinitions);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCustomerCustomAttributesResponse(context);
+        return prepareListCustomerCustomAttributesRequest(customerId, limit, cursor,
+                withDefinitions).execute();
     }
 
     /**
@@ -808,84 +539,46 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final Integer limit,
             final String cursor,
             final Boolean withDefinitions) {
-        return makeHttpCallAsync(() -> buildListCustomerCustomAttributesRequest(customerId, limit,
-                cursor, withDefinitions),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCustomerCustomAttributesResponse(context));
+        try { 
+            return prepareListCustomerCustomAttributesRequest(customerId, limit, cursor,
+            withDefinitions).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCustomerCustomAttributes.
+     * Builds the ApiCall object for listCustomerCustomAttributes.
      */
-    private HttpRequest buildListCustomerCustomAttributesRequest(
+    private ApiCall<ListCustomerCustomAttributesResponse, ApiException> prepareListCustomerCustomAttributesRequest(
             final String customerId,
             final Integer limit,
             final String cursor,
-            final Boolean withDefinitions) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/{customer_id}/custom-attributes");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("customer_id",
-                new SimpleEntry<Object, Boolean>(customerId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("with_definitions",
-                (withDefinitions != null) ? withDefinitions : false);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listCustomerCustomAttributes.
-     * @return An object of type ListCustomerCustomAttributesResponse
-     */
-    private ListCustomerCustomAttributesResponse handleListCustomerCustomAttributesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCustomerCustomAttributesResponse result = ApiHelper.deserialize(responseBody,
-                ListCustomerCustomAttributesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Boolean withDefinitions) throws IOException {
+        return new ApiCall.Builder<ListCustomerCustomAttributesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/{customer_id}/custom-attributes")
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("with_definitions")
+                                .value((withDefinitions != null) ? withDefinitions : false).isRequired(false))
+                        .templateParam(param -> param.key("customer_id").value(customerId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCustomerCustomAttributesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -904,13 +597,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public DeleteCustomerCustomAttributeResponse deleteCustomerCustomAttribute(
             final String customerId,
             final String key) throws ApiException, IOException {
-        HttpRequest request = buildDeleteCustomerCustomAttributeRequest(customerId, key);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteCustomerCustomAttributeResponse(context);
+        return prepareDeleteCustomerCustomAttributeRequest(customerId, key).execute();
     }
 
     /**
@@ -927,75 +614,39 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
     public CompletableFuture<DeleteCustomerCustomAttributeResponse> deleteCustomerCustomAttributeAsync(
             final String customerId,
             final String key) {
-        return makeHttpCallAsync(() -> buildDeleteCustomerCustomAttributeRequest(customerId, key),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteCustomerCustomAttributeResponse(context));
+        try { 
+            return prepareDeleteCustomerCustomAttributeRequest(customerId, key).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteCustomerCustomAttribute.
+     * Builds the ApiCall object for deleteCustomerCustomAttribute.
      */
-    private HttpRequest buildDeleteCustomerCustomAttributeRequest(
+    private ApiCall<DeleteCustomerCustomAttributeResponse, ApiException> prepareDeleteCustomerCustomAttributeRequest(
             final String customerId,
-            final String key) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/{customer_id}/custom-attributes/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("customer_id",
-                new SimpleEntry<Object, Boolean>(customerId, true));
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteCustomerCustomAttribute.
-     * @return An object of type DeleteCustomerCustomAttributeResponse
-     */
-    private DeleteCustomerCustomAttributeResponse handleDeleteCustomerCustomAttributeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteCustomerCustomAttributeResponse result = ApiHelper.deserialize(responseBody,
-                DeleteCustomerCustomAttributeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String key) throws IOException {
+        return new ApiCall.Builder<DeleteCustomerCustomAttributeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/{customer_id}/custom-attributes/{key}")
+                        .templateParam(param -> param.key("customer_id").value(customerId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteCustomerCustomAttributeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1028,14 +679,8 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final String key,
             final Boolean withDefinition,
             final Integer version) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCustomerCustomAttributeRequest(customerId, key,
-                withDefinition, version);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveCustomerCustomAttributeResponse(context);
+        return prepareRetrieveCustomerCustomAttributeRequest(customerId, key, withDefinition,
+                version).execute();
     }
 
     /**
@@ -1066,85 +711,46 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final String key,
             final Boolean withDefinition,
             final Integer version) {
-        return makeHttpCallAsync(() -> buildRetrieveCustomerCustomAttributeRequest(customerId, key,
-                withDefinition, version),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveCustomerCustomAttributeResponse(context));
+        try { 
+            return prepareRetrieveCustomerCustomAttributeRequest(customerId, key, withDefinition,
+            version).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCustomerCustomAttribute.
+     * Builds the ApiCall object for retrieveCustomerCustomAttribute.
      */
-    private HttpRequest buildRetrieveCustomerCustomAttributeRequest(
+    private ApiCall<RetrieveCustomerCustomAttributeResponse, ApiException> prepareRetrieveCustomerCustomAttributeRequest(
             final String customerId,
             final String key,
             final Boolean withDefinition,
-            final Integer version) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/{customer_id}/custom-attributes/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("customer_id",
-                new SimpleEntry<Object, Boolean>(customerId, true));
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("with_definition",
-                (withDefinition != null) ? withDefinition : false);
-        queryParameters.put("version", version);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveCustomerCustomAttribute.
-     * @return An object of type RetrieveCustomerCustomAttributeResponse
-     */
-    private RetrieveCustomerCustomAttributeResponse handleRetrieveCustomerCustomAttributeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveCustomerCustomAttributeResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveCustomerCustomAttributeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer version) throws IOException {
+        return new ApiCall.Builder<RetrieveCustomerCustomAttributeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/{customer_id}/custom-attributes/{key}")
+                        .queryParam(param -> param.key("with_definition")
+                                .value((withDefinition != null) ? withDefinition : false).isRequired(false))
+                        .queryParam(param -> param.key("version")
+                                .value(version).isRequired(false))
+                        .templateParam(param -> param.key("customer_id").value(customerId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveCustomerCustomAttributeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1171,13 +777,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final String customerId,
             final String key,
             final UpsertCustomerCustomAttributeRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpsertCustomerCustomAttributeRequest(customerId, key, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpsertCustomerCustomAttributeResponse(context);
+        return prepareUpsertCustomerCustomAttributeRequest(customerId, key, body).execute();
     }
 
     /**
@@ -1202,79 +802,43 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
             final String customerId,
             final String key,
             final UpsertCustomerCustomAttributeRequest body) {
-        return makeHttpCallAsync(() -> buildUpsertCustomerCustomAttributeRequest(customerId, key,
-                body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpsertCustomerCustomAttributeResponse(context));
+        try { 
+            return prepareUpsertCustomerCustomAttributeRequest(customerId, key, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for upsertCustomerCustomAttribute.
+     * Builds the ApiCall object for upsertCustomerCustomAttribute.
      */
-    private HttpRequest buildUpsertCustomerCustomAttributeRequest(
+    private ApiCall<UpsertCustomerCustomAttributeResponse, ApiException> prepareUpsertCustomerCustomAttributeRequest(
             final String customerId,
             final String key,
-            final UpsertCustomerCustomAttributeRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/customers/{customer_id}/custom-attributes/{key}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("customer_id",
-                new SimpleEntry<Object, Boolean>(customerId, true));
-        templateParameters.put("key",
-                new SimpleEntry<Object, Boolean>(key, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final UpsertCustomerCustomAttributeRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpsertCustomerCustomAttributeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/{customer_id}/custom-attributes/{key}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("customer_id").value(customerId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("key").value(key)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpsertCustomerCustomAttributeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for upsertCustomerCustomAttribute.
-     * @return An object of type UpsertCustomerCustomAttributeResponse
-     */
-    private UpsertCustomerCustomAttributeResponse handleUpsertCustomerCustomAttributeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpsertCustomerCustomAttributeResponse result = ApiHelper.deserialize(responseBody,
-                UpsertCustomerCustomAttributeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

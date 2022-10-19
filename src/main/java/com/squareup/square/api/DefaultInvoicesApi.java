@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CancelInvoiceRequest;
 import com.squareup.square.models.CancelInvoiceResponse;
 import com.squareup.square.models.CreateInvoiceRequest;
@@ -26,11 +20,11 @@ import com.squareup.square.models.SearchInvoicesRequest;
 import com.squareup.square.models.SearchInvoicesResponse;
 import com.squareup.square.models.UpdateInvoiceRequest;
 import com.squareup.square.models.UpdateInvoiceResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -39,25 +33,10 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultInvoicesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultInvoicesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultInvoicesApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -79,13 +58,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
             final String locationId,
             final String cursor,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListInvoicesRequest(locationId, cursor, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListInvoicesResponse(context);
+        return prepareListInvoicesRequest(locationId, cursor, limit).execute();
     }
 
     /**
@@ -105,75 +78,42 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
             final String locationId,
             final String cursor,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListInvoicesRequest(locationId, cursor, limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListInvoicesResponse(context));
+        try { 
+            return prepareListInvoicesRequest(locationId, cursor, limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listInvoices.
+     * Builds the ApiCall object for listInvoices.
      */
-    private HttpRequest buildListInvoicesRequest(
+    private ApiCall<ListInvoicesResponse, ApiException> prepareListInvoicesRequest(
             final String locationId,
             final String cursor,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listInvoices.
-     * @return An object of type ListInvoicesResponse
-     */
-    private ListInvoicesResponse handleListInvoicesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListInvoicesResponse result = ApiHelper.deserialize(responseBody,
-                ListInvoicesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListInvoicesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListInvoicesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -189,13 +129,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public CreateInvoiceResponse createInvoice(
             final CreateInvoiceRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateInvoiceRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateInvoiceResponse(context);
+        return prepareCreateInvoiceRequest(body).execute();
     }
 
     /**
@@ -209,68 +143,38 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
             final CreateInvoiceRequest body) {
-        return makeHttpCallAsync(() -> buildCreateInvoiceRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateInvoiceResponse(context));
+        try { 
+            return prepareCreateInvoiceRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createInvoice.
+     * Builds the ApiCall object for createInvoice.
      */
-    private HttpRequest buildCreateInvoiceRequest(
-            final CreateInvoiceRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createInvoice.
-     * @return An object of type CreateInvoiceResponse
-     */
-    private CreateInvoiceResponse handleCreateInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                CreateInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateInvoiceResponse, ApiException> prepareCreateInvoiceRequest(
+            final CreateInvoiceRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -287,13 +191,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public SearchInvoicesResponse searchInvoices(
             final SearchInvoicesRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchInvoicesRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchInvoicesResponse(context);
+        return prepareSearchInvoicesRequest(body).execute();
     }
 
     /**
@@ -308,68 +206,38 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public CompletableFuture<SearchInvoicesResponse> searchInvoicesAsync(
             final SearchInvoicesRequest body) {
-        return makeHttpCallAsync(() -> buildSearchInvoicesRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchInvoicesResponse(context));
+        try { 
+            return prepareSearchInvoicesRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchInvoices.
+     * Builds the ApiCall object for searchInvoices.
      */
-    private HttpRequest buildSearchInvoicesRequest(
-            final SearchInvoicesRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchInvoices.
-     * @return An object of type SearchInvoicesResponse
-     */
-    private SearchInvoicesResponse handleSearchInvoicesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchInvoicesResponse result = ApiHelper.deserialize(responseBody,
-                SearchInvoicesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchInvoicesResponse, ApiException> prepareSearchInvoicesRequest(
+            final SearchInvoicesRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchInvoicesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchInvoicesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -387,13 +255,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public DeleteInvoiceResponse deleteInvoice(
             final String invoiceId,
             final Integer version) throws ApiException, IOException {
-        HttpRequest request = buildDeleteInvoiceRequest(invoiceId, version);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteInvoiceResponse(context);
+        return prepareDeleteInvoiceRequest(invoiceId, version).execute();
     }
 
     /**
@@ -409,78 +271,39 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
             final String invoiceId,
             final Integer version) {
-        return makeHttpCallAsync(() -> buildDeleteInvoiceRequest(invoiceId, version),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteInvoiceResponse(context));
+        try { 
+            return prepareDeleteInvoiceRequest(invoiceId, version).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteInvoice.
+     * Builds the ApiCall object for deleteInvoice.
      */
-    private HttpRequest buildDeleteInvoiceRequest(
+    private ApiCall<DeleteInvoiceResponse, ApiException> prepareDeleteInvoiceRequest(
             final String invoiceId,
-            final Integer version) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/{invoice_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("invoice_id",
-                new SimpleEntry<Object, Boolean>(invoiceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("version", version);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteInvoice.
-     * @return An object of type DeleteInvoiceResponse
-     */
-    private DeleteInvoiceResponse handleDeleteInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                DeleteInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer version) throws IOException {
+        return new ApiCall.Builder<DeleteInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}")
+                        .queryParam(param -> param.key("version")
+                                .value(version).isRequired(false))
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -492,13 +315,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public GetInvoiceResponse getInvoice(
             final String invoiceId) throws ApiException, IOException {
-        HttpRequest request = buildGetInvoiceRequest(invoiceId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetInvoiceResponse(context);
+        return prepareGetInvoiceRequest(invoiceId).execute();
     }
 
     /**
@@ -508,72 +325,36 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      */
     public CompletableFuture<GetInvoiceResponse> getInvoiceAsync(
             final String invoiceId) {
-        return makeHttpCallAsync(() -> buildGetInvoiceRequest(invoiceId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetInvoiceResponse(context));
+        try { 
+            return prepareGetInvoiceRequest(invoiceId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getInvoice.
+     * Builds the ApiCall object for getInvoice.
      */
-    private HttpRequest buildGetInvoiceRequest(
-            final String invoiceId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/{invoice_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("invoice_id",
-                new SimpleEntry<Object, Boolean>(invoiceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getInvoice.
-     * @return An object of type GetInvoiceResponse
-     */
-    private GetInvoiceResponse handleGetInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                GetInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetInvoiceResponse, ApiException> prepareGetInvoiceRequest(
+            final String invoiceId) throws IOException {
+        return new ApiCall.Builder<GetInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}")
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -593,13 +374,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public UpdateInvoiceResponse updateInvoice(
             final String invoiceId,
             final UpdateInvoiceRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateInvoiceRequest(invoiceId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateInvoiceResponse(context);
+        return prepareUpdateInvoiceRequest(invoiceId, body).execute();
     }
 
     /**
@@ -617,75 +392,41 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
             final String invoiceId,
             final UpdateInvoiceRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateInvoiceRequest(invoiceId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateInvoiceResponse(context));
+        try { 
+            return prepareUpdateInvoiceRequest(invoiceId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateInvoice.
+     * Builds the ApiCall object for updateInvoice.
      */
-    private HttpRequest buildUpdateInvoiceRequest(
+    private ApiCall<UpdateInvoiceResponse, ApiException> prepareUpdateInvoiceRequest(
             final String invoiceId,
-            final UpdateInvoiceRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/{invoice_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("invoice_id",
-                new SimpleEntry<Object, Boolean>(invoiceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateInvoice.
-     * @return An object of type UpdateInvoiceResponse
-     */
-    private UpdateInvoiceResponse handleUpdateInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                UpdateInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateInvoiceRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -702,13 +443,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public CancelInvoiceResponse cancelInvoice(
             final String invoiceId,
             final CancelInvoiceRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCancelInvoiceRequest(invoiceId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCancelInvoiceResponse(context);
+        return prepareCancelInvoiceRequest(invoiceId, body).execute();
     }
 
     /**
@@ -723,75 +458,41 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(
             final String invoiceId,
             final CancelInvoiceRequest body) {
-        return makeHttpCallAsync(() -> buildCancelInvoiceRequest(invoiceId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCancelInvoiceResponse(context));
+        try { 
+            return prepareCancelInvoiceRequest(invoiceId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for cancelInvoice.
+     * Builds the ApiCall object for cancelInvoice.
      */
-    private HttpRequest buildCancelInvoiceRequest(
+    private ApiCall<CancelInvoiceResponse, ApiException> prepareCancelInvoiceRequest(
             final String invoiceId,
-            final CancelInvoiceRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/{invoice_id}/cancel");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("invoice_id",
-                new SimpleEntry<Object, Boolean>(invoiceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for cancelInvoice.
-     * @return An object of type CancelInvoiceResponse
-     */
-    private CancelInvoiceResponse handleCancelInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CancelInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                CancelInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final CancelInvoiceRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CancelInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}/cancel")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CancelInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -812,13 +513,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public PublishInvoiceResponse publishInvoice(
             final String invoiceId,
             final PublishInvoiceRequest body) throws ApiException, IOException {
-        HttpRequest request = buildPublishInvoiceRequest(invoiceId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handlePublishInvoiceResponse(context);
+        return preparePublishInvoiceRequest(invoiceId, body).execute();
     }
 
     /**
@@ -837,75 +532,40 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     public CompletableFuture<PublishInvoiceResponse> publishInvoiceAsync(
             final String invoiceId,
             final PublishInvoiceRequest body) {
-        return makeHttpCallAsync(() -> buildPublishInvoiceRequest(invoiceId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handlePublishInvoiceResponse(context));
+        try { 
+            return preparePublishInvoiceRequest(invoiceId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for publishInvoice.
+     * Builds the ApiCall object for publishInvoice.
      */
-    private HttpRequest buildPublishInvoiceRequest(
+    private ApiCall<PublishInvoiceResponse, ApiException> preparePublishInvoiceRequest(
             final String invoiceId,
-            final PublishInvoiceRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/invoices/{invoice_id}/publish");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("invoice_id",
-                new SimpleEntry<Object, Boolean>(invoiceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final PublishInvoiceRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<PublishInvoiceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}/publish")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, PublishInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for publishInvoice.
-     * @return An object of type PublishInvoiceResponse
-     */
-    private PublishInvoiceResponse handlePublishInvoiceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        PublishInvoiceResponse result = ApiHelper.deserialize(responseBody,
-                PublishInvoiceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

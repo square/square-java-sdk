@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -337,8 +338,8 @@ public class Invoice {
 
     /**
      * Getter for AcceptedPaymentMethods.
-     * The payment methods that customers can use to pay an invoice on the Square-hosted invoice
-     * page.
+     * The payment methods that customers can use to pay an [invoice]($m/Invoice) on the
+     * Square-hosted invoice payment page.
      * @return Returns the InvoiceAcceptedPaymentMethods
      */
     @JsonGetter("accepted_payment_methods")

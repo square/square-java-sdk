@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import io.apimatic.coreinterfaces.http.HttpHeaders;
 
 /**
  * Class for creating and managing HTTP Headers.
  */
-public class Headers {
+public class Headers implements HttpHeaders {
     private Map<String, List<String>> headers;
     
     /**
@@ -27,7 +28,7 @@ public class Headers {
     public Headers(Map<String, List<String>> headers) {
         this.headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Map.Entry<String, List<String>> kv : headers.entrySet()) {
-            this.headers.put(kv.getKey(), kv.getValue());
+            add(kv.getKey(), kv.getValue());
         }
     }
 
@@ -122,8 +123,7 @@ public class Headers {
     }
 
     /**
-     * Adds a value for a header name to this object,
-     * neither headerName nor value can be null.
+     * Adds a value for a header name to this object, neither headerName nor value can be null.
      * @param headerName The header name to add the value against.
      * @param value The value to add.
      */
@@ -142,8 +142,8 @@ public class Headers {
     }
     
     /**
-     * Adds a List of values for a header name to this object.
-     * neither headerName nor values can be null.
+     * Adds a List of values for a header name to this object, neither headerName nor values can be
+     * null.
      * @param headerName The header name to add the values against.
      * @param values The List of values to add.
      */
@@ -173,6 +173,17 @@ public class Headers {
     }
 
     /**
+     * Adds a value for a header name to this object and returns the Headers instance.
+     * Neither headerName nor values can be null.
+     * @param headerName The header name to add the value against.
+     * @param value The value to add.
+     */
+    public Headers createHeader(String headerName, String value) {
+        add(headerName, value);
+        return this;
+    }
+
+    /**
      * Adds values from a Map to this object.
      * @param headers A Map containing header names and values as Entry pairs.
      */
@@ -196,7 +207,7 @@ public class Headers {
      * Adds all the entries in a Headers object to this object.
      * @param headers The object whose values are to be added to this object.
      */
-    public void addAll(Headers headers) {
+    public void addAll(HttpHeaders headers) {
         for (Map.Entry<String, List<String>> kv : headers.asMultimap().entrySet()) {
             this.add(kv.getKey(), kv.getValue());
         }

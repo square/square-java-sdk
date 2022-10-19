@@ -2,24 +2,18 @@
 package com.squareup.square.api;
 
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.ListCashDrawerShiftEventsResponse;
 import com.squareup.square.models.ListCashDrawerShiftsResponse;
 import com.squareup.square.models.RetrieveCashDrawerShiftResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -28,25 +22,10 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultCashDrawersApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultCashDrawersApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -73,14 +52,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String endTime,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCashDrawerShiftsRequest(locationId, sortOrder, beginTime,
-                endTime, limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCashDrawerShiftsResponse(context);
+        return prepareListCashDrawerShiftsRequest(locationId, sortOrder, beginTime, endTime, limit,
+                cursor).execute();
     }
 
     /**
@@ -105,82 +78,52 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String endTime,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListCashDrawerShiftsRequest(locationId, sortOrder,
-                beginTime, endTime, limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCashDrawerShiftsResponse(context));
+        try { 
+            return prepareListCashDrawerShiftsRequest(locationId, sortOrder, beginTime, endTime, limit,
+            cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCashDrawerShifts.
+     * Builds the ApiCall object for listCashDrawerShifts.
      */
-    private HttpRequest buildListCashDrawerShiftsRequest(
+    private ApiCall<ListCashDrawerShiftsResponse, ApiException> prepareListCashDrawerShiftsRequest(
             final String locationId,
             final String sortOrder,
             final String beginTime,
             final String endTime,
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cash-drawers/shifts");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listCashDrawerShifts.
-     * @return An object of type ListCashDrawerShiftsResponse
-     */
-    private ListCashDrawerShiftsResponse handleListCashDrawerShiftsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCashDrawerShiftsResponse result = ApiHelper.deserialize(responseBody,
-                ListCashDrawerShiftsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListCashDrawerShiftsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cash-drawers/shifts")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCashDrawerShiftsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -197,13 +140,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     public RetrieveCashDrawerShiftResponse retrieveCashDrawerShift(
             final String locationId,
             final String shiftId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCashDrawerShiftRequest(locationId, shiftId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveCashDrawerShiftResponse(context);
+        return prepareRetrieveCashDrawerShiftRequest(locationId, shiftId).execute();
     }
 
     /**
@@ -218,78 +155,39 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
     public CompletableFuture<RetrieveCashDrawerShiftResponse> retrieveCashDrawerShiftAsync(
             final String locationId,
             final String shiftId) {
-        return makeHttpCallAsync(() -> buildRetrieveCashDrawerShiftRequest(locationId, shiftId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveCashDrawerShiftResponse(context));
+        try { 
+            return prepareRetrieveCashDrawerShiftRequest(locationId, shiftId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCashDrawerShift.
+     * Builds the ApiCall object for retrieveCashDrawerShift.
      */
-    private HttpRequest buildRetrieveCashDrawerShiftRequest(
+    private ApiCall<RetrieveCashDrawerShiftResponse, ApiException> prepareRetrieveCashDrawerShiftRequest(
             final String locationId,
-            final String shiftId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cash-drawers/shifts/{shift_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("shift_id",
-                new SimpleEntry<Object, Boolean>(shiftId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveCashDrawerShift.
-     * @return An object of type RetrieveCashDrawerShiftResponse
-     */
-    private RetrieveCashDrawerShiftResponse handleRetrieveCashDrawerShiftResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveCashDrawerShiftResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveCashDrawerShiftResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String shiftId) throws IOException {
+        return new ApiCall.Builder<RetrieveCashDrawerShiftResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cash-drawers/shifts/{shift_id}")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId))
+                        .templateParam(param -> param.key("shift_id").value(shiftId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveCashDrawerShiftResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -309,14 +207,8 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String shiftId,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListCashDrawerShiftEventsRequest(locationId, shiftId, limit,
-                cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCashDrawerShiftEventsResponse(context);
+        return prepareListCashDrawerShiftEventsRequest(locationId, shiftId, limit,
+                cursor).execute();
     }
 
     /**
@@ -334,83 +226,45 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
             final String shiftId,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListCashDrawerShiftEventsRequest(locationId, shiftId,
-                limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCashDrawerShiftEventsResponse(context));
+        try { 
+            return prepareListCashDrawerShiftEventsRequest(locationId, shiftId, limit,
+            cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCashDrawerShiftEvents.
+     * Builds the ApiCall object for listCashDrawerShiftEvents.
      */
-    private HttpRequest buildListCashDrawerShiftEventsRequest(
+    private ApiCall<ListCashDrawerShiftEventsResponse, ApiException> prepareListCashDrawerShiftEventsRequest(
             final String locationId,
             final String shiftId,
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cash-drawers/shifts/{shift_id}/events");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("shift_id",
-                new SimpleEntry<Object, Boolean>(shiftId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListCashDrawerShiftEventsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cash-drawers/shifts/{shift_id}/events")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .templateParam(param -> param.key("shift_id").value(shiftId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCashDrawerShiftEventsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for listCashDrawerShiftEvents.
-     * @return An object of type ListCashDrawerShiftEventsResponse
-     */
-    private ListCashDrawerShiftEventsResponse handleListCashDrawerShiftEventsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCashDrawerShiftEventsResponse result = ApiHelper.deserialize(responseBody,
-                ListCashDrawerShiftEventsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

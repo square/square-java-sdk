@@ -3,25 +3,19 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.GetPaymentRefundResponse;
 import com.squareup.square.models.ListPaymentRefundsResponse;
 import com.squareup.square.models.RefundPaymentRequest;
 import com.squareup.square.models.RefundPaymentResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -30,25 +24,10 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultRefundsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultRefundsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultRefundsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -92,14 +71,8 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String status,
             final String sourceType,
             final Integer limit) throws ApiException, IOException {
-        HttpRequest request = buildListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor,
-                locationId, status, sourceType, limit);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListPaymentRefundsResponse(context);
+        return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
+                status, sourceType, limit).execute();
     }
 
     /**
@@ -141,18 +114,18 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String status,
             final String sourceType,
             final Integer limit) {
-        return makeHttpCallAsync(() -> buildListPaymentRefundsRequest(beginTime, endTime, sortOrder,
-                cursor, locationId, status, sourceType, limit),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListPaymentRefundsResponse(context));
+        try { 
+            return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
+            status, sourceType, limit).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listPaymentRefunds.
+     * Builds the ApiCall object for listPaymentRefunds.
      */
-    private HttpRequest buildListPaymentRefundsRequest(
+    private ApiCall<ListPaymentRefundsResponse, ApiException> prepareListPaymentRefundsRequest(
             final String beginTime,
             final String endTime,
             final String sortOrder,
@@ -160,67 +133,39 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/refunds");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("begin_time", beginTime);
-        queryParameters.put("end_time", endTime);
-        queryParameters.put("sort_order", sortOrder);
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("status", status);
-        queryParameters.put("source_type", sourceType);
-        queryParameters.put("limit", limit);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listPaymentRefunds.
-     * @return An object of type ListPaymentRefundsResponse
-     */
-    private ListPaymentRefundsResponse handleListPaymentRefundsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListPaymentRefundsResponse result = ApiHelper.deserialize(responseBody,
-                ListPaymentRefundsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final Integer limit) throws IOException {
+        return new ApiCall.Builder<ListPaymentRefundsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/refunds")
+                        .queryParam(param -> param.key("begin_time")
+                                .value(beginTime).isRequired(false))
+                        .queryParam(param -> param.key("end_time")
+                                .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .queryParam(param -> param.key("status")
+                                .value(status).isRequired(false))
+                        .queryParam(param -> param.key("source_type")
+                                .value(sourceType).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListPaymentRefundsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -236,13 +181,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      */
     public RefundPaymentResponse refundPayment(
             final RefundPaymentRequest body) throws ApiException, IOException {
-        HttpRequest request = buildRefundPaymentRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRefundPaymentResponse(context);
+        return prepareRefundPaymentRequest(body).execute();
     }
 
     /**
@@ -256,68 +195,38 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      */
     public CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
             final RefundPaymentRequest body) {
-        return makeHttpCallAsync(() -> buildRefundPaymentRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRefundPaymentResponse(context));
+        try { 
+            return prepareRefundPaymentRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for refundPayment.
+     * Builds the ApiCall object for refundPayment.
      */
-    private HttpRequest buildRefundPaymentRequest(
-            final RefundPaymentRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/refunds");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for refundPayment.
-     * @return An object of type RefundPaymentResponse
-     */
-    private RefundPaymentResponse handleRefundPaymentResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RefundPaymentResponse result = ApiHelper.deserialize(responseBody,
-                RefundPaymentResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RefundPaymentResponse, ApiException> prepareRefundPaymentRequest(
+            final RefundPaymentRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<RefundPaymentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/refunds")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RefundPaymentResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -329,13 +238,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      */
     public GetPaymentRefundResponse getPaymentRefund(
             final String refundId) throws ApiException, IOException {
-        HttpRequest request = buildGetPaymentRefundRequest(refundId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetPaymentRefundResponse(context);
+        return prepareGetPaymentRefundRequest(refundId).execute();
     }
 
     /**
@@ -345,72 +248,35 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      */
     public CompletableFuture<GetPaymentRefundResponse> getPaymentRefundAsync(
             final String refundId) {
-        return makeHttpCallAsync(() -> buildGetPaymentRefundRequest(refundId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetPaymentRefundResponse(context));
+        try { 
+            return prepareGetPaymentRefundRequest(refundId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getPaymentRefund.
+     * Builds the ApiCall object for getPaymentRefund.
      */
-    private HttpRequest buildGetPaymentRefundRequest(
-            final String refundId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/refunds/{refund_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("refund_id",
-                new SimpleEntry<Object, Boolean>(refundId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<GetPaymentRefundResponse, ApiException> prepareGetPaymentRefundRequest(
+            final String refundId) throws IOException {
+        return new ApiCall.Builder<GetPaymentRefundResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/refunds/{refund_id}")
+                        .templateParam(param -> param.key("refund_id").value(refundId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetPaymentRefundResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for getPaymentRefund.
-     * @return An object of type GetPaymentRefundResponse
-     */
-    private GetPaymentRefundResponse handleGetPaymentRefundResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetPaymentRefundResponse result = ApiHelper.deserialize(responseBody,
-                GetPaymentRefundResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

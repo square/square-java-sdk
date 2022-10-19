@@ -4,7 +4,7 @@
 
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>24.0.0.20220921</version>
+  <version>25.0.0.20221019</version>
   <packaging>jar</packaging>
 
   <name>Square</name>
@@ -202,11 +202,21 @@
   </profiles>
 
   <dependencies>
-    <dependency>
-        <groupId>com.squareup.okhttp3</groupId>
-        <artifactId>okhttp</artifactId>
-        <version>4.9.1</version>
-    </dependency>
+   	<dependency>
+	  <groupId>io.apimatic</groupId>
+	  <artifactId>core-interfaces</artifactId>
+	  <version>[0.1, 0.2)</version>
+	</dependency>
+	<dependency>
+	  <groupId>io.apimatic</groupId>
+	  <artifactId>core</artifactId>
+	  <version>[0.1, 0.2)</version>
+	</dependency>
+	<dependency>
+	  <groupId>io.apimatic</groupId>
+	  <artifactId>okhttp-client-adapter</artifactId>
+	  <version>[0.1, 0.2)</version>
+	</dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>

@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CancelTerminalActionResponse;
 import com.squareup.square.models.CancelTerminalCheckoutResponse;
 import com.squareup.square.models.CancelTerminalRefundResponse;
@@ -31,11 +25,11 @@ import com.squareup.square.models.SearchTerminalCheckoutsRequest;
 import com.squareup.square.models.SearchTerminalCheckoutsResponse;
 import com.squareup.square.models.SearchTerminalRefundsRequest;
 import com.squareup.square.models.SearchTerminalRefundsResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -44,25 +38,10 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultTerminalApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultTerminalApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultTerminalApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -75,13 +54,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CreateTerminalActionResponse createTerminalAction(
             final CreateTerminalActionRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateTerminalActionRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateTerminalActionResponse(context);
+        return prepareCreateTerminalActionRequest(body).execute();
     }
 
     /**
@@ -92,68 +65,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CreateTerminalActionResponse> createTerminalActionAsync(
             final CreateTerminalActionRequest body) {
-        return makeHttpCallAsync(() -> buildCreateTerminalActionRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateTerminalActionResponse(context));
+        try { 
+            return prepareCreateTerminalActionRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createTerminalAction.
+     * Builds the ApiCall object for createTerminalAction.
      */
-    private HttpRequest buildCreateTerminalActionRequest(
-            final CreateTerminalActionRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/actions");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createTerminalAction.
-     * @return An object of type CreateTerminalActionResponse
-     */
-    private CreateTerminalActionResponse handleCreateTerminalActionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateTerminalActionResponse result = ApiHelper.deserialize(responseBody,
-                CreateTerminalActionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateTerminalActionResponse, ApiException> prepareCreateTerminalActionRequest(
+            final CreateTerminalActionRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateTerminalActionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/actions")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateTerminalActionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -167,13 +110,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public SearchTerminalActionsResponse searchTerminalActions(
             final SearchTerminalActionsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchTerminalActionsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchTerminalActionsResponse(context);
+        return prepareSearchTerminalActionsRequest(body).execute();
     }
 
     /**
@@ -185,68 +122,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
             final SearchTerminalActionsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchTerminalActionsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchTerminalActionsResponse(context));
+        try { 
+            return prepareSearchTerminalActionsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchTerminalActions.
+     * Builds the ApiCall object for searchTerminalActions.
      */
-    private HttpRequest buildSearchTerminalActionsRequest(
-            final SearchTerminalActionsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/actions/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchTerminalActions.
-     * @return An object of type SearchTerminalActionsResponse
-     */
-    private SearchTerminalActionsResponse handleSearchTerminalActionsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchTerminalActionsResponse result = ApiHelper.deserialize(responseBody,
-                SearchTerminalActionsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchTerminalActionsResponse, ApiException> prepareSearchTerminalActionsRequest(
+            final SearchTerminalActionsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchTerminalActionsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/actions/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchTerminalActionsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -259,13 +166,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public GetTerminalActionResponse getTerminalAction(
             final String actionId) throws ApiException, IOException {
-        HttpRequest request = buildGetTerminalActionRequest(actionId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetTerminalActionResponse(context);
+        return prepareGetTerminalActionRequest(actionId).execute();
     }
 
     /**
@@ -276,72 +177,36 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
             final String actionId) {
-        return makeHttpCallAsync(() -> buildGetTerminalActionRequest(actionId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetTerminalActionResponse(context));
+        try { 
+            return prepareGetTerminalActionRequest(actionId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getTerminalAction.
+     * Builds the ApiCall object for getTerminalAction.
      */
-    private HttpRequest buildGetTerminalActionRequest(
-            final String actionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/actions/{action_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("action_id",
-                new SimpleEntry<Object, Boolean>(actionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getTerminalAction.
-     * @return An object of type GetTerminalActionResponse
-     */
-    private GetTerminalActionResponse handleGetTerminalActionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetTerminalActionResponse result = ApiHelper.deserialize(responseBody,
-                GetTerminalActionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetTerminalActionResponse, ApiException> prepareGetTerminalActionRequest(
+            final String actionId) throws IOException {
+        return new ApiCall.Builder<GetTerminalActionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/actions/{action_id}")
+                        .templateParam(param -> param.key("action_id").value(actionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetTerminalActionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -353,13 +218,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CancelTerminalActionResponse cancelTerminalAction(
             final String actionId) throws ApiException, IOException {
-        HttpRequest request = buildCancelTerminalActionRequest(actionId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCancelTerminalActionResponse(context);
+        return prepareCancelTerminalActionRequest(actionId).execute();
     }
 
     /**
@@ -369,72 +228,36 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
             final String actionId) {
-        return makeHttpCallAsync(() -> buildCancelTerminalActionRequest(actionId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCancelTerminalActionResponse(context));
+        try { 
+            return prepareCancelTerminalActionRequest(actionId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for cancelTerminalAction.
+     * Builds the ApiCall object for cancelTerminalAction.
      */
-    private HttpRequest buildCancelTerminalActionRequest(
-            final String actionId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/actions/{action_id}/cancel");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("action_id",
-                new SimpleEntry<Object, Boolean>(actionId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for cancelTerminalAction.
-     * @return An object of type CancelTerminalActionResponse
-     */
-    private CancelTerminalActionResponse handleCancelTerminalActionResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CancelTerminalActionResponse result = ApiHelper.deserialize(responseBody,
-                CancelTerminalActionResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CancelTerminalActionResponse, ApiException> prepareCancelTerminalActionRequest(
+            final String actionId) throws IOException {
+        return new ApiCall.Builder<CancelTerminalActionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/actions/{action_id}/cancel")
+                        .templateParam(param -> param.key("action_id").value(actionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CancelTerminalActionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -448,13 +271,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CreateTerminalCheckoutResponse createTerminalCheckout(
             final CreateTerminalCheckoutRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateTerminalCheckoutRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateTerminalCheckoutResponse(context);
+        return prepareCreateTerminalCheckoutRequest(body).execute();
     }
 
     /**
@@ -466,68 +283,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CreateTerminalCheckoutResponse> createTerminalCheckoutAsync(
             final CreateTerminalCheckoutRequest body) {
-        return makeHttpCallAsync(() -> buildCreateTerminalCheckoutRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateTerminalCheckoutResponse(context));
+        try { 
+            return prepareCreateTerminalCheckoutRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createTerminalCheckout.
+     * Builds the ApiCall object for createTerminalCheckout.
      */
-    private HttpRequest buildCreateTerminalCheckoutRequest(
-            final CreateTerminalCheckoutRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/checkouts");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createTerminalCheckout.
-     * @return An object of type CreateTerminalCheckoutResponse
-     */
-    private CreateTerminalCheckoutResponse handleCreateTerminalCheckoutResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateTerminalCheckoutResponse result = ApiHelper.deserialize(responseBody,
-                CreateTerminalCheckoutResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateTerminalCheckoutResponse, ApiException> prepareCreateTerminalCheckoutRequest(
+            final CreateTerminalCheckoutRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateTerminalCheckoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/checkouts")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateTerminalCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -542,13 +329,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public SearchTerminalCheckoutsResponse searchTerminalCheckouts(
             final SearchTerminalCheckoutsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchTerminalCheckoutsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchTerminalCheckoutsResponse(context);
+        return prepareSearchTerminalCheckoutsRequest(body).execute();
     }
 
     /**
@@ -561,68 +342,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
             final SearchTerminalCheckoutsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchTerminalCheckoutsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchTerminalCheckoutsResponse(context));
+        try { 
+            return prepareSearchTerminalCheckoutsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchTerminalCheckouts.
+     * Builds the ApiCall object for searchTerminalCheckouts.
      */
-    private HttpRequest buildSearchTerminalCheckoutsRequest(
-            final SearchTerminalCheckoutsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/checkouts/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchTerminalCheckouts.
-     * @return An object of type SearchTerminalCheckoutsResponse
-     */
-    private SearchTerminalCheckoutsResponse handleSearchTerminalCheckoutsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchTerminalCheckoutsResponse result = ApiHelper.deserialize(responseBody,
-                SearchTerminalCheckoutsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchTerminalCheckoutsResponse, ApiException> prepareSearchTerminalCheckoutsRequest(
+            final SearchTerminalCheckoutsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchTerminalCheckoutsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/checkouts/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchTerminalCheckoutsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -635,13 +386,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public GetTerminalCheckoutResponse getTerminalCheckout(
             final String checkoutId) throws ApiException, IOException {
-        HttpRequest request = buildGetTerminalCheckoutRequest(checkoutId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetTerminalCheckoutResponse(context);
+        return prepareGetTerminalCheckoutRequest(checkoutId).execute();
     }
 
     /**
@@ -652,72 +397,36 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<GetTerminalCheckoutResponse> getTerminalCheckoutAsync(
             final String checkoutId) {
-        return makeHttpCallAsync(() -> buildGetTerminalCheckoutRequest(checkoutId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetTerminalCheckoutResponse(context));
+        try { 
+            return prepareGetTerminalCheckoutRequest(checkoutId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getTerminalCheckout.
+     * Builds the ApiCall object for getTerminalCheckout.
      */
-    private HttpRequest buildGetTerminalCheckoutRequest(
-            final String checkoutId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/checkouts/{checkout_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("checkout_id",
-                new SimpleEntry<Object, Boolean>(checkoutId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getTerminalCheckout.
-     * @return An object of type GetTerminalCheckoutResponse
-     */
-    private GetTerminalCheckoutResponse handleGetTerminalCheckoutResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetTerminalCheckoutResponse result = ApiHelper.deserialize(responseBody,
-                GetTerminalCheckoutResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetTerminalCheckoutResponse, ApiException> prepareGetTerminalCheckoutRequest(
+            final String checkoutId) throws IOException {
+        return new ApiCall.Builder<GetTerminalCheckoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/checkouts/{checkout_id}")
+                        .templateParam(param -> param.key("checkout_id").value(checkoutId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetTerminalCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -729,13 +438,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CancelTerminalCheckoutResponse cancelTerminalCheckout(
             final String checkoutId) throws ApiException, IOException {
-        HttpRequest request = buildCancelTerminalCheckoutRequest(checkoutId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCancelTerminalCheckoutResponse(context);
+        return prepareCancelTerminalCheckoutRequest(checkoutId).execute();
     }
 
     /**
@@ -745,72 +448,36 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CancelTerminalCheckoutResponse> cancelTerminalCheckoutAsync(
             final String checkoutId) {
-        return makeHttpCallAsync(() -> buildCancelTerminalCheckoutRequest(checkoutId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCancelTerminalCheckoutResponse(context));
+        try { 
+            return prepareCancelTerminalCheckoutRequest(checkoutId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for cancelTerminalCheckout.
+     * Builds the ApiCall object for cancelTerminalCheckout.
      */
-    private HttpRequest buildCancelTerminalCheckoutRequest(
-            final String checkoutId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/checkouts/{checkout_id}/cancel");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("checkout_id",
-                new SimpleEntry<Object, Boolean>(checkoutId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for cancelTerminalCheckout.
-     * @return An object of type CancelTerminalCheckoutResponse
-     */
-    private CancelTerminalCheckoutResponse handleCancelTerminalCheckoutResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CancelTerminalCheckoutResponse result = ApiHelper.deserialize(responseBody,
-                CancelTerminalCheckoutResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CancelTerminalCheckoutResponse, ApiException> prepareCancelTerminalCheckoutRequest(
+            final String checkoutId) throws IOException {
+        return new ApiCall.Builder<CancelTerminalCheckoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/checkouts/{checkout_id}/cancel")
+                        .templateParam(param -> param.key("checkout_id").value(checkoutId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CancelTerminalCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -826,13 +493,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CreateTerminalRefundResponse createTerminalRefund(
             final CreateTerminalRefundRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateTerminalRefundRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateTerminalRefundResponse(context);
+        return prepareCreateTerminalRefundRequest(body).execute();
     }
 
     /**
@@ -846,68 +507,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
             final CreateTerminalRefundRequest body) {
-        return makeHttpCallAsync(() -> buildCreateTerminalRefundRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateTerminalRefundResponse(context));
+        try { 
+            return prepareCreateTerminalRefundRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createTerminalRefund.
+     * Builds the ApiCall object for createTerminalRefund.
      */
-    private HttpRequest buildCreateTerminalRefundRequest(
-            final CreateTerminalRefundRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/refunds");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createTerminalRefund.
-     * @return An object of type CreateTerminalRefundResponse
-     */
-    private CreateTerminalRefundResponse handleCreateTerminalRefundResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateTerminalRefundResponse result = ApiHelper.deserialize(responseBody,
-                CreateTerminalRefundResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateTerminalRefundResponse, ApiException> prepareCreateTerminalRefundRequest(
+            final CreateTerminalRefundRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateTerminalRefundResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/refunds")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateTerminalRefundResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -921,13 +552,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public SearchTerminalRefundsResponse searchTerminalRefunds(
             final SearchTerminalRefundsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchTerminalRefundsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchTerminalRefundsResponse(context);
+        return prepareSearchTerminalRefundsRequest(body).execute();
     }
 
     /**
@@ -939,68 +564,38 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
             final SearchTerminalRefundsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchTerminalRefundsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchTerminalRefundsResponse(context));
+        try { 
+            return prepareSearchTerminalRefundsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchTerminalRefunds.
+     * Builds the ApiCall object for searchTerminalRefunds.
      */
-    private HttpRequest buildSearchTerminalRefundsRequest(
-            final SearchTerminalRefundsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/refunds/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchTerminalRefunds.
-     * @return An object of type SearchTerminalRefundsResponse
-     */
-    private SearchTerminalRefundsResponse handleSearchTerminalRefundsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchTerminalRefundsResponse result = ApiHelper.deserialize(responseBody,
-                SearchTerminalRefundsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchTerminalRefundsResponse, ApiException> prepareSearchTerminalRefundsRequest(
+            final SearchTerminalRefundsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchTerminalRefundsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/refunds/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchTerminalRefundsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1013,13 +608,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public GetTerminalRefundResponse getTerminalRefund(
             final String terminalRefundId) throws ApiException, IOException {
-        HttpRequest request = buildGetTerminalRefundRequest(terminalRefundId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetTerminalRefundResponse(context);
+        return prepareGetTerminalRefundRequest(terminalRefundId).execute();
     }
 
     /**
@@ -1030,72 +619,36 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<GetTerminalRefundResponse> getTerminalRefundAsync(
             final String terminalRefundId) {
-        return makeHttpCallAsync(() -> buildGetTerminalRefundRequest(terminalRefundId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetTerminalRefundResponse(context));
+        try { 
+            return prepareGetTerminalRefundRequest(terminalRefundId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getTerminalRefund.
+     * Builds the ApiCall object for getTerminalRefund.
      */
-    private HttpRequest buildGetTerminalRefundRequest(
-            final String terminalRefundId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/refunds/{terminal_refund_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("terminal_refund_id",
-                new SimpleEntry<Object, Boolean>(terminalRefundId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getTerminalRefund.
-     * @return An object of type GetTerminalRefundResponse
-     */
-    private GetTerminalRefundResponse handleGetTerminalRefundResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetTerminalRefundResponse result = ApiHelper.deserialize(responseBody,
-                GetTerminalRefundResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetTerminalRefundResponse, ApiException> prepareGetTerminalRefundRequest(
+            final String terminalRefundId) throws IOException {
+        return new ApiCall.Builder<GetTerminalRefundResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/refunds/{terminal_refund_id}")
+                        .templateParam(param -> param.key("terminal_refund_id").value(terminalRefundId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetTerminalRefundResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1108,13 +661,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CancelTerminalRefundResponse cancelTerminalRefund(
             final String terminalRefundId) throws ApiException, IOException {
-        HttpRequest request = buildCancelTerminalRefundRequest(terminalRefundId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCancelTerminalRefundResponse(context);
+        return prepareCancelTerminalRefundRequest(terminalRefundId).execute();
     }
 
     /**
@@ -1125,72 +672,35 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      */
     public CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(
             final String terminalRefundId) {
-        return makeHttpCallAsync(() -> buildCancelTerminalRefundRequest(terminalRefundId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCancelTerminalRefundResponse(context));
+        try { 
+            return prepareCancelTerminalRefundRequest(terminalRefundId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for cancelTerminalRefund.
+     * Builds the ApiCall object for cancelTerminalRefund.
      */
-    private HttpRequest buildCancelTerminalRefundRequest(
-            final String terminalRefundId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/terminals/refunds/{terminal_refund_id}/cancel");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("terminal_refund_id",
-                new SimpleEntry<Object, Boolean>(terminalRefundId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<CancelTerminalRefundResponse, ApiException> prepareCancelTerminalRefundRequest(
+            final String terminalRefundId) throws IOException {
+        return new ApiCall.Builder<CancelTerminalRefundResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/refunds/{terminal_refund_id}/cancel")
+                        .templateParam(param -> param.key("terminal_refund_id").value(terminalRefundId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CancelTerminalRefundResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for cancelTerminalRefund.
-     * @return An object of type CancelTerminalRefundResponse
-     */
-    private CancelTerminalRefundResponse handleCancelTerminalRefundResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CancelTerminalRefundResponse result = ApiHelper.deserialize(responseBody,
-                CancelTerminalRefundResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

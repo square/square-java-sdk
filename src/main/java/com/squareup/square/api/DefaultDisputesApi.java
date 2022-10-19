@@ -3,18 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.request.MultipartFileWrapper;
-import com.squareup.square.http.request.MultipartWrapper;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.AcceptDisputeResponse;
 import com.squareup.square.models.CreateDisputeEvidenceFileRequest;
 import com.squareup.square.models.CreateDisputeEvidenceFileResponse;
@@ -27,11 +19,12 @@ import com.squareup.square.models.RetrieveDisputeEvidenceResponse;
 import com.squareup.square.models.RetrieveDisputeResponse;
 import com.squareup.square.models.SubmitEvidenceResponse;
 import com.squareup.square.utilities.FileWrapper;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
+import io.apimatic.coreinterfaces.http.request.MutliPartRequestType;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -40,25 +33,10 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultDisputesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultDisputesApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultDisputesApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -80,13 +58,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
             final String cursor,
             final String states,
             final String locationId) throws ApiException, IOException {
-        HttpRequest request = buildListDisputesRequest(cursor, states, locationId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListDisputesResponse(context);
+        return prepareListDisputesRequest(cursor, states, locationId).execute();
     }
 
     /**
@@ -106,75 +78,42 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
             final String cursor,
             final String states,
             final String locationId) {
-        return makeHttpCallAsync(() -> buildListDisputesRequest(cursor, states, locationId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListDisputesResponse(context));
+        try { 
+            return prepareListDisputesRequest(cursor, states, locationId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listDisputes.
+     * Builds the ApiCall object for listDisputes.
      */
-    private HttpRequest buildListDisputesRequest(
+    private ApiCall<ListDisputesResponse, ApiException> prepareListDisputesRequest(
             final String cursor,
             final String states,
-            final String locationId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("states", states);
-        queryParameters.put("location_id", locationId);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listDisputes.
-     * @return An object of type ListDisputesResponse
-     */
-    private ListDisputesResponse handleListDisputesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListDisputesResponse result = ApiHelper.deserialize(responseBody,
-                ListDisputesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String locationId) throws IOException {
+        return new ApiCall.Builder<ListDisputesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("states")
+                                .value(states).isRequired(false))
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListDisputesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -186,13 +125,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public RetrieveDisputeResponse retrieveDispute(
             final String disputeId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveDisputeRequest(disputeId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveDisputeResponse(context);
+        return prepareRetrieveDisputeRequest(disputeId).execute();
     }
 
     /**
@@ -202,72 +135,36 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public CompletableFuture<RetrieveDisputeResponse> retrieveDisputeAsync(
             final String disputeId) {
-        return makeHttpCallAsync(() -> buildRetrieveDisputeRequest(disputeId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveDisputeResponse(context));
+        try { 
+            return prepareRetrieveDisputeRequest(disputeId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveDispute.
+     * Builds the ApiCall object for retrieveDispute.
      */
-    private HttpRequest buildRetrieveDisputeRequest(
-            final String disputeId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveDispute.
-     * @return An object of type RetrieveDisputeResponse
-     */
-    private RetrieveDisputeResponse handleRetrieveDisputeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveDisputeResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveDisputeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveDisputeResponse, ApiException> prepareRetrieveDisputeRequest(
+            final String disputeId) throws IOException {
+        return new ApiCall.Builder<RetrieveDisputeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}")
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveDisputeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -282,13 +179,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public AcceptDisputeResponse acceptDispute(
             final String disputeId) throws ApiException, IOException {
-        HttpRequest request = buildAcceptDisputeRequest(disputeId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleAcceptDisputeResponse(context);
+        return prepareAcceptDisputeRequest(disputeId).execute();
     }
 
     /**
@@ -301,72 +192,36 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public CompletableFuture<AcceptDisputeResponse> acceptDisputeAsync(
             final String disputeId) {
-        return makeHttpCallAsync(() -> buildAcceptDisputeRequest(disputeId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleAcceptDisputeResponse(context));
+        try { 
+            return prepareAcceptDisputeRequest(disputeId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for acceptDispute.
+     * Builds the ApiCall object for acceptDispute.
      */
-    private HttpRequest buildAcceptDisputeRequest(
-            final String disputeId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/accept");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for acceptDispute.
-     * @return An object of type AcceptDisputeResponse
-     */
-    private AcceptDisputeResponse handleAcceptDisputeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        AcceptDisputeResponse result = ApiHelper.deserialize(responseBody,
-                AcceptDisputeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<AcceptDisputeResponse, ApiException> prepareAcceptDisputeRequest(
+            final String disputeId) throws IOException {
+        return new ApiCall.Builder<AcceptDisputeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/accept")
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, AcceptDisputeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -383,13 +238,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public ListDisputeEvidenceResponse listDisputeEvidence(
             final String disputeId,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListDisputeEvidenceRequest(disputeId, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListDisputeEvidenceResponse(context);
+        return prepareListDisputeEvidenceRequest(disputeId, cursor).execute();
     }
 
     /**
@@ -404,78 +253,39 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public CompletableFuture<ListDisputeEvidenceResponse> listDisputeEvidenceAsync(
             final String disputeId,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListDisputeEvidenceRequest(disputeId, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListDisputeEvidenceResponse(context));
+        try { 
+            return prepareListDisputeEvidenceRequest(disputeId, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listDisputeEvidence.
+     * Builds the ApiCall object for listDisputeEvidence.
      */
-    private HttpRequest buildListDisputeEvidenceRequest(
+    private ApiCall<ListDisputeEvidenceResponse, ApiException> prepareListDisputeEvidenceRequest(
             final String disputeId,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listDisputeEvidence.
-     * @return An object of type ListDisputeEvidenceResponse
-     */
-    private ListDisputeEvidenceResponse handleListDisputeEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                ListDisputeEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListDisputeEvidenceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/evidence")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListDisputeEvidenceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -494,14 +304,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
             final String disputeId,
             final CreateDisputeEvidenceFileRequest request,
             final FileWrapper imageFile) throws ApiException, IOException {
-        HttpRequest internalRequest = buildCreateDisputeEvidenceFileRequest(disputeId, request,
-                imageFile);
-        authManagers.get("global").apply(internalRequest);
-
-        HttpResponse response = getClientInstance().execute(internalRequest, false);
-        HttpContext context = new HttpContext(internalRequest, response);
-
-        return handleCreateDisputeEvidenceFileResponse(context);
+        return prepareCreateDisputeEvidenceFileRequest(disputeId, request, imageFile).execute();
     }
 
     /**
@@ -518,89 +321,48 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
             final String disputeId,
             final CreateDisputeEvidenceFileRequest request,
             final FileWrapper imageFile) {
-        return makeHttpCallAsync(() -> buildCreateDisputeEvidenceFileRequest(disputeId, request,
-                imageFile),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(internalRequest -> getClientInstance()
-                        .executeAsync(internalRequest, false)),
-            context -> handleCreateDisputeEvidenceFileResponse(context));
+        try { 
+            return prepareCreateDisputeEvidenceFileRequest(disputeId, request, imageFile).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createDisputeEvidenceFile.
+     * Builds the ApiCall object for createDisputeEvidenceFile.
      */
-    private HttpRequest buildCreateDisputeEvidenceFileRequest(
+    private ApiCall<CreateDisputeEvidenceFileResponse, ApiException> prepareCreateDisputeEvidenceFileRequest(
             final String disputeId,
             final CreateDisputeEvidenceFileRequest request,
-            final FileWrapper imageFile) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence-files");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-        Headers requestHeaders = new Headers();
-        requestHeaders.add("Content-Type", "application/json; charset=utf-8");
-        MultipartWrapper requestWrapper = new MultipartWrapper(
-                ApiHelper.serialize(request), requestHeaders);
-        Headers imageFileHeaders = new Headers();
-        imageFileHeaders.add("Content-Type", "image/jpeg");
-        MultipartFileWrapper imageFileWrapper =
-                new MultipartFileWrapper(imageFile, imageFileHeaders);
-
-        //load all fields for the outgoing API request
-        Map<String, Object> formParameters = new HashMap<>();
-        formParameters.put("request", requestWrapper);
-        formParameters.put("image_file", imageFileWrapper);
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest internalRequest = getClientInstance().post(queryBuilder, headers, null,
-                ApiHelper.prepareFormFields(formParameters));
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(internalRequest);
-        }
-
-        return internalRequest;
-    }
-
-    /**
-     * Processes the response for createDisputeEvidenceFile.
-     * @return An object of type CreateDisputeEvidenceFileResponse
-     */
-    private CreateDisputeEvidenceFileResponse handleCreateDisputeEvidenceFileResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateDisputeEvidenceFileResponse result = ApiHelper.deserialize(responseBody,
-                CreateDisputeEvidenceFileResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final FileWrapper imageFile) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateDisputeEvidenceFileResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/evidence-files")
+                        .formParam(param -> param.key("request")
+                                .value(request)
+                                .multipartSerializer(() -> 
+                                        ApiHelper.serialize(request))
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART)
+                                .multipartHeaders("Content-Type", "application/json; charset=utf-8"))
+                        .formParam(param -> param.key("image_file")
+                                .value(imageFile)
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART_FILE)
+                                .multipartHeaders("Content-Type", "image/jpeg"))
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateDisputeEvidenceFileResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -616,13 +378,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public CreateDisputeEvidenceTextResponse createDisputeEvidenceText(
             final String disputeId,
             final CreateDisputeEvidenceTextRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateDisputeEvidenceTextRequest(disputeId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateDisputeEvidenceTextResponse(context);
+        return prepareCreateDisputeEvidenceTextRequest(disputeId, body).execute();
     }
 
     /**
@@ -636,75 +392,41 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public CompletableFuture<CreateDisputeEvidenceTextResponse> createDisputeEvidenceTextAsync(
             final String disputeId,
             final CreateDisputeEvidenceTextRequest body) {
-        return makeHttpCallAsync(() -> buildCreateDisputeEvidenceTextRequest(disputeId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateDisputeEvidenceTextResponse(context));
+        try { 
+            return prepareCreateDisputeEvidenceTextRequest(disputeId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createDisputeEvidenceText.
+     * Builds the ApiCall object for createDisputeEvidenceText.
      */
-    private HttpRequest buildCreateDisputeEvidenceTextRequest(
+    private ApiCall<CreateDisputeEvidenceTextResponse, ApiException> prepareCreateDisputeEvidenceTextRequest(
             final String disputeId,
-            final CreateDisputeEvidenceTextRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence-text");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createDisputeEvidenceText.
-     * @return An object of type CreateDisputeEvidenceTextResponse
-     */
-    private CreateDisputeEvidenceTextResponse handleCreateDisputeEvidenceTextResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateDisputeEvidenceTextResponse result = ApiHelper.deserialize(responseBody,
-                CreateDisputeEvidenceTextResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final CreateDisputeEvidenceTextRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateDisputeEvidenceTextResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/evidence-text")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateDisputeEvidenceTextResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -720,13 +442,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public DeleteDisputeEvidenceResponse deleteDisputeEvidence(
             final String disputeId,
             final String evidenceId) throws ApiException, IOException {
-        HttpRequest request = buildDeleteDisputeEvidenceRequest(disputeId, evidenceId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteDisputeEvidenceResponse(context);
+        return prepareDeleteDisputeEvidenceRequest(disputeId, evidenceId).execute();
     }
 
     /**
@@ -740,75 +456,39 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public CompletableFuture<DeleteDisputeEvidenceResponse> deleteDisputeEvidenceAsync(
             final String disputeId,
             final String evidenceId) {
-        return makeHttpCallAsync(() -> buildDeleteDisputeEvidenceRequest(disputeId, evidenceId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteDisputeEvidenceResponse(context));
+        try { 
+            return prepareDeleteDisputeEvidenceRequest(disputeId, evidenceId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteDisputeEvidence.
+     * Builds the ApiCall object for deleteDisputeEvidence.
      */
-    private HttpRequest buildDeleteDisputeEvidenceRequest(
+    private ApiCall<DeleteDisputeEvidenceResponse, ApiException> prepareDeleteDisputeEvidenceRequest(
             final String disputeId,
-            final String evidenceId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        templateParameters.put("evidence_id",
-                new SimpleEntry<Object, Boolean>(evidenceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteDisputeEvidence.
-     * @return An object of type DeleteDisputeEvidenceResponse
-     */
-    private DeleteDisputeEvidenceResponse handleDeleteDisputeEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                DeleteDisputeEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String evidenceId) throws IOException {
+        return new ApiCall.Builder<DeleteDisputeEvidenceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/evidence/{evidence_id}")
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("evidence_id").value(evidenceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteDisputeEvidenceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -825,13 +505,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public RetrieveDisputeEvidenceResponse retrieveDisputeEvidence(
             final String disputeId,
             final String evidenceId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveDisputeEvidenceResponse(context);
+        return prepareRetrieveDisputeEvidenceRequest(disputeId, evidenceId).execute();
     }
 
     /**
@@ -846,75 +520,39 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
     public CompletableFuture<RetrieveDisputeEvidenceResponse> retrieveDisputeEvidenceAsync(
             final String disputeId,
             final String evidenceId) {
-        return makeHttpCallAsync(() -> buildRetrieveDisputeEvidenceRequest(disputeId, evidenceId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveDisputeEvidenceResponse(context));
+        try { 
+            return prepareRetrieveDisputeEvidenceRequest(disputeId, evidenceId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveDisputeEvidence.
+     * Builds the ApiCall object for retrieveDisputeEvidence.
      */
-    private HttpRequest buildRetrieveDisputeEvidenceRequest(
+    private ApiCall<RetrieveDisputeEvidenceResponse, ApiException> prepareRetrieveDisputeEvidenceRequest(
             final String disputeId,
-            final String evidenceId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/evidence/{evidence_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        templateParameters.put("evidence_id",
-                new SimpleEntry<Object, Boolean>(evidenceId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveDisputeEvidence.
-     * @return An object of type RetrieveDisputeEvidenceResponse
-     */
-    private RetrieveDisputeEvidenceResponse handleRetrieveDisputeEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveDisputeEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveDisputeEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String evidenceId) throws IOException {
+        return new ApiCall.Builder<RetrieveDisputeEvidenceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/evidence/{evidence_id}")
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("evidence_id").value(evidenceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveDisputeEvidenceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -932,13 +570,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public SubmitEvidenceResponse submitEvidence(
             final String disputeId) throws ApiException, IOException {
-        HttpRequest request = buildSubmitEvidenceRequest(disputeId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSubmitEvidenceResponse(context);
+        return prepareSubmitEvidenceRequest(disputeId).execute();
     }
 
     /**
@@ -954,72 +586,35 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
      */
     public CompletableFuture<SubmitEvidenceResponse> submitEvidenceAsync(
             final String disputeId) {
-        return makeHttpCallAsync(() -> buildSubmitEvidenceRequest(disputeId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSubmitEvidenceResponse(context));
+        try { 
+            return prepareSubmitEvidenceRequest(disputeId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for submitEvidence.
+     * Builds the ApiCall object for submitEvidence.
      */
-    private HttpRequest buildSubmitEvidenceRequest(
-            final String disputeId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/disputes/{dispute_id}/submit-evidence");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("dispute_id",
-                new SimpleEntry<Object, Boolean>(disputeId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<SubmitEvidenceResponse, ApiException> prepareSubmitEvidenceRequest(
+            final String disputeId) throws IOException {
+        return new ApiCall.Builder<SubmitEvidenceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/disputes/{dispute_id}/submit-evidence")
+                        .templateParam(param -> param.key("dispute_id").value(disputeId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SubmitEvidenceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for submitEvidence.
-     * @return An object of type SubmitEvidenceResponse
-     */
-    private SubmitEvidenceResponse handleSubmitEvidenceResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SubmitEvidenceResponse result = ApiHelper.deserialize(responseBody,
-                SubmitEvidenceResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

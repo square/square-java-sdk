@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,8 @@ public class PayoutEntry {
     private final Money grossAmountMoney;
     private final Money feeAmountMoney;
     private final Money netAmountMoney;
+    private final PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails;
+    private final PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails;
     private final PaymentBalanceActivityAutomaticSavingsDetail typeAutomaticSavingsDetails;
     private final PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails;
     private final PaymentBalanceActivityChargeDetail typeChargeDetails;
@@ -48,6 +51,10 @@ public class PayoutEntry {
      * @param  grossAmountMoney  Money value for grossAmountMoney.
      * @param  feeAmountMoney  Money value for feeAmountMoney.
      * @param  netAmountMoney  Money value for netAmountMoney.
+     * @param  typeAppFeeRevenueDetails  PaymentBalanceActivityAppFeeRevenueDetail value for
+     *         typeAppFeeRevenueDetails.
+     * @param  typeAppFeeRefundDetails  PaymentBalanceActivityAppFeeRefundDetail value for
+     *         typeAppFeeRefundDetails.
      * @param  typeAutomaticSavingsDetails  PaymentBalanceActivityAutomaticSavingsDetail value for
      *         typeAutomaticSavingsDetails.
      * @param  typeAutomaticSavingsReversedDetails
@@ -95,6 +102,8 @@ public class PayoutEntry {
             @JsonProperty("gross_amount_money") Money grossAmountMoney,
             @JsonProperty("fee_amount_money") Money feeAmountMoney,
             @JsonProperty("net_amount_money") Money netAmountMoney,
+            @JsonProperty("type_app_fee_revenue_details") PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails,
+            @JsonProperty("type_app_fee_refund_details") PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails,
             @JsonProperty("type_automatic_savings_details") PaymentBalanceActivityAutomaticSavingsDetail typeAutomaticSavingsDetails,
             @JsonProperty("type_automatic_savings_reversed_details") PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails,
             @JsonProperty("type_charge_details") PaymentBalanceActivityChargeDetail typeChargeDetails,
@@ -122,6 +131,8 @@ public class PayoutEntry {
         this.grossAmountMoney = grossAmountMoney;
         this.feeAmountMoney = feeAmountMoney;
         this.netAmountMoney = netAmountMoney;
+        this.typeAppFeeRevenueDetails = typeAppFeeRevenueDetails;
+        this.typeAppFeeRefundDetails = typeAppFeeRefundDetails;
         this.typeAutomaticSavingsDetails = typeAutomaticSavingsDetails;
         this.typeAutomaticSavingsReversedDetails = typeAutomaticSavingsReversedDetails;
         this.typeChargeDetails = typeChargeDetails;
@@ -231,6 +242,26 @@ public class PayoutEntry {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getNetAmountMoney() {
         return netAmountMoney;
+    }
+
+    /**
+     * Getter for TypeAppFeeRevenueDetails.
+     * @return Returns the PaymentBalanceActivityAppFeeRevenueDetail
+     */
+    @JsonGetter("type_app_fee_revenue_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentBalanceActivityAppFeeRevenueDetail getTypeAppFeeRevenueDetails() {
+        return typeAppFeeRevenueDetails;
+    }
+
+    /**
+     * Getter for TypeAppFeeRefundDetails.
+     * @return Returns the PaymentBalanceActivityAppFeeRefundDetail
+     */
+    @JsonGetter("type_app_fee_refund_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentBalanceActivityAppFeeRefundDetail getTypeAppFeeRefundDetails() {
+        return typeAppFeeRefundDetails;
     }
 
     /**
@@ -437,8 +468,9 @@ public class PayoutEntry {
     @Override
     public int hashCode() {
         return Objects.hash(id, payoutId, effectiveAt, type, grossAmountMoney, feeAmountMoney,
-                netAmountMoney, typeAutomaticSavingsDetails, typeAutomaticSavingsReversedDetails,
-                typeChargeDetails, typeDepositFeeDetails, typeDisputeDetails, typeFeeDetails,
+                netAmountMoney, typeAppFeeRevenueDetails, typeAppFeeRefundDetails,
+                typeAutomaticSavingsDetails, typeAutomaticSavingsReversedDetails, typeChargeDetails,
+                typeDepositFeeDetails, typeDisputeDetails, typeFeeDetails,
                 typeFreeProcessingDetails, typeHoldAdjustmentDetails, typeOpenDisputeDetails,
                 typeOtherDetails, typeOtherAdjustmentDetails, typeRefundDetails,
                 typeReleaseAdjustmentDetails, typeReserveHoldDetails, typeReserveReleaseDetails,
@@ -462,6 +494,8 @@ public class PayoutEntry {
             && Objects.equals(grossAmountMoney, other.grossAmountMoney)
             && Objects.equals(feeAmountMoney, other.feeAmountMoney)
             && Objects.equals(netAmountMoney, other.netAmountMoney)
+            && Objects.equals(typeAppFeeRevenueDetails, other.typeAppFeeRevenueDetails)
+            && Objects.equals(typeAppFeeRefundDetails, other.typeAppFeeRefundDetails)
             && Objects.equals(typeAutomaticSavingsDetails, other.typeAutomaticSavingsDetails)
             && Objects.equals(typeAutomaticSavingsReversedDetails,
                     other.typeAutomaticSavingsReversedDetails)
@@ -497,6 +531,8 @@ public class PayoutEntry {
         return "PayoutEntry [" + "id=" + id + ", payoutId=" + payoutId + ", effectiveAt="
                 + effectiveAt + ", type=" + type + ", grossAmountMoney=" + grossAmountMoney
                 + ", feeAmountMoney=" + feeAmountMoney + ", netAmountMoney=" + netAmountMoney
+                + ", typeAppFeeRevenueDetails=" + typeAppFeeRevenueDetails
+                + ", typeAppFeeRefundDetails=" + typeAppFeeRefundDetails
                 + ", typeAutomaticSavingsDetails=" + typeAutomaticSavingsDetails
                 + ", typeAutomaticSavingsReversedDetails=" + typeAutomaticSavingsReversedDetails
                 + ", typeChargeDetails=" + typeChargeDetails + ", typeDepositFeeDetails="
@@ -528,6 +564,8 @@ public class PayoutEntry {
                 .grossAmountMoney(getGrossAmountMoney())
                 .feeAmountMoney(getFeeAmountMoney())
                 .netAmountMoney(getNetAmountMoney())
+                .typeAppFeeRevenueDetails(getTypeAppFeeRevenueDetails())
+                .typeAppFeeRefundDetails(getTypeAppFeeRefundDetails())
                 .typeAutomaticSavingsDetails(getTypeAutomaticSavingsDetails())
                 .typeAutomaticSavingsReversedDetails(getTypeAutomaticSavingsReversedDetails())
                 .typeChargeDetails(getTypeChargeDetails())
@@ -562,6 +600,8 @@ public class PayoutEntry {
         private Money grossAmountMoney;
         private Money feeAmountMoney;
         private Money netAmountMoney;
+        private PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails;
+        private PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails;
         private PaymentBalanceActivityAutomaticSavingsDetail typeAutomaticSavingsDetails;
         private PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails;
         private PaymentBalanceActivityChargeDetail typeChargeDetails;
@@ -660,6 +700,30 @@ public class PayoutEntry {
          */
         public Builder netAmountMoney(Money netAmountMoney) {
             this.netAmountMoney = netAmountMoney;
+            return this;
+        }
+
+        /**
+         * Setter for typeAppFeeRevenueDetails.
+         * @param  typeAppFeeRevenueDetails  PaymentBalanceActivityAppFeeRevenueDetail value for
+         *         typeAppFeeRevenueDetails.
+         * @return Builder
+         */
+        public Builder typeAppFeeRevenueDetails(
+                PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails) {
+            this.typeAppFeeRevenueDetails = typeAppFeeRevenueDetails;
+            return this;
+        }
+
+        /**
+         * Setter for typeAppFeeRefundDetails.
+         * @param  typeAppFeeRefundDetails  PaymentBalanceActivityAppFeeRefundDetail value for
+         *         typeAppFeeRefundDetails.
+         * @return Builder
+         */
+        public Builder typeAppFeeRefundDetails(
+                PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails) {
+            this.typeAppFeeRefundDetails = typeAppFeeRefundDetails;
             return this;
         }
 
@@ -905,7 +969,8 @@ public class PayoutEntry {
          */
         public PayoutEntry build() {
             return new PayoutEntry(id, payoutId, effectiveAt, type, grossAmountMoney,
-                    feeAmountMoney, netAmountMoney, typeAutomaticSavingsDetails,
+                    feeAmountMoney, netAmountMoney, typeAppFeeRevenueDetails,
+                    typeAppFeeRefundDetails, typeAutomaticSavingsDetails,
                     typeAutomaticSavingsReversedDetails, typeChargeDetails, typeDepositFeeDetails,
                     typeDisputeDetails, typeFeeDetails, typeFreeProcessingDetails,
                     typeHoldAdjustmentDetails, typeOpenDisputeDetails, typeOtherDetails,

@@ -3,26 +3,20 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateCardRequest;
 import com.squareup.square.models.CreateCardResponse;
 import com.squareup.square.models.DisableCardResponse;
 import com.squareup.square.models.ListCardsResponse;
 import com.squareup.square.models.RetrieveCardResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -31,25 +25,10 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultCardsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultCardsApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultCardsApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -77,14 +56,8 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
             final Boolean includeDisabled,
             final String referenceId,
             final String sortOrder) throws ApiException, IOException {
-        HttpRequest request = buildListCardsRequest(cursor, customerId, includeDisabled,
-                referenceId, sortOrder);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListCardsResponse(context);
+        return prepareListCardsRequest(cursor, customerId, includeDisabled, referenceId,
+                sortOrder).execute();
     }
 
     /**
@@ -110,81 +83,49 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
             final Boolean includeDisabled,
             final String referenceId,
             final String sortOrder) {
-        return makeHttpCallAsync(() -> buildListCardsRequest(cursor, customerId, includeDisabled,
-                referenceId, sortOrder),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListCardsResponse(context));
+        try { 
+            return prepareListCardsRequest(cursor, customerId, includeDisabled, referenceId,
+            sortOrder).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listCards.
+     * Builds the ApiCall object for listCards.
      */
-    private HttpRequest buildListCardsRequest(
+    private ApiCall<ListCardsResponse, ApiException> prepareListCardsRequest(
             final String cursor,
             final String customerId,
             final Boolean includeDisabled,
             final String referenceId,
-            final String sortOrder) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cards");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("cursor", cursor);
-        queryParameters.put("customer_id", customerId);
-        queryParameters.put("include_disabled",
-                (includeDisabled != null) ? includeDisabled : false);
-        queryParameters.put("reference_id", referenceId);
-        queryParameters.put("sort_order", sortOrder);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listCards.
-     * @return An object of type ListCardsResponse
-     */
-    private ListCardsResponse handleListCardsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListCardsResponse result = ApiHelper.deserialize(responseBody,
-                ListCardsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String sortOrder) throws IOException {
+        return new ApiCall.Builder<ListCardsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cards")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("customer_id")
+                                .value(customerId).isRequired(false))
+                        .queryParam(param -> param.key("include_disabled")
+                                .value((includeDisabled != null) ? includeDisabled : false).isRequired(false))
+                        .queryParam(param -> param.key("reference_id")
+                                .value(referenceId).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListCardsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -197,13 +138,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public CreateCardResponse createCard(
             final CreateCardRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateCardRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateCardResponse(context);
+        return prepareCreateCardRequest(body).execute();
     }
 
     /**
@@ -214,68 +149,38 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public CompletableFuture<CreateCardResponse> createCardAsync(
             final CreateCardRequest body) {
-        return makeHttpCallAsync(() -> buildCreateCardRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateCardResponse(context));
+        try { 
+            return prepareCreateCardRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createCard.
+     * Builds the ApiCall object for createCard.
      */
-    private HttpRequest buildCreateCardRequest(
-            final CreateCardRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cards");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createCard.
-     * @return An object of type CreateCardResponse
-     */
-    private CreateCardResponse handleCreateCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateCardResponse result = ApiHelper.deserialize(responseBody,
-                CreateCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateCardResponse, ApiException> prepareCreateCardRequest(
+            final CreateCardRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cards")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -287,13 +192,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public RetrieveCardResponse retrieveCard(
             final String cardId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveCardRequest(cardId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveCardResponse(context);
+        return prepareRetrieveCardRequest(cardId).execute();
     }
 
     /**
@@ -303,72 +202,36 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public CompletableFuture<RetrieveCardResponse> retrieveCardAsync(
             final String cardId) {
-        return makeHttpCallAsync(() -> buildRetrieveCardRequest(cardId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveCardResponse(context));
+        try { 
+            return prepareRetrieveCardRequest(cardId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveCard.
+     * Builds the ApiCall object for retrieveCard.
      */
-    private HttpRequest buildRetrieveCardRequest(
-            final String cardId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cards/{card_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("card_id",
-                new SimpleEntry<Object, Boolean>(cardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveCard.
-     * @return An object of type RetrieveCardResponse
-     */
-    private RetrieveCardResponse handleRetrieveCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveCardResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveCardResponse, ApiException> prepareRetrieveCardRequest(
+            final String cardId) throws IOException {
+        return new ApiCall.Builder<RetrieveCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cards/{card_id}")
+                        .templateParam(param -> param.key("card_id").value(cardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -381,13 +244,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public DisableCardResponse disableCard(
             final String cardId) throws ApiException, IOException {
-        HttpRequest request = buildDisableCardRequest(cardId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDisableCardResponse(context);
+        return prepareDisableCardRequest(cardId).execute();
     }
 
     /**
@@ -398,72 +255,35 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
      */
     public CompletableFuture<DisableCardResponse> disableCardAsync(
             final String cardId) {
-        return makeHttpCallAsync(() -> buildDisableCardRequest(cardId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDisableCardResponse(context));
+        try { 
+            return prepareDisableCardRequest(cardId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for disableCard.
+     * Builds the ApiCall object for disableCard.
      */
-    private HttpRequest buildDisableCardRequest(
-            final String cardId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/cards/{card_id}/disable");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("card_id",
-                new SimpleEntry<Object, Boolean>(cardId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().post(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+    private ApiCall<DisableCardResponse, ApiException> prepareDisableCardRequest(
+            final String cardId) throws IOException {
+        return new ApiCall.Builder<DisableCardResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/cards/{card_id}/disable")
+                        .templateParam(param -> param.key("card_id").value(cardId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DisableCardResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for disableCard.
-     * @return An object of type DisableCardResponse
-     */
-    private DisableCardResponse handleDisableCardResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DisableCardResponse result = ApiHelper.deserialize(responseBody,
-                DisableCardResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

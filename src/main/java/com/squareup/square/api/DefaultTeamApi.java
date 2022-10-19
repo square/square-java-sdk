@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.BulkCreateTeamMembersRequest;
 import com.squareup.square.models.BulkCreateTeamMembersResponse;
 import com.squareup.square.models.BulkUpdateTeamMembersRequest;
@@ -27,11 +21,11 @@ import com.squareup.square.models.UpdateTeamMemberRequest;
 import com.squareup.square.models.UpdateTeamMemberResponse;
 import com.squareup.square.models.UpdateWageSettingRequest;
 import com.squareup.square.models.UpdateWageSettingResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -40,25 +34,10 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultTeamApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultTeamApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultTeamApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -74,13 +53,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CreateTeamMemberResponse createTeamMember(
             final CreateTeamMemberRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateTeamMemberRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateTeamMemberResponse(context);
+        return prepareCreateTeamMemberRequest(body).execute();
     }
 
     /**
@@ -94,68 +67,38 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<CreateTeamMemberResponse> createTeamMemberAsync(
             final CreateTeamMemberRequest body) {
-        return makeHttpCallAsync(() -> buildCreateTeamMemberRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateTeamMemberResponse(context));
+        try { 
+            return prepareCreateTeamMemberRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createTeamMember.
+     * Builds the ApiCall object for createTeamMember.
      */
-    private HttpRequest buildCreateTeamMemberRequest(
-            final CreateTeamMemberRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createTeamMember.
-     * @return An object of type CreateTeamMemberResponse
-     */
-    private CreateTeamMemberResponse handleCreateTeamMemberResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateTeamMemberResponse result = ApiHelper.deserialize(responseBody,
-                CreateTeamMemberResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateTeamMemberResponse, ApiException> prepareCreateTeamMemberRequest(
+            final CreateTeamMemberRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateTeamMemberResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateTeamMemberResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -173,13 +116,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public BulkCreateTeamMembersResponse bulkCreateTeamMembers(
             final BulkCreateTeamMembersRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkCreateTeamMembersRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkCreateTeamMembersResponse(context);
+        return prepareBulkCreateTeamMembersRequest(body).execute();
     }
 
     /**
@@ -195,68 +132,38 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<BulkCreateTeamMembersResponse> bulkCreateTeamMembersAsync(
             final BulkCreateTeamMembersRequest body) {
-        return makeHttpCallAsync(() -> buildBulkCreateTeamMembersRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkCreateTeamMembersResponse(context));
+        try { 
+            return prepareBulkCreateTeamMembersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkCreateTeamMembers.
+     * Builds the ApiCall object for bulkCreateTeamMembers.
      */
-    private HttpRequest buildBulkCreateTeamMembersRequest(
-            final BulkCreateTeamMembersRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/bulk-create");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkCreateTeamMembers.
-     * @return An object of type BulkCreateTeamMembersResponse
-     */
-    private BulkCreateTeamMembersResponse handleBulkCreateTeamMembersResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkCreateTeamMembersResponse result = ApiHelper.deserialize(responseBody,
-                BulkCreateTeamMembersResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkCreateTeamMembersResponse, ApiException> prepareBulkCreateTeamMembersRequest(
+            final BulkCreateTeamMembersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkCreateTeamMembersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/bulk-create")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkCreateTeamMembersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -274,13 +181,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public BulkUpdateTeamMembersResponse bulkUpdateTeamMembers(
             final BulkUpdateTeamMembersRequest body) throws ApiException, IOException {
-        HttpRequest request = buildBulkUpdateTeamMembersRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleBulkUpdateTeamMembersResponse(context);
+        return prepareBulkUpdateTeamMembersRequest(body).execute();
     }
 
     /**
@@ -296,68 +197,38 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<BulkUpdateTeamMembersResponse> bulkUpdateTeamMembersAsync(
             final BulkUpdateTeamMembersRequest body) {
-        return makeHttpCallAsync(() -> buildBulkUpdateTeamMembersRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleBulkUpdateTeamMembersResponse(context));
+        try { 
+            return prepareBulkUpdateTeamMembersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for bulkUpdateTeamMembers.
+     * Builds the ApiCall object for bulkUpdateTeamMembers.
      */
-    private HttpRequest buildBulkUpdateTeamMembersRequest(
-            final BulkUpdateTeamMembersRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/bulk-update");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for bulkUpdateTeamMembers.
-     * @return An object of type BulkUpdateTeamMembersResponse
-     */
-    private BulkUpdateTeamMembersResponse handleBulkUpdateTeamMembersResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        BulkUpdateTeamMembersResponse result = ApiHelper.deserialize(responseBody,
-                BulkUpdateTeamMembersResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<BulkUpdateTeamMembersResponse, ApiException> prepareBulkUpdateTeamMembersRequest(
+            final BulkUpdateTeamMembersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkUpdateTeamMembersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/bulk-update")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkUpdateTeamMembersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -371,13 +242,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public SearchTeamMembersResponse searchTeamMembers(
             final SearchTeamMembersRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchTeamMembersRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchTeamMembersResponse(context);
+        return prepareSearchTeamMembersRequest(body).execute();
     }
 
     /**
@@ -389,68 +254,38 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<SearchTeamMembersResponse> searchTeamMembersAsync(
             final SearchTeamMembersRequest body) {
-        return makeHttpCallAsync(() -> buildSearchTeamMembersRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchTeamMembersResponse(context));
+        try { 
+            return prepareSearchTeamMembersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchTeamMembers.
+     * Builds the ApiCall object for searchTeamMembers.
      */
-    private HttpRequest buildSearchTeamMembersRequest(
-            final SearchTeamMembersRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchTeamMembers.
-     * @return An object of type SearchTeamMembersResponse
-     */
-    private SearchTeamMembersResponse handleSearchTeamMembersResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchTeamMembersResponse result = ApiHelper.deserialize(responseBody,
-                SearchTeamMembersResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchTeamMembersResponse, ApiException> prepareSearchTeamMembersRequest(
+            final SearchTeamMembersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchTeamMembersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchTeamMembersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -464,13 +299,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public RetrieveTeamMemberResponse retrieveTeamMember(
             final String teamMemberId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveTeamMemberRequest(teamMemberId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveTeamMemberResponse(context);
+        return prepareRetrieveTeamMemberRequest(teamMemberId).execute();
     }
 
     /**
@@ -482,72 +311,36 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<RetrieveTeamMemberResponse> retrieveTeamMemberAsync(
             final String teamMemberId) {
-        return makeHttpCallAsync(() -> buildRetrieveTeamMemberRequest(teamMemberId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveTeamMemberResponse(context));
+        try { 
+            return prepareRetrieveTeamMemberRequest(teamMemberId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveTeamMember.
+     * Builds the ApiCall object for retrieveTeamMember.
      */
-    private HttpRequest buildRetrieveTeamMemberRequest(
-            final String teamMemberId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/{team_member_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("team_member_id",
-                new SimpleEntry<Object, Boolean>(teamMemberId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveTeamMember.
-     * @return An object of type RetrieveTeamMemberResponse
-     */
-    private RetrieveTeamMemberResponse handleRetrieveTeamMemberResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveTeamMemberResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveTeamMemberResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveTeamMemberResponse, ApiException> prepareRetrieveTeamMemberRequest(
+            final String teamMemberId) throws IOException {
+        return new ApiCall.Builder<RetrieveTeamMemberResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/{team_member_id}")
+                        .templateParam(param -> param.key("team_member_id").value(teamMemberId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveTeamMemberResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -564,13 +357,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
     public UpdateTeamMemberResponse updateTeamMember(
             final String teamMemberId,
             final UpdateTeamMemberRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateTeamMemberRequest(teamMemberId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateTeamMemberResponse(context);
+        return prepareUpdateTeamMemberRequest(teamMemberId, body).execute();
     }
 
     /**
@@ -585,75 +372,41 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
     public CompletableFuture<UpdateTeamMemberResponse> updateTeamMemberAsync(
             final String teamMemberId,
             final UpdateTeamMemberRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateTeamMemberRequest(teamMemberId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateTeamMemberResponse(context));
+        try { 
+            return prepareUpdateTeamMemberRequest(teamMemberId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateTeamMember.
+     * Builds the ApiCall object for updateTeamMember.
      */
-    private HttpRequest buildUpdateTeamMemberRequest(
+    private ApiCall<UpdateTeamMemberResponse, ApiException> prepareUpdateTeamMemberRequest(
             final String teamMemberId,
-            final UpdateTeamMemberRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/{team_member_id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("team_member_id",
-                new SimpleEntry<Object, Boolean>(teamMemberId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateTeamMember.
-     * @return An object of type UpdateTeamMemberResponse
-     */
-    private UpdateTeamMemberResponse handleUpdateTeamMemberResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateTeamMemberResponse result = ApiHelper.deserialize(responseBody,
-                UpdateTeamMemberResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateTeamMemberRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateTeamMemberResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/{team_member_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("team_member_id").value(teamMemberId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateTeamMemberResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -668,13 +421,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public RetrieveWageSettingResponse retrieveWageSetting(
             final String teamMemberId) throws ApiException, IOException {
-        HttpRequest request = buildRetrieveWageSettingRequest(teamMemberId);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleRetrieveWageSettingResponse(context);
+        return prepareRetrieveWageSettingRequest(teamMemberId).execute();
     }
 
     /**
@@ -687,72 +434,36 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
      */
     public CompletableFuture<RetrieveWageSettingResponse> retrieveWageSettingAsync(
             final String teamMemberId) {
-        return makeHttpCallAsync(() -> buildRetrieveWageSettingRequest(teamMemberId),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleRetrieveWageSettingResponse(context));
+        try { 
+            return prepareRetrieveWageSettingRequest(teamMemberId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for retrieveWageSetting.
+     * Builds the ApiCall object for retrieveWageSetting.
      */
-    private HttpRequest buildRetrieveWageSettingRequest(
-            final String teamMemberId) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/{team_member_id}/wage-setting");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("team_member_id",
-                new SimpleEntry<Object, Boolean>(teamMemberId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for retrieveWageSetting.
-     * @return An object of type RetrieveWageSettingResponse
-     */
-    private RetrieveWageSettingResponse handleRetrieveWageSettingResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        RetrieveWageSettingResponse result = ApiHelper.deserialize(responseBody,
-                RetrieveWageSettingResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<RetrieveWageSettingResponse, ApiException> prepareRetrieveWageSettingRequest(
+            final String teamMemberId) throws IOException {
+        return new ApiCall.Builder<RetrieveWageSettingResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/{team_member_id}/wage-setting")
+                        .templateParam(param -> param.key("team_member_id").value(teamMemberId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveWageSettingResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -772,13 +483,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
     public UpdateWageSettingResponse updateWageSetting(
             final String teamMemberId,
             final UpdateWageSettingRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateWageSettingRequest(teamMemberId, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateWageSettingResponse(context);
+        return prepareUpdateWageSettingRequest(teamMemberId, body).execute();
     }
 
     /**
@@ -796,75 +501,40 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
     public CompletableFuture<UpdateWageSettingResponse> updateWageSettingAsync(
             final String teamMemberId,
             final UpdateWageSettingRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateWageSettingRequest(teamMemberId, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateWageSettingResponse(context));
+        try { 
+            return prepareUpdateWageSettingRequest(teamMemberId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateWageSetting.
+     * Builds the ApiCall object for updateWageSetting.
      */
-    private HttpRequest buildUpdateWageSettingRequest(
+    private ApiCall<UpdateWageSettingResponse, ApiException> prepareUpdateWageSettingRequest(
             final String teamMemberId,
-            final UpdateWageSettingRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/team-members/{team_member_id}/wage-setting");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("team_member_id",
-                new SimpleEntry<Object, Boolean>(teamMemberId, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final UpdateWageSettingRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateWageSettingResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/team-members/{team_member_id}/wage-setting")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("team_member_id").value(teamMemberId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateWageSettingResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for updateWageSetting.
-     * @return An object of type UpdateWageSettingResponse
-     */
-    private UpdateWageSettingResponse handleUpdateWageSettingResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateWageSettingResponse result = ApiHelper.deserialize(responseBody,
-                UpdateWageSettingResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }

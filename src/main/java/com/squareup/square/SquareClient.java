@@ -77,10 +77,13 @@ import com.squareup.square.api.VendorsApi;
 import com.squareup.square.api.WebhookSubscriptionsApi;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpClientConfiguration;
-import com.squareup.square.http.client.OkClient;
 import com.squareup.square.http.client.ReadonlyHttpClientConfiguration;
+import io.apimatic.core.GlobalConfiguration;
+import io.apimatic.coreinterfaces.authentication.Authentication;
+import io.apimatic.coreinterfaces.compatibility.CompatibilityFactory;
+import io.apimatic.coreinterfaces.http.HttpClient;
+import io.apimatic.okhttpclient.adapter.OkClient;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,6 +137,10 @@ public final class SquareClient implements SquareClientInterface {
     private VendorsApi vendors;
     private WebhookSubscriptionsApi webhookSubscriptions;
 
+    private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
+
+    private static String userAgent = "Square-Java-SDK/25.0.0.20221019 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+
     /**
      * Current API environment.
      */
@@ -177,7 +184,8 @@ public final class SquareClient implements SquareClientInterface {
     /**
      * Map of authentication Managers.
      */
-    private Map<String, AuthManager> authManagers;
+    private Map<String, Authentication> authentications;
+
 
     /**
      * Callback to be called before and after the HTTP call for an endpoint is made.
@@ -187,7 +195,7 @@ public final class SquareClient implements SquareClientInterface {
     private SquareClient(Environment environment, String customUrl, String squareVersion,
             HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
             Headers additionalHeaders, String userAgentDetail, String accessToken,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
+            Map<String, Authentication> authentications, HttpCallback httpCallback) {
         this.environment = environment;
         this.customUrl = customUrl;
         this.squareVersion = squareVersion;
@@ -196,86 +204,70 @@ public final class SquareClient implements SquareClientInterface {
         this.additionalHeaders = additionalHeaders;
         this.userAgentDetail = userAgentDetail;
         this.httpCallback = httpCallback;
+        this.authentications = 
+                (authentications == null) ? new HashMap<>() : new HashMap<>(authentications);
+        Map<String, String> userAgentConfig = new HashMap<>();
+        userAgentConfig.put("{api-version}",
+                        squareVersion != null ? squareVersion : "");
+        userAgentConfig.put("{detail}",
+                userAgentDetail != null? ApiHelper.tryUrlEncode(userAgentDetail, true):  "");
 
-        this.authManagers = (authManagers == null) ? new HashMap<>() : new HashMap<>(authManagers);
-        if (this.authManagers.containsKey("global")) {
-            this.bearerAuthManager = (BearerAuthManager) this.authManagers.get("global");
+        if (this.authentications.containsKey("global")) {
+            this.bearerAuthManager = (BearerAuthManager) this.authentications.get("global");
         }
 
-        if (!this.authManagers.containsKey("global")
+        if (!this.authentications.containsKey("global")
                 || !getBearerAuthCredentials().equals(accessToken)) {
             this.bearerAuthManager = new BearerAuthManager(accessToken);
-            this.authManagers.put("global", bearerAuthManager);
+            this.authentications.put("global", bearerAuthManager);
         }
 
-        mobileAuthorization = new DefaultMobileAuthorizationApi(this, this.httpClient,
-                this.authManagers, this.httpCallback);
-        oAuth = new DefaultOAuthApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        v1Transactions = new DefaultV1TransactionsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        applePay = new DefaultApplePayApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        bankAccounts = new DefaultBankAccountsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        bookings = new DefaultBookingsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        cards = new DefaultCardsApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        cashDrawers = new DefaultCashDrawersApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        catalog = new DefaultCatalogApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        customers = new DefaultCustomersApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        customerCustomAttributes = new DefaultCustomerCustomAttributesApi(this, this.httpClient,
-                this.authManagers, this.httpCallback);
-        customerGroups = new DefaultCustomerGroupsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        customerSegments = new DefaultCustomerSegmentsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        devices = new DefaultDevicesApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        disputes = new DefaultDisputesApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        employees = new DefaultEmployeesApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        giftCards = new DefaultGiftCardsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        giftCardActivities = new DefaultGiftCardActivitiesApi(this, this.httpClient,
-                this.authManagers, this.httpCallback);
-        inventory = new DefaultInventoryApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        invoices = new DefaultInvoicesApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        labor = new DefaultLaborApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        locations = new DefaultLocationsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        checkout = new DefaultCheckoutApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        transactions = new DefaultTransactionsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        loyalty = new DefaultLoyaltyApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        merchants = new DefaultMerchantsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        orders = new DefaultOrdersApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        payments = new DefaultPaymentsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        payouts = new DefaultPayoutsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        refunds = new DefaultRefundsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        sites = new DefaultSitesApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        snippets = new DefaultSnippetsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        subscriptions = new DefaultSubscriptionsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        team = new DefaultTeamApi(this, this.httpClient, this.authManagers, this.httpCallback);
-        terminal = new DefaultTerminalApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        vendors = new DefaultVendorsApi(this, this.httpClient, this.authManagers,
-                this.httpCallback);
-        webhookSubscriptions = new DefaultWebhookSubscriptionsApi(this, this.httpClient,
-                this.authManagers, this.httpCallback);
+        GlobalConfiguration globalConfig = new GlobalConfiguration.Builder()
+                .authentication(this.authentications).compatibilityFactory(compatibilityFactory)
+                .httpClient(httpClient).baseUri(server -> getBaseUri(server))
+                .callback(httpCallback)
+                .userAgent(userAgent)
+                .userAgentConfig(userAgentConfig)
+                .additionalHeaders(additionalHeaders)
+                .globalHeader("Square-Version", squareVersion)
+                .build();
+        mobileAuthorization = new DefaultMobileAuthorizationApi(globalConfig);
+        oAuth = new DefaultOAuthApi(globalConfig);
+        v1Transactions = new DefaultV1TransactionsApi(globalConfig);
+        applePay = new DefaultApplePayApi(globalConfig);
+        bankAccounts = new DefaultBankAccountsApi(globalConfig);
+        bookings = new DefaultBookingsApi(globalConfig);
+        cards = new DefaultCardsApi(globalConfig);
+        cashDrawers = new DefaultCashDrawersApi(globalConfig);
+        catalog = new DefaultCatalogApi(globalConfig);
+        customers = new DefaultCustomersApi(globalConfig);
+        customerCustomAttributes = new DefaultCustomerCustomAttributesApi(globalConfig);
+        customerGroups = new DefaultCustomerGroupsApi(globalConfig);
+        customerSegments = new DefaultCustomerSegmentsApi(globalConfig);
+        devices = new DefaultDevicesApi(globalConfig);
+        disputes = new DefaultDisputesApi(globalConfig);
+        employees = new DefaultEmployeesApi(globalConfig);
+        giftCards = new DefaultGiftCardsApi(globalConfig);
+        giftCardActivities = new DefaultGiftCardActivitiesApi(globalConfig);
+        inventory = new DefaultInventoryApi(globalConfig);
+        invoices = new DefaultInvoicesApi(globalConfig);
+        labor = new DefaultLaborApi(globalConfig);
+        locations = new DefaultLocationsApi(globalConfig);
+        checkout = new DefaultCheckoutApi(globalConfig);
+        transactions = new DefaultTransactionsApi(globalConfig);
+        loyalty = new DefaultLoyaltyApi(globalConfig);
+        merchants = new DefaultMerchantsApi(globalConfig);
+        orders = new DefaultOrdersApi(globalConfig);
+        payments = new DefaultPaymentsApi(globalConfig);
+        payouts = new DefaultPayoutsApi(globalConfig);
+        refunds = new DefaultRefundsApi(globalConfig);
+        sites = new DefaultSitesApi(globalConfig);
+        snippets = new DefaultSnippetsApi(globalConfig);
+        subscriptions = new DefaultSubscriptionsApi(globalConfig);
+        team = new DefaultTeamApi(globalConfig);
+        terminal = new DefaultTerminalApi(globalConfig);
+        vendors = new DefaultVendorsApi(globalConfig);
+        webhookSubscriptions = new DefaultWebhookSubscriptionsApi(globalConfig);
     }
 
     /**
@@ -652,13 +644,12 @@ public final class SquareClient implements SquareClientInterface {
     public String getAccessToken() {
         return getBearerAuthCredentials().getAccessToken();
     }
-
     /**
      * Current SDK Version.
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "24.0.0.20220921";
+        return "25.0.0.20221019";
     }
 
     /**
@@ -695,6 +686,18 @@ public final class SquareClient implements SquareClientInterface {
         return getBaseUri(Server.ENUM_DEFAULT);
     }
 
+
+    /**
+     * Get base URI by current environment.
+     * 
+     * @param server string for which to get the base URI
+     * @return Processed base URI
+     */
+    public String getBaseUri(String server) {
+        return getBaseUri(Server.fromString(server));
+    }
+
+
     /**
      * Base URLs by environment and server aliases.
      * @param environment Environment for which to get the base URI
@@ -729,7 +732,7 @@ public final class SquareClient implements SquareClientInterface {
         return "SquareClient [" + "environment=" + environment + ", customUrl=" + customUrl
                 + ", squareVersion=" + squareVersion + ", httpClientConfig=" + httpClientConfig
                 + ", additionalHeaders=" + additionalHeaders + ", userAgentDetail="
-                + userAgentDetail + ", authManagers=" + authManagers + "]";
+                + userAgentDetail + ", authentications=" + authentications + "]";
     }
 
     /**
@@ -746,7 +749,7 @@ public final class SquareClient implements SquareClientInterface {
         builder.additionalHeaders = getAdditionalHeaders();
         builder.userAgentDetail = getUserAgentDetail();
         builder.accessToken = getBearerAuthCredentials().getAccessToken();
-        builder.authManagers = authManagers;
+        builder.authentications = authentications;
         builder.httpCallback = httpCallback;
         builder.httpClientConfig(configBldr -> configBldr =
                 ((HttpClientConfiguration) httpClientConfig).newBuilder());
@@ -760,12 +763,12 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2022-09-21";
+        private String squareVersion = "2022-10-19";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;
         private String accessToken = "";
-        private Map<String, AuthManager> authManagers = null;
+        private Map<String, Authentication> authentications = null;
         private HttpCallback httpCallback = null;
         private HttpClientConfiguration.Builder httpClientConfigBuilder =
                 new HttpClientConfiguration.Builder();
@@ -885,11 +888,11 @@ public final class SquareClient implements SquareClientInterface {
          */
         public SquareClient build() {
             HttpClientConfiguration httpClientConfig = httpClientConfigBuilder.build();
-            httpClient = new OkClient(httpClientConfig);
+            httpClient = new OkClient(httpClientConfig.getConfiguration(), compatibilityFactory);
 
             return new SquareClient(environment, customUrl, squareVersion, httpClient,
-                    httpClientConfig, additionalHeaders, userAgentDetail, accessToken, authManagers,
-                    httpCallback);
+                    httpClientConfig, additionalHeaders, userAgentDetail, accessToken,
+                    authentications, httpCallback);
         }
     }
 }

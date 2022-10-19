@@ -111,6 +111,7 @@ InvoiceAcceptedPaymentMethods invoiceAcceptedPaymentMethods = new InvoiceAccepte
     .card(true)
     .squareGiftCard(false)
     .bankAccount(false)
+    .buyNowPayLater(false)
     .build();
 List<InvoiceCustomField> bodyInvoiceCustomFields = new LinkedList<>();
 

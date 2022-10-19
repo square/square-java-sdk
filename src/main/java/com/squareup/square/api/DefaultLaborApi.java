@@ -3,16 +3,10 @@ package com.squareup.square.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.ApiHelper;
-import com.squareup.square.AuthManager;
-import com.squareup.square.Configuration;
+import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
-import com.squareup.square.http.Headers;
-import com.squareup.square.http.client.HttpCallback;
-import com.squareup.square.http.client.HttpClient;
 import com.squareup.square.http.client.HttpContext;
-import com.squareup.square.http.request.HttpRequest;
-import com.squareup.square.http.response.HttpResponse;
-import com.squareup.square.http.response.HttpStringResponse;
+import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateBreakTypeRequest;
 import com.squareup.square.models.CreateBreakTypeResponse;
 import com.squareup.square.models.CreateShiftRequest;
@@ -35,11 +29,11 @@ import com.squareup.square.models.UpdateShiftRequest;
 import com.squareup.square.models.UpdateShiftResponse;
 import com.squareup.square.models.UpdateWorkweekConfigRequest;
 import com.squareup.square.models.UpdateWorkweekConfigResponse;
+import io.apimatic.core.ApiCall;
+import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -48,25 +42,10 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Initializes the controller.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
+     * @param globalConfig    Configurations added in client.
      */
-    public DefaultLaborApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers) {
-        super(config, httpClient, authManagers);
-    }
-
-    /**
-     * Initializes the controller with HTTPCallback.
-     * @param config    Configurations added in client.
-     * @param httpClient    Send HTTP requests and read the responses.
-     * @param authManagers    Apply authorization to requests.
-     * @param httpCallback    Callback to be called before and after the HTTP call.
-     */
-    public DefaultLaborApi(Configuration config, HttpClient httpClient,
-            Map<String, AuthManager> authManagers, HttpCallback httpCallback) {
-        super(config, httpClient, authManagers, httpCallback);
+    public DefaultLaborApi(GlobalConfiguration globalConfig) {
+        super(globalConfig);
     }
 
     /**
@@ -85,13 +64,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String locationId,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListBreakTypesRequest(locationId, limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListBreakTypesResponse(context);
+        return prepareListBreakTypesRequest(locationId, limit, cursor).execute();
     }
 
     /**
@@ -108,75 +81,42 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String locationId,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListBreakTypesRequest(locationId, limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListBreakTypesResponse(context));
+        try { 
+            return prepareListBreakTypesRequest(locationId, limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listBreakTypes.
+     * Builds the ApiCall object for listBreakTypes.
      */
-    private HttpRequest buildListBreakTypesRequest(
+    private ApiCall<ListBreakTypesResponse, ApiException> prepareListBreakTypesRequest(
             final String locationId,
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/break-types");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("location_id", locationId);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listBreakTypes.
-     * @return An object of type ListBreakTypesResponse
-     */
-    private ListBreakTypesResponse handleListBreakTypesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListBreakTypesResponse result = ApiHelper.deserialize(responseBody,
-                ListBreakTypesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListBreakTypesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/break-types")
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListBreakTypesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -193,13 +133,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CreateBreakTypeResponse createBreakType(
             final CreateBreakTypeRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateBreakTypeRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateBreakTypeResponse(context);
+        return prepareCreateBreakTypeRequest(body).execute();
     }
 
     /**
@@ -214,68 +148,38 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<CreateBreakTypeResponse> createBreakTypeAsync(
             final CreateBreakTypeRequest body) {
-        return makeHttpCallAsync(() -> buildCreateBreakTypeRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateBreakTypeResponse(context));
+        try { 
+            return prepareCreateBreakTypeRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createBreakType.
+     * Builds the ApiCall object for createBreakType.
      */
-    private HttpRequest buildCreateBreakTypeRequest(
-            final CreateBreakTypeRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/break-types");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createBreakType.
-     * @return An object of type CreateBreakTypeResponse
-     */
-    private CreateBreakTypeResponse handleCreateBreakTypeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateBreakTypeResponse result = ApiHelper.deserialize(responseBody,
-                CreateBreakTypeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateBreakTypeResponse, ApiException> prepareCreateBreakTypeRequest(
+            final CreateBreakTypeRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateBreakTypeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/break-types")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateBreakTypeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -288,13 +192,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public DeleteBreakTypeResponse deleteBreakType(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildDeleteBreakTypeRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteBreakTypeResponse(context);
+        return prepareDeleteBreakTypeRequest(id).execute();
     }
 
     /**
@@ -305,72 +203,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<DeleteBreakTypeResponse> deleteBreakTypeAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildDeleteBreakTypeRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteBreakTypeResponse(context));
+        try { 
+            return prepareDeleteBreakTypeRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteBreakType.
+     * Builds the ApiCall object for deleteBreakType.
      */
-    private HttpRequest buildDeleteBreakTypeRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/break-types/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteBreakType.
-     * @return An object of type DeleteBreakTypeResponse
-     */
-    private DeleteBreakTypeResponse handleDeleteBreakTypeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteBreakTypeResponse result = ApiHelper.deserialize(responseBody,
-                DeleteBreakTypeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteBreakTypeResponse, ApiException> prepareDeleteBreakTypeRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<DeleteBreakTypeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/break-types/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteBreakTypeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -382,13 +244,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public GetBreakTypeResponse getBreakType(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildGetBreakTypeRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetBreakTypeResponse(context);
+        return prepareGetBreakTypeRequest(id).execute();
     }
 
     /**
@@ -398,72 +254,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<GetBreakTypeResponse> getBreakTypeAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildGetBreakTypeRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetBreakTypeResponse(context));
+        try { 
+            return prepareGetBreakTypeRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getBreakType.
+     * Builds the ApiCall object for getBreakType.
      */
-    private HttpRequest buildGetBreakTypeRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/break-types/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getBreakType.
-     * @return An object of type GetBreakTypeResponse
-     */
-    private GetBreakTypeResponse handleGetBreakTypeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetBreakTypeResponse result = ApiHelper.deserialize(responseBody,
-                GetBreakTypeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetBreakTypeResponse, ApiException> prepareGetBreakTypeRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<GetBreakTypeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/break-types/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetBreakTypeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -478,13 +298,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public UpdateBreakTypeResponse updateBreakType(
             final String id,
             final UpdateBreakTypeRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateBreakTypeRequest(id, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateBreakTypeResponse(context);
+        return prepareUpdateBreakTypeRequest(id, body).execute();
     }
 
     /**
@@ -497,75 +311,41 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public CompletableFuture<UpdateBreakTypeResponse> updateBreakTypeAsync(
             final String id,
             final UpdateBreakTypeRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateBreakTypeRequest(id, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateBreakTypeResponse(context));
+        try { 
+            return prepareUpdateBreakTypeRequest(id, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateBreakType.
+     * Builds the ApiCall object for updateBreakType.
      */
-    private HttpRequest buildUpdateBreakTypeRequest(
+    private ApiCall<UpdateBreakTypeResponse, ApiException> prepareUpdateBreakTypeRequest(
             final String id,
-            final UpdateBreakTypeRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/break-types/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateBreakType.
-     * @return An object of type UpdateBreakTypeResponse
-     */
-    private UpdateBreakTypeResponse handleUpdateBreakTypeResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateBreakTypeResponse result = ApiHelper.deserialize(responseBody,
-                UpdateBreakTypeResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateBreakTypeRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateBreakTypeResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/break-types/{id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateBreakTypeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -587,13 +367,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String employeeId,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListEmployeeWagesRequest(employeeId, limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListEmployeeWagesResponse(context);
+        return prepareListEmployeeWagesRequest(employeeId, limit, cursor).execute();
     }
 
     /**
@@ -613,75 +387,42 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String employeeId,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListEmployeeWagesRequest(employeeId, limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListEmployeeWagesResponse(context));
+        try { 
+            return prepareListEmployeeWagesRequest(employeeId, limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listEmployeeWages.
+     * Builds the ApiCall object for listEmployeeWages.
      */
-    private HttpRequest buildListEmployeeWagesRequest(
+    private ApiCall<ListEmployeeWagesResponse, ApiException> prepareListEmployeeWagesRequest(
             final String employeeId,
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/employee-wages");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("employee_id", employeeId);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listEmployeeWages.
-     * @return An object of type ListEmployeeWagesResponse
-     */
-    private ListEmployeeWagesResponse handleListEmployeeWagesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListEmployeeWagesResponse result = ApiHelper.deserialize(responseBody,
-                ListEmployeeWagesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListEmployeeWagesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/employee-wages")
+                        .queryParam(param -> param.key("employee_id")
+                                .value(employeeId).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListEmployeeWagesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -696,13 +437,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     @Deprecated
     public GetEmployeeWageResponse getEmployeeWage(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildGetEmployeeWageRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetEmployeeWageResponse(context);
+        return prepareGetEmployeeWageRequest(id).execute();
     }
 
     /**
@@ -715,72 +450,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     @Deprecated
     public CompletableFuture<GetEmployeeWageResponse> getEmployeeWageAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildGetEmployeeWageRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetEmployeeWageResponse(context));
+        try { 
+            return prepareGetEmployeeWageRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getEmployeeWage.
+     * Builds the ApiCall object for getEmployeeWage.
      */
-    private HttpRequest buildGetEmployeeWageRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/employee-wages/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getEmployeeWage.
-     * @return An object of type GetEmployeeWageResponse
-     */
-    private GetEmployeeWageResponse handleGetEmployeeWageResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetEmployeeWageResponse result = ApiHelper.deserialize(responseBody,
-                GetEmployeeWageResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetEmployeeWageResponse, ApiException> prepareGetEmployeeWageRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<GetEmployeeWageResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/employee-wages/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetEmployeeWageResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -800,13 +499,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CreateShiftResponse createShift(
             final CreateShiftRequest body) throws ApiException, IOException {
-        HttpRequest request = buildCreateShiftRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleCreateShiftResponse(context);
+        return prepareCreateShiftRequest(body).execute();
     }
 
     /**
@@ -824,68 +517,38 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<CreateShiftResponse> createShiftAsync(
             final CreateShiftRequest body) {
-        return makeHttpCallAsync(() -> buildCreateShiftRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleCreateShiftResponse(context));
+        try { 
+            return prepareCreateShiftRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for createShift.
+     * Builds the ApiCall object for createShift.
      */
-    private HttpRequest buildCreateShiftRequest(
-            final CreateShiftRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/shifts");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for createShift.
-     * @return An object of type CreateShiftResponse
-     */
-    private CreateShiftResponse handleCreateShiftResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        CreateShiftResponse result = ApiHelper.deserialize(responseBody,
-                CreateShiftResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<CreateShiftResponse, ApiException> prepareCreateShiftRequest(
+            final CreateShiftRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateShiftResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/shifts")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateShiftResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -901,13 +564,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public SearchShiftsResponse searchShifts(
             final SearchShiftsRequest body) throws ApiException, IOException {
-        HttpRequest request = buildSearchShiftsRequest(body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleSearchShiftsResponse(context);
+        return prepareSearchShiftsRequest(body).execute();
     }
 
     /**
@@ -921,68 +578,38 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
             final SearchShiftsRequest body) {
-        return makeHttpCallAsync(() -> buildSearchShiftsRequest(body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleSearchShiftsResponse(context));
+        try { 
+            return prepareSearchShiftsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for searchShifts.
+     * Builds the ApiCall object for searchShifts.
      */
-    private HttpRequest buildSearchShiftsRequest(
-            final SearchShiftsRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/shifts/search");
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().postBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for searchShifts.
-     * @return An object of type SearchShiftsResponse
-     */
-    private SearchShiftsResponse handleSearchShiftsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        SearchShiftsResponse result = ApiHelper.deserialize(responseBody,
-                SearchShiftsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<SearchShiftsResponse, ApiException> prepareSearchShiftsRequest(
+            final SearchShiftsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<SearchShiftsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/shifts/search")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SearchShiftsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -994,13 +621,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public DeleteShiftResponse deleteShift(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildDeleteShiftRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleDeleteShiftResponse(context);
+        return prepareDeleteShiftRequest(id).execute();
     }
 
     /**
@@ -1010,72 +631,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<DeleteShiftResponse> deleteShiftAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildDeleteShiftRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleDeleteShiftResponse(context));
+        try { 
+            return prepareDeleteShiftRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for deleteShift.
+     * Builds the ApiCall object for deleteShift.
      */
-    private HttpRequest buildDeleteShiftRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/shifts/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().delete(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for deleteShift.
-     * @return An object of type DeleteShiftResponse
-     */
-    private DeleteShiftResponse handleDeleteShiftResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        DeleteShiftResponse result = ApiHelper.deserialize(responseBody,
-                DeleteShiftResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<DeleteShiftResponse, ApiException> prepareDeleteShiftRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<DeleteShiftResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/shifts/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteShiftResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1087,13 +672,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public GetShiftResponse getShift(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildGetShiftRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetShiftResponse(context);
+        return prepareGetShiftRequest(id).execute();
     }
 
     /**
@@ -1103,72 +682,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<GetShiftResponse> getShiftAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildGetShiftRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetShiftResponse(context));
+        try { 
+            return prepareGetShiftRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getShift.
+     * Builds the ApiCall object for getShift.
      */
-    private HttpRequest buildGetShiftRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/shifts/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getShift.
-     * @return An object of type GetShiftResponse
-     */
-    private GetShiftResponse handleGetShiftResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetShiftResponse result = ApiHelper.deserialize(responseBody,
-                GetShiftResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetShiftResponse, ApiException> prepareGetShiftRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<GetShiftResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/shifts/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetShiftResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1186,13 +729,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public UpdateShiftResponse updateShift(
             final String id,
             final UpdateShiftRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateShiftRequest(id, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateShiftResponse(context);
+        return prepareUpdateShiftRequest(id, body).execute();
     }
 
     /**
@@ -1208,75 +745,41 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public CompletableFuture<UpdateShiftResponse> updateShiftAsync(
             final String id,
             final UpdateShiftRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateShiftRequest(id, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateShiftResponse(context));
+        try { 
+            return prepareUpdateShiftRequest(id, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateShift.
+     * Builds the ApiCall object for updateShift.
      */
-    private HttpRequest buildUpdateShiftRequest(
+    private ApiCall<UpdateShiftResponse, ApiException> prepareUpdateShiftRequest(
             final String id,
-            final UpdateShiftRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/shifts/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for updateShift.
-     * @return An object of type UpdateShiftResponse
-     */
-    private UpdateShiftResponse handleUpdateShiftResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateShiftResponse result = ApiHelper.deserialize(responseBody,
-                UpdateShiftResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final UpdateShiftRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateShiftResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/shifts/{id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateShiftResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1295,13 +798,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String teamMemberId,
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListTeamMemberWagesRequest(teamMemberId, limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListTeamMemberWagesResponse(context);
+        return prepareListTeamMemberWagesRequest(teamMemberId, limit, cursor).execute();
     }
 
     /**
@@ -1318,75 +815,42 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
             final String teamMemberId,
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListTeamMemberWagesRequest(teamMemberId, limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListTeamMemberWagesResponse(context));
+        try { 
+            return prepareListTeamMemberWagesRequest(teamMemberId, limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listTeamMemberWages.
+     * Builds the ApiCall object for listTeamMemberWages.
      */
-    private HttpRequest buildListTeamMemberWagesRequest(
+    private ApiCall<ListTeamMemberWagesResponse, ApiException> prepareListTeamMemberWagesRequest(
             final String teamMemberId,
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/team-member-wages");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("team_member_id", teamMemberId);
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listTeamMemberWages.
-     * @return An object of type ListTeamMemberWagesResponse
-     */
-    private ListTeamMemberWagesResponse handleListTeamMemberWagesResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListTeamMemberWagesResponse result = ApiHelper.deserialize(responseBody,
-                ListTeamMemberWagesResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListTeamMemberWagesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/team-member-wages")
+                        .queryParam(param -> param.key("team_member_id")
+                                .value(teamMemberId).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListTeamMemberWagesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1398,13 +862,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public GetTeamMemberWageResponse getTeamMemberWage(
             final String id) throws ApiException, IOException {
-        HttpRequest request = buildGetTeamMemberWageRequest(id);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleGetTeamMemberWageResponse(context);
+        return prepareGetTeamMemberWageRequest(id).execute();
     }
 
     /**
@@ -1414,72 +872,36 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
      */
     public CompletableFuture<GetTeamMemberWageResponse> getTeamMemberWageAsync(
             final String id) {
-        return makeHttpCallAsync(() -> buildGetTeamMemberWageRequest(id),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleGetTeamMemberWageResponse(context));
+        try { 
+            return prepareGetTeamMemberWageRequest(id).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for getTeamMemberWage.
+     * Builds the ApiCall object for getTeamMemberWage.
      */
-    private HttpRequest buildGetTeamMemberWageRequest(
-            final String id) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/team-member-wages/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, null, null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for getTeamMemberWage.
-     * @return An object of type GetTeamMemberWageResponse
-     */
-    private GetTeamMemberWageResponse handleGetTeamMemberWageResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        GetTeamMemberWageResponse result = ApiHelper.deserialize(responseBody,
-                GetTeamMemberWageResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+    private ApiCall<GetTeamMemberWageResponse, ApiException> prepareGetTeamMemberWageRequest(
+            final String id) throws IOException {
+        return new ApiCall.Builder<GetTeamMemberWageResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/team-member-wages/{id}")
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetTeamMemberWageResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1495,13 +917,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public ListWorkweekConfigsResponse listWorkweekConfigs(
             final Integer limit,
             final String cursor) throws ApiException, IOException {
-        HttpRequest request = buildListWorkweekConfigsRequest(limit, cursor);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleListWorkweekConfigsResponse(context);
+        return prepareListWorkweekConfigsRequest(limit, cursor).execute();
     }
 
     /**
@@ -1515,73 +931,39 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public CompletableFuture<ListWorkweekConfigsResponse> listWorkweekConfigsAsync(
             final Integer limit,
             final String cursor) {
-        return makeHttpCallAsync(() -> buildListWorkweekConfigsRequest(limit, cursor),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleListWorkweekConfigsResponse(context));
+        try { 
+            return prepareListWorkweekConfigsRequest(limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for listWorkweekConfigs.
+     * Builds the ApiCall object for listWorkweekConfigs.
      */
-    private HttpRequest buildListWorkweekConfigsRequest(
+    private ApiCall<ListWorkweekConfigsResponse, ApiException> prepareListWorkweekConfigsRequest(
             final Integer limit,
-            final String cursor) {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/workweek-configs");
-
-        //load all query parameters
-        Map<String, Object> queryParameters = new HashMap<>();
-        queryParameters.put("limit", limit);
-        queryParameters.put("cursor", cursor);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        HttpRequest request = getClientInstance().get(queryBuilder, headers, queryParameters,
-                null);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
-    }
-
-    /**
-     * Processes the response for listWorkweekConfigs.
-     * @return An object of type ListWorkweekConfigsResponse
-     */
-    private ListWorkweekConfigsResponse handleListWorkweekConfigsResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        ListWorkweekConfigsResponse result = ApiHelper.deserialize(responseBody,
-                ListWorkweekConfigsResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListWorkweekConfigsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/workweek-configs")
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListWorkweekConfigsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -1596,13 +978,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public UpdateWorkweekConfigResponse updateWorkweekConfig(
             final String id,
             final UpdateWorkweekConfigRequest body) throws ApiException, IOException {
-        HttpRequest request = buildUpdateWorkweekConfigRequest(id, body);
-        authManagers.get("global").apply(request);
-
-        HttpResponse response = getClientInstance().execute(request, false);
-        HttpContext context = new HttpContext(request, response);
-
-        return handleUpdateWorkweekConfigResponse(context);
+        return prepareUpdateWorkweekConfigRequest(id, body).execute();
     }
 
     /**
@@ -1615,75 +991,40 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     public CompletableFuture<UpdateWorkweekConfigResponse> updateWorkweekConfigAsync(
             final String id,
             final UpdateWorkweekConfigRequest body) {
-        return makeHttpCallAsync(() -> buildUpdateWorkweekConfigRequest(id, body),
-            req -> authManagers.get("global").applyAsync(req)
-                .thenCompose(request -> getClientInstance()
-                        .executeAsync(request, false)),
-            context -> handleUpdateWorkweekConfigResponse(context));
+        try { 
+            return prepareUpdateWorkweekConfigRequest(id, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
     }
 
     /**
-     * Builds the HttpRequest object for updateWorkweekConfig.
+     * Builds the ApiCall object for updateWorkweekConfig.
      */
-    private HttpRequest buildUpdateWorkweekConfigRequest(
+    private ApiCall<UpdateWorkweekConfigResponse, ApiException> prepareUpdateWorkweekConfigRequest(
             final String id,
-            final UpdateWorkweekConfigRequest body) throws JsonProcessingException {
-        //the base uri for api requests
-        String baseUri = config.getBaseUri();
-
-        //prepare query string for API call
-        final StringBuilder queryBuilder = new StringBuilder(baseUri
-                + "/v2/labor/workweek-configs/{id}");
-
-        //process template parameters
-        Map<String, SimpleEntry<Object, Boolean>> templateParameters = new HashMap<>();
-        templateParameters.put("id",
-                new SimpleEntry<Object, Boolean>(id, true));
-        ApiHelper.appendUrlWithTemplateParameters(queryBuilder, templateParameters);
-
-        //load all headers for the outgoing API request
-        Headers headers = new Headers();
-        headers.add("Content-Type", "application/json");
-        headers.add("Square-Version", config.getSquareVersion());
-        headers.add("user-agent", internalUserAgent);
-        headers.add("accept", "application/json");
-        headers.addAll(config.getAdditionalHeaders());
-
-        //prepare and invoke the API call request to fetch the response
-        String bodyJson = ApiHelper.serialize(body);
-        HttpRequest request = getClientInstance().putBody(queryBuilder, headers, null, bodyJson);
-
-        // Invoke the callback before request if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onBeforeRequest(request);
-        }
-
-        return request;
+            final UpdateWorkweekConfigRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateWorkweekConfigResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/labor/workweek-configs/{id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("id").value(id)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateWorkweekConfigResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
-
-    /**
-     * Processes the response for updateWorkweekConfig.
-     * @return An object of type UpdateWorkweekConfigResponse
-     */
-    private UpdateWorkweekConfigResponse handleUpdateWorkweekConfigResponse(
-            HttpContext context) throws ApiException, IOException {
-        HttpResponse response = context.getResponse();
-
-        //invoke the callback after response if its not null
-        if (getHttpCallback() != null) {
-            getHttpCallback().onAfterResponse(context);
-        }
-
-        //handle errors defined at the API level
-        validateResponse(response, context);
-
-        //extract result from the http response
-        String responseBody = ((HttpStringResponse) response).getBody();
-        UpdateWorkweekConfigResponse result = ApiHelper.deserialize(responseBody,
-                UpdateWorkweekConfigResponse.class);
-
-        result = result.toBuilder().httpContext(context).build();
-        return result;
-    }
-
 }
