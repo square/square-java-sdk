@@ -112,15 +112,17 @@ CompletableFuture<CreateWebhookSubscriptionResponse> createWebhookSubscriptionAs
 ## Example Usage
 
 ```java
-List<String> bodySubscriptionEventTypes = new LinkedList<>();
-bodySubscriptionEventTypes.add("payment.created");
-bodySubscriptionEventTypes.add("payment.updated");
-WebhookSubscription webhookSubscription = new WebhookSubscription.Builder()
+List<String> eventTypes = new LinkedList<>();
+eventTypes.add("payment.created");
+eventTypes.add("payment.updated");
+
+WebhookSubscription subscription = new WebhookSubscription.Builder()
     .name("Example Webhook Subscription")
-    .eventTypes(webhookSubscriptionEventTypes)
+    .eventTypes(eventTypes)
     .notificationUrl("https://example-webhook-url.com")
     .apiVersion("2021-12-15")
     .build();
+
 CreateWebhookSubscriptionRequest body = new CreateWebhookSubscriptionRequest.Builder(
         subscription)
     .idempotencyKey("63f84c6c-2200-4c99-846c-2670a1311fbf")
@@ -226,12 +228,13 @@ CompletableFuture<UpdateWebhookSubscriptionResponse> updateWebhookSubscriptionAs
 
 ```java
 String subscriptionId = "subscription_id0";
-WebhookSubscription webhookSubscription = new WebhookSubscription.Builder()
+WebhookSubscription subscription = new WebhookSubscription.Builder()
     .name("Updated Example Webhook Subscription")
     .enabled(false)
     .build();
+
 UpdateWebhookSubscriptionRequest body = new UpdateWebhookSubscriptionRequest.Builder()
-    .subscription(bodySubscription)
+    .subscription(subscription)
     .build();
 
 webhookSubscriptionsApi.updateWebhookSubscriptionAsync(subscriptionId, body).thenAccept(result -> {

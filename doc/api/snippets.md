@@ -122,6 +122,7 @@ String siteId = "site_id6";
 Snippet snippet = new Snippet.Builder(
         "<script>var js = 1;</script>")
     .build();
+
 UpsertSnippetRequest body = new UpsertSnippetRequest.Builder(
         snippet)
     .build();

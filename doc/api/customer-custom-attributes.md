@@ -98,6 +98,7 @@ CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinit
     .description("The favorite movie of the customer.")
     .visibility("VISIBILITY_HIDDEN")
     .build();
+
 CreateCustomerCustomAttributeDefinitionRequest body = new CreateCustomerCustomAttributeDefinitionRequest.Builder(
         customAttributeDefinition)
     .build();
@@ -223,6 +224,7 @@ CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinit
     .description("Update the description as desired.")
     .visibility("VISIBILITY_READ_ONLY")
     .build();
+
 UpdateCustomerCustomAttributeDefinitionRequest body = new UpdateCustomerCustomAttributeDefinitionRequest.Builder(
         customAttributeDefinition)
     .build();
@@ -271,47 +273,12 @@ CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomer
 ## Example Usage
 
 ```java
-Map<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> bodyValues = new LinkedHashMap<>();
-
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest bodyValues0 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        null,
-        customAttribute)
-    .build();
-bodyValues.put("",bodyValues0);
-
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest bodyValues1 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        null,
-        customAttribute)
-    .build();
-bodyValues.put("",bodyValues1);
-
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest bodyValues2 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        null,
-        customAttribute)
-    .build();
-bodyValues.put("",bodyValues2);
-
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest bodyValues3 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        null,
-        customAttribute)
-    .build();
-bodyValues.put("",bodyValues3);
-
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest bodyValues4 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        null,
-        customAttribute)
-    .build();
-bodyValues.put("",bodyValues4);
+Map<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
+values.put("", values0);
+values.put("", values1);
+values.put("", values2);
+values.put("", values3);
+values.put("", values4);
 
 BulkUpsertCustomerCustomAttributesRequest body = new BulkUpsertCustomerCustomAttributesRequest.Builder(
         values)
@@ -500,6 +467,7 @@ String key = "key0";
 CustomAttribute customAttribute = new CustomAttribute.Builder()
     .value(JsonValue.fromObject("\"Dune\""))
     .build();
+
 UpsertCustomerCustomAttributeRequest body = new UpsertCustomerCustomAttributeRequest.Builder(
         customAttribute)
     .build();

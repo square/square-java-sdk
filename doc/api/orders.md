@@ -48,89 +48,92 @@ CompletableFuture<CreateOrderResponse> createOrderAsync(
 ## Example Usage
 
 ```java
-List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
-
-Money money = new Money.Builder()
+List<OrderLineItem> lineItems = new LinkedList<>();
+Money basePriceMoney = new Money.Builder()
     .amount(1599L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "1")
     .name("New York Strip Steak")
-    .basePriceMoney(bodyOrderLineItems0BasePriceMoney)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems0);
 
-List<OrderLineItemModifier> bodyOrderLineItems1Modifiers = new LinkedList<>();
-
-OrderLineItemModifier bodyOrderLineItems1Modifiers0 = new OrderLineItemModifier.Builder()
+lineItems.add(lineItems0);
+List<OrderLineItemModifier> modifiers = new LinkedList<>();
+OrderLineItemModifier modifiers0 = new OrderLineItemModifier.Builder()
     .catalogObjectId("CHQX7Y4KY6N5KINJKZCFURPZ")
     .build();
-bodyOrderLineItems1Modifiers.add(bodyOrderLineItems1Modifiers0);
 
-List<OrderLineItemAppliedDiscount> bodyOrderLineItems1AppliedDiscounts = new LinkedList<>();
+modifiers.add(modifiers0);
 
-OrderLineItemAppliedDiscount bodyOrderLineItems1AppliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
+List<OrderLineItemAppliedDiscount> appliedDiscounts = new LinkedList<>();
+OrderLineItemAppliedDiscount appliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
         "one-dollar-off")
     .build();
-bodyOrderLineItems1AppliedDiscounts.add(bodyOrderLineItems1AppliedDiscounts0);
 
-OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(
+appliedDiscounts.add(appliedDiscounts0);
+
+OrderLineItem lineItems1 = new OrderLineItem.Builder(
         "2")
     .catalogObjectId("BEMYCSMIJL46OCDV4KYIKXIB")
-    .modifiers(bodyOrderLineItems1Modifiers)
-    .appliedDiscounts(bodyOrderLineItems1AppliedDiscounts)
+    .modifiers(modifiers)
+    .appliedDiscounts(appliedDiscounts)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems1);
 
-List<OrderLineItemTax> bodyOrderTaxes = new LinkedList<>();
+lineItems.add(lineItems1);
 
-OrderLineItemTax bodyOrderTaxes0 = new OrderLineItemTax.Builder()
+List<OrderLineItemTax> taxes = new LinkedList<>();
+OrderLineItemTax taxes0 = new OrderLineItemTax.Builder()
     .uid("state-sales-tax")
     .name("State Sales Tax")
     .percentage("9")
     .scope("ORDER")
     .build();
-bodyOrderTaxes.add(bodyOrderTaxes0);
 
-List<OrderLineItemDiscount> bodyOrderDiscounts = new LinkedList<>();
+taxes.add(taxes0);
 
-OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
+List<OrderLineItemDiscount> discounts = new LinkedList<>();
+OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
     .uid("labor-day-sale")
     .name("Labor Day Sale")
     .percentage("5")
     .scope("ORDER")
     .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts0);
 
-OrderLineItemDiscount bodyOrderDiscounts1 = new OrderLineItemDiscount.Builder()
+discounts.add(discounts0);
+OrderLineItemDiscount discounts1 = new OrderLineItemDiscount.Builder()
     .uid("membership-discount")
     .catalogObjectId("DB7L55ZH2BGWI4H23ULIWOQ7")
     .scope("ORDER")
     .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts1);
 
-Money money = new Money.Builder()
+discounts.add(discounts1);
+Money amountMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
-OrderLineItemDiscount bodyOrderDiscounts2 = new OrderLineItemDiscount.Builder()
+
+OrderLineItemDiscount discounts2 = new OrderLineItemDiscount.Builder()
     .uid("one-dollar-off")
     .name("Sale - $1.00 off")
-    .amountMoney(bodyOrderDiscounts2AmountMoney)
+    .amountMoney(amountMoney)
     .scope("LINE_ITEM")
     .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts2);
+
+discounts.add(discounts2);
 
 Order order = new Order.Builder(
         "057P5VYJ4A5X1")
     .referenceId("my-order-001")
-    .lineItems(orderLineItems)
-    .taxes(orderTaxes)
-    .discounts(orderDiscounts)
+    .lineItems(lineItems)
+    .taxes(taxes)
+    .discounts(discounts)
     .build();
+
 CreateOrderRequest body = new CreateOrderRequest.Builder()
-    .order(bodyOrder)
+    .order(order)
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
     .build();
 
@@ -167,11 +170,12 @@ CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
 ## Example Usage
 
 ```java
-List<String> bodyOrderIds = new LinkedList<>();
-bodyOrderIds.add("CAISEM82RcpmcFBM0TfOyiHV3es");
-bodyOrderIds.add("CAISENgvlJ6jLWAzERDzjyHVybY");
+List<String> orderIds = new LinkedList<>();
+orderIds.add("CAISEM82RcpmcFBM0TfOyiHV3es");
+orderIds.add("CAISENgvlJ6jLWAzERDzjyHVybY");
+
 BatchRetrieveOrdersRequest body = new BatchRetrieveOrdersRequest.Builder(
-        bodyOrderIds)
+        orderIds)
     .locationId("057P5VYJ4A5X1")
     .build();
 
@@ -206,44 +210,47 @@ CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
 ## Example Usage
 
 ```java
-List<OrderLineItem> bodyOrderLineItems = new LinkedList<>();
-
-Money money = new Money.Builder()
+List<OrderLineItem> lineItems = new LinkedList<>();
+Money basePriceMoney = new Money.Builder()
     .amount(500L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderLineItems0 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "1")
     .name("Item 1")
-    .basePriceMoney(bodyOrderLineItems0BasePriceMoney)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems0);
 
-Money money = new Money.Builder()
+lineItems.add(lineItems0);
+Money basePriceMoney = new Money.Builder()
     .amount(300L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderLineItems1 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems1 = new OrderLineItem.Builder(
         "2")
     .name("Item 2")
-    .basePriceMoney(bodyOrderLineItems1BasePriceMoney)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderLineItems.add(bodyOrderLineItems1);
 
-List<OrderLineItemDiscount> bodyOrderDiscounts = new LinkedList<>();
+lineItems.add(lineItems1);
 
-OrderLineItemDiscount bodyOrderDiscounts0 = new OrderLineItemDiscount.Builder()
+List<OrderLineItemDiscount> discounts = new LinkedList<>();
+OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
     .name("50% Off")
     .percentage("50")
     .scope("ORDER")
     .build();
-bodyOrderDiscounts.add(bodyOrderDiscounts0);
+
+discounts.add(discounts0);
 
 Order order = new Order.Builder(
         "D7AVYMEAPJ3A3")
-    .lineItems(orderLineItems)
-    .discounts(orderDiscounts)
+    .lineItems(lineItems)
+    .discounts(discounts)
     .build();
+
 CalculateOrderRequest body = new CalculateOrderRequest.Builder(
         order)
     .build();
@@ -333,36 +340,44 @@ CompletableFuture<SearchOrdersResponse> searchOrdersAsync(
 ## Example Usage
 
 ```java
-List<String> bodyLocationIds = new LinkedList<>();
-bodyLocationIds.add("057P5VYJ4A5X1");
-bodyLocationIds.add("18YC4JDH91E1H");
-List<String> bodyQueryFilterStateFilterStates = new LinkedList<>();
-bodyQueryFilterStateFilterStates.add("COMPLETED");
-SearchOrdersStateFilter searchOrdersStateFilter = new SearchOrdersStateFilter.Builder(
-        searchOrdersStateFilterStates)
+List<String> locationIds = new LinkedList<>();
+locationIds.add("057P5VYJ4A5X1");
+locationIds.add("18YC4JDH91E1H");
+
+List<String> states = new LinkedList<>();
+states.add("COMPLETED");
+
+SearchOrdersStateFilter stateFilter = new SearchOrdersStateFilter.Builder(
+        states)
     .build();
-TimeRange timeRange = new TimeRange.Builder()
+
+TimeRange closedAt = new TimeRange.Builder()
     .startAt("2018-03-03T20:00:00+00:00")
     .endAt("2019-03-04T21:54:45+00:00")
     .build();
-SearchOrdersDateTimeFilter searchOrdersDateTimeFilter = new SearchOrdersDateTimeFilter.Builder()
-    .closedAt(searchOrdersDateTimeFilterClosedAt)
+
+SearchOrdersDateTimeFilter dateTimeFilter = new SearchOrdersDateTimeFilter.Builder()
+    .closedAt(closedAt)
     .build();
-SearchOrdersFilter searchOrdersFilter = new SearchOrdersFilter.Builder()
-    .stateFilter(searchOrdersFilterStateFilter)
-    .dateTimeFilter(searchOrdersFilterDateTimeFilter)
+
+SearchOrdersFilter filter = new SearchOrdersFilter.Builder()
+    .stateFilter(stateFilter)
+    .dateTimeFilter(dateTimeFilter)
     .build();
-SearchOrdersSort searchOrdersSort = new SearchOrdersSort.Builder(
+
+SearchOrdersSort sort = new SearchOrdersSort.Builder(
         "CLOSED_AT")
     .sortOrder("DESC")
     .build();
-SearchOrdersQuery searchOrdersQuery = new SearchOrdersQuery.Builder()
-    .filter(searchOrdersQueryFilter)
-    .sort(searchOrdersQuerySort)
+
+SearchOrdersQuery query = new SearchOrdersQuery.Builder()
+    .filter(filter)
+    .sort(sort)
     .build();
+
 SearchOrdersRequest body = new SearchOrdersRequest.Builder()
-    .locationIds(bodyLocationIds)
-    .query(bodyQuery)
+    .locationIds(locationIds)
+    .query(query)
     .limit(3)
     .returnEntries(true)
     .build();
@@ -498,12 +513,13 @@ CompletableFuture<PayOrderResponse> payOrderAsync(
 
 ```java
 String orderId = "order_id6";
-List<String> bodyPaymentIds = new LinkedList<>();
-bodyPaymentIds.add("EnZdNAlWCmfh6Mt5FMNST1o7taB");
-bodyPaymentIds.add("0LRiVlbXVwe8ozu4KbZxd12mvaB");
+List<String> paymentIds = new LinkedList<>();
+paymentIds.add("EnZdNAlWCmfh6Mt5FMNST1o7taB");
+paymentIds.add("0LRiVlbXVwe8ozu4KbZxd12mvaB");
+
 PayOrderRequest body = new PayOrderRequest.Builder(
         "c043a359-7ad9-4136-82a9-c3f1d66dcbff")
-    .paymentIds(bodyPaymentIds)
+    .paymentIds(paymentIds)
     .build();
 
 ordersApi.payOrderAsync(orderId, body).thenAccept(result -> {

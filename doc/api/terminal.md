@@ -50,12 +50,14 @@ SaveCardOptions saveCardOptions = new SaveCardOptions.Builder(
         "{{CUSTOMER_ID}}")
     .referenceId("user-id-1")
     .build();
-TerminalAction terminalAction = new TerminalAction.Builder()
+
+TerminalAction action = new TerminalAction.Builder()
     .deviceId("{{DEVICE_ID}}")
     .deadlineDuration("PT5M")
     .type("SAVE_CARD")
-    .saveCardOptions(terminalActionSaveCardOptions)
+    .saveCardOptions(saveCardOptions)
     .build();
+
 CreateTerminalActionRequest body = new CreateTerminalActionRequest.Builder(
         "thahn-70e75c10-47f7-4ab6-88cc-aaa4076d065e",
         action)
@@ -92,21 +94,25 @@ CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
 ## Example Usage
 
 ```java
-TimeRange timeRange = new TimeRange.Builder()
+TimeRange createdAt = new TimeRange.Builder()
     .startAt("2022-04-01T00:00:00Z")
     .build();
-TerminalActionQueryFilter terminalActionQueryFilter = new TerminalActionQueryFilter.Builder()
-    .createdAt(terminalActionQueryFilterCreatedAt)
+
+TerminalActionQueryFilter filter = new TerminalActionQueryFilter.Builder()
+    .createdAt(createdAt)
     .build();
-TerminalActionQuerySort terminalActionQuerySort = new TerminalActionQuerySort.Builder()
+
+TerminalActionQuerySort sort = new TerminalActionQuerySort.Builder()
     .sortOrder("DESC")
     .build();
-TerminalActionQuery terminalActionQuery = new TerminalActionQuery.Builder()
-    .filter(terminalActionQueryFilter)
-    .sort(terminalActionQuerySort)
+
+TerminalActionQuery query = new TerminalActionQuery.Builder()
+    .filter(filter)
+    .sort(sort)
     .build();
+
 SearchTerminalActionsRequest body = new SearchTerminalActionsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(2)
     .build();
 
@@ -208,19 +214,22 @@ CompletableFuture<CreateTerminalCheckoutResponse> createTerminalCheckoutAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money amountMoney = new Money.Builder()
     .amount(2610L)
     .currency("USD")
     .build();
-DeviceCheckoutOptions deviceCheckoutOptions = new DeviceCheckoutOptions.Builder(
+
+DeviceCheckoutOptions deviceOptions = new DeviceCheckoutOptions.Builder(
         "dbb5d83a-7838-11ea-bc55-0242ac130003")
     .build();
-TerminalCheckout terminalCheckout = new TerminalCheckout.Builder(
+
+TerminalCheckout checkout = new TerminalCheckout.Builder(
         amountMoney,
         deviceOptions)
     .referenceId("id11572")
     .note("A brief note")
     .build();
+
 CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
         "28a0c3bc-7839-11ea-bc55-0242ac130003",
         checkout)
@@ -257,14 +266,16 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 ## Example Usage
 
 ```java
-TerminalCheckoutQueryFilter terminalCheckoutQueryFilter = new TerminalCheckoutQueryFilter.Builder()
+TerminalCheckoutQueryFilter filter = new TerminalCheckoutQueryFilter.Builder()
     .status("COMPLETED")
     .build();
-TerminalCheckoutQuery terminalCheckoutQuery = new TerminalCheckoutQuery.Builder()
-    .filter(terminalCheckoutQueryFilter)
+
+TerminalCheckoutQuery query = new TerminalCheckoutQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchTerminalCheckoutsRequest body = new SearchTerminalCheckoutsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(2)
     .build();
 
@@ -365,19 +376,21 @@ CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money amountMoney = new Money.Builder()
     .amount(111L)
     .currency("CAD")
     .build();
-TerminalRefund terminalRefund = new TerminalRefund.Builder(
+
+TerminalRefund refund = new TerminalRefund.Builder(
         "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
         amountMoney,
         "Returning items",
         "f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
     .build();
+
 CreateTerminalRefundRequest body = new CreateTerminalRefundRequest.Builder(
         "402a640b-b26f-401f-b406-46f839590c04")
-    .refund(bodyRefund)
+    .refund(refund)
     .build();
 
 terminalApi.createTerminalRefundAsync(body).thenAccept(result -> {
@@ -411,14 +424,16 @@ CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
 ## Example Usage
 
 ```java
-TerminalRefundQueryFilter terminalRefundQueryFilter = new TerminalRefundQueryFilter.Builder()
+TerminalRefundQueryFilter filter = new TerminalRefundQueryFilter.Builder()
     .status("COMPLETED")
     .build();
-TerminalRefundQuery terminalRefundQuery = new TerminalRefundQuery.Builder()
-    .filter(terminalRefundQueryFilter)
+
+TerminalRefundQuery query = new TerminalRefundQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchTerminalRefundsRequest body = new SearchTerminalRefundsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(1)
     .build();
 

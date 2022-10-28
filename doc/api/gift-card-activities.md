@@ -86,16 +86,18 @@ CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
 ## Example Usage
 
 ```java
-GiftCardActivityActivate giftCardActivityActivate = new GiftCardActivityActivate.Builder()
+GiftCardActivityActivate activateActivityDetails = new GiftCardActivityActivate.Builder()
     .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
     .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
     .build();
+
 GiftCardActivity giftCardActivity = new GiftCardActivity.Builder(
         "ACTIVATE",
         "81FN9BNFZTKS4")
     .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
-    .activateActivityDetails(giftCardActivityActivateActivityDetails)
+    .activateActivityDetails(activateActivityDetails)
     .build();
+
 CreateGiftCardActivityRequest body = new CreateGiftCardActivityRequest.Builder(
         "U16kfr-kA70er-q4Rsym-7U7NnY",
         giftCardActivity)

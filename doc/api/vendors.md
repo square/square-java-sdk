@@ -41,15 +41,9 @@ CompletableFuture<BulkCreateVendorsResponse> bulkCreateVendorsAsync(
 ## Example Usage
 
 ```java
-Map<String, Vendor> bodyVendors = new LinkedHashMap<>();
-
-Vendor bodyVendors0 = new Vendor.Builder()
-    .build();
-bodyVendors.put("",bodyVendors0);
-
-Vendor bodyVendors1 = new Vendor.Builder()
-    .build();
-bodyVendors.put("",bodyVendors1);
+Map<String, Vendor> vendors = new LinkedHashMap<>();
+vendors.put("", vendors0);
+vendors.put("", vendors1);
 
 BulkCreateVendorsRequest body = new BulkCreateVendorsRequest.Builder(
         vendors)
@@ -86,10 +80,11 @@ CompletableFuture<BulkRetrieveVendorsResponse> bulkRetrieveVendorsAsync(
 ## Example Usage
 
 ```java
-List<String> bodyVendorIds = new LinkedList<>();
-bodyVendorIds.add("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4");
+List<String> vendorIds = new LinkedList<>();
+vendorIds.add("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4");
+
 BulkRetrieveVendorsRequest body = new BulkRetrieveVendorsRequest.Builder()
-    .vendorIds(bodyVendorIds)
+    .vendorIds(vendorIds)
     .build();
 
 vendorsApi.bulkRetrieveVendorsAsync(body).thenAccept(result -> {
@@ -123,21 +118,9 @@ CompletableFuture<BulkUpdateVendorsResponse> bulkUpdateVendorsAsync(
 ## Example Usage
 
 ```java
-Map<String, UpdateVendorRequest> bodyVendors = new LinkedHashMap<>();
-
-Vendor vendor = new Vendor.Builder()
-    .build();
-UpdateVendorRequest bodyVendors0 = new UpdateVendorRequest.Builder(
-        vendor)
-    .build();
-bodyVendors.put("",bodyVendors0);
-
-Vendor vendor = new Vendor.Builder()
-    .build();
-UpdateVendorRequest bodyVendors1 = new UpdateVendorRequest.Builder(
-        vendor)
-    .build();
-bodyVendors.put("",bodyVendors1);
+Map<String, UpdateVendorRequest> vendors = new LinkedHashMap<>();
+vendors.put("", vendors0);
+vendors.put("", vendors1);
 
 BulkUpdateVendorsRequest body = new BulkUpdateVendorsRequest.Builder(
         vendors)
@@ -284,10 +267,12 @@ Vendor vendor = new Vendor.Builder()
     .version(1)
     .status("ACTIVE")
     .build();
+
 UpdateVendorRequest body = new UpdateVendorRequest.Builder(
         vendor)
     .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
     .build();
+
 String vendorId = "vendor_id8";
 
 vendorsApi.updateVendorAsync(body, vendorId).thenAccept(result -> {

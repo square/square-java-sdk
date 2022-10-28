@@ -52,94 +52,100 @@ CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
 
 ```java
 String locationId = "location_id4";
-List<OrderLineItem> bodyOrderOrderLineItems = new LinkedList<>();
-
-List<OrderLineItemAppliedTax> bodyOrderOrderLineItems0AppliedTaxes = new LinkedList<>();
-
-OrderLineItemAppliedTax bodyOrderOrderLineItems0AppliedTaxes0 = new OrderLineItemAppliedTax.Builder(
+List<OrderLineItem> lineItems = new LinkedList<>();
+List<OrderLineItemAppliedTax> appliedTaxes = new LinkedList<>();
+OrderLineItemAppliedTax appliedTaxes0 = new OrderLineItemAppliedTax.Builder(
         "38ze1696-z1e3-5628-af6d-f1e04d947fg3")
     .build();
-bodyOrderOrderLineItems0AppliedTaxes.add(bodyOrderOrderLineItems0AppliedTaxes0);
 
-List<OrderLineItemAppliedDiscount> bodyOrderOrderLineItems0AppliedDiscounts = new LinkedList<>();
+appliedTaxes.add(appliedTaxes0);
 
-OrderLineItemAppliedDiscount bodyOrderOrderLineItems0AppliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
+List<OrderLineItemAppliedDiscount> appliedDiscounts = new LinkedList<>();
+OrderLineItemAppliedDiscount appliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
         "56ae1696-z1e3-9328-af6d-f1e04d947gd4")
     .build();
-bodyOrderOrderLineItems0AppliedDiscounts.add(bodyOrderOrderLineItems0AppliedDiscounts0);
 
-Money money = new Money.Builder()
+appliedDiscounts.add(appliedDiscounts0);
+
+Money basePriceMoney = new Money.Builder()
     .amount(1500L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderOrderLineItems0 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "2")
     .name("Printed T Shirt")
-    .appliedTaxes(bodyOrderOrderLineItems0AppliedTaxes)
-    .appliedDiscounts(bodyOrderOrderLineItems0AppliedDiscounts)
-    .basePriceMoney(bodyOrderOrderLineItems0BasePriceMoney)
+    .appliedTaxes(appliedTaxes)
+    .appliedDiscounts(appliedDiscounts)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderOrderLineItems.add(bodyOrderOrderLineItems0);
 
-Money money = new Money.Builder()
+lineItems.add(lineItems0);
+Money basePriceMoney = new Money.Builder()
     .amount(2500L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderOrderLineItems1 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems1 = new OrderLineItem.Builder(
         "1")
     .name("Slim Jeans")
-    .basePriceMoney(bodyOrderOrderLineItems1BasePriceMoney)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderOrderLineItems.add(bodyOrderOrderLineItems1);
 
-Money money = new Money.Builder()
+lineItems.add(lineItems1);
+Money basePriceMoney = new Money.Builder()
     .amount(3500L)
     .currency("USD")
     .build();
-OrderLineItem bodyOrderOrderLineItems2 = new OrderLineItem.Builder(
+
+OrderLineItem lineItems2 = new OrderLineItem.Builder(
         "3")
     .name("Woven Sweater")
-    .basePriceMoney(bodyOrderOrderLineItems2BasePriceMoney)
+    .basePriceMoney(basePriceMoney)
     .build();
-bodyOrderOrderLineItems.add(bodyOrderOrderLineItems2);
 
-List<OrderLineItemTax> bodyOrderOrderTaxes = new LinkedList<>();
+lineItems.add(lineItems2);
 
-OrderLineItemTax bodyOrderOrderTaxes0 = new OrderLineItemTax.Builder()
+List<OrderLineItemTax> taxes = new LinkedList<>();
+OrderLineItemTax taxes0 = new OrderLineItemTax.Builder()
     .uid("38ze1696-z1e3-5628-af6d-f1e04d947fg3")
     .type("INCLUSIVE")
     .percentage("7.75")
     .scope("LINE_ITEM")
     .build();
-bodyOrderOrderTaxes.add(bodyOrderOrderTaxes0);
 
-List<OrderLineItemDiscount> bodyOrderOrderDiscounts = new LinkedList<>();
+taxes.add(taxes0);
 
-Money money = new Money.Builder()
+List<OrderLineItemDiscount> discounts = new LinkedList<>();
+Money amountMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
-OrderLineItemDiscount bodyOrderOrderDiscounts0 = new OrderLineItemDiscount.Builder()
+
+OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
     .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
     .type("FIXED_AMOUNT")
-    .amountMoney(bodyOrderOrderDiscounts0AmountMoney)
+    .amountMoney(amountMoney)
     .scope("LINE_ITEM")
     .build();
-bodyOrderOrderDiscounts.add(bodyOrderOrderDiscounts0);
+
+discounts.add(discounts0);
 
 Order order = new Order.Builder(
         "location_id")
     .referenceId("reference_id")
     .customerId("customer_id")
-    .lineItems(orderLineItems)
-    .taxes(orderTaxes)
-    .discounts(orderDiscounts)
+    .lineItems(lineItems)
+    .taxes(taxes)
+    .discounts(discounts)
     .build();
-CreateOrderRequest createOrderRequest = new CreateOrderRequest.Builder()
-    .order(createOrderRequestOrder)
+
+CreateOrderRequest order = new CreateOrderRequest.Builder()
+    .order(order)
     .idempotencyKey("12ae1696-z1e3-4328-af6d-f1e04d947gd4")
     .build();
-Address address = new Address.Builder()
+
+Address prePopulateShippingAddress = new Address.Builder()
     .addressLine1("1455 Market St.")
     .addressLine2("Suite 600")
     .locality("San Francisco")
@@ -149,18 +155,20 @@ Address address = new Address.Builder()
     .firstName("Jane")
     .lastName("Doe")
     .build();
-List<ChargeRequestAdditionalRecipient> bodyAdditionalRecipients = new LinkedList<>();
 
-Money money = new Money.Builder()
+List<ChargeRequestAdditionalRecipient> additionalRecipients = new LinkedList<>();
+Money amountMoney = new Money.Builder()
     .amount(60L)
     .currency("USD")
     .build();
-ChargeRequestAdditionalRecipient bodyAdditionalRecipients0 = new ChargeRequestAdditionalRecipient.Builder(
+
+ChargeRequestAdditionalRecipient additionalRecipients0 = new ChargeRequestAdditionalRecipient.Builder(
         "057P5VYJ4A5X1",
         "Application fees",
         amountMoney)
     .build();
-bodyAdditionalRecipients.add(bodyAdditionalRecipients0);
+
+additionalRecipients.add(additionalRecipients0);
 
 CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
         "86ae1696-b1e3-4328-af6d-f1e04d947ad6",
@@ -168,9 +176,9 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
     .askForShippingAddress(true)
     .merchantSupportEmail("merchant+support@website.com")
     .prePopulateBuyerEmail("example@email.com")
-    .prePopulateShippingAddress(bodyPrePopulateShippingAddress)
+    .prePopulateShippingAddress(prePopulateShippingAddress)
     .redirectUrl("https://merchant.website.com/order-confirm")
-    .additionalRecipients(bodyAdditionalRecipients)
+    .additionalRecipients(additionalRecipients)
     .build();
 
 checkoutApi.createCheckoutAsync(locationId, body).thenAccept(result -> {
@@ -237,18 +245,20 @@ CompletableFuture<CreatePaymentLinkResponse> createPaymentLinkAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money priceMoney = new Money.Builder()
     .amount(10000L)
     .currency("USD")
     .build();
+
 QuickPay quickPay = new QuickPay.Builder(
         "Auto Detailing",
         priceMoney,
         "A9Y43N9ABXZBP")
     .build();
+
 CreatePaymentLinkRequest body = new CreatePaymentLinkRequest.Builder()
     .idempotencyKey("cd9e25dc-d9f2-4430-aedb-61605070e95f")
-    .quickPay(bodyQuickPay)
+    .quickPay(quickPay)
     .build();
 
 checkoutApi.createPaymentLinkAsync(body).thenAccept(result -> {
@@ -356,10 +366,12 @@ String id = "id0";
 CheckoutOptions checkoutOptions = new CheckoutOptions.Builder()
     .askForShippingAddress(true)
     .build();
+
 PaymentLink paymentLink = new PaymentLink.Builder(
         1)
-    .checkoutOptions(paymentLinkCheckoutOptions)
+    .checkoutOptions(checkoutOptions)
     .build();
+
 UpdatePaymentLinkRequest body = new UpdatePaymentLinkRequest.Builder(
         paymentLink)
     .build();

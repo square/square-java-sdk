@@ -85,65 +85,68 @@ CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
 ## Example Usage
 
 ```java
-InvoiceRecipient invoiceRecipient = new InvoiceRecipient.Builder()
+InvoiceRecipient primaryRecipient = new InvoiceRecipient.Builder()
     .customerId("JDKYHBWT1D4F8MFH63DBMEN8Y4")
     .build();
-List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
 
-List<InvoicePaymentReminder> bodyInvoicePaymentRequests0Reminders = new LinkedList<>();
-
-InvoicePaymentReminder bodyInvoicePaymentRequests0Reminders0 = new InvoicePaymentReminder.Builder()
+List<InvoicePaymentRequest> paymentRequests = new LinkedList<>();
+List<InvoicePaymentReminder> reminders = new LinkedList<>();
+InvoicePaymentReminder reminders0 = new InvoicePaymentReminder.Builder()
     .relativeScheduledDays(-1)
     .message("Your invoice is due tomorrow")
     .build();
-bodyInvoicePaymentRequests0Reminders.add(bodyInvoicePaymentRequests0Reminders0);
 
-InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
+reminders.add(reminders0);
+
+InvoicePaymentRequest paymentRequests0 = new InvoicePaymentRequest.Builder()
     .requestType("BALANCE")
     .dueDate("2030-01-24")
     .tippingEnabled(true)
     .automaticPaymentSource("NONE")
-    .reminders(bodyInvoicePaymentRequests0Reminders)
+    .reminders(reminders)
     .build();
-bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
 
-InvoiceAcceptedPaymentMethods invoiceAcceptedPaymentMethods = new InvoiceAcceptedPaymentMethods.Builder()
+paymentRequests.add(paymentRequests0);
+
+InvoiceAcceptedPaymentMethods acceptedPaymentMethods = new InvoiceAcceptedPaymentMethods.Builder()
     .card(true)
     .squareGiftCard(false)
     .bankAccount(false)
     .buyNowPayLater(false)
     .build();
-List<InvoiceCustomField> bodyInvoiceCustomFields = new LinkedList<>();
 
-InvoiceCustomField bodyInvoiceCustomFields0 = new InvoiceCustomField.Builder()
+List<InvoiceCustomField> customFields = new LinkedList<>();
+InvoiceCustomField customFields0 = new InvoiceCustomField.Builder()
     .label("Event Reference Number")
     .value("Ref. #1234")
     .placement("ABOVE_LINE_ITEMS")
     .build();
-bodyInvoiceCustomFields.add(bodyInvoiceCustomFields0);
 
-InvoiceCustomField bodyInvoiceCustomFields1 = new InvoiceCustomField.Builder()
+customFields.add(customFields0);
+InvoiceCustomField customFields1 = new InvoiceCustomField.Builder()
     .label("Terms of Service")
     .value("The terms of service are...")
     .placement("BELOW_LINE_ITEMS")
     .build();
-bodyInvoiceCustomFields.add(bodyInvoiceCustomFields1);
+
+customFields.add(customFields1);
 
 Invoice invoice = new Invoice.Builder()
     .locationId("ES0RJRZYEC39A")
     .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
-    .primaryRecipient(invoicePrimaryRecipient)
-    .paymentRequests(invoicePaymentRequests)
+    .primaryRecipient(primaryRecipient)
+    .paymentRequests(paymentRequests)
     .deliveryMethod("EMAIL")
     .invoiceNumber("inv-100")
     .title("Event Planning Services")
     .description("We appreciate your business!")
     .scheduledAt("2030-01-13T10:00:00Z")
-    .acceptedPaymentMethods(invoiceAcceptedPaymentMethods)
-    .customFields(invoiceCustomFields)
+    .acceptedPaymentMethods(acceptedPaymentMethods)
+    .customFields(customFields)
     .saleOrServiceDate("2030-01-24")
     .storePaymentMethodEnabled(false)
     .build();
+
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
         invoice)
     .idempotencyKey("ce3748f9-5fc1-4762-aa12-aae5e843f1f4")
@@ -186,22 +189,27 @@ CompletableFuture<SearchInvoicesResponse> searchInvoicesAsync(
 ## Example Usage
 
 ```java
-List<String> bodyQueryFilterLocationIds = new LinkedList<>();
-bodyQueryFilterLocationIds.add("ES0RJRZYEC39A");
-List<String> bodyQueryFilterCustomerIds = new LinkedList<>();
-bodyQueryFilterCustomerIds.add("JDKYHBWT1D4F8MFH63DBMEN8Y4");
-InvoiceFilter invoiceFilter = new InvoiceFilter.Builder(
-        invoiceFilterLocationIds)
-    .customerIds(invoiceFilterCustomerIds)
+List<String> locationIds = new LinkedList<>();
+locationIds.add("ES0RJRZYEC39A");
+
+List<String> customerIds = new LinkedList<>();
+customerIds.add("JDKYHBWT1D4F8MFH63DBMEN8Y4");
+
+InvoiceFilter filter = new InvoiceFilter.Builder(
+        locationIds)
+    .customerIds(customerIds)
     .build();
-InvoiceSort invoiceSort = new InvoiceSort.Builder(
+
+InvoiceSort sort = new InvoiceSort.Builder(
         null)
     .order("DESC")
     .build();
-InvoiceQuery invoiceQuery = new InvoiceQuery.Builder(
+
+InvoiceQuery query = new InvoiceQuery.Builder(
         filter)
-    .sort(invoiceQuerySort)
+    .sort(sort)
     .build();
+
 SearchInvoicesRequest body = new SearchInvoicesRequest.Builder(
         query)
     .build();
@@ -313,24 +321,26 @@ CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
 
 ```java
 String invoiceId = "invoice_id0";
-List<InvoicePaymentRequest> bodyInvoicePaymentRequests = new LinkedList<>();
-
-InvoicePaymentRequest bodyInvoicePaymentRequests0 = new InvoicePaymentRequest.Builder()
+List<InvoicePaymentRequest> paymentRequests = new LinkedList<>();
+InvoicePaymentRequest paymentRequests0 = new InvoicePaymentRequest.Builder()
     .uid("2da7964f-f3d2-4f43-81e8-5aa220bf3355")
     .tippingEnabled(false)
     .build();
-bodyInvoicePaymentRequests.add(bodyInvoicePaymentRequests0);
+
+paymentRequests.add(paymentRequests0);
 
 Invoice invoice = new Invoice.Builder()
     .version(1)
-    .paymentRequests(invoicePaymentRequests)
+    .paymentRequests(paymentRequests)
     .build();
-List<String> bodyFieldsToClear = new LinkedList<>();
-bodyFieldsToClear.add("payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders");
+
+List<String> fieldsToClear = new LinkedList<>();
+fieldsToClear.add("payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders");
+
 UpdateInvoiceRequest body = new UpdateInvoiceRequest.Builder(
         invoice)
     .idempotencyKey("4ee82288-0910-499e-ab4c-5d0071dad1be")
-    .fieldsToClear(bodyFieldsToClear)
+    .fieldsToClear(fieldsToClear)
     .build();
 
 invoicesApi.updateInvoiceAsync(invoiceId, body).thenAccept(result -> {

@@ -13,6 +13,6 @@ Class to wrap the request sent to the server and the response received from the 
 
 | Name | Description | Return Type |
 |  --- | --- | --- |
-| `getRequest()` | Getter for the Http Request. | `HttpRequest` |
-| `getHttpContext()` | Getter for the Http Response. | `HttpContext` |
+| `getRequest()` | Getter for the Http Request. | [`HttpRequest`](http-request.md) |
+| `getResponse()` | Getter for the Http Response. | [`HttpResponse`](http-response.md) |
 

@@ -102,11 +102,12 @@ Address address = new Address.Builder()
     .postalCode("10003")
     .country("US")
     .build();
+
 CreateCustomerRequest body = new CreateCustomerRequest.Builder()
     .givenName("Amelia")
     .familyName("Earhart")
     .emailAddress("Amelia.Earhart@example.com")
-    .address(bodyAddress)
+    .address(address)
     .phoneNumber("+1-212-555-4240")
     .referenceId("YOUR_REFERENCE_ID")
     .note("a customer")
@@ -151,41 +152,50 @@ CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
 ## Example Usage
 
 ```java
-List<String> bodyQueryFilterCreationSourceValues = new LinkedList<>();
-bodyQueryFilterCreationSourceValues.add("THIRD_PARTY");
-CustomerCreationSourceFilter customerCreationSourceFilter = new CustomerCreationSourceFilter.Builder()
-    .values(customerCreationSourceFilterValues)
+List<String> values = new LinkedList<>();
+values.add("THIRD_PARTY");
+
+CustomerCreationSourceFilter creationSource = new CustomerCreationSourceFilter.Builder()
+    .values(values)
     .rule("INCLUDE")
     .build();
-TimeRange timeRange = new TimeRange.Builder()
+
+TimeRange createdAt = new TimeRange.Builder()
     .startAt("2018-01-01T00:00:00+00:00")
     .endAt("2018-02-01T00:00:00+00:00")
     .build();
-CustomerTextFilter customerTextFilter = new CustomerTextFilter.Builder()
+
+CustomerTextFilter emailAddress = new CustomerTextFilter.Builder()
     .fuzzy("example.com")
     .build();
-List<String> bodyQueryFilterGroupIdsAll = new LinkedList<>();
-bodyQueryFilterGroupIdsAll.add("545AXB44B4XXWMVQ4W8SBT3HHF");
-FilterValue filterValue = new FilterValue.Builder()
-    .all(filterValueAll)
+
+List<String> all = new LinkedList<>();
+all.add("545AXB44B4XXWMVQ4W8SBT3HHF");
+
+FilterValue groupIds = new FilterValue.Builder()
+    .all(all)
     .build();
-CustomerFilter customerFilter = new CustomerFilter.Builder()
-    .creationSource(customerFilterCreationSource)
-    .createdAt(customerFilterCreatedAt)
-    .emailAddress(customerFilterEmailAddress)
-    .groupIds(customerFilterGroupIds)
+
+CustomerFilter filter = new CustomerFilter.Builder()
+    .creationSource(creationSource)
+    .createdAt(createdAt)
+    .emailAddress(emailAddress)
+    .groupIds(groupIds)
     .build();
-CustomerSort customerSort = new CustomerSort.Builder()
+
+CustomerSort sort = new CustomerSort.Builder()
     .field("CREATED_AT")
     .order("ASC")
     .build();
-CustomerQuery customerQuery = new CustomerQuery.Builder()
-    .filter(customerQueryFilter)
-    .sort(customerQuerySort)
+
+CustomerQuery query = new CustomerQuery.Builder()
+    .filter(filter)
+    .sort(sort)
     .build();
+
 SearchCustomersRequest body = new SearchCustomersRequest.Builder()
     .limit(2L)
-    .query(bodyQuery)
+    .query(query)
     .build();
 
 customersApi.searchCustomersAsync(body).thenAccept(result -> {
@@ -347,7 +357,7 @@ CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
 
 ```java
 String customerId = "customer_id8";
-Address address = new Address.Builder()
+Address billingAddress = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
     .locality("New York")
@@ -355,9 +365,10 @@ Address address = new Address.Builder()
     .postalCode("10003")
     .country("US")
     .build();
+
 CreateCustomerCardRequest body = new CreateCustomerCardRequest.Builder(
         "YOUR_CARD_NONCE")
-    .billingAddress(bodyBillingAddress)
+    .billingAddress(billingAddress)
     .cardholderName("Amelia Earhart")
     .build();
 

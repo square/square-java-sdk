@@ -95,6 +95,7 @@ CompletableFuture<CreateBookingResponse> createBookingAsync(
 ```java
 Booking booking = new Booking.Builder()
     .build();
+
 CreateBookingRequest body = new CreateBookingRequest.Builder(
         booking)
     .build();
@@ -133,14 +134,17 @@ CompletableFuture<SearchAvailabilityResponse> searchAvailabilityAsync(
 ## Example Usage
 
 ```java
-TimeRange timeRange = new TimeRange.Builder()
+TimeRange startAtRange = new TimeRange.Builder()
     .build();
-SearchAvailabilityFilter searchAvailabilityFilter = new SearchAvailabilityFilter.Builder(
+
+SearchAvailabilityFilter filter = new SearchAvailabilityFilter.Builder(
         startAtRange)
     .build();
-SearchAvailabilityQuery searchAvailabilityQuery = new SearchAvailabilityQuery.Builder(
+
+SearchAvailabilityQuery query = new SearchAvailabilityQuery.Builder(
         filter)
     .build();
+
 SearchAvailabilityRequest body = new SearchAvailabilityRequest.Builder(
         query)
     .build();
@@ -319,6 +323,7 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 String bookingId = "booking_id4";
 Booking booking = new Booking.Builder()
     .build();
+
 UpdateBookingRequest body = new UpdateBookingRequest.Builder(
         booking)
     .build();

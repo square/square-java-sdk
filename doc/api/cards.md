@@ -80,7 +80,7 @@ CompletableFuture<CreateCardResponse> createCardAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
+Address billingAddress = new Address.Builder()
     .addressLine1("500 Electric Ave")
     .addressLine2("Suite 600")
     .locality("New York")
@@ -88,12 +88,14 @@ Address address = new Address.Builder()
     .postalCode("10003")
     .country("US")
     .build();
+
 Card card = new Card.Builder()
     .cardholderName("Amelia Earhart")
-    .billingAddress(cardBillingAddress)
+    .billingAddress(billingAddress)
     .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
     .referenceId("user-id-1")
     .build();
+
 CreateCardRequest body = new CreateCardRequest.Builder(
         "4935a656-a929-4792-b97c-8848be85c27c",
         "cnon:uIbfJXhXETSP197M3GB",

@@ -80,6 +80,7 @@ DeviceCode deviceCode = new DeviceCode.Builder(
     .name("Counter 1")
     .locationId("B5E4484SHHNYH")
     .build();
+
 CreateDeviceCodeRequest body = new CreateDeviceCodeRequest.Builder(
         "01bb00a6-0c86-4770-94ed-f5fca973cd56",
         deviceCode)

@@ -100,19 +100,21 @@ CompletableFuture<CreatePaymentResponse> createPaymentAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money amountMoney = new Money.Builder()
     .amount(1000L)
     .currency("USD")
     .build();
-Money money = new Money.Builder()
+
+Money appFeeMoney = new Money.Builder()
     .amount(10L)
     .currency("USD")
     .build();
+
 CreatePaymentRequest body = new CreatePaymentRequest.Builder(
         "ccof:GaJGNaZa8x4OgDJn4GB",
         "7b0f3ec5-086a-4871-8f13-3c81b3875218",
         amountMoney)
-    .appFeeMoney(bodyAppFeeMoney)
+    .appFeeMoney(appFeeMoney)
     .autocomplete(true)
     .customerId("W92WH6P11H4Z77CTET0RNTGFW8")
     .locationId("L88917AVBK2S5")
@@ -233,22 +235,25 @@ CompletableFuture<UpdatePaymentResponse> updatePaymentAsync(
 
 ```java
 String paymentId = "payment_id0";
-Money money = new Money.Builder()
+Money amountMoney = new Money.Builder()
     .amount(1000L)
     .currency("USD")
     .build();
-Money money = new Money.Builder()
+
+Money tipMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
+
 Payment payment = new Payment.Builder()
-    .amountMoney(paymentAmountMoney)
-    .tipMoney(paymentTipMoney)
+    .amountMoney(amountMoney)
+    .tipMoney(tipMoney)
     .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
     .build();
+
 UpdatePaymentRequest body = new UpdatePaymentRequest.Builder(
         "956f8b13-e4ec-45d6-85e8-d1d95ef0c5de")
-    .payment(bodyPayment)
+    .payment(payment)
     .build();
 
 paymentsApi.updatePaymentAsync(paymentId, body).thenAccept(result -> {

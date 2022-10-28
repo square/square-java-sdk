@@ -8,8 +8,8 @@ The following parameters are configurable for the API Client:
 | `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-10-19"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `httpClientConfig` | `ReadonlyHttpClientConfiguration` | Http Client Configuration instance. |
-| `additionalHeaders` | `Headers` | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
+| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
+| `additionalHeaders` | [`Headers`](headers.md) | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
 | `userAgentDetail` | `String` | Additional detail which can be appended with User-Agent header.<br>*Default*: `"null"` |
 | `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
 
@@ -116,8 +116,8 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getCustomUrl()` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com` | `String` |
 | `getSquareVersion()` | Square Connect API versions. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
-| `getHttpClientConfig()` | Http Client Configuration instance. | `ReadonlyHttpClientConfiguration` |
-| `getAdditionalHeaders()` | Additional headers to add to each API request. | `Headers` |
+| `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
+| `getAdditionalHeaders()` | Additional headers to add to each API request. | [`Headers`](headers.md) |
 | `getUserAgentDetail()` | Additional detail which can be appended with User-Agent header. | `String` |
 | `getBearerAuthCredentials()` | The credentials to use with BearerAuth. | `BearerAuthCredentials` |
 | `getAccessToken()` | OAuth 2.0 Access Token. | `String` |
