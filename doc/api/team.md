@@ -48,13 +48,15 @@ CompletableFuture<CreateTeamMemberResponse> createTeamMemberAsync(
 ## Example Usage
 
 ```java
-List<String> bodyTeamMemberAssignedLocationsLocationIds = new LinkedList<>();
-bodyTeamMemberAssignedLocationsLocationIds.add("YSGH2WBKG94QZ");
-bodyTeamMemberAssignedLocationsLocationIds.add("GA2Y9HSJ8KRYT");
-TeamMemberAssignedLocations teamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
+List<String> locationIds = new LinkedList<>();
+locationIds.add("YSGH2WBKG94QZ");
+locationIds.add("GA2Y9HSJ8KRYT");
+
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
     .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(teamMemberAssignedLocationsLocationIds)
+    .locationIds(locationIds)
     .build();
+
 TeamMember teamMember = new TeamMember.Builder()
     .referenceId("reference_id_1")
     .status("ACTIVE")
@@ -62,11 +64,12 @@ TeamMember teamMember = new TeamMember.Builder()
     .familyName("Doe")
     .emailAddress("joe_doe@gmail.com")
     .phoneNumber("+14159283333")
-    .assignedLocations(teamMemberAssignedLocations)
+    .assignedLocations(assignedLocations)
     .build();
+
 CreateTeamMemberRequest body = new CreateTeamMemberRequest.Builder()
     .idempotencyKey("idempotency-key-0")
-    .teamMember(bodyTeamMember)
+    .teamMember(teamMember)
     .build();
 
 teamApi.createTeamMemberAsync(body).thenAccept(result -> {
@@ -105,15 +108,9 @@ CompletableFuture<BulkCreateTeamMembersResponse> bulkCreateTeamMembersAsync(
 ## Example Usage
 
 ```java
-Map<String, CreateTeamMemberRequest> bodyTeamMembers = new LinkedHashMap<>();
-
-CreateTeamMemberRequest bodyTeamMembers0 = new CreateTeamMemberRequest.Builder()
-    .build();
-bodyTeamMembers.put("",bodyTeamMembers0);
-
-CreateTeamMemberRequest bodyTeamMembers1 = new CreateTeamMemberRequest.Builder()
-    .build();
-bodyTeamMembers.put("",bodyTeamMembers1);
+Map<String, CreateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
+teamMembers.put("", teamMembers0);
+teamMembers.put("", teamMembers1);
 
 BulkCreateTeamMembersRequest body = new BulkCreateTeamMembersRequest.Builder(
         teamMembers)
@@ -154,15 +151,9 @@ CompletableFuture<BulkUpdateTeamMembersResponse> bulkUpdateTeamMembersAsync(
 ## Example Usage
 
 ```java
-Map<String, UpdateTeamMemberRequest> bodyTeamMembers = new LinkedHashMap<>();
-
-UpdateTeamMemberRequest bodyTeamMembers0 = new UpdateTeamMemberRequest.Builder()
-    .build();
-bodyTeamMembers.put("",bodyTeamMembers0);
-
-UpdateTeamMemberRequest bodyTeamMembers1 = new UpdateTeamMemberRequest.Builder()
-    .build();
-bodyTeamMembers.put("",bodyTeamMembers1);
+Map<String, UpdateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
+teamMembers.put("", teamMembers0);
+teamMembers.put("", teamMembers1);
 
 BulkUpdateTeamMembersRequest body = new BulkUpdateTeamMembersRequest.Builder(
         teamMembers)
@@ -203,17 +194,20 @@ CompletableFuture<SearchTeamMembersResponse> searchTeamMembersAsync(
 ## Example Usage
 
 ```java
-List<String> bodyQueryFilterLocationIds = new LinkedList<>();
-bodyQueryFilterLocationIds.add("0G5P3VGACMMQZ");
-SearchTeamMembersFilter searchTeamMembersFilter = new SearchTeamMembersFilter.Builder()
-    .locationIds(searchTeamMembersFilterLocationIds)
+List<String> locationIds = new LinkedList<>();
+locationIds.add("0G5P3VGACMMQZ");
+
+SearchTeamMembersFilter filter = new SearchTeamMembersFilter.Builder()
+    .locationIds(locationIds)
     .status("ACTIVE")
     .build();
-SearchTeamMembersQuery searchTeamMembersQuery = new SearchTeamMembersQuery.Builder()
-    .filter(searchTeamMembersQueryFilter)
+
+SearchTeamMembersQuery query = new SearchTeamMembersQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchTeamMembersRequest body = new SearchTeamMembersRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(10)
     .build();
 
@@ -286,13 +280,15 @@ CompletableFuture<UpdateTeamMemberResponse> updateTeamMemberAsync(
 
 ```java
 String teamMemberId = "team_member_id0";
-List<String> bodyTeamMemberAssignedLocationsLocationIds = new LinkedList<>();
-bodyTeamMemberAssignedLocationsLocationIds.add("YSGH2WBKG94QZ");
-bodyTeamMemberAssignedLocationsLocationIds.add("GA2Y9HSJ8KRYT");
-TeamMemberAssignedLocations teamMemberAssignedLocations = new TeamMemberAssignedLocations.Builder()
+List<String> locationIds = new LinkedList<>();
+locationIds.add("YSGH2WBKG94QZ");
+locationIds.add("GA2Y9HSJ8KRYT");
+
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
     .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(teamMemberAssignedLocationsLocationIds)
+    .locationIds(locationIds)
     .build();
+
 TeamMember teamMember = new TeamMember.Builder()
     .referenceId("reference_id_1")
     .status("ACTIVE")
@@ -300,10 +296,11 @@ TeamMember teamMember = new TeamMember.Builder()
     .familyName("Doe")
     .emailAddress("joe_doe@gmail.com")
     .phoneNumber("+14159283333")
-    .assignedLocations(teamMemberAssignedLocations)
+    .assignedLocations(assignedLocations)
     .build();
+
 UpdateTeamMemberRequest body = new UpdateTeamMemberRequest.Builder()
-    .teamMember(bodyTeamMember)
+    .teamMember(teamMember)
     .build();
 
 teamApi.updateTeamMemberAsync(teamMemberId, body).thenAccept(result -> {
@@ -379,35 +376,38 @@ CompletableFuture<UpdateWageSettingResponse> updateWageSettingAsync(
 
 ```java
 String teamMemberId = "team_member_id0";
-List<JobAssignment> bodyWageSettingJobAssignments = new LinkedList<>();
-
-Money money = new Money.Builder()
+List<JobAssignment> jobAssignments = new LinkedList<>();
+Money annualRate = new Money.Builder()
     .amount(3000000L)
     .currency("USD")
     .build();
-JobAssignment bodyWageSettingJobAssignments0 = new JobAssignment.Builder(
+
+JobAssignment jobAssignments0 = new JobAssignment.Builder(
         "Manager",
         "SALARY")
-    .annualRate(bodyWageSettingJobAssignments0AnnualRate)
+    .annualRate(annualRate)
     .weeklyHours(40)
     .build();
-bodyWageSettingJobAssignments.add(bodyWageSettingJobAssignments0);
 
-Money money = new Money.Builder()
+jobAssignments.add(jobAssignments0);
+Money hourlyRate = new Money.Builder()
     .amount(1200L)
     .currency("USD")
     .build();
-JobAssignment bodyWageSettingJobAssignments1 = new JobAssignment.Builder(
+
+JobAssignment jobAssignments1 = new JobAssignment.Builder(
         "Cashier",
         "HOURLY")
-    .hourlyRate(bodyWageSettingJobAssignments1HourlyRate)
+    .hourlyRate(hourlyRate)
     .build();
-bodyWageSettingJobAssignments.add(bodyWageSettingJobAssignments1);
+
+jobAssignments.add(jobAssignments1);
 
 WageSetting wageSetting = new WageSetting.Builder()
-    .jobAssignments(wageSettingJobAssignments)
+    .jobAssignments(jobAssignments)
     .isOvertimeExempt(true)
     .build();
+
 UpdateWageSettingRequest body = new UpdateWageSettingRequest.Builder(
         wageSetting)
     .build();

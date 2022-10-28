@@ -49,12 +49,14 @@ CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money priceOverrideMoney = new Money.Builder()
     .amount(100L)
     .currency("USD")
     .build();
-SubscriptionSource subscriptionSource = new SubscriptionSource.Builder()
+
+SubscriptionSource source = new SubscriptionSource.Builder()
     .build();
+
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "S8GWD5R9QB376",
         "6JHXF3B2CW3YKHDV4XEM674H",
@@ -62,10 +64,10 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
     .startDate("2021-10-20")
     .taxPercentage("5")
-    .priceOverrideMoney(bodyPriceOverrideMoney)
+    .priceOverrideMoney(priceOverrideMoney)
     .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
     .timezone("America/Los_Angeles")
-    .source(bodySource)
+    .source(source)
     .build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
@@ -115,22 +117,27 @@ CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
 ## Example Usage
 
 ```java
-List<String> bodyQueryFilterCustomerIds = new LinkedList<>();
-bodyQueryFilterCustomerIds.add("CHFGVKYY8RSV93M5KCYTG4PN0G");
-List<String> bodyQueryFilterLocationIds = new LinkedList<>();
-bodyQueryFilterLocationIds.add("S8GWD5R9QB376");
-List<String> bodyQueryFilterSourceNames = new LinkedList<>();
-bodyQueryFilterSourceNames.add("My App");
-SearchSubscriptionsFilter searchSubscriptionsFilter = new SearchSubscriptionsFilter.Builder()
-    .customerIds(searchSubscriptionsFilterCustomerIds)
-    .locationIds(searchSubscriptionsFilterLocationIds)
-    .sourceNames(searchSubscriptionsFilterSourceNames)
+List<String> customerIds = new LinkedList<>();
+customerIds.add("CHFGVKYY8RSV93M5KCYTG4PN0G");
+
+List<String> locationIds = new LinkedList<>();
+locationIds.add("S8GWD5R9QB376");
+
+List<String> sourceNames = new LinkedList<>();
+sourceNames.add("My App");
+
+SearchSubscriptionsFilter filter = new SearchSubscriptionsFilter.Builder()
+    .customerIds(customerIds)
+    .locationIds(locationIds)
+    .sourceNames(sourceNames)
     .build();
-SearchSubscriptionsQuery searchSubscriptionsQuery = new SearchSubscriptionsQuery.Builder()
-    .filter(searchSubscriptionsQueryFilter)
+
+SearchSubscriptionsQuery query = new SearchSubscriptionsQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchSubscriptionsRequest body = new SearchSubscriptionsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .build();
 
 subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {

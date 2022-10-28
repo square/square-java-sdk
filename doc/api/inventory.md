@@ -120,9 +120,8 @@ CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAs
 ## Example Usage
 
 ```java
-List<InventoryChange> bodyChanges = new LinkedList<>();
-
-InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
+List<InventoryChange> changes = new LinkedList<>();
+InventoryPhysicalCount physicalCount = new InventoryPhysicalCount.Builder()
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
     .state("IN_STOCK")
@@ -131,15 +130,17 @@ InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Build
     .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryChange bodyChanges0 = new InventoryChange.Builder()
+
+InventoryChange changes0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
-    .physicalCount(bodyChanges0PhysicalCount)
+    .physicalCount(physicalCount)
     .build();
-bodyChanges.add(bodyChanges0);
+
+changes.add(changes0);
 
 BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
         "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
-    .changes(bodyChanges)
+    .changes(changes)
     .ignoreUnchangedCounts(true)
     .build();
 
@@ -177,19 +178,23 @@ CompletableFuture<BatchRetrieveInventoryChangesResponse> deprecatedBatchRetrieve
 ## Example Usage
 
 ```java
-List<String> bodyCatalogObjectIds = new LinkedList<>();
-bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-List<String> bodyLocationIds = new LinkedList<>();
-bodyLocationIds.add("C6W5YS5QM06F5");
-List<String> bodyTypes = new LinkedList<>();
-bodyTypes.add("PHYSICAL_COUNT");
-List<String> bodyStates = new LinkedList<>();
-bodyStates.add("IN_STOCK");
+List<String> catalogObjectIds = new LinkedList<>();
+catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+
+List<String> locationIds = new LinkedList<>();
+locationIds.add("C6W5YS5QM06F5");
+
+List<String> types = new LinkedList<>();
+types.add("PHYSICAL_COUNT");
+
+List<String> states = new LinkedList<>();
+states.add("IN_STOCK");
+
 BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesRequest.Builder()
-    .catalogObjectIds(bodyCatalogObjectIds)
-    .locationIds(bodyLocationIds)
-    .types(bodyTypes)
-    .states(bodyStates)
+    .catalogObjectIds(catalogObjectIds)
+    .locationIds(locationIds)
+    .types(types)
+    .states(states)
     .updatedAfter("2016-11-01T00:00:00Z")
     .updatedBefore("2016-12-01T00:00:00Z")
     .build();
@@ -228,13 +233,15 @@ CompletableFuture<BatchRetrieveInventoryCountsResponse> deprecatedBatchRetrieveI
 ## Example Usage
 
 ```java
-List<String> bodyCatalogObjectIds = new LinkedList<>();
-bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-List<String> bodyLocationIds = new LinkedList<>();
-bodyLocationIds.add("59TNP9SA8VGDA");
+List<String> catalogObjectIds = new LinkedList<>();
+catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+
+List<String> locationIds = new LinkedList<>();
+locationIds.add("59TNP9SA8VGDA");
+
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
-    .catalogObjectIds(bodyCatalogObjectIds)
-    .locationIds(bodyLocationIds)
+    .catalogObjectIds(catalogObjectIds)
+    .locationIds(locationIds)
     .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 
@@ -273,9 +280,8 @@ CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
 ## Example Usage
 
 ```java
-List<InventoryChange> bodyChanges = new LinkedList<>();
-
-InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Builder()
+List<InventoryChange> changes = new LinkedList<>();
+InventoryPhysicalCount physicalCount = new InventoryPhysicalCount.Builder()
     .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
     .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
     .state("IN_STOCK")
@@ -284,15 +290,17 @@ InventoryPhysicalCount inventoryPhysicalCount = new InventoryPhysicalCount.Build
     .teamMemberId("LRK57NSQ5X7PUD05")
     .occurredAt("2016-11-16T22:25:24.878Z")
     .build();
-InventoryChange bodyChanges0 = new InventoryChange.Builder()
+
+InventoryChange changes0 = new InventoryChange.Builder()
     .type("PHYSICAL_COUNT")
-    .physicalCount(bodyChanges0PhysicalCount)
+    .physicalCount(physicalCount)
     .build();
-bodyChanges.add(bodyChanges0);
+
+changes.add(changes0);
 
 BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
         "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
-    .changes(bodyChanges)
+    .changes(changes)
     .ignoreUnchangedCounts(true)
     .build();
 
@@ -334,19 +342,23 @@ CompletableFuture<BatchRetrieveInventoryChangesResponse> batchRetrieveInventoryC
 ## Example Usage
 
 ```java
-List<String> bodyCatalogObjectIds = new LinkedList<>();
-bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-List<String> bodyLocationIds = new LinkedList<>();
-bodyLocationIds.add("C6W5YS5QM06F5");
-List<String> bodyTypes = new LinkedList<>();
-bodyTypes.add("PHYSICAL_COUNT");
-List<String> bodyStates = new LinkedList<>();
-bodyStates.add("IN_STOCK");
+List<String> catalogObjectIds = new LinkedList<>();
+catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+
+List<String> locationIds = new LinkedList<>();
+locationIds.add("C6W5YS5QM06F5");
+
+List<String> types = new LinkedList<>();
+types.add("PHYSICAL_COUNT");
+
+List<String> states = new LinkedList<>();
+states.add("IN_STOCK");
+
 BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesRequest.Builder()
-    .catalogObjectIds(bodyCatalogObjectIds)
-    .locationIds(bodyLocationIds)
-    .types(bodyTypes)
-    .states(bodyStates)
+    .catalogObjectIds(catalogObjectIds)
+    .locationIds(locationIds)
+    .types(types)
+    .states(states)
     .updatedAfter("2016-11-01T00:00:00Z")
     .updatedBefore("2016-12-01T00:00:00Z")
     .build();
@@ -392,13 +404,15 @@ CompletableFuture<BatchRetrieveInventoryCountsResponse> batchRetrieveInventoryCo
 ## Example Usage
 
 ```java
-List<String> bodyCatalogObjectIds = new LinkedList<>();
-bodyCatalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-List<String> bodyLocationIds = new LinkedList<>();
-bodyLocationIds.add("59TNP9SA8VGDA");
+List<String> catalogObjectIds = new LinkedList<>();
+catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
+
+List<String> locationIds = new LinkedList<>();
+locationIds.add("59TNP9SA8VGDA");
+
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
-    .catalogObjectIds(bodyCatalogObjectIds)
-    .locationIds(bodyLocationIds)
+    .catalogObjectIds(catalogObjectIds)
+    .locationIds(locationIds)
     .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 

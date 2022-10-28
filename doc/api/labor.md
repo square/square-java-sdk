@@ -104,6 +104,7 @@ BreakType breakType = new BreakType.Builder(
         "PT30M",
         true)
     .build();
+
 CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
         breakType)
     .idempotencyKey("PAD3NG5KSN2GL")
@@ -218,6 +219,7 @@ BreakType breakType = new BreakType.Builder(
         true)
     .version(1)
     .build();
+
 UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
         breakType)
     .build();
@@ -343,17 +345,18 @@ CompletableFuture<CreateShiftResponse> createShiftAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money hourlyRate = new Money.Builder()
     .amount(1100L)
     .currency("USD")
     .build();
-ShiftWage shiftWage = new ShiftWage.Builder()
-    .title("Barista")
-    .hourlyRate(shiftWageHourlyRate)
-    .build();
-List<Break> bodyShiftBreaks = new LinkedList<>();
 
-Break bodyShiftBreaks0 = new Break.Builder(
+ShiftWage wage = new ShiftWage.Builder()
+    .title("Barista")
+    .hourlyRate(hourlyRate)
+    .build();
+
+List<Break> breaks = new LinkedList<>();
+Break breaks0 = new Break.Builder(
         "2019-01-25T11:11:00+00:00",
         "REGS1EQR1TPZ5",
         "Tea Break",
@@ -361,16 +364,18 @@ Break bodyShiftBreaks0 = new Break.Builder(
         true)
     .endAt("2019-01-25T11:16:00+00:00")
     .build();
-bodyShiftBreaks.add(bodyShiftBreaks0);
+
+breaks.add(breaks0);
 
 Shift shift = new Shift.Builder(
         "2019-01-25T08:11:00+00:00")
     .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T18:11:00+00:00")
-    .wage(shiftWage)
-    .breaks(shiftBreaks)
+    .wage(wage)
+    .breaks(breaks)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
+
 CreateShiftRequest body = new CreateShiftRequest.Builder(
         shift)
     .idempotencyKey("HIDSNG5KS478L")
@@ -426,19 +431,23 @@ DateRange dateRange = new DateRange.Builder()
     .startDate("2019-01-20")
     .endDate("2019-02-03")
     .build();
-ShiftWorkday shiftWorkday = new ShiftWorkday.Builder()
-    .dateRange(shiftWorkdayDateRange)
+
+ShiftWorkday workday = new ShiftWorkday.Builder()
+    .dateRange(dateRange)
     .matchShiftsBy("START_AT")
     .defaultTimezone("America/Los_Angeles")
     .build();
-ShiftFilter shiftFilter = new ShiftFilter.Builder()
-    .workday(shiftFilterWorkday)
+
+ShiftFilter filter = new ShiftFilter.Builder()
+    .workday(workday)
     .build();
-ShiftQuery shiftQuery = new ShiftQuery.Builder()
-    .filter(shiftQueryFilter)
+
+ShiftQuery query = new ShiftQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(100)
     .build();
 
@@ -548,17 +557,18 @@ CompletableFuture<UpdateShiftResponse> updateShiftAsync(
 
 ```java
 String id = "id0";
-Money money = new Money.Builder()
+Money hourlyRate = new Money.Builder()
     .amount(1500L)
     .currency("USD")
     .build();
-ShiftWage shiftWage = new ShiftWage.Builder()
-    .title("Bartender")
-    .hourlyRate(shiftWageHourlyRate)
-    .build();
-List<Break> bodyShiftBreaks = new LinkedList<>();
 
-Break bodyShiftBreaks0 = new Break.Builder(
+ShiftWage wage = new ShiftWage.Builder()
+    .title("Bartender")
+    .hourlyRate(hourlyRate)
+    .build();
+
+List<Break> breaks = new LinkedList<>();
+Break breaks0 = new Break.Builder(
         "2019-01-25T11:11:00+00:00",
         "REGS1EQR1TPZ5",
         "Tea Break",
@@ -567,17 +577,19 @@ Break bodyShiftBreaks0 = new Break.Builder(
     .id("X7GAQYVVRRG6P")
     .endAt("2019-01-25T11:16:00+00:00")
     .build();
-bodyShiftBreaks.add(bodyShiftBreaks0);
+
+breaks.add(breaks0);
 
 Shift shift = new Shift.Builder(
         "2019-01-25T08:11:00+00:00")
     .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T18:11:00+00:00")
-    .wage(shiftWage)
-    .breaks(shiftBreaks)
+    .wage(wage)
+    .breaks(breaks)
     .version(1)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
     .build();
+
 UpdateShiftRequest body = new UpdateShiftRequest.Builder(
         shift)
     .build();
@@ -722,6 +734,7 @@ WorkweekConfig workweekConfig = new WorkweekConfig.Builder(
         "10:00")
     .version(10)
     .build();
+
 UpdateWorkweekConfigRequest body = new UpdateWorkweekConfigRequest.Builder(
         workweekConfig)
     .build();

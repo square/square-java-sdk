@@ -86,6 +86,7 @@ CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
 GiftCard giftCard = new GiftCard.Builder(
         "DIGITAL")
     .build();
+
 CreateGiftCardRequest body = new CreateGiftCardRequest.Builder(
         "NC9Tm69EjbjtConu",
         "81FN9BNFZTKS4",

@@ -90,18 +90,20 @@ CompletableFuture<RefundPaymentResponse> refundPaymentAsync(
 ## Example Usage
 
 ```java
-Money money = new Money.Builder()
+Money amountMoney = new Money.Builder()
     .amount(1000L)
     .currency("USD")
     .build();
-Money money = new Money.Builder()
+
+Money appFeeMoney = new Money.Builder()
     .amount(10L)
     .currency("USD")
     .build();
+
 RefundPaymentRequest body = new RefundPaymentRequest.Builder(
         "9b7f2dcf-49da-4411-b23e-a2d6af21333a",
         amountMoney)
-    .appFeeMoney(bodyAppFeeMoney)
+    .appFeeMoney(appFeeMoney)
     .paymentId("R2B3Z8WMVt3EAmzYWLZvz7Y69EbZY")
     .reason("Example")
     .build();

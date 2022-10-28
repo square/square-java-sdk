@@ -75,13 +75,15 @@ Address address = new Address.Builder()
     .administrativeDistrictLevel1("GA")
     .postalCode("30309")
     .build();
+
 Location location = new Location.Builder()
     .name("Midtown")
-    .address(locationAddress)
+    .address(address)
     .description("Midtown Atlanta store")
     .build();
+
 CreateLocationRequest body = new CreateLocationRequest.Builder()
-    .location(bodyLocation)
+    .location(location)
     .build();
 
 locationsApi.createLocationAsync(body).thenAccept(result -> {
@@ -152,38 +154,40 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 
 ```java
 String locationId = "location_id4";
-List<BusinessHoursPeriod> bodyLocationBusinessHoursPeriods = new LinkedList<>();
-
-BusinessHoursPeriod bodyLocationBusinessHoursPeriods0 = new BusinessHoursPeriod.Builder()
+List<BusinessHoursPeriod> periods = new LinkedList<>();
+BusinessHoursPeriod periods0 = new BusinessHoursPeriod.Builder()
     .dayOfWeek("FRI")
     .startLocalTime("07:00")
     .endLocalTime("18:00")
     .build();
-bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods0);
 
-BusinessHoursPeriod bodyLocationBusinessHoursPeriods1 = new BusinessHoursPeriod.Builder()
+periods.add(periods0);
+BusinessHoursPeriod periods1 = new BusinessHoursPeriod.Builder()
     .dayOfWeek("SAT")
     .startLocalTime("07:00")
     .endLocalTime("18:00")
     .build();
-bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods1);
 
-BusinessHoursPeriod bodyLocationBusinessHoursPeriods2 = new BusinessHoursPeriod.Builder()
+periods.add(periods1);
+BusinessHoursPeriod periods2 = new BusinessHoursPeriod.Builder()
     .dayOfWeek("SUN")
     .startLocalTime("09:00")
     .endLocalTime("15:00")
     .build();
-bodyLocationBusinessHoursPeriods.add(bodyLocationBusinessHoursPeriods2);
+
+periods.add(periods2);
 
 BusinessHours businessHours = new BusinessHours.Builder()
-    .periods(businessHoursPeriods)
+    .periods(periods)
     .build();
+
 Location location = new Location.Builder()
-    .businessHours(locationBusinessHours)
+    .businessHours(businessHours)
     .description("Midtown Atlanta store - Open weekends")
     .build();
+
 UpdateLocationRequest body = new UpdateLocationRequest.Builder()
-    .location(bodyLocation)
+    .location(location)
     .build();
 
 locationsApi.updateLocationAsync(locationId, body).thenAccept(result -> {

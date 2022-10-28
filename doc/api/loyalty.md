@@ -52,13 +52,15 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 ## Example Usage
 
 ```java
-LoyaltyAccountMapping loyaltyAccountMapping = new LoyaltyAccountMapping.Builder()
+LoyaltyAccountMapping mapping = new LoyaltyAccountMapping.Builder()
     .phoneNumber("+14155551234")
     .build();
+
 LoyaltyAccount loyaltyAccount = new LoyaltyAccount.Builder(
         "d619f755-2d17-41f3-990d-c04ecedd64dd")
-    .mapping(loyaltyAccountMapping)
+    .mapping(mapping)
     .build();
+
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
         loyaltyAccount,
         "ec78c477-b1c3-4899-a209-a4e71337c996")
@@ -99,18 +101,19 @@ CompletableFuture<SearchLoyaltyAccountsResponse> searchLoyaltyAccountsAsync(
 ## Example Usage
 
 ```java
-List<LoyaltyAccountMapping> bodyQueryMappings = new LinkedList<>();
-
-LoyaltyAccountMapping bodyQueryMappings0 = new LoyaltyAccountMapping.Builder()
+List<LoyaltyAccountMapping> mappings = new LinkedList<>();
+LoyaltyAccountMapping mappings0 = new LoyaltyAccountMapping.Builder()
     .phoneNumber("+14155551234")
     .build();
-bodyQueryMappings.add(bodyQueryMappings0);
 
-SearchLoyaltyAccountsRequestLoyaltyAccountQuery searchLoyaltyAccountsRequestLoyaltyAccountQuery = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
-    .mappings(searchLoyaltyAccountsRequestLoyaltyAccountQueryMappings)
+mappings.add(mappings0);
+
+SearchLoyaltyAccountsRequestLoyaltyAccountQuery query = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
+    .mappings(mappings)
     .build();
+
 SearchLoyaltyAccountsRequest body = new SearchLoyaltyAccountsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(10)
     .build();
 
@@ -194,9 +197,10 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAccumulatePoints loyaltyEventAccumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
+LoyaltyEventAccumulatePoints accumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
     .build();
+
 AccumulateLoyaltyPointsRequest body = new AccumulateLoyaltyPointsRequest.Builder(
         accumulatePoints,
         "58b90739-c3e8-4b11-85f7-e636d48d72cb",
@@ -241,10 +245,11 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAdjustPoints loyaltyEventAdjustPoints = new LoyaltyEventAdjustPoints.Builder(
+LoyaltyEventAdjustPoints adjustPoints = new LoyaltyEventAdjustPoints.Builder(
         10)
     .reason("Complimentary points")
     .build();
+
 AdjustLoyaltyPointsRequest body = new AdjustLoyaltyPointsRequest.Builder(
         "bc29a517-3dc9-450e-aa76-fae39ee849d1",
         adjustPoints)
@@ -288,17 +293,20 @@ CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
 ## Example Usage
 
 ```java
-LoyaltyEventOrderFilter loyaltyEventOrderFilter = new LoyaltyEventOrderFilter.Builder(
+LoyaltyEventOrderFilter orderFilter = new LoyaltyEventOrderFilter.Builder(
         "PyATxhYLfsMqpVkcKJITPydgEYfZY")
     .build();
-LoyaltyEventFilter loyaltyEventFilter = new LoyaltyEventFilter.Builder()
-    .orderFilter(loyaltyEventFilterOrderFilter)
+
+LoyaltyEventFilter filter = new LoyaltyEventFilter.Builder()
+    .orderFilter(orderFilter)
     .build();
-LoyaltyEventQuery loyaltyEventQuery = new LoyaltyEventQuery.Builder()
-    .filter(loyaltyEventQueryFilter)
+
+LoyaltyEventQuery query = new LoyaltyEventQuery.Builder()
+    .filter(filter)
     .build();
+
 SearchLoyaltyEventsRequest body = new SearchLoyaltyEventsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(30)
     .build();
 
@@ -498,28 +506,34 @@ CompletableFuture<CreateLoyaltyPromotionResponse> createLoyaltyPromotionAsync(
 
 ```java
 String programId = "program_id0";
-LoyaltyPromotionIncentivePointsMultiplierData loyaltyPromotionIncentivePointsMultiplierData = new LoyaltyPromotionIncentivePointsMultiplierData.Builder(
+LoyaltyPromotionIncentivePointsMultiplierData pointsMultiplierData = new LoyaltyPromotionIncentivePointsMultiplierData.Builder(
         3)
     .build();
-LoyaltyPromotionIncentive loyaltyPromotionIncentive = new LoyaltyPromotionIncentive.Builder(
+
+LoyaltyPromotionIncentive incentive = new LoyaltyPromotionIncentive.Builder(
         "POINTS_MULTIPLIER")
-    .pointsMultiplierData(loyaltyPromotionIncentivePointsMultiplierData)
+    .pointsMultiplierData(pointsMultiplierData)
     .build();
-List<String> bodyLoyaltyPromotionAvailableTimeTimePeriods = new LinkedList<>();
-bodyLoyaltyPromotionAvailableTimeTimePeriods.add("BEGIN:VEVENT\\nDTSTART:20220816T160000\\nDURATION:PT2H\\nRRULE:FREQ=WEEKLY;BYDAY=TU\\nEND:VEVENT");
-LoyaltyPromotionAvailableTimeData loyaltyPromotionAvailableTimeData = new LoyaltyPromotionAvailableTimeData.Builder(
-        loyaltyPromotionAvailableTimeDataTimePeriods)
+
+List<String> timePeriods = new LinkedList<>();
+timePeriods.add("BEGIN:VEVENT\\nDTSTART:20220816T160000\\nDURATION:PT2H\\nRRULE:FREQ=WEEKLY;BYDAY=TU\\nEND:VEVENT");
+
+LoyaltyPromotionAvailableTimeData availableTime = new LoyaltyPromotionAvailableTimeData.Builder(
+        timePeriods)
     .build();
-LoyaltyPromotionTriggerLimit loyaltyPromotionTriggerLimit = new LoyaltyPromotionTriggerLimit.Builder(
+
+LoyaltyPromotionTriggerLimit triggerLimit = new LoyaltyPromotionTriggerLimit.Builder(
         1)
     .interval("DAY")
     .build();
+
 LoyaltyPromotion loyaltyPromotion = new LoyaltyPromotion.Builder(
         "Tuesday Happy Hour Promo",
         incentive,
         availableTime)
-    .triggerLimit(loyaltyPromotionTriggerLimit)
+    .triggerLimit(triggerLimit)
     .build();
+
 CreateLoyaltyPromotionRequest body = new CreateLoyaltyPromotionRequest.Builder(
         loyaltyPromotion,
         "ec78c477-b1c3-4899-a209-a4e71337c996")
@@ -640,11 +654,12 @@ CompletableFuture<CreateLoyaltyRewardResponse> createLoyaltyRewardAsync(
 ## Example Usage
 
 ```java
-LoyaltyReward loyaltyReward = new LoyaltyReward.Builder(
+LoyaltyReward reward = new LoyaltyReward.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd",
         "e1b39225-9da5-43d1-a5db-782cdd8ad94f")
     .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
     .build();
+
 CreateLoyaltyRewardRequest body = new CreateLoyaltyRewardRequest.Builder(
         reward,
         "18c2e5ea-a620-4b1f-ad60-7b167285e451")
@@ -687,11 +702,12 @@ CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
 ## Example Usage
 
 ```java
-SearchLoyaltyRewardsRequestLoyaltyRewardQuery searchLoyaltyRewardsRequestLoyaltyRewardQuery = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
+SearchLoyaltyRewardsRequestLoyaltyRewardQuery query = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
         "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
     .build();
+
 SearchLoyaltyRewardsRequest body = new SearchLoyaltyRewardsRequest.Builder()
-    .query(bodyQuery)
+    .query(query)
     .limit(10)
     .build();
 
