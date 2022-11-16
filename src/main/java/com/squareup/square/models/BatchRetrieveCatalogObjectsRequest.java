@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +17,9 @@ import java.util.Objects;
  */
 public class BatchRetrieveCatalogObjectsRequest {
     private final List<String> objectIds;
-    private final Boolean includeRelatedObjects;
-    private final Long catalogVersion;
-    private final Boolean includeDeletedObjects;
+    private final OptionalNullable<Boolean> includeRelatedObjects;
+    private final OptionalNullable<Long> catalogVersion;
+    private final OptionalNullable<Boolean> includeDeletedObjects;
 
     /**
      * Initialization constructor.
@@ -31,6 +34,18 @@ public class BatchRetrieveCatalogObjectsRequest {
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
             @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("include_deleted_objects") Boolean includeDeletedObjects) {
+        this.objectIds = objectIds;
+        this.includeRelatedObjects = OptionalNullable.of(includeRelatedObjects);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+        this.includeDeletedObjects = OptionalNullable.of(includeDeletedObjects);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BatchRetrieveCatalogObjectsRequest(List<String> objectIds,
+            OptionalNullable<Boolean> includeRelatedObjects, OptionalNullable<Long> catalogVersion,
+            OptionalNullable<Boolean> includeDeletedObjects) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = includeRelatedObjects;
         this.catalogVersion = catalogVersion;
@@ -48,6 +63,27 @@ public class BatchRetrieveCatalogObjectsRequest {
     }
 
     /**
+     * Internal Getter for IncludeRelatedObjects.
+     * If `true`, the response will include additional objects that are related to the requested
+     * objects. Related objects are defined as any objects referenced by ID by the results in the
+     * `objects` field of the response. These objects are put in the `related_objects` field.
+     * Setting this to `true` is helpful when the objects are needed for immediate display to a
+     * user. This process only goes one level deep. Objects referenced by the related objects will
+     * not be included. For example, if the `objects` field of the response contains a CatalogItem,
+     * its associated CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+     * CatalogModifierLists will be returned in the `related_objects` field of the response. If the
+     * `objects` field of the response contains a CatalogItemVariation, its parent CatalogItem will
+     * be returned in the `related_objects` field of the response. Default value: `false`
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_related_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeRelatedObjects() {
+        return this.includeRelatedObjects;
+    }
+
+    /**
      * Getter for IncludeRelatedObjects.
      * If `true`, the response will include additional objects that are related to the requested
      * objects. Related objects are defined as any objects referenced by ID by the results in the
@@ -61,10 +97,24 @@ public class BatchRetrieveCatalogObjectsRequest {
      * be returned in the `related_objects` field of the response. Default value: `false`
      * @return Returns the Boolean
      */
-    @JsonGetter("include_related_objects")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIncludeRelatedObjects() {
-        return includeRelatedObjects;
+        return OptionalNullable.getFrom(includeRelatedObjects);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The specific version of the catalog objects to be included in the response. This allows you
+     * to retrieve historical versions of objects. The specified version value is matched against
+     * the [CatalogObject]($m/CatalogObject)s' `version` attribute. If not included, results will be
+     * from the current version of the catalog.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -75,10 +125,22 @@ public class BatchRetrieveCatalogObjectsRequest {
      * from the current version of the catalog.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
+    }
+
+    /**
+     * Internal Getter for IncludeDeletedObjects.
+     * Indicates whether to include (`true`) or not (`false`) in the response deleted objects,
+     * namely, those with the `is_deleted` attribute set to `true`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_deleted_objects")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeDeletedObjects() {
+        return this.includeDeletedObjects;
     }
 
     /**
@@ -87,10 +149,9 @@ public class BatchRetrieveCatalogObjectsRequest {
      * namely, those with the `is_deleted` attribute set to `true`.
      * @return Returns the Boolean
      */
-    @JsonGetter("include_deleted_objects")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIncludeDeletedObjects() {
-        return includeDeletedObjects;
+        return OptionalNullable.getFrom(includeDeletedObjects);
     }
 
     @Override
@@ -131,10 +192,10 @@ public class BatchRetrieveCatalogObjectsRequest {
      * @return a new {@link BatchRetrieveCatalogObjectsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(objectIds)
-                .includeRelatedObjects(getIncludeRelatedObjects())
-                .catalogVersion(getCatalogVersion())
-                .includeDeletedObjects(getIncludeDeletedObjects());
+        Builder builder = new Builder(objectIds);
+        builder.includeRelatedObjects = internalGetIncludeRelatedObjects();
+        builder.catalogVersion = internalGetCatalogVersion();
+        builder.includeDeletedObjects = internalGetIncludeDeletedObjects();
         return builder;
     }
 
@@ -143,9 +204,9 @@ public class BatchRetrieveCatalogObjectsRequest {
      */
     public static class Builder {
         private List<String> objectIds;
-        private Boolean includeRelatedObjects;
-        private Long catalogVersion;
-        private Boolean includeDeletedObjects;
+        private OptionalNullable<Boolean> includeRelatedObjects;
+        private OptionalNullable<Long> catalogVersion;
+        private OptionalNullable<Boolean> includeDeletedObjects;
 
         /**
          * Initialization constructor.
@@ -171,7 +232,16 @@ public class BatchRetrieveCatalogObjectsRequest {
          * @return Builder
          */
         public Builder includeRelatedObjects(Boolean includeRelatedObjects) {
-            this.includeRelatedObjects = includeRelatedObjects;
+            this.includeRelatedObjects = OptionalNullable.of(includeRelatedObjects);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeRelatedObjects.
+         * @return Builder
+         */
+        public Builder unsetIncludeRelatedObjects() {
+            includeRelatedObjects = null;
             return this;
         }
 
@@ -181,7 +251,16 @@ public class BatchRetrieveCatalogObjectsRequest {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 
@@ -191,7 +270,16 @@ public class BatchRetrieveCatalogObjectsRequest {
          * @return Builder
          */
         public Builder includeDeletedObjects(Boolean includeDeletedObjects) {
-            this.includeDeletedObjects = includeDeletedObjects;
+            this.includeDeletedObjects = OptionalNullable.of(includeDeletedObjects);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeDeletedObjects.
+         * @return Builder
+         */
+        public Builder unsetIncludeDeletedObjects() {
+            includeDeletedObjects = null;
             return this;
         }
 

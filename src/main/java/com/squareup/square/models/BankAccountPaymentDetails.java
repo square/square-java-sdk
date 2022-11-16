@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,14 +16,14 @@ import java.util.Objects;
  * This is a model class for BankAccountPaymentDetails type.
  */
 public class BankAccountPaymentDetails {
-    private final String bankName;
-    private final String transferType;
-    private final String accountOwnershipType;
-    private final String fingerprint;
-    private final String country;
-    private final String statementDescription;
+    private final OptionalNullable<String> bankName;
+    private final OptionalNullable<String> transferType;
+    private final OptionalNullable<String> accountOwnershipType;
+    private final OptionalNullable<String> fingerprint;
+    private final OptionalNullable<String> country;
+    private final OptionalNullable<String> statementDescription;
     private final ACHDetails achDetails;
-    private final List<Error> errors;
+    private final OptionalNullable<List<Error>> errors;
 
     /**
      * Initialization constructor.
@@ -43,6 +46,24 @@ public class BankAccountPaymentDetails {
             @JsonProperty("statement_description") String statementDescription,
             @JsonProperty("ach_details") ACHDetails achDetails,
             @JsonProperty("errors") List<Error> errors) {
+        this.bankName = OptionalNullable.of(bankName);
+        this.transferType = OptionalNullable.of(transferType);
+        this.accountOwnershipType = OptionalNullable.of(accountOwnershipType);
+        this.fingerprint = OptionalNullable.of(fingerprint);
+        this.country = OptionalNullable.of(country);
+        this.statementDescription = OptionalNullable.of(statementDescription);
+        this.achDetails = achDetails;
+        this.errors = OptionalNullable.of(errors);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BankAccountPaymentDetails(OptionalNullable<String> bankName,
+            OptionalNullable<String> transferType, OptionalNullable<String> accountOwnershipType,
+            OptionalNullable<String> fingerprint, OptionalNullable<String> country,
+            OptionalNullable<String> statementDescription, ACHDetails achDetails,
+            OptionalNullable<List<Error>> errors) {
         this.bankName = bankName;
         this.transferType = transferType;
         this.accountOwnershipType = accountOwnershipType;
@@ -54,14 +75,37 @@ public class BankAccountPaymentDetails {
     }
 
     /**
+     * Internal Getter for BankName.
+     * The name of the bank associated with the bank account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("bank_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBankName() {
+        return this.bankName;
+    }
+
+    /**
      * Getter for BankName.
      * The name of the bank associated with the bank account.
      * @return Returns the String
      */
-    @JsonGetter("bank_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBankName() {
-        return bankName;
+        return OptionalNullable.getFrom(bankName);
+    }
+
+    /**
+     * Internal Getter for TransferType.
+     * The type of the bank transfer. The type can be `ACH` or `UNKNOWN`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("transfer_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTransferType() {
+        return this.transferType;
     }
 
     /**
@@ -69,10 +113,22 @@ public class BankAccountPaymentDetails {
      * The type of the bank transfer. The type can be `ACH` or `UNKNOWN`.
      * @return Returns the String
      */
-    @JsonGetter("transfer_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTransferType() {
-        return transferType;
+        return OptionalNullable.getFrom(transferType);
+    }
+
+    /**
+     * Internal Getter for AccountOwnershipType.
+     * The ownership type of the bank account performing the transfer. The type can be `INDIVIDUAL`,
+     * `COMPANY`, or `UNKNOWN`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("account_ownership_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAccountOwnershipType() {
+        return this.accountOwnershipType;
     }
 
     /**
@@ -81,10 +137,22 @@ public class BankAccountPaymentDetails {
      * `COMPANY`, or `UNKNOWN`.
      * @return Returns the String
      */
-    @JsonGetter("account_ownership_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAccountOwnershipType() {
-        return accountOwnershipType;
+        return OptionalNullable.getFrom(accountOwnershipType);
+    }
+
+    /**
+     * Internal Getter for Fingerprint.
+     * Uniquely identifies the bank account for this seller and can be used to determine if payments
+     * are from the same bank account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fingerprint")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFingerprint() {
+        return this.fingerprint;
     }
 
     /**
@@ -93,10 +161,21 @@ public class BankAccountPaymentDetails {
      * are from the same bank account.
      * @return Returns the String
      */
-    @JsonGetter("fingerprint")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFingerprint() {
-        return fingerprint;
+        return OptionalNullable.getFrom(fingerprint);
+    }
+
+    /**
+     * Internal Getter for Country.
+     * The two-letter ISO code representing the country the bank account is located in.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCountry() {
+        return this.country;
     }
 
     /**
@@ -104,10 +183,21 @@ public class BankAccountPaymentDetails {
      * The two-letter ISO code representing the country the bank account is located in.
      * @return Returns the String
      */
-    @JsonGetter("country")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCountry() {
-        return country;
+        return OptionalNullable.getFrom(country);
+    }
+
+    /**
+     * Internal Getter for StatementDescription.
+     * The statement description as sent to the bank.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("statement_description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatementDescription() {
+        return this.statementDescription;
     }
 
     /**
@@ -115,10 +205,9 @@ public class BankAccountPaymentDetails {
      * The statement description as sent to the bank.
      * @return Returns the String
      */
-    @JsonGetter("statement_description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatementDescription() {
-        return statementDescription;
+        return OptionalNullable.getFrom(statementDescription);
     }
 
     /**
@@ -133,14 +222,25 @@ public class BankAccountPaymentDetails {
     }
 
     /**
+     * Internal Getter for Errors.
+     * Information about errors encountered during the request.
+     * @return Returns the Internal List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Error>> internalGetErrors() {
+        return this.errors;
+    }
+
+    /**
      * Getter for Errors.
      * Information about errors encountered during the request.
      * @return Returns the List of Error
      */
-    @JsonGetter("errors")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Error> getErrors() {
-        return errors;
+        return OptionalNullable.getFrom(errors);
     }
 
     @Override
@@ -187,14 +287,14 @@ public class BankAccountPaymentDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .bankName(getBankName())
-                .transferType(getTransferType())
-                .accountOwnershipType(getAccountOwnershipType())
-                .fingerprint(getFingerprint())
-                .country(getCountry())
-                .statementDescription(getStatementDescription())
-                .achDetails(getAchDetails())
-                .errors(getErrors());
+                .achDetails(getAchDetails());
+        builder.bankName = internalGetBankName();
+        builder.transferType = internalGetTransferType();
+        builder.accountOwnershipType = internalGetAccountOwnershipType();
+        builder.fingerprint = internalGetFingerprint();
+        builder.country = internalGetCountry();
+        builder.statementDescription = internalGetStatementDescription();
+        builder.errors = internalGetErrors();
         return builder;
     }
 
@@ -202,14 +302,14 @@ public class BankAccountPaymentDetails {
      * Class to build instances of {@link BankAccountPaymentDetails}.
      */
     public static class Builder {
-        private String bankName;
-        private String transferType;
-        private String accountOwnershipType;
-        private String fingerprint;
-        private String country;
-        private String statementDescription;
+        private OptionalNullable<String> bankName;
+        private OptionalNullable<String> transferType;
+        private OptionalNullable<String> accountOwnershipType;
+        private OptionalNullable<String> fingerprint;
+        private OptionalNullable<String> country;
+        private OptionalNullable<String> statementDescription;
         private ACHDetails achDetails;
-        private List<Error> errors;
+        private OptionalNullable<List<Error>> errors;
 
 
 
@@ -219,7 +319,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder bankName(String bankName) {
-            this.bankName = bankName;
+            this.bankName = OptionalNullable.of(bankName);
+            return this;
+        }
+
+        /**
+         * UnSetter for bankName.
+         * @return Builder
+         */
+        public Builder unsetBankName() {
+            bankName = null;
             return this;
         }
 
@@ -229,7 +338,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder transferType(String transferType) {
-            this.transferType = transferType;
+            this.transferType = OptionalNullable.of(transferType);
+            return this;
+        }
+
+        /**
+         * UnSetter for transferType.
+         * @return Builder
+         */
+        public Builder unsetTransferType() {
+            transferType = null;
             return this;
         }
 
@@ -239,7 +357,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder accountOwnershipType(String accountOwnershipType) {
-            this.accountOwnershipType = accountOwnershipType;
+            this.accountOwnershipType = OptionalNullable.of(accountOwnershipType);
+            return this;
+        }
+
+        /**
+         * UnSetter for accountOwnershipType.
+         * @return Builder
+         */
+        public Builder unsetAccountOwnershipType() {
+            accountOwnershipType = null;
             return this;
         }
 
@@ -249,7 +376,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder fingerprint(String fingerprint) {
-            this.fingerprint = fingerprint;
+            this.fingerprint = OptionalNullable.of(fingerprint);
+            return this;
+        }
+
+        /**
+         * UnSetter for fingerprint.
+         * @return Builder
+         */
+        public Builder unsetFingerprint() {
+            fingerprint = null;
             return this;
         }
 
@@ -259,7 +395,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder country(String country) {
-            this.country = country;
+            this.country = OptionalNullable.of(country);
+            return this;
+        }
+
+        /**
+         * UnSetter for country.
+         * @return Builder
+         */
+        public Builder unsetCountry() {
+            country = null;
             return this;
         }
 
@@ -269,7 +414,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder statementDescription(String statementDescription) {
-            this.statementDescription = statementDescription;
+            this.statementDescription = OptionalNullable.of(statementDescription);
+            return this;
+        }
+
+        /**
+         * UnSetter for statementDescription.
+         * @return Builder
+         */
+        public Builder unsetStatementDescription() {
+            statementDescription = null;
             return this;
         }
 
@@ -289,7 +443,16 @@ public class BankAccountPaymentDetails {
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
-            this.errors = errors;
+            this.errors = OptionalNullable.of(errors);
+            return this;
+        }
+
+        /**
+         * UnSetter for errors.
+         * @return Builder
+         */
+        public Builder unsetErrors() {
+            errors = null;
             return this;
         }
 

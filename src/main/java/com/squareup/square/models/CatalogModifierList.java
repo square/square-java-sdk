@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,11 +16,11 @@ import java.util.Objects;
  * This is a model class for CatalogModifierList type.
  */
 public class CatalogModifierList {
-    private final String name;
-    private final Integer ordinal;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<Integer> ordinal;
     private final String selectionType;
-    private final List<CatalogObject> modifiers;
-    private final List<String> imageIds;
+    private final OptionalNullable<List<CatalogObject>> modifiers;
+    private final OptionalNullable<List<String>> imageIds;
 
     /**
      * Initialization constructor.
@@ -34,6 +37,19 @@ public class CatalogModifierList {
             @JsonProperty("selection_type") String selectionType,
             @JsonProperty("modifiers") List<CatalogObject> modifiers,
             @JsonProperty("image_ids") List<String> imageIds) {
+        this.name = OptionalNullable.of(name);
+        this.ordinal = OptionalNullable.of(ordinal);
+        this.selectionType = selectionType;
+        this.modifiers = OptionalNullable.of(modifiers);
+        this.imageIds = OptionalNullable.of(imageIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogModifierList(OptionalNullable<String> name, OptionalNullable<Integer> ordinal,
+            String selectionType, OptionalNullable<List<CatalogObject>> modifiers,
+            OptionalNullable<List<String>> imageIds) {
         this.name = name;
         this.ordinal = ordinal;
         this.selectionType = selectionType;
@@ -42,15 +58,39 @@ public class CatalogModifierList {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name for the `CatalogModifierList` instance. This is a searchable attribute for use in
+     * applicable query filters, and its value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name for the `CatalogModifierList` instance. This is a searchable attribute for use in
      * applicable query filters, and its value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Ordinal.
+     * Determines where this modifier list appears in a list of `CatalogModifierList` values.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetOrdinal() {
+        return this.ordinal;
     }
 
     /**
@@ -58,10 +98,9 @@ public class CatalogModifierList {
      * Determines where this modifier list appears in a list of `CatalogModifierList` values.
      * @return Returns the Integer
      */
-    @JsonGetter("ordinal")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getOrdinal() {
-        return ordinal;
+        return OptionalNullable.getFrom(ordinal);
     }
 
     /**
@@ -76,16 +115,42 @@ public class CatalogModifierList {
     }
 
     /**
+     * Internal Getter for Modifiers.
+     * The options included in the `CatalogModifierList`. You must include at least one
+     * `CatalogModifier`. Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier`
+     * data.
+     * @return Returns the Internal List of CatalogObject
+     */
+    @JsonGetter("modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogObject>> internalGetModifiers() {
+        return this.modifiers;
+    }
+
+    /**
      * Getter for Modifiers.
      * The options included in the `CatalogModifierList`. You must include at least one
      * `CatalogModifier`. Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier`
      * data.
      * @return Returns the List of CatalogObject
      */
-    @JsonGetter("modifiers")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogObject> getModifiers() {
-        return modifiers;
+        return OptionalNullable.getFrom(modifiers);
+    }
+
+    /**
+     * Internal Getter for ImageIds.
+     * The IDs of images associated with this `CatalogModifierList` instance. Currently these images
+     * are not displayed by Square, but are free to be displayed in 3rd party applications.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetImageIds() {
+        return this.imageIds;
     }
 
     /**
@@ -94,10 +159,9 @@ public class CatalogModifierList {
      * are not displayed by Square, but are free to be displayed in 3rd party applications.
      * @return Returns the List of String
      */
-    @JsonGetter("image_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getImageIds() {
-        return imageIds;
+        return OptionalNullable.getFrom(imageIds);
     }
 
     @Override
@@ -139,11 +203,11 @@ public class CatalogModifierList {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
-                .ordinal(getOrdinal())
-                .selectionType(getSelectionType())
-                .modifiers(getModifiers())
-                .imageIds(getImageIds());
+                .selectionType(getSelectionType());
+        builder.name = internalGetName();
+        builder.ordinal = internalGetOrdinal();
+        builder.modifiers = internalGetModifiers();
+        builder.imageIds = internalGetImageIds();
         return builder;
     }
 
@@ -151,11 +215,11 @@ public class CatalogModifierList {
      * Class to build instances of {@link CatalogModifierList}.
      */
     public static class Builder {
-        private String name;
-        private Integer ordinal;
+        private OptionalNullable<String> name;
+        private OptionalNullable<Integer> ordinal;
         private String selectionType;
-        private List<CatalogObject> modifiers;
-        private List<String> imageIds;
+        private OptionalNullable<List<CatalogObject>> modifiers;
+        private OptionalNullable<List<String>> imageIds;
 
 
 
@@ -165,7 +229,16 @@ public class CatalogModifierList {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -175,7 +248,16 @@ public class CatalogModifierList {
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
-            this.ordinal = ordinal;
+            this.ordinal = OptionalNullable.of(ordinal);
+            return this;
+        }
+
+        /**
+         * UnSetter for ordinal.
+         * @return Builder
+         */
+        public Builder unsetOrdinal() {
+            ordinal = null;
             return this;
         }
 
@@ -195,7 +277,16 @@ public class CatalogModifierList {
          * @return Builder
          */
         public Builder modifiers(List<CatalogObject> modifiers) {
-            this.modifiers = modifiers;
+            this.modifiers = OptionalNullable.of(modifiers);
+            return this;
+        }
+
+        /**
+         * UnSetter for modifiers.
+         * @return Builder
+         */
+        public Builder unsetModifiers() {
+            modifiers = null;
             return this;
         }
 
@@ -205,7 +296,16 @@ public class CatalogModifierList {
          * @return Builder
          */
         public Builder imageIds(List<String> imageIds) {
-            this.imageIds = imageIds;
+            this.imageIds = OptionalNullable.of(imageIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for imageIds.
+         * @return Builder
+         */
+        public Builder unsetImageIds() {
+            imageIds = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +16,12 @@ import java.util.Objects;
  * This is a model class for CheckoutOptions type.
  */
 public class CheckoutOptions {
-    private final Boolean allowTipping;
-    private final List<CustomField> customFields;
-    private final String subscriptionPlanId;
-    private final String redirectUrl;
-    private final String merchantSupportEmail;
-    private final Boolean askForShippingAddress;
+    private final OptionalNullable<Boolean> allowTipping;
+    private final OptionalNullable<List<CustomField>> customFields;
+    private final OptionalNullable<String> subscriptionPlanId;
+    private final OptionalNullable<String> redirectUrl;
+    private final OptionalNullable<String> merchantSupportEmail;
+    private final OptionalNullable<Boolean> askForShippingAddress;
     private final AcceptedPaymentMethods acceptedPaymentMethods;
     private final Money appFeeMoney;
     private final ShippingFee shippingFee;
@@ -46,6 +49,27 @@ public class CheckoutOptions {
             @JsonProperty("accepted_payment_methods") AcceptedPaymentMethods acceptedPaymentMethods,
             @JsonProperty("app_fee_money") Money appFeeMoney,
             @JsonProperty("shipping_fee") ShippingFee shippingFee) {
+        this.allowTipping = OptionalNullable.of(allowTipping);
+        this.customFields = OptionalNullable.of(customFields);
+        this.subscriptionPlanId = OptionalNullable.of(subscriptionPlanId);
+        this.redirectUrl = OptionalNullable.of(redirectUrl);
+        this.merchantSupportEmail = OptionalNullable.of(merchantSupportEmail);
+        this.askForShippingAddress = OptionalNullable.of(askForShippingAddress);
+        this.acceptedPaymentMethods = acceptedPaymentMethods;
+        this.appFeeMoney = appFeeMoney;
+        this.shippingFee = shippingFee;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CheckoutOptions(OptionalNullable<Boolean> allowTipping,
+            OptionalNullable<List<CustomField>> customFields,
+            OptionalNullable<String> subscriptionPlanId, OptionalNullable<String> redirectUrl,
+            OptionalNullable<String> merchantSupportEmail,
+            OptionalNullable<Boolean> askForShippingAddress,
+            AcceptedPaymentMethods acceptedPaymentMethods, Money appFeeMoney,
+            ShippingFee shippingFee) {
         this.allowTipping = allowTipping;
         this.customFields = customFields;
         this.subscriptionPlanId = subscriptionPlanId;
@@ -58,14 +82,37 @@ public class CheckoutOptions {
     }
 
     /**
+     * Internal Getter for AllowTipping.
+     * Indicates whether the payment allows tipping.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("allow_tipping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAllowTipping() {
+        return this.allowTipping;
+    }
+
+    /**
      * Getter for AllowTipping.
      * Indicates whether the payment allows tipping.
      * @return Returns the Boolean
      */
-    @JsonGetter("allow_tipping")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAllowTipping() {
-        return allowTipping;
+        return OptionalNullable.getFrom(allowTipping);
+    }
+
+    /**
+     * Internal Getter for CustomFields.
+     * The custom fields requesting information from the buyer.
+     * @return Returns the Internal List of CustomField
+     */
+    @JsonGetter("custom_fields")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CustomField>> internalGetCustomFields() {
+        return this.customFields;
     }
 
     /**
@@ -73,10 +120,23 @@ public class CheckoutOptions {
      * The custom fields requesting information from the buyer.
      * @return Returns the List of CustomField
      */
-    @JsonGetter("custom_fields")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CustomField> getCustomFields() {
-        return customFields;
+        return OptionalNullable.getFrom(customFields);
+    }
+
+    /**
+     * Internal Getter for SubscriptionPlanId.
+     * The ID of the subscription plan for the buyer to pay and subscribe. For more information, see
+     * [Subscription Plan
+     * Checkout](https://developer.squareup.com/docs/checkout-api/subscription-plan-checkout).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("subscription_plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSubscriptionPlanId() {
+        return this.subscriptionPlanId;
     }
 
     /**
@@ -86,10 +146,21 @@ public class CheckoutOptions {
      * Checkout](https://developer.squareup.com/docs/checkout-api/subscription-plan-checkout).
      * @return Returns the String
      */
-    @JsonGetter("subscription_plan_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSubscriptionPlanId() {
-        return subscriptionPlanId;
+        return OptionalNullable.getFrom(subscriptionPlanId);
+    }
+
+    /**
+     * Internal Getter for RedirectUrl.
+     * The confirmation page URL to redirect the buyer to after Square processes the payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("redirect_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRedirectUrl() {
+        return this.redirectUrl;
     }
 
     /**
@@ -97,10 +168,21 @@ public class CheckoutOptions {
      * The confirmation page URL to redirect the buyer to after Square processes the payment.
      * @return Returns the String
      */
-    @JsonGetter("redirect_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRedirectUrl() {
-        return redirectUrl;
+        return OptionalNullable.getFrom(redirectUrl);
+    }
+
+    /**
+     * Internal Getter for MerchantSupportEmail.
+     * The email address that buyers can use to contact the seller.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_support_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantSupportEmail() {
+        return this.merchantSupportEmail;
     }
 
     /**
@@ -108,10 +190,21 @@ public class CheckoutOptions {
      * The email address that buyers can use to contact the seller.
      * @return Returns the String
      */
-    @JsonGetter("merchant_support_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantSupportEmail() {
-        return merchantSupportEmail;
+        return OptionalNullable.getFrom(merchantSupportEmail);
+    }
+
+    /**
+     * Internal Getter for AskForShippingAddress.
+     * Indicates whether to include the address fields in the payment form.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("ask_for_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAskForShippingAddress() {
+        return this.askForShippingAddress;
     }
 
     /**
@@ -119,10 +212,9 @@ public class CheckoutOptions {
      * Indicates whether to include the address fields in the payment form.
      * @return Returns the Boolean
      */
-    @JsonGetter("ask_for_shipping_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAskForShippingAddress() {
-        return askForShippingAddress;
+        return OptionalNullable.getFrom(askForShippingAddress);
     }
 
     /**
@@ -209,15 +301,15 @@ public class CheckoutOptions {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .allowTipping(getAllowTipping())
-                .customFields(getCustomFields())
-                .subscriptionPlanId(getSubscriptionPlanId())
-                .redirectUrl(getRedirectUrl())
-                .merchantSupportEmail(getMerchantSupportEmail())
-                .askForShippingAddress(getAskForShippingAddress())
                 .acceptedPaymentMethods(getAcceptedPaymentMethods())
                 .appFeeMoney(getAppFeeMoney())
                 .shippingFee(getShippingFee());
+        builder.allowTipping = internalGetAllowTipping();
+        builder.customFields = internalGetCustomFields();
+        builder.subscriptionPlanId = internalGetSubscriptionPlanId();
+        builder.redirectUrl = internalGetRedirectUrl();
+        builder.merchantSupportEmail = internalGetMerchantSupportEmail();
+        builder.askForShippingAddress = internalGetAskForShippingAddress();
         return builder;
     }
 
@@ -225,12 +317,12 @@ public class CheckoutOptions {
      * Class to build instances of {@link CheckoutOptions}.
      */
     public static class Builder {
-        private Boolean allowTipping;
-        private List<CustomField> customFields;
-        private String subscriptionPlanId;
-        private String redirectUrl;
-        private String merchantSupportEmail;
-        private Boolean askForShippingAddress;
+        private OptionalNullable<Boolean> allowTipping;
+        private OptionalNullable<List<CustomField>> customFields;
+        private OptionalNullable<String> subscriptionPlanId;
+        private OptionalNullable<String> redirectUrl;
+        private OptionalNullable<String> merchantSupportEmail;
+        private OptionalNullable<Boolean> askForShippingAddress;
         private AcceptedPaymentMethods acceptedPaymentMethods;
         private Money appFeeMoney;
         private ShippingFee shippingFee;
@@ -243,7 +335,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder allowTipping(Boolean allowTipping) {
-            this.allowTipping = allowTipping;
+            this.allowTipping = OptionalNullable.of(allowTipping);
+            return this;
+        }
+
+        /**
+         * UnSetter for allowTipping.
+         * @return Builder
+         */
+        public Builder unsetAllowTipping() {
+            allowTipping = null;
             return this;
         }
 
@@ -253,7 +354,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder customFields(List<CustomField> customFields) {
-            this.customFields = customFields;
+            this.customFields = OptionalNullable.of(customFields);
+            return this;
+        }
+
+        /**
+         * UnSetter for customFields.
+         * @return Builder
+         */
+        public Builder unsetCustomFields() {
+            customFields = null;
             return this;
         }
 
@@ -263,7 +373,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder subscriptionPlanId(String subscriptionPlanId) {
-            this.subscriptionPlanId = subscriptionPlanId;
+            this.subscriptionPlanId = OptionalNullable.of(subscriptionPlanId);
+            return this;
+        }
+
+        /**
+         * UnSetter for subscriptionPlanId.
+         * @return Builder
+         */
+        public Builder unsetSubscriptionPlanId() {
+            subscriptionPlanId = null;
             return this;
         }
 
@@ -273,7 +392,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder redirectUrl(String redirectUrl) {
-            this.redirectUrl = redirectUrl;
+            this.redirectUrl = OptionalNullable.of(redirectUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for redirectUrl.
+         * @return Builder
+         */
+        public Builder unsetRedirectUrl() {
+            redirectUrl = null;
             return this;
         }
 
@@ -283,7 +411,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder merchantSupportEmail(String merchantSupportEmail) {
-            this.merchantSupportEmail = merchantSupportEmail;
+            this.merchantSupportEmail = OptionalNullable.of(merchantSupportEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantSupportEmail.
+         * @return Builder
+         */
+        public Builder unsetMerchantSupportEmail() {
+            merchantSupportEmail = null;
             return this;
         }
 
@@ -293,7 +430,16 @@ public class CheckoutOptions {
          * @return Builder
          */
         public Builder askForShippingAddress(Boolean askForShippingAddress) {
-            this.askForShippingAddress = askForShippingAddress;
+            this.askForShippingAddress = OptionalNullable.of(askForShippingAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for askForShippingAddress.
+         * @return Builder
+         */
+        public Builder unsetAskForShippingAddress() {
+            askForShippingAddress = null;
             return this;
         }
 

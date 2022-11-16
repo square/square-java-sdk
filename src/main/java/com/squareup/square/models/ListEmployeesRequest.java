@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListEmployeesRequest type.
  */
 public class ListEmployeesRequest {
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final String status;
-    private final Integer limit;
-    private final String cursor;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,17 @@ public class ListEmployeesRequest {
             @JsonProperty("status") String status,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor) {
+        this.locationId = OptionalNullable.of(locationId);
+        this.status = status;
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListEmployeesRequest(OptionalNullable<String> locationId, String status,
+            OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.locationId = locationId;
         this.status = status;
         this.limit = limit;
@@ -37,13 +51,23 @@ public class ListEmployeesRequest {
     }
 
     /**
-     * Getter for LocationId.
-     * @return Returns the String
+     * Internal Getter for LocationId.
+     * @return Returns the Internal String
      */
     @JsonGetter("location_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
+     * Getter for LocationId.
+     * @return Returns the String
+     */
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -58,14 +82,37 @@ public class ListEmployeesRequest {
     }
 
     /**
+     * Internal Getter for Limit.
+     * The number of employees to be returned on each page.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
+    }
+
+    /**
      * Getter for Limit.
      * The number of employees to be returned on each page.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * The token required to retrieve the specified page of results.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -73,10 +120,9 @@ public class ListEmployeesRequest {
      * The token required to retrieve the specified page of results.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -116,10 +162,10 @@ public class ListEmployeesRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .locationId(getLocationId())
-                .status(getStatus())
-                .limit(getLimit())
-                .cursor(getCursor());
+                .status(getStatus());
+        builder.locationId = internalGetLocationId();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -127,10 +173,10 @@ public class ListEmployeesRequest {
      * Class to build instances of {@link ListEmployeesRequest}.
      */
     public static class Builder {
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private String status;
-        private Integer limit;
-        private String cursor;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
 
 
 
@@ -140,7 +186,16 @@ public class ListEmployeesRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -160,7 +215,16 @@ public class ListEmployeesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -170,7 +234,16 @@ public class ListEmployeesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

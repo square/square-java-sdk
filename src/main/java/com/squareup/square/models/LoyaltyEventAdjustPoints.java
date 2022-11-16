@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class LoyaltyEventAdjustPoints {
     private final String loyaltyProgramId;
     private final int points;
-    private final String reason;
+    private final OptionalNullable<String> reason;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class LoyaltyEventAdjustPoints {
             @JsonProperty("points") int points,
             @JsonProperty("loyalty_program_id") String loyaltyProgramId,
             @JsonProperty("reason") String reason) {
+        this.loyaltyProgramId = loyaltyProgramId;
+        this.points = points;
+        this.reason = OptionalNullable.of(reason);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyEventAdjustPoints(int points, String loyaltyProgramId,
+            OptionalNullable<String> reason) {
         this.loyaltyProgramId = loyaltyProgramId;
         this.points = points;
         this.reason = reason;
@@ -54,14 +67,25 @@ public class LoyaltyEventAdjustPoints {
     }
 
     /**
+     * Internal Getter for Reason.
+     * The reason for the adjustment of points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReason() {
+        return this.reason;
+    }
+
+    /**
      * Getter for Reason.
      * The reason for the adjustment of points.
      * @return Returns the String
      */
-    @JsonGetter("reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReason() {
-        return reason;
+        return OptionalNullable.getFrom(reason);
     }
 
     @Override
@@ -100,8 +124,8 @@ public class LoyaltyEventAdjustPoints {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(points)
-                .loyaltyProgramId(getLoyaltyProgramId())
-                .reason(getReason());
+                .loyaltyProgramId(getLoyaltyProgramId());
+        builder.reason = internalGetReason();
         return builder;
     }
 
@@ -111,7 +135,7 @@ public class LoyaltyEventAdjustPoints {
     public static class Builder {
         private int points;
         private String loyaltyProgramId;
-        private String reason;
+        private OptionalNullable<String> reason;
 
         /**
          * Initialization constructor.
@@ -147,7 +171,16 @@ public class LoyaltyEventAdjustPoints {
          * @return Builder
          */
         public Builder reason(String reason) {
-            this.reason = reason;
+            this.reason = OptionalNullable.of(reason);
+            return this;
+        }
+
+        /**
+         * UnSetter for reason.
+         * @return Builder
+         */
+        public Builder unsetReason() {
+            reason = null;
             return this;
         }
 

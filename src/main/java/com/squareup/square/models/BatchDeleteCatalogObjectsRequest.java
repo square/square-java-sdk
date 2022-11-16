@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for BatchDeleteCatalogObjectsRequest type.
  */
 public class BatchDeleteCatalogObjectsRequest {
-    private final List<String> objectIds;
+    private final OptionalNullable<List<String>> objectIds;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,28 @@ public class BatchDeleteCatalogObjectsRequest {
     @JsonCreator
     public BatchDeleteCatalogObjectsRequest(
             @JsonProperty("object_ids") List<String> objectIds) {
+        this.objectIds = OptionalNullable.of(objectIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BatchDeleteCatalogObjectsRequest(OptionalNullable<List<String>> objectIds) {
         this.objectIds = objectIds;
+    }
+
+    /**
+     * Internal Getter for ObjectIds.
+     * The IDs of the CatalogObjects to be deleted. When an object is deleted, other objects in the
+     * graph that depend on that object will be deleted as well (for example, deleting a CatalogItem
+     * will delete its CatalogItemVariation.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetObjectIds() {
+        return this.objectIds;
     }
 
     /**
@@ -32,10 +56,9 @@ public class BatchDeleteCatalogObjectsRequest {
      * will delete its CatalogItemVariation.
      * @return Returns the List of String
      */
-    @JsonGetter("object_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getObjectIds() {
-        return objectIds;
+        return OptionalNullable.getFrom(objectIds);
     }
 
     @Override
@@ -70,8 +93,8 @@ public class BatchDeleteCatalogObjectsRequest {
      * @return a new {@link BatchDeleteCatalogObjectsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .objectIds(getObjectIds());
+        Builder builder = new Builder();
+        builder.objectIds = internalGetObjectIds();
         return builder;
     }
 
@@ -79,7 +102,7 @@ public class BatchDeleteCatalogObjectsRequest {
      * Class to build instances of {@link BatchDeleteCatalogObjectsRequest}.
      */
     public static class Builder {
-        private List<String> objectIds;
+        private OptionalNullable<List<String>> objectIds;
 
 
 
@@ -89,7 +112,16 @@ public class BatchDeleteCatalogObjectsRequest {
          * @return Builder
          */
         public Builder objectIds(List<String> objectIds) {
-            this.objectIds = objectIds;
+            this.objectIds = OptionalNullable.of(objectIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for objectIds.
+         * @return Builder
+         */
+        public Builder unsetObjectIds() {
+            objectIds = null;
             return this;
         }
 

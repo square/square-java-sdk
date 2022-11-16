@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for BuyNowPayLaterDetails type.
  */
 public class BuyNowPayLaterDetails {
-    private final String brand;
+    private final OptionalNullable<String> brand;
     private final AfterpayDetails afterpayDetails;
     private final ClearpayDetails clearpayDetails;
 
@@ -27,9 +30,32 @@ public class BuyNowPayLaterDetails {
             @JsonProperty("brand") String brand,
             @JsonProperty("afterpay_details") AfterpayDetails afterpayDetails,
             @JsonProperty("clearpay_details") ClearpayDetails clearpayDetails) {
+        this.brand = OptionalNullable.of(brand);
+        this.afterpayDetails = afterpayDetails;
+        this.clearpayDetails = clearpayDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BuyNowPayLaterDetails(OptionalNullable<String> brand, AfterpayDetails afterpayDetails,
+            ClearpayDetails clearpayDetails) {
         this.brand = brand;
         this.afterpayDetails = afterpayDetails;
         this.clearpayDetails = clearpayDetails;
+    }
+
+    /**
+     * Internal Getter for Brand.
+     * The brand used for the Buy Now Pay Later payment. The brand can be `AFTERPAY`, `CLEARPAY` or
+     * `UNKNOWN`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBrand() {
+        return this.brand;
     }
 
     /**
@@ -38,10 +64,9 @@ public class BuyNowPayLaterDetails {
      * `UNKNOWN`.
      * @return Returns the String
      */
-    @JsonGetter("brand")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBrand() {
-        return brand;
+        return OptionalNullable.getFrom(brand);
     }
 
     /**
@@ -102,9 +127,9 @@ public class BuyNowPayLaterDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .brand(getBrand())
                 .afterpayDetails(getAfterpayDetails())
                 .clearpayDetails(getClearpayDetails());
+        builder.brand = internalGetBrand();
         return builder;
     }
 
@@ -112,7 +137,7 @@ public class BuyNowPayLaterDetails {
      * Class to build instances of {@link BuyNowPayLaterDetails}.
      */
     public static class Builder {
-        private String brand;
+        private OptionalNullable<String> brand;
         private AfterpayDetails afterpayDetails;
         private ClearpayDetails clearpayDetails;
 
@@ -124,7 +149,16 @@ public class BuyNowPayLaterDetails {
          * @return Builder
          */
         public Builder brand(String brand) {
-            this.brand = brand;
+            this.brand = OptionalNullable.of(brand);
+            return this;
+        }
+
+        /**
+         * UnSetter for brand.
+         * @return Builder
+         */
+        public Builder unsetBrand() {
+            brand = null;
             return this;
         }
 

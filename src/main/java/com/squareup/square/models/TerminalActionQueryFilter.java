@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for TerminalActionQueryFilter type.
  */
 public class TerminalActionQueryFilter {
-    private final String deviceId;
+    private final OptionalNullable<String> deviceId;
     private final TimeRange createdAt;
-    private final String status;
+    private final OptionalNullable<String> status;
     private final String type;
 
     /**
@@ -30,10 +33,34 @@ public class TerminalActionQueryFilter {
             @JsonProperty("created_at") TimeRange createdAt,
             @JsonProperty("status") String status,
             @JsonProperty("type") String type) {
+        this.deviceId = OptionalNullable.of(deviceId);
+        this.createdAt = createdAt;
+        this.status = OptionalNullable.of(status);
+        this.type = type;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TerminalActionQueryFilter(OptionalNullable<String> deviceId, TimeRange createdAt,
+            OptionalNullable<String> status, String type) {
         this.deviceId = deviceId;
         this.createdAt = createdAt;
         this.status = status;
         this.type = type;
+    }
+
+    /**
+     * Internal Getter for DeviceId.
+     * `TerminalAction`s associated with a specific device. If no device is specified then all
+     * `TerminalAction`s for the merchant will be displayed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceId() {
+        return this.deviceId;
     }
 
     /**
@@ -42,10 +69,9 @@ public class TerminalActionQueryFilter {
      * `TerminalAction`s for the merchant will be displayed.
      * @return Returns the String
      */
-    @JsonGetter("device_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceId() {
-        return deviceId;
+        return OptionalNullable.getFrom(deviceId);
     }
 
     /**
@@ -63,15 +89,27 @@ public class TerminalActionQueryFilter {
     }
 
     /**
+     * Internal Getter for Status.
+     * Filter results with the desired status of the `TerminalAction` Options: `PENDING`,
+     * `IN_PROGRESS`, `CANCEL_REQUESTED`, `CANCELED`, `COMPLETED`
+     * @return Returns the Internal String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatus() {
+        return this.status;
+    }
+
+    /**
      * Getter for Status.
      * Filter results with the desired status of the `TerminalAction` Options: `PENDING`,
      * `IN_PROGRESS`, `CANCEL_REQUESTED`, `CANCELED`, `COMPLETED`
      * @return Returns the String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
     }
 
     /**
@@ -123,10 +161,10 @@ public class TerminalActionQueryFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .deviceId(getDeviceId())
                 .createdAt(getCreatedAt())
-                .status(getStatus())
                 .type(getType());
+        builder.deviceId = internalGetDeviceId();
+        builder.status = internalGetStatus();
         return builder;
     }
 
@@ -134,9 +172,9 @@ public class TerminalActionQueryFilter {
      * Class to build instances of {@link TerminalActionQueryFilter}.
      */
     public static class Builder {
-        private String deviceId;
+        private OptionalNullable<String> deviceId;
         private TimeRange createdAt;
-        private String status;
+        private OptionalNullable<String> status;
         private String type;
 
 
@@ -147,7 +185,16 @@ public class TerminalActionQueryFilter {
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
-            this.deviceId = deviceId;
+            this.deviceId = OptionalNullable.of(deviceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceId.
+         * @return Builder
+         */
+        public Builder unsetDeviceId() {
+            deviceId = null;
             return this;
         }
 
@@ -167,7 +214,16 @@ public class TerminalActionQueryFilter {
          * @return Builder
          */
         public Builder status(String status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 

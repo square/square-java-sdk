@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.http.client.HttpContext;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,12 +19,12 @@ import java.util.Objects;
 public class V1Payment {
     private HttpContext httpContext;
     private final String id;
-    private final String merchantId;
+    private final OptionalNullable<String> merchantId;
     private final String createdAt;
-    private final String creatorId;
+    private final OptionalNullable<String> creatorId;
     private final Device device;
-    private final String paymentUrl;
-    private final String receiptUrl;
+    private final OptionalNullable<String> paymentUrl;
+    private final OptionalNullable<String> receiptUrl;
     private final V1Money inclusiveTaxMoney;
     private final V1Money additiveTaxMoney;
     private final V1Money taxMoney;
@@ -35,14 +37,14 @@ public class V1Payment {
     private final V1Money swedishRoundingMoney;
     private final V1Money grossSalesMoney;
     private final V1Money netSalesMoney;
-    private final List<V1PaymentTax> inclusiveTax;
-    private final List<V1PaymentTax> additiveTax;
-    private final List<V1Tender> tender;
-    private final List<V1Refund> refunds;
-    private final List<V1PaymentItemization> itemizations;
+    private final OptionalNullable<List<V1PaymentTax>> inclusiveTax;
+    private final OptionalNullable<List<V1PaymentTax>> additiveTax;
+    private final OptionalNullable<List<V1Tender>> tender;
+    private final OptionalNullable<List<V1Refund>> refunds;
+    private final OptionalNullable<List<V1PaymentItemization>> itemizations;
     private final V1Money surchargeMoney;
-    private final List<V1PaymentSurcharge> surcharges;
-    private final Boolean isPartial;
+    private final OptionalNullable<List<V1PaymentSurcharge>> surcharges;
+    private final OptionalNullable<Boolean> isPartial;
 
     /**
      * Initialization constructor.
@@ -104,6 +106,50 @@ public class V1Payment {
             @JsonProperty("surcharges") List<V1PaymentSurcharge> surcharges,
             @JsonProperty("is_partial") Boolean isPartial) {
         this.id = id;
+        this.merchantId = OptionalNullable.of(merchantId);
+        this.createdAt = createdAt;
+        this.creatorId = OptionalNullable.of(creatorId);
+        this.device = device;
+        this.paymentUrl = OptionalNullable.of(paymentUrl);
+        this.receiptUrl = OptionalNullable.of(receiptUrl);
+        this.inclusiveTaxMoney = inclusiveTaxMoney;
+        this.additiveTaxMoney = additiveTaxMoney;
+        this.taxMoney = taxMoney;
+        this.tipMoney = tipMoney;
+        this.discountMoney = discountMoney;
+        this.totalCollectedMoney = totalCollectedMoney;
+        this.processingFeeMoney = processingFeeMoney;
+        this.netTotalMoney = netTotalMoney;
+        this.refundedMoney = refundedMoney;
+        this.swedishRoundingMoney = swedishRoundingMoney;
+        this.grossSalesMoney = grossSalesMoney;
+        this.netSalesMoney = netSalesMoney;
+        this.inclusiveTax = OptionalNullable.of(inclusiveTax);
+        this.additiveTax = OptionalNullable.of(additiveTax);
+        this.tender = OptionalNullable.of(tender);
+        this.refunds = OptionalNullable.of(refunds);
+        this.itemizations = OptionalNullable.of(itemizations);
+        this.surchargeMoney = surchargeMoney;
+        this.surcharges = OptionalNullable.of(surcharges);
+        this.isPartial = OptionalNullable.of(isPartial);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Payment(String id, OptionalNullable<String> merchantId, String createdAt,
+            OptionalNullable<String> creatorId, Device device, OptionalNullable<String> paymentUrl,
+            OptionalNullable<String> receiptUrl, V1Money inclusiveTaxMoney,
+            V1Money additiveTaxMoney, V1Money taxMoney, V1Money tipMoney, V1Money discountMoney,
+            V1Money totalCollectedMoney, V1Money processingFeeMoney, V1Money netTotalMoney,
+            V1Money refundedMoney, V1Money swedishRoundingMoney, V1Money grossSalesMoney,
+            V1Money netSalesMoney, OptionalNullable<List<V1PaymentTax>> inclusiveTax,
+            OptionalNullable<List<V1PaymentTax>> additiveTax,
+            OptionalNullable<List<V1Tender>> tender, OptionalNullable<List<V1Refund>> refunds,
+            OptionalNullable<List<V1PaymentItemization>> itemizations, V1Money surchargeMoney,
+            OptionalNullable<List<V1PaymentSurcharge>> surcharges,
+            OptionalNullable<Boolean> isPartial) {
+        this.id = id;
         this.merchantId = merchantId;
         this.createdAt = createdAt;
         this.creatorId = creatorId;
@@ -149,14 +195,25 @@ public class V1Payment {
     }
 
     /**
+     * Internal Getter for MerchantId.
+     * The unique identifier of the merchant that took the payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantId() {
+        return this.merchantId;
+    }
+
+    /**
      * Getter for MerchantId.
      * The unique identifier of the merchant that took the payment.
      * @return Returns the String
      */
-    @JsonGetter("merchant_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantId() {
-        return merchantId;
+        return OptionalNullable.getFrom(merchantId);
     }
 
     /**
@@ -173,14 +230,25 @@ public class V1Payment {
     }
 
     /**
+     * Internal Getter for CreatorId.
+     * The unique identifier of the Square account that took the payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("creator_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCreatorId() {
+        return this.creatorId;
+    }
+
+    /**
      * Getter for CreatorId.
      * The unique identifier of the Square account that took the payment.
      * @return Returns the String
      */
-    @JsonGetter("creator_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCreatorId() {
-        return creatorId;
+        return OptionalNullable.getFrom(creatorId);
     }
 
     /**
@@ -194,15 +262,42 @@ public class V1Payment {
     }
 
     /**
+     * Internal Getter for PaymentUrl.
+     * The URL of the payment's detail page in the merchant dashboard. The merchant must be signed
+     * in to the merchant dashboard to view this page.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentUrl() {
+        return this.paymentUrl;
+    }
+
+    /**
      * Getter for PaymentUrl.
      * The URL of the payment's detail page in the merchant dashboard. The merchant must be signed
      * in to the merchant dashboard to view this page.
      * @return Returns the String
      */
-    @JsonGetter("payment_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentUrl() {
-        return paymentUrl;
+        return OptionalNullable.getFrom(paymentUrl);
+    }
+
+    /**
+     * Internal Getter for ReceiptUrl.
+     * The URL of the receipt for the payment. Note that for split tender payments, this URL
+     * corresponds to the receipt for the first tender listed in the payment's tender field. Each
+     * Tender object has its own receipt_url field you can use to get the other receipts associated
+     * with a split tender payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("receipt_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReceiptUrl() {
+        return this.receiptUrl;
     }
 
     /**
@@ -213,10 +308,9 @@ public class V1Payment {
      * with a split tender payment.
      * @return Returns the String
      */
-    @JsonGetter("receipt_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReceiptUrl() {
-        return receiptUrl;
+        return OptionalNullable.getFrom(receiptUrl);
     }
 
     /**
@@ -340,14 +434,37 @@ public class V1Payment {
     }
 
     /**
+     * Internal Getter for InclusiveTax.
+     * All of the inclusive taxes associated with the payment.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("inclusive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetInclusiveTax() {
+        return this.inclusiveTax;
+    }
+
+    /**
      * Getter for InclusiveTax.
      * All of the inclusive taxes associated with the payment.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("inclusive_tax")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getInclusiveTax() {
-        return inclusiveTax;
+        return OptionalNullable.getFrom(inclusiveTax);
+    }
+
+    /**
+     * Internal Getter for AdditiveTax.
+     * All of the additive taxes associated with the payment.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("additive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetAdditiveTax() {
+        return this.additiveTax;
     }
 
     /**
@@ -355,10 +472,21 @@ public class V1Payment {
      * All of the additive taxes associated with the payment.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("additive_tax")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getAdditiveTax() {
-        return additiveTax;
+        return OptionalNullable.getFrom(additiveTax);
+    }
+
+    /**
+     * Internal Getter for Tender.
+     * All of the tenders associated with the payment.
+     * @return Returns the Internal List of V1Tender
+     */
+    @JsonGetter("tender")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1Tender>> internalGetTender() {
+        return this.tender;
     }
 
     /**
@@ -366,10 +494,23 @@ public class V1Payment {
      * All of the tenders associated with the payment.
      * @return Returns the List of V1Tender
      */
-    @JsonGetter("tender")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1Tender> getTender() {
-        return tender;
+        return OptionalNullable.getFrom(tender);
+    }
+
+    /**
+     * Internal Getter for Refunds.
+     * All of the refunds applied to the payment. Note that the value of all refunds on a payment
+     * can exceed the value of all tenders if a merchant chooses to refund money to a tender after
+     * previously accepting returned goods as part of an exchange.
+     * @return Returns the Internal List of V1Refund
+     */
+    @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1Refund>> internalGetRefunds() {
+        return this.refunds;
     }
 
     /**
@@ -379,10 +520,21 @@ public class V1Payment {
      * previously accepting returned goods as part of an exchange.
      * @return Returns the List of V1Refund
      */
-    @JsonGetter("refunds")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1Refund> getRefunds() {
-        return refunds;
+        return OptionalNullable.getFrom(refunds);
+    }
+
+    /**
+     * Internal Getter for Itemizations.
+     * The items purchased in the payment.
+     * @return Returns the Internal List of V1PaymentItemization
+     */
+    @JsonGetter("itemizations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentItemization>> internalGetItemizations() {
+        return this.itemizations;
     }
 
     /**
@@ -390,10 +542,9 @@ public class V1Payment {
      * The items purchased in the payment.
      * @return Returns the List of V1PaymentItemization
      */
-    @JsonGetter("itemizations")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentItemization> getItemizations() {
-        return itemizations;
+        return OptionalNullable.getFrom(itemizations);
     }
 
     /**
@@ -407,14 +558,39 @@ public class V1Payment {
     }
 
     /**
+     * Internal Getter for Surcharges.
+     * A list of all surcharges associated with the payment.
+     * @return Returns the Internal List of V1PaymentSurcharge
+     */
+    @JsonGetter("surcharges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentSurcharge>> internalGetSurcharges() {
+        return this.surcharges;
+    }
+
+    /**
      * Getter for Surcharges.
      * A list of all surcharges associated with the payment.
      * @return Returns the List of V1PaymentSurcharge
      */
-    @JsonGetter("surcharges")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentSurcharge> getSurcharges() {
-        return surcharges;
+        return OptionalNullable.getFrom(surcharges);
+    }
+
+    /**
+     * Internal Getter for IsPartial.
+     * Indicates whether or not the payment is only partially paid for. If true, this payment will
+     * have the tenders collected so far, but the itemizations will be empty until the payment is
+     * completed.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_partial")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsPartial() {
+        return this.isPartial;
     }
 
     /**
@@ -424,10 +600,9 @@ public class V1Payment {
      * completed.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_partial")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsPartial() {
-        return isPartial;
+        return OptionalNullable.getFrom(isPartial);
     }
 
     @Override
@@ -506,12 +681,8 @@ public class V1Payment {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .merchantId(getMerchantId())
                 .createdAt(getCreatedAt())
-                .creatorId(getCreatorId())
                 .device(getDevice())
-                .paymentUrl(getPaymentUrl())
-                .receiptUrl(getReceiptUrl())
                 .inclusiveTaxMoney(getInclusiveTaxMoney())
                 .additiveTaxMoney(getAdditiveTaxMoney())
                 .taxMoney(getTaxMoney())
@@ -524,14 +695,18 @@ public class V1Payment {
                 .swedishRoundingMoney(getSwedishRoundingMoney())
                 .grossSalesMoney(getGrossSalesMoney())
                 .netSalesMoney(getNetSalesMoney())
-                .inclusiveTax(getInclusiveTax())
-                .additiveTax(getAdditiveTax())
-                .tender(getTender())
-                .refunds(getRefunds())
-                .itemizations(getItemizations())
-                .surchargeMoney(getSurchargeMoney())
-                .surcharges(getSurcharges())
-                .isPartial(getIsPartial());
+                .surchargeMoney(getSurchargeMoney());
+        builder.merchantId = internalGetMerchantId();
+        builder.creatorId = internalGetCreatorId();
+        builder.paymentUrl = internalGetPaymentUrl();
+        builder.receiptUrl = internalGetReceiptUrl();
+        builder.inclusiveTax = internalGetInclusiveTax();
+        builder.additiveTax = internalGetAdditiveTax();
+        builder.tender = internalGetTender();
+        builder.refunds = internalGetRefunds();
+        builder.itemizations = internalGetItemizations();
+        builder.surcharges = internalGetSurcharges();
+        builder.isPartial = internalGetIsPartial();
         return builder;
     }
 
@@ -541,12 +716,12 @@ public class V1Payment {
     public static class Builder {
         private HttpContext httpContext;
         private String id;
-        private String merchantId;
+        private OptionalNullable<String> merchantId;
         private String createdAt;
-        private String creatorId;
+        private OptionalNullable<String> creatorId;
         private Device device;
-        private String paymentUrl;
-        private String receiptUrl;
+        private OptionalNullable<String> paymentUrl;
+        private OptionalNullable<String> receiptUrl;
         private V1Money inclusiveTaxMoney;
         private V1Money additiveTaxMoney;
         private V1Money taxMoney;
@@ -559,14 +734,14 @@ public class V1Payment {
         private V1Money swedishRoundingMoney;
         private V1Money grossSalesMoney;
         private V1Money netSalesMoney;
-        private List<V1PaymentTax> inclusiveTax;
-        private List<V1PaymentTax> additiveTax;
-        private List<V1Tender> tender;
-        private List<V1Refund> refunds;
-        private List<V1PaymentItemization> itemizations;
+        private OptionalNullable<List<V1PaymentTax>> inclusiveTax;
+        private OptionalNullable<List<V1PaymentTax>> additiveTax;
+        private OptionalNullable<List<V1Tender>> tender;
+        private OptionalNullable<List<V1Refund>> refunds;
+        private OptionalNullable<List<V1PaymentItemization>> itemizations;
         private V1Money surchargeMoney;
-        private List<V1PaymentSurcharge> surcharges;
-        private Boolean isPartial;
+        private OptionalNullable<List<V1PaymentSurcharge>> surcharges;
+        private OptionalNullable<Boolean> isPartial;
 
 
 
@@ -596,7 +771,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
-            this.merchantId = merchantId;
+            this.merchantId = OptionalNullable.of(merchantId);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantId.
+         * @return Builder
+         */
+        public Builder unsetMerchantId() {
+            merchantId = null;
             return this;
         }
 
@@ -616,7 +800,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder creatorId(String creatorId) {
-            this.creatorId = creatorId;
+            this.creatorId = OptionalNullable.of(creatorId);
+            return this;
+        }
+
+        /**
+         * UnSetter for creatorId.
+         * @return Builder
+         */
+        public Builder unsetCreatorId() {
+            creatorId = null;
             return this;
         }
 
@@ -636,7 +829,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder paymentUrl(String paymentUrl) {
-            this.paymentUrl = paymentUrl;
+            this.paymentUrl = OptionalNullable.of(paymentUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentUrl.
+         * @return Builder
+         */
+        public Builder unsetPaymentUrl() {
+            paymentUrl = null;
             return this;
         }
 
@@ -646,7 +848,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {
-            this.receiptUrl = receiptUrl;
+            this.receiptUrl = OptionalNullable.of(receiptUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for receiptUrl.
+         * @return Builder
+         */
+        public Builder unsetReceiptUrl() {
+            receiptUrl = null;
             return this;
         }
 
@@ -776,7 +987,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder inclusiveTax(List<V1PaymentTax> inclusiveTax) {
-            this.inclusiveTax = inclusiveTax;
+            this.inclusiveTax = OptionalNullable.of(inclusiveTax);
+            return this;
+        }
+
+        /**
+         * UnSetter for inclusiveTax.
+         * @return Builder
+         */
+        public Builder unsetInclusiveTax() {
+            inclusiveTax = null;
             return this;
         }
 
@@ -786,7 +1006,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder additiveTax(List<V1PaymentTax> additiveTax) {
-            this.additiveTax = additiveTax;
+            this.additiveTax = OptionalNullable.of(additiveTax);
+            return this;
+        }
+
+        /**
+         * UnSetter for additiveTax.
+         * @return Builder
+         */
+        public Builder unsetAdditiveTax() {
+            additiveTax = null;
             return this;
         }
 
@@ -796,7 +1025,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder tender(List<V1Tender> tender) {
-            this.tender = tender;
+            this.tender = OptionalNullable.of(tender);
+            return this;
+        }
+
+        /**
+         * UnSetter for tender.
+         * @return Builder
+         */
+        public Builder unsetTender() {
+            tender = null;
             return this;
         }
 
@@ -806,7 +1044,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder refunds(List<V1Refund> refunds) {
-            this.refunds = refunds;
+            this.refunds = OptionalNullable.of(refunds);
+            return this;
+        }
+
+        /**
+         * UnSetter for refunds.
+         * @return Builder
+         */
+        public Builder unsetRefunds() {
+            refunds = null;
             return this;
         }
 
@@ -816,7 +1063,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder itemizations(List<V1PaymentItemization> itemizations) {
-            this.itemizations = itemizations;
+            this.itemizations = OptionalNullable.of(itemizations);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemizations.
+         * @return Builder
+         */
+        public Builder unsetItemizations() {
+            itemizations = null;
             return this;
         }
 
@@ -836,7 +1092,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder surcharges(List<V1PaymentSurcharge> surcharges) {
-            this.surcharges = surcharges;
+            this.surcharges = OptionalNullable.of(surcharges);
+            return this;
+        }
+
+        /**
+         * UnSetter for surcharges.
+         * @return Builder
+         */
+        public Builder unsetSurcharges() {
+            surcharges = null;
             return this;
         }
 
@@ -846,7 +1111,16 @@ public class V1Payment {
          * @return Builder
          */
         public Builder isPartial(Boolean isPartial) {
-            this.isPartial = isPartial;
+            this.isPartial = OptionalNullable.of(isPartial);
+            return this;
+        }
+
+        /**
+         * UnSetter for isPartial.
+         * @return Builder
+         */
+        public Builder unsetIsPartial() {
+            isPartial = null;
             return this;
         }
 

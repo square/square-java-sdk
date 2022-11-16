@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfig type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfig {
-    private final Integer maxAllowedSelections;
-    private final List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
+    private final OptionalNullable<Integer> maxAllowedSelections;
+    private final OptionalNullable<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>> allowedSelections;
 
     /**
      * Initialization constructor.
@@ -27,8 +30,33 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
     public CatalogCustomAttributeDefinitionSelectionConfig(
             @JsonProperty("max_allowed_selections") Integer maxAllowedSelections,
             @JsonProperty("allowed_selections") List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections) {
+        this.maxAllowedSelections = OptionalNullable.of(maxAllowedSelections);
+        this.allowedSelections = OptionalNullable.of(allowedSelections);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogCustomAttributeDefinitionSelectionConfig(
+            OptionalNullable<Integer> maxAllowedSelections,
+            OptionalNullable<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>> allowedSelections) {
         this.maxAllowedSelections = maxAllowedSelections;
         this.allowedSelections = allowedSelections;
+    }
+
+    /**
+     * Internal Getter for MaxAllowedSelections.
+     * The maximum number of selections that can be set. The maximum value for this attribute is
+     * 100. The default value is 1. The value can be modified, but changing the value will not
+     * affect existing custom attribute values on objects. Clients need to handle custom attributes
+     * with more selected values than allowed by this limit.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("max_allowed_selections")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMaxAllowedSelections() {
+        return this.maxAllowedSelections;
     }
 
     /**
@@ -39,10 +67,22 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * with more selected values than allowed by this limit.
      * @return Returns the Integer
      */
-    @JsonGetter("max_allowed_selections")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getMaxAllowedSelections() {
-        return maxAllowedSelections;
+        return OptionalNullable.getFrom(maxAllowedSelections);
+    }
+
+    /**
+     * Internal Getter for AllowedSelections.
+     * The set of valid `CatalogCustomAttributeSelections`. Up to a maximum of 100 selections can be
+     * defined. Can be modified.
+     * @return Returns the Internal List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection
+     */
+    @JsonGetter("allowed_selections")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>> internalGetAllowedSelections() {
+        return this.allowedSelections;
     }
 
     /**
@@ -51,10 +91,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * defined. Can be modified.
      * @return Returns the List of CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection
      */
-    @JsonGetter("allowed_selections")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> getAllowedSelections() {
-        return allowedSelections;
+        return OptionalNullable.getFrom(allowedSelections);
     }
 
     @Override
@@ -92,9 +131,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * @return a new {@link CatalogCustomAttributeDefinitionSelectionConfig.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .maxAllowedSelections(getMaxAllowedSelections())
-                .allowedSelections(getAllowedSelections());
+        Builder builder = new Builder();
+        builder.maxAllowedSelections = internalGetMaxAllowedSelections();
+        builder.allowedSelections = internalGetAllowedSelections();
         return builder;
     }
 
@@ -102,8 +141,8 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
      * Class to build instances of {@link CatalogCustomAttributeDefinitionSelectionConfig}.
      */
     public static class Builder {
-        private Integer maxAllowedSelections;
-        private List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections;
+        private OptionalNullable<Integer> maxAllowedSelections;
+        private OptionalNullable<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>> allowedSelections;
 
 
 
@@ -113,7 +152,16 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
          * @return Builder
          */
         public Builder maxAllowedSelections(Integer maxAllowedSelections) {
-            this.maxAllowedSelections = maxAllowedSelections;
+            this.maxAllowedSelections = OptionalNullable.of(maxAllowedSelections);
+            return this;
+        }
+
+        /**
+         * UnSetter for maxAllowedSelections.
+         * @return Builder
+         */
+        public Builder unsetMaxAllowedSelections() {
+            maxAllowedSelections = null;
             return this;
         }
 
@@ -126,7 +174,16 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
          */
         public Builder allowedSelections(
                 List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> allowedSelections) {
-            this.allowedSelections = allowedSelections;
+            this.allowedSelections = OptionalNullable.of(allowedSelections);
+            return this;
+        }
+
+        /**
+         * UnSetter for allowedSelections.
+         * @return Builder
+         */
+        public Builder unsetAllowedSelections() {
+            allowedSelections = null;
             return this;
         }
 

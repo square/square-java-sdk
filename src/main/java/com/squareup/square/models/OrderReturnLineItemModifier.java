@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderReturnLineItemModifier type.
  */
 public class OrderReturnLineItemModifier {
-    private final String uid;
-    private final String sourceModifierUid;
-    private final String catalogObjectId;
-    private final Long catalogVersion;
-    private final String name;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> sourceModifierUid;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<Long> catalogVersion;
+    private final OptionalNullable<String> name;
     private final Money basePriceMoney;
     private final Money totalPriceMoney;
 
@@ -39,6 +42,22 @@ public class OrderReturnLineItemModifier {
             @JsonProperty("name") String name,
             @JsonProperty("base_price_money") Money basePriceMoney,
             @JsonProperty("total_price_money") Money totalPriceMoney) {
+        this.uid = OptionalNullable.of(uid);
+        this.sourceModifierUid = OptionalNullable.of(sourceModifierUid);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+        this.name = OptionalNullable.of(name);
+        this.basePriceMoney = basePriceMoney;
+        this.totalPriceMoney = totalPriceMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderReturnLineItemModifier(OptionalNullable<String> uid,
+            OptionalNullable<String> sourceModifierUid, OptionalNullable<String> catalogObjectId,
+            OptionalNullable<Long> catalogVersion, OptionalNullable<String> name,
+            Money basePriceMoney, Money totalPriceMoney) {
         this.uid = uid;
         this.sourceModifierUid = sourceModifierUid;
         this.catalogObjectId = catalogObjectId;
@@ -49,14 +68,38 @@ public class OrderReturnLineItemModifier {
     }
 
     /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the return modifier only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * A unique ID that identifies the return modifier only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for SourceModifierUid.
+     * The modifier `uid` from the order's line item that contains the original sale of this line
+     * item modifier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("source_modifier_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSourceModifierUid() {
+        return this.sourceModifierUid;
     }
 
     /**
@@ -65,10 +108,21 @@ public class OrderReturnLineItemModifier {
      * item modifier.
      * @return Returns the String
      */
-    @JsonGetter("source_modifier_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSourceModifierUid() {
-        return sourceModifierUid;
+        return OptionalNullable.getFrom(sourceModifierUid);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -76,10 +130,21 @@ public class OrderReturnLineItemModifier {
      * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The version of the catalog object that this line item modifier references.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -87,10 +152,21 @@ public class OrderReturnLineItemModifier {
      * The version of the catalog object that this line item modifier references.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The name of the item modifier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -98,10 +174,9 @@ public class OrderReturnLineItemModifier {
      * The name of the item modifier.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -179,13 +254,13 @@ public class OrderReturnLineItemModifier {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
-                .sourceModifierUid(getSourceModifierUid())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogVersion(getCatalogVersion())
-                .name(getName())
                 .basePriceMoney(getBasePriceMoney())
                 .totalPriceMoney(getTotalPriceMoney());
+        builder.uid = internalGetUid();
+        builder.sourceModifierUid = internalGetSourceModifierUid();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogVersion = internalGetCatalogVersion();
+        builder.name = internalGetName();
         return builder;
     }
 
@@ -193,11 +268,11 @@ public class OrderReturnLineItemModifier {
      * Class to build instances of {@link OrderReturnLineItemModifier}.
      */
     public static class Builder {
-        private String uid;
-        private String sourceModifierUid;
-        private String catalogObjectId;
-        private Long catalogVersion;
-        private String name;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> sourceModifierUid;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<Long> catalogVersion;
+        private OptionalNullable<String> name;
         private Money basePriceMoney;
         private Money totalPriceMoney;
 
@@ -209,7 +284,16 @@ public class OrderReturnLineItemModifier {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -219,7 +303,16 @@ public class OrderReturnLineItemModifier {
          * @return Builder
          */
         public Builder sourceModifierUid(String sourceModifierUid) {
-            this.sourceModifierUid = sourceModifierUid;
+            this.sourceModifierUid = OptionalNullable.of(sourceModifierUid);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceModifierUid.
+         * @return Builder
+         */
+        public Builder unsetSourceModifierUid() {
+            sourceModifierUid = null;
             return this;
         }
 
@@ -229,7 +322,16 @@ public class OrderReturnLineItemModifier {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -239,7 +341,16 @@ public class OrderReturnLineItemModifier {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 
@@ -249,7 +360,16 @@ public class OrderReturnLineItemModifier {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 

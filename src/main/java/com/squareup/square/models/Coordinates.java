@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for Coordinates type.
  */
 public class Coordinates {
-    private final Double latitude;
-    private final Double longitude;
+    private final OptionalNullable<Double> latitude;
+    private final OptionalNullable<Double> longitude;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,28 @@ public class Coordinates {
     public Coordinates(
             @JsonProperty("latitude") Double latitude,
             @JsonProperty("longitude") Double longitude) {
+        this.latitude = OptionalNullable.of(latitude);
+        this.longitude = OptionalNullable.of(longitude);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Coordinates(OptionalNullable<Double> latitude, OptionalNullable<Double> longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    /**
+     * Internal Getter for Latitude.
+     * The latitude of the coordinate expressed in degrees.
+     * @return Returns the Internal Double
+     */
+    @JsonGetter("latitude")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Double> internalGetLatitude() {
+        return this.latitude;
     }
 
     /**
@@ -33,10 +56,21 @@ public class Coordinates {
      * The latitude of the coordinate expressed in degrees.
      * @return Returns the Double
      */
-    @JsonGetter("latitude")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Double getLatitude() {
-        return latitude;
+        return OptionalNullable.getFrom(latitude);
+    }
+
+    /**
+     * Internal Getter for Longitude.
+     * The longitude of the coordinate expressed in degrees.
+     * @return Returns the Internal Double
+     */
+    @JsonGetter("longitude")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Double> internalGetLongitude() {
+        return this.longitude;
     }
 
     /**
@@ -44,10 +78,9 @@ public class Coordinates {
      * The longitude of the coordinate expressed in degrees.
      * @return Returns the Double
      */
-    @JsonGetter("longitude")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Double getLongitude() {
-        return longitude;
+        return OptionalNullable.getFrom(longitude);
     }
 
     @Override
@@ -83,9 +116,9 @@ public class Coordinates {
      * @return a new {@link Coordinates.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .latitude(getLatitude())
-                .longitude(getLongitude());
+        Builder builder = new Builder();
+        builder.latitude = internalGetLatitude();
+        builder.longitude = internalGetLongitude();
         return builder;
     }
 
@@ -93,8 +126,8 @@ public class Coordinates {
      * Class to build instances of {@link Coordinates}.
      */
     public static class Builder {
-        private Double latitude;
-        private Double longitude;
+        private OptionalNullable<Double> latitude;
+        private OptionalNullable<Double> longitude;
 
 
 
@@ -104,7 +137,16 @@ public class Coordinates {
          * @return Builder
          */
         public Builder latitude(Double latitude) {
-            this.latitude = latitude;
+            this.latitude = OptionalNullable.of(latitude);
+            return this;
+        }
+
+        /**
+         * UnSetter for latitude.
+         * @return Builder
+         */
+        public Builder unsetLatitude() {
+            latitude = null;
             return this;
         }
 
@@ -114,7 +156,16 @@ public class Coordinates {
          * @return Builder
          */
         public Builder longitude(Double longitude) {
-            this.longitude = longitude;
+            this.longitude = OptionalNullable.of(longitude);
+            return this;
+        }
+
+        /**
+         * UnSetter for longitude.
+         * @return Builder
+         */
+        public Builder unsetLongitude() {
+            longitude = null;
             return this;
         }
 

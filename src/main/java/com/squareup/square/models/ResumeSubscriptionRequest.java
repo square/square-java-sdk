@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ResumeSubscriptionRequest type.
  */
 public class ResumeSubscriptionRequest {
-    private final String resumeEffectiveDate;
+    private final OptionalNullable<String> resumeEffectiveDate;
     private final String resumeChangeTiming;
 
     /**
@@ -24,8 +27,29 @@ public class ResumeSubscriptionRequest {
     public ResumeSubscriptionRequest(
             @JsonProperty("resume_effective_date") String resumeEffectiveDate,
             @JsonProperty("resume_change_timing") String resumeChangeTiming) {
+        this.resumeEffectiveDate = OptionalNullable.of(resumeEffectiveDate);
+        this.resumeChangeTiming = resumeChangeTiming;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ResumeSubscriptionRequest(OptionalNullable<String> resumeEffectiveDate,
+            String resumeChangeTiming) {
         this.resumeEffectiveDate = resumeEffectiveDate;
         this.resumeChangeTiming = resumeChangeTiming;
+    }
+
+    /**
+     * Internal Getter for ResumeEffectiveDate.
+     * The `YYYY-MM-DD`-formatted date when the subscription reactivated.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("resume_effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetResumeEffectiveDate() {
+        return this.resumeEffectiveDate;
     }
 
     /**
@@ -33,10 +57,9 @@ public class ResumeSubscriptionRequest {
      * The `YYYY-MM-DD`-formatted date when the subscription reactivated.
      * @return Returns the String
      */
-    @JsonGetter("resume_effective_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getResumeEffectiveDate() {
-        return resumeEffectiveDate;
+        return OptionalNullable.getFrom(resumeEffectiveDate);
     }
 
     /**
@@ -85,8 +108,8 @@ public class ResumeSubscriptionRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .resumeEffectiveDate(getResumeEffectiveDate())
                 .resumeChangeTiming(getResumeChangeTiming());
+        builder.resumeEffectiveDate = internalGetResumeEffectiveDate();
         return builder;
     }
 
@@ -94,7 +117,7 @@ public class ResumeSubscriptionRequest {
      * Class to build instances of {@link ResumeSubscriptionRequest}.
      */
     public static class Builder {
-        private String resumeEffectiveDate;
+        private OptionalNullable<String> resumeEffectiveDate;
         private String resumeChangeTiming;
 
 
@@ -105,7 +128,16 @@ public class ResumeSubscriptionRequest {
          * @return Builder
          */
         public Builder resumeEffectiveDate(String resumeEffectiveDate) {
-            this.resumeEffectiveDate = resumeEffectiveDate;
+            this.resumeEffectiveDate = OptionalNullable.of(resumeEffectiveDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for resumeEffectiveDate.
+         * @return Builder
+         */
+        public Builder unsetResumeEffectiveDate() {
+            resumeEffectiveDate = null;
             return this;
         }
 

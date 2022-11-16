@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class V1ListOrdersRequest {
     private final String order;
-    private final Integer limit;
-    private final String batchToken;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> batchToken;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class V1ListOrdersRequest {
             @JsonProperty("order") String order,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("batch_token") String batchToken) {
+        this.order = order;
+        this.limit = OptionalNullable.of(limit);
+        this.batchToken = OptionalNullable.of(batchToken);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1ListOrdersRequest(String order, OptionalNullable<Integer> limit,
+            OptionalNullable<String> batchToken) {
         this.order = order;
         this.limit = limit;
         this.batchToken = batchToken;
@@ -44,14 +57,38 @@ public class V1ListOrdersRequest {
     }
 
     /**
+     * Internal Getter for Limit.
+     * The maximum number of payments to return in a single response. This value cannot exceed 200.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
+    }
+
+    /**
      * Getter for Limit.
      * The maximum number of payments to return in a single response. This value cannot exceed 200.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for BatchToken.
+     * A pagination cursor to retrieve the next set of results for your original query to the
+     * endpoint.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("batch_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBatchToken() {
+        return this.batchToken;
     }
 
     /**
@@ -60,10 +97,9 @@ public class V1ListOrdersRequest {
      * endpoint.
      * @return Returns the String
      */
-    @JsonGetter("batch_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBatchToken() {
-        return batchToken;
+        return OptionalNullable.getFrom(batchToken);
     }
 
     @Override
@@ -102,9 +138,9 @@ public class V1ListOrdersRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .order(getOrder())
-                .limit(getLimit())
-                .batchToken(getBatchToken());
+                .order(getOrder());
+        builder.limit = internalGetLimit();
+        builder.batchToken = internalGetBatchToken();
         return builder;
     }
 
@@ -113,8 +149,8 @@ public class V1ListOrdersRequest {
      */
     public static class Builder {
         private String order;
-        private Integer limit;
-        private String batchToken;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> batchToken;
 
 
 
@@ -134,7 +170,16 @@ public class V1ListOrdersRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -144,7 +189,16 @@ public class V1ListOrdersRequest {
          * @return Builder
          */
         public Builder batchToken(String batchToken) {
-            this.batchToken = batchToken;
+            this.batchToken = OptionalNullable.of(batchToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for batchToken.
+         * @return Builder
+         */
+        public Builder unsetBatchToken() {
+            batchToken = null;
             return this;
         }
 

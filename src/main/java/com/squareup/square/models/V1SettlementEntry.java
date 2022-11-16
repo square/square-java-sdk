@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for V1SettlementEntry type.
  */
 public class V1SettlementEntry {
-    private final String paymentId;
+    private final OptionalNullable<String> paymentId;
     private final String type;
     private final V1Money amountMoney;
     private final V1Money feeMoney;
@@ -30,6 +33,17 @@ public class V1SettlementEntry {
             @JsonProperty("type") String type,
             @JsonProperty("amount_money") V1Money amountMoney,
             @JsonProperty("fee_money") V1Money feeMoney) {
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.type = type;
+        this.amountMoney = amountMoney;
+        this.feeMoney = feeMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1SettlementEntry(OptionalNullable<String> paymentId, String type,
+            V1Money amountMoney, V1Money feeMoney) {
         this.paymentId = paymentId;
         this.type = type;
         this.amountMoney = amountMoney;
@@ -37,14 +51,25 @@ public class V1SettlementEntry {
     }
 
     /**
+     * Internal Getter for PaymentId.
+     * The settlement's unique identifier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
+    }
+
+    /**
      * Getter for PaymentId.
      * The settlement's unique identifier.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
     }
 
     /**
@@ -114,10 +139,10 @@ public class V1SettlementEntry {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .paymentId(getPaymentId())
                 .type(getType())
                 .amountMoney(getAmountMoney())
                 .feeMoney(getFeeMoney());
+        builder.paymentId = internalGetPaymentId();
         return builder;
     }
 
@@ -125,7 +150,7 @@ public class V1SettlementEntry {
      * Class to build instances of {@link V1SettlementEntry}.
      */
     public static class Builder {
-        private String paymentId;
+        private OptionalNullable<String> paymentId;
         private String type;
         private V1Money amountMoney;
         private V1Money feeMoney;
@@ -138,7 +163,16 @@ public class V1SettlementEntry {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 

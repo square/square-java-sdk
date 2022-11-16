@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -16,8 +19,8 @@ public class GiftCardActivity {
     private final String type;
     private final String locationId;
     private final String createdAt;
-    private final String giftCardId;
-    private final String giftCardGan;
+    private final OptionalNullable<String> giftCardId;
+    private final OptionalNullable<String> giftCardGan;
     private final Money giftCardBalanceMoney;
     private final GiftCardActivityLoad loadActivityDetails;
     private final GiftCardActivityActivate activateActivityDetails;
@@ -88,6 +91,46 @@ public class GiftCardActivity {
         this.type = type;
         this.locationId = locationId;
         this.createdAt = createdAt;
+        this.giftCardId = OptionalNullable.of(giftCardId);
+        this.giftCardGan = OptionalNullable.of(giftCardGan);
+        this.giftCardBalanceMoney = giftCardBalanceMoney;
+        this.loadActivityDetails = loadActivityDetails;
+        this.activateActivityDetails = activateActivityDetails;
+        this.redeemActivityDetails = redeemActivityDetails;
+        this.clearBalanceActivityDetails = clearBalanceActivityDetails;
+        this.deactivateActivityDetails = deactivateActivityDetails;
+        this.adjustIncrementActivityDetails = adjustIncrementActivityDetails;
+        this.adjustDecrementActivityDetails = adjustDecrementActivityDetails;
+        this.refundActivityDetails = refundActivityDetails;
+        this.unlinkedActivityRefundActivityDetails = unlinkedActivityRefundActivityDetails;
+        this.importActivityDetails = importActivityDetails;
+        this.blockActivityDetails = blockActivityDetails;
+        this.unblockActivityDetails = unblockActivityDetails;
+        this.importReversalActivityDetails = importReversalActivityDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected GiftCardActivity(String type, String locationId, String id, String createdAt,
+            OptionalNullable<String> giftCardId, OptionalNullable<String> giftCardGan,
+            Money giftCardBalanceMoney, GiftCardActivityLoad loadActivityDetails,
+            GiftCardActivityActivate activateActivityDetails,
+            GiftCardActivityRedeem redeemActivityDetails,
+            GiftCardActivityClearBalance clearBalanceActivityDetails,
+            GiftCardActivityDeactivate deactivateActivityDetails,
+            GiftCardActivityAdjustIncrement adjustIncrementActivityDetails,
+            GiftCardActivityAdjustDecrement adjustDecrementActivityDetails,
+            GiftCardActivityRefund refundActivityDetails,
+            GiftCardActivityUnlinkedActivityRefund unlinkedActivityRefundActivityDetails,
+            GiftCardActivityImport importActivityDetails,
+            GiftCardActivityBlock blockActivityDetails,
+            GiftCardActivityUnblock unblockActivityDetails,
+            GiftCardActivityImportReversal importReversalActivityDetails) {
+        this.id = id;
+        this.type = type;
+        this.locationId = locationId;
+        this.createdAt = createdAt;
         this.giftCardId = giftCardId;
         this.giftCardGan = giftCardGan;
         this.giftCardBalanceMoney = giftCardBalanceMoney;
@@ -149,15 +192,40 @@ public class GiftCardActivity {
     }
 
     /**
+     * Internal Getter for GiftCardId.
+     * The gift card ID. When creating a gift card activity, `gift_card_id` is not required if
+     * `gift_card_gan` is specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("gift_card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGiftCardId() {
+        return this.giftCardId;
+    }
+
+    /**
      * Getter for GiftCardId.
      * The gift card ID. When creating a gift card activity, `gift_card_id` is not required if
      * `gift_card_gan` is specified.
      * @return Returns the String
      */
-    @JsonGetter("gift_card_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getGiftCardId() {
-        return giftCardId;
+        return OptionalNullable.getFrom(giftCardId);
+    }
+
+    /**
+     * Internal Getter for GiftCardGan.
+     * The gift card account number (GAN). When creating a gift card activity, `gift_card_gan` is
+     * not required if `gift_card_id` is specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("gift_card_gan")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGiftCardGan() {
+        return this.giftCardGan;
     }
 
     /**
@@ -166,10 +234,9 @@ public class GiftCardActivity {
      * not required if `gift_card_id` is specified.
      * @return Returns the String
      */
-    @JsonGetter("gift_card_gan")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getGiftCardGan() {
-        return giftCardGan;
+        return OptionalNullable.getFrom(giftCardGan);
     }
 
     /**
@@ -413,8 +480,6 @@ public class GiftCardActivity {
         Builder builder = new Builder(type, locationId)
                 .id(getId())
                 .createdAt(getCreatedAt())
-                .giftCardId(getGiftCardId())
-                .giftCardGan(getGiftCardGan())
                 .giftCardBalanceMoney(getGiftCardBalanceMoney())
                 .loadActivityDetails(getLoadActivityDetails())
                 .activateActivityDetails(getActivateActivityDetails())
@@ -429,6 +494,8 @@ public class GiftCardActivity {
                 .blockActivityDetails(getBlockActivityDetails())
                 .unblockActivityDetails(getUnblockActivityDetails())
                 .importReversalActivityDetails(getImportReversalActivityDetails());
+        builder.giftCardId = internalGetGiftCardId();
+        builder.giftCardGan = internalGetGiftCardGan();
         return builder;
     }
 
@@ -440,8 +507,8 @@ public class GiftCardActivity {
         private String locationId;
         private String id;
         private String createdAt;
-        private String giftCardId;
-        private String giftCardGan;
+        private OptionalNullable<String> giftCardId;
+        private OptionalNullable<String> giftCardGan;
         private Money giftCardBalanceMoney;
         private GiftCardActivityLoad loadActivityDetails;
         private GiftCardActivityActivate activateActivityDetails;
@@ -513,7 +580,16 @@ public class GiftCardActivity {
          * @return Builder
          */
         public Builder giftCardId(String giftCardId) {
-            this.giftCardId = giftCardId;
+            this.giftCardId = OptionalNullable.of(giftCardId);
+            return this;
+        }
+
+        /**
+         * UnSetter for giftCardId.
+         * @return Builder
+         */
+        public Builder unsetGiftCardId() {
+            giftCardId = null;
             return this;
         }
 
@@ -523,7 +599,16 @@ public class GiftCardActivity {
          * @return Builder
          */
         public Builder giftCardGan(String giftCardGan) {
-            this.giftCardGan = giftCardGan;
+            this.giftCardGan = OptionalNullable.of(giftCardGan);
+            return this;
+        }
+
+        /**
+         * UnSetter for giftCardGan.
+         * @return Builder
+         */
+        public Builder unsetGiftCardGan() {
+            giftCardGan = null;
             return this;
         }
 

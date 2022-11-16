@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,12 +21,12 @@ public class Booking {
     private final String status;
     private final String createdAt;
     private final String updatedAt;
-    private final String startAt;
-    private final String locationId;
-    private final String customerId;
-    private final String customerNote;
-    private final String sellerNote;
-    private final List<AppointmentSegment> appointmentSegments;
+    private final OptionalNullable<String> startAt;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> customerId;
+    private final OptionalNullable<String> customerNote;
+    private final OptionalNullable<String> sellerNote;
+    private final OptionalNullable<List<AppointmentSegment>> appointmentSegments;
     private final Integer transitionTimeMinutes;
     private final Boolean allDay;
     private final String locationType;
@@ -67,6 +70,34 @@ public class Booking {
             @JsonProperty("location_type") String locationType,
             @JsonProperty("creator_details") BookingCreatorDetails creatorDetails,
             @JsonProperty("source") String source) {
+        this.id = id;
+        this.version = version;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.startAt = OptionalNullable.of(startAt);
+        this.locationId = OptionalNullable.of(locationId);
+        this.customerId = OptionalNullable.of(customerId);
+        this.customerNote = OptionalNullable.of(customerNote);
+        this.sellerNote = OptionalNullable.of(sellerNote);
+        this.appointmentSegments = OptionalNullable.of(appointmentSegments);
+        this.transitionTimeMinutes = transitionTimeMinutes;
+        this.allDay = allDay;
+        this.locationType = locationType;
+        this.creatorDetails = creatorDetails;
+        this.source = source;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Booking(String id, Integer version, String status, String createdAt, String updatedAt,
+            OptionalNullable<String> startAt, OptionalNullable<String> locationId,
+            OptionalNullable<String> customerId, OptionalNullable<String> customerNote,
+            OptionalNullable<String> sellerNote,
+            OptionalNullable<List<AppointmentSegment>> appointmentSegments,
+            Integer transitionTimeMinutes, Boolean allDay, String locationType,
+            BookingCreatorDetails creatorDetails, String source) {
         this.id = id;
         this.version = version;
         this.status = status;
@@ -141,14 +172,38 @@ public class Booking {
     }
 
     /**
+     * Internal Getter for StartAt.
+     * The RFC 3339 timestamp specifying the starting time of this booking.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartAt() {
+        return this.startAt;
+    }
+
+    /**
      * Getter for StartAt.
      * The RFC 3339 timestamp specifying the starting time of this booking.
      * @return Returns the String
      */
-    @JsonGetter("start_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartAt() {
-        return startAt;
+        return OptionalNullable.getFrom(startAt);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the [Location]($m/Location) object representing the location where the booked
+     * service is provided. Once set when the booking is created, its value cannot be changed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -157,10 +212,22 @@ public class Booking {
      * service is provided. Once set when the booking is created, its value cannot be changed.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for CustomerId.
+     * The ID of the [Customer]($m/Customer) object representing the customer receiving the booked
+     * service.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
     }
 
     /**
@@ -169,10 +236,23 @@ public class Booking {
      * service.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
+    }
+
+    /**
+     * Internal Getter for CustomerNote.
+     * The free-text field for the customer to supply notes about the booking. For example, the note
+     * can be preferences that cannot be expressed by supported attributes of a relevant
+     * [CatalogObject]($m/CatalogObject) instance.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerNote() {
+        return this.customerNote;
     }
 
     /**
@@ -182,10 +262,23 @@ public class Booking {
      * [CatalogObject]($m/CatalogObject) instance.
      * @return Returns the String
      */
-    @JsonGetter("customer_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerNote() {
-        return customerNote;
+        return OptionalNullable.getFrom(customerNote);
+    }
+
+    /**
+     * Internal Getter for SellerNote.
+     * The free-text field for the seller to supply notes about the booking. For example, the note
+     * can be preferences that cannot be expressed by supported attributes of a specific
+     * [CatalogObject]($m/CatalogObject) instance. This field should not be visible to customers.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("seller_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSellerNote() {
+        return this.sellerNote;
     }
 
     /**
@@ -195,10 +288,21 @@ public class Booking {
      * [CatalogObject]($m/CatalogObject) instance. This field should not be visible to customers.
      * @return Returns the String
      */
-    @JsonGetter("seller_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSellerNote() {
-        return sellerNote;
+        return OptionalNullable.getFrom(sellerNote);
+    }
+
+    /**
+     * Internal Getter for AppointmentSegments.
+     * A list of appointment segments for this booking.
+     * @return Returns the Internal List of AppointmentSegment
+     */
+    @JsonGetter("appointment_segments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<AppointmentSegment>> internalGetAppointmentSegments() {
+        return this.appointmentSegments;
     }
 
     /**
@@ -206,10 +310,9 @@ public class Booking {
      * A list of appointment segments for this booking.
      * @return Returns the List of AppointmentSegment
      */
-    @JsonGetter("appointment_segments")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<AppointmentSegment> getAppointmentSegments() {
-        return appointmentSegments;
+        return OptionalNullable.getFrom(appointmentSegments);
     }
 
     /**
@@ -329,17 +432,17 @@ public class Booking {
                 .status(getStatus())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .startAt(getStartAt())
-                .locationId(getLocationId())
-                .customerId(getCustomerId())
-                .customerNote(getCustomerNote())
-                .sellerNote(getSellerNote())
-                .appointmentSegments(getAppointmentSegments())
                 .transitionTimeMinutes(getTransitionTimeMinutes())
                 .allDay(getAllDay())
                 .locationType(getLocationType())
                 .creatorDetails(getCreatorDetails())
                 .source(getSource());
+        builder.startAt = internalGetStartAt();
+        builder.locationId = internalGetLocationId();
+        builder.customerId = internalGetCustomerId();
+        builder.customerNote = internalGetCustomerNote();
+        builder.sellerNote = internalGetSellerNote();
+        builder.appointmentSegments = internalGetAppointmentSegments();
         return builder;
     }
 
@@ -352,12 +455,12 @@ public class Booking {
         private String status;
         private String createdAt;
         private String updatedAt;
-        private String startAt;
-        private String locationId;
-        private String customerId;
-        private String customerNote;
-        private String sellerNote;
-        private List<AppointmentSegment> appointmentSegments;
+        private OptionalNullable<String> startAt;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> customerId;
+        private OptionalNullable<String> customerNote;
+        private OptionalNullable<String> sellerNote;
+        private OptionalNullable<List<AppointmentSegment>> appointmentSegments;
         private Integer transitionTimeMinutes;
         private Boolean allDay;
         private String locationType;
@@ -422,7 +525,16 @@ public class Booking {
          * @return Builder
          */
         public Builder startAt(String startAt) {
-            this.startAt = startAt;
+            this.startAt = OptionalNullable.of(startAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for startAt.
+         * @return Builder
+         */
+        public Builder unsetStartAt() {
+            startAt = null;
             return this;
         }
 
@@ -432,7 +544,16 @@ public class Booking {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -442,7 +563,16 @@ public class Booking {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -452,7 +582,16 @@ public class Booking {
          * @return Builder
          */
         public Builder customerNote(String customerNote) {
-            this.customerNote = customerNote;
+            this.customerNote = OptionalNullable.of(customerNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerNote.
+         * @return Builder
+         */
+        public Builder unsetCustomerNote() {
+            customerNote = null;
             return this;
         }
 
@@ -462,7 +601,16 @@ public class Booking {
          * @return Builder
          */
         public Builder sellerNote(String sellerNote) {
-            this.sellerNote = sellerNote;
+            this.sellerNote = OptionalNullable.of(sellerNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for sellerNote.
+         * @return Builder
+         */
+        public Builder unsetSellerNote() {
+            sellerNote = null;
             return this;
         }
 
@@ -472,7 +620,16 @@ public class Booking {
          * @return Builder
          */
         public Builder appointmentSegments(List<AppointmentSegment> appointmentSegments) {
-            this.appointmentSegments = appointmentSegments;
+            this.appointmentSegments = OptionalNullable.of(appointmentSegments);
+            return this;
+        }
+
+        /**
+         * UnSetter for appointmentSegments.
+         * @return Builder
+         */
+        public Builder unsetAppointmentSegments() {
+            appointmentSegments = null;
             return this;
         }
 

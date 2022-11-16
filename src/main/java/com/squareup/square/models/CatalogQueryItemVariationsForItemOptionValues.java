@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for CatalogQueryItemVariationsForItemOptionValues type.
  */
 public class CatalogQueryItemVariationsForItemOptionValues {
-    private final List<String> itemOptionValueIds;
+    private final OptionalNullable<List<String>> itemOptionValueIds;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,29 @@ public class CatalogQueryItemVariationsForItemOptionValues {
     @JsonCreator
     public CatalogQueryItemVariationsForItemOptionValues(
             @JsonProperty("item_option_value_ids") List<String> itemOptionValueIds) {
+        this.itemOptionValueIds = OptionalNullable.of(itemOptionValueIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQueryItemVariationsForItemOptionValues(
+            OptionalNullable<List<String>> itemOptionValueIds) {
         this.itemOptionValueIds = itemOptionValueIds;
+    }
+
+    /**
+     * Internal Getter for ItemOptionValueIds.
+     * A set of `CatalogItemOptionValue` IDs to be used to find associated `CatalogItemVariation`s.
+     * All ItemVariations that contain all of the given Item Option Values (in any order) will be
+     * returned.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("item_option_value_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetItemOptionValueIds() {
+        return this.itemOptionValueIds;
     }
 
     /**
@@ -32,10 +57,9 @@ public class CatalogQueryItemVariationsForItemOptionValues {
      * returned.
      * @return Returns the List of String
      */
-    @JsonGetter("item_option_value_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getItemOptionValueIds() {
-        return itemOptionValueIds;
+        return OptionalNullable.getFrom(itemOptionValueIds);
     }
 
     @Override
@@ -72,8 +96,8 @@ public class CatalogQueryItemVariationsForItemOptionValues {
      * @return a new {@link CatalogQueryItemVariationsForItemOptionValues.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .itemOptionValueIds(getItemOptionValueIds());
+        Builder builder = new Builder();
+        builder.itemOptionValueIds = internalGetItemOptionValueIds();
         return builder;
     }
 
@@ -81,7 +105,7 @@ public class CatalogQueryItemVariationsForItemOptionValues {
      * Class to build instances of {@link CatalogQueryItemVariationsForItemOptionValues}.
      */
     public static class Builder {
-        private List<String> itemOptionValueIds;
+        private OptionalNullable<List<String>> itemOptionValueIds;
 
 
 
@@ -91,7 +115,16 @@ public class CatalogQueryItemVariationsForItemOptionValues {
          * @return Builder
          */
         public Builder itemOptionValueIds(List<String> itemOptionValueIds) {
-            this.itemOptionValueIds = itemOptionValueIds;
+            this.itemOptionValueIds = OptionalNullable.of(itemOptionValueIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemOptionValueIds.
+         * @return Builder
+         */
+        public Builder unsetItemOptionValueIds() {
+            itemOptionValueIds = null;
             return this;
         }
 

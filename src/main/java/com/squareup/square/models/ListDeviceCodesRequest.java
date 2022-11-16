@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,10 +16,10 @@ import java.util.Objects;
  * This is a model class for ListDeviceCodesRequest type.
  */
 public class ListDeviceCodesRequest {
-    private final String cursor;
-    private final String locationId;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> locationId;
     private final String productType;
-    private final List<String> status;
+    private final OptionalNullable<List<String>> status;
 
     /**
      * Initialization constructor.
@@ -31,10 +34,37 @@ public class ListDeviceCodesRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("product_type") String productType,
             @JsonProperty("status") List<String> status) {
+        this.cursor = OptionalNullable.of(cursor);
+        this.locationId = OptionalNullable.of(locationId);
+        this.productType = productType;
+        this.status = OptionalNullable.of(status);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListDeviceCodesRequest(OptionalNullable<String> cursor,
+            OptionalNullable<String> locationId, String productType,
+            OptionalNullable<List<String>> status) {
         this.cursor = cursor;
         this.locationId = locationId;
         this.productType = productType;
         this.status = status;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. See [Paginating
+     * results](https://developer.squareup.com/docs/working-with-apis/pagination) for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -45,10 +75,22 @@ public class ListDeviceCodesRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * If specified, only returns DeviceCodes of the specified location. Returns DeviceCodes of all
+     * locations if empty.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -57,10 +99,9 @@ public class ListDeviceCodesRequest {
      * locations if empty.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -74,16 +115,29 @@ public class ListDeviceCodesRequest {
     }
 
     /**
+     * Internal Getter for Status.
+     * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status
+     * `PAIRED` and `UNPAIRED` if empty. See [DeviceCodeStatus](#type-devicecodestatus) for possible
+     * values
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetStatus() {
+        return this.status;
+    }
+
+    /**
      * Getter for Status.
      * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status
      * `PAIRED` and `UNPAIRED` if empty. See [DeviceCodeStatus](#type-devicecodestatus) for possible
      * values
      * @return Returns the List of String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
     }
 
     @Override
@@ -123,10 +177,10 @@ public class ListDeviceCodesRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .cursor(getCursor())
-                .locationId(getLocationId())
-                .productType(getProductType())
-                .status(getStatus());
+                .productType(getProductType());
+        builder.cursor = internalGetCursor();
+        builder.locationId = internalGetLocationId();
+        builder.status = internalGetStatus();
         return builder;
     }
 
@@ -134,10 +188,10 @@ public class ListDeviceCodesRequest {
      * Class to build instances of {@link ListDeviceCodesRequest}.
      */
     public static class Builder {
-        private String cursor;
-        private String locationId;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> locationId;
         private String productType;
-        private List<String> status;
+        private OptionalNullable<List<String>> status;
 
 
 
@@ -147,7 +201,16 @@ public class ListDeviceCodesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -157,7 +220,16 @@ public class ListDeviceCodesRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -177,7 +249,16 @@ public class ListDeviceCodesRequest {
          * @return Builder
          */
         public Builder status(List<String> status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 

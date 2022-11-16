@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class PublishInvoiceRequest {
     private final int version;
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -24,6 +27,14 @@ public class PublishInvoiceRequest {
     public PublishInvoiceRequest(
             @JsonProperty("version") int version,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.version = version;
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PublishInvoiceRequest(int version, OptionalNullable<String> idempotencyKey) {
         this.version = version;
         this.idempotencyKey = idempotencyKey;
     }
@@ -40,6 +51,21 @@ public class PublishInvoiceRequest {
     }
 
     /**
+     * Internal Getter for IdempotencyKey.
+     * A unique string that identifies the `PublishInvoice` request. If you do not provide
+     * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
+     * as independent. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
+    }
+
+    /**
      * Getter for IdempotencyKey.
      * A unique string that identifies the `PublishInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
@@ -47,10 +73,9 @@ public class PublishInvoiceRequest {
      * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -87,8 +112,8 @@ public class PublishInvoiceRequest {
      * @return a new {@link PublishInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(version)
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder(version);
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -97,7 +122,7 @@ public class PublishInvoiceRequest {
      */
     public static class Builder {
         private int version;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -123,7 +148,16 @@ public class PublishInvoiceRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

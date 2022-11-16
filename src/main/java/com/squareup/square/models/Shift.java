@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,18 +17,18 @@ import java.util.Objects;
  */
 public class Shift {
     private final String id;
-    private final String employeeId;
-    private final String locationId;
-    private final String timezone;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> timezone;
     private final String startAt;
-    private final String endAt;
+    private final OptionalNullable<String> endAt;
     private final ShiftWage wage;
-    private final List<Break> breaks;
+    private final OptionalNullable<List<Break>> breaks;
     private final String status;
     private final Integer version;
     private final String createdAt;
     private final String updatedAt;
-    private final String teamMemberId;
+    private final OptionalNullable<String> teamMemberId;
 
     /**
      * Initialization constructor.
@@ -59,6 +62,29 @@ public class Shift {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.locationId = OptionalNullable.of(locationId);
+        this.timezone = OptionalNullable.of(timezone);
+        this.startAt = startAt;
+        this.endAt = OptionalNullable.of(endAt);
+        this.wage = wage;
+        this.breaks = OptionalNullable.of(breaks);
+        this.status = status;
+        this.version = version;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Shift(String startAt, String id, OptionalNullable<String> employeeId,
+            OptionalNullable<String> locationId, OptionalNullable<String> timezone,
+            OptionalNullable<String> endAt, ShiftWage wage, OptionalNullable<List<Break>> breaks,
+            String status, Integer version, String createdAt, String updatedAt,
+            OptionalNullable<String> teamMemberId) {
+        this.id = id;
         this.employeeId = employeeId;
         this.locationId = locationId;
         this.timezone = timezone;
@@ -85,15 +111,40 @@ public class Shift {
     }
 
     /**
+     * Internal Getter for EmployeeId.
+     * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use
+     * `team_member_id` instead.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
      * Getter for EmployeeId.
      * The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use
      * `team_member_id` instead.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the location this shift occurred at. The location should be based on where the
+     * employee clocked in.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -102,10 +153,22 @@ public class Shift {
      * employee clocked in.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Timezone.
+     * The read-only convenience value that is calculated from the location based on the
+     * `location_id`. Format: the IANA timezone database identifier for the location timezone.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTimezone() {
+        return this.timezone;
     }
 
     /**
@@ -114,10 +177,9 @@ public class Shift {
      * `location_id`. Format: the IANA timezone database identifier for the location timezone.
      * @return Returns the String
      */
-    @JsonGetter("timezone")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTimezone() {
-        return timezone;
+        return OptionalNullable.getFrom(timezone);
     }
 
     /**
@@ -132,15 +194,27 @@ public class Shift {
     }
 
     /**
+     * Internal Getter for EndAt.
+     * RFC 3339; shifted to the timezone + offset. Precision up to the minute is respected; seconds
+     * are truncated.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndAt() {
+        return this.endAt;
+    }
+
+    /**
      * Getter for EndAt.
      * RFC 3339; shifted to the timezone + offset. Precision up to the minute is respected; seconds
      * are truncated.
      * @return Returns the String
      */
-    @JsonGetter("end_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndAt() {
-        return endAt;
+        return OptionalNullable.getFrom(endAt);
     }
 
     /**
@@ -155,14 +229,25 @@ public class Shift {
     }
 
     /**
+     * Internal Getter for Breaks.
+     * A list of all the paid or unpaid breaks that were taken during this shift.
+     * @return Returns the Internal List of Break
+     */
+    @JsonGetter("breaks")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Break>> internalGetBreaks() {
+        return this.breaks;
+    }
+
+    /**
      * Getter for Breaks.
      * A list of all the paid or unpaid breaks that were taken during this shift.
      * @return Returns the List of Break
      */
-    @JsonGetter("breaks")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Break> getBreaks() {
-        return breaks;
+        return OptionalNullable.getFrom(breaks);
     }
 
     /**
@@ -212,15 +297,27 @@ public class Shift {
     }
 
     /**
+     * Internal Getter for TeamMemberId.
+     * The ID of the team member this shift belongs to. Replaced `employee_id` at version
+     * "2020-08-26".
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
+    }
+
+    /**
      * Getter for TeamMemberId.
      * The ID of the team member this shift belongs to. Replaced `employee_id` at version
      * "2020-08-26".
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
     }
 
     @Override
@@ -274,17 +371,17 @@ public class Shift {
     public Builder toBuilder() {
         Builder builder = new Builder(startAt)
                 .id(getId())
-                .employeeId(getEmployeeId())
-                .locationId(getLocationId())
-                .timezone(getTimezone())
-                .endAt(getEndAt())
                 .wage(getWage())
-                .breaks(getBreaks())
                 .status(getStatus())
                 .version(getVersion())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt())
-                .teamMemberId(getTeamMemberId());
+                .updatedAt(getUpdatedAt());
+        builder.employeeId = internalGetEmployeeId();
+        builder.locationId = internalGetLocationId();
+        builder.timezone = internalGetTimezone();
+        builder.endAt = internalGetEndAt();
+        builder.breaks = internalGetBreaks();
+        builder.teamMemberId = internalGetTeamMemberId();
         return builder;
     }
 
@@ -294,17 +391,17 @@ public class Shift {
     public static class Builder {
         private String startAt;
         private String id;
-        private String employeeId;
-        private String locationId;
-        private String timezone;
-        private String endAt;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> timezone;
+        private OptionalNullable<String> endAt;
         private ShiftWage wage;
-        private List<Break> breaks;
+        private OptionalNullable<List<Break>> breaks;
         private String status;
         private Integer version;
         private String createdAt;
         private String updatedAt;
-        private String teamMemberId;
+        private OptionalNullable<String> teamMemberId;
 
         /**
          * Initialization constructor.
@@ -340,7 +437,16 @@ public class Shift {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -350,7 +456,16 @@ public class Shift {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -360,7 +475,16 @@ public class Shift {
          * @return Builder
          */
         public Builder timezone(String timezone) {
-            this.timezone = timezone;
+            this.timezone = OptionalNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * UnSetter for timezone.
+         * @return Builder
+         */
+        public Builder unsetTimezone() {
+            timezone = null;
             return this;
         }
 
@@ -370,7 +494,16 @@ public class Shift {
          * @return Builder
          */
         public Builder endAt(String endAt) {
-            this.endAt = endAt;
+            this.endAt = OptionalNullable.of(endAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for endAt.
+         * @return Builder
+         */
+        public Builder unsetEndAt() {
+            endAt = null;
             return this;
         }
 
@@ -390,7 +523,16 @@ public class Shift {
          * @return Builder
          */
         public Builder breaks(List<Break> breaks) {
-            this.breaks = breaks;
+            this.breaks = OptionalNullable.of(breaks);
+            return this;
+        }
+
+        /**
+         * UnSetter for breaks.
+         * @return Builder
+         */
+        public Builder unsetBreaks() {
+            breaks = null;
             return this;
         }
 
@@ -440,7 +582,16 @@ public class Shift {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 

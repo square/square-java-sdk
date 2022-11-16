@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -19,7 +22,7 @@ public class TerminalRefund {
     private final Money amountMoney;
     private final String reason;
     private final String deviceId;
-    private final String deadlineDuration;
+    private final OptionalNullable<String> deadlineDuration;
     private final String status;
     private final String cancelReason;
     private final String createdAt;
@@ -60,6 +63,29 @@ public class TerminalRefund {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("app_id") String appId,
             @JsonProperty("location_id") String locationId) {
+        this.id = id;
+        this.refundId = refundId;
+        this.paymentId = paymentId;
+        this.orderId = orderId;
+        this.amountMoney = amountMoney;
+        this.reason = reason;
+        this.deviceId = deviceId;
+        this.deadlineDuration = OptionalNullable.of(deadlineDuration);
+        this.status = status;
+        this.cancelReason = cancelReason;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.appId = appId;
+        this.locationId = locationId;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TerminalRefund(String paymentId, Money amountMoney, String reason, String deviceId,
+            String id, String refundId, String orderId, OptionalNullable<String> deadlineDuration,
+            String status, String cancelReason, String createdAt, String updatedAt, String appId,
+            String locationId) {
         this.id = id;
         this.refundId = refundId;
         this.paymentId = paymentId;
@@ -156,16 +182,29 @@ public class TerminalRefund {
     }
 
     /**
+     * Internal Getter for DeadlineDuration.
+     * The RFC 3339 duration, after which the refund is automatically canceled. A `TerminalRefund`
+     * that is `PENDING` is automatically `CANCELED` and has a cancellation reason of `TIMED_OUT`.
+     * Default: 5 minutes from creation. Maximum: 5 minutes
+     * @return Returns the Internal String
+     */
+    @JsonGetter("deadline_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeadlineDuration() {
+        return this.deadlineDuration;
+    }
+
+    /**
      * Getter for DeadlineDuration.
      * The RFC 3339 duration, after which the refund is automatically canceled. A `TerminalRefund`
      * that is `PENDING` is automatically `CANCELED` and has a cancellation reason of `TIMED_OUT`.
      * Default: 5 minutes from creation. Maximum: 5 minutes
      * @return Returns the String
      */
-    @JsonGetter("deadline_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeadlineDuration() {
-        return deadlineDuration;
+        return OptionalNullable.getFrom(deadlineDuration);
     }
 
     /**
@@ -289,13 +328,13 @@ public class TerminalRefund {
                 .id(getId())
                 .refundId(getRefundId())
                 .orderId(getOrderId())
-                .deadlineDuration(getDeadlineDuration())
                 .status(getStatus())
                 .cancelReason(getCancelReason())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .appId(getAppId())
                 .locationId(getLocationId());
+        builder.deadlineDuration = internalGetDeadlineDuration();
         return builder;
     }
 
@@ -310,7 +349,7 @@ public class TerminalRefund {
         private String id;
         private String refundId;
         private String orderId;
-        private String deadlineDuration;
+        private OptionalNullable<String> deadlineDuration;
         private String status;
         private String cancelReason;
         private String createdAt;
@@ -408,7 +447,16 @@ public class TerminalRefund {
          * @return Builder
          */
         public Builder deadlineDuration(String deadlineDuration) {
-            this.deadlineDuration = deadlineDuration;
+            this.deadlineDuration = OptionalNullable.of(deadlineDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for deadlineDuration.
+         * @return Builder
+         */
+        public Builder unsetDeadlineDuration() {
+            deadlineDuration = null;
             return this;
         }
 

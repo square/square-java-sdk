@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DisputeEvidenceCreatedWebhookData type.
  */
 public class DisputeEvidenceCreatedWebhookData {
-    private final String type;
+    private final OptionalNullable<String> type;
     private final String id;
     private final DisputeEvidenceCreatedWebhookObject object;
 
@@ -27,9 +30,31 @@ public class DisputeEvidenceCreatedWebhookData {
             @JsonProperty("type") String type,
             @JsonProperty("id") String id,
             @JsonProperty("object") DisputeEvidenceCreatedWebhookObject object) {
+        this.type = OptionalNullable.of(type);
+        this.id = id;
+        this.object = object;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DisputeEvidenceCreatedWebhookData(OptionalNullable<String> type, String id,
+            DisputeEvidenceCreatedWebhookObject object) {
         this.type = type;
         this.id = id;
         this.object = object;
+    }
+
+    /**
+     * Internal Getter for Type.
+     * Name of the affected dispute's type.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetType() {
+        return this.type;
     }
 
     /**
@@ -37,10 +62,9 @@ public class DisputeEvidenceCreatedWebhookData {
      * Name of the affected dispute's type.
      * @return Returns the String
      */
-    @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getType() {
-        return type;
+        return OptionalNullable.getFrom(type);
     }
 
     /**
@@ -100,9 +124,9 @@ public class DisputeEvidenceCreatedWebhookData {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .type(getType())
                 .id(getId())
                 .object(getObject());
+        builder.type = internalGetType();
         return builder;
     }
 
@@ -110,7 +134,7 @@ public class DisputeEvidenceCreatedWebhookData {
      * Class to build instances of {@link DisputeEvidenceCreatedWebhookData}.
      */
     public static class Builder {
-        private String type;
+        private OptionalNullable<String> type;
         private String id;
         private DisputeEvidenceCreatedWebhookObject object;
 
@@ -122,7 +146,16 @@ public class DisputeEvidenceCreatedWebhookData {
          * @return Builder
          */
         public Builder type(String type) {
-            this.type = type;
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        /**
+         * UnSetter for type.
+         * @return Builder
+         */
+        public Builder unsetType() {
+            type = null;
             return this;
         }
 

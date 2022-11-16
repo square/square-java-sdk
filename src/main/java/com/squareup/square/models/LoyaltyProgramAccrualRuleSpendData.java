@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class LoyaltyProgramAccrualRuleSpendData {
     private final Money amountMoney;
-    private final List<String> excludedCategoryIds;
-    private final List<String> excludedItemVariationIds;
+    private final OptionalNullable<List<String>> excludedCategoryIds;
+    private final OptionalNullable<List<String>> excludedItemVariationIds;
     private final String taxMode;
 
     /**
@@ -31,6 +34,18 @@ public class LoyaltyProgramAccrualRuleSpendData {
             @JsonProperty("tax_mode") String taxMode,
             @JsonProperty("excluded_category_ids") List<String> excludedCategoryIds,
             @JsonProperty("excluded_item_variation_ids") List<String> excludedItemVariationIds) {
+        this.amountMoney = amountMoney;
+        this.excludedCategoryIds = OptionalNullable.of(excludedCategoryIds);
+        this.excludedItemVariationIds = OptionalNullable.of(excludedItemVariationIds);
+        this.taxMode = taxMode;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyProgramAccrualRuleSpendData(Money amountMoney, String taxMode,
+            OptionalNullable<List<String>> excludedCategoryIds,
+            OptionalNullable<List<String>> excludedItemVariationIds) {
         this.amountMoney = amountMoney;
         this.excludedCategoryIds = excludedCategoryIds;
         this.excludedItemVariationIds = excludedItemVariationIds;
@@ -53,16 +68,43 @@ public class LoyaltyProgramAccrualRuleSpendData {
     }
 
     /**
+     * Internal Getter for ExcludedCategoryIds.
+     * The IDs of any `CATEGORY` catalog objects that are excluded from points accrual. You can use
+     * the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
+     * retrieve information about the excluded categories.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("excluded_category_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetExcludedCategoryIds() {
+        return this.excludedCategoryIds;
+    }
+
+    /**
      * Getter for ExcludedCategoryIds.
      * The IDs of any `CATEGORY` catalog objects that are excluded from points accrual. You can use
      * the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
      * retrieve information about the excluded categories.
      * @return Returns the List of String
      */
-    @JsonGetter("excluded_category_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getExcludedCategoryIds() {
-        return excludedCategoryIds;
+        return OptionalNullable.getFrom(excludedCategoryIds);
+    }
+
+    /**
+     * Internal Getter for ExcludedItemVariationIds.
+     * The IDs of any `ITEM_VARIATION` catalog objects that are excluded from points accrual. You
+     * can use the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
+     * retrieve information about the excluded item variations.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("excluded_item_variation_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetExcludedItemVariationIds() {
+        return this.excludedItemVariationIds;
     }
 
     /**
@@ -72,10 +114,9 @@ public class LoyaltyProgramAccrualRuleSpendData {
      * retrieve information about the excluded item variations.
      * @return Returns the List of String
      */
-    @JsonGetter("excluded_item_variation_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getExcludedItemVariationIds() {
-        return excludedItemVariationIds;
+        return OptionalNullable.getFrom(excludedItemVariationIds);
     }
 
     /**
@@ -127,9 +168,9 @@ public class LoyaltyProgramAccrualRuleSpendData {
      * @return a new {@link LoyaltyProgramAccrualRuleSpendData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(amountMoney, taxMode)
-                .excludedCategoryIds(getExcludedCategoryIds())
-                .excludedItemVariationIds(getExcludedItemVariationIds());
+        Builder builder = new Builder(amountMoney, taxMode);
+        builder.excludedCategoryIds = internalGetExcludedCategoryIds();
+        builder.excludedItemVariationIds = internalGetExcludedItemVariationIds();
         return builder;
     }
 
@@ -139,8 +180,8 @@ public class LoyaltyProgramAccrualRuleSpendData {
     public static class Builder {
         private Money amountMoney;
         private String taxMode;
-        private List<String> excludedCategoryIds;
-        private List<String> excludedItemVariationIds;
+        private OptionalNullable<List<String>> excludedCategoryIds;
+        private OptionalNullable<List<String>> excludedItemVariationIds;
 
         /**
          * Initialization constructor.
@@ -178,7 +219,16 @@ public class LoyaltyProgramAccrualRuleSpendData {
          * @return Builder
          */
         public Builder excludedCategoryIds(List<String> excludedCategoryIds) {
-            this.excludedCategoryIds = excludedCategoryIds;
+            this.excludedCategoryIds = OptionalNullable.of(excludedCategoryIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for excludedCategoryIds.
+         * @return Builder
+         */
+        public Builder unsetExcludedCategoryIds() {
+            excludedCategoryIds = null;
             return this;
         }
 
@@ -188,7 +238,16 @@ public class LoyaltyProgramAccrualRuleSpendData {
          * @return Builder
          */
         public Builder excludedItemVariationIds(List<String> excludedItemVariationIds) {
-            this.excludedItemVariationIds = excludedItemVariationIds;
+            this.excludedItemVariationIds = OptionalNullable.of(excludedItemVariationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for excludedItemVariationIds.
+         * @return Builder
+         */
+        public Builder unsetExcludedItemVariationIds() {
+            excludedItemVariationIds = null;
             return this;
         }
 

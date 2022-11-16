@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,10 +16,10 @@ import java.util.Objects;
  * This is a model class for AppointmentSegment type.
  */
 public class AppointmentSegment {
-    private final Integer durationMinutes;
-    private final String serviceVariationId;
+    private final OptionalNullable<Integer> durationMinutes;
+    private final OptionalNullable<String> serviceVariationId;
     private final String teamMemberId;
-    private final Long serviceVariationVersion;
+    private final OptionalNullable<Long> serviceVariationVersion;
     private final Integer intermissionMinutes;
     private final Boolean anyTeamMember;
     private final List<String> resourceIds;
@@ -40,6 +43,22 @@ public class AppointmentSegment {
             @JsonProperty("intermission_minutes") Integer intermissionMinutes,
             @JsonProperty("any_team_member") Boolean anyTeamMember,
             @JsonProperty("resource_ids") List<String> resourceIds) {
+        this.durationMinutes = OptionalNullable.of(durationMinutes);
+        this.serviceVariationId = OptionalNullable.of(serviceVariationId);
+        this.teamMemberId = teamMemberId;
+        this.serviceVariationVersion = OptionalNullable.of(serviceVariationVersion);
+        this.intermissionMinutes = intermissionMinutes;
+        this.anyTeamMember = anyTeamMember;
+        this.resourceIds = resourceIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected AppointmentSegment(String teamMemberId, OptionalNullable<Integer> durationMinutes,
+            OptionalNullable<String> serviceVariationId,
+            OptionalNullable<Long> serviceVariationVersion, Integer intermissionMinutes,
+            Boolean anyTeamMember, List<String> resourceIds) {
         this.durationMinutes = durationMinutes;
         this.serviceVariationId = serviceVariationId;
         this.teamMemberId = teamMemberId;
@@ -50,14 +69,38 @@ public class AppointmentSegment {
     }
 
     /**
+     * Internal Getter for DurationMinutes.
+     * The time span in minutes of an appointment segment.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("duration_minutes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetDurationMinutes() {
+        return this.durationMinutes;
+    }
+
+    /**
      * Getter for DurationMinutes.
      * The time span in minutes of an appointment segment.
      * @return Returns the Integer
      */
-    @JsonGetter("duration_minutes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getDurationMinutes() {
-        return durationMinutes;
+        return OptionalNullable.getFrom(durationMinutes);
+    }
+
+    /**
+     * Internal Getter for ServiceVariationId.
+     * The ID of the [CatalogItemVariation]($m/CatalogItemVariation) object representing the service
+     * booked in this segment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("service_variation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetServiceVariationId() {
+        return this.serviceVariationId;
     }
 
     /**
@@ -66,10 +109,9 @@ public class AppointmentSegment {
      * booked in this segment.
      * @return Returns the String
      */
-    @JsonGetter("service_variation_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getServiceVariationId() {
-        return serviceVariationId;
+        return OptionalNullable.getFrom(serviceVariationId);
     }
 
     /**
@@ -84,14 +126,25 @@ public class AppointmentSegment {
     }
 
     /**
+     * Internal Getter for ServiceVariationVersion.
+     * The current version of the item variation representing the service booked in this segment.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("service_variation_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetServiceVariationVersion() {
+        return this.serviceVariationVersion;
+    }
+
+    /**
      * Getter for ServiceVariationVersion.
      * The current version of the item variation representing the service booked in this segment.
      * @return Returns the Long
      */
-    @JsonGetter("service_variation_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getServiceVariationVersion() {
-        return serviceVariationVersion;
+        return OptionalNullable.getFrom(serviceVariationVersion);
     }
 
     /**
@@ -172,12 +225,12 @@ public class AppointmentSegment {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(teamMemberId)
-                .durationMinutes(getDurationMinutes())
-                .serviceVariationId(getServiceVariationId())
-                .serviceVariationVersion(getServiceVariationVersion())
                 .intermissionMinutes(getIntermissionMinutes())
                 .anyTeamMember(getAnyTeamMember())
                 .resourceIds(getResourceIds());
+        builder.durationMinutes = internalGetDurationMinutes();
+        builder.serviceVariationId = internalGetServiceVariationId();
+        builder.serviceVariationVersion = internalGetServiceVariationVersion();
         return builder;
     }
 
@@ -186,9 +239,9 @@ public class AppointmentSegment {
      */
     public static class Builder {
         private String teamMemberId;
-        private Integer durationMinutes;
-        private String serviceVariationId;
-        private Long serviceVariationVersion;
+        private OptionalNullable<Integer> durationMinutes;
+        private OptionalNullable<String> serviceVariationId;
+        private OptionalNullable<Long> serviceVariationVersion;
         private Integer intermissionMinutes;
         private Boolean anyTeamMember;
         private List<String> resourceIds;
@@ -217,7 +270,16 @@ public class AppointmentSegment {
          * @return Builder
          */
         public Builder durationMinutes(Integer durationMinutes) {
-            this.durationMinutes = durationMinutes;
+            this.durationMinutes = OptionalNullable.of(durationMinutes);
+            return this;
+        }
+
+        /**
+         * UnSetter for durationMinutes.
+         * @return Builder
+         */
+        public Builder unsetDurationMinutes() {
+            durationMinutes = null;
             return this;
         }
 
@@ -227,7 +289,16 @@ public class AppointmentSegment {
          * @return Builder
          */
         public Builder serviceVariationId(String serviceVariationId) {
-            this.serviceVariationId = serviceVariationId;
+            this.serviceVariationId = OptionalNullable.of(serviceVariationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for serviceVariationId.
+         * @return Builder
+         */
+        public Builder unsetServiceVariationId() {
+            serviceVariationId = null;
             return this;
         }
 
@@ -237,7 +308,16 @@ public class AppointmentSegment {
          * @return Builder
          */
         public Builder serviceVariationVersion(Long serviceVariationVersion) {
-            this.serviceVariationVersion = serviceVariationVersion;
+            this.serviceVariationVersion = OptionalNullable.of(serviceVariationVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for serviceVariationVersion.
+         * @return Builder
+         */
+        public Builder unsetServiceVariationVersion() {
+            serviceVariationVersion = null;
             return this;
         }
 

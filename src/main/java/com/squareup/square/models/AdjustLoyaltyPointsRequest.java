@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class AdjustLoyaltyPointsRequest {
     private final String idempotencyKey;
     private final LoyaltyEventAdjustPoints adjustPoints;
-    private final Boolean allowNegativeBalance;
+    private final OptionalNullable<Boolean> allowNegativeBalance;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,17 @@ public class AdjustLoyaltyPointsRequest {
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("adjust_points") LoyaltyEventAdjustPoints adjustPoints,
             @JsonProperty("allow_negative_balance") Boolean allowNegativeBalance) {
+        this.idempotencyKey = idempotencyKey;
+        this.adjustPoints = adjustPoints;
+        this.allowNegativeBalance = OptionalNullable.of(allowNegativeBalance);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected AdjustLoyaltyPointsRequest(String idempotencyKey,
+            LoyaltyEventAdjustPoints adjustPoints,
+            OptionalNullable<Boolean> allowNegativeBalance) {
         this.idempotencyKey = idempotencyKey;
         this.adjustPoints = adjustPoints;
         this.allowNegativeBalance = allowNegativeBalance;
@@ -54,6 +68,21 @@ public class AdjustLoyaltyPointsRequest {
     }
 
     /**
+     * Internal Getter for AllowNegativeBalance.
+     * Indicates whether to allow a negative adjustment to result in a negative balance. If `true`,
+     * a negative balance is allowed when subtracting points. If `false`, Square returns a
+     * `BAD_REQUEST` error when subtracting the specified number of points would result in a
+     * negative balance. The default value is `false`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("allow_negative_balance")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAllowNegativeBalance() {
+        return this.allowNegativeBalance;
+    }
+
+    /**
      * Getter for AllowNegativeBalance.
      * Indicates whether to allow a negative adjustment to result in a negative balance. If `true`,
      * a negative balance is allowed when subtracting points. If `false`, Square returns a
@@ -61,10 +90,9 @@ public class AdjustLoyaltyPointsRequest {
      * negative balance. The default value is `false`.
      * @return Returns the Boolean
      */
-    @JsonGetter("allow_negative_balance")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAllowNegativeBalance() {
-        return allowNegativeBalance;
+        return OptionalNullable.getFrom(allowNegativeBalance);
     }
 
     @Override
@@ -103,8 +131,8 @@ public class AdjustLoyaltyPointsRequest {
      * @return a new {@link AdjustLoyaltyPointsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey, adjustPoints)
-                .allowNegativeBalance(getAllowNegativeBalance());
+        Builder builder = new Builder(idempotencyKey, adjustPoints);
+        builder.allowNegativeBalance = internalGetAllowNegativeBalance();
         return builder;
     }
 
@@ -114,7 +142,7 @@ public class AdjustLoyaltyPointsRequest {
     public static class Builder {
         private String idempotencyKey;
         private LoyaltyEventAdjustPoints adjustPoints;
-        private Boolean allowNegativeBalance;
+        private OptionalNullable<Boolean> allowNegativeBalance;
 
         /**
          * Initialization constructor.
@@ -152,7 +180,16 @@ public class AdjustLoyaltyPointsRequest {
          * @return Builder
          */
         public Builder allowNegativeBalance(Boolean allowNegativeBalance) {
-            this.allowNegativeBalance = allowNegativeBalance;
+            this.allowNegativeBalance = OptionalNullable.of(allowNegativeBalance);
+            return this;
+        }
+
+        /**
+         * UnSetter for allowNegativeBalance.
+         * @return Builder
+         */
+        public Builder unsetAllowNegativeBalance() {
+            allowNegativeBalance = null;
             return this;
         }
 

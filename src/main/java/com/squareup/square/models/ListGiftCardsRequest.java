@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListGiftCardsRequest type.
  */
 public class ListGiftCardsRequest {
-    private final String type;
-    private final String state;
-    private final Integer limit;
-    private final String cursor;
-    private final String customerId;
+    private final OptionalNullable<String> type;
+    private final OptionalNullable<String> state;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> customerId;
 
     /**
      * Initialization constructor.
@@ -33,6 +36,19 @@ public class ListGiftCardsRequest {
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("customer_id") String customerId) {
+        this.type = OptionalNullable.of(type);
+        this.state = OptionalNullable.of(state);
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+        this.customerId = OptionalNullable.of(customerId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListGiftCardsRequest(OptionalNullable<String> type, OptionalNullable<String> state,
+            OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
+            OptionalNullable<String> customerId) {
         this.type = type;
         this.state = state;
         this.limit = limit;
@@ -41,15 +57,40 @@ public class ListGiftCardsRequest {
     }
 
     /**
+     * Internal Getter for Type.
+     * If a [type]($m/GiftCardType) is provided, the endpoint returns gift cards of the specified
+     * type. Otherwise, the endpoint returns gift cards of all types.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetType() {
+        return this.type;
+    }
+
+    /**
      * Getter for Type.
      * If a [type]($m/GiftCardType) is provided, the endpoint returns gift cards of the specified
      * type. Otherwise, the endpoint returns gift cards of all types.
      * @return Returns the String
      */
-    @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getType() {
-        return type;
+        return OptionalNullable.getFrom(type);
+    }
+
+    /**
+     * Internal Getter for State.
+     * If a [state]($m/GiftCardStatus) is provided, the endpoint returns the gift cards in the
+     * specified state. Otherwise, the endpoint returns the gift cards of all states.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetState() {
+        return this.state;
     }
 
     /**
@@ -58,10 +99,23 @@ public class ListGiftCardsRequest {
      * specified state. Otherwise, the endpoint returns the gift cards of all states.
      * @return Returns the String
      */
-    @JsonGetter("state")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getState() {
-        return state;
+        return OptionalNullable.getFrom(state);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * If a limit is provided, the endpoint returns only the specified number of results per page.
+     * The maximum value is 50. The default value is 30. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -71,10 +125,24 @@ public class ListGiftCardsRequest {
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for the original query. If a cursor is not provided, the
+     * endpoint returns the first page of the results. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -85,10 +153,22 @@ public class ListGiftCardsRequest {
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for CustomerId.
+     * If a customer ID is provided, the endpoint returns only the gift cards linked to the
+     * specified customer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
     }
 
     /**
@@ -97,10 +177,9 @@ public class ListGiftCardsRequest {
      * specified customer.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
     }
 
     @Override
@@ -140,12 +219,12 @@ public class ListGiftCardsRequest {
      * @return a new {@link ListGiftCardsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .type(getType())
-                .state(getState())
-                .limit(getLimit())
-                .cursor(getCursor())
-                .customerId(getCustomerId());
+        Builder builder = new Builder();
+        builder.type = internalGetType();
+        builder.state = internalGetState();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
+        builder.customerId = internalGetCustomerId();
         return builder;
     }
 
@@ -153,11 +232,11 @@ public class ListGiftCardsRequest {
      * Class to build instances of {@link ListGiftCardsRequest}.
      */
     public static class Builder {
-        private String type;
-        private String state;
-        private Integer limit;
-        private String cursor;
-        private String customerId;
+        private OptionalNullable<String> type;
+        private OptionalNullable<String> state;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> customerId;
 
 
 
@@ -167,7 +246,16 @@ public class ListGiftCardsRequest {
          * @return Builder
          */
         public Builder type(String type) {
-            this.type = type;
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        /**
+         * UnSetter for type.
+         * @return Builder
+         */
+        public Builder unsetType() {
+            type = null;
             return this;
         }
 
@@ -177,7 +265,16 @@ public class ListGiftCardsRequest {
          * @return Builder
          */
         public Builder state(String state) {
-            this.state = state;
+            this.state = OptionalNullable.of(state);
+            return this;
+        }
+
+        /**
+         * UnSetter for state.
+         * @return Builder
+         */
+        public Builder unsetState() {
+            state = null;
             return this;
         }
 
@@ -187,7 +284,16 @@ public class ListGiftCardsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -197,7 +303,16 @@ public class ListGiftCardsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -207,7 +322,16 @@ public class ListGiftCardsRequest {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 

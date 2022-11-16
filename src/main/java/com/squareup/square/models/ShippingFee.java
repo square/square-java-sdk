@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ShippingFee type.
  */
 public class ShippingFee {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final Money charge;
 
     /**
@@ -24,8 +27,28 @@ public class ShippingFee {
     public ShippingFee(
             @JsonProperty("charge") Money charge,
             @JsonProperty("name") String name) {
+        this.name = OptionalNullable.of(name);
+        this.charge = charge;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ShippingFee(Money charge, OptionalNullable<String> name) {
         this.name = name;
         this.charge = charge;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The name for the shipping fee.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -33,10 +56,9 @@ public class ShippingFee {
      * The name for the shipping fee.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -87,8 +109,8 @@ public class ShippingFee {
      * @return a new {@link ShippingFee.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(charge)
-                .name(getName());
+        Builder builder = new Builder(charge);
+        builder.name = internalGetName();
         return builder;
     }
 
@@ -97,7 +119,7 @@ public class ShippingFee {
      */
     public static class Builder {
         private Money charge;
-        private String name;
+        private OptionalNullable<String> name;
 
         /**
          * Initialization constructor.
@@ -123,7 +145,16 @@ public class ShippingFee {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 

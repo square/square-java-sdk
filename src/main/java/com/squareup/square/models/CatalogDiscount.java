@@ -3,21 +3,24 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogDiscount type.
  */
 public class CatalogDiscount {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final String discountType;
-    private final String percentage;
+    private final OptionalNullable<String> percentage;
     private final Money amountMoney;
-    private final Boolean pinRequired;
-    private final String labelColor;
+    private final OptionalNullable<Boolean> pinRequired;
+    private final OptionalNullable<String> labelColor;
     private final String modifyTaxBasis;
     private final Money maximumAmountMoney;
 
@@ -42,6 +45,23 @@ public class CatalogDiscount {
             @JsonProperty("label_color") String labelColor,
             @JsonProperty("modify_tax_basis") String modifyTaxBasis,
             @JsonProperty("maximum_amount_money") Money maximumAmountMoney) {
+        this.name = OptionalNullable.of(name);
+        this.discountType = discountType;
+        this.percentage = OptionalNullable.of(percentage);
+        this.amountMoney = amountMoney;
+        this.pinRequired = OptionalNullable.of(pinRequired);
+        this.labelColor = OptionalNullable.of(labelColor);
+        this.modifyTaxBasis = modifyTaxBasis;
+        this.maximumAmountMoney = maximumAmountMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogDiscount(OptionalNullable<String> name, String discountType,
+            OptionalNullable<String> percentage, Money amountMoney,
+            OptionalNullable<Boolean> pinRequired, OptionalNullable<String> labelColor,
+            String modifyTaxBasis, Money maximumAmountMoney) {
         this.name = name;
         this.discountType = discountType;
         this.percentage = percentage;
@@ -53,15 +73,27 @@ public class CatalogDiscount {
     }
 
     /**
+     * Internal Getter for Name.
+     * The discount name. This is a searchable attribute for use in applicable query filters, and
+     * its value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The discount name. This is a searchable attribute for use in applicable query filters, and
      * its value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -76,6 +108,21 @@ public class CatalogDiscount {
     }
 
     /**
+     * Internal Getter for Percentage.
+     * The percentage of the discount as a string representation of a decimal number, using a `.` as
+     * the decimal separator and without a `%` sign. A value of `7.5` corresponds to `7.5%`. Specify
+     * a percentage of `0` if `discount_type` is `VARIABLE_PERCENTAGE`. Do not use this field for
+     * amount-based or variable discounts.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPercentage() {
+        return this.percentage;
+    }
+
+    /**
      * Getter for Percentage.
      * The percentage of the discount as a string representation of a decimal number, using a `.` as
      * the decimal separator and without a `%` sign. A value of `7.5` corresponds to `7.5%`. Specify
@@ -83,10 +130,9 @@ public class CatalogDiscount {
      * amount-based or variable discounts.
      * @return Returns the String
      */
-    @JsonGetter("percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPercentage() {
-        return percentage;
+        return OptionalNullable.getFrom(percentage);
     }
 
     /**
@@ -106,15 +152,40 @@ public class CatalogDiscount {
     }
 
     /**
+     * Internal Getter for PinRequired.
+     * Indicates whether a mobile staff member needs to enter their PIN to apply the discount to a
+     * payment in the Square Point of Sale app.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("pin_required")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetPinRequired() {
+        return this.pinRequired;
+    }
+
+    /**
      * Getter for PinRequired.
      * Indicates whether a mobile staff member needs to enter their PIN to apply the discount to a
      * payment in the Square Point of Sale app.
      * @return Returns the Boolean
      */
-    @JsonGetter("pin_required")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getPinRequired() {
-        return pinRequired;
+        return OptionalNullable.getFrom(pinRequired);
+    }
+
+    /**
+     * Internal Getter for LabelColor.
+     * The color of the discount display label in the Square Point of Sale app. This must be a valid
+     * hex color code.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("label_color")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLabelColor() {
+        return this.labelColor;
     }
 
     /**
@@ -123,10 +194,9 @@ public class CatalogDiscount {
      * hex color code.
      * @return Returns the String
      */
-    @JsonGetter("label_color")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLabelColor() {
-        return labelColor;
+        return OptionalNullable.getFrom(labelColor);
     }
 
     /**
@@ -199,14 +269,14 @@ public class CatalogDiscount {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
                 .discountType(getDiscountType())
-                .percentage(getPercentage())
                 .amountMoney(getAmountMoney())
-                .pinRequired(getPinRequired())
-                .labelColor(getLabelColor())
                 .modifyTaxBasis(getModifyTaxBasis())
                 .maximumAmountMoney(getMaximumAmountMoney());
+        builder.name = internalGetName();
+        builder.percentage = internalGetPercentage();
+        builder.pinRequired = internalGetPinRequired();
+        builder.labelColor = internalGetLabelColor();
         return builder;
     }
 
@@ -214,12 +284,12 @@ public class CatalogDiscount {
      * Class to build instances of {@link CatalogDiscount}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
         private String discountType;
-        private String percentage;
+        private OptionalNullable<String> percentage;
         private Money amountMoney;
-        private Boolean pinRequired;
-        private String labelColor;
+        private OptionalNullable<Boolean> pinRequired;
+        private OptionalNullable<String> labelColor;
         private String modifyTaxBasis;
         private Money maximumAmountMoney;
 
@@ -231,7 +301,16 @@ public class CatalogDiscount {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -251,7 +330,16 @@ public class CatalogDiscount {
          * @return Builder
          */
         public Builder percentage(String percentage) {
-            this.percentage = percentage;
+            this.percentage = OptionalNullable.of(percentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for percentage.
+         * @return Builder
+         */
+        public Builder unsetPercentage() {
+            percentage = null;
             return this;
         }
 
@@ -271,7 +359,16 @@ public class CatalogDiscount {
          * @return Builder
          */
         public Builder pinRequired(Boolean pinRequired) {
-            this.pinRequired = pinRequired;
+            this.pinRequired = OptionalNullable.of(pinRequired);
+            return this;
+        }
+
+        /**
+         * UnSetter for pinRequired.
+         * @return Builder
+         */
+        public Builder unsetPinRequired() {
+            pinRequired = null;
             return this;
         }
 
@@ -281,7 +378,16 @@ public class CatalogDiscount {
          * @return Builder
          */
         public Builder labelColor(String labelColor) {
-            this.labelColor = labelColor;
+            this.labelColor = OptionalNullable.of(labelColor);
+            return this;
+        }
+
+        /**
+         * UnSetter for labelColor.
+         * @return Builder
+         */
+        public Builder unsetLabelColor() {
+            labelColor = null;
             return this;
         }
 

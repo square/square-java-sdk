@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.http.client.HttpContext;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,11 +18,11 @@ import java.util.Objects;
  */
 public class V1Order {
     private HttpContext httpContext;
-    private final List<Error> errors;
+    private final OptionalNullable<List<Error>> errors;
     private final String id;
-    private final String buyerEmail;
-    private final String recipientName;
-    private final String recipientPhoneNumber;
+    private final OptionalNullable<String> buyerEmail;
+    private final OptionalNullable<String> recipientName;
+    private final OptionalNullable<String> recipientPhoneNumber;
     private final String state;
     private final Address shippingAddress;
     private final V1Money subtotalMoney;
@@ -30,17 +32,17 @@ public class V1Order {
     private final V1Money totalDiscountMoney;
     private final String createdAt;
     private final String updatedAt;
-    private final String expiresAt;
-    private final String paymentId;
-    private final String buyerNote;
-    private final String completedNote;
-    private final String refundedNote;
-    private final String canceledNote;
+    private final OptionalNullable<String> expiresAt;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> buyerNote;
+    private final OptionalNullable<String> completedNote;
+    private final OptionalNullable<String> refundedNote;
+    private final OptionalNullable<String> canceledNote;
     private final V1Tender tender;
-    private final List<V1OrderHistoryEntry> orderHistory;
-    private final String promoCode;
-    private final String btcReceiveAddress;
-    private final Double btcPriceSatoshi;
+    private final OptionalNullable<List<V1OrderHistoryEntry>> orderHistory;
+    private final OptionalNullable<String> promoCode;
+    private final OptionalNullable<String> btcReceiveAddress;
+    private final OptionalNullable<Double> btcPriceSatoshi;
 
     /**
      * Initialization constructor.
@@ -97,6 +99,47 @@ public class V1Order {
             @JsonProperty("promo_code") String promoCode,
             @JsonProperty("btc_receive_address") String btcReceiveAddress,
             @JsonProperty("btc_price_satoshi") Double btcPriceSatoshi) {
+        this.errors = OptionalNullable.of(errors);
+        this.id = id;
+        this.buyerEmail = OptionalNullable.of(buyerEmail);
+        this.recipientName = OptionalNullable.of(recipientName);
+        this.recipientPhoneNumber = OptionalNullable.of(recipientPhoneNumber);
+        this.state = state;
+        this.shippingAddress = shippingAddress;
+        this.subtotalMoney = subtotalMoney;
+        this.totalShippingMoney = totalShippingMoney;
+        this.totalTaxMoney = totalTaxMoney;
+        this.totalPriceMoney = totalPriceMoney;
+        this.totalDiscountMoney = totalDiscountMoney;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.expiresAt = OptionalNullable.of(expiresAt);
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.buyerNote = OptionalNullable.of(buyerNote);
+        this.completedNote = OptionalNullable.of(completedNote);
+        this.refundedNote = OptionalNullable.of(refundedNote);
+        this.canceledNote = OptionalNullable.of(canceledNote);
+        this.tender = tender;
+        this.orderHistory = OptionalNullable.of(orderHistory);
+        this.promoCode = OptionalNullable.of(promoCode);
+        this.btcReceiveAddress = OptionalNullable.of(btcReceiveAddress);
+        this.btcPriceSatoshi = OptionalNullable.of(btcPriceSatoshi);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Order(OptionalNullable<List<Error>> errors, String id,
+            OptionalNullable<String> buyerEmail, OptionalNullable<String> recipientName,
+            OptionalNullable<String> recipientPhoneNumber, String state, Address shippingAddress,
+            V1Money subtotalMoney, V1Money totalShippingMoney, V1Money totalTaxMoney,
+            V1Money totalPriceMoney, V1Money totalDiscountMoney, String createdAt, String updatedAt,
+            OptionalNullable<String> expiresAt, OptionalNullable<String> paymentId,
+            OptionalNullable<String> buyerNote, OptionalNullable<String> completedNote,
+            OptionalNullable<String> refundedNote, OptionalNullable<String> canceledNote,
+            V1Tender tender, OptionalNullable<List<V1OrderHistoryEntry>> orderHistory,
+            OptionalNullable<String> promoCode, OptionalNullable<String> btcReceiveAddress,
+            OptionalNullable<Double> btcPriceSatoshi) {
         this.errors = errors;
         this.id = id;
         this.buyerEmail = buyerEmail;
@@ -130,14 +173,25 @@ public class V1Order {
     }
 
     /**
+     * Internal Getter for Errors.
+     * Any errors that occurred during the request.
+     * @return Returns the Internal List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Error>> internalGetErrors() {
+        return this.errors;
+    }
+
+    /**
      * Getter for Errors.
      * Any errors that occurred during the request.
      * @return Returns the List of Error
      */
-    @JsonGetter("errors")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Error> getErrors() {
-        return errors;
+        return OptionalNullable.getFrom(errors);
     }
 
     /**
@@ -152,14 +206,37 @@ public class V1Order {
     }
 
     /**
+     * Internal Getter for BuyerEmail.
+     * The email address of the order's buyer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerEmail() {
+        return this.buyerEmail;
+    }
+
+    /**
      * Getter for BuyerEmail.
      * The email address of the order's buyer.
      * @return Returns the String
      */
-    @JsonGetter("buyer_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerEmail() {
-        return buyerEmail;
+        return OptionalNullable.getFrom(buyerEmail);
+    }
+
+    /**
+     * Internal Getter for RecipientName.
+     * The name of the order's buyer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("recipient_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRecipientName() {
+        return this.recipientName;
     }
 
     /**
@@ -167,10 +244,21 @@ public class V1Order {
      * The name of the order's buyer.
      * @return Returns the String
      */
-    @JsonGetter("recipient_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRecipientName() {
-        return recipientName;
+        return OptionalNullable.getFrom(recipientName);
+    }
+
+    /**
+     * Internal Getter for RecipientPhoneNumber.
+     * The phone number to use for the order's delivery.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("recipient_phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRecipientPhoneNumber() {
+        return this.recipientPhoneNumber;
     }
 
     /**
@@ -178,10 +266,9 @@ public class V1Order {
      * The phone number to use for the order's delivery.
      * @return Returns the String
      */
-    @JsonGetter("recipient_phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRecipientPhoneNumber() {
-        return recipientPhoneNumber;
+        return OptionalNullable.getFrom(recipientPhoneNumber);
     }
 
     /**
@@ -279,14 +366,37 @@ public class V1Order {
     }
 
     /**
+     * Internal Getter for ExpiresAt.
+     * The time when the order expires if no action is taken, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetExpiresAt() {
+        return this.expiresAt;
+    }
+
+    /**
      * Getter for ExpiresAt.
      * The time when the order expires if no action is taken, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("expires_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getExpiresAt() {
-        return expiresAt;
+        return OptionalNullable.getFrom(expiresAt);
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The unique identifier of the payment associated with the order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -294,10 +404,21 @@ public class V1Order {
      * The unique identifier of the payment associated with the order.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for BuyerNote.
+     * A note provided by the buyer when the order was created, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerNote() {
+        return this.buyerNote;
     }
 
     /**
@@ -305,10 +426,21 @@ public class V1Order {
      * A note provided by the buyer when the order was created, if any.
      * @return Returns the String
      */
-    @JsonGetter("buyer_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerNote() {
-        return buyerNote;
+        return OptionalNullable.getFrom(buyerNote);
+    }
+
+    /**
+     * Internal Getter for CompletedNote.
+     * A note provided by the merchant when the order's state was set to COMPLETED, if any
+     * @return Returns the Internal String
+     */
+    @JsonGetter("completed_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCompletedNote() {
+        return this.completedNote;
     }
 
     /**
@@ -316,10 +448,21 @@ public class V1Order {
      * A note provided by the merchant when the order's state was set to COMPLETED, if any
      * @return Returns the String
      */
-    @JsonGetter("completed_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCompletedNote() {
-        return completedNote;
+        return OptionalNullable.getFrom(completedNote);
+    }
+
+    /**
+     * Internal Getter for RefundedNote.
+     * A note provided by the merchant when the order's state was set to REFUNDED, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("refunded_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRefundedNote() {
+        return this.refundedNote;
     }
 
     /**
@@ -327,10 +470,21 @@ public class V1Order {
      * A note provided by the merchant when the order's state was set to REFUNDED, if any.
      * @return Returns the String
      */
-    @JsonGetter("refunded_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRefundedNote() {
-        return refundedNote;
+        return OptionalNullable.getFrom(refundedNote);
+    }
+
+    /**
+     * Internal Getter for CanceledNote.
+     * A note provided by the merchant when the order's state was set to CANCELED, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("canceled_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCanceledNote() {
+        return this.canceledNote;
     }
 
     /**
@@ -338,10 +492,9 @@ public class V1Order {
      * A note provided by the merchant when the order's state was set to CANCELED, if any.
      * @return Returns the String
      */
-    @JsonGetter("canceled_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCanceledNote() {
-        return canceledNote;
+        return OptionalNullable.getFrom(canceledNote);
     }
 
     /**
@@ -368,14 +521,37 @@ public class V1Order {
     }
 
     /**
+     * Internal Getter for OrderHistory.
+     * The history of actions associated with the order.
+     * @return Returns the Internal List of V1OrderHistoryEntry
+     */
+    @JsonGetter("order_history")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1OrderHistoryEntry>> internalGetOrderHistory() {
+        return this.orderHistory;
+    }
+
+    /**
      * Getter for OrderHistory.
      * The history of actions associated with the order.
      * @return Returns the List of V1OrderHistoryEntry
      */
-    @JsonGetter("order_history")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1OrderHistoryEntry> getOrderHistory() {
-        return orderHistory;
+        return OptionalNullable.getFrom(orderHistory);
+    }
+
+    /**
+     * Internal Getter for PromoCode.
+     * The promo code provided by the buyer, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("promo_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPromoCode() {
+        return this.promoCode;
     }
 
     /**
@@ -383,10 +559,21 @@ public class V1Order {
      * The promo code provided by the buyer, if any.
      * @return Returns the String
      */
-    @JsonGetter("promo_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPromoCode() {
-        return promoCode;
+        return OptionalNullable.getFrom(promoCode);
+    }
+
+    /**
+     * Internal Getter for BtcReceiveAddress.
+     * For Bitcoin transactions, the address that the buyer sent Bitcoin to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("btc_receive_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBtcReceiveAddress() {
+        return this.btcReceiveAddress;
     }
 
     /**
@@ -394,10 +581,22 @@ public class V1Order {
      * For Bitcoin transactions, the address that the buyer sent Bitcoin to.
      * @return Returns the String
      */
-    @JsonGetter("btc_receive_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBtcReceiveAddress() {
-        return btcReceiveAddress;
+        return OptionalNullable.getFrom(btcReceiveAddress);
+    }
+
+    /**
+     * Internal Getter for BtcPriceSatoshi.
+     * For Bitcoin transactions, the price of the buyer's order in satoshi (100 million satoshi
+     * equals 1 BTC).
+     * @return Returns the Internal Double
+     */
+    @JsonGetter("btc_price_satoshi")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Double> internalGetBtcPriceSatoshi() {
+        return this.btcPriceSatoshi;
     }
 
     /**
@@ -406,10 +605,9 @@ public class V1Order {
      * equals 1 BTC).
      * @return Returns the Double
      */
-    @JsonGetter("btc_price_satoshi")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Double getBtcPriceSatoshi() {
-        return btcPriceSatoshi;
+        return OptionalNullable.getFrom(btcPriceSatoshi);
     }
 
     @Override
@@ -484,11 +682,7 @@ public class V1Order {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .errors(getErrors())
                 .id(getId())
-                .buyerEmail(getBuyerEmail())
-                .recipientName(getRecipientName())
-                .recipientPhoneNumber(getRecipientPhoneNumber())
                 .state(getState())
                 .shippingAddress(getShippingAddress())
                 .subtotalMoney(getSubtotalMoney())
@@ -498,17 +692,21 @@ public class V1Order {
                 .totalDiscountMoney(getTotalDiscountMoney())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .expiresAt(getExpiresAt())
-                .paymentId(getPaymentId())
-                .buyerNote(getBuyerNote())
-                .completedNote(getCompletedNote())
-                .refundedNote(getRefundedNote())
-                .canceledNote(getCanceledNote())
-                .tender(getTender())
-                .orderHistory(getOrderHistory())
-                .promoCode(getPromoCode())
-                .btcReceiveAddress(getBtcReceiveAddress())
-                .btcPriceSatoshi(getBtcPriceSatoshi());
+                .tender(getTender());
+        builder.errors = internalGetErrors();
+        builder.buyerEmail = internalGetBuyerEmail();
+        builder.recipientName = internalGetRecipientName();
+        builder.recipientPhoneNumber = internalGetRecipientPhoneNumber();
+        builder.expiresAt = internalGetExpiresAt();
+        builder.paymentId = internalGetPaymentId();
+        builder.buyerNote = internalGetBuyerNote();
+        builder.completedNote = internalGetCompletedNote();
+        builder.refundedNote = internalGetRefundedNote();
+        builder.canceledNote = internalGetCanceledNote();
+        builder.orderHistory = internalGetOrderHistory();
+        builder.promoCode = internalGetPromoCode();
+        builder.btcReceiveAddress = internalGetBtcReceiveAddress();
+        builder.btcPriceSatoshi = internalGetBtcPriceSatoshi();
         return builder;
     }
 
@@ -517,11 +715,11 @@ public class V1Order {
      */
     public static class Builder {
         private HttpContext httpContext;
-        private List<Error> errors;
+        private OptionalNullable<List<Error>> errors;
         private String id;
-        private String buyerEmail;
-        private String recipientName;
-        private String recipientPhoneNumber;
+        private OptionalNullable<String> buyerEmail;
+        private OptionalNullable<String> recipientName;
+        private OptionalNullable<String> recipientPhoneNumber;
         private String state;
         private Address shippingAddress;
         private V1Money subtotalMoney;
@@ -531,17 +729,17 @@ public class V1Order {
         private V1Money totalDiscountMoney;
         private String createdAt;
         private String updatedAt;
-        private String expiresAt;
-        private String paymentId;
-        private String buyerNote;
-        private String completedNote;
-        private String refundedNote;
-        private String canceledNote;
+        private OptionalNullable<String> expiresAt;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> buyerNote;
+        private OptionalNullable<String> completedNote;
+        private OptionalNullable<String> refundedNote;
+        private OptionalNullable<String> canceledNote;
         private V1Tender tender;
-        private List<V1OrderHistoryEntry> orderHistory;
-        private String promoCode;
-        private String btcReceiveAddress;
-        private Double btcPriceSatoshi;
+        private OptionalNullable<List<V1OrderHistoryEntry>> orderHistory;
+        private OptionalNullable<String> promoCode;
+        private OptionalNullable<String> btcReceiveAddress;
+        private OptionalNullable<Double> btcPriceSatoshi;
 
 
 
@@ -561,7 +759,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
-            this.errors = errors;
+            this.errors = OptionalNullable.of(errors);
+            return this;
+        }
+
+        /**
+         * UnSetter for errors.
+         * @return Builder
+         */
+        public Builder unsetErrors() {
+            errors = null;
             return this;
         }
 
@@ -581,7 +788,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder buyerEmail(String buyerEmail) {
-            this.buyerEmail = buyerEmail;
+            this.buyerEmail = OptionalNullable.of(buyerEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerEmail.
+         * @return Builder
+         */
+        public Builder unsetBuyerEmail() {
+            buyerEmail = null;
             return this;
         }
 
@@ -591,7 +807,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder recipientName(String recipientName) {
-            this.recipientName = recipientName;
+            this.recipientName = OptionalNullable.of(recipientName);
+            return this;
+        }
+
+        /**
+         * UnSetter for recipientName.
+         * @return Builder
+         */
+        public Builder unsetRecipientName() {
+            recipientName = null;
             return this;
         }
 
@@ -601,7 +826,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder recipientPhoneNumber(String recipientPhoneNumber) {
-            this.recipientPhoneNumber = recipientPhoneNumber;
+            this.recipientPhoneNumber = OptionalNullable.of(recipientPhoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for recipientPhoneNumber.
+         * @return Builder
+         */
+        public Builder unsetRecipientPhoneNumber() {
+            recipientPhoneNumber = null;
             return this;
         }
 
@@ -701,7 +935,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
-            this.expiresAt = expiresAt;
+            this.expiresAt = OptionalNullable.of(expiresAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for expiresAt.
+         * @return Builder
+         */
+        public Builder unsetExpiresAt() {
+            expiresAt = null;
             return this;
         }
 
@@ -711,7 +954,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -721,7 +973,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder buyerNote(String buyerNote) {
-            this.buyerNote = buyerNote;
+            this.buyerNote = OptionalNullable.of(buyerNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerNote.
+         * @return Builder
+         */
+        public Builder unsetBuyerNote() {
+            buyerNote = null;
             return this;
         }
 
@@ -731,7 +992,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder completedNote(String completedNote) {
-            this.completedNote = completedNote;
+            this.completedNote = OptionalNullable.of(completedNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for completedNote.
+         * @return Builder
+         */
+        public Builder unsetCompletedNote() {
+            completedNote = null;
             return this;
         }
 
@@ -741,7 +1011,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder refundedNote(String refundedNote) {
-            this.refundedNote = refundedNote;
+            this.refundedNote = OptionalNullable.of(refundedNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for refundedNote.
+         * @return Builder
+         */
+        public Builder unsetRefundedNote() {
+            refundedNote = null;
             return this;
         }
 
@@ -751,7 +1030,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder canceledNote(String canceledNote) {
-            this.canceledNote = canceledNote;
+            this.canceledNote = OptionalNullable.of(canceledNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for canceledNote.
+         * @return Builder
+         */
+        public Builder unsetCanceledNote() {
+            canceledNote = null;
             return this;
         }
 
@@ -771,7 +1059,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder orderHistory(List<V1OrderHistoryEntry> orderHistory) {
-            this.orderHistory = orderHistory;
+            this.orderHistory = OptionalNullable.of(orderHistory);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderHistory.
+         * @return Builder
+         */
+        public Builder unsetOrderHistory() {
+            orderHistory = null;
             return this;
         }
 
@@ -781,7 +1078,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder promoCode(String promoCode) {
-            this.promoCode = promoCode;
+            this.promoCode = OptionalNullable.of(promoCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for promoCode.
+         * @return Builder
+         */
+        public Builder unsetPromoCode() {
+            promoCode = null;
             return this;
         }
 
@@ -791,7 +1097,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder btcReceiveAddress(String btcReceiveAddress) {
-            this.btcReceiveAddress = btcReceiveAddress;
+            this.btcReceiveAddress = OptionalNullable.of(btcReceiveAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for btcReceiveAddress.
+         * @return Builder
+         */
+        public Builder unsetBtcReceiveAddress() {
+            btcReceiveAddress = null;
             return this;
         }
 
@@ -801,7 +1116,16 @@ public class V1Order {
          * @return Builder
          */
         public Builder btcPriceSatoshi(Double btcPriceSatoshi) {
-            this.btcPriceSatoshi = btcPriceSatoshi;
+            this.btcPriceSatoshi = OptionalNullable.of(btcPriceSatoshi);
+            return this;
+        }
+
+        /**
+         * UnSetter for btcPriceSatoshi.
+         * @return Builder
+         */
+        public Builder unsetBtcPriceSatoshi() {
+            btcPriceSatoshi = null;
             return this;
         }
 

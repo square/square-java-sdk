@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ClearpayDetails type.
  */
 public class ClearpayDetails {
-    private final String emailAddress;
+    private final OptionalNullable<String> emailAddress;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,26 @@ public class ClearpayDetails {
     @JsonCreator
     public ClearpayDetails(
             @JsonProperty("email_address") String emailAddress) {
+        this.emailAddress = OptionalNullable.of(emailAddress);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ClearpayDetails(OptionalNullable<String> emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    /**
+     * Internal Getter for EmailAddress.
+     * Email address on the buyer's Clearpay account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmailAddress() {
+        return this.emailAddress;
     }
 
     /**
@@ -29,10 +51,9 @@ public class ClearpayDetails {
      * Email address on the buyer's Clearpay account.
      * @return Returns the String
      */
-    @JsonGetter("email_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmailAddress() {
-        return emailAddress;
+        return OptionalNullable.getFrom(emailAddress);
     }
 
     @Override
@@ -67,8 +88,8 @@ public class ClearpayDetails {
      * @return a new {@link ClearpayDetails.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .emailAddress(getEmailAddress());
+        Builder builder = new Builder();
+        builder.emailAddress = internalGetEmailAddress();
         return builder;
     }
 
@@ -76,7 +97,7 @@ public class ClearpayDetails {
      * Class to build instances of {@link ClearpayDetails}.
      */
     public static class Builder {
-        private String emailAddress;
+        private OptionalNullable<String> emailAddress;
 
 
 
@@ -86,7 +107,16 @@ public class ClearpayDetails {
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
+            this.emailAddress = OptionalNullable.of(emailAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for emailAddress.
+         * @return Builder
+         */
+        public Builder unsetEmailAddress() {
+            emailAddress = null;
             return this;
         }
 

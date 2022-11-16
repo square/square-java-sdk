@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class PayoutFee {
     private final Money amountMoney;
-    private final String effectiveAt;
+    private final OptionalNullable<String> effectiveAt;
     private final String type;
 
     /**
@@ -27,6 +30,15 @@ public class PayoutFee {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("effective_at") String effectiveAt,
             @JsonProperty("type") String type) {
+        this.amountMoney = amountMoney;
+        this.effectiveAt = OptionalNullable.of(effectiveAt);
+        this.type = type;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PayoutFee(Money amountMoney, OptionalNullable<String> effectiveAt, String type) {
         this.amountMoney = amountMoney;
         this.effectiveAt = effectiveAt;
         this.type = type;
@@ -49,14 +61,25 @@ public class PayoutFee {
     }
 
     /**
+     * Internal Getter for EffectiveAt.
+     * The timestamp of when the fee takes effect, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("effective_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEffectiveAt() {
+        return this.effectiveAt;
+    }
+
+    /**
      * Getter for EffectiveAt.
      * The timestamp of when the fee takes effect, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("effective_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEffectiveAt() {
-        return effectiveAt;
+        return OptionalNullable.getFrom(effectiveAt);
     }
 
     /**
@@ -107,8 +130,8 @@ public class PayoutFee {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .amountMoney(getAmountMoney())
-                .effectiveAt(getEffectiveAt())
                 .type(getType());
+        builder.effectiveAt = internalGetEffectiveAt();
         return builder;
     }
 
@@ -117,7 +140,7 @@ public class PayoutFee {
      */
     public static class Builder {
         private Money amountMoney;
-        private String effectiveAt;
+        private OptionalNullable<String> effectiveAt;
         private String type;
 
 
@@ -138,7 +161,16 @@ public class PayoutFee {
          * @return Builder
          */
         public Builder effectiveAt(String effectiveAt) {
-            this.effectiveAt = effectiveAt;
+            this.effectiveAt = OptionalNullable.of(effectiveAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for effectiveAt.
+         * @return Builder
+         */
+        public Builder unsetEffectiveAt() {
+            effectiveAt = null;
             return this;
         }
 

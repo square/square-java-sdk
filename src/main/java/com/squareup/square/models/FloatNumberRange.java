@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for FloatNumberRange type.
  */
 public class FloatNumberRange {
-    private final String startAt;
-    private final String endAt;
+    private final OptionalNullable<String> startAt;
+    private final OptionalNullable<String> endAt;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,28 @@ public class FloatNumberRange {
     public FloatNumberRange(
             @JsonProperty("start_at") String startAt,
             @JsonProperty("end_at") String endAt) {
+        this.startAt = OptionalNullable.of(startAt);
+        this.endAt = OptionalNullable.of(endAt);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected FloatNumberRange(OptionalNullable<String> startAt, OptionalNullable<String> endAt) {
         this.startAt = startAt;
         this.endAt = endAt;
+    }
+
+    /**
+     * Internal Getter for StartAt.
+     * A decimal value indicating where the range starts.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartAt() {
+        return this.startAt;
     }
 
     /**
@@ -33,10 +56,21 @@ public class FloatNumberRange {
      * A decimal value indicating where the range starts.
      * @return Returns the String
      */
-    @JsonGetter("start_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartAt() {
-        return startAt;
+        return OptionalNullable.getFrom(startAt);
+    }
+
+    /**
+     * Internal Getter for EndAt.
+     * A decimal value indicating where the range ends.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndAt() {
+        return this.endAt;
     }
 
     /**
@@ -44,10 +78,9 @@ public class FloatNumberRange {
      * A decimal value indicating where the range ends.
      * @return Returns the String
      */
-    @JsonGetter("end_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndAt() {
-        return endAt;
+        return OptionalNullable.getFrom(endAt);
     }
 
     @Override
@@ -83,9 +116,9 @@ public class FloatNumberRange {
      * @return a new {@link FloatNumberRange.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .startAt(getStartAt())
-                .endAt(getEndAt());
+        Builder builder = new Builder();
+        builder.startAt = internalGetStartAt();
+        builder.endAt = internalGetEndAt();
         return builder;
     }
 
@@ -93,8 +126,8 @@ public class FloatNumberRange {
      * Class to build instances of {@link FloatNumberRange}.
      */
     public static class Builder {
-        private String startAt;
-        private String endAt;
+        private OptionalNullable<String> startAt;
+        private OptionalNullable<String> endAt;
 
 
 
@@ -104,7 +137,16 @@ public class FloatNumberRange {
          * @return Builder
          */
         public Builder startAt(String startAt) {
-            this.startAt = startAt;
+            this.startAt = OptionalNullable.of(startAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for startAt.
+         * @return Builder
+         */
+        public Builder unsetStartAt() {
+            startAt = null;
             return this;
         }
 
@@ -114,7 +156,16 @@ public class FloatNumberRange {
          * @return Builder
          */
         public Builder endAt(String endAt) {
-            this.endAt = endAt;
+            this.endAt = OptionalNullable.of(endAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for endAt.
+         * @return Builder
+         */
+        public Builder unsetEndAt() {
+            endAt = null;
             return this;
         }
 

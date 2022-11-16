@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,10 +16,10 @@ import java.util.Objects;
  */
 public class DeviceCheckoutOptions {
     private final String deviceId;
-    private final Boolean skipReceiptScreen;
-    private final Boolean collectSignature;
+    private final OptionalNullable<Boolean> skipReceiptScreen;
+    private final OptionalNullable<Boolean> collectSignature;
     private final TipSettings tipSettings;
-    private final Boolean showItemizedCart;
+    private final OptionalNullable<Boolean> showItemizedCart;
 
     /**
      * Initialization constructor.
@@ -33,6 +36,19 @@ public class DeviceCheckoutOptions {
             @JsonProperty("collect_signature") Boolean collectSignature,
             @JsonProperty("tip_settings") TipSettings tipSettings,
             @JsonProperty("show_itemized_cart") Boolean showItemizedCart) {
+        this.deviceId = deviceId;
+        this.skipReceiptScreen = OptionalNullable.of(skipReceiptScreen);
+        this.collectSignature = OptionalNullable.of(collectSignature);
+        this.tipSettings = tipSettings;
+        this.showItemizedCart = OptionalNullable.of(showItemizedCart);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DeviceCheckoutOptions(String deviceId, OptionalNullable<Boolean> skipReceiptScreen,
+            OptionalNullable<Boolean> collectSignature, TipSettings tipSettings,
+            OptionalNullable<Boolean> showItemizedCart) {
         this.deviceId = deviceId;
         this.skipReceiptScreen = skipReceiptScreen;
         this.collectSignature = collectSignature;
@@ -53,14 +69,37 @@ public class DeviceCheckoutOptions {
     }
 
     /**
+     * Internal Getter for SkipReceiptScreen.
+     * Instructs the device to skip the receipt screen. Defaults to false.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("skip_receipt_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSkipReceiptScreen() {
+        return this.skipReceiptScreen;
+    }
+
+    /**
      * Getter for SkipReceiptScreen.
      * Instructs the device to skip the receipt screen. Defaults to false.
      * @return Returns the Boolean
      */
-    @JsonGetter("skip_receipt_screen")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSkipReceiptScreen() {
-        return skipReceiptScreen;
+        return OptionalNullable.getFrom(skipReceiptScreen);
+    }
+
+    /**
+     * Internal Getter for CollectSignature.
+     * Indicates that signature collection is desired during checkout. Defaults to false.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("collect_signature")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetCollectSignature() {
+        return this.collectSignature;
     }
 
     /**
@@ -68,10 +107,9 @@ public class DeviceCheckoutOptions {
      * Indicates that signature collection is desired during checkout. Defaults to false.
      * @return Returns the Boolean
      */
-    @JsonGetter("collect_signature")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getCollectSignature() {
-        return collectSignature;
+        return OptionalNullable.getFrom(collectSignature);
     }
 
     /**
@@ -85,15 +123,27 @@ public class DeviceCheckoutOptions {
     }
 
     /**
+     * Internal Getter for ShowItemizedCart.
+     * Show the itemization screen prior to taking a payment. This field is only meaningful when the
+     * checkout includes an order ID. Defaults to true.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("show_itemized_cart")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetShowItemizedCart() {
+        return this.showItemizedCart;
+    }
+
+    /**
      * Getter for ShowItemizedCart.
      * Show the itemization screen prior to taking a payment. This field is only meaningful when the
      * checkout includes an order ID. Defaults to true.
      * @return Returns the Boolean
      */
-    @JsonGetter("show_itemized_cart")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getShowItemizedCart() {
-        return showItemizedCart;
+        return OptionalNullable.getFrom(showItemizedCart);
     }
 
     @Override
@@ -136,10 +186,10 @@ public class DeviceCheckoutOptions {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(deviceId)
-                .skipReceiptScreen(getSkipReceiptScreen())
-                .collectSignature(getCollectSignature())
-                .tipSettings(getTipSettings())
-                .showItemizedCart(getShowItemizedCart());
+                .tipSettings(getTipSettings());
+        builder.skipReceiptScreen = internalGetSkipReceiptScreen();
+        builder.collectSignature = internalGetCollectSignature();
+        builder.showItemizedCart = internalGetShowItemizedCart();
         return builder;
     }
 
@@ -148,10 +198,10 @@ public class DeviceCheckoutOptions {
      */
     public static class Builder {
         private String deviceId;
-        private Boolean skipReceiptScreen;
-        private Boolean collectSignature;
+        private OptionalNullable<Boolean> skipReceiptScreen;
+        private OptionalNullable<Boolean> collectSignature;
         private TipSettings tipSettings;
-        private Boolean showItemizedCart;
+        private OptionalNullable<Boolean> showItemizedCart;
 
         /**
          * Initialization constructor.
@@ -177,7 +227,16 @@ public class DeviceCheckoutOptions {
          * @return Builder
          */
         public Builder skipReceiptScreen(Boolean skipReceiptScreen) {
-            this.skipReceiptScreen = skipReceiptScreen;
+            this.skipReceiptScreen = OptionalNullable.of(skipReceiptScreen);
+            return this;
+        }
+
+        /**
+         * UnSetter for skipReceiptScreen.
+         * @return Builder
+         */
+        public Builder unsetSkipReceiptScreen() {
+            skipReceiptScreen = null;
             return this;
         }
 
@@ -187,7 +246,16 @@ public class DeviceCheckoutOptions {
          * @return Builder
          */
         public Builder collectSignature(Boolean collectSignature) {
-            this.collectSignature = collectSignature;
+            this.collectSignature = OptionalNullable.of(collectSignature);
+            return this;
+        }
+
+        /**
+         * UnSetter for collectSignature.
+         * @return Builder
+         */
+        public Builder unsetCollectSignature() {
+            collectSignature = null;
             return this;
         }
 
@@ -207,7 +275,16 @@ public class DeviceCheckoutOptions {
          * @return Builder
          */
         public Builder showItemizedCart(Boolean showItemizedCart) {
-            this.showItemizedCart = showItemizedCart;
+            this.showItemizedCart = OptionalNullable.of(showItemizedCart);
+            return this;
+        }
+
+        /**
+         * UnSetter for showItemizedCart.
+         * @return Builder
+         */
+        public Builder unsetShowItemizedCart() {
+            showItemizedCart = null;
             return this;
         }
 

@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for GiftCardActivityRefund type.
  */
 public class GiftCardActivityRefund {
-    private final String redeemActivityId;
+    private final OptionalNullable<String> redeemActivityId;
     private final Money amountMoney;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final String paymentId;
 
     /**
@@ -30,10 +33,39 @@ public class GiftCardActivityRefund {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("payment_id") String paymentId) {
+        this.redeemActivityId = OptionalNullable.of(redeemActivityId);
+        this.amountMoney = amountMoney;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.paymentId = paymentId;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected GiftCardActivityRefund(OptionalNullable<String> redeemActivityId, Money amountMoney,
+            OptionalNullable<String> referenceId, String paymentId) {
         this.redeemActivityId = redeemActivityId;
         this.amountMoney = amountMoney;
         this.referenceId = referenceId;
         this.paymentId = paymentId;
+    }
+
+    /**
+     * Internal Getter for RedeemActivityId.
+     * The ID of the refunded `REDEEM` gift card activity. Square populates this field if the
+     * `payment_id` in the corresponding [RefundPayment]($e/Refunds/RefundPayment) request
+     * represents a redemption made by the same gift card. Note that you must use `RefundPayment` to
+     * refund a gift card payment to the same gift card if the payment was processed by Square. For
+     * applications that use a custom payment processing system, this field is required when
+     * creating a `REFUND` activity. The provided `REDEEM` activity ID must be linked to the same
+     * gift card.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("redeem_activity_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRedeemActivityId() {
+        return this.redeemActivityId;
     }
 
     /**
@@ -47,10 +79,9 @@ public class GiftCardActivityRefund {
      * gift card.
      * @return Returns the String
      */
-    @JsonGetter("redeem_activity_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRedeemActivityId() {
-        return redeemActivityId;
+        return OptionalNullable.getFrom(redeemActivityId);
     }
 
     /**
@@ -70,15 +101,27 @@ public class GiftCardActivityRefund {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * A client-specified ID that associates the gift card activity with an entity in another
+     * system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * A client-specified ID that associates the gift card activity with an entity in another
      * system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -134,10 +177,10 @@ public class GiftCardActivityRefund {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .redeemActivityId(getRedeemActivityId())
                 .amountMoney(getAmountMoney())
-                .referenceId(getReferenceId())
                 .paymentId(getPaymentId());
+        builder.redeemActivityId = internalGetRedeemActivityId();
+        builder.referenceId = internalGetReferenceId();
         return builder;
     }
 
@@ -145,9 +188,9 @@ public class GiftCardActivityRefund {
      * Class to build instances of {@link GiftCardActivityRefund}.
      */
     public static class Builder {
-        private String redeemActivityId;
+        private OptionalNullable<String> redeemActivityId;
         private Money amountMoney;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private String paymentId;
 
 
@@ -158,7 +201,16 @@ public class GiftCardActivityRefund {
          * @return Builder
          */
         public Builder redeemActivityId(String redeemActivityId) {
-            this.redeemActivityId = redeemActivityId;
+            this.redeemActivityId = OptionalNullable.of(redeemActivityId);
+            return this;
+        }
+
+        /**
+         * UnSetter for redeemActivityId.
+         * @return Builder
+         */
+        public Builder unsetRedeemActivityId() {
+            redeemActivityId = null;
             return this;
         }
 
@@ -178,7 +230,16 @@ public class GiftCardActivityRefund {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 

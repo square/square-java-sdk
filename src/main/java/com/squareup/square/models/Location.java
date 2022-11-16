@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,30 +17,30 @@ import java.util.Objects;
  */
 public class Location {
     private final String id;
-    private final String name;
+    private final OptionalNullable<String> name;
     private final Address address;
-    private final String timezone;
+    private final OptionalNullable<String> timezone;
     private final List<String> capabilities;
     private final String status;
     private final String createdAt;
     private final String merchantId;
     private final String country;
-    private final String languageCode;
+    private final OptionalNullable<String> languageCode;
     private final String currency;
-    private final String phoneNumber;
-    private final String businessName;
+    private final OptionalNullable<String> phoneNumber;
+    private final OptionalNullable<String> businessName;
     private final String type;
-    private final String websiteUrl;
+    private final OptionalNullable<String> websiteUrl;
     private final BusinessHours businessHours;
-    private final String businessEmail;
-    private final String description;
-    private final String twitterUsername;
-    private final String instagramUsername;
-    private final String facebookUrl;
+    private final OptionalNullable<String> businessEmail;
+    private final OptionalNullable<String> description;
+    private final OptionalNullable<String> twitterUsername;
+    private final OptionalNullable<String> instagramUsername;
+    private final OptionalNullable<String> facebookUrl;
     private final Coordinates coordinates;
     private final String logoUrl;
     private final String posBackgroundUrl;
-    private final String mcc;
+    private final OptionalNullable<String> mcc;
     private final String fullFormatLogoUrl;
     private final TaxIds taxIds;
 
@@ -101,6 +104,49 @@ public class Location {
             @JsonProperty("full_format_logo_url") String fullFormatLogoUrl,
             @JsonProperty("tax_ids") TaxIds taxIds) {
         this.id = id;
+        this.name = OptionalNullable.of(name);
+        this.address = address;
+        this.timezone = OptionalNullable.of(timezone);
+        this.capabilities = capabilities;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.merchantId = merchantId;
+        this.country = country;
+        this.languageCode = OptionalNullable.of(languageCode);
+        this.currency = currency;
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+        this.businessName = OptionalNullable.of(businessName);
+        this.type = type;
+        this.websiteUrl = OptionalNullable.of(websiteUrl);
+        this.businessHours = businessHours;
+        this.businessEmail = OptionalNullable.of(businessEmail);
+        this.description = OptionalNullable.of(description);
+        this.twitterUsername = OptionalNullable.of(twitterUsername);
+        this.instagramUsername = OptionalNullable.of(instagramUsername);
+        this.facebookUrl = OptionalNullable.of(facebookUrl);
+        this.coordinates = coordinates;
+        this.logoUrl = logoUrl;
+        this.posBackgroundUrl = posBackgroundUrl;
+        this.mcc = OptionalNullable.of(mcc);
+        this.fullFormatLogoUrl = fullFormatLogoUrl;
+        this.taxIds = taxIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Location(String id, OptionalNullable<String> name, Address address,
+            OptionalNullable<String> timezone, List<String> capabilities, String status,
+            String createdAt, String merchantId, String country,
+            OptionalNullable<String> languageCode, String currency,
+            OptionalNullable<String> phoneNumber, OptionalNullable<String> businessName,
+            String type, OptionalNullable<String> websiteUrl, BusinessHours businessHours,
+            OptionalNullable<String> businessEmail, OptionalNullable<String> description,
+            OptionalNullable<String> twitterUsername, OptionalNullable<String> instagramUsername,
+            OptionalNullable<String> facebookUrl, Coordinates coordinates, String logoUrl,
+            String posBackgroundUrl, OptionalNullable<String> mcc, String fullFormatLogoUrl,
+            TaxIds taxIds) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.timezone = timezone;
@@ -142,15 +188,27 @@ public class Location {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name of the location. This information appears in the Seller Dashboard as the nickname. A
+     * location name must be unique within a seller account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name of the location. This information appears in the Seller Dashboard as the nickname. A
      * location name must be unique within a seller account.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -166,15 +224,27 @@ public class Location {
     }
 
     /**
+     * Internal Getter for Timezone.
+     * The [IANA time zone](https://www.iana.org/time-zones) identifier for the time zone of the
+     * location. For example, `America/Los_Angeles`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTimezone() {
+        return this.timezone;
+    }
+
+    /**
      * Getter for Timezone.
      * The [IANA time zone](https://www.iana.org/time-zones) identifier for the time zone of the
      * location. For example, `America/Los_Angeles`.
      * @return Returns the String
      */
-    @JsonGetter("timezone")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTimezone() {
-        return timezone;
+        return OptionalNullable.getFrom(timezone);
     }
 
     /**
@@ -237,16 +307,29 @@ public class Location {
     }
 
     /**
+     * Internal Getter for LanguageCode.
+     * The language associated with the location, in [BCP 47
+     * format](https://tools.ietf.org/html/bcp47#appendix-A). For more information, see [Language
+     * Preferences](https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLanguageCode() {
+        return this.languageCode;
+    }
+
+    /**
      * Getter for LanguageCode.
      * The language associated with the location, in [BCP 47
      * format](https://tools.ietf.org/html/bcp47#appendix-A). For more information, see [Language
      * Preferences](https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences).
      * @return Returns the String
      */
-    @JsonGetter("language_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLanguageCode() {
-        return languageCode;
+        return OptionalNullable.getFrom(languageCode);
     }
 
     /**
@@ -262,14 +345,38 @@ public class Location {
     }
 
     /**
+     * Internal Getter for PhoneNumber.
+     * The phone number of the location. For example, `+1 855-700-6000`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
      * Getter for PhoneNumber.
      * The phone number of the location. For example, `+1 855-700-6000`.
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
+    }
+
+    /**
+     * Internal Getter for BusinessName.
+     * The name of the location's overall business. This name is present on receipts and other
+     * customer-facing branding.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("business_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBusinessName() {
+        return this.businessName;
     }
 
     /**
@@ -278,10 +385,9 @@ public class Location {
      * customer-facing branding.
      * @return Returns the String
      */
-    @JsonGetter("business_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBusinessName() {
-        return businessName;
+        return OptionalNullable.getFrom(businessName);
     }
 
     /**
@@ -296,14 +402,25 @@ public class Location {
     }
 
     /**
+     * Internal Getter for WebsiteUrl.
+     * The website URL of the location. For example, `https://squareup.com`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("website_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetWebsiteUrl() {
+        return this.websiteUrl;
+    }
+
+    /**
      * Getter for WebsiteUrl.
      * The website URL of the location. For example, `https://squareup.com`.
      * @return Returns the String
      */
-    @JsonGetter("website_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getWebsiteUrl() {
-        return websiteUrl;
+        return OptionalNullable.getFrom(websiteUrl);
     }
 
     /**
@@ -318,15 +435,39 @@ public class Location {
     }
 
     /**
+     * Internal Getter for BusinessEmail.
+     * The email address of the location. This can be unique to the location and is not always the
+     * email address for the business owner or administrator.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("business_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBusinessEmail() {
+        return this.businessEmail;
+    }
+
+    /**
      * Getter for BusinessEmail.
      * The email address of the location. This can be unique to the location and is not always the
      * email address for the business owner or administrator.
      * @return Returns the String
      */
-    @JsonGetter("business_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBusinessEmail() {
-        return businessEmail;
+        return OptionalNullable.getFrom(businessEmail);
+    }
+
+    /**
+     * Internal Getter for Description.
+     * The description of the location. For example, `Main Street location`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
     }
 
     /**
@@ -334,10 +475,21 @@ public class Location {
      * The description of the location. For example, `Main Street location`.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
+    }
+
+    /**
+     * Internal Getter for TwitterUsername.
+     * The Twitter username of the location without the '@' symbol. For example, `Square`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("twitter_username")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTwitterUsername() {
+        return this.twitterUsername;
     }
 
     /**
@@ -345,10 +497,21 @@ public class Location {
      * The Twitter username of the location without the '@' symbol. For example, `Square`.
      * @return Returns the String
      */
-    @JsonGetter("twitter_username")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTwitterUsername() {
-        return twitterUsername;
+        return OptionalNullable.getFrom(twitterUsername);
+    }
+
+    /**
+     * Internal Getter for InstagramUsername.
+     * The Instagram username of the location without the '@' symbol. For example, `square`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("instagram_username")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetInstagramUsername() {
+        return this.instagramUsername;
     }
 
     /**
@@ -356,10 +519,22 @@ public class Location {
      * The Instagram username of the location without the '@' symbol. For example, `square`.
      * @return Returns the String
      */
-    @JsonGetter("instagram_username")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getInstagramUsername() {
-        return instagramUsername;
+        return OptionalNullable.getFrom(instagramUsername);
+    }
+
+    /**
+     * Internal Getter for FacebookUrl.
+     * The Facebook profile URL of the location. The URL should begin with 'facebook.com/'. For
+     * example, `https://www.facebook.com/square`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("facebook_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFacebookUrl() {
+        return this.facebookUrl;
     }
 
     /**
@@ -368,10 +543,9 @@ public class Location {
      * example, `https://www.facebook.com/square`.
      * @return Returns the String
      */
-    @JsonGetter("facebook_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFacebookUrl() {
-        return facebookUrl;
+        return OptionalNullable.getFrom(facebookUrl);
     }
 
     /**
@@ -411,6 +585,22 @@ public class Location {
     }
 
     /**
+     * Internal Getter for Mcc.
+     * A four-digit number that describes the kind of goods or services sold at the location. The
+     * [merchant category code
+     * (MCC)](https://developer.squareup.com/docs/locations-api#initialize-a-merchant-category-code)
+     * of the location as standardized by ISO 18245. For example, `5045`, for a location that sells
+     * computer goods and software.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("mcc")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMcc() {
+        return this.mcc;
+    }
+
+    /**
      * Getter for Mcc.
      * A four-digit number that describes the kind of goods or services sold at the location. The
      * [merchant category code
@@ -419,10 +609,9 @@ public class Location {
      * computer goods and software.
      * @return Returns the String
      */
-    @JsonGetter("mcc")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMcc() {
-        return mcc;
+        return OptionalNullable.getFrom(mcc);
     }
 
     /**
@@ -525,32 +714,32 @@ public class Location {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .name(getName())
                 .address(getAddress())
-                .timezone(getTimezone())
                 .capabilities(getCapabilities())
                 .status(getStatus())
                 .createdAt(getCreatedAt())
                 .merchantId(getMerchantId())
                 .country(getCountry())
-                .languageCode(getLanguageCode())
                 .currency(getCurrency())
-                .phoneNumber(getPhoneNumber())
-                .businessName(getBusinessName())
                 .type(getType())
-                .websiteUrl(getWebsiteUrl())
                 .businessHours(getBusinessHours())
-                .businessEmail(getBusinessEmail())
-                .description(getDescription())
-                .twitterUsername(getTwitterUsername())
-                .instagramUsername(getInstagramUsername())
-                .facebookUrl(getFacebookUrl())
                 .coordinates(getCoordinates())
                 .logoUrl(getLogoUrl())
                 .posBackgroundUrl(getPosBackgroundUrl())
-                .mcc(getMcc())
                 .fullFormatLogoUrl(getFullFormatLogoUrl())
                 .taxIds(getTaxIds());
+        builder.name = internalGetName();
+        builder.timezone = internalGetTimezone();
+        builder.languageCode = internalGetLanguageCode();
+        builder.phoneNumber = internalGetPhoneNumber();
+        builder.businessName = internalGetBusinessName();
+        builder.websiteUrl = internalGetWebsiteUrl();
+        builder.businessEmail = internalGetBusinessEmail();
+        builder.description = internalGetDescription();
+        builder.twitterUsername = internalGetTwitterUsername();
+        builder.instagramUsername = internalGetInstagramUsername();
+        builder.facebookUrl = internalGetFacebookUrl();
+        builder.mcc = internalGetMcc();
         return builder;
     }
 
@@ -559,30 +748,30 @@ public class Location {
      */
     public static class Builder {
         private String id;
-        private String name;
+        private OptionalNullable<String> name;
         private Address address;
-        private String timezone;
+        private OptionalNullable<String> timezone;
         private List<String> capabilities;
         private String status;
         private String createdAt;
         private String merchantId;
         private String country;
-        private String languageCode;
+        private OptionalNullable<String> languageCode;
         private String currency;
-        private String phoneNumber;
-        private String businessName;
+        private OptionalNullable<String> phoneNumber;
+        private OptionalNullable<String> businessName;
         private String type;
-        private String websiteUrl;
+        private OptionalNullable<String> websiteUrl;
         private BusinessHours businessHours;
-        private String businessEmail;
-        private String description;
-        private String twitterUsername;
-        private String instagramUsername;
-        private String facebookUrl;
+        private OptionalNullable<String> businessEmail;
+        private OptionalNullable<String> description;
+        private OptionalNullable<String> twitterUsername;
+        private OptionalNullable<String> instagramUsername;
+        private OptionalNullable<String> facebookUrl;
         private Coordinates coordinates;
         private String logoUrl;
         private String posBackgroundUrl;
-        private String mcc;
+        private OptionalNullable<String> mcc;
         private String fullFormatLogoUrl;
         private TaxIds taxIds;
 
@@ -604,7 +793,16 @@ public class Location {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -624,7 +822,16 @@ public class Location {
          * @return Builder
          */
         public Builder timezone(String timezone) {
-            this.timezone = timezone;
+            this.timezone = OptionalNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * UnSetter for timezone.
+         * @return Builder
+         */
+        public Builder unsetTimezone() {
+            timezone = null;
             return this;
         }
 
@@ -684,7 +891,16 @@ public class Location {
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
-            this.languageCode = languageCode;
+            this.languageCode = OptionalNullable.of(languageCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for languageCode.
+         * @return Builder
+         */
+        public Builder unsetLanguageCode() {
+            languageCode = null;
             return this;
         }
 
@@ -704,7 +920,16 @@ public class Location {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 
@@ -714,7 +939,16 @@ public class Location {
          * @return Builder
          */
         public Builder businessName(String businessName) {
-            this.businessName = businessName;
+            this.businessName = OptionalNullable.of(businessName);
+            return this;
+        }
+
+        /**
+         * UnSetter for businessName.
+         * @return Builder
+         */
+        public Builder unsetBusinessName() {
+            businessName = null;
             return this;
         }
 
@@ -734,7 +968,16 @@ public class Location {
          * @return Builder
          */
         public Builder websiteUrl(String websiteUrl) {
-            this.websiteUrl = websiteUrl;
+            this.websiteUrl = OptionalNullable.of(websiteUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for websiteUrl.
+         * @return Builder
+         */
+        public Builder unsetWebsiteUrl() {
+            websiteUrl = null;
             return this;
         }
 
@@ -754,7 +997,16 @@ public class Location {
          * @return Builder
          */
         public Builder businessEmail(String businessEmail) {
-            this.businessEmail = businessEmail;
+            this.businessEmail = OptionalNullable.of(businessEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for businessEmail.
+         * @return Builder
+         */
+        public Builder unsetBusinessEmail() {
+            businessEmail = null;
             return this;
         }
 
@@ -764,7 +1016,16 @@ public class Location {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -774,7 +1035,16 @@ public class Location {
          * @return Builder
          */
         public Builder twitterUsername(String twitterUsername) {
-            this.twitterUsername = twitterUsername;
+            this.twitterUsername = OptionalNullable.of(twitterUsername);
+            return this;
+        }
+
+        /**
+         * UnSetter for twitterUsername.
+         * @return Builder
+         */
+        public Builder unsetTwitterUsername() {
+            twitterUsername = null;
             return this;
         }
 
@@ -784,7 +1054,16 @@ public class Location {
          * @return Builder
          */
         public Builder instagramUsername(String instagramUsername) {
-            this.instagramUsername = instagramUsername;
+            this.instagramUsername = OptionalNullable.of(instagramUsername);
+            return this;
+        }
+
+        /**
+         * UnSetter for instagramUsername.
+         * @return Builder
+         */
+        public Builder unsetInstagramUsername() {
+            instagramUsername = null;
             return this;
         }
 
@@ -794,7 +1073,16 @@ public class Location {
          * @return Builder
          */
         public Builder facebookUrl(String facebookUrl) {
-            this.facebookUrl = facebookUrl;
+            this.facebookUrl = OptionalNullable.of(facebookUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for facebookUrl.
+         * @return Builder
+         */
+        public Builder unsetFacebookUrl() {
+            facebookUrl = null;
             return this;
         }
 
@@ -834,7 +1122,16 @@ public class Location {
          * @return Builder
          */
         public Builder mcc(String mcc) {
-            this.mcc = mcc;
+            this.mcc = OptionalNullable.of(mcc);
+            return this;
+        }
+
+        /**
+         * UnSetter for mcc.
+         * @return Builder
+         */
+        public Builder unsetMcc() {
+            mcc = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,12 +20,12 @@ public class LoyaltyAccount {
     private final String programId;
     private final Integer balance;
     private final Integer lifetimePoints;
-    private final String customerId;
-    private final String enrolledAt;
+    private final OptionalNullable<String> customerId;
+    private final OptionalNullable<String> enrolledAt;
     private final String createdAt;
     private final String updatedAt;
     private final LoyaltyAccountMapping mapping;
-    private final List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines;
+    private final OptionalNullable<List<LoyaltyAccountExpiringPointDeadline>> expiringPointDeadlines;
 
     /**
      * Initialization constructor.
@@ -50,6 +53,25 @@ public class LoyaltyAccount {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("mapping") LoyaltyAccountMapping mapping,
             @JsonProperty("expiring_point_deadlines") List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines) {
+        this.id = id;
+        this.programId = programId;
+        this.balance = balance;
+        this.lifetimePoints = lifetimePoints;
+        this.customerId = OptionalNullable.of(customerId);
+        this.enrolledAt = OptionalNullable.of(enrolledAt);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.mapping = mapping;
+        this.expiringPointDeadlines = OptionalNullable.of(expiringPointDeadlines);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyAccount(String programId, String id, Integer balance, Integer lifetimePoints,
+            OptionalNullable<String> customerId, OptionalNullable<String> enrolledAt,
+            String createdAt, String updatedAt, LoyaltyAccountMapping mapping,
+            OptionalNullable<List<LoyaltyAccountExpiringPointDeadline>> expiringPointDeadlines) {
         this.id = id;
         this.programId = programId;
         this.balance = balance;
@@ -110,14 +132,46 @@ public class LoyaltyAccount {
     }
 
     /**
+     * Internal Getter for CustomerId.
+     * The Square-assigned ID of the [customer]($m/Customer) that is associated with the account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
      * Getter for CustomerId.
      * The Square-assigned ID of the [customer]($m/Customer) that is associated with the account.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
+    }
+
+    /**
+     * Internal Getter for EnrolledAt.
+     * The timestamp when the buyer joined the loyalty program, in RFC 3339 format. This field is
+     * used to display the **Enrolled On** or **Member Since** date in first-party Square products.
+     * If this field is not set in a `CreateLoyaltyAccount` request, Square populates it after the
+     * buyer's first action on their account (when `AccumulateLoyaltyPoints` or
+     * `CreateLoyaltyReward` is called). In first-party flows, Square populates the field when the
+     * buyer agrees to the terms of service in Square Point of Sale. This field is typically
+     * specified in a `CreateLoyaltyAccount` request when creating a loyalty account for a buyer who
+     * already interacted with their account. For example, you would set this field when migrating
+     * accounts from an external system. The timestamp in the request can represent a current or
+     * previous date and time, but it cannot be set for the future.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("enrolled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEnrolledAt() {
+        return this.enrolledAt;
     }
 
     /**
@@ -134,10 +188,9 @@ public class LoyaltyAccount {
      * previous date and time, but it cannot be set for the future.
      * @return Returns the String
      */
-    @JsonGetter("enrolled_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEnrolledAt() {
-        return enrolledAt;
+        return OptionalNullable.getFrom(enrolledAt);
     }
 
     /**
@@ -176,16 +229,29 @@ public class LoyaltyAccount {
     }
 
     /**
+     * Internal Getter for ExpiringPointDeadlines.
+     * The schedule for when points expire in the loyalty account balance. This field is present
+     * only if the account has points that are scheduled to expire. The total number of points in
+     * this field equals the number of points in the `balance` field.
+     * @return Returns the Internal List of LoyaltyAccountExpiringPointDeadline
+     */
+    @JsonGetter("expiring_point_deadlines")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<LoyaltyAccountExpiringPointDeadline>> internalGetExpiringPointDeadlines() {
+        return this.expiringPointDeadlines;
+    }
+
+    /**
      * Getter for ExpiringPointDeadlines.
      * The schedule for when points expire in the loyalty account balance. This field is present
      * only if the account has points that are scheduled to expire. The total number of points in
      * this field equals the number of points in the `balance` field.
      * @return Returns the List of LoyaltyAccountExpiringPointDeadline
      */
-    @JsonGetter("expiring_point_deadlines")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<LoyaltyAccountExpiringPointDeadline> getExpiringPointDeadlines() {
-        return expiringPointDeadlines;
+        return OptionalNullable.getFrom(expiringPointDeadlines);
     }
 
     @Override
@@ -238,12 +304,12 @@ public class LoyaltyAccount {
                 .id(getId())
                 .balance(getBalance())
                 .lifetimePoints(getLifetimePoints())
-                .customerId(getCustomerId())
-                .enrolledAt(getEnrolledAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .mapping(getMapping())
-                .expiringPointDeadlines(getExpiringPointDeadlines());
+                .mapping(getMapping());
+        builder.customerId = internalGetCustomerId();
+        builder.enrolledAt = internalGetEnrolledAt();
+        builder.expiringPointDeadlines = internalGetExpiringPointDeadlines();
         return builder;
     }
 
@@ -255,12 +321,12 @@ public class LoyaltyAccount {
         private String id;
         private Integer balance;
         private Integer lifetimePoints;
-        private String customerId;
-        private String enrolledAt;
+        private OptionalNullable<String> customerId;
+        private OptionalNullable<String> enrolledAt;
         private String createdAt;
         private String updatedAt;
         private LoyaltyAccountMapping mapping;
-        private List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines;
+        private OptionalNullable<List<LoyaltyAccountExpiringPointDeadline>> expiringPointDeadlines;
 
         /**
          * Initialization constructor.
@@ -316,7 +382,16 @@ public class LoyaltyAccount {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -326,7 +401,16 @@ public class LoyaltyAccount {
          * @return Builder
          */
         public Builder enrolledAt(String enrolledAt) {
-            this.enrolledAt = enrolledAt;
+            this.enrolledAt = OptionalNullable.of(enrolledAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for enrolledAt.
+         * @return Builder
+         */
+        public Builder unsetEnrolledAt() {
+            enrolledAt = null;
             return this;
         }
 
@@ -368,7 +452,16 @@ public class LoyaltyAccount {
          */
         public Builder expiringPointDeadlines(
                 List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines) {
-            this.expiringPointDeadlines = expiringPointDeadlines;
+            this.expiringPointDeadlines = OptionalNullable.of(expiringPointDeadlines);
+            return this;
+        }
+
+        /**
+         * UnSetter for expiringPointDeadlines.
+         * @return Builder
+         */
+        public Builder unsetExpiringPointDeadlines() {
+            expiringPointDeadlines = null;
             return this;
         }
 

@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListBreakTypesRequest type.
  */
 public class ListBreakTypesRequest {
-    private final String locationId;
-    private final Integer limit;
-    private final String cursor;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,32 @@ public class ListBreakTypesRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor) {
+        this.locationId = OptionalNullable.of(locationId);
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListBreakTypesRequest(OptionalNullable<String> locationId,
+            OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.locationId = locationId;
         this.limit = limit;
         this.cursor = cursor;
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * Filter the returned `BreakType` results to only those that are associated with the specified
+     * location.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -38,10 +64,22 @@ public class ListBreakTypesRequest {
      * location.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of `BreakType` results to return per page. The number can range between 1
+     * and 200. The default is 200.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -50,10 +88,21 @@ public class ListBreakTypesRequest {
      * and 200. The default is 200.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pointer to the next page of `BreakType` results to fetch.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -61,10 +110,9 @@ public class ListBreakTypesRequest {
      * A pointer to the next page of `BreakType` results to fetch.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -102,10 +150,10 @@ public class ListBreakTypesRequest {
      * @return a new {@link ListBreakTypesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .locationId(getLocationId())
-                .limit(getLimit())
-                .cursor(getCursor());
+        Builder builder = new Builder();
+        builder.locationId = internalGetLocationId();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -113,9 +161,9 @@ public class ListBreakTypesRequest {
      * Class to build instances of {@link ListBreakTypesRequest}.
      */
     public static class Builder {
-        private String locationId;
-        private Integer limit;
-        private String cursor;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
 
 
 
@@ -125,7 +173,16 @@ public class ListBreakTypesRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -135,7 +192,16 @@ public class ListBreakTypesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -145,7 +211,16 @@ public class ListBreakTypesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

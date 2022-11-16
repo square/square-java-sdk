@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CashAppDetails type.
  */
 public class CashAppDetails {
-    private final String buyerFullName;
-    private final String buyerCountryCode;
+    private final OptionalNullable<String> buyerFullName;
+    private final OptionalNullable<String> buyerCountryCode;
     private final String buyerCashtag;
 
     /**
@@ -27,9 +30,31 @@ public class CashAppDetails {
             @JsonProperty("buyer_full_name") String buyerFullName,
             @JsonProperty("buyer_country_code") String buyerCountryCode,
             @JsonProperty("buyer_cashtag") String buyerCashtag) {
+        this.buyerFullName = OptionalNullable.of(buyerFullName);
+        this.buyerCountryCode = OptionalNullable.of(buyerCountryCode);
+        this.buyerCashtag = buyerCashtag;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CashAppDetails(OptionalNullable<String> buyerFullName,
+            OptionalNullable<String> buyerCountryCode, String buyerCashtag) {
         this.buyerFullName = buyerFullName;
         this.buyerCountryCode = buyerCountryCode;
         this.buyerCashtag = buyerCashtag;
+    }
+
+    /**
+     * Internal Getter for BuyerFullName.
+     * The name of the Cash App account holder.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_full_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerFullName() {
+        return this.buyerFullName;
     }
 
     /**
@@ -37,10 +62,22 @@ public class CashAppDetails {
      * The name of the Cash App account holder.
      * @return Returns the String
      */
-    @JsonGetter("buyer_full_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerFullName() {
-        return buyerFullName;
+        return OptionalNullable.getFrom(buyerFullName);
+    }
+
+    /**
+     * Internal Getter for BuyerCountryCode.
+     * The country of the Cash App account holder, in ISO 3166-1-alpha-2 format. For possible
+     * values, see [Country]($m/Country).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_country_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerCountryCode() {
+        return this.buyerCountryCode;
     }
 
     /**
@@ -49,10 +86,9 @@ public class CashAppDetails {
      * values, see [Country]($m/Country).
      * @return Returns the String
      */
-    @JsonGetter("buyer_country_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerCountryCode() {
-        return buyerCountryCode;
+        return OptionalNullable.getFrom(buyerCountryCode);
     }
 
     /**
@@ -102,9 +138,9 @@ public class CashAppDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .buyerFullName(getBuyerFullName())
-                .buyerCountryCode(getBuyerCountryCode())
                 .buyerCashtag(getBuyerCashtag());
+        builder.buyerFullName = internalGetBuyerFullName();
+        builder.buyerCountryCode = internalGetBuyerCountryCode();
         return builder;
     }
 
@@ -112,8 +148,8 @@ public class CashAppDetails {
      * Class to build instances of {@link CashAppDetails}.
      */
     public static class Builder {
-        private String buyerFullName;
-        private String buyerCountryCode;
+        private OptionalNullable<String> buyerFullName;
+        private OptionalNullable<String> buyerCountryCode;
         private String buyerCashtag;
 
 
@@ -124,7 +160,16 @@ public class CashAppDetails {
          * @return Builder
          */
         public Builder buyerFullName(String buyerFullName) {
-            this.buyerFullName = buyerFullName;
+            this.buyerFullName = OptionalNullable.of(buyerFullName);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerFullName.
+         * @return Builder
+         */
+        public Builder unsetBuyerFullName() {
+            buyerFullName = null;
             return this;
         }
 
@@ -134,7 +179,16 @@ public class CashAppDetails {
          * @return Builder
          */
         public Builder buyerCountryCode(String buyerCountryCode) {
-            this.buyerCountryCode = buyerCountryCode;
+            this.buyerCountryCode = OptionalNullable.of(buyerCountryCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerCountryCode.
+         * @return Builder
+         */
+        public Builder unsetBuyerCountryCode() {
+            buyerCountryCode = null;
             return this;
         }
 

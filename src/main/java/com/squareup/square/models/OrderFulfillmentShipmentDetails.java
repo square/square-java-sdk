@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,20 +16,20 @@ import java.util.Objects;
  */
 public class OrderFulfillmentShipmentDetails {
     private final OrderFulfillmentRecipient recipient;
-    private final String carrier;
-    private final String shippingNote;
-    private final String shippingType;
-    private final String trackingNumber;
-    private final String trackingUrl;
+    private final OptionalNullable<String> carrier;
+    private final OptionalNullable<String> shippingNote;
+    private final OptionalNullable<String> shippingType;
+    private final OptionalNullable<String> trackingNumber;
+    private final OptionalNullable<String> trackingUrl;
     private final String placedAt;
     private final String inProgressAt;
     private final String packagedAt;
-    private final String expectedShippedAt;
+    private final OptionalNullable<String> expectedShippedAt;
     private final String shippedAt;
-    private final String canceledAt;
-    private final String cancelReason;
+    private final OptionalNullable<String> canceledAt;
+    private final OptionalNullable<String> cancelReason;
     private final String failedAt;
-    private final String failureReason;
+    private final OptionalNullable<String> failureReason;
 
     /**
      * Initialization constructor.
@@ -64,6 +67,33 @@ public class OrderFulfillmentShipmentDetails {
             @JsonProperty("failed_at") String failedAt,
             @JsonProperty("failure_reason") String failureReason) {
         this.recipient = recipient;
+        this.carrier = OptionalNullable.of(carrier);
+        this.shippingNote = OptionalNullable.of(shippingNote);
+        this.shippingType = OptionalNullable.of(shippingType);
+        this.trackingNumber = OptionalNullable.of(trackingNumber);
+        this.trackingUrl = OptionalNullable.of(trackingUrl);
+        this.placedAt = placedAt;
+        this.inProgressAt = inProgressAt;
+        this.packagedAt = packagedAt;
+        this.expectedShippedAt = OptionalNullable.of(expectedShippedAt);
+        this.shippedAt = shippedAt;
+        this.canceledAt = OptionalNullable.of(canceledAt);
+        this.cancelReason = OptionalNullable.of(cancelReason);
+        this.failedAt = failedAt;
+        this.failureReason = OptionalNullable.of(failureReason);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillmentShipmentDetails(OrderFulfillmentRecipient recipient,
+            OptionalNullable<String> carrier, OptionalNullable<String> shippingNote,
+            OptionalNullable<String> shippingType, OptionalNullable<String> trackingNumber,
+            OptionalNullable<String> trackingUrl, String placedAt, String inProgressAt,
+            String packagedAt, OptionalNullable<String> expectedShippedAt, String shippedAt,
+            OptionalNullable<String> canceledAt, OptionalNullable<String> cancelReason,
+            String failedAt, OptionalNullable<String> failureReason) {
+        this.recipient = recipient;
         this.carrier = carrier;
         this.shippingNote = shippingNote;
         this.shippingType = shippingType;
@@ -92,14 +122,37 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
+     * Internal Getter for Carrier.
+     * The shipping carrier being used to ship this fulfillment (such as UPS, FedEx, or USPS).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("carrier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCarrier() {
+        return this.carrier;
+    }
+
+    /**
      * Getter for Carrier.
      * The shipping carrier being used to ship this fulfillment (such as UPS, FedEx, or USPS).
      * @return Returns the String
      */
-    @JsonGetter("carrier")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCarrier() {
-        return carrier;
+        return OptionalNullable.getFrom(carrier);
+    }
+
+    /**
+     * Internal Getter for ShippingNote.
+     * A note with additional information for the shipping carrier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("shipping_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetShippingNote() {
+        return this.shippingNote;
     }
 
     /**
@@ -107,10 +160,22 @@ public class OrderFulfillmentShipmentDetails {
      * A note with additional information for the shipping carrier.
      * @return Returns the String
      */
-    @JsonGetter("shipping_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getShippingNote() {
-        return shippingNote;
+        return OptionalNullable.getFrom(shippingNote);
+    }
+
+    /**
+     * Internal Getter for ShippingType.
+     * A description of the type of shipping product purchased from the carrier (such as First
+     * Class, Priority, or Express).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("shipping_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetShippingType() {
+        return this.shippingType;
     }
 
     /**
@@ -119,10 +184,21 @@ public class OrderFulfillmentShipmentDetails {
      * Class, Priority, or Express).
      * @return Returns the String
      */
-    @JsonGetter("shipping_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getShippingType() {
-        return shippingType;
+        return OptionalNullable.getFrom(shippingType);
+    }
+
+    /**
+     * Internal Getter for TrackingNumber.
+     * The reference number provided by the carrier to track the shipment's progress.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tracking_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTrackingNumber() {
+        return this.trackingNumber;
     }
 
     /**
@@ -130,10 +206,21 @@ public class OrderFulfillmentShipmentDetails {
      * The reference number provided by the carrier to track the shipment's progress.
      * @return Returns the String
      */
-    @JsonGetter("tracking_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTrackingNumber() {
-        return trackingNumber;
+        return OptionalNullable.getFrom(trackingNumber);
+    }
+
+    /**
+     * Internal Getter for TrackingUrl.
+     * A link to the tracking webpage on the carrier's website.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tracking_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTrackingUrl() {
+        return this.trackingUrl;
     }
 
     /**
@@ -141,10 +228,9 @@ public class OrderFulfillmentShipmentDetails {
      * A link to the tracking webpage on the carrier's website.
      * @return Returns the String
      */
-    @JsonGetter("tracking_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTrackingUrl() {
-        return trackingUrl;
+        return OptionalNullable.getFrom(trackingUrl);
     }
 
     /**
@@ -189,16 +275,29 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
+     * Internal Getter for ExpectedShippedAt.
+     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
+     * indicating when the shipment is expected to be delivered to the shipping carrier. The
+     * timestamp must be in RFC 3339 format (for example, "2016-09-04T23:59:33.123Z").
+     * @return Returns the Internal String
+     */
+    @JsonGetter("expected_shipped_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetExpectedShippedAt() {
+        return this.expectedShippedAt;
+    }
+
+    /**
      * Getter for ExpectedShippedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
      * indicating when the shipment is expected to be delivered to the shipping carrier. The
      * timestamp must be in RFC 3339 format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
-    @JsonGetter("expected_shipped_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getExpectedShippedAt() {
-        return expectedShippedAt;
+        return OptionalNullable.getFrom(expectedShippedAt);
     }
 
     /**
@@ -216,16 +315,41 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
+     * Internal Getter for CanceledAt.
+     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
+     * indicating the shipment was canceled. The timestamp must be in RFC 3339 format (for example,
+     * "2016-09-04T23:59:33.123Z").
+     * @return Returns the Internal String
+     */
+    @JsonGetter("canceled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCanceledAt() {
+        return this.canceledAt;
+    }
+
+    /**
      * Getter for CanceledAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
      * indicating the shipment was canceled. The timestamp must be in RFC 3339 format (for example,
      * "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
-    @JsonGetter("canceled_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCanceledAt() {
-        return canceledAt;
+        return OptionalNullable.getFrom(canceledAt);
+    }
+
+    /**
+     * Internal Getter for CancelReason.
+     * A description of why the shipment was canceled.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCancelReason() {
+        return this.cancelReason;
     }
 
     /**
@@ -233,10 +357,9 @@ public class OrderFulfillmentShipmentDetails {
      * A description of why the shipment was canceled.
      * @return Returns the String
      */
-    @JsonGetter("cancel_reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCancelReason() {
-        return cancelReason;
+        return OptionalNullable.getFrom(cancelReason);
     }
 
     /**
@@ -253,14 +376,25 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
+     * Internal Getter for FailureReason.
+     * A description of why the shipment failed to be completed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("failure_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFailureReason() {
+        return this.failureReason;
+    }
+
+    /**
      * Getter for FailureReason.
      * A description of why the shipment failed to be completed.
      * @return Returns the String
      */
-    @JsonGetter("failure_reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFailureReason() {
-        return failureReason;
+        return OptionalNullable.getFrom(failureReason);
     }
 
     @Override
@@ -319,20 +453,20 @@ public class OrderFulfillmentShipmentDetails {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .recipient(getRecipient())
-                .carrier(getCarrier())
-                .shippingNote(getShippingNote())
-                .shippingType(getShippingType())
-                .trackingNumber(getTrackingNumber())
-                .trackingUrl(getTrackingUrl())
                 .placedAt(getPlacedAt())
                 .inProgressAt(getInProgressAt())
                 .packagedAt(getPackagedAt())
-                .expectedShippedAt(getExpectedShippedAt())
                 .shippedAt(getShippedAt())
-                .canceledAt(getCanceledAt())
-                .cancelReason(getCancelReason())
-                .failedAt(getFailedAt())
-                .failureReason(getFailureReason());
+                .failedAt(getFailedAt());
+        builder.carrier = internalGetCarrier();
+        builder.shippingNote = internalGetShippingNote();
+        builder.shippingType = internalGetShippingType();
+        builder.trackingNumber = internalGetTrackingNumber();
+        builder.trackingUrl = internalGetTrackingUrl();
+        builder.expectedShippedAt = internalGetExpectedShippedAt();
+        builder.canceledAt = internalGetCanceledAt();
+        builder.cancelReason = internalGetCancelReason();
+        builder.failureReason = internalGetFailureReason();
         return builder;
     }
 
@@ -341,20 +475,20 @@ public class OrderFulfillmentShipmentDetails {
      */
     public static class Builder {
         private OrderFulfillmentRecipient recipient;
-        private String carrier;
-        private String shippingNote;
-        private String shippingType;
-        private String trackingNumber;
-        private String trackingUrl;
+        private OptionalNullable<String> carrier;
+        private OptionalNullable<String> shippingNote;
+        private OptionalNullable<String> shippingType;
+        private OptionalNullable<String> trackingNumber;
+        private OptionalNullable<String> trackingUrl;
         private String placedAt;
         private String inProgressAt;
         private String packagedAt;
-        private String expectedShippedAt;
+        private OptionalNullable<String> expectedShippedAt;
         private String shippedAt;
-        private String canceledAt;
-        private String cancelReason;
+        private OptionalNullable<String> canceledAt;
+        private OptionalNullable<String> cancelReason;
         private String failedAt;
-        private String failureReason;
+        private OptionalNullable<String> failureReason;
 
 
 
@@ -374,7 +508,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder carrier(String carrier) {
-            this.carrier = carrier;
+            this.carrier = OptionalNullable.of(carrier);
+            return this;
+        }
+
+        /**
+         * UnSetter for carrier.
+         * @return Builder
+         */
+        public Builder unsetCarrier() {
+            carrier = null;
             return this;
         }
 
@@ -384,7 +527,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder shippingNote(String shippingNote) {
-            this.shippingNote = shippingNote;
+            this.shippingNote = OptionalNullable.of(shippingNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for shippingNote.
+         * @return Builder
+         */
+        public Builder unsetShippingNote() {
+            shippingNote = null;
             return this;
         }
 
@@ -394,7 +546,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder shippingType(String shippingType) {
-            this.shippingType = shippingType;
+            this.shippingType = OptionalNullable.of(shippingType);
+            return this;
+        }
+
+        /**
+         * UnSetter for shippingType.
+         * @return Builder
+         */
+        public Builder unsetShippingType() {
+            shippingType = null;
             return this;
         }
 
@@ -404,7 +565,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder trackingNumber(String trackingNumber) {
-            this.trackingNumber = trackingNumber;
+            this.trackingNumber = OptionalNullable.of(trackingNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for trackingNumber.
+         * @return Builder
+         */
+        public Builder unsetTrackingNumber() {
+            trackingNumber = null;
             return this;
         }
 
@@ -414,7 +584,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder trackingUrl(String trackingUrl) {
-            this.trackingUrl = trackingUrl;
+            this.trackingUrl = OptionalNullable.of(trackingUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for trackingUrl.
+         * @return Builder
+         */
+        public Builder unsetTrackingUrl() {
+            trackingUrl = null;
             return this;
         }
 
@@ -454,7 +633,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder expectedShippedAt(String expectedShippedAt) {
-            this.expectedShippedAt = expectedShippedAt;
+            this.expectedShippedAt = OptionalNullable.of(expectedShippedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for expectedShippedAt.
+         * @return Builder
+         */
+        public Builder unsetExpectedShippedAt() {
+            expectedShippedAt = null;
             return this;
         }
 
@@ -474,7 +662,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder canceledAt(String canceledAt) {
-            this.canceledAt = canceledAt;
+            this.canceledAt = OptionalNullable.of(canceledAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for canceledAt.
+         * @return Builder
+         */
+        public Builder unsetCanceledAt() {
+            canceledAt = null;
             return this;
         }
 
@@ -484,7 +681,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
-            this.cancelReason = cancelReason;
+            this.cancelReason = OptionalNullable.of(cancelReason);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancelReason.
+         * @return Builder
+         */
+        public Builder unsetCancelReason() {
+            cancelReason = null;
             return this;
         }
 
@@ -504,7 +710,16 @@ public class OrderFulfillmentShipmentDetails {
          * @return Builder
          */
         public Builder failureReason(String failureReason) {
-            this.failureReason = failureReason;
+            this.failureReason = OptionalNullable.of(failureReason);
+            return this;
+        }
+
+        /**
+         * UnSetter for failureReason.
+         * @return Builder
+         */
+        public Builder unsetFailureReason() {
+            failureReason = null;
             return this;
         }
 

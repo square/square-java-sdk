@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for RetrieveInventoryChangesRequest type.
  */
 public class RetrieveInventoryChangesRequest {
-    private final String locationIds;
-    private final String cursor;
+    private final OptionalNullable<String> locationIds;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,30 @@ public class RetrieveInventoryChangesRequest {
     public RetrieveInventoryChangesRequest(
             @JsonProperty("location_ids") String locationIds,
             @JsonProperty("cursor") String cursor) {
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected RetrieveInventoryChangesRequest(OptionalNullable<String> locationIds,
+            OptionalNullable<String> cursor) {
         this.locationIds = locationIds;
         this.cursor = cursor;
+    }
+
+    /**
+     * Internal Getter for LocationIds.
+     * The [Location]($m/Location) IDs to look up as a comma-separated list. An empty list queries
+     * all locations.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationIds() {
+        return this.locationIds;
     }
 
     /**
@@ -34,10 +59,24 @@ public class RetrieveInventoryChangesRequest {
      * all locations.
      * @return Returns the String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. See the
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -48,10 +87,9 @@ public class RetrieveInventoryChangesRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -88,9 +126,9 @@ public class RetrieveInventoryChangesRequest {
      * @return a new {@link RetrieveInventoryChangesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .locationIds(getLocationIds())
-                .cursor(getCursor());
+        Builder builder = new Builder();
+        builder.locationIds = internalGetLocationIds();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -98,8 +136,8 @@ public class RetrieveInventoryChangesRequest {
      * Class to build instances of {@link RetrieveInventoryChangesRequest}.
      */
     public static class Builder {
-        private String locationIds;
-        private String cursor;
+        private OptionalNullable<String> locationIds;
+        private OptionalNullable<String> cursor;
 
 
 
@@ -109,7 +147,16 @@ public class RetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder locationIds(String locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -119,7 +166,16 @@ public class RetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

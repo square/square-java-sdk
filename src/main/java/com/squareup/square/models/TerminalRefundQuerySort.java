@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for TerminalRefundQuerySort type.
  */
 public class TerminalRefundQuerySort {
-    private final String sortOrder;
+    private final OptionalNullable<String> sortOrder;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class TerminalRefundQuerySort {
     @JsonCreator
     public TerminalRefundQuerySort(
             @JsonProperty("sort_order") String sortOrder) {
+        this.sortOrder = OptionalNullable.of(sortOrder);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TerminalRefundQuerySort(OptionalNullable<String> sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    /**
+     * Internal Getter for SortOrder.
+     * The order in which results are listed. - `ASC` - Oldest to newest. - `DESC` - Newest to
+     * oldest (default).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSortOrder() {
+        return this.sortOrder;
     }
 
     /**
@@ -30,10 +53,9 @@ public class TerminalRefundQuerySort {
      * oldest (default).
      * @return Returns the String
      */
-    @JsonGetter("sort_order")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSortOrder() {
-        return sortOrder;
+        return OptionalNullable.getFrom(sortOrder);
     }
 
     @Override
@@ -68,8 +90,8 @@ public class TerminalRefundQuerySort {
      * @return a new {@link TerminalRefundQuerySort.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .sortOrder(getSortOrder());
+        Builder builder = new Builder();
+        builder.sortOrder = internalGetSortOrder();
         return builder;
     }
 
@@ -77,7 +99,7 @@ public class TerminalRefundQuerySort {
      * Class to build instances of {@link TerminalRefundQuerySort}.
      */
     public static class Builder {
-        private String sortOrder;
+        private OptionalNullable<String> sortOrder;
 
 
 
@@ -87,7 +109,16 @@ public class TerminalRefundQuerySort {
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
-            this.sortOrder = sortOrder;
+            this.sortOrder = OptionalNullable.of(sortOrder);
+            return this;
+        }
+
+        /**
+         * UnSetter for sortOrder.
+         * @return Builder
+         */
+        public Builder unsetSortOrder() {
+            sortOrder = null;
             return this;
         }
 

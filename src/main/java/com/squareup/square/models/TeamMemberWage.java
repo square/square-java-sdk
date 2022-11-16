@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class TeamMemberWage {
     private final String id;
-    private final String teamMemberId;
-    private final String title;
+    private final OptionalNullable<String> teamMemberId;
+    private final OptionalNullable<String> title;
     private final Money hourlyRate;
 
     /**
@@ -30,6 +33,17 @@ public class TeamMemberWage {
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate) {
+        this.id = id;
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+        this.title = OptionalNullable.of(title);
+        this.hourlyRate = hourlyRate;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TeamMemberWage(String id, OptionalNullable<String> teamMemberId,
+            OptionalNullable<String> title, Money hourlyRate) {
         this.id = id;
         this.teamMemberId = teamMemberId;
         this.title = title;
@@ -48,14 +62,37 @@ public class TeamMemberWage {
     }
 
     /**
+     * Internal Getter for TeamMemberId.
+     * The `TeamMember` that this wage is assigned to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
+    }
+
+    /**
      * Getter for TeamMemberId.
      * The `TeamMember` that this wage is assigned to.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
+    }
+
+    /**
+     * Internal Getter for Title.
+     * The job title that this wage relates to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTitle() {
+        return this.title;
     }
 
     /**
@@ -63,10 +100,9 @@ public class TeamMemberWage {
      * The job title that this wage relates to.
      * @return Returns the String
      */
-    @JsonGetter("title")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTitle() {
-        return title;
+        return OptionalNullable.getFrom(title);
     }
 
     /**
@@ -123,9 +159,9 @@ public class TeamMemberWage {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .teamMemberId(getTeamMemberId())
-                .title(getTitle())
                 .hourlyRate(getHourlyRate());
+        builder.teamMemberId = internalGetTeamMemberId();
+        builder.title = internalGetTitle();
         return builder;
     }
 
@@ -134,8 +170,8 @@ public class TeamMemberWage {
      */
     public static class Builder {
         private String id;
-        private String teamMemberId;
-        private String title;
+        private OptionalNullable<String> teamMemberId;
+        private OptionalNullable<String> title;
         private Money hourlyRate;
 
 
@@ -156,7 +192,16 @@ public class TeamMemberWage {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 
@@ -166,7 +211,16 @@ public class TeamMemberWage {
          * @return Builder
          */
         public Builder title(String title) {
-            this.title = title;
+            this.title = OptionalNullable.of(title);
+            return this;
+        }
+
+        /**
+         * UnSetter for title.
+         * @return Builder
+         */
+        public Builder unsetTitle() {
+            title = null;
             return this;
         }
 

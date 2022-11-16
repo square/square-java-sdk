@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CardPaymentTimeline type.
  */
 public class CardPaymentTimeline {
-    private final String authorizedAt;
-    private final String capturedAt;
-    private final String voidedAt;
+    private final OptionalNullable<String> authorizedAt;
+    private final OptionalNullable<String> capturedAt;
+    private final OptionalNullable<String> voidedAt;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class CardPaymentTimeline {
             @JsonProperty("authorized_at") String authorizedAt,
             @JsonProperty("captured_at") String capturedAt,
             @JsonProperty("voided_at") String voidedAt) {
+        this.authorizedAt = OptionalNullable.of(authorizedAt);
+        this.capturedAt = OptionalNullable.of(capturedAt);
+        this.voidedAt = OptionalNullable.of(voidedAt);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CardPaymentTimeline(OptionalNullable<String> authorizedAt,
+            OptionalNullable<String> capturedAt, OptionalNullable<String> voidedAt) {
         this.authorizedAt = authorizedAt;
         this.capturedAt = capturedAt;
         this.voidedAt = voidedAt;
+    }
+
+    /**
+     * Internal Getter for AuthorizedAt.
+     * The timestamp when the payment was authorized, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("authorized_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAuthorizedAt() {
+        return this.authorizedAt;
     }
 
     /**
@@ -37,10 +62,21 @@ public class CardPaymentTimeline {
      * The timestamp when the payment was authorized, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("authorized_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAuthorizedAt() {
-        return authorizedAt;
+        return OptionalNullable.getFrom(authorizedAt);
+    }
+
+    /**
+     * Internal Getter for CapturedAt.
+     * The timestamp when the payment was captured, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("captured_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCapturedAt() {
+        return this.capturedAt;
     }
 
     /**
@@ -48,10 +84,21 @@ public class CardPaymentTimeline {
      * The timestamp when the payment was captured, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("captured_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCapturedAt() {
-        return capturedAt;
+        return OptionalNullable.getFrom(capturedAt);
+    }
+
+    /**
+     * Internal Getter for VoidedAt.
+     * The timestamp when the payment was voided, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("voided_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetVoidedAt() {
+        return this.voidedAt;
     }
 
     /**
@@ -59,10 +106,9 @@ public class CardPaymentTimeline {
      * The timestamp when the payment was voided, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("voided_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getVoidedAt() {
-        return voidedAt;
+        return OptionalNullable.getFrom(voidedAt);
     }
 
     @Override
@@ -100,10 +146,10 @@ public class CardPaymentTimeline {
      * @return a new {@link CardPaymentTimeline.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .authorizedAt(getAuthorizedAt())
-                .capturedAt(getCapturedAt())
-                .voidedAt(getVoidedAt());
+        Builder builder = new Builder();
+        builder.authorizedAt = internalGetAuthorizedAt();
+        builder.capturedAt = internalGetCapturedAt();
+        builder.voidedAt = internalGetVoidedAt();
         return builder;
     }
 
@@ -111,9 +157,9 @@ public class CardPaymentTimeline {
      * Class to build instances of {@link CardPaymentTimeline}.
      */
     public static class Builder {
-        private String authorizedAt;
-        private String capturedAt;
-        private String voidedAt;
+        private OptionalNullable<String> authorizedAt;
+        private OptionalNullable<String> capturedAt;
+        private OptionalNullable<String> voidedAt;
 
 
 
@@ -123,7 +169,16 @@ public class CardPaymentTimeline {
          * @return Builder
          */
         public Builder authorizedAt(String authorizedAt) {
-            this.authorizedAt = authorizedAt;
+            this.authorizedAt = OptionalNullable.of(authorizedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for authorizedAt.
+         * @return Builder
+         */
+        public Builder unsetAuthorizedAt() {
+            authorizedAt = null;
             return this;
         }
 
@@ -133,7 +188,16 @@ public class CardPaymentTimeline {
          * @return Builder
          */
         public Builder capturedAt(String capturedAt) {
-            this.capturedAt = capturedAt;
+            this.capturedAt = OptionalNullable.of(capturedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for capturedAt.
+         * @return Builder
+         */
+        public Builder unsetCapturedAt() {
+            capturedAt = null;
             return this;
         }
 
@@ -143,7 +207,16 @@ public class CardPaymentTimeline {
          * @return Builder
          */
         public Builder voidedAt(String voidedAt) {
-            this.voidedAt = voidedAt;
+            this.voidedAt = OptionalNullable.of(voidedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for voidedAt.
+         * @return Builder
+         */
+        public Builder unsetVoidedAt() {
+            voidedAt = null;
             return this;
         }
 

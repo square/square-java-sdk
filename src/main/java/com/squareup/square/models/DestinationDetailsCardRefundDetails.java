@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class DestinationDetailsCardRefundDetails {
     private final Card card;
-    private final String entryMethod;
+    private final OptionalNullable<String> entryMethod;
 
     /**
      * Initialization constructor.
@@ -24,6 +27,15 @@ public class DestinationDetailsCardRefundDetails {
     public DestinationDetailsCardRefundDetails(
             @JsonProperty("card") Card card,
             @JsonProperty("entry_method") String entryMethod) {
+        this.card = card;
+        this.entryMethod = OptionalNullable.of(entryMethod);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DestinationDetailsCardRefundDetails(Card card,
+            OptionalNullable<String> entryMethod) {
         this.card = card;
         this.entryMethod = entryMethod;
     }
@@ -41,15 +53,27 @@ public class DestinationDetailsCardRefundDetails {
     }
 
     /**
+     * Internal Getter for EntryMethod.
+     * The method used to enter the card's details for the refund. The method can be `KEYED`,
+     * `SWIPED`, `EMV`, `ON_FILE`, or `CONTACTLESS`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("entry_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEntryMethod() {
+        return this.entryMethod;
+    }
+
+    /**
      * Getter for EntryMethod.
      * The method used to enter the card's details for the refund. The method can be `KEYED`,
      * `SWIPED`, `EMV`, `ON_FILE`, or `CONTACTLESS`.
      * @return Returns the String
      */
-    @JsonGetter("entry_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEntryMethod() {
-        return entryMethod;
+        return OptionalNullable.getFrom(entryMethod);
     }
 
     @Override
@@ -87,8 +111,8 @@ public class DestinationDetailsCardRefundDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .card(getCard())
-                .entryMethod(getEntryMethod());
+                .card(getCard());
+        builder.entryMethod = internalGetEntryMethod();
         return builder;
     }
 
@@ -97,7 +121,7 @@ public class DestinationDetailsCardRefundDetails {
      */
     public static class Builder {
         private Card card;
-        private String entryMethod;
+        private OptionalNullable<String> entryMethod;
 
 
 
@@ -117,7 +141,16 @@ public class DestinationDetailsCardRefundDetails {
          * @return Builder
          */
         public Builder entryMethod(String entryMethod) {
-            this.entryMethod = entryMethod;
+            this.entryMethod = OptionalNullable.of(entryMethod);
+            return this;
+        }
+
+        /**
+         * UnSetter for entryMethod.
+         * @return Builder
+         */
+        public Builder unsetEntryMethod() {
+            entryMethod = null;
             return this;
         }
 

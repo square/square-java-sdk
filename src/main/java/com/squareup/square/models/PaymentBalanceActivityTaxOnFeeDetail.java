@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentBalanceActivityTaxOnFeeDetail type.
  */
 public class PaymentBalanceActivityTaxOnFeeDetail {
-    private final String paymentId;
-    private final String taxRateDescription;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> taxRateDescription;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
     public PaymentBalanceActivityTaxOnFeeDetail(
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("tax_rate_description") String taxRateDescription) {
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.taxRateDescription = OptionalNullable.of(taxRateDescription);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentBalanceActivityTaxOnFeeDetail(OptionalNullable<String> paymentId,
+            OptionalNullable<String> taxRateDescription) {
         this.paymentId = paymentId;
         this.taxRateDescription = taxRateDescription;
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -33,10 +57,21 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      * The ID of the payment associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for TaxRateDescription.
+     * The description of the tax rate being applied. For example: "GST", "HST".
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tax_rate_description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxRateDescription() {
+        return this.taxRateDescription;
     }
 
     /**
@@ -44,10 +79,9 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      * The description of the tax rate being applied. For example: "GST", "HST".
      * @return Returns the String
      */
-    @JsonGetter("tax_rate_description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTaxRateDescription() {
-        return taxRateDescription;
+        return OptionalNullable.getFrom(taxRateDescription);
     }
 
     @Override
@@ -84,9 +118,9 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      * @return a new {@link PaymentBalanceActivityTaxOnFeeDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .paymentId(getPaymentId())
-                .taxRateDescription(getTaxRateDescription());
+        Builder builder = new Builder();
+        builder.paymentId = internalGetPaymentId();
+        builder.taxRateDescription = internalGetTaxRateDescription();
         return builder;
     }
 
@@ -94,8 +128,8 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
      * Class to build instances of {@link PaymentBalanceActivityTaxOnFeeDetail}.
      */
     public static class Builder {
-        private String paymentId;
-        private String taxRateDescription;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> taxRateDescription;
 
 
 
@@ -105,7 +139,16 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -115,7 +158,16 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
          * @return Builder
          */
         public Builder taxRateDescription(String taxRateDescription) {
-            this.taxRateDescription = taxRateDescription;
+            this.taxRateDescription = OptionalNullable.of(taxRateDescription);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxRateDescription.
+         * @return Builder
+         */
+        public Builder unsetTaxRateDescription() {
+            taxRateDescription = null;
             return this;
         }
 

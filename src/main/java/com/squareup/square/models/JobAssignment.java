@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -16,7 +19,7 @@ public class JobAssignment {
     private final String payType;
     private final Money hourlyRate;
     private final Money annualRate;
-    private final Integer weeklyHours;
+    private final OptionalNullable<Integer> weeklyHours;
 
     /**
      * Initialization constructor.
@@ -33,6 +36,18 @@ public class JobAssignment {
             @JsonProperty("hourly_rate") Money hourlyRate,
             @JsonProperty("annual_rate") Money annualRate,
             @JsonProperty("weekly_hours") Integer weeklyHours) {
+        this.jobTitle = jobTitle;
+        this.payType = payType;
+        this.hourlyRate = hourlyRate;
+        this.annualRate = annualRate;
+        this.weeklyHours = OptionalNullable.of(weeklyHours);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected JobAssignment(String jobTitle, String payType, Money hourlyRate, Money annualRate,
+            OptionalNullable<Integer> weeklyHours) {
         this.jobTitle = jobTitle;
         this.payType = payType;
         this.hourlyRate = hourlyRate;
@@ -93,14 +108,25 @@ public class JobAssignment {
     }
 
     /**
+     * Internal Getter for WeeklyHours.
+     * The planned hours per week for the job. Set if the job `PayType` is `SALARY`.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("weekly_hours")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetWeeklyHours() {
+        return this.weeklyHours;
+    }
+
+    /**
      * Getter for WeeklyHours.
      * The planned hours per week for the job. Set if the job `PayType` is `SALARY`.
      * @return Returns the Integer
      */
-    @JsonGetter("weekly_hours")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getWeeklyHours() {
-        return weeklyHours;
+        return OptionalNullable.getFrom(weeklyHours);
     }
 
     @Override
@@ -142,8 +168,8 @@ public class JobAssignment {
     public Builder toBuilder() {
         Builder builder = new Builder(jobTitle, payType)
                 .hourlyRate(getHourlyRate())
-                .annualRate(getAnnualRate())
-                .weeklyHours(getWeeklyHours());
+                .annualRate(getAnnualRate());
+        builder.weeklyHours = internalGetWeeklyHours();
         return builder;
     }
 
@@ -155,7 +181,7 @@ public class JobAssignment {
         private String payType;
         private Money hourlyRate;
         private Money annualRate;
-        private Integer weeklyHours;
+        private OptionalNullable<Integer> weeklyHours;
 
         /**
          * Initialization constructor.
@@ -213,7 +239,16 @@ public class JobAssignment {
          * @return Builder
          */
         public Builder weeklyHours(Integer weeklyHours) {
-            this.weeklyHours = weeklyHours;
+            this.weeklyHours = OptionalNullable.of(weeklyHours);
+            return this;
+        }
+
+        /**
+         * UnSetter for weeklyHours.
+         * @return Builder
+         */
+        public Builder unsetWeeklyHours() {
+            weeklyHours = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +16,9 @@ import java.util.Objects;
  * This is a model class for SearchSubscriptionsFilter type.
  */
 public class SearchSubscriptionsFilter {
-    private final List<String> customerIds;
-    private final List<String> locationIds;
-    private final List<String> sourceNames;
+    private final OptionalNullable<List<String>> customerIds;
+    private final OptionalNullable<List<String>> locationIds;
+    private final OptionalNullable<List<String>> sourceNames;
 
     /**
      * Initialization constructor.
@@ -28,9 +31,32 @@ public class SearchSubscriptionsFilter {
             @JsonProperty("customer_ids") List<String> customerIds,
             @JsonProperty("location_ids") List<String> locationIds,
             @JsonProperty("source_names") List<String> sourceNames) {
+        this.customerIds = OptionalNullable.of(customerIds);
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.sourceNames = OptionalNullable.of(sourceNames);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SearchSubscriptionsFilter(OptionalNullable<List<String>> customerIds,
+            OptionalNullable<List<String>> locationIds,
+            OptionalNullable<List<String>> sourceNames) {
         this.customerIds = customerIds;
         this.locationIds = locationIds;
         this.sourceNames = sourceNames;
+    }
+
+    /**
+     * Internal Getter for CustomerIds.
+     * A filter to select subscriptions based on the subscribing customer IDs.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetCustomerIds() {
+        return this.customerIds;
     }
 
     /**
@@ -38,10 +64,21 @@ public class SearchSubscriptionsFilter {
      * A filter to select subscriptions based on the subscribing customer IDs.
      * @return Returns the List of String
      */
-    @JsonGetter("customer_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getCustomerIds() {
-        return customerIds;
+        return OptionalNullable.getFrom(customerIds);
+    }
+
+    /**
+     * Internal Getter for LocationIds.
+     * A filter to select subscriptions based on the location.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
     }
 
     /**
@@ -49,10 +86,21 @@ public class SearchSubscriptionsFilter {
      * A filter to select subscriptions based on the location.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
+    }
+
+    /**
+     * Internal Getter for SourceNames.
+     * A filter to select subscriptions based on the source application.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("source_names")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetSourceNames() {
+        return this.sourceNames;
     }
 
     /**
@@ -60,10 +108,9 @@ public class SearchSubscriptionsFilter {
      * A filter to select subscriptions based on the source application.
      * @return Returns the List of String
      */
-    @JsonGetter("source_names")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getSourceNames() {
-        return sourceNames;
+        return OptionalNullable.getFrom(sourceNames);
     }
 
     @Override
@@ -101,10 +148,10 @@ public class SearchSubscriptionsFilter {
      * @return a new {@link SearchSubscriptionsFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .customerIds(getCustomerIds())
-                .locationIds(getLocationIds())
-                .sourceNames(getSourceNames());
+        Builder builder = new Builder();
+        builder.customerIds = internalGetCustomerIds();
+        builder.locationIds = internalGetLocationIds();
+        builder.sourceNames = internalGetSourceNames();
         return builder;
     }
 
@@ -112,9 +159,9 @@ public class SearchSubscriptionsFilter {
      * Class to build instances of {@link SearchSubscriptionsFilter}.
      */
     public static class Builder {
-        private List<String> customerIds;
-        private List<String> locationIds;
-        private List<String> sourceNames;
+        private OptionalNullable<List<String>> customerIds;
+        private OptionalNullable<List<String>> locationIds;
+        private OptionalNullable<List<String>> sourceNames;
 
 
 
@@ -124,7 +171,16 @@ public class SearchSubscriptionsFilter {
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {
-            this.customerIds = customerIds;
+            this.customerIds = OptionalNullable.of(customerIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerIds.
+         * @return Builder
+         */
+        public Builder unsetCustomerIds() {
+            customerIds = null;
             return this;
         }
 
@@ -134,7 +190,16 @@ public class SearchSubscriptionsFilter {
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -144,7 +209,16 @@ public class SearchSubscriptionsFilter {
          * @return Builder
          */
         public Builder sourceNames(List<String> sourceNames) {
-            this.sourceNames = sourceNames;
+            this.sourceNames = OptionalNullable.of(sourceNames);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceNames.
+         * @return Builder
+         */
+        public Builder unsetSourceNames() {
+            sourceNames = null;
             return this;
         }
 

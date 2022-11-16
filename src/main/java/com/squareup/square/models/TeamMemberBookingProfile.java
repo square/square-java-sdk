@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -15,7 +18,7 @@ public class TeamMemberBookingProfile {
     private final String teamMemberId;
     private final String description;
     private final String displayName;
-    private final Boolean isBookable;
+    private final OptionalNullable<Boolean> isBookable;
     private final String profileImageUrl;
 
     /**
@@ -33,6 +36,18 @@ public class TeamMemberBookingProfile {
             @JsonProperty("display_name") String displayName,
             @JsonProperty("is_bookable") Boolean isBookable,
             @JsonProperty("profile_image_url") String profileImageUrl) {
+        this.teamMemberId = teamMemberId;
+        this.description = description;
+        this.displayName = displayName;
+        this.isBookable = OptionalNullable.of(isBookable);
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TeamMemberBookingProfile(String teamMemberId, String description, String displayName,
+            OptionalNullable<Boolean> isBookable, String profileImageUrl) {
         this.teamMemberId = teamMemberId;
         this.description = description;
         this.displayName = displayName;
@@ -75,15 +90,27 @@ public class TeamMemberBookingProfile {
     }
 
     /**
+     * Internal Getter for IsBookable.
+     * Indicates whether the team member can be booked through the Bookings API or the seller's
+     * online booking channel or site (`true) or not (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_bookable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsBookable() {
+        return this.isBookable;
+    }
+
+    /**
      * Getter for IsBookable.
      * Indicates whether the team member can be booked through the Bookings API or the seller's
      * online booking channel or site (`true) or not (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("is_bookable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsBookable() {
-        return isBookable;
+        return OptionalNullable.getFrom(isBookable);
     }
 
     /**
@@ -139,8 +166,8 @@ public class TeamMemberBookingProfile {
                 .teamMemberId(getTeamMemberId())
                 .description(getDescription())
                 .displayName(getDisplayName())
-                .isBookable(getIsBookable())
                 .profileImageUrl(getProfileImageUrl());
+        builder.isBookable = internalGetIsBookable();
         return builder;
     }
 
@@ -151,7 +178,7 @@ public class TeamMemberBookingProfile {
         private String teamMemberId;
         private String description;
         private String displayName;
-        private Boolean isBookable;
+        private OptionalNullable<Boolean> isBookable;
         private String profileImageUrl;
 
 
@@ -192,7 +219,16 @@ public class TeamMemberBookingProfile {
          * @return Builder
          */
         public Builder isBookable(Boolean isBookable) {
-            this.isBookable = isBookable;
+            this.isBookable = OptionalNullable.of(isBookable);
+            return this;
+        }
+
+        /**
+         * UnSetter for isBookable.
+         * @return Builder
+         */
+        public Builder unsetIsBookable() {
+            isBookable = null;
             return this;
         }
 

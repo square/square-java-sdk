@@ -3,23 +3,26 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for BusinessBookingProfile type.
  */
 public class BusinessBookingProfile {
-    private final String sellerId;
+    private final OptionalNullable<String> sellerId;
     private final String createdAt;
-    private final Boolean bookingEnabled;
+    private final OptionalNullable<Boolean> bookingEnabled;
     private final String customerTimezoneChoice;
     private final String bookingPolicy;
-    private final Boolean allowUserCancel;
+    private final OptionalNullable<Boolean> allowUserCancel;
     private final BusinessAppointmentSettings businessAppointmentSettings;
-    private final Boolean supportSellerLevelWrites;
+    private final OptionalNullable<Boolean> supportSellerLevelWrites;
 
     /**
      * Initialization constructor.
@@ -43,6 +46,24 @@ public class BusinessBookingProfile {
             @JsonProperty("allow_user_cancel") Boolean allowUserCancel,
             @JsonProperty("business_appointment_settings") BusinessAppointmentSettings businessAppointmentSettings,
             @JsonProperty("support_seller_level_writes") Boolean supportSellerLevelWrites) {
+        this.sellerId = OptionalNullable.of(sellerId);
+        this.createdAt = createdAt;
+        this.bookingEnabled = OptionalNullable.of(bookingEnabled);
+        this.customerTimezoneChoice = customerTimezoneChoice;
+        this.bookingPolicy = bookingPolicy;
+        this.allowUserCancel = OptionalNullable.of(allowUserCancel);
+        this.businessAppointmentSettings = businessAppointmentSettings;
+        this.supportSellerLevelWrites = OptionalNullable.of(supportSellerLevelWrites);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BusinessBookingProfile(OptionalNullable<String> sellerId, String createdAt,
+            OptionalNullable<Boolean> bookingEnabled, String customerTimezoneChoice,
+            String bookingPolicy, OptionalNullable<Boolean> allowUserCancel,
+            BusinessAppointmentSettings businessAppointmentSettings,
+            OptionalNullable<Boolean> supportSellerLevelWrites) {
         this.sellerId = sellerId;
         this.createdAt = createdAt;
         this.bookingEnabled = bookingEnabled;
@@ -54,14 +75,25 @@ public class BusinessBookingProfile {
     }
 
     /**
+     * Internal Getter for SellerId.
+     * The ID of the seller, obtainable using the Merchants API.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("seller_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSellerId() {
+        return this.sellerId;
+    }
+
+    /**
      * Getter for SellerId.
      * The ID of the seller, obtainable using the Merchants API.
      * @return Returns the String
      */
-    @JsonGetter("seller_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSellerId() {
-        return sellerId;
+        return OptionalNullable.getFrom(sellerId);
     }
 
     /**
@@ -76,14 +108,25 @@ public class BusinessBookingProfile {
     }
 
     /**
+     * Internal Getter for BookingEnabled.
+     * Indicates whether the seller is open for booking.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetBookingEnabled() {
+        return this.bookingEnabled;
+    }
+
+    /**
      * Getter for BookingEnabled.
      * Indicates whether the seller is open for booking.
      * @return Returns the Boolean
      */
-    @JsonGetter("booking_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getBookingEnabled() {
-        return bookingEnabled;
+        return OptionalNullable.getFrom(bookingEnabled);
     }
 
     /**
@@ -109,15 +152,27 @@ public class BusinessBookingProfile {
     }
 
     /**
+     * Internal Getter for AllowUserCancel.
+     * Indicates whether customers can cancel or reschedule their own bookings (`true`) or not
+     * (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("allow_user_cancel")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAllowUserCancel() {
+        return this.allowUserCancel;
+    }
+
+    /**
      * Getter for AllowUserCancel.
      * Indicates whether customers can cancel or reschedule their own bookings (`true`) or not
      * (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("allow_user_cancel")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAllowUserCancel() {
-        return allowUserCancel;
+        return OptionalNullable.getFrom(allowUserCancel);
     }
 
     /**
@@ -132,16 +187,29 @@ public class BusinessBookingProfile {
     }
 
     /**
+     * Internal Getter for SupportSellerLevelWrites.
+     * Indicates whether the seller's subscription to Square Appointments supports creating,
+     * updating or canceling an appointment through the API (`true`) or not (`false`) using seller
+     * permission.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("support_seller_level_writes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSupportSellerLevelWrites() {
+        return this.supportSellerLevelWrites;
+    }
+
+    /**
      * Getter for SupportSellerLevelWrites.
      * Indicates whether the seller's subscription to Square Appointments supports creating,
      * updating or canceling an appointment through the API (`true`) or not (`false`) using seller
      * permission.
      * @return Returns the Boolean
      */
-    @JsonGetter("support_seller_level_writes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSupportSellerLevelWrites() {
-        return supportSellerLevelWrites;
+        return OptionalNullable.getFrom(supportSellerLevelWrites);
     }
 
     @Override
@@ -190,14 +258,14 @@ public class BusinessBookingProfile {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .sellerId(getSellerId())
                 .createdAt(getCreatedAt())
-                .bookingEnabled(getBookingEnabled())
                 .customerTimezoneChoice(getCustomerTimezoneChoice())
                 .bookingPolicy(getBookingPolicy())
-                .allowUserCancel(getAllowUserCancel())
-                .businessAppointmentSettings(getBusinessAppointmentSettings())
-                .supportSellerLevelWrites(getSupportSellerLevelWrites());
+                .businessAppointmentSettings(getBusinessAppointmentSettings());
+        builder.sellerId = internalGetSellerId();
+        builder.bookingEnabled = internalGetBookingEnabled();
+        builder.allowUserCancel = internalGetAllowUserCancel();
+        builder.supportSellerLevelWrites = internalGetSupportSellerLevelWrites();
         return builder;
     }
 
@@ -205,14 +273,14 @@ public class BusinessBookingProfile {
      * Class to build instances of {@link BusinessBookingProfile}.
      */
     public static class Builder {
-        private String sellerId;
+        private OptionalNullable<String> sellerId;
         private String createdAt;
-        private Boolean bookingEnabled;
+        private OptionalNullable<Boolean> bookingEnabled;
         private String customerTimezoneChoice;
         private String bookingPolicy;
-        private Boolean allowUserCancel;
+        private OptionalNullable<Boolean> allowUserCancel;
         private BusinessAppointmentSettings businessAppointmentSettings;
-        private Boolean supportSellerLevelWrites;
+        private OptionalNullable<Boolean> supportSellerLevelWrites;
 
 
 
@@ -222,7 +290,16 @@ public class BusinessBookingProfile {
          * @return Builder
          */
         public Builder sellerId(String sellerId) {
-            this.sellerId = sellerId;
+            this.sellerId = OptionalNullable.of(sellerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for sellerId.
+         * @return Builder
+         */
+        public Builder unsetSellerId() {
+            sellerId = null;
             return this;
         }
 
@@ -242,7 +319,16 @@ public class BusinessBookingProfile {
          * @return Builder
          */
         public Builder bookingEnabled(Boolean bookingEnabled) {
-            this.bookingEnabled = bookingEnabled;
+            this.bookingEnabled = OptionalNullable.of(bookingEnabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for bookingEnabled.
+         * @return Builder
+         */
+        public Builder unsetBookingEnabled() {
+            bookingEnabled = null;
             return this;
         }
 
@@ -272,7 +358,16 @@ public class BusinessBookingProfile {
          * @return Builder
          */
         public Builder allowUserCancel(Boolean allowUserCancel) {
-            this.allowUserCancel = allowUserCancel;
+            this.allowUserCancel = OptionalNullable.of(allowUserCancel);
+            return this;
+        }
+
+        /**
+         * UnSetter for allowUserCancel.
+         * @return Builder
+         */
+        public Builder unsetAllowUserCancel() {
+            allowUserCancel = null;
             return this;
         }
 
@@ -294,7 +389,16 @@ public class BusinessBookingProfile {
          * @return Builder
          */
         public Builder supportSellerLevelWrites(Boolean supportSellerLevelWrites) {
-            this.supportSellerLevelWrites = supportSellerLevelWrites;
+            this.supportSellerLevelWrites = OptionalNullable.of(supportSellerLevelWrites);
+            return this;
+        }
+
+        /**
+         * UnSetter for supportSellerLevelWrites.
+         * @return Builder
+         */
+        public Builder unsetSupportSellerLevelWrites() {
+            supportSellerLevelWrites = null;
             return this;
         }
 

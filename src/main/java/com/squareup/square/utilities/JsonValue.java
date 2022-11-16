@@ -95,7 +95,7 @@ public class JsonValue extends CoreJsonValue {
         if (value == null) {
             return new JsonValue(null);            
         }
-        return new JsonValue(ApiHelper.mapper.valueToTree(value));
+        return new JsonValue(ApiHelper.getMapper().valueToTree(value));
     }
 
     /**
@@ -108,7 +108,7 @@ public class JsonValue extends CoreJsonValue {
         if (values == null) {
             return new JsonValue(null);            
         }
-        return new JsonValue(ApiHelper.mapper.valueToTree(values));
+        return new JsonValue(ApiHelper.getMapper().valueToTree(values));
     }
     /**
      * Converts the JSON into string.

@@ -3,21 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
-import java.util.List;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogModifier type.
  */
 public class CatalogModifier {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final Money priceMoney;
-    private final Integer ordinal;
-    private final String modifierListId;
-    private final List<String> imageIds;
+    private final OptionalNullable<Integer> ordinal;
+    private final OptionalNullable<String> modifierListId;
+    private final OptionalNullable<String> imageId;
 
     /**
      * Initialization constructor.
@@ -25,7 +27,7 @@ public class CatalogModifier {
      * @param  priceMoney  Money value for priceMoney.
      * @param  ordinal  Integer value for ordinal.
      * @param  modifierListId  String value for modifierListId.
-     * @param  imageIds  List of String value for imageIds.
+     * @param  imageId  String value for imageId.
      */
     @JsonCreator
     public CatalogModifier(
@@ -33,12 +35,38 @@ public class CatalogModifier {
             @JsonProperty("price_money") Money priceMoney,
             @JsonProperty("ordinal") Integer ordinal,
             @JsonProperty("modifier_list_id") String modifierListId,
-            @JsonProperty("image_ids") List<String> imageIds) {
+            @JsonProperty("image_id") String imageId) {
+        this.name = OptionalNullable.of(name);
+        this.priceMoney = priceMoney;
+        this.ordinal = OptionalNullable.of(ordinal);
+        this.modifierListId = OptionalNullable.of(modifierListId);
+        this.imageId = OptionalNullable.of(imageId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogModifier(OptionalNullable<String> name, Money priceMoney,
+            OptionalNullable<Integer> ordinal, OptionalNullable<String> modifierListId,
+            OptionalNullable<String> imageId) {
         this.name = name;
         this.priceMoney = priceMoney;
         this.ordinal = ordinal;
         this.modifierListId = modifierListId;
-        this.imageIds = imageIds;
+        this.imageId = imageId;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The modifier name. This is a searchable attribute for use in applicable query filters, and
+     * its value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -47,10 +75,9 @@ public class CatalogModifier {
      * its value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -70,14 +97,37 @@ public class CatalogModifier {
     }
 
     /**
+     * Internal Getter for Ordinal.
+     * Determines where this `CatalogModifier` appears in the `CatalogModifierList`.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
      * Getter for Ordinal.
      * Determines where this `CatalogModifier` appears in the `CatalogModifierList`.
      * @return Returns the Integer
      */
-    @JsonGetter("ordinal")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getOrdinal() {
-        return ordinal;
+        return OptionalNullable.getFrom(ordinal);
+    }
+
+    /**
+     * Internal Getter for ModifierListId.
+     * The ID of the `CatalogModifierList` associated with this modifier.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("modifier_list_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetModifierListId() {
+        return this.modifierListId;
     }
 
     /**
@@ -85,27 +135,38 @@ public class CatalogModifier {
      * The ID of the `CatalogModifierList` associated with this modifier.
      * @return Returns the String
      */
-    @JsonGetter("modifier_list_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getModifierListId() {
-        return modifierListId;
+        return OptionalNullable.getFrom(modifierListId);
     }
 
     /**
-     * Getter for ImageIds.
-     * The IDs of images associated with this `CatalogModifier` instance. Currently these images are
-     * not displayed by Square, but are free to be displayed in 3rd party applications.
-     * @return Returns the List of String
+     * Internal Getter for ImageId.
+     * The ID of the image associated with this `CatalogModifier` instance. Currently this image is
+     * not displayed by Square, but is free to be displayed in 3rd party applications.
+     * @return Returns the Internal String
      */
-    @JsonGetter("image_ids")
+    @JsonGetter("image_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getImageIds() {
-        return imageIds;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetImageId() {
+        return this.imageId;
+    }
+
+    /**
+     * Getter for ImageId.
+     * The ID of the image associated with this `CatalogModifier` instance. Currently this image is
+     * not displayed by Square, but is free to be displayed in 3rd party applications.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getImageId() {
+        return OptionalNullable.getFrom(imageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, priceMoney, ordinal, modifierListId, imageIds);
+        return Objects.hash(name, priceMoney, ordinal, modifierListId, imageId);
     }
 
     @Override
@@ -121,7 +182,7 @@ public class CatalogModifier {
             && Objects.equals(priceMoney, other.priceMoney)
             && Objects.equals(ordinal, other.ordinal)
             && Objects.equals(modifierListId, other.modifierListId)
-            && Objects.equals(imageIds, other.imageIds);
+            && Objects.equals(imageId, other.imageId);
     }
 
     /**
@@ -131,7 +192,7 @@ public class CatalogModifier {
     @Override
     public String toString() {
         return "CatalogModifier [" + "name=" + name + ", priceMoney=" + priceMoney + ", ordinal="
-                + ordinal + ", modifierListId=" + modifierListId + ", imageIds=" + imageIds + "]";
+                + ordinal + ", modifierListId=" + modifierListId + ", imageId=" + imageId + "]";
     }
 
     /**
@@ -141,11 +202,11 @@ public class CatalogModifier {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
-                .priceMoney(getPriceMoney())
-                .ordinal(getOrdinal())
-                .modifierListId(getModifierListId())
-                .imageIds(getImageIds());
+                .priceMoney(getPriceMoney());
+        builder.name = internalGetName();
+        builder.ordinal = internalGetOrdinal();
+        builder.modifierListId = internalGetModifierListId();
+        builder.imageId = internalGetImageId();
         return builder;
     }
 
@@ -153,11 +214,11 @@ public class CatalogModifier {
      * Class to build instances of {@link CatalogModifier}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
         private Money priceMoney;
-        private Integer ordinal;
-        private String modifierListId;
-        private List<String> imageIds;
+        private OptionalNullable<Integer> ordinal;
+        private OptionalNullable<String> modifierListId;
+        private OptionalNullable<String> imageId;
 
 
 
@@ -167,7 +228,16 @@ public class CatalogModifier {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -187,7 +257,16 @@ public class CatalogModifier {
          * @return Builder
          */
         public Builder ordinal(Integer ordinal) {
-            this.ordinal = ordinal;
+            this.ordinal = OptionalNullable.of(ordinal);
+            return this;
+        }
+
+        /**
+         * UnSetter for ordinal.
+         * @return Builder
+         */
+        public Builder unsetOrdinal() {
+            ordinal = null;
             return this;
         }
 
@@ -197,17 +276,35 @@ public class CatalogModifier {
          * @return Builder
          */
         public Builder modifierListId(String modifierListId) {
-            this.modifierListId = modifierListId;
+            this.modifierListId = OptionalNullable.of(modifierListId);
             return this;
         }
 
         /**
-         * Setter for imageIds.
-         * @param  imageIds  List of String value for imageIds.
+         * UnSetter for modifierListId.
          * @return Builder
          */
-        public Builder imageIds(List<String> imageIds) {
-            this.imageIds = imageIds;
+        public Builder unsetModifierListId() {
+            modifierListId = null;
+            return this;
+        }
+
+        /**
+         * Setter for imageId.
+         * @param  imageId  String value for imageId.
+         * @return Builder
+         */
+        public Builder imageId(String imageId) {
+            this.imageId = OptionalNullable.of(imageId);
+            return this;
+        }
+
+        /**
+         * UnSetter for imageId.
+         * @return Builder
+         */
+        public Builder unsetImageId() {
+            imageId = null;
             return this;
         }
 
@@ -216,7 +313,7 @@ public class CatalogModifier {
          * @return {@link CatalogModifier}
          */
         public CatalogModifier build() {
-            return new CatalogModifier(name, priceMoney, ordinal, modifierListId, imageIds);
+            return new CatalogModifier(name, priceMoney, ordinal, modifierListId, imageId);
         }
     }
 }

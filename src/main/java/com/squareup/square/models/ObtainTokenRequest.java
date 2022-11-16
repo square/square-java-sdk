@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,15 +17,15 @@ import java.util.Objects;
  */
 public class ObtainTokenRequest {
     private final String clientId;
-    private final String clientSecret;
-    private final String code;
-    private final String redirectUri;
+    private final OptionalNullable<String> clientSecret;
+    private final OptionalNullable<String> code;
+    private final OptionalNullable<String> redirectUri;
     private final String grantType;
-    private final String refreshToken;
-    private final String migrationToken;
-    private final List<String> scopes;
-    private final Boolean shortLived;
-    private final String codeVerifier;
+    private final OptionalNullable<String> refreshToken;
+    private final OptionalNullable<String> migrationToken;
+    private final OptionalNullable<List<String>> scopes;
+    private final OptionalNullable<Boolean> shortLived;
+    private final OptionalNullable<String> codeVerifier;
 
     /**
      * Initialization constructor.
@@ -50,6 +53,26 @@ public class ObtainTokenRequest {
             @JsonProperty("short_lived") Boolean shortLived,
             @JsonProperty("code_verifier") String codeVerifier) {
         this.clientId = clientId;
+        this.clientSecret = OptionalNullable.of(clientSecret);
+        this.code = OptionalNullable.of(code);
+        this.redirectUri = OptionalNullable.of(redirectUri);
+        this.grantType = grantType;
+        this.refreshToken = OptionalNullable.of(refreshToken);
+        this.migrationToken = OptionalNullable.of(migrationToken);
+        this.scopes = OptionalNullable.of(scopes);
+        this.shortLived = OptionalNullable.of(shortLived);
+        this.codeVerifier = OptionalNullable.of(codeVerifier);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ObtainTokenRequest(String clientId, String grantType,
+            OptionalNullable<String> clientSecret, OptionalNullable<String> code,
+            OptionalNullable<String> redirectUri, OptionalNullable<String> refreshToken,
+            OptionalNullable<String> migrationToken, OptionalNullable<List<String>> scopes,
+            OptionalNullable<Boolean> shortLived, OptionalNullable<String> codeVerifier) {
+        this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.code = code;
         this.redirectUri = redirectUri;
@@ -73,6 +96,22 @@ public class ObtainTokenRequest {
     }
 
     /**
+     * Internal Getter for ClientSecret.
+     * The Square-issued application secret for your application, which is available in the OAuth
+     * page in the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is
+     * only required when you are not using the [OAuth PKCE (Proof Key for Code Exchange)
+     * flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE flow
+     * requires a `code_verifier` instead of a `client_secret`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("client_secret")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClientSecret() {
+        return this.clientSecret;
+    }
+
+    /**
      * Getter for ClientSecret.
      * The Square-issued application secret for your application, which is available in the OAuth
      * page in the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is
@@ -81,10 +120,23 @@ public class ObtainTokenRequest {
      * requires a `code_verifier` instead of a `client_secret`.
      * @return Returns the String
      */
-    @JsonGetter("client_secret")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClientSecret() {
-        return clientSecret;
+        return OptionalNullable.getFrom(clientSecret);
+    }
+
+    /**
+     * Internal Getter for Code.
+     * The authorization code to exchange. This code is required if `grant_type` is set to
+     * `authorization_code` to indicate that the application wants to exchange an authorization code
+     * for an OAuth access token.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCode() {
+        return this.code;
     }
 
     /**
@@ -94,10 +146,22 @@ public class ObtainTokenRequest {
      * for an OAuth access token.
      * @return Returns the String
      */
-    @JsonGetter("code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCode() {
-        return code;
+        return OptionalNullable.getFrom(code);
+    }
+
+    /**
+     * Internal Getter for RedirectUri.
+     * The redirect URL assigned in the OAuth page for your application in the [Developer
+     * Dashboard](https://developer.squareup.com/apps).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("redirect_uri")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRedirectUri() {
+        return this.redirectUri;
     }
 
     /**
@@ -106,10 +170,9 @@ public class ObtainTokenRequest {
      * Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
-    @JsonGetter("redirect_uri")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRedirectUri() {
-        return redirectUri;
+        return OptionalNullable.getFrom(redirectUri);
     }
 
     /**
@@ -124,16 +187,45 @@ public class ObtainTokenRequest {
     }
 
     /**
+     * Internal Getter for RefreshToken.
+     * A valid refresh token for generating a new OAuth access token. A valid refresh token is
+     * required if `grant_type` is set to `refresh_token` to indicate that the application wants a
+     * replacement for an expired OAuth access token.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("refresh_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRefreshToken() {
+        return this.refreshToken;
+    }
+
+    /**
      * Getter for RefreshToken.
      * A valid refresh token for generating a new OAuth access token. A valid refresh token is
      * required if `grant_type` is set to `refresh_token` to indicate that the application wants a
      * replacement for an expired OAuth access token.
      * @return Returns the String
      */
-    @JsonGetter("refresh_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRefreshToken() {
-        return refreshToken;
+        return OptionalNullable.getFrom(refreshToken);
+    }
+
+    /**
+     * Internal Getter for MigrationToken.
+     * A legacy OAuth access token obtained using a Connect API version prior to 2019-03-13. This
+     * parameter is required if `grant_type` is set to `migration_token` to indicate that the
+     * application wants to get a replacement OAuth access token. The response also returns a
+     * refresh token. For more information, see [Migrate to Using Refresh
+     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("migration_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMigrationToken() {
+        return this.migrationToken;
     }
 
     /**
@@ -145,10 +237,24 @@ public class ObtainTokenRequest {
      * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens).
      * @return Returns the String
      */
-    @JsonGetter("migration_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMigrationToken() {
-        return migrationToken;
+        return OptionalNullable.getFrom(migrationToken);
+    }
+
+    /**
+     * Internal Getter for Scopes.
+     * A JSON list of strings representing the permissions that the application is requesting. For
+     * example, "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`". The access token
+     * returned in the response is granted the permissions that comprise the intersection between
+     * the requested list of permissions and those that belong to the provided refresh token.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("scopes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetScopes() {
+        return this.scopes;
     }
 
     /**
@@ -159,10 +265,22 @@ public class ObtainTokenRequest {
      * the requested list of permissions and those that belong to the provided refresh token.
      * @return Returns the List of String
      */
-    @JsonGetter("scopes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getScopes() {
-        return scopes;
+        return OptionalNullable.getFrom(scopes);
+    }
+
+    /**
+     * Internal Getter for ShortLived.
+     * A Boolean indicating a request for a short-lived access token. The short-lived access token
+     * returned in the response expires in 24 hours.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("short_lived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetShortLived() {
+        return this.shortLived;
     }
 
     /**
@@ -171,10 +289,22 @@ public class ObtainTokenRequest {
      * returned in the response expires in 24 hours.
      * @return Returns the Boolean
      */
-    @JsonGetter("short_lived")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getShortLived() {
-        return shortLived;
+        return OptionalNullable.getFrom(shortLived);
+    }
+
+    /**
+     * Internal Getter for CodeVerifier.
+     * Must be provided when using PKCE OAuth flow. The `code_verifier` will be used to verify
+     * against the `code_challenge` associated with the `authorization_code`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("code_verifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCodeVerifier() {
+        return this.codeVerifier;
     }
 
     /**
@@ -183,10 +313,9 @@ public class ObtainTokenRequest {
      * against the `code_challenge` associated with the `authorization_code`.
      * @return Returns the String
      */
-    @JsonGetter("code_verifier")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCodeVerifier() {
-        return codeVerifier;
+        return OptionalNullable.getFrom(codeVerifier);
     }
 
     @Override
@@ -235,15 +364,15 @@ public class ObtainTokenRequest {
      * @return a new {@link ObtainTokenRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(clientId, grantType)
-                .clientSecret(getClientSecret())
-                .code(getCode())
-                .redirectUri(getRedirectUri())
-                .refreshToken(getRefreshToken())
-                .migrationToken(getMigrationToken())
-                .scopes(getScopes())
-                .shortLived(getShortLived())
-                .codeVerifier(getCodeVerifier());
+        Builder builder = new Builder(clientId, grantType);
+        builder.clientSecret = internalGetClientSecret();
+        builder.code = internalGetCode();
+        builder.redirectUri = internalGetRedirectUri();
+        builder.refreshToken = internalGetRefreshToken();
+        builder.migrationToken = internalGetMigrationToken();
+        builder.scopes = internalGetScopes();
+        builder.shortLived = internalGetShortLived();
+        builder.codeVerifier = internalGetCodeVerifier();
         return builder;
     }
 
@@ -253,14 +382,14 @@ public class ObtainTokenRequest {
     public static class Builder {
         private String clientId;
         private String grantType;
-        private String clientSecret;
-        private String code;
-        private String redirectUri;
-        private String refreshToken;
-        private String migrationToken;
-        private List<String> scopes;
-        private Boolean shortLived;
-        private String codeVerifier;
+        private OptionalNullable<String> clientSecret;
+        private OptionalNullable<String> code;
+        private OptionalNullable<String> redirectUri;
+        private OptionalNullable<String> refreshToken;
+        private OptionalNullable<String> migrationToken;
+        private OptionalNullable<List<String>> scopes;
+        private OptionalNullable<Boolean> shortLived;
+        private OptionalNullable<String> codeVerifier;
 
         /**
          * Initialization constructor.
@@ -298,7 +427,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder clientSecret(String clientSecret) {
-            this.clientSecret = clientSecret;
+            this.clientSecret = OptionalNullable.of(clientSecret);
+            return this;
+        }
+
+        /**
+         * UnSetter for clientSecret.
+         * @return Builder
+         */
+        public Builder unsetClientSecret() {
+            clientSecret = null;
             return this;
         }
 
@@ -308,7 +446,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder code(String code) {
-            this.code = code;
+            this.code = OptionalNullable.of(code);
+            return this;
+        }
+
+        /**
+         * UnSetter for code.
+         * @return Builder
+         */
+        public Builder unsetCode() {
+            code = null;
             return this;
         }
 
@@ -318,7 +465,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder redirectUri(String redirectUri) {
-            this.redirectUri = redirectUri;
+            this.redirectUri = OptionalNullable.of(redirectUri);
+            return this;
+        }
+
+        /**
+         * UnSetter for redirectUri.
+         * @return Builder
+         */
+        public Builder unsetRedirectUri() {
+            redirectUri = null;
             return this;
         }
 
@@ -328,7 +484,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder refreshToken(String refreshToken) {
-            this.refreshToken = refreshToken;
+            this.refreshToken = OptionalNullable.of(refreshToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for refreshToken.
+         * @return Builder
+         */
+        public Builder unsetRefreshToken() {
+            refreshToken = null;
             return this;
         }
 
@@ -338,7 +503,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder migrationToken(String migrationToken) {
-            this.migrationToken = migrationToken;
+            this.migrationToken = OptionalNullable.of(migrationToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for migrationToken.
+         * @return Builder
+         */
+        public Builder unsetMigrationToken() {
+            migrationToken = null;
             return this;
         }
 
@@ -348,7 +522,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder scopes(List<String> scopes) {
-            this.scopes = scopes;
+            this.scopes = OptionalNullable.of(scopes);
+            return this;
+        }
+
+        /**
+         * UnSetter for scopes.
+         * @return Builder
+         */
+        public Builder unsetScopes() {
+            scopes = null;
             return this;
         }
 
@@ -358,7 +541,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder shortLived(Boolean shortLived) {
-            this.shortLived = shortLived;
+            this.shortLived = OptionalNullable.of(shortLived);
+            return this;
+        }
+
+        /**
+         * UnSetter for shortLived.
+         * @return Builder
+         */
+        public Builder unsetShortLived() {
+            shortLived = null;
             return this;
         }
 
@@ -368,7 +560,16 @@ public class ObtainTokenRequest {
          * @return Builder
          */
         public Builder codeVerifier(String codeVerifier) {
-            this.codeVerifier = codeVerifier;
+            this.codeVerifier = OptionalNullable.of(codeVerifier);
+            return this;
+        }
+
+        /**
+         * UnSetter for codeVerifier.
+         * @return Builder
+         */
+        public Builder unsetCodeVerifier() {
+            codeVerifier = null;
             return this;
         }
 

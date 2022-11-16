@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListWebhookEventTypesRequest type.
  */
 public class ListWebhookEventTypesRequest {
-    private final String apiVersion;
+    private final OptionalNullable<String> apiVersion;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class ListWebhookEventTypesRequest {
     @JsonCreator
     public ListWebhookEventTypesRequest(
             @JsonProperty("api_version") String apiVersion) {
+        this.apiVersion = OptionalNullable.of(apiVersion);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListWebhookEventTypesRequest(OptionalNullable<String> apiVersion) {
         this.apiVersion = apiVersion;
+    }
+
+    /**
+     * Internal Getter for ApiVersion.
+     * The API version for which to list event types. Setting this field overrides the default
+     * version used by the application.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("api_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetApiVersion() {
+        return this.apiVersion;
     }
 
     /**
@@ -30,10 +53,9 @@ public class ListWebhookEventTypesRequest {
      * version used by the application.
      * @return Returns the String
      */
-    @JsonGetter("api_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getApiVersion() {
-        return apiVersion;
+        return OptionalNullable.getFrom(apiVersion);
     }
 
     @Override
@@ -68,8 +90,8 @@ public class ListWebhookEventTypesRequest {
      * @return a new {@link ListWebhookEventTypesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .apiVersion(getApiVersion());
+        Builder builder = new Builder();
+        builder.apiVersion = internalGetApiVersion();
         return builder;
     }
 
@@ -77,7 +99,7 @@ public class ListWebhookEventTypesRequest {
      * Class to build instances of {@link ListWebhookEventTypesRequest}.
      */
     public static class Builder {
-        private String apiVersion;
+        private OptionalNullable<String> apiVersion;
 
 
 
@@ -87,7 +109,16 @@ public class ListWebhookEventTypesRequest {
          * @return Builder
          */
         public Builder apiVersion(String apiVersion) {
-            this.apiVersion = apiVersion;
+            this.apiVersion = OptionalNullable.of(apiVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for apiVersion.
+         * @return Builder
+         */
+        public Builder unsetApiVersion() {
+            apiVersion = null;
             return this;
         }
 

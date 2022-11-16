@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,13 +16,13 @@ import java.util.Objects;
  * This is a model class for ShiftFilter type.
  */
 public class ShiftFilter {
-    private final List<String> locationIds;
-    private final List<String> employeeIds;
+    private final OptionalNullable<List<String>> locationIds;
+    private final OptionalNullable<List<String>> employeeIds;
     private final String status;
     private final TimeRange start;
     private final TimeRange end;
     private final ShiftWorkday workday;
-    private final List<String> teamMemberIds;
+    private final OptionalNullable<List<String>> teamMemberIds;
 
     /**
      * Initialization constructor.
@@ -40,6 +43,21 @@ public class ShiftFilter {
             @JsonProperty("end") TimeRange end,
             @JsonProperty("workday") ShiftWorkday workday,
             @JsonProperty("team_member_ids") List<String> teamMemberIds) {
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.employeeIds = OptionalNullable.of(employeeIds);
+        this.status = status;
+        this.start = start;
+        this.end = end;
+        this.workday = workday;
+        this.teamMemberIds = OptionalNullable.of(teamMemberIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ShiftFilter(OptionalNullable<List<String>> locationIds,
+            OptionalNullable<List<String>> employeeIds, String status, TimeRange start,
+            TimeRange end, ShiftWorkday workday, OptionalNullable<List<String>> teamMemberIds) {
         this.locationIds = locationIds;
         this.employeeIds = employeeIds;
         this.status = status;
@@ -50,14 +68,38 @@ public class ShiftFilter {
     }
 
     /**
+     * Internal Getter for LocationIds.
+     * Fetch shifts for the specified location.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
+    }
+
+    /**
      * Getter for LocationIds.
      * Fetch shifts for the specified location.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
+    }
+
+    /**
+     * Internal Getter for EmployeeIds.
+     * Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use
+     * `team_member_ids` instead.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("employee_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetEmployeeIds() {
+        return this.employeeIds;
     }
 
     /**
@@ -66,10 +108,9 @@ public class ShiftFilter {
      * `team_member_ids` instead.
      * @return Returns the List of String
      */
-    @JsonGetter("employee_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getEmployeeIds() {
-        return employeeIds;
+        return OptionalNullable.getFrom(employeeIds);
     }
 
     /**
@@ -124,14 +165,25 @@ public class ShiftFilter {
     }
 
     /**
+     * Internal Getter for TeamMemberIds.
+     * Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26".
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("team_member_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetTeamMemberIds() {
+        return this.teamMemberIds;
+    }
+
+    /**
      * Getter for TeamMemberIds.
      * Fetch shifts for the specified team members. Replaced `employee_ids` at version "2020-08-26".
      * @return Returns the List of String
      */
-    @JsonGetter("team_member_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getTeamMemberIds() {
-        return teamMemberIds;
+        return OptionalNullable.getFrom(teamMemberIds);
     }
 
     @Override
@@ -175,13 +227,13 @@ public class ShiftFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .locationIds(getLocationIds())
-                .employeeIds(getEmployeeIds())
                 .status(getStatus())
                 .start(getStart())
                 .end(getEnd())
-                .workday(getWorkday())
-                .teamMemberIds(getTeamMemberIds());
+                .workday(getWorkday());
+        builder.locationIds = internalGetLocationIds();
+        builder.employeeIds = internalGetEmployeeIds();
+        builder.teamMemberIds = internalGetTeamMemberIds();
         return builder;
     }
 
@@ -189,13 +241,13 @@ public class ShiftFilter {
      * Class to build instances of {@link ShiftFilter}.
      */
     public static class Builder {
-        private List<String> locationIds;
-        private List<String> employeeIds;
+        private OptionalNullable<List<String>> locationIds;
+        private OptionalNullable<List<String>> employeeIds;
         private String status;
         private TimeRange start;
         private TimeRange end;
         private ShiftWorkday workday;
-        private List<String> teamMemberIds;
+        private OptionalNullable<List<String>> teamMemberIds;
 
 
 
@@ -205,7 +257,16 @@ public class ShiftFilter {
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -215,7 +276,16 @@ public class ShiftFilter {
          * @return Builder
          */
         public Builder employeeIds(List<String> employeeIds) {
-            this.employeeIds = employeeIds;
+            this.employeeIds = OptionalNullable.of(employeeIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeIds.
+         * @return Builder
+         */
+        public Builder unsetEmployeeIds() {
+            employeeIds = null;
             return this;
         }
 
@@ -265,7 +335,16 @@ public class ShiftFilter {
          * @return Builder
          */
         public Builder teamMemberIds(List<String> teamMemberIds) {
-            this.teamMemberIds = teamMemberIds;
+            this.teamMemberIds = OptionalNullable.of(teamMemberIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberIds.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberIds() {
+            teamMemberIds = null;
             return this;
         }
 

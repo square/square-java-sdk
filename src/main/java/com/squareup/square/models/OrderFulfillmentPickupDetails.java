@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,13 +16,13 @@ import java.util.Objects;
  */
 public class OrderFulfillmentPickupDetails {
     private final OrderFulfillmentRecipient recipient;
-    private final String expiresAt;
-    private final String autoCompleteDuration;
+    private final OptionalNullable<String> expiresAt;
+    private final OptionalNullable<String> autoCompleteDuration;
     private final String scheduleType;
-    private final String pickupAt;
-    private final String pickupWindowDuration;
-    private final String prepTimeDuration;
-    private final String note;
+    private final OptionalNullable<String> pickupAt;
+    private final OptionalNullable<String> pickupWindowDuration;
+    private final OptionalNullable<String> prepTimeDuration;
+    private final OptionalNullable<String> note;
     private final String placedAt;
     private final String acceptedAt;
     private final String rejectedAt;
@@ -27,8 +30,8 @@ public class OrderFulfillmentPickupDetails {
     private final String expiredAt;
     private final String pickedUpAt;
     private final String canceledAt;
-    private final String cancelReason;
-    private final Boolean isCurbsidePickup;
+    private final OptionalNullable<String> cancelReason;
+    private final OptionalNullable<Boolean> isCurbsidePickup;
     private final OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
     /**
@@ -74,6 +77,38 @@ public class OrderFulfillmentPickupDetails {
             @JsonProperty("is_curbside_pickup") Boolean isCurbsidePickup,
             @JsonProperty("curbside_pickup_details") OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
         this.recipient = recipient;
+        this.expiresAt = OptionalNullable.of(expiresAt);
+        this.autoCompleteDuration = OptionalNullable.of(autoCompleteDuration);
+        this.scheduleType = scheduleType;
+        this.pickupAt = OptionalNullable.of(pickupAt);
+        this.pickupWindowDuration = OptionalNullable.of(pickupWindowDuration);
+        this.prepTimeDuration = OptionalNullable.of(prepTimeDuration);
+        this.note = OptionalNullable.of(note);
+        this.placedAt = placedAt;
+        this.acceptedAt = acceptedAt;
+        this.rejectedAt = rejectedAt;
+        this.readyAt = readyAt;
+        this.expiredAt = expiredAt;
+        this.pickedUpAt = pickedUpAt;
+        this.canceledAt = canceledAt;
+        this.cancelReason = OptionalNullable.of(cancelReason);
+        this.isCurbsidePickup = OptionalNullable.of(isCurbsidePickup);
+        this.curbsidePickupDetails = curbsidePickupDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillmentPickupDetails(OrderFulfillmentRecipient recipient,
+            OptionalNullable<String> expiresAt, OptionalNullable<String> autoCompleteDuration,
+            String scheduleType, OptionalNullable<String> pickupAt,
+            OptionalNullable<String> pickupWindowDuration,
+            OptionalNullable<String> prepTimeDuration, OptionalNullable<String> note,
+            String placedAt, String acceptedAt, String rejectedAt, String readyAt, String expiredAt,
+            String pickedUpAt, String canceledAt, OptionalNullable<String> cancelReason,
+            OptionalNullable<Boolean> isCurbsidePickup,
+            OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails) {
+        this.recipient = recipient;
         this.expiresAt = expiresAt;
         this.autoCompleteDuration = autoCompleteDuration;
         this.scheduleType = scheduleType;
@@ -105,6 +140,22 @@ public class OrderFulfillmentPickupDetails {
     }
 
     /**
+     * Internal Getter for ExpiresAt.
+     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
+     * indicating when this fulfillment expires if it is not accepted. The timestamp must be in RFC
+     * 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only be set up
+     * to 7 days in the future. If `expires_at` is not set, this pickup fulfillment is automatically
+     * accepted when placed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetExpiresAt() {
+        return this.expiresAt;
+    }
+
+    /**
      * Getter for ExpiresAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
      * indicating when this fulfillment expires if it is not accepted. The timestamp must be in RFC
@@ -113,10 +164,24 @@ public class OrderFulfillmentPickupDetails {
      * accepted when placed.
      * @return Returns the String
      */
-    @JsonGetter("expires_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getExpiresAt() {
-        return expiresAt;
+        return OptionalNullable.getFrom(expiresAt);
+    }
+
+    /**
+     * Internal Getter for AutoCompleteDuration.
+     * The duration of time after which an open and accepted pickup fulfillment is automatically
+     * moved to the `COMPLETED` state. The duration must be in RFC 3339 format (for example,
+     * "P1W3D"). If not set, this pickup fulfillment remains accepted until it is canceled or
+     * completed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("auto_complete_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAutoCompleteDuration() {
+        return this.autoCompleteDuration;
     }
 
     /**
@@ -127,10 +192,9 @@ public class OrderFulfillmentPickupDetails {
      * completed.
      * @return Returns the String
      */
-    @JsonGetter("auto_complete_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAutoCompleteDuration() {
-        return autoCompleteDuration;
+        return OptionalNullable.getFrom(autoCompleteDuration);
     }
 
     /**
@@ -145,6 +209,21 @@ public class OrderFulfillmentPickupDetails {
     }
 
     /**
+     * Internal Getter for PickupAt.
+     * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) that
+     * represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
+     * "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`, this is
+     * automatically set to the current time plus the expected duration to prepare the fulfillment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pickup_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPickupAt() {
+        return this.pickupAt;
+    }
+
+    /**
      * Getter for PickupAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) that
      * represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
@@ -152,10 +231,23 @@ public class OrderFulfillmentPickupDetails {
      * automatically set to the current time plus the expected duration to prepare the fulfillment.
      * @return Returns the String
      */
-    @JsonGetter("pickup_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPickupAt() {
-        return pickupAt;
+        return OptionalNullable.getFrom(pickupAt);
+    }
+
+    /**
+     * Internal Getter for PickupWindowDuration.
+     * The window of time in which the order should be picked up after the `pickup_at` timestamp.
+     * Must be in RFC 3339 duration format, e.g., "P1W3D". Can be used as an informational guideline
+     * for merchants.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pickup_window_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPickupWindowDuration() {
+        return this.pickupWindowDuration;
     }
 
     /**
@@ -165,10 +257,22 @@ public class OrderFulfillmentPickupDetails {
      * for merchants.
      * @return Returns the String
      */
-    @JsonGetter("pickup_window_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPickupWindowDuration() {
-        return pickupWindowDuration;
+        return OptionalNullable.getFrom(pickupWindowDuration);
+    }
+
+    /**
+     * Internal Getter for PrepTimeDuration.
+     * The duration of time it takes to prepare this fulfillment. The duration must be in RFC 3339
+     * format (for example, "P1W3D").
+     * @return Returns the Internal String
+     */
+    @JsonGetter("prep_time_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPrepTimeDuration() {
+        return this.prepTimeDuration;
     }
 
     /**
@@ -177,10 +281,22 @@ public class OrderFulfillmentPickupDetails {
      * format (for example, "P1W3D").
      * @return Returns the String
      */
-    @JsonGetter("prep_time_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPrepTimeDuration() {
-        return prepTimeDuration;
+        return OptionalNullable.getFrom(prepTimeDuration);
+    }
+
+    /**
+     * Internal Getter for Note.
+     * A note to provide additional instructions about the pickup fulfillment displayed in the
+     * Square Point of Sale application and set by the API.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNote() {
+        return this.note;
     }
 
     /**
@@ -189,10 +305,9 @@ public class OrderFulfillmentPickupDetails {
      * Square Point of Sale application and set by the API.
      * @return Returns the String
      */
-    @JsonGetter("note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNote() {
-        return note;
+        return OptionalNullable.getFrom(note);
     }
 
     /**
@@ -287,14 +402,38 @@ public class OrderFulfillmentPickupDetails {
     }
 
     /**
+     * Internal Getter for CancelReason.
+     * A description of why the pickup was canceled. The maximum length: 100 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cancel_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCancelReason() {
+        return this.cancelReason;
+    }
+
+    /**
      * Getter for CancelReason.
      * A description of why the pickup was canceled. The maximum length: 100 characters.
      * @return Returns the String
      */
-    @JsonGetter("cancel_reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCancelReason() {
-        return cancelReason;
+        return OptionalNullable.getFrom(cancelReason);
+    }
+
+    /**
+     * Internal Getter for IsCurbsidePickup.
+     * If set to `true`, indicates that this pickup order is for curbside pickup, not in-store
+     * pickup.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_curbside_pickup")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsCurbsidePickup() {
+        return this.isCurbsidePickup;
     }
 
     /**
@@ -303,10 +442,9 @@ public class OrderFulfillmentPickupDetails {
      * pickup.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_curbside_pickup")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsCurbsidePickup() {
-        return isCurbsidePickup;
+        return OptionalNullable.getFrom(isCurbsidePickup);
     }
 
     /**
@@ -382,13 +520,7 @@ public class OrderFulfillmentPickupDetails {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .recipient(getRecipient())
-                .expiresAt(getExpiresAt())
-                .autoCompleteDuration(getAutoCompleteDuration())
                 .scheduleType(getScheduleType())
-                .pickupAt(getPickupAt())
-                .pickupWindowDuration(getPickupWindowDuration())
-                .prepTimeDuration(getPrepTimeDuration())
-                .note(getNote())
                 .placedAt(getPlacedAt())
                 .acceptedAt(getAcceptedAt())
                 .rejectedAt(getRejectedAt())
@@ -396,9 +528,15 @@ public class OrderFulfillmentPickupDetails {
                 .expiredAt(getExpiredAt())
                 .pickedUpAt(getPickedUpAt())
                 .canceledAt(getCanceledAt())
-                .cancelReason(getCancelReason())
-                .isCurbsidePickup(getIsCurbsidePickup())
                 .curbsidePickupDetails(getCurbsidePickupDetails());
+        builder.expiresAt = internalGetExpiresAt();
+        builder.autoCompleteDuration = internalGetAutoCompleteDuration();
+        builder.pickupAt = internalGetPickupAt();
+        builder.pickupWindowDuration = internalGetPickupWindowDuration();
+        builder.prepTimeDuration = internalGetPrepTimeDuration();
+        builder.note = internalGetNote();
+        builder.cancelReason = internalGetCancelReason();
+        builder.isCurbsidePickup = internalGetIsCurbsidePickup();
         return builder;
     }
 
@@ -407,13 +545,13 @@ public class OrderFulfillmentPickupDetails {
      */
     public static class Builder {
         private OrderFulfillmentRecipient recipient;
-        private String expiresAt;
-        private String autoCompleteDuration;
+        private OptionalNullable<String> expiresAt;
+        private OptionalNullable<String> autoCompleteDuration;
         private String scheduleType;
-        private String pickupAt;
-        private String pickupWindowDuration;
-        private String prepTimeDuration;
-        private String note;
+        private OptionalNullable<String> pickupAt;
+        private OptionalNullable<String> pickupWindowDuration;
+        private OptionalNullable<String> prepTimeDuration;
+        private OptionalNullable<String> note;
         private String placedAt;
         private String acceptedAt;
         private String rejectedAt;
@@ -421,8 +559,8 @@ public class OrderFulfillmentPickupDetails {
         private String expiredAt;
         private String pickedUpAt;
         private String canceledAt;
-        private String cancelReason;
-        private Boolean isCurbsidePickup;
+        private OptionalNullable<String> cancelReason;
+        private OptionalNullable<Boolean> isCurbsidePickup;
         private OrderFulfillmentPickupDetailsCurbsidePickupDetails curbsidePickupDetails;
 
 
@@ -443,7 +581,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder expiresAt(String expiresAt) {
-            this.expiresAt = expiresAt;
+            this.expiresAt = OptionalNullable.of(expiresAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for expiresAt.
+         * @return Builder
+         */
+        public Builder unsetExpiresAt() {
+            expiresAt = null;
             return this;
         }
 
@@ -453,7 +600,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder autoCompleteDuration(String autoCompleteDuration) {
-            this.autoCompleteDuration = autoCompleteDuration;
+            this.autoCompleteDuration = OptionalNullable.of(autoCompleteDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for autoCompleteDuration.
+         * @return Builder
+         */
+        public Builder unsetAutoCompleteDuration() {
+            autoCompleteDuration = null;
             return this;
         }
 
@@ -473,7 +629,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder pickupAt(String pickupAt) {
-            this.pickupAt = pickupAt;
+            this.pickupAt = OptionalNullable.of(pickupAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for pickupAt.
+         * @return Builder
+         */
+        public Builder unsetPickupAt() {
+            pickupAt = null;
             return this;
         }
 
@@ -483,7 +648,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder pickupWindowDuration(String pickupWindowDuration) {
-            this.pickupWindowDuration = pickupWindowDuration;
+            this.pickupWindowDuration = OptionalNullable.of(pickupWindowDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for pickupWindowDuration.
+         * @return Builder
+         */
+        public Builder unsetPickupWindowDuration() {
+            pickupWindowDuration = null;
             return this;
         }
 
@@ -493,7 +667,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder prepTimeDuration(String prepTimeDuration) {
-            this.prepTimeDuration = prepTimeDuration;
+            this.prepTimeDuration = OptionalNullable.of(prepTimeDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for prepTimeDuration.
+         * @return Builder
+         */
+        public Builder unsetPrepTimeDuration() {
+            prepTimeDuration = null;
             return this;
         }
 
@@ -503,7 +686,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder note(String note) {
-            this.note = note;
+            this.note = OptionalNullable.of(note);
+            return this;
+        }
+
+        /**
+         * UnSetter for note.
+         * @return Builder
+         */
+        public Builder unsetNote() {
+            note = null;
             return this;
         }
 
@@ -583,7 +775,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder cancelReason(String cancelReason) {
-            this.cancelReason = cancelReason;
+            this.cancelReason = OptionalNullable.of(cancelReason);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancelReason.
+         * @return Builder
+         */
+        public Builder unsetCancelReason() {
+            cancelReason = null;
             return this;
         }
 
@@ -593,7 +794,16 @@ public class OrderFulfillmentPickupDetails {
          * @return Builder
          */
         public Builder isCurbsidePickup(Boolean isCurbsidePickup) {
-            this.isCurbsidePickup = isCurbsidePickup;
+            this.isCurbsidePickup = OptionalNullable.of(isCurbsidePickup);
+            return this;
+        }
+
+        /**
+         * UnSetter for isCurbsidePickup.
+         * @return Builder
+         */
+        public Builder unsetIsCurbsidePickup() {
+            isCurbsidePickup = null;
             return this;
         }
 

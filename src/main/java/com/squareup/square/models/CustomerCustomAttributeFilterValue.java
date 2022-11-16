@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -18,7 +21,7 @@ public class CustomerCustomAttributeFilterValue {
     private final FilterValue selection;
     private final TimeRange date;
     private final FloatNumberRange number;
-    private final Boolean mBoolean;
+    private final OptionalNullable<Boolean> mBoolean;
     private final CustomerAddressFilter address;
 
     /**
@@ -42,6 +45,22 @@ public class CustomerCustomAttributeFilterValue {
             @JsonProperty("number") FloatNumberRange number,
             @JsonProperty("boolean") Boolean mBoolean,
             @JsonProperty("address") CustomerAddressFilter address) {
+        this.email = email;
+        this.phone = phone;
+        this.text = text;
+        this.selection = selection;
+        this.date = date;
+        this.number = number;
+        this.mBoolean = OptionalNullable.of(mBoolean);
+        this.address = address;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerCustomAttributeFilterValue(CustomerTextFilter email, CustomerTextFilter phone,
+            CustomerTextFilter text, FilterValue selection, TimeRange date, FloatNumberRange number,
+            OptionalNullable<Boolean> mBoolean, CustomerAddressFilter address) {
         this.email = email;
         this.phone = phone;
         this.text = text;
@@ -130,14 +149,25 @@ public class CustomerCustomAttributeFilterValue {
     }
 
     /**
+     * Internal Getter for MBoolean.
+     * A filter for a query based on the value of a `Boolean`-type custom attribute.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("boolean")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetMBoolean() {
+        return this.mBoolean;
+    }
+
+    /**
      * Getter for MBoolean.
      * A filter for a query based on the value of a `Boolean`-type custom attribute.
      * @return Returns the Boolean
      */
-    @JsonGetter("boolean")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getMBoolean() {
-        return mBoolean;
+        return OptionalNullable.getFrom(mBoolean);
     }
 
     /**
@@ -201,8 +231,8 @@ public class CustomerCustomAttributeFilterValue {
                 .selection(getSelection())
                 .date(getDate())
                 .number(getNumber())
-                .mBoolean(getMBoolean())
                 .address(getAddress());
+        builder.mBoolean = internalGetMBoolean();
         return builder;
     }
 
@@ -216,7 +246,7 @@ public class CustomerCustomAttributeFilterValue {
         private FilterValue selection;
         private TimeRange date;
         private FloatNumberRange number;
-        private Boolean mBoolean;
+        private OptionalNullable<Boolean> mBoolean;
         private CustomerAddressFilter address;
 
 
@@ -287,7 +317,16 @@ public class CustomerCustomAttributeFilterValue {
          * @return Builder
          */
         public Builder mBoolean(Boolean mBoolean) {
-            this.mBoolean = mBoolean;
+            this.mBoolean = OptionalNullable.of(mBoolean);
+            return this;
+        }
+
+        /**
+         * UnSetter for mBoolean.
+         * @return Builder
+         */
+        public Builder unsetMBoolean() {
+            mBoolean = null;
             return this;
         }
 

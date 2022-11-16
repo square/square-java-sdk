@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for TaxIds type.
  */
 public class TaxIds {
-    private final String euVat;
-    private final String frSiret;
-    private final String frNaf;
-    private final String esNif;
+    private final OptionalNullable<String> euVat;
+    private final OptionalNullable<String> frSiret;
+    private final OptionalNullable<String> frNaf;
+    private final OptionalNullable<String> esNif;
 
     /**
      * Initialization constructor.
@@ -30,10 +33,35 @@ public class TaxIds {
             @JsonProperty("fr_siret") String frSiret,
             @JsonProperty("fr_naf") String frNaf,
             @JsonProperty("es_nif") String esNif) {
+        this.euVat = OptionalNullable.of(euVat);
+        this.frSiret = OptionalNullable.of(frSiret);
+        this.frNaf = OptionalNullable.of(frNaf);
+        this.esNif = OptionalNullable.of(esNif);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TaxIds(OptionalNullable<String> euVat, OptionalNullable<String> frSiret,
+            OptionalNullable<String> frNaf, OptionalNullable<String> esNif) {
         this.euVat = euVat;
         this.frSiret = frSiret;
         this.frNaf = frNaf;
         this.esNif = esNif;
+    }
+
+    /**
+     * Internal Getter for EuVat.
+     * The EU VAT number for this location. For example, `IE3426675K`. If the EU VAT number is
+     * present, it is well-formed and has been validated with VIES, the VAT Information Exchange
+     * System.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("eu_vat")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEuVat() {
+        return this.euVat;
     }
 
     /**
@@ -43,10 +71,22 @@ public class TaxIds {
      * System.
      * @return Returns the String
      */
-    @JsonGetter("eu_vat")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEuVat() {
-        return euVat;
+        return OptionalNullable.getFrom(euVat);
+    }
+
+    /**
+     * Internal Getter for FrSiret.
+     * The SIRET (Système d'Identification du Répertoire des Entreprises et de leurs Etablissements)
+     * number is a 14-digit code issued by the French INSEE. For example, `39922799000021`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fr_siret")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFrSiret() {
+        return this.frSiret;
     }
 
     /**
@@ -55,10 +95,23 @@ public class TaxIds {
      * number is a 14-digit code issued by the French INSEE. For example, `39922799000021`.
      * @return Returns the String
      */
-    @JsonGetter("fr_siret")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFrSiret() {
-        return frSiret;
+        return OptionalNullable.getFrom(frSiret);
+    }
+
+    /**
+     * Internal Getter for FrNaf.
+     * The French government uses the NAF (Nomenclature des Activités Françaises) to display and
+     * track economic statistical data. This is also called the APE (Activite Principale de
+     * l’Entreprise) code. For example, `6910Z`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fr_naf")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFrNaf() {
+        return this.frNaf;
     }
 
     /**
@@ -68,10 +121,22 @@ public class TaxIds {
      * l’Entreprise) code. For example, `6910Z`.
      * @return Returns the String
      */
-    @JsonGetter("fr_naf")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFrNaf() {
-        return frNaf;
+        return OptionalNullable.getFrom(frNaf);
+    }
+
+    /**
+     * Internal Getter for EsNif.
+     * The NIF (Numero de Identificacion Fiscal) number is a nine-character tax identifier used in
+     * Spain. If it is present, it has been validated. For example, `73628495A`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("es_nif")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEsNif() {
+        return this.esNif;
     }
 
     /**
@@ -80,10 +145,9 @@ public class TaxIds {
      * Spain. If it is present, it has been validated. For example, `73628495A`.
      * @return Returns the String
      */
-    @JsonGetter("es_nif")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEsNif() {
-        return esNif;
+        return OptionalNullable.getFrom(esNif);
     }
 
     @Override
@@ -122,11 +186,11 @@ public class TaxIds {
      * @return a new {@link TaxIds.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .euVat(getEuVat())
-                .frSiret(getFrSiret())
-                .frNaf(getFrNaf())
-                .esNif(getEsNif());
+        Builder builder = new Builder();
+        builder.euVat = internalGetEuVat();
+        builder.frSiret = internalGetFrSiret();
+        builder.frNaf = internalGetFrNaf();
+        builder.esNif = internalGetEsNif();
         return builder;
     }
 
@@ -134,10 +198,10 @@ public class TaxIds {
      * Class to build instances of {@link TaxIds}.
      */
     public static class Builder {
-        private String euVat;
-        private String frSiret;
-        private String frNaf;
-        private String esNif;
+        private OptionalNullable<String> euVat;
+        private OptionalNullable<String> frSiret;
+        private OptionalNullable<String> frNaf;
+        private OptionalNullable<String> esNif;
 
 
 
@@ -147,7 +211,16 @@ public class TaxIds {
          * @return Builder
          */
         public Builder euVat(String euVat) {
-            this.euVat = euVat;
+            this.euVat = OptionalNullable.of(euVat);
+            return this;
+        }
+
+        /**
+         * UnSetter for euVat.
+         * @return Builder
+         */
+        public Builder unsetEuVat() {
+            euVat = null;
             return this;
         }
 
@@ -157,7 +230,16 @@ public class TaxIds {
          * @return Builder
          */
         public Builder frSiret(String frSiret) {
-            this.frSiret = frSiret;
+            this.frSiret = OptionalNullable.of(frSiret);
+            return this;
+        }
+
+        /**
+         * UnSetter for frSiret.
+         * @return Builder
+         */
+        public Builder unsetFrSiret() {
+            frSiret = null;
             return this;
         }
 
@@ -167,7 +249,16 @@ public class TaxIds {
          * @return Builder
          */
         public Builder frNaf(String frNaf) {
-            this.frNaf = frNaf;
+            this.frNaf = OptionalNullable.of(frNaf);
+            return this;
+        }
+
+        /**
+         * UnSetter for frNaf.
+         * @return Builder
+         */
+        public Builder unsetFrNaf() {
+            frNaf = null;
             return this;
         }
 
@@ -177,7 +268,16 @@ public class TaxIds {
          * @return Builder
          */
         public Builder esNif(String esNif) {
-            this.esNif = esNif;
+            this.esNif = OptionalNullable.of(esNif);
+            return this;
+        }
+
+        /**
+         * UnSetter for esNif.
+         * @return Builder
+         */
+        public Builder unsetEsNif() {
+            esNif = null;
             return this;
         }
 

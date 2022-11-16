@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for CatalogCategory type.
  */
 public class CatalogCategory {
-    private final String name;
-    private final List<String> imageIds;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<List<String>> imageIds;
 
     /**
      * Initialization constructor.
@@ -25,8 +28,30 @@ public class CatalogCategory {
     public CatalogCategory(
             @JsonProperty("name") String name,
             @JsonProperty("image_ids") List<String> imageIds) {
+        this.name = OptionalNullable.of(name);
+        this.imageIds = OptionalNullable.of(imageIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogCategory(OptionalNullable<String> name,
+            OptionalNullable<List<String>> imageIds) {
         this.name = name;
         this.imageIds = imageIds;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The category name. This is a searchable attribute for use in applicable query filters, and
+     * its value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -35,10 +60,22 @@ public class CatalogCategory {
      * its value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for ImageIds.
+     * The IDs of images associated with this `CatalogCategory` instance. Currently these images are
+     * not displayed by Square, but are free to be displayed in 3rd party applications.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetImageIds() {
+        return this.imageIds;
     }
 
     /**
@@ -47,10 +84,9 @@ public class CatalogCategory {
      * not displayed by Square, but are free to be displayed in 3rd party applications.
      * @return Returns the List of String
      */
-    @JsonGetter("image_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getImageIds() {
-        return imageIds;
+        return OptionalNullable.getFrom(imageIds);
     }
 
     @Override
@@ -86,9 +122,9 @@ public class CatalogCategory {
      * @return a new {@link CatalogCategory.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
-                .imageIds(getImageIds());
+        Builder builder = new Builder();
+        builder.name = internalGetName();
+        builder.imageIds = internalGetImageIds();
         return builder;
     }
 
@@ -96,8 +132,8 @@ public class CatalogCategory {
      * Class to build instances of {@link CatalogCategory}.
      */
     public static class Builder {
-        private String name;
-        private List<String> imageIds;
+        private OptionalNullable<String> name;
+        private OptionalNullable<List<String>> imageIds;
 
 
 
@@ -107,7 +143,16 @@ public class CatalogCategory {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -117,7 +162,16 @@ public class CatalogCategory {
          * @return Builder
          */
         public Builder imageIds(List<String> imageIds) {
-            this.imageIds = imageIds;
+            this.imageIds = OptionalNullable.of(imageIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for imageIds.
+         * @return Builder
+         */
+        public Builder unsetImageIds() {
+            imageIds = null;
             return this;
         }
 

@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogObjectReference type.
  */
 public class CatalogObjectReference {
-    private final String objectId;
-    private final Long catalogVersion;
+    private final OptionalNullable<String> objectId;
+    private final OptionalNullable<Long> catalogVersion;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class CatalogObjectReference {
     public CatalogObjectReference(
             @JsonProperty("object_id") String objectId,
             @JsonProperty("catalog_version") Long catalogVersion) {
+        this.objectId = OptionalNullable.of(objectId);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogObjectReference(OptionalNullable<String> objectId,
+            OptionalNullable<Long> catalogVersion) {
         this.objectId = objectId;
         this.catalogVersion = catalogVersion;
+    }
+
+    /**
+     * Internal Getter for ObjectId.
+     * The ID of the referenced object.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetObjectId() {
+        return this.objectId;
     }
 
     /**
@@ -33,10 +57,21 @@ public class CatalogObjectReference {
      * The ID of the referenced object.
      * @return Returns the String
      */
-    @JsonGetter("object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getObjectId() {
-        return objectId;
+        return OptionalNullable.getFrom(objectId);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The version of the object.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -44,10 +79,9 @@ public class CatalogObjectReference {
      * The version of the object.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
     }
 
     @Override
@@ -84,9 +118,9 @@ public class CatalogObjectReference {
      * @return a new {@link CatalogObjectReference.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .objectId(getObjectId())
-                .catalogVersion(getCatalogVersion());
+        Builder builder = new Builder();
+        builder.objectId = internalGetObjectId();
+        builder.catalogVersion = internalGetCatalogVersion();
         return builder;
     }
 
@@ -94,8 +128,8 @@ public class CatalogObjectReference {
      * Class to build instances of {@link CatalogObjectReference}.
      */
     public static class Builder {
-        private String objectId;
-        private Long catalogVersion;
+        private OptionalNullable<String> objectId;
+        private OptionalNullable<Long> catalogVersion;
 
 
 
@@ -105,7 +139,16 @@ public class CatalogObjectReference {
          * @return Builder
          */
         public Builder objectId(String objectId) {
-            this.objectId = objectId;
+            this.objectId = OptionalNullable.of(objectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for objectId.
+         * @return Builder
+         */
+        public Builder unsetObjectId() {
+            objectId = null;
             return this;
         }
 
@@ -115,7 +158,16 @@ public class CatalogObjectReference {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 

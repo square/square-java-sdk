@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for RetrieveCustomerCustomAttributeRequest type.
  */
 public class RetrieveCustomerCustomAttributeRequest {
-    private final Boolean withDefinition;
+    private final OptionalNullable<Boolean> withDefinition;
     private final Integer version;
 
     /**
@@ -24,8 +27,32 @@ public class RetrieveCustomerCustomAttributeRequest {
     public RetrieveCustomerCustomAttributeRequest(
             @JsonProperty("with_definition") Boolean withDefinition,
             @JsonProperty("version") Integer version) {
+        this.withDefinition = OptionalNullable.of(withDefinition);
+        this.version = version;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected RetrieveCustomerCustomAttributeRequest(OptionalNullable<Boolean> withDefinition,
+            Integer version) {
         this.withDefinition = withDefinition;
         this.version = version;
+    }
+
+    /**
+     * Internal Getter for WithDefinition.
+     * Indicates whether to return the [custom attribute definition]($m/CustomAttributeDefinition)
+     * in the `definition` field of the custom attribute. Set this parameter to `true` to get the
+     * name and description of the custom attribute, information about the data type, or other
+     * definition details. The default value is `false`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("with_definition")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetWithDefinition() {
+        return this.withDefinition;
     }
 
     /**
@@ -36,10 +63,9 @@ public class RetrieveCustomerCustomAttributeRequest {
      * definition details. The default value is `false`.
      * @return Returns the Boolean
      */
-    @JsonGetter("with_definition")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getWithDefinition() {
-        return withDefinition;
+        return OptionalNullable.getFrom(withDefinition);
     }
 
     /**
@@ -91,8 +117,8 @@ public class RetrieveCustomerCustomAttributeRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .withDefinition(getWithDefinition())
                 .version(getVersion());
+        builder.withDefinition = internalGetWithDefinition();
         return builder;
     }
 
@@ -100,7 +126,7 @@ public class RetrieveCustomerCustomAttributeRequest {
      * Class to build instances of {@link RetrieveCustomerCustomAttributeRequest}.
      */
     public static class Builder {
-        private Boolean withDefinition;
+        private OptionalNullable<Boolean> withDefinition;
         private Integer version;
 
 
@@ -111,7 +137,16 @@ public class RetrieveCustomerCustomAttributeRequest {
          * @return Builder
          */
         public Builder withDefinition(Boolean withDefinition) {
-            this.withDefinition = withDefinition;
+            this.withDefinition = OptionalNullable.of(withDefinition);
+            return this;
+        }
+
+        /**
+         * UnSetter for withDefinition.
+         * @return Builder
+         */
+        public Builder unsetWithDefinition() {
+            withDefinition = null;
             return this;
         }
 

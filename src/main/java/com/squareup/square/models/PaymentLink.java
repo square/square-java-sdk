@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,14 +17,14 @@ import java.util.Objects;
 public class PaymentLink {
     private final String id;
     private final int version;
-    private final String description;
+    private final OptionalNullable<String> description;
     private final String orderId;
     private final CheckoutOptions checkoutOptions;
     private final PrePopulatedData prePopulatedData;
     private final String url;
     private final String createdAt;
     private final String updatedAt;
-    private final String paymentNote;
+    private final OptionalNullable<String> paymentNote;
 
     /**
      * Initialization constructor.
@@ -48,6 +51,25 @@ public class PaymentLink {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("payment_note") String paymentNote) {
+        this.id = id;
+        this.version = version;
+        this.description = OptionalNullable.of(description);
+        this.orderId = orderId;
+        this.checkoutOptions = checkoutOptions;
+        this.prePopulatedData = prePopulatedData;
+        this.url = url;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.paymentNote = OptionalNullable.of(paymentNote);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentLink(int version, String id, OptionalNullable<String> description,
+            String orderId, CheckoutOptions checkoutOptions, PrePopulatedData prePopulatedData,
+            String url, String createdAt, String updatedAt,
+            OptionalNullable<String> paymentNote) {
         this.id = id;
         this.version = version;
         this.description = description;
@@ -83,15 +105,27 @@ public class PaymentLink {
     }
 
     /**
+     * Internal Getter for Description.
+     * The optional description of the `payment_link` object. It is primarily for use by your
+     * application and is not used anywhere.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
      * Getter for Description.
      * The optional description of the `payment_link` object. It is primarily for use by your
      * application and is not used anywhere.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -162,15 +196,27 @@ public class PaymentLink {
     }
 
     /**
+     * Internal Getter for PaymentNote.
+     * An optional note. After Square processes the payment, this note is added to the resulting
+     * `Payment`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentNote() {
+        return this.paymentNote;
+    }
+
+    /**
      * Getter for PaymentNote.
      * An optional note. After Square processes the payment, this note is added to the resulting
      * `Payment`.
      * @return Returns the String
      */
-    @JsonGetter("payment_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentNote() {
-        return paymentNote;
+        return OptionalNullable.getFrom(paymentNote);
     }
 
     @Override
@@ -220,14 +266,14 @@ public class PaymentLink {
     public Builder toBuilder() {
         Builder builder = new Builder(version)
                 .id(getId())
-                .description(getDescription())
                 .orderId(getOrderId())
                 .checkoutOptions(getCheckoutOptions())
                 .prePopulatedData(getPrePopulatedData())
                 .url(getUrl())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt())
-                .paymentNote(getPaymentNote());
+                .updatedAt(getUpdatedAt());
+        builder.description = internalGetDescription();
+        builder.paymentNote = internalGetPaymentNote();
         return builder;
     }
 
@@ -237,14 +283,14 @@ public class PaymentLink {
     public static class Builder {
         private int version;
         private String id;
-        private String description;
+        private OptionalNullable<String> description;
         private String orderId;
         private CheckoutOptions checkoutOptions;
         private PrePopulatedData prePopulatedData;
         private String url;
         private String createdAt;
         private String updatedAt;
-        private String paymentNote;
+        private OptionalNullable<String> paymentNote;
 
         /**
          * Initialization constructor.
@@ -280,7 +326,16 @@ public class PaymentLink {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -350,7 +405,16 @@ public class PaymentLink {
          * @return Builder
          */
         public Builder paymentNote(String paymentNote) {
-            this.paymentNote = paymentNote;
+            this.paymentNote = OptionalNullable.of(paymentNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentNote.
+         * @return Builder
+         */
+        public Builder unsetPaymentNote() {
+            paymentNote = null;
             return this;
         }
 

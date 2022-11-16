@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class DeprecatedCreateDisputeEvidenceFileRequest {
     private final String idempotencyKey;
     private final String evidenceType;
-    private final String contentType;
+    private final OptionalNullable<String> contentType;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("evidence_type") String evidenceType,
             @JsonProperty("content_type") String contentType) {
+        this.idempotencyKey = idempotencyKey;
+        this.evidenceType = evidenceType;
+        this.contentType = OptionalNullable.of(contentType);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DeprecatedCreateDisputeEvidenceFileRequest(String idempotencyKey, String evidenceType,
+            OptionalNullable<String> contentType) {
         this.idempotencyKey = idempotencyKey;
         this.evidenceType = evidenceType;
         this.contentType = contentType;
@@ -55,15 +68,27 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
     }
 
     /**
+     * Internal Getter for ContentType.
+     * The MIME type of the uploaded file. The type can be image/heic, image/heif, image/jpeg,
+     * application/pdf, image/png, or image/tiff.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("content_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetContentType() {
+        return this.contentType;
+    }
+
+    /**
      * Getter for ContentType.
      * The MIME type of the uploaded file. The type can be image/heic, image/heif, image/jpeg,
      * application/pdf, image/png, or image/tiff.
      * @return Returns the String
      */
-    @JsonGetter("content_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getContentType() {
-        return contentType;
+        return OptionalNullable.getFrom(contentType);
     }
 
     @Override
@@ -103,8 +128,8 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(idempotencyKey)
-                .evidenceType(getEvidenceType())
-                .contentType(getContentType());
+                .evidenceType(getEvidenceType());
+        builder.contentType = internalGetContentType();
         return builder;
     }
 
@@ -114,7 +139,7 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
     public static class Builder {
         private String idempotencyKey;
         private String evidenceType;
-        private String contentType;
+        private OptionalNullable<String> contentType;
 
         /**
          * Initialization constructor.
@@ -150,7 +175,16 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
          * @return Builder
          */
         public Builder contentType(String contentType) {
-            this.contentType = contentType;
+            this.contentType = OptionalNullable.of(contentType);
+            return this;
+        }
+
+        /**
+         * UnSetter for contentType.
+         * @return Builder
+         */
+        public Builder unsetContentType() {
+            contentType = null;
             return this;
         }
 

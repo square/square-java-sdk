@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for InvoiceRecipient type.
  */
 public class InvoiceRecipient {
-    private final String customerId;
+    private final OptionalNullable<String> customerId;
     private final String givenName;
     private final String familyName;
     private final String emailAddress;
@@ -42,6 +45,22 @@ public class InvoiceRecipient {
             @JsonProperty("phone_number") String phoneNumber,
             @JsonProperty("company_name") String companyName,
             @JsonProperty("tax_ids") InvoiceRecipientTaxIds taxIds) {
+        this.customerId = OptionalNullable.of(customerId);
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.emailAddress = emailAddress;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.companyName = companyName;
+        this.taxIds = taxIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoiceRecipient(OptionalNullable<String> customerId, String givenName,
+            String familyName, String emailAddress, Address address, String phoneNumber,
+            String companyName, InvoiceRecipientTaxIds taxIds) {
         this.customerId = customerId;
         this.givenName = givenName;
         this.familyName = familyName;
@@ -53,15 +72,27 @@ public class InvoiceRecipient {
     }
 
     /**
+     * Internal Getter for CustomerId.
+     * The ID of the customer. This is the customer profile ID that you provide when creating a
+     * draft invoice.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
      * Getter for CustomerId.
      * The ID of the customer. This is the customer profile ID that you provide when creating a
      * draft invoice.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
     }
 
     /**
@@ -189,7 +220,6 @@ public class InvoiceRecipient {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .customerId(getCustomerId())
                 .givenName(getGivenName())
                 .familyName(getFamilyName())
                 .emailAddress(getEmailAddress())
@@ -197,6 +227,7 @@ public class InvoiceRecipient {
                 .phoneNumber(getPhoneNumber())
                 .companyName(getCompanyName())
                 .taxIds(getTaxIds());
+        builder.customerId = internalGetCustomerId();
         return builder;
     }
 
@@ -204,7 +235,7 @@ public class InvoiceRecipient {
      * Class to build instances of {@link InvoiceRecipient}.
      */
     public static class Builder {
-        private String customerId;
+        private OptionalNullable<String> customerId;
         private String givenName;
         private String familyName;
         private String emailAddress;
@@ -221,7 +252,16 @@ public class InvoiceRecipient {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 

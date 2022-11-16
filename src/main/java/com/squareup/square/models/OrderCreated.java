@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderCreated type.
  */
 public class OrderCreated {
-    private final String orderId;
+    private final OptionalNullable<String> orderId;
     private final Integer version;
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final String state;
     private final String createdAt;
 
@@ -33,6 +36,18 @@ public class OrderCreated {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("state") String state,
             @JsonProperty("created_at") String createdAt) {
+        this.orderId = OptionalNullable.of(orderId);
+        this.version = version;
+        this.locationId = OptionalNullable.of(locationId);
+        this.state = state;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderCreated(OptionalNullable<String> orderId, Integer version,
+            OptionalNullable<String> locationId, String state, String createdAt) {
         this.orderId = orderId;
         this.version = version;
         this.locationId = locationId;
@@ -41,14 +56,25 @@ public class OrderCreated {
     }
 
     /**
+     * Internal Getter for OrderId.
+     * The order's unique ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
+    }
+
+    /**
      * Getter for OrderId.
      * The order's unique ID.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     /**
@@ -56,7 +82,7 @@ public class OrderCreated {
      * The version number, which is incremented each time an update is committed to the order.
      * Orders that were not created through the API do not include a version number and therefore
      * cannot be updated. [Read more about working with
-     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
+     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -66,14 +92,25 @@ public class OrderCreated {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The ID of the seller location that this order is associated with.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The ID of the seller location that this order is associated with.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -136,11 +173,11 @@ public class OrderCreated {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .orderId(getOrderId())
                 .version(getVersion())
-                .locationId(getLocationId())
                 .state(getState())
                 .createdAt(getCreatedAt());
+        builder.orderId = internalGetOrderId();
+        builder.locationId = internalGetLocationId();
         return builder;
     }
 
@@ -148,9 +185,9 @@ public class OrderCreated {
      * Class to build instances of {@link OrderCreated}.
      */
     public static class Builder {
-        private String orderId;
+        private OptionalNullable<String> orderId;
         private Integer version;
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private String state;
         private String createdAt;
 
@@ -162,7 +199,16 @@ public class OrderCreated {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 
@@ -182,7 +228,16 @@ public class OrderCreated {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 

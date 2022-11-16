@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DisputeEvidenceFile type.
  */
 public class DisputeEvidenceFile {
-    private final String filename;
-    private final String filetype;
+    private final OptionalNullable<String> filename;
+    private final OptionalNullable<String> filetype;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class DisputeEvidenceFile {
     public DisputeEvidenceFile(
             @JsonProperty("filename") String filename,
             @JsonProperty("filetype") String filetype) {
+        this.filename = OptionalNullable.of(filename);
+        this.filetype = OptionalNullable.of(filetype);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DisputeEvidenceFile(OptionalNullable<String> filename,
+            OptionalNullable<String> filetype) {
         this.filename = filename;
         this.filetype = filetype;
+    }
+
+    /**
+     * Internal Getter for Filename.
+     * The file name including the file extension. For example: "receipt.tiff".
+     * @return Returns the Internal String
+     */
+    @JsonGetter("filename")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFilename() {
+        return this.filename;
     }
 
     /**
@@ -33,10 +57,22 @@ public class DisputeEvidenceFile {
      * The file name including the file extension. For example: "receipt.tiff".
      * @return Returns the String
      */
-    @JsonGetter("filename")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFilename() {
-        return filename;
+        return OptionalNullable.getFrom(filename);
+    }
+
+    /**
+     * Internal Getter for Filetype.
+     * Dispute evidence files must be application/pdf, image/heic, image/heif, image/jpeg,
+     * image/png, or image/tiff formats.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("filetype")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFiletype() {
+        return this.filetype;
     }
 
     /**
@@ -45,10 +81,9 @@ public class DisputeEvidenceFile {
      * image/png, or image/tiff formats.
      * @return Returns the String
      */
-    @JsonGetter("filetype")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFiletype() {
-        return filetype;
+        return OptionalNullable.getFrom(filetype);
     }
 
     @Override
@@ -84,9 +119,9 @@ public class DisputeEvidenceFile {
      * @return a new {@link DisputeEvidenceFile.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .filename(getFilename())
-                .filetype(getFiletype());
+        Builder builder = new Builder();
+        builder.filename = internalGetFilename();
+        builder.filetype = internalGetFiletype();
         return builder;
     }
 
@@ -94,8 +129,8 @@ public class DisputeEvidenceFile {
      * Class to build instances of {@link DisputeEvidenceFile}.
      */
     public static class Builder {
-        private String filename;
-        private String filetype;
+        private OptionalNullable<String> filename;
+        private OptionalNullable<String> filetype;
 
 
 
@@ -105,7 +140,16 @@ public class DisputeEvidenceFile {
          * @return Builder
          */
         public Builder filename(String filename) {
-            this.filename = filename;
+            this.filename = OptionalNullable.of(filename);
+            return this;
+        }
+
+        /**
+         * UnSetter for filename.
+         * @return Builder
+         */
+        public Builder unsetFilename() {
+            filename = null;
             return this;
         }
 
@@ -115,7 +159,16 @@ public class DisputeEvidenceFile {
          * @return Builder
          */
         public Builder filetype(String filetype) {
-            this.filetype = filetype;
+            this.filetype = OptionalNullable.of(filetype);
+            return this;
+        }
+
+        /**
+         * UnSetter for filetype.
+         * @return Builder
+         */
+        public Builder unsetFiletype() {
+            filetype = null;
             return this;
         }
 

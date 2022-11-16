@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class LoyaltyEventAccumulatePoints {
     private final String loyaltyProgramId;
-    private final Integer points;
-    private final String orderId;
+    private final OptionalNullable<Integer> points;
+    private final OptionalNullable<String> orderId;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class LoyaltyEventAccumulatePoints {
             @JsonProperty("loyalty_program_id") String loyaltyProgramId,
             @JsonProperty("points") Integer points,
             @JsonProperty("order_id") String orderId) {
+        this.loyaltyProgramId = loyaltyProgramId;
+        this.points = OptionalNullable.of(points);
+        this.orderId = OptionalNullable.of(orderId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyEventAccumulatePoints(String loyaltyProgramId,
+            OptionalNullable<Integer> points, OptionalNullable<String> orderId) {
         this.loyaltyProgramId = loyaltyProgramId;
         this.points = points;
         this.orderId = orderId;
@@ -44,14 +57,38 @@ public class LoyaltyEventAccumulatePoints {
     }
 
     /**
+     * Internal Getter for Points.
+     * The number of points accumulated by the event.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPoints() {
+        return this.points;
+    }
+
+    /**
      * Getter for Points.
      * The number of points accumulated by the event.
      * @return Returns the Integer
      */
-    @JsonGetter("points")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getPoints() {
-        return points;
+        return OptionalNullable.getFrom(points);
+    }
+
+    /**
+     * Internal Getter for OrderId.
+     * The ID of the [order]($m/Order) for which the buyer accumulated the points. This field is
+     * returned only if the Orders API is used to process orders.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
     }
 
     /**
@@ -60,10 +97,9 @@ public class LoyaltyEventAccumulatePoints {
      * returned only if the Orders API is used to process orders.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     @Override
@@ -102,9 +138,9 @@ public class LoyaltyEventAccumulatePoints {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .loyaltyProgramId(getLoyaltyProgramId())
-                .points(getPoints())
-                .orderId(getOrderId());
+                .loyaltyProgramId(getLoyaltyProgramId());
+        builder.points = internalGetPoints();
+        builder.orderId = internalGetOrderId();
         return builder;
     }
 
@@ -113,8 +149,8 @@ public class LoyaltyEventAccumulatePoints {
      */
     public static class Builder {
         private String loyaltyProgramId;
-        private Integer points;
-        private String orderId;
+        private OptionalNullable<Integer> points;
+        private OptionalNullable<String> orderId;
 
 
 
@@ -134,7 +170,16 @@ public class LoyaltyEventAccumulatePoints {
          * @return Builder
          */
         public Builder points(Integer points) {
-            this.points = points;
+            this.points = OptionalNullable.of(points);
+            return this;
+        }
+
+        /**
+         * UnSetter for points.
+         * @return Builder
+         */
+        public Builder unsetPoints() {
+            points = null;
             return this;
         }
 
@@ -144,7 +189,16 @@ public class LoyaltyEventAccumulatePoints {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 

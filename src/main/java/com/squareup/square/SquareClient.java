@@ -3,6 +3,7 @@ package com.squareup.square;
 
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
+import com.squareup.square.api.BookingCustomAttributesApi;
 import com.squareup.square.api.BookingsApi;
 import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
@@ -14,6 +15,7 @@ import com.squareup.square.api.CustomerSegmentsApi;
 import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.DefaultApplePayApi;
 import com.squareup.square.api.DefaultBankAccountsApi;
+import com.squareup.square.api.DefaultBookingCustomAttributesApi;
 import com.squareup.square.api.DefaultBookingsApi;
 import com.squareup.square.api.DefaultCardsApi;
 import com.squareup.square.api.DefaultCashDrawersApi;
@@ -36,6 +38,7 @@ import com.squareup.square.api.DefaultLoyaltyApi;
 import com.squareup.square.api.DefaultMerchantsApi;
 import com.squareup.square.api.DefaultMobileAuthorizationApi;
 import com.squareup.square.api.DefaultOAuthApi;
+import com.squareup.square.api.DefaultOrderCustomAttributesApi;
 import com.squareup.square.api.DefaultOrdersApi;
 import com.squareup.square.api.DefaultPaymentsApi;
 import com.squareup.square.api.DefaultPayoutsApi;
@@ -62,6 +65,7 @@ import com.squareup.square.api.LoyaltyApi;
 import com.squareup.square.api.MerchantsApi;
 import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
+import com.squareup.square.api.OrderCustomAttributesApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.PayoutsApi;
@@ -105,6 +109,7 @@ public final class SquareClient implements SquareClientInterface {
     private ApplePayApi applePay;
     private BankAccountsApi bankAccounts;
     private BookingsApi bookings;
+    private BookingCustomAttributesApi bookingCustomAttributes;
     private CardsApi cards;
     private CashDrawersApi cashDrawers;
     private CatalogApi catalog;
@@ -126,6 +131,7 @@ public final class SquareClient implements SquareClientInterface {
     private LoyaltyApi loyalty;
     private MerchantsApi merchants;
     private OrdersApi orders;
+    private OrderCustomAttributesApi orderCustomAttributes;
     private PaymentsApi payments;
     private PayoutsApi payouts;
     private RefundsApi refunds;
@@ -139,7 +145,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/25.0.1.20221019 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/26.0.0.20221116 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -237,6 +243,7 @@ public final class SquareClient implements SquareClientInterface {
         applePay = new DefaultApplePayApi(globalConfig);
         bankAccounts = new DefaultBankAccountsApi(globalConfig);
         bookings = new DefaultBookingsApi(globalConfig);
+        bookingCustomAttributes = new DefaultBookingCustomAttributesApi(globalConfig);
         cards = new DefaultCardsApi(globalConfig);
         cashDrawers = new DefaultCashDrawersApi(globalConfig);
         catalog = new DefaultCatalogApi(globalConfig);
@@ -258,6 +265,7 @@ public final class SquareClient implements SquareClientInterface {
         loyalty = new DefaultLoyaltyApi(globalConfig);
         merchants = new DefaultMerchantsApi(globalConfig);
         orders = new DefaultOrdersApi(globalConfig);
+        orderCustomAttributes = new DefaultOrderCustomAttributesApi(globalConfig);
         payments = new DefaultPaymentsApi(globalConfig);
         payouts = new DefaultPayoutsApi(globalConfig);
         refunds = new DefaultRefundsApi(globalConfig);
@@ -323,6 +331,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public BookingsApi getBookingsApi() {
         return bookings;
+    }
+
+    /**
+     * Get the instance of BookingCustomAttributesApi.
+     * @return bookingCustomAttributes
+     */
+    public BookingCustomAttributesApi getBookingCustomAttributesApi() {
+        return bookingCustomAttributes;
     }
 
     /**
@@ -494,6 +510,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of OrderCustomAttributesApi.
+     * @return orderCustomAttributes
+     */
+    public OrderCustomAttributesApi getOrderCustomAttributesApi() {
+        return orderCustomAttributes;
+    }
+
+    /**
      * Get the instance of PaymentsApi.
      * @return payments
      */
@@ -649,7 +673,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "25.0.1.20221019";
+        return "26.0.0.20221116";
     }
 
     /**
@@ -763,7 +787,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2022-10-19";
+        private String squareVersion = "2022-11-16";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;

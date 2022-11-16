@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -17,7 +20,7 @@ public class LoyaltyReward {
     private final String loyaltyAccountId;
     private final String rewardTierId;
     private final Integer points;
-    private final String orderId;
+    private final OptionalNullable<String> orderId;
     private final String createdAt;
     private final String updatedAt;
     private final String redeemedAt;
@@ -45,6 +48,23 @@ public class LoyaltyReward {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("redeemed_at") String redeemedAt) {
+        this.id = id;
+        this.status = status;
+        this.loyaltyAccountId = loyaltyAccountId;
+        this.rewardTierId = rewardTierId;
+        this.points = points;
+        this.orderId = OptionalNullable.of(orderId);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.redeemedAt = redeemedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyReward(String loyaltyAccountId, String rewardTierId, String id, String status,
+            Integer points, OptionalNullable<String> orderId, String createdAt, String updatedAt,
+            String redeemedAt) {
         this.id = id;
         this.status = status;
         this.loyaltyAccountId = loyaltyAccountId;
@@ -112,14 +132,25 @@ public class LoyaltyReward {
     }
 
     /**
+     * Internal Getter for OrderId.
+     * The Square-assigned ID of the [order]($m/Order) to which the reward is attached.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
+    }
+
+    /**
      * Getter for OrderId.
      * The Square-assigned ID of the [order]($m/Order) to which the reward is attached.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     /**
@@ -203,10 +234,10 @@ public class LoyaltyReward {
                 .id(getId())
                 .status(getStatus())
                 .points(getPoints())
-                .orderId(getOrderId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .redeemedAt(getRedeemedAt());
+        builder.orderId = internalGetOrderId();
         return builder;
     }
 
@@ -219,7 +250,7 @@ public class LoyaltyReward {
         private String id;
         private String status;
         private Integer points;
-        private String orderId;
+        private OptionalNullable<String> orderId;
         private String createdAt;
         private String updatedAt;
         private String redeemedAt;
@@ -290,7 +321,16 @@ public class LoyaltyReward {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 

@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentBalanceActivitySquareCapitalPaymentDetail type.
  */
 public class PaymentBalanceActivitySquareCapitalPaymentDetail {
-    private final String paymentId;
+    private final OptionalNullable<String> paymentId;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class PaymentBalanceActivitySquareCapitalPaymentDetail {
     @JsonCreator
     public PaymentBalanceActivitySquareCapitalPaymentDetail(
             @JsonProperty("payment_id") String paymentId) {
+        this.paymentId = OptionalNullable.of(paymentId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentBalanceActivitySquareCapitalPaymentDetail(
+            OptionalNullable<String> paymentId) {
         this.paymentId = paymentId;
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -29,10 +52,9 @@ public class PaymentBalanceActivitySquareCapitalPaymentDetail {
      * The ID of the payment associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
     }
 
     @Override
@@ -69,8 +91,8 @@ public class PaymentBalanceActivitySquareCapitalPaymentDetail {
      * @return a new {@link PaymentBalanceActivitySquareCapitalPaymentDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .paymentId(getPaymentId());
+        Builder builder = new Builder();
+        builder.paymentId = internalGetPaymentId();
         return builder;
     }
 
@@ -78,7 +100,7 @@ public class PaymentBalanceActivitySquareCapitalPaymentDetail {
      * Class to build instances of {@link PaymentBalanceActivitySquareCapitalPaymentDetail}.
      */
     public static class Builder {
-        private String paymentId;
+        private OptionalNullable<String> paymentId;
 
 
 
@@ -88,7 +110,16 @@ public class PaymentBalanceActivitySquareCapitalPaymentDetail {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 

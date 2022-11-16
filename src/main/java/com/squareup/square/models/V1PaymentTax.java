@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +16,12 @@ import java.util.Objects;
  * This is a model class for V1PaymentTax type.
  */
 public class V1PaymentTax {
-    private final List<Error> errors;
-    private final String name;
+    private final OptionalNullable<List<Error>> errors;
+    private final OptionalNullable<String> name;
     private final V1Money appliedMoney;
-    private final String rate;
+    private final OptionalNullable<String> rate;
     private final String inclusionType;
-    private final String feeId;
+    private final OptionalNullable<String> feeId;
 
     /**
      * Initialization constructor.
@@ -37,6 +40,20 @@ public class V1PaymentTax {
             @JsonProperty("rate") String rate,
             @JsonProperty("inclusion_type") String inclusionType,
             @JsonProperty("fee_id") String feeId) {
+        this.errors = OptionalNullable.of(errors);
+        this.name = OptionalNullable.of(name);
+        this.appliedMoney = appliedMoney;
+        this.rate = OptionalNullable.of(rate);
+        this.inclusionType = inclusionType;
+        this.feeId = OptionalNullable.of(feeId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1PaymentTax(OptionalNullable<List<Error>> errors, OptionalNullable<String> name,
+            V1Money appliedMoney, OptionalNullable<String> rate, String inclusionType,
+            OptionalNullable<String> feeId) {
         this.errors = errors;
         this.name = name;
         this.appliedMoney = appliedMoney;
@@ -46,14 +63,37 @@ public class V1PaymentTax {
     }
 
     /**
+     * Internal Getter for Errors.
+     * Any errors that occurred during the request.
+     * @return Returns the Internal List of Error
+     */
+    @JsonGetter("errors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Error>> internalGetErrors() {
+        return this.errors;
+    }
+
+    /**
      * Getter for Errors.
      * Any errors that occurred during the request.
      * @return Returns the List of Error
      */
-    @JsonGetter("errors")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Error> getErrors() {
-        return errors;
+        return OptionalNullable.getFrom(errors);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The merchant-defined name of the tax.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -61,10 +101,9 @@ public class V1PaymentTax {
      * The merchant-defined name of the tax.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -78,15 +117,27 @@ public class V1PaymentTax {
     }
 
     /**
+     * Internal Getter for Rate.
+     * The rate of the tax, as a string representation of a decimal number. A value of 0.07
+     * corresponds to a rate of 7%.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRate() {
+        return this.rate;
+    }
+
+    /**
      * Getter for Rate.
      * The rate of the tax, as a string representation of a decimal number. A value of 0.07
      * corresponds to a rate of 7%.
      * @return Returns the String
      */
-    @JsonGetter("rate")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRate() {
-        return rate;
+        return OptionalNullable.getFrom(rate);
     }
 
     /**
@@ -100,15 +151,27 @@ public class V1PaymentTax {
     }
 
     /**
+     * Internal Getter for FeeId.
+     * The ID of the tax, if available. Taxes applied in older versions of Square Register might not
+     * have an ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFeeId() {
+        return this.feeId;
+    }
+
+    /**
      * Getter for FeeId.
      * The ID of the tax, if available. Taxes applied in older versions of Square Register might not
      * have an ID.
      * @return Returns the String
      */
-    @JsonGetter("fee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFeeId() {
-        return feeId;
+        return OptionalNullable.getFrom(feeId);
     }
 
     @Override
@@ -151,12 +214,12 @@ public class V1PaymentTax {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .errors(getErrors())
-                .name(getName())
                 .appliedMoney(getAppliedMoney())
-                .rate(getRate())
-                .inclusionType(getInclusionType())
-                .feeId(getFeeId());
+                .inclusionType(getInclusionType());
+        builder.errors = internalGetErrors();
+        builder.name = internalGetName();
+        builder.rate = internalGetRate();
+        builder.feeId = internalGetFeeId();
         return builder;
     }
 
@@ -164,12 +227,12 @@ public class V1PaymentTax {
      * Class to build instances of {@link V1PaymentTax}.
      */
     public static class Builder {
-        private List<Error> errors;
-        private String name;
+        private OptionalNullable<List<Error>> errors;
+        private OptionalNullable<String> name;
         private V1Money appliedMoney;
-        private String rate;
+        private OptionalNullable<String> rate;
         private String inclusionType;
-        private String feeId;
+        private OptionalNullable<String> feeId;
 
 
 
@@ -179,7 +242,16 @@ public class V1PaymentTax {
          * @return Builder
          */
         public Builder errors(List<Error> errors) {
-            this.errors = errors;
+            this.errors = OptionalNullable.of(errors);
+            return this;
+        }
+
+        /**
+         * UnSetter for errors.
+         * @return Builder
+         */
+        public Builder unsetErrors() {
+            errors = null;
             return this;
         }
 
@@ -189,7 +261,16 @@ public class V1PaymentTax {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -209,7 +290,16 @@ public class V1PaymentTax {
          * @return Builder
          */
         public Builder rate(String rate) {
-            this.rate = rate;
+            this.rate = OptionalNullable.of(rate);
+            return this;
+        }
+
+        /**
+         * UnSetter for rate.
+         * @return Builder
+         */
+        public Builder unsetRate() {
+            rate = null;
             return this;
         }
 
@@ -229,7 +319,16 @@ public class V1PaymentTax {
          * @return Builder
          */
         public Builder feeId(String feeId) {
-            this.feeId = feeId;
+            this.feeId = OptionalNullable.of(feeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for feeId.
+         * @return Builder
+         */
+        public Builder unsetFeeId() {
+            feeId = null;
             return this;
         }
 

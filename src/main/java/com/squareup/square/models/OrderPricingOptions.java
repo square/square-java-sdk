@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderPricingOptions type.
  */
 public class OrderPricingOptions {
-    private final Boolean autoApplyDiscounts;
-    private final Boolean autoApplyTaxes;
+    private final OptionalNullable<Boolean> autoApplyDiscounts;
+    private final OptionalNullable<Boolean> autoApplyTaxes;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,30 @@ public class OrderPricingOptions {
     public OrderPricingOptions(
             @JsonProperty("auto_apply_discounts") Boolean autoApplyDiscounts,
             @JsonProperty("auto_apply_taxes") Boolean autoApplyTaxes) {
+        this.autoApplyDiscounts = OptionalNullable.of(autoApplyDiscounts);
+        this.autoApplyTaxes = OptionalNullable.of(autoApplyTaxes);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderPricingOptions(OptionalNullable<Boolean> autoApplyDiscounts,
+            OptionalNullable<Boolean> autoApplyTaxes) {
         this.autoApplyDiscounts = autoApplyDiscounts;
         this.autoApplyTaxes = autoApplyTaxes;
+    }
+
+    /**
+     * Internal Getter for AutoApplyDiscounts.
+     * The option to determine whether pricing rule-based discounts are automatically applied to an
+     * order.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("auto_apply_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAutoApplyDiscounts() {
+        return this.autoApplyDiscounts;
     }
 
     /**
@@ -34,10 +59,22 @@ public class OrderPricingOptions {
      * order.
      * @return Returns the Boolean
      */
-    @JsonGetter("auto_apply_discounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAutoApplyDiscounts() {
-        return autoApplyDiscounts;
+        return OptionalNullable.getFrom(autoApplyDiscounts);
+    }
+
+    /**
+     * Internal Getter for AutoApplyTaxes.
+     * The option to determine whether rule-based taxes are automatically applied to an order when
+     * the criteria of the corresponding rules are met.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("auto_apply_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAutoApplyTaxes() {
+        return this.autoApplyTaxes;
     }
 
     /**
@@ -46,10 +83,9 @@ public class OrderPricingOptions {
      * the criteria of the corresponding rules are met.
      * @return Returns the Boolean
      */
-    @JsonGetter("auto_apply_taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAutoApplyTaxes() {
-        return autoApplyTaxes;
+        return OptionalNullable.getFrom(autoApplyTaxes);
     }
 
     @Override
@@ -86,9 +122,9 @@ public class OrderPricingOptions {
      * @return a new {@link OrderPricingOptions.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .autoApplyDiscounts(getAutoApplyDiscounts())
-                .autoApplyTaxes(getAutoApplyTaxes());
+        Builder builder = new Builder();
+        builder.autoApplyDiscounts = internalGetAutoApplyDiscounts();
+        builder.autoApplyTaxes = internalGetAutoApplyTaxes();
         return builder;
     }
 
@@ -96,8 +132,8 @@ public class OrderPricingOptions {
      * Class to build instances of {@link OrderPricingOptions}.
      */
     public static class Builder {
-        private Boolean autoApplyDiscounts;
-        private Boolean autoApplyTaxes;
+        private OptionalNullable<Boolean> autoApplyDiscounts;
+        private OptionalNullable<Boolean> autoApplyTaxes;
 
 
 
@@ -107,7 +143,16 @@ public class OrderPricingOptions {
          * @return Builder
          */
         public Builder autoApplyDiscounts(Boolean autoApplyDiscounts) {
-            this.autoApplyDiscounts = autoApplyDiscounts;
+            this.autoApplyDiscounts = OptionalNullable.of(autoApplyDiscounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for autoApplyDiscounts.
+         * @return Builder
+         */
+        public Builder unsetAutoApplyDiscounts() {
+            autoApplyDiscounts = null;
             return this;
         }
 
@@ -117,7 +162,16 @@ public class OrderPricingOptions {
          * @return Builder
          */
         public Builder autoApplyTaxes(Boolean autoApplyTaxes) {
-            this.autoApplyTaxes = autoApplyTaxes;
+            this.autoApplyTaxes = OptionalNullable.of(autoApplyTaxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for autoApplyTaxes.
+         * @return Builder
+         */
+        public Builder unsetAutoApplyTaxes() {
+            autoApplyTaxes = null;
             return this;
         }
 

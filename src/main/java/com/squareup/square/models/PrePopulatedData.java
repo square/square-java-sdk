@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PrePopulatedData type.
  */
 public class PrePopulatedData {
-    private final String buyerEmail;
-    private final String buyerPhoneNumber;
+    private final OptionalNullable<String> buyerEmail;
+    private final OptionalNullable<String> buyerPhoneNumber;
     private final Address buyerAddress;
 
     /**
@@ -27,9 +30,31 @@ public class PrePopulatedData {
             @JsonProperty("buyer_email") String buyerEmail,
             @JsonProperty("buyer_phone_number") String buyerPhoneNumber,
             @JsonProperty("buyer_address") Address buyerAddress) {
+        this.buyerEmail = OptionalNullable.of(buyerEmail);
+        this.buyerPhoneNumber = OptionalNullable.of(buyerPhoneNumber);
+        this.buyerAddress = buyerAddress;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PrePopulatedData(OptionalNullable<String> buyerEmail,
+            OptionalNullable<String> buyerPhoneNumber, Address buyerAddress) {
         this.buyerEmail = buyerEmail;
         this.buyerPhoneNumber = buyerPhoneNumber;
         this.buyerAddress = buyerAddress;
+    }
+
+    /**
+     * Internal Getter for BuyerEmail.
+     * The buyer email to prepopulate in the payment form.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerEmail() {
+        return this.buyerEmail;
     }
 
     /**
@@ -37,10 +62,21 @@ public class PrePopulatedData {
      * The buyer email to prepopulate in the payment form.
      * @return Returns the String
      */
-    @JsonGetter("buyer_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerEmail() {
-        return buyerEmail;
+        return OptionalNullable.getFrom(buyerEmail);
+    }
+
+    /**
+     * Internal Getter for BuyerPhoneNumber.
+     * The buyer phone number to prepopulate in the payment form.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("buyer_phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBuyerPhoneNumber() {
+        return this.buyerPhoneNumber;
     }
 
     /**
@@ -48,10 +84,9 @@ public class PrePopulatedData {
      * The buyer phone number to prepopulate in the payment form.
      * @return Returns the String
      */
-    @JsonGetter("buyer_phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBuyerPhoneNumber() {
-        return buyerPhoneNumber;
+        return OptionalNullable.getFrom(buyerPhoneNumber);
     }
 
     /**
@@ -102,9 +137,9 @@ public class PrePopulatedData {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .buyerEmail(getBuyerEmail())
-                .buyerPhoneNumber(getBuyerPhoneNumber())
                 .buyerAddress(getBuyerAddress());
+        builder.buyerEmail = internalGetBuyerEmail();
+        builder.buyerPhoneNumber = internalGetBuyerPhoneNumber();
         return builder;
     }
 
@@ -112,8 +147,8 @@ public class PrePopulatedData {
      * Class to build instances of {@link PrePopulatedData}.
      */
     public static class Builder {
-        private String buyerEmail;
-        private String buyerPhoneNumber;
+        private OptionalNullable<String> buyerEmail;
+        private OptionalNullable<String> buyerPhoneNumber;
         private Address buyerAddress;
 
 
@@ -124,7 +159,16 @@ public class PrePopulatedData {
          * @return Builder
          */
         public Builder buyerEmail(String buyerEmail) {
-            this.buyerEmail = buyerEmail;
+            this.buyerEmail = OptionalNullable.of(buyerEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerEmail.
+         * @return Builder
+         */
+        public Builder unsetBuyerEmail() {
+            buyerEmail = null;
             return this;
         }
 
@@ -134,7 +178,16 @@ public class PrePopulatedData {
          * @return Builder
          */
         public Builder buyerPhoneNumber(String buyerPhoneNumber) {
-            this.buyerPhoneNumber = buyerPhoneNumber;
+            this.buyerPhoneNumber = OptionalNullable.of(buyerPhoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for buyerPhoneNumber.
+         * @return Builder
+         */
+        public Builder unsetBuyerPhoneNumber() {
+            buyerPhoneNumber = null;
             return this;
         }
 

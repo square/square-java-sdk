@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,9 +16,9 @@ import java.util.Objects;
  */
 public class Site {
     private final String id;
-    private final String siteTitle;
-    private final String domain;
-    private final Boolean isPublished;
+    private final OptionalNullable<String> siteTitle;
+    private final OptionalNullable<String> domain;
+    private final OptionalNullable<Boolean> isPublished;
     private final String createdAt;
     private final String updatedAt;
 
@@ -37,6 +40,19 @@ public class Site {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt) {
         this.id = id;
+        this.siteTitle = OptionalNullable.of(siteTitle);
+        this.domain = OptionalNullable.of(domain);
+        this.isPublished = OptionalNullable.of(isPublished);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Site(String id, OptionalNullable<String> siteTitle, OptionalNullable<String> domain,
+            OptionalNullable<Boolean> isPublished, String createdAt, String updatedAt) {
+        this.id = id;
         this.siteTitle = siteTitle;
         this.domain = domain;
         this.isPublished = isPublished;
@@ -56,14 +72,37 @@ public class Site {
     }
 
     /**
+     * Internal Getter for SiteTitle.
+     * The title of the site.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("site_title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSiteTitle() {
+        return this.siteTitle;
+    }
+
+    /**
      * Getter for SiteTitle.
      * The title of the site.
      * @return Returns the String
      */
-    @JsonGetter("site_title")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSiteTitle() {
-        return siteTitle;
+        return OptionalNullable.getFrom(siteTitle);
+    }
+
+    /**
+     * Internal Getter for Domain.
+     * The domain of the site (without the protocol). For example, `mysite1.square.site`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("domain")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDomain() {
+        return this.domain;
     }
 
     /**
@@ -71,10 +110,21 @@ public class Site {
      * The domain of the site (without the protocol). For example, `mysite1.square.site`.
      * @return Returns the String
      */
-    @JsonGetter("domain")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDomain() {
-        return domain;
+        return OptionalNullable.getFrom(domain);
+    }
+
+    /**
+     * Internal Getter for IsPublished.
+     * Indicates whether the site is published.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_published")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsPublished() {
+        return this.isPublished;
     }
 
     /**
@@ -82,10 +132,9 @@ public class Site {
      * Indicates whether the site is published.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_published")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsPublished() {
-        return isPublished;
+        return OptionalNullable.getFrom(isPublished);
     }
 
     /**
@@ -151,11 +200,11 @@ public class Site {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .siteTitle(getSiteTitle())
-                .domain(getDomain())
-                .isPublished(getIsPublished())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.siteTitle = internalGetSiteTitle();
+        builder.domain = internalGetDomain();
+        builder.isPublished = internalGetIsPublished();
         return builder;
     }
 
@@ -164,9 +213,9 @@ public class Site {
      */
     public static class Builder {
         private String id;
-        private String siteTitle;
-        private String domain;
-        private Boolean isPublished;
+        private OptionalNullable<String> siteTitle;
+        private OptionalNullable<String> domain;
+        private OptionalNullable<Boolean> isPublished;
         private String createdAt;
         private String updatedAt;
 
@@ -188,7 +237,16 @@ public class Site {
          * @return Builder
          */
         public Builder siteTitle(String siteTitle) {
-            this.siteTitle = siteTitle;
+            this.siteTitle = OptionalNullable.of(siteTitle);
+            return this;
+        }
+
+        /**
+         * UnSetter for siteTitle.
+         * @return Builder
+         */
+        public Builder unsetSiteTitle() {
+            siteTitle = null;
             return this;
         }
 
@@ -198,7 +256,16 @@ public class Site {
          * @return Builder
          */
         public Builder domain(String domain) {
-            this.domain = domain;
+            this.domain = OptionalNullable.of(domain);
+            return this;
+        }
+
+        /**
+         * UnSetter for domain.
+         * @return Builder
+         */
+        public Builder unsetDomain() {
+            domain = null;
             return this;
         }
 
@@ -208,7 +275,16 @@ public class Site {
          * @return Builder
          */
         public Builder isPublished(Boolean isPublished) {
-            this.isPublished = isPublished;
+            this.isPublished = OptionalNullable.of(isPublished);
+            return this;
+        }
+
+        /**
+         * UnSetter for isPublished.
+         * @return Builder
+         */
+        public Builder unsetIsPublished() {
+            isPublished = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class UpdateItemTaxesRequest {
     private final List<String> itemIds;
-    private final List<String> taxesToEnable;
-    private final List<String> taxesToDisable;
+    private final OptionalNullable<List<String>> taxesToEnable;
+    private final OptionalNullable<List<String>> taxesToDisable;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,17 @@ public class UpdateItemTaxesRequest {
             @JsonProperty("item_ids") List<String> itemIds,
             @JsonProperty("taxes_to_enable") List<String> taxesToEnable,
             @JsonProperty("taxes_to_disable") List<String> taxesToDisable) {
+        this.itemIds = itemIds;
+        this.taxesToEnable = OptionalNullable.of(taxesToEnable);
+        this.taxesToDisable = OptionalNullable.of(taxesToDisable);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateItemTaxesRequest(List<String> itemIds,
+            OptionalNullable<List<String>> taxesToEnable,
+            OptionalNullable<List<String>> taxesToDisable) {
         this.itemIds = itemIds;
         this.taxesToEnable = taxesToEnable;
         this.taxesToDisable = taxesToDisable;
@@ -45,15 +59,40 @@ public class UpdateItemTaxesRequest {
     }
 
     /**
+     * Internal Getter for TaxesToEnable.
+     * IDs of the CatalogTax objects to enable. At least one of `taxes_to_enable` or
+     * `taxes_to_disable` must be specified.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("taxes_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetTaxesToEnable() {
+        return this.taxesToEnable;
+    }
+
+    /**
      * Getter for TaxesToEnable.
      * IDs of the CatalogTax objects to enable. At least one of `taxes_to_enable` or
      * `taxes_to_disable` must be specified.
      * @return Returns the List of String
      */
-    @JsonGetter("taxes_to_enable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getTaxesToEnable() {
-        return taxesToEnable;
+        return OptionalNullable.getFrom(taxesToEnable);
+    }
+
+    /**
+     * Internal Getter for TaxesToDisable.
+     * IDs of the CatalogTax objects to disable. At least one of `taxes_to_enable` or
+     * `taxes_to_disable` must be specified.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("taxes_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetTaxesToDisable() {
+        return this.taxesToDisable;
     }
 
     /**
@@ -62,10 +101,9 @@ public class UpdateItemTaxesRequest {
      * `taxes_to_disable` must be specified.
      * @return Returns the List of String
      */
-    @JsonGetter("taxes_to_disable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getTaxesToDisable() {
-        return taxesToDisable;
+        return OptionalNullable.getFrom(taxesToDisable);
     }
 
     @Override
@@ -103,9 +141,9 @@ public class UpdateItemTaxesRequest {
      * @return a new {@link UpdateItemTaxesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(itemIds)
-                .taxesToEnable(getTaxesToEnable())
-                .taxesToDisable(getTaxesToDisable());
+        Builder builder = new Builder(itemIds);
+        builder.taxesToEnable = internalGetTaxesToEnable();
+        builder.taxesToDisable = internalGetTaxesToDisable();
         return builder;
     }
 
@@ -114,8 +152,8 @@ public class UpdateItemTaxesRequest {
      */
     public static class Builder {
         private List<String> itemIds;
-        private List<String> taxesToEnable;
-        private List<String> taxesToDisable;
+        private OptionalNullable<List<String>> taxesToEnable;
+        private OptionalNullable<List<String>> taxesToDisable;
 
         /**
          * Initialization constructor.
@@ -141,7 +179,16 @@ public class UpdateItemTaxesRequest {
          * @return Builder
          */
         public Builder taxesToEnable(List<String> taxesToEnable) {
-            this.taxesToEnable = taxesToEnable;
+            this.taxesToEnable = OptionalNullable.of(taxesToEnable);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxesToEnable.
+         * @return Builder
+         */
+        public Builder unsetTaxesToEnable() {
+            taxesToEnable = null;
             return this;
         }
 
@@ -151,7 +198,16 @@ public class UpdateItemTaxesRequest {
          * @return Builder
          */
         public Builder taxesToDisable(List<String> taxesToDisable) {
-            this.taxesToDisable = taxesToDisable;
+            this.taxesToDisable = OptionalNullable.of(taxesToDisable);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxesToDisable.
+         * @return Builder
+         */
+        public Builder unsetTaxesToDisable() {
+            taxesToDisable = null;
             return this;
         }
 

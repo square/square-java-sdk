@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class CatalogQuerySortedAttribute {
     private final String attributeName;
-    private final String initialAttributeValue;
+    private final OptionalNullable<String> initialAttributeValue;
     private final String sortOrder;
 
     /**
@@ -27,6 +30,16 @@ public class CatalogQuerySortedAttribute {
             @JsonProperty("attribute_name") String attributeName,
             @JsonProperty("initial_attribute_value") String initialAttributeValue,
             @JsonProperty("sort_order") String sortOrder) {
+        this.attributeName = attributeName;
+        this.initialAttributeValue = OptionalNullable.of(initialAttributeValue);
+        this.sortOrder = sortOrder;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQuerySortedAttribute(String attributeName,
+            OptionalNullable<String> initialAttributeValue, String sortOrder) {
         this.attributeName = attributeName;
         this.initialAttributeValue = initialAttributeValue;
         this.sortOrder = sortOrder;
@@ -43,6 +56,21 @@ public class CatalogQuerySortedAttribute {
     }
 
     /**
+     * Internal Getter for InitialAttributeValue.
+     * The first attribute value to be returned by the query. Ascending sorts will return only
+     * objects with this value or greater, while descending sorts will return only objects with this
+     * value or less. If unset, start at the beginning (for ascending sorts) or end (for descending
+     * sorts).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("initial_attribute_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetInitialAttributeValue() {
+        return this.initialAttributeValue;
+    }
+
+    /**
      * Getter for InitialAttributeValue.
      * The first attribute value to be returned by the query. Ascending sorts will return only
      * objects with this value or greater, while descending sorts will return only objects with this
@@ -50,10 +78,9 @@ public class CatalogQuerySortedAttribute {
      * sorts).
      * @return Returns the String
      */
-    @JsonGetter("initial_attribute_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getInitialAttributeValue() {
-        return initialAttributeValue;
+        return OptionalNullable.getFrom(initialAttributeValue);
     }
 
     /**
@@ -104,8 +131,8 @@ public class CatalogQuerySortedAttribute {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(attributeName)
-                .initialAttributeValue(getInitialAttributeValue())
                 .sortOrder(getSortOrder());
+        builder.initialAttributeValue = internalGetInitialAttributeValue();
         return builder;
     }
 
@@ -114,7 +141,7 @@ public class CatalogQuerySortedAttribute {
      */
     public static class Builder {
         private String attributeName;
-        private String initialAttributeValue;
+        private OptionalNullable<String> initialAttributeValue;
         private String sortOrder;
 
         /**
@@ -141,7 +168,16 @@ public class CatalogQuerySortedAttribute {
          * @return Builder
          */
         public Builder initialAttributeValue(String initialAttributeValue) {
-            this.initialAttributeValue = initialAttributeValue;
+            this.initialAttributeValue = OptionalNullable.of(initialAttributeValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for initialAttributeValue.
+         * @return Builder
+         */
+        public Builder unsetInitialAttributeValue() {
+            initialAttributeValue = null;
             return this;
         }
 

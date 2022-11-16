@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -14,14 +17,15 @@ import java.util.Objects;
  * This is a model class for OrderFulfillment type.
  */
 public class OrderFulfillment {
-    private final String uid;
+    private final OptionalNullable<String> uid;
     private final String type;
     private final String state;
     private final String lineItemApplication;
     private final List<OrderFulfillmentFulfillmentEntry> entries;
-    private final Map<String, String> metadata;
+    private final OptionalNullable<Map<String, String>> metadata;
     private final OrderFulfillmentPickupDetails pickupDetails;
     private final OrderFulfillmentShipmentDetails shipmentDetails;
+    private final OrderFulfillmentDeliveryDetails deliveryDetails;
 
     /**
      * Initialization constructor.
@@ -33,6 +37,7 @@ public class OrderFulfillment {
      * @param  metadata  Map of String, value for metadata.
      * @param  pickupDetails  OrderFulfillmentPickupDetails value for pickupDetails.
      * @param  shipmentDetails  OrderFulfillmentShipmentDetails value for shipmentDetails.
+     * @param  deliveryDetails  OrderFulfillmentDeliveryDetails value for deliveryDetails.
      */
     @JsonCreator
     public OrderFulfillment(
@@ -43,7 +48,28 @@ public class OrderFulfillment {
             @JsonProperty("entries") List<OrderFulfillmentFulfillmentEntry> entries,
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("pickup_details") OrderFulfillmentPickupDetails pickupDetails,
-            @JsonProperty("shipment_details") OrderFulfillmentShipmentDetails shipmentDetails) {
+            @JsonProperty("shipment_details") OrderFulfillmentShipmentDetails shipmentDetails,
+            @JsonProperty("delivery_details") OrderFulfillmentDeliveryDetails deliveryDetails) {
+        this.uid = OptionalNullable.of(uid);
+        this.type = type;
+        this.state = state;
+        this.lineItemApplication = lineItemApplication;
+        this.entries = entries;
+        this.metadata = OptionalNullable.of(metadata);
+        this.pickupDetails = pickupDetails;
+        this.shipmentDetails = shipmentDetails;
+        this.deliveryDetails = deliveryDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillment(OptionalNullable<String> uid, String type, String state,
+            String lineItemApplication, List<OrderFulfillmentFulfillmentEntry> entries,
+            OptionalNullable<Map<String, String>> metadata,
+            OrderFulfillmentPickupDetails pickupDetails,
+            OrderFulfillmentShipmentDetails shipmentDetails,
+            OrderFulfillmentDeliveryDetails deliveryDetails) {
         this.uid = uid;
         this.type = type;
         this.state = state;
@@ -52,6 +78,19 @@ public class OrderFulfillment {
         this.metadata = metadata;
         this.pickupDetails = pickupDetails;
         this.shipmentDetails = shipmentDetails;
+        this.deliveryDetails = deliveryDetails;
+    }
+
+    /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the fulfillment only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
     }
 
     /**
@@ -59,10 +98,9 @@ public class OrderFulfillment {
      * A unique ID that identifies the fulfillment only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
     }
 
     /**
@@ -117,6 +155,28 @@ public class OrderFulfillment {
     }
 
     /**
+     * Internal Getter for Metadata.
+     * Application-defined data attached to this fulfillment. Metadata fields are intended to store
+     * descriptive references or associations with an entity in another system or store brief
+     * information about the object. Square does not process this field; it only stores and returns
+     * it in relevant API calls. Do not use metadata to store any sensitive information (such as
+     * personally identifiable information or card details). Keys written by applications must be 60
+     * characters or less and must be in the character set `[a-zA-Z0-9_-]`. Entries can also include
+     * metadata generated by Square. These keys are prefixed with a namespace, separated from the
+     * key with a ':' character. Values have a maximum length of 255 characters. An application can
+     * have up to 10 entries per metadata field. Entries written by applications are private and can
+     * only be read or modified by the same application. For more information, see
+     * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
+     * @return Returns the Internal Map of String, String
+     */
+    @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Map<String, String>> internalGetMetadata() {
+        return this.metadata;
+    }
+
+    /**
      * Getter for Metadata.
      * Application-defined data attached to this fulfillment. Metadata fields are intended to store
      * descriptive references or associations with an entity in another system or store brief
@@ -131,10 +191,9 @@ public class OrderFulfillment {
      * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
      * @return Returns the Map of String, String
      */
-    @JsonGetter("metadata")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Map<String, String> getMetadata() {
-        return metadata;
+        return OptionalNullable.getFrom(metadata);
     }
 
     /**
@@ -159,10 +218,21 @@ public class OrderFulfillment {
         return shipmentDetails;
     }
 
+    /**
+     * Getter for DeliveryDetails.
+     * Describes delivery details of an order fulfillment.
+     * @return Returns the OrderFulfillmentDeliveryDetails
+     */
+    @JsonGetter("delivery_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public OrderFulfillmentDeliveryDetails getDeliveryDetails() {
+        return deliveryDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, type, state, lineItemApplication, entries, metadata, pickupDetails,
-                shipmentDetails);
+                shipmentDetails, deliveryDetails);
     }
 
     @Override
@@ -181,7 +251,8 @@ public class OrderFulfillment {
             && Objects.equals(entries, other.entries)
             && Objects.equals(metadata, other.metadata)
             && Objects.equals(pickupDetails, other.pickupDetails)
-            && Objects.equals(shipmentDetails, other.shipmentDetails);
+            && Objects.equals(shipmentDetails, other.shipmentDetails)
+            && Objects.equals(deliveryDetails, other.deliveryDetails);
     }
 
     /**
@@ -193,7 +264,8 @@ public class OrderFulfillment {
         return "OrderFulfillment [" + "uid=" + uid + ", type=" + type + ", state=" + state
                 + ", lineItemApplication=" + lineItemApplication + ", entries=" + entries
                 + ", metadata=" + metadata + ", pickupDetails=" + pickupDetails
-                + ", shipmentDetails=" + shipmentDetails + "]";
+                + ", shipmentDetails=" + shipmentDetails + ", deliveryDetails=" + deliveryDetails
+                + "]";
     }
 
     /**
@@ -203,14 +275,15 @@ public class OrderFulfillment {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
                 .type(getType())
                 .state(getState())
                 .lineItemApplication(getLineItemApplication())
                 .entries(getEntries())
-                .metadata(getMetadata())
                 .pickupDetails(getPickupDetails())
-                .shipmentDetails(getShipmentDetails());
+                .shipmentDetails(getShipmentDetails())
+                .deliveryDetails(getDeliveryDetails());
+        builder.uid = internalGetUid();
+        builder.metadata = internalGetMetadata();
         return builder;
     }
 
@@ -218,14 +291,15 @@ public class OrderFulfillment {
      * Class to build instances of {@link OrderFulfillment}.
      */
     public static class Builder {
-        private String uid;
+        private OptionalNullable<String> uid;
         private String type;
         private String state;
         private String lineItemApplication;
         private List<OrderFulfillmentFulfillmentEntry> entries;
-        private Map<String, String> metadata;
+        private OptionalNullable<Map<String, String>> metadata;
         private OrderFulfillmentPickupDetails pickupDetails;
         private OrderFulfillmentShipmentDetails shipmentDetails;
+        private OrderFulfillmentDeliveryDetails deliveryDetails;
 
 
 
@@ -235,7 +309,16 @@ public class OrderFulfillment {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -285,7 +368,16 @@ public class OrderFulfillment {
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
-            this.metadata = metadata;
+            this.metadata = OptionalNullable.of(metadata);
+            return this;
+        }
+
+        /**
+         * UnSetter for metadata.
+         * @return Builder
+         */
+        public Builder unsetMetadata() {
+            metadata = null;
             return this;
         }
 
@@ -310,12 +402,22 @@ public class OrderFulfillment {
         }
 
         /**
+         * Setter for deliveryDetails.
+         * @param  deliveryDetails  OrderFulfillmentDeliveryDetails value for deliveryDetails.
+         * @return Builder
+         */
+        public Builder deliveryDetails(OrderFulfillmentDeliveryDetails deliveryDetails) {
+            this.deliveryDetails = deliveryDetails;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderFulfillment} object using the set fields.
          * @return {@link OrderFulfillment}
          */
         public OrderFulfillment build() {
             return new OrderFulfillment(uid, type, state, lineItemApplication, entries, metadata,
-                    pickupDetails, shipmentDetails);
+                    pickupDetails, shipmentDetails, deliveryDetails);
         }
     }
 }

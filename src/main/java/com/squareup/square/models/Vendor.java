@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,11 +19,11 @@ public class Vendor {
     private final String id;
     private final String createdAt;
     private final String updatedAt;
-    private final String name;
+    private final OptionalNullable<String> name;
     private final Address address;
-    private final List<VendorContact> contacts;
-    private final String accountNumber;
-    private final String note;
+    private final OptionalNullable<List<VendorContact>> contacts;
+    private final OptionalNullable<String> accountNumber;
+    private final OptionalNullable<String> note;
     private final Integer version;
     private final String status;
 
@@ -49,6 +52,25 @@ public class Vendor {
             @JsonProperty("note") String note,
             @JsonProperty("version") Integer version,
             @JsonProperty("status") String status) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.name = OptionalNullable.of(name);
+        this.address = address;
+        this.contacts = OptionalNullable.of(contacts);
+        this.accountNumber = OptionalNullable.of(accountNumber);
+        this.note = OptionalNullable.of(note);
+        this.version = version;
+        this.status = status;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Vendor(String id, String createdAt, String updatedAt, OptionalNullable<String> name,
+            Address address, OptionalNullable<List<VendorContact>> contacts,
+            OptionalNullable<String> accountNumber, OptionalNullable<String> note, Integer version,
+            String status) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -96,15 +118,27 @@ public class Vendor {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name of the [Vendor]($m/Vendor). This field is required when attempting to create or
+     * update a [Vendor]($m/Vendor).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name of the [Vendor]($m/Vendor). This field is required when attempting to create or
      * update a [Vendor]($m/Vendor).
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -120,14 +154,37 @@ public class Vendor {
     }
 
     /**
+     * Internal Getter for Contacts.
+     * The contacts of the [Vendor]($m/Vendor).
+     * @return Returns the Internal List of VendorContact
+     */
+    @JsonGetter("contacts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<VendorContact>> internalGetContacts() {
+        return this.contacts;
+    }
+
+    /**
      * Getter for Contacts.
      * The contacts of the [Vendor]($m/Vendor).
      * @return Returns the List of VendorContact
      */
-    @JsonGetter("contacts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<VendorContact> getContacts() {
-        return contacts;
+        return OptionalNullable.getFrom(contacts);
+    }
+
+    /**
+     * Internal Getter for AccountNumber.
+     * The account number of the [Vendor]($m/Vendor).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("account_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAccountNumber() {
+        return this.accountNumber;
     }
 
     /**
@@ -135,10 +192,21 @@ public class Vendor {
      * The account number of the [Vendor]($m/Vendor).
      * @return Returns the String
      */
-    @JsonGetter("account_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAccountNumber() {
-        return accountNumber;
+        return OptionalNullable.getFrom(accountNumber);
+    }
+
+    /**
+     * Internal Getter for Note.
+     * A note detailing information about the [Vendor]($m/Vendor).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNote() {
+        return this.note;
     }
 
     /**
@@ -146,10 +214,9 @@ public class Vendor {
      * A note detailing information about the [Vendor]($m/Vendor).
      * @return Returns the String
      */
-    @JsonGetter("note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNote() {
-        return note;
+        return OptionalNullable.getFrom(note);
     }
 
     /**
@@ -223,13 +290,13 @@ public class Vendor {
                 .id(getId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .name(getName())
                 .address(getAddress())
-                .contacts(getContacts())
-                .accountNumber(getAccountNumber())
-                .note(getNote())
                 .version(getVersion())
                 .status(getStatus());
+        builder.name = internalGetName();
+        builder.contacts = internalGetContacts();
+        builder.accountNumber = internalGetAccountNumber();
+        builder.note = internalGetNote();
         return builder;
     }
 
@@ -240,11 +307,11 @@ public class Vendor {
         private String id;
         private String createdAt;
         private String updatedAt;
-        private String name;
+        private OptionalNullable<String> name;
         private Address address;
-        private List<VendorContact> contacts;
-        private String accountNumber;
-        private String note;
+        private OptionalNullable<List<VendorContact>> contacts;
+        private OptionalNullable<String> accountNumber;
+        private OptionalNullable<String> note;
         private Integer version;
         private String status;
 
@@ -286,7 +353,16 @@ public class Vendor {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -306,7 +382,16 @@ public class Vendor {
          * @return Builder
          */
         public Builder contacts(List<VendorContact> contacts) {
-            this.contacts = contacts;
+            this.contacts = OptionalNullable.of(contacts);
+            return this;
+        }
+
+        /**
+         * UnSetter for contacts.
+         * @return Builder
+         */
+        public Builder unsetContacts() {
+            contacts = null;
             return this;
         }
 
@@ -316,7 +401,16 @@ public class Vendor {
          * @return Builder
          */
         public Builder accountNumber(String accountNumber) {
-            this.accountNumber = accountNumber;
+            this.accountNumber = OptionalNullable.of(accountNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for accountNumber.
+         * @return Builder
+         */
+        public Builder unsetAccountNumber() {
+            accountNumber = null;
             return this;
         }
 
@@ -326,7 +420,16 @@ public class Vendor {
          * @return Builder
          */
         public Builder note(String note) {
-            this.note = note;
+            this.note = OptionalNullable.of(note);
+            return this;
+        }
+
+        /**
+         * UnSetter for note.
+         * @return Builder
+         */
+        public Builder unsetNote() {
+            note = null;
             return this;
         }
 

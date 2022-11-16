@@ -527,11 +527,21 @@ LoyaltyPromotionTriggerLimit triggerLimit = new LoyaltyPromotionTriggerLimit.Bui
     .interval("DAY")
     .build();
 
+Money minimumSpendAmountMoney = new Money.Builder()
+    .amount(2000L)
+    .currency("USD")
+    .build();
+
+List<String> qualifyingCategoryIds = new LinkedList<>();
+qualifyingCategoryIds.add("XTQPYLR3IIU9C44VRCB3XD12");
+
 LoyaltyPromotion loyaltyPromotion = new LoyaltyPromotion.Builder(
         "Tuesday Happy Hour Promo",
         incentive,
         availableTime)
     .triggerLimit(triggerLimit)
+    .minimumSpendAmountMoney(minimumSpendAmountMoney)
+    .qualifyingCategoryIds(qualifyingCategoryIds)
     .build();
 
 CreateLoyaltyPromotionRequest body = new CreateLoyaltyPromotionRequest.Builder(

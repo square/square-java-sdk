@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -16,21 +19,21 @@ import java.util.Objects;
 public class Order {
     private final String id;
     private final String locationId;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final OrderSource source;
-    private final String customerId;
-    private final List<OrderLineItem> lineItems;
-    private final List<OrderLineItemTax> taxes;
-    private final List<OrderLineItemDiscount> discounts;
-    private final List<OrderServiceCharge> serviceCharges;
-    private final List<Fulfillment> fulfillments;
+    private final OptionalNullable<String> customerId;
+    private final OptionalNullable<List<OrderLineItem>> lineItems;
+    private final OptionalNullable<List<OrderLineItemTax>> taxes;
+    private final OptionalNullable<List<OrderLineItemDiscount>> discounts;
+    private final OptionalNullable<List<OrderServiceCharge>> serviceCharges;
+    private final OptionalNullable<List<Fulfillment>> fulfillments;
     private final List<OrderReturn> returns;
     private final OrderMoneyAmounts returnAmounts;
     private final OrderMoneyAmounts netAmounts;
     private final OrderRoundingAdjustment roundingAdjustment;
     private final List<Tender> tenders;
     private final List<Refund> refunds;
-    private final Map<String, String> metadata;
+    private final OptionalNullable<Map<String, String>> metadata;
     private final String createdAt;
     private final String updatedAt;
     private final String closedAt;
@@ -41,7 +44,7 @@ public class Order {
     private final Money totalDiscountMoney;
     private final Money totalTipMoney;
     private final Money totalServiceChargeMoney;
-    private final String ticketName;
+    private final OptionalNullable<String> ticketName;
     private final OrderPricingOptions pricingOptions;
     private final List<OrderReward> rewards;
     private final Money netAmountDueMoney;
@@ -115,6 +118,56 @@ public class Order {
             @JsonProperty("net_amount_due_money") Money netAmountDueMoney) {
         this.id = id;
         this.locationId = locationId;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.source = source;
+        this.customerId = OptionalNullable.of(customerId);
+        this.lineItems = OptionalNullable.of(lineItems);
+        this.taxes = OptionalNullable.of(taxes);
+        this.discounts = OptionalNullable.of(discounts);
+        this.serviceCharges = OptionalNullable.of(serviceCharges);
+        this.fulfillments = OptionalNullable.of(fulfillments);
+        this.returns = returns;
+        this.returnAmounts = returnAmounts;
+        this.netAmounts = netAmounts;
+        this.roundingAdjustment = roundingAdjustment;
+        this.tenders = tenders;
+        this.refunds = refunds;
+        this.metadata = OptionalNullable.of(metadata);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.closedAt = closedAt;
+        this.state = state;
+        this.version = version;
+        this.totalMoney = totalMoney;
+        this.totalTaxMoney = totalTaxMoney;
+        this.totalDiscountMoney = totalDiscountMoney;
+        this.totalTipMoney = totalTipMoney;
+        this.totalServiceChargeMoney = totalServiceChargeMoney;
+        this.ticketName = OptionalNullable.of(ticketName);
+        this.pricingOptions = pricingOptions;
+        this.rewards = rewards;
+        this.netAmountDueMoney = netAmountDueMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Order(String locationId, String id, OptionalNullable<String> referenceId,
+            OrderSource source, OptionalNullable<String> customerId,
+            OptionalNullable<List<OrderLineItem>> lineItems,
+            OptionalNullable<List<OrderLineItemTax>> taxes,
+            OptionalNullable<List<OrderLineItemDiscount>> discounts,
+            OptionalNullable<List<OrderServiceCharge>> serviceCharges,
+            OptionalNullable<List<Fulfillment>> fulfillments, List<OrderReturn> returns,
+            OrderMoneyAmounts returnAmounts, OrderMoneyAmounts netAmounts,
+            OrderRoundingAdjustment roundingAdjustment, List<Tender> tenders, List<Refund> refunds,
+            OptionalNullable<Map<String, String>> metadata, String createdAt, String updatedAt,
+            String closedAt, String state, Integer version, Money totalMoney, Money totalTaxMoney,
+            Money totalDiscountMoney, Money totalTipMoney, Money totalServiceChargeMoney,
+            OptionalNullable<String> ticketName, OrderPricingOptions pricingOptions,
+            List<OrderReward> rewards, Money netAmountDueMoney) {
+        this.id = id;
+        this.locationId = locationId;
         this.referenceId = referenceId;
         this.source = source;
         this.customerId = customerId;
@@ -168,14 +221,25 @@ public class Order {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * A client-specified ID to associate an entity in another system with this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * A client-specified ID to associate an entity in another system with this order.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -190,6 +254,23 @@ public class Order {
     }
 
     /**
+     * Internal Getter for CustomerId.
+     * The ID of the [customer]($m/Customer) associated with the order. __IMPORTANT:__ You should
+     * specify a `customer_id` if you want the corresponding payment transactions to be explicitly
+     * linked to the customer in the Seller Dashboard. If this field is omitted, the `customer_id`
+     * assigned to any underlying `Payment` objects is ignored and might result in the creation of
+     * new [instant
+     * profiles](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
      * Getter for CustomerId.
      * The ID of the [customer]($m/Customer) associated with the order. __IMPORTANT:__ You should
      * specify a `customer_id` if you want the corresponding payment transactions to be explicitly
@@ -199,10 +280,21 @@ public class Order {
      * profiles](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
+    }
+
+    /**
+     * Internal Getter for LineItems.
+     * The line items included in the order.
+     * @return Returns the Internal List of OrderLineItem
+     */
+    @JsonGetter("line_items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItem>> internalGetLineItems() {
+        return this.lineItems;
     }
 
     /**
@@ -210,10 +302,27 @@ public class Order {
      * The line items included in the order.
      * @return Returns the List of OrderLineItem
      */
-    @JsonGetter("line_items")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItem> getLineItems() {
-        return lineItems;
+        return OptionalNullable.getFrom(lineItems);
+    }
+
+    /**
+     * Internal Getter for Taxes.
+     * The list of all taxes associated with the order. Taxes can be scoped to either `ORDER` or
+     * `LINE_ITEM`. For taxes with `LINE_ITEM` scope, an `OrderLineItemAppliedTax` must be added to
+     * each line item that the tax applies to. For taxes with `ORDER` scope, the server generates an
+     * `OrderLineItemAppliedTax` for every line item. On reads, each tax in the list includes the
+     * total amount of that tax applied to the order. __IMPORTANT__: If `LINE_ITEM` scope is set on
+     * any taxes in this field, using the deprecated `line_items.taxes` field results in an error.
+     * Use `line_items.applied_taxes` instead.
+     * @return Returns the Internal List of OrderLineItemTax
+     */
+    @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemTax>> internalGetTaxes() {
+        return this.taxes;
     }
 
     /**
@@ -227,10 +336,27 @@ public class Order {
      * Use `line_items.applied_taxes` instead.
      * @return Returns the List of OrderLineItemTax
      */
-    @JsonGetter("taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItemTax> getTaxes() {
-        return taxes;
+        return OptionalNullable.getFrom(taxes);
+    }
+
+    /**
+     * Internal Getter for Discounts.
+     * The list of all discounts associated with the order. Discounts can be scoped to either
+     * `ORDER` or `LINE_ITEM`. For discounts scoped to `LINE_ITEM`, an
+     * `OrderLineItemAppliedDiscount` must be added to each line item that the discount applies to.
+     * For discounts with `ORDER` scope, the server generates an `OrderLineItemAppliedDiscount` for
+     * every line item. __IMPORTANT__: If `LINE_ITEM` scope is set on any discounts in this field,
+     * using the deprecated `line_items.discounts` field results in an error. Use
+     * `line_items.applied_discounts` instead.
+     * @return Returns the Internal List of OrderLineItemDiscount
+     */
+    @JsonGetter("discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemDiscount>> internalGetDiscounts() {
+        return this.discounts;
     }
 
     /**
@@ -244,10 +370,21 @@ public class Order {
      * `line_items.applied_discounts` instead.
      * @return Returns the List of OrderLineItemDiscount
      */
-    @JsonGetter("discounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItemDiscount> getDiscounts() {
-        return discounts;
+        return OptionalNullable.getFrom(discounts);
+    }
+
+    /**
+     * Internal Getter for ServiceCharges.
+     * A list of service charges applied to the order.
+     * @return Returns the Internal List of OrderServiceCharge
+     */
+    @JsonGetter("service_charges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderServiceCharge>> internalGetServiceCharges() {
+        return this.serviceCharges;
     }
 
     /**
@@ -255,10 +392,22 @@ public class Order {
      * A list of service charges applied to the order.
      * @return Returns the List of OrderServiceCharge
      */
-    @JsonGetter("service_charges")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderServiceCharge> getServiceCharges() {
-        return serviceCharges;
+        return OptionalNullable.getFrom(serviceCharges);
+    }
+
+    /**
+     * Internal Getter for Fulfillments.
+     * Details about order fulfillment. Orders can only be created with at most one fulfillment.
+     * However, orders returned by the API might contain multiple fulfillments.
+     * @return Returns the Internal List of Fulfillment
+     */
+    @JsonGetter("fulfillments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Fulfillment>> internalGetFulfillments() {
+        return this.fulfillments;
     }
 
     /**
@@ -267,10 +416,9 @@ public class Order {
      * However, orders returned by the API might contain multiple fulfillments.
      * @return Returns the List of Fulfillment
      */
-    @JsonGetter("fulfillments")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Fulfillment> getFulfillments() {
-        return fulfillments;
+        return OptionalNullable.getFrom(fulfillments);
     }
 
     /**
@@ -344,6 +492,28 @@ public class Order {
     }
 
     /**
+     * Internal Getter for Metadata.
+     * Application-defined data attached to this order. Metadata fields are intended to store
+     * descriptive references or associations with an entity in another system or store brief
+     * information about the object. Square does not process this field; it only stores and returns
+     * it in relevant API calls. Do not use metadata to store any sensitive information (such as
+     * personally identifiable information or card details). Keys written by applications must be 60
+     * characters or less and must be in the character set `[a-zA-Z0-9_-]`. Entries can also include
+     * metadata generated by Square. These keys are prefixed with a namespace, separated from the
+     * key with a ':' character. Values have a maximum length of 255 characters. An application can
+     * have up to 10 entries per metadata field. Entries written by applications are private and can
+     * only be read or modified by the same application. For more information, see
+     * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
+     * @return Returns the Internal Map of String, String
+     */
+    @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Map<String, String>> internalGetMetadata() {
+        return this.metadata;
+    }
+
+    /**
      * Getter for Metadata.
      * Application-defined data attached to this order. Metadata fields are intended to store
      * descriptive references or associations with an entity in another system or store brief
@@ -358,10 +528,9 @@ public class Order {
      * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
      * @return Returns the Map of String, String
      */
-    @JsonGetter("metadata")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Map<String, String> getMetadata() {
-        return metadata;
+        return OptionalNullable.getFrom(metadata);
     }
 
     /**
@@ -416,7 +585,7 @@ public class Order {
      * The version number, which is incremented each time an update is committed to the order.
      * Orders not created through the API do not include a version number and therefore cannot be
      * updated. [Read more about working with
-     * versions](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders).
+     * versions](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders).
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -506,15 +675,27 @@ public class Order {
     }
 
     /**
+     * Internal Getter for TicketName.
+     * A short-term identifier for the order (such as a customer first name, table number, or
+     * auto-generated order number that resets daily).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("ticket_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTicketName() {
+        return this.ticketName;
+    }
+
+    /**
      * Getter for TicketName.
      * A short-term identifier for the order (such as a customer first name, table number, or
      * auto-generated order number that resets daily).
      * @return Returns the String
      */
-    @JsonGetter("ticket_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTicketName() {
-        return ticketName;
+        return OptionalNullable.getFrom(ticketName);
     }
 
     /**
@@ -637,21 +818,13 @@ public class Order {
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
                 .id(getId())
-                .referenceId(getReferenceId())
                 .source(getSource())
-                .customerId(getCustomerId())
-                .lineItems(getLineItems())
-                .taxes(getTaxes())
-                .discounts(getDiscounts())
-                .serviceCharges(getServiceCharges())
-                .fulfillments(getFulfillments())
                 .returns(getReturns())
                 .returnAmounts(getReturnAmounts())
                 .netAmounts(getNetAmounts())
                 .roundingAdjustment(getRoundingAdjustment())
                 .tenders(getTenders())
                 .refunds(getRefunds())
-                .metadata(getMetadata())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .closedAt(getClosedAt())
@@ -662,10 +835,18 @@ public class Order {
                 .totalDiscountMoney(getTotalDiscountMoney())
                 .totalTipMoney(getTotalTipMoney())
                 .totalServiceChargeMoney(getTotalServiceChargeMoney())
-                .ticketName(getTicketName())
                 .pricingOptions(getPricingOptions())
                 .rewards(getRewards())
                 .netAmountDueMoney(getNetAmountDueMoney());
+        builder.referenceId = internalGetReferenceId();
+        builder.customerId = internalGetCustomerId();
+        builder.lineItems = internalGetLineItems();
+        builder.taxes = internalGetTaxes();
+        builder.discounts = internalGetDiscounts();
+        builder.serviceCharges = internalGetServiceCharges();
+        builder.fulfillments = internalGetFulfillments();
+        builder.metadata = internalGetMetadata();
+        builder.ticketName = internalGetTicketName();
         return builder;
     }
 
@@ -675,21 +856,21 @@ public class Order {
     public static class Builder {
         private String locationId;
         private String id;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private OrderSource source;
-        private String customerId;
-        private List<OrderLineItem> lineItems;
-        private List<OrderLineItemTax> taxes;
-        private List<OrderLineItemDiscount> discounts;
-        private List<OrderServiceCharge> serviceCharges;
-        private List<Fulfillment> fulfillments;
+        private OptionalNullable<String> customerId;
+        private OptionalNullable<List<OrderLineItem>> lineItems;
+        private OptionalNullable<List<OrderLineItemTax>> taxes;
+        private OptionalNullable<List<OrderLineItemDiscount>> discounts;
+        private OptionalNullable<List<OrderServiceCharge>> serviceCharges;
+        private OptionalNullable<List<Fulfillment>> fulfillments;
         private List<OrderReturn> returns;
         private OrderMoneyAmounts returnAmounts;
         private OrderMoneyAmounts netAmounts;
         private OrderRoundingAdjustment roundingAdjustment;
         private List<Tender> tenders;
         private List<Refund> refunds;
-        private Map<String, String> metadata;
+        private OptionalNullable<Map<String, String>> metadata;
         private String createdAt;
         private String updatedAt;
         private String closedAt;
@@ -700,7 +881,7 @@ public class Order {
         private Money totalDiscountMoney;
         private Money totalTipMoney;
         private Money totalServiceChargeMoney;
-        private String ticketName;
+        private OptionalNullable<String> ticketName;
         private OrderPricingOptions pricingOptions;
         private List<OrderReward> rewards;
         private Money netAmountDueMoney;
@@ -739,7 +920,16 @@ public class Order {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -759,7 +949,16 @@ public class Order {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -769,7 +968,16 @@ public class Order {
          * @return Builder
          */
         public Builder lineItems(List<OrderLineItem> lineItems) {
-            this.lineItems = lineItems;
+            this.lineItems = OptionalNullable.of(lineItems);
+            return this;
+        }
+
+        /**
+         * UnSetter for lineItems.
+         * @return Builder
+         */
+        public Builder unsetLineItems() {
+            lineItems = null;
             return this;
         }
 
@@ -779,7 +987,16 @@ public class Order {
          * @return Builder
          */
         public Builder taxes(List<OrderLineItemTax> taxes) {
-            this.taxes = taxes;
+            this.taxes = OptionalNullable.of(taxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxes.
+         * @return Builder
+         */
+        public Builder unsetTaxes() {
+            taxes = null;
             return this;
         }
 
@@ -789,7 +1006,16 @@ public class Order {
          * @return Builder
          */
         public Builder discounts(List<OrderLineItemDiscount> discounts) {
-            this.discounts = discounts;
+            this.discounts = OptionalNullable.of(discounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for discounts.
+         * @return Builder
+         */
+        public Builder unsetDiscounts() {
+            discounts = null;
             return this;
         }
 
@@ -799,7 +1025,16 @@ public class Order {
          * @return Builder
          */
         public Builder serviceCharges(List<OrderServiceCharge> serviceCharges) {
-            this.serviceCharges = serviceCharges;
+            this.serviceCharges = OptionalNullable.of(serviceCharges);
+            return this;
+        }
+
+        /**
+         * UnSetter for serviceCharges.
+         * @return Builder
+         */
+        public Builder unsetServiceCharges() {
+            serviceCharges = null;
             return this;
         }
 
@@ -809,7 +1044,16 @@ public class Order {
          * @return Builder
          */
         public Builder fulfillments(List<Fulfillment> fulfillments) {
-            this.fulfillments = fulfillments;
+            this.fulfillments = OptionalNullable.of(fulfillments);
+            return this;
+        }
+
+        /**
+         * UnSetter for fulfillments.
+         * @return Builder
+         */
+        public Builder unsetFulfillments() {
+            fulfillments = null;
             return this;
         }
 
@@ -879,7 +1123,16 @@ public class Order {
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
-            this.metadata = metadata;
+            this.metadata = OptionalNullable.of(metadata);
+            return this;
+        }
+
+        /**
+         * UnSetter for metadata.
+         * @return Builder
+         */
+        public Builder unsetMetadata() {
+            metadata = null;
             return this;
         }
 
@@ -989,7 +1242,16 @@ public class Order {
          * @return Builder
          */
         public Builder ticketName(String ticketName) {
-            this.ticketName = ticketName;
+            this.ticketName = OptionalNullable.of(ticketName);
+            return this;
+        }
+
+        /**
+         * UnSetter for ticketName.
+         * @return Builder
+         */
+        public Builder unsetTicketName() {
+            ticketName = null;
             return this;
         }
 

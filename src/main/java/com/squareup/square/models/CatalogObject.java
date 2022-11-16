@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -18,12 +21,12 @@ public class CatalogObject {
     private final String id;
     private final String updatedAt;
     private final Long version;
-    private final Boolean isDeleted;
-    private final Map<String, CatalogCustomAttributeValue> customAttributeValues;
-    private final List<CatalogV1Id> catalogV1Ids;
-    private final Boolean presentAtAllLocations;
-    private final List<String> presentAtLocationIds;
-    private final List<String> absentAtLocationIds;
+    private final OptionalNullable<Boolean> isDeleted;
+    private final OptionalNullable<Map<String, CatalogCustomAttributeValue>> customAttributeValues;
+    private final OptionalNullable<List<CatalogV1Id>> catalogV1Ids;
+    private final OptionalNullable<Boolean> presentAtAllLocations;
+    private final OptionalNullable<List<String>> presentAtLocationIds;
+    private final OptionalNullable<List<String>> absentAtLocationIds;
     private final CatalogItem itemData;
     private final CatalogCategory categoryData;
     private final CatalogItemVariation itemVariationData;
@@ -107,6 +110,54 @@ public class CatalogObject {
         this.id = id;
         this.updatedAt = updatedAt;
         this.version = version;
+        this.isDeleted = OptionalNullable.of(isDeleted);
+        this.customAttributeValues = OptionalNullable.of(customAttributeValues);
+        this.catalogV1Ids = OptionalNullable.of(catalogV1Ids);
+        this.presentAtAllLocations = OptionalNullable.of(presentAtAllLocations);
+        this.presentAtLocationIds = OptionalNullable.of(presentAtLocationIds);
+        this.absentAtLocationIds = OptionalNullable.of(absentAtLocationIds);
+        this.itemData = itemData;
+        this.categoryData = categoryData;
+        this.itemVariationData = itemVariationData;
+        this.taxData = taxData;
+        this.discountData = discountData;
+        this.modifierListData = modifierListData;
+        this.modifierData = modifierData;
+        this.timePeriodData = timePeriodData;
+        this.productSetData = productSetData;
+        this.pricingRuleData = pricingRuleData;
+        this.imageData = imageData;
+        this.measurementUnitData = measurementUnitData;
+        this.subscriptionPlanData = subscriptionPlanData;
+        this.itemOptionData = itemOptionData;
+        this.itemOptionValueData = itemOptionValueData;
+        this.customAttributeDefinitionData = customAttributeDefinitionData;
+        this.quickAmountsSettingsData = quickAmountsSettingsData;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogObject(String type, String id, String updatedAt, Long version,
+            OptionalNullable<Boolean> isDeleted,
+            OptionalNullable<Map<String, CatalogCustomAttributeValue>> customAttributeValues,
+            OptionalNullable<List<CatalogV1Id>> catalogV1Ids,
+            OptionalNullable<Boolean> presentAtAllLocations,
+            OptionalNullable<List<String>> presentAtLocationIds,
+            OptionalNullable<List<String>> absentAtLocationIds, CatalogItem itemData,
+            CatalogCategory categoryData, CatalogItemVariation itemVariationData,
+            CatalogTax taxData, CatalogDiscount discountData, CatalogModifierList modifierListData,
+            CatalogModifier modifierData, CatalogTimePeriod timePeriodData,
+            CatalogProductSet productSetData, CatalogPricingRule pricingRuleData,
+            CatalogImage imageData, CatalogMeasurementUnit measurementUnitData,
+            CatalogSubscriptionPlan subscriptionPlanData, CatalogItemOption itemOptionData,
+            CatalogItemOptionValue itemOptionValueData,
+            CatalogCustomAttributeDefinition customAttributeDefinitionData,
+            CatalogQuickAmountsSettings quickAmountsSettingsData) {
+        this.type = type;
+        this.id = id;
+        this.updatedAt = updatedAt;
+        this.version = version;
         this.isDeleted = isDeleted;
         this.customAttributeValues = customAttributeValues;
         this.catalogV1Ids = catalogV1Ids;
@@ -184,15 +235,53 @@ public class CatalogObject {
     }
 
     /**
+     * Internal Getter for IsDeleted.
+     * If `true`, the object has been deleted from the database. Must be `false` for new objects
+     * being inserted. When deleted, the `updated_at` field will equal the deletion time.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_deleted")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsDeleted() {
+        return this.isDeleted;
+    }
+
+    /**
      * Getter for IsDeleted.
      * If `true`, the object has been deleted from the database. Must be `false` for new objects
      * being inserted. When deleted, the `updated_at` field will equal the deletion time.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_deleted")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsDeleted() {
-        return isDeleted;
+        return OptionalNullable.getFrom(isDeleted);
+    }
+
+    /**
+     * Internal Getter for CustomAttributeValues.
+     * A map (key-value pairs) of application-defined custom attribute values. The value of a
+     * key-value pair is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The
+     * key is the `key` attribute value defined in the associated
+     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) object defined by the
+     * application making the request. If the `CatalogCustomAttributeDefinition` object is defined
+     * by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is
+     * prefixed by the defining application ID. For example, if the
+     * `CatalogCustomAttributeDefinition` has a `key` attribute of `"cocoa_brand"` and the defining
+     * application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"` if the
+     * application making the request is different from the application defining the custom
+     * attribute definition. Otherwise, the key used in the map is simply `"cocoa_brand"`.
+     * Application-defined custom attributes are set at a global (location-independent) level.
+     * Custom attribute values are intended to store additional information about a catalog object
+     * or associations with an entity in another system. Do not use custom attributes to store any
+     * sensitive information (personally identifiable information, card details, etc.).
+     * @return Returns the Internal Map of String, CatalogCustomAttributeValue
+     */
+    @JsonGetter("custom_attribute_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Map<String, CatalogCustomAttributeValue>> internalGetCustomAttributeValues() {
+        return this.customAttributeValues;
     }
 
     /**
@@ -214,10 +303,23 @@ public class CatalogObject {
      * sensitive information (personally identifiable information, card details, etc.).
      * @return Returns the Map of String, CatalogCustomAttributeValue
      */
-    @JsonGetter("custom_attribute_values")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Map<String, CatalogCustomAttributeValue> getCustomAttributeValues() {
-        return customAttributeValues;
+        return OptionalNullable.getFrom(customAttributeValues);
+    }
+
+    /**
+     * Internal Getter for CatalogV1Ids.
+     * The Connect v1 IDs for this object at each location where it is present, where they differ
+     * from the object's Connect V2 ID. The field will only be present for objects that have been
+     * created or modified by legacy APIs.
+     * @return Returns the Internal List of CatalogV1Id
+     */
+    @JsonGetter("catalog_v1_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogV1Id>> internalGetCatalogV1Ids() {
+        return this.catalogV1Ids;
     }
 
     /**
@@ -227,10 +329,24 @@ public class CatalogObject {
      * created or modified by legacy APIs.
      * @return Returns the List of CatalogV1Id
      */
-    @JsonGetter("catalog_v1_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogV1Id> getCatalogV1Ids() {
-        return catalogV1Ids;
+        return OptionalNullable.getFrom(catalogV1Ids);
+    }
+
+    /**
+     * Internal Getter for PresentAtAllLocations.
+     * If `true`, this object is present at all locations (including future locations), except where
+     * specified in the `absent_at_location_ids` field. If `false`, this object is not present at
+     * any locations (including future locations), except where specified in the
+     * `present_at_location_ids` field. If not specified, defaults to `true`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("present_at_all_locations")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetPresentAtAllLocations() {
+        return this.presentAtAllLocations;
     }
 
     /**
@@ -241,10 +357,22 @@ public class CatalogObject {
      * `present_at_location_ids` field. If not specified, defaults to `true`.
      * @return Returns the Boolean
      */
-    @JsonGetter("present_at_all_locations")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getPresentAtAllLocations() {
-        return presentAtAllLocations;
+        return OptionalNullable.getFrom(presentAtAllLocations);
+    }
+
+    /**
+     * Internal Getter for PresentAtLocationIds.
+     * A list of locations where the object is present, even if `present_at_all_locations` is
+     * `false`. This can include locations that are deactivated.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("present_at_location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetPresentAtLocationIds() {
+        return this.presentAtLocationIds;
     }
 
     /**
@@ -253,10 +381,22 @@ public class CatalogObject {
      * `false`. This can include locations that are deactivated.
      * @return Returns the List of String
      */
-    @JsonGetter("present_at_location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getPresentAtLocationIds() {
-        return presentAtLocationIds;
+        return OptionalNullable.getFrom(presentAtLocationIds);
+    }
+
+    /**
+     * Internal Getter for AbsentAtLocationIds.
+     * A list of locations where the object is not present, even if `present_at_all_locations` is
+     * `true`. This can include locations that are deactivated.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("absent_at_location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetAbsentAtLocationIds() {
+        return this.absentAtLocationIds;
     }
 
     /**
@@ -265,10 +405,9 @@ public class CatalogObject {
      * `true`. This can include locations that are deactivated.
      * @return Returns the List of String
      */
-    @JsonGetter("absent_at_location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getAbsentAtLocationIds() {
-        return absentAtLocationIds;
+        return OptionalNullable.getFrom(absentAtLocationIds);
     }
 
     /**
@@ -571,12 +710,6 @@ public class CatalogObject {
         Builder builder = new Builder(type, id)
                 .updatedAt(getUpdatedAt())
                 .version(getVersion())
-                .isDeleted(getIsDeleted())
-                .customAttributeValues(getCustomAttributeValues())
-                .catalogV1Ids(getCatalogV1Ids())
-                .presentAtAllLocations(getPresentAtAllLocations())
-                .presentAtLocationIds(getPresentAtLocationIds())
-                .absentAtLocationIds(getAbsentAtLocationIds())
                 .itemData(getItemData())
                 .categoryData(getCategoryData())
                 .itemVariationData(getItemVariationData())
@@ -594,6 +727,12 @@ public class CatalogObject {
                 .itemOptionValueData(getItemOptionValueData())
                 .customAttributeDefinitionData(getCustomAttributeDefinitionData())
                 .quickAmountsSettingsData(getQuickAmountsSettingsData());
+        builder.isDeleted = internalGetIsDeleted();
+        builder.customAttributeValues = internalGetCustomAttributeValues();
+        builder.catalogV1Ids = internalGetCatalogV1Ids();
+        builder.presentAtAllLocations = internalGetPresentAtAllLocations();
+        builder.presentAtLocationIds = internalGetPresentAtLocationIds();
+        builder.absentAtLocationIds = internalGetAbsentAtLocationIds();
         return builder;
     }
 
@@ -605,12 +744,12 @@ public class CatalogObject {
         private String id;
         private String updatedAt;
         private Long version;
-        private Boolean isDeleted;
-        private Map<String, CatalogCustomAttributeValue> customAttributeValues;
-        private List<CatalogV1Id> catalogV1Ids;
-        private Boolean presentAtAllLocations;
-        private List<String> presentAtLocationIds;
-        private List<String> absentAtLocationIds;
+        private OptionalNullable<Boolean> isDeleted;
+        private OptionalNullable<Map<String, CatalogCustomAttributeValue>> customAttributeValues;
+        private OptionalNullable<List<CatalogV1Id>> catalogV1Ids;
+        private OptionalNullable<Boolean> presentAtAllLocations;
+        private OptionalNullable<List<String>> presentAtLocationIds;
+        private OptionalNullable<List<String>> absentAtLocationIds;
         private CatalogItem itemData;
         private CatalogCategory categoryData;
         private CatalogItemVariation itemVariationData;
@@ -685,7 +824,16 @@ public class CatalogObject {
          * @return Builder
          */
         public Builder isDeleted(Boolean isDeleted) {
-            this.isDeleted = isDeleted;
+            this.isDeleted = OptionalNullable.of(isDeleted);
+            return this;
+        }
+
+        /**
+         * UnSetter for isDeleted.
+         * @return Builder
+         */
+        public Builder unsetIsDeleted() {
+            isDeleted = null;
             return this;
         }
 
@@ -696,7 +844,16 @@ public class CatalogObject {
          */
         public Builder customAttributeValues(
                 Map<String, CatalogCustomAttributeValue> customAttributeValues) {
-            this.customAttributeValues = customAttributeValues;
+            this.customAttributeValues = OptionalNullable.of(customAttributeValues);
+            return this;
+        }
+
+        /**
+         * UnSetter for customAttributeValues.
+         * @return Builder
+         */
+        public Builder unsetCustomAttributeValues() {
+            customAttributeValues = null;
             return this;
         }
 
@@ -706,7 +863,16 @@ public class CatalogObject {
          * @return Builder
          */
         public Builder catalogV1Ids(List<CatalogV1Id> catalogV1Ids) {
-            this.catalogV1Ids = catalogV1Ids;
+            this.catalogV1Ids = OptionalNullable.of(catalogV1Ids);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogV1Ids.
+         * @return Builder
+         */
+        public Builder unsetCatalogV1Ids() {
+            catalogV1Ids = null;
             return this;
         }
 
@@ -716,7 +882,16 @@ public class CatalogObject {
          * @return Builder
          */
         public Builder presentAtAllLocations(Boolean presentAtAllLocations) {
-            this.presentAtAllLocations = presentAtAllLocations;
+            this.presentAtAllLocations = OptionalNullable.of(presentAtAllLocations);
+            return this;
+        }
+
+        /**
+         * UnSetter for presentAtAllLocations.
+         * @return Builder
+         */
+        public Builder unsetPresentAtAllLocations() {
+            presentAtAllLocations = null;
             return this;
         }
 
@@ -726,7 +901,16 @@ public class CatalogObject {
          * @return Builder
          */
         public Builder presentAtLocationIds(List<String> presentAtLocationIds) {
-            this.presentAtLocationIds = presentAtLocationIds;
+            this.presentAtLocationIds = OptionalNullable.of(presentAtLocationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for presentAtLocationIds.
+         * @return Builder
+         */
+        public Builder unsetPresentAtLocationIds() {
+            presentAtLocationIds = null;
             return this;
         }
 
@@ -736,7 +920,16 @@ public class CatalogObject {
          * @return Builder
          */
         public Builder absentAtLocationIds(List<String> absentAtLocationIds) {
-            this.absentAtLocationIds = absentAtLocationIds;
+            this.absentAtLocationIds = OptionalNullable.of(absentAtLocationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for absentAtLocationIds.
+         * @return Builder
+         */
+        public Builder unsetAbsentAtLocationIds() {
+            absentAtLocationIds = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,26 +16,26 @@ import java.util.Objects;
  * This is a model class for CatalogItemVariation type.
  */
 public class CatalogItemVariation {
-    private final String itemId;
-    private final String name;
-    private final String sku;
-    private final String upc;
+    private final OptionalNullable<String> itemId;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> sku;
+    private final OptionalNullable<String> upc;
     private final Integer ordinal;
     private final String pricingType;
     private final Money priceMoney;
-    private final List<ItemVariationLocationOverrides> locationOverrides;
-    private final Boolean trackInventory;
+    private final OptionalNullable<List<ItemVariationLocationOverrides>> locationOverrides;
+    private final OptionalNullable<Boolean> trackInventory;
     private final String inventoryAlertType;
-    private final Long inventoryAlertThreshold;
-    private final String userData;
-    private final Long serviceDuration;
-    private final Boolean availableForBooking;
-    private final List<CatalogItemOptionValueForItemVariation> itemOptionValues;
-    private final String measurementUnitId;
-    private final Boolean sellable;
-    private final Boolean stockable;
-    private final List<String> imageIds;
-    private final List<String> teamMemberIds;
+    private final OptionalNullable<Long> inventoryAlertThreshold;
+    private final OptionalNullable<String> userData;
+    private final OptionalNullable<Long> serviceDuration;
+    private final OptionalNullable<Boolean> availableForBooking;
+    private final OptionalNullable<List<CatalogItemOptionValueForItemVariation>> itemOptionValues;
+    private final OptionalNullable<String> measurementUnitId;
+    private final OptionalNullable<Boolean> sellable;
+    private final OptionalNullable<Boolean> stockable;
+    private final OptionalNullable<List<String>> imageIds;
+    private final OptionalNullable<List<String>> teamMemberIds;
     private final CatalogStockConversion stockableConversion;
 
     /**
@@ -84,6 +87,44 @@ public class CatalogItemVariation {
             @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("team_member_ids") List<String> teamMemberIds,
             @JsonProperty("stockable_conversion") CatalogStockConversion stockableConversion) {
+        this.itemId = OptionalNullable.of(itemId);
+        this.name = OptionalNullable.of(name);
+        this.sku = OptionalNullable.of(sku);
+        this.upc = OptionalNullable.of(upc);
+        this.ordinal = ordinal;
+        this.pricingType = pricingType;
+        this.priceMoney = priceMoney;
+        this.locationOverrides = OptionalNullable.of(locationOverrides);
+        this.trackInventory = OptionalNullable.of(trackInventory);
+        this.inventoryAlertType = inventoryAlertType;
+        this.inventoryAlertThreshold = OptionalNullable.of(inventoryAlertThreshold);
+        this.userData = OptionalNullable.of(userData);
+        this.serviceDuration = OptionalNullable.of(serviceDuration);
+        this.availableForBooking = OptionalNullable.of(availableForBooking);
+        this.itemOptionValues = OptionalNullable.of(itemOptionValues);
+        this.measurementUnitId = OptionalNullable.of(measurementUnitId);
+        this.sellable = OptionalNullable.of(sellable);
+        this.stockable = OptionalNullable.of(stockable);
+        this.imageIds = OptionalNullable.of(imageIds);
+        this.teamMemberIds = OptionalNullable.of(teamMemberIds);
+        this.stockableConversion = stockableConversion;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogItemVariation(OptionalNullable<String> itemId, OptionalNullable<String> name,
+            OptionalNullable<String> sku, OptionalNullable<String> upc, Integer ordinal,
+            String pricingType, Money priceMoney,
+            OptionalNullable<List<ItemVariationLocationOverrides>> locationOverrides,
+            OptionalNullable<Boolean> trackInventory, String inventoryAlertType,
+            OptionalNullable<Long> inventoryAlertThreshold, OptionalNullable<String> userData,
+            OptionalNullable<Long> serviceDuration, OptionalNullable<Boolean> availableForBooking,
+            OptionalNullable<List<CatalogItemOptionValueForItemVariation>> itemOptionValues,
+            OptionalNullable<String> measurementUnitId, OptionalNullable<Boolean> sellable,
+            OptionalNullable<Boolean> stockable, OptionalNullable<List<String>> imageIds,
+            OptionalNullable<List<String>> teamMemberIds,
+            CatalogStockConversion stockableConversion) {
         this.itemId = itemId;
         this.name = name;
         this.sku = sku;
@@ -108,14 +149,38 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Internal Getter for ItemId.
+     * The ID of the `CatalogItem` associated with this item variation.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetItemId() {
+        return this.itemId;
+    }
+
+    /**
      * Getter for ItemId.
      * The ID of the `CatalogItem` associated with this item variation.
      * @return Returns the String
      */
-    @JsonGetter("item_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getItemId() {
-        return itemId;
+        return OptionalNullable.getFrom(itemId);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The item variation's name. This is a searchable attribute for use in applicable query
+     * filters, and its value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -124,10 +189,22 @@ public class CatalogItemVariation {
      * filters, and its value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Sku.
+     * The item variation's SKU, if any. This is a searchable attribute for use in applicable query
+     * filters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sku")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSku() {
+        return this.sku;
     }
 
     /**
@@ -136,10 +213,27 @@ public class CatalogItemVariation {
      * filters.
      * @return Returns the String
      */
-    @JsonGetter("sku")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSku() {
-        return sku;
+        return OptionalNullable.getFrom(sku);
+    }
+
+    /**
+     * Internal Getter for Upc.
+     * The universal product code (UPC) of the item variation, if any. This is a searchable
+     * attribute for use in applicable query filters. The value of this attribute should be a number
+     * of 12-14 digits long. This restriction is enforced on the Square Seller Dashboard, Square
+     * Point of Sale or Retail Point of Sale apps, where this attribute shows in the GTIN field. If
+     * a non-compliant UPC value is assigned to this attribute using the API, the value is not
+     * editable on the Seller Dashboard, Square Point of Sale or Retail Point of Sale apps unless it
+     * is updated to fit the expected format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("upc")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpc() {
+        return this.upc;
     }
 
     /**
@@ -153,10 +247,9 @@ public class CatalogItemVariation {
      * is updated to fit the expected format.
      * @return Returns the String
      */
-    @JsonGetter("upc")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUpc() {
-        return upc;
+        return OptionalNullable.getFrom(upc);
     }
 
     /**
@@ -202,14 +295,37 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Internal Getter for LocationOverrides.
+     * Per-location price and inventory overrides.
+     * @return Returns the Internal List of ItemVariationLocationOverrides
+     */
+    @JsonGetter("location_overrides")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<ItemVariationLocationOverrides>> internalGetLocationOverrides() {
+        return this.locationOverrides;
+    }
+
+    /**
      * Getter for LocationOverrides.
      * Per-location price and inventory overrides.
      * @return Returns the List of ItemVariationLocationOverrides
      */
-    @JsonGetter("location_overrides")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<ItemVariationLocationOverrides> getLocationOverrides() {
-        return locationOverrides;
+        return OptionalNullable.getFrom(locationOverrides);
+    }
+
+    /**
+     * Internal Getter for TrackInventory.
+     * If `true`, inventory tracking is active for the variation.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("track_inventory")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTrackInventory() {
+        return this.trackInventory;
     }
 
     /**
@@ -217,10 +333,9 @@ public class CatalogItemVariation {
      * If `true`, inventory tracking is active for the variation.
      * @return Returns the Boolean
      */
-    @JsonGetter("track_inventory")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getTrackInventory() {
-        return trackInventory;
+        return OptionalNullable.getFrom(trackInventory);
     }
 
     /**
@@ -236,16 +351,42 @@ public class CatalogItemVariation {
     }
 
     /**
+     * Internal Getter for InventoryAlertThreshold.
+     * If the inventory quantity for the variation is less than or equal to this value and
+     * `inventory_alert_type` is `LOW_QUANTITY`, the variation displays an alert in the merchant
+     * dashboard. This value is always an integer.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("inventory_alert_threshold")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetInventoryAlertThreshold() {
+        return this.inventoryAlertThreshold;
+    }
+
+    /**
      * Getter for InventoryAlertThreshold.
      * If the inventory quantity for the variation is less than or equal to this value and
      * `inventory_alert_type` is `LOW_QUANTITY`, the variation displays an alert in the merchant
      * dashboard. This value is always an integer.
      * @return Returns the Long
      */
-    @JsonGetter("inventory_alert_threshold")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getInventoryAlertThreshold() {
-        return inventoryAlertThreshold;
+        return OptionalNullable.getFrom(inventoryAlertThreshold);
+    }
+
+    /**
+     * Internal Getter for UserData.
+     * Arbitrary user metadata to associate with the item variation. This attribute value length is
+     * of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("user_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUserData() {
+        return this.userData;
     }
 
     /**
@@ -254,10 +395,24 @@ public class CatalogItemVariation {
      * of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("user_data")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUserData() {
-        return userData;
+        return OptionalNullable.getFrom(userData);
+    }
+
+    /**
+     * Internal Getter for ServiceDuration.
+     * If the `CatalogItem` that owns this item variation is of type `APPOINTMENTS_SERVICE`, then
+     * this is the duration of the service in milliseconds. For example, a 30 minute appointment
+     * would have the value `1800000`, which is equal to 30 (minutes) * 60 (seconds per minute) *
+     * 1000 (milliseconds per second).
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("service_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetServiceDuration() {
+        return this.serviceDuration;
     }
 
     /**
@@ -268,10 +423,22 @@ public class CatalogItemVariation {
      * 1000 (milliseconds per second).
      * @return Returns the Long
      */
-    @JsonGetter("service_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getServiceDuration() {
-        return serviceDuration;
+        return OptionalNullable.getFrom(serviceDuration);
+    }
+
+    /**
+     * Internal Getter for AvailableForBooking.
+     * If the `CatalogItem` that owns this item variation is of type `APPOINTMENTS_SERVICE`, a bool
+     * representing whether this service is available for booking.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("available_for_booking")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAvailableForBooking() {
+        return this.availableForBooking;
     }
 
     /**
@@ -280,10 +447,22 @@ public class CatalogItemVariation {
      * representing whether this service is available for booking.
      * @return Returns the Boolean
      */
-    @JsonGetter("available_for_booking")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAvailableForBooking() {
-        return availableForBooking;
+        return OptionalNullable.getFrom(availableForBooking);
+    }
+
+    /**
+     * Internal Getter for ItemOptionValues.
+     * List of item option values associated with this item variation. Listed in the same order as
+     * the item options of the parent item.
+     * @return Returns the Internal List of CatalogItemOptionValueForItemVariation
+     */
+    @JsonGetter("item_option_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogItemOptionValueForItemVariation>> internalGetItemOptionValues() {
+        return this.itemOptionValues;
     }
 
     /**
@@ -292,10 +471,22 @@ public class CatalogItemVariation {
      * the item options of the parent item.
      * @return Returns the List of CatalogItemOptionValueForItemVariation
      */
-    @JsonGetter("item_option_values")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogItemOptionValueForItemVariation> getItemOptionValues() {
-        return itemOptionValues;
+        return OptionalNullable.getFrom(itemOptionValues);
+    }
+
+    /**
+     * Internal Getter for MeasurementUnitId.
+     * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity sold of this item
+     * variation. If left unset, the item will be sold in whole quantities.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("measurement_unit_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMeasurementUnitId() {
+        return this.measurementUnitId;
     }
 
     /**
@@ -304,10 +495,23 @@ public class CatalogItemVariation {
      * variation. If left unset, the item will be sold in whole quantities.
      * @return Returns the String
      */
-    @JsonGetter("measurement_unit_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMeasurementUnitId() {
-        return measurementUnitId;
+        return OptionalNullable.getFrom(measurementUnitId);
+    }
+
+    /**
+     * Internal Getter for Sellable.
+     * Whether this variation can be sold. The inventory count of a sellable variation indicates the
+     * number of units available for sale. When a variation is both stockable and sellable, its
+     * sellable inventory count can be smaller than or equal to its stockable count.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("sellable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSellable() {
+        return this.sellable;
     }
 
     /**
@@ -317,10 +521,24 @@ public class CatalogItemVariation {
      * sellable inventory count can be smaller than or equal to its stockable count.
      * @return Returns the Boolean
      */
-    @JsonGetter("sellable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSellable() {
-        return sellable;
+        return OptionalNullable.getFrom(sellable);
+    }
+
+    /**
+     * Internal Getter for Stockable.
+     * Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
+     * When a variation is both stockable and sellable, the inventory count of a stockable variation
+     * keeps track of the number of units of this variation in stock and is not an indicator of the
+     * number of units of the variation that can be sold.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("stockable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetStockable() {
+        return this.stockable;
     }
 
     /**
@@ -331,10 +549,22 @@ public class CatalogItemVariation {
      * number of units of the variation that can be sold.
      * @return Returns the Boolean
      */
-    @JsonGetter("stockable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getStockable() {
-        return stockable;
+        return OptionalNullable.getFrom(stockable);
+    }
+
+    /**
+     * Internal Getter for ImageIds.
+     * The IDs of images associated with this `CatalogItemVariation` instance. These images will be
+     * shown to customers in Square Online Store.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("image_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetImageIds() {
+        return this.imageIds;
     }
 
     /**
@@ -343,10 +573,22 @@ public class CatalogItemVariation {
      * shown to customers in Square Online Store.
      * @return Returns the List of String
      */
-    @JsonGetter("image_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getImageIds() {
-        return imageIds;
+        return OptionalNullable.getFrom(imageIds);
+    }
+
+    /**
+     * Internal Getter for TeamMemberIds.
+     * Tokens of employees that can perform the service represented by this variation. Only valid
+     * for variations of type `APPOINTMENTS_SERVICE`.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("team_member_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetTeamMemberIds() {
+        return this.teamMemberIds;
     }
 
     /**
@@ -355,10 +597,9 @@ public class CatalogItemVariation {
      * for variations of type `APPOINTMENTS_SERVICE`.
      * @return Returns the List of String
      */
-    @JsonGetter("team_member_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getTeamMemberIds() {
-        return teamMemberIds;
+        return OptionalNullable.getFrom(teamMemberIds);
     }
 
     /**
@@ -440,27 +681,27 @@ public class CatalogItemVariation {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .itemId(getItemId())
-                .name(getName())
-                .sku(getSku())
-                .upc(getUpc())
                 .ordinal(getOrdinal())
                 .pricingType(getPricingType())
                 .priceMoney(getPriceMoney())
-                .locationOverrides(getLocationOverrides())
-                .trackInventory(getTrackInventory())
                 .inventoryAlertType(getInventoryAlertType())
-                .inventoryAlertThreshold(getInventoryAlertThreshold())
-                .userData(getUserData())
-                .serviceDuration(getServiceDuration())
-                .availableForBooking(getAvailableForBooking())
-                .itemOptionValues(getItemOptionValues())
-                .measurementUnitId(getMeasurementUnitId())
-                .sellable(getSellable())
-                .stockable(getStockable())
-                .imageIds(getImageIds())
-                .teamMemberIds(getTeamMemberIds())
                 .stockableConversion(getStockableConversion());
+        builder.itemId = internalGetItemId();
+        builder.name = internalGetName();
+        builder.sku = internalGetSku();
+        builder.upc = internalGetUpc();
+        builder.locationOverrides = internalGetLocationOverrides();
+        builder.trackInventory = internalGetTrackInventory();
+        builder.inventoryAlertThreshold = internalGetInventoryAlertThreshold();
+        builder.userData = internalGetUserData();
+        builder.serviceDuration = internalGetServiceDuration();
+        builder.availableForBooking = internalGetAvailableForBooking();
+        builder.itemOptionValues = internalGetItemOptionValues();
+        builder.measurementUnitId = internalGetMeasurementUnitId();
+        builder.sellable = internalGetSellable();
+        builder.stockable = internalGetStockable();
+        builder.imageIds = internalGetImageIds();
+        builder.teamMemberIds = internalGetTeamMemberIds();
         return builder;
     }
 
@@ -468,26 +709,26 @@ public class CatalogItemVariation {
      * Class to build instances of {@link CatalogItemVariation}.
      */
     public static class Builder {
-        private String itemId;
-        private String name;
-        private String sku;
-        private String upc;
+        private OptionalNullable<String> itemId;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> sku;
+        private OptionalNullable<String> upc;
         private Integer ordinal;
         private String pricingType;
         private Money priceMoney;
-        private List<ItemVariationLocationOverrides> locationOverrides;
-        private Boolean trackInventory;
+        private OptionalNullable<List<ItemVariationLocationOverrides>> locationOverrides;
+        private OptionalNullable<Boolean> trackInventory;
         private String inventoryAlertType;
-        private Long inventoryAlertThreshold;
-        private String userData;
-        private Long serviceDuration;
-        private Boolean availableForBooking;
-        private List<CatalogItemOptionValueForItemVariation> itemOptionValues;
-        private String measurementUnitId;
-        private Boolean sellable;
-        private Boolean stockable;
-        private List<String> imageIds;
-        private List<String> teamMemberIds;
+        private OptionalNullable<Long> inventoryAlertThreshold;
+        private OptionalNullable<String> userData;
+        private OptionalNullable<Long> serviceDuration;
+        private OptionalNullable<Boolean> availableForBooking;
+        private OptionalNullable<List<CatalogItemOptionValueForItemVariation>> itemOptionValues;
+        private OptionalNullable<String> measurementUnitId;
+        private OptionalNullable<Boolean> sellable;
+        private OptionalNullable<Boolean> stockable;
+        private OptionalNullable<List<String>> imageIds;
+        private OptionalNullable<List<String>> teamMemberIds;
         private CatalogStockConversion stockableConversion;
 
 
@@ -498,7 +739,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder itemId(String itemId) {
-            this.itemId = itemId;
+            this.itemId = OptionalNullable.of(itemId);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemId.
+         * @return Builder
+         */
+        public Builder unsetItemId() {
+            itemId = null;
             return this;
         }
 
@@ -508,7 +758,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -518,7 +777,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder sku(String sku) {
-            this.sku = sku;
+            this.sku = OptionalNullable.of(sku);
+            return this;
+        }
+
+        /**
+         * UnSetter for sku.
+         * @return Builder
+         */
+        public Builder unsetSku() {
+            sku = null;
             return this;
         }
 
@@ -528,7 +796,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder upc(String upc) {
-            this.upc = upc;
+            this.upc = OptionalNullable.of(upc);
+            return this;
+        }
+
+        /**
+         * UnSetter for upc.
+         * @return Builder
+         */
+        public Builder unsetUpc() {
+            upc = null;
             return this;
         }
 
@@ -569,7 +846,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder locationOverrides(List<ItemVariationLocationOverrides> locationOverrides) {
-            this.locationOverrides = locationOverrides;
+            this.locationOverrides = OptionalNullable.of(locationOverrides);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationOverrides.
+         * @return Builder
+         */
+        public Builder unsetLocationOverrides() {
+            locationOverrides = null;
             return this;
         }
 
@@ -579,7 +865,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder trackInventory(Boolean trackInventory) {
-            this.trackInventory = trackInventory;
+            this.trackInventory = OptionalNullable.of(trackInventory);
+            return this;
+        }
+
+        /**
+         * UnSetter for trackInventory.
+         * @return Builder
+         */
+        public Builder unsetTrackInventory() {
+            trackInventory = null;
             return this;
         }
 
@@ -599,7 +894,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {
-            this.inventoryAlertThreshold = inventoryAlertThreshold;
+            this.inventoryAlertThreshold = OptionalNullable.of(inventoryAlertThreshold);
+            return this;
+        }
+
+        /**
+         * UnSetter for inventoryAlertThreshold.
+         * @return Builder
+         */
+        public Builder unsetInventoryAlertThreshold() {
+            inventoryAlertThreshold = null;
             return this;
         }
 
@@ -609,7 +913,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder userData(String userData) {
-            this.userData = userData;
+            this.userData = OptionalNullable.of(userData);
+            return this;
+        }
+
+        /**
+         * UnSetter for userData.
+         * @return Builder
+         */
+        public Builder unsetUserData() {
+            userData = null;
             return this;
         }
 
@@ -619,7 +932,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder serviceDuration(Long serviceDuration) {
-            this.serviceDuration = serviceDuration;
+            this.serviceDuration = OptionalNullable.of(serviceDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for serviceDuration.
+         * @return Builder
+         */
+        public Builder unsetServiceDuration() {
+            serviceDuration = null;
             return this;
         }
 
@@ -629,7 +951,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder availableForBooking(Boolean availableForBooking) {
-            this.availableForBooking = availableForBooking;
+            this.availableForBooking = OptionalNullable.of(availableForBooking);
+            return this;
+        }
+
+        /**
+         * UnSetter for availableForBooking.
+         * @return Builder
+         */
+        public Builder unsetAvailableForBooking() {
+            availableForBooking = null;
             return this;
         }
 
@@ -641,7 +972,16 @@ public class CatalogItemVariation {
          */
         public Builder itemOptionValues(
                 List<CatalogItemOptionValueForItemVariation> itemOptionValues) {
-            this.itemOptionValues = itemOptionValues;
+            this.itemOptionValues = OptionalNullable.of(itemOptionValues);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemOptionValues.
+         * @return Builder
+         */
+        public Builder unsetItemOptionValues() {
+            itemOptionValues = null;
             return this;
         }
 
@@ -651,7 +991,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder measurementUnitId(String measurementUnitId) {
-            this.measurementUnitId = measurementUnitId;
+            this.measurementUnitId = OptionalNullable.of(measurementUnitId);
+            return this;
+        }
+
+        /**
+         * UnSetter for measurementUnitId.
+         * @return Builder
+         */
+        public Builder unsetMeasurementUnitId() {
+            measurementUnitId = null;
             return this;
         }
 
@@ -661,7 +1010,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder sellable(Boolean sellable) {
-            this.sellable = sellable;
+            this.sellable = OptionalNullable.of(sellable);
+            return this;
+        }
+
+        /**
+         * UnSetter for sellable.
+         * @return Builder
+         */
+        public Builder unsetSellable() {
+            sellable = null;
             return this;
         }
 
@@ -671,7 +1029,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder stockable(Boolean stockable) {
-            this.stockable = stockable;
+            this.stockable = OptionalNullable.of(stockable);
+            return this;
+        }
+
+        /**
+         * UnSetter for stockable.
+         * @return Builder
+         */
+        public Builder unsetStockable() {
+            stockable = null;
             return this;
         }
 
@@ -681,7 +1048,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder imageIds(List<String> imageIds) {
-            this.imageIds = imageIds;
+            this.imageIds = OptionalNullable.of(imageIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for imageIds.
+         * @return Builder
+         */
+        public Builder unsetImageIds() {
+            imageIds = null;
             return this;
         }
 
@@ -691,7 +1067,16 @@ public class CatalogItemVariation {
          * @return Builder
          */
         public Builder teamMemberIds(List<String> teamMemberIds) {
-            this.teamMemberIds = teamMemberIds;
+            this.teamMemberIds = OptionalNullable.of(teamMemberIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberIds.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberIds() {
+            teamMemberIds = null;
             return this;
         }
 

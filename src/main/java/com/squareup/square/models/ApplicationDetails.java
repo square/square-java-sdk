@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class ApplicationDetails {
     private final String squareProduct;
-    private final String applicationId;
+    private final OptionalNullable<String> applicationId;
 
     /**
      * Initialization constructor.
@@ -24,6 +27,14 @@ public class ApplicationDetails {
     public ApplicationDetails(
             @JsonProperty("square_product") String squareProduct,
             @JsonProperty("application_id") String applicationId) {
+        this.squareProduct = squareProduct;
+        this.applicationId = OptionalNullable.of(applicationId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ApplicationDetails(String squareProduct, OptionalNullable<String> applicationId) {
         this.squareProduct = squareProduct;
         this.applicationId = applicationId;
     }
@@ -40,6 +51,23 @@ public class ApplicationDetails {
     }
 
     /**
+     * Internal Getter for ApplicationId.
+     * The Square ID assigned to the application used to take the payment. Application developers
+     * can use this information to identify payments that their application processed. For example,
+     * if a developer uses a custom application to process payments, this field contains the
+     * application ID from the Developer Dashboard. If a seller uses a [Square App
+     * Marketplace](https://developer.squareup.com/docs/app-marketplace) application to process
+     * payments, the field contains the corresponding application ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("application_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetApplicationId() {
+        return this.applicationId;
+    }
+
+    /**
      * Getter for ApplicationId.
      * The Square ID assigned to the application used to take the payment. Application developers
      * can use this information to identify payments that their application processed. For example,
@@ -49,10 +77,9 @@ public class ApplicationDetails {
      * payments, the field contains the corresponding application ID.
      * @return Returns the String
      */
-    @JsonGetter("application_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getApplicationId() {
-        return applicationId;
+        return OptionalNullable.getFrom(applicationId);
     }
 
     @Override
@@ -90,8 +117,8 @@ public class ApplicationDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .squareProduct(getSquareProduct())
-                .applicationId(getApplicationId());
+                .squareProduct(getSquareProduct());
+        builder.applicationId = internalGetApplicationId();
         return builder;
     }
 
@@ -100,7 +127,7 @@ public class ApplicationDetails {
      */
     public static class Builder {
         private String squareProduct;
-        private String applicationId;
+        private OptionalNullable<String> applicationId;
 
 
 
@@ -120,7 +147,16 @@ public class ApplicationDetails {
          * @return Builder
          */
         public Builder applicationId(String applicationId) {
-            this.applicationId = applicationId;
+            this.applicationId = OptionalNullable.of(applicationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for applicationId.
+         * @return Builder
+         */
+        public Builder unsetApplicationId() {
+            applicationId = null;
             return this;
         }
 

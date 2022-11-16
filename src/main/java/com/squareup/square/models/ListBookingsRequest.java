@@ -3,21 +3,24 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListBookingsRequest type.
  */
 public class ListBookingsRequest {
-    private final Integer limit;
-    private final String cursor;
-    private final String teamMemberId;
-    private final String locationId;
-    private final String startAtMin;
-    private final String startAtMax;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> teamMemberId;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> startAtMin;
+    private final OptionalNullable<String> startAtMax;
 
     /**
      * Initialization constructor.
@@ -36,6 +39,20 @@ public class ListBookingsRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("start_at_min") String startAtMin,
             @JsonProperty("start_at_max") String startAtMax) {
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+        this.locationId = OptionalNullable.of(locationId);
+        this.startAtMin = OptionalNullable.of(startAtMin);
+        this.startAtMax = OptionalNullable.of(startAtMax);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListBookingsRequest(OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
+            OptionalNullable<String> teamMemberId, OptionalNullable<String> locationId,
+            OptionalNullable<String> startAtMin, OptionalNullable<String> startAtMax) {
         this.limit = limit;
         this.cursor = cursor;
         this.teamMemberId = teamMemberId;
@@ -45,14 +62,38 @@ public class ListBookingsRequest {
     }
 
     /**
+     * Internal Getter for Limit.
+     * The maximum number of results per page to return in a paged response.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
+    }
+
+    /**
      * Getter for Limit.
      * The maximum number of results per page to return in a paged response.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * The pagination cursor from the preceding response to return the next page of the results. Do
+     * not set this when retrieving the first page of the results.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -61,10 +102,22 @@ public class ListBookingsRequest {
      * not set this when retrieving the first page of the results.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for TeamMemberId.
+     * The team member for whom to retrieve bookings. If this is not set, bookings of all members
+     * are retrieved.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
     }
 
     /**
@@ -73,10 +126,22 @@ public class ListBookingsRequest {
      * are retrieved.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The location for which to retrieve bookings. If this is not set, all locations' bookings are
+     * retrieved.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -85,10 +150,22 @@ public class ListBookingsRequest {
      * retrieved.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for StartAtMin.
+     * The RFC 3339 timestamp specifying the earliest of the start time. If this is not set, the
+     * current time is used.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_at_min")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartAtMin() {
+        return this.startAtMin;
     }
 
     /**
@@ -97,10 +174,22 @@ public class ListBookingsRequest {
      * current time is used.
      * @return Returns the String
      */
-    @JsonGetter("start_at_min")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartAtMin() {
-        return startAtMin;
+        return OptionalNullable.getFrom(startAtMin);
+    }
+
+    /**
+     * Internal Getter for StartAtMax.
+     * The RFC 3339 timestamp specifying the latest of the start time. If this is not set, the time
+     * of 31 days after `start_at_min` is used.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_at_max")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartAtMax() {
+        return this.startAtMax;
     }
 
     /**
@@ -109,10 +198,9 @@ public class ListBookingsRequest {
      * of 31 days after `start_at_min` is used.
      * @return Returns the String
      */
-    @JsonGetter("start_at_max")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartAtMax() {
-        return startAtMax;
+        return OptionalNullable.getFrom(startAtMax);
     }
 
     @Override
@@ -154,13 +242,13 @@ public class ListBookingsRequest {
      * @return a new {@link ListBookingsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .limit(getLimit())
-                .cursor(getCursor())
-                .teamMemberId(getTeamMemberId())
-                .locationId(getLocationId())
-                .startAtMin(getStartAtMin())
-                .startAtMax(getStartAtMax());
+        Builder builder = new Builder();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
+        builder.teamMemberId = internalGetTeamMemberId();
+        builder.locationId = internalGetLocationId();
+        builder.startAtMin = internalGetStartAtMin();
+        builder.startAtMax = internalGetStartAtMax();
         return builder;
     }
 
@@ -168,12 +256,12 @@ public class ListBookingsRequest {
      * Class to build instances of {@link ListBookingsRequest}.
      */
     public static class Builder {
-        private Integer limit;
-        private String cursor;
-        private String teamMemberId;
-        private String locationId;
-        private String startAtMin;
-        private String startAtMax;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> teamMemberId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> startAtMin;
+        private OptionalNullable<String> startAtMax;
 
 
 
@@ -183,7 +271,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -193,7 +290,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -203,7 +309,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 
@@ -213,7 +328,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -223,7 +347,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder startAtMin(String startAtMin) {
-            this.startAtMin = startAtMin;
+            this.startAtMin = OptionalNullable.of(startAtMin);
+            return this;
+        }
+
+        /**
+         * UnSetter for startAtMin.
+         * @return Builder
+         */
+        public Builder unsetStartAtMin() {
+            startAtMin = null;
             return this;
         }
 
@@ -233,7 +366,16 @@ public class ListBookingsRequest {
          * @return Builder
          */
         public Builder startAtMax(String startAtMax) {
-            this.startAtMax = startAtMax;
+            this.startAtMax = OptionalNullable.of(startAtMax);
+            return this;
+        }
+
+        /**
+         * UnSetter for startAtMax.
+         * @return Builder
+         */
+        public Builder unsetStartAtMax() {
+            startAtMax = null;
             return this;
         }
 

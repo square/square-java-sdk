@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.utilities.JsonObject;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CustomAttributeDefinition type.
  */
 public class CustomAttributeDefinition {
-    private final String key;
-    private final JsonObject schema;
-    private final String name;
-    private final String description;
+    private final OptionalNullable<String> key;
+    private final OptionalNullable<JsonObject> schema;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> description;
     private final String visibility;
     private final Integer version;
     private final String updatedAt;
@@ -43,6 +46,23 @@ public class CustomAttributeDefinition {
             @JsonProperty("version") Integer version,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("created_at") String createdAt) {
+        this.key = OptionalNullable.of(key);
+        this.schema = OptionalNullable.of(schema);
+        this.name = OptionalNullable.of(name);
+        this.description = OptionalNullable.of(description);
+        this.visibility = visibility;
+        this.version = version;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomAttributeDefinition(OptionalNullable<String> key,
+            OptionalNullable<JsonObject> schema, OptionalNullable<String> name,
+            OptionalNullable<String> description, String visibility, Integer version,
+            String updatedAt, String createdAt) {
         this.key = key;
         this.schema = schema;
         this.name = name;
@@ -51,6 +71,26 @@ public class CustomAttributeDefinition {
         this.version = version;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal Getter for Key.
+     * The identifier of the custom attribute definition and its corresponding custom attributes.
+     * This value can be a simple key, which is the key that is provided when the custom attribute
+     * definition is created, or a qualified key, if the requesting application is not the
+     * definition owner. The qualified key consists of the application ID of the custom attribute
+     * definition owner followed by the simple key that was provided when the definition was
+     * created. It has the format application_id:simple key. The value for a simple key can contain
+     * up to 60 alphanumeric characters, periods (.), underscores (_), and hyphens (-). This field
+     * can not be changed after the custom attribute definition is created. This field is required
+     * when creating a definition and must be unique per application, seller, and resource type.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetKey() {
+        return this.key;
     }
 
     /**
@@ -66,10 +106,24 @@ public class CustomAttributeDefinition {
      * when creating a definition and must be unique per application, seller, and resource type.
      * @return Returns the String
      */
-    @JsonGetter("key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getKey() {
-        return key;
+        return OptionalNullable.getFrom(key);
+    }
+
+    /**
+     * Internal Getter for Schema.
+     * The JSON schema for the custom attribute definition, which determines the data type of the
+     * corresponding custom attributes. For more information, see [Custom Attributes
+     * Overview](https://developer.squareup.com/docs/devtools/customattributes/overview). This field
+     * is required when creating a definition.
+     * @return Returns the Internal JsonObject
+     */
+    @JsonGetter("schema")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<JsonObject> internalGetSchema() {
+        return this.schema;
     }
 
     /**
@@ -80,10 +134,23 @@ public class CustomAttributeDefinition {
      * is required when creating a definition.
      * @return Returns the JsonObject
      */
-    @JsonGetter("schema")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public JsonObject getSchema() {
-        return schema;
+        return OptionalNullable.getFrom(schema);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The name of the custom attribute definition for API and seller-facing UI purposes. The name
+     * must be unique within the seller and application pair. This field is required if the
+     * `visibility` field is `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -93,10 +160,24 @@ public class CustomAttributeDefinition {
      * `visibility` field is `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Description.
+     * Seller-oriented description of the custom attribute definition, including any constraints
+     * that the seller should observe. May be displayed as a tooltip in Square UIs. This field is
+     * required if the `visibility` field is `VISIBILITY_READ_ONLY` or
+     * `VISIBILITY_READ_WRITE_VALUES`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
     }
 
     /**
@@ -107,10 +188,9 @@ public class CustomAttributeDefinition {
      * `VISIBILITY_READ_WRITE_VALUES`.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -213,14 +293,14 @@ public class CustomAttributeDefinition {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .key(getKey())
-                .schema(getSchema())
-                .name(getName())
-                .description(getDescription())
                 .visibility(getVisibility())
                 .version(getVersion())
                 .updatedAt(getUpdatedAt())
                 .createdAt(getCreatedAt());
+        builder.key = internalGetKey();
+        builder.schema = internalGetSchema();
+        builder.name = internalGetName();
+        builder.description = internalGetDescription();
         return builder;
     }
 
@@ -228,10 +308,10 @@ public class CustomAttributeDefinition {
      * Class to build instances of {@link CustomAttributeDefinition}.
      */
     public static class Builder {
-        private String key;
-        private JsonObject schema;
-        private String name;
-        private String description;
+        private OptionalNullable<String> key;
+        private OptionalNullable<JsonObject> schema;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> description;
         private String visibility;
         private Integer version;
         private String updatedAt;
@@ -245,7 +325,16 @@ public class CustomAttributeDefinition {
          * @return Builder
          */
         public Builder key(String key) {
-            this.key = key;
+            this.key = OptionalNullable.of(key);
+            return this;
+        }
+
+        /**
+         * UnSetter for key.
+         * @return Builder
+         */
+        public Builder unsetKey() {
+            key = null;
             return this;
         }
 
@@ -255,7 +344,16 @@ public class CustomAttributeDefinition {
          * @return Builder
          */
         public Builder schema(JsonObject schema) {
-            this.schema = schema;
+            this.schema = OptionalNullable.of(schema);
+            return this;
+        }
+
+        /**
+         * UnSetter for schema.
+         * @return Builder
+         */
+        public Builder unsetSchema() {
+            schema = null;
             return this;
         }
 
@@ -265,7 +363,16 @@ public class CustomAttributeDefinition {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -275,7 +382,16 @@ public class CustomAttributeDefinition {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 

@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for UpdateVendorRequest type.
  */
 public class UpdateVendorRequest {
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
     private final Vendor vendor;
 
     /**
@@ -24,8 +27,31 @@ public class UpdateVendorRequest {
     public UpdateVendorRequest(
             @JsonProperty("vendor") Vendor vendor,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+        this.vendor = vendor;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateVendorRequest(Vendor vendor, OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         this.vendor = vendor;
+    }
+
+    /**
+     * Internal Getter for IdempotencyKey.
+     * A client-supplied, universally unique identifier (UUID) for the request. See
+     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the [API
+     * Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
     }
 
     /**
@@ -36,10 +62,9 @@ public class UpdateVendorRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     /**
@@ -86,8 +111,8 @@ public class UpdateVendorRequest {
      * @return a new {@link UpdateVendorRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(vendor)
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder(vendor);
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -96,7 +121,7 @@ public class UpdateVendorRequest {
      */
     public static class Builder {
         private Vendor vendor;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -122,7 +147,16 @@ public class UpdateVendorRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

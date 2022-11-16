@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class PayoutEntry {
     private final String id;
     private final String payoutId;
-    private final String effectiveAt;
+    private final OptionalNullable<String> effectiveAt;
     private final String type;
     private final Money grossAmountMoney;
     private final Money feeAmountMoney;
@@ -126,6 +129,64 @@ public class PayoutEntry {
             @JsonProperty("type_third_party_fee_refund_details") PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails) {
         this.id = id;
         this.payoutId = payoutId;
+        this.effectiveAt = OptionalNullable.of(effectiveAt);
+        this.type = type;
+        this.grossAmountMoney = grossAmountMoney;
+        this.feeAmountMoney = feeAmountMoney;
+        this.netAmountMoney = netAmountMoney;
+        this.typeAppFeeRevenueDetails = typeAppFeeRevenueDetails;
+        this.typeAppFeeRefundDetails = typeAppFeeRefundDetails;
+        this.typeAutomaticSavingsDetails = typeAutomaticSavingsDetails;
+        this.typeAutomaticSavingsReversedDetails = typeAutomaticSavingsReversedDetails;
+        this.typeChargeDetails = typeChargeDetails;
+        this.typeDepositFeeDetails = typeDepositFeeDetails;
+        this.typeDisputeDetails = typeDisputeDetails;
+        this.typeFeeDetails = typeFeeDetails;
+        this.typeFreeProcessingDetails = typeFreeProcessingDetails;
+        this.typeHoldAdjustmentDetails = typeHoldAdjustmentDetails;
+        this.typeOpenDisputeDetails = typeOpenDisputeDetails;
+        this.typeOtherDetails = typeOtherDetails;
+        this.typeOtherAdjustmentDetails = typeOtherAdjustmentDetails;
+        this.typeRefundDetails = typeRefundDetails;
+        this.typeReleaseAdjustmentDetails = typeReleaseAdjustmentDetails;
+        this.typeReserveHoldDetails = typeReserveHoldDetails;
+        this.typeReserveReleaseDetails = typeReserveReleaseDetails;
+        this.typeSquareCapitalPaymentDetails = typeSquareCapitalPaymentDetails;
+        this.typeSquareCapitalReversedPaymentDetails = typeSquareCapitalReversedPaymentDetails;
+        this.typeTaxOnFeeDetails = typeTaxOnFeeDetails;
+        this.typeThirdPartyFeeDetails = typeThirdPartyFeeDetails;
+        this.typeThirdPartyFeeRefundDetails = typeThirdPartyFeeRefundDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PayoutEntry(String id, String payoutId, OptionalNullable<String> effectiveAt,
+            String type, Money grossAmountMoney, Money feeAmountMoney, Money netAmountMoney,
+            PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails,
+            PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails,
+            PaymentBalanceActivityAutomaticSavingsDetail typeAutomaticSavingsDetails,
+            PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails,
+            PaymentBalanceActivityChargeDetail typeChargeDetails,
+            PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails,
+            PaymentBalanceActivityDisputeDetail typeDisputeDetails,
+            PaymentBalanceActivityFeeDetail typeFeeDetails,
+            PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails,
+            PaymentBalanceActivityHoldAdjustmentDetail typeHoldAdjustmentDetails,
+            PaymentBalanceActivityOpenDisputeDetail typeOpenDisputeDetails,
+            PaymentBalanceActivityOtherDetail typeOtherDetails,
+            PaymentBalanceActivityOtherAdjustmentDetail typeOtherAdjustmentDetails,
+            PaymentBalanceActivityRefundDetail typeRefundDetails,
+            PaymentBalanceActivityReleaseAdjustmentDetail typeReleaseAdjustmentDetails,
+            PaymentBalanceActivityReserveHoldDetail typeReserveHoldDetails,
+            PaymentBalanceActivityReserveReleaseDetail typeReserveReleaseDetails,
+            PaymentBalanceActivitySquareCapitalPaymentDetail typeSquareCapitalPaymentDetails,
+            PaymentBalanceActivitySquareCapitalReversedPaymentDetail typeSquareCapitalReversedPaymentDetails,
+            PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails,
+            PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails,
+            PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails) {
+        this.id = id;
+        this.payoutId = payoutId;
         this.effectiveAt = effectiveAt;
         this.type = type;
         this.grossAmountMoney = grossAmountMoney;
@@ -176,14 +237,25 @@ public class PayoutEntry {
     }
 
     /**
+     * Internal Getter for EffectiveAt.
+     * The timestamp of when the payout entry affected the balance, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("effective_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEffectiveAt() {
+        return this.effectiveAt;
+    }
+
+    /**
      * Getter for EffectiveAt.
      * The timestamp of when the payout entry affected the balance, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("effective_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEffectiveAt() {
-        return effectiveAt;
+        return OptionalNullable.getFrom(effectiveAt);
     }
 
     /**
@@ -286,7 +358,6 @@ public class PayoutEntry {
 
     /**
      * Getter for TypeChargeDetails.
-     * DESCRIPTION OF PaymentBalanceActivityChargeDetail
      * @return Returns the PaymentBalanceActivityChargeDetail
      */
     @JsonGetter("type_charge_details")
@@ -559,7 +630,6 @@ public class PayoutEntry {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, payoutId)
-                .effectiveAt(getEffectiveAt())
                 .type(getType())
                 .grossAmountMoney(getGrossAmountMoney())
                 .feeAmountMoney(getFeeAmountMoney())
@@ -586,6 +656,7 @@ public class PayoutEntry {
                 .typeTaxOnFeeDetails(getTypeTaxOnFeeDetails())
                 .typeThirdPartyFeeDetails(getTypeThirdPartyFeeDetails())
                 .typeThirdPartyFeeRefundDetails(getTypeThirdPartyFeeRefundDetails());
+        builder.effectiveAt = internalGetEffectiveAt();
         return builder;
     }
 
@@ -595,7 +666,7 @@ public class PayoutEntry {
     public static class Builder {
         private String id;
         private String payoutId;
-        private String effectiveAt;
+        private OptionalNullable<String> effectiveAt;
         private String type;
         private Money grossAmountMoney;
         private Money feeAmountMoney;
@@ -659,7 +730,16 @@ public class PayoutEntry {
          * @return Builder
          */
         public Builder effectiveAt(String effectiveAt) {
-            this.effectiveAt = effectiveAt;
+            this.effectiveAt = OptionalNullable.of(effectiveAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for effectiveAt.
+         * @return Builder
+         */
+        public Builder unsetEffectiveAt() {
+            effectiveAt = null;
             return this;
         }
 

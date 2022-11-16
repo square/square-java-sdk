@@ -58,7 +58,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * that all children of the targeted object are also deleted. For example, deleting a
      * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
-     * be deleted. The response will only include IDs that were actually deleted.
+     * be deleted. The response will only include IDs that were actually deleted. To ensure
+     * consistency, only one delete request is processed at a time per seller account. While one
+     * (batch or non-batch) delete request is being processed, other (batched and non-batched)
+     * delete requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchDeleteCatalogObjectsResponse response from the API call
@@ -76,7 +79,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * that all children of the targeted object are also deleted. For example, deleting a
      * CatalogItem will also delete all of its [CatalogItemVariation]($m/CatalogItemVariation)
      * children. `BatchDeleteCatalogObjects` succeeds even if only a portion of the targeted IDs can
-     * be deleted. The response will only include IDs that were actually deleted.
+     * be deleted. The response will only include IDs that were actually deleted. To ensure
+     * consistency, only one delete request is processed at a time per seller account. While one
+     * (batch or non-batch) delete request is being processed, other (batched and non-batched)
+     * delete requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchDeleteCatalogObjectsResponse response from the API call
@@ -187,7 +193,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * database constraint, the entire batch containing that item will be disregarded. However,
      * other batches in the same request may still succeed. Each batch may contain up to 1,000
      * objects, and batches will be processed in order as long as the total object count for the
-     * request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
+     * request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000. To
+     * ensure consistency, only one update request is processed at a time per seller account. While
+     * one (batch or non-batch) update request is being processed, other (batched and non-batched)
+     * update requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchUpsertCatalogObjectsResponse response from the API call
@@ -206,7 +215,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * database constraint, the entire batch containing that item will be disregarded. However,
      * other batches in the same request may still succeed. Each batch may contain up to 1,000
      * objects, and batches will be processed in order as long as the total object count for the
-     * request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
+     * request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000. To
+     * ensure consistency, only one update request is processed at a time per seller account. While
+     * one (batch or non-batch) update request is being processed, other (batched and non-batched)
+     * update requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the BatchUpsertCatalogObjectsResponse response from the API call
@@ -554,7 +566,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Creates or updates the target [CatalogObject]($m/CatalogObject).
+     * Creates a new or updates the specified [CatalogObject]($m/CatalogObject). To ensure
+     * consistency, only one update request is processed at a time per seller account. While one
+     * (batch or non-batch) update request is being processed, other (batched and non-batched)
+     * update requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -567,7 +582,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     }
 
     /**
-     * Creates or updates the target [CatalogObject]($m/CatalogObject).
+     * Creates a new or updates the specified [CatalogObject]($m/CatalogObject). To ensure
+     * consistency, only one update request is processed at a time per seller account. While one
+     * (batch or non-batch) update request is being processed, other (batched and non-batched)
+     * update requests are rejected with the `429` error code.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpsertCatalogObjectResponse response from the API call
@@ -613,7 +631,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
      * children of the targeted object are also deleted. For example, deleting a
      * [CatalogItem]($m/CatalogItem) will also delete all of its
-     * [CatalogItemVariation]($m/CatalogItemVariation) children.
+     * [CatalogItemVariation]($m/CatalogItemVariation) children. To ensure consistency, only one
+     * delete request is processed at a time per seller account. While one (batch or non-batch)
+     * delete request is being processed, other (batched and non-batched) delete requests are
+     * rejected with the `429` error code.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item
@@ -632,7 +653,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      * set of successfully deleted IDs in the response. Deletion is a cascading event such that all
      * children of the targeted object are also deleted. For example, deleting a
      * [CatalogItem]($m/CatalogItem) will also delete all of its
-     * [CatalogItemVariation]($m/CatalogItemVariation) children.
+     * [CatalogItemVariation]($m/CatalogItemVariation) children. To ensure consistency, only one
+     * delete request is processed at a time per seller account. While one (batch or non-batch)
+     * delete request is being processed, other (batched and non-batched) delete requests are
+     * rejected with the `429` error code.
      * @param  objectId  Required parameter: The ID of the catalog object to be deleted. When an
      *         object is deleted, other objects in the graph that depend on that object will be
      *         deleted as well (for example, deleting a catalog item will delete its catalog item

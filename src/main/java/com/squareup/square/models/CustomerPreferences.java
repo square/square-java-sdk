@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CustomerPreferences type.
  */
 public class CustomerPreferences {
-    private final Boolean emailUnsubscribed;
+    private final OptionalNullable<Boolean> emailUnsubscribed;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,28 @@ public class CustomerPreferences {
     @JsonCreator
     public CustomerPreferences(
             @JsonProperty("email_unsubscribed") Boolean emailUnsubscribed) {
+        this.emailUnsubscribed = OptionalNullable.of(emailUnsubscribed);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerPreferences(OptionalNullable<Boolean> emailUnsubscribed) {
         this.emailUnsubscribed = emailUnsubscribed;
+    }
+
+    /**
+     * Internal Getter for EmailUnsubscribed.
+     * Indicates whether the customer has unsubscribed from marketing campaign emails. A value of
+     * `true` means that the customer chose to opt out of email marketing from the current Square
+     * seller or from all Square sellers. This value is read-only from the Customers API.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("email_unsubscribed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEmailUnsubscribed() {
+        return this.emailUnsubscribed;
     }
 
     /**
@@ -31,10 +55,9 @@ public class CustomerPreferences {
      * seller or from all Square sellers. This value is read-only from the Customers API.
      * @return Returns the Boolean
      */
-    @JsonGetter("email_unsubscribed")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getEmailUnsubscribed() {
-        return emailUnsubscribed;
+        return OptionalNullable.getFrom(emailUnsubscribed);
     }
 
     @Override
@@ -69,8 +92,8 @@ public class CustomerPreferences {
      * @return a new {@link CustomerPreferences.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .emailUnsubscribed(getEmailUnsubscribed());
+        Builder builder = new Builder();
+        builder.emailUnsubscribed = internalGetEmailUnsubscribed();
         return builder;
     }
 
@@ -78,7 +101,7 @@ public class CustomerPreferences {
      * Class to build instances of {@link CustomerPreferences}.
      */
     public static class Builder {
-        private Boolean emailUnsubscribed;
+        private OptionalNullable<Boolean> emailUnsubscribed;
 
 
 
@@ -88,7 +111,16 @@ public class CustomerPreferences {
          * @return Builder
          */
         public Builder emailUnsubscribed(Boolean emailUnsubscribed) {
-            this.emailUnsubscribed = emailUnsubscribed;
+            this.emailUnsubscribed = OptionalNullable.of(emailUnsubscribed);
+            return this;
+        }
+
+        /**
+         * UnSetter for emailUnsubscribed.
+         * @return Builder
+         */
+        public Builder unsetEmailUnsubscribed() {
+            emailUnsubscribed = null;
             return this;
         }
 

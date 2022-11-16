@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class ShiftWorkday {
     private final DateRange dateRange;
     private final String matchShiftsBy;
-    private final String defaultTimezone;
+    private final OptionalNullable<String> defaultTimezone;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class ShiftWorkday {
             @JsonProperty("date_range") DateRange dateRange,
             @JsonProperty("match_shifts_by") String matchShiftsBy,
             @JsonProperty("default_timezone") String defaultTimezone) {
+        this.dateRange = dateRange;
+        this.matchShiftsBy = matchShiftsBy;
+        this.defaultTimezone = OptionalNullable.of(defaultTimezone);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ShiftWorkday(DateRange dateRange, String matchShiftsBy,
+            OptionalNullable<String> defaultTimezone) {
         this.dateRange = dateRange;
         this.matchShiftsBy = matchShiftsBy;
         this.defaultTimezone = defaultTimezone;
@@ -56,16 +69,29 @@ public class ShiftWorkday {
     }
 
     /**
+     * Internal Getter for DefaultTimezone.
+     * Location-specific timezones convert workdays to datetime filters. Every location included in
+     * the query must have a timezone or this field must be provided as a fallback. Format: the IANA
+     * timezone database identifier for the relevant timezone.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("default_timezone")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDefaultTimezone() {
+        return this.defaultTimezone;
+    }
+
+    /**
      * Getter for DefaultTimezone.
      * Location-specific timezones convert workdays to datetime filters. Every location included in
      * the query must have a timezone or this field must be provided as a fallback. Format: the IANA
      * timezone database identifier for the relevant timezone.
      * @return Returns the String
      */
-    @JsonGetter("default_timezone")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDefaultTimezone() {
-        return defaultTimezone;
+        return OptionalNullable.getFrom(defaultTimezone);
     }
 
     @Override
@@ -105,8 +131,8 @@ public class ShiftWorkday {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .dateRange(getDateRange())
-                .matchShiftsBy(getMatchShiftsBy())
-                .defaultTimezone(getDefaultTimezone());
+                .matchShiftsBy(getMatchShiftsBy());
+        builder.defaultTimezone = internalGetDefaultTimezone();
         return builder;
     }
 
@@ -116,7 +142,7 @@ public class ShiftWorkday {
     public static class Builder {
         private DateRange dateRange;
         private String matchShiftsBy;
-        private String defaultTimezone;
+        private OptionalNullable<String> defaultTimezone;
 
 
 
@@ -146,7 +172,16 @@ public class ShiftWorkday {
          * @return Builder
          */
         public Builder defaultTimezone(String defaultTimezone) {
-            this.defaultTimezone = defaultTimezone;
+            this.defaultTimezone = OptionalNullable.of(defaultTimezone);
+            return this;
+        }
+
+        /**
+         * UnSetter for defaultTimezone.
+         * @return Builder
+         */
+        public Builder unsetDefaultTimezone() {
+            defaultTimezone = null;
             return this;
         }
 

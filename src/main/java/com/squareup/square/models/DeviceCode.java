@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,11 +16,11 @@ import java.util.Objects;
  */
 public class DeviceCode {
     private final String id;
-    private final String name;
+    private final OptionalNullable<String> name;
     private final String code;
     private final String deviceId;
     private final String productType;
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final String status;
     private final String pairBy;
     private final String createdAt;
@@ -52,6 +55,25 @@ public class DeviceCode {
             @JsonProperty("status_changed_at") String statusChangedAt,
             @JsonProperty("paired_at") String pairedAt) {
         this.id = id;
+        this.name = OptionalNullable.of(name);
+        this.code = code;
+        this.deviceId = deviceId;
+        this.productType = productType;
+        this.locationId = OptionalNullable.of(locationId);
+        this.status = status;
+        this.pairBy = pairBy;
+        this.createdAt = createdAt;
+        this.statusChangedAt = statusChangedAt;
+        this.pairedAt = pairedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DeviceCode(String productType, String id, OptionalNullable<String> name, String code,
+            String deviceId, OptionalNullable<String> locationId, String status, String pairBy,
+            String createdAt, String statusChangedAt, String pairedAt) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.deviceId = deviceId;
@@ -76,14 +98,25 @@ public class DeviceCode {
     }
 
     /**
+     * Internal Getter for Name.
+     * An optional user-defined name for the device code.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * An optional user-defined name for the device code.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -118,14 +151,25 @@ public class DeviceCode {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The location assigned to this code.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The location assigned to this code.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -231,15 +275,15 @@ public class DeviceCode {
     public Builder toBuilder() {
         Builder builder = new Builder(productType)
                 .id(getId())
-                .name(getName())
                 .code(getCode())
                 .deviceId(getDeviceId())
-                .locationId(getLocationId())
                 .status(getStatus())
                 .pairBy(getPairBy())
                 .createdAt(getCreatedAt())
                 .statusChangedAt(getStatusChangedAt())
                 .pairedAt(getPairedAt());
+        builder.name = internalGetName();
+        builder.locationId = internalGetLocationId();
         return builder;
     }
 
@@ -249,10 +293,10 @@ public class DeviceCode {
     public static class Builder {
         private String productType = "TERMINAL_API";
         private String id;
-        private String name;
+        private OptionalNullable<String> name;
         private String code;
         private String deviceId;
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private String status;
         private String pairBy;
         private String createdAt;
@@ -293,7 +337,16 @@ public class DeviceCode {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -323,7 +376,16 @@ public class DeviceCode {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 

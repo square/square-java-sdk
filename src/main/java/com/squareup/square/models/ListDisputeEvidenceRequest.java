@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListDisputeEvidenceRequest type.
  */
 public class ListDisputeEvidenceRequest {
-    private final String cursor;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,28 @@ public class ListDisputeEvidenceRequest {
     @JsonCreator
     public ListDisputeEvidenceRequest(
             @JsonProperty("cursor") String cursor) {
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListDisputeEvidenceRequest(OptionalNullable<String> cursor) {
         this.cursor = cursor;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -31,10 +55,9 @@ public class ListDisputeEvidenceRequest {
      * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -69,8 +92,8 @@ public class ListDisputeEvidenceRequest {
      * @return a new {@link ListDisputeEvidenceRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .cursor(getCursor());
+        Builder builder = new Builder();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -78,7 +101,7 @@ public class ListDisputeEvidenceRequest {
      * Class to build instances of {@link ListDisputeEvidenceRequest}.
      */
     public static class Builder {
-        private String cursor;
+        private OptionalNullable<String> cursor;
 
 
 
@@ -88,7 +111,16 @@ public class ListDisputeEvidenceRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

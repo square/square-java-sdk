@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DigitalWalletDetails type.
  */
 public class DigitalWalletDetails {
-    private final String status;
-    private final String brand;
+    private final OptionalNullable<String> status;
+    private final OptionalNullable<String> brand;
     private final CashAppDetails cashAppDetails;
 
     /**
@@ -27,9 +30,32 @@ public class DigitalWalletDetails {
             @JsonProperty("status") String status,
             @JsonProperty("brand") String brand,
             @JsonProperty("cash_app_details") CashAppDetails cashAppDetails) {
+        this.status = OptionalNullable.of(status);
+        this.brand = OptionalNullable.of(brand);
+        this.cashAppDetails = cashAppDetails;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DigitalWalletDetails(OptionalNullable<String> status, OptionalNullable<String> brand,
+            CashAppDetails cashAppDetails) {
         this.status = status;
         this.brand = brand;
         this.cashAppDetails = cashAppDetails;
+    }
+
+    /**
+     * Internal Getter for Status.
+     * The status of the `WALLET` payment. The status can be `AUTHORIZED`, `CAPTURED`, `VOIDED`, or
+     * `FAILED`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatus() {
+        return this.status;
     }
 
     /**
@@ -38,10 +64,21 @@ public class DigitalWalletDetails {
      * `FAILED`.
      * @return Returns the String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
+    }
+
+    /**
+     * Internal Getter for Brand.
+     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY` or `UNKNOWN`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("brand")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBrand() {
+        return this.brand;
     }
 
     /**
@@ -49,10 +86,9 @@ public class DigitalWalletDetails {
      * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY` or `UNKNOWN`.
      * @return Returns the String
      */
-    @JsonGetter("brand")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBrand() {
-        return brand;
+        return OptionalNullable.getFrom(brand);
     }
 
     /**
@@ -102,9 +138,9 @@ public class DigitalWalletDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .status(getStatus())
-                .brand(getBrand())
                 .cashAppDetails(getCashAppDetails());
+        builder.status = internalGetStatus();
+        builder.brand = internalGetBrand();
         return builder;
     }
 
@@ -112,8 +148,8 @@ public class DigitalWalletDetails {
      * Class to build instances of {@link DigitalWalletDetails}.
      */
     public static class Builder {
-        private String status;
-        private String brand;
+        private OptionalNullable<String> status;
+        private OptionalNullable<String> brand;
         private CashAppDetails cashAppDetails;
 
 
@@ -124,7 +160,16 @@ public class DigitalWalletDetails {
          * @return Builder
          */
         public Builder status(String status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 
@@ -134,7 +179,16 @@ public class DigitalWalletDetails {
          * @return Builder
          */
         public Builder brand(String brand) {
-            this.brand = brand;
+            this.brand = OptionalNullable.of(brand);
+            return this;
+        }
+
+        /**
+         * UnSetter for brand.
+         * @return Builder
+         */
+        public Builder unsetBrand() {
+            brand = null;
             return this;
         }
 

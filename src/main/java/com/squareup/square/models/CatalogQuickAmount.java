@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,8 +17,8 @@ import java.util.Objects;
 public class CatalogQuickAmount {
     private final String type;
     private final Money amount;
-    private final Long score;
-    private final Long ordinal;
+    private final OptionalNullable<Long> score;
+    private final OptionalNullable<Long> ordinal;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,17 @@ public class CatalogQuickAmount {
             @JsonProperty("amount") Money amount,
             @JsonProperty("score") Long score,
             @JsonProperty("ordinal") Long ordinal) {
+        this.type = type;
+        this.amount = amount;
+        this.score = OptionalNullable.of(score);
+        this.ordinal = OptionalNullable.of(ordinal);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQuickAmount(String type, Money amount, OptionalNullable<Long> score,
+            OptionalNullable<Long> ordinal) {
         this.type = type;
         this.amount = amount;
         this.score = score;
@@ -62,15 +76,39 @@ public class CatalogQuickAmount {
     }
 
     /**
+     * Internal Getter for Score.
+     * Describes the ranking of the Quick Amount provided by machine learning model, in the range
+     * [0, 100]. MANUAL type amount will always have score = 100.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("score")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetScore() {
+        return this.score;
+    }
+
+    /**
      * Getter for Score.
      * Describes the ranking of the Quick Amount provided by machine learning model, in the range
      * [0, 100]. MANUAL type amount will always have score = 100.
      * @return Returns the Long
      */
-    @JsonGetter("score")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getScore() {
-        return score;
+        return OptionalNullable.getFrom(score);
+    }
+
+    /**
+     * Internal Getter for Ordinal.
+     * The order in which this Quick Amount should be displayed.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetOrdinal() {
+        return this.ordinal;
     }
 
     /**
@@ -78,10 +116,9 @@ public class CatalogQuickAmount {
      * The order in which this Quick Amount should be displayed.
      * @return Returns the Long
      */
-    @JsonGetter("ordinal")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getOrdinal() {
-        return ordinal;
+        return OptionalNullable.getFrom(ordinal);
     }
 
     @Override
@@ -120,9 +157,9 @@ public class CatalogQuickAmount {
      * @return a new {@link CatalogQuickAmount.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type, amount)
-                .score(getScore())
-                .ordinal(getOrdinal());
+        Builder builder = new Builder(type, amount);
+        builder.score = internalGetScore();
+        builder.ordinal = internalGetOrdinal();
         return builder;
     }
 
@@ -132,8 +169,8 @@ public class CatalogQuickAmount {
     public static class Builder {
         private String type;
         private Money amount;
-        private Long score;
-        private Long ordinal;
+        private OptionalNullable<Long> score;
+        private OptionalNullable<Long> ordinal;
 
         /**
          * Initialization constructor.
@@ -171,7 +208,16 @@ public class CatalogQuickAmount {
          * @return Builder
          */
         public Builder score(Long score) {
-            this.score = score;
+            this.score = OptionalNullable.of(score);
+            return this;
+        }
+
+        /**
+         * UnSetter for score.
+         * @return Builder
+         */
+        public Builder unsetScore() {
+            score = null;
             return this;
         }
 
@@ -181,7 +227,16 @@ public class CatalogQuickAmount {
          * @return Builder
          */
         public Builder ordinal(Long ordinal) {
-            this.ordinal = ordinal;
+            this.ordinal = OptionalNullable.of(ordinal);
+            return this;
+        }
+
+        /**
+         * UnSetter for ordinal.
+         * @return Builder
+         */
+        public Builder unsetOrdinal() {
+            ordinal = null;
             return this;
         }
 

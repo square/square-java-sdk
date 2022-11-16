@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for V1Money type.
  */
 public class V1Money {
-    private final Integer amount;
+    private final OptionalNullable<Integer> amount;
     private final String currencyCode;
 
     /**
@@ -24,8 +27,29 @@ public class V1Money {
     public V1Money(
             @JsonProperty("amount") Integer amount,
             @JsonProperty("currency_code") String currencyCode) {
+        this.amount = OptionalNullable.of(amount);
+        this.currencyCode = currencyCode;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Money(OptionalNullable<Integer> amount, String currencyCode) {
         this.amount = amount;
         this.currencyCode = currencyCode;
+    }
+
+    /**
+     * Internal Getter for Amount.
+     * Amount in the lowest denominated value of this Currency. E.g. in USD these are cents, in JPY
+     * they are Yen (which do not have a 'cent' concept).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetAmount() {
+        return this.amount;
     }
 
     /**
@@ -34,10 +58,9 @@ public class V1Money {
      * they are Yen (which do not have a 'cent' concept).
      * @return Returns the Integer
      */
-    @JsonGetter("amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getAmount() {
-        return amount;
+        return OptionalNullable.getFrom(amount);
     }
 
     /**
@@ -86,8 +109,8 @@ public class V1Money {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .amount(getAmount())
                 .currencyCode(getCurrencyCode());
+        builder.amount = internalGetAmount();
         return builder;
     }
 
@@ -95,7 +118,7 @@ public class V1Money {
      * Class to build instances of {@link V1Money}.
      */
     public static class Builder {
-        private Integer amount;
+        private OptionalNullable<Integer> amount;
         private String currencyCode;
 
 
@@ -106,7 +129,16 @@ public class V1Money {
          * @return Builder
          */
         public Builder amount(Integer amount) {
-            this.amount = amount;
+            this.amount = OptionalNullable.of(amount);
+            return this;
+        }
+
+        /**
+         * UnSetter for amount.
+         * @return Builder
+         */
+        public Builder unsetAmount() {
+            amount = null;
             return this;
         }
 

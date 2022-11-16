@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest {
     private final String customerId;
     private final CustomAttribute customAttribute;
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,17 @@ public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUps
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("custom_attribute") CustomAttribute customAttribute,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.customerId = customerId;
+        this.customAttribute = customAttribute;
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest(
+            String customerId, CustomAttribute customAttribute,
+            OptionalNullable<String> idempotencyKey) {
         this.customerId = customerId;
         this.customAttribute = customAttribute;
         this.idempotencyKey = idempotencyKey;
@@ -54,16 +68,29 @@ public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUps
     }
 
     /**
+     * Internal Getter for IdempotencyKey.
+     * A unique identifier for this individual upsert request, used to ensure idempotency. For more
+     * information, see
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
+    }
+
+    /**
      * Getter for IdempotencyKey.
      * A unique identifier for this individual upsert request, used to ensure idempotency. For more
      * information, see
      * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -103,8 +130,8 @@ public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUps
      * @return a new {@link BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(customerId, customAttribute)
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder(customerId, customAttribute);
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -114,7 +141,7 @@ public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUps
     public static class Builder {
         private String customerId;
         private CustomAttribute customAttribute;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -152,7 +179,16 @@ public class BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUps
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

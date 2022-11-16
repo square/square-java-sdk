@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +18,7 @@ import java.util.Objects;
 public class CatalogCustomAttributeDefinition {
     private final String type;
     private final String name;
-    private final String description;
+    private final OptionalNullable<String> description;
     private final SourceApplication sourceApplication;
     private final List<String> allowedObjectTypes;
     private final String sellerVisibility;
@@ -24,7 +27,7 @@ public class CatalogCustomAttributeDefinition {
     private final CatalogCustomAttributeDefinitionNumberConfig numberConfig;
     private final CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
     private final Integer customAttributeUsageCount;
-    private final String key;
+    private final OptionalNullable<String> key;
 
     /**
      * Initialization constructor.
@@ -56,6 +59,30 @@ public class CatalogCustomAttributeDefinition {
             @JsonProperty("selection_config") CatalogCustomAttributeDefinitionSelectionConfig selectionConfig,
             @JsonProperty("custom_attribute_usage_count") Integer customAttributeUsageCount,
             @JsonProperty("key") String key) {
+        this.type = type;
+        this.name = name;
+        this.description = OptionalNullable.of(description);
+        this.sourceApplication = sourceApplication;
+        this.allowedObjectTypes = allowedObjectTypes;
+        this.sellerVisibility = sellerVisibility;
+        this.appVisibility = appVisibility;
+        this.stringConfig = stringConfig;
+        this.numberConfig = numberConfig;
+        this.selectionConfig = selectionConfig;
+        this.customAttributeUsageCount = customAttributeUsageCount;
+        this.key = OptionalNullable.of(key);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogCustomAttributeDefinition(String type, String name,
+            List<String> allowedObjectTypes, OptionalNullable<String> description,
+            SourceApplication sourceApplication, String sellerVisibility, String appVisibility,
+            CatalogCustomAttributeDefinitionStringConfig stringConfig,
+            CatalogCustomAttributeDefinitionNumberConfig numberConfig,
+            CatalogCustomAttributeDefinitionSelectionConfig selectionConfig,
+            Integer customAttributeUsageCount, OptionalNullable<String> key) {
         this.type = type;
         this.name = name;
         this.description = description;
@@ -93,15 +120,27 @@ public class CatalogCustomAttributeDefinition {
     }
 
     /**
+     * Internal Getter for Description.
+     * Seller-oriented description of the meaning of this Custom Attribute, any constraints that the
+     * seller should observe, etc. May be displayed as a tooltip in Square UIs.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
      * Getter for Description.
      * Seller-oriented description of the meaning of this Custom Attribute, any constraints that the
      * seller should observe, etc. May be displayed as a tooltip in Square UIs.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -197,6 +236,21 @@ public class CatalogCustomAttributeDefinition {
     }
 
     /**
+     * Internal Getter for Key.
+     * The name of the desired custom attribute key that can be used to access the custom attribute
+     * value on catalog objects. Cannot be modified after the custom attribute definition has been
+     * created. Must be between 1 and 60 characters, and may only contain the characters
+     * `[a-zA-Z0-9_-]`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetKey() {
+        return this.key;
+    }
+
+    /**
      * Getter for Key.
      * The name of the desired custom attribute key that can be used to access the custom attribute
      * value on catalog objects. Cannot be modified after the custom attribute definition has been
@@ -204,10 +258,9 @@ public class CatalogCustomAttributeDefinition {
      * `[a-zA-Z0-9_-]`.
      * @return Returns the String
      */
-    @JsonGetter("key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getKey() {
-        return key;
+        return OptionalNullable.getFrom(key);
     }
 
     @Override
@@ -262,15 +315,15 @@ public class CatalogCustomAttributeDefinition {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(type, name, allowedObjectTypes)
-                .description(getDescription())
                 .sourceApplication(getSourceApplication())
                 .sellerVisibility(getSellerVisibility())
                 .appVisibility(getAppVisibility())
                 .stringConfig(getStringConfig())
                 .numberConfig(getNumberConfig())
                 .selectionConfig(getSelectionConfig())
-                .customAttributeUsageCount(getCustomAttributeUsageCount())
-                .key(getKey());
+                .customAttributeUsageCount(getCustomAttributeUsageCount());
+        builder.description = internalGetDescription();
+        builder.key = internalGetKey();
         return builder;
     }
 
@@ -281,7 +334,7 @@ public class CatalogCustomAttributeDefinition {
         private String type;
         private String name;
         private List<String> allowedObjectTypes;
-        private String description;
+        private OptionalNullable<String> description;
         private SourceApplication sourceApplication;
         private String sellerVisibility;
         private String appVisibility;
@@ -289,7 +342,7 @@ public class CatalogCustomAttributeDefinition {
         private CatalogCustomAttributeDefinitionNumberConfig numberConfig;
         private CatalogCustomAttributeDefinitionSelectionConfig selectionConfig;
         private Integer customAttributeUsageCount;
-        private String key;
+        private OptionalNullable<String> key;
 
         /**
          * Initialization constructor.
@@ -339,7 +392,16 @@ public class CatalogCustomAttributeDefinition {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -423,7 +485,16 @@ public class CatalogCustomAttributeDefinition {
          * @return Builder
          */
         public Builder key(String key) {
-            this.key = key;
+            this.key = OptionalNullable.of(key);
+            return this;
+        }
+
+        /**
+         * UnSetter for key.
+         * @return Builder
+         */
+        public Builder unsetKey() {
+            key = null;
             return this;
         }
 

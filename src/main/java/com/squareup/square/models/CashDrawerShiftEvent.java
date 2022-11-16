@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,11 +16,11 @@ import java.util.Objects;
  */
 public class CashDrawerShiftEvent {
     private final String id;
-    private final String employeeId;
+    private final OptionalNullable<String> employeeId;
     private final String eventType;
     private final Money eventMoney;
     private final String createdAt;
-    private final String description;
+    private final OptionalNullable<String> description;
 
     /**
      * Initialization constructor.
@@ -36,6 +39,19 @@ public class CashDrawerShiftEvent {
             @JsonProperty("event_money") Money eventMoney,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("description") String description) {
+        this.id = id;
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.eventType = eventType;
+        this.eventMoney = eventMoney;
+        this.createdAt = createdAt;
+        this.description = OptionalNullable.of(description);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CashDrawerShiftEvent(String id, OptionalNullable<String> employeeId, String eventType,
+            Money eventMoney, String createdAt, OptionalNullable<String> description) {
         this.id = id;
         this.employeeId = employeeId;
         this.eventType = eventType;
@@ -56,14 +72,25 @@ public class CashDrawerShiftEvent {
     }
 
     /**
+     * Internal Getter for EmployeeId.
+     * The ID of the employee that created the event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
      * Getter for EmployeeId.
      * The ID of the employee that created the event.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
     }
 
     /**
@@ -106,14 +133,25 @@ public class CashDrawerShiftEvent {
     }
 
     /**
+     * Internal Getter for Description.
+     * An optional description of the event, entered by the employee that created the event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
      * Getter for Description.
      * An optional description of the event, entered by the employee that created the event.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     @Override
@@ -157,11 +195,11 @@ public class CashDrawerShiftEvent {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .employeeId(getEmployeeId())
                 .eventType(getEventType())
                 .eventMoney(getEventMoney())
-                .createdAt(getCreatedAt())
-                .description(getDescription());
+                .createdAt(getCreatedAt());
+        builder.employeeId = internalGetEmployeeId();
+        builder.description = internalGetDescription();
         return builder;
     }
 
@@ -170,11 +208,11 @@ public class CashDrawerShiftEvent {
      */
     public static class Builder {
         private String id;
-        private String employeeId;
+        private OptionalNullable<String> employeeId;
         private String eventType;
         private Money eventMoney;
         private String createdAt;
-        private String description;
+        private OptionalNullable<String> description;
 
 
 
@@ -194,7 +232,16 @@ public class CashDrawerShiftEvent {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -234,7 +281,16 @@ public class CashDrawerShiftEvent {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 

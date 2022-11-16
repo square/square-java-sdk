@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,34 +21,52 @@ public class LoyaltyProgram {
     private final List<LoyaltyProgramRewardTier> rewardTiers;
     private final LoyaltyProgramExpirationPolicy expirationPolicy;
     private final LoyaltyProgramTerminology terminology;
-    private final List<String> locationIds;
+    private final OptionalNullable<List<String>> locationIds;
     private final String createdAt;
     private final String updatedAt;
     private final List<LoyaltyProgramAccrualRule> accrualRules;
 
     /**
      * Initialization constructor.
-     * @param  id  String value for id.
-     * @param  status  String value for status.
      * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
      * @param  terminology  LoyaltyProgramTerminology value for terminology.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
      * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
      * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
      * @param  locationIds  List of String value for locationIds.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
     @JsonCreator
     public LoyaltyProgram(
-            @JsonProperty("id") String id,
-            @JsonProperty("status") String status,
             @JsonProperty("reward_tiers") List<LoyaltyProgramRewardTier> rewardTiers,
             @JsonProperty("terminology") LoyaltyProgramTerminology terminology,
-            @JsonProperty("created_at") String createdAt,
-            @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("accrual_rules") List<LoyaltyProgramAccrualRule> accrualRules,
+            @JsonProperty("id") String id,
+            @JsonProperty("status") String status,
             @JsonProperty("expiration_policy") LoyaltyProgramExpirationPolicy expirationPolicy,
-            @JsonProperty("location_ids") List<String> locationIds) {
+            @JsonProperty("location_ids") List<String> locationIds,
+            @JsonProperty("created_at") String createdAt,
+            @JsonProperty("updated_at") String updatedAt) {
+        this.id = id;
+        this.status = status;
+        this.rewardTiers = rewardTiers;
+        this.expirationPolicy = expirationPolicy;
+        this.terminology = terminology;
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.accrualRules = accrualRules;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyProgram(List<LoyaltyProgramRewardTier> rewardTiers,
+            LoyaltyProgramTerminology terminology, List<LoyaltyProgramAccrualRule> accrualRules,
+            String id, String status, LoyaltyProgramExpirationPolicy expirationPolicy,
+            OptionalNullable<List<String>> locationIds, String createdAt, String updatedAt) {
         this.id = id;
         this.status = status;
         this.rewardTiers = rewardTiers;
@@ -64,6 +85,7 @@ public class LoyaltyProgram {
      * @return Returns the String
      */
     @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
     }
@@ -74,6 +96,7 @@ public class LoyaltyProgram {
      * @return Returns the String
      */
     @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return status;
     }
@@ -110,14 +133,25 @@ public class LoyaltyProgram {
     }
 
     /**
+     * Internal Getter for LocationIds.
+     * The [locations]($m/Location) at which the program is active.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
+    }
+
+    /**
      * Getter for LocationIds.
      * The [locations]($m/Location) at which the program is active.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
     }
 
     /**
@@ -126,6 +160,7 @@ public class LoyaltyProgram {
      * @return Returns the String
      */
     @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreatedAt() {
         return createdAt;
     }
@@ -136,6 +171,7 @@ public class LoyaltyProgram {
      * @return Returns the String
      */
     @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -184,10 +220,10 @@ public class LoyaltyProgram {
      */
     @Override
     public String toString() {
-        return "LoyaltyProgram [" + "id=" + id + ", status=" + status + ", rewardTiers="
-                + rewardTiers + ", terminology=" + terminology + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + ", accrualRules=" + accrualRules
-                + ", expirationPolicy=" + expirationPolicy + ", locationIds=" + locationIds + "]";
+        return "LoyaltyProgram [" + "rewardTiers=" + rewardTiers + ", terminology=" + terminology
+                + ", accrualRules=" + accrualRules + ", id=" + id + ", status=" + status
+                + ", expirationPolicy=" + expirationPolicy + ", locationIds=" + locationIds
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -196,10 +232,13 @@ public class LoyaltyProgram {
      * @return a new {@link LoyaltyProgram.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, status, rewardTiers, terminology, createdAt, updatedAt,
-                accrualRules)
+        Builder builder = new Builder(rewardTiers, terminology, accrualRules)
+                .id(getId())
+                .status(getStatus())
                 .expirationPolicy(getExpirationPolicy())
-                .locationIds(getLocationIds());
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
+        builder.locationIds = internalGetLocationIds();
         return builder;
     }
 
@@ -207,36 +246,58 @@ public class LoyaltyProgram {
      * Class to build instances of {@link LoyaltyProgram}.
      */
     public static class Builder {
-        private String id;
-        private String status;
         private List<LoyaltyProgramRewardTier> rewardTiers;
         private LoyaltyProgramTerminology terminology;
+        private List<LoyaltyProgramAccrualRule> accrualRules;
+        private String id;
+        private String status;
+        private LoyaltyProgramExpirationPolicy expirationPolicy;
+        private OptionalNullable<List<String>> locationIds;
         private String createdAt;
         private String updatedAt;
-        private List<LoyaltyProgramAccrualRule> accrualRules;
-        private LoyaltyProgramExpirationPolicy expirationPolicy;
-        private List<String> locationIds;
 
         /**
          * Initialization constructor.
-         * @param  id  String value for id.
-         * @param  status  String value for status.
          * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
          * @param  terminology  LoyaltyProgramTerminology value for terminology.
-         * @param  createdAt  String value for createdAt.
-         * @param  updatedAt  String value for updatedAt.
          * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
          */
-        public Builder(String id, String status, List<LoyaltyProgramRewardTier> rewardTiers,
-                LoyaltyProgramTerminology terminology, String createdAt, String updatedAt,
+        public Builder(List<LoyaltyProgramRewardTier> rewardTiers,
+                LoyaltyProgramTerminology terminology,
                 List<LoyaltyProgramAccrualRule> accrualRules) {
-            this.id = id;
-            this.status = status;
             this.rewardTiers = rewardTiers;
             this.terminology = terminology;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
             this.accrualRules = accrualRules;
+        }
+
+        /**
+         * Setter for rewardTiers.
+         * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
+         * @return Builder
+         */
+        public Builder rewardTiers(List<LoyaltyProgramRewardTier> rewardTiers) {
+            this.rewardTiers = rewardTiers;
+            return this;
+        }
+
+        /**
+         * Setter for terminology.
+         * @param  terminology  LoyaltyProgramTerminology value for terminology.
+         * @return Builder
+         */
+        public Builder terminology(LoyaltyProgramTerminology terminology) {
+            this.terminology = terminology;
+            return this;
+        }
+
+        /**
+         * Setter for accrualRules.
+         * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
+         * @return Builder
+         */
+        public Builder accrualRules(List<LoyaltyProgramAccrualRule> accrualRules) {
+            this.accrualRules = accrualRules;
+            return this;
         }
 
         /**
@@ -260,22 +321,31 @@ public class LoyaltyProgram {
         }
 
         /**
-         * Setter for rewardTiers.
-         * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
+         * Setter for expirationPolicy.
+         * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
          * @return Builder
          */
-        public Builder rewardTiers(List<LoyaltyProgramRewardTier> rewardTiers) {
-            this.rewardTiers = rewardTiers;
+        public Builder expirationPolicy(LoyaltyProgramExpirationPolicy expirationPolicy) {
+            this.expirationPolicy = expirationPolicy;
             return this;
         }
 
         /**
-         * Setter for terminology.
-         * @param  terminology  LoyaltyProgramTerminology value for terminology.
+         * Setter for locationIds.
+         * @param  locationIds  List of String value for locationIds.
          * @return Builder
          */
-        public Builder terminology(LoyaltyProgramTerminology terminology) {
-            this.terminology = terminology;
+        public Builder locationIds(List<String> locationIds) {
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -300,42 +370,12 @@ public class LoyaltyProgram {
         }
 
         /**
-         * Setter for accrualRules.
-         * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
-         * @return Builder
-         */
-        public Builder accrualRules(List<LoyaltyProgramAccrualRule> accrualRules) {
-            this.accrualRules = accrualRules;
-            return this;
-        }
-
-        /**
-         * Setter for expirationPolicy.
-         * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
-         * @return Builder
-         */
-        public Builder expirationPolicy(LoyaltyProgramExpirationPolicy expirationPolicy) {
-            this.expirationPolicy = expirationPolicy;
-            return this;
-        }
-
-        /**
-         * Setter for locationIds.
-         * @param  locationIds  List of String value for locationIds.
-         * @return Builder
-         */
-        public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
-            return this;
-        }
-
-        /**
          * Builds a new {@link LoyaltyProgram} object using the set fields.
          * @return {@link LoyaltyProgram}
          */
         public LoyaltyProgram build() {
-            return new LoyaltyProgram(id, status, rewardTiers, terminology, createdAt, updatedAt,
-                    accrualRules, expirationPolicy, locationIds);
+            return new LoyaltyProgram(rewardTiers, terminology, accrualRules, id, status,
+                    expirationPolicy, locationIds, createdAt, updatedAt);
         }
     }
 }

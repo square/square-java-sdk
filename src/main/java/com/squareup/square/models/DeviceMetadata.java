@@ -3,27 +3,30 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DeviceMetadata type.
  */
 public class DeviceMetadata {
-    private final String batteryPercentage;
-    private final String chargingState;
-    private final String locationId;
-    private final String merchantId;
-    private final String networkConnectionType;
-    private final String paymentRegion;
-    private final String serialNumber;
-    private final String osVersion;
-    private final String appVersion;
-    private final String wifiNetworkName;
-    private final String wifiNetworkStrength;
-    private final String ipAddress;
+    private final OptionalNullable<String> batteryPercentage;
+    private final OptionalNullable<String> chargingState;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> merchantId;
+    private final OptionalNullable<String> networkConnectionType;
+    private final OptionalNullable<String> paymentRegion;
+    private final OptionalNullable<String> serialNumber;
+    private final OptionalNullable<String> osVersion;
+    private final OptionalNullable<String> appVersion;
+    private final OptionalNullable<String> wifiNetworkName;
+    private final OptionalNullable<String> wifiNetworkStrength;
+    private final OptionalNullable<String> ipAddress;
 
     /**
      * Initialization constructor.
@@ -54,6 +57,30 @@ public class DeviceMetadata {
             @JsonProperty("wifi_network_name") String wifiNetworkName,
             @JsonProperty("wifi_network_strength") String wifiNetworkStrength,
             @JsonProperty("ip_address") String ipAddress) {
+        this.batteryPercentage = OptionalNullable.of(batteryPercentage);
+        this.chargingState = OptionalNullable.of(chargingState);
+        this.locationId = OptionalNullable.of(locationId);
+        this.merchantId = OptionalNullable.of(merchantId);
+        this.networkConnectionType = OptionalNullable.of(networkConnectionType);
+        this.paymentRegion = OptionalNullable.of(paymentRegion);
+        this.serialNumber = OptionalNullable.of(serialNumber);
+        this.osVersion = OptionalNullable.of(osVersion);
+        this.appVersion = OptionalNullable.of(appVersion);
+        this.wifiNetworkName = OptionalNullable.of(wifiNetworkName);
+        this.wifiNetworkStrength = OptionalNullable.of(wifiNetworkStrength);
+        this.ipAddress = OptionalNullable.of(ipAddress);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DeviceMetadata(OptionalNullable<String> batteryPercentage,
+            OptionalNullable<String> chargingState, OptionalNullable<String> locationId,
+            OptionalNullable<String> merchantId, OptionalNullable<String> networkConnectionType,
+            OptionalNullable<String> paymentRegion, OptionalNullable<String> serialNumber,
+            OptionalNullable<String> osVersion, OptionalNullable<String> appVersion,
+            OptionalNullable<String> wifiNetworkName, OptionalNullable<String> wifiNetworkStrength,
+            OptionalNullable<String> ipAddress) {
         this.batteryPercentage = batteryPercentage;
         this.chargingState = chargingState;
         this.locationId = locationId;
@@ -69,14 +96,37 @@ public class DeviceMetadata {
     }
 
     /**
+     * Internal Getter for BatteryPercentage.
+     * The Terminal’s remaining battery percentage, between 1-100.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("battery_percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBatteryPercentage() {
+        return this.batteryPercentage;
+    }
+
+    /**
      * Getter for BatteryPercentage.
      * The Terminal’s remaining battery percentage, between 1-100.
      * @return Returns the String
      */
-    @JsonGetter("battery_percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBatteryPercentage() {
-        return batteryPercentage;
+        return OptionalNullable.getFrom(batteryPercentage);
+    }
+
+    /**
+     * Internal Getter for ChargingState.
+     * The current charging state of the Terminal. Options: `CHARGING`, `NOT_CHARGING`
+     * @return Returns the Internal String
+     */
+    @JsonGetter("charging_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetChargingState() {
+        return this.chargingState;
     }
 
     /**
@@ -84,10 +134,21 @@ public class DeviceMetadata {
      * The current charging state of the Terminal. Options: `CHARGING`, `NOT_CHARGING`
      * @return Returns the String
      */
-    @JsonGetter("charging_state")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getChargingState() {
-        return chargingState;
+        return OptionalNullable.getFrom(chargingState);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the Square seller business location associated with the Terminal.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -95,10 +156,21 @@ public class DeviceMetadata {
      * The ID of the Square seller business location associated with the Terminal.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for MerchantId.
+     * The ID of the Square merchant account that is currently signed-in to the Terminal.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantId() {
+        return this.merchantId;
     }
 
     /**
@@ -106,10 +178,21 @@ public class DeviceMetadata {
      * The ID of the Square merchant account that is currently signed-in to the Terminal.
      * @return Returns the String
      */
-    @JsonGetter("merchant_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantId() {
-        return merchantId;
+        return OptionalNullable.getFrom(merchantId);
+    }
+
+    /**
+     * Internal Getter for NetworkConnectionType.
+     * The Terminal’s current network connection type. Options: `WIFI`, `ETHERNET`
+     * @return Returns the Internal String
+     */
+    @JsonGetter("network_connection_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNetworkConnectionType() {
+        return this.networkConnectionType;
     }
 
     /**
@@ -117,10 +200,21 @@ public class DeviceMetadata {
      * The Terminal’s current network connection type. Options: `WIFI`, `ETHERNET`
      * @return Returns the String
      */
-    @JsonGetter("network_connection_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNetworkConnectionType() {
-        return networkConnectionType;
+        return OptionalNullable.getFrom(networkConnectionType);
+    }
+
+    /**
+     * Internal Getter for PaymentRegion.
+     * The country in which the Terminal is authorized to take payments.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_region")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentRegion() {
+        return this.paymentRegion;
     }
 
     /**
@@ -128,10 +222,22 @@ public class DeviceMetadata {
      * The country in which the Terminal is authorized to take payments.
      * @return Returns the String
      */
-    @JsonGetter("payment_region")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentRegion() {
-        return paymentRegion;
+        return OptionalNullable.getFrom(paymentRegion);
+    }
+
+    /**
+     * Internal Getter for SerialNumber.
+     * The unique identifier assigned to the Terminal, which can be found on the lower back of the
+     * device.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("serial_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSerialNumber() {
+        return this.serialNumber;
     }
 
     /**
@@ -140,10 +246,21 @@ public class DeviceMetadata {
      * device.
      * @return Returns the String
      */
-    @JsonGetter("serial_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSerialNumber() {
-        return serialNumber;
+        return OptionalNullable.getFrom(serialNumber);
+    }
+
+    /**
+     * Internal Getter for OsVersion.
+     * The current version of the Terminal’s operating system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("os_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOsVersion() {
+        return this.osVersion;
     }
 
     /**
@@ -151,10 +268,21 @@ public class DeviceMetadata {
      * The current version of the Terminal’s operating system.
      * @return Returns the String
      */
-    @JsonGetter("os_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOsVersion() {
-        return osVersion;
+        return OptionalNullable.getFrom(osVersion);
+    }
+
+    /**
+     * Internal Getter for AppVersion.
+     * The current version of the application running on the Terminal.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("app_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAppVersion() {
+        return this.appVersion;
     }
 
     /**
@@ -162,10 +290,21 @@ public class DeviceMetadata {
      * The current version of the application running on the Terminal.
      * @return Returns the String
      */
-    @JsonGetter("app_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAppVersion() {
-        return appVersion;
+        return OptionalNullable.getFrom(appVersion);
+    }
+
+    /**
+     * Internal Getter for WifiNetworkName.
+     * The name of the Wi-Fi network to which the Terminal is connected.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("wifi_network_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetWifiNetworkName() {
+        return this.wifiNetworkName;
     }
 
     /**
@@ -173,10 +312,22 @@ public class DeviceMetadata {
      * The name of the Wi-Fi network to which the Terminal is connected.
      * @return Returns the String
      */
-    @JsonGetter("wifi_network_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getWifiNetworkName() {
-        return wifiNetworkName;
+        return OptionalNullable.getFrom(wifiNetworkName);
+    }
+
+    /**
+     * Internal Getter for WifiNetworkStrength.
+     * The signal strength of the Wi-FI network connection. Options: `POOR`, `FAIR`, `GOOD`,
+     * `EXCELLENT`
+     * @return Returns the Internal String
+     */
+    @JsonGetter("wifi_network_strength")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetWifiNetworkStrength() {
+        return this.wifiNetworkStrength;
     }
 
     /**
@@ -185,10 +336,21 @@ public class DeviceMetadata {
      * `EXCELLENT`
      * @return Returns the String
      */
-    @JsonGetter("wifi_network_strength")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getWifiNetworkStrength() {
-        return wifiNetworkStrength;
+        return OptionalNullable.getFrom(wifiNetworkStrength);
+    }
+
+    /**
+     * Internal Getter for IpAddress.
+     * The IP address of the Terminal.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("ip_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIpAddress() {
+        return this.ipAddress;
     }
 
     /**
@@ -196,10 +358,9 @@ public class DeviceMetadata {
      * The IP address of the Terminal.
      * @return Returns the String
      */
-    @JsonGetter("ip_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIpAddress() {
-        return ipAddress;
+        return OptionalNullable.getFrom(ipAddress);
     }
 
     @Override
@@ -252,19 +413,19 @@ public class DeviceMetadata {
      * @return a new {@link DeviceMetadata.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .batteryPercentage(getBatteryPercentage())
-                .chargingState(getChargingState())
-                .locationId(getLocationId())
-                .merchantId(getMerchantId())
-                .networkConnectionType(getNetworkConnectionType())
-                .paymentRegion(getPaymentRegion())
-                .serialNumber(getSerialNumber())
-                .osVersion(getOsVersion())
-                .appVersion(getAppVersion())
-                .wifiNetworkName(getWifiNetworkName())
-                .wifiNetworkStrength(getWifiNetworkStrength())
-                .ipAddress(getIpAddress());
+        Builder builder = new Builder();
+        builder.batteryPercentage = internalGetBatteryPercentage();
+        builder.chargingState = internalGetChargingState();
+        builder.locationId = internalGetLocationId();
+        builder.merchantId = internalGetMerchantId();
+        builder.networkConnectionType = internalGetNetworkConnectionType();
+        builder.paymentRegion = internalGetPaymentRegion();
+        builder.serialNumber = internalGetSerialNumber();
+        builder.osVersion = internalGetOsVersion();
+        builder.appVersion = internalGetAppVersion();
+        builder.wifiNetworkName = internalGetWifiNetworkName();
+        builder.wifiNetworkStrength = internalGetWifiNetworkStrength();
+        builder.ipAddress = internalGetIpAddress();
         return builder;
     }
 
@@ -272,18 +433,18 @@ public class DeviceMetadata {
      * Class to build instances of {@link DeviceMetadata}.
      */
     public static class Builder {
-        private String batteryPercentage;
-        private String chargingState;
-        private String locationId;
-        private String merchantId;
-        private String networkConnectionType;
-        private String paymentRegion;
-        private String serialNumber;
-        private String osVersion;
-        private String appVersion;
-        private String wifiNetworkName;
-        private String wifiNetworkStrength;
-        private String ipAddress;
+        private OptionalNullable<String> batteryPercentage;
+        private OptionalNullable<String> chargingState;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> merchantId;
+        private OptionalNullable<String> networkConnectionType;
+        private OptionalNullable<String> paymentRegion;
+        private OptionalNullable<String> serialNumber;
+        private OptionalNullable<String> osVersion;
+        private OptionalNullable<String> appVersion;
+        private OptionalNullable<String> wifiNetworkName;
+        private OptionalNullable<String> wifiNetworkStrength;
+        private OptionalNullable<String> ipAddress;
 
 
 
@@ -293,7 +454,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder batteryPercentage(String batteryPercentage) {
-            this.batteryPercentage = batteryPercentage;
+            this.batteryPercentage = OptionalNullable.of(batteryPercentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for batteryPercentage.
+         * @return Builder
+         */
+        public Builder unsetBatteryPercentage() {
+            batteryPercentage = null;
             return this;
         }
 
@@ -303,7 +473,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder chargingState(String chargingState) {
-            this.chargingState = chargingState;
+            this.chargingState = OptionalNullable.of(chargingState);
+            return this;
+        }
+
+        /**
+         * UnSetter for chargingState.
+         * @return Builder
+         */
+        public Builder unsetChargingState() {
+            chargingState = null;
             return this;
         }
 
@@ -313,7 +492,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -323,7 +511,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
-            this.merchantId = merchantId;
+            this.merchantId = OptionalNullable.of(merchantId);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantId.
+         * @return Builder
+         */
+        public Builder unsetMerchantId() {
+            merchantId = null;
             return this;
         }
 
@@ -333,7 +530,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder networkConnectionType(String networkConnectionType) {
-            this.networkConnectionType = networkConnectionType;
+            this.networkConnectionType = OptionalNullable.of(networkConnectionType);
+            return this;
+        }
+
+        /**
+         * UnSetter for networkConnectionType.
+         * @return Builder
+         */
+        public Builder unsetNetworkConnectionType() {
+            networkConnectionType = null;
             return this;
         }
 
@@ -343,7 +549,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder paymentRegion(String paymentRegion) {
-            this.paymentRegion = paymentRegion;
+            this.paymentRegion = OptionalNullable.of(paymentRegion);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentRegion.
+         * @return Builder
+         */
+        public Builder unsetPaymentRegion() {
+            paymentRegion = null;
             return this;
         }
 
@@ -353,7 +568,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder serialNumber(String serialNumber) {
-            this.serialNumber = serialNumber;
+            this.serialNumber = OptionalNullable.of(serialNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for serialNumber.
+         * @return Builder
+         */
+        public Builder unsetSerialNumber() {
+            serialNumber = null;
             return this;
         }
 
@@ -363,7 +587,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder osVersion(String osVersion) {
-            this.osVersion = osVersion;
+            this.osVersion = OptionalNullable.of(osVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for osVersion.
+         * @return Builder
+         */
+        public Builder unsetOsVersion() {
+            osVersion = null;
             return this;
         }
 
@@ -373,7 +606,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder appVersion(String appVersion) {
-            this.appVersion = appVersion;
+            this.appVersion = OptionalNullable.of(appVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for appVersion.
+         * @return Builder
+         */
+        public Builder unsetAppVersion() {
+            appVersion = null;
             return this;
         }
 
@@ -383,7 +625,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder wifiNetworkName(String wifiNetworkName) {
-            this.wifiNetworkName = wifiNetworkName;
+            this.wifiNetworkName = OptionalNullable.of(wifiNetworkName);
+            return this;
+        }
+
+        /**
+         * UnSetter for wifiNetworkName.
+         * @return Builder
+         */
+        public Builder unsetWifiNetworkName() {
+            wifiNetworkName = null;
             return this;
         }
 
@@ -393,7 +644,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder wifiNetworkStrength(String wifiNetworkStrength) {
-            this.wifiNetworkStrength = wifiNetworkStrength;
+            this.wifiNetworkStrength = OptionalNullable.of(wifiNetworkStrength);
+            return this;
+        }
+
+        /**
+         * UnSetter for wifiNetworkStrength.
+         * @return Builder
+         */
+        public Builder unsetWifiNetworkStrength() {
+            wifiNetworkStrength = null;
             return this;
         }
 
@@ -403,7 +663,16 @@ public class DeviceMetadata {
          * @return Builder
          */
         public Builder ipAddress(String ipAddress) {
-            this.ipAddress = ipAddress;
+            this.ipAddress = OptionalNullable.of(ipAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for ipAddress.
+         * @return Builder
+         */
+        public Builder unsetIpAddress() {
+            ipAddress = null;
             return this;
         }
 

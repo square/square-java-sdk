@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for RevokeTokenRequest type.
  */
 public class RevokeTokenRequest {
-    private final String clientId;
-    private final String accessToken;
-    private final String merchantId;
-    private final Boolean revokeOnlyAccessToken;
+    private final OptionalNullable<String> clientId;
+    private final OptionalNullable<String> accessToken;
+    private final OptionalNullable<String> merchantId;
+    private final OptionalNullable<Boolean> revokeOnlyAccessToken;
 
     /**
      * Initialization constructor.
@@ -30,10 +33,35 @@ public class RevokeTokenRequest {
             @JsonProperty("access_token") String accessToken,
             @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("revoke_only_access_token") Boolean revokeOnlyAccessToken) {
+        this.clientId = OptionalNullable.of(clientId);
+        this.accessToken = OptionalNullable.of(accessToken);
+        this.merchantId = OptionalNullable.of(merchantId);
+        this.revokeOnlyAccessToken = OptionalNullable.of(revokeOnlyAccessToken);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected RevokeTokenRequest(OptionalNullable<String> clientId,
+            OptionalNullable<String> accessToken, OptionalNullable<String> merchantId,
+            OptionalNullable<Boolean> revokeOnlyAccessToken) {
         this.clientId = clientId;
         this.accessToken = accessToken;
         this.merchantId = merchantId;
         this.revokeOnlyAccessToken = revokeOnlyAccessToken;
+    }
+
+    /**
+     * Internal Getter for ClientId.
+     * The Square-issued ID for your application, which is available in the OAuth page in the
+     * [Developer Dashboard](https://developer.squareup.com/apps).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("client_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClientId() {
+        return this.clientId;
     }
 
     /**
@@ -42,10 +70,22 @@ public class RevokeTokenRequest {
      * [Developer Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
-    @JsonGetter("client_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClientId() {
-        return clientId;
+        return OptionalNullable.getFrom(clientId);
+    }
+
+    /**
+     * Internal Getter for AccessToken.
+     * The access token of the merchant whose token you want to revoke. Do not provide a value for
+     * `merchant_id` if you provide this parameter.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAccessToken() {
+        return this.accessToken;
     }
 
     /**
@@ -54,10 +94,22 @@ public class RevokeTokenRequest {
      * `merchant_id` if you provide this parameter.
      * @return Returns the String
      */
-    @JsonGetter("access_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAccessToken() {
-        return accessToken;
+        return OptionalNullable.getFrom(accessToken);
+    }
+
+    /**
+     * Internal Getter for MerchantId.
+     * The ID of the merchant whose token you want to revoke. Do not provide a value for
+     * `access_token` if you provide this parameter.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantId() {
+        return this.merchantId;
     }
 
     /**
@@ -66,10 +118,22 @@ public class RevokeTokenRequest {
      * `access_token` if you provide this parameter.
      * @return Returns the String
      */
-    @JsonGetter("merchant_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantId() {
-        return merchantId;
+        return OptionalNullable.getFrom(merchantId);
+    }
+
+    /**
+     * Internal Getter for RevokeOnlyAccessToken.
+     * If `true`, terminate the given single access token, but do not terminate the entire
+     * authorization. Default: `false`
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("revoke_only_access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetRevokeOnlyAccessToken() {
+        return this.revokeOnlyAccessToken;
     }
 
     /**
@@ -78,10 +142,9 @@ public class RevokeTokenRequest {
      * authorization. Default: `false`
      * @return Returns the Boolean
      */
-    @JsonGetter("revoke_only_access_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getRevokeOnlyAccessToken() {
-        return revokeOnlyAccessToken;
+        return OptionalNullable.getFrom(revokeOnlyAccessToken);
     }
 
     @Override
@@ -121,11 +184,11 @@ public class RevokeTokenRequest {
      * @return a new {@link RevokeTokenRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .clientId(getClientId())
-                .accessToken(getAccessToken())
-                .merchantId(getMerchantId())
-                .revokeOnlyAccessToken(getRevokeOnlyAccessToken());
+        Builder builder = new Builder();
+        builder.clientId = internalGetClientId();
+        builder.accessToken = internalGetAccessToken();
+        builder.merchantId = internalGetMerchantId();
+        builder.revokeOnlyAccessToken = internalGetRevokeOnlyAccessToken();
         return builder;
     }
 
@@ -133,10 +196,10 @@ public class RevokeTokenRequest {
      * Class to build instances of {@link RevokeTokenRequest}.
      */
     public static class Builder {
-        private String clientId;
-        private String accessToken;
-        private String merchantId;
-        private Boolean revokeOnlyAccessToken;
+        private OptionalNullable<String> clientId;
+        private OptionalNullable<String> accessToken;
+        private OptionalNullable<String> merchantId;
+        private OptionalNullable<Boolean> revokeOnlyAccessToken;
 
 
 
@@ -146,7 +209,16 @@ public class RevokeTokenRequest {
          * @return Builder
          */
         public Builder clientId(String clientId) {
-            this.clientId = clientId;
+            this.clientId = OptionalNullable.of(clientId);
+            return this;
+        }
+
+        /**
+         * UnSetter for clientId.
+         * @return Builder
+         */
+        public Builder unsetClientId() {
+            clientId = null;
             return this;
         }
 
@@ -156,7 +228,16 @@ public class RevokeTokenRequest {
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
-            this.accessToken = accessToken;
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for accessToken.
+         * @return Builder
+         */
+        public Builder unsetAccessToken() {
+            accessToken = null;
             return this;
         }
 
@@ -166,7 +247,16 @@ public class RevokeTokenRequest {
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
-            this.merchantId = merchantId;
+            this.merchantId = OptionalNullable.of(merchantId);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantId.
+         * @return Builder
+         */
+        public Builder unsetMerchantId() {
+            merchantId = null;
             return this;
         }
 
@@ -176,7 +266,16 @@ public class RevokeTokenRequest {
          * @return Builder
          */
         public Builder revokeOnlyAccessToken(Boolean revokeOnlyAccessToken) {
-            this.revokeOnlyAccessToken = revokeOnlyAccessToken;
+            this.revokeOnlyAccessToken = OptionalNullable.of(revokeOnlyAccessToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for revokeOnlyAccessToken.
+         * @return Builder
+         */
+        public Builder unsetRevokeOnlyAccessToken() {
+            revokeOnlyAccessToken = null;
             return this;
         }
 

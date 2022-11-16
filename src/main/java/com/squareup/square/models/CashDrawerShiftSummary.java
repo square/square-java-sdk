@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,10 +17,10 @@ import java.util.Objects;
 public class CashDrawerShiftSummary {
     private final String id;
     private final String state;
-    private final String openedAt;
-    private final String endedAt;
-    private final String closedAt;
-    private final String description;
+    private final OptionalNullable<String> openedAt;
+    private final OptionalNullable<String> endedAt;
+    private final OptionalNullable<String> closedAt;
+    private final OptionalNullable<String> description;
     private final Money openedCashMoney;
     private final Money expectedCashMoney;
     private final Money closedCashMoney;
@@ -45,6 +48,24 @@ public class CashDrawerShiftSummary {
             @JsonProperty("opened_cash_money") Money openedCashMoney,
             @JsonProperty("expected_cash_money") Money expectedCashMoney,
             @JsonProperty("closed_cash_money") Money closedCashMoney) {
+        this.id = id;
+        this.state = state;
+        this.openedAt = OptionalNullable.of(openedAt);
+        this.endedAt = OptionalNullable.of(endedAt);
+        this.closedAt = OptionalNullable.of(closedAt);
+        this.description = OptionalNullable.of(description);
+        this.openedCashMoney = openedCashMoney;
+        this.expectedCashMoney = expectedCashMoney;
+        this.closedCashMoney = closedCashMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CashDrawerShiftSummary(String id, String state, OptionalNullable<String> openedAt,
+            OptionalNullable<String> endedAt, OptionalNullable<String> closedAt,
+            OptionalNullable<String> description, Money openedCashMoney, Money expectedCashMoney,
+            Money closedCashMoney) {
         this.id = id;
         this.state = state;
         this.openedAt = openedAt;
@@ -79,14 +100,37 @@ public class CashDrawerShiftSummary {
     }
 
     /**
+     * Internal Getter for OpenedAt.
+     * The shift start time in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("opened_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOpenedAt() {
+        return this.openedAt;
+    }
+
+    /**
      * Getter for OpenedAt.
      * The shift start time in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("opened_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOpenedAt() {
-        return openedAt;
+        return OptionalNullable.getFrom(openedAt);
+    }
+
+    /**
+     * Internal Getter for EndedAt.
+     * The shift end time in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("ended_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndedAt() {
+        return this.endedAt;
     }
 
     /**
@@ -94,10 +138,21 @@ public class CashDrawerShiftSummary {
      * The shift end time in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("ended_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndedAt() {
-        return endedAt;
+        return OptionalNullable.getFrom(endedAt);
+    }
+
+    /**
+     * Internal Getter for ClosedAt.
+     * The shift close time in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClosedAt() {
+        return this.closedAt;
     }
 
     /**
@@ -105,10 +160,21 @@ public class CashDrawerShiftSummary {
      * The shift close time in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("closed_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClosedAt() {
-        return closedAt;
+        return OptionalNullable.getFrom(closedAt);
+    }
+
+    /**
+     * Internal Getter for Description.
+     * An employee free-text description of a cash drawer shift.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
     }
 
     /**
@@ -116,10 +182,9 @@ public class CashDrawerShiftSummary {
      * An employee free-text description of a cash drawer shift.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -217,13 +282,13 @@ public class CashDrawerShiftSummary {
         Builder builder = new Builder()
                 .id(getId())
                 .state(getState())
-                .openedAt(getOpenedAt())
-                .endedAt(getEndedAt())
-                .closedAt(getClosedAt())
-                .description(getDescription())
                 .openedCashMoney(getOpenedCashMoney())
                 .expectedCashMoney(getExpectedCashMoney())
                 .closedCashMoney(getClosedCashMoney());
+        builder.openedAt = internalGetOpenedAt();
+        builder.endedAt = internalGetEndedAt();
+        builder.closedAt = internalGetClosedAt();
+        builder.description = internalGetDescription();
         return builder;
     }
 
@@ -233,10 +298,10 @@ public class CashDrawerShiftSummary {
     public static class Builder {
         private String id;
         private String state;
-        private String openedAt;
-        private String endedAt;
-        private String closedAt;
-        private String description;
+        private OptionalNullable<String> openedAt;
+        private OptionalNullable<String> endedAt;
+        private OptionalNullable<String> closedAt;
+        private OptionalNullable<String> description;
         private Money openedCashMoney;
         private Money expectedCashMoney;
         private Money closedCashMoney;
@@ -269,7 +334,16 @@ public class CashDrawerShiftSummary {
          * @return Builder
          */
         public Builder openedAt(String openedAt) {
-            this.openedAt = openedAt;
+            this.openedAt = OptionalNullable.of(openedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for openedAt.
+         * @return Builder
+         */
+        public Builder unsetOpenedAt() {
+            openedAt = null;
             return this;
         }
 
@@ -279,7 +353,16 @@ public class CashDrawerShiftSummary {
          * @return Builder
          */
         public Builder endedAt(String endedAt) {
-            this.endedAt = endedAt;
+            this.endedAt = OptionalNullable.of(endedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for endedAt.
+         * @return Builder
+         */
+        public Builder unsetEndedAt() {
+            endedAt = null;
             return this;
         }
 
@@ -289,7 +372,16 @@ public class CashDrawerShiftSummary {
          * @return Builder
          */
         public Builder closedAt(String closedAt) {
-            this.closedAt = closedAt;
+            this.closedAt = OptionalNullable.of(closedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for closedAt.
+         * @return Builder
+         */
+        public Builder unsetClosedAt() {
+            closedAt = null;
             return this;
         }
 
@@ -299,7 +391,16 @@ public class CashDrawerShiftSummary {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 

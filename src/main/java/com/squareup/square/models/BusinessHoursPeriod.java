@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class BusinessHoursPeriod {
     private final String dayOfWeek;
-    private final String startLocalTime;
-    private final String endLocalTime;
+    private final OptionalNullable<String> startLocalTime;
+    private final OptionalNullable<String> endLocalTime;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class BusinessHoursPeriod {
             @JsonProperty("day_of_week") String dayOfWeek,
             @JsonProperty("start_local_time") String startLocalTime,
             @JsonProperty("end_local_time") String endLocalTime) {
+        this.dayOfWeek = dayOfWeek;
+        this.startLocalTime = OptionalNullable.of(startLocalTime);
+        this.endLocalTime = OptionalNullable.of(endLocalTime);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BusinessHoursPeriod(String dayOfWeek, OptionalNullable<String> startLocalTime,
+            OptionalNullable<String> endLocalTime) {
         this.dayOfWeek = dayOfWeek;
         this.startLocalTime = startLocalTime;
         this.endLocalTime = endLocalTime;
@@ -44,16 +57,43 @@ public class BusinessHoursPeriod {
     }
 
     /**
+     * Internal Getter for StartLocalTime.
+     * The start time of a business hours period, specified in local time using partial-time RFC
+     * 3339 format. For example, `8:30:00` for a period starting at 8:30 in the morning. Note that
+     * the seconds value is always :00, but it is appended for conformance to the RFC.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartLocalTime() {
+        return this.startLocalTime;
+    }
+
+    /**
      * Getter for StartLocalTime.
      * The start time of a business hours period, specified in local time using partial-time RFC
      * 3339 format. For example, `8:30:00` for a period starting at 8:30 in the morning. Note that
      * the seconds value is always :00, but it is appended for conformance to the RFC.
      * @return Returns the String
      */
-    @JsonGetter("start_local_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartLocalTime() {
-        return startLocalTime;
+        return OptionalNullable.getFrom(startLocalTime);
+    }
+
+    /**
+     * Internal Getter for EndLocalTime.
+     * The end time of a business hours period, specified in local time using partial-time RFC 3339
+     * format. For example, `21:00:00` for a period ending at 9:00 in the evening. Note that the
+     * seconds value is always :00, but it is appended for conformance to the RFC.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_local_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndLocalTime() {
+        return this.endLocalTime;
     }
 
     /**
@@ -63,10 +103,9 @@ public class BusinessHoursPeriod {
      * seconds value is always :00, but it is appended for conformance to the RFC.
      * @return Returns the String
      */
-    @JsonGetter("end_local_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndLocalTime() {
-        return endLocalTime;
+        return OptionalNullable.getFrom(endLocalTime);
     }
 
     @Override
@@ -105,9 +144,9 @@ public class BusinessHoursPeriod {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .dayOfWeek(getDayOfWeek())
-                .startLocalTime(getStartLocalTime())
-                .endLocalTime(getEndLocalTime());
+                .dayOfWeek(getDayOfWeek());
+        builder.startLocalTime = internalGetStartLocalTime();
+        builder.endLocalTime = internalGetEndLocalTime();
         return builder;
     }
 
@@ -116,8 +155,8 @@ public class BusinessHoursPeriod {
      */
     public static class Builder {
         private String dayOfWeek;
-        private String startLocalTime;
-        private String endLocalTime;
+        private OptionalNullable<String> startLocalTime;
+        private OptionalNullable<String> endLocalTime;
 
 
 
@@ -137,7 +176,16 @@ public class BusinessHoursPeriod {
          * @return Builder
          */
         public Builder startLocalTime(String startLocalTime) {
-            this.startLocalTime = startLocalTime;
+            this.startLocalTime = OptionalNullable.of(startLocalTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for startLocalTime.
+         * @return Builder
+         */
+        public Builder unsetStartLocalTime() {
+            startLocalTime = null;
             return this;
         }
 
@@ -147,7 +195,16 @@ public class BusinessHoursPeriod {
          * @return Builder
          */
         public Builder endLocalTime(String endLocalTime) {
-            this.endLocalTime = endLocalTime;
+            this.endLocalTime = OptionalNullable.of(endLocalTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for endLocalTime.
+         * @return Builder
+         */
+        public Builder unsetEndLocalTime() {
+            endLocalTime = null;
             return this;
         }
 

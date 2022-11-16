@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.utilities.JsonValue;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CustomAttribute type.
  */
 public class CustomAttribute {
-    private final String key;
-    private final JsonValue value;
+    private final OptionalNullable<String> key;
+    private final OptionalNullable<JsonValue> value;
     private final Integer version;
     private final String visibility;
     private final CustomAttributeDefinition definition;
@@ -40,6 +43,21 @@ public class CustomAttribute {
             @JsonProperty("definition") CustomAttributeDefinition definition,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("created_at") String createdAt) {
+        this.key = OptionalNullable.of(key);
+        this.value = OptionalNullable.of(value);
+        this.version = version;
+        this.visibility = visibility;
+        this.definition = definition;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomAttribute(OptionalNullable<String> key, OptionalNullable<JsonValue> value,
+            Integer version, String visibility, CustomAttributeDefinition definition,
+            String updatedAt, String createdAt) {
         this.key = key;
         this.value = value;
         this.version = version;
@@ -47,6 +65,24 @@ public class CustomAttribute {
         this.definition = definition;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal Getter for Key.
+     * The identifier of the custom attribute definition and its corresponding custom attributes.
+     * This value can be a simple key, which is the key that is provided when the custom attribute
+     * definition is created, or a qualified key, if the requesting application is not the
+     * definition owner. The qualified key consists of the application ID of the custom attribute
+     * definition owner followed by the simple key that was provided when the definition was
+     * created. It has the format application_id:simple key. The value for a simple key can contain
+     * up to 60 alphanumeric characters, periods (.), underscores (_), and hyphens (-).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetKey() {
+        return this.key;
     }
 
     /**
@@ -60,10 +96,24 @@ public class CustomAttribute {
      * up to 60 alphanumeric characters, periods (.), underscores (_), and hyphens (-).
      * @return Returns the String
      */
-    @JsonGetter("key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getKey() {
-        return key;
+        return OptionalNullable.getFrom(key);
+    }
+
+    /**
+     * Internal Getter for Value.
+     * The value assigned to the custom attribute. It is validated against the custom attribute
+     * definition's schema on write operations. For more information about custom attribute values,
+     * see [Custom Attributes
+     * Overview](https://developer.squareup.com/docs/devtools/customattributes/overview).
+     * @return Returns the Internal JsonValue
+     */
+    @JsonGetter("value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<JsonValue> internalGetValue() {
+        return this.value;
     }
 
     /**
@@ -74,10 +124,9 @@ public class CustomAttribute {
      * Overview](https://developer.squareup.com/docs/devtools/customattributes/overview).
      * @return Returns the JsonValue
      */
-    @JsonGetter("value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public JsonValue getValue() {
-        return value;
+        return OptionalNullable.getFrom(value);
     }
 
     /**
@@ -187,13 +236,13 @@ public class CustomAttribute {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .key(getKey())
-                .value(getValue())
                 .version(getVersion())
                 .visibility(getVisibility())
                 .definition(getDefinition())
                 .updatedAt(getUpdatedAt())
                 .createdAt(getCreatedAt());
+        builder.key = internalGetKey();
+        builder.value = internalGetValue();
         return builder;
     }
 
@@ -201,8 +250,8 @@ public class CustomAttribute {
      * Class to build instances of {@link CustomAttribute}.
      */
     public static class Builder {
-        private String key;
-        private JsonValue value;
+        private OptionalNullable<String> key;
+        private OptionalNullable<JsonValue> value;
         private Integer version;
         private String visibility;
         private CustomAttributeDefinition definition;
@@ -217,7 +266,16 @@ public class CustomAttribute {
          * @return Builder
          */
         public Builder key(String key) {
-            this.key = key;
+            this.key = OptionalNullable.of(key);
+            return this;
+        }
+
+        /**
+         * UnSetter for key.
+         * @return Builder
+         */
+        public Builder unsetKey() {
+            key = null;
             return this;
         }
 
@@ -227,7 +285,16 @@ public class CustomAttribute {
          * @return Builder
          */
         public Builder value(JsonValue value) {
-            this.value = value;
+            this.value = OptionalNullable.of(value);
+            return this;
+        }
+
+        /**
+         * UnSetter for value.
+         * @return Builder
+         */
+        public Builder unsetValue() {
+            value = null;
             return this;
         }
 

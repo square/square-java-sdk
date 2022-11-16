@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -16,7 +19,7 @@ public class V1CreateRefundRequest {
     private final String type;
     private final String reason;
     private final V1Money refundedMoney;
-    private final String requestIdempotenceKey;
+    private final OptionalNullable<String> requestIdempotenceKey;
 
     /**
      * Initialization constructor.
@@ -33,6 +36,18 @@ public class V1CreateRefundRequest {
             @JsonProperty("reason") String reason,
             @JsonProperty("refunded_money") V1Money refundedMoney,
             @JsonProperty("request_idempotence_key") String requestIdempotenceKey) {
+        this.paymentId = paymentId;
+        this.type = type;
+        this.reason = reason;
+        this.refundedMoney = refundedMoney;
+        this.requestIdempotenceKey = OptionalNullable.of(requestIdempotenceKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1CreateRefundRequest(String paymentId, String type, String reason,
+            V1Money refundedMoney, OptionalNullable<String> requestIdempotenceKey) {
         this.paymentId = paymentId;
         this.type = type;
         this.reason = reason;
@@ -81,15 +96,27 @@ public class V1CreateRefundRequest {
     }
 
     /**
+     * Internal Getter for RequestIdempotenceKey.
+     * An optional key to ensure idempotence if you issue the same PARTIAL refund request more than
+     * once.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("request_idempotence_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRequestIdempotenceKey() {
+        return this.requestIdempotenceKey;
+    }
+
+    /**
      * Getter for RequestIdempotenceKey.
      * An optional key to ensure idempotence if you issue the same PARTIAL refund request more than
      * once.
      * @return Returns the String
      */
-    @JsonGetter("request_idempotence_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRequestIdempotenceKey() {
-        return requestIdempotenceKey;
+        return OptionalNullable.getFrom(requestIdempotenceKey);
     }
 
     @Override
@@ -131,8 +158,8 @@ public class V1CreateRefundRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(paymentId, type, reason)
-                .refundedMoney(getRefundedMoney())
-                .requestIdempotenceKey(getRequestIdempotenceKey());
+                .refundedMoney(getRefundedMoney());
+        builder.requestIdempotenceKey = internalGetRequestIdempotenceKey();
         return builder;
     }
 
@@ -144,7 +171,7 @@ public class V1CreateRefundRequest {
         private String type;
         private String reason;
         private V1Money refundedMoney;
-        private String requestIdempotenceKey;
+        private OptionalNullable<String> requestIdempotenceKey;
 
         /**
          * Initialization constructor.
@@ -204,7 +231,16 @@ public class V1CreateRefundRequest {
          * @return Builder
          */
         public Builder requestIdempotenceKey(String requestIdempotenceKey) {
-            this.requestIdempotenceKey = requestIdempotenceKey;
+            this.requestIdempotenceKey = OptionalNullable.of(requestIdempotenceKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for requestIdempotenceKey.
+         * @return Builder
+         */
+        public Builder unsetRequestIdempotenceKey() {
+            requestIdempotenceKey = null;
             return this;
         }
 

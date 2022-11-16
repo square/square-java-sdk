@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for InventoryCount type.
  */
 public class InventoryCount {
-    private final String catalogObjectId;
-    private final String catalogObjectType;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<String> catalogObjectType;
     private final String state;
-    private final String locationId;
-    private final String quantity;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> quantity;
     private final String calculatedAt;
     private final Boolean isEstimated;
 
@@ -39,6 +42,22 @@ public class InventoryCount {
             @JsonProperty("quantity") String quantity,
             @JsonProperty("calculated_at") String calculatedAt,
             @JsonProperty("is_estimated") Boolean isEstimated) {
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+        this.state = state;
+        this.locationId = OptionalNullable.of(locationId);
+        this.quantity = OptionalNullable.of(quantity);
+        this.calculatedAt = calculatedAt;
+        this.isEstimated = isEstimated;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InventoryCount(OptionalNullable<String> catalogObjectId,
+            OptionalNullable<String> catalogObjectType, String state,
+            OptionalNullable<String> locationId, OptionalNullable<String> quantity,
+            String calculatedAt, Boolean isEstimated) {
         this.catalogObjectId = catalogObjectId;
         this.catalogObjectType = catalogObjectType;
         this.state = state;
@@ -49,14 +68,40 @@ public class InventoryCount {
     }
 
     /**
+     * Internal Getter for CatalogObjectId.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
+    }
+
+    /**
      * Getter for CatalogObjectId.
      * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectType.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
+     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
+     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
+     * that is set by the Square Restaurants app.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectType() {
+        return this.catalogObjectType;
     }
 
     /**
@@ -67,10 +112,9 @@ public class InventoryCount {
      * that is set by the Square Restaurants app.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectType() {
-        return catalogObjectType;
+        return OptionalNullable.getFrom(catalogObjectType);
     }
 
     /**
@@ -85,15 +129,40 @@ public class InventoryCount {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
+     * being tracked.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
      * being tracked.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Quantity.
+     * The number of items affected by the estimated count as a decimal string. Can support up to 5
+     * digits after the decimal point.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -102,10 +171,9 @@ public class InventoryCount {
      * digits after the decimal point.
      * @return Returns the String
      */
-    @JsonGetter("quantity")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getQuantity() {
-        return quantity;
+        return OptionalNullable.getFrom(quantity);
     }
 
     /**
@@ -179,13 +247,13 @@ public class InventoryCount {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .catalogObjectId(getCatalogObjectId())
-                .catalogObjectType(getCatalogObjectType())
                 .state(getState())
-                .locationId(getLocationId())
-                .quantity(getQuantity())
                 .calculatedAt(getCalculatedAt())
                 .isEstimated(getIsEstimated());
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogObjectType = internalGetCatalogObjectType();
+        builder.locationId = internalGetLocationId();
+        builder.quantity = internalGetQuantity();
         return builder;
     }
 
@@ -193,11 +261,11 @@ public class InventoryCount {
      * Class to build instances of {@link InventoryCount}.
      */
     public static class Builder {
-        private String catalogObjectId;
-        private String catalogObjectType;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<String> catalogObjectType;
         private String state;
-        private String locationId;
-        private String quantity;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> quantity;
         private String calculatedAt;
         private Boolean isEstimated;
 
@@ -209,7 +277,16 @@ public class InventoryCount {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -219,7 +296,16 @@ public class InventoryCount {
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
-            this.catalogObjectType = catalogObjectType;
+            this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectType.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectType() {
+            catalogObjectType = null;
             return this;
         }
 
@@ -239,7 +325,16 @@ public class InventoryCount {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -249,7 +344,16 @@ public class InventoryCount {
          * @return Builder
          */
         public Builder quantity(String quantity) {
-            this.quantity = quantity;
+            this.quantity = OptionalNullable.of(quantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for quantity.
+         * @return Builder
+         */
+        public Builder unsetQuantity() {
+            quantity = null;
             return this;
         }
 

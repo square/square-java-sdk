@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CompletePaymentRequest type.
  */
 public class CompletePaymentRequest {
-    private final String versionToken;
+    private final OptionalNullable<String> versionToken;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,28 @@ public class CompletePaymentRequest {
     @JsonCreator
     public CompletePaymentRequest(
             @JsonProperty("version_token") String versionToken) {
+        this.versionToken = OptionalNullable.of(versionToken);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CompletePaymentRequest(OptionalNullable<String> versionToken) {
         this.versionToken = versionToken;
+    }
+
+    /**
+     * Internal Getter for VersionToken.
+     * Used for optimistic concurrency. This opaque token identifies the current `Payment` version
+     * that the caller expects. If the server has a different version of the Payment, the update
+     * fails and a response with a VERSION_MISMATCH error is returned.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("version_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetVersionToken() {
+        return this.versionToken;
     }
 
     /**
@@ -31,10 +55,9 @@ public class CompletePaymentRequest {
      * fails and a response with a VERSION_MISMATCH error is returned.
      * @return Returns the String
      */
-    @JsonGetter("version_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getVersionToken() {
-        return versionToken;
+        return OptionalNullable.getFrom(versionToken);
     }
 
     @Override
@@ -69,8 +92,8 @@ public class CompletePaymentRequest {
      * @return a new {@link CompletePaymentRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .versionToken(getVersionToken());
+        Builder builder = new Builder();
+        builder.versionToken = internalGetVersionToken();
         return builder;
     }
 
@@ -78,7 +101,7 @@ public class CompletePaymentRequest {
      * Class to build instances of {@link CompletePaymentRequest}.
      */
     public static class Builder {
-        private String versionToken;
+        private OptionalNullable<String> versionToken;
 
 
 
@@ -88,7 +111,16 @@ public class CompletePaymentRequest {
          * @return Builder
          */
         public Builder versionToken(String versionToken) {
-            this.versionToken = versionToken;
+            this.versionToken = OptionalNullable.of(versionToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for versionToken.
+         * @return Builder
+         */
+        public Builder unsetVersionToken() {
+            versionToken = null;
             return this;
         }
 

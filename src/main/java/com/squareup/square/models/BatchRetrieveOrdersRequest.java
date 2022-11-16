@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveOrdersRequest type.
  */
 public class BatchRetrieveOrdersRequest {
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final List<String> orderIds;
 
     /**
@@ -25,8 +28,30 @@ public class BatchRetrieveOrdersRequest {
     public BatchRetrieveOrdersRequest(
             @JsonProperty("order_ids") List<String> orderIds,
             @JsonProperty("location_id") String locationId) {
+        this.locationId = OptionalNullable.of(locationId);
+        this.orderIds = orderIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BatchRetrieveOrdersRequest(List<String> orderIds,
+            OptionalNullable<String> locationId) {
         this.locationId = locationId;
         this.orderIds = orderIds;
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the location for these orders. This field is optional: omit it to retrieve orders
+     * within the scope of the current authorization's merchant ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -35,10 +60,9 @@ public class BatchRetrieveOrdersRequest {
      * within the scope of the current authorization's merchant ID.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -85,8 +109,8 @@ public class BatchRetrieveOrdersRequest {
      * @return a new {@link BatchRetrieveOrdersRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(orderIds)
-                .locationId(getLocationId());
+        Builder builder = new Builder(orderIds);
+        builder.locationId = internalGetLocationId();
         return builder;
     }
 
@@ -95,7 +119,7 @@ public class BatchRetrieveOrdersRequest {
      */
     public static class Builder {
         private List<String> orderIds;
-        private String locationId;
+        private OptionalNullable<String> locationId;
 
         /**
          * Initialization constructor.
@@ -121,7 +145,16 @@ public class BatchRetrieveOrdersRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 

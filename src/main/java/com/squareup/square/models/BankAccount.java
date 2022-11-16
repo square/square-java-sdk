@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -19,16 +22,16 @@ public class BankAccount {
     private final String accountType;
     private final String holderName;
     private final String primaryBankIdentificationNumber;
-    private final String secondaryBankIdentificationNumber;
-    private final String debitMandateReferenceId;
-    private final String referenceId;
-    private final String locationId;
+    private final OptionalNullable<String> secondaryBankIdentificationNumber;
+    private final OptionalNullable<String> debitMandateReferenceId;
+    private final OptionalNullable<String> referenceId;
+    private final OptionalNullable<String> locationId;
     private final String status;
     private final boolean creditable;
     private final boolean debitable;
-    private final String fingerprint;
+    private final OptionalNullable<String> fingerprint;
     private final Integer version;
-    private final String bankName;
+    private final OptionalNullable<String> bankName;
 
     /**
      * Initialization constructor.
@@ -70,6 +73,36 @@ public class BankAccount {
             @JsonProperty("fingerprint") String fingerprint,
             @JsonProperty("version") Integer version,
             @JsonProperty("bank_name") String bankName) {
+        this.id = id;
+        this.accountNumberSuffix = accountNumberSuffix;
+        this.country = country;
+        this.currency = currency;
+        this.accountType = accountType;
+        this.holderName = holderName;
+        this.primaryBankIdentificationNumber = primaryBankIdentificationNumber;
+        this.secondaryBankIdentificationNumber =
+                OptionalNullable.of(secondaryBankIdentificationNumber);
+        this.debitMandateReferenceId = OptionalNullable.of(debitMandateReferenceId);
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.locationId = OptionalNullable.of(locationId);
+        this.status = status;
+        this.creditable = creditable;
+        this.debitable = debitable;
+        this.fingerprint = OptionalNullable.of(fingerprint);
+        this.version = version;
+        this.bankName = OptionalNullable.of(bankName);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BankAccount(String id, String accountNumberSuffix, String country, String currency,
+            String accountType, String holderName, String primaryBankIdentificationNumber,
+            String status, boolean creditable, boolean debitable,
+            OptionalNullable<String> secondaryBankIdentificationNumber,
+            OptionalNullable<String> debitMandateReferenceId, OptionalNullable<String> referenceId,
+            OptionalNullable<String> locationId, OptionalNullable<String> fingerprint,
+            Integer version, OptionalNullable<String> bankName) {
         this.id = id;
         this.accountNumberSuffix = accountNumberSuffix;
         this.country = country;
@@ -164,15 +197,40 @@ public class BankAccount {
     }
 
     /**
+     * Internal Getter for SecondaryBankIdentificationNumber.
+     * Secondary identifier for the bank. For more information, see [Bank Accounts
+     * API](https://developer.squareup.com/docs/bank-accounts-api).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("secondary_bank_identification_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSecondaryBankIdentificationNumber() {
+        return this.secondaryBankIdentificationNumber;
+    }
+
+    /**
      * Getter for SecondaryBankIdentificationNumber.
      * Secondary identifier for the bank. For more information, see [Bank Accounts
      * API](https://developer.squareup.com/docs/bank-accounts-api).
      * @return Returns the String
      */
-    @JsonGetter("secondary_bank_identification_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSecondaryBankIdentificationNumber() {
-        return secondaryBankIdentificationNumber;
+        return OptionalNullable.getFrom(secondaryBankIdentificationNumber);
+    }
+
+    /**
+     * Internal Getter for DebitMandateReferenceId.
+     * Reference identifier that will be displayed to UK bank account owners when collecting direct
+     * debit authorization. Only required for UK bank accounts.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("debit_mandate_reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDebitMandateReferenceId() {
+        return this.debitMandateReferenceId;
     }
 
     /**
@@ -181,10 +239,22 @@ public class BankAccount {
      * debit authorization. Only required for UK bank accounts.
      * @return Returns the String
      */
-    @JsonGetter("debit_mandate_reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDebitMandateReferenceId() {
-        return debitMandateReferenceId;
+        return OptionalNullable.getFrom(debitMandateReferenceId);
+    }
+
+    /**
+     * Internal Getter for ReferenceId.
+     * Client-provided identifier for linking the banking account to an entity in a third-party
+     * system (for example, a bank account number or a user identifier).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
     }
 
     /**
@@ -193,10 +263,21 @@ public class BankAccount {
      * system (for example, a bank account number or a user identifier).
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The location to which the bank account belongs.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -204,10 +285,9 @@ public class BankAccount {
      * The location to which the bank account belongs.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -241,16 +321,29 @@ public class BankAccount {
     }
 
     /**
+     * Internal Getter for Fingerprint.
+     * A Square-assigned, unique identifier for the bank account based on the account information.
+     * The account fingerprint can be used to compare account entries and determine if the they
+     * represent the same real-world bank account.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fingerprint")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFingerprint() {
+        return this.fingerprint;
+    }
+
+    /**
      * Getter for Fingerprint.
      * A Square-assigned, unique identifier for the bank account based on the account information.
      * The account fingerprint can be used to compare account entries and determine if the they
      * represent the same real-world bank account.
      * @return Returns the String
      */
-    @JsonGetter("fingerprint")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFingerprint() {
-        return fingerprint;
+        return OptionalNullable.getFrom(fingerprint);
     }
 
     /**
@@ -265,14 +358,25 @@ public class BankAccount {
     }
 
     /**
+     * Internal Getter for BankName.
+     * Read only. Name of actual financial institution. For example "Bank of America".
+     * @return Returns the Internal String
+     */
+    @JsonGetter("bank_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBankName() {
+        return this.bankName;
+    }
+
+    /**
      * Getter for BankName.
      * Read only. Name of actual financial institution. For example "Bank of America".
      * @return Returns the String
      */
-    @JsonGetter("bank_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBankName() {
-        return bankName;
+        return OptionalNullable.getFrom(bankName);
     }
 
     @Override
@@ -338,13 +442,13 @@ public class BankAccount {
     public Builder toBuilder() {
         Builder builder = new Builder(id, accountNumberSuffix, country, currency, accountType,
                 holderName, primaryBankIdentificationNumber, status, creditable, debitable)
-                .secondaryBankIdentificationNumber(getSecondaryBankIdentificationNumber())
-                .debitMandateReferenceId(getDebitMandateReferenceId())
-                .referenceId(getReferenceId())
-                .locationId(getLocationId())
-                .fingerprint(getFingerprint())
-                .version(getVersion())
-                .bankName(getBankName());
+                .version(getVersion());
+        builder.secondaryBankIdentificationNumber = internalGetSecondaryBankIdentificationNumber();
+        builder.debitMandateReferenceId = internalGetDebitMandateReferenceId();
+        builder.referenceId = internalGetReferenceId();
+        builder.locationId = internalGetLocationId();
+        builder.fingerprint = internalGetFingerprint();
+        builder.bankName = internalGetBankName();
         return builder;
     }
 
@@ -362,13 +466,13 @@ public class BankAccount {
         private String status;
         private boolean creditable;
         private boolean debitable;
-        private String secondaryBankIdentificationNumber;
-        private String debitMandateReferenceId;
-        private String referenceId;
-        private String locationId;
-        private String fingerprint;
+        private OptionalNullable<String> secondaryBankIdentificationNumber;
+        private OptionalNullable<String> debitMandateReferenceId;
+        private OptionalNullable<String> referenceId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> fingerprint;
         private Integer version;
-        private String bankName;
+        private OptionalNullable<String> bankName;
 
         /**
          * Initialization constructor.
@@ -508,7 +612,17 @@ public class BankAccount {
          */
         public Builder secondaryBankIdentificationNumber(
                 String secondaryBankIdentificationNumber) {
-            this.secondaryBankIdentificationNumber = secondaryBankIdentificationNumber;
+            this.secondaryBankIdentificationNumber =
+                    OptionalNullable.of(secondaryBankIdentificationNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for secondaryBankIdentificationNumber.
+         * @return Builder
+         */
+        public Builder unsetSecondaryBankIdentificationNumber() {
+            secondaryBankIdentificationNumber = null;
             return this;
         }
 
@@ -518,7 +632,16 @@ public class BankAccount {
          * @return Builder
          */
         public Builder debitMandateReferenceId(String debitMandateReferenceId) {
-            this.debitMandateReferenceId = debitMandateReferenceId;
+            this.debitMandateReferenceId = OptionalNullable.of(debitMandateReferenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for debitMandateReferenceId.
+         * @return Builder
+         */
+        public Builder unsetDebitMandateReferenceId() {
+            debitMandateReferenceId = null;
             return this;
         }
 
@@ -528,7 +651,16 @@ public class BankAccount {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -538,7 +670,16 @@ public class BankAccount {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -548,7 +689,16 @@ public class BankAccount {
          * @return Builder
          */
         public Builder fingerprint(String fingerprint) {
-            this.fingerprint = fingerprint;
+            this.fingerprint = OptionalNullable.of(fingerprint);
+            return this;
+        }
+
+        /**
+         * UnSetter for fingerprint.
+         * @return Builder
+         */
+        public Builder unsetFingerprint() {
+            fingerprint = null;
             return this;
         }
 
@@ -568,7 +718,16 @@ public class BankAccount {
          * @return Builder
          */
         public Builder bankName(String bankName) {
-            this.bankName = bankName;
+            this.bankName = OptionalNullable.of(bankName);
+            return this;
+        }
+
+        /**
+         * UnSetter for bankName.
+         * @return Builder
+         */
+        public Builder unsetBankName() {
+            bankName = null;
             return this;
         }
 

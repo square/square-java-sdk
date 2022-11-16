@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.http.client.HttpContext;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,23 +19,23 @@ import java.util.Objects;
 public class V1Refund {
     private HttpContext httpContext;
     private final String type;
-    private final String reason;
+    private final OptionalNullable<String> reason;
     private final V1Money refundedMoney;
     private final V1Money refundedProcessingFeeMoney;
     private final V1Money refundedTaxMoney;
     private final V1Money refundedAdditiveTaxMoney;
-    private final List<V1PaymentTax> refundedAdditiveTax;
+    private final OptionalNullable<List<V1PaymentTax>> refundedAdditiveTax;
     private final V1Money refundedInclusiveTaxMoney;
-    private final List<V1PaymentTax> refundedInclusiveTax;
+    private final OptionalNullable<List<V1PaymentTax>> refundedInclusiveTax;
     private final V1Money refundedTipMoney;
     private final V1Money refundedDiscountMoney;
     private final V1Money refundedSurchargeMoney;
-    private final List<V1PaymentSurcharge> refundedSurcharges;
+    private final OptionalNullable<List<V1PaymentSurcharge>> refundedSurcharges;
     private final String createdAt;
-    private final String processedAt;
-    private final String paymentId;
-    private final String merchantId;
-    private final Boolean isExchange;
+    private final OptionalNullable<String> processedAt;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> merchantId;
+    private final OptionalNullable<Boolean> isExchange;
 
     /**
      * Initialization constructor.
@@ -77,6 +79,39 @@ public class V1Refund {
             @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("is_exchange") Boolean isExchange) {
         this.type = type;
+        this.reason = OptionalNullable.of(reason);
+        this.refundedMoney = refundedMoney;
+        this.refundedProcessingFeeMoney = refundedProcessingFeeMoney;
+        this.refundedTaxMoney = refundedTaxMoney;
+        this.refundedAdditiveTaxMoney = refundedAdditiveTaxMoney;
+        this.refundedAdditiveTax = OptionalNullable.of(refundedAdditiveTax);
+        this.refundedInclusiveTaxMoney = refundedInclusiveTaxMoney;
+        this.refundedInclusiveTax = OptionalNullable.of(refundedInclusiveTax);
+        this.refundedTipMoney = refundedTipMoney;
+        this.refundedDiscountMoney = refundedDiscountMoney;
+        this.refundedSurchargeMoney = refundedSurchargeMoney;
+        this.refundedSurcharges = OptionalNullable.of(refundedSurcharges);
+        this.createdAt = createdAt;
+        this.processedAt = OptionalNullable.of(processedAt);
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.merchantId = OptionalNullable.of(merchantId);
+        this.isExchange = OptionalNullable.of(isExchange);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Refund(String type, OptionalNullable<String> reason, V1Money refundedMoney,
+            V1Money refundedProcessingFeeMoney, V1Money refundedTaxMoney,
+            V1Money refundedAdditiveTaxMoney,
+            OptionalNullable<List<V1PaymentTax>> refundedAdditiveTax,
+            V1Money refundedInclusiveTaxMoney,
+            OptionalNullable<List<V1PaymentTax>> refundedInclusiveTax, V1Money refundedTipMoney,
+            V1Money refundedDiscountMoney, V1Money refundedSurchargeMoney,
+            OptionalNullable<List<V1PaymentSurcharge>> refundedSurcharges, String createdAt,
+            OptionalNullable<String> processedAt, OptionalNullable<String> paymentId,
+            OptionalNullable<String> merchantId, OptionalNullable<Boolean> isExchange) {
+        this.type = type;
         this.reason = reason;
         this.refundedMoney = refundedMoney;
         this.refundedProcessingFeeMoney = refundedProcessingFeeMoney;
@@ -112,14 +147,25 @@ public class V1Refund {
     }
 
     /**
+     * Internal Getter for Reason.
+     * The merchant-specified reason for the refund.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReason() {
+        return this.reason;
+    }
+
+    /**
      * Getter for Reason.
      * The merchant-specified reason for the refund.
      * @return Returns the String
      */
-    @JsonGetter("reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReason() {
-        return reason;
+        return OptionalNullable.getFrom(reason);
     }
 
     /**
@@ -163,14 +209,25 @@ public class V1Refund {
     }
 
     /**
+     * Internal Getter for RefundedAdditiveTax.
+     * All of the additive taxes associated with the refund.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("refunded_additive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetRefundedAdditiveTax() {
+        return this.refundedAdditiveTax;
+    }
+
+    /**
      * Getter for RefundedAdditiveTax.
      * All of the additive taxes associated with the refund.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("refunded_additive_tax")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getRefundedAdditiveTax() {
-        return refundedAdditiveTax;
+        return OptionalNullable.getFrom(refundedAdditiveTax);
     }
 
     /**
@@ -184,14 +241,25 @@ public class V1Refund {
     }
 
     /**
+     * Internal Getter for RefundedInclusiveTax.
+     * All of the inclusive taxes associated with the refund.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("refunded_inclusive_tax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetRefundedInclusiveTax() {
+        return this.refundedInclusiveTax;
+    }
+
+    /**
      * Getter for RefundedInclusiveTax.
      * All of the inclusive taxes associated with the refund.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("refunded_inclusive_tax")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getRefundedInclusiveTax() {
-        return refundedInclusiveTax;
+        return OptionalNullable.getFrom(refundedInclusiveTax);
     }
 
     /**
@@ -225,14 +293,25 @@ public class V1Refund {
     }
 
     /**
+     * Internal Getter for RefundedSurcharges.
+     * A list of all surcharges associated with the refund.
+     * @return Returns the Internal List of V1PaymentSurcharge
+     */
+    @JsonGetter("refunded_surcharges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentSurcharge>> internalGetRefundedSurcharges() {
+        return this.refundedSurcharges;
+    }
+
+    /**
      * Getter for RefundedSurcharges.
      * A list of all surcharges associated with the refund.
      * @return Returns the List of V1PaymentSurcharge
      */
-    @JsonGetter("refunded_surcharges")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentSurcharge> getRefundedSurcharges() {
-        return refundedSurcharges;
+        return OptionalNullable.getFrom(refundedSurcharges);
     }
 
     /**
@@ -247,14 +326,40 @@ public class V1Refund {
     }
 
     /**
+     * Internal Getter for ProcessedAt.
+     * The time when Square processed the refund on behalf of the merchant, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("processed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetProcessedAt() {
+        return this.processedAt;
+    }
+
+    /**
      * Getter for ProcessedAt.
      * The time when Square processed the refund on behalf of the merchant, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("processed_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getProcessedAt() {
-        return processedAt;
+        return OptionalNullable.getFrom(processedAt);
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * A Square-issued ID associated with the refund. For single-tender refunds, payment_id is the
+     * ID of the original payment ID. For split-tender refunds, payment_id is the ID of the original
+     * tender. For exchange-based refunds (is_exchange == true), payment_id is the ID of the
+     * original payment ID even if the payment includes other tenders.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -265,20 +370,42 @@ public class V1Refund {
      * original payment ID even if the payment includes other tenders.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for MerchantId.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantId() {
+        return this.merchantId;
     }
 
     /**
      * Getter for MerchantId.
      * @return Returns the String
      */
-    @JsonGetter("merchant_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantId() {
-        return merchantId;
+        return OptionalNullable.getFrom(merchantId);
+    }
+
+    /**
+     * Internal Getter for IsExchange.
+     * Indicates whether or not the refund is associated with an exchange. If is_exchange is true,
+     * the refund reflects the value of goods returned in the exchange not the total money refunded.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_exchange")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsExchange() {
+        return this.isExchange;
     }
 
     /**
@@ -287,10 +414,9 @@ public class V1Refund {
      * the refund reflects the value of goods returned in the exchange not the total money refunded.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_exchange")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsExchange() {
-        return isExchange;
+        return OptionalNullable.getFrom(isExchange);
     }
 
     @Override
@@ -358,23 +484,23 @@ public class V1Refund {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .type(getType())
-                .reason(getReason())
                 .refundedMoney(getRefundedMoney())
                 .refundedProcessingFeeMoney(getRefundedProcessingFeeMoney())
                 .refundedTaxMoney(getRefundedTaxMoney())
                 .refundedAdditiveTaxMoney(getRefundedAdditiveTaxMoney())
-                .refundedAdditiveTax(getRefundedAdditiveTax())
                 .refundedInclusiveTaxMoney(getRefundedInclusiveTaxMoney())
-                .refundedInclusiveTax(getRefundedInclusiveTax())
                 .refundedTipMoney(getRefundedTipMoney())
                 .refundedDiscountMoney(getRefundedDiscountMoney())
                 .refundedSurchargeMoney(getRefundedSurchargeMoney())
-                .refundedSurcharges(getRefundedSurcharges())
-                .createdAt(getCreatedAt())
-                .processedAt(getProcessedAt())
-                .paymentId(getPaymentId())
-                .merchantId(getMerchantId())
-                .isExchange(getIsExchange());
+                .createdAt(getCreatedAt());
+        builder.reason = internalGetReason();
+        builder.refundedAdditiveTax = internalGetRefundedAdditiveTax();
+        builder.refundedInclusiveTax = internalGetRefundedInclusiveTax();
+        builder.refundedSurcharges = internalGetRefundedSurcharges();
+        builder.processedAt = internalGetProcessedAt();
+        builder.paymentId = internalGetPaymentId();
+        builder.merchantId = internalGetMerchantId();
+        builder.isExchange = internalGetIsExchange();
         return builder;
     }
 
@@ -384,23 +510,23 @@ public class V1Refund {
     public static class Builder {
         private HttpContext httpContext;
         private String type;
-        private String reason;
+        private OptionalNullable<String> reason;
         private V1Money refundedMoney;
         private V1Money refundedProcessingFeeMoney;
         private V1Money refundedTaxMoney;
         private V1Money refundedAdditiveTaxMoney;
-        private List<V1PaymentTax> refundedAdditiveTax;
+        private OptionalNullable<List<V1PaymentTax>> refundedAdditiveTax;
         private V1Money refundedInclusiveTaxMoney;
-        private List<V1PaymentTax> refundedInclusiveTax;
+        private OptionalNullable<List<V1PaymentTax>> refundedInclusiveTax;
         private V1Money refundedTipMoney;
         private V1Money refundedDiscountMoney;
         private V1Money refundedSurchargeMoney;
-        private List<V1PaymentSurcharge> refundedSurcharges;
+        private OptionalNullable<List<V1PaymentSurcharge>> refundedSurcharges;
         private String createdAt;
-        private String processedAt;
-        private String paymentId;
-        private String merchantId;
-        private Boolean isExchange;
+        private OptionalNullable<String> processedAt;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> merchantId;
+        private OptionalNullable<Boolean> isExchange;
 
 
 
@@ -430,7 +556,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder reason(String reason) {
-            this.reason = reason;
+            this.reason = OptionalNullable.of(reason);
+            return this;
+        }
+
+        /**
+         * UnSetter for reason.
+         * @return Builder
+         */
+        public Builder unsetReason() {
+            reason = null;
             return this;
         }
 
@@ -480,7 +615,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder refundedAdditiveTax(List<V1PaymentTax> refundedAdditiveTax) {
-            this.refundedAdditiveTax = refundedAdditiveTax;
+            this.refundedAdditiveTax = OptionalNullable.of(refundedAdditiveTax);
+            return this;
+        }
+
+        /**
+         * UnSetter for refundedAdditiveTax.
+         * @return Builder
+         */
+        public Builder unsetRefundedAdditiveTax() {
+            refundedAdditiveTax = null;
             return this;
         }
 
@@ -500,7 +644,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder refundedInclusiveTax(List<V1PaymentTax> refundedInclusiveTax) {
-            this.refundedInclusiveTax = refundedInclusiveTax;
+            this.refundedInclusiveTax = OptionalNullable.of(refundedInclusiveTax);
+            return this;
+        }
+
+        /**
+         * UnSetter for refundedInclusiveTax.
+         * @return Builder
+         */
+        public Builder unsetRefundedInclusiveTax() {
+            refundedInclusiveTax = null;
             return this;
         }
 
@@ -540,7 +693,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder refundedSurcharges(List<V1PaymentSurcharge> refundedSurcharges) {
-            this.refundedSurcharges = refundedSurcharges;
+            this.refundedSurcharges = OptionalNullable.of(refundedSurcharges);
+            return this;
+        }
+
+        /**
+         * UnSetter for refundedSurcharges.
+         * @return Builder
+         */
+        public Builder unsetRefundedSurcharges() {
+            refundedSurcharges = null;
             return this;
         }
 
@@ -560,7 +722,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder processedAt(String processedAt) {
-            this.processedAt = processedAt;
+            this.processedAt = OptionalNullable.of(processedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for processedAt.
+         * @return Builder
+         */
+        public Builder unsetProcessedAt() {
+            processedAt = null;
             return this;
         }
 
@@ -570,7 +741,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -580,7 +760,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
-            this.merchantId = merchantId;
+            this.merchantId = OptionalNullable.of(merchantId);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantId.
+         * @return Builder
+         */
+        public Builder unsetMerchantId() {
+            merchantId = null;
             return this;
         }
 
@@ -590,7 +779,16 @@ public class V1Refund {
          * @return Builder
          */
         public Builder isExchange(Boolean isExchange) {
-            this.isExchange = isExchange;
+            this.isExchange = OptionalNullable.of(isExchange);
+            return this;
+        }
+
+        /**
+         * UnSetter for isExchange.
+         * @return Builder
+         */
+        public Builder unsetIsExchange() {
+            isExchange = null;
             return this;
         }
 

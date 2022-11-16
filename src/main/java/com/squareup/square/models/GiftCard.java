@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +21,7 @@ public class GiftCard {
     private final String ganSource;
     private final String state;
     private final Money balanceMoney;
-    private final String gan;
+    private final OptionalNullable<String> gan;
     private final String createdAt;
     private final List<String> customerIds;
 
@@ -43,6 +46,21 @@ public class GiftCard {
             @JsonProperty("gan") String gan,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("customer_ids") List<String> customerIds) {
+        this.id = id;
+        this.type = type;
+        this.ganSource = ganSource;
+        this.state = state;
+        this.balanceMoney = balanceMoney;
+        this.gan = OptionalNullable.of(gan);
+        this.createdAt = createdAt;
+        this.customerIds = customerIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected GiftCard(String type, String id, String ganSource, String state, Money balanceMoney,
+            OptionalNullable<String> gan, String createdAt, List<String> customerIds) {
         this.id = id;
         this.type = type;
         this.ganSource = ganSource;
@@ -113,15 +131,27 @@ public class GiftCard {
     }
 
     /**
+     * Internal Getter for Gan.
+     * The gift card account number (GAN). Buyers can use the GAN to make purchases or check the
+     * gift card balance.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("gan")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGan() {
+        return this.gan;
+    }
+
+    /**
      * Getter for Gan.
      * The gift card account number (GAN). Buyers can use the GAN to make purchases or check the
      * gift card balance.
      * @return Returns the String
      */
-    @JsonGetter("gan")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getGan() {
-        return gan;
+        return OptionalNullable.getFrom(gan);
     }
 
     /**
@@ -196,9 +226,9 @@ public class GiftCard {
                 .ganSource(getGanSource())
                 .state(getState())
                 .balanceMoney(getBalanceMoney())
-                .gan(getGan())
                 .createdAt(getCreatedAt())
                 .customerIds(getCustomerIds());
+        builder.gan = internalGetGan();
         return builder;
     }
 
@@ -211,7 +241,7 @@ public class GiftCard {
         private String ganSource;
         private String state;
         private Money balanceMoney;
-        private String gan;
+        private OptionalNullable<String> gan;
         private String createdAt;
         private List<String> customerIds;
 
@@ -279,7 +309,16 @@ public class GiftCard {
          * @return Builder
          */
         public Builder gan(String gan) {
-            this.gan = gan;
+            this.gan = OptionalNullable.of(gan);
+            return this;
+        }
+
+        /**
+         * UnSetter for gan.
+         * @return Builder
+         */
+        public Builder unsetGan() {
+            gan = null;
             return this;
         }
 

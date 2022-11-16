@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,14 +16,14 @@ import java.util.Objects;
  * This is a model class for BatchRetrieveInventoryChangesRequest type.
  */
 public class BatchRetrieveInventoryChangesRequest {
-    private final List<String> catalogObjectIds;
-    private final List<String> locationIds;
-    private final List<String> types;
-    private final List<String> states;
-    private final String updatedAfter;
-    private final String updatedBefore;
-    private final String cursor;
-    private final Integer limit;
+    private final OptionalNullable<List<String>> catalogObjectIds;
+    private final OptionalNullable<List<String>> locationIds;
+    private final OptionalNullable<List<String>> types;
+    private final OptionalNullable<List<String>> states;
+    private final OptionalNullable<String> updatedAfter;
+    private final OptionalNullable<String> updatedBefore;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -43,6 +46,24 @@ public class BatchRetrieveInventoryChangesRequest {
             @JsonProperty("updated_before") String updatedBefore,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit) {
+        this.catalogObjectIds = OptionalNullable.of(catalogObjectIds);
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.types = OptionalNullable.of(types);
+        this.states = OptionalNullable.of(states);
+        this.updatedAfter = OptionalNullable.of(updatedAfter);
+        this.updatedBefore = OptionalNullable.of(updatedBefore);
+        this.cursor = OptionalNullable.of(cursor);
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BatchRetrieveInventoryChangesRequest(OptionalNullable<List<String>> catalogObjectIds,
+            OptionalNullable<List<String>> locationIds, OptionalNullable<List<String>> types,
+            OptionalNullable<List<String>> states, OptionalNullable<String> updatedAfter,
+            OptionalNullable<String> updatedBefore, OptionalNullable<String> cursor,
+            OptionalNullable<Integer> limit) {
         this.catalogObjectIds = catalogObjectIds;
         this.locationIds = locationIds;
         this.types = types;
@@ -54,15 +75,40 @@ public class BatchRetrieveInventoryChangesRequest {
     }
 
     /**
+     * Internal Getter for CatalogObjectIds.
+     * The filter to return results by `CatalogObject` ID. The filter is only applicable when set.
+     * The default value is null.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("catalog_object_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetCatalogObjectIds() {
+        return this.catalogObjectIds;
+    }
+
+    /**
      * Getter for CatalogObjectIds.
      * The filter to return results by `CatalogObject` ID. The filter is only applicable when set.
      * The default value is null.
      * @return Returns the List of String
      */
-    @JsonGetter("catalog_object_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getCatalogObjectIds() {
-        return catalogObjectIds;
+        return OptionalNullable.getFrom(catalogObjectIds);
+    }
+
+    /**
+     * Internal Getter for LocationIds.
+     * The filter to return results by `Location` ID. The filter is only applicable when set. The
+     * default value is null.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
     }
 
     /**
@@ -71,10 +117,22 @@ public class BatchRetrieveInventoryChangesRequest {
      * default value is null.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
+    }
+
+    /**
+     * Internal Getter for Types.
+     * The filter to return results by `InventoryChangeType` values other than `TRANSFER`. The
+     * default value is `[PHYSICAL_COUNT, ADJUSTMENT]`.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetTypes() {
+        return this.types;
     }
 
     /**
@@ -83,10 +141,22 @@ public class BatchRetrieveInventoryChangesRequest {
      * default value is `[PHYSICAL_COUNT, ADJUSTMENT]`.
      * @return Returns the List of String
      */
-    @JsonGetter("types")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getTypes() {
-        return types;
+        return OptionalNullable.getFrom(types);
+    }
+
+    /**
+     * Internal Getter for States.
+     * The filter to return `ADJUSTMENT` query results by `InventoryState`. This filter is only
+     * applied when set. The default value is null.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("states")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetStates() {
+        return this.states;
     }
 
     /**
@@ -95,10 +165,23 @@ public class BatchRetrieveInventoryChangesRequest {
      * applied when set. The default value is null.
      * @return Returns the List of String
      */
-    @JsonGetter("states")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getStates() {
-        return states;
+        return OptionalNullable.getFrom(states);
+    }
+
+    /**
+     * Internal Getter for UpdatedAfter.
+     * The filter to return results with their `calculated_at` value after the given time as
+     * specified in an RFC 3339 timestamp. The default value is the UNIX epoch of
+     * (`1970-01-01T00:00:00Z`).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_after")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedAfter() {
+        return this.updatedAfter;
     }
 
     /**
@@ -108,10 +191,23 @@ public class BatchRetrieveInventoryChangesRequest {
      * (`1970-01-01T00:00:00Z`).
      * @return Returns the String
      */
-    @JsonGetter("updated_after")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUpdatedAfter() {
-        return updatedAfter;
+        return OptionalNullable.getFrom(updatedAfter);
+    }
+
+    /**
+     * Internal Getter for UpdatedBefore.
+     * The filter to return results with their `created_at` or `calculated_at` value strictly before
+     * the given time as specified in an RFC 3339 timestamp. The default value is the UNIX epoch of
+     * (`1970-01-01T00:00:00Z`).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_before")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedBefore() {
+        return this.updatedBefore;
     }
 
     /**
@@ -121,10 +217,24 @@ public class BatchRetrieveInventoryChangesRequest {
      * (`1970-01-01T00:00:00Z`).
      * @return Returns the String
      */
-    @JsonGetter("updated_before")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUpdatedBefore() {
-        return updatedBefore;
+        return OptionalNullable.getFrom(updatedBefore);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for the original query. See the
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -135,10 +245,21 @@ public class BatchRetrieveInventoryChangesRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The number of [records]($m/InventoryChange) to return.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -146,10 +267,9 @@ public class BatchRetrieveInventoryChangesRequest {
      * The number of [records]($m/InventoryChange) to return.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -195,15 +315,15 @@ public class BatchRetrieveInventoryChangesRequest {
      * @return a new {@link BatchRetrieveInventoryChangesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .catalogObjectIds(getCatalogObjectIds())
-                .locationIds(getLocationIds())
-                .types(getTypes())
-                .states(getStates())
-                .updatedAfter(getUpdatedAfter())
-                .updatedBefore(getUpdatedBefore())
-                .cursor(getCursor())
-                .limit(getLimit());
+        Builder builder = new Builder();
+        builder.catalogObjectIds = internalGetCatalogObjectIds();
+        builder.locationIds = internalGetLocationIds();
+        builder.types = internalGetTypes();
+        builder.states = internalGetStates();
+        builder.updatedAfter = internalGetUpdatedAfter();
+        builder.updatedBefore = internalGetUpdatedBefore();
+        builder.cursor = internalGetCursor();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -211,14 +331,14 @@ public class BatchRetrieveInventoryChangesRequest {
      * Class to build instances of {@link BatchRetrieveInventoryChangesRequest}.
      */
     public static class Builder {
-        private List<String> catalogObjectIds;
-        private List<String> locationIds;
-        private List<String> types;
-        private List<String> states;
-        private String updatedAfter;
-        private String updatedBefore;
-        private String cursor;
-        private Integer limit;
+        private OptionalNullable<List<String>> catalogObjectIds;
+        private OptionalNullable<List<String>> locationIds;
+        private OptionalNullable<List<String>> types;
+        private OptionalNullable<List<String>> states;
+        private OptionalNullable<String> updatedAfter;
+        private OptionalNullable<String> updatedBefore;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Integer> limit;
 
 
 
@@ -228,7 +348,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder catalogObjectIds(List<String> catalogObjectIds) {
-            this.catalogObjectIds = catalogObjectIds;
+            this.catalogObjectIds = OptionalNullable.of(catalogObjectIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectIds.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectIds() {
+            catalogObjectIds = null;
             return this;
         }
 
@@ -238,7 +367,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -248,7 +386,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder types(List<String> types) {
-            this.types = types;
+            this.types = OptionalNullable.of(types);
+            return this;
+        }
+
+        /**
+         * UnSetter for types.
+         * @return Builder
+         */
+        public Builder unsetTypes() {
+            types = null;
             return this;
         }
 
@@ -258,7 +405,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder states(List<String> states) {
-            this.states = states;
+            this.states = OptionalNullable.of(states);
+            return this;
+        }
+
+        /**
+         * UnSetter for states.
+         * @return Builder
+         */
+        public Builder unsetStates() {
+            states = null;
             return this;
         }
 
@@ -268,7 +424,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder updatedAfter(String updatedAfter) {
-            this.updatedAfter = updatedAfter;
+            this.updatedAfter = OptionalNullable.of(updatedAfter);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedAfter.
+         * @return Builder
+         */
+        public Builder unsetUpdatedAfter() {
+            updatedAfter = null;
             return this;
         }
 
@@ -278,7 +443,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder updatedBefore(String updatedBefore) {
-            this.updatedBefore = updatedBefore;
+            this.updatedBefore = OptionalNullable.of(updatedBefore);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedBefore.
+         * @return Builder
+         */
+        public Builder unsetUpdatedBefore() {
+            updatedBefore = null;
             return this;
         }
 
@@ -288,7 +462,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -298,7 +481,16 @@ public class BatchRetrieveInventoryChangesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,14 +16,14 @@ import java.util.Objects;
  * This is a model class for V1PaymentSurcharge type.
  */
 public class V1PaymentSurcharge {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final V1Money appliedMoney;
-    private final String rate;
+    private final OptionalNullable<String> rate;
     private final V1Money amountMoney;
     private final String type;
-    private final Boolean taxable;
-    private final List<V1PaymentTax> taxes;
-    private final String surchargeId;
+    private final OptionalNullable<Boolean> taxable;
+    private final OptionalNullable<List<V1PaymentTax>> taxes;
+    private final OptionalNullable<String> surchargeId;
 
     /**
      * Initialization constructor.
@@ -43,6 +46,23 @@ public class V1PaymentSurcharge {
             @JsonProperty("taxable") Boolean taxable,
             @JsonProperty("taxes") List<V1PaymentTax> taxes,
             @JsonProperty("surcharge_id") String surchargeId) {
+        this.name = OptionalNullable.of(name);
+        this.appliedMoney = appliedMoney;
+        this.rate = OptionalNullable.of(rate);
+        this.amountMoney = amountMoney;
+        this.type = type;
+        this.taxable = OptionalNullable.of(taxable);
+        this.taxes = OptionalNullable.of(taxes);
+        this.surchargeId = OptionalNullable.of(surchargeId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1PaymentSurcharge(OptionalNullable<String> name, V1Money appliedMoney,
+            OptionalNullable<String> rate, V1Money amountMoney, String type,
+            OptionalNullable<Boolean> taxable, OptionalNullable<List<V1PaymentTax>> taxes,
+            OptionalNullable<String> surchargeId) {
         this.name = name;
         this.appliedMoney = appliedMoney;
         this.rate = rate;
@@ -54,14 +74,25 @@ public class V1PaymentSurcharge {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name of the surcharge.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name of the surcharge.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -75,16 +106,29 @@ public class V1PaymentSurcharge {
     }
 
     /**
+     * Internal Getter for Rate.
+     * The amount of the surcharge as a percentage. The percentage is provided as a string
+     * representing the decimal equivalent of the percentage. For example, "0.7" corresponds to a 7%
+     * surcharge. Exactly one of rate or amount_money should be set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRate() {
+        return this.rate;
+    }
+
+    /**
      * Getter for Rate.
      * The amount of the surcharge as a percentage. The percentage is provided as a string
      * representing the decimal equivalent of the percentage. For example, "0.7" corresponds to a 7%
      * surcharge. Exactly one of rate or amount_money should be set.
      * @return Returns the String
      */
-    @JsonGetter("rate")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRate() {
-        return rate;
+        return OptionalNullable.getFrom(rate);
     }
 
     /**
@@ -108,14 +152,37 @@ public class V1PaymentSurcharge {
     }
 
     /**
+     * Internal Getter for Taxable.
+     * Indicates whether the surcharge is taxable.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTaxable() {
+        return this.taxable;
+    }
+
+    /**
      * Getter for Taxable.
      * Indicates whether the surcharge is taxable.
      * @return Returns the Boolean
      */
-    @JsonGetter("taxable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getTaxable() {
-        return taxable;
+        return OptionalNullable.getFrom(taxable);
+    }
+
+    /**
+     * Internal Getter for Taxes.
+     * The list of taxes that should be applied to the surcharge.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetTaxes() {
+        return this.taxes;
     }
 
     /**
@@ -123,10 +190,21 @@ public class V1PaymentSurcharge {
      * The list of taxes that should be applied to the surcharge.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getTaxes() {
-        return taxes;
+        return OptionalNullable.getFrom(taxes);
+    }
+
+    /**
+     * Internal Getter for SurchargeId.
+     * A Square-issued unique identifier associated with the surcharge.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("surcharge_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSurchargeId() {
+        return this.surchargeId;
     }
 
     /**
@@ -134,10 +212,9 @@ public class V1PaymentSurcharge {
      * A Square-issued unique identifier associated with the surcharge.
      * @return Returns the String
      */
-    @JsonGetter("surcharge_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSurchargeId() {
-        return surchargeId;
+        return OptionalNullable.getFrom(surchargeId);
     }
 
     @Override
@@ -184,14 +261,14 @@ public class V1PaymentSurcharge {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
                 .appliedMoney(getAppliedMoney())
-                .rate(getRate())
                 .amountMoney(getAmountMoney())
-                .type(getType())
-                .taxable(getTaxable())
-                .taxes(getTaxes())
-                .surchargeId(getSurchargeId());
+                .type(getType());
+        builder.name = internalGetName();
+        builder.rate = internalGetRate();
+        builder.taxable = internalGetTaxable();
+        builder.taxes = internalGetTaxes();
+        builder.surchargeId = internalGetSurchargeId();
         return builder;
     }
 
@@ -199,14 +276,14 @@ public class V1PaymentSurcharge {
      * Class to build instances of {@link V1PaymentSurcharge}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
         private V1Money appliedMoney;
-        private String rate;
+        private OptionalNullable<String> rate;
         private V1Money amountMoney;
         private String type;
-        private Boolean taxable;
-        private List<V1PaymentTax> taxes;
-        private String surchargeId;
+        private OptionalNullable<Boolean> taxable;
+        private OptionalNullable<List<V1PaymentTax>> taxes;
+        private OptionalNullable<String> surchargeId;
 
 
 
@@ -216,7 +293,16 @@ public class V1PaymentSurcharge {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -236,7 +322,16 @@ public class V1PaymentSurcharge {
          * @return Builder
          */
         public Builder rate(String rate) {
-            this.rate = rate;
+            this.rate = OptionalNullable.of(rate);
+            return this;
+        }
+
+        /**
+         * UnSetter for rate.
+         * @return Builder
+         */
+        public Builder unsetRate() {
+            rate = null;
             return this;
         }
 
@@ -266,7 +361,16 @@ public class V1PaymentSurcharge {
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
-            this.taxable = taxable;
+            this.taxable = OptionalNullable.of(taxable);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxable.
+         * @return Builder
+         */
+        public Builder unsetTaxable() {
+            taxable = null;
             return this;
         }
 
@@ -276,7 +380,16 @@ public class V1PaymentSurcharge {
          * @return Builder
          */
         public Builder taxes(List<V1PaymentTax> taxes) {
-            this.taxes = taxes;
+            this.taxes = OptionalNullable.of(taxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxes.
+         * @return Builder
+         */
+        public Builder unsetTaxes() {
+            taxes = null;
             return this;
         }
 
@@ -286,7 +399,16 @@ public class V1PaymentSurcharge {
          * @return Builder
          */
         public Builder surchargeId(String surchargeId) {
-            this.surchargeId = surchargeId;
+            this.surchargeId = OptionalNullable.of(surchargeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for surchargeId.
+         * @return Builder
+         */
+        public Builder unsetSurchargeId() {
+            surchargeId = null;
             return this;
         }
 

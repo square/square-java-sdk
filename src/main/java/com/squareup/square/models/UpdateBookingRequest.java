@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for UpdateBookingRequest type.
  */
 public class UpdateBookingRequest {
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
     private final Booking booking;
 
     /**
@@ -24,8 +27,28 @@ public class UpdateBookingRequest {
     public UpdateBookingRequest(
             @JsonProperty("booking") Booking booking,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+        this.booking = booking;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateBookingRequest(Booking booking, OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         this.booking = booking;
+    }
+
+    /**
+     * Internal Getter for IdempotencyKey.
+     * A unique key to make this request an idempotent operation.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
     }
 
     /**
@@ -33,10 +56,9 @@ public class UpdateBookingRequest {
      * A unique key to make this request an idempotent operation.
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     /**
@@ -85,8 +107,8 @@ public class UpdateBookingRequest {
      * @return a new {@link UpdateBookingRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(booking)
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder(booking);
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -95,7 +117,7 @@ public class UpdateBookingRequest {
      */
     public static class Builder {
         private Booking booking;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -121,7 +143,16 @@ public class UpdateBookingRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

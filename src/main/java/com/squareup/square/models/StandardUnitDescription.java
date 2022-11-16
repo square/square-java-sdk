@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class StandardUnitDescription {
     private final MeasurementUnit unit;
-    private final String name;
-    private final String abbreviation;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> abbreviation;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class StandardUnitDescription {
             @JsonProperty("unit") MeasurementUnit unit,
             @JsonProperty("name") String name,
             @JsonProperty("abbreviation") String abbreviation) {
+        this.unit = unit;
+        this.name = OptionalNullable.of(name);
+        this.abbreviation = OptionalNullable.of(abbreviation);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected StandardUnitDescription(MeasurementUnit unit, OptionalNullable<String> name,
+            OptionalNullable<String> abbreviation) {
         this.unit = unit;
         this.name = name;
         this.abbreviation = abbreviation;
@@ -46,14 +59,37 @@ public class StandardUnitDescription {
     }
 
     /**
+     * Internal Getter for Name.
+     * UI display name of the measurement unit. For example, 'Pound'.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * UI display name of the measurement unit. For example, 'Pound'.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Abbreviation.
+     * UI display abbreviation for the measurement unit. For example, 'lb'.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("abbreviation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAbbreviation() {
+        return this.abbreviation;
     }
 
     /**
@@ -61,10 +97,9 @@ public class StandardUnitDescription {
      * UI display abbreviation for the measurement unit. For example, 'lb'.
      * @return Returns the String
      */
-    @JsonGetter("abbreviation")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAbbreviation() {
-        return abbreviation;
+        return OptionalNullable.getFrom(abbreviation);
     }
 
     @Override
@@ -103,9 +138,9 @@ public class StandardUnitDescription {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .unit(getUnit())
-                .name(getName())
-                .abbreviation(getAbbreviation());
+                .unit(getUnit());
+        builder.name = internalGetName();
+        builder.abbreviation = internalGetAbbreviation();
         return builder;
     }
 
@@ -114,8 +149,8 @@ public class StandardUnitDescription {
      */
     public static class Builder {
         private MeasurementUnit unit;
-        private String name;
-        private String abbreviation;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> abbreviation;
 
 
 
@@ -135,7 +170,16 @@ public class StandardUnitDescription {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -145,7 +189,16 @@ public class StandardUnitDescription {
          * @return Builder
          */
         public Builder abbreviation(String abbreviation) {
-            this.abbreviation = abbreviation;
+            this.abbreviation = OptionalNullable.of(abbreviation);
+            return this;
+        }
+
+        /**
+         * UnSetter for abbreviation.
+         * @return Builder
+         */
+        public Builder unsetAbbreviation() {
+            abbreviation = null;
             return this;
         }
 

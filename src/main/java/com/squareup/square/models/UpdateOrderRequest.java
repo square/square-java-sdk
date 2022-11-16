@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class UpdateOrderRequest {
     private final Order order;
-    private final List<String> fieldsToClear;
-    private final String idempotencyKey;
+    private final OptionalNullable<List<String>> fieldsToClear;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,16 @@ public class UpdateOrderRequest {
             @JsonProperty("order") Order order,
             @JsonProperty("fields_to_clear") List<String> fieldsToClear,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.order = order;
+        this.fieldsToClear = OptionalNullable.of(fieldsToClear);
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateOrderRequest(Order order, OptionalNullable<List<String>> fieldsToClear,
+            OptionalNullable<String> idempotencyKey) {
         this.order = order;
         this.fieldsToClear = fieldsToClear;
         this.idempotencyKey = idempotencyKey;
@@ -48,17 +61,47 @@ public class UpdateOrderRequest {
     }
 
     /**
-     * Getter for FieldsToClear.
+     * Internal Getter for FieldsToClear.
      * The [dot notation
-     * paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation) fields
-     * to clear. For example, `line_items[uid].note`. For more information, see [Deleting
-     * fields](https://developer.squareup.com/docs/orders-api/manage-orders#delete-fields).
-     * @return Returns the List of String
+     * paths](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#identifying-fields-to-delete)
+     * fields to clear. For example, `line_items[uid].note`. For more information, see [Deleting
+     * fields](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#deleting-fields).
+     * @return Returns the Internal List of String
      */
     @JsonGetter("fields_to_clear")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetFieldsToClear() {
+        return this.fieldsToClear;
+    }
+
+    /**
+     * Getter for FieldsToClear.
+     * The [dot notation
+     * paths](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#identifying-fields-to-delete)
+     * fields to clear. For example, `line_items[uid].note`. For more information, see [Deleting
+     * fields](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#deleting-fields).
+     * @return Returns the List of String
+     */
+    @JsonIgnore
     public List<String> getFieldsToClear() {
-        return fieldsToClear;
+        return OptionalNullable.getFrom(fieldsToClear);
+    }
+
+    /**
+     * Internal Getter for IdempotencyKey.
+     * A value you specify that uniquely identifies this update request. If you are unsure whether a
+     * particular update was applied to an order successfully, you can reattempt it with the same
+     * idempotency key without worrying about creating duplicate updates to the order. The latest
+     * order version is returned. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
     }
 
     /**
@@ -70,10 +113,9 @@ public class UpdateOrderRequest {
      * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -112,9 +154,9 @@ public class UpdateOrderRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .order(getOrder())
-                .fieldsToClear(getFieldsToClear())
-                .idempotencyKey(getIdempotencyKey());
+                .order(getOrder());
+        builder.fieldsToClear = internalGetFieldsToClear();
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -123,8 +165,8 @@ public class UpdateOrderRequest {
      */
     public static class Builder {
         private Order order;
-        private List<String> fieldsToClear;
-        private String idempotencyKey;
+        private OptionalNullable<List<String>> fieldsToClear;
+        private OptionalNullable<String> idempotencyKey;
 
 
 
@@ -144,7 +186,16 @@ public class UpdateOrderRequest {
          * @return Builder
          */
         public Builder fieldsToClear(List<String> fieldsToClear) {
-            this.fieldsToClear = fieldsToClear;
+            this.fieldsToClear = OptionalNullable.of(fieldsToClear);
+            return this;
+        }
+
+        /**
+         * UnSetter for fieldsToClear.
+         * @return Builder
+         */
+        public Builder unsetFieldsToClear() {
+            fieldsToClear = null;
             return this;
         }
 
@@ -154,7 +205,16 @@ public class UpdateOrderRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

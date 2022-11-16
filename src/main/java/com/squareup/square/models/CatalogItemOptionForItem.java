@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogItemOptionForItem type.
  */
 public class CatalogItemOptionForItem {
-    private final String itemOptionId;
+    private final OptionalNullable<String> itemOptionId;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class CatalogItemOptionForItem {
     @JsonCreator
     public CatalogItemOptionForItem(
             @JsonProperty("item_option_id") String itemOptionId) {
+        this.itemOptionId = OptionalNullable.of(itemOptionId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogItemOptionForItem(OptionalNullable<String> itemOptionId) {
         this.itemOptionId = itemOptionId;
+    }
+
+    /**
+     * Internal Getter for ItemOptionId.
+     * The unique id of the item option, used to form the dimensions of the item option matrix in a
+     * specified order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("item_option_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetItemOptionId() {
+        return this.itemOptionId;
     }
 
     /**
@@ -30,10 +53,9 @@ public class CatalogItemOptionForItem {
      * specified order.
      * @return Returns the String
      */
-    @JsonGetter("item_option_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getItemOptionId() {
-        return itemOptionId;
+        return OptionalNullable.getFrom(itemOptionId);
     }
 
     @Override
@@ -68,8 +90,8 @@ public class CatalogItemOptionForItem {
      * @return a new {@link CatalogItemOptionForItem.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .itemOptionId(getItemOptionId());
+        Builder builder = new Builder();
+        builder.itemOptionId = internalGetItemOptionId();
         return builder;
     }
 
@@ -77,7 +99,7 @@ public class CatalogItemOptionForItem {
      * Class to build instances of {@link CatalogItemOptionForItem}.
      */
     public static class Builder {
-        private String itemOptionId;
+        private OptionalNullable<String> itemOptionId;
 
 
 
@@ -87,7 +109,16 @@ public class CatalogItemOptionForItem {
          * @return Builder
          */
         public Builder itemOptionId(String itemOptionId) {
-            this.itemOptionId = itemOptionId;
+            this.itemOptionId = OptionalNullable.of(itemOptionId);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemOptionId.
+         * @return Builder
+         */
+        public Builder unsetItemOptionId() {
+            itemOptionId = null;
             return this;
         }
 

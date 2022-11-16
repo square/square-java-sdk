@@ -3,9 +3,13 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,6 +27,8 @@ public class LoyaltyPromotion {
     private final String updatedAt;
     private final String loyaltyProgramId;
     private final Money minimumSpendAmountMoney;
+    private final OptionalNullable<List<String>> qualifyingItemVariationIds;
+    private final OptionalNullable<List<String>> qualifyingCategoryIds;
 
     /**
      * Initialization constructor.
@@ -37,6 +43,8 @@ public class LoyaltyPromotion {
      * @param  updatedAt  String value for updatedAt.
      * @param  loyaltyProgramId  String value for loyaltyProgramId.
      * @param  minimumSpendAmountMoney  Money value for minimumSpendAmountMoney.
+     * @param  qualifyingItemVariationIds  List of String value for qualifyingItemVariationIds.
+     * @param  qualifyingCategoryIds  List of String value for qualifyingCategoryIds.
      */
     @JsonCreator
     public LoyaltyPromotion(
@@ -50,7 +58,9 @@ public class LoyaltyPromotion {
             @JsonProperty("canceled_at") String canceledAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("loyalty_program_id") String loyaltyProgramId,
-            @JsonProperty("minimum_spend_amount_money") Money minimumSpendAmountMoney) {
+            @JsonProperty("minimum_spend_amount_money") Money minimumSpendAmountMoney,
+            @JsonProperty("qualifying_item_variation_ids") List<String> qualifyingItemVariationIds,
+            @JsonProperty("qualifying_category_ids") List<String> qualifyingCategoryIds) {
         this.id = id;
         this.name = name;
         this.incentive = incentive;
@@ -62,6 +72,33 @@ public class LoyaltyPromotion {
         this.updatedAt = updatedAt;
         this.loyaltyProgramId = loyaltyProgramId;
         this.minimumSpendAmountMoney = minimumSpendAmountMoney;
+        this.qualifyingItemVariationIds = OptionalNullable.of(qualifyingItemVariationIds);
+        this.qualifyingCategoryIds = OptionalNullable.of(qualifyingCategoryIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyPromotion(String name, LoyaltyPromotionIncentive incentive,
+            LoyaltyPromotionAvailableTimeData availableTime, String id,
+            LoyaltyPromotionTriggerLimit triggerLimit, String status, String createdAt,
+            String canceledAt, String updatedAt, String loyaltyProgramId,
+            Money minimumSpendAmountMoney,
+            OptionalNullable<List<String>> qualifyingItemVariationIds,
+            OptionalNullable<List<String>> qualifyingCategoryIds) {
+        this.id = id;
+        this.name = name;
+        this.incentive = incentive;
+        this.availableTime = availableTime;
+        this.triggerLimit = triggerLimit;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.canceledAt = canceledAt;
+        this.updatedAt = updatedAt;
+        this.loyaltyProgramId = loyaltyProgramId;
+        this.minimumSpendAmountMoney = minimumSpendAmountMoney;
+        this.qualifyingItemVariationIds = qualifyingItemVariationIds;
+        this.qualifyingCategoryIds = qualifyingCategoryIds;
     }
 
     /**
@@ -194,10 +231,75 @@ public class LoyaltyPromotion {
         return minimumSpendAmountMoney;
     }
 
+    /**
+     * Internal Getter for QualifyingItemVariationIds.
+     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects]($m/CatalogObject). If specified,
+     * the purchase must include at least one of these items to qualify for the promotion. This
+     * option is valid only if the base loyalty program uses a `VISIT` or `SPEND` accrual rule. With
+     * `SPEND` accrual rules, make sure that qualifying promotional items are not excluded. You can
+     * specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a given promotion,
+     * but not both.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("qualifying_item_variation_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetQualifyingItemVariationIds() {
+        return this.qualifyingItemVariationIds;
+    }
+
+    /**
+     * Getter for QualifyingItemVariationIds.
+     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects]($m/CatalogObject). If specified,
+     * the purchase must include at least one of these items to qualify for the promotion. This
+     * option is valid only if the base loyalty program uses a `VISIT` or `SPEND` accrual rule. With
+     * `SPEND` accrual rules, make sure that qualifying promotional items are not excluded. You can
+     * specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a given promotion,
+     * but not both.
+     * @return Returns the List of String
+     */
+    @JsonIgnore
+    public List<String> getQualifyingItemVariationIds() {
+        return OptionalNullable.getFrom(qualifyingItemVariationIds);
+    }
+
+    /**
+     * Internal Getter for QualifyingCategoryIds.
+     * The IDs of any qualifying `CATEGORY` [catalog objects]($m/CatalogObject). If specified, the
+     * purchase must include at least one item from one of these categories to qualify for the
+     * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
+     * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
+     * excluded. You can specify `qualifying_category_ids` or `qualifying_item_variation_ids` for a
+     * promotion, but not both.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("qualifying_category_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetQualifyingCategoryIds() {
+        return this.qualifyingCategoryIds;
+    }
+
+    /**
+     * Getter for QualifyingCategoryIds.
+     * The IDs of any qualifying `CATEGORY` [catalog objects]($m/CatalogObject). If specified, the
+     * purchase must include at least one item from one of these categories to qualify for the
+     * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
+     * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
+     * excluded. You can specify `qualifying_category_ids` or `qualifying_item_variation_ids` for a
+     * promotion, but not both.
+     * @return Returns the List of String
+     */
+    @JsonIgnore
+    public List<String> getQualifyingCategoryIds() {
+        return OptionalNullable.getFrom(qualifyingCategoryIds);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, incentive, availableTime, triggerLimit, status, createdAt,
-                canceledAt, updatedAt, loyaltyProgramId, minimumSpendAmountMoney);
+                canceledAt, updatedAt, loyaltyProgramId, minimumSpendAmountMoney,
+                qualifyingItemVariationIds, qualifyingCategoryIds);
     }
 
     @Override
@@ -219,7 +321,9 @@ public class LoyaltyPromotion {
             && Objects.equals(canceledAt, other.canceledAt)
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(loyaltyProgramId, other.loyaltyProgramId)
-            && Objects.equals(minimumSpendAmountMoney, other.minimumSpendAmountMoney);
+            && Objects.equals(minimumSpendAmountMoney, other.minimumSpendAmountMoney)
+            && Objects.equals(qualifyingItemVariationIds, other.qualifyingItemVariationIds)
+            && Objects.equals(qualifyingCategoryIds, other.qualifyingCategoryIds);
     }
 
     /**
@@ -232,7 +336,9 @@ public class LoyaltyPromotion {
                 + ", availableTime=" + availableTime + ", id=" + id + ", triggerLimit="
                 + triggerLimit + ", status=" + status + ", createdAt=" + createdAt + ", canceledAt="
                 + canceledAt + ", updatedAt=" + updatedAt + ", loyaltyProgramId=" + loyaltyProgramId
-                + ", minimumSpendAmountMoney=" + minimumSpendAmountMoney + "]";
+                + ", minimumSpendAmountMoney=" + minimumSpendAmountMoney
+                + ", qualifyingItemVariationIds=" + qualifyingItemVariationIds
+                + ", qualifyingCategoryIds=" + qualifyingCategoryIds + "]";
     }
 
     /**
@@ -250,6 +356,8 @@ public class LoyaltyPromotion {
                 .updatedAt(getUpdatedAt())
                 .loyaltyProgramId(getLoyaltyProgramId())
                 .minimumSpendAmountMoney(getMinimumSpendAmountMoney());
+        builder.qualifyingItemVariationIds = internalGetQualifyingItemVariationIds();
+        builder.qualifyingCategoryIds = internalGetQualifyingCategoryIds();
         return builder;
     }
 
@@ -268,6 +376,8 @@ public class LoyaltyPromotion {
         private String updatedAt;
         private String loyaltyProgramId;
         private Money minimumSpendAmountMoney;
+        private OptionalNullable<List<String>> qualifyingItemVariationIds;
+        private OptionalNullable<List<String>> qualifyingCategoryIds;
 
         /**
          * Initialization constructor.
@@ -393,12 +503,51 @@ public class LoyaltyPromotion {
         }
 
         /**
+         * Setter for qualifyingItemVariationIds.
+         * @param  qualifyingItemVariationIds  List of String value for qualifyingItemVariationIds.
+         * @return Builder
+         */
+        public Builder qualifyingItemVariationIds(List<String> qualifyingItemVariationIds) {
+            this.qualifyingItemVariationIds = OptionalNullable.of(qualifyingItemVariationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for qualifyingItemVariationIds.
+         * @return Builder
+         */
+        public Builder unsetQualifyingItemVariationIds() {
+            qualifyingItemVariationIds = null;
+            return this;
+        }
+
+        /**
+         * Setter for qualifyingCategoryIds.
+         * @param  qualifyingCategoryIds  List of String value for qualifyingCategoryIds.
+         * @return Builder
+         */
+        public Builder qualifyingCategoryIds(List<String> qualifyingCategoryIds) {
+            this.qualifyingCategoryIds = OptionalNullable.of(qualifyingCategoryIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for qualifyingCategoryIds.
+         * @return Builder
+         */
+        public Builder unsetQualifyingCategoryIds() {
+            qualifyingCategoryIds = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link LoyaltyPromotion} object using the set fields.
          * @return {@link LoyaltyPromotion}
          */
         public LoyaltyPromotion build() {
             return new LoyaltyPromotion(name, incentive, availableTime, id, triggerLimit, status,
-                    createdAt, canceledAt, updatedAt, loyaltyProgramId, minimumSpendAmountMoney);
+                    createdAt, canceledAt, updatedAt, loyaltyProgramId, minimumSpendAmountMoney,
+                    qualifyingItemVariationIds, qualifyingCategoryIds);
         }
     }
 }

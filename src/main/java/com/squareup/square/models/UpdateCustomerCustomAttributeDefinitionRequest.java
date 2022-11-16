@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class UpdateCustomerCustomAttributeDefinitionRequest {
     private final CustomAttributeDefinition customAttributeDefinition;
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -25,6 +28,16 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
     public UpdateCustomerCustomAttributeDefinitionRequest(
             @JsonProperty("custom_attribute_definition") CustomAttributeDefinition customAttributeDefinition,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.customAttributeDefinition = customAttributeDefinition;
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateCustomerCustomAttributeDefinitionRequest(
+            CustomAttributeDefinition customAttributeDefinition,
+            OptionalNullable<String> idempotencyKey) {
         this.customAttributeDefinition = customAttributeDefinition;
         this.idempotencyKey = idempotencyKey;
     }
@@ -41,15 +54,27 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
     }
 
     /**
+     * Internal Getter for IdempotencyKey.
+     * A unique identifier for this request, used to ensure idempotency. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
+    }
+
+    /**
      * Getter for IdempotencyKey.
      * A unique identifier for this request, used to ensure idempotency. For more information, see
      * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -87,8 +112,8 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
      * @return a new {@link UpdateCustomerCustomAttributeDefinitionRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(customAttributeDefinition)
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder(customAttributeDefinition);
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -97,7 +122,7 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
      */
     public static class Builder {
         private CustomAttributeDefinition customAttributeDefinition;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -126,7 +151,16 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

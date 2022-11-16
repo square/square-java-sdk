@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,8 +17,8 @@ import java.util.Objects;
 public class SubscriptionAction {
     private final String id;
     private final String type;
-    private final String effectiveDate;
-    private final String newPlanId;
+    private final OptionalNullable<String> effectiveDate;
+    private final OptionalNullable<String> newPlanId;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,17 @@ public class SubscriptionAction {
             @JsonProperty("type") String type,
             @JsonProperty("effective_date") String effectiveDate,
             @JsonProperty("new_plan_id") String newPlanId) {
+        this.id = id;
+        this.type = type;
+        this.effectiveDate = OptionalNullable.of(effectiveDate);
+        this.newPlanId = OptionalNullable.of(newPlanId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SubscriptionAction(String id, String type, OptionalNullable<String> effectiveDate,
+            OptionalNullable<String> newPlanId) {
         this.id = id;
         this.type = type;
         this.effectiveDate = effectiveDate;
@@ -59,14 +73,37 @@ public class SubscriptionAction {
     }
 
     /**
+     * Internal Getter for EffectiveDate.
+     * The `YYYY-MM-DD`-formatted date when the action occurs on the subscription.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEffectiveDate() {
+        return this.effectiveDate;
+    }
+
+    /**
      * Getter for EffectiveDate.
      * The `YYYY-MM-DD`-formatted date when the action occurs on the subscription.
      * @return Returns the String
      */
-    @JsonGetter("effective_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEffectiveDate() {
-        return effectiveDate;
+        return OptionalNullable.getFrom(effectiveDate);
+    }
+
+    /**
+     * Internal Getter for NewPlanId.
+     * The target subscription plan a subscription switches to, for a `SWAP_PLAN` action.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("new_plan_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNewPlanId() {
+        return this.newPlanId;
     }
 
     /**
@@ -74,10 +111,9 @@ public class SubscriptionAction {
      * The target subscription plan a subscription switches to, for a `SWAP_PLAN` action.
      * @return Returns the String
      */
-    @JsonGetter("new_plan_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNewPlanId() {
-        return newPlanId;
+        return OptionalNullable.getFrom(newPlanId);
     }
 
     @Override
@@ -118,9 +154,9 @@ public class SubscriptionAction {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .type(getType())
-                .effectiveDate(getEffectiveDate())
-                .newPlanId(getNewPlanId());
+                .type(getType());
+        builder.effectiveDate = internalGetEffectiveDate();
+        builder.newPlanId = internalGetNewPlanId();
         return builder;
     }
 
@@ -130,8 +166,8 @@ public class SubscriptionAction {
     public static class Builder {
         private String id;
         private String type;
-        private String effectiveDate;
-        private String newPlanId;
+        private OptionalNullable<String> effectiveDate;
+        private OptionalNullable<String> newPlanId;
 
 
 
@@ -161,7 +197,16 @@ public class SubscriptionAction {
          * @return Builder
          */
         public Builder effectiveDate(String effectiveDate) {
-            this.effectiveDate = effectiveDate;
+            this.effectiveDate = OptionalNullable.of(effectiveDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for effectiveDate.
+         * @return Builder
+         */
+        public Builder unsetEffectiveDate() {
+            effectiveDate = null;
             return this;
         }
 
@@ -171,7 +216,16 @@ public class SubscriptionAction {
          * @return Builder
          */
         public Builder newPlanId(String newPlanId) {
-            this.newPlanId = newPlanId;
+            this.newPlanId = OptionalNullable.of(newPlanId);
+            return this;
+        }
+
+        /**
+         * UnSetter for newPlanId.
+         * @return Builder
+         */
+        public Builder unsetNewPlanId() {
+            newPlanId = null;
             return this;
         }
 

@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CustomerTaxIds type.
  */
 public class CustomerTaxIds {
-    private final String euVat;
+    private final OptionalNullable<String> euVat;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class CustomerTaxIds {
     @JsonCreator
     public CustomerTaxIds(
             @JsonProperty("eu_vat") String euVat) {
+        this.euVat = OptionalNullable.of(euVat);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerTaxIds(OptionalNullable<String> euVat) {
         this.euVat = euVat;
+    }
+
+    /**
+     * Internal Getter for EuVat.
+     * The EU VAT identification number for the customer. For example, `IE3426675K`. The ID can
+     * contain alphanumeric characters only.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("eu_vat")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEuVat() {
+        return this.euVat;
     }
 
     /**
@@ -30,10 +53,9 @@ public class CustomerTaxIds {
      * contain alphanumeric characters only.
      * @return Returns the String
      */
-    @JsonGetter("eu_vat")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEuVat() {
-        return euVat;
+        return OptionalNullable.getFrom(euVat);
     }
 
     @Override
@@ -68,8 +90,8 @@ public class CustomerTaxIds {
      * @return a new {@link CustomerTaxIds.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .euVat(getEuVat());
+        Builder builder = new Builder();
+        builder.euVat = internalGetEuVat();
         return builder;
     }
 
@@ -77,7 +99,7 @@ public class CustomerTaxIds {
      * Class to build instances of {@link CustomerTaxIds}.
      */
     public static class Builder {
-        private String euVat;
+        private OptionalNullable<String> euVat;
 
 
 
@@ -87,7 +109,16 @@ public class CustomerTaxIds {
          * @return Builder
          */
         public Builder euVat(String euVat) {
-            this.euVat = euVat;
+            this.euVat = OptionalNullable.of(euVat);
+            return this;
+        }
+
+        /**
+         * UnSetter for euVat.
+         * @return Builder
+         */
+        public Builder unsetEuVat() {
+            euVat = null;
             return this;
         }
 

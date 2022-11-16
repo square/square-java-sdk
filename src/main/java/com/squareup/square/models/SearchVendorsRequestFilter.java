@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for SearchVendorsRequestFilter type.
  */
 public class SearchVendorsRequestFilter {
-    private final List<String> name;
-    private final List<String> status;
+    private final OptionalNullable<List<String>> name;
+    private final OptionalNullable<List<String>> status;
 
     /**
      * Initialization constructor.
@@ -25,8 +28,29 @@ public class SearchVendorsRequestFilter {
     public SearchVendorsRequestFilter(
             @JsonProperty("name") List<String> name,
             @JsonProperty("status") List<String> status) {
+        this.name = OptionalNullable.of(name);
+        this.status = OptionalNullable.of(status);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SearchVendorsRequestFilter(OptionalNullable<List<String>> name,
+            OptionalNullable<List<String>> status) {
         this.name = name;
         this.status = status;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The names of the [Vendor]($m/Vendor) objects to retrieve.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -34,10 +58,22 @@ public class SearchVendorsRequestFilter {
      * The names of the [Vendor]($m/Vendor) objects to retrieve.
      * @return Returns the List of String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Status.
+     * The statuses of the [Vendor]($m/Vendor) objects to retrieve. See
+     * [VendorStatus](#type-vendorstatus) for possible values
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetStatus() {
+        return this.status;
     }
 
     /**
@@ -46,10 +82,9 @@ public class SearchVendorsRequestFilter {
      * [VendorStatus](#type-vendorstatus) for possible values
      * @return Returns the List of String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
     }
 
     @Override
@@ -85,9 +120,9 @@ public class SearchVendorsRequestFilter {
      * @return a new {@link SearchVendorsRequestFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
-                .status(getStatus());
+        Builder builder = new Builder();
+        builder.name = internalGetName();
+        builder.status = internalGetStatus();
         return builder;
     }
 
@@ -95,8 +130,8 @@ public class SearchVendorsRequestFilter {
      * Class to build instances of {@link SearchVendorsRequestFilter}.
      */
     public static class Builder {
-        private List<String> name;
-        private List<String> status;
+        private OptionalNullable<List<String>> name;
+        private OptionalNullable<List<String>> status;
 
 
 
@@ -106,7 +141,16 @@ public class SearchVendorsRequestFilter {
          * @return Builder
          */
         public Builder name(List<String> name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -116,7 +160,16 @@ public class SearchVendorsRequestFilter {
          * @return Builder
          */
         public Builder status(List<String> status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 

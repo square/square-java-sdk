@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,11 +16,11 @@ import java.util.Objects;
  * This is a model class for TipSettings type.
  */
 public class TipSettings {
-    private final Boolean allowTipping;
-    private final Boolean separateTipScreen;
-    private final Boolean customTipField;
-    private final List<Integer> tipPercentages;
-    private final Boolean smartTipping;
+    private final OptionalNullable<Boolean> allowTipping;
+    private final OptionalNullable<Boolean> separateTipScreen;
+    private final OptionalNullable<Boolean> customTipField;
+    private final OptionalNullable<List<Integer>> tipPercentages;
+    private final OptionalNullable<Boolean> smartTipping;
 
     /**
      * Initialization constructor.
@@ -34,6 +37,20 @@ public class TipSettings {
             @JsonProperty("custom_tip_field") Boolean customTipField,
             @JsonProperty("tip_percentages") List<Integer> tipPercentages,
             @JsonProperty("smart_tipping") Boolean smartTipping) {
+        this.allowTipping = OptionalNullable.of(allowTipping);
+        this.separateTipScreen = OptionalNullable.of(separateTipScreen);
+        this.customTipField = OptionalNullable.of(customTipField);
+        this.tipPercentages = OptionalNullable.of(tipPercentages);
+        this.smartTipping = OptionalNullable.of(smartTipping);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TipSettings(OptionalNullable<Boolean> allowTipping,
+            OptionalNullable<Boolean> separateTipScreen, OptionalNullable<Boolean> customTipField,
+            OptionalNullable<List<Integer>> tipPercentages,
+            OptionalNullable<Boolean> smartTipping) {
         this.allowTipping = allowTipping;
         this.separateTipScreen = separateTipScreen;
         this.customTipField = customTipField;
@@ -42,14 +59,38 @@ public class TipSettings {
     }
 
     /**
+     * Internal Getter for AllowTipping.
+     * Indicates whether tipping is enabled for this checkout. Defaults to false.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("allow_tipping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAllowTipping() {
+        return this.allowTipping;
+    }
+
+    /**
      * Getter for AllowTipping.
      * Indicates whether tipping is enabled for this checkout. Defaults to false.
      * @return Returns the Boolean
      */
-    @JsonGetter("allow_tipping")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAllowTipping() {
-        return allowTipping;
+        return OptionalNullable.getFrom(allowTipping);
+    }
+
+    /**
+     * Internal Getter for SeparateTipScreen.
+     * Indicates whether tip options should be presented on the screen before presenting the
+     * signature screen during card payment. Defaults to false.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("separate_tip_screen")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSeparateTipScreen() {
+        return this.separateTipScreen;
     }
 
     /**
@@ -58,10 +99,21 @@ public class TipSettings {
      * signature screen during card payment. Defaults to false.
      * @return Returns the Boolean
      */
-    @JsonGetter("separate_tip_screen")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSeparateTipScreen() {
-        return separateTipScreen;
+        return OptionalNullable.getFrom(separateTipScreen);
+    }
+
+    /**
+     * Internal Getter for CustomTipField.
+     * Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("custom_tip_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetCustomTipField() {
+        return this.customTipField;
     }
 
     /**
@@ -69,10 +121,22 @@ public class TipSettings {
      * Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.
      * @return Returns the Boolean
      */
-    @JsonGetter("custom_tip_field")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getCustomTipField() {
-        return customTipField;
+        return OptionalNullable.getFrom(customTipField);
+    }
+
+    /**
+     * Internal Getter for TipPercentages.
+     * A list of tip percentages that should be presented during the checkout flow, specified as up
+     * to 3 non-negative integers from 0 to 100 (inclusive). Defaults to 15, 20, and 25.
+     * @return Returns the Internal List of Integer
+     */
+    @JsonGetter("tip_percentages")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Integer>> internalGetTipPercentages() {
+        return this.tipPercentages;
     }
 
     /**
@@ -81,10 +145,27 @@ public class TipSettings {
      * to 3 non-negative integers from 0 to 100 (inclusive). Defaults to 15, 20, and 25.
      * @return Returns the List of Integer
      */
-    @JsonGetter("tip_percentages")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Integer> getTipPercentages() {
-        return tipPercentages;
+        return OptionalNullable.getFrom(tipPercentages);
+    }
+
+    /**
+     * Internal Getter for SmartTipping.
+     * Enables the "Smart Tip Amounts" behavior. Exact tipping options depend on the region in which
+     * the Square seller is active. For payments under 10.00, in the Australia, Canada, Ireland,
+     * United Kingdom, and United States, tipping options are presented as no tip, .50, 1.00 or
+     * 2.00. For payment amounts of 10.00 or greater, tipping options are presented as the following
+     * percentages: 0%, 5%, 10%, 15%. If set to true, the `tip_percentages` settings is ignored.
+     * Defaults to false. To learn more about smart tipping, see [Accept Tips with the Square
+     * App](https://squareup.com/help/us/en/article/5069-accept-tips-with-the-square-app).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("smart_tipping")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSmartTipping() {
+        return this.smartTipping;
     }
 
     /**
@@ -98,10 +179,9 @@ public class TipSettings {
      * App](https://squareup.com/help/us/en/article/5069-accept-tips-with-the-square-app).
      * @return Returns the Boolean
      */
-    @JsonGetter("smart_tipping")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSmartTipping() {
-        return smartTipping;
+        return OptionalNullable.getFrom(smartTipping);
     }
 
     @Override
@@ -143,12 +223,12 @@ public class TipSettings {
      * @return a new {@link TipSettings.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .allowTipping(getAllowTipping())
-                .separateTipScreen(getSeparateTipScreen())
-                .customTipField(getCustomTipField())
-                .tipPercentages(getTipPercentages())
-                .smartTipping(getSmartTipping());
+        Builder builder = new Builder();
+        builder.allowTipping = internalGetAllowTipping();
+        builder.separateTipScreen = internalGetSeparateTipScreen();
+        builder.customTipField = internalGetCustomTipField();
+        builder.tipPercentages = internalGetTipPercentages();
+        builder.smartTipping = internalGetSmartTipping();
         return builder;
     }
 
@@ -156,11 +236,11 @@ public class TipSettings {
      * Class to build instances of {@link TipSettings}.
      */
     public static class Builder {
-        private Boolean allowTipping;
-        private Boolean separateTipScreen;
-        private Boolean customTipField;
-        private List<Integer> tipPercentages;
-        private Boolean smartTipping;
+        private OptionalNullable<Boolean> allowTipping;
+        private OptionalNullable<Boolean> separateTipScreen;
+        private OptionalNullable<Boolean> customTipField;
+        private OptionalNullable<List<Integer>> tipPercentages;
+        private OptionalNullable<Boolean> smartTipping;
 
 
 
@@ -170,7 +250,16 @@ public class TipSettings {
          * @return Builder
          */
         public Builder allowTipping(Boolean allowTipping) {
-            this.allowTipping = allowTipping;
+            this.allowTipping = OptionalNullable.of(allowTipping);
+            return this;
+        }
+
+        /**
+         * UnSetter for allowTipping.
+         * @return Builder
+         */
+        public Builder unsetAllowTipping() {
+            allowTipping = null;
             return this;
         }
 
@@ -180,7 +269,16 @@ public class TipSettings {
          * @return Builder
          */
         public Builder separateTipScreen(Boolean separateTipScreen) {
-            this.separateTipScreen = separateTipScreen;
+            this.separateTipScreen = OptionalNullable.of(separateTipScreen);
+            return this;
+        }
+
+        /**
+         * UnSetter for separateTipScreen.
+         * @return Builder
+         */
+        public Builder unsetSeparateTipScreen() {
+            separateTipScreen = null;
             return this;
         }
 
@@ -190,7 +288,16 @@ public class TipSettings {
          * @return Builder
          */
         public Builder customTipField(Boolean customTipField) {
-            this.customTipField = customTipField;
+            this.customTipField = OptionalNullable.of(customTipField);
+            return this;
+        }
+
+        /**
+         * UnSetter for customTipField.
+         * @return Builder
+         */
+        public Builder unsetCustomTipField() {
+            customTipField = null;
             return this;
         }
 
@@ -200,7 +307,16 @@ public class TipSettings {
          * @return Builder
          */
         public Builder tipPercentages(List<Integer> tipPercentages) {
-            this.tipPercentages = tipPercentages;
+            this.tipPercentages = OptionalNullable.of(tipPercentages);
+            return this;
+        }
+
+        /**
+         * UnSetter for tipPercentages.
+         * @return Builder
+         */
+        public Builder unsetTipPercentages() {
+            tipPercentages = null;
             return this;
         }
 
@@ -210,7 +326,16 @@ public class TipSettings {
          * @return Builder
          */
         public Builder smartTipping(Boolean smartTipping) {
-            this.smartTipping = smartTipping;
+            this.smartTipping = OptionalNullable.of(smartTipping);
+            return this;
+        }
+
+        /**
+         * UnSetter for smartTipping.
+         * @return Builder
+         */
+        public Builder unsetSmartTipping() {
+            smartTipping = null;
             return this;
         }
 

@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListCustomerCustomAttributesRequest type.
  */
 public class ListCustomerCustomAttributesRequest {
-    private final Integer limit;
-    private final String cursor;
-    private final Boolean withDefinitions;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Boolean> withDefinitions;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,34 @@ public class ListCustomerCustomAttributesRequest {
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("with_definitions") Boolean withDefinitions) {
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+        this.withDefinitions = OptionalNullable.of(withDefinitions);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListCustomerCustomAttributesRequest(OptionalNullable<Integer> limit,
+            OptionalNullable<String> cursor, OptionalNullable<Boolean> withDefinitions) {
         this.limit = limit;
         this.cursor = cursor;
         this.withDefinitions = withDefinitions;
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of results to return in a single paged response. This limit is advisory.
+     * The response might contain more or fewer results. The minimum value is 1 and the maximum
+     * value is 100. The default value is 20. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -40,10 +68,24 @@ public class ListCustomerCustomAttributesRequest {
      * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * The cursor returned in the paged response from the previous call to this endpoint. Provide
+     * this cursor to retrieve the next page of results for your original request. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -54,10 +96,24 @@ public class ListCustomerCustomAttributesRequest {
      * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for WithDefinitions.
+     * Indicates whether to return the [custom attribute definition]($m/CustomAttributeDefinition)
+     * in the `definition` field of each custom attribute. Set this parameter to `true` to get the
+     * name and description of each custom attribute, information about the data type, or other
+     * definition details. The default value is `false`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("with_definitions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetWithDefinitions() {
+        return this.withDefinitions;
     }
 
     /**
@@ -68,10 +124,9 @@ public class ListCustomerCustomAttributesRequest {
      * definition details. The default value is `false`.
      * @return Returns the Boolean
      */
-    @JsonGetter("with_definitions")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getWithDefinitions() {
-        return withDefinitions;
+        return OptionalNullable.getFrom(withDefinitions);
     }
 
     @Override
@@ -109,10 +164,10 @@ public class ListCustomerCustomAttributesRequest {
      * @return a new {@link ListCustomerCustomAttributesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .limit(getLimit())
-                .cursor(getCursor())
-                .withDefinitions(getWithDefinitions());
+        Builder builder = new Builder();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
+        builder.withDefinitions = internalGetWithDefinitions();
         return builder;
     }
 
@@ -120,9 +175,9 @@ public class ListCustomerCustomAttributesRequest {
      * Class to build instances of {@link ListCustomerCustomAttributesRequest}.
      */
     public static class Builder {
-        private Integer limit;
-        private String cursor;
-        private Boolean withDefinitions;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Boolean> withDefinitions;
 
 
 
@@ -132,7 +187,16 @@ public class ListCustomerCustomAttributesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -142,7 +206,16 @@ public class ListCustomerCustomAttributesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -152,7 +225,16 @@ public class ListCustomerCustomAttributesRequest {
          * @return Builder
          */
         public Builder withDefinitions(Boolean withDefinitions) {
-            this.withDefinitions = withDefinitions;
+            this.withDefinitions = OptionalNullable.of(withDefinitions);
+            return this;
+        }
+
+        /**
+         * UnSetter for withDefinitions.
+         * @return Builder
+         */
+        public Builder unsetWithDefinitions() {
+            withDefinitions = null;
             return this;
         }
 

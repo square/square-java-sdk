@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +28,7 @@ public class Payment {
     private final Money refundedMoney;
     private final String status;
     private final String delayDuration;
-    private final String delayAction;
+    private final OptionalNullable<String> delayAction;
     private final String delayedUntil;
     private final String sourceType;
     private final CardPaymentDetails cardDetails;
@@ -52,7 +55,7 @@ public class Payment {
     private final String receiptUrl;
     private final DeviceDetails deviceDetails;
     private final ApplicationDetails applicationDetails;
-    private final String versionToken;
+    private final OptionalNullable<String> versionToken;
 
     /**
      * Initialization constructor.
@@ -139,6 +142,65 @@ public class Payment {
             @JsonProperty("device_details") DeviceDetails deviceDetails,
             @JsonProperty("application_details") ApplicationDetails applicationDetails,
             @JsonProperty("version_token") String versionToken) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.amountMoney = amountMoney;
+        this.tipMoney = tipMoney;
+        this.totalMoney = totalMoney;
+        this.appFeeMoney = appFeeMoney;
+        this.approvedMoney = approvedMoney;
+        this.processingFee = processingFee;
+        this.refundedMoney = refundedMoney;
+        this.status = status;
+        this.delayDuration = delayDuration;
+        this.delayAction = OptionalNullable.of(delayAction);
+        this.delayedUntil = delayedUntil;
+        this.sourceType = sourceType;
+        this.cardDetails = cardDetails;
+        this.cashDetails = cashDetails;
+        this.bankAccountDetails = bankAccountDetails;
+        this.externalDetails = externalDetails;
+        this.walletDetails = walletDetails;
+        this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+        this.locationId = locationId;
+        this.orderId = orderId;
+        this.referenceId = referenceId;
+        this.customerId = customerId;
+        this.employeeId = employeeId;
+        this.teamMemberId = teamMemberId;
+        this.refundIds = refundIds;
+        this.riskEvaluation = riskEvaluation;
+        this.buyerEmailAddress = buyerEmailAddress;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
+        this.note = note;
+        this.statementDescriptionIdentifier = statementDescriptionIdentifier;
+        this.capabilities = capabilities;
+        this.receiptNumber = receiptNumber;
+        this.receiptUrl = receiptUrl;
+        this.deviceDetails = deviceDetails;
+        this.applicationDetails = applicationDetails;
+        this.versionToken = OptionalNullable.of(versionToken);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Payment(String id, String createdAt, String updatedAt, Money amountMoney,
+            Money tipMoney, Money totalMoney, Money appFeeMoney, Money approvedMoney,
+            List<ProcessingFee> processingFee, Money refundedMoney, String status,
+            String delayDuration, OptionalNullable<String> delayAction, String delayedUntil,
+            String sourceType, CardPaymentDetails cardDetails, CashPaymentDetails cashDetails,
+            BankAccountPaymentDetails bankAccountDetails, ExternalPaymentDetails externalDetails,
+            DigitalWalletDetails walletDetails, BuyNowPayLaterDetails buyNowPayLaterDetails,
+            String locationId, String orderId, String referenceId, String customerId,
+            String employeeId, String teamMemberId, List<String> refundIds,
+            RiskEvaluation riskEvaluation, String buyerEmailAddress, Address billingAddress,
+            Address shippingAddress, String note, String statementDescriptionIdentifier,
+            List<String> capabilities, String receiptNumber, String receiptUrl,
+            DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
+            OptionalNullable<String> versionToken) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -349,15 +411,27 @@ public class Payment {
     }
 
     /**
+     * Internal Getter for DelayAction.
+     * The action to be applied to the payment when the `delay_duration` has elapsed. Current values
+     * include `CANCEL` and `COMPLETE`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("delay_action")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDelayAction() {
+        return this.delayAction;
+    }
+
+    /**
      * Getter for DelayAction.
      * The action to be applied to the payment when the `delay_duration` has elapsed. Current values
      * include `CANCEL` and `COMPLETE`.
      * @return Returns the String
      */
-    @JsonGetter("delay_action")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDelayAction() {
-        return delayAction;
+        return OptionalNullable.getFrom(delayAction);
     }
 
     /**
@@ -676,15 +750,27 @@ public class Payment {
     }
 
     /**
+     * Internal Getter for VersionToken.
+     * Used for optimistic concurrency. This opaque token identifies a specific version of the
+     * `Payment` object.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("version_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetVersionToken() {
+        return this.versionToken;
+    }
+
+    /**
      * Getter for VersionToken.
      * Used for optimistic concurrency. This opaque token identifies a specific version of the
      * `Payment` object.
      * @return Returns the String
      */
-    @JsonGetter("version_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getVersionToken() {
-        return versionToken;
+        return OptionalNullable.getFrom(versionToken);
     }
 
     @Override
@@ -797,7 +883,6 @@ public class Payment {
                 .refundedMoney(getRefundedMoney())
                 .status(getStatus())
                 .delayDuration(getDelayDuration())
-                .delayAction(getDelayAction())
                 .delayedUntil(getDelayedUntil())
                 .sourceType(getSourceType())
                 .cardDetails(getCardDetails())
@@ -823,8 +908,9 @@ public class Payment {
                 .receiptNumber(getReceiptNumber())
                 .receiptUrl(getReceiptUrl())
                 .deviceDetails(getDeviceDetails())
-                .applicationDetails(getApplicationDetails())
-                .versionToken(getVersionToken());
+                .applicationDetails(getApplicationDetails());
+        builder.delayAction = internalGetDelayAction();
+        builder.versionToken = internalGetVersionToken();
         return builder;
     }
 
@@ -844,7 +930,7 @@ public class Payment {
         private Money refundedMoney;
         private String status;
         private String delayDuration;
-        private String delayAction;
+        private OptionalNullable<String> delayAction;
         private String delayedUntil;
         private String sourceType;
         private CardPaymentDetails cardDetails;
@@ -871,7 +957,7 @@ public class Payment {
         private String receiptUrl;
         private DeviceDetails deviceDetails;
         private ApplicationDetails applicationDetails;
-        private String versionToken;
+        private OptionalNullable<String> versionToken;
 
 
 
@@ -1001,7 +1087,16 @@ public class Payment {
          * @return Builder
          */
         public Builder delayAction(String delayAction) {
-            this.delayAction = delayAction;
+            this.delayAction = OptionalNullable.of(delayAction);
+            return this;
+        }
+
+        /**
+         * UnSetter for delayAction.
+         * @return Builder
+         */
+        public Builder unsetDelayAction() {
+            delayAction = null;
             return this;
         }
 
@@ -1271,7 +1366,16 @@ public class Payment {
          * @return Builder
          */
         public Builder versionToken(String versionToken) {
-            this.versionToken = versionToken;
+            this.versionToken = OptionalNullable.of(versionToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for versionToken.
+         * @return Builder
+         */
+        public Builder unsetVersionToken() {
+            versionToken = null;
             return this;
         }
 

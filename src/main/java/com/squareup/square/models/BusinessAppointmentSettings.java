@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,19 +16,19 @@ import java.util.Objects;
  * This is a model class for BusinessAppointmentSettings type.
  */
 public class BusinessAppointmentSettings {
-    private final List<String> locationTypes;
+    private final OptionalNullable<List<String>> locationTypes;
     private final String alignmentTime;
-    private final Integer minBookingLeadTimeSeconds;
-    private final Integer maxBookingLeadTimeSeconds;
-    private final Boolean anyTeamMemberBookingEnabled;
-    private final Boolean multipleServiceBookingEnabled;
+    private final OptionalNullable<Integer> minBookingLeadTimeSeconds;
+    private final OptionalNullable<Integer> maxBookingLeadTimeSeconds;
+    private final OptionalNullable<Boolean> anyTeamMemberBookingEnabled;
+    private final OptionalNullable<Boolean> multipleServiceBookingEnabled;
     private final String maxAppointmentsPerDayLimitType;
-    private final Integer maxAppointmentsPerDayLimit;
-    private final Integer cancellationWindowSeconds;
+    private final OptionalNullable<Integer> maxAppointmentsPerDayLimit;
+    private final OptionalNullable<Integer> cancellationWindowSeconds;
     private final Money cancellationFeeMoney;
     private final String cancellationPolicy;
-    private final String cancellationPolicyText;
-    private final Boolean skipBookingFlowStaffSelection;
+    private final OptionalNullable<String> cancellationPolicyText;
+    private final OptionalNullable<Boolean> skipBookingFlowStaffSelection;
 
     /**
      * Initialization constructor.
@@ -58,6 +61,34 @@ public class BusinessAppointmentSettings {
             @JsonProperty("cancellation_policy") String cancellationPolicy,
             @JsonProperty("cancellation_policy_text") String cancellationPolicyText,
             @JsonProperty("skip_booking_flow_staff_selection") Boolean skipBookingFlowStaffSelection) {
+        this.locationTypes = OptionalNullable.of(locationTypes);
+        this.alignmentTime = alignmentTime;
+        this.minBookingLeadTimeSeconds = OptionalNullable.of(minBookingLeadTimeSeconds);
+        this.maxBookingLeadTimeSeconds = OptionalNullable.of(maxBookingLeadTimeSeconds);
+        this.anyTeamMemberBookingEnabled = OptionalNullable.of(anyTeamMemberBookingEnabled);
+        this.multipleServiceBookingEnabled = OptionalNullable.of(multipleServiceBookingEnabled);
+        this.maxAppointmentsPerDayLimitType = maxAppointmentsPerDayLimitType;
+        this.maxAppointmentsPerDayLimit = OptionalNullable.of(maxAppointmentsPerDayLimit);
+        this.cancellationWindowSeconds = OptionalNullable.of(cancellationWindowSeconds);
+        this.cancellationFeeMoney = cancellationFeeMoney;
+        this.cancellationPolicy = cancellationPolicy;
+        this.cancellationPolicyText = OptionalNullable.of(cancellationPolicyText);
+        this.skipBookingFlowStaffSelection = OptionalNullable.of(skipBookingFlowStaffSelection);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BusinessAppointmentSettings(OptionalNullable<List<String>> locationTypes,
+            String alignmentTime, OptionalNullable<Integer> minBookingLeadTimeSeconds,
+            OptionalNullable<Integer> maxBookingLeadTimeSeconds,
+            OptionalNullable<Boolean> anyTeamMemberBookingEnabled,
+            OptionalNullable<Boolean> multipleServiceBookingEnabled,
+            String maxAppointmentsPerDayLimitType,
+            OptionalNullable<Integer> maxAppointmentsPerDayLimit,
+            OptionalNullable<Integer> cancellationWindowSeconds, Money cancellationFeeMoney,
+            String cancellationPolicy, OptionalNullable<String> cancellationPolicyText,
+            OptionalNullable<Boolean> skipBookingFlowStaffSelection) {
         this.locationTypes = locationTypes;
         this.alignmentTime = alignmentTime;
         this.minBookingLeadTimeSeconds = minBookingLeadTimeSeconds;
@@ -74,16 +105,29 @@ public class BusinessAppointmentSettings {
     }
 
     /**
+     * Internal Getter for LocationTypes.
+     * Types of the location allowed for bookings. See
+     * [BusinessAppointmentSettingsBookingLocationType](#type-businessappointmentsettingsbookinglocationtype)
+     * for possible values
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationTypes() {
+        return this.locationTypes;
+    }
+
+    /**
      * Getter for LocationTypes.
      * Types of the location allowed for bookings. See
      * [BusinessAppointmentSettingsBookingLocationType](#type-businessappointmentsettingsbookinglocationtype)
      * for possible values
      * @return Returns the List of String
      */
-    @JsonGetter("location_types")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationTypes() {
-        return locationTypes;
+        return OptionalNullable.getFrom(locationTypes);
     }
 
     /**
@@ -98,15 +142,40 @@ public class BusinessAppointmentSettings {
     }
 
     /**
+     * Internal Getter for MinBookingLeadTimeSeconds.
+     * The minimum lead time in seconds before a service can be booked. Bookings must be created at
+     * least this far ahead of the booking's starting time.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("min_booking_lead_time_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMinBookingLeadTimeSeconds() {
+        return this.minBookingLeadTimeSeconds;
+    }
+
+    /**
      * Getter for MinBookingLeadTimeSeconds.
      * The minimum lead time in seconds before a service can be booked. Bookings must be created at
      * least this far ahead of the booking's starting time.
      * @return Returns the Integer
      */
-    @JsonGetter("min_booking_lead_time_seconds")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getMinBookingLeadTimeSeconds() {
-        return minBookingLeadTimeSeconds;
+        return OptionalNullable.getFrom(minBookingLeadTimeSeconds);
+    }
+
+    /**
+     * Internal Getter for MaxBookingLeadTimeSeconds.
+     * The maximum lead time in seconds before a service can be booked. Bookings must be created at
+     * most this far ahead of the booking's starting time.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("max_booking_lead_time_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMaxBookingLeadTimeSeconds() {
+        return this.maxBookingLeadTimeSeconds;
     }
 
     /**
@@ -115,10 +184,22 @@ public class BusinessAppointmentSettings {
      * most this far ahead of the booking's starting time.
      * @return Returns the Integer
      */
-    @JsonGetter("max_booking_lead_time_seconds")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getMaxBookingLeadTimeSeconds() {
-        return maxBookingLeadTimeSeconds;
+        return OptionalNullable.getFrom(maxBookingLeadTimeSeconds);
+    }
+
+    /**
+     * Internal Getter for AnyTeamMemberBookingEnabled.
+     * Indicates whether a customer can choose from all available time slots and have a staff member
+     * assigned automatically (`true`) or not (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("any_team_member_booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAnyTeamMemberBookingEnabled() {
+        return this.anyTeamMemberBookingEnabled;
     }
 
     /**
@@ -127,10 +208,21 @@ public class BusinessAppointmentSettings {
      * assigned automatically (`true`) or not (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("any_team_member_booking_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAnyTeamMemberBookingEnabled() {
-        return anyTeamMemberBookingEnabled;
+        return OptionalNullable.getFrom(anyTeamMemberBookingEnabled);
+    }
+
+    /**
+     * Internal Getter for MultipleServiceBookingEnabled.
+     * Indicates whether a customer can book multiple services in a single online booking.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("multiple_service_booking_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetMultipleServiceBookingEnabled() {
+        return this.multipleServiceBookingEnabled;
     }
 
     /**
@@ -138,10 +230,9 @@ public class BusinessAppointmentSettings {
      * Indicates whether a customer can book multiple services in a single online booking.
      * @return Returns the Boolean
      */
-    @JsonGetter("multiple_service_booking_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getMultipleServiceBookingEnabled() {
-        return multipleServiceBookingEnabled;
+        return OptionalNullable.getFrom(multipleServiceBookingEnabled);
     }
 
     /**
@@ -156,14 +247,37 @@ public class BusinessAppointmentSettings {
     }
 
     /**
+     * Internal Getter for MaxAppointmentsPerDayLimit.
+     * The maximum number of daily appointments per team member or per location.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("max_appointments_per_day_limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMaxAppointmentsPerDayLimit() {
+        return this.maxAppointmentsPerDayLimit;
+    }
+
+    /**
      * Getter for MaxAppointmentsPerDayLimit.
      * The maximum number of daily appointments per team member or per location.
      * @return Returns the Integer
      */
-    @JsonGetter("max_appointments_per_day_limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getMaxAppointmentsPerDayLimit() {
-        return maxAppointmentsPerDayLimit;
+        return OptionalNullable.getFrom(maxAppointmentsPerDayLimit);
+    }
+
+    /**
+     * Internal Getter for CancellationWindowSeconds.
+     * The cut-off time in seconds for allowing clients to cancel or reschedule an appointment.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("cancellation_window_seconds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetCancellationWindowSeconds() {
+        return this.cancellationWindowSeconds;
     }
 
     /**
@@ -171,10 +285,9 @@ public class BusinessAppointmentSettings {
      * The cut-off time in seconds for allowing clients to cancel or reschedule an appointment.
      * @return Returns the Integer
      */
-    @JsonGetter("cancellation_window_seconds")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getCancellationWindowSeconds() {
-        return cancellationWindowSeconds;
+        return OptionalNullable.getFrom(cancellationWindowSeconds);
     }
 
     /**
@@ -205,14 +318,38 @@ public class BusinessAppointmentSettings {
     }
 
     /**
+     * Internal Getter for CancellationPolicyText.
+     * The free-form text of the seller's cancellation policy.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cancellation_policy_text")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCancellationPolicyText() {
+        return this.cancellationPolicyText;
+    }
+
+    /**
      * Getter for CancellationPolicyText.
      * The free-form text of the seller's cancellation policy.
      * @return Returns the String
      */
-    @JsonGetter("cancellation_policy_text")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCancellationPolicyText() {
-        return cancellationPolicyText;
+        return OptionalNullable.getFrom(cancellationPolicyText);
+    }
+
+    /**
+     * Internal Getter for SkipBookingFlowStaffSelection.
+     * Indicates whether customers has an assigned staff member (`true`) or can select s staff
+     * member of their choice (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("skip_booking_flow_staff_selection")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetSkipBookingFlowStaffSelection() {
+        return this.skipBookingFlowStaffSelection;
     }
 
     /**
@@ -221,10 +358,9 @@ public class BusinessAppointmentSettings {
      * member of their choice (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("skip_booking_flow_staff_selection")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getSkipBookingFlowStaffSelection() {
-        return skipBookingFlowStaffSelection;
+        return OptionalNullable.getFrom(skipBookingFlowStaffSelection);
     }
 
     @Override
@@ -288,19 +424,19 @@ public class BusinessAppointmentSettings {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .locationTypes(getLocationTypes())
                 .alignmentTime(getAlignmentTime())
-                .minBookingLeadTimeSeconds(getMinBookingLeadTimeSeconds())
-                .maxBookingLeadTimeSeconds(getMaxBookingLeadTimeSeconds())
-                .anyTeamMemberBookingEnabled(getAnyTeamMemberBookingEnabled())
-                .multipleServiceBookingEnabled(getMultipleServiceBookingEnabled())
                 .maxAppointmentsPerDayLimitType(getMaxAppointmentsPerDayLimitType())
-                .maxAppointmentsPerDayLimit(getMaxAppointmentsPerDayLimit())
-                .cancellationWindowSeconds(getCancellationWindowSeconds())
                 .cancellationFeeMoney(getCancellationFeeMoney())
-                .cancellationPolicy(getCancellationPolicy())
-                .cancellationPolicyText(getCancellationPolicyText())
-                .skipBookingFlowStaffSelection(getSkipBookingFlowStaffSelection());
+                .cancellationPolicy(getCancellationPolicy());
+        builder.locationTypes = internalGetLocationTypes();
+        builder.minBookingLeadTimeSeconds = internalGetMinBookingLeadTimeSeconds();
+        builder.maxBookingLeadTimeSeconds = internalGetMaxBookingLeadTimeSeconds();
+        builder.anyTeamMemberBookingEnabled = internalGetAnyTeamMemberBookingEnabled();
+        builder.multipleServiceBookingEnabled = internalGetMultipleServiceBookingEnabled();
+        builder.maxAppointmentsPerDayLimit = internalGetMaxAppointmentsPerDayLimit();
+        builder.cancellationWindowSeconds = internalGetCancellationWindowSeconds();
+        builder.cancellationPolicyText = internalGetCancellationPolicyText();
+        builder.skipBookingFlowStaffSelection = internalGetSkipBookingFlowStaffSelection();
         return builder;
     }
 
@@ -308,19 +444,19 @@ public class BusinessAppointmentSettings {
      * Class to build instances of {@link BusinessAppointmentSettings}.
      */
     public static class Builder {
-        private List<String> locationTypes;
+        private OptionalNullable<List<String>> locationTypes;
         private String alignmentTime;
-        private Integer minBookingLeadTimeSeconds;
-        private Integer maxBookingLeadTimeSeconds;
-        private Boolean anyTeamMemberBookingEnabled;
-        private Boolean multipleServiceBookingEnabled;
+        private OptionalNullable<Integer> minBookingLeadTimeSeconds;
+        private OptionalNullable<Integer> maxBookingLeadTimeSeconds;
+        private OptionalNullable<Boolean> anyTeamMemberBookingEnabled;
+        private OptionalNullable<Boolean> multipleServiceBookingEnabled;
         private String maxAppointmentsPerDayLimitType;
-        private Integer maxAppointmentsPerDayLimit;
-        private Integer cancellationWindowSeconds;
+        private OptionalNullable<Integer> maxAppointmentsPerDayLimit;
+        private OptionalNullable<Integer> cancellationWindowSeconds;
         private Money cancellationFeeMoney;
         private String cancellationPolicy;
-        private String cancellationPolicyText;
-        private Boolean skipBookingFlowStaffSelection;
+        private OptionalNullable<String> cancellationPolicyText;
+        private OptionalNullable<Boolean> skipBookingFlowStaffSelection;
 
 
 
@@ -330,7 +466,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder locationTypes(List<String> locationTypes) {
-            this.locationTypes = locationTypes;
+            this.locationTypes = OptionalNullable.of(locationTypes);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationTypes.
+         * @return Builder
+         */
+        public Builder unsetLocationTypes() {
+            locationTypes = null;
             return this;
         }
 
@@ -350,7 +495,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder minBookingLeadTimeSeconds(Integer minBookingLeadTimeSeconds) {
-            this.minBookingLeadTimeSeconds = minBookingLeadTimeSeconds;
+            this.minBookingLeadTimeSeconds = OptionalNullable.of(minBookingLeadTimeSeconds);
+            return this;
+        }
+
+        /**
+         * UnSetter for minBookingLeadTimeSeconds.
+         * @return Builder
+         */
+        public Builder unsetMinBookingLeadTimeSeconds() {
+            minBookingLeadTimeSeconds = null;
             return this;
         }
 
@@ -360,7 +514,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder maxBookingLeadTimeSeconds(Integer maxBookingLeadTimeSeconds) {
-            this.maxBookingLeadTimeSeconds = maxBookingLeadTimeSeconds;
+            this.maxBookingLeadTimeSeconds = OptionalNullable.of(maxBookingLeadTimeSeconds);
+            return this;
+        }
+
+        /**
+         * UnSetter for maxBookingLeadTimeSeconds.
+         * @return Builder
+         */
+        public Builder unsetMaxBookingLeadTimeSeconds() {
+            maxBookingLeadTimeSeconds = null;
             return this;
         }
 
@@ -370,7 +533,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder anyTeamMemberBookingEnabled(Boolean anyTeamMemberBookingEnabled) {
-            this.anyTeamMemberBookingEnabled = anyTeamMemberBookingEnabled;
+            this.anyTeamMemberBookingEnabled = OptionalNullable.of(anyTeamMemberBookingEnabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for anyTeamMemberBookingEnabled.
+         * @return Builder
+         */
+        public Builder unsetAnyTeamMemberBookingEnabled() {
+            anyTeamMemberBookingEnabled = null;
             return this;
         }
 
@@ -380,7 +552,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder multipleServiceBookingEnabled(Boolean multipleServiceBookingEnabled) {
-            this.multipleServiceBookingEnabled = multipleServiceBookingEnabled;
+            this.multipleServiceBookingEnabled = OptionalNullable.of(multipleServiceBookingEnabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for multipleServiceBookingEnabled.
+         * @return Builder
+         */
+        public Builder unsetMultipleServiceBookingEnabled() {
+            multipleServiceBookingEnabled = null;
             return this;
         }
 
@@ -400,7 +581,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder maxAppointmentsPerDayLimit(Integer maxAppointmentsPerDayLimit) {
-            this.maxAppointmentsPerDayLimit = maxAppointmentsPerDayLimit;
+            this.maxAppointmentsPerDayLimit = OptionalNullable.of(maxAppointmentsPerDayLimit);
+            return this;
+        }
+
+        /**
+         * UnSetter for maxAppointmentsPerDayLimit.
+         * @return Builder
+         */
+        public Builder unsetMaxAppointmentsPerDayLimit() {
+            maxAppointmentsPerDayLimit = null;
             return this;
         }
 
@@ -410,7 +600,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder cancellationWindowSeconds(Integer cancellationWindowSeconds) {
-            this.cancellationWindowSeconds = cancellationWindowSeconds;
+            this.cancellationWindowSeconds = OptionalNullable.of(cancellationWindowSeconds);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancellationWindowSeconds.
+         * @return Builder
+         */
+        public Builder unsetCancellationWindowSeconds() {
+            cancellationWindowSeconds = null;
             return this;
         }
 
@@ -440,7 +639,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder cancellationPolicyText(String cancellationPolicyText) {
-            this.cancellationPolicyText = cancellationPolicyText;
+            this.cancellationPolicyText = OptionalNullable.of(cancellationPolicyText);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancellationPolicyText.
+         * @return Builder
+         */
+        public Builder unsetCancellationPolicyText() {
+            cancellationPolicyText = null;
             return this;
         }
 
@@ -450,7 +658,16 @@ public class BusinessAppointmentSettings {
          * @return Builder
          */
         public Builder skipBookingFlowStaffSelection(Boolean skipBookingFlowStaffSelection) {
-            this.skipBookingFlowStaffSelection = skipBookingFlowStaffSelection;
+            this.skipBookingFlowStaffSelection = OptionalNullable.of(skipBookingFlowStaffSelection);
+            return this;
+        }
+
+        /**
+         * UnSetter for skipBookingFlowStaffSelection.
+         * @return Builder
+         */
+        public Builder unsetSkipBookingFlowStaffSelection() {
+            skipBookingFlowStaffSelection = null;
             return this;
         }
 
