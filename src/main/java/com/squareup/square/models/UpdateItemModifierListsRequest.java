@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class UpdateItemModifierListsRequest {
     private final List<String> itemIds;
-    private final List<String> modifierListsToEnable;
-    private final List<String> modifierListsToDisable;
+    private final OptionalNullable<List<String>> modifierListsToEnable;
+    private final OptionalNullable<List<String>> modifierListsToDisable;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,17 @@ public class UpdateItemModifierListsRequest {
             @JsonProperty("item_ids") List<String> itemIds,
             @JsonProperty("modifier_lists_to_enable") List<String> modifierListsToEnable,
             @JsonProperty("modifier_lists_to_disable") List<String> modifierListsToDisable) {
+        this.itemIds = itemIds;
+        this.modifierListsToEnable = OptionalNullable.of(modifierListsToEnable);
+        this.modifierListsToDisable = OptionalNullable.of(modifierListsToDisable);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateItemModifierListsRequest(List<String> itemIds,
+            OptionalNullable<List<String>> modifierListsToEnable,
+            OptionalNullable<List<String>> modifierListsToDisable) {
         this.itemIds = itemIds;
         this.modifierListsToEnable = modifierListsToEnable;
         this.modifierListsToDisable = modifierListsToDisable;
@@ -44,15 +58,40 @@ public class UpdateItemModifierListsRequest {
     }
 
     /**
+     * Internal Getter for ModifierListsToEnable.
+     * The IDs of the CatalogModifierList objects to enable for the CatalogItem. At least one of
+     * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("modifier_lists_to_enable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetModifierListsToEnable() {
+        return this.modifierListsToEnable;
+    }
+
+    /**
      * Getter for ModifierListsToEnable.
      * The IDs of the CatalogModifierList objects to enable for the CatalogItem. At least one of
      * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
      * @return Returns the List of String
      */
-    @JsonGetter("modifier_lists_to_enable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getModifierListsToEnable() {
-        return modifierListsToEnable;
+        return OptionalNullable.getFrom(modifierListsToEnable);
+    }
+
+    /**
+     * Internal Getter for ModifierListsToDisable.
+     * The IDs of the CatalogModifierList objects to disable for the CatalogItem. At least one of
+     * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("modifier_lists_to_disable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetModifierListsToDisable() {
+        return this.modifierListsToDisable;
     }
 
     /**
@@ -61,10 +100,9 @@ public class UpdateItemModifierListsRequest {
      * `modifier_lists_to_enable` or `modifier_lists_to_disable` must be specified.
      * @return Returns the List of String
      */
-    @JsonGetter("modifier_lists_to_disable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getModifierListsToDisable() {
-        return modifierListsToDisable;
+        return OptionalNullable.getFrom(modifierListsToDisable);
     }
 
     @Override
@@ -103,9 +141,9 @@ public class UpdateItemModifierListsRequest {
      * @return a new {@link UpdateItemModifierListsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(itemIds)
-                .modifierListsToEnable(getModifierListsToEnable())
-                .modifierListsToDisable(getModifierListsToDisable());
+        Builder builder = new Builder(itemIds);
+        builder.modifierListsToEnable = internalGetModifierListsToEnable();
+        builder.modifierListsToDisable = internalGetModifierListsToDisable();
         return builder;
     }
 
@@ -114,8 +152,8 @@ public class UpdateItemModifierListsRequest {
      */
     public static class Builder {
         private List<String> itemIds;
-        private List<String> modifierListsToEnable;
-        private List<String> modifierListsToDisable;
+        private OptionalNullable<List<String>> modifierListsToEnable;
+        private OptionalNullable<List<String>> modifierListsToDisable;
 
         /**
          * Initialization constructor.
@@ -141,7 +179,16 @@ public class UpdateItemModifierListsRequest {
          * @return Builder
          */
         public Builder modifierListsToEnable(List<String> modifierListsToEnable) {
-            this.modifierListsToEnable = modifierListsToEnable;
+            this.modifierListsToEnable = OptionalNullable.of(modifierListsToEnable);
+            return this;
+        }
+
+        /**
+         * UnSetter for modifierListsToEnable.
+         * @return Builder
+         */
+        public Builder unsetModifierListsToEnable() {
+            modifierListsToEnable = null;
             return this;
         }
 
@@ -151,7 +198,16 @@ public class UpdateItemModifierListsRequest {
          * @return Builder
          */
         public Builder modifierListsToDisable(List<String> modifierListsToDisable) {
-            this.modifierListsToDisable = modifierListsToDisable;
+            this.modifierListsToDisable = OptionalNullable.of(modifierListsToDisable);
+            return this;
+        }
+
+        /**
+         * UnSetter for modifierListsToDisable.
+         * @return Builder
+         */
+        public Builder unsetModifierListsToDisable() {
+            modifierListsToDisable = null;
             return this;
         }
 

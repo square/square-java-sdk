@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for V1PaymentDiscount type.
  */
 public class V1PaymentDiscount {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final V1Money appliedMoney;
-    private final String discountId;
+    private final OptionalNullable<String> discountId;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class V1PaymentDiscount {
             @JsonProperty("name") String name,
             @JsonProperty("applied_money") V1Money appliedMoney,
             @JsonProperty("discount_id") String discountId) {
+        this.name = OptionalNullable.of(name);
+        this.appliedMoney = appliedMoney;
+        this.discountId = OptionalNullable.of(discountId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1PaymentDiscount(OptionalNullable<String> name, V1Money appliedMoney,
+            OptionalNullable<String> discountId) {
         this.name = name;
         this.appliedMoney = appliedMoney;
         this.discountId = discountId;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The discount's name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -37,10 +62,9 @@ public class V1PaymentDiscount {
      * The discount's name.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -54,15 +78,27 @@ public class V1PaymentDiscount {
     }
 
     /**
+     * Internal Getter for DiscountId.
+     * The ID of the applied discount, if available. Discounts applied in older versions of Square
+     * Register might not have an ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("discount_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDiscountId() {
+        return this.discountId;
+    }
+
+    /**
      * Getter for DiscountId.
      * The ID of the applied discount, if available. Discounts applied in older versions of Square
      * Register might not have an ID.
      * @return Returns the String
      */
-    @JsonGetter("discount_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDiscountId() {
-        return discountId;
+        return OptionalNullable.getFrom(discountId);
     }
 
     @Override
@@ -101,9 +137,9 @@ public class V1PaymentDiscount {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
-                .appliedMoney(getAppliedMoney())
-                .discountId(getDiscountId());
+                .appliedMoney(getAppliedMoney());
+        builder.name = internalGetName();
+        builder.discountId = internalGetDiscountId();
         return builder;
     }
 
@@ -111,9 +147,9 @@ public class V1PaymentDiscount {
      * Class to build instances of {@link V1PaymentDiscount}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
         private V1Money appliedMoney;
-        private String discountId;
+        private OptionalNullable<String> discountId;
 
 
 
@@ -123,7 +159,16 @@ public class V1PaymentDiscount {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -143,7 +188,16 @@ public class V1PaymentDiscount {
          * @return Builder
          */
         public Builder discountId(String discountId) {
-            this.discountId = discountId;
+            this.discountId = OptionalNullable.of(discountId);
+            return this;
+        }
+
+        /**
+         * UnSetter for discountId.
+         * @return Builder
+         */
+        public Builder unsetDiscountId() {
+            discountId = null;
             return this;
         }
 

@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DisputeEvidenceCreatedWebhook type.
  */
 public class DisputeEvidenceCreatedWebhook {
-    private final String merchantId;
-    private final String locationId;
-    private final String type;
-    private final String eventId;
+    private final OptionalNullable<String> merchantId;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> type;
+    private final OptionalNullable<String> eventId;
     private final String createdAt;
     private final DisputeEvidenceCreatedWebhookData data;
 
@@ -36,6 +39,21 @@ public class DisputeEvidenceCreatedWebhook {
             @JsonProperty("event_id") String eventId,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("data") DisputeEvidenceCreatedWebhookData data) {
+        this.merchantId = OptionalNullable.of(merchantId);
+        this.locationId = OptionalNullable.of(locationId);
+        this.type = OptionalNullable.of(type);
+        this.eventId = OptionalNullable.of(eventId);
+        this.createdAt = createdAt;
+        this.data = data;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DisputeEvidenceCreatedWebhook(OptionalNullable<String> merchantId,
+            OptionalNullable<String> locationId, OptionalNullable<String> type,
+            OptionalNullable<String> eventId, String createdAt,
+            DisputeEvidenceCreatedWebhookData data) {
         this.merchantId = merchantId;
         this.locationId = locationId;
         this.type = type;
@@ -45,14 +63,37 @@ public class DisputeEvidenceCreatedWebhook {
     }
 
     /**
+     * Internal Getter for MerchantId.
+     * The ID of the target merchant associated with the event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantId() {
+        return this.merchantId;
+    }
+
+    /**
      * Getter for MerchantId.
      * The ID of the target merchant associated with the event.
      * @return Returns the String
      */
-    @JsonGetter("merchant_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantId() {
-        return merchantId;
+        return OptionalNullable.getFrom(merchantId);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the target location associated with the event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -60,10 +101,21 @@ public class DisputeEvidenceCreatedWebhook {
      * The ID of the target location associated with the event.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Type.
+     * The type of event this represents.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetType() {
+        return this.type;
     }
 
     /**
@@ -71,10 +123,21 @@ public class DisputeEvidenceCreatedWebhook {
      * The type of event this represents.
      * @return Returns the String
      */
-    @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getType() {
-        return type;
+        return OptionalNullable.getFrom(type);
+    }
+
+    /**
+     * Internal Getter for EventId.
+     * A unique ID for the webhook event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("event_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEventId() {
+        return this.eventId;
     }
 
     /**
@@ -82,10 +145,9 @@ public class DisputeEvidenceCreatedWebhook {
      * A unique ID for the webhook event.
      * @return Returns the String
      */
-    @JsonGetter("event_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEventId() {
-        return eventId;
+        return OptionalNullable.getFrom(eventId);
     }
 
     /**
@@ -149,12 +211,12 @@ public class DisputeEvidenceCreatedWebhook {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .merchantId(getMerchantId())
-                .locationId(getLocationId())
-                .type(getType())
-                .eventId(getEventId())
                 .createdAt(getCreatedAt())
                 .data(getData());
+        builder.merchantId = internalGetMerchantId();
+        builder.locationId = internalGetLocationId();
+        builder.type = internalGetType();
+        builder.eventId = internalGetEventId();
         return builder;
     }
 
@@ -162,10 +224,10 @@ public class DisputeEvidenceCreatedWebhook {
      * Class to build instances of {@link DisputeEvidenceCreatedWebhook}.
      */
     public static class Builder {
-        private String merchantId;
-        private String locationId;
-        private String type;
-        private String eventId;
+        private OptionalNullable<String> merchantId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> type;
+        private OptionalNullable<String> eventId;
         private String createdAt;
         private DisputeEvidenceCreatedWebhookData data;
 
@@ -177,7 +239,16 @@ public class DisputeEvidenceCreatedWebhook {
          * @return Builder
          */
         public Builder merchantId(String merchantId) {
-            this.merchantId = merchantId;
+            this.merchantId = OptionalNullable.of(merchantId);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantId.
+         * @return Builder
+         */
+        public Builder unsetMerchantId() {
+            merchantId = null;
             return this;
         }
 
@@ -187,7 +258,16 @@ public class DisputeEvidenceCreatedWebhook {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -197,7 +277,16 @@ public class DisputeEvidenceCreatedWebhook {
          * @return Builder
          */
         public Builder type(String type) {
-            this.type = type;
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        /**
+         * UnSetter for type.
+         * @return Builder
+         */
+        public Builder unsetType() {
+            type = null;
             return this;
         }
 
@@ -207,7 +296,16 @@ public class DisputeEvidenceCreatedWebhook {
          * @return Builder
          */
         public Builder eventId(String eventId) {
-            this.eventId = eventId;
+            this.eventId = OptionalNullable.of(eventId);
+            return this;
+        }
+
+        /**
+         * UnSetter for eventId.
+         * @return Builder
+         */
+        public Builder unsetEventId() {
+            eventId = null;
             return this;
         }
 

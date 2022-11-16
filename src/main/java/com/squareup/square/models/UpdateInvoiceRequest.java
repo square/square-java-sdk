@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class UpdateInvoiceRequest {
     private final Invoice invoice;
-    private final String idempotencyKey;
-    private final List<String> fieldsToClear;
+    private final OptionalNullable<String> idempotencyKey;
+    private final OptionalNullable<List<String>> fieldsToClear;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,16 @@ public class UpdateInvoiceRequest {
             @JsonProperty("invoice") Invoice invoice,
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("fields_to_clear") List<String> fieldsToClear) {
+        this.invoice = invoice;
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+        this.fieldsToClear = OptionalNullable.of(fieldsToClear);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateInvoiceRequest(Invoice invoice, OptionalNullable<String> idempotencyKey,
+            OptionalNullable<List<String>> fieldsToClear) {
         this.invoice = invoice;
         this.idempotencyKey = idempotencyKey;
         this.fieldsToClear = fieldsToClear;
@@ -46,6 +59,21 @@ public class UpdateInvoiceRequest {
     }
 
     /**
+     * Internal Getter for IdempotencyKey.
+     * A unique string that identifies the `UpdateInvoice` request. If you do not provide
+     * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
+     * as independent. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
+    }
+
+    /**
      * Getter for IdempotencyKey.
      * A unique string that identifies the `UpdateInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
@@ -53,10 +81,22 @@ public class UpdateInvoiceRequest {
      * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
+    }
+
+    /**
+     * Internal Getter for FieldsToClear.
+     * The list of fields to clear. For examples, see [Update an
+     * Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices).
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("fields_to_clear")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetFieldsToClear() {
+        return this.fieldsToClear;
     }
 
     /**
@@ -65,10 +105,9 @@ public class UpdateInvoiceRequest {
      * Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices).
      * @return Returns the List of String
      */
-    @JsonGetter("fields_to_clear")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getFieldsToClear() {
-        return fieldsToClear;
+        return OptionalNullable.getFrom(fieldsToClear);
     }
 
     @Override
@@ -106,9 +145,9 @@ public class UpdateInvoiceRequest {
      * @return a new {@link UpdateInvoiceRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(invoice)
-                .idempotencyKey(getIdempotencyKey())
-                .fieldsToClear(getFieldsToClear());
+        Builder builder = new Builder(invoice);
+        builder.idempotencyKey = internalGetIdempotencyKey();
+        builder.fieldsToClear = internalGetFieldsToClear();
         return builder;
     }
 
@@ -117,8 +156,8 @@ public class UpdateInvoiceRequest {
      */
     public static class Builder {
         private Invoice invoice;
-        private String idempotencyKey;
-        private List<String> fieldsToClear;
+        private OptionalNullable<String> idempotencyKey;
+        private OptionalNullable<List<String>> fieldsToClear;
 
         /**
          * Initialization constructor.
@@ -144,7 +183,16 @@ public class UpdateInvoiceRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 
@@ -154,7 +202,16 @@ public class UpdateInvoiceRequest {
          * @return Builder
          */
         public Builder fieldsToClear(List<String> fieldsToClear) {
-            this.fieldsToClear = fieldsToClear;
+            this.fieldsToClear = OptionalNullable.of(fieldsToClear);
+            return this;
+        }
+
+        /**
+         * UnSetter for fieldsToClear.
+         * @return Builder
+         */
+        public Builder unsetFieldsToClear() {
+            fieldsToClear = null;
             return this;
         }
 

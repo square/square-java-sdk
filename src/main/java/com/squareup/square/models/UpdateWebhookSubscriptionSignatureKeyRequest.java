@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for UpdateWebhookSubscriptionSignatureKeyRequest type.
  */
 public class UpdateWebhookSubscriptionSignatureKeyRequest {
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,29 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
     @JsonCreator
     public UpdateWebhookSubscriptionSignatureKeyRequest(
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateWebhookSubscriptionSignatureKeyRequest(
+            OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
+    }
+
+    /**
+     * Internal Getter for IdempotencyKey.
+     * A unique string that identifies the
+     * [UpdateWebhookSubscriptionSignatureKey]($e/WebhookSubscriptions/UpdateWebhookSubscriptionSignatureKey)
+     * request.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
     }
 
     /**
@@ -31,10 +56,9 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
      * request.
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -71,8 +95,8 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
      * @return a new {@link UpdateWebhookSubscriptionSignatureKeyRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .idempotencyKey(getIdempotencyKey());
+        Builder builder = new Builder();
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -80,7 +104,7 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
      * Class to build instances of {@link UpdateWebhookSubscriptionSignatureKeyRequest}.
      */
     public static class Builder {
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
 
 
@@ -90,7 +114,16 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

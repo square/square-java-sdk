@@ -3,6 +3,7 @@ package com.squareup.square;
 
 import com.squareup.square.api.ApplePayApi;
 import com.squareup.square.api.BankAccountsApi;
+import com.squareup.square.api.BookingCustomAttributesApi;
 import com.squareup.square.api.BookingsApi;
 import com.squareup.square.api.CardsApi;
 import com.squareup.square.api.CashDrawersApi;
@@ -25,6 +26,7 @@ import com.squareup.square.api.LoyaltyApi;
 import com.squareup.square.api.MerchantsApi;
 import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
+import com.squareup.square.api.OrderCustomAttributesApi;
 import com.squareup.square.api.OrdersApi;
 import com.squareup.square.api.PaymentsApi;
 import com.squareup.square.api.PayoutsApi;
@@ -81,6 +83,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the BookingsApi instance
      */
     BookingsApi getBookingsApi();
+
+    /**
+     * Provides access to BookingCustomAttributes controller.
+     * @return Returns the BookingCustomAttributesApi instance
+     */
+    BookingCustomAttributesApi getBookingCustomAttributesApi();
 
     /**
      * Provides access to Cards controller.
@@ -207,6 +215,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the OrdersApi instance
      */
     OrdersApi getOrdersApi();
+
+    /**
+     * Provides access to OrderCustomAttributes controller.
+     * @return Returns the OrderCustomAttributesApi instance
+     */
+    OrderCustomAttributesApi getOrderCustomAttributesApi();
 
     /**
      * Provides access to Payments controller.

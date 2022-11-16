@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderFulfillmentRecipient type.
  */
 public class OrderFulfillmentRecipient {
-    private final String customerId;
-    private final String displayName;
-    private final String emailAddress;
-    private final String phoneNumber;
+    private final OptionalNullable<String> customerId;
+    private final OptionalNullable<String> displayName;
+    private final OptionalNullable<String> emailAddress;
+    private final OptionalNullable<String> phoneNumber;
     private final Address address;
 
     /**
@@ -33,11 +36,41 @@ public class OrderFulfillmentRecipient {
             @JsonProperty("email_address") String emailAddress,
             @JsonProperty("phone_number") String phoneNumber,
             @JsonProperty("address") Address address) {
+        this.customerId = OptionalNullable.of(customerId);
+        this.displayName = OptionalNullable.of(displayName);
+        this.emailAddress = OptionalNullable.of(emailAddress);
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+        this.address = address;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillmentRecipient(OptionalNullable<String> customerId,
+            OptionalNullable<String> displayName, OptionalNullable<String> emailAddress,
+            OptionalNullable<String> phoneNumber, Address address) {
         this.customerId = customerId;
         this.displayName = displayName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+
+    /**
+     * Internal Getter for CustomerId.
+     * The ID of the customer associated with the fulfillment. If `customer_id` is provided, the
+     * fulfillment recipient's `display_name`, `email_address`, and `phone_number` are automatically
+     * populated from the targeted customer profile. If these fields are set in the request, the
+     * request values override the information from the customer profile. If the targeted customer
+     * profile does not contain the necessary information and these fields are left unset, the
+     * request results in an error.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
     }
 
     /**
@@ -50,10 +83,22 @@ public class OrderFulfillmentRecipient {
      * request results in an error.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
+    }
+
+    /**
+     * Internal Getter for DisplayName.
+     * The display name of the fulfillment recipient. This field is required. If provided, the
+     * display name overrides the corresponding customer profile value indicated by `customer_id`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("display_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDisplayName() {
+        return this.displayName;
     }
 
     /**
@@ -62,10 +107,22 @@ public class OrderFulfillmentRecipient {
      * display name overrides the corresponding customer profile value indicated by `customer_id`.
      * @return Returns the String
      */
-    @JsonGetter("display_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDisplayName() {
-        return displayName;
+        return OptionalNullable.getFrom(displayName);
+    }
+
+    /**
+     * Internal Getter for EmailAddress.
+     * The email address of the fulfillment recipient. If provided, the email address overrides the
+     * corresponding customer profile value indicated by `customer_id`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmailAddress() {
+        return this.emailAddress;
     }
 
     /**
@@ -74,10 +131,22 @@ public class OrderFulfillmentRecipient {
      * corresponding customer profile value indicated by `customer_id`.
      * @return Returns the String
      */
-    @JsonGetter("email_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmailAddress() {
-        return emailAddress;
+        return OptionalNullable.getFrom(emailAddress);
+    }
+
+    /**
+     * Internal Getter for PhoneNumber.
+     * The phone number of the fulfillment recipient. This field is required. If provided, the phone
+     * number overrides the corresponding customer profile value indicated by `customer_id`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
     }
 
     /**
@@ -86,10 +155,9 @@ public class OrderFulfillmentRecipient {
      * number overrides the corresponding customer profile value indicated by `customer_id`.
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
     }
 
     /**
@@ -143,11 +211,11 @@ public class OrderFulfillmentRecipient {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .customerId(getCustomerId())
-                .displayName(getDisplayName())
-                .emailAddress(getEmailAddress())
-                .phoneNumber(getPhoneNumber())
                 .address(getAddress());
+        builder.customerId = internalGetCustomerId();
+        builder.displayName = internalGetDisplayName();
+        builder.emailAddress = internalGetEmailAddress();
+        builder.phoneNumber = internalGetPhoneNumber();
         return builder;
     }
 
@@ -155,10 +223,10 @@ public class OrderFulfillmentRecipient {
      * Class to build instances of {@link OrderFulfillmentRecipient}.
      */
     public static class Builder {
-        private String customerId;
-        private String displayName;
-        private String emailAddress;
-        private String phoneNumber;
+        private OptionalNullable<String> customerId;
+        private OptionalNullable<String> displayName;
+        private OptionalNullable<String> emailAddress;
+        private OptionalNullable<String> phoneNumber;
         private Address address;
 
 
@@ -169,7 +237,16 @@ public class OrderFulfillmentRecipient {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -179,7 +256,16 @@ public class OrderFulfillmentRecipient {
          * @return Builder
          */
         public Builder displayName(String displayName) {
-            this.displayName = displayName;
+            this.displayName = OptionalNullable.of(displayName);
+            return this;
+        }
+
+        /**
+         * UnSetter for displayName.
+         * @return Builder
+         */
+        public Builder unsetDisplayName() {
+            displayName = null;
             return this;
         }
 
@@ -189,7 +275,16 @@ public class OrderFulfillmentRecipient {
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
+            this.emailAddress = OptionalNullable.of(emailAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for emailAddress.
+         * @return Builder
+         */
+        public Builder unsetEmailAddress() {
+            emailAddress = null;
             return this;
         }
 
@@ -199,7 +294,16 @@ public class OrderFulfillmentRecipient {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 

@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentBalanceActivityAutomaticSavingsReversedDetail type.
  */
 public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
-    private final String paymentId;
-    private final String payoutId;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> payoutId;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
     public PaymentBalanceActivityAutomaticSavingsReversedDetail(
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("payout_id") String payoutId) {
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.payoutId = OptionalNullable.of(payoutId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentBalanceActivityAutomaticSavingsReversedDetail(
+            OptionalNullable<String> paymentId, OptionalNullable<String> payoutId) {
         this.paymentId = paymentId;
         this.payoutId = payoutId;
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -33,10 +57,21 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
      * The ID of the payment associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for PayoutId.
+     * The ID of the payout associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payout_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPayoutId() {
+        return this.payoutId;
     }
 
     /**
@@ -44,10 +79,9 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
      * The ID of the payout associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payout_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPayoutId() {
-        return payoutId;
+        return OptionalNullable.getFrom(payoutId);
     }
 
     @Override
@@ -85,9 +119,9 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
      * @return a new {@link PaymentBalanceActivityAutomaticSavingsReversedDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .paymentId(getPaymentId())
-                .payoutId(getPayoutId());
+        Builder builder = new Builder();
+        builder.paymentId = internalGetPaymentId();
+        builder.payoutId = internalGetPayoutId();
         return builder;
     }
 
@@ -95,8 +129,8 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
      * Class to build instances of {@link PaymentBalanceActivityAutomaticSavingsReversedDetail}.
      */
     public static class Builder {
-        private String paymentId;
-        private String payoutId;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> payoutId;
 
 
 
@@ -106,7 +140,16 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -116,7 +159,16 @@ public class PaymentBalanceActivityAutomaticSavingsReversedDetail {
          * @return Builder
          */
         public Builder payoutId(String payoutId) {
-            this.payoutId = payoutId;
+            this.payoutId = OptionalNullable.of(payoutId);
+            return this;
+        }
+
+        /**
+         * UnSetter for payoutId.
+         * @return Builder
+         */
+        public Builder unsetPayoutId() {
+            payoutId = null;
             return this;
         }
 

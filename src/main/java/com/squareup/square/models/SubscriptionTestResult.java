@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class SubscriptionTestResult {
     private final String id;
-    private final Integer statusCode;
-    private final String payload;
+    private final OptionalNullable<Integer> statusCode;
+    private final OptionalNullable<String> payload;
     private final String createdAt;
     private final String updatedAt;
 
@@ -34,6 +37,18 @@ public class SubscriptionTestResult {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt) {
         this.id = id;
+        this.statusCode = OptionalNullable.of(statusCode);
+        this.payload = OptionalNullable.of(payload);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SubscriptionTestResult(String id, OptionalNullable<Integer> statusCode,
+            OptionalNullable<String> payload, String createdAt, String updatedAt) {
+        this.id = id;
         this.statusCode = statusCode;
         this.payload = payload;
         this.createdAt = createdAt;
@@ -52,14 +67,37 @@ public class SubscriptionTestResult {
     }
 
     /**
+     * Internal Getter for StatusCode.
+     * The status code returned by the subscription notification URL.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("status_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetStatusCode() {
+        return this.statusCode;
+    }
+
+    /**
      * Getter for StatusCode.
      * The status code returned by the subscription notification URL.
      * @return Returns the Integer
      */
-    @JsonGetter("status_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getStatusCode() {
-        return statusCode;
+        return OptionalNullable.getFrom(statusCode);
+    }
+
+    /**
+     * Internal Getter for Payload.
+     * An object containing the payload of the test event. For example, a `payment.created` event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payload")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPayload() {
+        return this.payload;
     }
 
     /**
@@ -67,10 +105,9 @@ public class SubscriptionTestResult {
      * An object containing the payload of the test event. For example, a `payment.created` event.
      * @return Returns the String
      */
-    @JsonGetter("payload")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPayload() {
-        return payload;
+        return OptionalNullable.getFrom(payload);
     }
 
     /**
@@ -137,10 +174,10 @@ public class SubscriptionTestResult {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .statusCode(getStatusCode())
-                .payload(getPayload())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.statusCode = internalGetStatusCode();
+        builder.payload = internalGetPayload();
         return builder;
     }
 
@@ -149,8 +186,8 @@ public class SubscriptionTestResult {
      */
     public static class Builder {
         private String id;
-        private Integer statusCode;
-        private String payload;
+        private OptionalNullable<Integer> statusCode;
+        private OptionalNullable<String> payload;
         private String createdAt;
         private String updatedAt;
 
@@ -172,7 +209,16 @@ public class SubscriptionTestResult {
          * @return Builder
          */
         public Builder statusCode(Integer statusCode) {
-            this.statusCode = statusCode;
+            this.statusCode = OptionalNullable.of(statusCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for statusCode.
+         * @return Builder
+         */
+        public Builder unsetStatusCode() {
+            statusCode = null;
             return this;
         }
 
@@ -182,7 +228,16 @@ public class SubscriptionTestResult {
          * @return Builder
          */
         public Builder payload(String payload) {
-            this.payload = payload;
+            this.payload = OptionalNullable.of(payload);
+            return this;
+        }
+
+        /**
+         * UnSetter for payload.
+         * @return Builder
+         */
+        public Builder unsetPayload() {
+            payload = null;
             return this;
         }
 

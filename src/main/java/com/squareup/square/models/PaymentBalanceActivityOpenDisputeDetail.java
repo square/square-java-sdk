@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentBalanceActivityOpenDisputeDetail type.
  */
 public class PaymentBalanceActivityOpenDisputeDetail {
-    private final String paymentId;
-    private final String disputeId;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> disputeId;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class PaymentBalanceActivityOpenDisputeDetail {
     public PaymentBalanceActivityOpenDisputeDetail(
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("dispute_id") String disputeId) {
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.disputeId = OptionalNullable.of(disputeId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentBalanceActivityOpenDisputeDetail(OptionalNullable<String> paymentId,
+            OptionalNullable<String> disputeId) {
         this.paymentId = paymentId;
         this.disputeId = disputeId;
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -33,10 +57,21 @@ public class PaymentBalanceActivityOpenDisputeDetail {
      * The ID of the payment associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for DisputeId.
+     * The ID of the dispute associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("dispute_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDisputeId() {
+        return this.disputeId;
     }
 
     /**
@@ -44,10 +79,9 @@ public class PaymentBalanceActivityOpenDisputeDetail {
      * The ID of the dispute associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("dispute_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDisputeId() {
-        return disputeId;
+        return OptionalNullable.getFrom(disputeId);
     }
 
     @Override
@@ -85,9 +119,9 @@ public class PaymentBalanceActivityOpenDisputeDetail {
      * @return a new {@link PaymentBalanceActivityOpenDisputeDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .paymentId(getPaymentId())
-                .disputeId(getDisputeId());
+        Builder builder = new Builder();
+        builder.paymentId = internalGetPaymentId();
+        builder.disputeId = internalGetDisputeId();
         return builder;
     }
 
@@ -95,8 +129,8 @@ public class PaymentBalanceActivityOpenDisputeDetail {
      * Class to build instances of {@link PaymentBalanceActivityOpenDisputeDetail}.
      */
     public static class Builder {
-        private String paymentId;
-        private String disputeId;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> disputeId;
 
 
 
@@ -106,7 +140,16 @@ public class PaymentBalanceActivityOpenDisputeDetail {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -116,7 +159,16 @@ public class PaymentBalanceActivityOpenDisputeDetail {
          * @return Builder
          */
         public Builder disputeId(String disputeId) {
-            this.disputeId = disputeId;
+            this.disputeId = OptionalNullable.of(disputeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for disputeId.
+         * @return Builder
+         */
+        public Builder unsetDisputeId() {
+            disputeId = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for BulkRetrieveVendorsRequest type.
  */
 public class BulkRetrieveVendorsRequest {
-    private final List<String> vendorIds;
+    private final OptionalNullable<List<String>> vendorIds;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,26 @@ public class BulkRetrieveVendorsRequest {
     @JsonCreator
     public BulkRetrieveVendorsRequest(
             @JsonProperty("vendor_ids") List<String> vendorIds) {
+        this.vendorIds = OptionalNullable.of(vendorIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BulkRetrieveVendorsRequest(OptionalNullable<List<String>> vendorIds) {
         this.vendorIds = vendorIds;
+    }
+
+    /**
+     * Internal Getter for VendorIds.
+     * IDs of the [Vendor]($m/Vendor) objects to retrieve.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("vendor_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetVendorIds() {
+        return this.vendorIds;
     }
 
     /**
@@ -30,10 +52,9 @@ public class BulkRetrieveVendorsRequest {
      * IDs of the [Vendor]($m/Vendor) objects to retrieve.
      * @return Returns the List of String
      */
-    @JsonGetter("vendor_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getVendorIds() {
-        return vendorIds;
+        return OptionalNullable.getFrom(vendorIds);
     }
 
     @Override
@@ -68,8 +89,8 @@ public class BulkRetrieveVendorsRequest {
      * @return a new {@link BulkRetrieveVendorsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .vendorIds(getVendorIds());
+        Builder builder = new Builder();
+        builder.vendorIds = internalGetVendorIds();
         return builder;
     }
 
@@ -77,7 +98,7 @@ public class BulkRetrieveVendorsRequest {
      * Class to build instances of {@link BulkRetrieveVendorsRequest}.
      */
     public static class Builder {
-        private List<String> vendorIds;
+        private OptionalNullable<List<String>> vendorIds;
 
 
 
@@ -87,7 +108,16 @@ public class BulkRetrieveVendorsRequest {
          * @return Builder
          */
         public Builder vendorIds(List<String> vendorIds) {
-            this.vendorIds = vendorIds;
+            this.vendorIds = OptionalNullable.of(vendorIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for vendorIds.
+         * @return Builder
+         */
+        public Builder unsetVendorIds() {
+            vendorIds = null;
             return this;
         }
 

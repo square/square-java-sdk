@@ -41,13 +41,13 @@ public class ApiException extends CoreApiException {
         super(reason, context);
         try {
             // Can throw IOException if input has invalid content type.
-            JsonNode jsonNode = CoreHelper.mapper.readTree(context.getResponse().getBody());
+            JsonNode jsonNode = CoreHelper.getMapper().readTree(context.getResponse().getBody());
 
             if (jsonNode.hasNonNull("payment")) {
-                data = CoreHelper.mapper.convertValue(jsonNode.get("payment"), Payment.class);
+                data = CoreHelper.getMapper().convertValue(jsonNode.get("payment"), Payment.class);
             }
             if (jsonNode.hasNonNull("errors")) {
-                errors = Arrays.asList(CoreHelper.mapper.convertValue(
+                errors = Arrays.asList(CoreHelper.getMapper().convertValue(
                         jsonNode.get("errors"), Error[].class));
             } else {
                 errors = new ArrayList<>();

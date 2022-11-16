@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for SearchLoyaltyAccountsRequestLoyaltyAccountQuery type.
  */
 public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
-    private final List<LoyaltyAccountMapping> mappings;
-    private final List<String> customerIds;
+    private final OptionalNullable<List<LoyaltyAccountMapping>> mappings;
+    private final OptionalNullable<List<String>> customerIds;
 
     /**
      * Initialization constructor.
@@ -25,8 +28,31 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
     public SearchLoyaltyAccountsRequestLoyaltyAccountQuery(
             @JsonProperty("mappings") List<LoyaltyAccountMapping> mappings,
             @JsonProperty("customer_ids") List<String> customerIds) {
+        this.mappings = OptionalNullable.of(mappings);
+        this.customerIds = OptionalNullable.of(customerIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SearchLoyaltyAccountsRequestLoyaltyAccountQuery(
+            OptionalNullable<List<LoyaltyAccountMapping>> mappings,
+            OptionalNullable<List<String>> customerIds) {
         this.mappings = mappings;
         this.customerIds = customerIds;
+    }
+
+    /**
+     * Internal Getter for Mappings.
+     * The set of mappings to use in the loyalty account search. This cannot be combined with
+     * `customer_ids`. Max: 30 mappings
+     * @return Returns the Internal List of LoyaltyAccountMapping
+     */
+    @JsonGetter("mappings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<LoyaltyAccountMapping>> internalGetMappings() {
+        return this.mappings;
     }
 
     /**
@@ -35,10 +61,22 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      * `customer_ids`. Max: 30 mappings
      * @return Returns the List of LoyaltyAccountMapping
      */
-    @JsonGetter("mappings")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<LoyaltyAccountMapping> getMappings() {
-        return mappings;
+        return OptionalNullable.getFrom(mappings);
+    }
+
+    /**
+     * Internal Getter for CustomerIds.
+     * The set of customer IDs to use in the loyalty account search. This cannot be combined with
+     * `mappings`. Max: 30 customer IDs
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("customer_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetCustomerIds() {
+        return this.customerIds;
     }
 
     /**
@@ -47,10 +85,9 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      * `mappings`. Max: 30 customer IDs
      * @return Returns the List of String
      */
-    @JsonGetter("customer_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getCustomerIds() {
-        return customerIds;
+        return OptionalNullable.getFrom(customerIds);
     }
 
     @Override
@@ -88,9 +125,9 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      * @return a new {@link SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .mappings(getMappings())
-                .customerIds(getCustomerIds());
+        Builder builder = new Builder();
+        builder.mappings = internalGetMappings();
+        builder.customerIds = internalGetCustomerIds();
         return builder;
     }
 
@@ -98,8 +135,8 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
      * Class to build instances of {@link SearchLoyaltyAccountsRequestLoyaltyAccountQuery}.
      */
     public static class Builder {
-        private List<LoyaltyAccountMapping> mappings;
-        private List<String> customerIds;
+        private OptionalNullable<List<LoyaltyAccountMapping>> mappings;
+        private OptionalNullable<List<String>> customerIds;
 
 
 
@@ -109,7 +146,16 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
          * @return Builder
          */
         public Builder mappings(List<LoyaltyAccountMapping> mappings) {
-            this.mappings = mappings;
+            this.mappings = OptionalNullable.of(mappings);
+            return this;
+        }
+
+        /**
+         * UnSetter for mappings.
+         * @return Builder
+         */
+        public Builder unsetMappings() {
+            mappings = null;
             return this;
         }
 
@@ -119,7 +165,16 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
          * @return Builder
          */
         public Builder customerIds(List<String> customerIds) {
-            this.customerIds = customerIds;
+            this.customerIds = OptionalNullable.of(customerIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerIds.
+         * @return Builder
+         */
+        public Builder unsetCustomerIds() {
+            customerIds = null;
             return this;
         }
 

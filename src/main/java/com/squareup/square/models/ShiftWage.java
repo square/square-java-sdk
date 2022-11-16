@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ShiftWage type.
  */
 public class ShiftWage {
-    private final String title;
+    private final OptionalNullable<String> title;
     private final Money hourlyRate;
 
     /**
@@ -24,8 +27,29 @@ public class ShiftWage {
     public ShiftWage(
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate) {
+        this.title = OptionalNullable.of(title);
+        this.hourlyRate = hourlyRate;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ShiftWage(OptionalNullable<String> title, Money hourlyRate) {
         this.title = title;
         this.hourlyRate = hourlyRate;
+    }
+
+    /**
+     * Internal Getter for Title.
+     * The name of the job performed during this shift. Square labor-reporting UIs might group
+     * shifts together by title.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTitle() {
+        return this.title;
     }
 
     /**
@@ -34,10 +58,9 @@ public class ShiftWage {
      * shifts together by title.
      * @return Returns the String
      */
-    @JsonGetter("title")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTitle() {
-        return title;
+        return OptionalNullable.getFrom(title);
     }
 
     /**
@@ -90,8 +113,8 @@ public class ShiftWage {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .title(getTitle())
                 .hourlyRate(getHourlyRate());
+        builder.title = internalGetTitle();
         return builder;
     }
 
@@ -99,7 +122,7 @@ public class ShiftWage {
      * Class to build instances of {@link ShiftWage}.
      */
     public static class Builder {
-        private String title;
+        private OptionalNullable<String> title;
         private Money hourlyRate;
 
 
@@ -110,7 +133,16 @@ public class ShiftWage {
          * @return Builder
          */
         public Builder title(String title) {
-            this.title = title;
+            this.title = OptionalNullable.of(title);
+            return this;
+        }
+
+        /**
+         * UnSetter for title.
+         * @return Builder
+         */
+        public Builder unsetTitle() {
+            title = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for OrderLineItemPricingBlocklists type.
  */
 public class OrderLineItemPricingBlocklists {
-    private final List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts;
-    private final List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes;
+    private final OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts;
+    private final OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes;
 
     /**
      * Initialization constructor.
@@ -27,8 +30,32 @@ public class OrderLineItemPricingBlocklists {
     public OrderLineItemPricingBlocklists(
             @JsonProperty("blocked_discounts") List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts,
             @JsonProperty("blocked_taxes") List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes) {
+        this.blockedDiscounts = OptionalNullable.of(blockedDiscounts);
+        this.blockedTaxes = OptionalNullable.of(blockedTaxes);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderLineItemPricingBlocklists(
+            OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts,
+            OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes) {
         this.blockedDiscounts = blockedDiscounts;
         this.blockedTaxes = blockedTaxes;
+    }
+
+    /**
+     * Internal Getter for BlockedDiscounts.
+     * A list of discounts blocked from applying to the line item. Discounts can be blocked by the
+     * `discount_uid` (for ad hoc discounts) or the `discount_catalog_object_id` (for catalog
+     * discounts).
+     * @return Returns the Internal List of OrderLineItemPricingBlocklistsBlockedDiscount
+     */
+    @JsonGetter("blocked_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedDiscount>> internalGetBlockedDiscounts() {
+        return this.blockedDiscounts;
     }
 
     /**
@@ -38,10 +65,22 @@ public class OrderLineItemPricingBlocklists {
      * discounts).
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedDiscount
      */
-    @JsonGetter("blocked_discounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItemPricingBlocklistsBlockedDiscount> getBlockedDiscounts() {
-        return blockedDiscounts;
+        return OptionalNullable.getFrom(blockedDiscounts);
+    }
+
+    /**
+     * Internal Getter for BlockedTaxes.
+     * A list of taxes blocked from applying to the line item. Taxes can be blocked by the `tax_uid`
+     * (for ad hoc taxes) or the `tax_catalog_object_id` (for catalog taxes).
+     * @return Returns the Internal List of OrderLineItemPricingBlocklistsBlockedTax
+     */
+    @JsonGetter("blocked_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedTax>> internalGetBlockedTaxes() {
+        return this.blockedTaxes;
     }
 
     /**
@@ -50,10 +89,9 @@ public class OrderLineItemPricingBlocklists {
      * (for ad hoc taxes) or the `tax_catalog_object_id` (for catalog taxes).
      * @return Returns the List of OrderLineItemPricingBlocklistsBlockedTax
      */
-    @JsonGetter("blocked_taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItemPricingBlocklistsBlockedTax> getBlockedTaxes() {
-        return blockedTaxes;
+        return OptionalNullable.getFrom(blockedTaxes);
     }
 
     @Override
@@ -90,9 +128,9 @@ public class OrderLineItemPricingBlocklists {
      * @return a new {@link OrderLineItemPricingBlocklists.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .blockedDiscounts(getBlockedDiscounts())
-                .blockedTaxes(getBlockedTaxes());
+        Builder builder = new Builder();
+        builder.blockedDiscounts = internalGetBlockedDiscounts();
+        builder.blockedTaxes = internalGetBlockedTaxes();
         return builder;
     }
 
@@ -100,8 +138,8 @@ public class OrderLineItemPricingBlocklists {
      * Class to build instances of {@link OrderLineItemPricingBlocklists}.
      */
     public static class Builder {
-        private List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts;
-        private List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes;
+        private OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts;
+        private OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes;
 
 
 
@@ -113,7 +151,16 @@ public class OrderLineItemPricingBlocklists {
          */
         public Builder blockedDiscounts(
                 List<OrderLineItemPricingBlocklistsBlockedDiscount> blockedDiscounts) {
-            this.blockedDiscounts = blockedDiscounts;
+            this.blockedDiscounts = OptionalNullable.of(blockedDiscounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for blockedDiscounts.
+         * @return Builder
+         */
+        public Builder unsetBlockedDiscounts() {
+            blockedDiscounts = null;
             return this;
         }
 
@@ -124,7 +171,16 @@ public class OrderLineItemPricingBlocklists {
          * @return Builder
          */
         public Builder blockedTaxes(List<OrderLineItemPricingBlocklistsBlockedTax> blockedTaxes) {
-            this.blockedTaxes = blockedTaxes;
+            this.blockedTaxes = OptionalNullable.of(blockedTaxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for blockedTaxes.
+         * @return Builder
+         */
+        public Builder unsetBlockedTaxes() {
+            blockedTaxes = null;
             return this;
         }
 

@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentBalanceActivityAppFeeRefundDetail type.
  */
 public class PaymentBalanceActivityAppFeeRefundDetail {
-    private final String paymentId;
-    private final String refundId;
-    private final String locationId;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> refundId;
+    private final OptionalNullable<String> locationId;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("refund_id") String refundId,
             @JsonProperty("location_id") String locationId) {
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.refundId = OptionalNullable.of(refundId);
+        this.locationId = OptionalNullable.of(locationId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentBalanceActivityAppFeeRefundDetail(OptionalNullable<String> paymentId,
+            OptionalNullable<String> refundId, OptionalNullable<String> locationId) {
         this.paymentId = paymentId;
         this.refundId = refundId;
         this.locationId = locationId;
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -37,10 +62,21 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
      * The ID of the payment associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for RefundId.
+     * The ID of the refund associated with this activity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("refund_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRefundId() {
+        return this.refundId;
     }
 
     /**
@@ -48,10 +84,21 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
      * The ID of the refund associated with this activity.
      * @return Returns the String
      */
-    @JsonGetter("refund_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRefundId() {
-        return refundId;
+        return OptionalNullable.getFrom(refundId);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the location of the merchant associated with the payment refund activity
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -59,10 +106,9 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
      * The ID of the location of the merchant associated with the payment refund activity
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     @Override
@@ -101,10 +147,10 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
      * @return a new {@link PaymentBalanceActivityAppFeeRefundDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .paymentId(getPaymentId())
-                .refundId(getRefundId())
-                .locationId(getLocationId());
+        Builder builder = new Builder();
+        builder.paymentId = internalGetPaymentId();
+        builder.refundId = internalGetRefundId();
+        builder.locationId = internalGetLocationId();
         return builder;
     }
 
@@ -112,9 +158,9 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
      * Class to build instances of {@link PaymentBalanceActivityAppFeeRefundDetail}.
      */
     public static class Builder {
-        private String paymentId;
-        private String refundId;
-        private String locationId;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> refundId;
+        private OptionalNullable<String> locationId;
 
 
 
@@ -124,7 +170,16 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -134,7 +189,16 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
          * @return Builder
          */
         public Builder refundId(String refundId) {
-            this.refundId = refundId;
+            this.refundId = OptionalNullable.of(refundId);
+            return this;
+        }
+
+        /**
+         * UnSetter for refundId.
+         * @return Builder
+         */
+        public Builder unsetRefundId() {
+            refundId = null;
             return this;
         }
 
@@ -144,7 +208,16 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 

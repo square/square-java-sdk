@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for CustomerCreationSourceFilter type.
  */
 public class CustomerCreationSourceFilter {
-    private final List<String> values;
+    private final OptionalNullable<List<String>> values;
     private final String rule;
 
     /**
@@ -25,8 +28,29 @@ public class CustomerCreationSourceFilter {
     public CustomerCreationSourceFilter(
             @JsonProperty("values") List<String> values,
             @JsonProperty("rule") String rule) {
+        this.values = OptionalNullable.of(values);
+        this.rule = rule;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerCreationSourceFilter(OptionalNullable<List<String>> values, String rule) {
         this.values = values;
         this.rule = rule;
+    }
+
+    /**
+     * Internal Getter for Values.
+     * The list of creation sources used as filtering criteria. See
+     * [CustomerCreationSource](#type-customercreationsource) for possible values
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetValues() {
+        return this.values;
     }
 
     /**
@@ -35,10 +59,9 @@ public class CustomerCreationSourceFilter {
      * [CustomerCreationSource](#type-customercreationsource) for possible values
      * @return Returns the List of String
      */
-    @JsonGetter("values")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getValues() {
-        return values;
+        return OptionalNullable.getFrom(values);
     }
 
     /**
@@ -87,8 +110,8 @@ public class CustomerCreationSourceFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .values(getValues())
                 .rule(getRule());
+        builder.values = internalGetValues();
         return builder;
     }
 
@@ -96,7 +119,7 @@ public class CustomerCreationSourceFilter {
      * Class to build instances of {@link CustomerCreationSourceFilter}.
      */
     public static class Builder {
-        private List<String> values;
+        private OptionalNullable<List<String>> values;
         private String rule;
 
 
@@ -107,7 +130,16 @@ public class CustomerCreationSourceFilter {
          * @return Builder
          */
         public Builder values(List<String> values) {
-            this.values = values;
+            this.values = OptionalNullable.of(values);
+            return this;
+        }
+
+        /**
+         * UnSetter for values.
+         * @return Builder
+         */
+        public Builder unsetValues() {
+            values = null;
             return this;
         }
 

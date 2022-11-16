@@ -3,21 +3,24 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ItemVariationLocationOverrides type.
  */
 public class ItemVariationLocationOverrides {
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final Money priceMoney;
     private final String pricingType;
-    private final Boolean trackInventory;
+    private final OptionalNullable<Boolean> trackInventory;
     private final String inventoryAlertType;
-    private final Long inventoryAlertThreshold;
+    private final OptionalNullable<Long> inventoryAlertThreshold;
     private final Boolean soldOut;
     private final String soldOutValidUntil;
 
@@ -42,6 +45,23 @@ public class ItemVariationLocationOverrides {
             @JsonProperty("inventory_alert_threshold") Long inventoryAlertThreshold,
             @JsonProperty("sold_out") Boolean soldOut,
             @JsonProperty("sold_out_valid_until") String soldOutValidUntil) {
+        this.locationId = OptionalNullable.of(locationId);
+        this.priceMoney = priceMoney;
+        this.pricingType = pricingType;
+        this.trackInventory = OptionalNullable.of(trackInventory);
+        this.inventoryAlertType = inventoryAlertType;
+        this.inventoryAlertThreshold = OptionalNullable.of(inventoryAlertThreshold);
+        this.soldOut = soldOut;
+        this.soldOutValidUntil = soldOutValidUntil;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ItemVariationLocationOverrides(OptionalNullable<String> locationId, Money priceMoney,
+            String pricingType, OptionalNullable<Boolean> trackInventory, String inventoryAlertType,
+            OptionalNullable<Long> inventoryAlertThreshold, Boolean soldOut,
+            String soldOutValidUntil) {
         this.locationId = locationId;
         this.priceMoney = priceMoney;
         this.pricingType = pricingType;
@@ -53,14 +73,25 @@ public class ItemVariationLocationOverrides {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The ID of the `Location`. This can include locations that are deactivated.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The ID of the `Location`. This can include locations that are deactivated.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -92,14 +123,25 @@ public class ItemVariationLocationOverrides {
     }
 
     /**
+     * Internal Getter for TrackInventory.
+     * If `true`, inventory tracking is active for the `CatalogItemVariation` at this `Location`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("track_inventory")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTrackInventory() {
+        return this.trackInventory;
+    }
+
+    /**
      * Getter for TrackInventory.
      * If `true`, inventory tracking is active for the `CatalogItemVariation` at this `Location`.
      * @return Returns the Boolean
      */
-    @JsonGetter("track_inventory")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getTrackInventory() {
-        return trackInventory;
+        return OptionalNullable.getFrom(trackInventory);
     }
 
     /**
@@ -115,16 +157,29 @@ public class ItemVariationLocationOverrides {
     }
 
     /**
+     * Internal Getter for InventoryAlertThreshold.
+     * If the inventory quantity for the variation is less than or equal to this value and
+     * `inventory_alert_type` is `LOW_QUANTITY`, the variation displays an alert in the merchant
+     * dashboard. This value is always an integer.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("inventory_alert_threshold")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetInventoryAlertThreshold() {
+        return this.inventoryAlertThreshold;
+    }
+
+    /**
      * Getter for InventoryAlertThreshold.
      * If the inventory quantity for the variation is less than or equal to this value and
      * `inventory_alert_type` is `LOW_QUANTITY`, the variation displays an alert in the merchant
      * dashboard. This value is always an integer.
      * @return Returns the Long
      */
-    @JsonGetter("inventory_alert_threshold")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getInventoryAlertThreshold() {
-        return inventoryAlertThreshold;
+        return OptionalNullable.getFrom(inventoryAlertThreshold);
     }
 
     /**
@@ -203,14 +258,14 @@ public class ItemVariationLocationOverrides {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .locationId(getLocationId())
                 .priceMoney(getPriceMoney())
                 .pricingType(getPricingType())
-                .trackInventory(getTrackInventory())
                 .inventoryAlertType(getInventoryAlertType())
-                .inventoryAlertThreshold(getInventoryAlertThreshold())
                 .soldOut(getSoldOut())
                 .soldOutValidUntil(getSoldOutValidUntil());
+        builder.locationId = internalGetLocationId();
+        builder.trackInventory = internalGetTrackInventory();
+        builder.inventoryAlertThreshold = internalGetInventoryAlertThreshold();
         return builder;
     }
 
@@ -218,12 +273,12 @@ public class ItemVariationLocationOverrides {
      * Class to build instances of {@link ItemVariationLocationOverrides}.
      */
     public static class Builder {
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private Money priceMoney;
         private String pricingType;
-        private Boolean trackInventory;
+        private OptionalNullable<Boolean> trackInventory;
         private String inventoryAlertType;
-        private Long inventoryAlertThreshold;
+        private OptionalNullable<Long> inventoryAlertThreshold;
         private Boolean soldOut;
         private String soldOutValidUntil;
 
@@ -235,7 +290,16 @@ public class ItemVariationLocationOverrides {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -265,7 +329,16 @@ public class ItemVariationLocationOverrides {
          * @return Builder
          */
         public Builder trackInventory(Boolean trackInventory) {
-            this.trackInventory = trackInventory;
+            this.trackInventory = OptionalNullable.of(trackInventory);
+            return this;
+        }
+
+        /**
+         * UnSetter for trackInventory.
+         * @return Builder
+         */
+        public Builder unsetTrackInventory() {
+            trackInventory = null;
             return this;
         }
 
@@ -285,7 +358,16 @@ public class ItemVariationLocationOverrides {
          * @return Builder
          */
         public Builder inventoryAlertThreshold(Long inventoryAlertThreshold) {
-            this.inventoryAlertThreshold = inventoryAlertThreshold;
+            this.inventoryAlertThreshold = OptionalNullable.of(inventoryAlertThreshold);
+            return this;
+        }
+
+        /**
+         * UnSetter for inventoryAlertThreshold.
+         * @return Builder
+         */
+        public Builder unsetInventoryAlertThreshold() {
+            inventoryAlertThreshold = null;
             return this;
         }
 

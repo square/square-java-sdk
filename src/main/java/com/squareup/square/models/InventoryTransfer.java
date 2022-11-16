@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,18 +16,18 @@ import java.util.Objects;
  */
 public class InventoryTransfer {
     private final String id;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final String state;
-    private final String fromLocationId;
-    private final String toLocationId;
-    private final String catalogObjectId;
-    private final String catalogObjectType;
-    private final String quantity;
-    private final String occurredAt;
+    private final OptionalNullable<String> fromLocationId;
+    private final OptionalNullable<String> toLocationId;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<String> catalogObjectType;
+    private final OptionalNullable<String> quantity;
+    private final OptionalNullable<String> occurredAt;
     private final String createdAt;
     private final SourceApplication source;
-    private final String employeeId;
-    private final String teamMemberId;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<String> teamMemberId;
 
     /**
      * Initialization constructor.
@@ -58,6 +61,30 @@ public class InventoryTransfer {
             @JsonProperty("employee_id") String employeeId,
             @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.state = state;
+        this.fromLocationId = OptionalNullable.of(fromLocationId);
+        this.toLocationId = OptionalNullable.of(toLocationId);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+        this.quantity = OptionalNullable.of(quantity);
+        this.occurredAt = OptionalNullable.of(occurredAt);
+        this.createdAt = createdAt;
+        this.source = source;
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InventoryTransfer(String id, OptionalNullable<String> referenceId, String state,
+            OptionalNullable<String> fromLocationId, OptionalNullable<String> toLocationId,
+            OptionalNullable<String> catalogObjectId, OptionalNullable<String> catalogObjectType,
+            OptionalNullable<String> quantity, OptionalNullable<String> occurredAt,
+            String createdAt, SourceApplication source, OptionalNullable<String> employeeId,
+            OptionalNullable<String> teamMemberId) {
+        this.id = id;
         this.referenceId = referenceId;
         this.state = state;
         this.fromLocationId = fromLocationId;
@@ -84,15 +111,27 @@ public class InventoryTransfer {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * An optional ID provided by the application to tie the `InventoryTransfer` to an external
+     * system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * An optional ID provided by the application to tie the `InventoryTransfer` to an external
      * system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -107,15 +146,40 @@ public class InventoryTransfer {
     }
 
     /**
+     * Internal Getter for FromLocationId.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
+     * was tracked before the transfer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("from_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFromLocationId() {
+        return this.fromLocationId;
+    }
+
+    /**
      * Getter for FromLocationId.
      * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
      * was tracked before the transfer.
      * @return Returns the String
      */
-    @JsonGetter("from_location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFromLocationId() {
-        return fromLocationId;
+        return OptionalNullable.getFrom(fromLocationId);
+    }
+
+    /**
+     * Internal Getter for ToLocationId.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
+     * was tracked after the transfer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("to_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetToLocationId() {
+        return this.toLocationId;
     }
 
     /**
@@ -124,10 +188,21 @@ public class InventoryTransfer {
      * was tracked after the transfer.
      * @return Returns the String
      */
-    @JsonGetter("to_location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getToLocationId() {
-        return toLocationId;
+        return OptionalNullable.getFrom(toLocationId);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -135,10 +210,24 @@ public class InventoryTransfer {
      * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectType.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
+     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
+     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
+     * that is set by the Square Restaurants app.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectType() {
+        return this.catalogObjectType;
     }
 
     /**
@@ -149,10 +238,22 @@ public class InventoryTransfer {
      * that is set by the Square Restaurants app.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectType() {
-        return catalogObjectType;
+        return OptionalNullable.getFrom(catalogObjectType);
+    }
+
+    /**
+     * Internal Getter for Quantity.
+     * The number of items affected by the transfer as a decimal string. Can support up to 5 digits
+     * after the decimal point.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -161,10 +262,23 @@ public class InventoryTransfer {
      * after the decimal point.
      * @return Returns the String
      */
-    @JsonGetter("quantity")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getQuantity() {
-        return quantity;
+        return OptionalNullable.getFrom(quantity);
+    }
+
+    /**
+     * Internal Getter for OccurredAt.
+     * A client-generated RFC 3339-formatted timestamp that indicates when the transfer took place.
+     * For write actions, the `occurred_at` timestamp cannot be older than 24 hours or in the future
+     * relative to the time of the request.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("occurred_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOccurredAt() {
+        return this.occurredAt;
     }
 
     /**
@@ -174,10 +288,9 @@ public class InventoryTransfer {
      * relative to the time of the request.
      * @return Returns the String
      */
-    @JsonGetter("occurred_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOccurredAt() {
-        return occurredAt;
+        return OptionalNullable.getFrom(occurredAt);
     }
 
     /**
@@ -203,15 +316,40 @@ public class InventoryTransfer {
     }
 
     /**
+     * Internal Getter for EmployeeId.
+     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * transfer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
      * Getter for EmployeeId.
      * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
      * transfer.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for TeamMemberId.
+     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * transfer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
     }
 
     /**
@@ -220,10 +358,9 @@ public class InventoryTransfer {
      * transfer.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
     }
 
     @Override
@@ -279,18 +416,18 @@ public class InventoryTransfer {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .referenceId(getReferenceId())
                 .state(getState())
-                .fromLocationId(getFromLocationId())
-                .toLocationId(getToLocationId())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogObjectType(getCatalogObjectType())
-                .quantity(getQuantity())
-                .occurredAt(getOccurredAt())
                 .createdAt(getCreatedAt())
-                .source(getSource())
-                .employeeId(getEmployeeId())
-                .teamMemberId(getTeamMemberId());
+                .source(getSource());
+        builder.referenceId = internalGetReferenceId();
+        builder.fromLocationId = internalGetFromLocationId();
+        builder.toLocationId = internalGetToLocationId();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogObjectType = internalGetCatalogObjectType();
+        builder.quantity = internalGetQuantity();
+        builder.occurredAt = internalGetOccurredAt();
+        builder.employeeId = internalGetEmployeeId();
+        builder.teamMemberId = internalGetTeamMemberId();
         return builder;
     }
 
@@ -299,18 +436,18 @@ public class InventoryTransfer {
      */
     public static class Builder {
         private String id;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private String state;
-        private String fromLocationId;
-        private String toLocationId;
-        private String catalogObjectId;
-        private String catalogObjectType;
-        private String quantity;
-        private String occurredAt;
+        private OptionalNullable<String> fromLocationId;
+        private OptionalNullable<String> toLocationId;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<String> catalogObjectType;
+        private OptionalNullable<String> quantity;
+        private OptionalNullable<String> occurredAt;
         private String createdAt;
         private SourceApplication source;
-        private String employeeId;
-        private String teamMemberId;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<String> teamMemberId;
 
 
 
@@ -330,7 +467,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -350,7 +496,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder fromLocationId(String fromLocationId) {
-            this.fromLocationId = fromLocationId;
+            this.fromLocationId = OptionalNullable.of(fromLocationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for fromLocationId.
+         * @return Builder
+         */
+        public Builder unsetFromLocationId() {
+            fromLocationId = null;
             return this;
         }
 
@@ -360,7 +515,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder toLocationId(String toLocationId) {
-            this.toLocationId = toLocationId;
+            this.toLocationId = OptionalNullable.of(toLocationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for toLocationId.
+         * @return Builder
+         */
+        public Builder unsetToLocationId() {
+            toLocationId = null;
             return this;
         }
 
@@ -370,7 +534,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -380,7 +553,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
-            this.catalogObjectType = catalogObjectType;
+            this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectType.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectType() {
+            catalogObjectType = null;
             return this;
         }
 
@@ -390,7 +572,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder quantity(String quantity) {
-            this.quantity = quantity;
+            this.quantity = OptionalNullable.of(quantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for quantity.
+         * @return Builder
+         */
+        public Builder unsetQuantity() {
+            quantity = null;
             return this;
         }
 
@@ -400,7 +591,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder occurredAt(String occurredAt) {
-            this.occurredAt = occurredAt;
+            this.occurredAt = OptionalNullable.of(occurredAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for occurredAt.
+         * @return Builder
+         */
+        public Builder unsetOccurredAt() {
+            occurredAt = null;
             return this;
         }
 
@@ -430,7 +630,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -440,7 +649,16 @@ public class InventoryTransfer {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 

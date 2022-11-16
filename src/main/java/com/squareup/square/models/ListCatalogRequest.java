@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListCatalogRequest type.
  */
 public class ListCatalogRequest {
-    private final String cursor;
-    private final String types;
-    private final Long catalogVersion;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> types;
+    private final OptionalNullable<Long> catalogVersion;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,34 @@ public class ListCatalogRequest {
             @JsonProperty("cursor") String cursor,
             @JsonProperty("types") String types,
             @JsonProperty("catalog_version") Long catalogVersion) {
+        this.cursor = OptionalNullable.of(cursor);
+        this.types = OptionalNullable.of(types);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListCatalogRequest(OptionalNullable<String> cursor, OptionalNullable<String> types,
+            OptionalNullable<Long> catalogVersion) {
         this.cursor = cursor;
         this.types = types;
         this.catalogVersion = catalogVersion;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * The pagination cursor returned in the previous response. Leave unset for an initial request.
+     * The page size is currently set to be 100. See
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -40,10 +68,29 @@ public class ListCatalogRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for Types.
+     * An optional case-insensitive, comma-separated list of object types to retrieve. The valid
+     * values are defined in the [CatalogObjectType]($m/CatalogObjectType) enum, for example,
+     * `ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`, `MODIFIER`, `MODIFIER_LIST`,
+     * `IMAGE`, etc. If this is unspecified, the operation returns objects of all the top level
+     * types at the version of the Square API used to make the request. Object types that are nested
+     * onto other object types are not included in the defaults. At the current API version the
+     * default object types are: ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST, PRICING_RULE,
+     * PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT, SUBSCRIPTION_PLAN, ITEM_OPTION,
+     * CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTypes() {
+        return this.types;
     }
 
     /**
@@ -59,10 +106,24 @@ public class ListCatalogRequest {
      * CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS.
      * @return Returns the String
      */
-    @JsonGetter("types")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTypes() {
-        return types;
+        return OptionalNullable.getFrom(types);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The specific version of the catalog objects to be included in the response. This allows you
+     * to retrieve historical versions of objects. The specified version value is matched against
+     * the [CatalogObject]($m/CatalogObject)s' `version` attribute. If not included, results will be
+     * from the current version of the catalog.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -73,10 +134,9 @@ public class ListCatalogRequest {
      * from the current version of the catalog.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
     }
 
     @Override
@@ -114,10 +174,10 @@ public class ListCatalogRequest {
      * @return a new {@link ListCatalogRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .cursor(getCursor())
-                .types(getTypes())
-                .catalogVersion(getCatalogVersion());
+        Builder builder = new Builder();
+        builder.cursor = internalGetCursor();
+        builder.types = internalGetTypes();
+        builder.catalogVersion = internalGetCatalogVersion();
         return builder;
     }
 
@@ -125,9 +185,9 @@ public class ListCatalogRequest {
      * Class to build instances of {@link ListCatalogRequest}.
      */
     public static class Builder {
-        private String cursor;
-        private String types;
-        private Long catalogVersion;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> types;
+        private OptionalNullable<Long> catalogVersion;
 
 
 
@@ -137,7 +197,16 @@ public class ListCatalogRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -147,7 +216,16 @@ public class ListCatalogRequest {
          * @return Builder
          */
         public Builder types(String types) {
-            this.types = types;
+            this.types = OptionalNullable.of(types);
+            return this;
+        }
+
+        /**
+         * UnSetter for types.
+         * @return Builder
+         */
+        public Builder unsetTypes() {
+            types = null;
             return this;
         }
 
@@ -157,7 +235,16 @@ public class ListCatalogRequest {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 

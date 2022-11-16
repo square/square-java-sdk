@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,8 +25,8 @@ public class Payout {
     private final Destination destination;
     private final Integer version;
     private final String type;
-    private final List<PayoutFee> payoutFee;
-    private final String arrivalDate;
+    private final OptionalNullable<List<PayoutFee>> payoutFee;
+    private final OptionalNullable<String> arrivalDate;
 
     /**
      * Initialization constructor.
@@ -52,6 +55,26 @@ public class Payout {
             @JsonProperty("type") String type,
             @JsonProperty("payout_fee") List<PayoutFee> payoutFee,
             @JsonProperty("arrival_date") String arrivalDate) {
+        this.id = id;
+        this.status = status;
+        this.locationId = locationId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.amountMoney = amountMoney;
+        this.destination = destination;
+        this.version = version;
+        this.type = type;
+        this.payoutFee = OptionalNullable.of(payoutFee);
+        this.arrivalDate = OptionalNullable.of(arrivalDate);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Payout(String id, String locationId, String status, String createdAt,
+            String updatedAt, Money amountMoney, Destination destination, Integer version,
+            String type, OptionalNullable<List<PayoutFee>> payoutFee,
+            OptionalNullable<String> arrivalDate) {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
@@ -172,14 +195,38 @@ public class Payout {
     }
 
     /**
+     * Internal Getter for PayoutFee.
+     * A list of transfer fees and any taxes on the fees assessed by Square for this payout.
+     * @return Returns the Internal List of PayoutFee
+     */
+    @JsonGetter("payout_fee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<PayoutFee>> internalGetPayoutFee() {
+        return this.payoutFee;
+    }
+
+    /**
      * Getter for PayoutFee.
      * A list of transfer fees and any taxes on the fees assessed by Square for this payout.
      * @return Returns the List of PayoutFee
      */
-    @JsonGetter("payout_fee")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<PayoutFee> getPayoutFee() {
-        return payoutFee;
+        return OptionalNullable.getFrom(payoutFee);
+    }
+
+    /**
+     * Internal Getter for ArrivalDate.
+     * The calendar date, in ISO 8601 format (YYYY-MM-DD), when the payout is due to arrive in the
+     * seller’s banking destination.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("arrival_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetArrivalDate() {
+        return this.arrivalDate;
     }
 
     /**
@@ -188,10 +235,9 @@ public class Payout {
      * seller’s banking destination.
      * @return Returns the String
      */
-    @JsonGetter("arrival_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getArrivalDate() {
-        return arrivalDate;
+        return OptionalNullable.getFrom(arrivalDate);
     }
 
     @Override
@@ -247,9 +293,9 @@ public class Payout {
                 .amountMoney(getAmountMoney())
                 .destination(getDestination())
                 .version(getVersion())
-                .type(getType())
-                .payoutFee(getPayoutFee())
-                .arrivalDate(getArrivalDate());
+                .type(getType());
+        builder.payoutFee = internalGetPayoutFee();
+        builder.arrivalDate = internalGetArrivalDate();
         return builder;
     }
 
@@ -266,8 +312,8 @@ public class Payout {
         private Destination destination;
         private Integer version;
         private String type;
-        private List<PayoutFee> payoutFee;
-        private String arrivalDate;
+        private OptionalNullable<List<PayoutFee>> payoutFee;
+        private OptionalNullable<String> arrivalDate;
 
         /**
          * Initialization constructor.
@@ -375,7 +421,16 @@ public class Payout {
          * @return Builder
          */
         public Builder payoutFee(List<PayoutFee> payoutFee) {
-            this.payoutFee = payoutFee;
+            this.payoutFee = OptionalNullable.of(payoutFee);
+            return this;
+        }
+
+        /**
+         * UnSetter for payoutFee.
+         * @return Builder
+         */
+        public Builder unsetPayoutFee() {
+            payoutFee = null;
             return this;
         }
 
@@ -385,7 +440,16 @@ public class Payout {
          * @return Builder
          */
         public Builder arrivalDate(String arrivalDate) {
-            this.arrivalDate = arrivalDate;
+            this.arrivalDate = OptionalNullable.of(arrivalDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for arrivalDate.
+         * @return Builder
+         */
+        public Builder unsetArrivalDate() {
+            arrivalDate = null;
             return this;
         }
 

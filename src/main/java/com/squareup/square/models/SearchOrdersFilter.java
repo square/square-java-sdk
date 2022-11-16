@@ -62,7 +62,7 @@ public class SearchOrdersFilter {
      * to the same field you filter for. For example, if you set the `CLOSED_AT` field in
      * `DateTimeFilter`, you must set the `sort_field` in `SearchOrdersSort` to `CLOSED_AT`.
      * Otherwise, `SearchOrders` throws an error. [Learn more about filtering orders by time
-     * range.](https://developer.squareup.com/docs/orders-api/manage-orders#important-note-on-filtering-orders-by-time-range)
+     * range.](https://developer.squareup.com/docs/orders-api/manage-orders/search-orders#important-note-about-filtering-orders-by-time-range)
      * @return Returns the SearchOrdersDateTimeFilter
      */
     @JsonGetter("date_time_filter")

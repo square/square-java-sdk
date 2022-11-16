@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for InvoiceCustomField type.
  */
 public class InvoiceCustomField {
-    private final String label;
-    private final String value;
+    private final OptionalNullable<String> label;
+    private final OptionalNullable<String> value;
     private final String placement;
 
     /**
@@ -27,9 +30,31 @@ public class InvoiceCustomField {
             @JsonProperty("label") String label,
             @JsonProperty("value") String value,
             @JsonProperty("placement") String placement) {
+        this.label = OptionalNullable.of(label);
+        this.value = OptionalNullable.of(value);
+        this.placement = placement;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoiceCustomField(OptionalNullable<String> label, OptionalNullable<String> value,
+            String placement) {
         this.label = label;
         this.value = value;
         this.placement = placement;
+    }
+
+    /**
+     * Internal Getter for Label.
+     * The label or title of the custom field. This field is required for a custom field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("label")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLabel() {
+        return this.label;
     }
 
     /**
@@ -37,10 +62,21 @@ public class InvoiceCustomField {
      * The label or title of the custom field. This field is required for a custom field.
      * @return Returns the String
      */
-    @JsonGetter("label")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLabel() {
-        return label;
+        return OptionalNullable.getFrom(label);
+    }
+
+    /**
+     * Internal Getter for Value.
+     * The text of the custom field. If omitted, only the label is rendered.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetValue() {
+        return this.value;
     }
 
     /**
@@ -48,10 +84,9 @@ public class InvoiceCustomField {
      * The text of the custom field. If omitted, only the label is rendered.
      * @return Returns the String
      */
-    @JsonGetter("value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getValue() {
-        return value;
+        return OptionalNullable.getFrom(value);
     }
 
     /**
@@ -102,9 +137,9 @@ public class InvoiceCustomField {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .label(getLabel())
-                .value(getValue())
                 .placement(getPlacement());
+        builder.label = internalGetLabel();
+        builder.value = internalGetValue();
         return builder;
     }
 
@@ -112,8 +147,8 @@ public class InvoiceCustomField {
      * Class to build instances of {@link InvoiceCustomField}.
      */
     public static class Builder {
-        private String label;
-        private String value;
+        private OptionalNullable<String> label;
+        private OptionalNullable<String> value;
         private String placement;
 
 
@@ -124,7 +159,16 @@ public class InvoiceCustomField {
          * @return Builder
          */
         public Builder label(String label) {
-            this.label = label;
+            this.label = OptionalNullable.of(label);
+            return this;
+        }
+
+        /**
+         * UnSetter for label.
+         * @return Builder
+         */
+        public Builder unsetLabel() {
+            label = null;
             return this;
         }
 
@@ -134,7 +178,16 @@ public class InvoiceCustomField {
          * @return Builder
          */
         public Builder value(String value) {
-            this.value = value;
+            this.value = OptionalNullable.of(value);
+            return this;
+        }
+
+        /**
+         * UnSetter for value.
+         * @return Builder
+         */
+        public Builder unsetValue() {
+            value = null;
             return this;
         }
 

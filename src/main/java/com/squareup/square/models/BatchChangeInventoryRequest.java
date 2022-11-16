@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class BatchChangeInventoryRequest {
     private final String idempotencyKey;
-    private final List<InventoryChange> changes;
-    private final Boolean ignoreUnchangedCounts;
+    private final OptionalNullable<List<InventoryChange>> changes;
+    private final OptionalNullable<Boolean> ignoreUnchangedCounts;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,17 @@ public class BatchChangeInventoryRequest {
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("changes") List<InventoryChange> changes,
             @JsonProperty("ignore_unchanged_counts") Boolean ignoreUnchangedCounts) {
+        this.idempotencyKey = idempotencyKey;
+        this.changes = OptionalNullable.of(changes);
+        this.ignoreUnchangedCounts = OptionalNullable.of(ignoreUnchangedCounts);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected BatchChangeInventoryRequest(String idempotencyKey,
+            OptionalNullable<List<InventoryChange>> changes,
+            OptionalNullable<Boolean> ignoreUnchangedCounts) {
         this.idempotencyKey = idempotencyKey;
         this.changes = changes;
         this.ignoreUnchangedCounts = ignoreUnchangedCounts;
@@ -47,15 +61,40 @@ public class BatchChangeInventoryRequest {
     }
 
     /**
+     * Internal Getter for Changes.
+     * The set of physical counts and inventory adjustments to be made. Changes are applied based on
+     * the client-supplied timestamp and may be sent out of order.
+     * @return Returns the Internal List of InventoryChange
+     */
+    @JsonGetter("changes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<InventoryChange>> internalGetChanges() {
+        return this.changes;
+    }
+
+    /**
      * Getter for Changes.
      * The set of physical counts and inventory adjustments to be made. Changes are applied based on
      * the client-supplied timestamp and may be sent out of order.
      * @return Returns the List of InventoryChange
      */
-    @JsonGetter("changes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<InventoryChange> getChanges() {
-        return changes;
+        return OptionalNullable.getFrom(changes);
+    }
+
+    /**
+     * Internal Getter for IgnoreUnchangedCounts.
+     * Indicates whether the current physical count should be ignored if the quantity is unchanged
+     * since the last physical count. Default: `true`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("ignore_unchanged_counts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIgnoreUnchangedCounts() {
+        return this.ignoreUnchangedCounts;
     }
 
     /**
@@ -64,10 +103,9 @@ public class BatchChangeInventoryRequest {
      * since the last physical count. Default: `true`.
      * @return Returns the Boolean
      */
-    @JsonGetter("ignore_unchanged_counts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIgnoreUnchangedCounts() {
-        return ignoreUnchangedCounts;
+        return OptionalNullable.getFrom(ignoreUnchangedCounts);
     }
 
     @Override
@@ -105,9 +143,9 @@ public class BatchChangeInventoryRequest {
      * @return a new {@link BatchChangeInventoryRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey)
-                .changes(getChanges())
-                .ignoreUnchangedCounts(getIgnoreUnchangedCounts());
+        Builder builder = new Builder(idempotencyKey);
+        builder.changes = internalGetChanges();
+        builder.ignoreUnchangedCounts = internalGetIgnoreUnchangedCounts();
         return builder;
     }
 
@@ -116,8 +154,8 @@ public class BatchChangeInventoryRequest {
      */
     public static class Builder {
         private String idempotencyKey;
-        private List<InventoryChange> changes;
-        private Boolean ignoreUnchangedCounts;
+        private OptionalNullable<List<InventoryChange>> changes;
+        private OptionalNullable<Boolean> ignoreUnchangedCounts;
 
         /**
          * Initialization constructor.
@@ -143,7 +181,16 @@ public class BatchChangeInventoryRequest {
          * @return Builder
          */
         public Builder changes(List<InventoryChange> changes) {
-            this.changes = changes;
+            this.changes = OptionalNullable.of(changes);
+            return this;
+        }
+
+        /**
+         * UnSetter for changes.
+         * @return Builder
+         */
+        public Builder unsetChanges() {
+            changes = null;
             return this;
         }
 
@@ -153,7 +200,16 @@ public class BatchChangeInventoryRequest {
          * @return Builder
          */
         public Builder ignoreUnchangedCounts(Boolean ignoreUnchangedCounts) {
-            this.ignoreUnchangedCounts = ignoreUnchangedCounts;
+            this.ignoreUnchangedCounts = OptionalNullable.of(ignoreUnchangedCounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for ignoreUnchangedCounts.
+         * @return Builder
+         */
+        public Builder unsetIgnoreUnchangedCounts() {
+            ignoreUnchangedCounts = null;
             return this;
         }
 

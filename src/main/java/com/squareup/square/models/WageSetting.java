@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +16,9 @@ import java.util.Objects;
  * This is a model class for WageSetting type.
  */
 public class WageSetting {
-    private final String teamMemberId;
-    private final List<JobAssignment> jobAssignments;
-    private final Boolean isOvertimeExempt;
+    private final OptionalNullable<String> teamMemberId;
+    private final OptionalNullable<List<JobAssignment>> jobAssignments;
+    private final OptionalNullable<Boolean> isOvertimeExempt;
     private final Integer version;
     private final String createdAt;
     private final String updatedAt;
@@ -37,6 +40,21 @@ public class WageSetting {
             @JsonProperty("version") Integer version,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt) {
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+        this.jobAssignments = OptionalNullable.of(jobAssignments);
+        this.isOvertimeExempt = OptionalNullable.of(isOvertimeExempt);
+        this.version = version;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected WageSetting(OptionalNullable<String> teamMemberId,
+            OptionalNullable<List<JobAssignment>> jobAssignments,
+            OptionalNullable<Boolean> isOvertimeExempt, Integer version, String createdAt,
+            String updatedAt) {
         this.teamMemberId = teamMemberId;
         this.jobAssignments = jobAssignments;
         this.isOvertimeExempt = isOvertimeExempt;
@@ -46,14 +64,39 @@ public class WageSetting {
     }
 
     /**
+     * Internal Getter for TeamMemberId.
+     * The unique ID of the `TeamMember` whom this wage setting describes.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
+    }
+
+    /**
      * Getter for TeamMemberId.
      * The unique ID of the `TeamMember` whom this wage setting describes.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
+    }
+
+    /**
+     * Internal Getter for JobAssignments.
+     * Required. The ordered list of jobs that the team member is assigned to. The first job
+     * assignment is considered the team member's primary job. The minimum length is 1 and the
+     * maximum length is 12.
+     * @return Returns the Internal List of JobAssignment
+     */
+    @JsonGetter("job_assignments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<JobAssignment>> internalGetJobAssignments() {
+        return this.jobAssignments;
     }
 
     /**
@@ -63,10 +106,21 @@ public class WageSetting {
      * maximum length is 12.
      * @return Returns the List of JobAssignment
      */
-    @JsonGetter("job_assignments")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<JobAssignment> getJobAssignments() {
-        return jobAssignments;
+        return OptionalNullable.getFrom(jobAssignments);
+    }
+
+    /**
+     * Internal Getter for IsOvertimeExempt.
+     * Whether the team member is exempt from the overtime rules of the seller's country.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_overtime_exempt")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsOvertimeExempt() {
+        return this.isOvertimeExempt;
     }
 
     /**
@@ -74,10 +128,9 @@ public class WageSetting {
      * Whether the team member is exempt from the overtime rules of the seller's country.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_overtime_exempt")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsOvertimeExempt() {
-        return isOvertimeExempt;
+        return OptionalNullable.getFrom(isOvertimeExempt);
     }
 
     /**
@@ -159,12 +212,12 @@ public class WageSetting {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .teamMemberId(getTeamMemberId())
-                .jobAssignments(getJobAssignments())
-                .isOvertimeExempt(getIsOvertimeExempt())
                 .version(getVersion())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.teamMemberId = internalGetTeamMemberId();
+        builder.jobAssignments = internalGetJobAssignments();
+        builder.isOvertimeExempt = internalGetIsOvertimeExempt();
         return builder;
     }
 
@@ -172,9 +225,9 @@ public class WageSetting {
      * Class to build instances of {@link WageSetting}.
      */
     public static class Builder {
-        private String teamMemberId;
-        private List<JobAssignment> jobAssignments;
-        private Boolean isOvertimeExempt;
+        private OptionalNullable<String> teamMemberId;
+        private OptionalNullable<List<JobAssignment>> jobAssignments;
+        private OptionalNullable<Boolean> isOvertimeExempt;
         private Integer version;
         private String createdAt;
         private String updatedAt;
@@ -187,7 +240,16 @@ public class WageSetting {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 
@@ -197,7 +259,16 @@ public class WageSetting {
          * @return Builder
          */
         public Builder jobAssignments(List<JobAssignment> jobAssignments) {
-            this.jobAssignments = jobAssignments;
+            this.jobAssignments = OptionalNullable.of(jobAssignments);
+            return this;
+        }
+
+        /**
+         * UnSetter for jobAssignments.
+         * @return Builder
+         */
+        public Builder unsetJobAssignments() {
+            jobAssignments = null;
             return this;
         }
 
@@ -207,7 +278,16 @@ public class WageSetting {
          * @return Builder
          */
         public Builder isOvertimeExempt(Boolean isOvertimeExempt) {
-            this.isOvertimeExempt = isOvertimeExempt;
+            this.isOvertimeExempt = OptionalNullable.of(isOvertimeExempt);
+            return this;
+        }
+
+        /**
+         * UnSetter for isOvertimeExempt.
+         * @return Builder
+         */
+        public Builder unsetIsOvertimeExempt() {
+            isOvertimeExempt = null;
             return this;
         }
 

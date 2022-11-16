@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,19 +16,19 @@ import java.util.Objects;
  * This is a model class for OrderReturnServiceCharge type.
  */
 public class OrderReturnServiceCharge {
-    private final String uid;
-    private final String sourceServiceChargeUid;
-    private final String name;
-    private final String catalogObjectId;
-    private final Long catalogVersion;
-    private final String percentage;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> sourceServiceChargeUid;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<Long> catalogVersion;
+    private final OptionalNullable<String> percentage;
     private final Money amountMoney;
     private final Money appliedMoney;
     private final Money totalMoney;
     private final Money totalTaxMoney;
     private final String calculationPhase;
-    private final Boolean taxable;
-    private final List<OrderLineItemAppliedTax> appliedTaxes;
+    private final OptionalNullable<Boolean> taxable;
+    private final OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
 
     /**
      * Initialization constructor.
@@ -58,6 +61,31 @@ public class OrderReturnServiceCharge {
             @JsonProperty("calculation_phase") String calculationPhase,
             @JsonProperty("taxable") Boolean taxable,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes) {
+        this.uid = OptionalNullable.of(uid);
+        this.sourceServiceChargeUid = OptionalNullable.of(sourceServiceChargeUid);
+        this.name = OptionalNullable.of(name);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+        this.percentage = OptionalNullable.of(percentage);
+        this.amountMoney = amountMoney;
+        this.appliedMoney = appliedMoney;
+        this.totalMoney = totalMoney;
+        this.totalTaxMoney = totalTaxMoney;
+        this.calculationPhase = calculationPhase;
+        this.taxable = OptionalNullable.of(taxable);
+        this.appliedTaxes = OptionalNullable.of(appliedTaxes);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderReturnServiceCharge(OptionalNullable<String> uid,
+            OptionalNullable<String> sourceServiceChargeUid, OptionalNullable<String> name,
+            OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,
+            OptionalNullable<String> percentage, Money amountMoney, Money appliedMoney,
+            Money totalMoney, Money totalTaxMoney, String calculationPhase,
+            OptionalNullable<Boolean> taxable,
+            OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes) {
         this.uid = uid;
         this.sourceServiceChargeUid = sourceServiceChargeUid;
         this.name = name;
@@ -74,14 +102,38 @@ public class OrderReturnServiceCharge {
     }
 
     /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the return service charge only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * A unique ID that identifies the return service charge only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for SourceServiceChargeUid.
+     * The service charge `uid` from the order containing the original service charge.
+     * `source_service_charge_uid` is `null` for unlinked returns.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("source_service_charge_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSourceServiceChargeUid() {
+        return this.sourceServiceChargeUid;
     }
 
     /**
@@ -90,10 +142,21 @@ public class OrderReturnServiceCharge {
      * `source_service_charge_uid` is `null` for unlinked returns.
      * @return Returns the String
      */
-    @JsonGetter("source_service_charge_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSourceServiceChargeUid() {
-        return sourceServiceChargeUid;
+        return OptionalNullable.getFrom(sourceServiceChargeUid);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The name of the service charge.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -101,10 +164,21 @@ public class OrderReturnServiceCharge {
      * The name of the service charge.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The catalog object ID of the associated [OrderServiceCharge]($m/OrderServiceCharge).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -112,10 +186,21 @@ public class OrderReturnServiceCharge {
      * The catalog object ID of the associated [OrderServiceCharge]($m/OrderServiceCharge).
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The version of the catalog object that this service charge references.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -123,10 +208,23 @@ public class OrderReturnServiceCharge {
      * The version of the catalog object that this service charge references.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
+    }
+
+    /**
+     * Internal Getter for Percentage.
+     * The percentage of the service charge, as a string representation of a decimal number. For
+     * example, a value of `"7.25"` corresponds to a percentage of 7.25%. Either `percentage` or
+     * `amount_money` should be set, but not both.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPercentage() {
+        return this.percentage;
     }
 
     /**
@@ -136,10 +234,9 @@ public class OrderReturnServiceCharge {
      * `amount_money` should be set, but not both.
      * @return Returns the String
      */
-    @JsonGetter("percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPercentage() {
-        return percentage;
+        return OptionalNullable.getFrom(percentage);
     }
 
     /**
@@ -220,15 +317,42 @@ public class OrderReturnServiceCharge {
     }
 
     /**
+     * Internal Getter for Taxable.
+     * Indicates whether the surcharge can be taxed. Service charges calculated in the `TOTAL_PHASE`
+     * cannot be marked as taxable.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTaxable() {
+        return this.taxable;
+    }
+
+    /**
      * Getter for Taxable.
      * Indicates whether the surcharge can be taxed. Service charges calculated in the `TOTAL_PHASE`
      * cannot be marked as taxable.
      * @return Returns the Boolean
      */
-    @JsonGetter("taxable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getTaxable() {
-        return taxable;
+        return OptionalNullable.getFrom(taxable);
+    }
+
+    /**
+     * Internal Getter for AppliedTaxes.
+     * The list of references to `OrderReturnTax` entities applied to the
+     * `OrderReturnServiceCharge`. Each `OrderLineItemAppliedTax` has a `tax_uid` that references
+     * the `uid` of a top-level `OrderReturnTax` that is being applied to the
+     * `OrderReturnServiceCharge`. On reads, the applied amount is populated.
+     * @return Returns the Internal List of OrderLineItemAppliedTax
+     */
+    @JsonGetter("applied_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemAppliedTax>> internalGetAppliedTaxes() {
+        return this.appliedTaxes;
     }
 
     /**
@@ -239,10 +363,9 @@ public class OrderReturnServiceCharge {
      * `OrderReturnServiceCharge`. On reads, the applied amount is populated.
      * @return Returns the List of OrderLineItemAppliedTax
      */
-    @JsonGetter("applied_taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderLineItemAppliedTax> getAppliedTaxes() {
-        return appliedTaxes;
+        return OptionalNullable.getFrom(appliedTaxes);
     }
 
     @Override
@@ -298,19 +421,19 @@ public class OrderReturnServiceCharge {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
-                .sourceServiceChargeUid(getSourceServiceChargeUid())
-                .name(getName())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogVersion(getCatalogVersion())
-                .percentage(getPercentage())
                 .amountMoney(getAmountMoney())
                 .appliedMoney(getAppliedMoney())
                 .totalMoney(getTotalMoney())
                 .totalTaxMoney(getTotalTaxMoney())
-                .calculationPhase(getCalculationPhase())
-                .taxable(getTaxable())
-                .appliedTaxes(getAppliedTaxes());
+                .calculationPhase(getCalculationPhase());
+        builder.uid = internalGetUid();
+        builder.sourceServiceChargeUid = internalGetSourceServiceChargeUid();
+        builder.name = internalGetName();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogVersion = internalGetCatalogVersion();
+        builder.percentage = internalGetPercentage();
+        builder.taxable = internalGetTaxable();
+        builder.appliedTaxes = internalGetAppliedTaxes();
         return builder;
     }
 
@@ -318,19 +441,19 @@ public class OrderReturnServiceCharge {
      * Class to build instances of {@link OrderReturnServiceCharge}.
      */
     public static class Builder {
-        private String uid;
-        private String sourceServiceChargeUid;
-        private String name;
-        private String catalogObjectId;
-        private Long catalogVersion;
-        private String percentage;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> sourceServiceChargeUid;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<Long> catalogVersion;
+        private OptionalNullable<String> percentage;
         private Money amountMoney;
         private Money appliedMoney;
         private Money totalMoney;
         private Money totalTaxMoney;
         private String calculationPhase;
-        private Boolean taxable;
-        private List<OrderLineItemAppliedTax> appliedTaxes;
+        private OptionalNullable<Boolean> taxable;
+        private OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
 
 
 
@@ -340,7 +463,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -350,7 +482,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder sourceServiceChargeUid(String sourceServiceChargeUid) {
-            this.sourceServiceChargeUid = sourceServiceChargeUid;
+            this.sourceServiceChargeUid = OptionalNullable.of(sourceServiceChargeUid);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceServiceChargeUid.
+         * @return Builder
+         */
+        public Builder unsetSourceServiceChargeUid() {
+            sourceServiceChargeUid = null;
             return this;
         }
 
@@ -360,7 +501,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -370,7 +520,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -380,7 +539,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 
@@ -390,7 +558,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder percentage(String percentage) {
-            this.percentage = percentage;
+            this.percentage = OptionalNullable.of(percentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for percentage.
+         * @return Builder
+         */
+        public Builder unsetPercentage() {
+            percentage = null;
             return this;
         }
 
@@ -450,7 +627,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder taxable(Boolean taxable) {
-            this.taxable = taxable;
+            this.taxable = OptionalNullable.of(taxable);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxable.
+         * @return Builder
+         */
+        public Builder unsetTaxable() {
+            taxable = null;
             return this;
         }
 
@@ -460,7 +646,16 @@ public class OrderReturnServiceCharge {
          * @return Builder
          */
         public Builder appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes) {
-            this.appliedTaxes = appliedTaxes;
+            this.appliedTaxes = OptionalNullable.of(appliedTaxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for appliedTaxes.
+         * @return Builder
+         */
+        public Builder unsetAppliedTaxes() {
+            appliedTaxes = null;
             return this;
         }
 

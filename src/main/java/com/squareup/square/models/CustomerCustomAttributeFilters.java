@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for CustomerCustomAttributeFilters type.
  */
 public class CustomerCustomAttributeFilters {
-    private final List<CustomerCustomAttributeFilter> filters;
+    private final OptionalNullable<List<CustomerCustomAttributeFilter>> filters;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,29 @@ public class CustomerCustomAttributeFilters {
     @JsonCreator
     public CustomerCustomAttributeFilters(
             @JsonProperty("filters") List<CustomerCustomAttributeFilter> filters) {
+        this.filters = OptionalNullable.of(filters);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerCustomAttributeFilters(
+            OptionalNullable<List<CustomerCustomAttributeFilter>> filters) {
         this.filters = filters;
+    }
+
+    /**
+     * Internal Getter for Filters.
+     * The custom attribute filters. Each filter must specify `key` and include the `filter` field
+     * with a type-specific filter, the `updated_at` field, or both. The provided keys must be
+     * unique within the list of custom attribute filters.
+     * @return Returns the Internal List of CustomerCustomAttributeFilter
+     */
+    @JsonGetter("filters")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CustomerCustomAttributeFilter>> internalGetFilters() {
+        return this.filters;
     }
 
     /**
@@ -32,10 +57,9 @@ public class CustomerCustomAttributeFilters {
      * unique within the list of custom attribute filters.
      * @return Returns the List of CustomerCustomAttributeFilter
      */
-    @JsonGetter("filters")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CustomerCustomAttributeFilter> getFilters() {
-        return filters;
+        return OptionalNullable.getFrom(filters);
     }
 
     @Override
@@ -70,8 +94,8 @@ public class CustomerCustomAttributeFilters {
      * @return a new {@link CustomerCustomAttributeFilters.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .filters(getFilters());
+        Builder builder = new Builder();
+        builder.filters = internalGetFilters();
         return builder;
     }
 
@@ -79,7 +103,7 @@ public class CustomerCustomAttributeFilters {
      * Class to build instances of {@link CustomerCustomAttributeFilters}.
      */
     public static class Builder {
-        private List<CustomerCustomAttributeFilter> filters;
+        private OptionalNullable<List<CustomerCustomAttributeFilter>> filters;
 
 
 
@@ -89,7 +113,16 @@ public class CustomerCustomAttributeFilters {
          * @return Builder
          */
         public Builder filters(List<CustomerCustomAttributeFilter> filters) {
-            this.filters = filters;
+            this.filters = OptionalNullable.of(filters);
+            return this;
+        }
+
+        /**
+         * UnSetter for filters.
+         * @return Builder
+         */
+        public Builder unsetFilters() {
+            filters = null;
             return this;
         }
 

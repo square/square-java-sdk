@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for RenewTokenRequest type.
  */
 public class RenewTokenRequest {
-    private final String accessToken;
+    private final OptionalNullable<String> accessToken;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,26 @@ public class RenewTokenRequest {
     @JsonCreator
     public RenewTokenRequest(
             @JsonProperty("access_token") String accessToken) {
+        this.accessToken = OptionalNullable.of(accessToken);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected RenewTokenRequest(OptionalNullable<String> accessToken) {
         this.accessToken = accessToken;
+    }
+
+    /**
+     * Internal Getter for AccessToken.
+     * The token you want to renew.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("access_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAccessToken() {
+        return this.accessToken;
     }
 
     /**
@@ -29,10 +51,9 @@ public class RenewTokenRequest {
      * The token you want to renew.
      * @return Returns the String
      */
-    @JsonGetter("access_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAccessToken() {
-        return accessToken;
+        return OptionalNullable.getFrom(accessToken);
     }
 
     @Override
@@ -67,8 +88,8 @@ public class RenewTokenRequest {
      * @return a new {@link RenewTokenRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .accessToken(getAccessToken());
+        Builder builder = new Builder();
+        builder.accessToken = internalGetAccessToken();
         return builder;
     }
 
@@ -76,7 +97,7 @@ public class RenewTokenRequest {
      * Class to build instances of {@link RenewTokenRequest}.
      */
     public static class Builder {
-        private String accessToken;
+        private OptionalNullable<String> accessToken;
 
 
 
@@ -86,7 +107,16 @@ public class RenewTokenRequest {
          * @return Builder
          */
         public Builder accessToken(String accessToken) {
-            this.accessToken = accessToken;
+            this.accessToken = OptionalNullable.of(accessToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for accessToken.
+         * @return Builder
+         */
+        public Builder unsetAccessToken() {
+            accessToken = null;
             return this;
         }
 

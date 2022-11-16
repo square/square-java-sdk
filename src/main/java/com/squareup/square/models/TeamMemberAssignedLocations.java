@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +17,7 @@ import java.util.Objects;
  */
 public class TeamMemberAssignedLocations {
     private final String assignmentType;
-    private final List<String> locationIds;
+    private final OptionalNullable<List<String>> locationIds;
 
     /**
      * Initialization constructor.
@@ -25,6 +28,15 @@ public class TeamMemberAssignedLocations {
     public TeamMemberAssignedLocations(
             @JsonProperty("assignment_type") String assignmentType,
             @JsonProperty("location_ids") List<String> locationIds) {
+        this.assignmentType = assignmentType;
+        this.locationIds = OptionalNullable.of(locationIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TeamMemberAssignedLocations(String assignmentType,
+            OptionalNullable<List<String>> locationIds) {
         this.assignmentType = assignmentType;
         this.locationIds = locationIds;
     }
@@ -41,14 +53,25 @@ public class TeamMemberAssignedLocations {
     }
 
     /**
+     * Internal Getter for LocationIds.
+     * The locations that the team member is assigned to.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
+    }
+
+    /**
      * Getter for LocationIds.
      * The locations that the team member is assigned to.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
     }
 
     @Override
@@ -86,8 +109,8 @@ public class TeamMemberAssignedLocations {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .assignmentType(getAssignmentType())
-                .locationIds(getLocationIds());
+                .assignmentType(getAssignmentType());
+        builder.locationIds = internalGetLocationIds();
         return builder;
     }
 
@@ -96,7 +119,7 @@ public class TeamMemberAssignedLocations {
      */
     public static class Builder {
         private String assignmentType;
-        private List<String> locationIds;
+        private OptionalNullable<List<String>> locationIds;
 
 
 
@@ -116,7 +139,16 @@ public class TeamMemberAssignedLocations {
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class ListInvoicesRequest {
     private final String locationId;
-    private final String cursor;
-    private final Integer limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class ListInvoicesRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit) {
+        this.locationId = locationId;
+        this.cursor = OptionalNullable.of(cursor);
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListInvoicesRequest(String locationId, OptionalNullable<String> cursor,
+            OptionalNullable<Integer> limit) {
         this.locationId = locationId;
         this.cursor = cursor;
         this.limit = limit;
@@ -43,16 +56,42 @@ public class ListInvoicesRequest {
     }
 
     /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for your original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
+    }
+
+    /**
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for your original query. For more information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of invoices to return (200 is the maximum `limit`). If not provided, the
+     * server uses a default limit of 100 invoices.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -61,10 +100,9 @@ public class ListInvoicesRequest {
      * server uses a default limit of 100 invoices.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -102,9 +140,9 @@ public class ListInvoicesRequest {
      * @return a new {@link ListInvoicesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId)
-                .cursor(getCursor())
-                .limit(getLimit());
+        Builder builder = new Builder(locationId);
+        builder.cursor = internalGetCursor();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -113,8 +151,8 @@ public class ListInvoicesRequest {
      */
     public static class Builder {
         private String locationId;
-        private String cursor;
-        private Integer limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Integer> limit;
 
         /**
          * Initialization constructor.
@@ -140,7 +178,16 @@ public class ListInvoicesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -150,7 +197,16 @@ public class ListInvoicesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 

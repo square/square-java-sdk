@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,21 +19,21 @@ public class Customer {
     private final String id;
     private final String createdAt;
     private final String updatedAt;
-    private final List<Card> cards;
-    private final String givenName;
-    private final String familyName;
-    private final String nickname;
-    private final String companyName;
-    private final String emailAddress;
+    private final OptionalNullable<List<Card>> cards;
+    private final OptionalNullable<String> givenName;
+    private final OptionalNullable<String> familyName;
+    private final OptionalNullable<String> nickname;
+    private final OptionalNullable<String> companyName;
+    private final OptionalNullable<String> emailAddress;
     private final Address address;
-    private final String phoneNumber;
-    private final String birthday;
-    private final String referenceId;
-    private final String note;
+    private final OptionalNullable<String> phoneNumber;
+    private final OptionalNullable<String> birthday;
+    private final OptionalNullable<String> referenceId;
+    private final OptionalNullable<String> note;
     private final CustomerPreferences preferences;
     private final String creationSource;
-    private final List<String> groupIds;
-    private final List<String> segmentIds;
+    private final OptionalNullable<List<String>> groupIds;
+    private final OptionalNullable<List<String>> segmentIds;
     private final Long version;
     private final CustomerTaxIds taxIds;
 
@@ -79,6 +82,40 @@ public class Customer {
             @JsonProperty("segment_ids") List<String> segmentIds,
             @JsonProperty("version") Long version,
             @JsonProperty("tax_ids") CustomerTaxIds taxIds) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.cards = OptionalNullable.of(cards);
+        this.givenName = OptionalNullable.of(givenName);
+        this.familyName = OptionalNullable.of(familyName);
+        this.nickname = OptionalNullable.of(nickname);
+        this.companyName = OptionalNullable.of(companyName);
+        this.emailAddress = OptionalNullable.of(emailAddress);
+        this.address = address;
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+        this.birthday = OptionalNullable.of(birthday);
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.note = OptionalNullable.of(note);
+        this.preferences = preferences;
+        this.creationSource = creationSource;
+        this.groupIds = OptionalNullable.of(groupIds);
+        this.segmentIds = OptionalNullable.of(segmentIds);
+        this.version = version;
+        this.taxIds = taxIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Customer(String id, String createdAt, String updatedAt,
+            OptionalNullable<List<Card>> cards, OptionalNullable<String> givenName,
+            OptionalNullable<String> familyName, OptionalNullable<String> nickname,
+            OptionalNullable<String> companyName, OptionalNullable<String> emailAddress,
+            Address address, OptionalNullable<String> phoneNumber,
+            OptionalNullable<String> birthday, OptionalNullable<String> referenceId,
+            OptionalNullable<String> note, CustomerPreferences preferences, String creationSource,
+            OptionalNullable<List<String>> groupIds, OptionalNullable<List<String>> segmentIds,
+            Long version, CustomerTaxIds taxIds) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -138,6 +175,23 @@ public class Customer {
     }
 
     /**
+     * Internal Getter for Cards.
+     * Payment details of the credit, debit, and gift cards stored on file for the customer profile.
+     * DEPRECATED at version 2021-06-16. Replaced by calling [ListCards]($e/Cards/ListCards) (for
+     * credit and debit cards on file) or [ListGiftCards]($e/GiftCards/ListGiftCards) (for gift
+     * cards on file) and including the `customer_id` query parameter. For more information, see
+     * [Migration
+     * notes](https://developer.squareup.com/docs/customers-api/what-it-does#migrate-customer-cards).
+     * @return Returns the Internal List of Card
+     */
+    @JsonGetter("cards")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Card>> internalGetCards() {
+        return this.cards;
+    }
+
+    /**
      * Getter for Cards.
      * Payment details of the credit, debit, and gift cards stored on file for the customer profile.
      * DEPRECATED at version 2021-06-16. Replaced by calling [ListCards]($e/Cards/ListCards) (for
@@ -147,10 +201,21 @@ public class Customer {
      * notes](https://developer.squareup.com/docs/customers-api/what-it-does#migrate-customer-cards).
      * @return Returns the List of Card
      */
-    @JsonGetter("cards")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Card> getCards() {
-        return cards;
+        return OptionalNullable.getFrom(cards);
+    }
+
+    /**
+     * Internal Getter for GivenName.
+     * The given name (that is, the first name) associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGivenName() {
+        return this.givenName;
     }
 
     /**
@@ -158,10 +223,21 @@ public class Customer {
      * The given name (that is, the first name) associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("given_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getGivenName() {
-        return givenName;
+        return OptionalNullable.getFrom(givenName);
+    }
+
+    /**
+     * Internal Getter for FamilyName.
+     * The family name (that is, the last name) associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFamilyName() {
+        return this.familyName;
     }
 
     /**
@@ -169,10 +245,21 @@ public class Customer {
      * The family name (that is, the last name) associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("family_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFamilyName() {
-        return familyName;
+        return OptionalNullable.getFrom(familyName);
+    }
+
+    /**
+     * Internal Getter for Nickname.
+     * A nickname for the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("nickname")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNickname() {
+        return this.nickname;
     }
 
     /**
@@ -180,10 +267,21 @@ public class Customer {
      * A nickname for the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("nickname")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNickname() {
-        return nickname;
+        return OptionalNullable.getFrom(nickname);
+    }
+
+    /**
+     * Internal Getter for CompanyName.
+     * A business name associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("company_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCompanyName() {
+        return this.companyName;
     }
 
     /**
@@ -191,10 +289,21 @@ public class Customer {
      * A business name associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("company_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCompanyName() {
-        return companyName;
+        return OptionalNullable.getFrom(companyName);
+    }
+
+    /**
+     * Internal Getter for EmailAddress.
+     * The email address associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmailAddress() {
+        return this.emailAddress;
     }
 
     /**
@@ -202,10 +311,9 @@ public class Customer {
      * The email address associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("email_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmailAddress() {
-        return emailAddress;
+        return OptionalNullable.getFrom(emailAddress);
     }
 
     /**
@@ -221,14 +329,39 @@ public class Customer {
     }
 
     /**
+     * Internal Getter for PhoneNumber.
+     * The phone number associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
      * Getter for PhoneNumber.
      * The phone number associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
+    }
+
+    /**
+     * Internal Getter for Birthday.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` format. For example,
+     * `1998-09-21` represents September 21, 1998, and `0000-09-21` represents September 21 (without
+     * a birth year).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("birthday")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBirthday() {
+        return this.birthday;
     }
 
     /**
@@ -238,10 +371,22 @@ public class Customer {
      * a birth year).
      * @return Returns the String
      */
-    @JsonGetter("birthday")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBirthday() {
-        return birthday;
+        return OptionalNullable.getFrom(birthday);
+    }
+
+    /**
+     * Internal Getter for ReferenceId.
+     * An optional second ID used to associate the customer profile with an entity in another
+     * system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
     }
 
     /**
@@ -250,10 +395,21 @@ public class Customer {
      * system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
+    }
+
+    /**
+     * Internal Getter for Note.
+     * A custom note associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNote() {
+        return this.note;
     }
 
     /**
@@ -261,10 +417,9 @@ public class Customer {
      * A custom note associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNote() {
-        return note;
+        return OptionalNullable.getFrom(note);
     }
 
     /**
@@ -290,14 +445,37 @@ public class Customer {
     }
 
     /**
+     * Internal Getter for GroupIds.
+     * The IDs of customer groups the customer belongs to.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("group_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetGroupIds() {
+        return this.groupIds;
+    }
+
+    /**
      * Getter for GroupIds.
      * The IDs of customer groups the customer belongs to.
      * @return Returns the List of String
      */
-    @JsonGetter("group_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getGroupIds() {
-        return groupIds;
+        return OptionalNullable.getFrom(groupIds);
+    }
+
+    /**
+     * Internal Getter for SegmentIds.
+     * The IDs of segments the customer belongs to.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("segment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetSegmentIds() {
+        return this.segmentIds;
     }
 
     /**
@@ -305,10 +483,9 @@ public class Customer {
      * The IDs of segments the customer belongs to.
      * @return Returns the List of String
      */
-    @JsonGetter("segment_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getSegmentIds() {
-        return segmentIds;
+        return OptionalNullable.getFrom(segmentIds);
     }
 
     /**
@@ -402,23 +579,23 @@ public class Customer {
                 .id(getId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .cards(getCards())
-                .givenName(getGivenName())
-                .familyName(getFamilyName())
-                .nickname(getNickname())
-                .companyName(getCompanyName())
-                .emailAddress(getEmailAddress())
                 .address(getAddress())
-                .phoneNumber(getPhoneNumber())
-                .birthday(getBirthday())
-                .referenceId(getReferenceId())
-                .note(getNote())
                 .preferences(getPreferences())
                 .creationSource(getCreationSource())
-                .groupIds(getGroupIds())
-                .segmentIds(getSegmentIds())
                 .version(getVersion())
                 .taxIds(getTaxIds());
+        builder.cards = internalGetCards();
+        builder.givenName = internalGetGivenName();
+        builder.familyName = internalGetFamilyName();
+        builder.nickname = internalGetNickname();
+        builder.companyName = internalGetCompanyName();
+        builder.emailAddress = internalGetEmailAddress();
+        builder.phoneNumber = internalGetPhoneNumber();
+        builder.birthday = internalGetBirthday();
+        builder.referenceId = internalGetReferenceId();
+        builder.note = internalGetNote();
+        builder.groupIds = internalGetGroupIds();
+        builder.segmentIds = internalGetSegmentIds();
         return builder;
     }
 
@@ -429,21 +606,21 @@ public class Customer {
         private String id;
         private String createdAt;
         private String updatedAt;
-        private List<Card> cards;
-        private String givenName;
-        private String familyName;
-        private String nickname;
-        private String companyName;
-        private String emailAddress;
+        private OptionalNullable<List<Card>> cards;
+        private OptionalNullable<String> givenName;
+        private OptionalNullable<String> familyName;
+        private OptionalNullable<String> nickname;
+        private OptionalNullable<String> companyName;
+        private OptionalNullable<String> emailAddress;
         private Address address;
-        private String phoneNumber;
-        private String birthday;
-        private String referenceId;
-        private String note;
+        private OptionalNullable<String> phoneNumber;
+        private OptionalNullable<String> birthday;
+        private OptionalNullable<String> referenceId;
+        private OptionalNullable<String> note;
         private CustomerPreferences preferences;
         private String creationSource;
-        private List<String> groupIds;
-        private List<String> segmentIds;
+        private OptionalNullable<List<String>> groupIds;
+        private OptionalNullable<List<String>> segmentIds;
         private Long version;
         private CustomerTaxIds taxIds;
 
@@ -485,7 +662,16 @@ public class Customer {
          * @return Builder
          */
         public Builder cards(List<Card> cards) {
-            this.cards = cards;
+            this.cards = OptionalNullable.of(cards);
+            return this;
+        }
+
+        /**
+         * UnSetter for cards.
+         * @return Builder
+         */
+        public Builder unsetCards() {
+            cards = null;
             return this;
         }
 
@@ -495,7 +681,16 @@ public class Customer {
          * @return Builder
          */
         public Builder givenName(String givenName) {
-            this.givenName = givenName;
+            this.givenName = OptionalNullable.of(givenName);
+            return this;
+        }
+
+        /**
+         * UnSetter for givenName.
+         * @return Builder
+         */
+        public Builder unsetGivenName() {
+            givenName = null;
             return this;
         }
 
@@ -505,7 +700,16 @@ public class Customer {
          * @return Builder
          */
         public Builder familyName(String familyName) {
-            this.familyName = familyName;
+            this.familyName = OptionalNullable.of(familyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for familyName.
+         * @return Builder
+         */
+        public Builder unsetFamilyName() {
+            familyName = null;
             return this;
         }
 
@@ -515,7 +719,16 @@ public class Customer {
          * @return Builder
          */
         public Builder nickname(String nickname) {
-            this.nickname = nickname;
+            this.nickname = OptionalNullable.of(nickname);
+            return this;
+        }
+
+        /**
+         * UnSetter for nickname.
+         * @return Builder
+         */
+        public Builder unsetNickname() {
+            nickname = null;
             return this;
         }
 
@@ -525,7 +738,16 @@ public class Customer {
          * @return Builder
          */
         public Builder companyName(String companyName) {
-            this.companyName = companyName;
+            this.companyName = OptionalNullable.of(companyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for companyName.
+         * @return Builder
+         */
+        public Builder unsetCompanyName() {
+            companyName = null;
             return this;
         }
 
@@ -535,7 +757,16 @@ public class Customer {
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
+            this.emailAddress = OptionalNullable.of(emailAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for emailAddress.
+         * @return Builder
+         */
+        public Builder unsetEmailAddress() {
+            emailAddress = null;
             return this;
         }
 
@@ -555,7 +786,16 @@ public class Customer {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 
@@ -565,7 +805,16 @@ public class Customer {
          * @return Builder
          */
         public Builder birthday(String birthday) {
-            this.birthday = birthday;
+            this.birthday = OptionalNullable.of(birthday);
+            return this;
+        }
+
+        /**
+         * UnSetter for birthday.
+         * @return Builder
+         */
+        public Builder unsetBirthday() {
+            birthday = null;
             return this;
         }
 
@@ -575,7 +824,16 @@ public class Customer {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -585,7 +843,16 @@ public class Customer {
          * @return Builder
          */
         public Builder note(String note) {
-            this.note = note;
+            this.note = OptionalNullable.of(note);
+            return this;
+        }
+
+        /**
+         * UnSetter for note.
+         * @return Builder
+         */
+        public Builder unsetNote() {
+            note = null;
             return this;
         }
 
@@ -615,7 +882,16 @@ public class Customer {
          * @return Builder
          */
         public Builder groupIds(List<String> groupIds) {
-            this.groupIds = groupIds;
+            this.groupIds = OptionalNullable.of(groupIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for groupIds.
+         * @return Builder
+         */
+        public Builder unsetGroupIds() {
+            groupIds = null;
             return this;
         }
 
@@ -625,7 +901,16 @@ public class Customer {
          * @return Builder
          */
         public Builder segmentIds(List<String> segmentIds) {
-            this.segmentIds = segmentIds;
+            this.segmentIds = OptionalNullable.of(segmentIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for segmentIds.
+         * @return Builder
+         */
+        public Builder unsetSegmentIds() {
+            segmentIds = null;
             return this;
         }
 

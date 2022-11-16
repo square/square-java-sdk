@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,11 +16,11 @@ import java.util.Objects;
  * This is a model class for CatalogItemOption type.
  */
 public class CatalogItemOption {
-    private final String name;
-    private final String displayName;
-    private final String description;
-    private final Boolean showColors;
-    private final List<CatalogObject> values;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> displayName;
+    private final OptionalNullable<String> description;
+    private final OptionalNullable<Boolean> showColors;
+    private final OptionalNullable<List<CatalogObject>> values;
 
     /**
      * Initialization constructor.
@@ -34,6 +37,19 @@ public class CatalogItemOption {
             @JsonProperty("description") String description,
             @JsonProperty("show_colors") Boolean showColors,
             @JsonProperty("values") List<CatalogObject> values) {
+        this.name = OptionalNullable.of(name);
+        this.displayName = OptionalNullable.of(displayName);
+        this.description = OptionalNullable.of(description);
+        this.showColors = OptionalNullable.of(showColors);
+        this.values = OptionalNullable.of(values);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogItemOption(OptionalNullable<String> name, OptionalNullable<String> displayName,
+            OptionalNullable<String> description, OptionalNullable<Boolean> showColors,
+            OptionalNullable<List<CatalogObject>> values) {
         this.name = name;
         this.displayName = displayName;
         this.description = description;
@@ -42,15 +58,40 @@ public class CatalogItemOption {
     }
 
     /**
+     * Internal Getter for Name.
+     * The item option's display name for the seller. Must be unique across all item options. This
+     * is a searchable attribute for use in applicable query filters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The item option's display name for the seller. Must be unique across all item options. This
      * is a searchable attribute for use in applicable query filters.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for DisplayName.
+     * The item option's display name for the customer. This is a searchable attribute for use in
+     * applicable query filters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("display_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDisplayName() {
+        return this.displayName;
     }
 
     /**
@@ -59,10 +100,23 @@ public class CatalogItemOption {
      * applicable query filters.
      * @return Returns the String
      */
-    @JsonGetter("display_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDisplayName() {
-        return displayName;
+        return OptionalNullable.getFrom(displayName);
+    }
+
+    /**
+     * Internal Getter for Description.
+     * The item option's human-readable description. Displayed in the Square Point of Sale app for
+     * the seller and in the Online Store or on receipts for the buyer. This is a searchable
+     * attribute for use in applicable query filters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
     }
 
     /**
@@ -72,10 +126,21 @@ public class CatalogItemOption {
      * attribute for use in applicable query filters.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
+    }
+
+    /**
+     * Internal Getter for ShowColors.
+     * If true, display colors for entries in `values` when present.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("show_colors")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetShowColors() {
+        return this.showColors;
     }
 
     /**
@@ -83,10 +148,21 @@ public class CatalogItemOption {
      * If true, display colors for entries in `values` when present.
      * @return Returns the Boolean
      */
-    @JsonGetter("show_colors")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getShowColors() {
-        return showColors;
+        return OptionalNullable.getFrom(showColors);
+    }
+
+    /**
+     * Internal Getter for Values.
+     * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
+     * @return Returns the Internal List of CatalogObject
+     */
+    @JsonGetter("values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogObject>> internalGetValues() {
+        return this.values;
     }
 
     /**
@@ -94,10 +170,9 @@ public class CatalogItemOption {
      * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
      * @return Returns the List of CatalogObject
      */
-    @JsonGetter("values")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogObject> getValues() {
-        return values;
+        return OptionalNullable.getFrom(values);
     }
 
     @Override
@@ -138,12 +213,12 @@ public class CatalogItemOption {
      * @return a new {@link CatalogItemOption.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
-                .displayName(getDisplayName())
-                .description(getDescription())
-                .showColors(getShowColors())
-                .values(getValues());
+        Builder builder = new Builder();
+        builder.name = internalGetName();
+        builder.displayName = internalGetDisplayName();
+        builder.description = internalGetDescription();
+        builder.showColors = internalGetShowColors();
+        builder.values = internalGetValues();
         return builder;
     }
 
@@ -151,11 +226,11 @@ public class CatalogItemOption {
      * Class to build instances of {@link CatalogItemOption}.
      */
     public static class Builder {
-        private String name;
-        private String displayName;
-        private String description;
-        private Boolean showColors;
-        private List<CatalogObject> values;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> displayName;
+        private OptionalNullable<String> description;
+        private OptionalNullable<Boolean> showColors;
+        private OptionalNullable<List<CatalogObject>> values;
 
 
 
@@ -165,7 +240,16 @@ public class CatalogItemOption {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -175,7 +259,16 @@ public class CatalogItemOption {
          * @return Builder
          */
         public Builder displayName(String displayName) {
-            this.displayName = displayName;
+            this.displayName = OptionalNullable.of(displayName);
+            return this;
+        }
+
+        /**
+         * UnSetter for displayName.
+         * @return Builder
+         */
+        public Builder unsetDisplayName() {
+            displayName = null;
             return this;
         }
 
@@ -185,7 +278,16 @@ public class CatalogItemOption {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -195,7 +297,16 @@ public class CatalogItemOption {
          * @return Builder
          */
         public Builder showColors(Boolean showColors) {
-            this.showColors = showColors;
+            this.showColors = OptionalNullable.of(showColors);
+            return this;
+        }
+
+        /**
+         * UnSetter for showColors.
+         * @return Builder
+         */
+        public Builder unsetShowColors() {
+            showColors = null;
             return this;
         }
 
@@ -205,7 +316,16 @@ public class CatalogItemOption {
          * @return Builder
          */
         public Builder values(List<CatalogObject> values) {
-            this.values = values;
+            this.values = OptionalNullable.of(values);
+            return this;
+        }
+
+        /**
+         * UnSetter for values.
+         * @return Builder
+         */
+        public Builder unsetValues() {
+            values = null;
             return this;
         }
 

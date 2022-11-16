@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderLineItemAppliedTax type.
  */
 public class OrderLineItemAppliedTax {
-    private final String uid;
+    private final OptionalNullable<String> uid;
     private final String taxUid;
     private final Money appliedMoney;
 
@@ -27,9 +30,31 @@ public class OrderLineItemAppliedTax {
             @JsonProperty("tax_uid") String taxUid,
             @JsonProperty("uid") String uid,
             @JsonProperty("applied_money") Money appliedMoney) {
+        this.uid = OptionalNullable.of(uid);
+        this.taxUid = taxUid;
+        this.appliedMoney = appliedMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderLineItemAppliedTax(String taxUid, OptionalNullable<String> uid,
+            Money appliedMoney) {
         this.uid = uid;
         this.taxUid = taxUid;
         this.appliedMoney = appliedMoney;
+    }
+
+    /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the applied tax only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
     }
 
     /**
@@ -37,10 +62,9 @@ public class OrderLineItemAppliedTax {
      * A unique ID that identifies the applied tax only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
     }
 
     /**
@@ -107,8 +131,8 @@ public class OrderLineItemAppliedTax {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(taxUid)
-                .uid(getUid())
                 .appliedMoney(getAppliedMoney());
+        builder.uid = internalGetUid();
         return builder;
     }
 
@@ -117,7 +141,7 @@ public class OrderLineItemAppliedTax {
      */
     public static class Builder {
         private String taxUid;
-        private String uid;
+        private OptionalNullable<String> uid;
         private Money appliedMoney;
 
         /**
@@ -144,7 +168,16 @@ public class OrderLineItemAppliedTax {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 

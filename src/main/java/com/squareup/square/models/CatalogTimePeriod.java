@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogTimePeriod type.
  */
 public class CatalogTimePeriod {
-    private final String event;
+    private final OptionalNullable<String> event;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,31 @@ public class CatalogTimePeriod {
     @JsonCreator
     public CatalogTimePeriod(
             @JsonProperty("event") String event) {
+        this.event = OptionalNullable.of(event);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogTimePeriod(OptionalNullable<String> event) {
         this.event = event;
+    }
+
+    /**
+     * Internal Getter for Event.
+     * An iCalendar (RFC 5545) [event](https://tools.ietf.org/html/rfc5545#section-3.6.1), which
+     * specifies the name, timing, duration and recurrence of this time period. Example: ```
+     * DTSTART:20190707T180000 DURATION:P2H RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR ``` Only `SUMMARY`,
+     * `DTSTART`, `DURATION` and `RRULE` fields are supported. `DTSTART` must be in local (unzoned)
+     * time format. Note that while `BEGIN:VEVENT` and `END:VEVENT` is not required in the request.
+     * The response will always include them.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("event")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEvent() {
+        return this.event;
     }
 
     /**
@@ -34,10 +61,9 @@ public class CatalogTimePeriod {
      * The response will always include them.
      * @return Returns the String
      */
-    @JsonGetter("event")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEvent() {
-        return event;
+        return OptionalNullable.getFrom(event);
     }
 
     @Override
@@ -72,8 +98,8 @@ public class CatalogTimePeriod {
      * @return a new {@link CatalogTimePeriod.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .event(getEvent());
+        Builder builder = new Builder();
+        builder.event = internalGetEvent();
         return builder;
     }
 
@@ -81,7 +107,7 @@ public class CatalogTimePeriod {
      * Class to build instances of {@link CatalogTimePeriod}.
      */
     public static class Builder {
-        private String event;
+        private OptionalNullable<String> event;
 
 
 
@@ -91,7 +117,16 @@ public class CatalogTimePeriod {
          * @return Builder
          */
         public Builder event(String event) {
-            this.event = event;
+            this.event = OptionalNullable.of(event);
+            return this;
+        }
+
+        /**
+         * UnSetter for event.
+         * @return Builder
+         */
+        public Builder unsetEvent() {
+            event = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,13 +16,13 @@ import java.util.Objects;
  * This is a model class for OrderFulfillmentUpdated type.
  */
 public class OrderFulfillmentUpdated {
-    private final String orderId;
+    private final OptionalNullable<String> orderId;
     private final Integer version;
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final String state;
     private final String createdAt;
     private final String updatedAt;
-    private final List<OrderFulfillmentUpdatedUpdate> fulfillmentUpdate;
+    private final OptionalNullable<List<OrderFulfillmentUpdatedUpdate>> fulfillmentUpdate;
 
     /**
      * Initialization constructor.
@@ -40,6 +43,21 @@ public class OrderFulfillmentUpdated {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("fulfillment_update") List<OrderFulfillmentUpdatedUpdate> fulfillmentUpdate) {
+        this.orderId = OptionalNullable.of(orderId);
+        this.version = version;
+        this.locationId = OptionalNullable.of(locationId);
+        this.state = state;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.fulfillmentUpdate = OptionalNullable.of(fulfillmentUpdate);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillmentUpdated(OptionalNullable<String> orderId, Integer version,
+            OptionalNullable<String> locationId, String state, String createdAt, String updatedAt,
+            OptionalNullable<List<OrderFulfillmentUpdatedUpdate>> fulfillmentUpdate) {
         this.orderId = orderId;
         this.version = version;
         this.locationId = locationId;
@@ -50,14 +68,25 @@ public class OrderFulfillmentUpdated {
     }
 
     /**
+     * Internal Getter for OrderId.
+     * The order's unique ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
+    }
+
+    /**
      * Getter for OrderId.
      * The order's unique ID.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     /**
@@ -65,7 +94,7 @@ public class OrderFulfillmentUpdated {
      * The version number, which is incremented each time an update is committed to the order.
      * Orders that were not created through the API do not include a version number and therefore
      * cannot be updated. [Read more about working with
-     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders#update-orders)
+     * versions.](https://developer.squareup.com/docs/orders-api/manage-orders/update-orders)
      * @return Returns the Integer
      */
     @JsonGetter("version")
@@ -75,14 +104,25 @@ public class OrderFulfillmentUpdated {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The ID of the seller location that this order is associated with.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The ID of the seller location that this order is associated with.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -119,14 +159,25 @@ public class OrderFulfillmentUpdated {
     }
 
     /**
+     * Internal Getter for FulfillmentUpdate.
+     * The fulfillments that were updated with this version change.
+     * @return Returns the Internal List of OrderFulfillmentUpdatedUpdate
+     */
+    @JsonGetter("fulfillment_update")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderFulfillmentUpdatedUpdate>> internalGetFulfillmentUpdate() {
+        return this.fulfillmentUpdate;
+    }
+
+    /**
      * Getter for FulfillmentUpdate.
      * The fulfillments that were updated with this version change.
      * @return Returns the List of OrderFulfillmentUpdatedUpdate
      */
-    @JsonGetter("fulfillment_update")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderFulfillmentUpdatedUpdate> getFulfillmentUpdate() {
-        return fulfillmentUpdate;
+        return OptionalNullable.getFrom(fulfillmentUpdate);
     }
 
     @Override
@@ -171,13 +222,13 @@ public class OrderFulfillmentUpdated {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .orderId(getOrderId())
                 .version(getVersion())
-                .locationId(getLocationId())
                 .state(getState())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt())
-                .fulfillmentUpdate(getFulfillmentUpdate());
+                .updatedAt(getUpdatedAt());
+        builder.orderId = internalGetOrderId();
+        builder.locationId = internalGetLocationId();
+        builder.fulfillmentUpdate = internalGetFulfillmentUpdate();
         return builder;
     }
 
@@ -185,13 +236,13 @@ public class OrderFulfillmentUpdated {
      * Class to build instances of {@link OrderFulfillmentUpdated}.
      */
     public static class Builder {
-        private String orderId;
+        private OptionalNullable<String> orderId;
         private Integer version;
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private String state;
         private String createdAt;
         private String updatedAt;
-        private List<OrderFulfillmentUpdatedUpdate> fulfillmentUpdate;
+        private OptionalNullable<List<OrderFulfillmentUpdatedUpdate>> fulfillmentUpdate;
 
 
 
@@ -201,7 +252,16 @@ public class OrderFulfillmentUpdated {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 
@@ -221,7 +281,16 @@ public class OrderFulfillmentUpdated {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -262,7 +331,16 @@ public class OrderFulfillmentUpdated {
          * @return Builder
          */
         public Builder fulfillmentUpdate(List<OrderFulfillmentUpdatedUpdate> fulfillmentUpdate) {
-            this.fulfillmentUpdate = fulfillmentUpdate;
+            this.fulfillmentUpdate = OptionalNullable.of(fulfillmentUpdate);
+            return this;
+        }
+
+        /**
+         * UnSetter for fulfillmentUpdate.
+         * @return Builder
+         */
+        public Builder unsetFulfillmentUpdate() {
+            fulfillmentUpdate = null;
             return this;
         }
 

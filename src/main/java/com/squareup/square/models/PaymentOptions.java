@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PaymentOptions type.
  */
 public class PaymentOptions {
-    private final Boolean autocomplete;
-    private final String delayDuration;
-    private final Boolean acceptPartialAuthorization;
+    private final OptionalNullable<Boolean> autocomplete;
+    private final OptionalNullable<String> delayDuration;
+    private final OptionalNullable<Boolean> acceptPartialAuthorization;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,33 @@ public class PaymentOptions {
             @JsonProperty("autocomplete") Boolean autocomplete,
             @JsonProperty("delay_duration") String delayDuration,
             @JsonProperty("accept_partial_authorization") Boolean acceptPartialAuthorization) {
+        this.autocomplete = OptionalNullable.of(autocomplete);
+        this.delayDuration = OptionalNullable.of(delayDuration);
+        this.acceptPartialAuthorization = OptionalNullable.of(acceptPartialAuthorization);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentOptions(OptionalNullable<Boolean> autocomplete,
+            OptionalNullable<String> delayDuration,
+            OptionalNullable<Boolean> acceptPartialAuthorization) {
         this.autocomplete = autocomplete;
         this.delayDuration = delayDuration;
         this.acceptPartialAuthorization = acceptPartialAuthorization;
+    }
+
+    /**
+     * Internal Getter for Autocomplete.
+     * Indicates whether the `Payment` objects created from this `TerminalCheckout` are
+     * automatically `COMPLETED` or left in an `APPROVED` state for later modification.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("autocomplete")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAutocomplete() {
+        return this.autocomplete;
     }
 
     /**
@@ -38,10 +65,28 @@ public class PaymentOptions {
      * automatically `COMPLETED` or left in an `APPROVED` state for later modification.
      * @return Returns the Boolean
      */
-    @JsonGetter("autocomplete")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAutocomplete() {
-        return autocomplete;
+        return OptionalNullable.getFrom(autocomplete);
+    }
+
+    /**
+     * Internal Getter for DelayDuration.
+     * The duration of time after the payment's creation when Square automatically cancels the
+     * payment. This automatic cancellation applies only to payments that do not reach a terminal
+     * state (COMPLETED, CANCELED, or FAILED) before the `delay_duration` time period. This
+     * parameter should be specified as a time duration, in RFC 3339 format, with a minimum value of
+     * 1 minute. Note: This feature is only supported for card payments. This parameter can only be
+     * set for a delayed capture payment (`autocomplete=false`). Default: - Card-present payments:
+     * "PT36H" (36 hours) from the creation time. - Card-not-present payments: "P7D" (7 days) from
+     * the creation time.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("delay_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDelayDuration() {
+        return this.delayDuration;
     }
 
     /**
@@ -56,10 +101,28 @@ public class PaymentOptions {
      * the creation time.
      * @return Returns the String
      */
-    @JsonGetter("delay_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDelayDuration() {
-        return delayDuration;
+        return OptionalNullable.getFrom(delayDuration);
+    }
+
+    /**
+     * Internal Getter for AcceptPartialAuthorization.
+     * If set to `true` and charging a Square Gift Card, a payment might be returned with
+     * `amount_money` equal to less than what was requested. For example, a request for $20 when
+     * charging a Square Gift Card with a balance of $5 results in an APPROVED payment of $5. You
+     * might choose to prompt the buyer for an additional payment to cover the remainder or cancel
+     * the Gift Card payment. This field cannot be `true` when `autocomplete = true`. This field
+     * cannot be `true` when an `order_id` isn't specified. For more information, see [Take Partial
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/partial-payments-with-gift-cards).
+     * Default: false
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("accept_partial_authorization")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAcceptPartialAuthorization() {
+        return this.acceptPartialAuthorization;
     }
 
     /**
@@ -74,10 +137,9 @@ public class PaymentOptions {
      * Default: false
      * @return Returns the Boolean
      */
-    @JsonGetter("accept_partial_authorization")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAcceptPartialAuthorization() {
-        return acceptPartialAuthorization;
+        return OptionalNullable.getFrom(acceptPartialAuthorization);
     }
 
     @Override
@@ -116,10 +178,10 @@ public class PaymentOptions {
      * @return a new {@link PaymentOptions.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .autocomplete(getAutocomplete())
-                .delayDuration(getDelayDuration())
-                .acceptPartialAuthorization(getAcceptPartialAuthorization());
+        Builder builder = new Builder();
+        builder.autocomplete = internalGetAutocomplete();
+        builder.delayDuration = internalGetDelayDuration();
+        builder.acceptPartialAuthorization = internalGetAcceptPartialAuthorization();
         return builder;
     }
 
@@ -127,9 +189,9 @@ public class PaymentOptions {
      * Class to build instances of {@link PaymentOptions}.
      */
     public static class Builder {
-        private Boolean autocomplete;
-        private String delayDuration;
-        private Boolean acceptPartialAuthorization;
+        private OptionalNullable<Boolean> autocomplete;
+        private OptionalNullable<String> delayDuration;
+        private OptionalNullable<Boolean> acceptPartialAuthorization;
 
 
 
@@ -139,7 +201,16 @@ public class PaymentOptions {
          * @return Builder
          */
         public Builder autocomplete(Boolean autocomplete) {
-            this.autocomplete = autocomplete;
+            this.autocomplete = OptionalNullable.of(autocomplete);
+            return this;
+        }
+
+        /**
+         * UnSetter for autocomplete.
+         * @return Builder
+         */
+        public Builder unsetAutocomplete() {
+            autocomplete = null;
             return this;
         }
 
@@ -149,7 +220,16 @@ public class PaymentOptions {
          * @return Builder
          */
         public Builder delayDuration(String delayDuration) {
-            this.delayDuration = delayDuration;
+            this.delayDuration = OptionalNullable.of(delayDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for delayDuration.
+         * @return Builder
+         */
+        public Builder unsetDelayDuration() {
+            delayDuration = null;
             return this;
         }
 
@@ -159,7 +239,16 @@ public class PaymentOptions {
          * @return Builder
          */
         public Builder acceptPartialAuthorization(Boolean acceptPartialAuthorization) {
-            this.acceptPartialAuthorization = acceptPartialAuthorization;
+            this.acceptPartialAuthorization = OptionalNullable.of(acceptPartialAuthorization);
+            return this;
+        }
+
+        /**
+         * UnSetter for acceptPartialAuthorization.
+         * @return Builder
+         */
+        public Builder unsetAcceptPartialAuthorization() {
+            acceptPartialAuthorization = null;
             return this;
         }
 

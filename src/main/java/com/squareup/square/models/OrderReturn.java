@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +16,12 @@ import java.util.Objects;
  * This is a model class for OrderReturn type.
  */
 public class OrderReturn {
-    private final String uid;
-    private final String sourceOrderId;
-    private final List<OrderReturnLineItem> returnLineItems;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> sourceOrderId;
+    private final OptionalNullable<List<OrderReturnLineItem>> returnLineItems;
     private final List<OrderReturnServiceCharge> returnServiceCharges;
-    private final List<OrderReturnTax> returnTaxes;
-    private final List<OrderReturnDiscount> returnDiscounts;
+    private final OptionalNullable<List<OrderReturnTax>> returnTaxes;
+    private final OptionalNullable<List<OrderReturnDiscount>> returnDiscounts;
     private final OrderRoundingAdjustment roundingAdjustment;
     private final OrderMoneyAmounts returnAmounts;
 
@@ -44,6 +47,25 @@ public class OrderReturn {
             @JsonProperty("return_discounts") List<OrderReturnDiscount> returnDiscounts,
             @JsonProperty("rounding_adjustment") OrderRoundingAdjustment roundingAdjustment,
             @JsonProperty("return_amounts") OrderMoneyAmounts returnAmounts) {
+        this.uid = OptionalNullable.of(uid);
+        this.sourceOrderId = OptionalNullable.of(sourceOrderId);
+        this.returnLineItems = OptionalNullable.of(returnLineItems);
+        this.returnServiceCharges = returnServiceCharges;
+        this.returnTaxes = OptionalNullable.of(returnTaxes);
+        this.returnDiscounts = OptionalNullable.of(returnDiscounts);
+        this.roundingAdjustment = roundingAdjustment;
+        this.returnAmounts = returnAmounts;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderReturn(OptionalNullable<String> uid, OptionalNullable<String> sourceOrderId,
+            OptionalNullable<List<OrderReturnLineItem>> returnLineItems,
+            List<OrderReturnServiceCharge> returnServiceCharges,
+            OptionalNullable<List<OrderReturnTax>> returnTaxes,
+            OptionalNullable<List<OrderReturnDiscount>> returnDiscounts,
+            OrderRoundingAdjustment roundingAdjustment, OrderMoneyAmounts returnAmounts) {
         this.uid = uid;
         this.sourceOrderId = sourceOrderId;
         this.returnLineItems = returnLineItems;
@@ -55,14 +77,38 @@ public class OrderReturn {
     }
 
     /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the return only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * A unique ID that identifies the return only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for SourceOrderId.
+     * An order that contains the original sale of these return line items. This is unset for
+     * unlinked returns.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("source_order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSourceOrderId() {
+        return this.sourceOrderId;
     }
 
     /**
@@ -71,10 +117,21 @@ public class OrderReturn {
      * unlinked returns.
      * @return Returns the String
      */
-    @JsonGetter("source_order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSourceOrderId() {
-        return sourceOrderId;
+        return OptionalNullable.getFrom(sourceOrderId);
+    }
+
+    /**
+     * Internal Getter for ReturnLineItems.
+     * A collection of line items that are being returned.
+     * @return Returns the Internal List of OrderReturnLineItem
+     */
+    @JsonGetter("return_line_items")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderReturnLineItem>> internalGetReturnLineItems() {
+        return this.returnLineItems;
     }
 
     /**
@@ -82,10 +139,9 @@ public class OrderReturn {
      * A collection of line items that are being returned.
      * @return Returns the List of OrderReturnLineItem
      */
-    @JsonGetter("return_line_items")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderReturnLineItem> getReturnLineItems() {
-        return returnLineItems;
+        return OptionalNullable.getFrom(returnLineItems);
     }
 
     /**
@@ -100,15 +156,41 @@ public class OrderReturn {
     }
 
     /**
+     * Internal Getter for ReturnTaxes.
+     * A collection of references to taxes being returned for an order, including the total applied
+     * tax amount to be returned. The taxes must reference a top-level tax ID from the source order.
+     * @return Returns the Internal List of OrderReturnTax
+     */
+    @JsonGetter("return_taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderReturnTax>> internalGetReturnTaxes() {
+        return this.returnTaxes;
+    }
+
+    /**
      * Getter for ReturnTaxes.
      * A collection of references to taxes being returned for an order, including the total applied
      * tax amount to be returned. The taxes must reference a top-level tax ID from the source order.
      * @return Returns the List of OrderReturnTax
      */
-    @JsonGetter("return_taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderReturnTax> getReturnTaxes() {
-        return returnTaxes;
+        return OptionalNullable.getFrom(returnTaxes);
+    }
+
+    /**
+     * Internal Getter for ReturnDiscounts.
+     * A collection of references to discounts being returned for an order, including the total
+     * applied discount amount to be returned. The discounts must reference a top-level discount ID
+     * from the source order.
+     * @return Returns the Internal List of OrderReturnDiscount
+     */
+    @JsonGetter("return_discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderReturnDiscount>> internalGetReturnDiscounts() {
+        return this.returnDiscounts;
     }
 
     /**
@@ -118,10 +200,9 @@ public class OrderReturn {
      * from the source order.
      * @return Returns the List of OrderReturnDiscount
      */
-    @JsonGetter("return_discounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderReturnDiscount> getReturnDiscounts() {
-        return returnDiscounts;
+        return OptionalNullable.getFrom(returnDiscounts);
     }
 
     /**
@@ -193,14 +274,14 @@ public class OrderReturn {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
-                .sourceOrderId(getSourceOrderId())
-                .returnLineItems(getReturnLineItems())
                 .returnServiceCharges(getReturnServiceCharges())
-                .returnTaxes(getReturnTaxes())
-                .returnDiscounts(getReturnDiscounts())
                 .roundingAdjustment(getRoundingAdjustment())
                 .returnAmounts(getReturnAmounts());
+        builder.uid = internalGetUid();
+        builder.sourceOrderId = internalGetSourceOrderId();
+        builder.returnLineItems = internalGetReturnLineItems();
+        builder.returnTaxes = internalGetReturnTaxes();
+        builder.returnDiscounts = internalGetReturnDiscounts();
         return builder;
     }
 
@@ -208,12 +289,12 @@ public class OrderReturn {
      * Class to build instances of {@link OrderReturn}.
      */
     public static class Builder {
-        private String uid;
-        private String sourceOrderId;
-        private List<OrderReturnLineItem> returnLineItems;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> sourceOrderId;
+        private OptionalNullable<List<OrderReturnLineItem>> returnLineItems;
         private List<OrderReturnServiceCharge> returnServiceCharges;
-        private List<OrderReturnTax> returnTaxes;
-        private List<OrderReturnDiscount> returnDiscounts;
+        private OptionalNullable<List<OrderReturnTax>> returnTaxes;
+        private OptionalNullable<List<OrderReturnDiscount>> returnDiscounts;
         private OrderRoundingAdjustment roundingAdjustment;
         private OrderMoneyAmounts returnAmounts;
 
@@ -225,7 +306,16 @@ public class OrderReturn {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -235,7 +325,16 @@ public class OrderReturn {
          * @return Builder
          */
         public Builder sourceOrderId(String sourceOrderId) {
-            this.sourceOrderId = sourceOrderId;
+            this.sourceOrderId = OptionalNullable.of(sourceOrderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceOrderId.
+         * @return Builder
+         */
+        public Builder unsetSourceOrderId() {
+            sourceOrderId = null;
             return this;
         }
 
@@ -245,7 +344,16 @@ public class OrderReturn {
          * @return Builder
          */
         public Builder returnLineItems(List<OrderReturnLineItem> returnLineItems) {
-            this.returnLineItems = returnLineItems;
+            this.returnLineItems = OptionalNullable.of(returnLineItems);
+            return this;
+        }
+
+        /**
+         * UnSetter for returnLineItems.
+         * @return Builder
+         */
+        public Builder unsetReturnLineItems() {
+            returnLineItems = null;
             return this;
         }
 
@@ -266,7 +374,16 @@ public class OrderReturn {
          * @return Builder
          */
         public Builder returnTaxes(List<OrderReturnTax> returnTaxes) {
-            this.returnTaxes = returnTaxes;
+            this.returnTaxes = OptionalNullable.of(returnTaxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for returnTaxes.
+         * @return Builder
+         */
+        public Builder unsetReturnTaxes() {
+            returnTaxes = null;
             return this;
         }
 
@@ -276,7 +393,16 @@ public class OrderReturn {
          * @return Builder
          */
         public Builder returnDiscounts(List<OrderReturnDiscount> returnDiscounts) {
-            this.returnDiscounts = returnDiscounts;
+            this.returnDiscounts = OptionalNullable.of(returnDiscounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for returnDiscounts.
+         * @return Builder
+         */
+        public Builder unsetReturnDiscounts() {
+            returnDiscounts = null;
             return this;
         }
 

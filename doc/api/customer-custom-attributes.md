@@ -276,9 +276,6 @@ CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomer
 Map<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
 values.put("", values0);
 values.put("", values1);
-values.put("", values2);
-values.put("", values3);
-values.put("", values4);
 
 BulkUpsertCustomerCustomAttributesRequest body = new BulkUpsertCustomerCustomAttributesRequest.Builder(
         values)
@@ -465,7 +462,6 @@ CompletableFuture<UpsertCustomerCustomAttributeResponse> upsertCustomerCustomAtt
 String customerId = "customer_id8";
 String key = "key0";
 CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .value(JsonValue.fromObject("\"Dune\""))
     .build();
 
 UpsertCustomerCustomAttributeRequest body = new UpsertCustomerCustomAttributeRequest.Builder(

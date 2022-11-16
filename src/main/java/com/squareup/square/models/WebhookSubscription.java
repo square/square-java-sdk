@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,11 +17,11 @@ import java.util.Objects;
  */
 public class WebhookSubscription {
     private final String id;
-    private final String name;
-    private final Boolean enabled;
-    private final List<String> eventTypes;
-    private final String notificationUrl;
-    private final String apiVersion;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<Boolean> enabled;
+    private final OptionalNullable<List<String>> eventTypes;
+    private final OptionalNullable<String> notificationUrl;
+    private final OptionalNullable<String> apiVersion;
     private final String signatureKey;
     private final String createdAt;
     private final String updatedAt;
@@ -47,6 +50,24 @@ public class WebhookSubscription {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt) {
         this.id = id;
+        this.name = OptionalNullable.of(name);
+        this.enabled = OptionalNullable.of(enabled);
+        this.eventTypes = OptionalNullable.of(eventTypes);
+        this.notificationUrl = OptionalNullable.of(notificationUrl);
+        this.apiVersion = OptionalNullable.of(apiVersion);
+        this.signatureKey = signatureKey;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected WebhookSubscription(String id, OptionalNullable<String> name,
+            OptionalNullable<Boolean> enabled, OptionalNullable<List<String>> eventTypes,
+            OptionalNullable<String> notificationUrl, OptionalNullable<String> apiVersion,
+            String signatureKey, String createdAt, String updatedAt) {
+        this.id = id;
         this.name = name;
         this.enabled = enabled;
         this.eventTypes = eventTypes;
@@ -69,14 +90,37 @@ public class WebhookSubscription {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name of this subscription.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name of this subscription.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Enabled.
+     * Indicates whether the subscription is enabled (`true`) or not (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEnabled() {
+        return this.enabled;
     }
 
     /**
@@ -84,10 +128,21 @@ public class WebhookSubscription {
      * Indicates whether the subscription is enabled (`true`) or not (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getEnabled() {
-        return enabled;
+        return OptionalNullable.getFrom(enabled);
+    }
+
+    /**
+     * Internal Getter for EventTypes.
+     * The event types associated with this subscription.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("event_types")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetEventTypes() {
+        return this.eventTypes;
     }
 
     /**
@@ -95,10 +150,21 @@ public class WebhookSubscription {
      * The event types associated with this subscription.
      * @return Returns the List of String
      */
-    @JsonGetter("event_types")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getEventTypes() {
-        return eventTypes;
+        return OptionalNullable.getFrom(eventTypes);
+    }
+
+    /**
+     * Internal Getter for NotificationUrl.
+     * The URL to which webhooks are sent.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("notification_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNotificationUrl() {
+        return this.notificationUrl;
     }
 
     /**
@@ -106,10 +172,22 @@ public class WebhookSubscription {
      * The URL to which webhooks are sent.
      * @return Returns the String
      */
-    @JsonGetter("notification_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNotificationUrl() {
-        return notificationUrl;
+        return OptionalNullable.getFrom(notificationUrl);
+    }
+
+    /**
+     * Internal Getter for ApiVersion.
+     * The API version of the subscription. This field is optional for `CreateWebhookSubscription`.
+     * The value defaults to the API version used by the application.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("api_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetApiVersion() {
+        return this.apiVersion;
     }
 
     /**
@@ -118,10 +196,9 @@ public class WebhookSubscription {
      * The value defaults to the API version used by the application.
      * @return Returns the String
      */
-    @JsonGetter("api_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getApiVersion() {
-        return apiVersion;
+        return OptionalNullable.getFrom(apiVersion);
     }
 
     /**
@@ -205,14 +282,14 @@ public class WebhookSubscription {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .name(getName())
-                .enabled(getEnabled())
-                .eventTypes(getEventTypes())
-                .notificationUrl(getNotificationUrl())
-                .apiVersion(getApiVersion())
                 .signatureKey(getSignatureKey())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.name = internalGetName();
+        builder.enabled = internalGetEnabled();
+        builder.eventTypes = internalGetEventTypes();
+        builder.notificationUrl = internalGetNotificationUrl();
+        builder.apiVersion = internalGetApiVersion();
         return builder;
     }
 
@@ -221,11 +298,11 @@ public class WebhookSubscription {
      */
     public static class Builder {
         private String id;
-        private String name;
-        private Boolean enabled;
-        private List<String> eventTypes;
-        private String notificationUrl;
-        private String apiVersion;
+        private OptionalNullable<String> name;
+        private OptionalNullable<Boolean> enabled;
+        private OptionalNullable<List<String>> eventTypes;
+        private OptionalNullable<String> notificationUrl;
+        private OptionalNullable<String> apiVersion;
         private String signatureKey;
         private String createdAt;
         private String updatedAt;
@@ -248,7 +325,16 @@ public class WebhookSubscription {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -258,7 +344,16 @@ public class WebhookSubscription {
          * @return Builder
          */
         public Builder enabled(Boolean enabled) {
-            this.enabled = enabled;
+            this.enabled = OptionalNullable.of(enabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for enabled.
+         * @return Builder
+         */
+        public Builder unsetEnabled() {
+            enabled = null;
             return this;
         }
 
@@ -268,7 +363,16 @@ public class WebhookSubscription {
          * @return Builder
          */
         public Builder eventTypes(List<String> eventTypes) {
-            this.eventTypes = eventTypes;
+            this.eventTypes = OptionalNullable.of(eventTypes);
+            return this;
+        }
+
+        /**
+         * UnSetter for eventTypes.
+         * @return Builder
+         */
+        public Builder unsetEventTypes() {
+            eventTypes = null;
             return this;
         }
 
@@ -278,7 +382,16 @@ public class WebhookSubscription {
          * @return Builder
          */
         public Builder notificationUrl(String notificationUrl) {
-            this.notificationUrl = notificationUrl;
+            this.notificationUrl = OptionalNullable.of(notificationUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for notificationUrl.
+         * @return Builder
+         */
+        public Builder unsetNotificationUrl() {
+            notificationUrl = null;
             return this;
         }
 
@@ -288,7 +401,16 @@ public class WebhookSubscription {
          * @return Builder
          */
         public Builder apiVersion(String apiVersion) {
-            this.apiVersion = apiVersion;
+            this.apiVersion = OptionalNullable.of(apiVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for apiVersion.
+         * @return Builder
+         */
+        public Builder unsetApiVersion() {
+            apiVersion = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class ListPayoutEntriesRequest {
     private final String sortOrder;
-    private final String cursor;
-    private final Integer limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class ListPayoutEntriesRequest {
             @JsonProperty("sort_order") String sortOrder,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit) {
+        this.sortOrder = sortOrder;
+        this.cursor = OptionalNullable.of(cursor);
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListPayoutEntriesRequest(String sortOrder, OptionalNullable<String> cursor,
+            OptionalNullable<Integer> limit) {
         this.sortOrder = sortOrder;
         this.cursor = cursor;
         this.limit = limit;
@@ -44,6 +57,22 @@ public class ListPayoutEntriesRequest {
     }
 
     /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). If request
+     * parameters change between requests, subsequent results may contain duplicates or missing
+     * records.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
+    }
+
+    /**
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for the original query. For more information, see
@@ -52,10 +81,24 @@ public class ListPayoutEntriesRequest {
      * records.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of results to be returned in a single page. It is possible to receive
+     * fewer results than the specified limit on a given page. The default value of 100 is also the
+     * maximum allowed value. If the provided value is greater than 100, it is ignored and the
+     * default value is used instead. Default: `100`
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -66,10 +109,9 @@ public class ListPayoutEntriesRequest {
      * default value is used instead. Default: `100`
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -108,9 +150,9 @@ public class ListPayoutEntriesRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .sortOrder(getSortOrder())
-                .cursor(getCursor())
-                .limit(getLimit());
+                .sortOrder(getSortOrder());
+        builder.cursor = internalGetCursor();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -119,8 +161,8 @@ public class ListPayoutEntriesRequest {
      */
     public static class Builder {
         private String sortOrder;
-        private String cursor;
-        private Integer limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Integer> limit;
 
 
 
@@ -140,7 +182,16 @@ public class ListPayoutEntriesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -150,7 +201,16 @@ public class ListPayoutEntriesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 

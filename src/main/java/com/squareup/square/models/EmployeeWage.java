@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class EmployeeWage {
     private final String id;
-    private final String employeeId;
-    private final String title;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<String> title;
     private final Money hourlyRate;
 
     /**
@@ -30,6 +33,17 @@ public class EmployeeWage {
             @JsonProperty("employee_id") String employeeId,
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate) {
+        this.id = id;
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.title = OptionalNullable.of(title);
+        this.hourlyRate = hourlyRate;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected EmployeeWage(String id, OptionalNullable<String> employeeId,
+            OptionalNullable<String> title, Money hourlyRate) {
         this.id = id;
         this.employeeId = employeeId;
         this.title = title;
@@ -48,14 +62,37 @@ public class EmployeeWage {
     }
 
     /**
+     * Internal Getter for EmployeeId.
+     * The `Employee` that this wage is assigned to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
      * Getter for EmployeeId.
      * The `Employee` that this wage is assigned to.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for Title.
+     * The job title that this wage relates to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTitle() {
+        return this.title;
     }
 
     /**
@@ -63,10 +100,9 @@ public class EmployeeWage {
      * The job title that this wage relates to.
      * @return Returns the String
      */
-    @JsonGetter("title")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTitle() {
-        return title;
+        return OptionalNullable.getFrom(title);
     }
 
     /**
@@ -123,9 +159,9 @@ public class EmployeeWage {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .employeeId(getEmployeeId())
-                .title(getTitle())
                 .hourlyRate(getHourlyRate());
+        builder.employeeId = internalGetEmployeeId();
+        builder.title = internalGetTitle();
         return builder;
     }
 
@@ -134,8 +170,8 @@ public class EmployeeWage {
      */
     public static class Builder {
         private String id;
-        private String employeeId;
-        private String title;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<String> title;
         private Money hourlyRate;
 
 
@@ -156,7 +192,16 @@ public class EmployeeWage {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -166,7 +211,16 @@ public class EmployeeWage {
          * @return Builder
          */
         public Builder title(String title) {
-            this.title = title;
+            this.title = OptionalNullable.of(title);
+            return this;
+        }
+
+        /**
+         * UnSetter for title.
+         * @return Builder
+         */
+        public Builder unsetTitle() {
+            title = null;
             return this;
         }
 

@@ -210,7 +210,18 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
+Money priceOverrideMoney = new Money.Builder()
+    .amount(2000L)
+    .currency("USD")
+    .build();
+
+Subscription subscription = new Subscription.Builder()
+    .priceOverrideMoney(priceOverrideMoney)
+    .version(1594155459464L)
+    .build();
+
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder()
+    .subscription(subscription)
     .build();
 
 subscriptionsApi.updateSubscriptionAsync(subscriptionId, body).thenAccept(result -> {

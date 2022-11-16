@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class InvoicePaymentReminder {
     private final String uid;
-    private final Integer relativeScheduledDays;
-    private final String message;
+    private final OptionalNullable<Integer> relativeScheduledDays;
+    private final OptionalNullable<String> message;
     private final String status;
     private final String sentAt;
 
@@ -33,6 +36,18 @@ public class InvoicePaymentReminder {
             @JsonProperty("message") String message,
             @JsonProperty("status") String status,
             @JsonProperty("sent_at") String sentAt) {
+        this.uid = uid;
+        this.relativeScheduledDays = OptionalNullable.of(relativeScheduledDays);
+        this.message = OptionalNullable.of(message);
+        this.status = status;
+        this.sentAt = sentAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoicePaymentReminder(String uid, OptionalNullable<Integer> relativeScheduledDays,
+            OptionalNullable<String> message, String status, String sentAt) {
         this.uid = uid;
         this.relativeScheduledDays = relativeScheduledDays;
         this.message = message;
@@ -53,16 +68,41 @@ public class InvoicePaymentReminder {
     }
 
     /**
+     * Internal Getter for RelativeScheduledDays.
+     * The number of days before (a negative number) or after (a positive number) the payment
+     * request `due_date` when the reminder is sent. For example, -3 indicates that the reminder
+     * should be sent 3 days before the payment request `due_date`.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("relative_scheduled_days")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetRelativeScheduledDays() {
+        return this.relativeScheduledDays;
+    }
+
+    /**
      * Getter for RelativeScheduledDays.
      * The number of days before (a negative number) or after (a positive number) the payment
      * request `due_date` when the reminder is sent. For example, -3 indicates that the reminder
      * should be sent 3 days before the payment request `due_date`.
      * @return Returns the Integer
      */
-    @JsonGetter("relative_scheduled_days")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getRelativeScheduledDays() {
-        return relativeScheduledDays;
+        return OptionalNullable.getFrom(relativeScheduledDays);
+    }
+
+    /**
+     * Internal Getter for Message.
+     * The reminder message.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("message")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMessage() {
+        return this.message;
     }
 
     /**
@@ -70,10 +110,9 @@ public class InvoicePaymentReminder {
      * The reminder message.
      * @return Returns the String
      */
-    @JsonGetter("message")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMessage() {
-        return message;
+        return OptionalNullable.getFrom(message);
     }
 
     /**
@@ -138,10 +177,10 @@ public class InvoicePaymentReminder {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .uid(getUid())
-                .relativeScheduledDays(getRelativeScheduledDays())
-                .message(getMessage())
                 .status(getStatus())
                 .sentAt(getSentAt());
+        builder.relativeScheduledDays = internalGetRelativeScheduledDays();
+        builder.message = internalGetMessage();
         return builder;
     }
 
@@ -150,8 +189,8 @@ public class InvoicePaymentReminder {
      */
     public static class Builder {
         private String uid;
-        private Integer relativeScheduledDays;
-        private String message;
+        private OptionalNullable<Integer> relativeScheduledDays;
+        private OptionalNullable<String> message;
         private String status;
         private String sentAt;
 
@@ -173,7 +212,16 @@ public class InvoicePaymentReminder {
          * @return Builder
          */
         public Builder relativeScheduledDays(Integer relativeScheduledDays) {
-            this.relativeScheduledDays = relativeScheduledDays;
+            this.relativeScheduledDays = OptionalNullable.of(relativeScheduledDays);
+            return this;
+        }
+
+        /**
+         * UnSetter for relativeScheduledDays.
+         * @return Builder
+         */
+        public Builder unsetRelativeScheduledDays() {
+            relativeScheduledDays = null;
             return this;
         }
 
@@ -183,7 +231,16 @@ public class InvoicePaymentReminder {
          * @return Builder
          */
         public Builder message(String message) {
-            this.message = message;
+            this.message = OptionalNullable.of(message);
+            return this;
+        }
+
+        /**
+         * UnSetter for message.
+         * @return Builder
+         */
+        public Builder unsetMessage() {
+            message = null;
             return this;
         }
 

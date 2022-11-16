@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +16,9 @@ import java.util.Objects;
  * This is a model class for FilterValue type.
  */
 public class FilterValue {
-    private final List<String> all;
-    private final List<String> any;
-    private final List<String> none;
+    private final OptionalNullable<List<String>> all;
+    private final OptionalNullable<List<String>> any;
+    private final OptionalNullable<List<String>> none;
 
     /**
      * Initialization constructor.
@@ -28,9 +31,31 @@ public class FilterValue {
             @JsonProperty("all") List<String> all,
             @JsonProperty("any") List<String> any,
             @JsonProperty("none") List<String> none) {
+        this.all = OptionalNullable.of(all);
+        this.any = OptionalNullable.of(any);
+        this.none = OptionalNullable.of(none);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected FilterValue(OptionalNullable<List<String>> all, OptionalNullable<List<String>> any,
+            OptionalNullable<List<String>> none) {
         this.all = all;
         this.any = any;
         this.none = none;
+    }
+
+    /**
+     * Internal Getter for All.
+     * A list of terms that must be present on the field of the resource.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("all")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetAll() {
+        return this.all;
     }
 
     /**
@@ -38,10 +63,21 @@ public class FilterValue {
      * A list of terms that must be present on the field of the resource.
      * @return Returns the List of String
      */
-    @JsonGetter("all")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getAll() {
-        return all;
+        return OptionalNullable.getFrom(all);
+    }
+
+    /**
+     * Internal Getter for Any.
+     * A list of terms where at least one of them must be present on the field of the resource.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("any")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetAny() {
+        return this.any;
     }
 
     /**
@@ -49,10 +85,21 @@ public class FilterValue {
      * A list of terms where at least one of them must be present on the field of the resource.
      * @return Returns the List of String
      */
-    @JsonGetter("any")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getAny() {
-        return any;
+        return OptionalNullable.getFrom(any);
+    }
+
+    /**
+     * Internal Getter for None.
+     * A list of terms that must not be present on the field the resource
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("none")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetNone() {
+        return this.none;
     }
 
     /**
@@ -60,10 +107,9 @@ public class FilterValue {
      * A list of terms that must not be present on the field the resource
      * @return Returns the List of String
      */
-    @JsonGetter("none")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getNone() {
-        return none;
+        return OptionalNullable.getFrom(none);
     }
 
     @Override
@@ -100,10 +146,10 @@ public class FilterValue {
      * @return a new {@link FilterValue.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .all(getAll())
-                .any(getAny())
-                .none(getNone());
+        Builder builder = new Builder();
+        builder.all = internalGetAll();
+        builder.any = internalGetAny();
+        builder.none = internalGetNone();
         return builder;
     }
 
@@ -111,9 +157,9 @@ public class FilterValue {
      * Class to build instances of {@link FilterValue}.
      */
     public static class Builder {
-        private List<String> all;
-        private List<String> any;
-        private List<String> none;
+        private OptionalNullable<List<String>> all;
+        private OptionalNullable<List<String>> any;
+        private OptionalNullable<List<String>> none;
 
 
 
@@ -123,7 +169,16 @@ public class FilterValue {
          * @return Builder
          */
         public Builder all(List<String> all) {
-            this.all = all;
+            this.all = OptionalNullable.of(all);
+            return this;
+        }
+
+        /**
+         * UnSetter for all.
+         * @return Builder
+         */
+        public Builder unsetAll() {
+            all = null;
             return this;
         }
 
@@ -133,7 +188,16 @@ public class FilterValue {
          * @return Builder
          */
         public Builder any(List<String> any) {
-            this.any = any;
+            this.any = OptionalNullable.of(any);
+            return this;
+        }
+
+        /**
+         * UnSetter for any.
+         * @return Builder
+         */
+        public Builder unsetAny() {
+            any = null;
             return this;
         }
 
@@ -143,7 +207,16 @@ public class FilterValue {
          * @return Builder
          */
         public Builder none(List<String> none) {
-            this.none = none;
+            this.none = OptionalNullable.of(none);
+            return this;
+        }
+
+        /**
+         * UnSetter for none.
+         * @return Builder
+         */
+        public Builder unsetNone() {
+            none = null;
             return this;
         }
 

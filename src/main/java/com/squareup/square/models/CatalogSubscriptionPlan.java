@@ -3,8 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +17,7 @@ import java.util.Objects;
  */
 public class CatalogSubscriptionPlan {
     private final String name;
-    private final List<SubscriptionPhase> phases;
+    private final OptionalNullable<List<SubscriptionPhase>> phases;
 
     /**
      * Initialization constructor.
@@ -24,6 +28,15 @@ public class CatalogSubscriptionPlan {
     public CatalogSubscriptionPlan(
             @JsonProperty("name") String name,
             @JsonProperty("phases") List<SubscriptionPhase> phases) {
+        this.name = name;
+        this.phases = OptionalNullable.of(phases);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogSubscriptionPlan(String name,
+            OptionalNullable<List<SubscriptionPhase>> phases) {
         this.name = name;
         this.phases = phases;
     }
@@ -39,14 +52,29 @@ public class CatalogSubscriptionPlan {
     }
 
     /**
-     * Getter for Phases.
+     * Internal Getter for Phases.
      * A list of SubscriptionPhase containing the [SubscriptionPhase]($m/SubscriptionPhase) for this
-     * plan.
-     * @return Returns the List of SubscriptionPhase
+     * plan. This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING
+     * error
+     * @return Returns the Internal List of SubscriptionPhase
      */
     @JsonGetter("phases")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<SubscriptionPhase>> internalGetPhases() {
+        return this.phases;
+    }
+
+    /**
+     * Getter for Phases.
+     * A list of SubscriptionPhase containing the [SubscriptionPhase]($m/SubscriptionPhase) for this
+     * plan. This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING
+     * error
+     * @return Returns the List of SubscriptionPhase
+     */
+    @JsonIgnore
     public List<SubscriptionPhase> getPhases() {
-        return phases;
+        return OptionalNullable.getFrom(phases);
     }
 
     @Override
@@ -82,7 +110,8 @@ public class CatalogSubscriptionPlan {
      * @return a new {@link CatalogSubscriptionPlan.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name, phases);
+        Builder builder = new Builder(name);
+        builder.phases = internalGetPhases();
         return builder;
     }
 
@@ -91,16 +120,14 @@ public class CatalogSubscriptionPlan {
      */
     public static class Builder {
         private String name;
-        private List<SubscriptionPhase> phases;
+        private OptionalNullable<List<SubscriptionPhase>> phases;
 
         /**
          * Initialization constructor.
          * @param  name  String value for name.
-         * @param  phases  List of SubscriptionPhase value for phases.
          */
-        public Builder(String name, List<SubscriptionPhase> phases) {
+        public Builder(String name) {
             this.name = name;
-            this.phases = phases;
         }
 
         /**
@@ -119,7 +146,16 @@ public class CatalogSubscriptionPlan {
          * @return Builder
          */
         public Builder phases(List<SubscriptionPhase> phases) {
-            this.phases = phases;
+            this.phases = OptionalNullable.of(phases);
+            return this;
+        }
+
+        /**
+         * UnSetter for phases.
+         * @return Builder
+         */
+        public Builder unsetPhases() {
+            phases = null;
             return this;
         }
 

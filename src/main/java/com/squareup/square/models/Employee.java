@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,13 +17,13 @@ import java.util.Objects;
  */
 public class Employee {
     private final String id;
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String phoneNumber;
-    private final List<String> locationIds;
+    private final OptionalNullable<String> firstName;
+    private final OptionalNullable<String> lastName;
+    private final OptionalNullable<String> email;
+    private final OptionalNullable<String> phoneNumber;
+    private final OptionalNullable<List<String>> locationIds;
     private final String status;
-    private final Boolean isOwner;
+    private final OptionalNullable<Boolean> isOwner;
     private final String createdAt;
     private final String updatedAt;
 
@@ -50,6 +53,26 @@ public class Employee {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt) {
         this.id = id;
+        this.firstName = OptionalNullable.of(firstName);
+        this.lastName = OptionalNullable.of(lastName);
+        this.email = OptionalNullable.of(email);
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+        this.locationIds = OptionalNullable.of(locationIds);
+        this.status = status;
+        this.isOwner = OptionalNullable.of(isOwner);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Employee(String id, OptionalNullable<String> firstName,
+            OptionalNullable<String> lastName, OptionalNullable<String> email,
+            OptionalNullable<String> phoneNumber, OptionalNullable<List<String>> locationIds,
+            String status, OptionalNullable<Boolean> isOwner, String createdAt,
+            String updatedAt) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -73,14 +96,37 @@ public class Employee {
     }
 
     /**
+     * Internal Getter for FirstName.
+     * The employee's first name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("first_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFirstName() {
+        return this.firstName;
+    }
+
+    /**
      * Getter for FirstName.
      * The employee's first name.
      * @return Returns the String
      */
-    @JsonGetter("first_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFirstName() {
-        return firstName;
+        return OptionalNullable.getFrom(firstName);
+    }
+
+    /**
+     * Internal Getter for LastName.
+     * The employee's last name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("last_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLastName() {
+        return this.lastName;
     }
 
     /**
@@ -88,10 +134,21 @@ public class Employee {
      * The employee's last name.
      * @return Returns the String
      */
-    @JsonGetter("last_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLastName() {
-        return lastName;
+        return OptionalNullable.getFrom(lastName);
+    }
+
+    /**
+     * Internal Getter for Email.
+     * The employee's email address
+     * @return Returns the Internal String
+     */
+    @JsonGetter("email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmail() {
+        return this.email;
     }
 
     /**
@@ -99,10 +156,21 @@ public class Employee {
      * The employee's email address
      * @return Returns the String
      */
-    @JsonGetter("email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmail() {
-        return email;
+        return OptionalNullable.getFrom(email);
+    }
+
+    /**
+     * Internal Getter for PhoneNumber.
+     * The employee's phone number in E.164 format, i.e. "+12125554250"
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
     }
 
     /**
@@ -110,10 +178,21 @@ public class Employee {
      * The employee's phone number in E.164 format, i.e. "+12125554250"
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
+    }
+
+    /**
+     * Internal Getter for LocationIds.
+     * A list of location IDs where this employee has access to.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("location_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetLocationIds() {
+        return this.locationIds;
     }
 
     /**
@@ -121,10 +200,9 @@ public class Employee {
      * A list of location IDs where this employee has access to.
      * @return Returns the List of String
      */
-    @JsonGetter("location_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getLocationIds() {
-        return locationIds;
+        return OptionalNullable.getFrom(locationIds);
     }
 
     /**
@@ -139,15 +217,27 @@ public class Employee {
     }
 
     /**
+     * Internal Getter for IsOwner.
+     * Whether this employee is the owner of the merchant. Each merchant has one owner employee, and
+     * that employee has full authority over the account.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_owner")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsOwner() {
+        return this.isOwner;
+    }
+
+    /**
      * Getter for IsOwner.
      * Whether this employee is the owner of the merchant. Each merchant has one owner employee, and
      * that employee has full authority over the account.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_owner")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsOwner() {
-        return isOwner;
+        return OptionalNullable.getFrom(isOwner);
     }
 
     /**
@@ -219,15 +309,15 @@ public class Employee {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .firstName(getFirstName())
-                .lastName(getLastName())
-                .email(getEmail())
-                .phoneNumber(getPhoneNumber())
-                .locationIds(getLocationIds())
                 .status(getStatus())
-                .isOwner(getIsOwner())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.firstName = internalGetFirstName();
+        builder.lastName = internalGetLastName();
+        builder.email = internalGetEmail();
+        builder.phoneNumber = internalGetPhoneNumber();
+        builder.locationIds = internalGetLocationIds();
+        builder.isOwner = internalGetIsOwner();
         return builder;
     }
 
@@ -236,13 +326,13 @@ public class Employee {
      */
     public static class Builder {
         private String id;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String phoneNumber;
-        private List<String> locationIds;
+        private OptionalNullable<String> firstName;
+        private OptionalNullable<String> lastName;
+        private OptionalNullable<String> email;
+        private OptionalNullable<String> phoneNumber;
+        private OptionalNullable<List<String>> locationIds;
         private String status;
-        private Boolean isOwner;
+        private OptionalNullable<Boolean> isOwner;
         private String createdAt;
         private String updatedAt;
 
@@ -264,7 +354,16 @@ public class Employee {
          * @return Builder
          */
         public Builder firstName(String firstName) {
-            this.firstName = firstName;
+            this.firstName = OptionalNullable.of(firstName);
+            return this;
+        }
+
+        /**
+         * UnSetter for firstName.
+         * @return Builder
+         */
+        public Builder unsetFirstName() {
+            firstName = null;
             return this;
         }
 
@@ -274,7 +373,16 @@ public class Employee {
          * @return Builder
          */
         public Builder lastName(String lastName) {
-            this.lastName = lastName;
+            this.lastName = OptionalNullable.of(lastName);
+            return this;
+        }
+
+        /**
+         * UnSetter for lastName.
+         * @return Builder
+         */
+        public Builder unsetLastName() {
+            lastName = null;
             return this;
         }
 
@@ -284,7 +392,16 @@ public class Employee {
          * @return Builder
          */
         public Builder email(String email) {
-            this.email = email;
+            this.email = OptionalNullable.of(email);
+            return this;
+        }
+
+        /**
+         * UnSetter for email.
+         * @return Builder
+         */
+        public Builder unsetEmail() {
+            email = null;
             return this;
         }
 
@@ -294,7 +411,16 @@ public class Employee {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 
@@ -304,7 +430,16 @@ public class Employee {
          * @return Builder
          */
         public Builder locationIds(List<String> locationIds) {
-            this.locationIds = locationIds;
+            this.locationIds = OptionalNullable.of(locationIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationIds.
+         * @return Builder
+         */
+        public Builder unsetLocationIds() {
+            locationIds = null;
             return this;
         }
 
@@ -324,7 +459,16 @@ public class Employee {
          * @return Builder
          */
         public Builder isOwner(Boolean isOwner) {
-            this.isOwner = isOwner;
+            this.isOwner = OptionalNullable.of(isOwner);
+            return this;
+        }
+
+        /**
+         * UnSetter for isOwner.
+         * @return Builder
+         */
+        public Builder unsetIsOwner() {
+            isOwner = null;
             return this;
         }
 

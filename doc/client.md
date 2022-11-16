@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-10-19"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-11-16"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2022-10-19")
+    .squareVersion("2022-11-16")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -45,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2022-10-19")
+            .squareVersion("2022-11-16")
             .accessToken("AccessToken")
             .build();
         
@@ -75,6 +75,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getApplePayApi()` | Provides access to ApplePay controller. | `ApplePayApi` |
 | `getBankAccountsApi()` | Provides access to BankAccounts controller. | `BankAccountsApi` |
 | `getBookingsApi()` | Provides access to Bookings controller. | `BookingsApi` |
+| `getBookingCustomAttributesApi()` | Provides access to BookingCustomAttributes controller. | `BookingCustomAttributesApi` |
 | `getCardsApi()` | Provides access to Cards controller. | `CardsApi` |
 | `getCashDrawersApi()` | Provides access to CashDrawers controller. | `CashDrawersApi` |
 | `getCatalogApi()` | Provides access to Catalog controller. | `CatalogApi` |
@@ -96,6 +97,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getLoyaltyApi()` | Provides access to Loyalty controller. | `LoyaltyApi` |
 | `getMerchantsApi()` | Provides access to Merchants controller. | `MerchantsApi` |
 | `getOrdersApi()` | Provides access to Orders controller. | `OrdersApi` |
+| `getOrderCustomAttributesApi()` | Provides access to OrderCustomAttributes controller. | `OrderCustomAttributesApi` |
 | `getPaymentsApi()` | Provides access to Payments controller. | `PaymentsApi` |
 | `getPayoutsApi()` | Provides access to Payouts controller. | `PayoutsApi` |
 | `getRefundsApi()` | Provides access to Refunds controller. | `RefundsApi` |

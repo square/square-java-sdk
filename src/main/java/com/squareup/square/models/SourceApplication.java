@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class SourceApplication {
     private final String product;
-    private final String applicationId;
-    private final String name;
+    private final OptionalNullable<String> applicationId;
+    private final OptionalNullable<String> name;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class SourceApplication {
             @JsonProperty("product") String product,
             @JsonProperty("application_id") String applicationId,
             @JsonProperty("name") String name) {
+        this.product = product;
+        this.applicationId = OptionalNullable.of(applicationId);
+        this.name = OptionalNullable.of(name);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SourceApplication(String product, OptionalNullable<String> applicationId,
+            OptionalNullable<String> name) {
         this.product = product;
         this.applicationId = applicationId;
         this.name = name;
@@ -44,15 +57,40 @@ public class SourceApplication {
     }
 
     /**
+     * Internal Getter for ApplicationId.
+     * __Read only__ The Square-assigned ID of the application. This field is used only if the
+     * [product]($m/Product) type is `EXTERNAL_API`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("application_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetApplicationId() {
+        return this.applicationId;
+    }
+
+    /**
      * Getter for ApplicationId.
      * __Read only__ The Square-assigned ID of the application. This field is used only if the
      * [product]($m/Product) type is `EXTERNAL_API`.
      * @return Returns the String
      */
-    @JsonGetter("application_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getApplicationId() {
-        return applicationId;
+        return OptionalNullable.getFrom(applicationId);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * __Read only__ The display name of the application (for example, `"Custom Application"` or
+     * `"Square POS 4.74 for Android"`).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -61,10 +99,9 @@ public class SourceApplication {
      * `"Square POS 4.74 for Android"`).
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     @Override
@@ -103,9 +140,9 @@ public class SourceApplication {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .product(getProduct())
-                .applicationId(getApplicationId())
-                .name(getName());
+                .product(getProduct());
+        builder.applicationId = internalGetApplicationId();
+        builder.name = internalGetName();
         return builder;
     }
 
@@ -114,8 +151,8 @@ public class SourceApplication {
      */
     public static class Builder {
         private String product;
-        private String applicationId;
-        private String name;
+        private OptionalNullable<String> applicationId;
+        private OptionalNullable<String> name;
 
 
 
@@ -135,7 +172,16 @@ public class SourceApplication {
          * @return Builder
          */
         public Builder applicationId(String applicationId) {
-            this.applicationId = applicationId;
+            this.applicationId = OptionalNullable.of(applicationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for applicationId.
+         * @return Builder
+         */
+        public Builder unsetApplicationId() {
+            applicationId = null;
             return this;
         }
 
@@ -145,7 +191,16 @@ public class SourceApplication {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 

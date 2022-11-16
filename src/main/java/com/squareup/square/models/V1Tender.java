@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,20 +17,20 @@ import java.util.Objects;
 public class V1Tender {
     private final String id;
     private final String type;
-    private final String name;
-    private final String employeeId;
-    private final String receiptUrl;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<String> receiptUrl;
     private final String cardBrand;
-    private final String panSuffix;
+    private final OptionalNullable<String> panSuffix;
     private final String entryMethod;
-    private final String paymentNote;
+    private final OptionalNullable<String> paymentNote;
     private final V1Money totalMoney;
     private final V1Money tenderedMoney;
-    private final String tenderedAt;
-    private final String settledAt;
+    private final OptionalNullable<String> tenderedAt;
+    private final OptionalNullable<String> settledAt;
     private final V1Money changeBackMoney;
     private final V1Money refundedMoney;
-    private final Boolean isExchange;
+    private final OptionalNullable<Boolean> isExchange;
 
     /**
      * Initialization constructor.
@@ -68,6 +71,34 @@ public class V1Tender {
             @JsonProperty("is_exchange") Boolean isExchange) {
         this.id = id;
         this.type = type;
+        this.name = OptionalNullable.of(name);
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.receiptUrl = OptionalNullable.of(receiptUrl);
+        this.cardBrand = cardBrand;
+        this.panSuffix = OptionalNullable.of(panSuffix);
+        this.entryMethod = entryMethod;
+        this.paymentNote = OptionalNullable.of(paymentNote);
+        this.totalMoney = totalMoney;
+        this.tenderedMoney = tenderedMoney;
+        this.tenderedAt = OptionalNullable.of(tenderedAt);
+        this.settledAt = OptionalNullable.of(settledAt);
+        this.changeBackMoney = changeBackMoney;
+        this.refundedMoney = refundedMoney;
+        this.isExchange = OptionalNullable.of(isExchange);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Tender(String id, String type, OptionalNullable<String> name,
+            OptionalNullable<String> employeeId, OptionalNullable<String> receiptUrl,
+            String cardBrand, OptionalNullable<String> panSuffix, String entryMethod,
+            OptionalNullable<String> paymentNote, V1Money totalMoney, V1Money tenderedMoney,
+            OptionalNullable<String> tenderedAt, OptionalNullable<String> settledAt,
+            V1Money changeBackMoney, V1Money refundedMoney,
+            OptionalNullable<Boolean> isExchange) {
+        this.id = id;
+        this.type = type;
         this.name = name;
         this.employeeId = employeeId;
         this.receiptUrl = receiptUrl;
@@ -106,14 +137,37 @@ public class V1Tender {
     }
 
     /**
+     * Internal Getter for Name.
+     * A human-readable description of the tender.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * A human-readable description of the tender.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for EmployeeId.
+     * The ID of the employee that processed the tender.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
     }
 
     /**
@@ -121,10 +175,21 @@ public class V1Tender {
      * The ID of the employee that processed the tender.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for ReceiptUrl.
+     * The URL of the receipt for the tender.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("receipt_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReceiptUrl() {
+        return this.receiptUrl;
     }
 
     /**
@@ -132,10 +197,9 @@ public class V1Tender {
      * The URL of the receipt for the tender.
      * @return Returns the String
      */
-    @JsonGetter("receipt_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReceiptUrl() {
-        return receiptUrl;
+        return OptionalNullable.getFrom(receiptUrl);
     }
 
     /**
@@ -150,14 +214,25 @@ public class V1Tender {
     }
 
     /**
+     * Internal Getter for PanSuffix.
+     * The last four digits of the provided credit card's account number.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pan_suffix")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPanSuffix() {
+        return this.panSuffix;
+    }
+
+    /**
      * Getter for PanSuffix.
      * The last four digits of the provided credit card's account number.
      * @return Returns the String
      */
-    @JsonGetter("pan_suffix")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPanSuffix() {
-        return panSuffix;
+        return OptionalNullable.getFrom(panSuffix);
     }
 
     /**
@@ -171,15 +246,27 @@ public class V1Tender {
     }
 
     /**
+     * Internal Getter for PaymentNote.
+     * Notes entered by the merchant about the tender at the time of payment, if any. Typically only
+     * present for tender with the type: OTHER.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentNote() {
+        return this.paymentNote;
+    }
+
+    /**
      * Getter for PaymentNote.
      * Notes entered by the merchant about the tender at the time of payment, if any. Typically only
      * present for tender with the type: OTHER.
      * @return Returns the String
      */
-    @JsonGetter("payment_note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentNote() {
-        return paymentNote;
+        return OptionalNullable.getFrom(paymentNote);
     }
 
     /**
@@ -203,14 +290,37 @@ public class V1Tender {
     }
 
     /**
+     * Internal Getter for TenderedAt.
+     * The time when the tender was created, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tendered_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTenderedAt() {
+        return this.tenderedAt;
+    }
+
+    /**
      * Getter for TenderedAt.
      * The time when the tender was created, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("tendered_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTenderedAt() {
-        return tenderedAt;
+        return OptionalNullable.getFrom(tenderedAt);
+    }
+
+    /**
+     * Internal Getter for SettledAt.
+     * The time when the tender was settled, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("settled_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSettledAt() {
+        return this.settledAt;
     }
 
     /**
@@ -218,10 +328,9 @@ public class V1Tender {
      * The time when the tender was settled, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("settled_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSettledAt() {
-        return settledAt;
+        return OptionalNullable.getFrom(settledAt);
     }
 
     /**
@@ -245,6 +354,21 @@ public class V1Tender {
     }
 
     /**
+     * Internal Getter for IsExchange.
+     * Indicates whether or not the tender is associated with an exchange. If is_exchange is true,
+     * the tender represents the value of goods returned in an exchange not the actual money paid.
+     * The exchange value reduces the tender amounts needed to pay for items purchased in the
+     * exchange.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_exchange")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsExchange() {
+        return this.isExchange;
+    }
+
+    /**
      * Getter for IsExchange.
      * Indicates whether or not the tender is associated with an exchange. If is_exchange is true,
      * the tender represents the value of goods returned in an exchange not the actual money paid.
@@ -252,10 +376,9 @@ public class V1Tender {
      * exchange.
      * @return Returns the Boolean
      */
-    @JsonGetter("is_exchange")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIsExchange() {
-        return isExchange;
+        return OptionalNullable.getFrom(isExchange);
     }
 
     @Override
@@ -316,20 +439,20 @@ public class V1Tender {
         Builder builder = new Builder()
                 .id(getId())
                 .type(getType())
-                .name(getName())
-                .employeeId(getEmployeeId())
-                .receiptUrl(getReceiptUrl())
                 .cardBrand(getCardBrand())
-                .panSuffix(getPanSuffix())
                 .entryMethod(getEntryMethod())
-                .paymentNote(getPaymentNote())
                 .totalMoney(getTotalMoney())
                 .tenderedMoney(getTenderedMoney())
-                .tenderedAt(getTenderedAt())
-                .settledAt(getSettledAt())
                 .changeBackMoney(getChangeBackMoney())
-                .refundedMoney(getRefundedMoney())
-                .isExchange(getIsExchange());
+                .refundedMoney(getRefundedMoney());
+        builder.name = internalGetName();
+        builder.employeeId = internalGetEmployeeId();
+        builder.receiptUrl = internalGetReceiptUrl();
+        builder.panSuffix = internalGetPanSuffix();
+        builder.paymentNote = internalGetPaymentNote();
+        builder.tenderedAt = internalGetTenderedAt();
+        builder.settledAt = internalGetSettledAt();
+        builder.isExchange = internalGetIsExchange();
         return builder;
     }
 
@@ -339,20 +462,20 @@ public class V1Tender {
     public static class Builder {
         private String id;
         private String type;
-        private String name;
-        private String employeeId;
-        private String receiptUrl;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<String> receiptUrl;
         private String cardBrand;
-        private String panSuffix;
+        private OptionalNullable<String> panSuffix;
         private String entryMethod;
-        private String paymentNote;
+        private OptionalNullable<String> paymentNote;
         private V1Money totalMoney;
         private V1Money tenderedMoney;
-        private String tenderedAt;
-        private String settledAt;
+        private OptionalNullable<String> tenderedAt;
+        private OptionalNullable<String> settledAt;
         private V1Money changeBackMoney;
         private V1Money refundedMoney;
-        private Boolean isExchange;
+        private OptionalNullable<Boolean> isExchange;
 
 
 
@@ -382,7 +505,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -392,7 +524,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -402,7 +543,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder receiptUrl(String receiptUrl) {
-            this.receiptUrl = receiptUrl;
+            this.receiptUrl = OptionalNullable.of(receiptUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for receiptUrl.
+         * @return Builder
+         */
+        public Builder unsetReceiptUrl() {
+            receiptUrl = null;
             return this;
         }
 
@@ -422,7 +572,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder panSuffix(String panSuffix) {
-            this.panSuffix = panSuffix;
+            this.panSuffix = OptionalNullable.of(panSuffix);
+            return this;
+        }
+
+        /**
+         * UnSetter for panSuffix.
+         * @return Builder
+         */
+        public Builder unsetPanSuffix() {
+            panSuffix = null;
             return this;
         }
 
@@ -442,7 +601,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder paymentNote(String paymentNote) {
-            this.paymentNote = paymentNote;
+            this.paymentNote = OptionalNullable.of(paymentNote);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentNote.
+         * @return Builder
+         */
+        public Builder unsetPaymentNote() {
+            paymentNote = null;
             return this;
         }
 
@@ -472,7 +640,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder tenderedAt(String tenderedAt) {
-            this.tenderedAt = tenderedAt;
+            this.tenderedAt = OptionalNullable.of(tenderedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for tenderedAt.
+         * @return Builder
+         */
+        public Builder unsetTenderedAt() {
+            tenderedAt = null;
             return this;
         }
 
@@ -482,7 +659,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder settledAt(String settledAt) {
-            this.settledAt = settledAt;
+            this.settledAt = OptionalNullable.of(settledAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for settledAt.
+         * @return Builder
+         */
+        public Builder unsetSettledAt() {
+            settledAt = null;
             return this;
         }
 
@@ -512,7 +698,16 @@ public class V1Tender {
          * @return Builder
          */
         public Builder isExchange(Boolean isExchange) {
-            this.isExchange = isExchange;
+            this.isExchange = OptionalNullable.of(isExchange);
+            return this;
+        }
+
+        /**
+         * UnSetter for isExchange.
+         * @return Builder
+         */
+        public Builder unsetIsExchange() {
+            isExchange = null;
             return this;
         }
 

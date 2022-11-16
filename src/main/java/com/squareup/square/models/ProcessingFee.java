@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ProcessingFee type.
  */
 public class ProcessingFee {
-    private final String effectiveAt;
-    private final String type;
+    private final OptionalNullable<String> effectiveAt;
+    private final OptionalNullable<String> type;
     private final Money amountMoney;
 
     /**
@@ -27,9 +30,31 @@ public class ProcessingFee {
             @JsonProperty("effective_at") String effectiveAt,
             @JsonProperty("type") String type,
             @JsonProperty("amount_money") Money amountMoney) {
+        this.effectiveAt = OptionalNullable.of(effectiveAt);
+        this.type = OptionalNullable.of(type);
+        this.amountMoney = amountMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ProcessingFee(OptionalNullable<String> effectiveAt, OptionalNullable<String> type,
+            Money amountMoney) {
         this.effectiveAt = effectiveAt;
         this.type = type;
         this.amountMoney = amountMoney;
+    }
+
+    /**
+     * Internal Getter for EffectiveAt.
+     * The timestamp of when the fee takes effect, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("effective_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEffectiveAt() {
+        return this.effectiveAt;
     }
 
     /**
@@ -37,10 +62,21 @@ public class ProcessingFee {
      * The timestamp of when the fee takes effect, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("effective_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEffectiveAt() {
-        return effectiveAt;
+        return OptionalNullable.getFrom(effectiveAt);
+    }
+
+    /**
+     * Internal Getter for Type.
+     * The type of fee assessed or adjusted. The fee type can be `INITIAL` or `ADJUSTMENT`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetType() {
+        return this.type;
     }
 
     /**
@@ -48,10 +84,9 @@ public class ProcessingFee {
      * The type of fee assessed or adjusted. The fee type can be `INITIAL` or `ADJUSTMENT`.
      * @return Returns the String
      */
-    @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getType() {
-        return type;
+        return OptionalNullable.getFrom(type);
     }
 
     /**
@@ -106,9 +141,9 @@ public class ProcessingFee {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .effectiveAt(getEffectiveAt())
-                .type(getType())
                 .amountMoney(getAmountMoney());
+        builder.effectiveAt = internalGetEffectiveAt();
+        builder.type = internalGetType();
         return builder;
     }
 
@@ -116,8 +151,8 @@ public class ProcessingFee {
      * Class to build instances of {@link ProcessingFee}.
      */
     public static class Builder {
-        private String effectiveAt;
-        private String type;
+        private OptionalNullable<String> effectiveAt;
+        private OptionalNullable<String> type;
         private Money amountMoney;
 
 
@@ -128,7 +163,16 @@ public class ProcessingFee {
          * @return Builder
          */
         public Builder effectiveAt(String effectiveAt) {
-            this.effectiveAt = effectiveAt;
+            this.effectiveAt = OptionalNullable.of(effectiveAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for effectiveAt.
+         * @return Builder
+         */
+        public Builder unsetEffectiveAt() {
+            effectiveAt = null;
             return this;
         }
 
@@ -138,7 +182,16 @@ public class ProcessingFee {
          * @return Builder
          */
         public Builder type(String type) {
-            this.type = type;
+            this.type = OptionalNullable.of(type);
+            return this;
+        }
+
+        /**
+         * UnSetter for type.
+         * @return Builder
+         */
+        public Builder unsetType() {
+            type = null;
             return this;
         }
 

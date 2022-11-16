@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DeviceDetails type.
  */
 public class DeviceDetails {
-    private final String deviceId;
-    private final String deviceInstallationId;
-    private final String deviceName;
+    private final OptionalNullable<String> deviceId;
+    private final OptionalNullable<String> deviceInstallationId;
+    private final OptionalNullable<String> deviceName;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class DeviceDetails {
             @JsonProperty("device_id") String deviceId,
             @JsonProperty("device_installation_id") String deviceInstallationId,
             @JsonProperty("device_name") String deviceName) {
+        this.deviceId = OptionalNullable.of(deviceId);
+        this.deviceInstallationId = OptionalNullable.of(deviceInstallationId);
+        this.deviceName = OptionalNullable.of(deviceName);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DeviceDetails(OptionalNullable<String> deviceId,
+            OptionalNullable<String> deviceInstallationId, OptionalNullable<String> deviceName) {
         this.deviceId = deviceId;
         this.deviceInstallationId = deviceInstallationId;
         this.deviceName = deviceName;
+    }
+
+    /**
+     * Internal Getter for DeviceId.
+     * The Square-issued ID of the device.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceId() {
+        return this.deviceId;
     }
 
     /**
@@ -37,10 +62,21 @@ public class DeviceDetails {
      * The Square-issued ID of the device.
      * @return Returns the String
      */
-    @JsonGetter("device_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceId() {
-        return deviceId;
+        return OptionalNullable.getFrom(deviceId);
+    }
+
+    /**
+     * Internal Getter for DeviceInstallationId.
+     * The Square-issued installation ID for the device.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_installation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceInstallationId() {
+        return this.deviceInstallationId;
     }
 
     /**
@@ -48,10 +84,21 @@ public class DeviceDetails {
      * The Square-issued installation ID for the device.
      * @return Returns the String
      */
-    @JsonGetter("device_installation_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceInstallationId() {
-        return deviceInstallationId;
+        return OptionalNullable.getFrom(deviceInstallationId);
+    }
+
+    /**
+     * Internal Getter for DeviceName.
+     * The name of the device set by the seller.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceName() {
+        return this.deviceName;
     }
 
     /**
@@ -59,10 +106,9 @@ public class DeviceDetails {
      * The name of the device set by the seller.
      * @return Returns the String
      */
-    @JsonGetter("device_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceName() {
-        return deviceName;
+        return OptionalNullable.getFrom(deviceName);
     }
 
     @Override
@@ -100,10 +146,10 @@ public class DeviceDetails {
      * @return a new {@link DeviceDetails.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .deviceId(getDeviceId())
-                .deviceInstallationId(getDeviceInstallationId())
-                .deviceName(getDeviceName());
+        Builder builder = new Builder();
+        builder.deviceId = internalGetDeviceId();
+        builder.deviceInstallationId = internalGetDeviceInstallationId();
+        builder.deviceName = internalGetDeviceName();
         return builder;
     }
 
@@ -111,9 +157,9 @@ public class DeviceDetails {
      * Class to build instances of {@link DeviceDetails}.
      */
     public static class Builder {
-        private String deviceId;
-        private String deviceInstallationId;
-        private String deviceName;
+        private OptionalNullable<String> deviceId;
+        private OptionalNullable<String> deviceInstallationId;
+        private OptionalNullable<String> deviceName;
 
 
 
@@ -123,7 +169,16 @@ public class DeviceDetails {
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
-            this.deviceId = deviceId;
+            this.deviceId = OptionalNullable.of(deviceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceId.
+         * @return Builder
+         */
+        public Builder unsetDeviceId() {
+            deviceId = null;
             return this;
         }
 
@@ -133,7 +188,16 @@ public class DeviceDetails {
          * @return Builder
          */
         public Builder deviceInstallationId(String deviceInstallationId) {
-            this.deviceInstallationId = deviceInstallationId;
+            this.deviceInstallationId = OptionalNullable.of(deviceInstallationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceInstallationId.
+         * @return Builder
+         */
+        public Builder unsetDeviceInstallationId() {
+            deviceInstallationId = null;
             return this;
         }
 
@@ -143,7 +207,16 @@ public class DeviceDetails {
          * @return Builder
          */
         public Builder deviceName(String deviceName) {
-            this.deviceName = deviceName;
+            this.deviceName = OptionalNullable.of(deviceName);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceName.
+         * @return Builder
+         */
+        public Builder unsetDeviceName() {
+            deviceName = null;
             return this;
         }
 

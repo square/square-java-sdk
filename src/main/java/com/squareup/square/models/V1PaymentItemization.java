@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,20 +16,20 @@ import java.util.Objects;
  * This is a model class for V1PaymentItemization type.
  */
 public class V1PaymentItemization {
-    private final String name;
-    private final Double quantity;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<Double> quantity;
     private final String itemizationType;
     private final V1PaymentItemDetail itemDetail;
-    private final String notes;
-    private final String itemVariationName;
+    private final OptionalNullable<String> notes;
+    private final OptionalNullable<String> itemVariationName;
     private final V1Money totalMoney;
     private final V1Money singleQuantityMoney;
     private final V1Money grossSalesMoney;
     private final V1Money discountMoney;
     private final V1Money netSalesMoney;
-    private final List<V1PaymentTax> taxes;
-    private final List<V1PaymentDiscount> discounts;
-    private final List<V1PaymentModifier> modifiers;
+    private final OptionalNullable<List<V1PaymentTax>> taxes;
+    private final OptionalNullable<List<V1PaymentDiscount>> discounts;
+    private final OptionalNullable<List<V1PaymentModifier>> modifiers;
 
     /**
      * Initialization constructor.
@@ -61,6 +64,32 @@ public class V1PaymentItemization {
             @JsonProperty("taxes") List<V1PaymentTax> taxes,
             @JsonProperty("discounts") List<V1PaymentDiscount> discounts,
             @JsonProperty("modifiers") List<V1PaymentModifier> modifiers) {
+        this.name = OptionalNullable.of(name);
+        this.quantity = OptionalNullable.of(quantity);
+        this.itemizationType = itemizationType;
+        this.itemDetail = itemDetail;
+        this.notes = OptionalNullable.of(notes);
+        this.itemVariationName = OptionalNullable.of(itemVariationName);
+        this.totalMoney = totalMoney;
+        this.singleQuantityMoney = singleQuantityMoney;
+        this.grossSalesMoney = grossSalesMoney;
+        this.discountMoney = discountMoney;
+        this.netSalesMoney = netSalesMoney;
+        this.taxes = OptionalNullable.of(taxes);
+        this.discounts = OptionalNullable.of(discounts);
+        this.modifiers = OptionalNullable.of(modifiers);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1PaymentItemization(OptionalNullable<String> name, OptionalNullable<Double> quantity,
+            String itemizationType, V1PaymentItemDetail itemDetail, OptionalNullable<String> notes,
+            OptionalNullable<String> itemVariationName, V1Money totalMoney,
+            V1Money singleQuantityMoney, V1Money grossSalesMoney, V1Money discountMoney,
+            V1Money netSalesMoney, OptionalNullable<List<V1PaymentTax>> taxes,
+            OptionalNullable<List<V1PaymentDiscount>> discounts,
+            OptionalNullable<List<V1PaymentModifier>> modifiers) {
         this.name = name;
         this.quantity = quantity;
         this.itemizationType = itemizationType;
@@ -78,14 +107,37 @@ public class V1PaymentItemization {
     }
 
     /**
+     * Internal Getter for Name.
+     * The item's name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The item's name.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for Quantity.
+     * The quantity of the item purchased. This can be a decimal value.
+     * @return Returns the Internal Double
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Double> internalGetQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -93,10 +145,9 @@ public class V1PaymentItemization {
      * The quantity of the item purchased. This can be a decimal value.
      * @return Returns the Double
      */
-    @JsonGetter("quantity")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Double getQuantity() {
-        return quantity;
+        return OptionalNullable.getFrom(quantity);
     }
 
     /**
@@ -121,14 +172,37 @@ public class V1PaymentItemization {
     }
 
     /**
+     * Internal Getter for Notes.
+     * Notes entered by the merchant about the item at the time of payment, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("notes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNotes() {
+        return this.notes;
+    }
+
+    /**
      * Getter for Notes.
      * Notes entered by the merchant about the item at the time of payment, if any.
      * @return Returns the String
      */
-    @JsonGetter("notes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNotes() {
-        return notes;
+        return OptionalNullable.getFrom(notes);
+    }
+
+    /**
+     * Internal Getter for ItemVariationName.
+     * The name of the item variation purchased, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("item_variation_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetItemVariationName() {
+        return this.itemVariationName;
     }
 
     /**
@@ -136,10 +210,9 @@ public class V1PaymentItemization {
      * The name of the item variation purchased, if any.
      * @return Returns the String
      */
-    @JsonGetter("item_variation_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getItemVariationName() {
-        return itemVariationName;
+        return OptionalNullable.getFrom(itemVariationName);
     }
 
     /**
@@ -193,14 +266,37 @@ public class V1PaymentItemization {
     }
 
     /**
+     * Internal Getter for Taxes.
+     * All taxes applied to this itemization.
+     * @return Returns the Internal List of V1PaymentTax
+     */
+    @JsonGetter("taxes")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentTax>> internalGetTaxes() {
+        return this.taxes;
+    }
+
+    /**
      * Getter for Taxes.
      * All taxes applied to this itemization.
      * @return Returns the List of V1PaymentTax
      */
-    @JsonGetter("taxes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentTax> getTaxes() {
-        return taxes;
+        return OptionalNullable.getFrom(taxes);
+    }
+
+    /**
+     * Internal Getter for Discounts.
+     * All discounts applied to this itemization.
+     * @return Returns the Internal List of V1PaymentDiscount
+     */
+    @JsonGetter("discounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentDiscount>> internalGetDiscounts() {
+        return this.discounts;
     }
 
     /**
@@ -208,10 +304,21 @@ public class V1PaymentItemization {
      * All discounts applied to this itemization.
      * @return Returns the List of V1PaymentDiscount
      */
-    @JsonGetter("discounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentDiscount> getDiscounts() {
-        return discounts;
+        return OptionalNullable.getFrom(discounts);
+    }
+
+    /**
+     * Internal Getter for Modifiers.
+     * All modifier options applied to this itemization.
+     * @return Returns the Internal List of V1PaymentModifier
+     */
+    @JsonGetter("modifiers")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1PaymentModifier>> internalGetModifiers() {
+        return this.modifiers;
     }
 
     /**
@@ -219,10 +326,9 @@ public class V1PaymentItemization {
      * All modifier options applied to this itemization.
      * @return Returns the List of V1PaymentModifier
      */
-    @JsonGetter("modifiers")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1PaymentModifier> getModifiers() {
-        return modifiers;
+        return OptionalNullable.getFrom(modifiers);
     }
 
     @Override
@@ -279,20 +385,20 @@ public class V1PaymentItemization {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
-                .quantity(getQuantity())
                 .itemizationType(getItemizationType())
                 .itemDetail(getItemDetail())
-                .notes(getNotes())
-                .itemVariationName(getItemVariationName())
                 .totalMoney(getTotalMoney())
                 .singleQuantityMoney(getSingleQuantityMoney())
                 .grossSalesMoney(getGrossSalesMoney())
                 .discountMoney(getDiscountMoney())
-                .netSalesMoney(getNetSalesMoney())
-                .taxes(getTaxes())
-                .discounts(getDiscounts())
-                .modifiers(getModifiers());
+                .netSalesMoney(getNetSalesMoney());
+        builder.name = internalGetName();
+        builder.quantity = internalGetQuantity();
+        builder.notes = internalGetNotes();
+        builder.itemVariationName = internalGetItemVariationName();
+        builder.taxes = internalGetTaxes();
+        builder.discounts = internalGetDiscounts();
+        builder.modifiers = internalGetModifiers();
         return builder;
     }
 
@@ -300,20 +406,20 @@ public class V1PaymentItemization {
      * Class to build instances of {@link V1PaymentItemization}.
      */
     public static class Builder {
-        private String name;
-        private Double quantity;
+        private OptionalNullable<String> name;
+        private OptionalNullable<Double> quantity;
         private String itemizationType;
         private V1PaymentItemDetail itemDetail;
-        private String notes;
-        private String itemVariationName;
+        private OptionalNullable<String> notes;
+        private OptionalNullable<String> itemVariationName;
         private V1Money totalMoney;
         private V1Money singleQuantityMoney;
         private V1Money grossSalesMoney;
         private V1Money discountMoney;
         private V1Money netSalesMoney;
-        private List<V1PaymentTax> taxes;
-        private List<V1PaymentDiscount> discounts;
-        private List<V1PaymentModifier> modifiers;
+        private OptionalNullable<List<V1PaymentTax>> taxes;
+        private OptionalNullable<List<V1PaymentDiscount>> discounts;
+        private OptionalNullable<List<V1PaymentModifier>> modifiers;
 
 
 
@@ -323,7 +429,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -333,7 +448,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder quantity(Double quantity) {
-            this.quantity = quantity;
+            this.quantity = OptionalNullable.of(quantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for quantity.
+         * @return Builder
+         */
+        public Builder unsetQuantity() {
+            quantity = null;
             return this;
         }
 
@@ -363,7 +487,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder notes(String notes) {
-            this.notes = notes;
+            this.notes = OptionalNullable.of(notes);
+            return this;
+        }
+
+        /**
+         * UnSetter for notes.
+         * @return Builder
+         */
+        public Builder unsetNotes() {
+            notes = null;
             return this;
         }
 
@@ -373,7 +506,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder itemVariationName(String itemVariationName) {
-            this.itemVariationName = itemVariationName;
+            this.itemVariationName = OptionalNullable.of(itemVariationName);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemVariationName.
+         * @return Builder
+         */
+        public Builder unsetItemVariationName() {
+            itemVariationName = null;
             return this;
         }
 
@@ -433,7 +575,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder taxes(List<V1PaymentTax> taxes) {
-            this.taxes = taxes;
+            this.taxes = OptionalNullable.of(taxes);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxes.
+         * @return Builder
+         */
+        public Builder unsetTaxes() {
+            taxes = null;
             return this;
         }
 
@@ -443,7 +594,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder discounts(List<V1PaymentDiscount> discounts) {
-            this.discounts = discounts;
+            this.discounts = OptionalNullable.of(discounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for discounts.
+         * @return Builder
+         */
+        public Builder unsetDiscounts() {
+            discounts = null;
             return this;
         }
 
@@ -453,7 +613,16 @@ public class V1PaymentItemization {
          * @return Builder
          */
         public Builder modifiers(List<V1PaymentModifier> modifiers) {
-            this.modifiers = modifiers;
+            this.modifiers = OptionalNullable.of(modifiers);
+            return this;
+        }
+
+        /**
+         * UnSetter for modifiers.
+         * @return Builder
+         */
+        public Builder unsetModifiers() {
+            modifiers = null;
             return this;
         }
 

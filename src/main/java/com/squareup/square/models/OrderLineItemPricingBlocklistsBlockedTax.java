@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderLineItemPricingBlocklistsBlockedTax type.
  */
 public class OrderLineItemPricingBlocklistsBlockedTax {
-    private final String uid;
-    private final String taxUid;
-    private final String taxCatalogObjectId;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> taxUid;
+    private final OptionalNullable<String> taxCatalogObjectId;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
             @JsonProperty("uid") String uid,
             @JsonProperty("tax_uid") String taxUid,
             @JsonProperty("tax_catalog_object_id") String taxCatalogObjectId) {
+        this.uid = OptionalNullable.of(uid);
+        this.taxUid = OptionalNullable.of(taxUid);
+        this.taxCatalogObjectId = OptionalNullable.of(taxCatalogObjectId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderLineItemPricingBlocklistsBlockedTax(OptionalNullable<String> uid,
+            OptionalNullable<String> taxUid, OptionalNullable<String> taxCatalogObjectId) {
         this.uid = uid;
         this.taxUid = taxUid;
         this.taxCatalogObjectId = taxCatalogObjectId;
+    }
+
+    /**
+     * Internal Getter for Uid.
+     * A unique ID of the `BlockedTax` within the order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
     }
 
     /**
@@ -37,10 +62,22 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * A unique ID of the `BlockedTax` within the order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for TaxUid.
+     * The `uid` of the tax that should be blocked. Use this field to block ad hoc taxes. For
+     * catalog, taxes use the `tax_catalog_object_id` field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tax_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxUid() {
+        return this.taxUid;
     }
 
     /**
@@ -49,10 +86,22 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * catalog, taxes use the `tax_catalog_object_id` field.
      * @return Returns the String
      */
-    @JsonGetter("tax_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTaxUid() {
-        return taxUid;
+        return OptionalNullable.getFrom(taxUid);
+    }
+
+    /**
+     * Internal Getter for TaxCatalogObjectId.
+     * The `catalog_object_id` of the tax that should be blocked. Use this field to block catalog
+     * taxes. For ad hoc taxes, use the `tax_uid` field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tax_catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxCatalogObjectId() {
+        return this.taxCatalogObjectId;
     }
 
     /**
@@ -61,10 +110,9 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * taxes. For ad hoc taxes, use the `tax_uid` field.
      * @return Returns the String
      */
-    @JsonGetter("tax_catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTaxCatalogObjectId() {
-        return taxCatalogObjectId;
+        return OptionalNullable.getFrom(taxCatalogObjectId);
     }
 
     @Override
@@ -103,10 +151,10 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * @return a new {@link OrderLineItemPricingBlocklistsBlockedTax.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .uid(getUid())
-                .taxUid(getTaxUid())
-                .taxCatalogObjectId(getTaxCatalogObjectId());
+        Builder builder = new Builder();
+        builder.uid = internalGetUid();
+        builder.taxUid = internalGetTaxUid();
+        builder.taxCatalogObjectId = internalGetTaxCatalogObjectId();
         return builder;
     }
 
@@ -114,9 +162,9 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
      * Class to build instances of {@link OrderLineItemPricingBlocklistsBlockedTax}.
      */
     public static class Builder {
-        private String uid;
-        private String taxUid;
-        private String taxCatalogObjectId;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> taxUid;
+        private OptionalNullable<String> taxCatalogObjectId;
 
 
 
@@ -126,7 +174,16 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -136,7 +193,16 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
          * @return Builder
          */
         public Builder taxUid(String taxUid) {
-            this.taxUid = taxUid;
+            this.taxUid = OptionalNullable.of(taxUid);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxUid.
+         * @return Builder
+         */
+        public Builder unsetTaxUid() {
+            taxUid = null;
             return this;
         }
 
@@ -146,7 +212,16 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
          * @return Builder
          */
         public Builder taxCatalogObjectId(String taxCatalogObjectId) {
-            this.taxCatalogObjectId = taxCatalogObjectId;
+            this.taxCatalogObjectId = OptionalNullable.of(taxCatalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxCatalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetTaxCatalogObjectId() {
+            taxCatalogObjectId = null;
             return this;
         }
 

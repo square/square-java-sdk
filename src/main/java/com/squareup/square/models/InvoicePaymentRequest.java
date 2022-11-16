@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,16 +16,16 @@ import java.util.Objects;
  * This is a model class for InvoicePaymentRequest type.
  */
 public class InvoicePaymentRequest {
-    private final String uid;
+    private final OptionalNullable<String> uid;
     private final String requestMethod;
     private final String requestType;
-    private final String dueDate;
+    private final OptionalNullable<String> dueDate;
     private final Money fixedAmountRequestedMoney;
-    private final String percentageRequested;
-    private final Boolean tippingEnabled;
+    private final OptionalNullable<String> percentageRequested;
+    private final OptionalNullable<Boolean> tippingEnabled;
     private final String automaticPaymentSource;
-    private final String cardId;
-    private final List<InvoicePaymentReminder> reminders;
+    private final OptionalNullable<String> cardId;
+    private final OptionalNullable<List<InvoicePaymentReminder>> reminders;
     private final Money computedAmountMoney;
     private final Money totalCompletedAmountMoney;
     private final Money roundingAdjustmentIncludedMoney;
@@ -58,6 +61,30 @@ public class InvoicePaymentRequest {
             @JsonProperty("computed_amount_money") Money computedAmountMoney,
             @JsonProperty("total_completed_amount_money") Money totalCompletedAmountMoney,
             @JsonProperty("rounding_adjustment_included_money") Money roundingAdjustmentIncludedMoney) {
+        this.uid = OptionalNullable.of(uid);
+        this.requestMethod = requestMethod;
+        this.requestType = requestType;
+        this.dueDate = OptionalNullable.of(dueDate);
+        this.fixedAmountRequestedMoney = fixedAmountRequestedMoney;
+        this.percentageRequested = OptionalNullable.of(percentageRequested);
+        this.tippingEnabled = OptionalNullable.of(tippingEnabled);
+        this.automaticPaymentSource = automaticPaymentSource;
+        this.cardId = OptionalNullable.of(cardId);
+        this.reminders = OptionalNullable.of(reminders);
+        this.computedAmountMoney = computedAmountMoney;
+        this.totalCompletedAmountMoney = totalCompletedAmountMoney;
+        this.roundingAdjustmentIncludedMoney = roundingAdjustmentIncludedMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoicePaymentRequest(OptionalNullable<String> uid, String requestMethod,
+            String requestType, OptionalNullable<String> dueDate, Money fixedAmountRequestedMoney,
+            OptionalNullable<String> percentageRequested, OptionalNullable<Boolean> tippingEnabled,
+            String automaticPaymentSource, OptionalNullable<String> cardId,
+            OptionalNullable<List<InvoicePaymentReminder>> reminders, Money computedAmountMoney,
+            Money totalCompletedAmountMoney, Money roundingAdjustmentIncludedMoney) {
         this.uid = uid;
         this.requestMethod = requestMethod;
         this.requestType = requestType;
@@ -74,14 +101,25 @@ public class InvoicePaymentRequest {
     }
 
     /**
+     * Internal Getter for Uid.
+     * The Square-generated ID of the payment request in an [invoice]($m/Invoice).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * The Square-generated ID of the payment request in an [invoice]($m/Invoice).
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
     }
 
     /**
@@ -111,6 +149,23 @@ public class InvoicePaymentRequest {
     }
 
     /**
+     * Internal Getter for DueDate.
+     * The due date (in the invoice's time zone) for the payment request, in `YYYY-MM-DD` format.
+     * This field is required to create a payment request. If an `automatic_payment_source` is
+     * defined for the request, Square charges the payment source on this date. After this date, the
+     * invoice becomes overdue. For example, a payment `due_date` of 2021-03-09 with a `timezone` of
+     * America/Los\_Angeles becomes overdue at midnight on March 9 in America/Los\_Angeles (which
+     * equals a UTC timestamp of 2021-03-10T08:00:00Z).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("due_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDueDate() {
+        return this.dueDate;
+    }
+
+    /**
      * Getter for DueDate.
      * The due date (in the invoice's time zone) for the payment request, in `YYYY-MM-DD` format.
      * This field is required to create a payment request. If an `automatic_payment_source` is
@@ -120,10 +175,9 @@ public class InvoicePaymentRequest {
      * equals a UTC timestamp of 2021-03-10T08:00:00Z).
      * @return Returns the String
      */
-    @JsonGetter("due_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDueDate() {
-        return dueDate;
+        return OptionalNullable.getFrom(dueDate);
     }
 
     /**
@@ -143,6 +197,23 @@ public class InvoicePaymentRequest {
     }
 
     /**
+     * Internal Getter for PercentageRequested.
+     * Specifies the amount for the payment request in percentage: - When the payment `request_type`
+     * is `DEPOSIT`, it is the percentage of the order's total amount. - When the payment
+     * `request_type` is `INSTALLMENT`, it is the percentage of the order's total less the deposit,
+     * if requested. The sum of the `percentage_requested` in all installment payment requests must
+     * be equal to 100. You cannot specify this when the payment `request_type` is `BALANCE` or when
+     * the payment request specifies the `fixed_amount_requested_money` field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("percentage_requested")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPercentageRequested() {
+        return this.percentageRequested;
+    }
+
+    /**
      * Getter for PercentageRequested.
      * Specifies the amount for the payment request in percentage: - When the payment `request_type`
      * is `DEPOSIT`, it is the percentage of the order's total amount. - When the payment
@@ -152,10 +223,23 @@ public class InvoicePaymentRequest {
      * the payment request specifies the `fixed_amount_requested_money` field.
      * @return Returns the String
      */
-    @JsonGetter("percentage_requested")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPercentageRequested() {
-        return percentageRequested;
+        return OptionalNullable.getFrom(percentageRequested);
+    }
+
+    /**
+     * Internal Getter for TippingEnabled.
+     * If set to true, the Square-hosted invoice page (the `public_url` field of the invoice)
+     * provides a place for the customer to pay a tip. This field is allowed only on the final
+     * payment request and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("tipping_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTippingEnabled() {
+        return this.tippingEnabled;
     }
 
     /**
@@ -165,10 +249,9 @@ public class InvoicePaymentRequest {
      * payment request and the payment `request_type` must be `BALANCE` or `INSTALLMENT`.
      * @return Returns the Boolean
      */
-    @JsonGetter("tipping_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getTippingEnabled() {
-        return tippingEnabled;
+        return OptionalNullable.getFrom(tippingEnabled);
     }
 
     /**
@@ -184,16 +267,41 @@ public class InvoicePaymentRequest {
     }
 
     /**
+     * Internal Getter for CardId.
+     * The ID of the credit or debit card on file to charge for the payment request. To get the
+     * cards on file for a customer, call [ListCards]($e/Cards/ListCards) and include the
+     * `customer_id` of the invoice recipient.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCardId() {
+        return this.cardId;
+    }
+
+    /**
      * Getter for CardId.
      * The ID of the credit or debit card on file to charge for the payment request. To get the
      * cards on file for a customer, call [ListCards]($e/Cards/ListCards) and include the
      * `customer_id` of the invoice recipient.
      * @return Returns the String
      */
-    @JsonGetter("card_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCardId() {
-        return cardId;
+        return OptionalNullable.getFrom(cardId);
+    }
+
+    /**
+     * Internal Getter for Reminders.
+     * A list of one or more reminders to send for the payment request.
+     * @return Returns the Internal List of InvoicePaymentReminder
+     */
+    @JsonGetter("reminders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<InvoicePaymentReminder>> internalGetReminders() {
+        return this.reminders;
     }
 
     /**
@@ -201,10 +309,9 @@ public class InvoicePaymentRequest {
      * A list of one or more reminders to send for the payment request.
      * @return Returns the List of InvoicePaymentReminder
      */
-    @JsonGetter("reminders")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<InvoicePaymentReminder> getReminders() {
-        return reminders;
+        return OptionalNullable.getFrom(reminders);
     }
 
     /**
@@ -310,19 +417,19 @@ public class InvoicePaymentRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
                 .requestMethod(getRequestMethod())
                 .requestType(getRequestType())
-                .dueDate(getDueDate())
                 .fixedAmountRequestedMoney(getFixedAmountRequestedMoney())
-                .percentageRequested(getPercentageRequested())
-                .tippingEnabled(getTippingEnabled())
                 .automaticPaymentSource(getAutomaticPaymentSource())
-                .cardId(getCardId())
-                .reminders(getReminders())
                 .computedAmountMoney(getComputedAmountMoney())
                 .totalCompletedAmountMoney(getTotalCompletedAmountMoney())
                 .roundingAdjustmentIncludedMoney(getRoundingAdjustmentIncludedMoney());
+        builder.uid = internalGetUid();
+        builder.dueDate = internalGetDueDate();
+        builder.percentageRequested = internalGetPercentageRequested();
+        builder.tippingEnabled = internalGetTippingEnabled();
+        builder.cardId = internalGetCardId();
+        builder.reminders = internalGetReminders();
         return builder;
     }
 
@@ -330,16 +437,16 @@ public class InvoicePaymentRequest {
      * Class to build instances of {@link InvoicePaymentRequest}.
      */
     public static class Builder {
-        private String uid;
+        private OptionalNullable<String> uid;
         private String requestMethod;
         private String requestType;
-        private String dueDate;
+        private OptionalNullable<String> dueDate;
         private Money fixedAmountRequestedMoney;
-        private String percentageRequested;
-        private Boolean tippingEnabled;
+        private OptionalNullable<String> percentageRequested;
+        private OptionalNullable<Boolean> tippingEnabled;
         private String automaticPaymentSource;
-        private String cardId;
-        private List<InvoicePaymentReminder> reminders;
+        private OptionalNullable<String> cardId;
+        private OptionalNullable<List<InvoicePaymentReminder>> reminders;
         private Money computedAmountMoney;
         private Money totalCompletedAmountMoney;
         private Money roundingAdjustmentIncludedMoney;
@@ -352,7 +459,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -382,7 +498,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder dueDate(String dueDate) {
-            this.dueDate = dueDate;
+            this.dueDate = OptionalNullable.of(dueDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for dueDate.
+         * @return Builder
+         */
+        public Builder unsetDueDate() {
+            dueDate = null;
             return this;
         }
 
@@ -402,7 +527,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder percentageRequested(String percentageRequested) {
-            this.percentageRequested = percentageRequested;
+            this.percentageRequested = OptionalNullable.of(percentageRequested);
+            return this;
+        }
+
+        /**
+         * UnSetter for percentageRequested.
+         * @return Builder
+         */
+        public Builder unsetPercentageRequested() {
+            percentageRequested = null;
             return this;
         }
 
@@ -412,7 +546,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder tippingEnabled(Boolean tippingEnabled) {
-            this.tippingEnabled = tippingEnabled;
+            this.tippingEnabled = OptionalNullable.of(tippingEnabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for tippingEnabled.
+         * @return Builder
+         */
+        public Builder unsetTippingEnabled() {
+            tippingEnabled = null;
             return this;
         }
 
@@ -432,7 +575,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder cardId(String cardId) {
-            this.cardId = cardId;
+            this.cardId = OptionalNullable.of(cardId);
+            return this;
+        }
+
+        /**
+         * UnSetter for cardId.
+         * @return Builder
+         */
+        public Builder unsetCardId() {
+            cardId = null;
             return this;
         }
 
@@ -442,7 +594,16 @@ public class InvoicePaymentRequest {
          * @return Builder
          */
         public Builder reminders(List<InvoicePaymentReminder> reminders) {
-            this.reminders = reminders;
+            this.reminders = OptionalNullable.of(reminders);
+            return this;
+        }
+
+        /**
+         * UnSetter for reminders.
+         * @return Builder
+         */
+        public Builder unsetReminders() {
+            reminders = null;
             return this;
         }
 

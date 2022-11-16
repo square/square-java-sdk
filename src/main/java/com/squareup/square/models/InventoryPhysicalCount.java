@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,16 +16,16 @@ import java.util.Objects;
  */
 public class InventoryPhysicalCount {
     private final String id;
-    private final String referenceId;
-    private final String catalogObjectId;
-    private final String catalogObjectType;
+    private final OptionalNullable<String> referenceId;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<String> catalogObjectType;
     private final String state;
-    private final String locationId;
-    private final String quantity;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> quantity;
     private final SourceApplication source;
-    private final String employeeId;
-    private final String teamMemberId;
-    private final String occurredAt;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<String> teamMemberId;
+    private final OptionalNullable<String> occurredAt;
     private final String createdAt;
 
     /**
@@ -55,6 +58,29 @@ public class InventoryPhysicalCount {
             @JsonProperty("occurred_at") String occurredAt,
             @JsonProperty("created_at") String createdAt) {
         this.id = id;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+        this.state = state;
+        this.locationId = OptionalNullable.of(locationId);
+        this.quantity = OptionalNullable.of(quantity);
+        this.source = source;
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
+        this.occurredAt = OptionalNullable.of(occurredAt);
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InventoryPhysicalCount(String id, OptionalNullable<String> referenceId,
+            OptionalNullable<String> catalogObjectId, OptionalNullable<String> catalogObjectType,
+            String state, OptionalNullable<String> locationId, OptionalNullable<String> quantity,
+            SourceApplication source, OptionalNullable<String> employeeId,
+            OptionalNullable<String> teamMemberId, OptionalNullable<String> occurredAt,
+            String createdAt) {
+        this.id = id;
         this.referenceId = referenceId;
         this.catalogObjectId = catalogObjectId;
         this.catalogObjectType = catalogObjectType;
@@ -80,15 +106,39 @@ public class InventoryPhysicalCount {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * An optional ID provided by the application to tie the
+     * [InventoryPhysicalCount]($m/InventoryPhysicalCount) to an external system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * An optional ID provided by the application to tie the
      * [InventoryPhysicalCount]($m/InventoryPhysicalCount) to an external system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -96,10 +146,24 @@ public class InventoryPhysicalCount {
      * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectType.
+     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
+     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
+     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
+     * that is set by the Square Restaurants app.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectType() {
+        return this.catalogObjectType;
     }
 
     /**
@@ -110,10 +174,9 @@ public class InventoryPhysicalCount {
      * that is set by the Square Restaurants app.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectType() {
-        return catalogObjectType;
+        return OptionalNullable.getFrom(catalogObjectType);
     }
 
     /**
@@ -128,15 +191,40 @@ public class InventoryPhysicalCount {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
+     * being tracked.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
      * being tracked.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Quantity.
+     * The number of items affected by the physical count as a decimal string. The number can
+     * support up to 5 digits after the decimal point.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetQuantity() {
+        return this.quantity;
     }
 
     /**
@@ -145,10 +233,9 @@ public class InventoryPhysicalCount {
      * support up to 5 digits after the decimal point.
      * @return Returns the String
      */
-    @JsonGetter("quantity")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getQuantity() {
-        return quantity;
+        return OptionalNullable.getFrom(quantity);
     }
 
     /**
@@ -163,14 +250,38 @@ public class InventoryPhysicalCount {
     }
 
     /**
+     * Internal Getter for EmployeeId.
+     * The Square-generated ID of the [Employee]($m/Employee) responsible for the physical count.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
+    }
+
+    /**
      * Getter for EmployeeId.
      * The Square-generated ID of the [Employee]($m/Employee) responsible for the physical count.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for TeamMemberId.
+     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the physical
+     * count.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
     }
 
     /**
@@ -179,10 +290,23 @@ public class InventoryPhysicalCount {
      * count.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
+    }
+
+    /**
+     * Internal Getter for OccurredAt.
+     * A client-generated RFC 3339-formatted timestamp that indicates when the physical count was
+     * examined. For physical count updates, the `occurred_at` timestamp cannot be older than 24
+     * hours or in the future relative to the time of the request.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("occurred_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOccurredAt() {
+        return this.occurredAt;
     }
 
     /**
@@ -192,10 +316,9 @@ public class InventoryPhysicalCount {
      * hours or in the future relative to the time of the request.
      * @return Returns the String
      */
-    @JsonGetter("occurred_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOccurredAt() {
-        return occurredAt;
+        return OptionalNullable.getFrom(occurredAt);
     }
 
     /**
@@ -260,17 +383,17 @@ public class InventoryPhysicalCount {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .referenceId(getReferenceId())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogObjectType(getCatalogObjectType())
                 .state(getState())
-                .locationId(getLocationId())
-                .quantity(getQuantity())
                 .source(getSource())
-                .employeeId(getEmployeeId())
-                .teamMemberId(getTeamMemberId())
-                .occurredAt(getOccurredAt())
                 .createdAt(getCreatedAt());
+        builder.referenceId = internalGetReferenceId();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogObjectType = internalGetCatalogObjectType();
+        builder.locationId = internalGetLocationId();
+        builder.quantity = internalGetQuantity();
+        builder.employeeId = internalGetEmployeeId();
+        builder.teamMemberId = internalGetTeamMemberId();
+        builder.occurredAt = internalGetOccurredAt();
         return builder;
     }
 
@@ -279,16 +402,16 @@ public class InventoryPhysicalCount {
      */
     public static class Builder {
         private String id;
-        private String referenceId;
-        private String catalogObjectId;
-        private String catalogObjectType;
+        private OptionalNullable<String> referenceId;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<String> catalogObjectType;
         private String state;
-        private String locationId;
-        private String quantity;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> quantity;
         private SourceApplication source;
-        private String employeeId;
-        private String teamMemberId;
-        private String occurredAt;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<String> teamMemberId;
+        private OptionalNullable<String> occurredAt;
         private String createdAt;
 
 
@@ -309,7 +432,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -319,7 +451,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -329,7 +470,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder catalogObjectType(String catalogObjectType) {
-            this.catalogObjectType = catalogObjectType;
+            this.catalogObjectType = OptionalNullable.of(catalogObjectType);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectType.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectType() {
+            catalogObjectType = null;
             return this;
         }
 
@@ -349,7 +499,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -359,7 +518,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder quantity(String quantity) {
-            this.quantity = quantity;
+            this.quantity = OptionalNullable.of(quantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for quantity.
+         * @return Builder
+         */
+        public Builder unsetQuantity() {
+            quantity = null;
             return this;
         }
 
@@ -379,7 +547,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -389,7 +566,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 
@@ -399,7 +585,16 @@ public class InventoryPhysicalCount {
          * @return Builder
          */
         public Builder occurredAt(String occurredAt) {
-            this.occurredAt = occurredAt;
+            this.occurredAt = OptionalNullable.of(occurredAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for occurredAt.
+         * @return Builder
+         */
+        public Builder unsetOccurredAt() {
+            occurredAt = null;
             return this;
         }
 

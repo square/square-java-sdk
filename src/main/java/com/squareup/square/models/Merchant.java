@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,12 +16,12 @@ import java.util.Objects;
  */
 public class Merchant {
     private final String id;
-    private final String businessName;
+    private final OptionalNullable<String> businessName;
     private final String country;
-    private final String languageCode;
+    private final OptionalNullable<String> languageCode;
     private final String currency;
     private final String status;
-    private final String mainLocationId;
+    private final OptionalNullable<String> mainLocationId;
     private final String createdAt;
 
     /**
@@ -43,6 +46,22 @@ public class Merchant {
             @JsonProperty("main_location_id") String mainLocationId,
             @JsonProperty("created_at") String createdAt) {
         this.id = id;
+        this.businessName = OptionalNullable.of(businessName);
+        this.country = country;
+        this.languageCode = OptionalNullable.of(languageCode);
+        this.currency = currency;
+        this.status = status;
+        this.mainLocationId = OptionalNullable.of(mainLocationId);
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Merchant(String country, String id, OptionalNullable<String> businessName,
+            OptionalNullable<String> languageCode, String currency, String status,
+            OptionalNullable<String> mainLocationId, String createdAt) {
+        this.id = id;
         this.businessName = businessName;
         this.country = country;
         this.languageCode = languageCode;
@@ -64,14 +83,25 @@ public class Merchant {
     }
 
     /**
+     * Internal Getter for BusinessName.
+     * The name of the merchant's overall business.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("business_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBusinessName() {
+        return this.businessName;
+    }
+
+    /**
      * Getter for BusinessName.
      * The name of the merchant's overall business.
      * @return Returns the String
      */
-    @JsonGetter("business_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBusinessName() {
-        return businessName;
+        return OptionalNullable.getFrom(businessName);
     }
 
     /**
@@ -86,6 +116,21 @@ public class Merchant {
     }
 
     /**
+     * Internal Getter for LanguageCode.
+     * The code indicating the [language
+     * preferences](https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences)
+     * of the merchant, in [BCP 47 format](https://tools.ietf.org/html/bcp47#appendix-A). For
+     * example, `en-US` or `fr-CA`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLanguageCode() {
+        return this.languageCode;
+    }
+
+    /**
      * Getter for LanguageCode.
      * The code indicating the [language
      * preferences](https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences)
@@ -93,10 +138,9 @@ public class Merchant {
      * example, `en-US` or `fr-CA`.
      * @return Returns the String
      */
-    @JsonGetter("language_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLanguageCode() {
-        return languageCode;
+        return OptionalNullable.getFrom(languageCode);
     }
 
     /**
@@ -122,16 +166,29 @@ public class Merchant {
     }
 
     /**
+     * Internal Getter for MainLocationId.
+     * The ID of the [main
+     * `Location`](https://developer.squareup.com/docs/locations-api#about-the-main-location) for
+     * this merchant.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("main_location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMainLocationId() {
+        return this.mainLocationId;
+    }
+
+    /**
      * Getter for MainLocationId.
      * The ID of the [main
      * `Location`](https://developer.squareup.com/docs/locations-api#about-the-main-location) for
      * this merchant.
      * @return Returns the String
      */
-    @JsonGetter("main_location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMainLocationId() {
-        return mainLocationId;
+        return OptionalNullable.getFrom(mainLocationId);
     }
 
     /**
@@ -190,12 +247,12 @@ public class Merchant {
     public Builder toBuilder() {
         Builder builder = new Builder(country)
                 .id(getId())
-                .businessName(getBusinessName())
-                .languageCode(getLanguageCode())
                 .currency(getCurrency())
                 .status(getStatus())
-                .mainLocationId(getMainLocationId())
                 .createdAt(getCreatedAt());
+        builder.businessName = internalGetBusinessName();
+        builder.languageCode = internalGetLanguageCode();
+        builder.mainLocationId = internalGetMainLocationId();
         return builder;
     }
 
@@ -205,11 +262,11 @@ public class Merchant {
     public static class Builder {
         private String country;
         private String id;
-        private String businessName;
-        private String languageCode;
+        private OptionalNullable<String> businessName;
+        private OptionalNullable<String> languageCode;
         private String currency;
         private String status;
-        private String mainLocationId;
+        private OptionalNullable<String> mainLocationId;
         private String createdAt;
 
         /**
@@ -246,7 +303,16 @@ public class Merchant {
          * @return Builder
          */
         public Builder businessName(String businessName) {
-            this.businessName = businessName;
+            this.businessName = OptionalNullable.of(businessName);
+            return this;
+        }
+
+        /**
+         * UnSetter for businessName.
+         * @return Builder
+         */
+        public Builder unsetBusinessName() {
+            businessName = null;
             return this;
         }
 
@@ -256,7 +322,16 @@ public class Merchant {
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
-            this.languageCode = languageCode;
+            this.languageCode = OptionalNullable.of(languageCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for languageCode.
+         * @return Builder
+         */
+        public Builder unsetLanguageCode() {
+            languageCode = null;
             return this;
         }
 
@@ -286,7 +361,16 @@ public class Merchant {
          * @return Builder
          */
         public Builder mainLocationId(String mainLocationId) {
-            this.mainLocationId = mainLocationId;
+            this.mainLocationId = OptionalNullable.of(mainLocationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for mainLocationId.
+         * @return Builder
+         */
+        public Builder unsetMainLocationId() {
+            mainLocationId = null;
             return this;
         }
 

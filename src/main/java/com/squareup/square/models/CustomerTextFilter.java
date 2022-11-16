@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CustomerTextFilter type.
  */
 public class CustomerTextFilter {
-    private final String exact;
-    private final String fuzzy;
+    private final OptionalNullable<String> exact;
+    private final OptionalNullable<String> fuzzy;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,28 @@ public class CustomerTextFilter {
     public CustomerTextFilter(
             @JsonProperty("exact") String exact,
             @JsonProperty("fuzzy") String fuzzy) {
+        this.exact = OptionalNullable.of(exact);
+        this.fuzzy = OptionalNullable.of(fuzzy);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomerTextFilter(OptionalNullable<String> exact, OptionalNullable<String> fuzzy) {
         this.exact = exact;
         this.fuzzy = fuzzy;
+    }
+
+    /**
+     * Internal Getter for Exact.
+     * Use the exact filter to select customers whose attributes match exactly the specified query.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("exact")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetExact() {
+        return this.exact;
     }
 
     /**
@@ -33,10 +56,24 @@ public class CustomerTextFilter {
      * Use the exact filter to select customers whose attributes match exactly the specified query.
      * @return Returns the String
      */
-    @JsonGetter("exact")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getExact() {
-        return exact;
+        return OptionalNullable.getFrom(exact);
+    }
+
+    /**
+     * Internal Getter for Fuzzy.
+     * Use the fuzzy filter to select customers whose attributes match the specified query in a
+     * fuzzy manner. When the fuzzy option is used, search queries are tokenized, and then each
+     * query token must be matched somewhere in the searched attribute. For single token queries,
+     * this is effectively the same behavior as a partial match operation.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fuzzy")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFuzzy() {
+        return this.fuzzy;
     }
 
     /**
@@ -47,10 +84,9 @@ public class CustomerTextFilter {
      * this is effectively the same behavior as a partial match operation.
      * @return Returns the String
      */
-    @JsonGetter("fuzzy")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFuzzy() {
-        return fuzzy;
+        return OptionalNullable.getFrom(fuzzy);
     }
 
     @Override
@@ -86,9 +122,9 @@ public class CustomerTextFilter {
      * @return a new {@link CustomerTextFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .exact(getExact())
-                .fuzzy(getFuzzy());
+        Builder builder = new Builder();
+        builder.exact = internalGetExact();
+        builder.fuzzy = internalGetFuzzy();
         return builder;
     }
 
@@ -96,8 +132,8 @@ public class CustomerTextFilter {
      * Class to build instances of {@link CustomerTextFilter}.
      */
     public static class Builder {
-        private String exact;
-        private String fuzzy;
+        private OptionalNullable<String> exact;
+        private OptionalNullable<String> fuzzy;
 
 
 
@@ -107,7 +143,16 @@ public class CustomerTextFilter {
          * @return Builder
          */
         public Builder exact(String exact) {
-            this.exact = exact;
+            this.exact = OptionalNullable.of(exact);
+            return this;
+        }
+
+        /**
+         * UnSetter for exact.
+         * @return Builder
+         */
+        public Builder unsetExact() {
+            exact = null;
             return this;
         }
 
@@ -117,7 +162,16 @@ public class CustomerTextFilter {
          * @return Builder
          */
         public Builder fuzzy(String fuzzy) {
-            this.fuzzy = fuzzy;
+            this.fuzzy = OptionalNullable.of(fuzzy);
+            return this;
+        }
+
+        /**
+         * UnSetter for fuzzy.
+         * @return Builder
+         */
+        public Builder unsetFuzzy() {
+            fuzzy = null;
             return this;
         }
 

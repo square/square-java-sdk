@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,13 +16,13 @@ import java.util.Objects;
  * This is a model class for OrderLineItemTax type.
  */
 public class OrderLineItemTax {
-    private final String uid;
-    private final String catalogObjectId;
-    private final Long catalogVersion;
-    private final String name;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<Long> catalogVersion;
+    private final OptionalNullable<String> name;
     private final String type;
-    private final String percentage;
-    private final Map<String, String> metadata;
+    private final OptionalNullable<String> percentage;
+    private final OptionalNullable<Map<String, String>> metadata;
     private final Money appliedMoney;
     private final String scope;
     private final Boolean autoApplied;
@@ -49,6 +52,26 @@ public class OrderLineItemTax {
             @JsonProperty("applied_money") Money appliedMoney,
             @JsonProperty("scope") String scope,
             @JsonProperty("auto_applied") Boolean autoApplied) {
+        this.uid = OptionalNullable.of(uid);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+        this.name = OptionalNullable.of(name);
+        this.type = type;
+        this.percentage = OptionalNullable.of(percentage);
+        this.metadata = OptionalNullable.of(metadata);
+        this.appliedMoney = appliedMoney;
+        this.scope = scope;
+        this.autoApplied = autoApplied;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderLineItemTax(OptionalNullable<String> uid,
+            OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,
+            OptionalNullable<String> name, String type, OptionalNullable<String> percentage,
+            OptionalNullable<Map<String, String>> metadata, Money appliedMoney, String scope,
+            Boolean autoApplied) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
         this.catalogVersion = catalogVersion;
@@ -62,14 +85,37 @@ public class OrderLineItemTax {
     }
 
     /**
+     * Internal Getter for Uid.
+     * A unique ID that identifies the tax only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * A unique ID that identifies the tax only within this order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The catalog object ID referencing [CatalogTax]($m/CatalogTax).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -77,10 +123,21 @@ public class OrderLineItemTax {
      * The catalog object ID referencing [CatalogTax]($m/CatalogTax).
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The version of the catalog object that this tax references.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -88,10 +145,21 @@ public class OrderLineItemTax {
      * The version of the catalog object that this tax references.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The tax's name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -99,10 +167,9 @@ public class OrderLineItemTax {
      * The tax's name.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -117,15 +184,49 @@ public class OrderLineItemTax {
     }
 
     /**
+     * Internal Getter for Percentage.
+     * The percentage of the tax, as a string representation of a decimal number. For example, a
+     * value of `"7.25"` corresponds to a percentage of 7.25%.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPercentage() {
+        return this.percentage;
+    }
+
+    /**
      * Getter for Percentage.
      * The percentage of the tax, as a string representation of a decimal number. For example, a
      * value of `"7.25"` corresponds to a percentage of 7.25%.
      * @return Returns the String
      */
-    @JsonGetter("percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPercentage() {
-        return percentage;
+        return OptionalNullable.getFrom(percentage);
+    }
+
+    /**
+     * Internal Getter for Metadata.
+     * Application-defined data attached to this tax. Metadata fields are intended to store
+     * descriptive references or associations with an entity in another system or store brief
+     * information about the object. Square does not process this field; it only stores and returns
+     * it in relevant API calls. Do not use metadata to store any sensitive information (such as
+     * personally identifiable information or card details). Keys written by applications must be 60
+     * characters or less and must be in the character set `[a-zA-Z0-9_-]`. Entries can also include
+     * metadata generated by Square. These keys are prefixed with a namespace, separated from the
+     * key with a ':' character. Values have a maximum length of 255 characters. An application can
+     * have up to 10 entries per metadata field. Entries written by applications are private and can
+     * only be read or modified by the same application. For more information, see
+     * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
+     * @return Returns the Internal Map of String, String
+     */
+    @JsonGetter("metadata")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Map<String, String>> internalGetMetadata() {
+        return this.metadata;
     }
 
     /**
@@ -143,10 +244,9 @@ public class OrderLineItemTax {
      * [Metadata](https://developer.squareup.com/docs/build-basics/metadata).
      * @return Returns the Map of String, String
      */
-    @JsonGetter("metadata")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Map<String, String> getMetadata() {
-        return metadata;
+        return OptionalNullable.getFrom(metadata);
     }
 
     /**
@@ -235,16 +335,16 @@ public class OrderLineItemTax {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .uid(getUid())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogVersion(getCatalogVersion())
-                .name(getName())
                 .type(getType())
-                .percentage(getPercentage())
-                .metadata(getMetadata())
                 .appliedMoney(getAppliedMoney())
                 .scope(getScope())
                 .autoApplied(getAutoApplied());
+        builder.uid = internalGetUid();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogVersion = internalGetCatalogVersion();
+        builder.name = internalGetName();
+        builder.percentage = internalGetPercentage();
+        builder.metadata = internalGetMetadata();
         return builder;
     }
 
@@ -252,13 +352,13 @@ public class OrderLineItemTax {
      * Class to build instances of {@link OrderLineItemTax}.
      */
     public static class Builder {
-        private String uid;
-        private String catalogObjectId;
-        private Long catalogVersion;
-        private String name;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<Long> catalogVersion;
+        private OptionalNullable<String> name;
         private String type;
-        private String percentage;
-        private Map<String, String> metadata;
+        private OptionalNullable<String> percentage;
+        private OptionalNullable<Map<String, String>> metadata;
         private Money appliedMoney;
         private String scope;
         private Boolean autoApplied;
@@ -271,7 +371,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -281,7 +390,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -291,7 +409,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 
@@ -301,7 +428,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -321,7 +457,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder percentage(String percentage) {
-            this.percentage = percentage;
+            this.percentage = OptionalNullable.of(percentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for percentage.
+         * @return Builder
+         */
+        public Builder unsetPercentage() {
+            percentage = null;
             return this;
         }
 
@@ -331,7 +476,16 @@ public class OrderLineItemTax {
          * @return Builder
          */
         public Builder metadata(Map<String, String> metadata) {
-            this.metadata = metadata;
+            this.metadata = OptionalNullable.of(metadata);
+            return this;
+        }
+
+        /**
+         * UnSetter for metadata.
+         * @return Builder
+         */
+        public Builder unsetMetadata() {
+            metadata = null;
             return this;
         }
 

@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListEmployeeWagesRequest type.
  */
 public class ListEmployeeWagesRequest {
-    private final String employeeId;
-    private final Integer limit;
-    private final String cursor;
+    private final OptionalNullable<String> employeeId;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,31 @@ public class ListEmployeeWagesRequest {
             @JsonProperty("employee_id") String employeeId,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor) {
+        this.employeeId = OptionalNullable.of(employeeId);
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListEmployeeWagesRequest(OptionalNullable<String> employeeId,
+            OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.employeeId = employeeId;
         this.limit = limit;
         this.cursor = cursor;
+    }
+
+    /**
+     * Internal Getter for EmployeeId.
+     * Filter the returned wages to only those that are associated with the specified employee.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmployeeId() {
+        return this.employeeId;
     }
 
     /**
@@ -37,10 +62,22 @@ public class ListEmployeeWagesRequest {
      * Filter the returned wages to only those that are associated with the specified employee.
      * @return Returns the String
      */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmployeeId() {
-        return employeeId;
+        return OptionalNullable.getFrom(employeeId);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of `EmployeeWage` results to return per page. The number can range between
+     * 1 and 200. The default is 200.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -49,10 +86,21 @@ public class ListEmployeeWagesRequest {
      * 1 and 200. The default is 200.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pointer to the next page of `EmployeeWage` results to fetch.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -60,10 +108,9 @@ public class ListEmployeeWagesRequest {
      * A pointer to the next page of `EmployeeWage` results to fetch.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -101,10 +148,10 @@ public class ListEmployeeWagesRequest {
      * @return a new {@link ListEmployeeWagesRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .employeeId(getEmployeeId())
-                .limit(getLimit())
-                .cursor(getCursor());
+        Builder builder = new Builder();
+        builder.employeeId = internalGetEmployeeId();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -112,9 +159,9 @@ public class ListEmployeeWagesRequest {
      * Class to build instances of {@link ListEmployeeWagesRequest}.
      */
     public static class Builder {
-        private String employeeId;
-        private Integer limit;
-        private String cursor;
+        private OptionalNullable<String> employeeId;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
 
 
 
@@ -124,7 +171,16 @@ public class ListEmployeeWagesRequest {
          * @return Builder
          */
         public Builder employeeId(String employeeId) {
-            this.employeeId = employeeId;
+            this.employeeId = OptionalNullable.of(employeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeId.
+         * @return Builder
+         */
+        public Builder unsetEmployeeId() {
+            employeeId = null;
             return this;
         }
 
@@ -134,7 +190,16 @@ public class ListEmployeeWagesRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -144,7 +209,16 @@ public class ListEmployeeWagesRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

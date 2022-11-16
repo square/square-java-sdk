@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class Break {
     private final String id;
     private final String startAt;
-    private final String endAt;
+    private final OptionalNullable<String> endAt;
     private final String breakTypeId;
     private final String name;
     private final String expectedDuration;
@@ -39,6 +42,20 @@ public class Break {
             @JsonProperty("is_paid") boolean isPaid,
             @JsonProperty("id") String id,
             @JsonProperty("end_at") String endAt) {
+        this.id = id;
+        this.startAt = startAt;
+        this.endAt = OptionalNullable.of(endAt);
+        this.breakTypeId = breakTypeId;
+        this.name = name;
+        this.expectedDuration = expectedDuration;
+        this.isPaid = isPaid;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Break(String startAt, String breakTypeId, String name, String expectedDuration,
+            boolean isPaid, String id, OptionalNullable<String> endAt) {
         this.id = id;
         this.startAt = startAt;
         this.endAt = endAt;
@@ -71,15 +88,27 @@ public class Break {
     }
 
     /**
+     * Internal Getter for EndAt.
+     * RFC 3339; follows the same timezone information as `Shift`. Precision up to the minute is
+     * respected; seconds are truncated.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndAt() {
+        return this.endAt;
+    }
+
+    /**
      * Getter for EndAt.
      * RFC 3339; follows the same timezone information as `Shift`. Precision up to the minute is
      * respected; seconds are truncated.
      * @return Returns the String
      */
-    @JsonGetter("end_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndAt() {
-        return endAt;
+        return OptionalNullable.getFrom(endAt);
     }
 
     /**
@@ -163,8 +192,8 @@ public class Break {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(startAt, breakTypeId, name, expectedDuration, isPaid)
-                .id(getId())
-                .endAt(getEndAt());
+                .id(getId());
+        builder.endAt = internalGetEndAt();
         return builder;
     }
 
@@ -178,7 +207,7 @@ public class Break {
         private String expectedDuration;
         private boolean isPaid;
         private String id;
-        private String endAt;
+        private OptionalNullable<String> endAt;
 
         /**
          * Initialization constructor.
@@ -263,7 +292,16 @@ public class Break {
          * @return Builder
          */
         public Builder endAt(String endAt) {
-            this.endAt = endAt;
+            this.endAt = OptionalNullable.of(endAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for endAt.
+         * @return Builder
+         */
+        public Builder unsetEndAt() {
+            endAt = null;
             return this;
         }
 

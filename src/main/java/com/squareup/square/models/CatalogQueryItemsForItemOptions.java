@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for CatalogQueryItemsForItemOptions type.
  */
 public class CatalogQueryItemsForItemOptions {
-    private final List<String> itemOptionIds;
+    private final OptionalNullable<List<String>> itemOptionIds;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,27 @@ public class CatalogQueryItemsForItemOptions {
     @JsonCreator
     public CatalogQueryItemsForItemOptions(
             @JsonProperty("item_option_ids") List<String> itemOptionIds) {
+        this.itemOptionIds = OptionalNullable.of(itemOptionIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQueryItemsForItemOptions(OptionalNullable<List<String>> itemOptionIds) {
         this.itemOptionIds = itemOptionIds;
+    }
+
+    /**
+     * Internal Getter for ItemOptionIds.
+     * A set of `CatalogItemOption` IDs to be used to find associated `CatalogItem`s. All Items that
+     * contain all of the given Item Options (in any order) will be returned.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("item_option_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetItemOptionIds() {
+        return this.itemOptionIds;
     }
 
     /**
@@ -31,10 +54,9 @@ public class CatalogQueryItemsForItemOptions {
      * contain all of the given Item Options (in any order) will be returned.
      * @return Returns the List of String
      */
-    @JsonGetter("item_option_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getItemOptionIds() {
-        return itemOptionIds;
+        return OptionalNullable.getFrom(itemOptionIds);
     }
 
     @Override
@@ -69,8 +91,8 @@ public class CatalogQueryItemsForItemOptions {
      * @return a new {@link CatalogQueryItemsForItemOptions.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .itemOptionIds(getItemOptionIds());
+        Builder builder = new Builder();
+        builder.itemOptionIds = internalGetItemOptionIds();
         return builder;
     }
 
@@ -78,7 +100,7 @@ public class CatalogQueryItemsForItemOptions {
      * Class to build instances of {@link CatalogQueryItemsForItemOptions}.
      */
     public static class Builder {
-        private List<String> itemOptionIds;
+        private OptionalNullable<List<String>> itemOptionIds;
 
 
 
@@ -88,7 +110,16 @@ public class CatalogQueryItemsForItemOptions {
          * @return Builder
          */
         public Builder itemOptionIds(List<String> itemOptionIds) {
-            this.itemOptionIds = itemOptionIds;
+            this.itemOptionIds = OptionalNullable.of(itemOptionIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemOptionIds.
+         * @return Builder
+         */
+        public Builder unsetItemOptionIds() {
+            itemOptionIds = null;
             return this;
         }
 

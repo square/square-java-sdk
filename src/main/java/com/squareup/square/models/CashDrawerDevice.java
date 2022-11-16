@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class CashDrawerDevice {
     private final String id;
-    private final String name;
+    private final OptionalNullable<String> name;
 
     /**
      * Initialization constructor.
@@ -24,6 +27,14 @@ public class CashDrawerDevice {
     public CashDrawerDevice(
             @JsonProperty("id") String id,
             @JsonProperty("name") String name) {
+        this.id = id;
+        this.name = OptionalNullable.of(name);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CashDrawerDevice(String id, OptionalNullable<String> name) {
         this.id = id;
         this.name = name;
     }
@@ -40,14 +51,25 @@ public class CashDrawerDevice {
     }
 
     /**
+     * Internal Getter for Name.
+     * The device merchant-specified name.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The device merchant-specified name.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     @Override
@@ -84,8 +106,8 @@ public class CashDrawerDevice {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .id(getId())
-                .name(getName());
+                .id(getId());
+        builder.name = internalGetName();
         return builder;
     }
 
@@ -94,7 +116,7 @@ public class CashDrawerDevice {
      */
     public static class Builder {
         private String id;
-        private String name;
+        private OptionalNullable<String> name;
 
 
 
@@ -114,7 +136,16 @@ public class CashDrawerDevice {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 

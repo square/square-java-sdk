@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class TerminalAction {
     private final String id;
-    private final String deviceId;
-    private final String deadlineDuration;
+    private final OptionalNullable<String> deviceId;
+    private final OptionalNullable<String> deadlineDuration;
     private final String status;
     private final String cancelReason;
     private final String createdAt;
@@ -22,6 +25,7 @@ public class TerminalAction {
     private final String appId;
     private final String type;
     private final SaveCardOptions saveCardOptions;
+    private final ReceiptOptions receiptOptions;
     private final DeviceMetadata deviceMetadata;
 
     /**
@@ -36,6 +40,7 @@ public class TerminalAction {
      * @param  appId  String value for appId.
      * @param  type  String value for type.
      * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
+     * @param  receiptOptions  ReceiptOptions value for receiptOptions.
      * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
      */
     @JsonCreator
@@ -50,7 +55,30 @@ public class TerminalAction {
             @JsonProperty("app_id") String appId,
             @JsonProperty("type") String type,
             @JsonProperty("save_card_options") SaveCardOptions saveCardOptions,
+            @JsonProperty("receipt_options") ReceiptOptions receiptOptions,
             @JsonProperty("device_metadata") DeviceMetadata deviceMetadata) {
+        this.id = id;
+        this.deviceId = OptionalNullable.of(deviceId);
+        this.deadlineDuration = OptionalNullable.of(deadlineDuration);
+        this.status = status;
+        this.cancelReason = cancelReason;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.appId = appId;
+        this.type = type;
+        this.saveCardOptions = saveCardOptions;
+        this.receiptOptions = receiptOptions;
+        this.deviceMetadata = deviceMetadata;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TerminalAction(String id, OptionalNullable<String> deviceId,
+            OptionalNullable<String> deadlineDuration, String status, String cancelReason,
+            String createdAt, String updatedAt, String appId, String type,
+            SaveCardOptions saveCardOptions, ReceiptOptions receiptOptions,
+            DeviceMetadata deviceMetadata) {
         this.id = id;
         this.deviceId = deviceId;
         this.deadlineDuration = deadlineDuration;
@@ -61,6 +89,7 @@ public class TerminalAction {
         this.appId = appId;
         this.type = type;
         this.saveCardOptions = saveCardOptions;
+        this.receiptOptions = receiptOptions;
         this.deviceMetadata = deviceMetadata;
     }
 
@@ -76,15 +105,41 @@ public class TerminalAction {
     }
 
     /**
+     * Internal Getter for DeviceId.
+     * The unique Id of the device intended for this `TerminalAction`. The Id can be retrieved from
+     * /v2/devices api.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceId() {
+        return this.deviceId;
+    }
+
+    /**
      * Getter for DeviceId.
      * The unique Id of the device intended for this `TerminalAction`. The Id can be retrieved from
      * /v2/devices api.
      * @return Returns the String
      */
-    @JsonGetter("device_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceId() {
-        return deviceId;
+        return OptionalNullable.getFrom(deviceId);
+    }
+
+    /**
+     * Internal Getter for DeadlineDuration.
+     * The duration as an RFC 3339 duration, after which the action will be automatically canceled.
+     * TerminalActions that are `PENDING` will be automatically `CANCELED` and have a cancellation
+     * reason of `TIMED_OUT` Default: 5 minutes from creation Maximum: 5 minutes
+     * @return Returns the Internal String
+     */
+    @JsonGetter("deadline_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeadlineDuration() {
+        return this.deadlineDuration;
     }
 
     /**
@@ -94,10 +149,9 @@ public class TerminalAction {
      * reason of `TIMED_OUT` Default: 5 minutes from creation Maximum: 5 minutes
      * @return Returns the String
      */
-    @JsonGetter("deadline_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeadlineDuration() {
-        return deadlineDuration;
+        return OptionalNullable.getFrom(deadlineDuration);
     }
 
     /**
@@ -179,6 +233,17 @@ public class TerminalAction {
     }
 
     /**
+     * Getter for ReceiptOptions.
+     * Describes receipt action fields.
+     * @return Returns the ReceiptOptions
+     */
+    @JsonGetter("receipt_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ReceiptOptions getReceiptOptions() {
+        return receiptOptions;
+    }
+
+    /**
      * Getter for DeviceMetadata.
      * @return Returns the DeviceMetadata
      */
@@ -191,7 +256,7 @@ public class TerminalAction {
     @Override
     public int hashCode() {
         return Objects.hash(id, deviceId, deadlineDuration, status, cancelReason, createdAt,
-                updatedAt, appId, type, saveCardOptions, deviceMetadata);
+                updatedAt, appId, type, saveCardOptions, receiptOptions, deviceMetadata);
     }
 
     @Override
@@ -213,6 +278,7 @@ public class TerminalAction {
             && Objects.equals(appId, other.appId)
             && Objects.equals(type, other.type)
             && Objects.equals(saveCardOptions, other.saveCardOptions)
+            && Objects.equals(receiptOptions, other.receiptOptions)
             && Objects.equals(deviceMetadata, other.deviceMetadata);
     }
 
@@ -225,8 +291,8 @@ public class TerminalAction {
         return "TerminalAction [" + "id=" + id + ", deviceId=" + deviceId + ", deadlineDuration="
                 + deadlineDuration + ", status=" + status + ", cancelReason=" + cancelReason
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId
-                + ", type=" + type + ", saveCardOptions=" + saveCardOptions + ", deviceMetadata="
-                + deviceMetadata + "]";
+                + ", type=" + type + ", saveCardOptions=" + saveCardOptions + ", receiptOptions="
+                + receiptOptions + ", deviceMetadata=" + deviceMetadata + "]";
     }
 
     /**
@@ -237,8 +303,6 @@ public class TerminalAction {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .deviceId(getDeviceId())
-                .deadlineDuration(getDeadlineDuration())
                 .status(getStatus())
                 .cancelReason(getCancelReason())
                 .createdAt(getCreatedAt())
@@ -246,7 +310,10 @@ public class TerminalAction {
                 .appId(getAppId())
                 .type(getType())
                 .saveCardOptions(getSaveCardOptions())
+                .receiptOptions(getReceiptOptions())
                 .deviceMetadata(getDeviceMetadata());
+        builder.deviceId = internalGetDeviceId();
+        builder.deadlineDuration = internalGetDeadlineDuration();
         return builder;
     }
 
@@ -255,8 +322,8 @@ public class TerminalAction {
      */
     public static class Builder {
         private String id;
-        private String deviceId;
-        private String deadlineDuration;
+        private OptionalNullable<String> deviceId;
+        private OptionalNullable<String> deadlineDuration;
         private String status;
         private String cancelReason;
         private String createdAt;
@@ -264,6 +331,7 @@ public class TerminalAction {
         private String appId;
         private String type;
         private SaveCardOptions saveCardOptions;
+        private ReceiptOptions receiptOptions;
         private DeviceMetadata deviceMetadata;
 
 
@@ -284,7 +352,16 @@ public class TerminalAction {
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
-            this.deviceId = deviceId;
+            this.deviceId = OptionalNullable.of(deviceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceId.
+         * @return Builder
+         */
+        public Builder unsetDeviceId() {
+            deviceId = null;
             return this;
         }
 
@@ -294,7 +371,16 @@ public class TerminalAction {
          * @return Builder
          */
         public Builder deadlineDuration(String deadlineDuration) {
-            this.deadlineDuration = deadlineDuration;
+            this.deadlineDuration = OptionalNullable.of(deadlineDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for deadlineDuration.
+         * @return Builder
+         */
+        public Builder unsetDeadlineDuration() {
+            deadlineDuration = null;
             return this;
         }
 
@@ -369,6 +455,16 @@ public class TerminalAction {
         }
 
         /**
+         * Setter for receiptOptions.
+         * @param  receiptOptions  ReceiptOptions value for receiptOptions.
+         * @return Builder
+         */
+        public Builder receiptOptions(ReceiptOptions receiptOptions) {
+            this.receiptOptions = receiptOptions;
+            return this;
+        }
+
+        /**
          * Setter for deviceMetadata.
          * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
          * @return Builder
@@ -384,7 +480,8 @@ public class TerminalAction {
          */
         public TerminalAction build() {
             return new TerminalAction(id, deviceId, deadlineDuration, status, cancelReason,
-                    createdAt, updatedAt, appId, type, saveCardOptions, deviceMetadata);
+                    createdAt, updatedAt, appId, type, saveCardOptions, receiptOptions,
+                    deviceMetadata);
         }
     }
 }

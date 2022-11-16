@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class CatalogQuickAmountsSettings {
     private final String option;
-    private final Boolean eligibleForAutoAmounts;
-    private final List<CatalogQuickAmount> amounts;
+    private final OptionalNullable<Boolean> eligibleForAutoAmounts;
+    private final OptionalNullable<List<CatalogQuickAmount>> amounts;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,17 @@ public class CatalogQuickAmountsSettings {
             @JsonProperty("option") String option,
             @JsonProperty("eligible_for_auto_amounts") Boolean eligibleForAutoAmounts,
             @JsonProperty("amounts") List<CatalogQuickAmount> amounts) {
+        this.option = option;
+        this.eligibleForAutoAmounts = OptionalNullable.of(eligibleForAutoAmounts);
+        this.amounts = OptionalNullable.of(amounts);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQuickAmountsSettings(String option,
+            OptionalNullable<Boolean> eligibleForAutoAmounts,
+            OptionalNullable<List<CatalogQuickAmount>> amounts) {
         this.option = option;
         this.eligibleForAutoAmounts = eligibleForAutoAmounts;
         this.amounts = amounts;
@@ -44,15 +58,39 @@ public class CatalogQuickAmountsSettings {
     }
 
     /**
+     * Internal Getter for EligibleForAutoAmounts.
+     * Represents location's eligibility for auto amounts The boolean should be consistent with
+     * whether there are AUTO amounts in the `amounts`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("eligible_for_auto_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEligibleForAutoAmounts() {
+        return this.eligibleForAutoAmounts;
+    }
+
+    /**
      * Getter for EligibleForAutoAmounts.
      * Represents location's eligibility for auto amounts The boolean should be consistent with
      * whether there are AUTO amounts in the `amounts`.
      * @return Returns the Boolean
      */
-    @JsonGetter("eligible_for_auto_amounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getEligibleForAutoAmounts() {
-        return eligibleForAutoAmounts;
+        return OptionalNullable.getFrom(eligibleForAutoAmounts);
+    }
+
+    /**
+     * Internal Getter for Amounts.
+     * Represents a set of Quick Amounts at this location.
+     * @return Returns the Internal List of CatalogQuickAmount
+     */
+    @JsonGetter("amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogQuickAmount>> internalGetAmounts() {
+        return this.amounts;
     }
 
     /**
@@ -60,10 +98,9 @@ public class CatalogQuickAmountsSettings {
      * Represents a set of Quick Amounts at this location.
      * @return Returns the List of CatalogQuickAmount
      */
-    @JsonGetter("amounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogQuickAmount> getAmounts() {
-        return amounts;
+        return OptionalNullable.getFrom(amounts);
     }
 
     @Override
@@ -101,9 +138,9 @@ public class CatalogQuickAmountsSettings {
      * @return a new {@link CatalogQuickAmountsSettings.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(option)
-                .eligibleForAutoAmounts(getEligibleForAutoAmounts())
-                .amounts(getAmounts());
+        Builder builder = new Builder(option);
+        builder.eligibleForAutoAmounts = internalGetEligibleForAutoAmounts();
+        builder.amounts = internalGetAmounts();
         return builder;
     }
 
@@ -112,8 +149,8 @@ public class CatalogQuickAmountsSettings {
      */
     public static class Builder {
         private String option;
-        private Boolean eligibleForAutoAmounts;
-        private List<CatalogQuickAmount> amounts;
+        private OptionalNullable<Boolean> eligibleForAutoAmounts;
+        private OptionalNullable<List<CatalogQuickAmount>> amounts;
 
         /**
          * Initialization constructor.
@@ -139,7 +176,16 @@ public class CatalogQuickAmountsSettings {
          * @return Builder
          */
         public Builder eligibleForAutoAmounts(Boolean eligibleForAutoAmounts) {
-            this.eligibleForAutoAmounts = eligibleForAutoAmounts;
+            this.eligibleForAutoAmounts = OptionalNullable.of(eligibleForAutoAmounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for eligibleForAutoAmounts.
+         * @return Builder
+         */
+        public Builder unsetEligibleForAutoAmounts() {
+            eligibleForAutoAmounts = null;
             return this;
         }
 
@@ -149,7 +195,16 @@ public class CatalogQuickAmountsSettings {
          * @return Builder
          */
         public Builder amounts(List<CatalogQuickAmount> amounts) {
-            this.amounts = amounts;
+            this.amounts = OptionalNullable.of(amounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for amounts.
+         * @return Builder
+         */
+        public Builder unsetAmounts() {
+            amounts = null;
             return this;
         }
 

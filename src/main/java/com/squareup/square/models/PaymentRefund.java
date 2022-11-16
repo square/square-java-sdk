@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,17 +17,17 @@ import java.util.Objects;
  */
 public class PaymentRefund {
     private final String id;
-    private final String status;
-    private final String locationId;
+    private final OptionalNullable<String> status;
+    private final OptionalNullable<String> locationId;
     private final Boolean unlinked;
-    private final String destinationType;
+    private final OptionalNullable<String> destinationType;
     private final DestinationDetails destinationDetails;
     private final Money amountMoney;
     private final Money appFeeMoney;
-    private final List<ProcessingFee> processingFee;
-    private final String paymentId;
-    private final String orderId;
-    private final String reason;
+    private final OptionalNullable<List<ProcessingFee>> processingFee;
+    private final OptionalNullable<String> paymentId;
+    private final OptionalNullable<String> orderId;
+    private final OptionalNullable<String> reason;
     private final String createdAt;
     private final String updatedAt;
     private final String teamMemberId;
@@ -65,6 +68,33 @@ public class PaymentRefund {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
+        this.status = OptionalNullable.of(status);
+        this.locationId = OptionalNullable.of(locationId);
+        this.unlinked = unlinked;
+        this.destinationType = OptionalNullable.of(destinationType);
+        this.destinationDetails = destinationDetails;
+        this.amountMoney = amountMoney;
+        this.appFeeMoney = appFeeMoney;
+        this.processingFee = OptionalNullable.of(processingFee);
+        this.paymentId = OptionalNullable.of(paymentId);
+        this.orderId = OptionalNullable.of(orderId);
+        this.reason = OptionalNullable.of(reason);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.teamMemberId = teamMemberId;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentRefund(String id, Money amountMoney, OptionalNullable<String> status,
+            OptionalNullable<String> locationId, Boolean unlinked,
+            OptionalNullable<String> destinationType, DestinationDetails destinationDetails,
+            Money appFeeMoney, OptionalNullable<List<ProcessingFee>> processingFee,
+            OptionalNullable<String> paymentId, OptionalNullable<String> orderId,
+            OptionalNullable<String> reason, String createdAt, String updatedAt,
+            String teamMemberId) {
+        this.id = id;
         this.status = status;
         this.locationId = locationId;
         this.unlinked = unlinked;
@@ -92,15 +122,39 @@ public class PaymentRefund {
     }
 
     /**
+     * Internal Getter for Status.
+     * The refund's status: - `PENDING` - Awaiting approval. - `COMPLETED` - Successfully completed.
+     * - `REJECTED` - The refund was rejected. - `FAILED` - An error occurred.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatus() {
+        return this.status;
+    }
+
+    /**
      * Getter for Status.
      * The refund's status: - `PENDING` - Awaiting approval. - `COMPLETED` - Successfully completed.
      * - `REJECTED` - The refund was rejected. - `FAILED` - An error occurred.
      * @return Returns the String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The location ID associated with the payment this refund is attached to.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -108,10 +162,9 @@ public class PaymentRefund {
      * The location ID associated with the payment this refund is attached to.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -126,15 +179,27 @@ public class PaymentRefund {
     }
 
     /**
+     * Internal Getter for DestinationType.
+     * The destination type for this refund. Current values include `CARD`, `BANK_ACCOUNT`,
+     * `WALLET`, `CASH`, or `EXTERNAL`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("destination_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDestinationType() {
+        return this.destinationType;
+    }
+
+    /**
      * Getter for DestinationType.
      * The destination type for this refund. Current values include `CARD`, `BANK_ACCOUNT`,
      * `WALLET`, `CASH`, or `EXTERNAL`.
      * @return Returns the String
      */
-    @JsonGetter("destination_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDestinationType() {
-        return destinationType;
+        return OptionalNullable.getFrom(destinationType);
     }
 
     /**
@@ -180,14 +245,37 @@ public class PaymentRefund {
     }
 
     /**
+     * Internal Getter for ProcessingFee.
+     * Processing fees and fee adjustments assessed by Square for this refund.
+     * @return Returns the Internal List of ProcessingFee
+     */
+    @JsonGetter("processing_fee")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<ProcessingFee>> internalGetProcessingFee() {
+        return this.processingFee;
+    }
+
+    /**
      * Getter for ProcessingFee.
      * Processing fees and fee adjustments assessed by Square for this refund.
      * @return Returns the List of ProcessingFee
      */
-    @JsonGetter("processing_fee")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<ProcessingFee> getProcessingFee() {
-        return processingFee;
+        return OptionalNullable.getFrom(processingFee);
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the payment associated with this refund.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -195,10 +283,21 @@ public class PaymentRefund {
      * The ID of the payment associated with this refund.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
+    }
+
+    /**
+     * Internal Getter for OrderId.
+     * The ID of the order associated with the refund.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
     }
 
     /**
@@ -206,10 +305,21 @@ public class PaymentRefund {
      * The ID of the order associated with the refund.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
+    }
+
+    /**
+     * Internal Getter for Reason.
+     * The reason for the refund.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReason() {
+        return this.reason;
     }
 
     /**
@@ -217,10 +327,9 @@ public class PaymentRefund {
      * The reason for the refund.
      * @return Returns the String
      */
-    @JsonGetter("reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReason() {
-        return reason;
+        return OptionalNullable.getFrom(reason);
     }
 
     /**
@@ -311,19 +420,19 @@ public class PaymentRefund {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, amountMoney)
-                .status(getStatus())
-                .locationId(getLocationId())
                 .unlinked(getUnlinked())
-                .destinationType(getDestinationType())
                 .destinationDetails(getDestinationDetails())
                 .appFeeMoney(getAppFeeMoney())
-                .processingFee(getProcessingFee())
-                .paymentId(getPaymentId())
-                .orderId(getOrderId())
-                .reason(getReason())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .teamMemberId(getTeamMemberId());
+        builder.status = internalGetStatus();
+        builder.locationId = internalGetLocationId();
+        builder.destinationType = internalGetDestinationType();
+        builder.processingFee = internalGetProcessingFee();
+        builder.paymentId = internalGetPaymentId();
+        builder.orderId = internalGetOrderId();
+        builder.reason = internalGetReason();
         return builder;
     }
 
@@ -333,16 +442,16 @@ public class PaymentRefund {
     public static class Builder {
         private String id;
         private Money amountMoney;
-        private String status;
-        private String locationId;
+        private OptionalNullable<String> status;
+        private OptionalNullable<String> locationId;
         private Boolean unlinked;
-        private String destinationType;
+        private OptionalNullable<String> destinationType;
         private DestinationDetails destinationDetails;
         private Money appFeeMoney;
-        private List<ProcessingFee> processingFee;
-        private String paymentId;
-        private String orderId;
-        private String reason;
+        private OptionalNullable<List<ProcessingFee>> processingFee;
+        private OptionalNullable<String> paymentId;
+        private OptionalNullable<String> orderId;
+        private OptionalNullable<String> reason;
         private String createdAt;
         private String updatedAt;
         private String teamMemberId;
@@ -383,7 +492,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder status(String status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 
@@ -393,7 +511,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -413,7 +540,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder destinationType(String destinationType) {
-            this.destinationType = destinationType;
+            this.destinationType = OptionalNullable.of(destinationType);
+            return this;
+        }
+
+        /**
+         * UnSetter for destinationType.
+         * @return Builder
+         */
+        public Builder unsetDestinationType() {
+            destinationType = null;
             return this;
         }
 
@@ -443,7 +579,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder processingFee(List<ProcessingFee> processingFee) {
-            this.processingFee = processingFee;
+            this.processingFee = OptionalNullable.of(processingFee);
+            return this;
+        }
+
+        /**
+         * UnSetter for processingFee.
+         * @return Builder
+         */
+        public Builder unsetProcessingFee() {
+            processingFee = null;
             return this;
         }
 
@@ -453,7 +598,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 
@@ -463,7 +617,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 
@@ -473,7 +636,16 @@ public class PaymentRefund {
          * @return Builder
          */
         public Builder reason(String reason) {
-            this.reason = reason;
+            this.reason = OptionalNullable.of(reason);
+            return this;
+        }
+
+        /**
+         * UnSetter for reason.
+         * @return Builder
+         */
+        public Builder unsetReason() {
+            reason = null;
             return this;
         }
 

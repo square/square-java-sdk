@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +16,12 @@ import java.util.Objects;
  * This is a model class for CustomAttributeFilter type.
  */
 public class CustomAttributeFilter {
-    private final String customAttributeDefinitionId;
-    private final String key;
-    private final String stringFilter;
+    private final OptionalNullable<String> customAttributeDefinitionId;
+    private final OptionalNullable<String> key;
+    private final OptionalNullable<String> stringFilter;
     private final Range numberFilter;
-    private final List<String> selectionUidsFilter;
-    private final Boolean boolFilter;
+    private final OptionalNullable<List<String>> selectionUidsFilter;
+    private final OptionalNullable<Boolean> boolFilter;
 
     /**
      * Initialization constructor.
@@ -37,6 +40,21 @@ public class CustomAttributeFilter {
             @JsonProperty("number_filter") Range numberFilter,
             @JsonProperty("selection_uids_filter") List<String> selectionUidsFilter,
             @JsonProperty("bool_filter") Boolean boolFilter) {
+        this.customAttributeDefinitionId = OptionalNullable.of(customAttributeDefinitionId);
+        this.key = OptionalNullable.of(key);
+        this.stringFilter = OptionalNullable.of(stringFilter);
+        this.numberFilter = numberFilter;
+        this.selectionUidsFilter = OptionalNullable.of(selectionUidsFilter);
+        this.boolFilter = OptionalNullable.of(boolFilter);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CustomAttributeFilter(OptionalNullable<String> customAttributeDefinitionId,
+            OptionalNullable<String> key, OptionalNullable<String> stringFilter, Range numberFilter,
+            OptionalNullable<List<String>> selectionUidsFilter,
+            OptionalNullable<Boolean> boolFilter) {
         this.customAttributeDefinitionId = customAttributeDefinitionId;
         this.key = key;
         this.stringFilter = stringFilter;
@@ -46,16 +64,43 @@ public class CustomAttributeFilter {
     }
 
     /**
+     * Internal Getter for CustomAttributeDefinitionId.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `custom_attribute_definition_id` property value against the the specified id. Exactly one of
+     * `custom_attribute_definition_id` or `key` must be specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("custom_attribute_definition_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomAttributeDefinitionId() {
+        return this.customAttributeDefinitionId;
+    }
+
+    /**
      * Getter for CustomAttributeDefinitionId.
      * A query expression to filter items or item variations by matching their custom attributes'
      * `custom_attribute_definition_id` property value against the the specified id. Exactly one of
      * `custom_attribute_definition_id` or `key` must be specified.
      * @return Returns the String
      */
-    @JsonGetter("custom_attribute_definition_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomAttributeDefinitionId() {
-        return customAttributeDefinitionId;
+        return OptionalNullable.getFrom(customAttributeDefinitionId);
+    }
+
+    /**
+     * Internal Getter for Key.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `key` property value against the specified key. Exactly one of
+     * `custom_attribute_definition_id` or `key` must be specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetKey() {
+        return this.key;
     }
 
     /**
@@ -65,10 +110,23 @@ public class CustomAttributeFilter {
      * `custom_attribute_definition_id` or `key` must be specified.
      * @return Returns the String
      */
-    @JsonGetter("key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getKey() {
-        return key;
+        return OptionalNullable.getFrom(key);
+    }
+
+    /**
+     * Internal Getter for StringFilter.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `string_value` property value against the specified text. Exactly one of `string_filter`,
+     * `number_filter`, `selection_uids_filter`, or `bool_filter` must be specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("string_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStringFilter() {
+        return this.stringFilter;
     }
 
     /**
@@ -78,10 +136,9 @@ public class CustomAttributeFilter {
      * `number_filter`, `selection_uids_filter`, or `bool_filter` must be specified.
      * @return Returns the String
      */
-    @JsonGetter("string_filter")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStringFilter() {
-        return stringFilter;
+        return OptionalNullable.getFrom(stringFilter);
     }
 
     /**
@@ -96,6 +153,21 @@ public class CustomAttributeFilter {
     }
 
     /**
+     * Internal Getter for SelectionUidsFilter.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `selection_uid_values` values against the specified selection uids. Exactly one of
+     * `string_filter`, `number_filter`, `selection_uids_filter`, or `bool_filter` must be
+     * specified.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("selection_uids_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetSelectionUidsFilter() {
+        return this.selectionUidsFilter;
+    }
+
+    /**
      * Getter for SelectionUidsFilter.
      * A query expression to filter items or item variations by matching their custom attributes'
      * `selection_uid_values` values against the specified selection uids. Exactly one of
@@ -103,10 +175,24 @@ public class CustomAttributeFilter {
      * specified.
      * @return Returns the List of String
      */
-    @JsonGetter("selection_uids_filter")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getSelectionUidsFilter() {
-        return selectionUidsFilter;
+        return OptionalNullable.getFrom(selectionUidsFilter);
+    }
+
+    /**
+     * Internal Getter for BoolFilter.
+     * A query expression to filter items or item variations by matching their custom attributes'
+     * `boolean_value` property values against the specified Boolean expression. Exactly one of
+     * `string_filter`, `number_filter`, `selection_uids_filter`, or `bool_filter` must be
+     * specified.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("bool_filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetBoolFilter() {
+        return this.boolFilter;
     }
 
     /**
@@ -117,10 +203,9 @@ public class CustomAttributeFilter {
      * specified.
      * @return Returns the Boolean
      */
-    @JsonGetter("bool_filter")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getBoolFilter() {
-        return boolFilter;
+        return OptionalNullable.getFrom(boolFilter);
     }
 
     @Override
@@ -165,12 +250,12 @@ public class CustomAttributeFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .customAttributeDefinitionId(getCustomAttributeDefinitionId())
-                .key(getKey())
-                .stringFilter(getStringFilter())
-                .numberFilter(getNumberFilter())
-                .selectionUidsFilter(getSelectionUidsFilter())
-                .boolFilter(getBoolFilter());
+                .numberFilter(getNumberFilter());
+        builder.customAttributeDefinitionId = internalGetCustomAttributeDefinitionId();
+        builder.key = internalGetKey();
+        builder.stringFilter = internalGetStringFilter();
+        builder.selectionUidsFilter = internalGetSelectionUidsFilter();
+        builder.boolFilter = internalGetBoolFilter();
         return builder;
     }
 
@@ -178,12 +263,12 @@ public class CustomAttributeFilter {
      * Class to build instances of {@link CustomAttributeFilter}.
      */
     public static class Builder {
-        private String customAttributeDefinitionId;
-        private String key;
-        private String stringFilter;
+        private OptionalNullable<String> customAttributeDefinitionId;
+        private OptionalNullable<String> key;
+        private OptionalNullable<String> stringFilter;
         private Range numberFilter;
-        private List<String> selectionUidsFilter;
-        private Boolean boolFilter;
+        private OptionalNullable<List<String>> selectionUidsFilter;
+        private OptionalNullable<Boolean> boolFilter;
 
 
 
@@ -193,7 +278,16 @@ public class CustomAttributeFilter {
          * @return Builder
          */
         public Builder customAttributeDefinitionId(String customAttributeDefinitionId) {
-            this.customAttributeDefinitionId = customAttributeDefinitionId;
+            this.customAttributeDefinitionId = OptionalNullable.of(customAttributeDefinitionId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customAttributeDefinitionId.
+         * @return Builder
+         */
+        public Builder unsetCustomAttributeDefinitionId() {
+            customAttributeDefinitionId = null;
             return this;
         }
 
@@ -203,7 +297,16 @@ public class CustomAttributeFilter {
          * @return Builder
          */
         public Builder key(String key) {
-            this.key = key;
+            this.key = OptionalNullable.of(key);
+            return this;
+        }
+
+        /**
+         * UnSetter for key.
+         * @return Builder
+         */
+        public Builder unsetKey() {
+            key = null;
             return this;
         }
 
@@ -213,7 +316,16 @@ public class CustomAttributeFilter {
          * @return Builder
          */
         public Builder stringFilter(String stringFilter) {
-            this.stringFilter = stringFilter;
+            this.stringFilter = OptionalNullable.of(stringFilter);
+            return this;
+        }
+
+        /**
+         * UnSetter for stringFilter.
+         * @return Builder
+         */
+        public Builder unsetStringFilter() {
+            stringFilter = null;
             return this;
         }
 
@@ -233,7 +345,16 @@ public class CustomAttributeFilter {
          * @return Builder
          */
         public Builder selectionUidsFilter(List<String> selectionUidsFilter) {
-            this.selectionUidsFilter = selectionUidsFilter;
+            this.selectionUidsFilter = OptionalNullable.of(selectionUidsFilter);
+            return this;
+        }
+
+        /**
+         * UnSetter for selectionUidsFilter.
+         * @return Builder
+         */
+        public Builder unsetSelectionUidsFilter() {
+            selectionUidsFilter = null;
             return this;
         }
 
@@ -243,7 +364,16 @@ public class CustomAttributeFilter {
          * @return Builder
          */
         public Builder boolFilter(Boolean boolFilter) {
-            this.boolFilter = boolFilter;
+            this.boolFilter = OptionalNullable.of(boolFilter);
+            return this;
+        }
+
+        /**
+         * UnSetter for boolFilter.
+         * @return Builder
+         */
+        public Builder unsetBoolFilter() {
+            boolFilter = null;
             return this;
         }
 

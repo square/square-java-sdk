@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for V1PaymentItemDetail type.
  */
 public class V1PaymentItemDetail {
-    private final String categoryName;
-    private final String sku;
-    private final String itemId;
-    private final String itemVariationId;
+    private final OptionalNullable<String> categoryName;
+    private final OptionalNullable<String> sku;
+    private final OptionalNullable<String> itemId;
+    private final OptionalNullable<String> itemVariationId;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,18 @@ public class V1PaymentItemDetail {
             @JsonProperty("sku") String sku,
             @JsonProperty("item_id") String itemId,
             @JsonProperty("item_variation_id") String itemVariationId) {
+        this.categoryName = OptionalNullable.of(categoryName);
+        this.sku = OptionalNullable.of(sku);
+        this.itemId = OptionalNullable.of(itemId);
+        this.itemVariationId = OptionalNullable.of(itemVariationId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1PaymentItemDetail(OptionalNullable<String> categoryName,
+            OptionalNullable<String> sku, OptionalNullable<String> itemId,
+            OptionalNullable<String> itemVariationId) {
         this.categoryName = categoryName;
         this.sku = sku;
         this.itemId = itemId;
@@ -37,14 +52,37 @@ public class V1PaymentItemDetail {
     }
 
     /**
+     * Internal Getter for CategoryName.
+     * The name of the item's merchant-defined category, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("category_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCategoryName() {
+        return this.categoryName;
+    }
+
+    /**
      * Getter for CategoryName.
      * The name of the item's merchant-defined category, if any.
      * @return Returns the String
      */
-    @JsonGetter("category_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCategoryName() {
-        return categoryName;
+        return OptionalNullable.getFrom(categoryName);
+    }
+
+    /**
+     * Internal Getter for Sku.
+     * The item's merchant-defined SKU, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sku")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSku() {
+        return this.sku;
     }
 
     /**
@@ -52,10 +90,21 @@ public class V1PaymentItemDetail {
      * The item's merchant-defined SKU, if any.
      * @return Returns the String
      */
-    @JsonGetter("sku")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSku() {
-        return sku;
+        return OptionalNullable.getFrom(sku);
+    }
+
+    /**
+     * Internal Getter for ItemId.
+     * The unique ID of the item purchased, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetItemId() {
+        return this.itemId;
     }
 
     /**
@@ -63,10 +112,21 @@ public class V1PaymentItemDetail {
      * The unique ID of the item purchased, if any.
      * @return Returns the String
      */
-    @JsonGetter("item_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getItemId() {
-        return itemId;
+        return OptionalNullable.getFrom(itemId);
+    }
+
+    /**
+     * Internal Getter for ItemVariationId.
+     * The unique ID of the item variation purchased, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("item_variation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetItemVariationId() {
+        return this.itemVariationId;
     }
 
     /**
@@ -74,10 +134,9 @@ public class V1PaymentItemDetail {
      * The unique ID of the item variation purchased, if any.
      * @return Returns the String
      */
-    @JsonGetter("item_variation_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getItemVariationId() {
-        return itemVariationId;
+        return OptionalNullable.getFrom(itemVariationId);
     }
 
     @Override
@@ -116,11 +175,11 @@ public class V1PaymentItemDetail {
      * @return a new {@link V1PaymentItemDetail.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .categoryName(getCategoryName())
-                .sku(getSku())
-                .itemId(getItemId())
-                .itemVariationId(getItemVariationId());
+        Builder builder = new Builder();
+        builder.categoryName = internalGetCategoryName();
+        builder.sku = internalGetSku();
+        builder.itemId = internalGetItemId();
+        builder.itemVariationId = internalGetItemVariationId();
         return builder;
     }
 
@@ -128,10 +187,10 @@ public class V1PaymentItemDetail {
      * Class to build instances of {@link V1PaymentItemDetail}.
      */
     public static class Builder {
-        private String categoryName;
-        private String sku;
-        private String itemId;
-        private String itemVariationId;
+        private OptionalNullable<String> categoryName;
+        private OptionalNullable<String> sku;
+        private OptionalNullable<String> itemId;
+        private OptionalNullable<String> itemVariationId;
 
 
 
@@ -141,7 +200,16 @@ public class V1PaymentItemDetail {
          * @return Builder
          */
         public Builder categoryName(String categoryName) {
-            this.categoryName = categoryName;
+            this.categoryName = OptionalNullable.of(categoryName);
+            return this;
+        }
+
+        /**
+         * UnSetter for categoryName.
+         * @return Builder
+         */
+        public Builder unsetCategoryName() {
+            categoryName = null;
             return this;
         }
 
@@ -151,7 +219,16 @@ public class V1PaymentItemDetail {
          * @return Builder
          */
         public Builder sku(String sku) {
-            this.sku = sku;
+            this.sku = OptionalNullable.of(sku);
+            return this;
+        }
+
+        /**
+         * UnSetter for sku.
+         * @return Builder
+         */
+        public Builder unsetSku() {
+            sku = null;
             return this;
         }
 
@@ -161,7 +238,16 @@ public class V1PaymentItemDetail {
          * @return Builder
          */
         public Builder itemId(String itemId) {
-            this.itemId = itemId;
+            this.itemId = OptionalNullable.of(itemId);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemId.
+         * @return Builder
+         */
+        public Builder unsetItemId() {
+            itemId = null;
             return this;
         }
 
@@ -171,7 +257,16 @@ public class V1PaymentItemDetail {
          * @return Builder
          */
         public Builder itemVariationId(String itemVariationId) {
-            this.itemVariationId = itemVariationId;
+            this.itemVariationId = OptionalNullable.of(itemVariationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemVariationId.
+         * @return Builder
+         */
+        public Builder unsetItemVariationId() {
+            itemVariationId = null;
             return this;
         }
 

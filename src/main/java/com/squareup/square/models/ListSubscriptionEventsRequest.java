@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListSubscriptionEventsRequest type.
  */
 public class ListSubscriptionEventsRequest {
-    private final String cursor;
-    private final Integer limit;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,33 @@ public class ListSubscriptionEventsRequest {
     public ListSubscriptionEventsRequest(
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit) {
+        this.cursor = OptionalNullable.of(cursor);
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListSubscriptionEventsRequest(OptionalNullable<String> cursor,
+            OptionalNullable<Integer> limit) {
         this.cursor = cursor;
         this.limit = limit;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * When the total number of resulting subscription events exceeds the limit of a paged response,
+     * specify the cursor returned from a preceding response here to fetch the next set of results.
+     * If the cursor is unset, the response contains the last page of the results. For more
+     * information, see
+     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -37,10 +65,21 @@ public class ListSubscriptionEventsRequest {
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The upper limit on the number of subscription events to return in a paged response.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -48,10 +87,9 @@ public class ListSubscriptionEventsRequest {
      * The upper limit on the number of subscription events to return in a paged response.
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -87,9 +125,9 @@ public class ListSubscriptionEventsRequest {
      * @return a new {@link ListSubscriptionEventsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .cursor(getCursor())
-                .limit(getLimit());
+        Builder builder = new Builder();
+        builder.cursor = internalGetCursor();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -97,8 +135,8 @@ public class ListSubscriptionEventsRequest {
      * Class to build instances of {@link ListSubscriptionEventsRequest}.
      */
     public static class Builder {
-        private String cursor;
-        private Integer limit;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Integer> limit;
 
 
 
@@ -108,7 +146,16 @@ public class ListSubscriptionEventsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -118,7 +165,16 @@ public class ListSubscriptionEventsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 

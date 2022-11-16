@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for TestWebhookSubscriptionRequest type.
  */
 public class TestWebhookSubscriptionRequest {
-    private final String eventType;
+    private final OptionalNullable<String> eventType;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,28 @@ public class TestWebhookSubscriptionRequest {
     @JsonCreator
     public TestWebhookSubscriptionRequest(
             @JsonProperty("event_type") String eventType) {
+        this.eventType = OptionalNullable.of(eventType);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TestWebhookSubscriptionRequest(OptionalNullable<String> eventType) {
         this.eventType = eventType;
+    }
+
+    /**
+     * Internal Getter for EventType.
+     * The event type that will be used to test the [Subscription]($m/WebhookSubscription). The
+     * event type must be contained in the list of event types in the
+     * [Subscription]($m/WebhookSubscription).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("event_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEventType() {
+        return this.eventType;
     }
 
     /**
@@ -31,10 +55,9 @@ public class TestWebhookSubscriptionRequest {
      * [Subscription]($m/WebhookSubscription).
      * @return Returns the String
      */
-    @JsonGetter("event_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEventType() {
-        return eventType;
+        return OptionalNullable.getFrom(eventType);
     }
 
     @Override
@@ -69,8 +92,8 @@ public class TestWebhookSubscriptionRequest {
      * @return a new {@link TestWebhookSubscriptionRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .eventType(getEventType());
+        Builder builder = new Builder();
+        builder.eventType = internalGetEventType();
         return builder;
     }
 
@@ -78,7 +101,7 @@ public class TestWebhookSubscriptionRequest {
      * Class to build instances of {@link TestWebhookSubscriptionRequest}.
      */
     public static class Builder {
-        private String eventType;
+        private OptionalNullable<String> eventType;
 
 
 
@@ -88,7 +111,16 @@ public class TestWebhookSubscriptionRequest {
          * @return Builder
          */
         public Builder eventType(String eventType) {
-            this.eventType = eventType;
+            this.eventType = OptionalNullable.of(eventType);
+            return this;
+        }
+
+        /**
+         * UnSetter for eventType.
+         * @return Builder
+         */
+        public Builder unsetEventType() {
+            eventType = null;
             return this;
         }
 

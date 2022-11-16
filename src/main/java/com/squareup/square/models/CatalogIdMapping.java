@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogIdMapping type.
  */
 public class CatalogIdMapping {
-    private final String clientObjectId;
-    private final String objectId;
+    private final OptionalNullable<String> clientObjectId;
+    private final OptionalNullable<String> objectId;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class CatalogIdMapping {
     public CatalogIdMapping(
             @JsonProperty("client_object_id") String clientObjectId,
             @JsonProperty("object_id") String objectId) {
+        this.clientObjectId = OptionalNullable.of(clientObjectId);
+        this.objectId = OptionalNullable.of(objectId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogIdMapping(OptionalNullable<String> clientObjectId,
+            OptionalNullable<String> objectId) {
         this.clientObjectId = clientObjectId;
         this.objectId = objectId;
+    }
+
+    /**
+     * Internal Getter for ClientObjectId.
+     * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("client_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClientObjectId() {
+        return this.clientObjectId;
     }
 
     /**
@@ -33,10 +57,21 @@ public class CatalogIdMapping {
      * The client-supplied temporary `#`-prefixed ID for a new `CatalogObject`.
      * @return Returns the String
      */
-    @JsonGetter("client_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClientObjectId() {
-        return clientObjectId;
+        return OptionalNullable.getFrom(clientObjectId);
+    }
+
+    /**
+     * Internal Getter for ObjectId.
+     * The permanent ID for the CatalogObject created by the server.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetObjectId() {
+        return this.objectId;
     }
 
     /**
@@ -44,10 +79,9 @@ public class CatalogIdMapping {
      * The permanent ID for the CatalogObject created by the server.
      * @return Returns the String
      */
-    @JsonGetter("object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getObjectId() {
-        return objectId;
+        return OptionalNullable.getFrom(objectId);
     }
 
     @Override
@@ -84,9 +118,9 @@ public class CatalogIdMapping {
      * @return a new {@link CatalogIdMapping.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .clientObjectId(getClientObjectId())
-                .objectId(getObjectId());
+        Builder builder = new Builder();
+        builder.clientObjectId = internalGetClientObjectId();
+        builder.objectId = internalGetObjectId();
         return builder;
     }
 
@@ -94,8 +128,8 @@ public class CatalogIdMapping {
      * Class to build instances of {@link CatalogIdMapping}.
      */
     public static class Builder {
-        private String clientObjectId;
-        private String objectId;
+        private OptionalNullable<String> clientObjectId;
+        private OptionalNullable<String> objectId;
 
 
 
@@ -105,7 +139,16 @@ public class CatalogIdMapping {
          * @return Builder
          */
         public Builder clientObjectId(String clientObjectId) {
-            this.clientObjectId = clientObjectId;
+            this.clientObjectId = OptionalNullable.of(clientObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for clientObjectId.
+         * @return Builder
+         */
+        public Builder unsetClientObjectId() {
+            clientObjectId = null;
             return this;
         }
 
@@ -115,7 +158,16 @@ public class CatalogIdMapping {
          * @return Builder
          */
         public Builder objectId(String objectId) {
-            this.objectId = objectId;
+            this.objectId = OptionalNullable.of(objectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for objectId.
+         * @return Builder
+         */
+        public Builder unsetObjectId() {
+            objectId = null;
             return this;
         }
 

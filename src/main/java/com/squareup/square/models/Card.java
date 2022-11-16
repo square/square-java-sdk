@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -15,14 +18,14 @@ public class Card {
     private final String id;
     private final String cardBrand;
     private final String last4;
-    private final Long expMonth;
-    private final Long expYear;
-    private final String cardholderName;
+    private final OptionalNullable<Long> expMonth;
+    private final OptionalNullable<Long> expYear;
+    private final OptionalNullable<String> cardholderName;
     private final Address billingAddress;
     private final String fingerprint;
-    private final String customerId;
+    private final OptionalNullable<String> customerId;
     private final String merchantId;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final Boolean enabled;
     private final String cardType;
     private final String prepaidType;
@@ -69,6 +72,33 @@ public class Card {
             @JsonProperty("bin") String bin,
             @JsonProperty("version") Long version,
             @JsonProperty("card_co_brand") String cardCoBrand) {
+        this.id = id;
+        this.cardBrand = cardBrand;
+        this.last4 = last4;
+        this.expMonth = OptionalNullable.of(expMonth);
+        this.expYear = OptionalNullable.of(expYear);
+        this.cardholderName = OptionalNullable.of(cardholderName);
+        this.billingAddress = billingAddress;
+        this.fingerprint = fingerprint;
+        this.customerId = OptionalNullable.of(customerId);
+        this.merchantId = merchantId;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.enabled = enabled;
+        this.cardType = cardType;
+        this.prepaidType = prepaidType;
+        this.bin = bin;
+        this.version = version;
+        this.cardCoBrand = cardCoBrand;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Card(String id, String cardBrand, String last4, OptionalNullable<Long> expMonth,
+            OptionalNullable<Long> expYear, OptionalNullable<String> cardholderName,
+            Address billingAddress, String fingerprint, OptionalNullable<String> customerId,
+            String merchantId, OptionalNullable<String> referenceId, Boolean enabled,
+            String cardType, String prepaidType, String bin, Long version, String cardCoBrand) {
         this.id = id;
         this.cardBrand = cardBrand;
         this.last4 = last4;
@@ -122,14 +152,37 @@ public class Card {
     }
 
     /**
+     * Internal Getter for ExpMonth.
+     * The expiration month of the associated card as an integer between 1 and 12.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("exp_month")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetExpMonth() {
+        return this.expMonth;
+    }
+
+    /**
      * Getter for ExpMonth.
      * The expiration month of the associated card as an integer between 1 and 12.
      * @return Returns the Long
      */
-    @JsonGetter("exp_month")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getExpMonth() {
-        return expMonth;
+        return OptionalNullable.getFrom(expMonth);
+    }
+
+    /**
+     * Internal Getter for ExpYear.
+     * The four-digit year of the card's expiration date.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("exp_year")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetExpYear() {
+        return this.expYear;
     }
 
     /**
@@ -137,10 +190,21 @@ public class Card {
      * The four-digit year of the card's expiration date.
      * @return Returns the Long
      */
-    @JsonGetter("exp_year")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getExpYear() {
-        return expYear;
+        return OptionalNullable.getFrom(expYear);
+    }
+
+    /**
+     * Internal Getter for CardholderName.
+     * The name of the cardholder.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cardholder_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCardholderName() {
+        return this.cardholderName;
     }
 
     /**
@@ -148,10 +212,9 @@ public class Card {
      * The name of the cardholder.
      * @return Returns the String
      */
-    @JsonGetter("cardholder_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCardholderName() {
-        return cardholderName;
+        return OptionalNullable.getFrom(cardholderName);
     }
 
     /**
@@ -179,15 +242,27 @@ public class Card {
     }
 
     /**
+     * Internal Getter for CustomerId.
+     * **Required** The ID of a customer created using the Customers API to be associated with the
+     * card.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
      * Getter for CustomerId.
      * **Required** The ID of a customer created using the Customers API to be associated with the
      * card.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
     }
 
     /**
@@ -202,15 +277,27 @@ public class Card {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * An optional user-defined reference ID that associates this card with another entity in an
+     * external system. For example, a customer ID from an external customer management system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * An optional user-defined reference ID that associates this card with another entity in an
      * external system. For example, a customer ID from an external customer management system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -342,20 +429,20 @@ public class Card {
                 .id(getId())
                 .cardBrand(getCardBrand())
                 .last4(getLast4())
-                .expMonth(getExpMonth())
-                .expYear(getExpYear())
-                .cardholderName(getCardholderName())
                 .billingAddress(getBillingAddress())
                 .fingerprint(getFingerprint())
-                .customerId(getCustomerId())
                 .merchantId(getMerchantId())
-                .referenceId(getReferenceId())
                 .enabled(getEnabled())
                 .cardType(getCardType())
                 .prepaidType(getPrepaidType())
                 .bin(getBin())
                 .version(getVersion())
                 .cardCoBrand(getCardCoBrand());
+        builder.expMonth = internalGetExpMonth();
+        builder.expYear = internalGetExpYear();
+        builder.cardholderName = internalGetCardholderName();
+        builder.customerId = internalGetCustomerId();
+        builder.referenceId = internalGetReferenceId();
         return builder;
     }
 
@@ -366,14 +453,14 @@ public class Card {
         private String id;
         private String cardBrand;
         private String last4;
-        private Long expMonth;
-        private Long expYear;
-        private String cardholderName;
+        private OptionalNullable<Long> expMonth;
+        private OptionalNullable<Long> expYear;
+        private OptionalNullable<String> cardholderName;
         private Address billingAddress;
         private String fingerprint;
-        private String customerId;
+        private OptionalNullable<String> customerId;
         private String merchantId;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private Boolean enabled;
         private String cardType;
         private String prepaidType;
@@ -419,7 +506,16 @@ public class Card {
          * @return Builder
          */
         public Builder expMonth(Long expMonth) {
-            this.expMonth = expMonth;
+            this.expMonth = OptionalNullable.of(expMonth);
+            return this;
+        }
+
+        /**
+         * UnSetter for expMonth.
+         * @return Builder
+         */
+        public Builder unsetExpMonth() {
+            expMonth = null;
             return this;
         }
 
@@ -429,7 +525,16 @@ public class Card {
          * @return Builder
          */
         public Builder expYear(Long expYear) {
-            this.expYear = expYear;
+            this.expYear = OptionalNullable.of(expYear);
+            return this;
+        }
+
+        /**
+         * UnSetter for expYear.
+         * @return Builder
+         */
+        public Builder unsetExpYear() {
+            expYear = null;
             return this;
         }
 
@@ -439,7 +544,16 @@ public class Card {
          * @return Builder
          */
         public Builder cardholderName(String cardholderName) {
-            this.cardholderName = cardholderName;
+            this.cardholderName = OptionalNullable.of(cardholderName);
+            return this;
+        }
+
+        /**
+         * UnSetter for cardholderName.
+         * @return Builder
+         */
+        public Builder unsetCardholderName() {
+            cardholderName = null;
             return this;
         }
 
@@ -469,7 +583,16 @@ public class Card {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -489,7 +612,16 @@ public class Card {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 

@@ -3,29 +3,32 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for Address type.
  */
 public class Address {
-    private final String addressLine1;
-    private final String addressLine2;
-    private final String addressLine3;
-    private final String locality;
-    private final String sublocality;
-    private final String sublocality2;
-    private final String sublocality3;
-    private final String administrativeDistrictLevel1;
-    private final String administrativeDistrictLevel2;
-    private final String administrativeDistrictLevel3;
-    private final String postalCode;
+    private final OptionalNullable<String> addressLine1;
+    private final OptionalNullable<String> addressLine2;
+    private final OptionalNullable<String> addressLine3;
+    private final OptionalNullable<String> locality;
+    private final OptionalNullable<String> sublocality;
+    private final OptionalNullable<String> sublocality2;
+    private final OptionalNullable<String> sublocality3;
+    private final OptionalNullable<String> administrativeDistrictLevel1;
+    private final OptionalNullable<String> administrativeDistrictLevel2;
+    private final OptionalNullable<String> administrativeDistrictLevel3;
+    private final OptionalNullable<String> postalCode;
     private final String country;
-    private final String firstName;
-    private final String lastName;
+    private final OptionalNullable<String> firstName;
+    private final OptionalNullable<String> lastName;
 
     /**
      * Initialization constructor.
@@ -60,6 +63,34 @@ public class Address {
             @JsonProperty("country") String country,
             @JsonProperty("first_name") String firstName,
             @JsonProperty("last_name") String lastName) {
+        this.addressLine1 = OptionalNullable.of(addressLine1);
+        this.addressLine2 = OptionalNullable.of(addressLine2);
+        this.addressLine3 = OptionalNullable.of(addressLine3);
+        this.locality = OptionalNullable.of(locality);
+        this.sublocality = OptionalNullable.of(sublocality);
+        this.sublocality2 = OptionalNullable.of(sublocality2);
+        this.sublocality3 = OptionalNullable.of(sublocality3);
+        this.administrativeDistrictLevel1 = OptionalNullable.of(administrativeDistrictLevel1);
+        this.administrativeDistrictLevel2 = OptionalNullable.of(administrativeDistrictLevel2);
+        this.administrativeDistrictLevel3 = OptionalNullable.of(administrativeDistrictLevel3);
+        this.postalCode = OptionalNullable.of(postalCode);
+        this.country = country;
+        this.firstName = OptionalNullable.of(firstName);
+        this.lastName = OptionalNullable.of(lastName);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Address(OptionalNullable<String> addressLine1, OptionalNullable<String> addressLine2,
+            OptionalNullable<String> addressLine3, OptionalNullable<String> locality,
+            OptionalNullable<String> sublocality, OptionalNullable<String> sublocality2,
+            OptionalNullable<String> sublocality3,
+            OptionalNullable<String> administrativeDistrictLevel1,
+            OptionalNullable<String> administrativeDistrictLevel2,
+            OptionalNullable<String> administrativeDistrictLevel3,
+            OptionalNullable<String> postalCode, String country, OptionalNullable<String> firstName,
+            OptionalNullable<String> lastName) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.addressLine3 = addressLine3;
@@ -77,6 +108,21 @@ public class Address {
     }
 
     /**
+     * Internal Getter for AddressLine1.
+     * The first line of the address. Fields that start with `address_line` provide the address's
+     * most specific details, like street number, street name, and building name. They do *not*
+     * provide less specific details like city, state/province, or country (these details are
+     * provided in other fields).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("address_line_1")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAddressLine1() {
+        return this.addressLine1;
+    }
+
+    /**
      * Getter for AddressLine1.
      * The first line of the address. Fields that start with `address_line` provide the address's
      * most specific details, like street number, street name, and building name. They do *not*
@@ -84,10 +130,21 @@ public class Address {
      * provided in other fields).
      * @return Returns the String
      */
-    @JsonGetter("address_line_1")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAddressLine1() {
-        return addressLine1;
+        return OptionalNullable.getFrom(addressLine1);
+    }
+
+    /**
+     * Internal Getter for AddressLine2.
+     * The second line of the address, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("address_line_2")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAddressLine2() {
+        return this.addressLine2;
     }
 
     /**
@@ -95,10 +152,21 @@ public class Address {
      * The second line of the address, if any.
      * @return Returns the String
      */
-    @JsonGetter("address_line_2")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAddressLine2() {
-        return addressLine2;
+        return OptionalNullable.getFrom(addressLine2);
+    }
+
+    /**
+     * Internal Getter for AddressLine3.
+     * The third line of the address, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("address_line_3")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAddressLine3() {
+        return this.addressLine3;
     }
 
     /**
@@ -106,10 +174,22 @@ public class Address {
      * The third line of the address, if any.
      * @return Returns the String
      */
-    @JsonGetter("address_line_3")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAddressLine3() {
-        return addressLine3;
+        return OptionalNullable.getFrom(addressLine3);
+    }
+
+    /**
+     * Internal Getter for Locality.
+     * The city or town of the address. For a full list of field meanings by country, see [Working
+     * with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("locality")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocality() {
+        return this.locality;
     }
 
     /**
@@ -118,10 +198,21 @@ public class Address {
      * with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
-    @JsonGetter("locality")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocality() {
-        return locality;
+        return OptionalNullable.getFrom(locality);
+    }
+
+    /**
+     * Internal Getter for Sublocality.
+     * A civil region within the address's `locality`, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sublocality")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSublocality() {
+        return this.sublocality;
     }
 
     /**
@@ -129,10 +220,21 @@ public class Address {
      * A civil region within the address's `locality`, if any.
      * @return Returns the String
      */
-    @JsonGetter("sublocality")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSublocality() {
-        return sublocality;
+        return OptionalNullable.getFrom(sublocality);
+    }
+
+    /**
+     * Internal Getter for Sublocality2.
+     * A civil region within the address's `sublocality`, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sublocality_2")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSublocality2() {
+        return this.sublocality2;
     }
 
     /**
@@ -140,10 +242,21 @@ public class Address {
      * A civil region within the address's `sublocality`, if any.
      * @return Returns the String
      */
-    @JsonGetter("sublocality_2")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSublocality2() {
-        return sublocality2;
+        return OptionalNullable.getFrom(sublocality2);
+    }
+
+    /**
+     * Internal Getter for Sublocality3.
+     * A civil region within the address's `sublocality_2`, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sublocality_3")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSublocality3() {
+        return this.sublocality3;
     }
 
     /**
@@ -151,10 +264,23 @@ public class Address {
      * A civil region within the address's `sublocality_2`, if any.
      * @return Returns the String
      */
-    @JsonGetter("sublocality_3")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSublocality3() {
-        return sublocality3;
+        return OptionalNullable.getFrom(sublocality3);
+    }
+
+    /**
+     * Internal Getter for AdministrativeDistrictLevel1.
+     * A civil entity within the address's country. In the US, this is the state. For a full list of
+     * field meanings by country, see [Working with
+     * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("administrative_district_level_1")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAdministrativeDistrictLevel1() {
+        return this.administrativeDistrictLevel1;
     }
 
     /**
@@ -164,10 +290,22 @@ public class Address {
      * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
-    @JsonGetter("administrative_district_level_1")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAdministrativeDistrictLevel1() {
-        return administrativeDistrictLevel1;
+        return OptionalNullable.getFrom(administrativeDistrictLevel1);
+    }
+
+    /**
+     * Internal Getter for AdministrativeDistrictLevel2.
+     * A civil entity within the address's `administrative_district_level_1`. In the US, this is the
+     * county.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("administrative_district_level_2")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAdministrativeDistrictLevel2() {
+        return this.administrativeDistrictLevel2;
     }
 
     /**
@@ -176,10 +314,21 @@ public class Address {
      * county.
      * @return Returns the String
      */
-    @JsonGetter("administrative_district_level_2")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAdministrativeDistrictLevel2() {
-        return administrativeDistrictLevel2;
+        return OptionalNullable.getFrom(administrativeDistrictLevel2);
+    }
+
+    /**
+     * Internal Getter for AdministrativeDistrictLevel3.
+     * A civil entity within the address's `administrative_district_level_2`, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("administrative_district_level_3")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAdministrativeDistrictLevel3() {
+        return this.administrativeDistrictLevel3;
     }
 
     /**
@@ -187,10 +336,22 @@ public class Address {
      * A civil entity within the address's `administrative_district_level_2`, if any.
      * @return Returns the String
      */
-    @JsonGetter("administrative_district_level_3")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getAdministrativeDistrictLevel3() {
-        return administrativeDistrictLevel3;
+        return OptionalNullable.getFrom(administrativeDistrictLevel3);
+    }
+
+    /**
+     * Internal Getter for PostalCode.
+     * The address's postal code. For a full list of field meanings by country, see [Working with
+     * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("postal_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPostalCode() {
+        return this.postalCode;
     }
 
     /**
@@ -199,10 +360,9 @@ public class Address {
      * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
      * @return Returns the String
      */
-    @JsonGetter("postal_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPostalCode() {
-        return postalCode;
+        return OptionalNullable.getFrom(postalCode);
     }
 
     /**
@@ -218,14 +378,37 @@ public class Address {
     }
 
     /**
+     * Internal Getter for FirstName.
+     * Optional first name when it's representing recipient.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("first_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFirstName() {
+        return this.firstName;
+    }
+
+    /**
      * Getter for FirstName.
      * Optional first name when it's representing recipient.
      * @return Returns the String
      */
-    @JsonGetter("first_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFirstName() {
-        return firstName;
+        return OptionalNullable.getFrom(firstName);
+    }
+
+    /**
+     * Internal Getter for LastName.
+     * Optional last name when it's representing recipient.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("last_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLastName() {
+        return this.lastName;
     }
 
     /**
@@ -233,10 +416,9 @@ public class Address {
      * Optional last name when it's representing recipient.
      * @return Returns the String
      */
-    @JsonGetter("last_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLastName() {
-        return lastName;
+        return OptionalNullable.getFrom(lastName);
     }
 
     @Override
@@ -295,20 +477,20 @@ public class Address {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .addressLine1(getAddressLine1())
-                .addressLine2(getAddressLine2())
-                .addressLine3(getAddressLine3())
-                .locality(getLocality())
-                .sublocality(getSublocality())
-                .sublocality2(getSublocality2())
-                .sublocality3(getSublocality3())
-                .administrativeDistrictLevel1(getAdministrativeDistrictLevel1())
-                .administrativeDistrictLevel2(getAdministrativeDistrictLevel2())
-                .administrativeDistrictLevel3(getAdministrativeDistrictLevel3())
-                .postalCode(getPostalCode())
-                .country(getCountry())
-                .firstName(getFirstName())
-                .lastName(getLastName());
+                .country(getCountry());
+        builder.addressLine1 = internalGetAddressLine1();
+        builder.addressLine2 = internalGetAddressLine2();
+        builder.addressLine3 = internalGetAddressLine3();
+        builder.locality = internalGetLocality();
+        builder.sublocality = internalGetSublocality();
+        builder.sublocality2 = internalGetSublocality2();
+        builder.sublocality3 = internalGetSublocality3();
+        builder.administrativeDistrictLevel1 = internalGetAdministrativeDistrictLevel1();
+        builder.administrativeDistrictLevel2 = internalGetAdministrativeDistrictLevel2();
+        builder.administrativeDistrictLevel3 = internalGetAdministrativeDistrictLevel3();
+        builder.postalCode = internalGetPostalCode();
+        builder.firstName = internalGetFirstName();
+        builder.lastName = internalGetLastName();
         return builder;
     }
 
@@ -316,20 +498,20 @@ public class Address {
      * Class to build instances of {@link Address}.
      */
     public static class Builder {
-        private String addressLine1;
-        private String addressLine2;
-        private String addressLine3;
-        private String locality;
-        private String sublocality;
-        private String sublocality2;
-        private String sublocality3;
-        private String administrativeDistrictLevel1;
-        private String administrativeDistrictLevel2;
-        private String administrativeDistrictLevel3;
-        private String postalCode;
+        private OptionalNullable<String> addressLine1;
+        private OptionalNullable<String> addressLine2;
+        private OptionalNullable<String> addressLine3;
+        private OptionalNullable<String> locality;
+        private OptionalNullable<String> sublocality;
+        private OptionalNullable<String> sublocality2;
+        private OptionalNullable<String> sublocality3;
+        private OptionalNullable<String> administrativeDistrictLevel1;
+        private OptionalNullable<String> administrativeDistrictLevel2;
+        private OptionalNullable<String> administrativeDistrictLevel3;
+        private OptionalNullable<String> postalCode;
         private String country;
-        private String firstName;
-        private String lastName;
+        private OptionalNullable<String> firstName;
+        private OptionalNullable<String> lastName;
 
 
 
@@ -339,7 +521,16 @@ public class Address {
          * @return Builder
          */
         public Builder addressLine1(String addressLine1) {
-            this.addressLine1 = addressLine1;
+            this.addressLine1 = OptionalNullable.of(addressLine1);
+            return this;
+        }
+
+        /**
+         * UnSetter for addressLine1.
+         * @return Builder
+         */
+        public Builder unsetAddressLine1() {
+            addressLine1 = null;
             return this;
         }
 
@@ -349,7 +540,16 @@ public class Address {
          * @return Builder
          */
         public Builder addressLine2(String addressLine2) {
-            this.addressLine2 = addressLine2;
+            this.addressLine2 = OptionalNullable.of(addressLine2);
+            return this;
+        }
+
+        /**
+         * UnSetter for addressLine2.
+         * @return Builder
+         */
+        public Builder unsetAddressLine2() {
+            addressLine2 = null;
             return this;
         }
 
@@ -359,7 +559,16 @@ public class Address {
          * @return Builder
          */
         public Builder addressLine3(String addressLine3) {
-            this.addressLine3 = addressLine3;
+            this.addressLine3 = OptionalNullable.of(addressLine3);
+            return this;
+        }
+
+        /**
+         * UnSetter for addressLine3.
+         * @return Builder
+         */
+        public Builder unsetAddressLine3() {
+            addressLine3 = null;
             return this;
         }
 
@@ -369,7 +578,16 @@ public class Address {
          * @return Builder
          */
         public Builder locality(String locality) {
-            this.locality = locality;
+            this.locality = OptionalNullable.of(locality);
+            return this;
+        }
+
+        /**
+         * UnSetter for locality.
+         * @return Builder
+         */
+        public Builder unsetLocality() {
+            locality = null;
             return this;
         }
 
@@ -379,7 +597,16 @@ public class Address {
          * @return Builder
          */
         public Builder sublocality(String sublocality) {
-            this.sublocality = sublocality;
+            this.sublocality = OptionalNullable.of(sublocality);
+            return this;
+        }
+
+        /**
+         * UnSetter for sublocality.
+         * @return Builder
+         */
+        public Builder unsetSublocality() {
+            sublocality = null;
             return this;
         }
 
@@ -389,7 +616,16 @@ public class Address {
          * @return Builder
          */
         public Builder sublocality2(String sublocality2) {
-            this.sublocality2 = sublocality2;
+            this.sublocality2 = OptionalNullable.of(sublocality2);
+            return this;
+        }
+
+        /**
+         * UnSetter for sublocality2.
+         * @return Builder
+         */
+        public Builder unsetSublocality2() {
+            sublocality2 = null;
             return this;
         }
 
@@ -399,7 +635,16 @@ public class Address {
          * @return Builder
          */
         public Builder sublocality3(String sublocality3) {
-            this.sublocality3 = sublocality3;
+            this.sublocality3 = OptionalNullable.of(sublocality3);
+            return this;
+        }
+
+        /**
+         * UnSetter for sublocality3.
+         * @return Builder
+         */
+        public Builder unsetSublocality3() {
+            sublocality3 = null;
             return this;
         }
 
@@ -409,7 +654,16 @@ public class Address {
          * @return Builder
          */
         public Builder administrativeDistrictLevel1(String administrativeDistrictLevel1) {
-            this.administrativeDistrictLevel1 = administrativeDistrictLevel1;
+            this.administrativeDistrictLevel1 = OptionalNullable.of(administrativeDistrictLevel1);
+            return this;
+        }
+
+        /**
+         * UnSetter for administrativeDistrictLevel1.
+         * @return Builder
+         */
+        public Builder unsetAdministrativeDistrictLevel1() {
+            administrativeDistrictLevel1 = null;
             return this;
         }
 
@@ -419,7 +673,16 @@ public class Address {
          * @return Builder
          */
         public Builder administrativeDistrictLevel2(String administrativeDistrictLevel2) {
-            this.administrativeDistrictLevel2 = administrativeDistrictLevel2;
+            this.administrativeDistrictLevel2 = OptionalNullable.of(administrativeDistrictLevel2);
+            return this;
+        }
+
+        /**
+         * UnSetter for administrativeDistrictLevel2.
+         * @return Builder
+         */
+        public Builder unsetAdministrativeDistrictLevel2() {
+            administrativeDistrictLevel2 = null;
             return this;
         }
 
@@ -429,7 +692,16 @@ public class Address {
          * @return Builder
          */
         public Builder administrativeDistrictLevel3(String administrativeDistrictLevel3) {
-            this.administrativeDistrictLevel3 = administrativeDistrictLevel3;
+            this.administrativeDistrictLevel3 = OptionalNullable.of(administrativeDistrictLevel3);
+            return this;
+        }
+
+        /**
+         * UnSetter for administrativeDistrictLevel3.
+         * @return Builder
+         */
+        public Builder unsetAdministrativeDistrictLevel3() {
+            administrativeDistrictLevel3 = null;
             return this;
         }
 
@@ -439,7 +711,16 @@ public class Address {
          * @return Builder
          */
         public Builder postalCode(String postalCode) {
-            this.postalCode = postalCode;
+            this.postalCode = OptionalNullable.of(postalCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for postalCode.
+         * @return Builder
+         */
+        public Builder unsetPostalCode() {
+            postalCode = null;
             return this;
         }
 
@@ -459,7 +740,16 @@ public class Address {
          * @return Builder
          */
         public Builder firstName(String firstName) {
-            this.firstName = firstName;
+            this.firstName = OptionalNullable.of(firstName);
+            return this;
+        }
+
+        /**
+         * UnSetter for firstName.
+         * @return Builder
+         */
+        public Builder unsetFirstName() {
+            firstName = null;
             return this;
         }
 
@@ -469,7 +759,16 @@ public class Address {
          * @return Builder
          */
         public Builder lastName(String lastName) {
-            this.lastName = lastName;
+            this.lastName = OptionalNullable.of(lastName);
+            return this;
+        }
+
+        /**
+         * UnSetter for lastName.
+         * @return Builder
+         */
+        public Builder unsetLastName() {
+            lastName = null;
             return this;
         }
 

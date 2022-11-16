@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderFulfillmentUpdatedUpdate type.
  */
 public class OrderFulfillmentUpdatedUpdate {
-    private final String fulfillmentUid;
+    private final OptionalNullable<String> fulfillmentUid;
     private final String oldState;
     private final String newState;
 
@@ -27,9 +30,31 @@ public class OrderFulfillmentUpdatedUpdate {
             @JsonProperty("fulfillment_uid") String fulfillmentUid,
             @JsonProperty("old_state") String oldState,
             @JsonProperty("new_state") String newState) {
+        this.fulfillmentUid = OptionalNullable.of(fulfillmentUid);
+        this.oldState = oldState;
+        this.newState = newState;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderFulfillmentUpdatedUpdate(OptionalNullable<String> fulfillmentUid,
+            String oldState, String newState) {
         this.fulfillmentUid = fulfillmentUid;
         this.oldState = oldState;
         this.newState = newState;
+    }
+
+    /**
+     * Internal Getter for FulfillmentUid.
+     * A unique ID that identifies the fulfillment only within this order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("fulfillment_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFulfillmentUid() {
+        return this.fulfillmentUid;
     }
 
     /**
@@ -37,10 +62,9 @@ public class OrderFulfillmentUpdatedUpdate {
      * A unique ID that identifies the fulfillment only within this order.
      * @return Returns the String
      */
-    @JsonGetter("fulfillment_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFulfillmentUid() {
-        return fulfillmentUid;
+        return OptionalNullable.getFrom(fulfillmentUid);
     }
 
     /**
@@ -101,9 +125,9 @@ public class OrderFulfillmentUpdatedUpdate {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .fulfillmentUid(getFulfillmentUid())
                 .oldState(getOldState())
                 .newState(getNewState());
+        builder.fulfillmentUid = internalGetFulfillmentUid();
         return builder;
     }
 
@@ -111,7 +135,7 @@ public class OrderFulfillmentUpdatedUpdate {
      * Class to build instances of {@link OrderFulfillmentUpdatedUpdate}.
      */
     public static class Builder {
-        private String fulfillmentUid;
+        private OptionalNullable<String> fulfillmentUid;
         private String oldState;
         private String newState;
 
@@ -123,7 +147,16 @@ public class OrderFulfillmentUpdatedUpdate {
          * @return Builder
          */
         public Builder fulfillmentUid(String fulfillmentUid) {
-            this.fulfillmentUid = fulfillmentUid;
+            this.fulfillmentUid = OptionalNullable.of(fulfillmentUid);
+            return this;
+        }
+
+        /**
+         * UnSetter for fulfillmentUid.
+         * @return Builder
+         */
+        public Builder unsetFulfillmentUid() {
+            fulfillmentUid = null;
             return this;
         }
 

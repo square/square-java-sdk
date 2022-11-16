@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class GiftCardActivityUnlinkedActivityRefund {
     private final Money amountMoney;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final String paymentId;
 
     /**
@@ -27,6 +30,16 @@ public class GiftCardActivityUnlinkedActivityRefund {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("payment_id") String paymentId) {
+        this.amountMoney = amountMoney;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.paymentId = paymentId;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected GiftCardActivityUnlinkedActivityRefund(Money amountMoney,
+            OptionalNullable<String> referenceId, String paymentId) {
         this.amountMoney = amountMoney;
         this.referenceId = referenceId;
         this.paymentId = paymentId;
@@ -48,15 +61,27 @@ public class GiftCardActivityUnlinkedActivityRefund {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * A client-specified ID that associates the gift card activity with an entity in another
+     * system.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * A client-specified ID that associates the gift card activity with an entity in another
      * system.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -106,8 +131,8 @@ public class GiftCardActivityUnlinkedActivityRefund {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(amountMoney)
-                .referenceId(getReferenceId())
                 .paymentId(getPaymentId());
+        builder.referenceId = internalGetReferenceId();
         return builder;
     }
 
@@ -116,7 +141,7 @@ public class GiftCardActivityUnlinkedActivityRefund {
      */
     public static class Builder {
         private Money amountMoney;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private String paymentId;
 
         /**
@@ -143,7 +168,16 @@ public class GiftCardActivityUnlinkedActivityRefund {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 

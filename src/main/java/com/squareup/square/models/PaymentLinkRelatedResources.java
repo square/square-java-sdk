@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for PaymentLinkRelatedResources type.
  */
 public class PaymentLinkRelatedResources {
-    private final List<Order> orders;
-    private final List<CatalogObject> subscriptionPlans;
+    private final OptionalNullable<List<Order>> orders;
+    private final OptionalNullable<List<CatalogObject>> subscriptionPlans;
 
     /**
      * Initialization constructor.
@@ -25,8 +28,29 @@ public class PaymentLinkRelatedResources {
     public PaymentLinkRelatedResources(
             @JsonProperty("orders") List<Order> orders,
             @JsonProperty("subscription_plans") List<CatalogObject> subscriptionPlans) {
+        this.orders = OptionalNullable.of(orders);
+        this.subscriptionPlans = OptionalNullable.of(subscriptionPlans);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PaymentLinkRelatedResources(OptionalNullable<List<Order>> orders,
+            OptionalNullable<List<CatalogObject>> subscriptionPlans) {
         this.orders = orders;
         this.subscriptionPlans = subscriptionPlans;
+    }
+
+    /**
+     * Internal Getter for Orders.
+     * The order associated with the payment link.
+     * @return Returns the Internal List of Order
+     */
+    @JsonGetter("orders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Order>> internalGetOrders() {
+        return this.orders;
     }
 
     /**
@@ -34,10 +58,21 @@ public class PaymentLinkRelatedResources {
      * The order associated with the payment link.
      * @return Returns the List of Order
      */
-    @JsonGetter("orders")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Order> getOrders() {
-        return orders;
+        return OptionalNullable.getFrom(orders);
+    }
+
+    /**
+     * Internal Getter for SubscriptionPlans.
+     * The subscription plan associated with the payment link.
+     * @return Returns the Internal List of CatalogObject
+     */
+    @JsonGetter("subscription_plans")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogObject>> internalGetSubscriptionPlans() {
+        return this.subscriptionPlans;
     }
 
     /**
@@ -45,10 +80,9 @@ public class PaymentLinkRelatedResources {
      * The subscription plan associated with the payment link.
      * @return Returns the List of CatalogObject
      */
-    @JsonGetter("subscription_plans")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<CatalogObject> getSubscriptionPlans() {
-        return subscriptionPlans;
+        return OptionalNullable.getFrom(subscriptionPlans);
     }
 
     @Override
@@ -85,9 +119,9 @@ public class PaymentLinkRelatedResources {
      * @return a new {@link PaymentLinkRelatedResources.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .orders(getOrders())
-                .subscriptionPlans(getSubscriptionPlans());
+        Builder builder = new Builder();
+        builder.orders = internalGetOrders();
+        builder.subscriptionPlans = internalGetSubscriptionPlans();
         return builder;
     }
 
@@ -95,8 +129,8 @@ public class PaymentLinkRelatedResources {
      * Class to build instances of {@link PaymentLinkRelatedResources}.
      */
     public static class Builder {
-        private List<Order> orders;
-        private List<CatalogObject> subscriptionPlans;
+        private OptionalNullable<List<Order>> orders;
+        private OptionalNullable<List<CatalogObject>> subscriptionPlans;
 
 
 
@@ -106,7 +140,16 @@ public class PaymentLinkRelatedResources {
          * @return Builder
          */
         public Builder orders(List<Order> orders) {
-            this.orders = orders;
+            this.orders = OptionalNullable.of(orders);
+            return this;
+        }
+
+        /**
+         * UnSetter for orders.
+         * @return Builder
+         */
+        public Builder unsetOrders() {
+            orders = null;
             return this;
         }
 
@@ -116,7 +159,16 @@ public class PaymentLinkRelatedResources {
          * @return Builder
          */
         public Builder subscriptionPlans(List<CatalogObject> subscriptionPlans) {
-            this.subscriptionPlans = subscriptionPlans;
+            this.subscriptionPlans = OptionalNullable.of(subscriptionPlans);
+            return this;
+        }
+
+        /**
+         * UnSetter for subscriptionPlans.
+         * @return Builder
+         */
+        public Builder unsetSubscriptionPlans() {
+            subscriptionPlans = null;
             return this;
         }
 

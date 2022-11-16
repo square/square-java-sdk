@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,18 +21,18 @@ public class Subscription {
     private final String planId;
     private final String customerId;
     private final String startDate;
-    private final String canceledDate;
+    private final OptionalNullable<String> canceledDate;
     private final String chargedThroughDate;
     private final String status;
-    private final String taxPercentage;
+    private final OptionalNullable<String> taxPercentage;
     private final List<String> invoiceIds;
     private final Money priceOverrideMoney;
     private final Long version;
     private final String createdAt;
-    private final String cardId;
+    private final OptionalNullable<String> cardId;
     private final String timezone;
     private final SubscriptionSource source;
-    private final List<SubscriptionAction> actions;
+    private final OptionalNullable<List<SubscriptionAction>> actions;
 
     /**
      * Initialization constructor.
@@ -70,6 +73,34 @@ public class Subscription {
             @JsonProperty("timezone") String timezone,
             @JsonProperty("source") SubscriptionSource source,
             @JsonProperty("actions") List<SubscriptionAction> actions) {
+        this.id = id;
+        this.locationId = locationId;
+        this.planId = planId;
+        this.customerId = customerId;
+        this.startDate = startDate;
+        this.canceledDate = OptionalNullable.of(canceledDate);
+        this.chargedThroughDate = chargedThroughDate;
+        this.status = status;
+        this.taxPercentage = OptionalNullable.of(taxPercentage);
+        this.invoiceIds = invoiceIds;
+        this.priceOverrideMoney = priceOverrideMoney;
+        this.version = version;
+        this.createdAt = createdAt;
+        this.cardId = OptionalNullable.of(cardId);
+        this.timezone = timezone;
+        this.source = source;
+        this.actions = OptionalNullable.of(actions);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Subscription(String id, String locationId, String planId, String customerId,
+            String startDate, OptionalNullable<String> canceledDate, String chargedThroughDate,
+            String status, OptionalNullable<String> taxPercentage, List<String> invoiceIds,
+            Money priceOverrideMoney, Long version, String createdAt,
+            OptionalNullable<String> cardId, String timezone, SubscriptionSource source,
+            OptionalNullable<List<SubscriptionAction>> actions) {
         this.id = id;
         this.locationId = locationId;
         this.planId = planId;
@@ -145,6 +176,21 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for CanceledDate.
+     * The `YYYY-MM-DD`-formatted date (for example, 2013-01-15) to cancel the subscription, when
+     * the subscription status changes to `CANCELED` and the subscription billing stops. If this
+     * field is not set, the subscription ends according its subscription plan. This field cannot be
+     * updated, other than being cleared.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("canceled_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCanceledDate() {
+        return this.canceledDate;
+    }
+
+    /**
      * Getter for CanceledDate.
      * The `YYYY-MM-DD`-formatted date (for example, 2013-01-15) to cancel the subscription, when
      * the subscription status changes to `CANCELED` and the subscription billing stops. If this
@@ -152,10 +198,9 @@ public class Subscription {
      * updated, other than being cleared.
      * @return Returns the String
      */
-    @JsonGetter("canceled_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCanceledDate() {
-        return canceledDate;
+        return OptionalNullable.getFrom(canceledDate);
     }
 
     /**
@@ -185,16 +230,29 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for TaxPercentage.
+     * The tax amount applied when billing the subscription. The percentage is expressed in decimal
+     * form, using a `'.'` as the decimal separator and without a `'%'` sign. For example, a value
+     * of `7.5` corresponds to 7.5%.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tax_percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxPercentage() {
+        return this.taxPercentage;
+    }
+
+    /**
      * Getter for TaxPercentage.
      * The tax amount applied when billing the subscription. The percentage is expressed in decimal
      * form, using a `'.'` as the decimal separator and without a `'%'` sign. For example, a value
      * of `7.5` corresponds to 7.5%.
      * @return Returns the String
      */
-    @JsonGetter("tax_percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTaxPercentage() {
-        return taxPercentage;
+        return OptionalNullable.getFrom(taxPercentage);
     }
 
     /**
@@ -249,15 +307,27 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for CardId.
+     * The ID of the [subscriber's]($m/Customer) [card]($m/Card) used to charge for the
+     * subscription.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("card_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCardId() {
+        return this.cardId;
+    }
+
+    /**
      * Getter for CardId.
      * The ID of the [subscriber's]($m/Customer) [card]($m/Card) used to charge for the
      * subscription.
      * @return Returns the String
      */
-    @JsonGetter("card_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCardId() {
-        return cardId;
+        return OptionalNullable.getFrom(cardId);
     }
 
     /**
@@ -285,6 +355,21 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for Actions.
+     * The list of scheduled actions on this subscription. It is set only in the response from
+     * [RetrieveSubscription]($e/Subscriptions/RetrieveSubscription) with the query parameter of
+     * `include=actions` or from [SearchSubscriptions]($e/Subscriptions/SearchSubscriptions) with
+     * the input parameter of `include:["actions"]`.
+     * @return Returns the Internal List of SubscriptionAction
+     */
+    @JsonGetter("actions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<SubscriptionAction>> internalGetActions() {
+        return this.actions;
+    }
+
+    /**
      * Getter for Actions.
      * The list of scheduled actions on this subscription. It is set only in the response from
      * [RetrieveSubscription]($e/Subscriptions/RetrieveSubscription) with the query parameter of
@@ -292,10 +377,9 @@ public class Subscription {
      * the input parameter of `include:["actions"]`.
      * @return Returns the List of SubscriptionAction
      */
-    @JsonGetter("actions")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<SubscriptionAction> getActions() {
-        return actions;
+        return OptionalNullable.getFrom(actions);
     }
 
     @Override
@@ -360,18 +444,18 @@ public class Subscription {
                 .planId(getPlanId())
                 .customerId(getCustomerId())
                 .startDate(getStartDate())
-                .canceledDate(getCanceledDate())
                 .chargedThroughDate(getChargedThroughDate())
                 .status(getStatus())
-                .taxPercentage(getTaxPercentage())
                 .invoiceIds(getInvoiceIds())
                 .priceOverrideMoney(getPriceOverrideMoney())
                 .version(getVersion())
                 .createdAt(getCreatedAt())
-                .cardId(getCardId())
                 .timezone(getTimezone())
-                .source(getSource())
-                .actions(getActions());
+                .source(getSource());
+        builder.canceledDate = internalGetCanceledDate();
+        builder.taxPercentage = internalGetTaxPercentage();
+        builder.cardId = internalGetCardId();
+        builder.actions = internalGetActions();
         return builder;
     }
 
@@ -384,18 +468,18 @@ public class Subscription {
         private String planId;
         private String customerId;
         private String startDate;
-        private String canceledDate;
+        private OptionalNullable<String> canceledDate;
         private String chargedThroughDate;
         private String status;
-        private String taxPercentage;
+        private OptionalNullable<String> taxPercentage;
         private List<String> invoiceIds;
         private Money priceOverrideMoney;
         private Long version;
         private String createdAt;
-        private String cardId;
+        private OptionalNullable<String> cardId;
         private String timezone;
         private SubscriptionSource source;
-        private List<SubscriptionAction> actions;
+        private OptionalNullable<List<SubscriptionAction>> actions;
 
 
 
@@ -455,7 +539,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder canceledDate(String canceledDate) {
-            this.canceledDate = canceledDate;
+            this.canceledDate = OptionalNullable.of(canceledDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for canceledDate.
+         * @return Builder
+         */
+        public Builder unsetCanceledDate() {
+            canceledDate = null;
             return this;
         }
 
@@ -485,7 +578,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder taxPercentage(String taxPercentage) {
-            this.taxPercentage = taxPercentage;
+            this.taxPercentage = OptionalNullable.of(taxPercentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxPercentage.
+         * @return Builder
+         */
+        public Builder unsetTaxPercentage() {
+            taxPercentage = null;
             return this;
         }
 
@@ -535,7 +637,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder cardId(String cardId) {
-            this.cardId = cardId;
+            this.cardId = OptionalNullable.of(cardId);
+            return this;
+        }
+
+        /**
+         * UnSetter for cardId.
+         * @return Builder
+         */
+        public Builder unsetCardId() {
+            cardId = null;
             return this;
         }
 
@@ -565,7 +676,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder actions(List<SubscriptionAction> actions) {
-            this.actions = actions;
+            this.actions = OptionalNullable.of(actions);
+            return this;
+        }
+
+        /**
+         * UnSetter for actions.
+         * @return Builder
+         */
+        public Builder unsetActions() {
+            actions = null;
             return this;
         }
 

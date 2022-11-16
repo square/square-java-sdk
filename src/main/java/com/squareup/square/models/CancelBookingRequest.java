@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CancelBookingRequest type.
  */
 public class CancelBookingRequest {
-    private final String idempotencyKey;
-    private final Integer bookingVersion;
+    private final OptionalNullable<String> idempotencyKey;
+    private final OptionalNullable<Integer> bookingVersion;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,29 @@ public class CancelBookingRequest {
     public CancelBookingRequest(
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("booking_version") Integer bookingVersion) {
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+        this.bookingVersion = OptionalNullable.of(bookingVersion);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CancelBookingRequest(OptionalNullable<String> idempotencyKey,
+            OptionalNullable<Integer> bookingVersion) {
         this.idempotencyKey = idempotencyKey;
         this.bookingVersion = bookingVersion;
+    }
+
+    /**
+     * Internal Getter for IdempotencyKey.
+     * A unique key to make this request an idempotent operation.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
     }
 
     /**
@@ -33,10 +57,21 @@ public class CancelBookingRequest {
      * A unique key to make this request an idempotent operation.
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
+    }
+
+    /**
+     * Internal Getter for BookingVersion.
+     * The revision number for the booking used for optimistic concurrency.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("booking_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBookingVersion() {
+        return this.bookingVersion;
     }
 
     /**
@@ -44,10 +79,9 @@ public class CancelBookingRequest {
      * The revision number for the booking used for optimistic concurrency.
      * @return Returns the Integer
      */
-    @JsonGetter("booking_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getBookingVersion() {
-        return bookingVersion;
+        return OptionalNullable.getFrom(bookingVersion);
     }
 
     @Override
@@ -84,9 +118,9 @@ public class CancelBookingRequest {
      * @return a new {@link CancelBookingRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .idempotencyKey(getIdempotencyKey())
-                .bookingVersion(getBookingVersion());
+        Builder builder = new Builder();
+        builder.idempotencyKey = internalGetIdempotencyKey();
+        builder.bookingVersion = internalGetBookingVersion();
         return builder;
     }
 
@@ -94,8 +128,8 @@ public class CancelBookingRequest {
      * Class to build instances of {@link CancelBookingRequest}.
      */
     public static class Builder {
-        private String idempotencyKey;
-        private Integer bookingVersion;
+        private OptionalNullable<String> idempotencyKey;
+        private OptionalNullable<Integer> bookingVersion;
 
 
 
@@ -105,7 +139,16 @@ public class CancelBookingRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 
@@ -115,7 +158,16 @@ public class CancelBookingRequest {
          * @return Builder
          */
         public Builder bookingVersion(Integer bookingVersion) {
-            this.bookingVersion = bookingVersion;
+            this.bookingVersion = OptionalNullable.of(bookingVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for bookingVersion.
+         * @return Builder
+         */
+        public Builder unsetBookingVersion() {
+            bookingVersion = null;
             return this;
         }
 

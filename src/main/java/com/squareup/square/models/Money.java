@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for Money type.
  */
 public class Money {
-    private final Long amount;
+    private final OptionalNullable<Long> amount;
     private final String currency;
 
     /**
@@ -24,8 +27,31 @@ public class Money {
     public Money(
             @JsonProperty("amount") Long amount,
             @JsonProperty("currency") String currency) {
+        this.amount = OptionalNullable.of(amount);
+        this.currency = currency;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Money(OptionalNullable<Long> amount, String currency) {
         this.amount = amount;
         this.currency = currency;
+    }
+
+    /**
+     * Internal Getter for Amount.
+     * The amount of money, in the smallest denomination of the currency indicated by `currency`.
+     * For example, when `currency` is `USD`, `amount` is in cents. Monetary amounts can be positive
+     * or negative. See the specific field description to determine the meaning of the sign in a
+     * particular case.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetAmount() {
+        return this.amount;
     }
 
     /**
@@ -36,10 +62,9 @@ public class Money {
      * particular case.
      * @return Returns the Long
      */
-    @JsonGetter("amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getAmount() {
-        return amount;
+        return OptionalNullable.getFrom(amount);
     }
 
     /**
@@ -88,8 +113,8 @@ public class Money {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .amount(getAmount())
                 .currency(getCurrency());
+        builder.amount = internalGetAmount();
         return builder;
     }
 
@@ -97,7 +122,7 @@ public class Money {
      * Class to build instances of {@link Money}.
      */
     public static class Builder {
-        private Long amount;
+        private OptionalNullable<Long> amount;
         private String currency;
 
 
@@ -108,7 +133,16 @@ public class Money {
          * @return Builder
          */
         public Builder amount(Long amount) {
-            this.amount = amount;
+            this.amount = OptionalNullable.of(amount);
+            return this;
+        }
+
+        /**
+         * UnSetter for amount.
+         * @return Builder
+         */
+        public Builder unsetAmount() {
+            amount = null;
             return this;
         }
 

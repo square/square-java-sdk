@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for TerminalRefundQueryFilter type.
  */
 public class TerminalRefundQueryFilter {
-    private final String deviceId;
+    private final OptionalNullable<String> deviceId;
     private final TimeRange createdAt;
-    private final String status;
+    private final OptionalNullable<String> status;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,32 @@ public class TerminalRefundQueryFilter {
             @JsonProperty("device_id") String deviceId,
             @JsonProperty("created_at") TimeRange createdAt,
             @JsonProperty("status") String status) {
+        this.deviceId = OptionalNullable.of(deviceId);
+        this.createdAt = createdAt;
+        this.status = OptionalNullable.of(status);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected TerminalRefundQueryFilter(OptionalNullable<String> deviceId, TimeRange createdAt,
+            OptionalNullable<String> status) {
         this.deviceId = deviceId;
         this.createdAt = createdAt;
         this.status = status;
+    }
+
+    /**
+     * Internal Getter for DeviceId.
+     * `TerminalRefund` objects associated with a specific device. If no device is specified, then
+     * all `TerminalRefund` objects for the signed-in account are displayed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("device_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDeviceId() {
+        return this.deviceId;
     }
 
     /**
@@ -38,10 +64,9 @@ public class TerminalRefundQueryFilter {
      * all `TerminalRefund` objects for the signed-in account are displayed.
      * @return Returns the String
      */
-    @JsonGetter("device_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDeviceId() {
-        return deviceId;
+        return OptionalNullable.getFrom(deviceId);
     }
 
     /**
@@ -59,15 +84,27 @@ public class TerminalRefundQueryFilter {
     }
 
     /**
+     * Internal Getter for Status.
+     * Filtered results with the desired status of the `TerminalRefund`. Options: `PENDING`,
+     * `IN_PROGRESS`, `CANCEL_REQUESTED`, `CANCELED`, or `COMPLETED`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatus() {
+        return this.status;
+    }
+
+    /**
      * Getter for Status.
      * Filtered results with the desired status of the `TerminalRefund`. Options: `PENDING`,
      * `IN_PROGRESS`, `CANCEL_REQUESTED`, `CANCELED`, or `COMPLETED`.
      * @return Returns the String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
     }
 
     @Override
@@ -106,9 +143,9 @@ public class TerminalRefundQueryFilter {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .deviceId(getDeviceId())
-                .createdAt(getCreatedAt())
-                .status(getStatus());
+                .createdAt(getCreatedAt());
+        builder.deviceId = internalGetDeviceId();
+        builder.status = internalGetStatus();
         return builder;
     }
 
@@ -116,9 +153,9 @@ public class TerminalRefundQueryFilter {
      * Class to build instances of {@link TerminalRefundQueryFilter}.
      */
     public static class Builder {
-        private String deviceId;
+        private OptionalNullable<String> deviceId;
         private TimeRange createdAt;
-        private String status;
+        private OptionalNullable<String> status;
 
 
 
@@ -128,7 +165,16 @@ public class TerminalRefundQueryFilter {
          * @return Builder
          */
         public Builder deviceId(String deviceId) {
-            this.deviceId = deviceId;
+            this.deviceId = OptionalNullable.of(deviceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for deviceId.
+         * @return Builder
+         */
+        public Builder unsetDeviceId() {
+            deviceId = null;
             return this;
         }
 
@@ -148,7 +194,16 @@ public class TerminalRefundQueryFilter {
          * @return Builder
          */
         public Builder status(String status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 

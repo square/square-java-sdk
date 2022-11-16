@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListWebhookSubscriptionsRequest type.
  */
 public class ListWebhookSubscriptionsRequest {
-    private final String cursor;
-    private final Boolean includeDisabled;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<Boolean> includeDisabled;
     private final String sortOrder;
-    private final Integer limit;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -30,10 +33,36 @@ public class ListWebhookSubscriptionsRequest {
             @JsonProperty("include_disabled") Boolean includeDisabled,
             @JsonProperty("sort_order") String sortOrder,
             @JsonProperty("limit") Integer limit) {
+        this.cursor = OptionalNullable.of(cursor);
+        this.includeDisabled = OptionalNullable.of(includeDisabled);
+        this.sortOrder = sortOrder;
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListWebhookSubscriptionsRequest(OptionalNullable<String> cursor,
+            OptionalNullable<Boolean> includeDisabled, String sortOrder,
+            OptionalNullable<Integer> limit) {
         this.cursor = cursor;
         this.includeDisabled = includeDisabled;
         this.sortOrder = sortOrder;
         this.limit = limit;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -43,10 +72,22 @@ public class ListWebhookSubscriptionsRequest {
      * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for IncludeDisabled.
+     * Includes disabled [Subscription]($m/WebhookSubscription)s. By default, all enabled
+     * [Subscription]($m/WebhookSubscription)s are returned.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_disabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeDisabled() {
+        return this.includeDisabled;
     }
 
     /**
@@ -55,10 +96,9 @@ public class ListWebhookSubscriptionsRequest {
      * [Subscription]($m/WebhookSubscription)s are returned.
      * @return Returns the Boolean
      */
-    @JsonGetter("include_disabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIncludeDisabled() {
-        return includeDisabled;
+        return OptionalNullable.getFrom(includeDisabled);
     }
 
     /**
@@ -73,16 +113,29 @@ public class ListWebhookSubscriptionsRequest {
     }
 
     /**
+     * Internal Getter for Limit.
+     * The maximum number of results to be returned in a single page. It is possible to receive
+     * fewer results than the specified limit on a given page. The default value of 100 is also the
+     * maximum allowed value. Default: 100
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
+    }
+
+    /**
      * Getter for Limit.
      * The maximum number of results to be returned in a single page. It is possible to receive
      * fewer results than the specified limit on a given page. The default value of 100 is also the
      * maximum allowed value. Default: 100
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -122,10 +175,10 @@ public class ListWebhookSubscriptionsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .cursor(getCursor())
-                .includeDisabled(getIncludeDisabled())
-                .sortOrder(getSortOrder())
-                .limit(getLimit());
+                .sortOrder(getSortOrder());
+        builder.cursor = internalGetCursor();
+        builder.includeDisabled = internalGetIncludeDisabled();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -133,10 +186,10 @@ public class ListWebhookSubscriptionsRequest {
      * Class to build instances of {@link ListWebhookSubscriptionsRequest}.
      */
     public static class Builder {
-        private String cursor;
-        private Boolean includeDisabled;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<Boolean> includeDisabled;
         private String sortOrder;
-        private Integer limit;
+        private OptionalNullable<Integer> limit;
 
 
 
@@ -146,7 +199,16 @@ public class ListWebhookSubscriptionsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -156,7 +218,16 @@ public class ListWebhookSubscriptionsRequest {
          * @return Builder
          */
         public Builder includeDisabled(Boolean includeDisabled) {
-            this.includeDisabled = includeDisabled;
+            this.includeDisabled = OptionalNullable.of(includeDisabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeDisabled.
+         * @return Builder
+         */
+        public Builder unsetIncludeDisabled() {
+            includeDisabled = null;
             return this;
         }
 
@@ -176,7 +247,16 @@ public class ListWebhookSubscriptionsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 

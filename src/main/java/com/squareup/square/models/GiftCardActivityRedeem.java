@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class GiftCardActivityRedeem {
     private final Money amountMoney;
     private final String paymentId;
-    private final String referenceId;
+    private final OptionalNullable<String> referenceId;
     private final String status;
 
     /**
@@ -30,6 +33,17 @@ public class GiftCardActivityRedeem {
             @JsonProperty("payment_id") String paymentId,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("status") String status) {
+        this.amountMoney = amountMoney;
+        this.paymentId = paymentId;
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.status = status;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected GiftCardActivityRedeem(Money amountMoney, String paymentId,
+            OptionalNullable<String> referenceId, String status) {
         this.amountMoney = amountMoney;
         this.paymentId = paymentId;
         this.referenceId = referenceId;
@@ -64,16 +78,29 @@ public class GiftCardActivityRedeem {
     }
 
     /**
+     * Internal Getter for ReferenceId.
+     * A client-specified ID that associates the gift card activity with an entity in another
+     * system. Applications that use a custom payment processing system can use this field to track
+     * information related to an order or payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
      * Getter for ReferenceId.
      * A client-specified ID that associates the gift card activity with an entity in another
      * system. Applications that use a custom payment processing system can use this field to track
      * information related to an order or payment.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -128,8 +155,8 @@ public class GiftCardActivityRedeem {
     public Builder toBuilder() {
         Builder builder = new Builder(amountMoney)
                 .paymentId(getPaymentId())
-                .referenceId(getReferenceId())
                 .status(getStatus());
+        builder.referenceId = internalGetReferenceId();
         return builder;
     }
 
@@ -139,7 +166,7 @@ public class GiftCardActivityRedeem {
     public static class Builder {
         private Money amountMoney;
         private String paymentId;
-        private String referenceId;
+        private OptionalNullable<String> referenceId;
         private String status;
 
         /**
@@ -176,7 +203,16 @@ public class GiftCardActivityRedeem {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 

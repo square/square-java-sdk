@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection type.
  */
 public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection {
-    private final String uid;
+    private final OptionalNullable<String> uid;
     private final String name;
 
     /**
@@ -24,8 +27,29 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(
             @JsonProperty("name") String name,
             @JsonProperty("uid") String uid) {
+        this.uid = OptionalNullable.of(uid);
+        this.name = name;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(String name,
+            OptionalNullable<String> uid) {
         this.uid = uid;
         this.name = name;
+    }
+
+    /**
+     * Internal Getter for Uid.
+     * Unique ID set by Square.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
     }
 
     /**
@@ -33,10 +57,9 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      * Unique ID set by Square.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
     }
 
     /**
@@ -84,8 +107,8 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      * @return a new {@link CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name)
-                .uid(getUid());
+        Builder builder = new Builder(name);
+        builder.uid = internalGetUid();
         return builder;
     }
 
@@ -94,7 +117,7 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
      */
     public static class Builder {
         private String name;
-        private String uid;
+        private OptionalNullable<String> uid;
 
         /**
          * Initialization constructor.
@@ -120,7 +143,16 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 

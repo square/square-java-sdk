@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,14 +18,14 @@ import java.util.Objects;
 public class Refund {
     private final String id;
     private final String locationId;
-    private final String transactionId;
+    private final OptionalNullable<String> transactionId;
     private final String tenderId;
     private final String createdAt;
     private final String reason;
     private final Money amountMoney;
     private final String status;
     private final Money processingFeeMoney;
-    private final List<AdditionalRecipient> additionalRecipients;
+    private final OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
 
     /**
      * Initialization constructor.
@@ -49,6 +52,25 @@ public class Refund {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("processing_fee_money") Money processingFeeMoney,
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients) {
+        this.id = id;
+        this.locationId = locationId;
+        this.transactionId = OptionalNullable.of(transactionId);
+        this.tenderId = tenderId;
+        this.createdAt = createdAt;
+        this.reason = reason;
+        this.amountMoney = amountMoney;
+        this.status = status;
+        this.processingFeeMoney = processingFeeMoney;
+        this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Refund(String id, String locationId, String tenderId, String reason,
+            Money amountMoney, String status, OptionalNullable<String> transactionId,
+            String createdAt, Money processingFeeMoney,
+            OptionalNullable<List<AdditionalRecipient>> additionalRecipients) {
         this.id = id;
         this.locationId = locationId;
         this.transactionId = transactionId;
@@ -82,14 +104,25 @@ public class Refund {
     }
 
     /**
+     * Internal Getter for TransactionId.
+     * The ID of the transaction that the refunded tender is part of.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
      * Getter for TransactionId.
      * The ID of the transaction that the refunded tender is part of.
      * @return Returns the String
      */
-    @JsonGetter("transaction_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTransactionId() {
-        return transactionId;
+        return OptionalNullable.getFrom(transactionId);
     }
 
     /**
@@ -165,15 +198,27 @@ public class Refund {
     }
 
     /**
+     * Internal Getter for AdditionalRecipients.
+     * Additional recipients (other than the merchant) receiving a portion of this refund. For
+     * example, fees assessed on a refund of a purchase by a third party integration.
+     * @return Returns the Internal List of AdditionalRecipient
+     */
+    @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<AdditionalRecipient>> internalGetAdditionalRecipients() {
+        return this.additionalRecipients;
+    }
+
+    /**
      * Getter for AdditionalRecipients.
      * Additional recipients (other than the merchant) receiving a portion of this refund. For
      * example, fees assessed on a refund of a purchase by a third party integration.
      * @return Returns the List of AdditionalRecipient
      */
-    @JsonGetter("additional_recipients")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return additionalRecipients;
+        return OptionalNullable.getFrom(additionalRecipients);
     }
 
     @Override
@@ -223,10 +268,10 @@ public class Refund {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, locationId, tenderId, reason, amountMoney, status)
-                .transactionId(getTransactionId())
                 .createdAt(getCreatedAt())
-                .processingFeeMoney(getProcessingFeeMoney())
-                .additionalRecipients(getAdditionalRecipients());
+                .processingFeeMoney(getProcessingFeeMoney());
+        builder.transactionId = internalGetTransactionId();
+        builder.additionalRecipients = internalGetAdditionalRecipients();
         return builder;
     }
 
@@ -240,10 +285,10 @@ public class Refund {
         private String reason;
         private Money amountMoney;
         private String status;
-        private String transactionId;
+        private OptionalNullable<String> transactionId;
         private String createdAt;
         private Money processingFeeMoney;
-        private List<AdditionalRecipient> additionalRecipients;
+        private OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
 
         /**
          * Initialization constructor.
@@ -330,7 +375,16 @@ public class Refund {
          * @return Builder
          */
         public Builder transactionId(String transactionId) {
-            this.transactionId = transactionId;
+            this.transactionId = OptionalNullable.of(transactionId);
+            return this;
+        }
+
+        /**
+         * UnSetter for transactionId.
+         * @return Builder
+         */
+        public Builder unsetTransactionId() {
+            transactionId = null;
             return this;
         }
 
@@ -360,7 +414,16 @@ public class Refund {
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
-            this.additionalRecipients = additionalRecipients;
+            this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+            return this;
+        }
+
+        /**
+         * UnSetter for additionalRecipients.
+         * @return Builder
+         */
+        public Builder unsetAdditionalRecipients() {
+            additionalRecipients = null;
             return this;
         }
 

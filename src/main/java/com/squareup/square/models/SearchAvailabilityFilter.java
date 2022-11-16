@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +17,9 @@ import java.util.Objects;
  */
 public class SearchAvailabilityFilter {
     private final TimeRange startAtRange;
-    private final String locationId;
-    private final List<SegmentFilter> segmentFilters;
-    private final String bookingId;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<List<SegmentFilter>> segmentFilters;
+    private final OptionalNullable<String> bookingId;
 
     /**
      * Initialization constructor.
@@ -31,6 +34,18 @@ public class SearchAvailabilityFilter {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("segment_filters") List<SegmentFilter> segmentFilters,
             @JsonProperty("booking_id") String bookingId) {
+        this.startAtRange = startAtRange;
+        this.locationId = OptionalNullable.of(locationId);
+        this.segmentFilters = OptionalNullable.of(segmentFilters);
+        this.bookingId = OptionalNullable.of(bookingId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SearchAvailabilityFilter(TimeRange startAtRange, OptionalNullable<String> locationId,
+            OptionalNullable<List<SegmentFilter>> segmentFilters,
+            OptionalNullable<String> bookingId) {
         this.startAtRange = startAtRange;
         this.locationId = locationId;
         this.segmentFilters = segmentFilters;
@@ -51,16 +66,44 @@ public class SearchAvailabilityFilter {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The query expression to search for buyer-accessible availabilities with their location IDs
+     * matching the specified location ID. This query expression cannot be set if `booking_id` is
+     * set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The query expression to search for buyer-accessible availabilities with their location IDs
      * matching the specified location ID. This query expression cannot be set if `booking_id` is
      * set.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for SegmentFilters.
+     * The query expression to search for buyer-accessible availabilities matching the specified
+     * list of segment filters. If the size of the `segment_filters` list is `n`, the search returns
+     * availabilities with `n` segments per availability. This query expression cannot be set if
+     * `booking_id` is set.
+     * @return Returns the Internal List of SegmentFilter
+     */
+    @JsonGetter("segment_filters")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<SegmentFilter>> internalGetSegmentFilters() {
+        return this.segmentFilters;
     }
 
     /**
@@ -71,10 +114,24 @@ public class SearchAvailabilityFilter {
      * `booking_id` is set.
      * @return Returns the List of SegmentFilter
      */
-    @JsonGetter("segment_filters")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<SegmentFilter> getSegmentFilters() {
-        return segmentFilters;
+        return OptionalNullable.getFrom(segmentFilters);
+    }
+
+    /**
+     * Internal Getter for BookingId.
+     * The query expression to search for buyer-accessible availabilities for an existing booking by
+     * matching the specified `booking_id` value. This is commonly used to reschedule an
+     * appointment. If this expression is set, the `location_id` and `segment_filters` expressions
+     * cannot be set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("booking_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBookingId() {
+        return this.bookingId;
     }
 
     /**
@@ -85,10 +142,9 @@ public class SearchAvailabilityFilter {
      * cannot be set.
      * @return Returns the String
      */
-    @JsonGetter("booking_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBookingId() {
-        return bookingId;
+        return OptionalNullable.getFrom(bookingId);
     }
 
     @Override
@@ -128,10 +184,10 @@ public class SearchAvailabilityFilter {
      * @return a new {@link SearchAvailabilityFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(startAtRange)
-                .locationId(getLocationId())
-                .segmentFilters(getSegmentFilters())
-                .bookingId(getBookingId());
+        Builder builder = new Builder(startAtRange);
+        builder.locationId = internalGetLocationId();
+        builder.segmentFilters = internalGetSegmentFilters();
+        builder.bookingId = internalGetBookingId();
         return builder;
     }
 
@@ -140,9 +196,9 @@ public class SearchAvailabilityFilter {
      */
     public static class Builder {
         private TimeRange startAtRange;
-        private String locationId;
-        private List<SegmentFilter> segmentFilters;
-        private String bookingId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<List<SegmentFilter>> segmentFilters;
+        private OptionalNullable<String> bookingId;
 
         /**
          * Initialization constructor.
@@ -168,7 +224,16 @@ public class SearchAvailabilityFilter {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -178,7 +243,16 @@ public class SearchAvailabilityFilter {
          * @return Builder
          */
         public Builder segmentFilters(List<SegmentFilter> segmentFilters) {
-            this.segmentFilters = segmentFilters;
+            this.segmentFilters = OptionalNullable.of(segmentFilters);
+            return this;
+        }
+
+        /**
+         * UnSetter for segmentFilters.
+         * @return Builder
+         */
+        public Builder unsetSegmentFilters() {
+            segmentFilters = null;
             return this;
         }
 
@@ -188,7 +262,16 @@ public class SearchAvailabilityFilter {
          * @return Builder
          */
         public Builder bookingId(String bookingId) {
-            this.bookingId = bookingId;
+            this.bookingId = OptionalNullable.of(bookingId);
+            return this;
+        }
+
+        /**
+         * UnSetter for bookingId.
+         * @return Builder
+         */
+        public Builder unsetBookingId() {
+            bookingId = null;
             return this;
         }
 

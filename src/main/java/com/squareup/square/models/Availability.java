@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +16,9 @@ import java.util.Objects;
  * This is a model class for Availability type.
  */
 public class Availability {
-    private final String startAt;
+    private final OptionalNullable<String> startAt;
     private final String locationId;
-    private final List<AppointmentSegment> appointmentSegments;
+    private final OptionalNullable<List<AppointmentSegment>> appointmentSegments;
 
     /**
      * Initialization constructor.
@@ -28,9 +31,31 @@ public class Availability {
             @JsonProperty("start_at") String startAt,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("appointment_segments") List<AppointmentSegment> appointmentSegments) {
+        this.startAt = OptionalNullable.of(startAt);
+        this.locationId = locationId;
+        this.appointmentSegments = OptionalNullable.of(appointmentSegments);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Availability(OptionalNullable<String> startAt, String locationId,
+            OptionalNullable<List<AppointmentSegment>> appointmentSegments) {
         this.startAt = startAt;
         this.locationId = locationId;
         this.appointmentSegments = appointmentSegments;
+    }
+
+    /**
+     * Internal Getter for StartAt.
+     * The RFC 3339 timestamp specifying the beginning time of the slot available for booking.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("start_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStartAt() {
+        return this.startAt;
     }
 
     /**
@@ -38,10 +63,9 @@ public class Availability {
      * The RFC 3339 timestamp specifying the beginning time of the slot available for booking.
      * @return Returns the String
      */
-    @JsonGetter("start_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStartAt() {
-        return startAt;
+        return OptionalNullable.getFrom(startAt);
     }
 
     /**
@@ -56,14 +80,25 @@ public class Availability {
     }
 
     /**
+     * Internal Getter for AppointmentSegments.
+     * The list of appointment segments available for booking
+     * @return Returns the Internal List of AppointmentSegment
+     */
+    @JsonGetter("appointment_segments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<AppointmentSegment>> internalGetAppointmentSegments() {
+        return this.appointmentSegments;
+    }
+
+    /**
      * Getter for AppointmentSegments.
      * The list of appointment segments available for booking
      * @return Returns the List of AppointmentSegment
      */
-    @JsonGetter("appointment_segments")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<AppointmentSegment> getAppointmentSegments() {
-        return appointmentSegments;
+        return OptionalNullable.getFrom(appointmentSegments);
     }
 
     @Override
@@ -102,9 +137,9 @@ public class Availability {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .startAt(getStartAt())
-                .locationId(getLocationId())
-                .appointmentSegments(getAppointmentSegments());
+                .locationId(getLocationId());
+        builder.startAt = internalGetStartAt();
+        builder.appointmentSegments = internalGetAppointmentSegments();
         return builder;
     }
 
@@ -112,9 +147,9 @@ public class Availability {
      * Class to build instances of {@link Availability}.
      */
     public static class Builder {
-        private String startAt;
+        private OptionalNullable<String> startAt;
         private String locationId;
-        private List<AppointmentSegment> appointmentSegments;
+        private OptionalNullable<List<AppointmentSegment>> appointmentSegments;
 
 
 
@@ -124,7 +159,16 @@ public class Availability {
          * @return Builder
          */
         public Builder startAt(String startAt) {
-            this.startAt = startAt;
+            this.startAt = OptionalNullable.of(startAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for startAt.
+         * @return Builder
+         */
+        public Builder unsetStartAt() {
+            startAt = null;
             return this;
         }
 
@@ -144,7 +188,16 @@ public class Availability {
          * @return Builder
          */
         public Builder appointmentSegments(List<AppointmentSegment> appointmentSegments) {
-            this.appointmentSegments = appointmentSegments;
+            this.appointmentSegments = OptionalNullable.of(appointmentSegments);
+            return this;
+        }
+
+        /**
+         * UnSetter for appointmentSegments.
+         * @return Builder
+         */
+        public Builder unsetAppointmentSegments() {
+            appointmentSegments = null;
             return this;
         }
 

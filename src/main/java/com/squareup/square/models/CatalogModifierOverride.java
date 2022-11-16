@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class CatalogModifierOverride {
     private final String modifierId;
-    private final Boolean onByDefault;
+    private final OptionalNullable<Boolean> onByDefault;
 
     /**
      * Initialization constructor.
@@ -24,6 +27,14 @@ public class CatalogModifierOverride {
     public CatalogModifierOverride(
             @JsonProperty("modifier_id") String modifierId,
             @JsonProperty("on_by_default") Boolean onByDefault) {
+        this.modifierId = modifierId;
+        this.onByDefault = OptionalNullable.of(onByDefault);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogModifierOverride(String modifierId, OptionalNullable<Boolean> onByDefault) {
         this.modifierId = modifierId;
         this.onByDefault = onByDefault;
     }
@@ -39,14 +50,25 @@ public class CatalogModifierOverride {
     }
 
     /**
+     * Internal Getter for OnByDefault.
+     * If `true`, this `CatalogModifier` should be selected by default for this `CatalogItem`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("on_by_default")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetOnByDefault() {
+        return this.onByDefault;
+    }
+
+    /**
      * Getter for OnByDefault.
      * If `true`, this `CatalogModifier` should be selected by default for this `CatalogItem`.
      * @return Returns the Boolean
      */
-    @JsonGetter("on_by_default")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getOnByDefault() {
-        return onByDefault;
+        return OptionalNullable.getFrom(onByDefault);
     }
 
     @Override
@@ -83,8 +105,8 @@ public class CatalogModifierOverride {
      * @return a new {@link CatalogModifierOverride.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(modifierId)
-                .onByDefault(getOnByDefault());
+        Builder builder = new Builder(modifierId);
+        builder.onByDefault = internalGetOnByDefault();
         return builder;
     }
 
@@ -93,7 +115,7 @@ public class CatalogModifierOverride {
      */
     public static class Builder {
         private String modifierId;
-        private Boolean onByDefault;
+        private OptionalNullable<Boolean> onByDefault;
 
         /**
          * Initialization constructor.
@@ -119,7 +141,16 @@ public class CatalogModifierOverride {
          * @return Builder
          */
         public Builder onByDefault(Boolean onByDefault) {
-            this.onByDefault = onByDefault;
+            this.onByDefault = OptionalNullable.of(onByDefault);
+            return this;
+        }
+
+        /**
+         * UnSetter for onByDefault.
+         * @return Builder
+         */
+        public Builder unsetOnByDefault() {
+            onByDefault = null;
             return this;
         }
 

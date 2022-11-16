@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class LoyaltyAccountMapping {
     private final String id;
     private final String createdAt;
-    private final String phoneNumber;
+    private final OptionalNullable<String> phoneNumber;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class LoyaltyAccountMapping {
             @JsonProperty("id") String id,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("phone_number") String phoneNumber) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyAccountMapping(String id, String createdAt,
+            OptionalNullable<String> phoneNumber) {
         this.id = id;
         this.createdAt = createdAt;
         this.phoneNumber = phoneNumber;
@@ -55,14 +68,25 @@ public class LoyaltyAccountMapping {
     }
 
     /**
+     * Internal Getter for PhoneNumber.
+     * The phone number of the buyer, in E.164 format. For example, "+14155551111".
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
      * Getter for PhoneNumber.
      * The phone number of the buyer, in E.164 format. For example, "+14155551111".
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
     }
 
     @Override
@@ -102,8 +126,8 @@ public class LoyaltyAccountMapping {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .createdAt(getCreatedAt())
-                .phoneNumber(getPhoneNumber());
+                .createdAt(getCreatedAt());
+        builder.phoneNumber = internalGetPhoneNumber();
         return builder;
     }
 
@@ -113,7 +137,7 @@ public class LoyaltyAccountMapping {
     public static class Builder {
         private String id;
         private String createdAt;
-        private String phoneNumber;
+        private OptionalNullable<String> phoneNumber;
 
 
 
@@ -143,7 +167,16 @@ public class LoyaltyAccountMapping {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 

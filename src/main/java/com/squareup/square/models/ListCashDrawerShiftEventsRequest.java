@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftEventsRequest {
     private final String locationId;
-    private final Integer limit;
-    private final String cursor;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class ListCashDrawerShiftEventsRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor) {
+        this.locationId = locationId;
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListCashDrawerShiftEventsRequest(String locationId, OptionalNullable<Integer> limit,
+            OptionalNullable<String> cursor) {
         this.locationId = locationId;
         this.limit = limit;
         this.cursor = cursor;
@@ -43,14 +56,37 @@ public class ListCashDrawerShiftEventsRequest {
     }
 
     /**
+     * Internal Getter for Limit.
+     * Number of resources to be returned in a page of results (200 by default, 1000 max).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
+    }
+
+    /**
      * Getter for Limit.
      * Number of resources to be returned in a page of results (200 by default, 1000 max).
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * Opaque cursor for fetching the next page of results.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -58,10 +94,9 @@ public class ListCashDrawerShiftEventsRequest {
      * Opaque cursor for fetching the next page of results.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -99,9 +134,9 @@ public class ListCashDrawerShiftEventsRequest {
      * @return a new {@link ListCashDrawerShiftEventsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId)
-                .limit(getLimit())
-                .cursor(getCursor());
+        Builder builder = new Builder(locationId);
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -110,8 +145,8 @@ public class ListCashDrawerShiftEventsRequest {
      */
     public static class Builder {
         private String locationId;
-        private Integer limit;
-        private String cursor;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
 
         /**
          * Initialization constructor.
@@ -137,7 +172,16 @@ public class ListCashDrawerShiftEventsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -147,7 +191,16 @@ public class ListCashDrawerShiftEventsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

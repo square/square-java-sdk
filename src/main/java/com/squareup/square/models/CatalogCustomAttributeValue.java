@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,13 +16,13 @@ import java.util.Objects;
  * This is a model class for CatalogCustomAttributeValue type.
  */
 public class CatalogCustomAttributeValue {
-    private final String name;
-    private final String stringValue;
+    private final OptionalNullable<String> name;
+    private final OptionalNullable<String> stringValue;
     private final String customAttributeDefinitionId;
     private final String type;
-    private final String numberValue;
-    private final Boolean booleanValue;
-    private final List<String> selectionUidValues;
+    private final OptionalNullable<String> numberValue;
+    private final OptionalNullable<Boolean> booleanValue;
+    private final OptionalNullable<List<String>> selectionUidValues;
     private final String key;
 
     /**
@@ -43,6 +46,23 @@ public class CatalogCustomAttributeValue {
             @JsonProperty("boolean_value") Boolean booleanValue,
             @JsonProperty("selection_uid_values") List<String> selectionUidValues,
             @JsonProperty("key") String key) {
+        this.name = OptionalNullable.of(name);
+        this.stringValue = OptionalNullable.of(stringValue);
+        this.customAttributeDefinitionId = customAttributeDefinitionId;
+        this.type = type;
+        this.numberValue = OptionalNullable.of(numberValue);
+        this.booleanValue = OptionalNullable.of(booleanValue);
+        this.selectionUidValues = OptionalNullable.of(selectionUidValues);
+        this.key = key;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogCustomAttributeValue(OptionalNullable<String> name,
+            OptionalNullable<String> stringValue, String customAttributeDefinitionId, String type,
+            OptionalNullable<String> numberValue, OptionalNullable<Boolean> booleanValue,
+            OptionalNullable<List<String>> selectionUidValues, String key) {
         this.name = name;
         this.stringValue = stringValue;
         this.customAttributeDefinitionId = customAttributeDefinitionId;
@@ -54,14 +74,37 @@ public class CatalogCustomAttributeValue {
     }
 
     /**
+     * Internal Getter for Name.
+     * The name of the custom attribute.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The name of the custom attribute.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
+    }
+
+    /**
+     * Internal Getter for StringValue.
+     * The string value of the custom attribute. Populated if `type` = `STRING`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("string_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStringValue() {
+        return this.stringValue;
     }
 
     /**
@@ -69,10 +112,9 @@ public class CatalogCustomAttributeValue {
      * The string value of the custom attribute. Populated if `type` = `STRING`.
      * @return Returns the String
      */
-    @JsonGetter("string_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStringValue() {
-        return stringValue;
+        return OptionalNullable.getFrom(stringValue);
     }
 
     /**
@@ -99,15 +141,39 @@ public class CatalogCustomAttributeValue {
     }
 
     /**
+     * Internal Getter for NumberValue.
+     * Populated if `type` = `NUMBER`. Contains a string representation of a decimal number, using a
+     * `.` as the decimal separator.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("number_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNumberValue() {
+        return this.numberValue;
+    }
+
+    /**
      * Getter for NumberValue.
      * Populated if `type` = `NUMBER`. Contains a string representation of a decimal number, using a
      * `.` as the decimal separator.
      * @return Returns the String
      */
-    @JsonGetter("number_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNumberValue() {
-        return numberValue;
+        return OptionalNullable.getFrom(numberValue);
+    }
+
+    /**
+     * Internal Getter for BooleanValue.
+     * A `true` or `false` value. Populated if `type` = `BOOLEAN`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("boolean_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetBooleanValue() {
+        return this.booleanValue;
     }
 
     /**
@@ -115,10 +181,21 @@ public class CatalogCustomAttributeValue {
      * A `true` or `false` value. Populated if `type` = `BOOLEAN`.
      * @return Returns the Boolean
      */
-    @JsonGetter("boolean_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getBooleanValue() {
-        return booleanValue;
+        return OptionalNullable.getFrom(booleanValue);
+    }
+
+    /**
+     * Internal Getter for SelectionUidValues.
+     * One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("selection_uid_values")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetSelectionUidValues() {
+        return this.selectionUidValues;
     }
 
     /**
@@ -126,10 +203,9 @@ public class CatalogCustomAttributeValue {
      * One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`.
      * @return Returns the List of String
      */
-    @JsonGetter("selection_uid_values")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getSelectionUidValues() {
-        return selectionUidValues;
+        return OptionalNullable.getFrom(selectionUidValues);
     }
 
     /**
@@ -187,14 +263,14 @@ public class CatalogCustomAttributeValue {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
-                .stringValue(getStringValue())
                 .customAttributeDefinitionId(getCustomAttributeDefinitionId())
                 .type(getType())
-                .numberValue(getNumberValue())
-                .booleanValue(getBooleanValue())
-                .selectionUidValues(getSelectionUidValues())
                 .key(getKey());
+        builder.name = internalGetName();
+        builder.stringValue = internalGetStringValue();
+        builder.numberValue = internalGetNumberValue();
+        builder.booleanValue = internalGetBooleanValue();
+        builder.selectionUidValues = internalGetSelectionUidValues();
         return builder;
     }
 
@@ -202,13 +278,13 @@ public class CatalogCustomAttributeValue {
      * Class to build instances of {@link CatalogCustomAttributeValue}.
      */
     public static class Builder {
-        private String name;
-        private String stringValue;
+        private OptionalNullable<String> name;
+        private OptionalNullable<String> stringValue;
         private String customAttributeDefinitionId;
         private String type;
-        private String numberValue;
-        private Boolean booleanValue;
-        private List<String> selectionUidValues;
+        private OptionalNullable<String> numberValue;
+        private OptionalNullable<Boolean> booleanValue;
+        private OptionalNullable<List<String>> selectionUidValues;
         private String key;
 
 
@@ -219,7 +295,16 @@ public class CatalogCustomAttributeValue {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -229,7 +314,16 @@ public class CatalogCustomAttributeValue {
          * @return Builder
          */
         public Builder stringValue(String stringValue) {
-            this.stringValue = stringValue;
+            this.stringValue = OptionalNullable.of(stringValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for stringValue.
+         * @return Builder
+         */
+        public Builder unsetStringValue() {
+            stringValue = null;
             return this;
         }
 
@@ -259,7 +353,16 @@ public class CatalogCustomAttributeValue {
          * @return Builder
          */
         public Builder numberValue(String numberValue) {
-            this.numberValue = numberValue;
+            this.numberValue = OptionalNullable.of(numberValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for numberValue.
+         * @return Builder
+         */
+        public Builder unsetNumberValue() {
+            numberValue = null;
             return this;
         }
 
@@ -269,7 +372,16 @@ public class CatalogCustomAttributeValue {
          * @return Builder
          */
         public Builder booleanValue(Boolean booleanValue) {
-            this.booleanValue = booleanValue;
+            this.booleanValue = OptionalNullable.of(booleanValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for booleanValue.
+         * @return Builder
+         */
+        public Builder unsetBooleanValue() {
+            booleanValue = null;
             return this;
         }
 
@@ -279,7 +391,16 @@ public class CatalogCustomAttributeValue {
          * @return Builder
          */
         public Builder selectionUidValues(List<String> selectionUidValues) {
-            this.selectionUidValues = selectionUidValues;
+            this.selectionUidValues = OptionalNullable.of(selectionUidValues);
+            return this;
+        }
+
+        /**
+         * UnSetter for selectionUidValues.
+         * @return Builder
+         */
+        public Builder unsetSelectionUidValues() {
+            selectionUidValues = null;
             return this;
         }
 

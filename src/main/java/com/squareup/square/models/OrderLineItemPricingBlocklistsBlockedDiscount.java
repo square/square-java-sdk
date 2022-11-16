@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderLineItemPricingBlocklistsBlockedDiscount type.
  */
 public class OrderLineItemPricingBlocklistsBlockedDiscount {
-    private final String uid;
-    private final String discountUid;
-    private final String discountCatalogObjectId;
+    private final OptionalNullable<String> uid;
+    private final OptionalNullable<String> discountUid;
+    private final OptionalNullable<String> discountCatalogObjectId;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,32 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
             @JsonProperty("uid") String uid,
             @JsonProperty("discount_uid") String discountUid,
             @JsonProperty("discount_catalog_object_id") String discountCatalogObjectId) {
+        this.uid = OptionalNullable.of(uid);
+        this.discountUid = OptionalNullable.of(discountUid);
+        this.discountCatalogObjectId = OptionalNullable.of(discountCatalogObjectId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderLineItemPricingBlocklistsBlockedDiscount(OptionalNullable<String> uid,
+            OptionalNullable<String> discountUid,
+            OptionalNullable<String> discountCatalogObjectId) {
         this.uid = uid;
         this.discountUid = discountUid;
         this.discountCatalogObjectId = discountCatalogObjectId;
+    }
+
+    /**
+     * Internal Getter for Uid.
+     * A unique ID of the `BlockedDiscount` within the order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
     }
 
     /**
@@ -37,10 +63,22 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * A unique ID of the `BlockedDiscount` within the order.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
+    }
+
+    /**
+     * Internal Getter for DiscountUid.
+     * The `uid` of the discount that should be blocked. Use this field to block ad hoc discounts.
+     * For catalog discounts, use the `discount_catalog_object_id` field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("discount_uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDiscountUid() {
+        return this.discountUid;
     }
 
     /**
@@ -49,10 +87,22 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * For catalog discounts, use the `discount_catalog_object_id` field.
      * @return Returns the String
      */
-    @JsonGetter("discount_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDiscountUid() {
-        return discountUid;
+        return OptionalNullable.getFrom(discountUid);
+    }
+
+    /**
+     * Internal Getter for DiscountCatalogObjectId.
+     * The `catalog_object_id` of the discount that should be blocked. Use this field to block
+     * catalog discounts. For ad hoc discounts, use the `discount_uid` field.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("discount_catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDiscountCatalogObjectId() {
+        return this.discountCatalogObjectId;
     }
 
     /**
@@ -61,10 +111,9 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * catalog discounts. For ad hoc discounts, use the `discount_uid` field.
      * @return Returns the String
      */
-    @JsonGetter("discount_catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDiscountCatalogObjectId() {
-        return discountCatalogObjectId;
+        return OptionalNullable.getFrom(discountCatalogObjectId);
     }
 
     @Override
@@ -103,10 +152,10 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * @return a new {@link OrderLineItemPricingBlocklistsBlockedDiscount.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .uid(getUid())
-                .discountUid(getDiscountUid())
-                .discountCatalogObjectId(getDiscountCatalogObjectId());
+        Builder builder = new Builder();
+        builder.uid = internalGetUid();
+        builder.discountUid = internalGetDiscountUid();
+        builder.discountCatalogObjectId = internalGetDiscountCatalogObjectId();
         return builder;
     }
 
@@ -114,9 +163,9 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
      * Class to build instances of {@link OrderLineItemPricingBlocklistsBlockedDiscount}.
      */
     public static class Builder {
-        private String uid;
-        private String discountUid;
-        private String discountCatalogObjectId;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<String> discountUid;
+        private OptionalNullable<String> discountCatalogObjectId;
 
 
 
@@ -126,7 +175,16 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -136,7 +194,16 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
          * @return Builder
          */
         public Builder discountUid(String discountUid) {
-            this.discountUid = discountUid;
+            this.discountUid = OptionalNullable.of(discountUid);
+            return this;
+        }
+
+        /**
+         * UnSetter for discountUid.
+         * @return Builder
+         */
+        public Builder unsetDiscountUid() {
+            discountUid = null;
             return this;
         }
 
@@ -146,7 +213,16 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
          * @return Builder
          */
         public Builder discountCatalogObjectId(String discountCatalogObjectId) {
-            this.discountCatalogObjectId = discountCatalogObjectId;
+            this.discountCatalogObjectId = OptionalNullable.of(discountCatalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for discountCatalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetDiscountCatalogObjectId() {
+            discountCatalogObjectId = null;
             return this;
         }
 

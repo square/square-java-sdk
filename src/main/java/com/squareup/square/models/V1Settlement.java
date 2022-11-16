@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.http.client.HttpContext;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,9 +21,9 @@ public class V1Settlement {
     private final String id;
     private final String status;
     private final V1Money totalMoney;
-    private final String initiatedAt;
-    private final String bankAccountId;
-    private final List<V1SettlementEntry> entries;
+    private final OptionalNullable<String> initiatedAt;
+    private final OptionalNullable<String> bankAccountId;
+    private final OptionalNullable<List<V1SettlementEntry>> entries;
 
     /**
      * Initialization constructor.
@@ -40,6 +42,20 @@ public class V1Settlement {
             @JsonProperty("initiated_at") String initiatedAt,
             @JsonProperty("bank_account_id") String bankAccountId,
             @JsonProperty("entries") List<V1SettlementEntry> entries) {
+        this.id = id;
+        this.status = status;
+        this.totalMoney = totalMoney;
+        this.initiatedAt = OptionalNullable.of(initiatedAt);
+        this.bankAccountId = OptionalNullable.of(bankAccountId);
+        this.entries = OptionalNullable.of(entries);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected V1Settlement(String id, String status, V1Money totalMoney,
+            OptionalNullable<String> initiatedAt, OptionalNullable<String> bankAccountId,
+            OptionalNullable<List<V1SettlementEntry>> entries) {
         this.id = id;
         this.status = status;
         this.totalMoney = totalMoney;
@@ -85,14 +101,37 @@ public class V1Settlement {
     }
 
     /**
+     * Internal Getter for InitiatedAt.
+     * The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("initiated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetInitiatedAt() {
+        return this.initiatedAt;
+    }
+
+    /**
      * Getter for InitiatedAt.
      * The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("initiated_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getInitiatedAt() {
-        return initiatedAt;
+        return OptionalNullable.getFrom(initiatedAt);
+    }
+
+    /**
+     * Internal Getter for BankAccountId.
+     * The Square-issued unique identifier for the bank account associated with the settlement.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("bank_account_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBankAccountId() {
+        return this.bankAccountId;
     }
 
     /**
@@ -100,10 +139,21 @@ public class V1Settlement {
      * The Square-issued unique identifier for the bank account associated with the settlement.
      * @return Returns the String
      */
-    @JsonGetter("bank_account_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBankAccountId() {
-        return bankAccountId;
+        return OptionalNullable.getFrom(bankAccountId);
+    }
+
+    /**
+     * Internal Getter for Entries.
+     * The entries included in this settlement.
+     * @return Returns the Internal List of V1SettlementEntry
+     */
+    @JsonGetter("entries")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<V1SettlementEntry>> internalGetEntries() {
+        return this.entries;
     }
 
     /**
@@ -111,10 +161,9 @@ public class V1Settlement {
      * The entries included in this settlement.
      * @return Returns the List of V1SettlementEntry
      */
-    @JsonGetter("entries")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<V1SettlementEntry> getEntries() {
-        return entries;
+        return OptionalNullable.getFrom(entries);
     }
 
     @Override
@@ -159,10 +208,10 @@ public class V1Settlement {
         Builder builder = new Builder()
                 .id(getId())
                 .status(getStatus())
-                .totalMoney(getTotalMoney())
-                .initiatedAt(getInitiatedAt())
-                .bankAccountId(getBankAccountId())
-                .entries(getEntries());
+                .totalMoney(getTotalMoney());
+        builder.initiatedAt = internalGetInitiatedAt();
+        builder.bankAccountId = internalGetBankAccountId();
+        builder.entries = internalGetEntries();
         return builder;
     }
 
@@ -174,9 +223,9 @@ public class V1Settlement {
         private String id;
         private String status;
         private V1Money totalMoney;
-        private String initiatedAt;
-        private String bankAccountId;
-        private List<V1SettlementEntry> entries;
+        private OptionalNullable<String> initiatedAt;
+        private OptionalNullable<String> bankAccountId;
+        private OptionalNullable<List<V1SettlementEntry>> entries;
 
 
 
@@ -226,7 +275,16 @@ public class V1Settlement {
          * @return Builder
          */
         public Builder initiatedAt(String initiatedAt) {
-            this.initiatedAt = initiatedAt;
+            this.initiatedAt = OptionalNullable.of(initiatedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for initiatedAt.
+         * @return Builder
+         */
+        public Builder unsetInitiatedAt() {
+            initiatedAt = null;
             return this;
         }
 
@@ -236,7 +294,16 @@ public class V1Settlement {
          * @return Builder
          */
         public Builder bankAccountId(String bankAccountId) {
-            this.bankAccountId = bankAccountId;
+            this.bankAccountId = OptionalNullable.of(bankAccountId);
+            return this;
+        }
+
+        /**
+         * UnSetter for bankAccountId.
+         * @return Builder
+         */
+        public Builder unsetBankAccountId() {
+            bankAccountId = null;
             return this;
         }
 
@@ -246,7 +313,16 @@ public class V1Settlement {
          * @return Builder
          */
         public Builder entries(List<V1SettlementEntry> entries) {
-            this.entries = entries;
+            this.entries = OptionalNullable.of(entries);
+            return this;
+        }
+
+        /**
+         * UnSetter for entries.
+         * @return Builder
+         */
+        public Builder unsetEntries() {
+            entries = null;
             return this;
         }
 

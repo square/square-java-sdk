@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for SubscriptionEventInfo type.
  */
 public class SubscriptionEventInfo {
-    private final String detail;
+    private final OptionalNullable<String> detail;
     private final String code;
 
     /**
@@ -24,8 +27,28 @@ public class SubscriptionEventInfo {
     public SubscriptionEventInfo(
             @JsonProperty("detail") String detail,
             @JsonProperty("code") String code) {
+        this.detail = OptionalNullable.of(detail);
+        this.code = code;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SubscriptionEventInfo(OptionalNullable<String> detail, String code) {
         this.detail = detail;
         this.code = code;
+    }
+
+    /**
+     * Internal Getter for Detail.
+     * A human-readable explanation for the event.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("detail")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDetail() {
+        return this.detail;
     }
 
     /**
@@ -33,10 +56,9 @@ public class SubscriptionEventInfo {
      * A human-readable explanation for the event.
      * @return Returns the String
      */
-    @JsonGetter("detail")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDetail() {
-        return detail;
+        return OptionalNullable.getFrom(detail);
     }
 
     /**
@@ -84,8 +106,8 @@ public class SubscriptionEventInfo {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .detail(getDetail())
                 .code(getCode());
+        builder.detail = internalGetDetail();
         return builder;
     }
 
@@ -93,7 +115,7 @@ public class SubscriptionEventInfo {
      * Class to build instances of {@link SubscriptionEventInfo}.
      */
     public static class Builder {
-        private String detail;
+        private OptionalNullable<String> detail;
         private String code;
 
 
@@ -104,7 +126,16 @@ public class SubscriptionEventInfo {
          * @return Builder
          */
         public Builder detail(String detail) {
-            this.detail = detail;
+            this.detail = OptionalNullable.of(detail);
+            return this;
+        }
+
+        /**
+         * UnSetter for detail.
+         * @return Builder
+         */
+        public Builder unsetDetail() {
+            detail = null;
             return this;
         }
 

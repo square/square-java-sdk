@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,15 +17,15 @@ import java.util.Objects;
  */
 public class Transaction {
     private final String id;
-    private final String locationId;
+    private final OptionalNullable<String> locationId;
     private final String createdAt;
-    private final List<Tender> tenders;
-    private final List<Refund> refunds;
-    private final String referenceId;
+    private final OptionalNullable<List<Tender>> tenders;
+    private final OptionalNullable<List<Refund>> refunds;
+    private final OptionalNullable<String> referenceId;
     private final String product;
-    private final String clientId;
+    private final OptionalNullable<String> clientId;
     private final Address shippingAddress;
-    private final String orderId;
+    private final OptionalNullable<String> orderId;
 
     /**
      * Initialization constructor.
@@ -50,6 +53,25 @@ public class Transaction {
             @JsonProperty("shipping_address") Address shippingAddress,
             @JsonProperty("order_id") String orderId) {
         this.id = id;
+        this.locationId = OptionalNullable.of(locationId);
+        this.createdAt = createdAt;
+        this.tenders = OptionalNullable.of(tenders);
+        this.refunds = OptionalNullable.of(refunds);
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.product = product;
+        this.clientId = OptionalNullable.of(clientId);
+        this.shippingAddress = shippingAddress;
+        this.orderId = OptionalNullable.of(orderId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Transaction(String id, OptionalNullable<String> locationId, String createdAt,
+            OptionalNullable<List<Tender>> tenders, OptionalNullable<List<Refund>> refunds,
+            OptionalNullable<String> referenceId, String product, OptionalNullable<String> clientId,
+            Address shippingAddress, OptionalNullable<String> orderId) {
+        this.id = id;
         this.locationId = locationId;
         this.createdAt = createdAt;
         this.tenders = tenders;
@@ -73,14 +95,25 @@ public class Transaction {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The ID of the transaction's associated location.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The ID of the transaction's associated location.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     /**
@@ -95,14 +128,37 @@ public class Transaction {
     }
 
     /**
+     * Internal Getter for Tenders.
+     * The tenders used to pay in the transaction.
+     * @return Returns the Internal List of Tender
+     */
+    @JsonGetter("tenders")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Tender>> internalGetTenders() {
+        return this.tenders;
+    }
+
+    /**
      * Getter for Tenders.
      * The tenders used to pay in the transaction.
      * @return Returns the List of Tender
      */
-    @JsonGetter("tenders")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Tender> getTenders() {
-        return tenders;
+        return OptionalNullable.getFrom(tenders);
+    }
+
+    /**
+     * Internal Getter for Refunds.
+     * Refunds that have been applied to any tender in the transaction.
+     * @return Returns the Internal List of Refund
+     */
+    @JsonGetter("refunds")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Refund>> internalGetRefunds() {
+        return this.refunds;
     }
 
     /**
@@ -110,10 +166,23 @@ public class Transaction {
      * Refunds that have been applied to any tender in the transaction.
      * @return Returns the List of Refund
      */
-    @JsonGetter("refunds")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<Refund> getRefunds() {
-        return refunds;
+        return OptionalNullable.getFrom(refunds);
+    }
+
+    /**
+     * Internal Getter for ReferenceId.
+     * If the transaction was created with the [Charge]($e/Transactions/Charge) endpoint, this value
+     * is the same as the value provided for the `reference_id` parameter in the request to that
+     * endpoint. Otherwise, it is not set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
     }
 
     /**
@@ -123,10 +192,9 @@ public class Transaction {
      * endpoint. Otherwise, it is not set.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -141,6 +209,23 @@ public class Transaction {
     }
 
     /**
+     * Internal Getter for ClientId.
+     * If the transaction was created in the Square Point of Sale app, this value is the ID
+     * generated for the transaction by Square Point of Sale. This ID has no relationship to the
+     * transaction's canonical `id`, which is generated by Square's backend servers. This value is
+     * generated for bookkeeping purposes, in case the transaction cannot immediately be completed
+     * (for example, if the transaction is processed in offline mode). It is not currently possible
+     * with the Connect API to perform a transaction lookup by this value.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("client_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClientId() {
+        return this.clientId;
+    }
+
+    /**
      * Getter for ClientId.
      * If the transaction was created in the Square Point of Sale app, this value is the ID
      * generated for the transaction by Square Point of Sale. This ID has no relationship to the
@@ -150,10 +235,9 @@ public class Transaction {
      * with the Connect API to perform a transaction lookup by this value.
      * @return Returns the String
      */
-    @JsonGetter("client_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClientId() {
-        return clientId;
+        return OptionalNullable.getFrom(clientId);
     }
 
     /**
@@ -169,14 +253,25 @@ public class Transaction {
     }
 
     /**
+     * Internal Getter for OrderId.
+     * The order_id is an identifier for the order associated with this transaction, if any.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
+    }
+
+    /**
      * Getter for OrderId.
      * The order_id is an identifier for the order associated with this transaction, if any.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     @Override
@@ -226,15 +321,15 @@ public class Transaction {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .locationId(getLocationId())
                 .createdAt(getCreatedAt())
-                .tenders(getTenders())
-                .refunds(getRefunds())
-                .referenceId(getReferenceId())
                 .product(getProduct())
-                .clientId(getClientId())
-                .shippingAddress(getShippingAddress())
-                .orderId(getOrderId());
+                .shippingAddress(getShippingAddress());
+        builder.locationId = internalGetLocationId();
+        builder.tenders = internalGetTenders();
+        builder.refunds = internalGetRefunds();
+        builder.referenceId = internalGetReferenceId();
+        builder.clientId = internalGetClientId();
+        builder.orderId = internalGetOrderId();
         return builder;
     }
 
@@ -243,15 +338,15 @@ public class Transaction {
      */
     public static class Builder {
         private String id;
-        private String locationId;
+        private OptionalNullable<String> locationId;
         private String createdAt;
-        private List<Tender> tenders;
-        private List<Refund> refunds;
-        private String referenceId;
+        private OptionalNullable<List<Tender>> tenders;
+        private OptionalNullable<List<Refund>> refunds;
+        private OptionalNullable<String> referenceId;
         private String product;
-        private String clientId;
+        private OptionalNullable<String> clientId;
         private Address shippingAddress;
-        private String orderId;
+        private OptionalNullable<String> orderId;
 
 
 
@@ -271,7 +366,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -291,7 +395,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder tenders(List<Tender> tenders) {
-            this.tenders = tenders;
+            this.tenders = OptionalNullable.of(tenders);
+            return this;
+        }
+
+        /**
+         * UnSetter for tenders.
+         * @return Builder
+         */
+        public Builder unsetTenders() {
+            tenders = null;
             return this;
         }
 
@@ -301,7 +414,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder refunds(List<Refund> refunds) {
-            this.refunds = refunds;
+            this.refunds = OptionalNullable.of(refunds);
+            return this;
+        }
+
+        /**
+         * UnSetter for refunds.
+         * @return Builder
+         */
+        public Builder unsetRefunds() {
+            refunds = null;
             return this;
         }
 
@@ -311,7 +433,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -331,7 +462,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder clientId(String clientId) {
-            this.clientId = clientId;
+            this.clientId = OptionalNullable.of(clientId);
+            return this;
+        }
+
+        /**
+         * UnSetter for clientId.
+         * @return Builder
+         */
+        public Builder unsetClientId() {
+            clientId = null;
             return this;
         }
 
@@ -351,7 +491,16 @@ public class Transaction {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 

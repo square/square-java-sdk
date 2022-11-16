@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,19 +17,19 @@ import java.util.Objects;
  */
 public class Tender {
     private final String id;
-    private final String locationId;
-    private final String transactionId;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> transactionId;
     private final String createdAt;
-    private final String note;
+    private final OptionalNullable<String> note;
     private final Money amountMoney;
     private final Money tipMoney;
     private final Money processingFeeMoney;
-    private final String customerId;
+    private final OptionalNullable<String> customerId;
     private final String type;
     private final TenderCardDetails cardDetails;
     private final TenderCashDetails cashDetails;
-    private final List<AdditionalRecipient> additionalRecipients;
-    private final String paymentId;
+    private final OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
+    private final OptionalNullable<String> paymentId;
 
     /**
      * Initialization constructor.
@@ -62,6 +65,32 @@ public class Tender {
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients,
             @JsonProperty("payment_id") String paymentId) {
         this.id = id;
+        this.locationId = OptionalNullable.of(locationId);
+        this.transactionId = OptionalNullable.of(transactionId);
+        this.createdAt = createdAt;
+        this.note = OptionalNullable.of(note);
+        this.amountMoney = amountMoney;
+        this.tipMoney = tipMoney;
+        this.processingFeeMoney = processingFeeMoney;
+        this.customerId = OptionalNullable.of(customerId);
+        this.type = type;
+        this.cardDetails = cardDetails;
+        this.cashDetails = cashDetails;
+        this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+        this.paymentId = OptionalNullable.of(paymentId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Tender(String type, String id, OptionalNullable<String> locationId,
+            OptionalNullable<String> transactionId, String createdAt, OptionalNullable<String> note,
+            Money amountMoney, Money tipMoney, Money processingFeeMoney,
+            OptionalNullable<String> customerId, TenderCardDetails cardDetails,
+            TenderCashDetails cashDetails,
+            OptionalNullable<List<AdditionalRecipient>> additionalRecipients,
+            OptionalNullable<String> paymentId) {
+        this.id = id;
         this.locationId = locationId;
         this.transactionId = transactionId;
         this.createdAt = createdAt;
@@ -89,14 +118,37 @@ public class Tender {
     }
 
     /**
+     * Internal Getter for LocationId.
+     * The ID of the transaction's associated location.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
+    }
+
+    /**
      * Getter for LocationId.
      * The ID of the transaction's associated location.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for TransactionId.
+     * The ID of the tender's associated transaction.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTransactionId() {
+        return this.transactionId;
     }
 
     /**
@@ -104,10 +156,9 @@ public class Tender {
      * The ID of the tender's associated transaction.
      * @return Returns the String
      */
-    @JsonGetter("transaction_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTransactionId() {
-        return transactionId;
+        return OptionalNullable.getFrom(transactionId);
     }
 
     /**
@@ -122,14 +173,25 @@ public class Tender {
     }
 
     /**
+     * Internal Getter for Note.
+     * An optional note associated with the tender at the time of payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNote() {
+        return this.note;
+    }
+
+    /**
      * Getter for Note.
      * An optional note associated with the tender at the time of payment.
      * @return Returns the String
      */
-    @JsonGetter("note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNote() {
-        return note;
+        return OptionalNullable.getFrom(note);
     }
 
     /**
@@ -181,15 +243,27 @@ public class Tender {
     }
 
     /**
+     * Internal Getter for CustomerId.
+     * If the tender is associated with a customer or represents a customer's card on file, this is
+     * the ID of the associated customer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
      * Getter for CustomerId.
      * If the tender is associated with a customer or represents a customer's card on file, this is
      * the ID of the associated customer.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
     }
 
     /**
@@ -225,15 +299,40 @@ public class Tender {
     }
 
     /**
+     * Internal Getter for AdditionalRecipients.
+     * Additional recipients (other than the merchant) receiving a portion of this tender. For
+     * example, fees assessed on the purchase by a third party integration.
+     * @return Returns the Internal List of AdditionalRecipient
+     */
+    @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<AdditionalRecipient>> internalGetAdditionalRecipients() {
+        return this.additionalRecipients;
+    }
+
+    /**
      * Getter for AdditionalRecipients.
      * Additional recipients (other than the merchant) receiving a portion of this tender. For
      * example, fees assessed on the purchase by a third party integration.
      * @return Returns the List of AdditionalRecipient
      */
-    @JsonGetter("additional_recipients")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return additionalRecipients;
+        return OptionalNullable.getFrom(additionalRecipients);
+    }
+
+    /**
+     * Internal Getter for PaymentId.
+     * The ID of the [Payment]($m/Payment) that corresponds to this tender. This value is only
+     * present for payments created with the v2 Payments API.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("payment_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPaymentId() {
+        return this.paymentId;
     }
 
     /**
@@ -242,10 +341,9 @@ public class Tender {
      * present for payments created with the v2 Payments API.
      * @return Returns the String
      */
-    @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPaymentId() {
-        return paymentId;
+        return OptionalNullable.getFrom(paymentId);
     }
 
     @Override
@@ -303,18 +401,18 @@ public class Tender {
     public Builder toBuilder() {
         Builder builder = new Builder(type)
                 .id(getId())
-                .locationId(getLocationId())
-                .transactionId(getTransactionId())
                 .createdAt(getCreatedAt())
-                .note(getNote())
                 .amountMoney(getAmountMoney())
                 .tipMoney(getTipMoney())
                 .processingFeeMoney(getProcessingFeeMoney())
-                .customerId(getCustomerId())
                 .cardDetails(getCardDetails())
-                .cashDetails(getCashDetails())
-                .additionalRecipients(getAdditionalRecipients())
-                .paymentId(getPaymentId());
+                .cashDetails(getCashDetails());
+        builder.locationId = internalGetLocationId();
+        builder.transactionId = internalGetTransactionId();
+        builder.note = internalGetNote();
+        builder.customerId = internalGetCustomerId();
+        builder.additionalRecipients = internalGetAdditionalRecipients();
+        builder.paymentId = internalGetPaymentId();
         return builder;
     }
 
@@ -324,18 +422,18 @@ public class Tender {
     public static class Builder {
         private String type;
         private String id;
-        private String locationId;
-        private String transactionId;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> transactionId;
         private String createdAt;
-        private String note;
+        private OptionalNullable<String> note;
         private Money amountMoney;
         private Money tipMoney;
         private Money processingFeeMoney;
-        private String customerId;
+        private OptionalNullable<String> customerId;
         private TenderCardDetails cardDetails;
         private TenderCashDetails cashDetails;
-        private List<AdditionalRecipient> additionalRecipients;
-        private String paymentId;
+        private OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
+        private OptionalNullable<String> paymentId;
 
         /**
          * Initialization constructor.
@@ -371,7 +469,16 @@ public class Tender {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -381,7 +488,16 @@ public class Tender {
          * @return Builder
          */
         public Builder transactionId(String transactionId) {
-            this.transactionId = transactionId;
+            this.transactionId = OptionalNullable.of(transactionId);
+            return this;
+        }
+
+        /**
+         * UnSetter for transactionId.
+         * @return Builder
+         */
+        public Builder unsetTransactionId() {
+            transactionId = null;
             return this;
         }
 
@@ -401,7 +517,16 @@ public class Tender {
          * @return Builder
          */
         public Builder note(String note) {
-            this.note = note;
+            this.note = OptionalNullable.of(note);
+            return this;
+        }
+
+        /**
+         * UnSetter for note.
+         * @return Builder
+         */
+        public Builder unsetNote() {
+            note = null;
             return this;
         }
 
@@ -441,7 +566,16 @@ public class Tender {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -471,7 +605,16 @@ public class Tender {
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
-            this.additionalRecipients = additionalRecipients;
+            this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+            return this;
+        }
+
+        /**
+         * UnSetter for additionalRecipients.
+         * @return Builder
+         */
+        public Builder unsetAdditionalRecipients() {
+            additionalRecipients = null;
             return this;
         }
 
@@ -481,7 +624,16 @@ public class Tender {
          * @return Builder
          */
         public Builder paymentId(String paymentId) {
-            this.paymentId = paymentId;
+            this.paymentId = OptionalNullable.of(paymentId);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentId.
+         * @return Builder
+         */
+        public Builder unsetPaymentId() {
+            paymentId = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,10 +17,10 @@ import java.util.Objects;
 public class ListCashDrawerShiftsRequest {
     private final String locationId;
     private final String sortOrder;
-    private final String beginTime;
-    private final String endTime;
-    private final Integer limit;
-    private final String cursor;
+    private final OptionalNullable<String> beginTime;
+    private final OptionalNullable<String> endTime;
+    private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> cursor;
 
     /**
      * Initialization constructor.
@@ -36,6 +39,20 @@ public class ListCashDrawerShiftsRequest {
             @JsonProperty("end_time") String endTime,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor) {
+        this.locationId = locationId;
+        this.sortOrder = sortOrder;
+        this.beginTime = OptionalNullable.of(beginTime);
+        this.endTime = OptionalNullable.of(endTime);
+        this.limit = OptionalNullable.of(limit);
+        this.cursor = OptionalNullable.of(cursor);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListCashDrawerShiftsRequest(String locationId, String sortOrder,
+            OptionalNullable<String> beginTime, OptionalNullable<String> endTime,
+            OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.locationId = locationId;
         this.sortOrder = sortOrder;
         this.beginTime = beginTime;
@@ -66,14 +83,37 @@ public class ListCashDrawerShiftsRequest {
     }
 
     /**
+     * Internal Getter for BeginTime.
+     * The inclusive start time of the query on opened_at, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBeginTime() {
+        return this.beginTime;
+    }
+
+    /**
      * Getter for BeginTime.
      * The inclusive start time of the query on opened_at, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("begin_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBeginTime() {
-        return beginTime;
+        return OptionalNullable.getFrom(beginTime);
+    }
+
+    /**
+     * Internal Getter for EndTime.
+     * The exclusive end date of the query on opened_at, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndTime() {
+        return this.endTime;
     }
 
     /**
@@ -81,10 +121,21 @@ public class ListCashDrawerShiftsRequest {
      * The exclusive end date of the query on opened_at, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("end_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndTime() {
-        return endTime;
+        return OptionalNullable.getFrom(endTime);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * Number of cash drawer shift events in a page of results (200 by default, 1000 max).
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -92,10 +143,21 @@ public class ListCashDrawerShiftsRequest {
      * Number of cash drawer shift events in a page of results (200 by default, 1000 max).
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * Opaque cursor for fetching the next page of results.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -103,10 +165,9 @@ public class ListCashDrawerShiftsRequest {
      * Opaque cursor for fetching the next page of results.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
     }
 
     @Override
@@ -149,11 +210,11 @@ public class ListCashDrawerShiftsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(locationId)
-                .sortOrder(getSortOrder())
-                .beginTime(getBeginTime())
-                .endTime(getEndTime())
-                .limit(getLimit())
-                .cursor(getCursor());
+                .sortOrder(getSortOrder());
+        builder.beginTime = internalGetBeginTime();
+        builder.endTime = internalGetEndTime();
+        builder.limit = internalGetLimit();
+        builder.cursor = internalGetCursor();
         return builder;
     }
 
@@ -163,10 +224,10 @@ public class ListCashDrawerShiftsRequest {
     public static class Builder {
         private String locationId;
         private String sortOrder;
-        private String beginTime;
-        private String endTime;
-        private Integer limit;
-        private String cursor;
+        private OptionalNullable<String> beginTime;
+        private OptionalNullable<String> endTime;
+        private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> cursor;
 
         /**
          * Initialization constructor.
@@ -202,7 +263,16 @@ public class ListCashDrawerShiftsRequest {
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
-            this.beginTime = beginTime;
+            this.beginTime = OptionalNullable.of(beginTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for beginTime.
+         * @return Builder
+         */
+        public Builder unsetBeginTime() {
+            beginTime = null;
             return this;
         }
 
@@ -212,7 +282,16 @@ public class ListCashDrawerShiftsRequest {
          * @return Builder
          */
         public Builder endTime(String endTime) {
-            this.endTime = endTime;
+            this.endTime = OptionalNullable.of(endTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for endTime.
+         * @return Builder
+         */
+        public Builder unsetEndTime() {
+            endTime = null;
             return this;
         }
 
@@ -222,7 +301,16 @@ public class ListCashDrawerShiftsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
@@ -232,7 +320,16 @@ public class ListCashDrawerShiftsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 

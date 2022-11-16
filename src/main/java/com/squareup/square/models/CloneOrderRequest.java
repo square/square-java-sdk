@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class CloneOrderRequest {
     private final String orderId;
     private final Integer version;
-    private final String idempotencyKey;
+    private final OptionalNullable<String> idempotencyKey;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class CloneOrderRequest {
             @JsonProperty("order_id") String orderId,
             @JsonProperty("version") Integer version,
             @JsonProperty("idempotency_key") String idempotencyKey) {
+        this.orderId = orderId;
+        this.version = version;
+        this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CloneOrderRequest(String orderId, Integer version,
+            OptionalNullable<String> idempotencyKey) {
         this.orderId = orderId;
         this.version = version;
         this.idempotencyKey = idempotencyKey;
@@ -56,6 +69,22 @@ public class CloneOrderRequest {
     }
 
     /**
+     * Internal Getter for IdempotencyKey.
+     * A value you specify that uniquely identifies this clone request. If you are unsure whether a
+     * particular order was cloned successfully, you can reattempt the call with the same
+     * idempotency key without worrying about creating duplicate cloned orders. The originally
+     * cloned order is returned. For more information, see
+     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("idempotency_key")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetIdempotencyKey() {
+        return this.idempotencyKey;
+    }
+
+    /**
      * Getter for IdempotencyKey.
      * A value you specify that uniquely identifies this clone request. If you are unsure whether a
      * particular order was cloned successfully, you can reattempt the call with the same
@@ -64,10 +93,9 @@ public class CloneOrderRequest {
      * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
      * @return Returns the String
      */
-    @JsonGetter("idempotency_key")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getIdempotencyKey() {
-        return idempotencyKey;
+        return OptionalNullable.getFrom(idempotencyKey);
     }
 
     @Override
@@ -106,8 +134,8 @@ public class CloneOrderRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(orderId)
-                .version(getVersion())
-                .idempotencyKey(getIdempotencyKey());
+                .version(getVersion());
+        builder.idempotencyKey = internalGetIdempotencyKey();
         return builder;
     }
 
@@ -117,7 +145,7 @@ public class CloneOrderRequest {
     public static class Builder {
         private String orderId;
         private Integer version;
-        private String idempotencyKey;
+        private OptionalNullable<String> idempotencyKey;
 
         /**
          * Initialization constructor.
@@ -153,7 +181,16 @@ public class CloneOrderRequest {
          * @return Builder
          */
         public Builder idempotencyKey(String idempotencyKey) {
-            this.idempotencyKey = idempotencyKey;
+            this.idempotencyKey = OptionalNullable.of(idempotencyKey);
+            return this;
+        }
+
+        /**
+         * UnSetter for idempotencyKey.
+         * @return Builder
+         */
+        public Builder unsetIdempotencyKey() {
+            idempotencyKey = null;
             return this;
         }
 

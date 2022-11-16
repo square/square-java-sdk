@@ -3,18 +3,21 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CalculateLoyaltyPointsRequest type.
  */
 public class CalculateLoyaltyPointsRequest {
-    private final String orderId;
+    private final OptionalNullable<String> orderId;
     private final Money transactionAmountMoney;
-    private final String loyaltyAccountId;
+    private final OptionalNullable<String> loyaltyAccountId;
 
     /**
      * Initialization constructor.
@@ -27,9 +30,33 @@ public class CalculateLoyaltyPointsRequest {
             @JsonProperty("order_id") String orderId,
             @JsonProperty("transaction_amount_money") Money transactionAmountMoney,
             @JsonProperty("loyalty_account_id") String loyaltyAccountId) {
+        this.orderId = OptionalNullable.of(orderId);
+        this.transactionAmountMoney = transactionAmountMoney;
+        this.loyaltyAccountId = OptionalNullable.of(loyaltyAccountId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CalculateLoyaltyPointsRequest(OptionalNullable<String> orderId,
+            Money transactionAmountMoney, OptionalNullable<String> loyaltyAccountId) {
         this.orderId = orderId;
         this.transactionAmountMoney = transactionAmountMoney;
         this.loyaltyAccountId = loyaltyAccountId;
+    }
+
+    /**
+     * Internal Getter for OrderId.
+     * The [order]($m/Order) ID for which to calculate the points. Specify this field if your
+     * application uses the Orders API to process orders. Otherwise, specify the
+     * `transaction_amount_money`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("order_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOrderId() {
+        return this.orderId;
     }
 
     /**
@@ -39,10 +66,9 @@ public class CalculateLoyaltyPointsRequest {
      * `transaction_amount_money`.
      * @return Returns the String
      */
-    @JsonGetter("order_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOrderId() {
-        return orderId;
+        return OptionalNullable.getFrom(orderId);
     }
 
     /**
@@ -62,6 +88,24 @@ public class CalculateLoyaltyPointsRequest {
     }
 
     /**
+     * Internal Getter for LoyaltyAccountId.
+     * The ID of the target [loyalty account]($m/LoyaltyAccount). Optionally specify this field if
+     * your application uses the Orders API to process orders. If specified, the `promotion_points`
+     * field in the response shows the number of points the buyer would earn from the purchase. In
+     * this case, Square uses the account ID to determine whether the promotion's `trigger_limit`
+     * (the maximum number of times that a buyer can trigger the promotion) has been reached. If not
+     * specified, the `promotion_points` field shows the number of points the purchase qualifies for
+     * regardless of the trigger limit.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("loyalty_account_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLoyaltyAccountId() {
+        return this.loyaltyAccountId;
+    }
+
+    /**
      * Getter for LoyaltyAccountId.
      * The ID of the target [loyalty account]($m/LoyaltyAccount). Optionally specify this field if
      * your application uses the Orders API to process orders. If specified, the `promotion_points`
@@ -72,10 +116,9 @@ public class CalculateLoyaltyPointsRequest {
      * regardless of the trigger limit.
      * @return Returns the String
      */
-    @JsonGetter("loyalty_account_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLoyaltyAccountId() {
-        return loyaltyAccountId;
+        return OptionalNullable.getFrom(loyaltyAccountId);
     }
 
     @Override
@@ -115,9 +158,9 @@ public class CalculateLoyaltyPointsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .orderId(getOrderId())
-                .transactionAmountMoney(getTransactionAmountMoney())
-                .loyaltyAccountId(getLoyaltyAccountId());
+                .transactionAmountMoney(getTransactionAmountMoney());
+        builder.orderId = internalGetOrderId();
+        builder.loyaltyAccountId = internalGetLoyaltyAccountId();
         return builder;
     }
 
@@ -125,9 +168,9 @@ public class CalculateLoyaltyPointsRequest {
      * Class to build instances of {@link CalculateLoyaltyPointsRequest}.
      */
     public static class Builder {
-        private String orderId;
+        private OptionalNullable<String> orderId;
         private Money transactionAmountMoney;
-        private String loyaltyAccountId;
+        private OptionalNullable<String> loyaltyAccountId;
 
 
 
@@ -137,7 +180,16 @@ public class CalculateLoyaltyPointsRequest {
          * @return Builder
          */
         public Builder orderId(String orderId) {
-            this.orderId = orderId;
+            this.orderId = OptionalNullable.of(orderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderId.
+         * @return Builder
+         */
+        public Builder unsetOrderId() {
+            orderId = null;
             return this;
         }
 
@@ -157,7 +209,16 @@ public class CalculateLoyaltyPointsRequest {
          * @return Builder
          */
         public Builder loyaltyAccountId(String loyaltyAccountId) {
-            this.loyaltyAccountId = loyaltyAccountId;
+            this.loyaltyAccountId = OptionalNullable.of(loyaltyAccountId);
+            return this;
+        }
+
+        /**
+         * UnSetter for loyaltyAccountId.
+         * @return Builder
+         */
+        public Builder unsetLoyaltyAccountId() {
+            loyaltyAccountId = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,7 +16,7 @@ import java.util.Objects;
  */
 public class LoyaltyProgramAccrualRule {
     private final String accrualType;
-    private final Integer points;
+    private final OptionalNullable<Integer> points;
     private final LoyaltyProgramAccrualRuleVisitData visitData;
     private final LoyaltyProgramAccrualRuleSpendData spendData;
     private final LoyaltyProgramAccrualRuleItemVariationData itemVariationData;
@@ -38,6 +41,22 @@ public class LoyaltyProgramAccrualRule {
             @JsonProperty("item_variation_data") LoyaltyProgramAccrualRuleItemVariationData itemVariationData,
             @JsonProperty("category_data") LoyaltyProgramAccrualRuleCategoryData categoryData) {
         this.accrualType = accrualType;
+        this.points = OptionalNullable.of(points);
+        this.visitData = visitData;
+        this.spendData = spendData;
+        this.itemVariationData = itemVariationData;
+        this.categoryData = categoryData;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected LoyaltyProgramAccrualRule(String accrualType, OptionalNullable<Integer> points,
+            LoyaltyProgramAccrualRuleVisitData visitData,
+            LoyaltyProgramAccrualRuleSpendData spendData,
+            LoyaltyProgramAccrualRuleItemVariationData itemVariationData,
+            LoyaltyProgramAccrualRuleCategoryData categoryData) {
+        this.accrualType = accrualType;
         this.points = points;
         this.visitData = visitData;
         this.spendData = spendData;
@@ -56,14 +75,25 @@ public class LoyaltyProgramAccrualRule {
     }
 
     /**
+     * Internal Getter for Points.
+     * The number of points that buyers earn based on the `accrual_type`.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPoints() {
+        return this.points;
+    }
+
+    /**
      * Getter for Points.
      * The number of points that buyers earn based on the `accrual_type`.
      * @return Returns the Integer
      */
-    @JsonGetter("points")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getPoints() {
-        return points;
+        return OptionalNullable.getFrom(points);
     }
 
     /**
@@ -151,11 +181,11 @@ public class LoyaltyProgramAccrualRule {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(accrualType)
-                .points(getPoints())
                 .visitData(getVisitData())
                 .spendData(getSpendData())
                 .itemVariationData(getItemVariationData())
                 .categoryData(getCategoryData());
+        builder.points = internalGetPoints();
         return builder;
     }
 
@@ -164,7 +194,7 @@ public class LoyaltyProgramAccrualRule {
      */
     public static class Builder {
         private String accrualType;
-        private Integer points;
+        private OptionalNullable<Integer> points;
         private LoyaltyProgramAccrualRuleVisitData visitData;
         private LoyaltyProgramAccrualRuleSpendData spendData;
         private LoyaltyProgramAccrualRuleItemVariationData itemVariationData;
@@ -194,7 +224,16 @@ public class LoyaltyProgramAccrualRule {
          * @return Builder
          */
         public Builder points(Integer points) {
-            this.points = points;
+            this.points = OptionalNullable.of(points);
+            return this;
+        }
+
+        /**
+         * UnSetter for points.
+         * @return Builder
+         */
+        public Builder unsetPoints() {
+            points = null;
             return this;
         }
 

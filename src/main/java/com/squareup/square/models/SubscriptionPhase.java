@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for SubscriptionPhase type.
  */
 public class SubscriptionPhase {
-    private final String uid;
+    private final OptionalNullable<String> uid;
     private final String cadence;
-    private final Integer periods;
+    private final OptionalNullable<Integer> periods;
     private final Money recurringPriceMoney;
-    private final Long ordinal;
+    private final OptionalNullable<Long> ordinal;
 
     /**
      * Initialization constructor.
@@ -33,6 +36,19 @@ public class SubscriptionPhase {
             @JsonProperty("periods") Integer periods,
             @JsonProperty("recurring_price_money") Money recurringPriceMoney,
             @JsonProperty("ordinal") Long ordinal) {
+        this.uid = OptionalNullable.of(uid);
+        this.cadence = cadence;
+        this.periods = OptionalNullable.of(periods);
+        this.recurringPriceMoney = recurringPriceMoney;
+        this.ordinal = OptionalNullable.of(ordinal);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SubscriptionPhase(String cadence, OptionalNullable<String> uid,
+            OptionalNullable<Integer> periods, Money recurringPriceMoney,
+            OptionalNullable<Long> ordinal) {
         this.uid = uid;
         this.cadence = cadence;
         this.periods = periods;
@@ -41,15 +57,27 @@ public class SubscriptionPhase {
     }
 
     /**
+     * Internal Getter for Uid.
+     * The Square-assigned ID of the subscription phase. This field cannot be changed after a
+     * `SubscriptionPhase` is created.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUid() {
+        return this.uid;
+    }
+
+    /**
      * Getter for Uid.
      * The Square-assigned ID of the subscription phase. This field cannot be changed after a
      * `SubscriptionPhase` is created.
      * @return Returns the String
      */
-    @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUid() {
-        return uid;
+        return OptionalNullable.getFrom(uid);
     }
 
     /**
@@ -63,15 +91,27 @@ public class SubscriptionPhase {
     }
 
     /**
+     * Internal Getter for Periods.
+     * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last
+     * phase can be indefinite. This field cannot be changed after a `SubscriptionPhase` is created.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("periods")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPeriods() {
+        return this.periods;
+    }
+
+    /**
      * Getter for Periods.
      * The number of `cadence`s the phase lasts. If not set, the phase never ends. Only the last
      * phase can be indefinite. This field cannot be changed after a `SubscriptionPhase` is created.
      * @return Returns the Integer
      */
-    @JsonGetter("periods")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getPeriods() {
-        return periods;
+        return OptionalNullable.getFrom(periods);
     }
 
     /**
@@ -91,15 +131,27 @@ public class SubscriptionPhase {
     }
 
     /**
+     * Internal Getter for Ordinal.
+     * The position this phase appears in the sequence of phases defined for the plan, indexed from
+     * 0. This field cannot be changed after a `SubscriptionPhase` is created.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
      * Getter for Ordinal.
      * The position this phase appears in the sequence of phases defined for the plan, indexed from
      * 0. This field cannot be changed after a `SubscriptionPhase` is created.
      * @return Returns the Long
      */
-    @JsonGetter("ordinal")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getOrdinal() {
-        return ordinal;
+        return OptionalNullable.getFrom(ordinal);
     }
 
     @Override
@@ -141,10 +193,10 @@ public class SubscriptionPhase {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(cadence)
-                .uid(getUid())
-                .periods(getPeriods())
-                .recurringPriceMoney(getRecurringPriceMoney())
-                .ordinal(getOrdinal());
+                .recurringPriceMoney(getRecurringPriceMoney());
+        builder.uid = internalGetUid();
+        builder.periods = internalGetPeriods();
+        builder.ordinal = internalGetOrdinal();
         return builder;
     }
 
@@ -153,10 +205,10 @@ public class SubscriptionPhase {
      */
     public static class Builder {
         private String cadence;
-        private String uid;
-        private Integer periods;
+        private OptionalNullable<String> uid;
+        private OptionalNullable<Integer> periods;
         private Money recurringPriceMoney;
-        private Long ordinal;
+        private OptionalNullable<Long> ordinal;
 
         /**
          * Initialization constructor.
@@ -182,7 +234,16 @@ public class SubscriptionPhase {
          * @return Builder
          */
         public Builder uid(String uid) {
-            this.uid = uid;
+            this.uid = OptionalNullable.of(uid);
+            return this;
+        }
+
+        /**
+         * UnSetter for uid.
+         * @return Builder
+         */
+        public Builder unsetUid() {
+            uid = null;
             return this;
         }
 
@@ -192,7 +253,16 @@ public class SubscriptionPhase {
          * @return Builder
          */
         public Builder periods(Integer periods) {
-            this.periods = periods;
+            this.periods = OptionalNullable.of(periods);
+            return this;
+        }
+
+        /**
+         * UnSetter for periods.
+         * @return Builder
+         */
+        public Builder unsetPeriods() {
+            periods = null;
             return this;
         }
 
@@ -212,7 +282,16 @@ public class SubscriptionPhase {
          * @return Builder
          */
         public Builder ordinal(Long ordinal) {
-            this.ordinal = ordinal;
+            this.ordinal = OptionalNullable.of(ordinal);
+            return this;
+        }
+
+        /**
+         * UnSetter for ordinal.
+         * @return Builder
+         */
+        public Builder unsetOrdinal() {
+            ordinal = null;
             return this;
         }
 

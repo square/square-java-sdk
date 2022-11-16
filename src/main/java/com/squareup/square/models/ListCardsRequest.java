@@ -3,19 +3,22 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListCardsRequest type.
  */
 public class ListCardsRequest {
-    private final String cursor;
-    private final String customerId;
-    private final Boolean includeDisabled;
-    private final String referenceId;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> customerId;
+    private final OptionalNullable<Boolean> includeDisabled;
+    private final OptionalNullable<String> referenceId;
     private final String sortOrder;
 
     /**
@@ -33,11 +36,39 @@ public class ListCardsRequest {
             @JsonProperty("include_disabled") Boolean includeDisabled,
             @JsonProperty("reference_id") String referenceId,
             @JsonProperty("sort_order") String sortOrder) {
+        this.cursor = OptionalNullable.of(cursor);
+        this.customerId = OptionalNullable.of(customerId);
+        this.includeDisabled = OptionalNullable.of(includeDisabled);
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.sortOrder = sortOrder;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListCardsRequest(OptionalNullable<String> cursor, OptionalNullable<String> customerId,
+            OptionalNullable<Boolean> includeDisabled, OptionalNullable<String> referenceId,
+            String sortOrder) {
         this.cursor = cursor;
         this.customerId = customerId;
         this.includeDisabled = includeDisabled;
         this.referenceId = referenceId;
         this.sortOrder = sortOrder;
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
+     * the next set of results for your original query. See
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more
+     * information.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -48,10 +79,22 @@ public class ListCardsRequest {
      * information.
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for CustomerId.
+     * Limit results to cards associated with the customer supplied. By default, all cards owned by
+     * the merchant are returned.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
     }
 
     /**
@@ -60,10 +103,21 @@ public class ListCardsRequest {
      * the merchant are returned.
      * @return Returns the String
      */
-    @JsonGetter("customer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
+    }
+
+    /**
+     * Internal Getter for IncludeDisabled.
+     * Includes disabled cards. By default, all enabled cards owned by the merchant are returned.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_disabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeDisabled() {
+        return this.includeDisabled;
     }
 
     /**
@@ -71,10 +125,21 @@ public class ListCardsRequest {
      * Includes disabled cards. By default, all enabled cards owned by the merchant are returned.
      * @return Returns the Boolean
      */
-    @JsonGetter("include_disabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getIncludeDisabled() {
-        return includeDisabled;
+        return OptionalNullable.getFrom(includeDisabled);
+    }
+
+    /**
+     * Internal Getter for ReferenceId.
+     * Limit results to cards associated with the reference_id supplied.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
     }
 
     /**
@@ -82,10 +147,9 @@ public class ListCardsRequest {
      * Limit results to cards associated with the reference_id supplied.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
     }
 
     /**
@@ -138,11 +202,11 @@ public class ListCardsRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .cursor(getCursor())
-                .customerId(getCustomerId())
-                .includeDisabled(getIncludeDisabled())
-                .referenceId(getReferenceId())
                 .sortOrder(getSortOrder());
+        builder.cursor = internalGetCursor();
+        builder.customerId = internalGetCustomerId();
+        builder.includeDisabled = internalGetIncludeDisabled();
+        builder.referenceId = internalGetReferenceId();
         return builder;
     }
 
@@ -150,10 +214,10 @@ public class ListCardsRequest {
      * Class to build instances of {@link ListCardsRequest}.
      */
     public static class Builder {
-        private String cursor;
-        private String customerId;
-        private Boolean includeDisabled;
-        private String referenceId;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> customerId;
+        private OptionalNullable<Boolean> includeDisabled;
+        private OptionalNullable<String> referenceId;
         private String sortOrder;
 
 
@@ -164,7 +228,16 @@ public class ListCardsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -174,7 +247,16 @@ public class ListCardsRequest {
          * @return Builder
          */
         public Builder customerId(String customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -184,7 +266,16 @@ public class ListCardsRequest {
          * @return Builder
          */
         public Builder includeDisabled(Boolean includeDisabled) {
-            this.includeDisabled = includeDisabled;
+            this.includeDisabled = OptionalNullable.of(includeDisabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeDisabled.
+         * @return Builder
+         */
+        public Builder unsetIncludeDisabled() {
+            includeDisabled = null;
             return this;
         }
 
@@ -194,7 +285,16 @@ public class ListCardsRequest {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 

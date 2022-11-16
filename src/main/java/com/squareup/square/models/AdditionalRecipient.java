@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,9 +16,9 @@ import java.util.Objects;
  */
 public class AdditionalRecipient {
     private final String locationId;
-    private final String description;
+    private final OptionalNullable<String> description;
     private final Money amountMoney;
-    private final String receivableId;
+    private final OptionalNullable<String> receivableId;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,17 @@ public class AdditionalRecipient {
             @JsonProperty("amount_money") Money amountMoney,
             @JsonProperty("description") String description,
             @JsonProperty("receivable_id") String receivableId) {
+        this.locationId = locationId;
+        this.description = OptionalNullable.of(description);
+        this.amountMoney = amountMoney;
+        this.receivableId = OptionalNullable.of(receivableId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected AdditionalRecipient(String locationId, Money amountMoney,
+            OptionalNullable<String> description, OptionalNullable<String> receivableId) {
         this.locationId = locationId;
         this.description = description;
         this.amountMoney = amountMoney;
@@ -47,14 +61,25 @@ public class AdditionalRecipient {
     }
 
     /**
+     * Internal Getter for Description.
+     * The description of the additional recipient.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
      * Getter for Description.
      * The description of the additional recipient.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -73,15 +98,27 @@ public class AdditionalRecipient {
     }
 
     /**
+     * Internal Getter for ReceivableId.
+     * The unique ID for the RETIRED `AdditionalRecipientReceivable` object. This field should be
+     * empty for any `AdditionalRecipient` objects created after the retirement.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("receivable_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReceivableId() {
+        return this.receivableId;
+    }
+
+    /**
      * Getter for ReceivableId.
      * The unique ID for the RETIRED `AdditionalRecipientReceivable` object. This field should be
      * empty for any `AdditionalRecipient` objects created after the retirement.
      * @return Returns the String
      */
-    @JsonGetter("receivable_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReceivableId() {
-        return receivableId;
+        return OptionalNullable.getFrom(receivableId);
     }
 
     @Override
@@ -120,9 +157,9 @@ public class AdditionalRecipient {
      * @return a new {@link AdditionalRecipient.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(locationId, amountMoney)
-                .description(getDescription())
-                .receivableId(getReceivableId());
+        Builder builder = new Builder(locationId, amountMoney);
+        builder.description = internalGetDescription();
+        builder.receivableId = internalGetReceivableId();
         return builder;
     }
 
@@ -132,8 +169,8 @@ public class AdditionalRecipient {
     public static class Builder {
         private String locationId;
         private Money amountMoney;
-        private String description;
-        private String receivableId;
+        private OptionalNullable<String> description;
+        private OptionalNullable<String> receivableId;
 
         /**
          * Initialization constructor.
@@ -171,7 +208,16 @@ public class AdditionalRecipient {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -181,7 +227,16 @@ public class AdditionalRecipient {
          * @return Builder
          */
         public Builder receivableId(String receivableId) {
-            this.receivableId = receivableId;
+            this.receivableId = OptionalNullable.of(receivableId);
+            return this;
+        }
+
+        /**
+         * UnSetter for receivableId.
+         * @return Builder
+         */
+        public Builder unsetReceivableId() {
+            receivableId = null;
             return this;
         }
 

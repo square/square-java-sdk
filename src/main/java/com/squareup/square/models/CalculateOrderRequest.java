@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +17,7 @@ import java.util.Objects;
  */
 public class CalculateOrderRequest {
     private final Order order;
-    private final List<OrderReward> proposedRewards;
+    private final OptionalNullable<List<OrderReward>> proposedRewards;
 
     /**
      * Initialization constructor.
@@ -25,6 +28,15 @@ public class CalculateOrderRequest {
     public CalculateOrderRequest(
             @JsonProperty("order") Order order,
             @JsonProperty("proposed_rewards") List<OrderReward> proposedRewards) {
+        this.order = order;
+        this.proposedRewards = OptionalNullable.of(proposedRewards);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CalculateOrderRequest(Order order,
+            OptionalNullable<List<OrderReward>> proposedRewards) {
         this.order = order;
         this.proposedRewards = proposedRewards;
     }
@@ -43,6 +55,22 @@ public class CalculateOrderRequest {
     }
 
     /**
+     * Internal Getter for ProposedRewards.
+     * Identifies one or more loyalty reward tiers to apply during the order calculation. The
+     * discounts defined by the reward tiers are added to the order only to preview the effect of
+     * applying the specified rewards. The rewards do not correspond to actual redemptions; that is,
+     * no `reward`s are created. Therefore, the reward `id`s are random strings used only to
+     * reference the reward tier.
+     * @return Returns the Internal List of OrderReward
+     */
+    @JsonGetter("proposed_rewards")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderReward>> internalGetProposedRewards() {
+        return this.proposedRewards;
+    }
+
+    /**
      * Getter for ProposedRewards.
      * Identifies one or more loyalty reward tiers to apply during the order calculation. The
      * discounts defined by the reward tiers are added to the order only to preview the effect of
@@ -51,10 +79,9 @@ public class CalculateOrderRequest {
      * reference the reward tier.
      * @return Returns the List of OrderReward
      */
-    @JsonGetter("proposed_rewards")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<OrderReward> getProposedRewards() {
-        return proposedRewards;
+        return OptionalNullable.getFrom(proposedRewards);
     }
 
     @Override
@@ -91,8 +118,8 @@ public class CalculateOrderRequest {
      * @return a new {@link CalculateOrderRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(order)
-                .proposedRewards(getProposedRewards());
+        Builder builder = new Builder(order);
+        builder.proposedRewards = internalGetProposedRewards();
         return builder;
     }
 
@@ -101,7 +128,7 @@ public class CalculateOrderRequest {
      */
     public static class Builder {
         private Order order;
-        private List<OrderReward> proposedRewards;
+        private OptionalNullable<List<OrderReward>> proposedRewards;
 
         /**
          * Initialization constructor.
@@ -127,7 +154,16 @@ public class CalculateOrderRequest {
          * @return Builder
          */
         public Builder proposedRewards(List<OrderReward> proposedRewards) {
-            this.proposedRewards = proposedRewards;
+            this.proposedRewards = OptionalNullable.of(proposedRewards);
+            return this;
+        }
+
+        /**
+         * UnSetter for proposedRewards.
+         * @return Builder
+         */
+        public Builder unsetProposedRewards() {
+            proposedRewards = null;
             return this;
         }
 

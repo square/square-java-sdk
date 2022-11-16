@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,9 +16,9 @@ import java.util.Objects;
  */
 public class OrderQuantityUnit {
     private final MeasurementUnit measurementUnit;
-    private final Integer precision;
-    private final String catalogObjectId;
-    private final Long catalogVersion;
+    private final OptionalNullable<Integer> precision;
+    private final OptionalNullable<String> catalogObjectId;
+    private final OptionalNullable<Long> catalogVersion;
 
     /**
      * Initialization constructor.
@@ -30,6 +33,18 @@ public class OrderQuantityUnit {
             @JsonProperty("precision") Integer precision,
             @JsonProperty("catalog_object_id") String catalogObjectId,
             @JsonProperty("catalog_version") Long catalogVersion) {
+        this.measurementUnit = measurementUnit;
+        this.precision = OptionalNullable.of(precision);
+        this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+        this.catalogVersion = OptionalNullable.of(catalogVersion);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderQuantityUnit(MeasurementUnit measurementUnit,
+            OptionalNullable<Integer> precision, OptionalNullable<String> catalogObjectId,
+            OptionalNullable<Long> catalogVersion) {
         this.measurementUnit = measurementUnit;
         this.precision = precision;
         this.catalogObjectId = catalogObjectId;
@@ -50,16 +65,42 @@ public class OrderQuantityUnit {
     }
 
     /**
+     * Internal Getter for Precision.
+     * For non-integer quantities, represents the number of digits after the decimal point that are
+     * recorded for this quantity. For example, a precision of 1 allows quantities such as `"1.0"`
+     * and `"1.1"`, but not `"1.01"`. Min: 0. Max: 5.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("precision")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPrecision() {
+        return this.precision;
+    }
+
+    /**
      * Getter for Precision.
      * For non-integer quantities, represents the number of digits after the decimal point that are
      * recorded for this quantity. For example, a precision of 1 allows quantities such as `"1.0"`
      * and `"1.1"`, but not `"1.01"`. Min: 0. Max: 5.
      * @return Returns the Integer
      */
-    @JsonGetter("precision")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getPrecision() {
-        return precision;
+        return OptionalNullable.getFrom(precision);
+    }
+
+    /**
+     * Internal Getter for CatalogObjectId.
+     * The catalog object ID referencing the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit).
+     * This field is set when this is a catalog-backed measurement unit.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_object_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogObjectId() {
+        return this.catalogObjectId;
     }
 
     /**
@@ -68,10 +109,22 @@ public class OrderQuantityUnit {
      * This field is set when this is a catalog-backed measurement unit.
      * @return Returns the String
      */
-    @JsonGetter("catalog_object_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogObjectId() {
-        return catalogObjectId;
+        return OptionalNullable.getFrom(catalogObjectId);
+    }
+
+    /**
+     * Internal Getter for CatalogVersion.
+     * The version of the catalog object that this measurement unit references. This field is set
+     * when this is a catalog-backed measurement unit.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("catalog_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetCatalogVersion() {
+        return this.catalogVersion;
     }
 
     /**
@@ -80,10 +133,9 @@ public class OrderQuantityUnit {
      * when this is a catalog-backed measurement unit.
      * @return Returns the Long
      */
-    @JsonGetter("catalog_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getCatalogVersion() {
-        return catalogVersion;
+        return OptionalNullable.getFrom(catalogVersion);
     }
 
     @Override
@@ -124,10 +176,10 @@ public class OrderQuantityUnit {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .measurementUnit(getMeasurementUnit())
-                .precision(getPrecision())
-                .catalogObjectId(getCatalogObjectId())
-                .catalogVersion(getCatalogVersion());
+                .measurementUnit(getMeasurementUnit());
+        builder.precision = internalGetPrecision();
+        builder.catalogObjectId = internalGetCatalogObjectId();
+        builder.catalogVersion = internalGetCatalogVersion();
         return builder;
     }
 
@@ -136,9 +188,9 @@ public class OrderQuantityUnit {
      */
     public static class Builder {
         private MeasurementUnit measurementUnit;
-        private Integer precision;
-        private String catalogObjectId;
-        private Long catalogVersion;
+        private OptionalNullable<Integer> precision;
+        private OptionalNullable<String> catalogObjectId;
+        private OptionalNullable<Long> catalogVersion;
 
 
 
@@ -158,7 +210,16 @@ public class OrderQuantityUnit {
          * @return Builder
          */
         public Builder precision(Integer precision) {
-            this.precision = precision;
+            this.precision = OptionalNullable.of(precision);
+            return this;
+        }
+
+        /**
+         * UnSetter for precision.
+         * @return Builder
+         */
+        public Builder unsetPrecision() {
+            precision = null;
             return this;
         }
 
@@ -168,7 +229,16 @@ public class OrderQuantityUnit {
          * @return Builder
          */
         public Builder catalogObjectId(String catalogObjectId) {
-            this.catalogObjectId = catalogObjectId;
+            this.catalogObjectId = OptionalNullable.of(catalogObjectId);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogObjectId.
+         * @return Builder
+         */
+        public Builder unsetCatalogObjectId() {
+            catalogObjectId = null;
             return this;
         }
 
@@ -178,7 +248,16 @@ public class OrderQuantityUnit {
          * @return Builder
          */
         public Builder catalogVersion(Long catalogVersion) {
-            this.catalogVersion = catalogVersion;
+            this.catalogVersion = OptionalNullable.of(catalogVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogVersion.
+         * @return Builder
+         */
+        public Builder unsetCatalogVersion() {
+            catalogVersion = null;
             return this;
         }
 

@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +16,7 @@ import java.util.Objects;
  * This is a model class for SearchOrdersSourceFilter type.
  */
 public class SearchOrdersSourceFilter {
-    private final List<String> sourceNames;
+    private final OptionalNullable<List<String>> sourceNames;
 
     /**
      * Initialization constructor.
@@ -22,7 +25,27 @@ public class SearchOrdersSourceFilter {
     @JsonCreator
     public SearchOrdersSourceFilter(
             @JsonProperty("source_names") List<String> sourceNames) {
+        this.sourceNames = OptionalNullable.of(sourceNames);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SearchOrdersSourceFilter(OptionalNullable<List<String>> sourceNames) {
         this.sourceNames = sourceNames;
+    }
+
+    /**
+     * Internal Getter for SourceNames.
+     * Filters by the [Source]($m/OrderSource) `name`. The filter returns any orders with a
+     * `source.name` that matches any of the listed source names. Max: 10 source names.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("source_names")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetSourceNames() {
+        return this.sourceNames;
     }
 
     /**
@@ -31,10 +54,9 @@ public class SearchOrdersSourceFilter {
      * `source.name` that matches any of the listed source names. Max: 10 source names.
      * @return Returns the List of String
      */
-    @JsonGetter("source_names")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getSourceNames() {
-        return sourceNames;
+        return OptionalNullable.getFrom(sourceNames);
     }
 
     @Override
@@ -69,8 +91,8 @@ public class SearchOrdersSourceFilter {
      * @return a new {@link SearchOrdersSourceFilter.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .sourceNames(getSourceNames());
+        Builder builder = new Builder();
+        builder.sourceNames = internalGetSourceNames();
         return builder;
     }
 
@@ -78,7 +100,7 @@ public class SearchOrdersSourceFilter {
      * Class to build instances of {@link SearchOrdersSourceFilter}.
      */
     public static class Builder {
-        private List<String> sourceNames;
+        private OptionalNullable<List<String>> sourceNames;
 
 
 
@@ -88,7 +110,16 @@ public class SearchOrdersSourceFilter {
          * @return Builder
          */
         public Builder sourceNames(List<String> sourceNames) {
-            this.sourceNames = sourceNames;
+            this.sourceNames = OptionalNullable.of(sourceNames);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceNames.
+         * @return Builder
+         */
+        public Builder unsetSourceNames() {
+            sourceNames = null;
             return this;
         }
 

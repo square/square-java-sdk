@@ -3,17 +3,20 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogV1Id type.
  */
 public class CatalogV1Id {
-    private final String catalogV1Id;
-    private final String locationId;
+    private final OptionalNullable<String> catalogV1Id;
+    private final OptionalNullable<String> locationId;
 
     /**
      * Initialization constructor.
@@ -24,8 +27,30 @@ public class CatalogV1Id {
     public CatalogV1Id(
             @JsonProperty("catalog_v1_id") String catalogV1Id,
             @JsonProperty("location_id") String locationId) {
+        this.catalogV1Id = OptionalNullable.of(catalogV1Id);
+        this.locationId = OptionalNullable.of(locationId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogV1Id(OptionalNullable<String> catalogV1Id,
+            OptionalNullable<String> locationId) {
         this.catalogV1Id = catalogV1Id;
         this.locationId = locationId;
+    }
+
+    /**
+     * Internal Getter for CatalogV1Id.
+     * The ID for an object used in the Square API V1, if the object ID differs from the Square API
+     * V2 object ID.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("catalog_v1_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCatalogV1Id() {
+        return this.catalogV1Id;
     }
 
     /**
@@ -34,10 +59,21 @@ public class CatalogV1Id {
      * V2 object ID.
      * @return Returns the String
      */
-    @JsonGetter("catalog_v1_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCatalogV1Id() {
-        return catalogV1Id;
+        return OptionalNullable.getFrom(catalogV1Id);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * The ID of the `Location` this Connect V1 ID is associated with.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -45,10 +81,9 @@ public class CatalogV1Id {
      * The ID of the `Location` this Connect V1 ID is associated with.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
     }
 
     @Override
@@ -84,9 +119,9 @@ public class CatalogV1Id {
      * @return a new {@link CatalogV1Id.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .catalogV1Id(getCatalogV1Id())
-                .locationId(getLocationId());
+        Builder builder = new Builder();
+        builder.catalogV1Id = internalGetCatalogV1Id();
+        builder.locationId = internalGetLocationId();
         return builder;
     }
 
@@ -94,8 +129,8 @@ public class CatalogV1Id {
      * Class to build instances of {@link CatalogV1Id}.
      */
     public static class Builder {
-        private String catalogV1Id;
-        private String locationId;
+        private OptionalNullable<String> catalogV1Id;
+        private OptionalNullable<String> locationId;
 
 
 
@@ -105,7 +140,16 @@ public class CatalogV1Id {
          * @return Builder
          */
         public Builder catalogV1Id(String catalogV1Id) {
-            this.catalogV1Id = catalogV1Id;
+            this.catalogV1Id = OptionalNullable.of(catalogV1Id);
+            return this;
+        }
+
+        /**
+         * UnSetter for catalogV1Id.
+         * @return Builder
+         */
+        public Builder unsetCatalogV1Id() {
+            catalogV1Id = null;
             return this;
         }
 
@@ -115,7 +159,16 @@ public class CatalogV1Id {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 

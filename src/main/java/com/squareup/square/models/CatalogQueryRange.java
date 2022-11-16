@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -13,8 +16,8 @@ import java.util.Objects;
  */
 public class CatalogQueryRange {
     private final String attributeName;
-    private final Long attributeMinValue;
-    private final Long attributeMaxValue;
+    private final OptionalNullable<Long> attributeMinValue;
+    private final OptionalNullable<Long> attributeMaxValue;
 
     /**
      * Initialization constructor.
@@ -27,6 +30,16 @@ public class CatalogQueryRange {
             @JsonProperty("attribute_name") String attributeName,
             @JsonProperty("attribute_min_value") Long attributeMinValue,
             @JsonProperty("attribute_max_value") Long attributeMaxValue) {
+        this.attributeName = attributeName;
+        this.attributeMinValue = OptionalNullable.of(attributeMinValue);
+        this.attributeMaxValue = OptionalNullable.of(attributeMaxValue);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogQueryRange(String attributeName, OptionalNullable<Long> attributeMinValue,
+            OptionalNullable<Long> attributeMaxValue) {
         this.attributeName = attributeName;
         this.attributeMinValue = attributeMinValue;
         this.attributeMaxValue = attributeMaxValue;
@@ -43,14 +56,37 @@ public class CatalogQueryRange {
     }
 
     /**
+     * Internal Getter for AttributeMinValue.
+     * The desired minimum value for the search attribute (inclusive).
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("attribute_min_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetAttributeMinValue() {
+        return this.attributeMinValue;
+    }
+
+    /**
      * Getter for AttributeMinValue.
      * The desired minimum value for the search attribute (inclusive).
      * @return Returns the Long
      */
-    @JsonGetter("attribute_min_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getAttributeMinValue() {
-        return attributeMinValue;
+        return OptionalNullable.getFrom(attributeMinValue);
+    }
+
+    /**
+     * Internal Getter for AttributeMaxValue.
+     * The desired maximum value for the search attribute (inclusive).
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("attribute_max_value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetAttributeMaxValue() {
+        return this.attributeMaxValue;
     }
 
     /**
@@ -58,10 +94,9 @@ public class CatalogQueryRange {
      * The desired maximum value for the search attribute (inclusive).
      * @return Returns the Long
      */
-    @JsonGetter("attribute_max_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getAttributeMaxValue() {
-        return attributeMaxValue;
+        return OptionalNullable.getFrom(attributeMaxValue);
     }
 
     @Override
@@ -99,9 +134,9 @@ public class CatalogQueryRange {
      * @return a new {@link CatalogQueryRange.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(attributeName)
-                .attributeMinValue(getAttributeMinValue())
-                .attributeMaxValue(getAttributeMaxValue());
+        Builder builder = new Builder(attributeName);
+        builder.attributeMinValue = internalGetAttributeMinValue();
+        builder.attributeMaxValue = internalGetAttributeMaxValue();
         return builder;
     }
 
@@ -110,8 +145,8 @@ public class CatalogQueryRange {
      */
     public static class Builder {
         private String attributeName;
-        private Long attributeMinValue;
-        private Long attributeMaxValue;
+        private OptionalNullable<Long> attributeMinValue;
+        private OptionalNullable<Long> attributeMaxValue;
 
         /**
          * Initialization constructor.
@@ -137,7 +172,16 @@ public class CatalogQueryRange {
          * @return Builder
          */
         public Builder attributeMinValue(Long attributeMinValue) {
-            this.attributeMinValue = attributeMinValue;
+            this.attributeMinValue = OptionalNullable.of(attributeMinValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for attributeMinValue.
+         * @return Builder
+         */
+        public Builder unsetAttributeMinValue() {
+            attributeMinValue = null;
             return this;
         }
 
@@ -147,7 +191,16 @@ public class CatalogQueryRange {
          * @return Builder
          */
         public Builder attributeMaxValue(Long attributeMaxValue) {
-            this.attributeMaxValue = attributeMaxValue;
+            this.attributeMaxValue = OptionalNullable.of(attributeMaxValue);
+            return this;
+        }
+
+        /**
+         * UnSetter for attributeMaxValue.
+         * @return Builder
+         */
+        public Builder unsetAttributeMaxValue() {
+            attributeMaxValue = null;
             return this;
         }
 

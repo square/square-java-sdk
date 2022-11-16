@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
@@ -14,7 +17,7 @@ import java.util.Objects;
 public class ExternalPaymentDetails {
     private final String type;
     private final String source;
-    private final String sourceId;
+    private final OptionalNullable<String> sourceId;
     private final Money sourceFeeMoney;
 
     /**
@@ -30,6 +33,17 @@ public class ExternalPaymentDetails {
             @JsonProperty("source") String source,
             @JsonProperty("source_id") String sourceId,
             @JsonProperty("source_fee_money") Money sourceFeeMoney) {
+        this.type = type;
+        this.source = source;
+        this.sourceId = OptionalNullable.of(sourceId);
+        this.sourceFeeMoney = sourceFeeMoney;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ExternalPaymentDetails(String type, String source, OptionalNullable<String> sourceId,
+            Money sourceFeeMoney) {
         this.type = type;
         this.source = source;
         this.sourceId = sourceId;
@@ -65,14 +79,25 @@ public class ExternalPaymentDetails {
     }
 
     /**
+     * Internal Getter for SourceId.
+     * An ID to associate the payment to its originating source.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("source_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSourceId() {
+        return this.sourceId;
+    }
+
+    /**
      * Getter for SourceId.
      * An ID to associate the payment to its originating source.
      * @return Returns the String
      */
-    @JsonGetter("source_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSourceId() {
-        return sourceId;
+        return OptionalNullable.getFrom(sourceId);
     }
 
     /**
@@ -128,8 +153,8 @@ public class ExternalPaymentDetails {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(type, source)
-                .sourceId(getSourceId())
                 .sourceFeeMoney(getSourceFeeMoney());
+        builder.sourceId = internalGetSourceId();
         return builder;
     }
 
@@ -139,7 +164,7 @@ public class ExternalPaymentDetails {
     public static class Builder {
         private String type;
         private String source;
-        private String sourceId;
+        private OptionalNullable<String> sourceId;
         private Money sourceFeeMoney;
 
         /**
@@ -178,7 +203,16 @@ public class ExternalPaymentDetails {
          * @return Builder
          */
         public Builder sourceId(String sourceId) {
-            this.sourceId = sourceId;
+            this.sourceId = OptionalNullable.of(sourceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceId.
+         * @return Builder
+         */
+        public Builder unsetSourceId() {
+            sourceId = null;
             return this;
         }
 

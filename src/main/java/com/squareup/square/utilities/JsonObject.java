@@ -31,7 +31,7 @@ public class JsonObject extends CoreJsonObject {
         if (jsonString == null) {
             return new JsonObject(null);
         }
-        JsonNode node = ApiHelper.mapper.readTree(jsonString);
+        JsonNode node = ApiHelper.getMapper().readTree(jsonString);
         if (node.isObject()) {
             return new JsonObject(node);
         }

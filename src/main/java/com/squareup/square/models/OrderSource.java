@@ -3,16 +3,19 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for OrderSource type.
  */
 public class OrderSource {
-    private final String name;
+    private final OptionalNullable<String> name;
 
     /**
      * Initialization constructor.
@@ -21,7 +24,27 @@ public class OrderSource {
     @JsonCreator
     public OrderSource(
             @JsonProperty("name") String name) {
+        this.name = OptionalNullable.of(name);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected OrderSource(OptionalNullable<String> name) {
         this.name = name;
+    }
+
+    /**
+     * Internal Getter for Name.
+     * The name used to identify the place (physical or digital) that an order originates. If unset,
+     * the name defaults to the name of the application that created the order.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
     }
 
     /**
@@ -30,10 +53,9 @@ public class OrderSource {
      * the name defaults to the name of the application that created the order.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     @Override
@@ -68,8 +90,8 @@ public class OrderSource {
      * @return a new {@link OrderSource.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName());
+        Builder builder = new Builder();
+        builder.name = internalGetName();
         return builder;
     }
 
@@ -77,7 +99,7 @@ public class OrderSource {
      * Class to build instances of {@link OrderSource}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
 
 
 
@@ -87,7 +109,16 @@ public class OrderSource {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 

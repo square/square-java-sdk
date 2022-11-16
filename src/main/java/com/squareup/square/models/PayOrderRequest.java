@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,8 @@ import java.util.Objects;
  */
 public class PayOrderRequest {
     private final String idempotencyKey;
-    private final Integer orderVersion;
-    private final List<String> paymentIds;
+    private final OptionalNullable<Integer> orderVersion;
+    private final OptionalNullable<List<String>> paymentIds;
 
     /**
      * Initialization constructor.
@@ -28,6 +31,16 @@ public class PayOrderRequest {
             @JsonProperty("idempotency_key") String idempotencyKey,
             @JsonProperty("order_version") Integer orderVersion,
             @JsonProperty("payment_ids") List<String> paymentIds) {
+        this.idempotencyKey = idempotencyKey;
+        this.orderVersion = OptionalNullable.of(orderVersion);
+        this.paymentIds = OptionalNullable.of(paymentIds);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PayOrderRequest(String idempotencyKey, OptionalNullable<Integer> orderVersion,
+            OptionalNullable<List<String>> paymentIds) {
         this.idempotencyKey = idempotencyKey;
         this.orderVersion = orderVersion;
         this.paymentIds = paymentIds;
@@ -48,14 +61,38 @@ public class PayOrderRequest {
     }
 
     /**
+     * Internal Getter for OrderVersion.
+     * The version of the order being paid. If not supplied, the latest version will be paid.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("order_version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetOrderVersion() {
+        return this.orderVersion;
+    }
+
+    /**
      * Getter for OrderVersion.
      * The version of the order being paid. If not supplied, the latest version will be paid.
      * @return Returns the Integer
      */
-    @JsonGetter("order_version")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getOrderVersion() {
-        return orderVersion;
+        return OptionalNullable.getFrom(orderVersion);
+    }
+
+    /**
+     * Internal Getter for PaymentIds.
+     * The IDs of the [payments]($m/Payment) to collect. The payment total must match the order
+     * total.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("payment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetPaymentIds() {
+        return this.paymentIds;
     }
 
     /**
@@ -64,10 +101,9 @@ public class PayOrderRequest {
      * total.
      * @return Returns the List of String
      */
-    @JsonGetter("payment_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getPaymentIds() {
-        return paymentIds;
+        return OptionalNullable.getFrom(paymentIds);
     }
 
     @Override
@@ -105,9 +141,9 @@ public class PayOrderRequest {
      * @return a new {@link PayOrderRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(idempotencyKey)
-                .orderVersion(getOrderVersion())
-                .paymentIds(getPaymentIds());
+        Builder builder = new Builder(idempotencyKey);
+        builder.orderVersion = internalGetOrderVersion();
+        builder.paymentIds = internalGetPaymentIds();
         return builder;
     }
 
@@ -116,8 +152,8 @@ public class PayOrderRequest {
      */
     public static class Builder {
         private String idempotencyKey;
-        private Integer orderVersion;
-        private List<String> paymentIds;
+        private OptionalNullable<Integer> orderVersion;
+        private OptionalNullable<List<String>> paymentIds;
 
         /**
          * Initialization constructor.
@@ -143,7 +179,16 @@ public class PayOrderRequest {
          * @return Builder
          */
         public Builder orderVersion(Integer orderVersion) {
-            this.orderVersion = orderVersion;
+            this.orderVersion = OptionalNullable.of(orderVersion);
+            return this;
+        }
+
+        /**
+         * UnSetter for orderVersion.
+         * @return Builder
+         */
+        public Builder unsetOrderVersion() {
+            orderVersion = null;
             return this;
         }
 
@@ -153,7 +198,16 @@ public class PayOrderRequest {
          * @return Builder
          */
         public Builder paymentIds(List<String> paymentIds) {
-            this.paymentIds = paymentIds;
+            this.paymentIds = OptionalNullable.of(paymentIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentIds.
+         * @return Builder
+         */
+        public Builder unsetPaymentIds() {
+            paymentIds = null;
             return this;
         }
 

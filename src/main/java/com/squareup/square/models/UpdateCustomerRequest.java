@@ -3,25 +3,28 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for UpdateCustomerRequest type.
  */
 public class UpdateCustomerRequest {
-    private final String givenName;
-    private final String familyName;
-    private final String companyName;
-    private final String nickname;
-    private final String emailAddress;
+    private final OptionalNullable<String> givenName;
+    private final OptionalNullable<String> familyName;
+    private final OptionalNullable<String> companyName;
+    private final OptionalNullable<String> nickname;
+    private final OptionalNullable<String> emailAddress;
     private final Address address;
-    private final String phoneNumber;
-    private final String referenceId;
-    private final String note;
-    private final String birthday;
+    private final OptionalNullable<String> phoneNumber;
+    private final OptionalNullable<String> referenceId;
+    private final OptionalNullable<String> note;
+    private final OptionalNullable<String> birthday;
     private final Long version;
     private final CustomerTaxIds taxIds;
 
@@ -54,6 +57,29 @@ public class UpdateCustomerRequest {
             @JsonProperty("birthday") String birthday,
             @JsonProperty("version") Long version,
             @JsonProperty("tax_ids") CustomerTaxIds taxIds) {
+        this.givenName = OptionalNullable.of(givenName);
+        this.familyName = OptionalNullable.of(familyName);
+        this.companyName = OptionalNullable.of(companyName);
+        this.nickname = OptionalNullable.of(nickname);
+        this.emailAddress = OptionalNullable.of(emailAddress);
+        this.address = address;
+        this.phoneNumber = OptionalNullable.of(phoneNumber);
+        this.referenceId = OptionalNullable.of(referenceId);
+        this.note = OptionalNullable.of(note);
+        this.birthday = OptionalNullable.of(birthday);
+        this.version = version;
+        this.taxIds = taxIds;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected UpdateCustomerRequest(OptionalNullable<String> givenName,
+            OptionalNullable<String> familyName, OptionalNullable<String> companyName,
+            OptionalNullable<String> nickname, OptionalNullable<String> emailAddress,
+            Address address, OptionalNullable<String> phoneNumber,
+            OptionalNullable<String> referenceId, OptionalNullable<String> note,
+            OptionalNullable<String> birthday, Long version, CustomerTaxIds taxIds) {
         this.givenName = givenName;
         this.familyName = familyName;
         this.companyName = companyName;
@@ -69,15 +95,40 @@ public class UpdateCustomerRequest {
     }
 
     /**
+     * Internal Getter for GivenName.
+     * The given name (that is, the first name) associated with the customer profile. The maximum
+     * length for this value is 300 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("given_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGivenName() {
+        return this.givenName;
+    }
+
+    /**
      * Getter for GivenName.
      * The given name (that is, the first name) associated with the customer profile. The maximum
      * length for this value is 300 characters.
      * @return Returns the String
      */
-    @JsonGetter("given_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getGivenName() {
-        return givenName;
+        return OptionalNullable.getFrom(givenName);
+    }
+
+    /**
+     * Internal Getter for FamilyName.
+     * The family name (that is, the last name) associated with the customer profile. The maximum
+     * length for this value is 300 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("family_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetFamilyName() {
+        return this.familyName;
     }
 
     /**
@@ -86,10 +137,22 @@ public class UpdateCustomerRequest {
      * length for this value is 300 characters.
      * @return Returns the String
      */
-    @JsonGetter("family_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getFamilyName() {
-        return familyName;
+        return OptionalNullable.getFrom(familyName);
+    }
+
+    /**
+     * Internal Getter for CompanyName.
+     * A business name associated with the customer profile. The maximum length for this value is
+     * 500 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("company_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCompanyName() {
+        return this.companyName;
     }
 
     /**
@@ -98,10 +161,21 @@ public class UpdateCustomerRequest {
      * 500 characters.
      * @return Returns the String
      */
-    @JsonGetter("company_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCompanyName() {
-        return companyName;
+        return OptionalNullable.getFrom(companyName);
+    }
+
+    /**
+     * Internal Getter for Nickname.
+     * A nickname for the customer profile. The maximum length for this value is 100 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("nickname")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNickname() {
+        return this.nickname;
     }
 
     /**
@@ -109,10 +183,22 @@ public class UpdateCustomerRequest {
      * A nickname for the customer profile. The maximum length for this value is 100 characters.
      * @return Returns the String
      */
-    @JsonGetter("nickname")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNickname() {
-        return nickname;
+        return OptionalNullable.getFrom(nickname);
+    }
+
+    /**
+     * Internal Getter for EmailAddress.
+     * The email address associated with the customer profile. The maximum length for this value is
+     * 254 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("email_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEmailAddress() {
+        return this.emailAddress;
     }
 
     /**
@@ -121,10 +207,9 @@ public class UpdateCustomerRequest {
      * 254 characters.
      * @return Returns the String
      */
-    @JsonGetter("email_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEmailAddress() {
-        return emailAddress;
+        return OptionalNullable.getFrom(emailAddress);
     }
 
     /**
@@ -140,6 +225,21 @@ public class UpdateCustomerRequest {
     }
 
     /**
+     * Internal Getter for PhoneNumber.
+     * The phone number associated with the customer profile. The phone number must be valid and can
+     * contain 9–16 digits, with an optional `+` prefix and country code. For more information, see
+     * [Customer phone
+     * numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
      * Getter for PhoneNumber.
      * The phone number associated with the customer profile. The phone number must be valid and can
      * contain 9–16 digits, with an optional `+` prefix and country code. For more information, see
@@ -147,10 +247,22 @@ public class UpdateCustomerRequest {
      * numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number).
      * @return Returns the String
      */
-    @JsonGetter("phone_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPhoneNumber() {
-        return phoneNumber;
+        return OptionalNullable.getFrom(phoneNumber);
+    }
+
+    /**
+     * Internal Getter for ReferenceId.
+     * An optional second ID used to associate the customer profile with an entity in another
+     * system. The maximum length for this value is 100 characters.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("reference_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetReferenceId() {
+        return this.referenceId;
     }
 
     /**
@@ -159,10 +271,21 @@ public class UpdateCustomerRequest {
      * system. The maximum length for this value is 100 characters.
      * @return Returns the String
      */
-    @JsonGetter("reference_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getReferenceId() {
-        return referenceId;
+        return OptionalNullable.getFrom(referenceId);
+    }
+
+    /**
+     * Internal Getter for Note.
+     * A custom note associated with the customer profile.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("note")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNote() {
+        return this.note;
     }
 
     /**
@@ -170,10 +293,24 @@ public class UpdateCustomerRequest {
      * A custom note associated with the customer profile.
      * @return Returns the String
      */
-    @JsonGetter("note")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getNote() {
-        return note;
+        return OptionalNullable.getFrom(note);
+    }
+
+    /**
+     * Internal Getter for Birthday.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` or `MM-DD` format. For
+     * example, specify `1998-09-21` for September 21, 1998, or `09-21` for September 21. Birthdays
+     * are returned in `YYYY-MM-DD` format, where `YYYY` is the specified birth year or `0000` if a
+     * birth year is not specified.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("birthday")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBirthday() {
+        return this.birthday;
     }
 
     /**
@@ -184,10 +321,9 @@ public class UpdateCustomerRequest {
      * birth year is not specified.
      * @return Returns the String
      */
-    @JsonGetter("birthday")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBirthday() {
-        return birthday;
+        return OptionalNullable.getFrom(birthday);
     }
 
     /**
@@ -268,18 +404,18 @@ public class UpdateCustomerRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .givenName(getGivenName())
-                .familyName(getFamilyName())
-                .companyName(getCompanyName())
-                .nickname(getNickname())
-                .emailAddress(getEmailAddress())
                 .address(getAddress())
-                .phoneNumber(getPhoneNumber())
-                .referenceId(getReferenceId())
-                .note(getNote())
-                .birthday(getBirthday())
                 .version(getVersion())
                 .taxIds(getTaxIds());
+        builder.givenName = internalGetGivenName();
+        builder.familyName = internalGetFamilyName();
+        builder.companyName = internalGetCompanyName();
+        builder.nickname = internalGetNickname();
+        builder.emailAddress = internalGetEmailAddress();
+        builder.phoneNumber = internalGetPhoneNumber();
+        builder.referenceId = internalGetReferenceId();
+        builder.note = internalGetNote();
+        builder.birthday = internalGetBirthday();
         return builder;
     }
 
@@ -287,16 +423,16 @@ public class UpdateCustomerRequest {
      * Class to build instances of {@link UpdateCustomerRequest}.
      */
     public static class Builder {
-        private String givenName;
-        private String familyName;
-        private String companyName;
-        private String nickname;
-        private String emailAddress;
+        private OptionalNullable<String> givenName;
+        private OptionalNullable<String> familyName;
+        private OptionalNullable<String> companyName;
+        private OptionalNullable<String> nickname;
+        private OptionalNullable<String> emailAddress;
         private Address address;
-        private String phoneNumber;
-        private String referenceId;
-        private String note;
-        private String birthday;
+        private OptionalNullable<String> phoneNumber;
+        private OptionalNullable<String> referenceId;
+        private OptionalNullable<String> note;
+        private OptionalNullable<String> birthday;
         private Long version;
         private CustomerTaxIds taxIds;
 
@@ -308,7 +444,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder givenName(String givenName) {
-            this.givenName = givenName;
+            this.givenName = OptionalNullable.of(givenName);
+            return this;
+        }
+
+        /**
+         * UnSetter for givenName.
+         * @return Builder
+         */
+        public Builder unsetGivenName() {
+            givenName = null;
             return this;
         }
 
@@ -318,7 +463,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder familyName(String familyName) {
-            this.familyName = familyName;
+            this.familyName = OptionalNullable.of(familyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for familyName.
+         * @return Builder
+         */
+        public Builder unsetFamilyName() {
+            familyName = null;
             return this;
         }
 
@@ -328,7 +482,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder companyName(String companyName) {
-            this.companyName = companyName;
+            this.companyName = OptionalNullable.of(companyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for companyName.
+         * @return Builder
+         */
+        public Builder unsetCompanyName() {
+            companyName = null;
             return this;
         }
 
@@ -338,7 +501,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder nickname(String nickname) {
-            this.nickname = nickname;
+            this.nickname = OptionalNullable.of(nickname);
+            return this;
+        }
+
+        /**
+         * UnSetter for nickname.
+         * @return Builder
+         */
+        public Builder unsetNickname() {
+            nickname = null;
             return this;
         }
 
@@ -348,7 +520,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder emailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
+            this.emailAddress = OptionalNullable.of(emailAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for emailAddress.
+         * @return Builder
+         */
+        public Builder unsetEmailAddress() {
+            emailAddress = null;
             return this;
         }
 
@@ -368,7 +549,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+            this.phoneNumber = OptionalNullable.of(phoneNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for phoneNumber.
+         * @return Builder
+         */
+        public Builder unsetPhoneNumber() {
+            phoneNumber = null;
             return this;
         }
 
@@ -378,7 +568,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder referenceId(String referenceId) {
-            this.referenceId = referenceId;
+            this.referenceId = OptionalNullable.of(referenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for referenceId.
+         * @return Builder
+         */
+        public Builder unsetReferenceId() {
+            referenceId = null;
             return this;
         }
 
@@ -388,7 +587,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder note(String note) {
-            this.note = note;
+            this.note = OptionalNullable.of(note);
+            return this;
+        }
+
+        /**
+         * UnSetter for note.
+         * @return Builder
+         */
+        public Builder unsetNote() {
+            note = null;
             return this;
         }
 
@@ -398,7 +606,16 @@ public class UpdateCustomerRequest {
          * @return Builder
          */
         public Builder birthday(String birthday) {
-            this.birthday = birthday;
+            this.birthday = OptionalNullable.of(birthday);
+            return this;
+        }
+
+        /**
+         * UnSetter for birthday.
+         * @return Builder
+         */
+        public Builder unsetBirthday() {
+            birthday = null;
             return this;
         }
 

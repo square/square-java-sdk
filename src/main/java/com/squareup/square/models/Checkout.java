@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,15 +17,15 @@ import java.util.Objects;
  */
 public class Checkout {
     private final String id;
-    private final String checkoutPageUrl;
-    private final Boolean askForShippingAddress;
-    private final String merchantSupportEmail;
-    private final String prePopulateBuyerEmail;
+    private final OptionalNullable<String> checkoutPageUrl;
+    private final OptionalNullable<Boolean> askForShippingAddress;
+    private final OptionalNullable<String> merchantSupportEmail;
+    private final OptionalNullable<String> prePopulateBuyerEmail;
     private final Address prePopulateShippingAddress;
-    private final String redirectUrl;
+    private final OptionalNullable<String> redirectUrl;
     private final Order order;
     private final String createdAt;
-    private final List<AdditionalRecipient> additionalRecipients;
+    private final OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
 
     /**
      * Initialization constructor.
@@ -50,6 +53,27 @@ public class Checkout {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients) {
         this.id = id;
+        this.checkoutPageUrl = OptionalNullable.of(checkoutPageUrl);
+        this.askForShippingAddress = OptionalNullable.of(askForShippingAddress);
+        this.merchantSupportEmail = OptionalNullable.of(merchantSupportEmail);
+        this.prePopulateBuyerEmail = OptionalNullable.of(prePopulateBuyerEmail);
+        this.prePopulateShippingAddress = prePopulateShippingAddress;
+        this.redirectUrl = OptionalNullable.of(redirectUrl);
+        this.order = order;
+        this.createdAt = createdAt;
+        this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Checkout(String id, OptionalNullable<String> checkoutPageUrl,
+            OptionalNullable<Boolean> askForShippingAddress,
+            OptionalNullable<String> merchantSupportEmail,
+            OptionalNullable<String> prePopulateBuyerEmail, Address prePopulateShippingAddress,
+            OptionalNullable<String> redirectUrl, Order order, String createdAt,
+            OptionalNullable<List<AdditionalRecipient>> additionalRecipients) {
+        this.id = id;
         this.checkoutPageUrl = checkoutPageUrl;
         this.askForShippingAddress = askForShippingAddress;
         this.merchantSupportEmail = merchantSupportEmail;
@@ -73,14 +97,38 @@ public class Checkout {
     }
 
     /**
+     * Internal Getter for CheckoutPageUrl.
+     * The URL that the buyer's browser should be redirected to after the checkout is completed.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("checkout_page_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCheckoutPageUrl() {
+        return this.checkoutPageUrl;
+    }
+
+    /**
      * Getter for CheckoutPageUrl.
      * The URL that the buyer's browser should be redirected to after the checkout is completed.
      * @return Returns the String
      */
-    @JsonGetter("checkout_page_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCheckoutPageUrl() {
-        return checkoutPageUrl;
+        return OptionalNullable.getFrom(checkoutPageUrl);
+    }
+
+    /**
+     * Internal Getter for AskForShippingAddress.
+     * If `true`, Square Checkout will collect shipping information on your behalf and store that
+     * information with the transaction information in your Square Dashboard. Default: `false`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("ask_for_shipping_address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAskForShippingAddress() {
+        return this.askForShippingAddress;
     }
 
     /**
@@ -89,10 +137,24 @@ public class Checkout {
      * information with the transaction information in your Square Dashboard. Default: `false`.
      * @return Returns the Boolean
      */
-    @JsonGetter("ask_for_shipping_address")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAskForShippingAddress() {
-        return askForShippingAddress;
+        return OptionalNullable.getFrom(askForShippingAddress);
+    }
+
+    /**
+     * Internal Getter for MerchantSupportEmail.
+     * The email address to display on the Square Checkout confirmation page and confirmation email
+     * that the buyer can use to contact the merchant. If this value is not set, the confirmation
+     * page and email will display the primary email address associated with the merchant's Square
+     * account. Default: none; only exists if explicitly set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("merchant_support_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMerchantSupportEmail() {
+        return this.merchantSupportEmail;
     }
 
     /**
@@ -103,10 +165,22 @@ public class Checkout {
      * account. Default: none; only exists if explicitly set.
      * @return Returns the String
      */
-    @JsonGetter("merchant_support_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getMerchantSupportEmail() {
-        return merchantSupportEmail;
+        return OptionalNullable.getFrom(merchantSupportEmail);
+    }
+
+    /**
+     * Internal Getter for PrePopulateBuyerEmail.
+     * If provided, the buyer's email is pre-populated on the checkout page as an editable text
+     * field. Default: none; only exists if explicitly set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pre_populate_buyer_email")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPrePopulateBuyerEmail() {
+        return this.prePopulateBuyerEmail;
     }
 
     /**
@@ -115,10 +189,9 @@ public class Checkout {
      * field. Default: none; only exists if explicitly set.
      * @return Returns the String
      */
-    @JsonGetter("pre_populate_buyer_email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPrePopulateBuyerEmail() {
-        return prePopulateBuyerEmail;
+        return OptionalNullable.getFrom(prePopulateBuyerEmail);
     }
 
     /**
@@ -134,6 +207,26 @@ public class Checkout {
     }
 
     /**
+     * Internal Getter for RedirectUrl.
+     * The URL to redirect to after checkout is completed with `checkoutId`, Square's `orderId`,
+     * `transactionId`, and `referenceId` appended as URL parameters. For example, if the provided
+     * redirect_url is `http://www.example.com/order-complete`, a successful transaction redirects
+     * the customer to:
+     * &lt;pre&gt;&lt;code&gt;http://www.example.com/order-complete?checkoutId=xxxxxx&amp;orderId=xxxxxx&amp;referenceId=xxxxxx&amp;transactionId=xxxxxx&lt;/code&gt;&lt;/pre&gt;
+     * If you do not provide a redirect URL, Square Checkout will display an order confirmation page
+     * on your behalf; however Square strongly recommends that you provide a redirect URL so you can
+     * verify the transaction results and finalize the order through your existing/normal
+     * confirmation workflow.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("redirect_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRedirectUrl() {
+        return this.redirectUrl;
+    }
+
+    /**
      * Getter for RedirectUrl.
      * The URL to redirect to after checkout is completed with `checkoutId`, Square's `orderId`,
      * `transactionId`, and `referenceId` appended as URL parameters. For example, if the provided
@@ -146,10 +239,9 @@ public class Checkout {
      * confirmation workflow.
      * @return Returns the String
      */
-    @JsonGetter("redirect_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getRedirectUrl() {
-        return redirectUrl;
+        return OptionalNullable.getFrom(redirectUrl);
     }
 
     /**
@@ -178,15 +270,27 @@ public class Checkout {
     }
 
     /**
+     * Internal Getter for AdditionalRecipients.
+     * Additional recipients (other than the merchant) receiving a portion of this checkout. For
+     * example, fees assessed on the purchase by a third party integration.
+     * @return Returns the Internal List of AdditionalRecipient
+     */
+    @JsonGetter("additional_recipients")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<AdditionalRecipient>> internalGetAdditionalRecipients() {
+        return this.additionalRecipients;
+    }
+
+    /**
      * Getter for AdditionalRecipients.
      * Additional recipients (other than the merchant) receiving a portion of this checkout. For
      * example, fees assessed on the purchase by a third party integration.
      * @return Returns the List of AdditionalRecipient
      */
-    @JsonGetter("additional_recipients")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<AdditionalRecipient> getAdditionalRecipients() {
-        return additionalRecipients;
+        return OptionalNullable.getFrom(additionalRecipients);
     }
 
     @Override
@@ -239,15 +343,15 @@ public class Checkout {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .checkoutPageUrl(getCheckoutPageUrl())
-                .askForShippingAddress(getAskForShippingAddress())
-                .merchantSupportEmail(getMerchantSupportEmail())
-                .prePopulateBuyerEmail(getPrePopulateBuyerEmail())
                 .prePopulateShippingAddress(getPrePopulateShippingAddress())
-                .redirectUrl(getRedirectUrl())
                 .order(getOrder())
-                .createdAt(getCreatedAt())
-                .additionalRecipients(getAdditionalRecipients());
+                .createdAt(getCreatedAt());
+        builder.checkoutPageUrl = internalGetCheckoutPageUrl();
+        builder.askForShippingAddress = internalGetAskForShippingAddress();
+        builder.merchantSupportEmail = internalGetMerchantSupportEmail();
+        builder.prePopulateBuyerEmail = internalGetPrePopulateBuyerEmail();
+        builder.redirectUrl = internalGetRedirectUrl();
+        builder.additionalRecipients = internalGetAdditionalRecipients();
         return builder;
     }
 
@@ -256,15 +360,15 @@ public class Checkout {
      */
     public static class Builder {
         private String id;
-        private String checkoutPageUrl;
-        private Boolean askForShippingAddress;
-        private String merchantSupportEmail;
-        private String prePopulateBuyerEmail;
+        private OptionalNullable<String> checkoutPageUrl;
+        private OptionalNullable<Boolean> askForShippingAddress;
+        private OptionalNullable<String> merchantSupportEmail;
+        private OptionalNullable<String> prePopulateBuyerEmail;
         private Address prePopulateShippingAddress;
-        private String redirectUrl;
+        private OptionalNullable<String> redirectUrl;
         private Order order;
         private String createdAt;
-        private List<AdditionalRecipient> additionalRecipients;
+        private OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
 
 
 
@@ -284,7 +388,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder checkoutPageUrl(String checkoutPageUrl) {
-            this.checkoutPageUrl = checkoutPageUrl;
+            this.checkoutPageUrl = OptionalNullable.of(checkoutPageUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for checkoutPageUrl.
+         * @return Builder
+         */
+        public Builder unsetCheckoutPageUrl() {
+            checkoutPageUrl = null;
             return this;
         }
 
@@ -294,7 +407,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder askForShippingAddress(Boolean askForShippingAddress) {
-            this.askForShippingAddress = askForShippingAddress;
+            this.askForShippingAddress = OptionalNullable.of(askForShippingAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for askForShippingAddress.
+         * @return Builder
+         */
+        public Builder unsetAskForShippingAddress() {
+            askForShippingAddress = null;
             return this;
         }
 
@@ -304,7 +426,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder merchantSupportEmail(String merchantSupportEmail) {
-            this.merchantSupportEmail = merchantSupportEmail;
+            this.merchantSupportEmail = OptionalNullable.of(merchantSupportEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for merchantSupportEmail.
+         * @return Builder
+         */
+        public Builder unsetMerchantSupportEmail() {
+            merchantSupportEmail = null;
             return this;
         }
 
@@ -314,7 +445,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder prePopulateBuyerEmail(String prePopulateBuyerEmail) {
-            this.prePopulateBuyerEmail = prePopulateBuyerEmail;
+            this.prePopulateBuyerEmail = OptionalNullable.of(prePopulateBuyerEmail);
+            return this;
+        }
+
+        /**
+         * UnSetter for prePopulateBuyerEmail.
+         * @return Builder
+         */
+        public Builder unsetPrePopulateBuyerEmail() {
+            prePopulateBuyerEmail = null;
             return this;
         }
 
@@ -334,7 +474,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder redirectUrl(String redirectUrl) {
-            this.redirectUrl = redirectUrl;
+            this.redirectUrl = OptionalNullable.of(redirectUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for redirectUrl.
+         * @return Builder
+         */
+        public Builder unsetRedirectUrl() {
+            redirectUrl = null;
             return this;
         }
 
@@ -364,7 +513,16 @@ public class Checkout {
          * @return Builder
          */
         public Builder additionalRecipients(List<AdditionalRecipient> additionalRecipients) {
-            this.additionalRecipients = additionalRecipients;
+            this.additionalRecipients = OptionalNullable.of(additionalRecipients);
+            return this;
+        }
+
+        /**
+         * UnSetter for additionalRecipients.
+         * @return Builder
+         */
+        public Builder unsetAdditionalRecipients() {
+            additionalRecipients = null;
             return this;
         }
 

@@ -3,21 +3,24 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for DisputeEvidence type.
  */
 public class DisputeEvidence {
-    private final String evidenceId;
+    private final OptionalNullable<String> evidenceId;
     private final String id;
-    private final String disputeId;
+    private final OptionalNullable<String> disputeId;
     private final DisputeEvidenceFile evidenceFile;
-    private final String evidenceText;
-    private final String uploadedAt;
+    private final OptionalNullable<String> evidenceText;
+    private final OptionalNullable<String> uploadedAt;
     private final String evidenceType;
 
     /**
@@ -39,6 +42,22 @@ public class DisputeEvidence {
             @JsonProperty("evidence_text") String evidenceText,
             @JsonProperty("uploaded_at") String uploadedAt,
             @JsonProperty("evidence_type") String evidenceType) {
+        this.evidenceId = OptionalNullable.of(evidenceId);
+        this.id = id;
+        this.disputeId = OptionalNullable.of(disputeId);
+        this.evidenceFile = evidenceFile;
+        this.evidenceText = OptionalNullable.of(evidenceText);
+        this.uploadedAt = OptionalNullable.of(uploadedAt);
+        this.evidenceType = evidenceType;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected DisputeEvidence(OptionalNullable<String> evidenceId, String id,
+            OptionalNullable<String> disputeId, DisputeEvidenceFile evidenceFile,
+            OptionalNullable<String> evidenceText, OptionalNullable<String> uploadedAt,
+            String evidenceType) {
         this.evidenceId = evidenceId;
         this.id = id;
         this.disputeId = disputeId;
@@ -49,14 +68,25 @@ public class DisputeEvidence {
     }
 
     /**
+     * Internal Getter for EvidenceId.
+     * The Square-generated ID of the evidence.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("evidence_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEvidenceId() {
+        return this.evidenceId;
+    }
+
+    /**
      * Getter for EvidenceId.
      * The Square-generated ID of the evidence.
      * @return Returns the String
      */
-    @JsonGetter("evidence_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEvidenceId() {
-        return evidenceId;
+        return OptionalNullable.getFrom(evidenceId);
     }
 
     /**
@@ -71,14 +101,25 @@ public class DisputeEvidence {
     }
 
     /**
+     * Internal Getter for DisputeId.
+     * The ID of the dispute the evidence is associated with.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("dispute_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDisputeId() {
+        return this.disputeId;
+    }
+
+    /**
      * Getter for DisputeId.
      * The ID of the dispute the evidence is associated with.
      * @return Returns the String
      */
-    @JsonGetter("dispute_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDisputeId() {
-        return disputeId;
+        return OptionalNullable.getFrom(disputeId);
     }
 
     /**
@@ -93,14 +134,37 @@ public class DisputeEvidence {
     }
 
     /**
+     * Internal Getter for EvidenceText.
+     * Raw text
+     * @return Returns the Internal String
+     */
+    @JsonGetter("evidence_text")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEvidenceText() {
+        return this.evidenceText;
+    }
+
+    /**
      * Getter for EvidenceText.
      * Raw text
      * @return Returns the String
      */
-    @JsonGetter("evidence_text")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEvidenceText() {
-        return evidenceText;
+        return OptionalNullable.getFrom(evidenceText);
+    }
+
+    /**
+     * Internal Getter for UploadedAt.
+     * The time when the evidence was uploaded, in RFC 3339 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("uploaded_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUploadedAt() {
+        return this.uploadedAt;
     }
 
     /**
@@ -108,10 +172,9 @@ public class DisputeEvidence {
      * The time when the evidence was uploaded, in RFC 3339 format.
      * @return Returns the String
      */
-    @JsonGetter("uploaded_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getUploadedAt() {
-        return uploadedAt;
+        return OptionalNullable.getFrom(uploadedAt);
     }
 
     /**
@@ -167,13 +230,13 @@ public class DisputeEvidence {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .evidenceId(getEvidenceId())
                 .id(getId())
-                .disputeId(getDisputeId())
                 .evidenceFile(getEvidenceFile())
-                .evidenceText(getEvidenceText())
-                .uploadedAt(getUploadedAt())
                 .evidenceType(getEvidenceType());
+        builder.evidenceId = internalGetEvidenceId();
+        builder.disputeId = internalGetDisputeId();
+        builder.evidenceText = internalGetEvidenceText();
+        builder.uploadedAt = internalGetUploadedAt();
         return builder;
     }
 
@@ -181,12 +244,12 @@ public class DisputeEvidence {
      * Class to build instances of {@link DisputeEvidence}.
      */
     public static class Builder {
-        private String evidenceId;
+        private OptionalNullable<String> evidenceId;
         private String id;
-        private String disputeId;
+        private OptionalNullable<String> disputeId;
         private DisputeEvidenceFile evidenceFile;
-        private String evidenceText;
-        private String uploadedAt;
+        private OptionalNullable<String> evidenceText;
+        private OptionalNullable<String> uploadedAt;
         private String evidenceType;
 
 
@@ -197,7 +260,16 @@ public class DisputeEvidence {
          * @return Builder
          */
         public Builder evidenceId(String evidenceId) {
-            this.evidenceId = evidenceId;
+            this.evidenceId = OptionalNullable.of(evidenceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for evidenceId.
+         * @return Builder
+         */
+        public Builder unsetEvidenceId() {
+            evidenceId = null;
             return this;
         }
 
@@ -217,7 +289,16 @@ public class DisputeEvidence {
          * @return Builder
          */
         public Builder disputeId(String disputeId) {
-            this.disputeId = disputeId;
+            this.disputeId = OptionalNullable.of(disputeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for disputeId.
+         * @return Builder
+         */
+        public Builder unsetDisputeId() {
+            disputeId = null;
             return this;
         }
 
@@ -237,7 +318,16 @@ public class DisputeEvidence {
          * @return Builder
          */
         public Builder evidenceText(String evidenceText) {
-            this.evidenceText = evidenceText;
+            this.evidenceText = OptionalNullable.of(evidenceText);
+            return this;
+        }
+
+        /**
+         * UnSetter for evidenceText.
+         * @return Builder
+         */
+        public Builder unsetEvidenceText() {
+            evidenceText = null;
             return this;
         }
 
@@ -247,7 +337,16 @@ public class DisputeEvidence {
          * @return Builder
          */
         public Builder uploadedAt(String uploadedAt) {
-            this.uploadedAt = uploadedAt;
+            this.uploadedAt = OptionalNullable.of(uploadedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for uploadedAt.
+         * @return Builder
+         */
+        public Builder unsetUploadedAt() {
+            uploadedAt = null;
             return this;
         }
 

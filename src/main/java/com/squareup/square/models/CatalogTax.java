@@ -3,21 +3,24 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for CatalogTax type.
  */
 public class CatalogTax {
-    private final String name;
+    private final OptionalNullable<String> name;
     private final String calculationPhase;
     private final String inclusionType;
-    private final String percentage;
-    private final Boolean appliesToCustomAmounts;
-    private final Boolean enabled;
+    private final OptionalNullable<String> percentage;
+    private final OptionalNullable<Boolean> appliesToCustomAmounts;
+    private final OptionalNullable<Boolean> enabled;
 
     /**
      * Initialization constructor.
@@ -36,6 +39,20 @@ public class CatalogTax {
             @JsonProperty("percentage") String percentage,
             @JsonProperty("applies_to_custom_amounts") Boolean appliesToCustomAmounts,
             @JsonProperty("enabled") Boolean enabled) {
+        this.name = OptionalNullable.of(name);
+        this.calculationPhase = calculationPhase;
+        this.inclusionType = inclusionType;
+        this.percentage = OptionalNullable.of(percentage);
+        this.appliesToCustomAmounts = OptionalNullable.of(appliesToCustomAmounts);
+        this.enabled = OptionalNullable.of(enabled);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CatalogTax(OptionalNullable<String> name, String calculationPhase,
+            String inclusionType, OptionalNullable<String> percentage,
+            OptionalNullable<Boolean> appliesToCustomAmounts, OptionalNullable<Boolean> enabled) {
         this.name = name;
         this.calculationPhase = calculationPhase;
         this.inclusionType = inclusionType;
@@ -45,15 +62,27 @@ public class CatalogTax {
     }
 
     /**
+     * Internal Getter for Name.
+     * The tax's name. This is a searchable attribute for use in applicable query filters, and its
+     * value length is of Unicode code points.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetName() {
+        return this.name;
+    }
+
+    /**
      * Getter for Name.
      * The tax's name. This is a searchable attribute for use in applicable query filters, and its
      * value length is of Unicode code points.
      * @return Returns the String
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getName() {
-        return name;
+        return OptionalNullable.getFrom(name);
     }
 
     /**
@@ -79,16 +108,42 @@ public class CatalogTax {
     }
 
     /**
+     * Internal Getter for Percentage.
+     * The percentage of the tax in decimal form, using a `'.'` as the decimal separator and without
+     * a `'%'` sign. A value of `7.5` corresponds to 7.5%. For a location-specific tax rate, contact
+     * the tax authority of the location or a tax consultant.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("percentage")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPercentage() {
+        return this.percentage;
+    }
+
+    /**
      * Getter for Percentage.
      * The percentage of the tax in decimal form, using a `'.'` as the decimal separator and without
      * a `'%'` sign. A value of `7.5` corresponds to 7.5%. For a location-specific tax rate, contact
      * the tax authority of the location or a tax consultant.
      * @return Returns the String
      */
-    @JsonGetter("percentage")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPercentage() {
-        return percentage;
+        return OptionalNullable.getFrom(percentage);
+    }
+
+    /**
+     * Internal Getter for AppliesToCustomAmounts.
+     * If `true`, the fee applies to custom amounts entered into the Square Point of Sale app that
+     * are not associated with a particular `CatalogItem`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("applies_to_custom_amounts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAppliesToCustomAmounts() {
+        return this.appliesToCustomAmounts;
     }
 
     /**
@@ -97,10 +152,22 @@ public class CatalogTax {
      * are not associated with a particular `CatalogItem`.
      * @return Returns the Boolean
      */
-    @JsonGetter("applies_to_custom_amounts")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getAppliesToCustomAmounts() {
-        return appliesToCustomAmounts;
+        return OptionalNullable.getFrom(appliesToCustomAmounts);
+    }
+
+    /**
+     * Internal Getter for Enabled.
+     * A Boolean flag to indicate whether the tax is displayed as enabled (`true`) in the Square
+     * Point of Sale app or not (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEnabled() {
+        return this.enabled;
     }
 
     /**
@@ -109,10 +176,9 @@ public class CatalogTax {
      * Point of Sale app or not (`false`).
      * @return Returns the Boolean
      */
-    @JsonGetter("enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Boolean getEnabled() {
-        return enabled;
+        return OptionalNullable.getFrom(enabled);
     }
 
     @Override
@@ -157,12 +223,12 @@ public class CatalogTax {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .name(getName())
                 .calculationPhase(getCalculationPhase())
-                .inclusionType(getInclusionType())
-                .percentage(getPercentage())
-                .appliesToCustomAmounts(getAppliesToCustomAmounts())
-                .enabled(getEnabled());
+                .inclusionType(getInclusionType());
+        builder.name = internalGetName();
+        builder.percentage = internalGetPercentage();
+        builder.appliesToCustomAmounts = internalGetAppliesToCustomAmounts();
+        builder.enabled = internalGetEnabled();
         return builder;
     }
 
@@ -170,12 +236,12 @@ public class CatalogTax {
      * Class to build instances of {@link CatalogTax}.
      */
     public static class Builder {
-        private String name;
+        private OptionalNullable<String> name;
         private String calculationPhase;
         private String inclusionType;
-        private String percentage;
-        private Boolean appliesToCustomAmounts;
-        private Boolean enabled;
+        private OptionalNullable<String> percentage;
+        private OptionalNullable<Boolean> appliesToCustomAmounts;
+        private OptionalNullable<Boolean> enabled;
 
 
 
@@ -185,7 +251,16 @@ public class CatalogTax {
          * @return Builder
          */
         public Builder name(String name) {
-            this.name = name;
+            this.name = OptionalNullable.of(name);
+            return this;
+        }
+
+        /**
+         * UnSetter for name.
+         * @return Builder
+         */
+        public Builder unsetName() {
+            name = null;
             return this;
         }
 
@@ -215,7 +290,16 @@ public class CatalogTax {
          * @return Builder
          */
         public Builder percentage(String percentage) {
-            this.percentage = percentage;
+            this.percentage = OptionalNullable.of(percentage);
+            return this;
+        }
+
+        /**
+         * UnSetter for percentage.
+         * @return Builder
+         */
+        public Builder unsetPercentage() {
+            percentage = null;
             return this;
         }
 
@@ -225,7 +309,16 @@ public class CatalogTax {
          * @return Builder
          */
         public Builder appliesToCustomAmounts(Boolean appliesToCustomAmounts) {
-            this.appliesToCustomAmounts = appliesToCustomAmounts;
+            this.appliesToCustomAmounts = OptionalNullable.of(appliesToCustomAmounts);
+            return this;
+        }
+
+        /**
+         * UnSetter for appliesToCustomAmounts.
+         * @return Builder
+         */
+        public Builder unsetAppliesToCustomAmounts() {
+            appliesToCustomAmounts = null;
             return this;
         }
 
@@ -235,7 +328,16 @@ public class CatalogTax {
          * @return Builder
          */
         public Builder enabled(Boolean enabled) {
-            this.enabled = enabled;
+            this.enabled = OptionalNullable.of(enabled);
+            return this;
+        }
+
+        /**
+         * UnSetter for enabled.
+         * @return Builder
+         */
+        public Builder unsetEnabled() {
+            enabled = null;
             return this;
         }
 

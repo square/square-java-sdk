@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +16,8 @@ import java.util.Objects;
  * This is a model class for StandardUnitDescriptionGroup type.
  */
 public class StandardUnitDescriptionGroup {
-    private final List<StandardUnitDescription> standardUnitDescriptions;
-    private final String languageCode;
+    private final OptionalNullable<List<StandardUnitDescription>> standardUnitDescriptions;
+    private final OptionalNullable<String> languageCode;
 
     /**
      * Initialization constructor.
@@ -26,8 +29,30 @@ public class StandardUnitDescriptionGroup {
     public StandardUnitDescriptionGroup(
             @JsonProperty("standard_unit_descriptions") List<StandardUnitDescription> standardUnitDescriptions,
             @JsonProperty("language_code") String languageCode) {
+        this.standardUnitDescriptions = OptionalNullable.of(standardUnitDescriptions);
+        this.languageCode = OptionalNullable.of(languageCode);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected StandardUnitDescriptionGroup(
+            OptionalNullable<List<StandardUnitDescription>> standardUnitDescriptions,
+            OptionalNullable<String> languageCode) {
         this.standardUnitDescriptions = standardUnitDescriptions;
         this.languageCode = languageCode;
+    }
+
+    /**
+     * Internal Getter for StandardUnitDescriptions.
+     * List of standard (non-custom) measurement units in this description group.
+     * @return Returns the Internal List of StandardUnitDescription
+     */
+    @JsonGetter("standard_unit_descriptions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<StandardUnitDescription>> internalGetStandardUnitDescriptions() {
+        return this.standardUnitDescriptions;
     }
 
     /**
@@ -35,10 +60,21 @@ public class StandardUnitDescriptionGroup {
      * List of standard (non-custom) measurement units in this description group.
      * @return Returns the List of StandardUnitDescription
      */
-    @JsonGetter("standard_unit_descriptions")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<StandardUnitDescription> getStandardUnitDescriptions() {
-        return standardUnitDescriptions;
+        return OptionalNullable.getFrom(standardUnitDescriptions);
+    }
+
+    /**
+     * Internal Getter for LanguageCode.
+     * IETF language tag.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("language_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLanguageCode() {
+        return this.languageCode;
     }
 
     /**
@@ -46,10 +82,9 @@ public class StandardUnitDescriptionGroup {
      * IETF language tag.
      * @return Returns the String
      */
-    @JsonGetter("language_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLanguageCode() {
-        return languageCode;
+        return OptionalNullable.getFrom(languageCode);
     }
 
     @Override
@@ -86,9 +121,9 @@ public class StandardUnitDescriptionGroup {
      * @return a new {@link StandardUnitDescriptionGroup.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .standardUnitDescriptions(getStandardUnitDescriptions())
-                .languageCode(getLanguageCode());
+        Builder builder = new Builder();
+        builder.standardUnitDescriptions = internalGetStandardUnitDescriptions();
+        builder.languageCode = internalGetLanguageCode();
         return builder;
     }
 
@@ -96,8 +131,8 @@ public class StandardUnitDescriptionGroup {
      * Class to build instances of {@link StandardUnitDescriptionGroup}.
      */
     public static class Builder {
-        private List<StandardUnitDescription> standardUnitDescriptions;
-        private String languageCode;
+        private OptionalNullable<List<StandardUnitDescription>> standardUnitDescriptions;
+        private OptionalNullable<String> languageCode;
 
 
 
@@ -109,7 +144,16 @@ public class StandardUnitDescriptionGroup {
          */
         public Builder standardUnitDescriptions(
                 List<StandardUnitDescription> standardUnitDescriptions) {
-            this.standardUnitDescriptions = standardUnitDescriptions;
+            this.standardUnitDescriptions = OptionalNullable.of(standardUnitDescriptions);
+            return this;
+        }
+
+        /**
+         * UnSetter for standardUnitDescriptions.
+         * @return Builder
+         */
+        public Builder unsetStandardUnitDescriptions() {
+            standardUnitDescriptions = null;
             return this;
         }
 
@@ -119,7 +163,16 @@ public class StandardUnitDescriptionGroup {
          * @return Builder
          */
         public Builder languageCode(String languageCode) {
-            this.languageCode = languageCode;
+            this.languageCode = OptionalNullable.of(languageCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for languageCode.
+         * @return Builder
+         */
+        public Builder unsetLanguageCode() {
+            languageCode = null;
             return this;
         }
 

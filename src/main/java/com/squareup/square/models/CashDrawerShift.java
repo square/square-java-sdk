@@ -3,9 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,14 +18,14 @@ import java.util.Objects;
 public class CashDrawerShift {
     private final String id;
     private final String state;
-    private final String openedAt;
-    private final String endedAt;
-    private final String closedAt;
-    private final List<String> employeeIds;
-    private final String openingEmployeeId;
-    private final String endingEmployeeId;
-    private final String closingEmployeeId;
-    private final String description;
+    private final OptionalNullable<String> openedAt;
+    private final OptionalNullable<String> endedAt;
+    private final OptionalNullable<String> closedAt;
+    private final OptionalNullable<List<String>> employeeIds;
+    private final OptionalNullable<String> openingEmployeeId;
+    private final OptionalNullable<String> endingEmployeeId;
+    private final OptionalNullable<String> closingEmployeeId;
+    private final OptionalNullable<String> description;
     private final Money openedCashMoney;
     private final Money cashPaymentMoney;
     private final Money cashRefundsMoney;
@@ -75,6 +78,36 @@ public class CashDrawerShift {
             @JsonProperty("device") CashDrawerDevice device) {
         this.id = id;
         this.state = state;
+        this.openedAt = OptionalNullable.of(openedAt);
+        this.endedAt = OptionalNullable.of(endedAt);
+        this.closedAt = OptionalNullable.of(closedAt);
+        this.employeeIds = OptionalNullable.of(employeeIds);
+        this.openingEmployeeId = OptionalNullable.of(openingEmployeeId);
+        this.endingEmployeeId = OptionalNullable.of(endingEmployeeId);
+        this.closingEmployeeId = OptionalNullable.of(closingEmployeeId);
+        this.description = OptionalNullable.of(description);
+        this.openedCashMoney = openedCashMoney;
+        this.cashPaymentMoney = cashPaymentMoney;
+        this.cashRefundsMoney = cashRefundsMoney;
+        this.cashPaidInMoney = cashPaidInMoney;
+        this.cashPaidOutMoney = cashPaidOutMoney;
+        this.expectedCashMoney = expectedCashMoney;
+        this.closedCashMoney = closedCashMoney;
+        this.device = device;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CashDrawerShift(String id, String state, OptionalNullable<String> openedAt,
+            OptionalNullable<String> endedAt, OptionalNullable<String> closedAt,
+            OptionalNullable<List<String>> employeeIds, OptionalNullable<String> openingEmployeeId,
+            OptionalNullable<String> endingEmployeeId, OptionalNullable<String> closingEmployeeId,
+            OptionalNullable<String> description, Money openedCashMoney, Money cashPaymentMoney,
+            Money cashRefundsMoney, Money cashPaidInMoney, Money cashPaidOutMoney,
+            Money expectedCashMoney, Money closedCashMoney, CashDrawerDevice device) {
+        this.id = id;
+        this.state = state;
         this.openedAt = openedAt;
         this.endedAt = endedAt;
         this.closedAt = closedAt;
@@ -116,14 +149,37 @@ public class CashDrawerShift {
     }
 
     /**
+     * Internal Getter for OpenedAt.
+     * The time when the shift began, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("opened_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOpenedAt() {
+        return this.openedAt;
+    }
+
+    /**
      * Getter for OpenedAt.
      * The time when the shift began, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("opened_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOpenedAt() {
-        return openedAt;
+        return OptionalNullable.getFrom(openedAt);
+    }
+
+    /**
+     * Internal Getter for EndedAt.
+     * The time when the shift ended, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("ended_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndedAt() {
+        return this.endedAt;
     }
 
     /**
@@ -131,10 +187,21 @@ public class CashDrawerShift {
      * The time when the shift ended, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("ended_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndedAt() {
-        return endedAt;
+        return OptionalNullable.getFrom(endedAt);
+    }
+
+    /**
+     * Internal Getter for ClosedAt.
+     * The time when the shift was closed, in ISO 8601 format.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("closed_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClosedAt() {
+        return this.closedAt;
     }
 
     /**
@@ -142,10 +209,22 @@ public class CashDrawerShift {
      * The time when the shift was closed, in ISO 8601 format.
      * @return Returns the String
      */
-    @JsonGetter("closed_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClosedAt() {
-        return closedAt;
+        return OptionalNullable.getFrom(closedAt);
+    }
+
+    /**
+     * Internal Getter for EmployeeIds.
+     * The IDs of all employees that were logged into Square Point of Sale at any point while the
+     * cash drawer shift was open.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("employee_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetEmployeeIds() {
+        return this.employeeIds;
     }
 
     /**
@@ -154,10 +233,21 @@ public class CashDrawerShift {
      * cash drawer shift was open.
      * @return Returns the List of String
      */
-    @JsonGetter("employee_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public List<String> getEmployeeIds() {
-        return employeeIds;
+        return OptionalNullable.getFrom(employeeIds);
+    }
+
+    /**
+     * Internal Getter for OpeningEmployeeId.
+     * The ID of the employee that started the cash drawer shift.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("opening_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOpeningEmployeeId() {
+        return this.openingEmployeeId;
     }
 
     /**
@@ -165,10 +255,21 @@ public class CashDrawerShift {
      * The ID of the employee that started the cash drawer shift.
      * @return Returns the String
      */
-    @JsonGetter("opening_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getOpeningEmployeeId() {
-        return openingEmployeeId;
+        return OptionalNullable.getFrom(openingEmployeeId);
+    }
+
+    /**
+     * Internal Getter for EndingEmployeeId.
+     * The ID of the employee that ended the cash drawer shift.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("ending_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndingEmployeeId() {
+        return this.endingEmployeeId;
     }
 
     /**
@@ -176,10 +277,22 @@ public class CashDrawerShift {
      * The ID of the employee that ended the cash drawer shift.
      * @return Returns the String
      */
-    @JsonGetter("ending_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndingEmployeeId() {
-        return endingEmployeeId;
+        return OptionalNullable.getFrom(endingEmployeeId);
+    }
+
+    /**
+     * Internal Getter for ClosingEmployeeId.
+     * The ID of the employee that closed the cash drawer shift by auditing the cash drawer
+     * contents.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("closing_employee_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetClosingEmployeeId() {
+        return this.closingEmployeeId;
     }
 
     /**
@@ -188,10 +301,21 @@ public class CashDrawerShift {
      * contents.
      * @return Returns the String
      */
-    @JsonGetter("closing_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getClosingEmployeeId() {
-        return closingEmployeeId;
+        return OptionalNullable.getFrom(closingEmployeeId);
+    }
+
+    /**
+     * Internal Getter for Description.
+     * The free-form text description of a cash drawer by an employee.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
     }
 
     /**
@@ -199,10 +323,9 @@ public class CashDrawerShift {
      * The free-form text description of a cash drawer by an employee.
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -390,14 +513,6 @@ public class CashDrawerShift {
         Builder builder = new Builder()
                 .id(getId())
                 .state(getState())
-                .openedAt(getOpenedAt())
-                .endedAt(getEndedAt())
-                .closedAt(getClosedAt())
-                .employeeIds(getEmployeeIds())
-                .openingEmployeeId(getOpeningEmployeeId())
-                .endingEmployeeId(getEndingEmployeeId())
-                .closingEmployeeId(getClosingEmployeeId())
-                .description(getDescription())
                 .openedCashMoney(getOpenedCashMoney())
                 .cashPaymentMoney(getCashPaymentMoney())
                 .cashRefundsMoney(getCashRefundsMoney())
@@ -406,6 +521,14 @@ public class CashDrawerShift {
                 .expectedCashMoney(getExpectedCashMoney())
                 .closedCashMoney(getClosedCashMoney())
                 .device(getDevice());
+        builder.openedAt = internalGetOpenedAt();
+        builder.endedAt = internalGetEndedAt();
+        builder.closedAt = internalGetClosedAt();
+        builder.employeeIds = internalGetEmployeeIds();
+        builder.openingEmployeeId = internalGetOpeningEmployeeId();
+        builder.endingEmployeeId = internalGetEndingEmployeeId();
+        builder.closingEmployeeId = internalGetClosingEmployeeId();
+        builder.description = internalGetDescription();
         return builder;
     }
 
@@ -415,14 +538,14 @@ public class CashDrawerShift {
     public static class Builder {
         private String id;
         private String state;
-        private String openedAt;
-        private String endedAt;
-        private String closedAt;
-        private List<String> employeeIds;
-        private String openingEmployeeId;
-        private String endingEmployeeId;
-        private String closingEmployeeId;
-        private String description;
+        private OptionalNullable<String> openedAt;
+        private OptionalNullable<String> endedAt;
+        private OptionalNullable<String> closedAt;
+        private OptionalNullable<List<String>> employeeIds;
+        private OptionalNullable<String> openingEmployeeId;
+        private OptionalNullable<String> endingEmployeeId;
+        private OptionalNullable<String> closingEmployeeId;
+        private OptionalNullable<String> description;
         private Money openedCashMoney;
         private Money cashPaymentMoney;
         private Money cashRefundsMoney;
@@ -460,7 +583,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder openedAt(String openedAt) {
-            this.openedAt = openedAt;
+            this.openedAt = OptionalNullable.of(openedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for openedAt.
+         * @return Builder
+         */
+        public Builder unsetOpenedAt() {
+            openedAt = null;
             return this;
         }
 
@@ -470,7 +602,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder endedAt(String endedAt) {
-            this.endedAt = endedAt;
+            this.endedAt = OptionalNullable.of(endedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for endedAt.
+         * @return Builder
+         */
+        public Builder unsetEndedAt() {
+            endedAt = null;
             return this;
         }
 
@@ -480,7 +621,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder closedAt(String closedAt) {
-            this.closedAt = closedAt;
+            this.closedAt = OptionalNullable.of(closedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for closedAt.
+         * @return Builder
+         */
+        public Builder unsetClosedAt() {
+            closedAt = null;
             return this;
         }
 
@@ -490,7 +640,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder employeeIds(List<String> employeeIds) {
-            this.employeeIds = employeeIds;
+            this.employeeIds = OptionalNullable.of(employeeIds);
+            return this;
+        }
+
+        /**
+         * UnSetter for employeeIds.
+         * @return Builder
+         */
+        public Builder unsetEmployeeIds() {
+            employeeIds = null;
             return this;
         }
 
@@ -500,7 +659,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder openingEmployeeId(String openingEmployeeId) {
-            this.openingEmployeeId = openingEmployeeId;
+            this.openingEmployeeId = OptionalNullable.of(openingEmployeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for openingEmployeeId.
+         * @return Builder
+         */
+        public Builder unsetOpeningEmployeeId() {
+            openingEmployeeId = null;
             return this;
         }
 
@@ -510,7 +678,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder endingEmployeeId(String endingEmployeeId) {
-            this.endingEmployeeId = endingEmployeeId;
+            this.endingEmployeeId = OptionalNullable.of(endingEmployeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for endingEmployeeId.
+         * @return Builder
+         */
+        public Builder unsetEndingEmployeeId() {
+            endingEmployeeId = null;
             return this;
         }
 
@@ -520,7 +697,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder closingEmployeeId(String closingEmployeeId) {
-            this.closingEmployeeId = closingEmployeeId;
+            this.closingEmployeeId = OptionalNullable.of(closingEmployeeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for closingEmployeeId.
+         * @return Builder
+         */
+        public Builder unsetClosingEmployeeId() {
+            closingEmployeeId = null;
             return this;
         }
 
@@ -530,7 +716,16 @@ public class CashDrawerShift {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 

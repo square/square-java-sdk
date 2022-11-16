@@ -3,20 +3,23 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for PauseSubscriptionRequest type.
  */
 public class PauseSubscriptionRequest {
-    private final String pauseEffectiveDate;
-    private final Long pauseCycleDuration;
-    private final String resumeEffectiveDate;
+    private final OptionalNullable<String> pauseEffectiveDate;
+    private final OptionalNullable<Long> pauseCycleDuration;
+    private final OptionalNullable<String> resumeEffectiveDate;
     private final String resumeChangeTiming;
-    private final String pauseReason;
+    private final OptionalNullable<String> pauseReason;
 
     /**
      * Initialization constructor.
@@ -33,11 +36,38 @@ public class PauseSubscriptionRequest {
             @JsonProperty("resume_effective_date") String resumeEffectiveDate,
             @JsonProperty("resume_change_timing") String resumeChangeTiming,
             @JsonProperty("pause_reason") String pauseReason) {
+        this.pauseEffectiveDate = OptionalNullable.of(pauseEffectiveDate);
+        this.pauseCycleDuration = OptionalNullable.of(pauseCycleDuration);
+        this.resumeEffectiveDate = OptionalNullable.of(resumeEffectiveDate);
+        this.resumeChangeTiming = resumeChangeTiming;
+        this.pauseReason = OptionalNullable.of(pauseReason);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected PauseSubscriptionRequest(OptionalNullable<String> pauseEffectiveDate,
+            OptionalNullable<Long> pauseCycleDuration, OptionalNullable<String> resumeEffectiveDate,
+            String resumeChangeTiming, OptionalNullable<String> pauseReason) {
         this.pauseEffectiveDate = pauseEffectiveDate;
         this.pauseCycleDuration = pauseCycleDuration;
         this.resumeEffectiveDate = resumeEffectiveDate;
         this.resumeChangeTiming = resumeChangeTiming;
         this.pauseReason = pauseReason;
+    }
+
+    /**
+     * Internal Getter for PauseEffectiveDate.
+     * The `YYYY-MM-DD`-formatted date when the scheduled `PAUSE` action takes place on the
+     * subscription. When this date is unspecified or falls within the current billing cycle, the
+     * subscription is paused on the starting date of the next billing cycle.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pause_effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPauseEffectiveDate() {
+        return this.pauseEffectiveDate;
     }
 
     /**
@@ -47,10 +77,24 @@ public class PauseSubscriptionRequest {
      * subscription is paused on the starting date of the next billing cycle.
      * @return Returns the String
      */
-    @JsonGetter("pause_effective_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPauseEffectiveDate() {
-        return pauseEffectiveDate;
+        return OptionalNullable.getFrom(pauseEffectiveDate);
+    }
+
+    /**
+     * Internal Getter for PauseCycleDuration.
+     * The number of billing cycles the subscription will be paused before it is reactivated. When
+     * this is set, a `RESUME` action is also scheduled to take place on the subscription at the end
+     * of the specified pause cycle duration. In this case, neither `resume_effective_date` nor
+     * `resume_change_timing` may be specified.
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("pause_cycle_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetPauseCycleDuration() {
+        return this.pauseCycleDuration;
     }
 
     /**
@@ -61,10 +105,22 @@ public class PauseSubscriptionRequest {
      * `resume_change_timing` may be specified.
      * @return Returns the Long
      */
-    @JsonGetter("pause_cycle_duration")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Long getPauseCycleDuration() {
-        return pauseCycleDuration;
+        return OptionalNullable.getFrom(pauseCycleDuration);
+    }
+
+    /**
+     * Internal Getter for ResumeEffectiveDate.
+     * The date when the subscription is reactivated by a scheduled `RESUME` action. This date must
+     * be at least one billing cycle ahead of `pause_effective_date`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("resume_effective_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetResumeEffectiveDate() {
+        return this.resumeEffectiveDate;
     }
 
     /**
@@ -73,10 +129,9 @@ public class PauseSubscriptionRequest {
      * be at least one billing cycle ahead of `pause_effective_date`.
      * @return Returns the String
      */
-    @JsonGetter("resume_effective_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getResumeEffectiveDate() {
-        return resumeEffectiveDate;
+        return OptionalNullable.getFrom(resumeEffectiveDate);
     }
 
     /**
@@ -91,14 +146,25 @@ public class PauseSubscriptionRequest {
     }
 
     /**
+     * Internal Getter for PauseReason.
+     * The user-provided reason to pause the subscription.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("pause_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPauseReason() {
+        return this.pauseReason;
+    }
+
+    /**
      * Getter for PauseReason.
      * The user-provided reason to pause the subscription.
      * @return Returns the String
      */
-    @JsonGetter("pause_reason")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getPauseReason() {
-        return pauseReason;
+        return OptionalNullable.getFrom(pauseReason);
     }
 
     @Override
@@ -142,11 +208,11 @@ public class PauseSubscriptionRequest {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .pauseEffectiveDate(getPauseEffectiveDate())
-                .pauseCycleDuration(getPauseCycleDuration())
-                .resumeEffectiveDate(getResumeEffectiveDate())
-                .resumeChangeTiming(getResumeChangeTiming())
-                .pauseReason(getPauseReason());
+                .resumeChangeTiming(getResumeChangeTiming());
+        builder.pauseEffectiveDate = internalGetPauseEffectiveDate();
+        builder.pauseCycleDuration = internalGetPauseCycleDuration();
+        builder.resumeEffectiveDate = internalGetResumeEffectiveDate();
+        builder.pauseReason = internalGetPauseReason();
         return builder;
     }
 
@@ -154,11 +220,11 @@ public class PauseSubscriptionRequest {
      * Class to build instances of {@link PauseSubscriptionRequest}.
      */
     public static class Builder {
-        private String pauseEffectiveDate;
-        private Long pauseCycleDuration;
-        private String resumeEffectiveDate;
+        private OptionalNullable<String> pauseEffectiveDate;
+        private OptionalNullable<Long> pauseCycleDuration;
+        private OptionalNullable<String> resumeEffectiveDate;
         private String resumeChangeTiming;
-        private String pauseReason;
+        private OptionalNullable<String> pauseReason;
 
 
 
@@ -168,7 +234,16 @@ public class PauseSubscriptionRequest {
          * @return Builder
          */
         public Builder pauseEffectiveDate(String pauseEffectiveDate) {
-            this.pauseEffectiveDate = pauseEffectiveDate;
+            this.pauseEffectiveDate = OptionalNullable.of(pauseEffectiveDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for pauseEffectiveDate.
+         * @return Builder
+         */
+        public Builder unsetPauseEffectiveDate() {
+            pauseEffectiveDate = null;
             return this;
         }
 
@@ -178,7 +253,16 @@ public class PauseSubscriptionRequest {
          * @return Builder
          */
         public Builder pauseCycleDuration(Long pauseCycleDuration) {
-            this.pauseCycleDuration = pauseCycleDuration;
+            this.pauseCycleDuration = OptionalNullable.of(pauseCycleDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for pauseCycleDuration.
+         * @return Builder
+         */
+        public Builder unsetPauseCycleDuration() {
+            pauseCycleDuration = null;
             return this;
         }
 
@@ -188,7 +272,16 @@ public class PauseSubscriptionRequest {
          * @return Builder
          */
         public Builder resumeEffectiveDate(String resumeEffectiveDate) {
-            this.resumeEffectiveDate = resumeEffectiveDate;
+            this.resumeEffectiveDate = OptionalNullable.of(resumeEffectiveDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for resumeEffectiveDate.
+         * @return Builder
+         */
+        public Builder unsetResumeEffectiveDate() {
+            resumeEffectiveDate = null;
             return this;
         }
 
@@ -208,7 +301,16 @@ public class PauseSubscriptionRequest {
          * @return Builder
          */
         public Builder pauseReason(String pauseReason) {
-            this.pauseReason = pauseReason;
+            this.pauseReason = OptionalNullable.of(pauseReason);
+            return this;
+        }
+
+        /**
+         * UnSetter for pauseReason.
+         * @return Builder
+         */
+        public Builder unsetPauseReason() {
+            pauseReason = null;
             return this;
         }
 

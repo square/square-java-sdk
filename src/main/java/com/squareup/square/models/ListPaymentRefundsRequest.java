@@ -3,23 +3,26 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
  * This is a model class for ListPaymentRefundsRequest type.
  */
 public class ListPaymentRefundsRequest {
-    private final String beginTime;
-    private final String endTime;
-    private final String sortOrder;
-    private final String cursor;
-    private final String locationId;
-    private final String status;
-    private final String sourceType;
-    private final Integer limit;
+    private final OptionalNullable<String> beginTime;
+    private final OptionalNullable<String> endTime;
+    private final OptionalNullable<String> sortOrder;
+    private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> locationId;
+    private final OptionalNullable<String> status;
+    private final OptionalNullable<String> sourceType;
+    private final OptionalNullable<Integer> limit;
 
     /**
      * Initialization constructor.
@@ -42,6 +45,24 @@ public class ListPaymentRefundsRequest {
             @JsonProperty("status") String status,
             @JsonProperty("source_type") String sourceType,
             @JsonProperty("limit") Integer limit) {
+        this.beginTime = OptionalNullable.of(beginTime);
+        this.endTime = OptionalNullable.of(endTime);
+        this.sortOrder = OptionalNullable.of(sortOrder);
+        this.cursor = OptionalNullable.of(cursor);
+        this.locationId = OptionalNullable.of(locationId);
+        this.status = OptionalNullable.of(status);
+        this.sourceType = OptionalNullable.of(sourceType);
+        this.limit = OptionalNullable.of(limit);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected ListPaymentRefundsRequest(OptionalNullable<String> beginTime,
+            OptionalNullable<String> endTime, OptionalNullable<String> sortOrder,
+            OptionalNullable<String> cursor, OptionalNullable<String> locationId,
+            OptionalNullable<String> status, OptionalNullable<String> sourceType,
+            OptionalNullable<Integer> limit) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.sortOrder = sortOrder;
@@ -53,15 +74,40 @@ public class ListPaymentRefundsRequest {
     }
 
     /**
+     * Internal Getter for BeginTime.
+     * The timestamp for the beginning of the requested reporting period, in RFC 3339 format.
+     * Default: The current time minus one year.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBeginTime() {
+        return this.beginTime;
+    }
+
+    /**
      * Getter for BeginTime.
      * The timestamp for the beginning of the requested reporting period, in RFC 3339 format.
      * Default: The current time minus one year.
      * @return Returns the String
      */
-    @JsonGetter("begin_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getBeginTime() {
-        return beginTime;
+        return OptionalNullable.getFrom(beginTime);
+    }
+
+    /**
+     * Internal Getter for EndTime.
+     * The timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The
+     * current time.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndTime() {
+        return this.endTime;
     }
 
     /**
@@ -70,10 +116,22 @@ public class ListPaymentRefundsRequest {
      * current time.
      * @return Returns the String
      */
-    @JsonGetter("end_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getEndTime() {
-        return endTime;
+        return OptionalNullable.getFrom(endTime);
+    }
+
+    /**
+     * Internal Getter for SortOrder.
+     * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to
+     * oldest (default).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sort_order")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSortOrder() {
+        return this.sortOrder;
     }
 
     /**
@@ -82,10 +140,23 @@ public class ListPaymentRefundsRequest {
      * oldest (default).
      * @return Returns the String
      */
-    @JsonGetter("sort_order")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSortOrder() {
-        return sortOrder;
+        return OptionalNullable.getFrom(sortOrder);
+    }
+
+    /**
+     * Internal Getter for Cursor.
+     * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
+     * retrieve the next set of results for the original query. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCursor() {
+        return this.cursor;
     }
 
     /**
@@ -95,10 +166,22 @@ public class ListPaymentRefundsRequest {
      * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @return Returns the String
      */
-    @JsonGetter("cursor")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getCursor() {
-        return cursor;
+        return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for LocationId.
+     * Limit results to the location supplied. By default, results are returned for all locations
+     * associated with the seller.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLocationId() {
+        return this.locationId;
     }
 
     /**
@@ -107,10 +190,23 @@ public class ListPaymentRefundsRequest {
      * associated with the seller.
      * @return Returns the String
      */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getLocationId() {
-        return locationId;
+        return OptionalNullable.getFrom(locationId);
+    }
+
+    /**
+     * Internal Getter for Status.
+     * If provided, only refunds with the given status are returned. For a list of refund status
+     * values, see [PaymentRefund]($m/PaymentRefund). Default: If omitted, refunds are returned
+     * regardless of their status.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatus() {
+        return this.status;
     }
 
     /**
@@ -120,10 +216,25 @@ public class ListPaymentRefundsRequest {
      * regardless of their status.
      * @return Returns the String
      */
-    @JsonGetter("status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getStatus() {
-        return status;
+        return OptionalNullable.getFrom(status);
+    }
+
+    /**
+     * Internal Getter for SourceType.
+     * If provided, only returns refunds whose payments have the indicated source type. Current
+     * values include `CARD`, `BANK_ACCOUNT`, `WALLET`, `CASH`, and `EXTERNAL`. For information
+     * about these payment source types, see [Take
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments). Default: If
+     * omitted, refunds are returned regardless of the source type.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("source_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSourceType() {
+        return this.sourceType;
     }
 
     /**
@@ -135,10 +246,23 @@ public class ListPaymentRefundsRequest {
      * omitted, refunds are returned regardless of the source type.
      * @return Returns the String
      */
-    @JsonGetter("source_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getSourceType() {
-        return sourceType;
+        return OptionalNullable.getFrom(sourceType);
+    }
+
+    /**
+     * Internal Getter for Limit.
+     * The maximum number of results to be returned in a single page. It is possible to receive
+     * fewer results than the specified limit on a given page. If the supplied value is greater than
+     * 100, no more than 100 results are returned. Default: 100
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("limit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetLimit() {
+        return this.limit;
     }
 
     /**
@@ -148,10 +272,9 @@ public class ListPaymentRefundsRequest {
      * 100, no more than 100 results are returned. Default: 100
      * @return Returns the Integer
      */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public Integer getLimit() {
-        return limit;
+        return OptionalNullable.getFrom(limit);
     }
 
     @Override
@@ -196,15 +319,15 @@ public class ListPaymentRefundsRequest {
      * @return a new {@link ListPaymentRefundsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .beginTime(getBeginTime())
-                .endTime(getEndTime())
-                .sortOrder(getSortOrder())
-                .cursor(getCursor())
-                .locationId(getLocationId())
-                .status(getStatus())
-                .sourceType(getSourceType())
-                .limit(getLimit());
+        Builder builder = new Builder();
+        builder.beginTime = internalGetBeginTime();
+        builder.endTime = internalGetEndTime();
+        builder.sortOrder = internalGetSortOrder();
+        builder.cursor = internalGetCursor();
+        builder.locationId = internalGetLocationId();
+        builder.status = internalGetStatus();
+        builder.sourceType = internalGetSourceType();
+        builder.limit = internalGetLimit();
         return builder;
     }
 
@@ -212,14 +335,14 @@ public class ListPaymentRefundsRequest {
      * Class to build instances of {@link ListPaymentRefundsRequest}.
      */
     public static class Builder {
-        private String beginTime;
-        private String endTime;
-        private String sortOrder;
-        private String cursor;
-        private String locationId;
-        private String status;
-        private String sourceType;
-        private Integer limit;
+        private OptionalNullable<String> beginTime;
+        private OptionalNullable<String> endTime;
+        private OptionalNullable<String> sortOrder;
+        private OptionalNullable<String> cursor;
+        private OptionalNullable<String> locationId;
+        private OptionalNullable<String> status;
+        private OptionalNullable<String> sourceType;
+        private OptionalNullable<Integer> limit;
 
 
 
@@ -229,7 +352,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder beginTime(String beginTime) {
-            this.beginTime = beginTime;
+            this.beginTime = OptionalNullable.of(beginTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for beginTime.
+         * @return Builder
+         */
+        public Builder unsetBeginTime() {
+            beginTime = null;
             return this;
         }
 
@@ -239,7 +371,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder endTime(String endTime) {
-            this.endTime = endTime;
+            this.endTime = OptionalNullable.of(endTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for endTime.
+         * @return Builder
+         */
+        public Builder unsetEndTime() {
+            endTime = null;
             return this;
         }
 
@@ -249,7 +390,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder sortOrder(String sortOrder) {
-            this.sortOrder = sortOrder;
+            this.sortOrder = OptionalNullable.of(sortOrder);
+            return this;
+        }
+
+        /**
+         * UnSetter for sortOrder.
+         * @return Builder
+         */
+        public Builder unsetSortOrder() {
+            sortOrder = null;
             return this;
         }
 
@@ -259,7 +409,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder cursor(String cursor) {
-            this.cursor = cursor;
+            this.cursor = OptionalNullable.of(cursor);
+            return this;
+        }
+
+        /**
+         * UnSetter for cursor.
+         * @return Builder
+         */
+        public Builder unsetCursor() {
+            cursor = null;
             return this;
         }
 
@@ -269,7 +428,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder locationId(String locationId) {
-            this.locationId = locationId;
+            this.locationId = OptionalNullable.of(locationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationId.
+         * @return Builder
+         */
+        public Builder unsetLocationId() {
+            locationId = null;
             return this;
         }
 
@@ -279,7 +447,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder status(String status) {
-            this.status = status;
+            this.status = OptionalNullable.of(status);
+            return this;
+        }
+
+        /**
+         * UnSetter for status.
+         * @return Builder
+         */
+        public Builder unsetStatus() {
+            status = null;
             return this;
         }
 
@@ -289,7 +466,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder sourceType(String sourceType) {
-            this.sourceType = sourceType;
+            this.sourceType = OptionalNullable.of(sourceType);
+            return this;
+        }
+
+        /**
+         * UnSetter for sourceType.
+         * @return Builder
+         */
+        public Builder unsetSourceType() {
+            sourceType = null;
             return this;
         }
 
@@ -299,7 +485,16 @@ public class ListPaymentRefundsRequest {
          * @return Builder
          */
         public Builder limit(Integer limit) {
-            this.limit = limit;
+            this.limit = OptionalNullable.of(limit);
+            return this;
+        }
+
+        /**
+         * UnSetter for limit.
+         * @return Builder
+         */
+        public Builder unsetLimit() {
+            limit = null;
             return this;
         }
 
