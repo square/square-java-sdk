@@ -6,6 +6,7 @@ import com.squareup.square.models.ObtainTokenRequest;
 import com.squareup.square.models.ObtainTokenResponse;
 import com.squareup.square.models.RenewTokenRequest;
 import com.squareup.square.models.RenewTokenResponse;
+import com.squareup.square.models.RetrieveTokenStatusResponse;
 import com.squareup.square.models.RevokeTokenRequest;
 import com.squareup.square.models.RevokeTokenResponse;
 import java.io.IOException;
@@ -146,5 +147,41 @@ public interface OAuthApi {
      */
     CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
             final ObtainTokenRequest body);
+
+    /**
+     * Returns information about an [OAuth access
+     * token](https://developer.squareup.com/docs/build-basics/access-tokens#get-an-oauth-access-token) or
+     * an application’s [personal access
+     * token](https://developer.squareup.com/docs/build-basics/access-tokens#get-a-personal-access-token).
+     * Add the access token to the Authorization header of the request. __Important:__ The
+     * `Authorization` header you provide to this endpoint must have the following format: ```
+     * Authorization: Bearer ACCESS_TOKEN ``` where `ACCESS_TOKEN` is a [valid production
+     * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
+     * the access token is expired or not a valid access token, the endpoint returns an
+     * `UNAUTHORIZED` error.
+     * @param  authorization  Required parameter: Client APPLICATION_SECRET
+     * @return    Returns the RetrieveTokenStatusResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveTokenStatusResponse retrieveTokenStatus(
+            final String authorization) throws ApiException, IOException;
+
+    /**
+     * Returns information about an [OAuth access
+     * token](https://developer.squareup.com/docs/build-basics/access-tokens#get-an-oauth-access-token) or
+     * an application’s [personal access
+     * token](https://developer.squareup.com/docs/build-basics/access-tokens#get-a-personal-access-token).
+     * Add the access token to the Authorization header of the request. __Important:__ The
+     * `Authorization` header you provide to this endpoint must have the following format: ```
+     * Authorization: Bearer ACCESS_TOKEN ``` where `ACCESS_TOKEN` is a [valid production
+     * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
+     * the access token is expired or not a valid access token, the endpoint returns an
+     * `UNAUTHORIZED` error.
+     * @param  authorization  Required parameter: Client APPLICATION_SECRET
+     * @return    Returns the RetrieveTokenStatusResponse response from the API call
+     */
+    CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync(
+            final String authorization);
 
 }

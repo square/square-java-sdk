@@ -54,7 +54,8 @@ public class ListCustomersResponse {
 
     /**
      * Getter for Customers.
-     * An array of `Customer` objects that match the provided query.
+     * The customer profiles associated with the Square account or an empty object (`{}`) if none
+     * are found.
      * @return Returns the List of Customer
      */
     @JsonGetter("customers")

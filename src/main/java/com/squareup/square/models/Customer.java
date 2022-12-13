@@ -446,7 +446,7 @@ public class Customer {
 
     /**
      * Internal Getter for GroupIds.
-     * The IDs of customer groups the customer belongs to.
+     * The IDs of [customer groups]($m/CustomerGroup) the customer belongs to.
      * @return Returns the Internal List of String
      */
     @JsonGetter("group_ids")
@@ -458,7 +458,7 @@ public class Customer {
 
     /**
      * Getter for GroupIds.
-     * The IDs of customer groups the customer belongs to.
+     * The IDs of [customer groups]($m/CustomerGroup) the customer belongs to.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -468,7 +468,7 @@ public class Customer {
 
     /**
      * Internal Getter for SegmentIds.
-     * The IDs of segments the customer belongs to.
+     * The IDs of [customer segments]($m/CustomerSegment) the customer belongs to.
      * @return Returns the Internal List of String
      */
     @JsonGetter("segment_ids")
@@ -480,7 +480,7 @@ public class Customer {
 
     /**
      * Getter for SegmentIds.
-     * The IDs of segments the customer belongs to.
+     * The IDs of [customer segments]($m/CustomerSegment) the customer belongs to.
      * @return Returns the List of String
      */
     @JsonIgnore

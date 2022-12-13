@@ -30,8 +30,8 @@ public class CustomerQuery {
 
     /**
      * Getter for Filter.
-     * Represents a set of `CustomerQuery` filters used to limit the set of customers returned by
-     * the [SearchCustomers]($e/Customers/SearchCustomers) endpoint.
+     * Represents the filtering criteria in a [search query]($m/CustomerQuery) that defines how to
+     * filter customer profiles returned in [SearchCustomers]($e/Customers/SearchCustomers) results.
      * @return Returns the CustomerFilter
      */
     @JsonGetter("filter")
@@ -42,7 +42,8 @@ public class CustomerQuery {
 
     /**
      * Getter for Sort.
-     * Specifies how searched customers profiles are sorted, including the sort key and sort order.
+     * Represents the sorting criteria in a [search query]($m/CustomerQuery) that defines how to
+     * sort customer profiles returned in [SearchCustomers]($e/Customers/SearchCustomers) results.
      * @return Returns the CustomerSort
      */
     @JsonGetter("sort")

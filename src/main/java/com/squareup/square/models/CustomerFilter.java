@@ -20,6 +20,7 @@ public class CustomerFilter {
     private final CustomerTextFilter referenceId;
     private final FilterValue groupIds;
     private final CustomerCustomAttributeFilters customAttribute;
+    private final FilterValue segmentIds;
 
     /**
      * Initialization constructor.
@@ -31,6 +32,7 @@ public class CustomerFilter {
      * @param  referenceId  CustomerTextFilter value for referenceId.
      * @param  groupIds  FilterValue value for groupIds.
      * @param  customAttribute  CustomerCustomAttributeFilters value for customAttribute.
+     * @param  segmentIds  FilterValue value for segmentIds.
      */
     @JsonCreator
     public CustomerFilter(
@@ -41,7 +43,8 @@ public class CustomerFilter {
             @JsonProperty("phone_number") CustomerTextFilter phoneNumber,
             @JsonProperty("reference_id") CustomerTextFilter referenceId,
             @JsonProperty("group_ids") FilterValue groupIds,
-            @JsonProperty("custom_attribute") CustomerCustomAttributeFilters customAttribute) {
+            @JsonProperty("custom_attribute") CustomerCustomAttributeFilters customAttribute,
+            @JsonProperty("segment_ids") FilterValue segmentIds) {
         this.creationSource = creationSource;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -50,6 +53,7 @@ public class CustomerFilter {
         this.referenceId = referenceId;
         this.groupIds = groupIds;
         this.customAttribute = customAttribute;
+        this.segmentIds = segmentIds;
     }
 
     /**
@@ -158,10 +162,23 @@ public class CustomerFilter {
         return customAttribute;
     }
 
+    /**
+     * Getter for SegmentIds.
+     * A filter to select resources based on an exact field value. For any given value, the value
+     * can only be in one property. Depending on the field, either all properties can be set or only
+     * a subset will be available. Refer to the documentation of the field.
+     * @return Returns the FilterValue
+     */
+    @JsonGetter("segment_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public FilterValue getSegmentIds() {
+        return segmentIds;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(creationSource, createdAt, updatedAt, emailAddress, phoneNumber,
-                referenceId, groupIds, customAttribute);
+                referenceId, groupIds, customAttribute, segmentIds);
     }
 
     @Override
@@ -180,7 +197,8 @@ public class CustomerFilter {
             && Objects.equals(phoneNumber, other.phoneNumber)
             && Objects.equals(referenceId, other.referenceId)
             && Objects.equals(groupIds, other.groupIds)
-            && Objects.equals(customAttribute, other.customAttribute);
+            && Objects.equals(customAttribute, other.customAttribute)
+            && Objects.equals(segmentIds, other.segmentIds);
     }
 
     /**
@@ -192,7 +210,7 @@ public class CustomerFilter {
         return "CustomerFilter [" + "creationSource=" + creationSource + ", createdAt=" + createdAt
                 + ", updatedAt=" + updatedAt + ", emailAddress=" + emailAddress + ", phoneNumber="
                 + phoneNumber + ", referenceId=" + referenceId + ", groupIds=" + groupIds
-                + ", customAttribute=" + customAttribute + "]";
+                + ", customAttribute=" + customAttribute + ", segmentIds=" + segmentIds + "]";
     }
 
     /**
@@ -209,7 +227,8 @@ public class CustomerFilter {
                 .phoneNumber(getPhoneNumber())
                 .referenceId(getReferenceId())
                 .groupIds(getGroupIds())
-                .customAttribute(getCustomAttribute());
+                .customAttribute(getCustomAttribute())
+                .segmentIds(getSegmentIds());
         return builder;
     }
 
@@ -225,6 +244,7 @@ public class CustomerFilter {
         private CustomerTextFilter referenceId;
         private FilterValue groupIds;
         private CustomerCustomAttributeFilters customAttribute;
+        private FilterValue segmentIds;
 
 
 
@@ -309,12 +329,22 @@ public class CustomerFilter {
         }
 
         /**
+         * Setter for segmentIds.
+         * @param  segmentIds  FilterValue value for segmentIds.
+         * @return Builder
+         */
+        public Builder segmentIds(FilterValue segmentIds) {
+            this.segmentIds = segmentIds;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CustomerFilter} object using the set fields.
          * @return {@link CustomerFilter}
          */
         public CustomerFilter build() {
             return new CustomerFilter(creationSource, createdAt, updatedAt, emailAddress,
-                    phoneNumber, referenceId, groupIds, customAttribute);
+                    phoneNumber, referenceId, groupIds, customAttribute, segmentIds);
         }
     }
 }
