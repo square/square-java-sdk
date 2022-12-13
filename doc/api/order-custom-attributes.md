@@ -90,10 +90,15 @@ CompletableFuture<CreateOrderCustomAttributeDefinitionResponse> createOrderCusto
 
 ```java
 CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
+    .key("cover-count")
+    .name("Cover count")
+    .description("The number of people seated at a table")
+    .visibility("VISIBILITY_READ_WRITE_VALUES")
     .build();
 
 CreateOrderCustomAttributeDefinitionRequest body = new CreateOrderCustomAttributeDefinitionRequest.Builder(
         customAttributeDefinition)
+    .idempotencyKey("IDEMPOTENCY_KEY")
     .build();
 
 orderCustomAttributesApi.createOrderCustomAttributeDefinitionAsync(body).thenAccept(result -> {
@@ -207,15 +212,14 @@ CompletableFuture<UpdateOrderCustomAttributeDefinitionResponse> updateOrderCusto
 ```java
 String key = "key0";
 CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .key("wayne-test-15")
-    .name("wayne-test-15")
-    .description("updated")
-    .visibility("VISIBILITY_READ_WRITE_VALUES")
-    .version(2)
+    .key("cover-count")
+    .visibility("VISIBILITY_READ_ONLY")
+    .version(1)
     .build();
 
 UpdateOrderCustomAttributeDefinitionRequest body = new UpdateOrderCustomAttributeDefinitionRequest.Builder(
         customAttributeDefinition)
+    .idempotencyKey("IDEMPOTENCY_KEY")
     .build();
 
 orderCustomAttributesApi.updateOrderCustomAttributeDefinitionAsync(key, body).thenAccept(result -> {
@@ -265,7 +269,6 @@ CompletableFuture<BulkDeleteOrderCustomAttributesResponse> bulkDeleteOrderCustom
 Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values = new LinkedHashMap<>();
 values.put("", values0);
 values.put("", values1);
-values.put("", values2);
 
 BulkDeleteOrderCustomAttributesRequest body = new BulkDeleteOrderCustomAttributesRequest.Builder(
         values)

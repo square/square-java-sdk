@@ -58,7 +58,7 @@ public class ReceiptOptions {
     /**
      * Internal Getter for PrintOnly.
      * Instructs the device to print the receipt without displaying the receipt selection screen.
-     * Defaults to false.
+     * Requires `printer_enabled` set to true. Defaults to false.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("print_only")
@@ -71,7 +71,7 @@ public class ReceiptOptions {
     /**
      * Getter for PrintOnly.
      * Instructs the device to print the receipt without displaying the receipt selection screen.
-     * Defaults to false.
+     * Requires `printer_enabled` set to true. Defaults to false.
      * @return Returns the Boolean
      */
     @JsonIgnore

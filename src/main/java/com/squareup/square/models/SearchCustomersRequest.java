@@ -62,8 +62,8 @@ public class SearchCustomersRequest {
 
     /**
      * Getter for Query.
-     * Represents a query (including filtering criteria, sorting criteria, or both) used to search
-     * for customer profiles.
+     * Represents filtering and sorting criteria for a
+     * [SearchCustomers]($e/Customers/SearchCustomers) request.
      * @return Returns the CustomerQuery
      */
     @JsonGetter("query")

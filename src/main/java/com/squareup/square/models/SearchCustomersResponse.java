@@ -54,7 +54,8 @@ public class SearchCustomersResponse {
 
     /**
      * Getter for Customers.
-     * An array of `Customer` objects that match a query.
+     * The customer profiles that match the search query. If any search condition is not met, the
+     * result is an empty object (`{}`).
      * @return Returns the List of Customer
      */
     @JsonGetter("customers")
