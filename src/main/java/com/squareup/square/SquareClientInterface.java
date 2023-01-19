@@ -21,6 +21,7 @@ import com.squareup.square.api.GiftCardsApi;
 import com.squareup.square.api.InventoryApi;
 import com.squareup.square.api.InvoicesApi;
 import com.squareup.square.api.LaborApi;
+import com.squareup.square.api.LocationCustomAttributesApi;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.LoyaltyApi;
 import com.squareup.square.api.MerchantsApi;
@@ -185,6 +186,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the LocationsApi instance
      */
     LocationsApi getLocationsApi();
+
+    /**
+     * Provides access to LocationCustomAttributes controller.
+     * @return Returns the LocationCustomAttributesApi instance
+     */
+    LocationCustomAttributesApi getLocationCustomAttributesApi();
 
     /**
      * Provides access to Checkout controller.
