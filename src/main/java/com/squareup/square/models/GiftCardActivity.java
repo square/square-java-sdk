@@ -35,6 +35,8 @@ public class GiftCardActivity {
     private final GiftCardActivityBlock blockActivityDetails;
     private final GiftCardActivityUnblock unblockActivityDetails;
     private final GiftCardActivityImportReversal importReversalActivityDetails;
+    private final GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails;
+    private final GiftCardActivityTransferBalanceFrom transferBalanceFromActivityDetails;
 
     /**
      * Initialization constructor.
@@ -64,6 +66,10 @@ public class GiftCardActivity {
      * @param  unblockActivityDetails  GiftCardActivityUnblock value for unblockActivityDetails.
      * @param  importReversalActivityDetails  GiftCardActivityImportReversal value for
      *         importReversalActivityDetails.
+     * @param  transferBalanceToActivityDetails  GiftCardActivityTransferBalanceTo value for
+     *         transferBalanceToActivityDetails.
+     * @param  transferBalanceFromActivityDetails  GiftCardActivityTransferBalanceFrom value for
+     *         transferBalanceFromActivityDetails.
      */
     @JsonCreator
     public GiftCardActivity(
@@ -86,7 +92,9 @@ public class GiftCardActivity {
             @JsonProperty("import_activity_details") GiftCardActivityImport importActivityDetails,
             @JsonProperty("block_activity_details") GiftCardActivityBlock blockActivityDetails,
             @JsonProperty("unblock_activity_details") GiftCardActivityUnblock unblockActivityDetails,
-            @JsonProperty("import_reversal_activity_details") GiftCardActivityImportReversal importReversalActivityDetails) {
+            @JsonProperty("import_reversal_activity_details") GiftCardActivityImportReversal importReversalActivityDetails,
+            @JsonProperty("transfer_balance_to_activity_details") GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails,
+            @JsonProperty("transfer_balance_from_activity_details") GiftCardActivityTransferBalanceFrom transferBalanceFromActivityDetails) {
         this.id = id;
         this.type = type;
         this.locationId = locationId;
@@ -107,6 +115,8 @@ public class GiftCardActivity {
         this.blockActivityDetails = blockActivityDetails;
         this.unblockActivityDetails = unblockActivityDetails;
         this.importReversalActivityDetails = importReversalActivityDetails;
+        this.transferBalanceToActivityDetails = transferBalanceToActivityDetails;
+        this.transferBalanceFromActivityDetails = transferBalanceFromActivityDetails;
     }
 
     /**
@@ -126,7 +136,9 @@ public class GiftCardActivity {
             GiftCardActivityImport importActivityDetails,
             GiftCardActivityBlock blockActivityDetails,
             GiftCardActivityUnblock unblockActivityDetails,
-            GiftCardActivityImportReversal importReversalActivityDetails) {
+            GiftCardActivityImportReversal importReversalActivityDetails,
+            GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails,
+            GiftCardActivityTransferBalanceFrom transferBalanceFromActivityDetails) {
         this.id = id;
         this.type = type;
         this.locationId = locationId;
@@ -147,6 +159,8 @@ public class GiftCardActivity {
         this.blockActivityDetails = blockActivityDetails;
         this.unblockActivityDetails = unblockActivityDetails;
         this.importReversalActivityDetails = importReversalActivityDetails;
+        this.transferBalanceToActivityDetails = transferBalanceToActivityDetails;
+        this.transferBalanceFromActivityDetails = transferBalanceFromActivityDetails;
     }
 
     /**
@@ -405,6 +419,30 @@ public class GiftCardActivity {
         return importReversalActivityDetails;
     }
 
+    /**
+     * Getter for TransferBalanceToActivityDetails.
+     * Represents details about a `TRANSFER_BALANCE_TO` [gift card activity
+     * type]($m/GiftCardActivityType).
+     * @return Returns the GiftCardActivityTransferBalanceTo
+     */
+    @JsonGetter("transfer_balance_to_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public GiftCardActivityTransferBalanceTo getTransferBalanceToActivityDetails() {
+        return transferBalanceToActivityDetails;
+    }
+
+    /**
+     * Getter for TransferBalanceFromActivityDetails.
+     * Represents details about a `TRANSFER_BALANCE_FROM` [gift card activity
+     * type]($m/GiftCardActivityType).
+     * @return Returns the GiftCardActivityTransferBalanceFrom
+     */
+    @JsonGetter("transfer_balance_from_activity_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public GiftCardActivityTransferBalanceFrom getTransferBalanceFromActivityDetails() {
+        return transferBalanceFromActivityDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, type, locationId, createdAt, giftCardId, giftCardGan,
@@ -412,7 +450,8 @@ public class GiftCardActivity {
                 redeemActivityDetails, clearBalanceActivityDetails, deactivateActivityDetails,
                 adjustIncrementActivityDetails, adjustDecrementActivityDetails,
                 refundActivityDetails, unlinkedActivityRefundActivityDetails, importActivityDetails,
-                blockActivityDetails, unblockActivityDetails, importReversalActivityDetails);
+                blockActivityDetails, unblockActivityDetails, importReversalActivityDetails,
+                transferBalanceToActivityDetails, transferBalanceFromActivityDetails);
     }
 
     @Override
@@ -446,7 +485,11 @@ public class GiftCardActivity {
             && Objects.equals(importActivityDetails, other.importActivityDetails)
             && Objects.equals(blockActivityDetails, other.blockActivityDetails)
             && Objects.equals(unblockActivityDetails, other.unblockActivityDetails)
-            && Objects.equals(importReversalActivityDetails, other.importReversalActivityDetails);
+            && Objects.equals(importReversalActivityDetails, other.importReversalActivityDetails)
+            && Objects.equals(transferBalanceToActivityDetails,
+                    other.transferBalanceToActivityDetails)
+            && Objects.equals(transferBalanceFromActivityDetails,
+                    other.transferBalanceFromActivityDetails);
     }
 
     /**
@@ -468,7 +511,10 @@ public class GiftCardActivity {
                 + ", unlinkedActivityRefundActivityDetails=" + unlinkedActivityRefundActivityDetails
                 + ", importActivityDetails=" + importActivityDetails + ", blockActivityDetails="
                 + blockActivityDetails + ", unblockActivityDetails=" + unblockActivityDetails
-                + ", importReversalActivityDetails=" + importReversalActivityDetails + "]";
+                + ", importReversalActivityDetails=" + importReversalActivityDetails
+                + ", transferBalanceToActivityDetails=" + transferBalanceToActivityDetails
+                + ", transferBalanceFromActivityDetails=" + transferBalanceFromActivityDetails
+                + "]";
     }
 
     /**
@@ -493,7 +539,9 @@ public class GiftCardActivity {
                 .importActivityDetails(getImportActivityDetails())
                 .blockActivityDetails(getBlockActivityDetails())
                 .unblockActivityDetails(getUnblockActivityDetails())
-                .importReversalActivityDetails(getImportReversalActivityDetails());
+                .importReversalActivityDetails(getImportReversalActivityDetails())
+                .transferBalanceToActivityDetails(getTransferBalanceToActivityDetails())
+                .transferBalanceFromActivityDetails(getTransferBalanceFromActivityDetails());
         builder.giftCardId = internalGetGiftCardId();
         builder.giftCardGan = internalGetGiftCardGan();
         return builder;
@@ -523,6 +571,8 @@ public class GiftCardActivity {
         private GiftCardActivityBlock blockActivityDetails;
         private GiftCardActivityUnblock unblockActivityDetails;
         private GiftCardActivityImportReversal importReversalActivityDetails;
+        private GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails;
+        private GiftCardActivityTransferBalanceFrom transferBalanceFromActivityDetails;
 
         /**
          * Initialization constructor.
@@ -766,6 +816,30 @@ public class GiftCardActivity {
         }
 
         /**
+         * Setter for transferBalanceToActivityDetails.
+         * @param  transferBalanceToActivityDetails  GiftCardActivityTransferBalanceTo value for
+         *         transferBalanceToActivityDetails.
+         * @return Builder
+         */
+        public Builder transferBalanceToActivityDetails(
+                GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails) {
+            this.transferBalanceToActivityDetails = transferBalanceToActivityDetails;
+            return this;
+        }
+
+        /**
+         * Setter for transferBalanceFromActivityDetails.
+         * @param  transferBalanceFromActivityDetails  GiftCardActivityTransferBalanceFrom value for
+         *         transferBalanceFromActivityDetails.
+         * @return Builder
+         */
+        public Builder transferBalanceFromActivityDetails(
+                GiftCardActivityTransferBalanceFrom transferBalanceFromActivityDetails) {
+            this.transferBalanceFromActivityDetails = transferBalanceFromActivityDetails;
+            return this;
+        }
+
+        /**
          * Builds a new {@link GiftCardActivity} object using the set fields.
          * @return {@link GiftCardActivity}
          */
@@ -776,7 +850,8 @@ public class GiftCardActivity {
                     adjustIncrementActivityDetails, adjustDecrementActivityDetails,
                     refundActivityDetails, unlinkedActivityRefundActivityDetails,
                     importActivityDetails, blockActivityDetails, unblockActivityDetails,
-                    importReversalActivityDetails);
+                    importReversalActivityDetails, transferBalanceToActivityDetails,
+                    transferBalanceFromActivityDetails);
         }
     }
 }

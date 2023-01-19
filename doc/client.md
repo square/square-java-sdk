@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2022-12-14"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2023-01-19"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2022-12-14")
+    .squareVersion("2023-01-19")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -45,7 +45,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2022-12-14")
+            .squareVersion("2023-01-19")
             .accessToken("AccessToken")
             .build();
         
@@ -92,6 +92,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getInvoicesApi()` | Provides access to Invoices controller. | `InvoicesApi` |
 | `getLaborApi()` | Provides access to Labor controller. | `LaborApi` |
 | `getLocationsApi()` | Provides access to Locations controller. | `LocationsApi` |
+| `getLocationCustomAttributesApi()` | Provides access to LocationCustomAttributes controller. | `LocationCustomAttributesApi` |
 | `getCheckoutApi()` | Provides access to Checkout controller. | `CheckoutApi` |
 | `getTransactionsApi()` | Provides access to Transactions controller. | `TransactionsApi` |
 | `getLoyaltyApi()` | Provides access to Loyalty controller. | `LoyaltyApi` |
