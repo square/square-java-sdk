@@ -267,8 +267,18 @@ CompletableFuture<BulkDeleteOrderCustomAttributesResponse> bulkDeleteOrderCustom
 
 ```java
 Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute values0 = new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
+        "7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+    .key("cover-count")
+    .build();
+
+values.put("cover-count", values0);
+BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute values1 = new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
+        "7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+    .key("table-number")
+    .build();
+
+values.put("table-number", values1);
 
 BulkDeleteOrderCustomAttributesRequest body = new BulkDeleteOrderCustomAttributesRequest.Builder(
         values)
@@ -319,8 +329,24 @@ CompletableFuture<BulkUpsertOrderCustomAttributesResponse> bulkUpsertOrderCustom
 
 ```java
 Map<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute values0 = new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
+        customAttribute,
+        "order_id2")
+    .build();
+
+values.put("key0", values0);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute values1 = new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
+        customAttribute,
+        "order_id1")
+    .build();
+
+values.put("key1", values1);
 
 BulkUpsertOrderCustomAttributesRequest body = new BulkUpsertOrderCustomAttributesRequest.Builder(
         values)

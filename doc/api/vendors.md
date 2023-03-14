@@ -42,8 +42,14 @@ CompletableFuture<BulkCreateVendorsResponse> bulkCreateVendorsAsync(
 
 ```java
 Map<String, Vendor> vendors = new LinkedHashMap<>();
-vendors.put("", vendors0);
-vendors.put("", vendors1);
+Vendor vendors0 = new Vendor.Builder()
+    .build();
+
+vendors.put("key0", vendors0);
+Vendor vendors1 = new Vendor.Builder()
+    .build();
+
+vendors.put("key1", vendors1);
 
 BulkCreateVendorsRequest body = new BulkCreateVendorsRequest.Builder(
         vendors)
@@ -119,8 +125,22 @@ CompletableFuture<BulkUpdateVendorsResponse> bulkUpdateVendorsAsync(
 
 ```java
 Map<String, UpdateVendorRequest> vendors = new LinkedHashMap<>();
-vendors.put("", vendors0);
-vendors.put("", vendors1);
+Vendor vendor = new Vendor.Builder()
+    .build();
+
+UpdateVendorRequest vendors0 = new UpdateVendorRequest.Builder(
+        vendor)
+    .build();
+
+vendors.put("key0", vendors0);
+Vendor vendor = new Vendor.Builder()
+    .build();
+
+UpdateVendorRequest vendors1 = new UpdateVendorRequest.Builder(
+        vendor)
+    .build();
+
+vendors.put("key1", vendors1);
 
 BulkUpdateVendorsRequest body = new BulkUpdateVendorsRequest.Builder(
         vendors)

@@ -67,41 +67,23 @@ OrderLineItemAppliedDiscount appliedDiscounts0 = new OrderLineItemAppliedDiscoun
 
 appliedDiscounts.add(appliedDiscounts0);
 
-Money basePriceMoney = new Money.Builder()
-    .amount(1500L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "2")
     .name("Printed T Shirt")
     .appliedTaxes(appliedTaxes)
     .appliedDiscounts(appliedDiscounts)
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems0);
-Money basePriceMoney = new Money.Builder()
-    .amount(2500L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems1 = new OrderLineItem.Builder(
         "1")
     .name("Slim Jeans")
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems1);
-Money basePriceMoney = new Money.Builder()
-    .amount(3500L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems2 = new OrderLineItem.Builder(
         "3")
     .name("Woven Sweater")
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems2);
@@ -117,15 +99,9 @@ OrderLineItemTax taxes0 = new OrderLineItemTax.Builder()
 taxes.add(taxes0);
 
 List<OrderLineItemDiscount> discounts = new LinkedList<>();
-Money amountMoney = new Money.Builder()
-    .amount(100L)
-    .currency("USD")
-    .build();
-
 OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
     .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
     .type("FIXED_AMOUNT")
-    .amountMoney(amountMoney)
     .scope("LINE_ITEM")
     .build();
 

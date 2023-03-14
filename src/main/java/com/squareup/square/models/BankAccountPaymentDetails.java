@@ -121,7 +121,7 @@ public class BankAccountPaymentDetails {
     /**
      * Internal Getter for AccountOwnershipType.
      * The ownership type of the bank account performing the transfer. The type can be `INDIVIDUAL`,
-     * `COMPANY`, or `UNKNOWN`.
+     * `COMPANY`, or `ACCOUNT_TYPE_UNKNOWN`.
      * @return Returns the Internal String
      */
     @JsonGetter("account_ownership_type")
@@ -134,7 +134,7 @@ public class BankAccountPaymentDetails {
     /**
      * Getter for AccountOwnershipType.
      * The ownership type of the bank account performing the transfer. The type can be `INDIVIDUAL`,
-     * `COMPANY`, or `UNKNOWN`.
+     * `COMPANY`, or `ACCOUNT_TYPE_UNKNOWN`.
      * @return Returns the String
      */
     @JsonIgnore

@@ -76,7 +76,7 @@ CompletableFuture<CreateDeviceCodeResponse> createDeviceCodeAsync(
 
 ```java
 DeviceCode deviceCode = new DeviceCode.Builder(
-        null)
+        "TERMINAL_API")
     .name("Counter 1")
     .locationId("B5E4484SHHNYH")
     .build();

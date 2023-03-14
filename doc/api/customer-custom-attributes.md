@@ -274,8 +274,24 @@ CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomer
 
 ```java
 Map<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest values0 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
+        "customer_id2",
+        customAttribute)
+    .build();
+
+values.put("key0", values0);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest values1 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
+        "customer_id3",
+        customAttribute)
+    .build();
+
+values.put("key1", values1);
 
 BulkUpsertCustomerCustomAttributesRequest body = new BulkUpsertCustomerCustomAttributesRequest.Builder(
         values)

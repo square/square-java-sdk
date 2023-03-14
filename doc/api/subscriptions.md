@@ -54,9 +54,6 @@ Money priceOverrideMoney = new Money.Builder()
     .currency("USD")
     .build();
 
-SubscriptionSource source = new SubscriptionSource.Builder()
-    .build();
-
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         "S8GWD5R9QB376",
         "6JHXF3B2CW3YKHDV4XEM674H",
@@ -67,7 +64,6 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
     .priceOverrideMoney(priceOverrideMoney)
     .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
     .timezone("America/Los_Angeles")
-    .source(source)
     .build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
@@ -440,10 +436,6 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-SwapPlanRequest body = new SwapPlanRequest.Builder(
-        null)
-    .build();
-
 subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
 }).exceptionally(exception -> {
