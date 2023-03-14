@@ -253,9 +253,9 @@ CompletableFuture<BulkDeleteLocationCustomAttributesResponse> bulkDeleteLocation
 
 ```java
 Map<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
-values.put("", values2);
+values.put("id1", values0);
+values.put("id2", values1);
+values.put("id3", values2);
 
 BulkDeleteLocationCustomAttributesRequest body = new BulkDeleteLocationCustomAttributesRequest.Builder(
         values)
@@ -302,8 +302,24 @@ CompletableFuture<BulkUpsertLocationCustomAttributesResponse> bulkUpsertLocation
 
 ```java
 Map<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest values0 = new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
+        "location_id8",
+        customAttribute)
+    .build();
+
+values.put("key0", values0);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest values1 = new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
+        "location_id9",
+        customAttribute)
+    .build();
+
+values.put("key1", values1);
 
 BulkUpsertLocationCustomAttributesRequest body = new BulkUpsertLocationCustomAttributesRequest.Builder(
         values)

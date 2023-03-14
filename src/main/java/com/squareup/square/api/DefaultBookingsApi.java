@@ -146,11 +146,14 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Creates a booking. To call this endpoint with buyer-level permissions, set
-     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
-     * calls to this endpoint with seller-level permissions to succeed, the seller must have
-     * subscribed to *Appointments Plus* or *Appointments Premium*.
+     * Creates a booking. The required input must include the following: - `Booking.location_id`, -
+     * `Booking.start_at`, - `Booking.team_member_id` -
+     * `Booking.AppointmentSegment.service_variation_id` -
+     * `Booking.AppointmentSegment.service_variation_version` To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth
+     * scope. For calls to this endpoint with seller-level permissions to succeed, the seller must
+     * have subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call
@@ -163,11 +166,14 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     }
 
     /**
-     * Creates a booking. To call this endpoint with buyer-level permissions, set
-     * `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with seller-level
-     * permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope. For
-     * calls to this endpoint with seller-level permissions to succeed, the seller must have
-     * subscribed to *Appointments Plus* or *Appointments Premium*.
+     * Creates a booking. The required input must include the following: - `Booking.location_id`, -
+     * `Booking.start_at`, - `Booking.team_member_id` -
+     * `Booking.AppointmentSegment.service_variation_id` -
+     * `Booking.AppointmentSegment.service_variation_version` To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_WRITE` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth
+     * scope. For calls to this endpoint with seller-level permissions to succeed, the seller must
+     * have subscribed to *Appointments Plus* or *Appointments Premium*.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateBookingResponse response from the API call

@@ -109,8 +109,47 @@ CompletableFuture<BulkCreateTeamMembersResponse> bulkCreateTeamMembersAsync(
 
 ```java
 Map<String, CreateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
-teamMembers.put("", teamMembers0);
-teamMembers.put("", teamMembers1);
+List<String> locationIds = new LinkedList<>();
+locationIds.add("YSGH2WBKG94QZ");
+locationIds.add("GA2Y9HSJ8KRYT");
+
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
+    .assignmentType("EXPLICIT_LOCATIONS")
+    .locationIds(locationIds)
+    .build();
+
+TeamMember teamMember = new TeamMember.Builder()
+    .referenceId("reference_id_1")
+    .givenName("Joe")
+    .familyName("Doe")
+    .emailAddress("joe_doe@gmail.com")
+    .phoneNumber("+14159283333")
+    .assignedLocations(assignedLocations)
+    .build();
+
+CreateTeamMemberRequest teamMembers0 = new CreateTeamMemberRequest.Builder()
+    .teamMember(teamMember)
+    .build();
+
+teamMembers.put("idempotency-key-1", teamMembers0);
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
+    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
+    .build();
+
+TeamMember teamMember = new TeamMember.Builder()
+    .referenceId("reference_id_2")
+    .givenName("Jane")
+    .familyName("Smith")
+    .emailAddress("jane_smith@gmail.com")
+    .phoneNumber("+14159223334")
+    .assignedLocations(assignedLocations)
+    .build();
+
+CreateTeamMemberRequest teamMembers1 = new CreateTeamMemberRequest.Builder()
+    .teamMember(teamMember)
+    .build();
+
+teamMembers.put("idempotency-key-2", teamMembers1);
 
 BulkCreateTeamMembersRequest body = new BulkCreateTeamMembersRequest.Builder(
         teamMembers)
@@ -152,8 +191,51 @@ CompletableFuture<BulkUpdateTeamMembersResponse> bulkUpdateTeamMembersAsync(
 
 ```java
 Map<String, UpdateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
-teamMembers.put("", teamMembers0);
-teamMembers.put("", teamMembers1);
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
+    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
+    .build();
+
+TeamMember teamMember = new TeamMember.Builder()
+    .referenceId("reference_id_2")
+    .isOwner(false)
+    .status("ACTIVE")
+    .givenName("Jane")
+    .familyName("Smith")
+    .emailAddress("jane_smith@gmail.com")
+    .phoneNumber("+14159223334")
+    .assignedLocations(assignedLocations)
+    .build();
+
+UpdateTeamMemberRequest teamMembers0 = new UpdateTeamMemberRequest.Builder()
+    .teamMember(teamMember)
+    .build();
+
+teamMembers.put("AFMwA08kR-MIF-3Vs0OE", teamMembers0);
+List<String> locationIds = new LinkedList<>();
+locationIds.add("YSGH2WBKG94QZ");
+locationIds.add("GA2Y9HSJ8KRYT");
+
+TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
+    .assignmentType("EXPLICIT_LOCATIONS")
+    .locationIds(locationIds)
+    .build();
+
+TeamMember teamMember = new TeamMember.Builder()
+    .referenceId("reference_id_1")
+    .isOwner(false)
+    .status("ACTIVE")
+    .givenName("Joe")
+    .familyName("Doe")
+    .emailAddress("joe_doe@gmail.com")
+    .phoneNumber("+14159283333")
+    .assignedLocations(assignedLocations)
+    .build();
+
+UpdateTeamMemberRequest teamMembers1 = new UpdateTeamMemberRequest.Builder()
+    .teamMember(teamMember)
+    .build();
+
+teamMembers.put("fpgteZNMaf0qOK-a4t6P", teamMembers1);
 
 BulkUpdateTeamMembersRequest body = new BulkUpdateTeamMembersRequest.Builder(
         teamMembers)

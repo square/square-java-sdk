@@ -256,8 +256,18 @@ CompletableFuture<BulkDeleteBookingCustomAttributesResponse> bulkDeleteBookingCu
 
 ```java
 Map<String, BookingCustomAttributeDeleteRequest> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+BookingCustomAttributeDeleteRequest values0 = new BookingCustomAttributeDeleteRequest.Builder(
+        "booking_id8",
+        "key4")
+    .build();
+
+values.put("key0", values0);
+BookingCustomAttributeDeleteRequest values1 = new BookingCustomAttributeDeleteRequest.Builder(
+        "booking_id9",
+        "key5")
+    .build();
+
+values.put("key1", values1);
 
 BulkDeleteBookingCustomAttributesRequest body = new BulkDeleteBookingCustomAttributesRequest.Builder(
         values)
@@ -301,8 +311,24 @@ CompletableFuture<BulkUpsertBookingCustomAttributesResponse> bulkUpsertBookingCu
 
 ```java
 Map<String, BookingCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-values.put("", values0);
-values.put("", values1);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BookingCustomAttributeUpsertRequest values0 = new BookingCustomAttributeUpsertRequest.Builder(
+        "booking_id8",
+        customAttribute)
+    .build();
+
+values.put("key0", values0);
+CustomAttribute customAttribute = new CustomAttribute.Builder()
+    .build();
+
+BookingCustomAttributeUpsertRequest values1 = new BookingCustomAttributeUpsertRequest.Builder(
+        "booking_id9",
+        customAttribute)
+    .build();
+
+values.put("key1", values1);
 
 BulkUpsertBookingCustomAttributesRequest body = new BulkUpsertBookingCustomAttributesRequest.Builder(
         values)

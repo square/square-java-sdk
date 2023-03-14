@@ -201,7 +201,7 @@ InvoiceFilter filter = new InvoiceFilter.Builder(
     .build();
 
 InvoiceSort sort = new InvoiceSort.Builder(
-        null)
+        "INVOICE_SORT_DATE")
     .order("DESC")
     .build();
 

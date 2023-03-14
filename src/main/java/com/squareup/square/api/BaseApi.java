@@ -18,7 +18,7 @@ public abstract class BaseApi {
             new HashMap<String, ErrorCase<ApiException>>();
     private GlobalConfiguration globalConfig;
     static {
-        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.create("HTTP Response Not OK",
+        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.setReason("HTTP Response Not OK",
                 (reason, context) -> new ApiException(reason, context)));
     }
 

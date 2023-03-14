@@ -49,15 +49,9 @@ CompletableFuture<CreateOrderResponse> createOrderAsync(
 
 ```java
 List<OrderLineItem> lineItems = new LinkedList<>();
-Money basePriceMoney = new Money.Builder()
-    .amount(1599L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "1")
     .name("New York Strip Steak")
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems0);
@@ -110,15 +104,9 @@ OrderLineItemDiscount discounts1 = new OrderLineItemDiscount.Builder()
     .build();
 
 discounts.add(discounts1);
-Money amountMoney = new Money.Builder()
-    .amount(100L)
-    .currency("USD")
-    .build();
-
 OrderLineItemDiscount discounts2 = new OrderLineItemDiscount.Builder()
     .uid("one-dollar-off")
     .name("Sale - $1.00 off")
-    .amountMoney(amountMoney)
     .scope("LINE_ITEM")
     .build();
 
@@ -211,27 +199,15 @@ CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
 
 ```java
 List<OrderLineItem> lineItems = new LinkedList<>();
-Money basePriceMoney = new Money.Builder()
-    .amount(500L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems0 = new OrderLineItem.Builder(
         "1")
     .name("Item 1")
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems0);
-Money basePriceMoney = new Money.Builder()
-    .amount(300L)
-    .currency("USD")
-    .build();
-
 OrderLineItem lineItems1 = new OrderLineItem.Builder(
         "2")
     .name("Item 2")
-    .basePriceMoney(basePriceMoney)
     .build();
 
 lineItems.add(lineItems1);

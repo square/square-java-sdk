@@ -181,7 +181,7 @@ public class PaymentRefund {
     /**
      * Internal Getter for DestinationType.
      * The destination type for this refund. Current values include `CARD`, `BANK_ACCOUNT`,
-     * `WALLET`, `CASH`, or `EXTERNAL`.
+     * `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`, and `EXTERNAL`.
      * @return Returns the Internal String
      */
     @JsonGetter("destination_type")
@@ -194,7 +194,7 @@ public class PaymentRefund {
     /**
      * Getter for DestinationType.
      * The destination type for this refund. Current values include `CARD`, `BANK_ACCOUNT`,
-     * `WALLET`, `CASH`, or `EXTERNAL`.
+     * `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`, and `EXTERNAL`.
      * @return Returns the String
      */
     @JsonIgnore

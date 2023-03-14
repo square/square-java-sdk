@@ -163,16 +163,10 @@ List<String> taxIds = new LinkedList<>();
 taxIds.add("#SalesTax");
 
 List<CatalogObject> variations = new LinkedList<>();
-Money priceMoney = new Money.Builder()
-    .amount(150L)
-    .currency("USD")
-    .build();
-
 CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Tea")
     .name("Mug")
     .pricingType("FIXED_PRICING")
-    .priceMoney(priceMoney)
     .build();
 
 CatalogObject variations0 = new CatalogObject.Builder(
@@ -204,16 +198,10 @@ List<String> taxIds = new LinkedList<>();
 taxIds.add("#SalesTax");
 
 List<CatalogObject> variations = new LinkedList<>();
-Money priceMoney = new Money.Builder()
-    .amount(250L)
-    .currency("USD")
-    .build();
-
 CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Regular")
     .pricingType("FIXED_PRICING")
-    .priceMoney(priceMoney)
     .build();
 
 CatalogObject variations0 = new CatalogObject.Builder(
@@ -224,16 +212,10 @@ CatalogObject variations0 = new CatalogObject.Builder(
     .build();
 
 variations.add(variations0);
-Money priceMoney = new Money.Builder()
-    .amount(350L)
-    .currency("USD")
-    .build();
-
 CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Coffee")
     .name("Large")
     .pricingType("FIXED_PRICING")
-    .priceMoney(priceMoney)
     .build();
 
 CatalogObject variations1 = new CatalogObject.Builder(
@@ -517,16 +499,10 @@ CatalogObject variations0 = new CatalogObject.Builder(
     .build();
 
 variations.add(variations0);
-Money priceMoney = new Money.Builder()
-    .amount(400L)
-    .currency("USD")
-    .build();
-
 CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
     .itemId("#Cocoa")
     .name("Large")
     .pricingType("FIXED_PRICING")
-    .priceMoney(priceMoney)
     .build();
 
 CatalogObject variations1 = new CatalogObject.Builder(
