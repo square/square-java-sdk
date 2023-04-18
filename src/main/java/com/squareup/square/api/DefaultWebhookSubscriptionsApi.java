@@ -98,10 +98,10 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      *         For more information, see
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @param  includeDisabled  Optional parameter: Includes disabled
-     *         [Subscription]($m/WebhookSubscription)s. By default, all enabled
-     *         [Subscription]($m/WebhookSubscription)s are returned.
+     *         [Subscription](entity:WebhookSubscription)s. By default, all enabled
+     *         [Subscription](entity:WebhookSubscription)s are returned.
      * @param  sortOrder  Optional parameter: Sorts the returned list by when the
-     *         [Subscription]($m/WebhookSubscription) was created with the specified order. This
+     *         [Subscription](entity:WebhookSubscription) was created with the specified order. This
      *         field defaults to ASC.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
@@ -126,10 +126,10 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      *         For more information, see
      *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
      * @param  includeDisabled  Optional parameter: Includes disabled
-     *         [Subscription]($m/WebhookSubscription)s. By default, all enabled
-     *         [Subscription]($m/WebhookSubscription)s are returned.
+     *         [Subscription](entity:WebhookSubscription)s. By default, all enabled
+     *         [Subscription](entity:WebhookSubscription)s are returned.
      * @param  sortOrder  Optional parameter: Sorts the returned list by when the
-     *         [Subscription]($m/WebhookSubscription) was created with the specified order. This
+     *         [Subscription](entity:WebhookSubscription) was created with the specified order. This
      *         field defaults to ASC.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
@@ -241,7 +241,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Deletes a webhook subscription.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to delete.
+     *         [Subscription](entity:WebhookSubscription) to delete.
      * @return    Returns the DeleteWebhookSubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -254,7 +254,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Deletes a webhook subscription.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to delete.
+     *         [Subscription](entity:WebhookSubscription) to delete.
      * @return    Returns the DeleteWebhookSubscriptionResponse response from the API call
      */
     public CompletableFuture<DeleteWebhookSubscriptionResponse> deleteWebhookSubscriptionAsync(
@@ -294,7 +294,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Retrieves a webhook subscription identified by its ID.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to retrieve.
+     *         [Subscription](entity:WebhookSubscription) to retrieve.
      * @return    Returns the RetrieveWebhookSubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -307,7 +307,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Retrieves a webhook subscription identified by its ID.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to retrieve.
+     *         [Subscription](entity:WebhookSubscription) to retrieve.
      * @return    Returns the RetrieveWebhookSubscriptionResponse response from the API call
      */
     public CompletableFuture<RetrieveWebhookSubscriptionResponse> retrieveWebhookSubscriptionAsync(
@@ -347,7 +347,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Updates a webhook subscription.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to update.
+     *         [Subscription](entity:WebhookSubscription) to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWebhookSubscriptionResponse response from the API call
@@ -363,7 +363,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Updates a webhook subscription.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to update.
+     *         [Subscription](entity:WebhookSubscription) to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWebhookSubscriptionResponse response from the API call
@@ -411,7 +411,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Updates a webhook subscription by replacing the existing signature key with a new one.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to update.
+     *         [Subscription](entity:WebhookSubscription) to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWebhookSubscriptionSignatureKeyResponse response from the API call
@@ -427,7 +427,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Updates a webhook subscription by replacing the existing signature key with a new one.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to update.
+     *         [Subscription](entity:WebhookSubscription) to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the UpdateWebhookSubscriptionSignatureKeyResponse response from the API call
@@ -475,7 +475,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Tests a webhook subscription by sending a test event to the notification URL.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to test.
+     *         [Subscription](entity:WebhookSubscription) to test.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the TestWebhookSubscriptionResponse response from the API call
@@ -491,7 +491,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
     /**
      * Tests a webhook subscription by sending a test event to the notification URL.
      * @param  subscriptionId  Required parameter: [REQUIRED] The ID of the
-     *         [Subscription]($m/WebhookSubscription) to test.
+     *         [Subscription](entity:WebhookSubscription) to test.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the TestWebhookSubscriptionResponse response from the API call

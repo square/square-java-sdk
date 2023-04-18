@@ -57,8 +57,10 @@ String locationId = "location_id4";
 
 transactionsApi.listTransactionsAsync(locationId, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -95,8 +97,10 @@ String transactionId = "transaction_id8";
 
 transactionsApi.retrieveTransactionAsync(locationId, transactionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -106,7 +110,7 @@ transactionsApi.retrieveTransactionAsync(locationId, transactionId).thenAccept(r
 
 **This endpoint is deprecated.**
 
-Captures a transaction that was created with the [Charge]($e/Transactions/Charge)
+Captures a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
 endpoint with a `delay_capture` value of `true`.
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
@@ -137,8 +141,10 @@ String transactionId = "transaction_id8";
 
 transactionsApi.captureTransactionAsync(locationId, transactionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -148,7 +154,7 @@ transactionsApi.captureTransactionAsync(locationId, transactionId).thenAccept(re
 
 **This endpoint is deprecated.**
 
-Cancels a transaction that was created with the [Charge]($e/Transactions/Charge)
+Cancels a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
 endpoint with a `delay_capture` value of `true`.
 
 See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
@@ -179,8 +185,10 @@ String transactionId = "transaction_id8";
 
 transactionsApi.voidTransactionAsync(locationId, transactionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

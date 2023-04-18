@@ -25,8 +25,8 @@ public class LoyaltyProgramAccrualRuleItemVariationData {
 
     /**
      * Getter for ItemVariationId.
-     * The ID of the `ITEM_VARIATION` [catalog object]($m/CatalogObject) that buyers can purchase to
-     * earn points.
+     * The ID of the `ITEM_VARIATION` [catalog object](entity:CatalogObject) that buyers can
+     * purchase to earn points.
      * @return Returns the String
      */
     @JsonGetter("item_variation_id")

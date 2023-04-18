@@ -38,7 +38,7 @@ public class LoyaltyEventAccumulatePromotionPoints {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The Square-assigned ID of the [loyalty program]($m/LoyaltyProgram).
+     * The Square-assigned ID of the [loyalty program](entity:LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -49,7 +49,7 @@ public class LoyaltyEventAccumulatePromotionPoints {
 
     /**
      * Getter for LoyaltyPromotionId.
-     * The Square-assigned ID of the [loyalty promotion]($m/LoyaltyPromotion).
+     * The Square-assigned ID of the [loyalty promotion](entity:LoyaltyPromotion).
      * @return Returns the String
      */
     @JsonGetter("loyalty_promotion_id")
@@ -70,7 +70,7 @@ public class LoyaltyEventAccumulatePromotionPoints {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order]($m/Order) for which the buyer earned the promotion points. Only
+     * The ID of the [order](entity:Order) for which the buyer earned the promotion points. Only
      * applications that use the Orders API to process orders can trigger this event.
      * @return Returns the String
      */

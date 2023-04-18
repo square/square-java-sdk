@@ -46,8 +46,10 @@ CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
 ```java
 employeesApi.listEmployeesAsync(null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -81,8 +83,10 @@ String id = "id0";
 
 employeesApi.retrieveEmployeeAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

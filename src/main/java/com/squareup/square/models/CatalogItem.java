@@ -159,7 +159,7 @@ public class CatalogItem {
      * The item's description. This is a searchable attribute for use in applicable query filters,
      * and its value length is of Unicode code points. Deprecated at 2022-07-20, this field is
      * planned to retire in 6 months. You should migrate to use `description_html` to set the
-     * description of the [CatalogItem]($m/CatalogItem) instance. The `description` and
+     * description of the [CatalogItem](entity:CatalogItem) instance. The `description` and
      * `description_html` field values are kept in sync. If you try to set the both fields, the
      * `description_html` text value overwrites the `description` value. Updates in one field are
      * also reflected in the other, except for when you use an early version before Square API
@@ -179,7 +179,7 @@ public class CatalogItem {
      * The item's description. This is a searchable attribute for use in applicable query filters,
      * and its value length is of Unicode code points. Deprecated at 2022-07-20, this field is
      * planned to retire in 6 months. You should migrate to use `description_html` to set the
-     * description of the [CatalogItem]($m/CatalogItem) instance. The `description` and
+     * description of the [CatalogItem](entity:CatalogItem) instance. The `description` and
      * `description_html` field values are kept in sync. If you try to set the both fields, the
      * `description_html` text value overwrites the `description` value. Updates in one field are
      * also reflected in the other, except for when you use an early version before Square API
@@ -386,8 +386,8 @@ public class CatalogItem {
 
     /**
      * Internal Getter for Variations.
-     * A list of [CatalogItemVariation]($m/CatalogItemVariation) objects for this item. An item must
-     * have at least one variation.
+     * A list of [CatalogItemVariation](entity:CatalogItemVariation) objects for this item. An item
+     * must have at least one variation.
      * @return Returns the Internal List of CatalogObject
      */
     @JsonGetter("variations")
@@ -399,8 +399,8 @@ public class CatalogItem {
 
     /**
      * Getter for Variations.
-     * A list of [CatalogItemVariation]($m/CatalogItemVariation) objects for this item. An item must
-     * have at least one variation.
+     * A list of [CatalogItemVariation](entity:CatalogItemVariation) objects for this item. An item
+     * must have at least one variation.
      * @return Returns the List of CatalogObject
      */
     @JsonIgnore
@@ -505,8 +505,8 @@ public class CatalogItem {
     /**
      * Internal Getter for SortName.
      * A name to sort the item by. If this name is unspecified, namely, the `sort_name` field is
-     * absent, the regular `name` field is used for sorting. It is currently supported for sellers
-     * of the Japanese locale only.
+     * absent, the regular `name` field is used for sorting. Its value must not be empty. It is
+     * currently supported for sellers of the Japanese locale only.
      * @return Returns the Internal String
      */
     @JsonGetter("sort_name")
@@ -519,8 +519,8 @@ public class CatalogItem {
     /**
      * Getter for SortName.
      * A name to sort the item by. If this name is unspecified, namely, the `sort_name` field is
-     * absent, the regular `name` field is used for sorting. It is currently supported for sellers
-     * of the Japanese locale only.
+     * absent, the regular `name` field is used for sorting. Its value must not be empty. It is
+     * currently supported for sellers of the Japanese locale only.
      * @return Returns the String
      */
     @JsonIgnore

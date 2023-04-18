@@ -190,8 +190,8 @@ public class InventoryAdjustment {
 
     /**
      * Internal Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("location_id")
@@ -203,8 +203,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -214,7 +214,7 @@ public class InventoryAdjustment {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -226,7 +226,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -236,10 +236,10 @@ public class InventoryAdjustment {
 
     /**
      * Internal Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_type")
@@ -251,10 +251,10 @@ public class InventoryAdjustment {
 
     /**
      * Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the String
      */
     @JsonIgnore
@@ -352,7 +352,7 @@ public class InventoryAdjustment {
 
     /**
      * Internal Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the inventory
      * adjustment.
      * @return Returns the Internal String
      */
@@ -365,7 +365,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the inventory
      * adjustment.
      * @return Returns the String
      */
@@ -376,7 +376,7 @@ public class InventoryAdjustment {
 
     /**
      * Internal Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the inventory
      * adjustment.
      * @return Returns the Internal String
      */
@@ -389,7 +389,7 @@ public class InventoryAdjustment {
 
     /**
      * Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the inventory
      * adjustment.
      * @return Returns the String
      */
@@ -400,8 +400,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for TransactionId.
-     * The Square-generated ID of the [Transaction]($m/Transaction) that caused the adjustment. Only
-     * relevant for payment-related state transitions.
+     * The Square-generated ID of the [Transaction](entity:Transaction) that caused the adjustment.
+     * Only relevant for payment-related state transitions.
      * @return Returns the String
      */
     @JsonGetter("transaction_id")
@@ -412,8 +412,8 @@ public class InventoryAdjustment {
 
     /**
      * Getter for RefundId.
-     * The Square-generated ID of the [Refund]($m/Refund) that caused the adjustment. Only relevant
-     * for refund-related state transitions.
+     * The Square-generated ID of the [Refund](entity:Refund) that caused the adjustment. Only
+     * relevant for refund-related state transitions.
      * @return Returns the String
      */
     @JsonGetter("refund_id")

@@ -45,8 +45,10 @@ CompletableFuture<ListDeviceCodesResponse> listDeviceCodesAsync(
 ```java
 devicesApi.listDeviceCodesAsync(null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -75,21 +77,23 @@ CompletableFuture<CreateDeviceCodeResponse> createDeviceCodeAsync(
 ## Example Usage
 
 ```java
-DeviceCode deviceCode = new DeviceCode.Builder(
-        "TERMINAL_API")
+CreateDeviceCodeRequest body = new CreateDeviceCodeRequest.Builder(
+    "01bb00a6-0c86-4770-94ed-f5fca973cd56",
+    new DeviceCode.Builder(
+        "TERMINAL_API"
+    )
     .name("Counter 1")
     .locationId("B5E4484SHHNYH")
-    .build();
-
-CreateDeviceCodeRequest body = new CreateDeviceCodeRequest.Builder(
-        "01bb00a6-0c86-4770-94ed-f5fca973cd56",
-        deviceCode)
-    .build();
+    .build()
+)
+.build();
 
 devicesApi.createDeviceCodeAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -121,8 +125,10 @@ String id = "id0";
 
 devicesApi.getDeviceCodeAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

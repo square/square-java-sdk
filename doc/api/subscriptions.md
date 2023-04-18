@@ -49,27 +49,30 @@ CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
 ## Example Usage
 
 ```java
-Money priceOverrideMoney = new Money.Builder()
-    .amount(100L)
-    .currency("USD")
-    .build();
-
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
-        "S8GWD5R9QB376",
-        "6JHXF3B2CW3YKHDV4XEM674H",
-        "CHFGVKYY8RSV93M5KCYTG4PN0G")
-    .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
-    .startDate("2021-10-20")
-    .taxPercentage("5")
-    .priceOverrideMoney(priceOverrideMoney)
-    .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
-    .timezone("America/Los_Angeles")
-    .build();
+    "S8GWD5R9QB376",
+    "6JHXF3B2CW3YKHDV4XEM674H",
+    "CHFGVKYY8RSV93M5KCYTG4PN0G"
+)
+.idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
+.startDate("2021-10-20")
+.taxPercentage("5")
+.priceOverrideMoney(new Money.Builder()
+        .amount(100L)
+        .currency("USD")
+        .build())
+.cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
+.timezone("America/Los_Angeles")
+.source(new SubscriptionSource.Builder()
+        .build())
+.build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -113,33 +116,28 @@ CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
 ## Example Usage
 
 ```java
-List<String> customerIds = new LinkedList<>();
-customerIds.add("CHFGVKYY8RSV93M5KCYTG4PN0G");
-
-List<String> locationIds = new LinkedList<>();
-locationIds.add("S8GWD5R9QB376");
-
-List<String> sourceNames = new LinkedList<>();
-sourceNames.add("My App");
-
-SearchSubscriptionsFilter filter = new SearchSubscriptionsFilter.Builder()
-    .customerIds(customerIds)
-    .locationIds(locationIds)
-    .sourceNames(sourceNames)
-    .build();
-
-SearchSubscriptionsQuery query = new SearchSubscriptionsQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchSubscriptionsRequest body = new SearchSubscriptionsRequest.Builder()
-    .query(query)
+    .query(new SearchSubscriptionsQuery.Builder()
+        .filter(new SearchSubscriptionsFilter.Builder()
+            .customerIds(Arrays.asList(
+                "CHFGVKYY8RSV93M5KCYTG4PN0G"
+            ))
+            .locationIds(Arrays.asList(
+                "S8GWD5R9QB376"
+            ))
+            .sourceNames(Arrays.asList(
+                "My App"
+            ))
+            .build())
+        .build())
     .build();
 
 subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -173,8 +171,10 @@ String subscriptionId = "subscription_id0";
 
 subscriptionsApi.retrieveSubscriptionAsync(subscriptionId, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -206,24 +206,22 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-Money priceOverrideMoney = new Money.Builder()
-    .amount(2000L)
-    .currency("USD")
-    .build();
-
-Subscription subscription = new Subscription.Builder()
-    .priceOverrideMoney(priceOverrideMoney)
-    .version(1594155459464L)
-    .build();
-
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder()
-    .subscription(subscription)
+    .subscription(new Subscription.Builder()
+        .priceOverrideMoney(new Money.Builder()
+            .amount(2000L)
+            .currency("USD")
+            .build())
+        .version(1594155459464L)
+        .build())
     .build();
 
 subscriptionsApi.updateSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -258,8 +256,10 @@ String actionId = "action_id6";
 
 subscriptionsApi.deleteSubscriptionActionAsync(subscriptionId, actionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -293,8 +293,10 @@ String subscriptionId = "subscription_id0";
 
 subscriptionsApi.cancelSubscriptionAsync(subscriptionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -330,8 +332,10 @@ String subscriptionId = "subscription_id0";
 
 subscriptionsApi.listSubscriptionEventsAsync(subscriptionId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -367,8 +371,10 @@ PauseSubscriptionRequest body = new PauseSubscriptionRequest.Builder()
 
 subscriptionsApi.pauseSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -404,8 +410,10 @@ ResumeSubscriptionRequest body = new ResumeSubscriptionRequest.Builder()
 
 subscriptionsApi.resumeSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -436,10 +444,17 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
+SwapPlanRequest body = new SwapPlanRequest.Builder(
+    null
+)
+.build();
+
 subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

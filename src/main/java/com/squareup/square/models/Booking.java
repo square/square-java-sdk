@@ -195,7 +195,7 @@ public class Booking {
 
     /**
      * Internal Getter for LocationId.
-     * The ID of the [Location]($m/Location) object representing the location where the booked
+     * The ID of the [Location](entity:Location) object representing the location where the booked
      * service is provided. Once set when the booking is created, its value cannot be changed.
      * @return Returns the Internal String
      */
@@ -208,7 +208,7 @@ public class Booking {
 
     /**
      * Getter for LocationId.
-     * The ID of the [Location]($m/Location) object representing the location where the booked
+     * The ID of the [Location](entity:Location) object representing the location where the booked
      * service is provided. Once set when the booking is created, its value cannot be changed.
      * @return Returns the String
      */
@@ -219,8 +219,8 @@ public class Booking {
 
     /**
      * Internal Getter for CustomerId.
-     * The ID of the [Customer]($m/Customer) object representing the customer receiving the booked
-     * service.
+     * The ID of the [Customer](entity:Customer) object representing the customer receiving the
+     * booked service.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_id")
@@ -232,8 +232,8 @@ public class Booking {
 
     /**
      * Getter for CustomerId.
-     * The ID of the [Customer]($m/Customer) object representing the customer receiving the booked
-     * service.
+     * The ID of the [Customer](entity:Customer) object representing the customer receiving the
+     * booked service.
      * @return Returns the String
      */
     @JsonIgnore
@@ -245,7 +245,7 @@ public class Booking {
      * Internal Getter for CustomerNote.
      * The free-text field for the customer to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a relevant
-     * [CatalogObject]($m/CatalogObject) instance.
+     * [CatalogObject](entity:CatalogObject) instance.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_note")
@@ -259,7 +259,7 @@ public class Booking {
      * Getter for CustomerNote.
      * The free-text field for the customer to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a relevant
-     * [CatalogObject]($m/CatalogObject) instance.
+     * [CatalogObject](entity:CatalogObject) instance.
      * @return Returns the String
      */
     @JsonIgnore
@@ -271,7 +271,8 @@ public class Booking {
      * Internal Getter for SellerNote.
      * The free-text field for the seller to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a specific
-     * [CatalogObject]($m/CatalogObject) instance. This field should not be visible to customers.
+     * [CatalogObject](entity:CatalogObject) instance. This field should not be visible to
+     * customers.
      * @return Returns the Internal String
      */
     @JsonGetter("seller_note")
@@ -285,7 +286,8 @@ public class Booking {
      * Getter for SellerNote.
      * The free-text field for the seller to supply notes about the booking. For example, the note
      * can be preferences that cannot be expressed by supported attributes of a specific
-     * [CatalogObject]($m/CatalogObject) instance. This field should not be visible to customers.
+     * [CatalogObject](entity:CatalogObject) instance. This field should not be visible to
+     * customers.
      * @return Returns the String
      */
     @JsonIgnore

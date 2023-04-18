@@ -92,8 +92,9 @@ public class OrderQuantityUnit {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit).
-     * This field is set when this is a catalog-backed measurement unit.
+     * The catalog object ID referencing the
+     * [CatalogMeasurementUnit](entity:CatalogMeasurementUnit). This field is set when this is a
+     * catalog-backed measurement unit.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -105,8 +106,9 @@ public class OrderQuantityUnit {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit).
-     * This field is set when this is a catalog-backed measurement unit.
+     * The catalog object ID referencing the
+     * [CatalogMeasurementUnit](entity:CatalogMeasurementUnit). This field is set when this is a
+     * catalog-backed measurement unit.
      * @return Returns the String
      */
     @JsonIgnore

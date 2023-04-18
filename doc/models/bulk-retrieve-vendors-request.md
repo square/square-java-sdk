@@ -11,7 +11,7 @@ Represents an input to a call to [BulkRetrieveVendors](../../doc/api/vendors.md#
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `VendorIds` | `List<String>` | Optional | IDs of the [Vendor](../../doc/models/vendor.md) objects to retrieve. | List<String> getVendorIds() |
+| `VendorIds` | `List<String>` | Optional | IDs of the [Vendor](entity:Vendor) objects to retrieve. | List<String> getVendorIds() |
 
 ## Example (as JSON)
 

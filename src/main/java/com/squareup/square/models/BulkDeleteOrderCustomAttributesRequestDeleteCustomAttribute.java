@@ -42,7 +42,7 @@ public class BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute {
 
     /**
      * Getter for OrderId.
-     * The ID of the target [order]($m/Order).
+     * The ID of the target [order](entity:Order).
      * @return Returns the String
      */
     @JsonGetter("order_id")

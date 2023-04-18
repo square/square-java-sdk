@@ -261,12 +261,12 @@ public class CatalogObject {
     /**
      * Internal Getter for CustomAttributeValues.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a
-     * key-value pair is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The
-     * key is the `key` attribute value defined in the associated
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) object defined by the
-     * application making the request. If the `CatalogCustomAttributeDefinition` object is defined
-     * by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is
-     * prefixed by the defining application ID. For example, if the
+     * key-value pair is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object.
+     * The key is the `key` attribute value defined in the associated
+     * [CatalogCustomAttributeDefinition](entity:CatalogCustomAttributeDefinition) object defined by
+     * the application making the request. If the `CatalogCustomAttributeDefinition` object is
+     * defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value
+     * is prefixed by the defining application ID. For example, if the
      * `CatalogCustomAttributeDefinition` has a `key` attribute of `"cocoa_brand"` and the defining
      * application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"` if the
      * application making the request is different from the application defining the custom
@@ -287,12 +287,12 @@ public class CatalogObject {
     /**
      * Getter for CustomAttributeValues.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a
-     * key-value pair is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The
-     * key is the `key` attribute value defined in the associated
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) object defined by the
-     * application making the request. If the `CatalogCustomAttributeDefinition` object is defined
-     * by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is
-     * prefixed by the defining application ID. For example, if the
+     * key-value pair is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object.
+     * The key is the `key` attribute value defined in the associated
+     * [CatalogCustomAttributeDefinition](entity:CatalogCustomAttributeDefinition) object defined by
+     * the application making the request. If the `CatalogCustomAttributeDefinition` object is
+     * defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value
+     * is prefixed by the defining application ID. For example, if the
      * `CatalogCustomAttributeDefinition` has a `key` attribute of `"cocoa_brand"` and the defining
      * application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"` if the
      * application making the request is different from the application defining the custom

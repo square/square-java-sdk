@@ -123,7 +123,7 @@ public class OrderReturnTax {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogTax]($m/CatalogTax).
+     * The catalog object ID referencing [CatalogTax](entity:CatalogTax).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -135,7 +135,7 @@ public class OrderReturnTax {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogTax]($m/CatalogTax).
+     * The catalog object ID referencing [CatalogTax](entity:CatalogTax).
      * @return Returns the String
      */
     @JsonIgnore

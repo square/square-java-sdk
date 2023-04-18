@@ -52,24 +52,24 @@ CompletableFuture<CreateLoyaltyAccountResponse> createLoyaltyAccountAsync(
 ## Example Usage
 
 ```java
-LoyaltyAccountMapping mapping = new LoyaltyAccountMapping.Builder()
-    .phoneNumber("+14155551234")
-    .build();
-
-LoyaltyAccount loyaltyAccount = new LoyaltyAccount.Builder(
-        "d619f755-2d17-41f3-990d-c04ecedd64dd")
-    .mapping(mapping)
-    .build();
-
 CreateLoyaltyAccountRequest body = new CreateLoyaltyAccountRequest.Builder(
-        loyaltyAccount,
-        "ec78c477-b1c3-4899-a209-a4e71337c996")
-    .build();
+    new LoyaltyAccount.Builder(
+        "d619f755-2d17-41f3-990d-c04ecedd64dd"
+    )
+    .mapping(new LoyaltyAccountMapping.Builder()
+            .phoneNumber("+14155551234")
+            .build())
+    .build(),
+    "ec78c477-b1c3-4899-a209-a4e71337c996"
+)
+.build();
 
 loyaltyApi.createLoyaltyAccountAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -101,26 +101,23 @@ CompletableFuture<SearchLoyaltyAccountsResponse> searchLoyaltyAccountsAsync(
 ## Example Usage
 
 ```java
-List<LoyaltyAccountMapping> mappings = new LinkedList<>();
-LoyaltyAccountMapping mappings0 = new LoyaltyAccountMapping.Builder()
-    .phoneNumber("+14155551234")
-    .build();
-
-mappings.add(mappings0);
-
-SearchLoyaltyAccountsRequestLoyaltyAccountQuery query = new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
-    .mappings(mappings)
-    .build();
-
 SearchLoyaltyAccountsRequest body = new SearchLoyaltyAccountsRequest.Builder()
-    .query(query)
+    .query(new SearchLoyaltyAccountsRequestLoyaltyAccountQuery.Builder()
+        .mappings(Arrays.asList(
+            new LoyaltyAccountMapping.Builder()
+                .phoneNumber("+14155551234")
+                .build()
+        ))
+        .build())
     .limit(10)
     .build();
 
 loyaltyApi.searchLoyaltyAccountsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -139,7 +136,7 @@ CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The ID of the [loyalty account](../../doc/models/loyalty-account.md) to retrieve. |
+| `accountId` | `String` | Template, Required | The ID of the [loyalty account](entity:LoyaltyAccount) to retrieve. |
 
 ## Response Type
 
@@ -152,8 +149,10 @@ String accountId = "account_id2";
 
 loyaltyApi.retrieveLoyaltyAccountAsync(accountId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -186,7 +185,7 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The ID of the target [loyalty account](../../doc/models/loyalty-account.md). |
+| `accountId` | `String` | Template, Required | The ID of the target [loyalty account](entity:LoyaltyAccount). |
 | `body` | [`AccumulateLoyaltyPointsRequest`](../../doc/models/accumulate-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -197,20 +196,21 @@ CompletableFuture<AccumulateLoyaltyPointsResponse> accumulateLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAccumulatePoints accumulatePoints = new LoyaltyEventAccumulatePoints.Builder()
-    .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
-    .build();
-
 AccumulateLoyaltyPointsRequest body = new AccumulateLoyaltyPointsRequest.Builder(
-        accumulatePoints,
-        "58b90739-c3e8-4b11-85f7-e636d48d72cb",
-        "P034NEENMD09F")
-    .build();
+    new LoyaltyEventAccumulatePoints.Builder()
+        .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
+        .build(),
+    "58b90739-c3e8-4b11-85f7-e636d48d72cb",
+    "P034NEENMD09F"
+)
+.build();
 
 loyaltyApi.accumulateLoyaltyPointsAsync(accountId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -234,7 +234,7 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountId` | `String` | Template, Required | The ID of the target [loyalty account](../../doc/models/loyalty-account.md). |
+| `accountId` | `String` | Template, Required | The ID of the target [loyalty account](entity:LoyaltyAccount). |
 | `body` | [`AdjustLoyaltyPointsRequest`](../../doc/models/adjust-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -245,20 +245,22 @@ CompletableFuture<AdjustLoyaltyPointsResponse> adjustLoyaltyPointsAsync(
 
 ```java
 String accountId = "account_id2";
-LoyaltyEventAdjustPoints adjustPoints = new LoyaltyEventAdjustPoints.Builder(
-        10)
-    .reason("Complimentary points")
-    .build();
-
 AdjustLoyaltyPointsRequest body = new AdjustLoyaltyPointsRequest.Builder(
-        "bc29a517-3dc9-450e-aa76-fae39ee849d1",
-        adjustPoints)
-    .build();
+    "bc29a517-3dc9-450e-aa76-fae39ee849d1",
+    new LoyaltyEventAdjustPoints.Builder(
+        10
+    )
+    .reason("Complimentary points")
+    .build()
+)
+.build();
 
 loyaltyApi.adjustLoyaltyPointsAsync(accountId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -293,27 +295,24 @@ CompletableFuture<SearchLoyaltyEventsResponse> searchLoyaltyEventsAsync(
 ## Example Usage
 
 ```java
-LoyaltyEventOrderFilter orderFilter = new LoyaltyEventOrderFilter.Builder(
-        "PyATxhYLfsMqpVkcKJITPydgEYfZY")
-    .build();
-
-LoyaltyEventFilter filter = new LoyaltyEventFilter.Builder()
-    .orderFilter(orderFilter)
-    .build();
-
-LoyaltyEventQuery query = new LoyaltyEventQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchLoyaltyEventsRequest body = new SearchLoyaltyEventsRequest.Builder()
-    .query(query)
+    .query(new LoyaltyEventQuery.Builder()
+        .filter(new LoyaltyEventFilter.Builder()
+            .orderFilter(new LoyaltyEventOrderFilter.Builder(
+                "PyATxhYLfsMqpVkcKJITPydgEYfZY"
+            )
+            .build())
+            .build())
+        .build())
     .limit(30)
     .build();
 
 loyaltyApi.searchLoyaltyEventsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -326,7 +325,7 @@ loyaltyApi.searchLoyaltyEventsAsync(body).thenAccept(result -> {
 Returns a list of loyalty programs in the seller's account.
 Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
 
-Replaced with [RetrieveLoyaltyProgram](../../doc/api/loyalty.md#retrieve-loyalty-program) when used with the keyword `main`.
+Replaced with [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) when used with the keyword `main`.
 
 ```java
 CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync()
@@ -341,8 +340,10 @@ CompletableFuture<ListLoyaltyProgramsResponse> listLoyaltyProgramsAsync()
 ```java
 loyaltyApi.listLoyaltyProgramsAsync().thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -376,8 +377,10 @@ String programId = "program_id0";
 
 loyaltyApi.retrieveLoyaltyProgramAsync(programId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -411,7 +414,7 @@ CompletableFuture<CalculateLoyaltyPointsResponse> calculateLoyaltyPointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `programId` | `String` | Template, Required | The ID of the [loyalty program](../../doc/models/loyalty-program.md), which defines the rules for accruing points. |
+| `programId` | `String` | Template, Required | The ID of the [loyalty program](entity:LoyaltyProgram), which defines the rules for accruing points. |
 | `body` | [`CalculateLoyaltyPointsRequest`](../../doc/models/calculate-loyalty-points-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -429,8 +432,10 @@ CalculateLoyaltyPointsRequest body = new CalculateLoyaltyPointsRequest.Builder()
 
 loyaltyApi.calculateLoyaltyPointsAsync(programId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -453,7 +458,7 @@ CompletableFuture<ListLoyaltyPromotionsResponse> listLoyaltyPromotionsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `programId` | `String` | Template, Required | The ID of the base [loyalty program](../../doc/models/loyalty-program.md). To get the program ID,<br>call [RetrieveLoyaltyProgram](../../doc/api/loyalty.md#retrieve-loyalty-program) using the `main` keyword. |
+| `programId` | `String` | Template, Required | The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,<br>call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword. |
 | `status` | [`String`](../../doc/models/loyalty-promotion-status.md) | Query, Optional | The status to filter the results by. If a status is provided, only loyalty promotions<br>with the specified status are returned. Otherwise, all loyalty promotions associated with<br>the loyalty program are returned. |
 | `cursor` | `String` | Query, Optional | The cursor returned in the paged response from the previous call to this endpoint.<br>Provide this cursor to retrieve the next page of results for your original request.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single paged response.<br>The minimum value is 1 and the maximum value is 30. The default value is 30.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
@@ -469,8 +474,10 @@ String programId = "program_id0";
 
 loyaltyApi.listLoyaltyPromotionsAsync(programId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -495,7 +502,7 @@ CompletableFuture<CreateLoyaltyPromotionResponse> createLoyaltyPromotionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `programId` | `String` | Template, Required | The ID of the [loyalty program](../../doc/models/loyalty-program.md) to associate with the promotion.<br>To get the program ID, call [RetrieveLoyaltyProgram](../../doc/api/loyalty.md#retrieve-loyalty-program)<br>using the `main` keyword. |
+| `programId` | `String` | Template, Required | The ID of the [loyalty program](entity:LoyaltyProgram) to associate with the promotion.<br>To get the program ID, call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram)<br>using the `main` keyword. |
 | `body` | [`CreateLoyaltyPromotionRequest`](../../doc/models/create-loyalty-promotion-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -506,53 +513,47 @@ CompletableFuture<CreateLoyaltyPromotionResponse> createLoyaltyPromotionAsync(
 
 ```java
 String programId = "program_id0";
-LoyaltyPromotionIncentivePointsMultiplierData pointsMultiplierData = new LoyaltyPromotionIncentivePointsMultiplierData.Builder(
-        3)
-    .build();
-
-LoyaltyPromotionIncentive incentive = new LoyaltyPromotionIncentive.Builder(
-        "POINTS_MULTIPLIER")
-    .pointsMultiplierData(pointsMultiplierData)
-    .build();
-
-List<String> timePeriods = new LinkedList<>();
-timePeriods.add("BEGIN:VEVENT\\nDTSTART:20220816T160000\\nDURATION:PT2H\\nRRULE:FREQ=WEEKLY;BYDAY=TU\\nEND:VEVENT");
-
-LoyaltyPromotionAvailableTimeData availableTime = new LoyaltyPromotionAvailableTimeData.Builder(
-        timePeriods)
-    .build();
-
-LoyaltyPromotionTriggerLimit triggerLimit = new LoyaltyPromotionTriggerLimit.Builder(
-        1)
-    .interval("DAY")
-    .build();
-
-Money minimumSpendAmountMoney = new Money.Builder()
-    .amount(2000L)
-    .currency("USD")
-    .build();
-
-List<String> qualifyingCategoryIds = new LinkedList<>();
-qualifyingCategoryIds.add("XTQPYLR3IIU9C44VRCB3XD12");
-
-LoyaltyPromotion loyaltyPromotion = new LoyaltyPromotion.Builder(
-        "Tuesday Happy Hour Promo",
-        incentive,
-        availableTime)
-    .triggerLimit(triggerLimit)
-    .minimumSpendAmountMoney(minimumSpendAmountMoney)
-    .qualifyingCategoryIds(qualifyingCategoryIds)
-    .build();
-
 CreateLoyaltyPromotionRequest body = new CreateLoyaltyPromotionRequest.Builder(
-        loyaltyPromotion,
-        "ec78c477-b1c3-4899-a209-a4e71337c996")
-    .build();
+    new LoyaltyPromotion.Builder(
+        "Tuesday Happy Hour Promo",
+        new LoyaltyPromotionIncentive.Builder(
+            "POINTS_MULTIPLIER"
+        )
+        .pointsMultiplierData(new LoyaltyPromotionIncentivePointsMultiplierData.Builder(
+                3
+            )
+            .build())
+        .build(),
+        new LoyaltyPromotionAvailableTimeData.Builder(
+            Arrays.asList(
+                "BEGIN:VEVENT\\nDTSTART:20220816T160000\\nDURATION:PT2H\\nRRULE:FREQ=WEEKLY;BYDAY=TU\\nEND:VEVENT"
+            )
+        )
+        .build()
+    )
+    .triggerLimit(new LoyaltyPromotionTriggerLimit.Builder(
+            1
+        )
+        .interval("DAY")
+        .build())
+    .minimumSpendAmountMoney(new Money.Builder()
+            .amount(2000L)
+            .currency("USD")
+            .build())
+    .qualifyingCategoryIds(Arrays.asList(
+            "XTQPYLR3IIU9C44VRCB3XD12"
+        ))
+    .build(),
+    "ec78c477-b1c3-4899-a209-a4e71337c996"
+)
+.build();
 
 loyaltyApi.createLoyaltyPromotionAsync(programId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -572,8 +573,8 @@ CompletableFuture<RetrieveLoyaltyPromotionResponse> retrieveLoyaltyPromotionAsyn
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `promotionId` | `String` | Template, Required | The ID of the [loyalty promotion](../../doc/models/loyalty-promotion.md) to retrieve. |
-| `programId` | `String` | Template, Required | The ID of the base [loyalty program](../../doc/models/loyalty-program.md). To get the program ID,<br>call [RetrieveLoyaltyProgram](../../doc/api/loyalty.md#retrieve-loyalty-program) using the `main` keyword. |
+| `promotionId` | `String` | Template, Required | The ID of the [loyalty promotion](entity:LoyaltyPromotion) to retrieve. |
+| `programId` | `String` | Template, Required | The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,<br>call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword. |
 
 ## Response Type
 
@@ -587,8 +588,10 @@ String programId = "program_id0";
 
 loyaltyApi.retrieveLoyaltyPromotionAsync(promotionId, programId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -613,8 +616,8 @@ CompletableFuture<CancelLoyaltyPromotionResponse> cancelLoyaltyPromotionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `promotionId` | `String` | Template, Required | The ID of the [loyalty promotion](../../doc/models/loyalty-promotion.md) to cancel. You can cancel a<br>promotion that has an `ACTIVE` or `SCHEDULED` status. |
-| `programId` | `String` | Template, Required | The ID of the base [loyalty program](../../doc/models/loyalty-program.md). |
+| `promotionId` | `String` | Template, Required | The ID of the [loyalty promotion](entity:LoyaltyPromotion) to cancel. You can cancel a<br>promotion that has an `ACTIVE` or `SCHEDULED` status. |
+| `programId` | `String` | Template, Required | The ID of the base [loyalty program](entity:LoyaltyProgram). |
 
 ## Response Type
 
@@ -628,8 +631,10 @@ String programId = "program_id0";
 
 loyaltyApi.cancelLoyaltyPromotionAsync(promotionId, programId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -664,21 +669,23 @@ CompletableFuture<CreateLoyaltyRewardResponse> createLoyaltyRewardAsync(
 ## Example Usage
 
 ```java
-LoyaltyReward reward = new LoyaltyReward.Builder(
-        "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd",
-        "e1b39225-9da5-43d1-a5db-782cdd8ad94f")
-    .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
-    .build();
-
 CreateLoyaltyRewardRequest body = new CreateLoyaltyRewardRequest.Builder(
-        reward,
-        "18c2e5ea-a620-4b1f-ad60-7b167285e451")
-    .build();
+    new LoyaltyReward.Builder(
+        "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd",
+        "e1b39225-9da5-43d1-a5db-782cdd8ad94f"
+    )
+    .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
+    .build(),
+    "18c2e5ea-a620-4b1f-ad60-7b167285e451"
+)
+.build();
 
 loyaltyApi.createLoyaltyRewardAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -712,19 +719,20 @@ CompletableFuture<SearchLoyaltyRewardsResponse> searchLoyaltyRewardsAsync(
 ## Example Usage
 
 ```java
-SearchLoyaltyRewardsRequestLoyaltyRewardQuery query = new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
-        "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
-    .build();
-
 SearchLoyaltyRewardsRequest body = new SearchLoyaltyRewardsRequest.Builder()
-    .query(query)
+    .query(new SearchLoyaltyRewardsRequestLoyaltyRewardQuery.Builder(
+        "5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd"
+    )
+    .build())
     .limit(10)
     .build();
 
 loyaltyApi.searchLoyaltyRewardsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -751,7 +759,7 @@ CompletableFuture<DeleteLoyaltyRewardResponse> deleteLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](../../doc/models/loyalty-reward.md) to delete. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](entity:LoyaltyReward) to delete. |
 
 ## Response Type
 
@@ -764,8 +772,10 @@ String rewardId = "reward_id4";
 
 loyaltyApi.deleteLoyaltyRewardAsync(rewardId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -784,7 +794,7 @@ CompletableFuture<RetrieveLoyaltyRewardResponse> retrieveLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](../../doc/models/loyalty-reward.md) to retrieve. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](entity:LoyaltyReward) to retrieve. |
 
 ## Response Type
 
@@ -797,8 +807,10 @@ String rewardId = "reward_id4";
 
 loyaltyApi.retrieveLoyaltyRewardAsync(rewardId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -828,7 +840,7 @@ CompletableFuture<RedeemLoyaltyRewardResponse> redeemLoyaltyRewardAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](../../doc/models/loyalty-reward.md) to redeem. |
+| `rewardId` | `String` | Template, Required | The ID of the [loyalty reward](entity:LoyaltyReward) to redeem. |
 | `body` | [`RedeemLoyaltyRewardRequest`](../../doc/models/redeem-loyalty-reward-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -840,14 +852,17 @@ CompletableFuture<RedeemLoyaltyRewardResponse> redeemLoyaltyRewardAsync(
 ```java
 String rewardId = "reward_id4";
 RedeemLoyaltyRewardRequest body = new RedeemLoyaltyRewardRequest.Builder(
-        "98adc7f7-6963-473b-b29c-f3c9cdd7d994",
-        "P034NEENMD09F")
-    .build();
+    "98adc7f7-6963-473b-b29c-f3c9cdd7d994",
+    "P034NEENMD09F"
+)
+.build();
 
 loyaltyApi.redeemLoyaltyRewardAsync(rewardId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

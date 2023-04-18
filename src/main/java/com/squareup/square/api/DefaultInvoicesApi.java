@@ -245,9 +245,10 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
-     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
-     *         [ListInvoices]($e/Invoices/ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice](entity:Invoice) to delete.
+     *         If you do not know the version, you can call
+     *         [GetInvoice](api-endpoint:Invoices-GetInvoice) or
+     *         [ListInvoices](api-endpoint:Invoices-ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -263,9 +264,10 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * changes to CANCELED. You can only delete a draft invoice (you cannot delete a published
      * invoice, including one that is scheduled for processing).
      * @param  invoiceId  Required parameter: The ID of the invoice to delete.
-     * @param  version  Optional parameter: The version of the [invoice]($m/Invoice) to delete. If
-     *         you do not know the version, you can call [GetInvoice]($e/Invoices/GetInvoice) or
-     *         [ListInvoices]($e/Invoices/ListInvoices).
+     * @param  version  Optional parameter: The version of the [invoice](entity:Invoice) to delete.
+     *         If you do not know the version, you can call
+     *         [GetInvoice](api-endpoint:Invoices-GetInvoice) or
+     *         [ListInvoices](api-endpoint:Invoices-ListInvoices).
      * @return    Returns the DeleteInvoiceResponse response from the API call
      */
     public CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
@@ -433,7 +435,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call
@@ -450,7 +452,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot
      * cancel an invoice in the `DRAFT` state or in a terminal state: `PAID`, `REFUNDED`,
      * `CANCELED`, or `FAILED`.
-     * @param  invoiceId  Required parameter: The ID of the [invoice]($m/Invoice) to cancel.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to cancel.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CancelInvoiceResponse response from the API call

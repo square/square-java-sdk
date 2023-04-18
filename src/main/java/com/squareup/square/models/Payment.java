@@ -597,7 +597,7 @@ public class Payment {
 
     /**
      * Getter for TeamMemberId.
-     * An optional ID of the [TeamMember]($m/TeamMember) associated with taking the payment.
+     * An optional ID of the [TeamMember](entity:TeamMember) associated with taking the payment.
      * @return Returns the String
      */
     @JsonGetter("team_member_id")

@@ -56,8 +56,10 @@ CompletableFuture<ListCustomersResponse> listCustomersAsync(
 ```java
 customersApi.listCustomersAsync(null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -94,20 +96,18 @@ CompletableFuture<CreateCustomerResponse> createCustomerAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
-    .addressLine1("500 Electric Ave")
-    .addressLine2("Suite 600")
-    .locality("New York")
-    .administrativeDistrictLevel1("NY")
-    .postalCode("10003")
-    .country("US")
-    .build();
-
 CreateCustomerRequest body = new CreateCustomerRequest.Builder()
     .givenName("Amelia")
     .familyName("Earhart")
     .emailAddress("Amelia.Earhart@example.com")
-    .address(address)
+    .address(new Address.Builder()
+        .addressLine1("500 Electric Ave")
+        .addressLine2("Suite 600")
+        .locality("New York")
+        .administrativeDistrictLevel1("NY")
+        .postalCode("10003")
+        .country("US")
+        .build())
     .phoneNumber("+1-212-555-4240")
     .referenceId("YOUR_REFERENCE_ID")
     .note("a customer")
@@ -115,8 +115,10 @@ CreateCustomerRequest body = new CreateCustomerRequest.Builder()
 
 customersApi.createCustomerAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -152,56 +154,42 @@ CompletableFuture<SearchCustomersResponse> searchCustomersAsync(
 ## Example Usage
 
 ```java
-List<String> values = new LinkedList<>();
-values.add("THIRD_PARTY");
-
-CustomerCreationSourceFilter creationSource = new CustomerCreationSourceFilter.Builder()
-    .values(values)
-    .rule("INCLUDE")
-    .build();
-
-TimeRange createdAt = new TimeRange.Builder()
-    .startAt("2018-01-01T00:00:00+00:00")
-    .endAt("2018-02-01T00:00:00+00:00")
-    .build();
-
-CustomerTextFilter emailAddress = new CustomerTextFilter.Builder()
-    .fuzzy("example.com")
-    .build();
-
-List<String> all = new LinkedList<>();
-all.add("545AXB44B4XXWMVQ4W8SBT3HHF");
-
-FilterValue groupIds = new FilterValue.Builder()
-    .all(all)
-    .build();
-
-CustomerFilter filter = new CustomerFilter.Builder()
-    .creationSource(creationSource)
-    .createdAt(createdAt)
-    .emailAddress(emailAddress)
-    .groupIds(groupIds)
-    .build();
-
-CustomerSort sort = new CustomerSort.Builder()
-    .field("CREATED_AT")
-    .order("ASC")
-    .build();
-
-CustomerQuery query = new CustomerQuery.Builder()
-    .filter(filter)
-    .sort(sort)
-    .build();
-
 SearchCustomersRequest body = new SearchCustomersRequest.Builder()
     .limit(2L)
-    .query(query)
+    .query(new CustomerQuery.Builder()
+        .filter(new CustomerFilter.Builder()
+            .creationSource(new CustomerCreationSourceFilter.Builder()
+                .values(Arrays.asList(
+                    "THIRD_PARTY"
+                ))
+                .rule("INCLUDE")
+                .build())
+            .createdAt(new TimeRange.Builder()
+                .startAt("2018-01-01T00:00:00+00:00")
+                .endAt("2018-02-01T00:00:00+00:00")
+                .build())
+            .emailAddress(new CustomerTextFilter.Builder()
+                .fuzzy("example.com")
+                .build())
+            .groupIds(new FilterValue.Builder()
+                .all(Arrays.asList(
+                    "545AXB44B4XXWMVQ4W8SBT3HHF"
+                ))
+                .build())
+            .build())
+        .sort(new CustomerSort.Builder()
+            .field("CREATED_AT")
+            .order("ASC")
+            .build())
+        .build())
     .build();
 
 customersApi.searchCustomersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -240,8 +228,10 @@ String customerId = "customer_id8";
 
 customersApi.deleteCustomerAsync(customerId, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -273,8 +263,10 @@ String customerId = "customer_id8";
 
 customersApi.retrieveCustomerAsync(customerId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -323,8 +315,10 @@ UpdateCustomerRequest body = new UpdateCustomerRequest.Builder()
 
 customersApi.updateCustomerAsync(customerId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -361,25 +355,26 @@ CompletableFuture<CreateCustomerCardResponse> createCustomerCardAsync(
 
 ```java
 String customerId = "customer_id8";
-Address billingAddress = new Address.Builder()
-    .addressLine1("500 Electric Ave")
-    .addressLine2("Suite 600")
-    .locality("New York")
-    .administrativeDistrictLevel1("NY")
-    .postalCode("10003")
-    .country("US")
-    .build();
-
 CreateCustomerCardRequest body = new CreateCustomerCardRequest.Builder(
-        "YOUR_CARD_NONCE")
-    .billingAddress(billingAddress)
-    .cardholderName("Amelia Earhart")
-    .build();
+    "YOUR_CARD_NONCE"
+)
+.billingAddress(new Address.Builder()
+        .addressLine1("500 Electric Ave")
+        .addressLine2("Suite 600")
+        .locality("New York")
+        .administrativeDistrictLevel1("NY")
+        .postalCode("10003")
+        .country("US")
+        .build())
+.cardholderName("Amelia Earhart")
+.build();
 
 customersApi.createCustomerCardAsync(customerId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -416,8 +411,10 @@ String cardId = "card_id4";
 
 customersApi.deleteCustomerCardAsync(customerId, cardId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -455,8 +452,10 @@ String groupId = "group_id0";
 
 customersApi.removeGroupFromCustomerAsync(customerId, groupId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -494,8 +493,10 @@ String groupId = "group_id0";
 
 customersApi.addGroupToCustomerAsync(customerId, groupId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

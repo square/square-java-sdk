@@ -58,8 +58,10 @@ CompletableFuture<ListBookingsResponse> listBookingsAsync(
 ```java
 bookingsApi.listBookingsAsync(null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -71,8 +73,8 @@ Creates a booking.
 
 The required input must include the following:
 
-- `Booking.location_id`,
-- `Booking.start_at`,
+- `Booking.location_id`
+- `Booking.start_at`
 - `Booking.team_member_id`
 - `Booking.AppointmentSegment.service_variation_id`
 - `Booking.AppointmentSegment.service_variation_version`
@@ -101,17 +103,18 @@ CompletableFuture<CreateBookingResponse> createBookingAsync(
 ## Example Usage
 
 ```java
-Booking booking = new Booking.Builder()
-    .build();
-
 CreateBookingRequest body = new CreateBookingRequest.Builder(
-        booking)
-    .build();
+    new Booking.Builder()
+        .build()
+)
+.build();
 
 bookingsApi.createBookingAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -142,25 +145,24 @@ CompletableFuture<SearchAvailabilityResponse> searchAvailabilityAsync(
 ## Example Usage
 
 ```java
-TimeRange startAtRange = new TimeRange.Builder()
-    .build();
-
-SearchAvailabilityFilter filter = new SearchAvailabilityFilter.Builder(
-        startAtRange)
-    .build();
-
-SearchAvailabilityQuery query = new SearchAvailabilityQuery.Builder(
-        filter)
-    .build();
-
 SearchAvailabilityRequest body = new SearchAvailabilityRequest.Builder(
-        query)
-    .build();
+    new SearchAvailabilityQuery.Builder(
+        new SearchAvailabilityFilter.Builder(
+            new TimeRange.Builder()
+                .build()
+        )
+        .build()
+    )
+    .build()
+)
+.build();
 
 bookingsApi.searchAvailabilityAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -183,8 +185,10 @@ CompletableFuture<RetrieveBusinessBookingProfileResponse> retrieveBusinessBookin
 ```java
 bookingsApi.retrieveBusinessBookingProfileAsync().thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -222,8 +226,10 @@ Boolean bookableOnly = false;
 
 bookingsApi.listTeamMemberBookingProfilesAsync(bookableOnly, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -255,8 +261,10 @@ String teamMemberId = "team_member_id0";
 
 bookingsApi.retrieveTeamMemberBookingProfileAsync(teamMemberId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -278,7 +286,7 @@ CompletableFuture<RetrieveBookingResponse> retrieveBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-retrieved booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-retrieved booking. |
 
 ## Response Type
 
@@ -291,8 +299,10 @@ String bookingId = "booking_id4";
 
 bookingsApi.retrieveBookingAsync(bookingId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -318,7 +328,7 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-updated booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-updated booking. |
 | `body` | [`UpdateBookingRequest`](../../doc/models/update-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -329,17 +339,18 @@ CompletableFuture<UpdateBookingResponse> updateBookingAsync(
 
 ```java
 String bookingId = "booking_id4";
-Booking booking = new Booking.Builder()
-    .build();
-
 UpdateBookingRequest body = new UpdateBookingRequest.Builder(
-        booking)
-    .build();
+    new Booking.Builder()
+        .build()
+)
+.build();
 
 bookingsApi.updateBookingAsync(bookingId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -365,7 +376,7 @@ CompletableFuture<CancelBookingResponse> cancelBookingAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-cancelled booking. |
+| `bookingId` | `String` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-cancelled booking. |
 | `body` | [`CancelBookingRequest`](../../doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -381,8 +392,10 @@ CancelBookingRequest body = new CancelBookingRequest.Builder()
 
 bookingsApi.cancelBookingAsync(bookingId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

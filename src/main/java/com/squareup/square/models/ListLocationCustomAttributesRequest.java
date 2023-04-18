@@ -121,10 +121,11 @@ public class ListLocationCustomAttributesRequest {
 
     /**
      * Internal Getter for WithDefinitions.
-     * Indicates whether to return the [custom attribute definition]($m/CustomAttributeDefinition)
-     * in the `definition` field of each custom attribute. Set this parameter to `true` to get the
-     * name and description of each custom attribute, information about the data type, or other
-     * definition details. The default value is `false`.
+     * Indicates whether to return the [custom attribute
+     * definition](entity:CustomAttributeDefinition) in the `definition` field of each custom
+     * attribute. Set this parameter to `true` to get the name and description of each custom
+     * attribute, information about the data type, or other definition details. The default value is
+     * `false`.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("with_definitions")
@@ -136,10 +137,11 @@ public class ListLocationCustomAttributesRequest {
 
     /**
      * Getter for WithDefinitions.
-     * Indicates whether to return the [custom attribute definition]($m/CustomAttributeDefinition)
-     * in the `definition` field of each custom attribute. Set this parameter to `true` to get the
-     * name and description of each custom attribute, information about the data type, or other
-     * definition details. The default value is `false`.
+     * Indicates whether to return the [custom attribute
+     * definition](entity:CustomAttributeDefinition) in the `definition` field of each custom
+     * attribute. Set this parameter to `true` to get the name and description of each custom
+     * attribute, information about the data type, or other definition details. The default value is
+     * `false`.
      * @return Returns the Boolean
      */
     @JsonIgnore

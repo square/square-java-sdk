@@ -235,9 +235,9 @@ public class RefundPaymentRequest {
 
     /**
      * Internal Getter for CustomerId.
-     * The [Customer]($m/Customer) ID of the customer associated with the refund. This is required
-     * if the `destination_id` refers to a card on file created using the Cards API. Only allowed
-     * when `unlinked=true`.
+     * The [Customer](entity:Customer) ID of the customer associated with the refund. This is
+     * required if the `destination_id` refers to a card on file created using the Cards API. Only
+     * allowed when `unlinked=true`.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_id")
@@ -249,9 +249,9 @@ public class RefundPaymentRequest {
 
     /**
      * Getter for CustomerId.
-     * The [Customer]($m/Customer) ID of the customer associated with the refund. This is required
-     * if the `destination_id` refers to a card on file created using the Cards API. Only allowed
-     * when `unlinked=true`.
+     * The [Customer](entity:Customer) ID of the customer associated with the refund. This is
+     * required if the `destination_id` refers to a card on file created using the Cards API. Only
+     * allowed when `unlinked=true`.
      * @return Returns the String
      */
     @JsonIgnore
@@ -311,7 +311,7 @@ public class RefundPaymentRequest {
 
     /**
      * Internal Getter for TeamMemberId.
-     * An optional [TeamMember]($m/TeamMember) ID to associate with this refund.
+     * An optional [TeamMember](entity:TeamMember) ID to associate with this refund.
      * @return Returns the Internal String
      */
     @JsonGetter("team_member_id")
@@ -323,7 +323,7 @@ public class RefundPaymentRequest {
 
     /**
      * Getter for TeamMemberId.
-     * An optional [TeamMember]($m/TeamMember) ID to associate with this refund.
+     * An optional [TeamMember](entity:TeamMember) ID to associate with this refund.
      * @return Returns the String
      */
     @JsonIgnore

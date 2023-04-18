@@ -31,7 +31,7 @@ public class BookingCustomAttributeDeleteResponse {
 
     /**
      * Getter for BookingId.
-     * The ID of the [booking]($m/Booking) associated with the custom attribute.
+     * The ID of the [booking](entity:Booking) associated with the custom attribute.
      * @return Returns the String
      */
     @JsonGetter("booking_id")

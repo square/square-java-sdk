@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2023-03-15"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2023-04-19"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2023-03-15")
+    .squareVersion("2023-04-19")
     .accessToken("AccessToken")
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
@@ -31,13 +31,8 @@ SquareClient client = new SquareClient.Builder()
 ```java
 package com.example;
 
-import java.util.*;
-import java.io.*;
-
-import com.squareup.square.*;
-import com.squareup.square.models.*;
-import com.squareup.square.api.*;
-import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.SquareClient;
+import com.squareup.square.api.LocationsApi;
 
 public class Program {
 
@@ -45,16 +40,18 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2023-03-15")
+            .squareVersion("2023-04-19")
             .accessToken("AccessToken")
             .build();
-        
+
         LocationsApi locationsApi = client.getLocationsApi();
-        
+
         locationsApi.listLocationsAsync().thenAccept(result -> {
             // TODO success callback handler
+            System.out.println(result);
         }).exceptionally(exception -> {
             // TODO failure callback handler
+            exception.printStackTrace();
             return null;
         });
     }

@@ -51,9 +51,9 @@ public class BulkUpdateVendorsResponse {
 
     /**
      * Getter for Responses.
-     * A set of [UpdateVendorResponse]($m/UpdateVendorResponse) objects encapsulating successfully
-     * created [Vendor]($m/Vendor) objects or error responses for failed attempts. The set is
-     * represented by a collection of `Vendor`-ID/`UpdateVendorResponse`-object or
+     * A set of [UpdateVendorResponse](entity:UpdateVendorResponse) objects encapsulating
+     * successfully created [Vendor](entity:Vendor) objects or error responses for failed attempts.
+     * The set is represented by a collection of `Vendor`-ID/`UpdateVendorResponse`-object or
      * `Vendor`-ID/error-object pairs.
      * @return Returns the Map of String, UpdateVendorResponse
      */

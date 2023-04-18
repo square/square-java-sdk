@@ -31,6 +31,8 @@ public class OrderServiceCharge {
     private final OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
     private final OptionalNullable<Map<String, String>> metadata;
     private final String type;
+    private final String treatmentType;
+    private final String scope;
 
     /**
      * Initialization constructor.
@@ -48,6 +50,8 @@ public class OrderServiceCharge {
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
      * @param  metadata  Map of String, value for metadata.
      * @param  type  String value for type.
+     * @param  treatmentType  String value for treatmentType.
+     * @param  scope  String value for scope.
      */
     @JsonCreator
     public OrderServiceCharge(
@@ -64,7 +68,9 @@ public class OrderServiceCharge {
             @JsonProperty("taxable") Boolean taxable,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("metadata") Map<String, String> metadata,
-            @JsonProperty("type") String type) {
+            @JsonProperty("type") String type,
+            @JsonProperty("treatment_type") String treatmentType,
+            @JsonProperty("scope") String scope) {
         this.uid = OptionalNullable.of(uid);
         this.name = OptionalNullable.of(name);
         this.catalogObjectId = OptionalNullable.of(catalogObjectId);
@@ -79,6 +85,8 @@ public class OrderServiceCharge {
         this.appliedTaxes = OptionalNullable.of(appliedTaxes);
         this.metadata = OptionalNullable.of(metadata);
         this.type = type;
+        this.treatmentType = treatmentType;
+        this.scope = scope;
     }
 
     /**
@@ -90,7 +98,8 @@ public class OrderServiceCharge {
             Money totalMoney, Money totalTaxMoney, String calculationPhase,
             OptionalNullable<Boolean> taxable,
             OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes,
-            OptionalNullable<Map<String, String>> metadata, String type) {
+            OptionalNullable<Map<String, String>> metadata, String type, String treatmentType,
+            String scope) {
         this.uid = uid;
         this.name = name;
         this.catalogObjectId = catalogObjectId;
@@ -105,6 +114,8 @@ public class OrderServiceCharge {
         this.appliedTaxes = appliedTaxes;
         this.metadata = metadata;
         this.type = type;
+        this.treatmentType = treatmentType;
+        this.scope = scope;
     }
 
     /**
@@ -153,7 +164,7 @@ public class OrderServiceCharge {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing the service charge [CatalogObject]($m/CatalogObject).
+     * The catalog object ID referencing the service charge [CatalogObject](entity:CatalogObject).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -165,7 +176,7 @@ public class OrderServiceCharge {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing the service charge [CatalogObject]($m/CatalogObject).
+     * The catalog object ID referencing the service charge [CatalogObject](entity:CatalogObject).
      * @return Returns the String
      */
     @JsonIgnore
@@ -414,11 +425,34 @@ public class OrderServiceCharge {
         return type;
     }
 
+    /**
+     * Getter for TreatmentType.
+     * Indicates whether the service charge will be treated as a value-holding line item or
+     * apportioned toward a line item.
+     * @return Returns the String
+     */
+    @JsonGetter("treatment_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTreatmentType() {
+        return treatmentType;
+    }
+
+    /**
+     * Getter for Scope.
+     * Indicates whether this is a line-item or order-level apportioned service charge.
+     * @return Returns the String
+     */
+    @JsonGetter("scope")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getScope() {
+        return scope;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, catalogObjectId, catalogVersion, percentage, amountMoney,
                 appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable, appliedTaxes,
-                metadata, type);
+                metadata, type, treatmentType, scope);
     }
 
     @Override
@@ -443,7 +477,9 @@ public class OrderServiceCharge {
             && Objects.equals(taxable, other.taxable)
             && Objects.equals(appliedTaxes, other.appliedTaxes)
             && Objects.equals(metadata, other.metadata)
-            && Objects.equals(type, other.type);
+            && Objects.equals(type, other.type)
+            && Objects.equals(treatmentType, other.treatmentType)
+            && Objects.equals(scope, other.scope);
     }
 
     /**
@@ -458,7 +494,7 @@ public class OrderServiceCharge {
                 + ", totalMoney=" + totalMoney + ", totalTaxMoney=" + totalTaxMoney
                 + ", calculationPhase=" + calculationPhase + ", taxable=" + taxable
                 + ", appliedTaxes=" + appliedTaxes + ", metadata=" + metadata + ", type=" + type
-                + "]";
+                + ", treatmentType=" + treatmentType + ", scope=" + scope + "]";
     }
 
     /**
@@ -473,7 +509,9 @@ public class OrderServiceCharge {
                 .totalMoney(getTotalMoney())
                 .totalTaxMoney(getTotalTaxMoney())
                 .calculationPhase(getCalculationPhase())
-                .type(getType());
+                .type(getType())
+                .treatmentType(getTreatmentType())
+                .scope(getScope());
         builder.uid = internalGetUid();
         builder.name = internalGetName();
         builder.catalogObjectId = internalGetCatalogObjectId();
@@ -503,6 +541,8 @@ public class OrderServiceCharge {
         private OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
         private OptionalNullable<Map<String, String>> metadata;
         private String type;
+        private String treatmentType;
+        private String scope;
 
 
 
@@ -719,13 +759,33 @@ public class OrderServiceCharge {
         }
 
         /**
+         * Setter for treatmentType.
+         * @param  treatmentType  String value for treatmentType.
+         * @return Builder
+         */
+        public Builder treatmentType(String treatmentType) {
+            this.treatmentType = treatmentType;
+            return this;
+        }
+
+        /**
+         * Setter for scope.
+         * @param  scope  String value for scope.
+         * @return Builder
+         */
+        public Builder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderServiceCharge} object using the set fields.
          * @return {@link OrderServiceCharge}
          */
         public OrderServiceCharge build() {
             return new OrderServiceCharge(uid, name, catalogObjectId, catalogVersion, percentage,
                     amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase, taxable,
-                    appliedTaxes, metadata, type);
+                    appliedTaxes, metadata, type, treatmentType, scope);
         }
     }
 }

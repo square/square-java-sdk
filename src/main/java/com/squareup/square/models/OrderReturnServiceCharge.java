@@ -29,6 +29,8 @@ public class OrderReturnServiceCharge {
     private final String calculationPhase;
     private final OptionalNullable<Boolean> taxable;
     private final OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
+    private final String treatmentType;
+    private final String scope;
 
     /**
      * Initialization constructor.
@@ -45,6 +47,8 @@ public class OrderReturnServiceCharge {
      * @param  calculationPhase  String value for calculationPhase.
      * @param  taxable  Boolean value for taxable.
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
+     * @param  treatmentType  String value for treatmentType.
+     * @param  scope  String value for scope.
      */
     @JsonCreator
     public OrderReturnServiceCharge(
@@ -60,7 +64,9 @@ public class OrderReturnServiceCharge {
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("calculation_phase") String calculationPhase,
             @JsonProperty("taxable") Boolean taxable,
-            @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes) {
+            @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
+            @JsonProperty("treatment_type") String treatmentType,
+            @JsonProperty("scope") String scope) {
         this.uid = OptionalNullable.of(uid);
         this.sourceServiceChargeUid = OptionalNullable.of(sourceServiceChargeUid);
         this.name = OptionalNullable.of(name);
@@ -74,6 +80,8 @@ public class OrderReturnServiceCharge {
         this.calculationPhase = calculationPhase;
         this.taxable = OptionalNullable.of(taxable);
         this.appliedTaxes = OptionalNullable.of(appliedTaxes);
+        this.treatmentType = treatmentType;
+        this.scope = scope;
     }
 
     /**
@@ -85,7 +93,8 @@ public class OrderReturnServiceCharge {
             OptionalNullable<String> percentage, Money amountMoney, Money appliedMoney,
             Money totalMoney, Money totalTaxMoney, String calculationPhase,
             OptionalNullable<Boolean> taxable,
-            OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes) {
+            OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes, String treatmentType,
+            String scope) {
         this.uid = uid;
         this.sourceServiceChargeUid = sourceServiceChargeUid;
         this.name = name;
@@ -99,6 +108,8 @@ public class OrderReturnServiceCharge {
         this.calculationPhase = calculationPhase;
         this.taxable = taxable;
         this.appliedTaxes = appliedTaxes;
+        this.treatmentType = treatmentType;
+        this.scope = scope;
     }
 
     /**
@@ -171,7 +182,7 @@ public class OrderReturnServiceCharge {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID of the associated [OrderServiceCharge]($m/OrderServiceCharge).
+     * The catalog object ID of the associated [OrderServiceCharge](entity:OrderServiceCharge).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -183,7 +194,7 @@ public class OrderReturnServiceCharge {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID of the associated [OrderServiceCharge]($m/OrderServiceCharge).
+     * The catalog object ID of the associated [OrderServiceCharge](entity:OrderServiceCharge).
      * @return Returns the String
      */
     @JsonIgnore
@@ -368,11 +379,34 @@ public class OrderReturnServiceCharge {
         return OptionalNullable.getFrom(appliedTaxes);
     }
 
+    /**
+     * Getter for TreatmentType.
+     * Indicates whether the service charge will be treated as a value-holding line item or
+     * apportioned toward a line item.
+     * @return Returns the String
+     */
+    @JsonGetter("treatment_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTreatmentType() {
+        return treatmentType;
+    }
+
+    /**
+     * Getter for Scope.
+     * Indicates whether this is a line-item or order-level apportioned service charge.
+     * @return Returns the String
+     */
+    @JsonGetter("scope")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getScope() {
+        return scope;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceServiceChargeUid, name, catalogObjectId, catalogVersion,
                 percentage, amountMoney, appliedMoney, totalMoney, totalTaxMoney, calculationPhase,
-                taxable, appliedTaxes);
+                taxable, appliedTaxes, treatmentType, scope);
     }
 
     @Override
@@ -396,7 +430,9 @@ public class OrderReturnServiceCharge {
             && Objects.equals(totalTaxMoney, other.totalTaxMoney)
             && Objects.equals(calculationPhase, other.calculationPhase)
             && Objects.equals(taxable, other.taxable)
-            && Objects.equals(appliedTaxes, other.appliedTaxes);
+            && Objects.equals(appliedTaxes, other.appliedTaxes)
+            && Objects.equals(treatmentType, other.treatmentType)
+            && Objects.equals(scope, other.scope);
     }
 
     /**
@@ -411,7 +447,8 @@ public class OrderReturnServiceCharge {
                 + ", amountMoney=" + amountMoney + ", appliedMoney=" + appliedMoney
                 + ", totalMoney=" + totalMoney + ", totalTaxMoney=" + totalTaxMoney
                 + ", calculationPhase=" + calculationPhase + ", taxable=" + taxable
-                + ", appliedTaxes=" + appliedTaxes + "]";
+                + ", appliedTaxes=" + appliedTaxes + ", treatmentType=" + treatmentType + ", scope="
+                + scope + "]";
     }
 
     /**
@@ -425,7 +462,9 @@ public class OrderReturnServiceCharge {
                 .appliedMoney(getAppliedMoney())
                 .totalMoney(getTotalMoney())
                 .totalTaxMoney(getTotalTaxMoney())
-                .calculationPhase(getCalculationPhase());
+                .calculationPhase(getCalculationPhase())
+                .treatmentType(getTreatmentType())
+                .scope(getScope());
         builder.uid = internalGetUid();
         builder.sourceServiceChargeUid = internalGetSourceServiceChargeUid();
         builder.name = internalGetName();
@@ -454,6 +493,8 @@ public class OrderReturnServiceCharge {
         private String calculationPhase;
         private OptionalNullable<Boolean> taxable;
         private OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
+        private String treatmentType;
+        private String scope;
 
 
 
@@ -660,13 +701,33 @@ public class OrderReturnServiceCharge {
         }
 
         /**
+         * Setter for treatmentType.
+         * @param  treatmentType  String value for treatmentType.
+         * @return Builder
+         */
+        public Builder treatmentType(String treatmentType) {
+            this.treatmentType = treatmentType;
+            return this;
+        }
+
+        /**
+         * Setter for scope.
+         * @param  scope  String value for scope.
+         * @return Builder
+         */
+        public Builder scope(String scope) {
+            this.scope = scope;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderReturnServiceCharge} object using the set fields.
          * @return {@link OrderReturnServiceCharge}
          */
         public OrderReturnServiceCharge build() {
             return new OrderReturnServiceCharge(uid, sourceServiceChargeUid, name, catalogObjectId,
                     catalogVersion, percentage, amountMoney, appliedMoney, totalMoney,
-                    totalTaxMoney, calculationPhase, taxable, appliedTaxes);
+                    totalTaxMoney, calculationPhase, taxable, appliedTaxes, treatmentType, scope);
         }
     }
 }

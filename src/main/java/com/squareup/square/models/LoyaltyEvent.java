@@ -164,7 +164,7 @@ public class LoyaltyEvent {
 
     /**
      * Getter for LoyaltyAccountId.
-     * The ID of the [loyalty account]($m/LoyaltyAccount) associated with the event.
+     * The ID of the [loyalty account](entity:LoyaltyAccount) associated with the event.
      * @return Returns the String
      */
     @JsonGetter("loyalty_account_id")
@@ -174,7 +174,7 @@ public class LoyaltyEvent {
 
     /**
      * Getter for LocationId.
-     * The ID of the [location]($m/Location) where the event occurred.
+     * The ID of the [location](entity:Location) where the event occurred.
      * @return Returns the String
      */
     @JsonGetter("location_id")

@@ -129,7 +129,7 @@ public class OrderReturnDiscount {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogDiscount]($m/CatalogDiscount).
+     * The catalog object ID referencing [CatalogDiscount](entity:CatalogDiscount).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -141,7 +141,7 @@ public class OrderReturnDiscount {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogDiscount]($m/CatalogDiscount).
+     * The catalog object ID referencing [CatalogDiscount](entity:CatalogDiscount).
      * @return Returns the String
      */
     @JsonIgnore

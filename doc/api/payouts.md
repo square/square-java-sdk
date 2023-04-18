@@ -41,7 +41,7 @@ CompletableFuture<ListPayoutsResponse> listPayoutsAsync(
 | `beginTime` | `String` | Query, Optional | The timestamp for the beginning of the payout creation time, in RFC 3339 format.<br>Inclusive. Default: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | The timestamp for the end of the payout creation time, in RFC 3339 format.<br>Default: The current time. |
 | `sortOrder` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which payouts are listed. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).<br>If request parameters change between requests, subsequent results may contain duplicates or missing records. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).<br>If request parameters change between requests, subsequent results may contain duplicates or missing records. |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to be returned in a single page.<br>It is possible to receive fewer results than the specified limit on a given page.<br>The default value of 100 is also the maximum allowed value. If the provided value is<br>greater than 100, it is ignored and the default value is used instead.<br>Default: `100` |
 
 ## Response Type
@@ -53,8 +53,10 @@ CompletableFuture<ListPayoutsResponse> listPayoutsAsync(
 ```java
 payoutsApi.listPayoutsAsync(null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -87,8 +89,10 @@ String payoutId = "payout_id6";
 
 payoutsApi.getPayoutAsync(payoutId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -113,7 +117,7 @@ CompletableFuture<ListPayoutEntriesResponse> listPayoutEntriesAsync(
 |  --- | --- | --- | --- |
 | `payoutId` | `String` | Template, Required | The ID of the payout to retrieve the information for. |
 | `sortOrder` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which payout entries are listed. |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).<br>If request parameters change between requests, subsequent results may contain duplicates or missing records. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).<br>If request parameters change between requests, subsequent results may contain duplicates or missing records. |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to be returned in a single page.<br>It is possible to receive fewer results than the specified limit on a given page.<br>The default value of 100 is also the maximum allowed value. If the provided value is<br>greater than 100, it is ignored and the default value is used instead.<br>Default: `100` |
 
 ## Response Type
@@ -127,8 +131,10 @@ String payoutId = "payout_id6";
 
 payoutsApi.listPayoutEntriesAsync(payoutId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

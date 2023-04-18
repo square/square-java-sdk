@@ -51,9 +51,9 @@ public class BulkRetrieveVendorsResponse {
 
     /**
      * Getter for Responses.
-     * The set of [RetrieveVendorResponse]($m/RetrieveVendorResponse) objects encapsulating
-     * successfully retrieved [Vendor]($m/Vendor) objects or error responses for failed attempts.
-     * The set is represented by a collection of `Vendor`-ID/`Vendor`-object or
+     * The set of [RetrieveVendorResponse](entity:RetrieveVendorResponse) objects encapsulating
+     * successfully retrieved [Vendor](entity:Vendor) objects or error responses for failed
+     * attempts. The set is represented by a collection of `Vendor`-ID/`Vendor`-object or
      * `Vendor`-ID/error-object pairs.
      * @return Returns the Map of String, RetrieveVendorResponse
      */

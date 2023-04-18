@@ -40,8 +40,10 @@ CompletableFuture<ListCustomerSegmentsResponse> listCustomerSegmentsAsync(
 ```java
 customerSegmentsApi.listCustomerSegmentsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -73,8 +75,10 @@ String segmentId = "segment_id4";
 
 customerSegmentsApi.retrieveCustomerSegmentAsync(segmentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

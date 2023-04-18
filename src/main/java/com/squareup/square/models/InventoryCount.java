@@ -69,7 +69,7 @@ public class InventoryCount {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -81,7 +81,7 @@ public class InventoryCount {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -91,10 +91,10 @@ public class InventoryCount {
 
     /**
      * Internal Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_type")
@@ -106,10 +106,10 @@ public class InventoryCount {
 
     /**
      * Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the String
      */
     @JsonIgnore
@@ -130,8 +130,8 @@ public class InventoryCount {
 
     /**
      * Internal Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("location_id")
@@ -143,8 +143,8 @@ public class InventoryCount {
 
     /**
      * Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the String
      */
     @JsonIgnore

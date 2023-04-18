@@ -99,8 +99,9 @@ public class ListGiftCardActivitiesRequest {
 
     /**
      * Internal Getter for Type.
-     * If a [type]($m/GiftCardActivityType) is provided, the endpoint returns gift card activities
-     * of the specified type. Otherwise, the endpoint returns all types of gift card activities.
+     * If a [type](entity:GiftCardActivityType) is provided, the endpoint returns gift card
+     * activities of the specified type. Otherwise, the endpoint returns all types of gift card
+     * activities.
      * @return Returns the Internal String
      */
     @JsonGetter("type")
@@ -112,8 +113,9 @@ public class ListGiftCardActivitiesRequest {
 
     /**
      * Getter for Type.
-     * If a [type]($m/GiftCardActivityType) is provided, the endpoint returns gift card activities
-     * of the specified type. Otherwise, the endpoint returns all types of gift card activities.
+     * If a [type](entity:GiftCardActivityType) is provided, the endpoint returns gift card
+     * activities of the specified type. Otherwise, the endpoint returns all types of gift card
+     * activities.
      * @return Returns the String
      */
     @JsonIgnore

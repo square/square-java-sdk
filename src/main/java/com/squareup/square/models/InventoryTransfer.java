@@ -147,8 +147,8 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for FromLocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
-     * was tracked before the transfer.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items was tracked before the transfer.
      * @return Returns the Internal String
      */
     @JsonGetter("from_location_id")
@@ -160,8 +160,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for FromLocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
-     * was tracked before the transfer.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items was tracked before the transfer.
      * @return Returns the String
      */
     @JsonIgnore
@@ -171,8 +171,8 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for ToLocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
-     * was tracked after the transfer.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items was tracked after the transfer.
      * @return Returns the Internal String
      */
     @JsonGetter("to_location_id")
@@ -184,8 +184,8 @@ public class InventoryTransfer {
 
     /**
      * Getter for ToLocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items
-     * was tracked after the transfer.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items was tracked after the transfer.
      * @return Returns the String
      */
     @JsonIgnore
@@ -195,7 +195,7 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -207,7 +207,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -217,10 +217,10 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_type")
@@ -232,10 +232,10 @@ public class InventoryTransfer {
 
     /**
      * Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the String
      */
     @JsonIgnore
@@ -317,7 +317,7 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the inventory
      * transfer.
      * @return Returns the Internal String
      */
@@ -330,7 +330,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the inventory
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the inventory
      * transfer.
      * @return Returns the String
      */
@@ -341,7 +341,7 @@ public class InventoryTransfer {
 
     /**
      * Internal Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the inventory
      * transfer.
      * @return Returns the Internal String
      */
@@ -354,7 +354,7 @@ public class InventoryTransfer {
 
     /**
      * Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the inventory
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the inventory
      * transfer.
      * @return Returns the String
      */

@@ -318,7 +318,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
 
     /**
      * Retrieves the vendor of a specified [Vendor]($m/Vendor) ID.
-     * @param  vendorId  Required parameter: ID of the [Vendor]($m/Vendor) to retrieve.
+     * @param  vendorId  Required parameter: ID of the [Vendor](entity:Vendor) to retrieve.
      * @return    Returns the RetrieveVendorResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -330,7 +330,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
 
     /**
      * Retrieves the vendor of a specified [Vendor]($m/Vendor) ID.
-     * @param  vendorId  Required parameter: ID of the [Vendor]($m/Vendor) to retrieve.
+     * @param  vendorId  Required parameter: ID of the [Vendor](entity:Vendor) to retrieve.
      * @return    Returns the RetrieveVendorResponse response from the API call
      */
     public CompletableFuture<RetrieveVendorResponse> retrieveVendorAsync(

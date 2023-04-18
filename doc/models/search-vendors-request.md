@@ -14,6 +14,7 @@ Represents an input into a call to [SearchVendors](../../doc/api/vendors.md#sear
 | `Filter` | [`SearchVendorsRequestFilter`](../../doc/models/search-vendors-request-filter.md) | Optional | Defines supported query expressions to search for vendors by. | SearchVendorsRequestFilter getFilter() |
 | `Sort` | [`SearchVendorsRequestSort`](../../doc/models/search-vendors-request-sort.md) | Optional | Defines a sorter used to sort results from [SearchVendors](../../doc/api/vendors.md#search-vendors). | SearchVendorsRequestSort getSort() |
 | `Cursor` | `String` | Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. | String getCursor() |
+| `Limit` | `Long` | Optional | Limit on how many vendors will be returned by the search.<br>**Constraints**: `>= 1`, `<= 500` | Long getLimit() |
 
 ## Example (as JSON)
 

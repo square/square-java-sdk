@@ -252,7 +252,7 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Internal Getter for Limit.
-     * The number of [records]($m/InventoryChange) to return.
+     * The number of [records](entity:InventoryChange) to return.
      * @return Returns the Internal Integer
      */
     @JsonGetter("limit")
@@ -264,7 +264,7 @@ public class BatchRetrieveInventoryChangesRequest {
 
     /**
      * Getter for Limit.
-     * The number of [records]($m/InventoryChange) to return.
+     * The number of [records](entity:InventoryChange) to return.
      * @return Returns the Integer
      */
     @JsonIgnore

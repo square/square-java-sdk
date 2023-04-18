@@ -33,8 +33,8 @@ public class UpsertCatalogObjectRequest {
      * way to create a valid idempotency key is to use a Universally unique identifier (UUID). If
      * you're unsure whether a particular request was successful, you can reattempt it with the same
      * idempotency key without worrying about creating duplicate objects. See
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more
-     * information.
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency)
+     * for more information.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

@@ -272,7 +272,7 @@ public interface LocationCustomAttributesApi {
      * call. When all response pages are retrieved, the results include all custom attributes that
      * are visible to the requesting application, including those that are owned by other
      * applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  visibilityFilter  Optional parameter: Filters the `CustomAttributeDefinition` results
      *         by their `visibility` values.
      * @param  limit  Optional parameter: The maximum number of results to return in a single paged
@@ -285,10 +285,10 @@ public interface LocationCustomAttributesApi {
      *         results for your original request. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListLocationCustomAttributesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -306,7 +306,7 @@ public interface LocationCustomAttributesApi {
      * call. When all response pages are retrieved, the results include all custom attributes that
      * are visible to the requesting application, including those that are owned by other
      * applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  visibilityFilter  Optional parameter: Filters the `CustomAttributeDefinition` results
      *         by their `visibility` values.
      * @param  limit  Optional parameter: The maximum number of results to return in a single paged
@@ -319,10 +319,10 @@ public interface LocationCustomAttributesApi {
      *         results for your original request. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListLocationCustomAttributesResponse response from the API call
      */
     CompletableFuture<ListLocationCustomAttributesResponse> listLocationCustomAttributesAsync(
@@ -336,7 +336,7 @@ public interface LocationCustomAttributesApi {
      * Deletes a [custom attribute]($m/CustomAttribute) associated with a location. To delete a
      * custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to delete. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
@@ -352,7 +352,7 @@ public interface LocationCustomAttributesApi {
      * Deletes a [custom attribute]($m/CustomAttribute) associated with a location. To delete a
      * custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to delete. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
@@ -367,12 +367,12 @@ public interface LocationCustomAttributesApi {
      * the `with_definition` query parameter to also retrieve the custom attribute definition in the
      * same call. To retrieve a custom attribute owned by another application, the `visibility`
      * setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to retrieve. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of the custom
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of the custom
      *         attribute. Set this parameter to `true` to get the name and description of the custom
      *         attribute, information about the data type, or other definition details. The default
      *         value is `false`.
@@ -396,12 +396,12 @@ public interface LocationCustomAttributesApi {
      * the `with_definition` query parameter to also retrieve the custom attribute definition in the
      * same call. To retrieve a custom attribute owned by another application, the `visibility`
      * setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to retrieve. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of the custom
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of the custom
      *         attribute. Set this parameter to `true` to get the name and description of the custom
      *         attribute, information about the data type, or other definition details. The default
      *         value is `false`.
@@ -425,7 +425,7 @@ public interface LocationCustomAttributesApi {
      * [CreateLocationCustomAttributeDefinition]($e/LocationCustomAttributes/CreateLocationCustomAttributeDefinition)
      * endpoint. To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to create or update. This
      *         key must match the `key` of a custom attribute definition in the Square seller
      *         account. If the requesting application is not the definition owner, you must use the
@@ -448,7 +448,7 @@ public interface LocationCustomAttributesApi {
      * [CreateLocationCustomAttributeDefinition]($e/LocationCustomAttributes/CreateLocationCustomAttributeDefinition)
      * endpoint. To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  locationId  Required parameter: The ID of the target [location]($m/Location).
+     * @param  locationId  Required parameter: The ID of the target [location](entity:Location).
      * @param  key  Required parameter: The key of the custom attribute to create or update. This
      *         key must match the `key` of a custom attribute definition in the Square seller
      *         account. If the requesting application is not the definition owner, you must use the

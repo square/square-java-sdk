@@ -27,7 +27,7 @@ public class BulkCreateTeamMembersRequest {
     /**
      * Getter for TeamMembers.
      * The data used to create the `TeamMember` objects. Each key is the `idempotency_key` that maps
-     * to the `CreateTeamMemberRequest`.
+     * to the `CreateTeamMemberRequest`. The maximum number of create objects is 25.
      * @return Returns the Map of String, CreateTeamMemberRequest
      */
     @JsonGetter("team_members")

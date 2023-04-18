@@ -56,8 +56,10 @@ CompletableFuture<ListOrderCustomAttributeDefinitionsResponse> listOrderCustomAt
 ```java
 orderCustomAttributesApi.listOrderCustomAttributeDefinitionsAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -89,22 +91,23 @@ CompletableFuture<CreateOrderCustomAttributeDefinitionResponse> createOrderCusto
 ## Example Usage
 
 ```java
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .key("cover-count")
-    .name("Cover count")
-    .description("The number of people seated at a table")
-    .visibility("VISIBILITY_READ_WRITE_VALUES")
-    .build();
-
 CreateOrderCustomAttributeDefinitionRequest body = new CreateOrderCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .idempotencyKey("IDEMPOTENCY_KEY")
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .key("cover-count")
+        .name("Cover count")
+        .description("The number of people seated at a table")
+        .visibility("VISIBILITY_READ_WRITE_VALUES")
+        .build()
+)
+.idempotencyKey("IDEMPOTENCY_KEY")
+.build();
 
 orderCustomAttributesApi.createOrderCustomAttributeDefinitionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -138,8 +141,10 @@ String key = "key0";
 
 orderCustomAttributesApi.deleteOrderCustomAttributeDefinitionAsync(key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -177,8 +182,10 @@ String key = "key0";
 
 orderCustomAttributesApi.retrieveOrderCustomAttributeDefinitionAsync(key, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -211,21 +218,22 @@ CompletableFuture<UpdateOrderCustomAttributeDefinitionResponse> updateOrderCusto
 
 ```java
 String key = "key0";
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .key("cover-count")
-    .visibility("VISIBILITY_READ_ONLY")
-    .version(1)
-    .build();
-
 UpdateOrderCustomAttributeDefinitionRequest body = new UpdateOrderCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .idempotencyKey("IDEMPOTENCY_KEY")
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .key("cover-count")
+        .visibility("VISIBILITY_READ_ONLY")
+        .version(1)
+        .build()
+)
+.idempotencyKey("IDEMPOTENCY_KEY")
+.build();
 
 orderCustomAttributesApi.updateOrderCustomAttributeDefinitionAsync(key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -266,28 +274,28 @@ CompletableFuture<BulkDeleteOrderCustomAttributesResponse> bulkDeleteOrderCustom
 ## Example Usage
 
 ```java
-Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values = new LinkedHashMap<>();
-BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute values0 = new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
-        "7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
-    .key("cover-count")
-    .build();
-
-values.put("cover-count", values0);
-BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute values1 = new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
-        "7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
-    .key("table-number")
-    .build();
-
-values.put("table-number", values1);
-
 BulkDeleteOrderCustomAttributesRequest body = new BulkDeleteOrderCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute>() {{
+        put("cover-count", new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
+            "7BbXGEIWNldxAzrtGf9GPVZTwZ4F"
+        )
+        .key("cover-count")
+        .build());
+        put("table-number", new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
+            "7BbXGEIWNldxAzrtGf9GPVZTwZ4F"
+        )
+        .key("table-number")
+        .build());
+    }}
+)
+.build();
 
 orderCustomAttributesApi.bulkDeleteOrderCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -328,34 +336,30 @@ CompletableFuture<BulkUpsertOrderCustomAttributesResponse> bulkUpsertOrderCustom
 ## Example Usage
 
 ```java
-Map<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute> values = new LinkedHashMap<>();
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute values0 = new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
-        customAttribute,
-        "order_id2")
-    .build();
-
-values.put("key0", values0);
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute values1 = new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
-        customAttribute,
-        "order_id1")
-    .build();
-
-values.put("key1", values1);
-
 BulkUpsertOrderCustomAttributesRequest body = new BulkUpsertOrderCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute>() {{
+        put("key0", new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
+            new CustomAttribute.Builder()
+                .build(),
+            "order_id2"
+        )
+        .build());
+        put("key1", new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
+            new CustomAttribute.Builder()
+                .build(),
+            "order_id1"
+        )
+        .build());
+    }}
+)
+.build();
 
 orderCustomAttributesApi.bulkUpsertOrderCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -385,11 +389,11 @@ CompletableFuture<ListOrderCustomAttributesResponse> listOrderCustomAttributesAs
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `orderId` | `String` | Template, Required | The ID of the target [order](../../doc/models/order.md). |
+| `orderId` | `String` | Template, Required | The ID of the target [order](entity:Order). |
 | `visibilityFilter` | [`String`](../../doc/models/visibility-filter.md) | Query, Optional | Requests that all of the custom attributes be returned, or only those that are read-only or read-write. |
 | `cursor` | `String` | Query, Optional | The cursor returned in the paged response from the previous call to this endpoint.<br>Provide this cursor to retrieve the next page of results for your original request.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single paged response. This limit is advisory.<br>The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.<br>The default value is 20.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
-| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom attribute,<br>information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom attribute,<br>information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -403,8 +407,10 @@ Boolean withDefinitions = false;
 
 orderCustomAttributesApi.listOrderCustomAttributesAsync(orderId, null, null, null, withDefinitions).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -428,7 +434,7 @@ CompletableFuture<DeleteOrderCustomAttributeResponse> deleteOrderCustomAttribute
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `orderId` | `String` | Template, Required | The ID of the target [order](../../doc/models/order.md). |
+| `orderId` | `String` | Template, Required | The ID of the target [order](entity:Order). |
 | `customAttributeKey` | `String` | Template, Required | The key of the custom attribute to delete.  This key must match the key of an<br>existing custom attribute definition. |
 
 ## Response Type
@@ -443,8 +449,10 @@ String customAttributeKey = "custom_attribute_key2";
 
 orderCustomAttributesApi.deleteOrderCustomAttributeAsync(orderId, customAttributeKey).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -473,10 +481,10 @@ CompletableFuture<RetrieveOrderCustomAttributeResponse> retrieveOrderCustomAttri
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `orderId` | `String` | Template, Required | The ID of the target [order](../../doc/models/order.md). |
+| `orderId` | `String` | Template, Required | The ID of the target [order](entity:Order). |
 | `customAttributeKey` | `String` | Template, Required | The key of the custom attribute to retrieve.  This key must match the key of an<br>existing custom attribute definition. |
 | `version` | `Integer` | Query, Optional | To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)<br>control, include this optional field and specify the current version of the custom attribute. |
-| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom attribute,<br>information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom attribute,<br>information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -491,8 +499,10 @@ Boolean withDefinition = false;
 
 orderCustomAttributesApi.retrieveOrderCustomAttributeAsync(orderId, customAttributeKey, null, withDefinition).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -521,7 +531,7 @@ CompletableFuture<UpsertOrderCustomAttributeResponse> upsertOrderCustomAttribute
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `orderId` | `String` | Template, Required | The ID of the target [order](../../doc/models/order.md). |
+| `orderId` | `String` | Template, Required | The ID of the target [order](entity:Order). |
 | `customAttributeKey` | `String` | Template, Required | The key of the custom attribute to create or update.  This key must match the key<br>of an existing custom attribute definition. |
 | `body` | [`UpsertOrderCustomAttributeRequest`](../../doc/models/upsert-order-custom-attribute-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
@@ -534,17 +544,18 @@ CompletableFuture<UpsertOrderCustomAttributeResponse> upsertOrderCustomAttribute
 ```java
 String orderId = "order_id6";
 String customAttributeKey = "custom_attribute_key2";
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
 UpsertOrderCustomAttributeRequest body = new UpsertOrderCustomAttributeRequest.Builder(
-        customAttribute)
-    .build();
+    new CustomAttribute.Builder()
+        .build()
+)
+.build();
 
 orderCustomAttributesApi.upsertOrderCustomAttributeAsync(orderId, customAttributeKey, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

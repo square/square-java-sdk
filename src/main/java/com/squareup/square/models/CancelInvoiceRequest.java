@@ -25,8 +25,9 @@ public class CancelInvoiceRequest {
 
     /**
      * Getter for Version.
-     * The version of the [invoice]($m/Invoice) to cancel. If you do not know the version, you can
-     * call [GetInvoice]($e/Invoices/GetInvoice) or [ListInvoices]($e/Invoices/ListInvoices).
+     * The version of the [invoice](entity:Invoice) to cancel. If you do not know the version, you
+     * can call [GetInvoice](api-endpoint:Invoices-GetInvoice) or
+     * [ListInvoices](api-endpoint:Invoices-ListInvoices).
      * @return Returns the int
      */
     @JsonGetter("version")

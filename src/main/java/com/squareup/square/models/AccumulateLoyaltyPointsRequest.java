@@ -54,7 +54,7 @@ public class AccumulateLoyaltyPointsRequest {
 
     /**
      * Getter for LocationId.
-     * The [location]($m/Location) where the purchase was made.
+     * The [location](entity:Location) where the purchase was made.
      * @return Returns the String
      */
     @JsonGetter("location_id")

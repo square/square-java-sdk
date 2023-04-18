@@ -61,18 +61,19 @@ CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDeleteCatalogObjectsAs
 ## Example Usage
 
 ```java
-List<String> objectIds = new LinkedList<>();
-objectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-objectIds.add("AA27W3M2GGTF3H6AVPNB77CK");
-
 BatchDeleteCatalogObjectsRequest body = new BatchDeleteCatalogObjectsRequest.Builder()
-    .objectIds(objectIds)
+    .objectIds(Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI",
+        "AA27W3M2GGTF3H6AVPNB77CK"
+    ))
     .build();
 
 catalogApi.batchDeleteCatalogObjectsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -105,19 +106,21 @@ CompletableFuture<BatchRetrieveCatalogObjectsResponse> batchRetrieveCatalogObjec
 ## Example Usage
 
 ```java
-List<String> objectIds = new LinkedList<>();
-objectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-objectIds.add("AA27W3M2GGTF3H6AVPNB77CK");
-
 BatchRetrieveCatalogObjectsRequest body = new BatchRetrieveCatalogObjectsRequest.Builder(
-        objectIds)
-    .includeRelatedObjects(true)
-    .build();
+    Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI",
+        "AA27W3M2GGTF3H6AVPNB77CK"
+    )
+)
+.includeRelatedObjects(true)
+.build();
 
 catalogApi.batchRetrieveCatalogObjectsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -157,137 +160,124 @@ CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsertCatalogObjectsAs
 ## Example Usage
 
 ```java
-List<CatalogObjectBatch> batches = new LinkedList<>();
-List<CatalogObject> objects = new LinkedList<>();
-List<String> taxIds = new LinkedList<>();
-taxIds.add("#SalesTax");
-
-List<CatalogObject> variations = new LinkedList<>();
-CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
-    .itemId("#Tea")
-    .name("Mug")
-    .pricingType("FIXED_PRICING")
-    .build();
-
-CatalogObject variations0 = new CatalogObject.Builder(
-        "ITEM_VARIATION",
-        "#Tea_Mug")
-    .presentAtAllLocations(true)
-    .itemVariationData(itemVariationData)
-    .build();
-
-variations.add(variations0);
-
-CatalogItem itemData = new CatalogItem.Builder()
-    .name("Tea")
-    .categoryId("#Beverages")
-    .taxIds(taxIds)
-    .variations(variations)
-    .descriptionHtml("<p><strong>Hot</strong> Leaf Juice</p>")
-    .build();
-
-CatalogObject objects0 = new CatalogObject.Builder(
-        "ITEM",
-        "#Tea")
-    .presentAtAllLocations(true)
-    .itemData(itemData)
-    .build();
-
-objects.add(objects0);
-List<String> taxIds = new LinkedList<>();
-taxIds.add("#SalesTax");
-
-List<CatalogObject> variations = new LinkedList<>();
-CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
-    .itemId("#Coffee")
-    .name("Regular")
-    .pricingType("FIXED_PRICING")
-    .build();
-
-CatalogObject variations0 = new CatalogObject.Builder(
-        "ITEM_VARIATION",
-        "#Coffee_Regular")
-    .presentAtAllLocations(true)
-    .itemVariationData(itemVariationData)
-    .build();
-
-variations.add(variations0);
-CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
-    .itemId("#Coffee")
-    .name("Large")
-    .pricingType("FIXED_PRICING")
-    .build();
-
-CatalogObject variations1 = new CatalogObject.Builder(
-        "ITEM_VARIATION",
-        "#Coffee_Large")
-    .presentAtAllLocations(true)
-    .itemVariationData(itemVariationData)
-    .build();
-
-variations.add(variations1);
-
-CatalogItem itemData = new CatalogItem.Builder()
-    .name("Coffee")
-    .categoryId("#Beverages")
-    .taxIds(taxIds)
-    .variations(variations)
-    .descriptionHtml("<p>Hot <em>Bean Juice</em></p>")
-    .build();
-
-CatalogObject objects1 = new CatalogObject.Builder(
-        "ITEM",
-        "#Coffee")
-    .presentAtAllLocations(true)
-    .itemData(itemData)
-    .build();
-
-objects.add(objects1);
-CatalogCategory categoryData = new CatalogCategory.Builder()
-    .name("Beverages")
-    .build();
-
-CatalogObject objects2 = new CatalogObject.Builder(
-        "CATEGORY",
-        "#Beverages")
-    .presentAtAllLocations(true)
-    .categoryData(categoryData)
-    .build();
-
-objects.add(objects2);
-CatalogTax taxData = new CatalogTax.Builder()
-    .name("Sales Tax")
-    .calculationPhase("TAX_SUBTOTAL_PHASE")
-    .inclusionType("ADDITIVE")
-    .percentage("5.0")
-    .appliesToCustomAmounts(true)
-    .enabled(true)
-    .build();
-
-CatalogObject objects3 = new CatalogObject.Builder(
-        "TAX",
-        "#SalesTax")
-    .presentAtAllLocations(true)
-    .taxData(taxData)
-    .build();
-
-objects.add(objects3);
-
-CatalogObjectBatch batches0 = new CatalogObjectBatch.Builder(
-        objects)
-    .build();
-
-batches.add(batches0);
-
 BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Builder(
-        "789ff020-f723-43a9-b4b5-43b5dc1fa3dc",
-        batches)
-    .build();
+    "789ff020-f723-43a9-b4b5-43b5dc1fa3dc",
+    Arrays.asList(
+        new CatalogObjectBatch.Builder(
+            Arrays.asList(
+                new CatalogObject.Builder(
+                    "ITEM",
+                    "#Tea"
+                )
+                .presentAtAllLocations(true)
+                .itemData(new CatalogItem.Builder()
+                        .name("Tea")
+                        .categoryId("#Beverages")
+                        .taxIds(Arrays.asList(
+                            "#SalesTax"
+                        ))
+                        .variations(Arrays.asList(
+                            new CatalogObject.Builder(
+                                "ITEM_VARIATION",
+                                "#Tea_Mug"
+                            )
+                            .presentAtAllLocations(true)
+                            .itemVariationData(new CatalogItemVariation.Builder()
+                                    .itemId("#Tea")
+                                    .name("Mug")
+                                    .pricingType("FIXED_PRICING")
+                                    .priceMoney(new Money.Builder()
+                                        .amount(150L)
+                                        .currency("USD")
+                                        .build())
+                                    .build())
+                            .build()
+                        ))
+                        .descriptionHtml("<p><strong>Hot</strong> Leaf Juice</p>")
+                        .build())
+                .build(),
+                new CatalogObject.Builder(
+                    "ITEM",
+                    "#Coffee"
+                )
+                .presentAtAllLocations(true)
+                .itemData(new CatalogItem.Builder()
+                        .name("Coffee")
+                        .categoryId("#Beverages")
+                        .taxIds(Arrays.asList(
+                            "#SalesTax"
+                        ))
+                        .variations(Arrays.asList(
+                            new CatalogObject.Builder(
+                                "ITEM_VARIATION",
+                                "#Coffee_Regular"
+                            )
+                            .presentAtAllLocations(true)
+                            .itemVariationData(new CatalogItemVariation.Builder()
+                                    .itemId("#Coffee")
+                                    .name("Regular")
+                                    .pricingType("FIXED_PRICING")
+                                    .priceMoney(new Money.Builder()
+                                        .amount(250L)
+                                        .currency("USD")
+                                        .build())
+                                    .build())
+                            .build(),
+                            new CatalogObject.Builder(
+                                "ITEM_VARIATION",
+                                "#Coffee_Large"
+                            )
+                            .presentAtAllLocations(true)
+                            .itemVariationData(new CatalogItemVariation.Builder()
+                                    .itemId("#Coffee")
+                                    .name("Large")
+                                    .pricingType("FIXED_PRICING")
+                                    .priceMoney(new Money.Builder()
+                                        .amount(350L)
+                                        .currency("USD")
+                                        .build())
+                                    .build())
+                            .build()
+                        ))
+                        .descriptionHtml("<p>Hot <em>Bean Juice</em></p>")
+                        .build())
+                .build(),
+                new CatalogObject.Builder(
+                    "CATEGORY",
+                    "#Beverages"
+                )
+                .presentAtAllLocations(true)
+                .categoryData(new CatalogCategory.Builder()
+                        .name("Beverages")
+                        .build())
+                .build(),
+                new CatalogObject.Builder(
+                    "TAX",
+                    "#SalesTax"
+                )
+                .presentAtAllLocations(true)
+                .taxData(new CatalogTax.Builder()
+                        .name("Sales Tax")
+                        .calculationPhase("TAX_SUBTOTAL_PHASE")
+                        .inclusionType("ADDITIVE")
+                        .percentage("5.0")
+                        .appliesToCustomAmounts(true)
+                        .enabled(true)
+                        .build())
+                .build()
+            )
+        )
+        .build()
+    )
+)
+.build();
 
 catalogApi.batchUpsertCatalogObjectsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -322,27 +312,27 @@ CompletableFuture<CreateCatalogImageResponse> createCatalogImageAsync(
 ## Example Usage
 
 ```java
-CatalogImage imageData = new CatalogImage.Builder()
-    .caption("A picture of a cup of coffee")
-    .build();
-
-CatalogObject image = new CatalogObject.Builder(
-        "IMAGE",
-        "#TEMP_ID")
-    .imageData(imageData)
-    .build();
-
 CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(
-        "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
-        image)
-    .objectId("ND6EA5AAJEO5WL3JNNIAQA32")
-    .build();
+    "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86",
+    new CatalogObject.Builder(
+        "IMAGE",
+        "#TEMP_ID"
+    )
+    .imageData(new CatalogImage.Builder()
+            .caption("A picture of a cup of coffee")
+            .build())
+    .build()
+)
+.objectId("ND6EA5AAJEO5WL3JNNIAQA32")
+.build();
 
 
 catalogApi.createCatalogImageAsync(request, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -379,14 +369,17 @@ CompletableFuture<UpdateCatalogImageResponse> updateCatalogImageAsync(
 ```java
 String imageId = "image_id4";
 UpdateCatalogImageRequest request = new UpdateCatalogImageRequest.Builder(
-        "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86")
-    .build();
+    "528dea59-7bfb-43c1-bd48-4a6bba7dd61f86"
+)
+.build();
 
 
 catalogApi.updateCatalogImageAsync(imageId, request, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -410,8 +403,10 @@ CompletableFuture<CatalogInfoResponse> catalogInfoAsync()
 ```java
 catalogApi.catalogInfoAsync().thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -439,8 +434,8 @@ CompletableFuture<ListCatalogResponse> listCatalogAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cursor` | `String` | Query, Optional | The pagination cursor returned in the previous response. Leave unset for an initial request.<br>The page size is currently set to be 100.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
-| `types` | `String` | Query, Optional | An optional case-insensitive, comma-separated list of object types to retrieve.<br><br>The valid values are defined in the [CatalogObjectType](../../doc/models/catalog-object-type.md) enum, for example,<br>`ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,<br>`MODIFIER`, `MODIFIER_LIST`, `IMAGE`, etc.<br><br>If this is unspecified, the operation returns objects of all the top level types at the version<br>of the Square API used to make the request. Object types that are nested onto other object types<br>are not included in the defaults.<br><br>At the current API version the default object types are:<br>ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST,<br>PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,<br>SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS. |
+| `cursor` | `String` | Query, Optional | The pagination cursor returned in the previous response. Leave unset for an initial request.<br>The page size is currently set to be 100.<br>See [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination) for more information. |
+| `types` | `String` | Query, Optional | An optional case-insensitive, comma-separated list of object types to retrieve.<br><br>The valid values are defined in the [CatalogObjectType](entity:CatalogObjectType) enum, for example,<br>`ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,<br>`MODIFIER`, `MODIFIER_LIST`, `IMAGE`, etc.<br><br>If this is unspecified, the operation returns objects of all the top level types at the version<br>of the Square API used to make the request. Object types that are nested onto other object types<br>are not included in the defaults.<br><br>At the current API version the default object types are:<br>ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST,<br>PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,<br>SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS. |
 | `catalogVersion` | `Long` | Query, Optional | The specific version of the catalog objects to be included in the response.<br>This allows you to retrieve historical versions of objects. The specified version value is matched against<br>the [CatalogObject](../../doc/models/catalog-object.md)s' `version` attribute.  If not included, results will be from the<br>current version of the catalog. |
 
 ## Response Type
@@ -452,8 +447,10 @@ CompletableFuture<ListCatalogResponse> listCatalogAsync(
 ```java
 catalogApi.listCatalogAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -485,56 +482,53 @@ CompletableFuture<UpsertCatalogObjectResponse> upsertCatalogObjectAsync(
 ## Example Usage
 
 ```java
-List<CatalogObject> variations = new LinkedList<>();
-CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
-    .itemId("#Cocoa")
-    .name("Small")
-    .pricingType("VARIABLE_PRICING")
-    .build();
-
-CatalogObject variations0 = new CatalogObject.Builder(
-        "ITEM_VARIATION",
-        "#Small")
-    .itemVariationData(itemVariationData)
-    .build();
-
-variations.add(variations0);
-CatalogItemVariation itemVariationData = new CatalogItemVariation.Builder()
-    .itemId("#Cocoa")
-    .name("Large")
-    .pricingType("FIXED_PRICING")
-    .build();
-
-CatalogObject variations1 = new CatalogObject.Builder(
-        "ITEM_VARIATION",
-        "#Large")
-    .itemVariationData(itemVariationData)
-    .build();
-
-variations.add(variations1);
-
-CatalogItem itemData = new CatalogItem.Builder()
-    .name("Cocoa")
-    .abbreviation("Ch")
-    .variations(variations)
-    .descriptionHtml("<p><strong>Hot</strong> Chocolate</p>")
-    .build();
-
-CatalogObject object = new CatalogObject.Builder(
-        "ITEM",
-        "#Cocoa")
-    .itemData(itemData)
-    .build();
-
 UpsertCatalogObjectRequest body = new UpsertCatalogObjectRequest.Builder(
-        "af3d1afc-7212-4300-b463-0bfc5314a5ae",
-        object)
-    .build();
+    "af3d1afc-7212-4300-b463-0bfc5314a5ae",
+    new CatalogObject.Builder(
+        "ITEM",
+        "#Cocoa"
+    )
+    .itemData(new CatalogItem.Builder()
+            .name("Cocoa")
+            .abbreviation("Ch")
+            .variations(Arrays.asList(
+                new CatalogObject.Builder(
+                    "ITEM_VARIATION",
+                    "#Small"
+                )
+                .itemVariationData(new CatalogItemVariation.Builder()
+                        .itemId("#Cocoa")
+                        .name("Small")
+                        .pricingType("VARIABLE_PRICING")
+                        .build())
+                .build(),
+                new CatalogObject.Builder(
+                    "ITEM_VARIATION",
+                    "#Large"
+                )
+                .itemVariationData(new CatalogItemVariation.Builder()
+                        .itemId("#Cocoa")
+                        .name("Large")
+                        .pricingType("FIXED_PRICING")
+                        .priceMoney(new Money.Builder()
+                            .amount(400L)
+                            .currency("USD")
+                            .build())
+                        .build())
+                .build()
+            ))
+            .descriptionHtml("<p><strong>Hot</strong> Chocolate</p>")
+            .build())
+    .build()
+)
+.build();
 
 catalogApi.upsertCatalogObjectAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -575,8 +569,10 @@ String objectId = "object_id8";
 
 catalogApi.deleteCatalogObjectAsync(objectId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -619,8 +615,10 @@ Boolean includeRelatedObjects = false;
 
 catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -657,28 +655,26 @@ CompletableFuture<SearchCatalogObjectsResponse> searchCatalogObjectsAsync(
 ## Example Usage
 
 ```java
-List<String> objectTypes = new LinkedList<>();
-objectTypes.add("ITEM");
-
-CatalogQueryPrefix prefixQuery = new CatalogQueryPrefix.Builder(
-        "name",
-        "tea")
-    .build();
-
-CatalogQuery query = new CatalogQuery.Builder()
-    .prefixQuery(prefixQuery)
-    .build();
-
 SearchCatalogObjectsRequest body = new SearchCatalogObjectsRequest.Builder()
-    .objectTypes(objectTypes)
-    .query(query)
+    .objectTypes(Arrays.asList(
+        "ITEM"
+    ))
+    .query(new CatalogQuery.Builder()
+        .prefixQuery(new CatalogQueryPrefix.Builder(
+            "name",
+            "tea"
+        )
+        .build())
+        .build())
     .limit(100)
     .build();
 
 catalogApi.searchCatalogObjectsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -715,64 +711,51 @@ CompletableFuture<SearchCatalogItemsResponse> searchCatalogItemsAsync(
 ## Example Usage
 
 ```java
-List<String> categoryIds = new LinkedList<>();
-categoryIds.add("WINE_CATEGORY_ID");
-
-List<String> stockLevels = new LinkedList<>();
-stockLevels.add("OUT");
-stockLevels.add("LOW");
-
-List<String> enabledLocationIds = new LinkedList<>();
-enabledLocationIds.add("ATL_LOCATION_ID");
-
-List<String> productTypes = new LinkedList<>();
-productTypes.add("REGULAR");
-
-List<CustomAttributeFilter> customAttributeFilters = new LinkedList<>();
-CustomAttributeFilter customAttributeFilters0 = new CustomAttributeFilter.Builder()
-    .customAttributeDefinitionId("VEGAN_DEFINITION_ID")
-    .boolFilter(true)
-    .build();
-
-customAttributeFilters.add(customAttributeFilters0);
-CustomAttributeFilter customAttributeFilters1 = new CustomAttributeFilter.Builder()
-    .customAttributeDefinitionId("BRAND_DEFINITION_ID")
-    .stringFilter("Dark Horse")
-    .build();
-
-customAttributeFilters.add(customAttributeFilters1);
-Range numberFilter = new Range.Builder()
-    .min("2017")
-    .max("2018")
-    .build();
-
-CustomAttributeFilter customAttributeFilters2 = new CustomAttributeFilter.Builder()
-    .key("VINTAGE")
-    .numberFilter(numberFilter)
-    .build();
-
-customAttributeFilters.add(customAttributeFilters2);
-CustomAttributeFilter customAttributeFilters3 = new CustomAttributeFilter.Builder()
-    .customAttributeDefinitionId("VARIETAL_DEFINITION_ID")
-    .build();
-
-customAttributeFilters.add(customAttributeFilters3);
-
 SearchCatalogItemsRequest body = new SearchCatalogItemsRequest.Builder()
     .textFilter("red")
-    .categoryIds(categoryIds)
-    .stockLevels(stockLevels)
-    .enabledLocationIds(enabledLocationIds)
+    .categoryIds(Arrays.asList(
+        "WINE_CATEGORY_ID"
+    ))
+    .stockLevels(Arrays.asList(
+        "OUT",
+        "LOW"
+    ))
+    .enabledLocationIds(Arrays.asList(
+        "ATL_LOCATION_ID"
+    ))
     .limit(100)
     .sortOrder("ASC")
-    .productTypes(productTypes)
-    .customAttributeFilters(customAttributeFilters)
+    .productTypes(Arrays.asList(
+        "REGULAR"
+    ))
+    .customAttributeFilters(Arrays.asList(
+        new CustomAttributeFilter.Builder()
+            .customAttributeDefinitionId("VEGAN_DEFINITION_ID")
+            .boolFilter(true)
+            .build(),
+        new CustomAttributeFilter.Builder()
+            .customAttributeDefinitionId("BRAND_DEFINITION_ID")
+            .stringFilter("Dark Horse")
+            .build(),
+        new CustomAttributeFilter.Builder()
+            .key("VINTAGE")
+            .numberFilter(new Range.Builder()
+                .min("2017")
+                .max("2018")
+                .build())
+            .build(),
+        new CustomAttributeFilter.Builder()
+            .customAttributeDefinitionId("VARIETAL_DEFINITION_ID")
+            .build()
+    ))
     .build();
 
 catalogApi.searchCatalogItemsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -802,27 +785,27 @@ CompletableFuture<UpdateItemModifierListsResponse> updateItemModifierListsAsync(
 ## Example Usage
 
 ```java
-List<String> itemIds = new LinkedList<>();
-itemIds.add("H42BRLUJ5KTZTTMPVSLFAACQ");
-itemIds.add("2JXOBJIHCWBQ4NZ3RIXQGJA6");
-
-List<String> modifierListsToEnable = new LinkedList<>();
-modifierListsToEnable.add("H42BRLUJ5KTZTTMPVSLFAACQ");
-modifierListsToEnable.add("2JXOBJIHCWBQ4NZ3RIXQGJA6");
-
-List<String> modifierListsToDisable = new LinkedList<>();
-modifierListsToDisable.add("7WRC16CJZDVLSNDQ35PP6YAD");
-
 UpdateItemModifierListsRequest body = new UpdateItemModifierListsRequest.Builder(
-        itemIds)
-    .modifierListsToEnable(modifierListsToEnable)
-    .modifierListsToDisable(modifierListsToDisable)
-    .build();
+    Arrays.asList(
+        "H42BRLUJ5KTZTTMPVSLFAACQ",
+        "2JXOBJIHCWBQ4NZ3RIXQGJA6"
+    )
+)
+.modifierListsToEnable(Arrays.asList(
+        "H42BRLUJ5KTZTTMPVSLFAACQ",
+        "2JXOBJIHCWBQ4NZ3RIXQGJA6"
+    ))
+.modifierListsToDisable(Arrays.asList(
+        "7WRC16CJZDVLSNDQ35PP6YAD"
+    ))
+.build();
 
 catalogApi.updateItemModifierListsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -852,26 +835,26 @@ CompletableFuture<UpdateItemTaxesResponse> updateItemTaxesAsync(
 ## Example Usage
 
 ```java
-List<String> itemIds = new LinkedList<>();
-itemIds.add("H42BRLUJ5KTZTTMPVSLFAACQ");
-itemIds.add("2JXOBJIHCWBQ4NZ3RIXQGJA6");
-
-List<String> taxesToEnable = new LinkedList<>();
-taxesToEnable.add("4WRCNHCJZDVLSNDQ35PP6YAD");
-
-List<String> taxesToDisable = new LinkedList<>();
-taxesToDisable.add("AQCEGCEBBQONINDOHRGZISEX");
-
 UpdateItemTaxesRequest body = new UpdateItemTaxesRequest.Builder(
-        itemIds)
-    .taxesToEnable(taxesToEnable)
-    .taxesToDisable(taxesToDisable)
-    .build();
+    Arrays.asList(
+        "H42BRLUJ5KTZTTMPVSLFAACQ",
+        "2JXOBJIHCWBQ4NZ3RIXQGJA6"
+    )
+)
+.taxesToEnable(Arrays.asList(
+        "4WRCNHCJZDVLSNDQ35PP6YAD"
+    ))
+.taxesToDisable(Arrays.asList(
+        "AQCEGCEBBQONINDOHRGZISEX"
+    ))
+.build();
 
 catalogApi.updateItemTaxesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

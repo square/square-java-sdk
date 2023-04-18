@@ -54,8 +54,10 @@ CompletableFuture<ListLocationCustomAttributeDefinitionsResponse> listLocationCu
 ```java
 locationCustomAttributesApi.listLocationCustomAttributeDefinitionsAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -89,21 +91,22 @@ CompletableFuture<CreateLocationCustomAttributeDefinitionResponse> createLocatio
 ## Example Usage
 
 ```java
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .key("bestseller")
-    .name("Bestseller")
-    .description("Bestselling item at location")
-    .visibility("VISIBILITY_READ_WRITE_VALUES")
-    .build();
-
 CreateLocationCustomAttributeDefinitionRequest body = new CreateLocationCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .key("bestseller")
+        .name("Bestseller")
+        .description("Bestselling item at location")
+        .visibility("VISIBILITY_READ_WRITE_VALUES")
+        .build()
+)
+.build();
 
 locationCustomAttributesApi.createLocationCustomAttributeDefinitionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -138,8 +141,10 @@ String key = "key0";
 
 locationCustomAttributesApi.deleteLocationCustomAttributeDefinitionAsync(key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -175,8 +180,10 @@ String key = "key0";
 
 locationCustomAttributesApi.retrieveLocationCustomAttributeDefinitionAsync(key, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -210,19 +217,20 @@ CompletableFuture<UpdateLocationCustomAttributeDefinitionResponse> updateLocatio
 
 ```java
 String key = "key0";
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .description("Update the description as desired.")
-    .visibility("VISIBILITY_READ_ONLY")
-    .build();
-
 UpdateLocationCustomAttributeDefinitionRequest body = new UpdateLocationCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .description("Update the description as desired.")
+        .visibility("VISIBILITY_READ_ONLY")
+        .build()
+)
+.build();
 
 locationCustomAttributesApi.updateLocationCustomAttributeDefinitionAsync(key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -252,19 +260,24 @@ CompletableFuture<BulkDeleteLocationCustomAttributesResponse> bulkDeleteLocation
 ## Example Usage
 
 ```java
-Map<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest> values = new LinkedHashMap<>();
-values.put("id1", values0);
-values.put("id2", values1);
-values.put("id3", values2);
-
 BulkDeleteLocationCustomAttributesRequest body = new BulkDeleteLocationCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest>() {{
+        put("id1", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .build());
+        put("id2", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .build());
+        put("id3", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .build());
+    }}
+)
+.build();
 
 locationCustomAttributesApi.bulkDeleteLocationCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -301,34 +314,30 @@ CompletableFuture<BulkUpsertLocationCustomAttributesResponse> bulkUpsertLocation
 ## Example Usage
 
 ```java
-Map<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest values0 = new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
-        "location_id8",
-        customAttribute)
-    .build();
-
-values.put("key0", values0);
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest values1 = new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
-        "location_id9",
-        customAttribute)
-    .build();
-
-values.put("key1", values1);
-
 BulkUpsertLocationCustomAttributesRequest body = new BulkUpsertLocationCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest>() {{
+        put("key0", new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
+            "location_id8",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+        put("key1", new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
+            "location_id9",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+    }}
+)
+.build();
 
 locationCustomAttributesApi.bulkUpsertLocationCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -356,11 +365,11 @@ CompletableFuture<ListLocationCustomAttributesResponse> listLocationCustomAttrib
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the target [location](../../doc/models/location.md). |
+| `locationId` | `String` | Template, Required | The ID of the target [location](entity:Location). |
 | `visibilityFilter` | [`String`](../../doc/models/visibility-filter.md) | Query, Optional | Filters the `CustomAttributeDefinition` results by their `visibility` values. |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single paged response. This limit is advisory.<br>The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.<br>The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `cursor` | `String` | Query, Optional | The cursor returned in the paged response from the previous call to this endpoint.<br>Provide this cursor to retrieve the next page of results for your original request. For more<br>information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
-| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -374,8 +383,10 @@ Boolean withDefinitions = false;
 
 locationCustomAttributesApi.listLocationCustomAttributesAsync(locationId, null, null, null, withDefinitions).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -397,7 +408,7 @@ CompletableFuture<DeleteLocationCustomAttributeResponse> deleteLocationCustomAtt
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the target [location](../../doc/models/location.md). |
+| `locationId` | `String` | Template, Required | The ID of the target [location](entity:Location). |
 | `key` | `String` | Template, Required | The key of the custom attribute to delete. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
 
 ## Response Type
@@ -412,8 +423,10 @@ String key = "key0";
 
 locationCustomAttributesApi.deleteLocationCustomAttributeAsync(locationId, key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -439,9 +452,9 @@ CompletableFuture<RetrieveLocationCustomAttributeResponse> retrieveLocationCusto
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the target [location](../../doc/models/location.md). |
+| `locationId` | `String` | Template, Required | The ID of the target [location](entity:Location). |
 | `key` | `String` | Template, Required | The key of the custom attribute to retrieve. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
-| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 | `version` | `Integer` | Query, Optional | The current version of the custom attribute, which is used for strongly consistent reads to<br>guarantee that you receive the most up-to-date data. When included in the request, Square<br>returns the specified version or a higher version if one exists. If the specified version is<br>higher than the current version, Square returns a `BAD_REQUEST` error. |
 
 ## Response Type
@@ -457,8 +470,10 @@ Boolean withDefinition = false;
 
 locationCustomAttributesApi.retrieveLocationCustomAttributeAsync(locationId, key, withDefinition, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -484,7 +499,7 @@ CompletableFuture<UpsertLocationCustomAttributeResponse> upsertLocationCustomAtt
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `locationId` | `String` | Template, Required | The ID of the target [location](../../doc/models/location.md). |
+| `locationId` | `String` | Template, Required | The ID of the target [location](entity:Location). |
 | `key` | `String` | Template, Required | The key of the custom attribute to create or update. This key must match the `key` of a<br>custom attribute definition in the Square seller account. If the requesting application is not<br>the definition owner, you must use the qualified key. |
 | `body` | [`UpsertLocationCustomAttributeRequest`](../../doc/models/upsert-location-custom-attribute-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
@@ -497,17 +512,18 @@ CompletableFuture<UpsertLocationCustomAttributeResponse> upsertLocationCustomAtt
 ```java
 String locationId = "location_id4";
 String key = "key0";
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
 UpsertLocationCustomAttributeRequest body = new UpsertLocationCustomAttributeRequest.Builder(
-        customAttribute)
-    .build();
+    new CustomAttribute.Builder()
+        .build()
+)
+.build();
 
 locationCustomAttributesApi.upsertLocationCustomAttributeAsync(locationId, key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

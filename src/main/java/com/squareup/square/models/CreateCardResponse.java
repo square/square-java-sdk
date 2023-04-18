@@ -39,7 +39,7 @@ public class CreateCardResponse {
 
     /**
      * Getter for Errors.
-     * Information on errors encountered during the request.
+     * Errors resulting from the request.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

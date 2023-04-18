@@ -75,7 +75,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Internal Getter for BeginTime.
-     * The timestamp for the beginning of the requested reporting period, in RFC 3339 format.
+     * Indicates the start of the time range to retrieve each PaymentRefund` for, in RFC 3339
+     * format. The range is determined using the `created_at` field for each `PaymentRefund`.
      * Default: The current time minus one year.
      * @return Returns the Internal String
      */
@@ -88,7 +89,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for BeginTime.
-     * The timestamp for the beginning of the requested reporting period, in RFC 3339 format.
+     * Indicates the start of the time range to retrieve each PaymentRefund` for, in RFC 3339
+     * format. The range is determined using the `created_at` field for each `PaymentRefund`.
      * Default: The current time minus one year.
      * @return Returns the String
      */
@@ -99,7 +101,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Internal Getter for EndTime.
-     * The timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The
+     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
+     * The range is determined using the `created_at` field for each `PaymentRefund`. Default: The
      * current time.
      * @return Returns the Internal String
      */
@@ -112,7 +115,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for EndTime.
-     * The timestamp for the end of the requested reporting period, in RFC 3339 format. Default: The
+     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
+     * The range is determined using the `created_at` field for each `PaymentRefund`. Default: The
      * current time.
      * @return Returns the String
      */
@@ -123,8 +127,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Internal Getter for SortOrder.
-     * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to
-     * oldest (default).
+     * The order in which results are listed by `PaymentRefund.created_at`: - `ASC` - Oldest to
+     * newest. - `DESC` - Newest to oldest (default).
      * @return Returns the Internal String
      */
     @JsonGetter("sort_order")
@@ -136,8 +140,8 @@ public class ListPaymentRefundsRequest {
 
     /**
      * Getter for SortOrder.
-     * The order in which results are listed: - `ASC` - Oldest to newest. - `DESC` - Newest to
-     * oldest (default).
+     * The order in which results are listed by `PaymentRefund.created_at`: - `ASC` - Oldest to
+     * newest. - `DESC` - Newest to oldest (default).
      * @return Returns the String
      */
     @JsonIgnore
@@ -149,7 +153,7 @@ public class ListPaymentRefundsRequest {
      * Internal Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the Internal String
      */
     @JsonGetter("cursor")
@@ -163,7 +167,7 @@ public class ListPaymentRefundsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonIgnore
@@ -198,7 +202,7 @@ public class ListPaymentRefundsRequest {
     /**
      * Internal Getter for Status.
      * If provided, only refunds with the given status are returned. For a list of refund status
-     * values, see [PaymentRefund]($m/PaymentRefund). Default: If omitted, refunds are returned
+     * values, see [PaymentRefund](entity:PaymentRefund). Default: If omitted, refunds are returned
      * regardless of their status.
      * @return Returns the Internal String
      */
@@ -212,7 +216,7 @@ public class ListPaymentRefundsRequest {
     /**
      * Getter for Status.
      * If provided, only refunds with the given status are returned. For a list of refund status
-     * values, see [PaymentRefund]($m/PaymentRefund). Default: If omitted, refunds are returned
+     * values, see [PaymentRefund](entity:PaymentRefund). Default: If omitted, refunds are returned
      * regardless of their status.
      * @return Returns the String
      */

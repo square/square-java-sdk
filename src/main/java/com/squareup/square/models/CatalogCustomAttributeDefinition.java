@@ -156,9 +156,9 @@ public class CatalogCustomAttributeDefinition {
 
     /**
      * Getter for AllowedObjectTypes.
-     * The set of Catalog Object Types that this Custom Attribute may be applied to. Currently, only
-     * `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included. See
-     * [CatalogObjectType](#type-catalogobjecttype) for possible values
+     * The set of `CatalogObject` types that this custom atttribute may be applied to. Currently,
+     * only `ITEM`, `ITEM_VARIATION`, and `MODIFIER` are allowed. At least one type must be
+     * included. See [CatalogObjectType](#type-catalogobjecttype) for possible values
      * @return Returns the List of String
      */
     @JsonGetter("allowed_object_types")

@@ -53,8 +53,10 @@ CompletableFuture<ListCustomerCustomAttributeDefinitionsResponse> listCustomerCu
 ```java
 customerCustomAttributesApi.listCustomerCustomAttributeDefinitionsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -92,21 +94,22 @@ CompletableFuture<CreateCustomerCustomAttributeDefinitionResponse> createCustome
 ## Example Usage
 
 ```java
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .key("favoritemovie")
-    .name("Favorite Movie")
-    .description("The favorite movie of the customer.")
-    .visibility("VISIBILITY_HIDDEN")
-    .build();
-
 CreateCustomerCustomAttributeDefinitionRequest body = new CreateCustomerCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .key("favoritemovie")
+        .name("Favorite Movie")
+        .description("The favorite movie of the customer.")
+        .visibility("VISIBILITY_HIDDEN")
+        .build()
+)
+.build();
 
 customerCustomAttributesApi.createCustomerCustomAttributeDefinitionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -143,8 +146,10 @@ String key = "key0";
 
 customerCustomAttributesApi.deleteCustomerCustomAttributeDefinitionAsync(key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -182,8 +187,10 @@ String key = "key0";
 
 customerCustomAttributesApi.retrieveCustomerCustomAttributeDefinitionAsync(key, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -220,19 +227,20 @@ CompletableFuture<UpdateCustomerCustomAttributeDefinitionResponse> updateCustome
 
 ```java
 String key = "key0";
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .description("Update the description as desired.")
-    .visibility("VISIBILITY_READ_ONLY")
-    .build();
-
 UpdateCustomerCustomAttributeDefinitionRequest body = new UpdateCustomerCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .description("Update the description as desired.")
+        .visibility("VISIBILITY_READ_ONLY")
+        .build()
+)
+.build();
 
 customerCustomAttributesApi.updateCustomerCustomAttributeDefinitionAsync(key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -273,34 +281,30 @@ CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomer
 ## Example Usage
 
 ```java
-Map<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest values0 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        "customer_id2",
-        customAttribute)
-    .build();
-
-values.put("key0", values0);
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest values1 = new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-        "customer_id3",
-        customAttribute)
-    .build();
-
-values.put("key1", values1);
-
 BulkUpsertCustomerCustomAttributesRequest body = new BulkUpsertCustomerCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest>() {{
+        put("key0", new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
+            "customer_id2",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+        put("key1", new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
+            "customer_id3",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+    }}
+)
+.build();
 
 customerCustomAttributesApi.bulkUpsertCustomerCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -329,10 +333,10 @@ CompletableFuture<ListCustomerCustomAttributesResponse> listCustomerCustomAttrib
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `customerId` | `String` | Template, Required | The ID of the target [customer profile](../../doc/models/customer.md). |
+| `customerId` | `String` | Template, Required | The ID of the target [customer profile](entity:Customer). |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single paged response. This limit is advisory.<br>The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.<br>The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `cursor` | `String` | Query, Optional | The cursor returned in the paged response from the previous call to this endpoint.<br>Provide this cursor to retrieve the next page of results for your original request. For more<br>information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
-| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -346,8 +350,10 @@ Boolean withDefinitions = false;
 
 customerCustomAttributesApi.listCustomerCustomAttributesAsync(customerId, null, null, withDefinitions).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -371,7 +377,7 @@ CompletableFuture<DeleteCustomerCustomAttributeResponse> deleteCustomerCustomAtt
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `customerId` | `String` | Template, Required | The ID of the target [customer profile](../../doc/models/customer.md). |
+| `customerId` | `String` | Template, Required | The ID of the target [customer profile](entity:Customer). |
 | `key` | `String` | Template, Required | The key of the custom attribute to delete. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
 
 ## Response Type
@@ -386,8 +392,10 @@ String key = "key0";
 
 customerCustomAttributesApi.deleteCustomerCustomAttributeAsync(customerId, key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -416,9 +424,9 @@ CompletableFuture<RetrieveCustomerCustomAttributeResponse> retrieveCustomerCusto
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `customerId` | `String` | Template, Required | The ID of the target [customer profile](../../doc/models/customer.md). |
+| `customerId` | `String` | Template, Required | The ID of the target [customer profile](entity:Customer). |
 | `key` | `String` | Template, Required | The key of the custom attribute to retrieve. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
-| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 | `version` | `Integer` | Query, Optional | The current version of the custom attribute, which is used for strongly consistent reads to<br>guarantee that you receive the most up-to-date data. When included in the request, Square<br>returns the specified version or a higher version if one exists. If the specified version is<br>higher than the current version, Square returns a `BAD_REQUEST` error. |
 
 ## Response Type
@@ -434,8 +442,10 @@ Boolean withDefinition = false;
 
 customerCustomAttributesApi.retrieveCustomerCustomAttributeAsync(customerId, key, withDefinition, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -464,7 +474,7 @@ CompletableFuture<UpsertCustomerCustomAttributeResponse> upsertCustomerCustomAtt
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `customerId` | `String` | Template, Required | The ID of the target [customer profile](../../doc/models/customer.md). |
+| `customerId` | `String` | Template, Required | The ID of the target [customer profile](entity:Customer). |
 | `key` | `String` | Template, Required | The key of the custom attribute to create or update. This key must match the `key` of a<br>custom attribute definition in the Square seller account. If the requesting application is not<br>the definition owner, you must use the qualified key. |
 | `body` | [`UpsertCustomerCustomAttributeRequest`](../../doc/models/upsert-customer-custom-attribute-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
@@ -477,17 +487,18 @@ CompletableFuture<UpsertCustomerCustomAttributeResponse> upsertCustomerCustomAtt
 ```java
 String customerId = "customer_id8";
 String key = "key0";
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
 UpsertCustomerCustomAttributeRequest body = new UpsertCustomerCustomAttributeRequest.Builder(
-        customAttribute)
-    .build();
+    new CustomAttribute.Builder()
+        .build()
+)
+.build();
 
 customerCustomAttributesApi.upsertCustomerCustomAttributeAsync(customerId, key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

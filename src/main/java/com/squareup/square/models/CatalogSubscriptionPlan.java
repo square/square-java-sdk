@@ -53,9 +53,9 @@ public class CatalogSubscriptionPlan {
 
     /**
      * Internal Getter for Phases.
-     * A list of SubscriptionPhase containing the [SubscriptionPhase]($m/SubscriptionPhase) for this
-     * plan. This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING
-     * error
+     * A list of SubscriptionPhase containing the [SubscriptionPhase](entity:SubscriptionPhase) for
+     * this plan. This field it required. Not including this field will throw a
+     * REQUIRED_FIELD_MISSING error
      * @return Returns the Internal List of SubscriptionPhase
      */
     @JsonGetter("phases")
@@ -67,9 +67,9 @@ public class CatalogSubscriptionPlan {
 
     /**
      * Getter for Phases.
-     * A list of SubscriptionPhase containing the [SubscriptionPhase]($m/SubscriptionPhase) for this
-     * plan. This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING
-     * error
+     * A list of SubscriptionPhase containing the [SubscriptionPhase](entity:SubscriptionPhase) for
+     * this plan. This field it required. Not including this field will throw a
+     * REQUIRED_FIELD_MISSING error
      * @return Returns the List of SubscriptionPhase
      */
     @JsonIgnore

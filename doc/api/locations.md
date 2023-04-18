@@ -34,8 +34,10 @@ CompletableFuture<ListLocationsResponse> listLocationsAsync()
 ```java
 locationsApi.listLocationsAsync().thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -69,27 +71,25 @@ CompletableFuture<CreateLocationResponse> createLocationAsync(
 ## Example Usage
 
 ```java
-Address address = new Address.Builder()
-    .addressLine1("1234 Peachtree St. NE")
-    .locality("Atlanta")
-    .administrativeDistrictLevel1("GA")
-    .postalCode("30309")
-    .build();
-
-Location location = new Location.Builder()
-    .name("Midtown")
-    .address(address)
-    .description("Midtown Atlanta store")
-    .build();
-
 CreateLocationRequest body = new CreateLocationRequest.Builder()
-    .location(location)
+    .location(new Location.Builder()
+        .name("Midtown")
+        .address(new Address.Builder()
+            .addressLine1("1234 Peachtree St. NE")
+            .locality("Atlanta")
+            .administrativeDistrictLevel1("GA")
+            .postalCode("30309")
+            .build())
+        .description("Midtown Atlanta store")
+        .build())
     .build();
 
 locationsApi.createLocationAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -122,8 +122,10 @@ String locationId = "location_id4";
 
 locationsApi.retrieveLocationAsync(locationId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -154,46 +156,37 @@ CompletableFuture<UpdateLocationResponse> updateLocationAsync(
 
 ```java
 String locationId = "location_id4";
-List<BusinessHoursPeriod> periods = new LinkedList<>();
-BusinessHoursPeriod periods0 = new BusinessHoursPeriod.Builder()
-    .dayOfWeek("FRI")
-    .startLocalTime("07:00")
-    .endLocalTime("18:00")
-    .build();
-
-periods.add(periods0);
-BusinessHoursPeriod periods1 = new BusinessHoursPeriod.Builder()
-    .dayOfWeek("SAT")
-    .startLocalTime("07:00")
-    .endLocalTime("18:00")
-    .build();
-
-periods.add(periods1);
-BusinessHoursPeriod periods2 = new BusinessHoursPeriod.Builder()
-    .dayOfWeek("SUN")
-    .startLocalTime("09:00")
-    .endLocalTime("15:00")
-    .build();
-
-periods.add(periods2);
-
-BusinessHours businessHours = new BusinessHours.Builder()
-    .periods(periods)
-    .build();
-
-Location location = new Location.Builder()
-    .businessHours(businessHours)
-    .description("Midtown Atlanta store - Open weekends")
-    .build();
-
 UpdateLocationRequest body = new UpdateLocationRequest.Builder()
-    .location(location)
+    .location(new Location.Builder()
+        .businessHours(new BusinessHours.Builder()
+            .periods(Arrays.asList(
+                new BusinessHoursPeriod.Builder()
+                    .dayOfWeek("FRI")
+                    .startLocalTime("07:00")
+                    .endLocalTime("18:00")
+                    .build(),
+                new BusinessHoursPeriod.Builder()
+                    .dayOfWeek("SAT")
+                    .startLocalTime("07:00")
+                    .endLocalTime("18:00")
+                    .build(),
+                new BusinessHoursPeriod.Builder()
+                    .dayOfWeek("SUN")
+                    .startLocalTime("09:00")
+                    .endLocalTime("15:00")
+                    .build()
+            ))
+            .build())
+        .description("Midtown Atlanta store - Open weekends")
+        .build())
     .build();
 
 locationsApi.updateLocationAsync(locationId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

@@ -21,7 +21,7 @@ public interface GiftCardActivitiesApi {
      * @param  giftCardId  Optional parameter: If a gift card ID is provided, the endpoint returns
      *         activities related to the specified gift card. Otherwise, the endpoint returns all
      *         gift card activities for the seller.
-     * @param  type  Optional parameter: If a [type]($m/GiftCardActivityType) is provided, the
+     * @param  type  Optional parameter: If a [type](entity:GiftCardActivityType) is provided, the
      *         endpoint returns gift card activities of the specified type. Otherwise, the endpoint
      *         returns all types of gift card activities.
      * @param  locationId  Optional parameter: If a location ID is provided, the endpoint returns
@@ -66,7 +66,7 @@ public interface GiftCardActivitiesApi {
      * @param  giftCardId  Optional parameter: If a gift card ID is provided, the endpoint returns
      *         activities related to the specified gift card. Otherwise, the endpoint returns all
      *         gift card activities for the seller.
-     * @param  type  Optional parameter: If a [type]($m/GiftCardActivityType) is provided, the
+     * @param  type  Optional parameter: If a [type](entity:GiftCardActivityType) is provided, the
      *         endpoint returns gift card activities of the specified type. Otherwise, the endpoint
      *         returns all types of gift card activities.
      * @param  locationId  Optional parameter: If a location ID is provided, the endpoint returns

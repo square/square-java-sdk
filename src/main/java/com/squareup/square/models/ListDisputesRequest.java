@@ -50,7 +50,7 @@ public class ListDisputesRequest {
      * Internal Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the Internal String
      */
     @JsonGetter("cursor")
@@ -64,7 +64,7 @@ public class ListDisputesRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this cursor to
      * retrieve the next set of results for the original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonIgnore

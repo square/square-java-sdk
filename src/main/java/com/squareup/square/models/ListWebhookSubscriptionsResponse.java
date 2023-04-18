@@ -54,7 +54,7 @@ public class ListWebhookSubscriptionsResponse {
 
     /**
      * Getter for Subscriptions.
-     * The requested list of [Subscription]($m/WebhookSubscription)s.
+     * The requested list of [Subscription](entity:WebhookSubscription)s.
      * @return Returns the List of WebhookSubscription
      */
     @JsonGetter("subscriptions")

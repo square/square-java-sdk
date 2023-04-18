@@ -96,7 +96,7 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for Id.
-     * A unique Square-generated ID for the [InventoryPhysicalCount]($m/InventoryPhysicalCount).
+     * A unique Square-generated ID for the [InventoryPhysicalCount](entity:InventoryPhysicalCount).
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -108,7 +108,7 @@ public class InventoryPhysicalCount {
     /**
      * Internal Getter for ReferenceId.
      * An optional ID provided by the application to tie the
-     * [InventoryPhysicalCount]($m/InventoryPhysicalCount) to an external system.
+     * [InventoryPhysicalCount](entity:InventoryPhysicalCount) to an external system.
      * @return Returns the Internal String
      */
     @JsonGetter("reference_id")
@@ -121,7 +121,7 @@ public class InventoryPhysicalCount {
     /**
      * Getter for ReferenceId.
      * An optional ID provided by the application to tie the
-     * [InventoryPhysicalCount]($m/InventoryPhysicalCount) to an external system.
+     * [InventoryPhysicalCount](entity:InventoryPhysicalCount) to an external system.
      * @return Returns the String
      */
     @JsonIgnore
@@ -131,7 +131,7 @@ public class InventoryPhysicalCount {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -143,7 +143,7 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for CatalogObjectId.
-     * The Square-generated ID of the [CatalogObject]($m/CatalogObject) being tracked.
+     * The Square-generated ID of the [CatalogObject](entity:CatalogObject) being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -153,10 +153,10 @@ public class InventoryPhysicalCount {
 
     /**
      * Internal Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_type")
@@ -168,10 +168,10 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for CatalogObjectType.
-     * The [type]($m/CatalogObjectType) of the [CatalogObject]($m/CatalogObject) being tracked. The
-     * Inventory API supports setting and reading the `"catalog_object_type": "ITEM_VARIATION"`
-     * field value. In addition, it can also read the `"catalog_object_type": "ITEM"` field value
-     * that is set by the Square Restaurants app.
+     * The [type](entity:CatalogObjectType) of the [CatalogObject](entity:CatalogObject) being
+     * tracked. The Inventory API supports setting and reading the `"catalog_object_type":
+     * "ITEM_VARIATION"` field value. In addition, it can also read the `"catalog_object_type":
+     * "ITEM"` field value that is set by the Square Restaurants app.
      * @return Returns the String
      */
     @JsonIgnore
@@ -192,8 +192,8 @@ public class InventoryPhysicalCount {
 
     /**
      * Internal Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the Internal String
      */
     @JsonGetter("location_id")
@@ -205,8 +205,8 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for LocationId.
-     * The Square-generated ID of the [Location]($m/Location) where the related quantity of items is
-     * being tracked.
+     * The Square-generated ID of the [Location](entity:Location) where the related quantity of
+     * items is being tracked.
      * @return Returns the String
      */
     @JsonIgnore
@@ -251,7 +251,8 @@ public class InventoryPhysicalCount {
 
     /**
      * Internal Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the physical count.
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the physical
+     * count.
      * @return Returns the Internal String
      */
     @JsonGetter("employee_id")
@@ -263,7 +264,8 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for EmployeeId.
-     * The Square-generated ID of the [Employee]($m/Employee) responsible for the physical count.
+     * The Square-generated ID of the [Employee](entity:Employee) responsible for the physical
+     * count.
      * @return Returns the String
      */
     @JsonIgnore
@@ -273,7 +275,7 @@ public class InventoryPhysicalCount {
 
     /**
      * Internal Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the physical
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the physical
      * count.
      * @return Returns the Internal String
      */
@@ -286,7 +288,7 @@ public class InventoryPhysicalCount {
 
     /**
      * Getter for TeamMemberId.
-     * The Square-generated ID of the [Team Member]($m/TeamMember) responsible for the physical
+     * The Square-generated ID of the [Team Member](entity:TeamMember) responsible for the physical
      * count.
      * @return Returns the String
      */

@@ -54,7 +54,7 @@ public class TeamMemberAssignedLocations {
 
     /**
      * Internal Getter for LocationIds.
-     * The locations that the team member is assigned to.
+     * The explicit locations that the team member is assigned to.
      * @return Returns the Internal List of String
      */
     @JsonGetter("location_ids")
@@ -66,7 +66,7 @@ public class TeamMemberAssignedLocations {
 
     /**
      * Getter for LocationIds.
-     * The locations that the team member is assigned to.
+     * The explicit locations that the team member is assigned to.
      * @return Returns the List of String
      */
     @JsonIgnore

@@ -34,9 +34,9 @@ public class CustomerCustomAttributeFilter {
 
     /**
      * Getter for Key.
-     * The `key` of the [custom attribute]($m/CustomAttribute) to filter by. The key is the
+     * The `key` of the [custom attribute](entity:CustomAttribute) to filter by. The key is the
      * identifier of the custom attribute (and the corresponding custom attribute definition) and
-     * can be retrieved using the [Customer Custom Attributes API]($e/CustomerCustomAttributes).
+     * can be retrieved using the [Customer Custom Attributes API](api:CustomerCustomAttributes).
      * @return Returns the String
      */
     @JsonGetter("key")

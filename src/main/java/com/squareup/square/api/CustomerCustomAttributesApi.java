@@ -254,7 +254,8 @@ public interface CustomerCustomAttributesApi {
      * the same call. When all response pages are retrieved, the results include all custom
      * attributes that are visible to the requesting application, including those that are owned by
      * other applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  limit  Optional parameter: The maximum number of results to return in a single paged
      *         response. This limit is advisory. The response might contain more or fewer results.
      *         The minimum value is 1 and the maximum value is 100. The default value is 20. For
@@ -265,10 +266,10 @@ public interface CustomerCustomAttributesApi {
      *         results for your original request. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListCustomerCustomAttributesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -285,7 +286,8 @@ public interface CustomerCustomAttributesApi {
      * the same call. When all response pages are retrieved, the results include all custom
      * attributes that are visible to the requesting application, including those that are owned by
      * other applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  limit  Optional parameter: The maximum number of results to return in a single paged
      *         response. This limit is advisory. The response might contain more or fewer results.
      *         The minimum value is 1 and the maximum value is 100. The default value is 20. For
@@ -296,10 +298,10 @@ public interface CustomerCustomAttributesApi {
      *         results for your original request. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListCustomerCustomAttributesResponse response from the API call
      */
     CompletableFuture<ListCustomerCustomAttributesResponse> listCustomerCustomAttributesAsync(
@@ -313,7 +315,8 @@ public interface CustomerCustomAttributesApi {
      * delete a custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes (also known as
      * custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to delete. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
@@ -330,7 +333,8 @@ public interface CustomerCustomAttributesApi {
      * delete a custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes (also known as
      * custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to delete. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
@@ -347,12 +351,13 @@ public interface CustomerCustomAttributesApi {
      * `visibility` setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note
      * that seller-defined custom attributes (also known as custom fields) are always set to
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to retrieve. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of the custom
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of the custom
      *         attribute. Set this parameter to `true` to get the name and description of the custom
      *         attribute, information about the data type, or other definition details. The default
      *         value is `false`.
@@ -378,12 +383,13 @@ public interface CustomerCustomAttributesApi {
      * `visibility` setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note
      * that seller-defined custom attributes (also known as custom fields) are always set to
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to retrieve. This key must
      *         match the `key` of a custom attribute definition in the Square seller account. If the
      *         requesting application is not the definition owner, you must use the qualified key.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of the custom
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of the custom
      *         attribute. Set this parameter to `true` to get the name and description of the custom
      *         attribute, information about the data type, or other definition details. The default
      *         value is `false`.
@@ -409,7 +415,8 @@ public interface CustomerCustomAttributesApi {
      * endpoint. To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom
      * attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to create or update. This
      *         key must match the `key` of a custom attribute definition in the Square seller
      *         account. If the requesting application is not the definition owner, you must use the
@@ -434,7 +441,8 @@ public interface CustomerCustomAttributesApi {
      * endpoint. To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom
      * attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  customerId  Required parameter: The ID of the target [customer profile]($m/Customer).
+     * @param  customerId  Required parameter: The ID of the target [customer
+     *         profile](entity:Customer).
      * @param  key  Required parameter: The key of the custom attribute to create or update. This
      *         key must match the `key` of a custom attribute definition in the Square seller
      *         account. If the requesting application is not the definition owner, you must use the

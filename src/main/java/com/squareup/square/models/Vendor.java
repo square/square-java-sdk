@@ -85,8 +85,8 @@ public class Vendor {
 
     /**
      * Getter for Id.
-     * A unique Square-generated ID for the [Vendor]($m/Vendor). This field is required when
-     * attempting to update a [Vendor]($m/Vendor).
+     * A unique Square-generated ID for the [Vendor](entity:Vendor). This field is required when
+     * attempting to update a [Vendor](entity:Vendor).
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -97,7 +97,7 @@ public class Vendor {
 
     /**
      * Getter for CreatedAt.
-     * An RFC 3339-formatted timestamp that indicates when the [Vendor]($m/Vendor) was created.
+     * An RFC 3339-formatted timestamp that indicates when the [Vendor](entity:Vendor) was created.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -108,7 +108,8 @@ public class Vendor {
 
     /**
      * Getter for UpdatedAt.
-     * An RFC 3339-formatted timestamp that indicates when the [Vendor]($m/Vendor) was last updated.
+     * An RFC 3339-formatted timestamp that indicates when the [Vendor](entity:Vendor) was last
+     * updated.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -119,8 +120,8 @@ public class Vendor {
 
     /**
      * Internal Getter for Name.
-     * The name of the [Vendor]($m/Vendor). This field is required when attempting to create or
-     * update a [Vendor]($m/Vendor).
+     * The name of the [Vendor](entity:Vendor). This field is required when attempting to create or
+     * update a [Vendor](entity:Vendor).
      * @return Returns the Internal String
      */
     @JsonGetter("name")
@@ -132,8 +133,8 @@ public class Vendor {
 
     /**
      * Getter for Name.
-     * The name of the [Vendor]($m/Vendor). This field is required when attempting to create or
-     * update a [Vendor]($m/Vendor).
+     * The name of the [Vendor](entity:Vendor). This field is required when attempting to create or
+     * update a [Vendor](entity:Vendor).
      * @return Returns the String
      */
     @JsonIgnore
@@ -155,7 +156,7 @@ public class Vendor {
 
     /**
      * Internal Getter for Contacts.
-     * The contacts of the [Vendor]($m/Vendor).
+     * The contacts of the [Vendor](entity:Vendor).
      * @return Returns the Internal List of VendorContact
      */
     @JsonGetter("contacts")
@@ -167,7 +168,7 @@ public class Vendor {
 
     /**
      * Getter for Contacts.
-     * The contacts of the [Vendor]($m/Vendor).
+     * The contacts of the [Vendor](entity:Vendor).
      * @return Returns the List of VendorContact
      */
     @JsonIgnore
@@ -177,7 +178,7 @@ public class Vendor {
 
     /**
      * Internal Getter for AccountNumber.
-     * The account number of the [Vendor]($m/Vendor).
+     * The account number of the [Vendor](entity:Vendor).
      * @return Returns the Internal String
      */
     @JsonGetter("account_number")
@@ -189,7 +190,7 @@ public class Vendor {
 
     /**
      * Getter for AccountNumber.
-     * The account number of the [Vendor]($m/Vendor).
+     * The account number of the [Vendor](entity:Vendor).
      * @return Returns the String
      */
     @JsonIgnore
@@ -199,7 +200,7 @@ public class Vendor {
 
     /**
      * Internal Getter for Note.
-     * A note detailing information about the [Vendor]($m/Vendor).
+     * A note detailing information about the [Vendor](entity:Vendor).
      * @return Returns the Internal String
      */
     @JsonGetter("note")
@@ -211,7 +212,7 @@ public class Vendor {
 
     /**
      * Getter for Note.
-     * A note detailing information about the [Vendor]($m/Vendor).
+     * A note detailing information about the [Vendor](entity:Vendor).
      * @return Returns the String
      */
     @JsonIgnore
@@ -221,7 +222,7 @@ public class Vendor {
 
     /**
      * Getter for Version.
-     * The version of the [Vendor]($m/Vendor).
+     * The version of the [Vendor](entity:Vendor).
      * @return Returns the Integer
      */
     @JsonGetter("version")

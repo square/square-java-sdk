@@ -22,6 +22,7 @@ public class OrderReturnLineItemModifier {
     private final OptionalNullable<String> name;
     private final Money basePriceMoney;
     private final Money totalPriceMoney;
+    private final OptionalNullable<String> quantity;
 
     /**
      * Initialization constructor.
@@ -32,6 +33,7 @@ public class OrderReturnLineItemModifier {
      * @param  name  String value for name.
      * @param  basePriceMoney  Money value for basePriceMoney.
      * @param  totalPriceMoney  Money value for totalPriceMoney.
+     * @param  quantity  String value for quantity.
      */
     @JsonCreator
     public OrderReturnLineItemModifier(
@@ -41,7 +43,8 @@ public class OrderReturnLineItemModifier {
             @JsonProperty("catalog_version") Long catalogVersion,
             @JsonProperty("name") String name,
             @JsonProperty("base_price_money") Money basePriceMoney,
-            @JsonProperty("total_price_money") Money totalPriceMoney) {
+            @JsonProperty("total_price_money") Money totalPriceMoney,
+            @JsonProperty("quantity") String quantity) {
         this.uid = OptionalNullable.of(uid);
         this.sourceModifierUid = OptionalNullable.of(sourceModifierUid);
         this.catalogObjectId = OptionalNullable.of(catalogObjectId);
@@ -49,6 +52,7 @@ public class OrderReturnLineItemModifier {
         this.name = OptionalNullable.of(name);
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
+        this.quantity = OptionalNullable.of(quantity);
     }
 
     /**
@@ -57,7 +61,7 @@ public class OrderReturnLineItemModifier {
     protected OrderReturnLineItemModifier(OptionalNullable<String> uid,
             OptionalNullable<String> sourceModifierUid, OptionalNullable<String> catalogObjectId,
             OptionalNullable<Long> catalogVersion, OptionalNullable<String> name,
-            Money basePriceMoney, Money totalPriceMoney) {
+            Money basePriceMoney, Money totalPriceMoney, OptionalNullable<String> quantity) {
         this.uid = uid;
         this.sourceModifierUid = sourceModifierUid;
         this.catalogObjectId = catalogObjectId;
@@ -65,6 +69,7 @@ public class OrderReturnLineItemModifier {
         this.name = name;
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
+        this.quantity = quantity;
     }
 
     /**
@@ -115,7 +120,7 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier](entity:CatalogModifier).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -127,7 +132,7 @@ public class OrderReturnLineItemModifier {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier](entity:CatalogModifier).
      * @return Returns the String
      */
     @JsonIgnore
@@ -211,10 +216,44 @@ public class OrderReturnLineItemModifier {
         return totalPriceMoney;
     }
 
+    /**
+     * Internal Getter for Quantity.
+     * The quantity of the line item modifier. The modifier quantity can be 0 or more. For example,
+     * suppose a restaurant offers a cheeseburger on the menu. When a buyer orders this item, the
+     * restaurant records the purchase by creating an `Order` object with a line item for a burger.
+     * The line item includes a line item modifier: the name is cheese and the quantity is 1. The
+     * buyer has the option to order extra cheese (or no cheese). If the buyer chooses the extra
+     * cheese option, the modifier quantity increases to 2. If the buyer does not want any cheese,
+     * the modifier quantity is set to 0.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetQuantity() {
+        return this.quantity;
+    }
+
+    /**
+     * Getter for Quantity.
+     * The quantity of the line item modifier. The modifier quantity can be 0 or more. For example,
+     * suppose a restaurant offers a cheeseburger on the menu. When a buyer orders this item, the
+     * restaurant records the purchase by creating an `Order` object with a line item for a burger.
+     * The line item includes a line item modifier: the name is cheese and the quantity is 1. The
+     * buyer has the option to order extra cheese (or no cheese). If the buyer chooses the extra
+     * cheese option, the modifier quantity increases to 2. If the buyer does not want any cheese,
+     * the modifier quantity is set to 0.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getQuantity() {
+        return OptionalNullable.getFrom(quantity);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceModifierUid, catalogObjectId, catalogVersion, name,
-                basePriceMoney, totalPriceMoney);
+                basePriceMoney, totalPriceMoney, quantity);
     }
 
     @Override
@@ -232,7 +271,8 @@ public class OrderReturnLineItemModifier {
             && Objects.equals(catalogVersion, other.catalogVersion)
             && Objects.equals(name, other.name)
             && Objects.equals(basePriceMoney, other.basePriceMoney)
-            && Objects.equals(totalPriceMoney, other.totalPriceMoney);
+            && Objects.equals(totalPriceMoney, other.totalPriceMoney)
+            && Objects.equals(quantity, other.quantity);
     }
 
     /**
@@ -244,7 +284,7 @@ public class OrderReturnLineItemModifier {
         return "OrderReturnLineItemModifier [" + "uid=" + uid + ", sourceModifierUid="
                 + sourceModifierUid + ", catalogObjectId=" + catalogObjectId + ", catalogVersion="
                 + catalogVersion + ", name=" + name + ", basePriceMoney=" + basePriceMoney
-                + ", totalPriceMoney=" + totalPriceMoney + "]";
+                + ", totalPriceMoney=" + totalPriceMoney + ", quantity=" + quantity + "]";
     }
 
     /**
@@ -261,6 +301,7 @@ public class OrderReturnLineItemModifier {
         builder.catalogObjectId = internalGetCatalogObjectId();
         builder.catalogVersion = internalGetCatalogVersion();
         builder.name = internalGetName();
+        builder.quantity = internalGetQuantity();
         return builder;
     }
 
@@ -275,6 +316,7 @@ public class OrderReturnLineItemModifier {
         private OptionalNullable<String> name;
         private Money basePriceMoney;
         private Money totalPriceMoney;
+        private OptionalNullable<String> quantity;
 
 
 
@@ -394,12 +436,31 @@ public class OrderReturnLineItemModifier {
         }
 
         /**
+         * Setter for quantity.
+         * @param  quantity  String value for quantity.
+         * @return Builder
+         */
+        public Builder quantity(String quantity) {
+            this.quantity = OptionalNullable.of(quantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for quantity.
+         * @return Builder
+         */
+        public Builder unsetQuantity() {
+            quantity = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderReturnLineItemModifier} object using the set fields.
          * @return {@link OrderReturnLineItemModifier}
          */
         public OrderReturnLineItemModifier build() {
             return new OrderReturnLineItemModifier(uid, sourceModifierUid, catalogObjectId,
-                    catalogVersion, name, basePriceMoney, totalPriceMoney);
+                    catalogVersion, name, basePriceMoney, totalPriceMoney, quantity);
         }
     }
 }

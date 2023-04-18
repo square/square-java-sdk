@@ -47,8 +47,10 @@ CompletableFuture<ListMerchantsResponse> listMerchantsAsync(
 ```java
 merchantsApi.listMerchantsAsync(null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -80,8 +82,10 @@ String merchantId = "merchant_id0";
 
 merchantsApi.retrieveMerchantAsync(merchantId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

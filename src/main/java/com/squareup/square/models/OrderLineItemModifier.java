@@ -97,7 +97,7 @@ public class OrderLineItemModifier {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier](entity:CatalogModifier).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -109,7 +109,7 @@ public class OrderLineItemModifier {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogModifier]($m/CatalogModifier).
+     * The catalog object ID referencing [CatalogModifier](entity:CatalogModifier).
      * @return Returns the String
      */
     @JsonIgnore

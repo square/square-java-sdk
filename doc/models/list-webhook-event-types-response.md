@@ -17,7 +17,7 @@ present.
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information on errors encountered during the request. | List<Error> getErrors() |
 | `EventTypes` | `List<String>` | Optional | The list of event types. | List<String> getEventTypes() |
-| `Metadata` | [`List<EventTypeMetadata>`](../../doc/models/event-type-metadata.md) | Optional | Contains the metadata of a webhook event type. For more information, see [EventTypeMetadata](../../doc/models/event-type-metadata.md). | List<EventTypeMetadata> getMetadata() |
+| `Metadata` | [`List<EventTypeMetadata>`](../../doc/models/event-type-metadata.md) | Optional | Contains the metadata of a webhook event type. For more information, see [EventTypeMetadata](entity:EventTypeMetadata). | List<EventTypeMetadata> getMetadata() |
 
 ## Example (as JSON)
 

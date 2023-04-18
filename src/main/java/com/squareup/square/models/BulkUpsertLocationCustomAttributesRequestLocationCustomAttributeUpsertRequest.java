@@ -48,7 +48,7 @@ public class BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUps
 
     /**
      * Getter for LocationId.
-     * The ID of the target [location]($m/Location).
+     * The ID of the target [location](entity:Location).
      * @return Returns the String
      */
     @JsonGetter("location_id")

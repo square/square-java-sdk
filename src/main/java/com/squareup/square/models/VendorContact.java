@@ -63,8 +63,8 @@ public class VendorContact {
 
     /**
      * Getter for Id.
-     * A unique Square-generated ID for the [VendorContact]($m/VendorContact). This field is
-     * required when attempting to update a [VendorContact]($m/VendorContact).
+     * A unique Square-generated ID for the [VendorContact](entity:VendorContact). This field is
+     * required when attempting to update a [VendorContact](entity:VendorContact).
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -75,8 +75,8 @@ public class VendorContact {
 
     /**
      * Internal Getter for Name.
-     * The name of the [VendorContact]($m/VendorContact). This field is required when attempting to
-     * create a [Vendor]($m/Vendor).
+     * The name of the [VendorContact](entity:VendorContact). This field is required when attempting
+     * to create a [Vendor](entity:Vendor).
      * @return Returns the Internal String
      */
     @JsonGetter("name")
@@ -88,8 +88,8 @@ public class VendorContact {
 
     /**
      * Getter for Name.
-     * The name of the [VendorContact]($m/VendorContact). This field is required when attempting to
-     * create a [Vendor]($m/Vendor).
+     * The name of the [VendorContact](entity:VendorContact). This field is required when attempting
+     * to create a [Vendor](entity:Vendor).
      * @return Returns the String
      */
     @JsonIgnore
@@ -99,7 +99,7 @@ public class VendorContact {
 
     /**
      * Internal Getter for EmailAddress.
-     * The email address of the [VendorContact]($m/VendorContact).
+     * The email address of the [VendorContact](entity:VendorContact).
      * @return Returns the Internal String
      */
     @JsonGetter("email_address")
@@ -111,7 +111,7 @@ public class VendorContact {
 
     /**
      * Getter for EmailAddress.
-     * The email address of the [VendorContact]($m/VendorContact).
+     * The email address of the [VendorContact](entity:VendorContact).
      * @return Returns the String
      */
     @JsonIgnore
@@ -121,7 +121,7 @@ public class VendorContact {
 
     /**
      * Internal Getter for PhoneNumber.
-     * The phone number of the [VendorContact]($m/VendorContact).
+     * The phone number of the [VendorContact](entity:VendorContact).
      * @return Returns the Internal String
      */
     @JsonGetter("phone_number")
@@ -133,7 +133,7 @@ public class VendorContact {
 
     /**
      * Getter for PhoneNumber.
-     * The phone number of the [VendorContact]($m/VendorContact).
+     * The phone number of the [VendorContact](entity:VendorContact).
      * @return Returns the String
      */
     @JsonIgnore
@@ -143,7 +143,7 @@ public class VendorContact {
 
     /**
      * Internal Getter for Removed.
-     * The state of the [VendorContact]($m/VendorContact).
+     * The state of the [VendorContact](entity:VendorContact).
      * @return Returns the Internal Boolean
      */
     @JsonGetter("removed")
@@ -155,7 +155,7 @@ public class VendorContact {
 
     /**
      * Getter for Removed.
-     * The state of the [VendorContact]($m/VendorContact).
+     * The state of the [VendorContact](entity:VendorContact).
      * @return Returns the Boolean
      */
     @JsonIgnore
@@ -165,7 +165,7 @@ public class VendorContact {
 
     /**
      * Getter for Ordinal.
-     * The ordinal of the [VendorContact]($m/VendorContact).
+     * The ordinal of the [VendorContact](entity:VendorContact).
      * @return Returns the int
      */
     @JsonGetter("ordinal")

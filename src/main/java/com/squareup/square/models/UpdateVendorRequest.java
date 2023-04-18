@@ -42,9 +42,9 @@ public class UpdateVendorRequest {
     /**
      * Internal Getter for IdempotencyKey.
      * A client-supplied, universally unique identifier (UUID) for the request. See
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the [API
-     * Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more
-     * information.
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency)
+     * in the [API Development 101](https://developer.squareup.com/docs/buildbasics) section for
+     * more information.
      * @return Returns the Internal String
      */
     @JsonGetter("idempotency_key")
@@ -57,9 +57,9 @@ public class UpdateVendorRequest {
     /**
      * Getter for IdempotencyKey.
      * A client-supplied, universally unique identifier (UUID) for the request. See
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) in the [API
-     * Development 101](https://developer.squareup.com/docs/basics/api101/overview) section for more
-     * information.
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency)
+     * in the [API Development 101](https://developer.squareup.com/docs/buildbasics) section for
+     * more information.
      * @return Returns the String
      */
     @JsonIgnore

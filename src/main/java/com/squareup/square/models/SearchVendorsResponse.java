@@ -54,7 +54,7 @@ public class SearchVendorsResponse {
 
     /**
      * Getter for Vendors.
-     * The [Vendor]($m/Vendor) objects matching the specified search filter.
+     * The [Vendor](entity:Vendor) objects matching the specified search filter.
      * @return Returns the List of Vendor
      */
     @JsonGetter("vendors")

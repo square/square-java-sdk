@@ -34,7 +34,7 @@ public class LoyaltyEventDeleteReward {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The ID of the [loyalty program]($m/LoyaltyProgram).
+     * The ID of the [loyalty program](entity:LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -44,8 +44,8 @@ public class LoyaltyEventDeleteReward {
 
     /**
      * Getter for RewardId.
-     * The ID of the deleted [loyalty reward]($m/LoyaltyReward). This field is returned only if the
-     * event source is `LOYALTY_API`.
+     * The ID of the deleted [loyalty reward](entity:LoyaltyReward). This field is returned only if
+     * the event source is `LOYALTY_API`.
      * @return Returns the String
      */
     @JsonGetter("reward_id")

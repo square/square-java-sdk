@@ -148,6 +148,7 @@ public class CreatePaymentRequest {
      * @return Returns the Money
      */
     @JsonGetter("amount_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Money getAmountMoney() {
         return amountMoney;
     }
@@ -244,8 +245,8 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for CustomerId.
-     * The [Customer]($m/Customer) ID of the customer associated with the payment. This is required
-     * if the `source_id` refers to a card on file created using the Cards API.
+     * The [Customer](entity:Customer) ID of the customer associated with the payment. This is
+     * required if the `source_id` refers to a card on file created using the Cards API.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -268,7 +269,7 @@ public class CreatePaymentRequest {
 
     /**
      * Getter for TeamMemberId.
-     * An optional [TeamMember]($m/TeamMember) ID to associate with this payment.
+     * An optional [TeamMember](entity:TeamMember) ID to associate with this payment.
      * @return Returns the String
      */
     @JsonGetter("team_member_id")
@@ -480,7 +481,8 @@ public class CreatePaymentRequest {
      * @return a new {@link CreatePaymentRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(sourceId, idempotencyKey, amountMoney)
+        Builder builder = new Builder(sourceId, idempotencyKey)
+                .amountMoney(getAmountMoney())
                 .tipMoney(getTipMoney())
                 .appFeeMoney(getAppFeeMoney())
                 .delayDuration(getDelayDuration())
@@ -534,12 +536,10 @@ public class CreatePaymentRequest {
          * Initialization constructor.
          * @param  sourceId  String value for sourceId.
          * @param  idempotencyKey  String value for idempotencyKey.
-         * @param  amountMoney  Money value for amountMoney.
          */
-        public Builder(String sourceId, String idempotencyKey, Money amountMoney) {
+        public Builder(String sourceId, String idempotencyKey) {
             this.sourceId = sourceId;
             this.idempotencyKey = idempotencyKey;
-            this.amountMoney = amountMoney;
         }
 
         /**

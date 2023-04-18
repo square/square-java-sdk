@@ -43,7 +43,7 @@ public class SearchVendorsRequestFilter {
 
     /**
      * Internal Getter for Name.
-     * The names of the [Vendor]($m/Vendor) objects to retrieve.
+     * The names of the [Vendor](entity:Vendor) objects to retrieve.
      * @return Returns the Internal List of String
      */
     @JsonGetter("name")
@@ -55,7 +55,7 @@ public class SearchVendorsRequestFilter {
 
     /**
      * Getter for Name.
-     * The names of the [Vendor]($m/Vendor) objects to retrieve.
+     * The names of the [Vendor](entity:Vendor) objects to retrieve.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -65,7 +65,7 @@ public class SearchVendorsRequestFilter {
 
     /**
      * Internal Getter for Status.
-     * The statuses of the [Vendor]($m/Vendor) objects to retrieve. See
+     * The statuses of the [Vendor](entity:Vendor) objects to retrieve. See
      * [VendorStatus](#type-vendorstatus) for possible values
      * @return Returns the Internal List of String
      */
@@ -78,7 +78,7 @@ public class SearchVendorsRequestFilter {
 
     /**
      * Getter for Status.
-     * The statuses of the [Vendor]($m/Vendor) objects to retrieve. See
+     * The statuses of the [Vendor](entity:Vendor) objects to retrieve. See
      * [VendorStatus](#type-vendorstatus) for possible values
      * @return Returns the List of String
      */

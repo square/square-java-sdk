@@ -48,8 +48,10 @@ CreateMobileAuthorizationCodeRequest body = new CreateMobileAuthorizationCodeReq
 
 mobileAuthorizationApi.createMobileAuthorizationCodeAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

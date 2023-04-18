@@ -42,8 +42,8 @@ public class RetrieveInventoryChangesRequest {
 
     /**
      * Internal Getter for LocationIds.
-     * The [Location]($m/Location) IDs to look up as a comma-separated list. An empty list queries
-     * all locations.
+     * The [Location](entity:Location) IDs to look up as a comma-separated list. An empty list
+     * queries all locations.
      * @return Returns the Internal String
      */
     @JsonGetter("location_ids")
@@ -55,8 +55,8 @@ public class RetrieveInventoryChangesRequest {
 
     /**
      * Getter for LocationIds.
-     * The [Location]($m/Location) IDs to look up as a comma-separated list. An empty list queries
-     * all locations.
+     * The [Location](entity:Location) IDs to look up as a comma-separated list. An empty list
+     * queries all locations.
      * @return Returns the String
      */
     @JsonIgnore

@@ -88,8 +88,8 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
-     *         retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account](entity:LoyaltyAccount)
+     *         to retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -99,8 +99,8 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty account.
-     * @param  accountId  Required parameter: The ID of the [loyalty account]($m/LoyaltyAccount) to
-     *         retrieve.
+     * @param  accountId  Required parameter: The ID of the [loyalty account](entity:LoyaltyAccount)
+     *         to retrieve.
      * @return    Returns the RetrieveLoyaltyAccountResponse response from the API call
      */
     CompletableFuture<RetrieveLoyaltyAccountResponse> retrieveLoyaltyAccountAsync(
@@ -122,7 +122,7 @@ public interface LoyaltyApi {
      * earned from a loyalty promotion, see [Calculating promotion
      * points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
      * @param  accountId  Required parameter: The ID of the target [loyalty
-     *         account]($m/LoyaltyAccount).
+     *         account](entity:LoyaltyAccount).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -149,7 +149,7 @@ public interface LoyaltyApi {
      * earned from a loyalty promotion, see [Calculating promotion
      * points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
      * @param  accountId  Required parameter: The ID of the target [loyalty
-     *         account]($m/LoyaltyAccount).
+     *         account](entity:LoyaltyAccount).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AccumulateLoyaltyPointsResponse response from the API call
@@ -164,7 +164,7 @@ public interface LoyaltyApi {
      * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
      * for the purchase.
      * @param  accountId  Required parameter: The ID of the target [loyalty
-     *         account]($m/LoyaltyAccount).
+     *         account](entity:LoyaltyAccount).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -181,7 +181,7 @@ public interface LoyaltyApi {
      * [AccumulateLoyaltyPoints]($e/Loyalty/AccumulateLoyaltyPoints) to add points when a buyer pays
      * for the purchase.
      * @param  accountId  Required parameter: The ID of the target [loyalty
-     *         account]($m/LoyaltyAccount).
+     *         account](entity:LoyaltyAccount).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the AdjustLoyaltyPointsResponse response from the API call
@@ -224,8 +224,8 @@ public interface LoyaltyApi {
      * loyalty program, which is created and managed from the Seller Dashboard. For more
      * information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). Replaced with
-     * [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) when used with the keyword
-     * `main`.
+     * [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) when used with the
+     * keyword `main`.
      * @deprecated
      * 
      * @return    Returns the ListLoyaltyProgramsResponse response from the API call
@@ -240,8 +240,8 @@ public interface LoyaltyApi {
      * loyalty program, which is created and managed from the Seller Dashboard. For more
      * information, see [Loyalty Program
      * Overview](https://developer.squareup.com/docs/loyalty/overview). Replaced with
-     * [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) when used with the keyword
-     * `main`.
+     * [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) when used with the
+     * keyword `main`.
      * @deprecated
      * 
      * @return    Returns the ListLoyaltyProgramsResponse response from the API call
@@ -294,8 +294,8 @@ public interface LoyaltyApi {
      * computation to calculate whether the purchase also qualifies for promotion points. For more
      * information, see [Calculating promotion
      * points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
-     * @param  programId  Required parameter: The ID of the [loyalty program]($m/LoyaltyProgram),
-     *         which defines the rules for accruing points.
+     * @param  programId  Required parameter: The ID of the [loyalty
+     *         program](entity:LoyaltyProgram), which defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateLoyaltyPointsResponse response from the API call
@@ -321,8 +321,8 @@ public interface LoyaltyApi {
      * computation to calculate whether the purchase also qualifies for promotion points. For more
      * information, see [Calculating promotion
      * points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
-     * @param  programId  Required parameter: The ID of the [loyalty program]($m/LoyaltyProgram),
-     *         which defines the rules for accruing points.
+     * @param  programId  Required parameter: The ID of the [loyalty
+     *         program](entity:LoyaltyProgram), which defines the rules for accruing points.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CalculateLoyaltyPointsResponse response from the API call
@@ -335,8 +335,9 @@ public interface LoyaltyApi {
      * Lists the loyalty promotions associated with a [loyalty program]($m/LoyaltyProgram). Results
      * are sorted by the `created_at` date in descending order (newest to oldest).
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram). To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     *         program](entity:LoyaltyProgram). To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @param  status  Optional parameter: The status to filter the results by. If a status is
      *         provided, only loyalty promotions with the specified status are returned. Otherwise,
      *         all loyalty promotions associated with the loyalty program are returned.
@@ -362,8 +363,9 @@ public interface LoyaltyApi {
      * Lists the loyalty promotions associated with a [loyalty program]($m/LoyaltyProgram). Results
      * are sorted by the `created_at` date in descending order (newest to oldest).
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram). To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     *         program](entity:LoyaltyProgram). To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @param  status  Optional parameter: The status to filter the results by. If a status is
      *         provided, only loyalty promotions with the specified status are returned. Otherwise,
      *         all loyalty promotions associated with the loyalty program are returned.
@@ -389,9 +391,10 @@ public interface LoyaltyApi {
      * endpoint sets the loyalty promotion to the `ACTIVE` or `SCHEDULED` status, depending on the
      * `available_time` setting. A loyalty program can have a maximum of 10 loyalty promotions with
      * an `ACTIVE` or `SCHEDULED` status.
-     * @param  programId  Required parameter: The ID of the [loyalty program]($m/LoyaltyProgram) to
-     *         associate with the promotion. To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     * @param  programId  Required parameter: The ID of the [loyalty program](entity:LoyaltyProgram)
+     *         to associate with the promotion. To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyPromotionResponse response from the API call
@@ -408,9 +411,10 @@ public interface LoyaltyApi {
      * endpoint sets the loyalty promotion to the `ACTIVE` or `SCHEDULED` status, depending on the
      * `available_time` setting. A loyalty program can have a maximum of 10 loyalty promotions with
      * an `ACTIVE` or `SCHEDULED` status.
-     * @param  programId  Required parameter: The ID of the [loyalty program]($m/LoyaltyProgram) to
-     *         associate with the promotion. To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     * @param  programId  Required parameter: The ID of the [loyalty program](entity:LoyaltyProgram)
+     *         to associate with the promotion. To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateLoyaltyPromotionResponse response from the API call
@@ -422,10 +426,11 @@ public interface LoyaltyApi {
     /**
      * Retrieves a loyalty promotion.
      * @param  promotionId  Required parameter: The ID of the [loyalty
-     *         promotion]($m/LoyaltyPromotion) to retrieve.
+     *         promotion](entity:LoyaltyPromotion) to retrieve.
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram). To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     *         program](entity:LoyaltyProgram). To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @return    Returns the RetrieveLoyaltyPromotionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -437,10 +442,11 @@ public interface LoyaltyApi {
     /**
      * Retrieves a loyalty promotion.
      * @param  promotionId  Required parameter: The ID of the [loyalty
-     *         promotion]($m/LoyaltyPromotion) to retrieve.
+     *         promotion](entity:LoyaltyPromotion) to retrieve.
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram). To get the program ID, call
-     *         [RetrieveLoyaltyProgram]($e/Loyalty/RetrieveLoyaltyProgram) using the `main` keyword.
+     *         program](entity:LoyaltyProgram). To get the program ID, call
+     *         [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the
+     *         `main` keyword.
      * @return    Returns the RetrieveLoyaltyPromotionResponse response from the API call
      */
     CompletableFuture<RetrieveLoyaltyPromotionResponse> retrieveLoyaltyPromotionAsync(
@@ -454,10 +460,10 @@ public interface LoyaltyApi {
      * endpoint to cancel a promotion before you create a new one. This endpoint sets the loyalty
      * promotion to the `CANCELED` state.
      * @param  promotionId  Required parameter: The ID of the [loyalty
-     *         promotion]($m/LoyaltyPromotion) to cancel. You can cancel a promotion that has an
+     *         promotion](entity:LoyaltyPromotion) to cancel. You can cancel a promotion that has an
      *         `ACTIVE` or `SCHEDULED` status.
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram).
+     *         program](entity:LoyaltyProgram).
      * @return    Returns the CancelLoyaltyPromotionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -473,10 +479,10 @@ public interface LoyaltyApi {
      * endpoint to cancel a promotion before you create a new one. This endpoint sets the loyalty
      * promotion to the `CANCELED` state.
      * @param  promotionId  Required parameter: The ID of the [loyalty
-     *         promotion]($m/LoyaltyPromotion) to cancel. You can cancel a promotion that has an
+     *         promotion](entity:LoyaltyPromotion) to cancel. You can cancel a promotion that has an
      *         `ACTIVE` or `SCHEDULED` status.
      * @param  programId  Required parameter: The ID of the base [loyalty
-     *         program]($m/LoyaltyProgram).
+     *         program](entity:LoyaltyProgram).
      * @return    Returns the CancelLoyaltyPromotionResponse response from the API call
      */
     CompletableFuture<CancelLoyaltyPromotionResponse> cancelLoyaltyPromotionAsync(
@@ -545,7 +551,7 @@ public interface LoyaltyApi {
      * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
      * reward and related discounts. You cannot delete a reward that has reached the terminal state
      * (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -560,7 +566,7 @@ public interface LoyaltyApi {
      * [CreateLoyaltyReward]($e/Loyalty/CreateLoyaltyReward)), it updates the order by removing the
      * reward and related discounts. You cannot delete a reward that has reached the terminal state
      * (REDEEMED).
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         delete.
      * @return    Returns the DeleteLoyaltyRewardResponse response from the API call
      */
@@ -569,7 +575,7 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -580,7 +586,7 @@ public interface LoyaltyApi {
 
     /**
      * Retrieves a loyalty reward.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         retrieve.
      * @return    Returns the RetrieveLoyaltyRewardResponse response from the API call
      */
@@ -593,7 +599,7 @@ public interface LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -611,7 +617,7 @@ public interface LoyaltyApi {
      * endpoint after the buyer paid for the purchase. After the reward reaches the terminal state,
      * it cannot be deleted. In other words, points used for the reward cannot be returned to the
      * account.
-     * @param  rewardId  Required parameter: The ID of the [loyalty reward]($m/LoyaltyReward) to
+     * @param  rewardId  Required parameter: The ID of the [loyalty reward](entity:LoyaltyReward) to
      *         redeem.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

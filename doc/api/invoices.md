@@ -52,8 +52,10 @@ String locationId = "location_id4";
 
 invoicesApi.listInvoicesAsync(locationId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -85,77 +87,63 @@ CompletableFuture<CreateInvoiceResponse> createInvoiceAsync(
 ## Example Usage
 
 ```java
-InvoiceRecipient primaryRecipient = new InvoiceRecipient.Builder()
-    .customerId("JDKYHBWT1D4F8MFH63DBMEN8Y4")
-    .build();
-
-List<InvoicePaymentRequest> paymentRequests = new LinkedList<>();
-List<InvoicePaymentReminder> reminders = new LinkedList<>();
-InvoicePaymentReminder reminders0 = new InvoicePaymentReminder.Builder()
-    .relativeScheduledDays(-1)
-    .message("Your invoice is due tomorrow")
-    .build();
-
-reminders.add(reminders0);
-
-InvoicePaymentRequest paymentRequests0 = new InvoicePaymentRequest.Builder()
-    .requestType("BALANCE")
-    .dueDate("2030-01-24")
-    .tippingEnabled(true)
-    .automaticPaymentSource("NONE")
-    .reminders(reminders)
-    .build();
-
-paymentRequests.add(paymentRequests0);
-
-InvoiceAcceptedPaymentMethods acceptedPaymentMethods = new InvoiceAcceptedPaymentMethods.Builder()
-    .card(true)
-    .squareGiftCard(false)
-    .bankAccount(false)
-    .buyNowPayLater(false)
-    .build();
-
-List<InvoiceCustomField> customFields = new LinkedList<>();
-InvoiceCustomField customFields0 = new InvoiceCustomField.Builder()
-    .label("Event Reference Number")
-    .value("Ref. #1234")
-    .placement("ABOVE_LINE_ITEMS")
-    .build();
-
-customFields.add(customFields0);
-InvoiceCustomField customFields1 = new InvoiceCustomField.Builder()
-    .label("Terms of Service")
-    .value("The terms of service are...")
-    .placement("BELOW_LINE_ITEMS")
-    .build();
-
-customFields.add(customFields1);
-
-Invoice invoice = new Invoice.Builder()
-    .locationId("ES0RJRZYEC39A")
-    .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
-    .primaryRecipient(primaryRecipient)
-    .paymentRequests(paymentRequests)
-    .deliveryMethod("EMAIL")
-    .invoiceNumber("inv-100")
-    .title("Event Planning Services")
-    .description("We appreciate your business!")
-    .scheduledAt("2030-01-13T10:00:00Z")
-    .acceptedPaymentMethods(acceptedPaymentMethods)
-    .customFields(customFields)
-    .saleOrServiceDate("2030-01-24")
-    .storePaymentMethodEnabled(false)
-    .build();
-
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
-        invoice)
-    .idempotencyKey("ce3748f9-5fc1-4762-aa12-aae5e843f1f4")
-    .build();
+    new Invoice.Builder()
+        .locationId("ES0RJRZYEC39A")
+        .orderId("CAISENgvlJ6jLWAzERDzjyHVybY")
+        .primaryRecipient(new InvoiceRecipient.Builder()
+            .customerId("JDKYHBWT1D4F8MFH63DBMEN8Y4")
+            .build())
+        .paymentRequests(Arrays.asList(
+            new InvoicePaymentRequest.Builder()
+                .requestType("BALANCE")
+                .dueDate("2030-01-24")
+                .tippingEnabled(true)
+                .automaticPaymentSource("NONE")
+                .reminders(Arrays.asList(
+                    new InvoicePaymentReminder.Builder()
+                        .relativeScheduledDays(-1)
+                        .message("Your invoice is due tomorrow")
+                        .build()
+                ))
+                .build()
+        ))
+        .deliveryMethod("EMAIL")
+        .invoiceNumber("inv-100")
+        .title("Event Planning Services")
+        .description("We appreciate your business!")
+        .scheduledAt("2030-01-13T10:00:00Z")
+        .acceptedPaymentMethods(new InvoiceAcceptedPaymentMethods.Builder()
+            .card(true)
+            .squareGiftCard(false)
+            .bankAccount(false)
+            .buyNowPayLater(false)
+            .build())
+        .customFields(Arrays.asList(
+            new InvoiceCustomField.Builder()
+                .label("Event Reference Number")
+                .value("Ref. #1234")
+                .placement("ABOVE_LINE_ITEMS")
+                .build(),
+            new InvoiceCustomField.Builder()
+                .label("Terms of Service")
+                .value("The terms of service are...")
+                .placement("BELOW_LINE_ITEMS")
+                .build()
+        ))
+        .saleOrServiceDate("2030-01-24")
+        .storePaymentMethodEnabled(false)
+        .build()
+)
+.idempotencyKey("ce3748f9-5fc1-4762-aa12-aae5e843f1f4")
+.build();
 
 invoicesApi.createInvoiceAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -189,35 +177,33 @@ CompletableFuture<SearchInvoicesResponse> searchInvoicesAsync(
 ## Example Usage
 
 ```java
-List<String> locationIds = new LinkedList<>();
-locationIds.add("ES0RJRZYEC39A");
-
-List<String> customerIds = new LinkedList<>();
-customerIds.add("JDKYHBWT1D4F8MFH63DBMEN8Y4");
-
-InvoiceFilter filter = new InvoiceFilter.Builder(
-        locationIds)
-    .customerIds(customerIds)
-    .build();
-
-InvoiceSort sort = new InvoiceSort.Builder(
-        "INVOICE_SORT_DATE")
-    .order("DESC")
-    .build();
-
-InvoiceQuery query = new InvoiceQuery.Builder(
-        filter)
-    .sort(sort)
-    .build();
-
 SearchInvoicesRequest body = new SearchInvoicesRequest.Builder(
-        query)
-    .build();
+    new InvoiceQuery.Builder(
+        new InvoiceFilter.Builder(
+            Arrays.asList(
+                "ES0RJRZYEC39A"
+            )
+        )
+        .customerIds(Arrays.asList(
+                "JDKYHBWT1D4F8MFH63DBMEN8Y4"
+            ))
+        .build()
+    )
+    .sort(new InvoiceSort.Builder(
+            "INVOICE_SORT_DATE"
+        )
+        .order("DESC")
+        .build())
+    .build()
+)
+.build();
 
 invoicesApi.searchInvoicesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -240,7 +226,7 @@ CompletableFuture<DeleteInvoiceResponse> deleteInvoiceAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `invoiceId` | `String` | Template, Required | The ID of the invoice to delete. |
-| `version` | `Integer` | Query, Optional | The version of the [invoice](../../doc/models/invoice.md) to delete.<br>If you do not know the version, you can call [GetInvoice](../../doc/api/invoices.md#get-invoice) or<br>[ListInvoices](../../doc/api/invoices.md#list-invoices). |
+| `version` | `Integer` | Query, Optional | The version of the [invoice](entity:Invoice) to delete.<br>If you do not know the version, you can call [GetInvoice](api-endpoint:Invoices-GetInvoice) or<br>[ListInvoices](api-endpoint:Invoices-ListInvoices). |
 
 ## Response Type
 
@@ -253,8 +239,10 @@ String invoiceId = "invoice_id0";
 
 invoicesApi.deleteInvoiceAsync(invoiceId, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -286,8 +274,10 @@ String invoiceId = "invoice_id0";
 
 invoicesApi.getInvoiceAsync(invoiceId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -321,32 +311,29 @@ CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
 
 ```java
 String invoiceId = "invoice_id0";
-List<InvoicePaymentRequest> paymentRequests = new LinkedList<>();
-InvoicePaymentRequest paymentRequests0 = new InvoicePaymentRequest.Builder()
-    .uid("2da7964f-f3d2-4f43-81e8-5aa220bf3355")
-    .tippingEnabled(false)
-    .build();
-
-paymentRequests.add(paymentRequests0);
-
-Invoice invoice = new Invoice.Builder()
-    .version(1)
-    .paymentRequests(paymentRequests)
-    .build();
-
-List<String> fieldsToClear = new LinkedList<>();
-fieldsToClear.add("payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders");
-
 UpdateInvoiceRequest body = new UpdateInvoiceRequest.Builder(
-        invoice)
-    .idempotencyKey("4ee82288-0910-499e-ab4c-5d0071dad1be")
-    .fieldsToClear(fieldsToClear)
-    .build();
+    new Invoice.Builder()
+        .version(1)
+        .paymentRequests(Arrays.asList(
+            new InvoicePaymentRequest.Builder()
+                .uid("2da7964f-f3d2-4f43-81e8-5aa220bf3355")
+                .tippingEnabled(false)
+                .build()
+        ))
+        .build()
+)
+.idempotencyKey("4ee82288-0910-499e-ab4c-5d0071dad1be")
+.fieldsToClear(Arrays.asList(
+        "payments_requests[2da7964f-f3d2-4f43-81e8-5aa220bf3355].reminders"
+    ))
+.build();
 
 invoicesApi.updateInvoiceAsync(invoiceId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -369,7 +356,7 @@ CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `invoiceId` | `String` | Template, Required | The ID of the [invoice](../../doc/models/invoice.md) to cancel. |
+| `invoiceId` | `String` | Template, Required | The ID of the [invoice](entity:Invoice) to cancel. |
 | `body` | [`CancelInvoiceRequest`](../../doc/models/cancel-invoice-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -381,13 +368,16 @@ CompletableFuture<CancelInvoiceResponse> cancelInvoiceAsync(
 ```java
 String invoiceId = "invoice_id0";
 CancelInvoiceRequest body = new CancelInvoiceRequest.Builder(
-        0)
-    .build();
+    0
+)
+.build();
 
 invoicesApi.cancelInvoiceAsync(invoiceId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -429,14 +419,17 @@ CompletableFuture<PublishInvoiceResponse> publishInvoiceAsync(
 ```java
 String invoiceId = "invoice_id0";
 PublishInvoiceRequest body = new PublishInvoiceRequest.Builder(
-        1)
-    .idempotencyKey("32da42d0-1997-41b0-826b-f09464fc2c2e")
-    .build();
+    1
+)
+.idempotencyKey("32da42d0-1997-41b0-826b-f09464fc2c2e")
+.build();
 
 invoicesApi.publishInvoiceAsync(invoiceId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
