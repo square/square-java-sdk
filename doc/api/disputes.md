@@ -36,7 +36,7 @@ CompletableFuture<ListDisputesResponse> listDisputesAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `states` | [`String`](../../doc/models/dispute-state.md) | Query, Optional | The dispute states used to filter the result. If not specified, the endpoint returns all disputes. |
 | `locationId` | `String` | Query, Optional | The ID of the location for which to return a list of disputes.<br>If not specified, the endpoint returns disputes associated with all locations. |
 
@@ -49,8 +49,10 @@ CompletableFuture<ListDisputesResponse> listDisputesAsync(
 ```java
 disputesApi.listDisputesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -82,8 +84,10 @@ String disputeId = "dispute_id2";
 
 disputesApi.retrieveDisputeAsync(disputeId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -119,8 +123,10 @@ String disputeId = "dispute_id2";
 
 disputesApi.acceptDisputeAsync(disputeId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -154,8 +160,10 @@ String disputeId = "dispute_id2";
 
 disputesApi.listDisputeEvidenceAsync(disputeId, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -192,8 +200,10 @@ String disputeId = "dispute_id2";
 
 disputesApi.createDisputeEvidenceFileAsync(disputeId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -225,15 +235,18 @@ CompletableFuture<CreateDisputeEvidenceTextResponse> createDisputeEvidenceTextAs
 ```java
 String disputeId = "dispute_id2";
 CreateDisputeEvidenceTextRequest body = new CreateDisputeEvidenceTextRequest.Builder(
-        "ed3ee3933d946f1514d505d173c82648",
-        "1Z8888888888888888")
-    .evidenceType("TRACKING_NUMBER")
-    .build();
+    "ed3ee3933d946f1514d505d173c82648",
+    "1Z8888888888888888"
+)
+.evidenceType("TRACKING_NUMBER")
+.build();
 
 disputesApi.createDisputeEvidenceTextAsync(disputeId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -269,8 +282,10 @@ String evidenceId = "evidence_id2";
 
 disputesApi.deleteDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -307,8 +322,10 @@ String evidenceId = "evidence_id2";
 
 disputesApi.retrieveDisputeEvidenceAsync(disputeId, evidenceId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -346,8 +363,10 @@ String disputeId = "dispute_id2";
 
 disputesApi.submitEvidenceAsync(disputeId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

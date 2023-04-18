@@ -144,7 +144,7 @@ public class Subscription {
 
     /**
      * Getter for PlanId.
-     * The ID of the subscribed-to [subscription plan]($m/CatalogSubscriptionPlan).
+     * The ID of the subscribed-to [subscription plan](entity:CatalogSubscriptionPlan).
      * @return Returns the String
      */
     @JsonGetter("plan_id")
@@ -155,7 +155,7 @@ public class Subscription {
 
     /**
      * Getter for CustomerId.
-     * The ID of the subscribing [customer]($m/Customer) profile.
+     * The ID of the subscribing [customer](entity:Customer) profile.
      * @return Returns the String
      */
     @JsonGetter("customer_id")
@@ -257,8 +257,8 @@ public class Subscription {
 
     /**
      * Getter for InvoiceIds.
-     * The IDs of the [invoices]($m/Invoice) created for the subscription, listed in order when the
-     * invoices were created (newest invoices appear first).
+     * The IDs of the [invoices](entity:Invoice) created for the subscription, listed in order when
+     * the invoices were created (newest invoices appear first).
      * @return Returns the List of String
      */
     @JsonGetter("invoice_ids")
@@ -308,7 +308,7 @@ public class Subscription {
 
     /**
      * Internal Getter for CardId.
-     * The ID of the [subscriber's]($m/Customer) [card]($m/Card) used to charge for the
+     * The ID of the [subscriber's](entity:Customer) [card](entity:Card) used to charge for the
      * subscription.
      * @return Returns the Internal String
      */
@@ -321,7 +321,7 @@ public class Subscription {
 
     /**
      * Getter for CardId.
-     * The ID of the [subscriber's]($m/Customer) [card]($m/Card) used to charge for the
+     * The ID of the [subscriber's](entity:Customer) [card](entity:Card) used to charge for the
      * subscription.
      * @return Returns the String
      */

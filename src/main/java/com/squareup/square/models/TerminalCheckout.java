@@ -32,8 +32,11 @@ public class TerminalCheckout {
     private final String appId;
     private final String locationId;
     private final String paymentType;
+    private final OptionalNullable<String> teamMemberId;
     private final OptionalNullable<String> customerId;
     private final Money appFeeMoney;
+    private final OptionalNullable<String> statementDescriptionIdentifier;
+    private final Money tipMoney;
 
     /**
      * Initialization constructor.
@@ -53,8 +56,11 @@ public class TerminalCheckout {
      * @param  appId  String value for appId.
      * @param  locationId  String value for locationId.
      * @param  paymentType  String value for paymentType.
+     * @param  teamMemberId  String value for teamMemberId.
      * @param  customerId  String value for customerId.
      * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+     * @param  tipMoney  Money value for tipMoney.
      */
     @JsonCreator
     public TerminalCheckout(
@@ -74,8 +80,11 @@ public class TerminalCheckout {
             @JsonProperty("app_id") String appId,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("payment_type") String paymentType,
+            @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("customer_id") String customerId,
-            @JsonProperty("app_fee_money") Money appFeeMoney) {
+            @JsonProperty("app_fee_money") Money appFeeMoney,
+            @JsonProperty("statement_description_identifier") String statementDescriptionIdentifier,
+            @JsonProperty("tip_money") Money tipMoney) {
         this.id = id;
         this.amountMoney = amountMoney;
         this.referenceId = OptionalNullable.of(referenceId);
@@ -92,8 +101,11 @@ public class TerminalCheckout {
         this.appId = appId;
         this.locationId = locationId;
         this.paymentType = paymentType;
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.customerId = OptionalNullable.of(customerId);
         this.appFeeMoney = appFeeMoney;
+        this.statementDescriptionIdentifier = OptionalNullable.of(statementDescriptionIdentifier);
+        this.tipMoney = tipMoney;
     }
 
     /**
@@ -104,8 +116,9 @@ public class TerminalCheckout {
             OptionalNullable<String> orderId, PaymentOptions paymentOptions,
             OptionalNullable<String> deadlineDuration, String status, String cancelReason,
             List<String> paymentIds, String createdAt, String updatedAt, String appId,
-            String locationId, String paymentType, OptionalNullable<String> customerId,
-            Money appFeeMoney) {
+            String locationId, String paymentType, OptionalNullable<String> teamMemberId,
+            OptionalNullable<String> customerId, Money appFeeMoney,
+            OptionalNullable<String> statementDescriptionIdentifier, Money tipMoney) {
         this.id = id;
         this.amountMoney = amountMoney;
         this.referenceId = referenceId;
@@ -122,8 +135,11 @@ public class TerminalCheckout {
         this.appId = appId;
         this.locationId = locationId;
         this.paymentType = paymentType;
+        this.teamMemberId = teamMemberId;
         this.customerId = customerId;
         this.appFeeMoney = appFeeMoney;
+        this.statementDescriptionIdentifier = statementDescriptionIdentifier;
+        this.tipMoney = tipMoney;
     }
 
     /**
@@ -357,6 +373,28 @@ public class TerminalCheckout {
     }
 
     /**
+     * Internal Getter for TeamMemberId.
+     * An optional ID of the team member associated with creating the checkout.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
+    }
+
+    /**
+     * Getter for TeamMemberId.
+     * An optional ID of the team member associated with creating the checkout.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getTeamMemberId() {
+        return OptionalNullable.getFrom(teamMemberId);
+    }
+
+    /**
      * Internal Getter for CustomerId.
      * An optional ID of the customer associated with the checkout.
      * @return Returns the Internal String
@@ -394,11 +432,54 @@ public class TerminalCheckout {
         return appFeeMoney;
     }
 
+    /**
+     * Internal Getter for StatementDescriptionIdentifier.
+     * Optional additional payment information to include on the customer's card statement as part
+     * of the statement description. This can be, for example, an invoice number, ticket number, or
+     * short description that uniquely identifies the purchase. Supported only in the US.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("statement_description_identifier")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetStatementDescriptionIdentifier() {
+        return this.statementDescriptionIdentifier;
+    }
+
+    /**
+     * Getter for StatementDescriptionIdentifier.
+     * Optional additional payment information to include on the customer's card statement as part
+     * of the statement description. This can be, for example, an invoice number, ticket number, or
+     * short description that uniquely identifies the purchase. Supported only in the US.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getStatementDescriptionIdentifier() {
+        return OptionalNullable.getFrom(statementDescriptionIdentifier);
+    }
+
+    /**
+     * Getter for TipMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getTipMoney() {
+        return tipMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, amountMoney, referenceId, note, orderId, paymentOptions,
                 deviceOptions, deadlineDuration, status, cancelReason, paymentIds, createdAt,
-                updatedAt, appId, locationId, paymentType, customerId, appFeeMoney);
+                updatedAt, appId, locationId, paymentType, teamMemberId, customerId, appFeeMoney,
+                statementDescriptionIdentifier, tipMoney);
     }
 
     @Override
@@ -426,8 +507,12 @@ public class TerminalCheckout {
             && Objects.equals(appId, other.appId)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(paymentType, other.paymentType)
+            && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(customerId, other.customerId)
-            && Objects.equals(appFeeMoney, other.appFeeMoney);
+            && Objects.equals(appFeeMoney, other.appFeeMoney)
+            && Objects.equals(statementDescriptionIdentifier,
+                    other.statementDescriptionIdentifier)
+            && Objects.equals(tipMoney, other.tipMoney);
     }
 
     /**
@@ -442,8 +527,10 @@ public class TerminalCheckout {
                 + ", deadlineDuration=" + deadlineDuration + ", status=" + status
                 + ", cancelReason=" + cancelReason + ", paymentIds=" + paymentIds + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId + ", locationId="
-                + locationId + ", paymentType=" + paymentType + ", customerId=" + customerId
-                + ", appFeeMoney=" + appFeeMoney + "]";
+                + locationId + ", paymentType=" + paymentType + ", teamMemberId=" + teamMemberId
+                + ", customerId=" + customerId + ", appFeeMoney=" + appFeeMoney
+                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
+                + ", tipMoney=" + tipMoney + "]";
     }
 
     /**
@@ -463,12 +550,15 @@ public class TerminalCheckout {
                 .appId(getAppId())
                 .locationId(getLocationId())
                 .paymentType(getPaymentType())
-                .appFeeMoney(getAppFeeMoney());
+                .appFeeMoney(getAppFeeMoney())
+                .tipMoney(getTipMoney());
         builder.referenceId = internalGetReferenceId();
         builder.note = internalGetNote();
         builder.orderId = internalGetOrderId();
         builder.deadlineDuration = internalGetDeadlineDuration();
+        builder.teamMemberId = internalGetTeamMemberId();
         builder.customerId = internalGetCustomerId();
+        builder.statementDescriptionIdentifier = internalGetStatementDescriptionIdentifier();
         return builder;
     }
 
@@ -492,8 +582,11 @@ public class TerminalCheckout {
         private String appId;
         private String locationId;
         private String paymentType;
+        private OptionalNullable<String> teamMemberId;
         private OptionalNullable<String> customerId;
         private Money appFeeMoney;
+        private OptionalNullable<String> statementDescriptionIdentifier;
+        private Money tipMoney;
 
         /**
          * Initialization constructor.
@@ -702,6 +795,25 @@ public class TerminalCheckout {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
+            return this;
+        }
+
+        /**
          * Setter for customerId.
          * @param  customerId  String value for customerId.
          * @return Builder
@@ -731,13 +843,44 @@ public class TerminalCheckout {
         }
 
         /**
+         * Setter for statementDescriptionIdentifier.
+         * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+         * @return Builder
+         */
+        public Builder statementDescriptionIdentifier(String statementDescriptionIdentifier) {
+            this.statementDescriptionIdentifier =
+                    OptionalNullable.of(statementDescriptionIdentifier);
+            return this;
+        }
+
+        /**
+         * UnSetter for statementDescriptionIdentifier.
+         * @return Builder
+         */
+        public Builder unsetStatementDescriptionIdentifier() {
+            statementDescriptionIdentifier = null;
+            return this;
+        }
+
+        /**
+         * Setter for tipMoney.
+         * @param  tipMoney  Money value for tipMoney.
+         * @return Builder
+         */
+        public Builder tipMoney(Money tipMoney) {
+            this.tipMoney = tipMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalCheckout} object using the set fields.
          * @return {@link TerminalCheckout}
          */
         public TerminalCheckout build() {
             return new TerminalCheckout(amountMoney, deviceOptions, id, referenceId, note, orderId,
                     paymentOptions, deadlineDuration, status, cancelReason, paymentIds, createdAt,
-                    updatedAt, appId, locationId, paymentType, customerId, appFeeMoney);
+                    updatedAt, appId, locationId, paymentType, teamMemberId, customerId,
+                    appFeeMoney, statementDescriptionIdentifier, tipMoney);
         }
     }
 }

@@ -79,8 +79,8 @@ public class ListWebhookSubscriptionsRequest {
 
     /**
      * Internal Getter for IncludeDisabled.
-     * Includes disabled [Subscription]($m/WebhookSubscription)s. By default, all enabled
-     * [Subscription]($m/WebhookSubscription)s are returned.
+     * Includes disabled [Subscription](entity:WebhookSubscription)s. By default, all enabled
+     * [Subscription](entity:WebhookSubscription)s are returned.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("include_disabled")
@@ -92,8 +92,8 @@ public class ListWebhookSubscriptionsRequest {
 
     /**
      * Getter for IncludeDisabled.
-     * Includes disabled [Subscription]($m/WebhookSubscription)s. By default, all enabled
-     * [Subscription]($m/WebhookSubscription)s are returned.
+     * Includes disabled [Subscription](entity:WebhookSubscription)s. By default, all enabled
+     * [Subscription](entity:WebhookSubscription)s are returned.
      * @return Returns the Boolean
      */
     @JsonIgnore

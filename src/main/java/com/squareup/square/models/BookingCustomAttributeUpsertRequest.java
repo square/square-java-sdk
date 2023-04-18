@@ -47,7 +47,7 @@ public class BookingCustomAttributeUpsertRequest {
 
     /**
      * Getter for BookingId.
-     * The ID of the target [booking]($m/Booking).
+     * The ID of the target [booking](entity:Booking).
      * @return Returns the String
      */
     @JsonGetter("booking_id")

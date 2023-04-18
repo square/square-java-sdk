@@ -255,11 +255,9 @@ public class Order {
 
     /**
      * Internal Getter for CustomerId.
-     * The ID of the [customer]($m/Customer) associated with the order. __IMPORTANT:__ You should
-     * specify a `customer_id` if you want the corresponding payment transactions to be explicitly
-     * linked to the customer in the Seller Dashboard. If this field is omitted, the `customer_id`
-     * assigned to any underlying `Payment` objects is ignored and might result in the creation of
-     * new [instant
+     * The ID of the [customer]($m/Customer) associated with the order. You should specify a
+     * `customer_id` on the order (or the payment) to ensure that transactions are reliably linked
+     * to customers. Omitting this field might result in the creation of new [instant
      * profiles](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
      * @return Returns the Internal String
      */
@@ -272,11 +270,9 @@ public class Order {
 
     /**
      * Getter for CustomerId.
-     * The ID of the [customer]($m/Customer) associated with the order. __IMPORTANT:__ You should
-     * specify a `customer_id` if you want the corresponding payment transactions to be explicitly
-     * linked to the customer in the Seller Dashboard. If this field is omitted, the `customer_id`
-     * assigned to any underlying `Payment` objects is ignored and might result in the creation of
-     * new [instant
+     * The ID of the [customer]($m/Customer) associated with the order. You should specify a
+     * `customer_id` on the order (or the payment) to ensure that transactions are reliably linked
+     * to customers. Omitting this field might result in the creation of new [instant
      * profiles](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
      * @return Returns the String
      */
@@ -559,7 +555,7 @@ public class Order {
 
     /**
      * Getter for ClosedAt.
-     * The timestamp for when the order reached a terminal [state]($m/OrderState), in RFC 3339
+     * The timestamp for when the order reached a terminal [state](entity:OrderState), in RFC 3339
      * format (for example "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */

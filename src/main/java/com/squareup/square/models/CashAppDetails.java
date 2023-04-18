@@ -70,7 +70,7 @@ public class CashAppDetails {
     /**
      * Internal Getter for BuyerCountryCode.
      * The country of the Cash App account holder, in ISO 3166-1-alpha-2 format. For possible
-     * values, see [Country]($m/Country).
+     * values, see [Country](entity:Country).
      * @return Returns the Internal String
      */
     @JsonGetter("buyer_country_code")
@@ -83,7 +83,7 @@ public class CashAppDetails {
     /**
      * Getter for BuyerCountryCode.
      * The country of the Cash App account holder, in ISO 3166-1-alpha-2 format. For possible
-     * values, see [Country]($m/Country).
+     * values, see [Country](entity:Country).
      * @return Returns the String
      */
     @JsonIgnore

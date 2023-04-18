@@ -102,7 +102,7 @@ public class InvoicePaymentRequest {
 
     /**
      * Internal Getter for Uid.
-     * The Square-generated ID of the payment request in an [invoice]($m/Invoice).
+     * The Square-generated ID of the payment request in an [invoice](entity:Invoice).
      * @return Returns the Internal String
      */
     @JsonGetter("uid")
@@ -114,7 +114,7 @@ public class InvoicePaymentRequest {
 
     /**
      * Getter for Uid.
-     * The Square-generated ID of the payment request in an [invoice]($m/Invoice).
+     * The Square-generated ID of the payment request in an [invoice](entity:Invoice).
      * @return Returns the String
      */
     @JsonIgnore
@@ -269,7 +269,7 @@ public class InvoicePaymentRequest {
     /**
      * Internal Getter for CardId.
      * The ID of the credit or debit card on file to charge for the payment request. To get the
-     * cards on file for a customer, call [ListCards]($e/Cards/ListCards) and include the
+     * cards on file for a customer, call [ListCards](api-endpoint:Cards-ListCards) and include the
      * `customer_id` of the invoice recipient.
      * @return Returns the Internal String
      */
@@ -283,7 +283,7 @@ public class InvoicePaymentRequest {
     /**
      * Getter for CardId.
      * The ID of the credit or debit card on file to charge for the payment request. To get the
-     * cards on file for a customer, call [ListCards]($e/Cards/ListCards) and include the
+     * cards on file for a customer, call [ListCards](api-endpoint:Cards-ListCards) and include the
      * `customer_id` of the invoice recipient.
      * @return Returns the String
      */

@@ -97,7 +97,7 @@ public class LoyaltyAccount {
 
     /**
      * Getter for ProgramId.
-     * The Square-assigned ID of the [loyalty program]($m/LoyaltyProgram) to which the account
+     * The Square-assigned ID of the [loyalty program](entity:LoyaltyProgram) to which the account
      * belongs.
      * @return Returns the String
      */
@@ -133,7 +133,8 @@ public class LoyaltyAccount {
 
     /**
      * Internal Getter for CustomerId.
-     * The Square-assigned ID of the [customer]($m/Customer) that is associated with the account.
+     * The Square-assigned ID of the [customer](entity:Customer) that is associated with the
+     * account.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_id")
@@ -145,7 +146,8 @@ public class LoyaltyAccount {
 
     /**
      * Getter for CustomerId.
-     * The Square-assigned ID of the [customer]($m/Customer) that is associated with the account.
+     * The Square-assigned ID of the [customer](entity:Customer) that is associated with the
+     * account.
      * @return Returns the String
      */
     @JsonIgnore

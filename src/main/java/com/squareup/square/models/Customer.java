@@ -142,8 +142,8 @@ public class Customer {
      * Getter for Id.
      * A unique Square-assigned ID for the customer profile. If you need this ID for an API request,
      * use the ID returned when you created the customer profile or call the
-     * [SearchCustomers]($e/Customers/SearchCustomers) or
-     * [ListCustomers]($e/Customers/ListCustomers) endpoint.
+     * [SearchCustomers](api-endpoint:Customers-SearchCustomers) or
+     * [ListCustomers](api-endpoint:Customers-ListCustomers) endpoint.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -177,10 +177,10 @@ public class Customer {
     /**
      * Internal Getter for Cards.
      * Payment details of the credit, debit, and gift cards stored on file for the customer profile.
-     * DEPRECATED at version 2021-06-16. Replaced by calling [ListCards]($e/Cards/ListCards) (for
-     * credit and debit cards on file) or [ListGiftCards]($e/GiftCards/ListGiftCards) (for gift
-     * cards on file) and including the `customer_id` query parameter. For more information, see
-     * [Migration
+     * DEPRECATED at version 2021-06-16. Replaced by calling
+     * [ListCards](api-endpoint:Cards-ListCards) (for credit and debit cards on file) or
+     * [ListGiftCards](api-endpoint:GiftCards-ListGiftCards) (for gift cards on file) and including
+     * the `customer_id` query parameter. For more information, see [Migration
      * notes](https://developer.squareup.com/docs/customers-api/what-it-does#migrate-customer-cards).
      * @return Returns the Internal List of Card
      */
@@ -194,10 +194,10 @@ public class Customer {
     /**
      * Getter for Cards.
      * Payment details of the credit, debit, and gift cards stored on file for the customer profile.
-     * DEPRECATED at version 2021-06-16. Replaced by calling [ListCards]($e/Cards/ListCards) (for
-     * credit and debit cards on file) or [ListGiftCards]($e/GiftCards/ListGiftCards) (for gift
-     * cards on file) and including the `customer_id` query parameter. For more information, see
-     * [Migration
+     * DEPRECATED at version 2021-06-16. Replaced by calling
+     * [ListCards](api-endpoint:Cards-ListCards) (for credit and debit cards on file) or
+     * [ListGiftCards](api-endpoint:GiftCards-ListGiftCards) (for gift cards on file) and including
+     * the `customer_id` query parameter. For more information, see [Migration
      * notes](https://developer.squareup.com/docs/customers-api/what-it-does#migrate-customer-cards).
      * @return Returns the List of Card
      */
@@ -446,7 +446,7 @@ public class Customer {
 
     /**
      * Internal Getter for GroupIds.
-     * The IDs of [customer groups]($m/CustomerGroup) the customer belongs to.
+     * The IDs of [customer groups](entity:CustomerGroup) the customer belongs to.
      * @return Returns the Internal List of String
      */
     @JsonGetter("group_ids")
@@ -458,7 +458,7 @@ public class Customer {
 
     /**
      * Getter for GroupIds.
-     * The IDs of [customer groups]($m/CustomerGroup) the customer belongs to.
+     * The IDs of [customer groups](entity:CustomerGroup) the customer belongs to.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -468,7 +468,7 @@ public class Customer {
 
     /**
      * Internal Getter for SegmentIds.
-     * The IDs of [customer segments]($m/CustomerSegment) the customer belongs to.
+     * The IDs of [customer segments](entity:CustomerSegment) the customer belongs to.
      * @return Returns the Internal List of String
      */
     @JsonGetter("segment_ids")
@@ -480,7 +480,7 @@ public class Customer {
 
     /**
      * Getter for SegmentIds.
-     * The IDs of [customer segments]($m/CustomerSegment) the customer belongs to.
+     * The IDs of [customer segments](entity:CustomerSegment) the customer belongs to.
      * @return Returns the List of String
      */
     @JsonIgnore

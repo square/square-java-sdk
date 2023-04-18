@@ -119,8 +119,8 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for CustomAttributeDefinitionId.
-     * The id of the [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition) this
-     * value belongs to.
+     * The id of the [CatalogCustomAttributeDefinition](entity:CatalogCustomAttributeDefinition)
+     * this value belongs to.
      * @return Returns the String
      */
     @JsonGetter("custom_attribute_definition_id")
@@ -210,7 +210,12 @@ public class CatalogCustomAttributeValue {
 
     /**
      * Getter for Key.
-     * A copy of key from the associated `CatalogCustomAttributeDefinition`.
+     * If the associated `CatalogCustomAttributeDefinition` object is defined by another
+     * application, this key is prefixed by the defining application ID. For example, if the
+     * CatalogCustomAttributeDefinition has a key attribute of "cocoa_brand" and the defining
+     * application ID is "abcd1234", this key is "abcd1234:cocoa_brand" when the application making
+     * the request is different from the application defining the custom attribute definition.
+     * Otherwise, the key is simply "cocoa_brand".
      * @return Returns the String
      */
     @JsonGetter("key")

@@ -206,7 +206,7 @@ public class LoyaltyPromotion {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The ID of the [loyalty program]($m/LoyaltyProgram) associated with the promotion.
+     * The ID of the [loyalty program](entity:LoyaltyProgram) associated with the promotion.
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")
@@ -233,12 +233,12 @@ public class LoyaltyPromotion {
 
     /**
      * Internal Getter for QualifyingItemVariationIds.
-     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects]($m/CatalogObject). If specified,
-     * the purchase must include at least one of these items to qualify for the promotion. This
-     * option is valid only if the base loyalty program uses a `VISIT` or `SPEND` accrual rule. With
-     * `SPEND` accrual rules, make sure that qualifying promotional items are not excluded. You can
-     * specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a given promotion,
-     * but not both.
+     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects](entity:CatalogObject). If
+     * specified, the purchase must include at least one of these items to qualify for the
+     * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
+     * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
+     * excluded. You can specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a
+     * given promotion, but not both.
      * @return Returns the Internal List of String
      */
     @JsonGetter("qualifying_item_variation_ids")
@@ -250,12 +250,12 @@ public class LoyaltyPromotion {
 
     /**
      * Getter for QualifyingItemVariationIds.
-     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects]($m/CatalogObject). If specified,
-     * the purchase must include at least one of these items to qualify for the promotion. This
-     * option is valid only if the base loyalty program uses a `VISIT` or `SPEND` accrual rule. With
-     * `SPEND` accrual rules, make sure that qualifying promotional items are not excluded. You can
-     * specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a given promotion,
-     * but not both.
+     * The IDs of any qualifying `ITEM_VARIATION` [catalog objects](entity:CatalogObject). If
+     * specified, the purchase must include at least one of these items to qualify for the
+     * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
+     * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
+     * excluded. You can specify `qualifying_item_variation_ids` or `qualifying_category_ids` for a
+     * given promotion, but not both.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -265,8 +265,8 @@ public class LoyaltyPromotion {
 
     /**
      * Internal Getter for QualifyingCategoryIds.
-     * The IDs of any qualifying `CATEGORY` [catalog objects]($m/CatalogObject). If specified, the
-     * purchase must include at least one item from one of these categories to qualify for the
+     * The IDs of any qualifying `CATEGORY` [catalog objects](entity:CatalogObject). If specified,
+     * the purchase must include at least one item from one of these categories to qualify for the
      * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
      * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
      * excluded. You can specify `qualifying_category_ids` or `qualifying_item_variation_ids` for a
@@ -282,8 +282,8 @@ public class LoyaltyPromotion {
 
     /**
      * Getter for QualifyingCategoryIds.
-     * The IDs of any qualifying `CATEGORY` [catalog objects]($m/CatalogObject). If specified, the
-     * purchase must include at least one item from one of these categories to qualify for the
+     * The IDs of any qualifying `CATEGORY` [catalog objects](entity:CatalogObject). If specified,
+     * the purchase must include at least one item from one of these categories to qualify for the
      * promotion. This option is valid only if the base loyalty program uses a `VISIT` or `SPEND`
      * accrual rule. With `SPEND` accrual rules, make sure that qualifying promotional items are not
      * excluded. You can specify `qualifying_category_ids` or `qualifying_item_variation_ids` for a

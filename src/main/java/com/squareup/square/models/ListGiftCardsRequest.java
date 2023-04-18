@@ -58,8 +58,8 @@ public class ListGiftCardsRequest {
 
     /**
      * Internal Getter for Type.
-     * If a [type]($m/GiftCardType) is provided, the endpoint returns gift cards of the specified
-     * type. Otherwise, the endpoint returns gift cards of all types.
+     * If a [type](entity:GiftCardType) is provided, the endpoint returns gift cards of the
+     * specified type. Otherwise, the endpoint returns gift cards of all types.
      * @return Returns the Internal String
      */
     @JsonGetter("type")
@@ -71,8 +71,8 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for Type.
-     * If a [type]($m/GiftCardType) is provided, the endpoint returns gift cards of the specified
-     * type. Otherwise, the endpoint returns gift cards of all types.
+     * If a [type](entity:GiftCardType) is provided, the endpoint returns gift cards of the
+     * specified type. Otherwise, the endpoint returns gift cards of all types.
      * @return Returns the String
      */
     @JsonIgnore
@@ -82,7 +82,7 @@ public class ListGiftCardsRequest {
 
     /**
      * Internal Getter for State.
-     * If a [state]($m/GiftCardStatus) is provided, the endpoint returns the gift cards in the
+     * If a [state](entity:GiftCardStatus) is provided, the endpoint returns the gift cards in the
      * specified state. Otherwise, the endpoint returns the gift cards of all states.
      * @return Returns the Internal String
      */
@@ -95,7 +95,7 @@ public class ListGiftCardsRequest {
 
     /**
      * Getter for State.
-     * If a [state]($m/GiftCardStatus) is provided, the endpoint returns the gift cards in the
+     * If a [state](entity:GiftCardStatus) is provided, the endpoint returns the gift cards in the
      * specified state. Otherwise, the endpoint returns the gift cards of all states.
      * @return Returns the String
      */

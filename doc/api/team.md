@@ -48,34 +48,31 @@ CompletableFuture<CreateTeamMemberResponse> createTeamMemberAsync(
 ## Example Usage
 
 ```java
-List<String> locationIds = new LinkedList<>();
-locationIds.add("YSGH2WBKG94QZ");
-locationIds.add("GA2Y9HSJ8KRYT");
-
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(locationIds)
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_1")
-    .status("ACTIVE")
-    .givenName("Joe")
-    .familyName("Doe")
-    .emailAddress("joe_doe@gmail.com")
-    .phoneNumber("+14159283333")
-    .assignedLocations(assignedLocations)
-    .build();
-
 CreateTeamMemberRequest body = new CreateTeamMemberRequest.Builder()
     .idempotencyKey("idempotency-key-0")
-    .teamMember(teamMember)
+    .teamMember(new TeamMember.Builder()
+        .referenceId("reference_id_1")
+        .status("ACTIVE")
+        .givenName("Joe")
+        .familyName("Doe")
+        .emailAddress("joe_doe@gmail.com")
+        .phoneNumber("+14159283333")
+        .assignedLocations(new TeamMemberAssignedLocations.Builder()
+            .assignmentType("EXPLICIT_LOCATIONS")
+            .locationIds(Arrays.asList(
+                "YSGH2WBKG94QZ",
+                "GA2Y9HSJ8KRYT"
+            ))
+            .build())
+        .build())
     .build();
 
 teamApi.createTeamMemberAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -108,57 +105,46 @@ CompletableFuture<BulkCreateTeamMembersResponse> bulkCreateTeamMembersAsync(
 ## Example Usage
 
 ```java
-Map<String, CreateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
-List<String> locationIds = new LinkedList<>();
-locationIds.add("YSGH2WBKG94QZ");
-locationIds.add("GA2Y9HSJ8KRYT");
-
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(locationIds)
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_1")
-    .givenName("Joe")
-    .familyName("Doe")
-    .emailAddress("joe_doe@gmail.com")
-    .phoneNumber("+14159283333")
-    .assignedLocations(assignedLocations)
-    .build();
-
-CreateTeamMemberRequest teamMembers0 = new CreateTeamMemberRequest.Builder()
-    .teamMember(teamMember)
-    .build();
-
-teamMembers.put("idempotency-key-1", teamMembers0);
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_2")
-    .givenName("Jane")
-    .familyName("Smith")
-    .emailAddress("jane_smith@gmail.com")
-    .phoneNumber("+14159223334")
-    .assignedLocations(assignedLocations)
-    .build();
-
-CreateTeamMemberRequest teamMembers1 = new CreateTeamMemberRequest.Builder()
-    .teamMember(teamMember)
-    .build();
-
-teamMembers.put("idempotency-key-2", teamMembers1);
-
 BulkCreateTeamMembersRequest body = new BulkCreateTeamMembersRequest.Builder(
-        teamMembers)
-    .build();
+    new LinkedHashMap<String, CreateTeamMemberRequest>() {{
+        put("idempotency-key-1", new CreateTeamMemberRequest.Builder()
+            .teamMember(new TeamMember.Builder()
+                .referenceId("reference_id_1")
+                .givenName("Joe")
+                .familyName("Doe")
+                .emailAddress("joe_doe@gmail.com")
+                .phoneNumber("+14159283333")
+                .assignedLocations(new TeamMemberAssignedLocations.Builder()
+                    .assignmentType("EXPLICIT_LOCATIONS")
+                    .locationIds(Arrays.asList(
+                        "YSGH2WBKG94QZ",
+                        "GA2Y9HSJ8KRYT"
+                    ))
+                    .build())
+                .build())
+            .build());
+        put("idempotency-key-2", new CreateTeamMemberRequest.Builder()
+            .teamMember(new TeamMember.Builder()
+                .referenceId("reference_id_2")
+                .givenName("Jane")
+                .familyName("Smith")
+                .emailAddress("jane_smith@gmail.com")
+                .phoneNumber("+14159223334")
+                .assignedLocations(new TeamMemberAssignedLocations.Builder()
+                    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
+                    .build())
+                .build())
+            .build());
+    }}
+)
+.build();
 
 teamApi.bulkCreateTeamMembersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -190,61 +176,50 @@ CompletableFuture<BulkUpdateTeamMembersResponse> bulkUpdateTeamMembersAsync(
 ## Example Usage
 
 ```java
-Map<String, UpdateTeamMemberRequest> teamMembers = new LinkedHashMap<>();
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_2")
-    .isOwner(false)
-    .status("ACTIVE")
-    .givenName("Jane")
-    .familyName("Smith")
-    .emailAddress("jane_smith@gmail.com")
-    .phoneNumber("+14159223334")
-    .assignedLocations(assignedLocations)
-    .build();
-
-UpdateTeamMemberRequest teamMembers0 = new UpdateTeamMemberRequest.Builder()
-    .teamMember(teamMember)
-    .build();
-
-teamMembers.put("AFMwA08kR-MIF-3Vs0OE", teamMembers0);
-List<String> locationIds = new LinkedList<>();
-locationIds.add("YSGH2WBKG94QZ");
-locationIds.add("GA2Y9HSJ8KRYT");
-
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(locationIds)
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_1")
-    .isOwner(false)
-    .status("ACTIVE")
-    .givenName("Joe")
-    .familyName("Doe")
-    .emailAddress("joe_doe@gmail.com")
-    .phoneNumber("+14159283333")
-    .assignedLocations(assignedLocations)
-    .build();
-
-UpdateTeamMemberRequest teamMembers1 = new UpdateTeamMemberRequest.Builder()
-    .teamMember(teamMember)
-    .build();
-
-teamMembers.put("fpgteZNMaf0qOK-a4t6P", teamMembers1);
-
 BulkUpdateTeamMembersRequest body = new BulkUpdateTeamMembersRequest.Builder(
-        teamMembers)
-    .build();
+    new LinkedHashMap<String, UpdateTeamMemberRequest>() {{
+        put("AFMwA08kR-MIF-3Vs0OE", new UpdateTeamMemberRequest.Builder()
+            .teamMember(new TeamMember.Builder()
+                .referenceId("reference_id_2")
+                .isOwner(false)
+                .status("ACTIVE")
+                .givenName("Jane")
+                .familyName("Smith")
+                .emailAddress("jane_smith@gmail.com")
+                .phoneNumber("+14159223334")
+                .assignedLocations(new TeamMemberAssignedLocations.Builder()
+                    .assignmentType("ALL_CURRENT_AND_FUTURE_LOCATIONS")
+                    .build())
+                .build())
+            .build());
+        put("fpgteZNMaf0qOK-a4t6P", new UpdateTeamMemberRequest.Builder()
+            .teamMember(new TeamMember.Builder()
+                .referenceId("reference_id_1")
+                .isOwner(false)
+                .status("ACTIVE")
+                .givenName("Joe")
+                .familyName("Doe")
+                .emailAddress("joe_doe@gmail.com")
+                .phoneNumber("+14159283333")
+                .assignedLocations(new TeamMemberAssignedLocations.Builder()
+                    .assignmentType("EXPLICIT_LOCATIONS")
+                    .locationIds(Arrays.asList(
+                        "YSGH2WBKG94QZ",
+                        "GA2Y9HSJ8KRYT"
+                    ))
+                    .build())
+                .build())
+            .build());
+    }}
+)
+.build();
 
 teamApi.bulkUpdateTeamMembersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -276,27 +251,24 @@ CompletableFuture<SearchTeamMembersResponse> searchTeamMembersAsync(
 ## Example Usage
 
 ```java
-List<String> locationIds = new LinkedList<>();
-locationIds.add("0G5P3VGACMMQZ");
-
-SearchTeamMembersFilter filter = new SearchTeamMembersFilter.Builder()
-    .locationIds(locationIds)
-    .status("ACTIVE")
-    .build();
-
-SearchTeamMembersQuery query = new SearchTeamMembersQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchTeamMembersRequest body = new SearchTeamMembersRequest.Builder()
-    .query(query)
+    .query(new SearchTeamMembersQuery.Builder()
+        .filter(new SearchTeamMembersFilter.Builder()
+            .locationIds(Arrays.asList(
+                "0G5P3VGACMMQZ"
+            ))
+            .status("ACTIVE")
+            .build())
+        .build())
     .limit(10)
     .build();
 
 teamApi.searchTeamMembersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -329,8 +301,10 @@ String teamMemberId = "team_member_id0";
 
 teamApi.retrieveTeamMemberAsync(teamMemberId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -362,33 +336,30 @@ CompletableFuture<UpdateTeamMemberResponse> updateTeamMemberAsync(
 
 ```java
 String teamMemberId = "team_member_id0";
-List<String> locationIds = new LinkedList<>();
-locationIds.add("YSGH2WBKG94QZ");
-locationIds.add("GA2Y9HSJ8KRYT");
-
-TeamMemberAssignedLocations assignedLocations = new TeamMemberAssignedLocations.Builder()
-    .assignmentType("EXPLICIT_LOCATIONS")
-    .locationIds(locationIds)
-    .build();
-
-TeamMember teamMember = new TeamMember.Builder()
-    .referenceId("reference_id_1")
-    .status("ACTIVE")
-    .givenName("Joe")
-    .familyName("Doe")
-    .emailAddress("joe_doe@gmail.com")
-    .phoneNumber("+14159283333")
-    .assignedLocations(assignedLocations)
-    .build();
-
 UpdateTeamMemberRequest body = new UpdateTeamMemberRequest.Builder()
-    .teamMember(teamMember)
+    .teamMember(new TeamMember.Builder()
+        .referenceId("reference_id_1")
+        .status("ACTIVE")
+        .givenName("Joe")
+        .familyName("Doe")
+        .emailAddress("joe_doe@gmail.com")
+        .phoneNumber("+14159283333")
+        .assignedLocations(new TeamMemberAssignedLocations.Builder()
+            .assignmentType("EXPLICIT_LOCATIONS")
+            .locationIds(Arrays.asList(
+                "YSGH2WBKG94QZ",
+                "GA2Y9HSJ8KRYT"
+            ))
+            .build())
+        .build())
     .build();
 
 teamApi.updateTeamMemberAsync(teamMemberId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -422,8 +393,10 @@ String teamMemberId = "team_member_id0";
 
 teamApi.retrieveWageSettingAsync(teamMemberId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -458,46 +431,40 @@ CompletableFuture<UpdateWageSettingResponse> updateWageSettingAsync(
 
 ```java
 String teamMemberId = "team_member_id0";
-List<JobAssignment> jobAssignments = new LinkedList<>();
-Money annualRate = new Money.Builder()
-    .amount(3000000L)
-    .currency("USD")
-    .build();
-
-JobAssignment jobAssignments0 = new JobAssignment.Builder(
-        "Manager",
-        "SALARY")
-    .annualRate(annualRate)
-    .weeklyHours(40)
-    .build();
-
-jobAssignments.add(jobAssignments0);
-Money hourlyRate = new Money.Builder()
-    .amount(1200L)
-    .currency("USD")
-    .build();
-
-JobAssignment jobAssignments1 = new JobAssignment.Builder(
-        "Cashier",
-        "HOURLY")
-    .hourlyRate(hourlyRate)
-    .build();
-
-jobAssignments.add(jobAssignments1);
-
-WageSetting wageSetting = new WageSetting.Builder()
-    .jobAssignments(jobAssignments)
-    .isOvertimeExempt(true)
-    .build();
-
 UpdateWageSettingRequest body = new UpdateWageSettingRequest.Builder(
-        wageSetting)
-    .build();
+    new WageSetting.Builder()
+        .jobAssignments(Arrays.asList(
+            new JobAssignment.Builder(
+                "Manager",
+                "SALARY"
+            )
+            .annualRate(new Money.Builder()
+                    .amount(3000000L)
+                    .currency("USD")
+                    .build())
+            .weeklyHours(40)
+            .build(),
+            new JobAssignment.Builder(
+                "Cashier",
+                "HOURLY"
+            )
+            .hourlyRate(new Money.Builder()
+                    .amount(1200L)
+                    .currency("USD")
+                    .build())
+            .build()
+        ))
+        .isOvertimeExempt(true)
+        .build()
+)
+.build();
 
 teamApi.updateWageSettingAsync(teamMemberId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

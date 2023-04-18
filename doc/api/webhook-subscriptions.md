@@ -44,8 +44,10 @@ CompletableFuture<ListWebhookEventTypesResponse> listWebhookEventTypesAsync(
 ```java
 webhookSubscriptionsApi.listWebhookEventTypesAsync(null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -68,8 +70,8 @@ CompletableFuture<ListWebhookSubscriptionsResponse> listWebhookSubscriptionsAsyn
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
-| `includeDisabled` | `Boolean` | Query, Optional | Includes disabled [Subscription](../../doc/models/webhook-subscription.md)s.<br>By default, all enabled [Subscription](../../doc/models/webhook-subscription.md)s are returned.<br>**Default**: `false` |
-| `sortOrder` | [`String`](../../doc/models/sort-order.md) | Query, Optional | Sorts the returned list by when the [Subscription](../../doc/models/webhook-subscription.md) was created with the specified order.<br>This field defaults to ASC. |
+| `includeDisabled` | `Boolean` | Query, Optional | Includes disabled [Subscription](entity:WebhookSubscription)s.<br>By default, all enabled [Subscription](entity:WebhookSubscription)s are returned.<br>**Default**: `false` |
+| `sortOrder` | [`String`](../../doc/models/sort-order.md) | Query, Optional | Sorts the returned list by when the [Subscription](entity:WebhookSubscription) was created with the specified order.<br>This field defaults to ASC. |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to be returned in a single page.<br>It is possible to receive fewer results than the specified limit on a given page.<br>The default value of 100 is also the maximum allowed value.<br><br>Default: 100 |
 
 ## Response Type
@@ -83,8 +85,10 @@ Boolean includeDisabled = false;
 
 webhookSubscriptionsApi.listWebhookSubscriptionsAsync(null, includeDisabled, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -112,26 +116,26 @@ CompletableFuture<CreateWebhookSubscriptionResponse> createWebhookSubscriptionAs
 ## Example Usage
 
 ```java
-List<String> eventTypes = new LinkedList<>();
-eventTypes.add("payment.created");
-eventTypes.add("payment.updated");
-
-WebhookSubscription subscription = new WebhookSubscription.Builder()
-    .name("Example Webhook Subscription")
-    .eventTypes(eventTypes)
-    .notificationUrl("https://example-webhook-url.com")
-    .apiVersion("2021-12-15")
-    .build();
-
 CreateWebhookSubscriptionRequest body = new CreateWebhookSubscriptionRequest.Builder(
-        subscription)
-    .idempotencyKey("63f84c6c-2200-4c99-846c-2670a1311fbf")
-    .build();
+    new WebhookSubscription.Builder()
+        .name("Example Webhook Subscription")
+        .eventTypes(Arrays.asList(
+            "payment.created",
+            "payment.updated"
+        ))
+        .notificationUrl("https://example-webhook-url.com")
+        .apiVersion("2021-12-15")
+        .build()
+)
+.idempotencyKey("63f84c6c-2200-4c99-846c-2670a1311fbf")
+.build();
 
 webhookSubscriptionsApi.createWebhookSubscriptionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -150,7 +154,7 @@ CompletableFuture<DeleteWebhookSubscriptionResponse> deleteWebhookSubscriptionAs
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](../../doc/models/webhook-subscription.md) to delete. |
+| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to delete. |
 
 ## Response Type
 
@@ -163,8 +167,10 @@ String subscriptionId = "subscription_id0";
 
 webhookSubscriptionsApi.deleteWebhookSubscriptionAsync(subscriptionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -183,7 +189,7 @@ CompletableFuture<RetrieveWebhookSubscriptionResponse> retrieveWebhookSubscripti
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](../../doc/models/webhook-subscription.md) to retrieve. |
+| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to retrieve. |
 
 ## Response Type
 
@@ -196,8 +202,10 @@ String subscriptionId = "subscription_id0";
 
 webhookSubscriptionsApi.retrieveWebhookSubscriptionAsync(subscriptionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -217,7 +225,7 @@ CompletableFuture<UpdateWebhookSubscriptionResponse> updateWebhookSubscriptionAs
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](../../doc/models/webhook-subscription.md) to update. |
+| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to update. |
 | `body` | [`UpdateWebhookSubscriptionRequest`](../../doc/models/update-webhook-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -228,19 +236,19 @@ CompletableFuture<UpdateWebhookSubscriptionResponse> updateWebhookSubscriptionAs
 
 ```java
 String subscriptionId = "subscription_id0";
-WebhookSubscription subscription = new WebhookSubscription.Builder()
-    .name("Updated Example Webhook Subscription")
-    .enabled(false)
-    .build();
-
 UpdateWebhookSubscriptionRequest body = new UpdateWebhookSubscriptionRequest.Builder()
-    .subscription(subscription)
+    .subscription(new WebhookSubscription.Builder()
+        .name("Updated Example Webhook Subscription")
+        .enabled(false)
+        .build())
     .build();
 
 webhookSubscriptionsApi.updateWebhookSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -260,7 +268,7 @@ CompletableFuture<UpdateWebhookSubscriptionSignatureKeyResponse> updateWebhookSu
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](../../doc/models/webhook-subscription.md) to update. |
+| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to update. |
 | `body` | [`UpdateWebhookSubscriptionSignatureKeyRequest`](../../doc/models/update-webhook-subscription-signature-key-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -277,8 +285,10 @@ UpdateWebhookSubscriptionSignatureKeyRequest body = new UpdateWebhookSubscriptio
 
 webhookSubscriptionsApi.updateWebhookSubscriptionSignatureKeyAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -298,7 +308,7 @@ CompletableFuture<TestWebhookSubscriptionResponse> testWebhookSubscriptionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](../../doc/models/webhook-subscription.md) to test. |
+| `subscriptionId` | `String` | Template, Required | [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to test. |
 | `body` | [`TestWebhookSubscriptionRequest`](../../doc/models/test-webhook-subscription-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
@@ -315,8 +325,10 @@ TestWebhookSubscriptionRequest body = new TestWebhookSubscriptionRequest.Builder
 
 webhookSubscriptionsApi.testWebhookSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

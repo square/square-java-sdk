@@ -198,9 +198,10 @@ public class ChargeRequest {
     /**
      * Internal Getter for DelayCapture.
      * If `true`, the request will only perform an Auth on the provided card. You can then later
-     * perform either a Capture (with the [CaptureTransaction]($e/Transactions/CaptureTransaction)
-     * endpoint) or a Void (with the [VoidTransaction]($e/Transactions/VoidTransaction) endpoint).
-     * Default value: `false`
+     * perform either a Capture (with the
+     * [CaptureTransaction](api-endpoint:Transactions-CaptureTransaction) endpoint) or a Void (with
+     * the [VoidTransaction](api-endpoint:Transactions-VoidTransaction) endpoint). Default value:
+     * `false`
      * @return Returns the Internal Boolean
      */
     @JsonGetter("delay_capture")
@@ -213,9 +214,10 @@ public class ChargeRequest {
     /**
      * Getter for DelayCapture.
      * If `true`, the request will only perform an Auth on the provided card. You can then later
-     * perform either a Capture (with the [CaptureTransaction]($e/Transactions/CaptureTransaction)
-     * endpoint) or a Void (with the [VoidTransaction]($e/Transactions/VoidTransaction) endpoint).
-     * Default value: `false`
+     * perform either a Capture (with the
+     * [CaptureTransaction](api-endpoint:Transactions-CaptureTransaction) endpoint) or a Void (with
+     * the [VoidTransaction](api-endpoint:Transactions-VoidTransaction) endpoint). Default value:
+     * `false`
      * @return Returns the Boolean
      */
     @JsonIgnore

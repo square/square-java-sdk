@@ -52,9 +52,9 @@ public class CreateRefundRequest {
 
     /**
      * Getter for TenderId.
-     * The ID of the tender to refund. A [`Transaction`]($m/Transaction) has one or more `tenders`
-     * (i.e., methods of payment) associated with it, and you refund each tender separately with the
-     * Connect API.
+     * The ID of the tender to refund. A [`Transaction`](entity:Transaction) has one or more
+     * `tenders` (i.e., methods of payment) associated with it, and you refund each tender
+     * separately with the Connect API.
      * @return Returns the String
      */
     @JsonGetter("tender_id")

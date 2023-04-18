@@ -29,7 +29,7 @@ public class LoyaltyEventExpirePoints {
 
     /**
      * Getter for LoyaltyProgramId.
-     * The Square-assigned ID of the [loyalty program]($m/LoyaltyProgram).
+     * The Square-assigned ID of the [loyalty program](entity:LoyaltyProgram).
      * @return Returns the String
      */
     @JsonGetter("loyalty_program_id")

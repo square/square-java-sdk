@@ -25,16 +25,19 @@ public interface PaymentsApi {
      * Retrieves a list of payments taken by the account making the request. Results are eventually
      * consistent, and new payments or changes to payments might take several seconds to appear. The
      * maximum results per page is 100.
-     * @param  beginTime  Optional parameter: The timestamp for the beginning of the reporting
-     *         period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
-     * @param  endTime  Optional parameter: The timestamp for the end of the reporting period, in
-     *         RFC 3339 format. Default: The current time.
-     * @param  sortOrder  Optional parameter: The order in which results are listed: - `ASC` -
-     *         Oldest to newest. - `DESC` - Newest to oldest (default).
+     * @param  beginTime  Optional parameter: Indicates the start of the time range to retrieve
+     *         payments for, in RFC 3339 format. The range is determined using the `created_at`
+     *         field for each Payment. Inclusive. Default: The current time minus one year.
+     * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve payments
+     *         for, in RFC 3339 format. The range is determined using the `created_at` field for
+     *         each Payment. Default: The current time.
+     * @param  sortOrder  Optional parameter: The order in which results are listed by
+     *         `Payment.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
+     *         (default).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  locationId  Optional parameter: Limit results to the location supplied. By default,
      *         results are returned for the default (main) location associated with the seller.
      * @param  total  Optional parameter: The exact amount in the `total_money` for a payment.
@@ -64,16 +67,19 @@ public interface PaymentsApi {
      * Retrieves a list of payments taken by the account making the request. Results are eventually
      * consistent, and new payments or changes to payments might take several seconds to appear. The
      * maximum results per page is 100.
-     * @param  beginTime  Optional parameter: The timestamp for the beginning of the reporting
-     *         period, in RFC 3339 format. Inclusive. Default: The current time minus one year.
-     * @param  endTime  Optional parameter: The timestamp for the end of the reporting period, in
-     *         RFC 3339 format. Default: The current time.
-     * @param  sortOrder  Optional parameter: The order in which results are listed: - `ASC` -
-     *         Oldest to newest. - `DESC` - Newest to oldest (default).
+     * @param  beginTime  Optional parameter: Indicates the start of the time range to retrieve
+     *         payments for, in RFC 3339 format. The range is determined using the `created_at`
+     *         field for each Payment. Inclusive. Default: The current time minus one year.
+     * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve payments
+     *         for, in RFC 3339 format. The range is determined using the `created_at` field for
+     *         each Payment. Default: The current time.
+     * @param  sortOrder  Optional parameter: The order in which results are listed by
+     *         `Payment.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
+     *         (default).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  locationId  Optional parameter: Limit results to the location supplied. By default,
      *         results are returned for the default (main) location associated with the seller.
      * @param  total  Optional parameter: The exact amount in the `total_money` for a payment.

@@ -107,7 +107,7 @@ public class InventoryChange {
 
     /**
      * Getter for MeasurementUnitId.
-     * The ID of the [CatalogMeasurementUnit]($m/CatalogMeasurementUnit) object representing the
+     * The ID of the [CatalogMeasurementUnit](entity:CatalogMeasurementUnit) object representing the
      * catalog measurement unit associated with the inventory change.
      * @return Returns the String
      */

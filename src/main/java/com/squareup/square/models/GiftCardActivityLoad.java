@@ -75,9 +75,9 @@ public class GiftCardActivityLoad {
 
     /**
      * Internal Getter for OrderId.
-     * The ID of the [order]($m/Order) that contains the `GIFT_CARD` line item. Applications that
-     * use the Square Orders API to process orders must specify the order ID in the
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) request.
+     * The ID of the [order](entity:Order) that contains the `GIFT_CARD` line item. Applications
+     * that use the Square Orders API to process orders must specify the order ID in the
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * @return Returns the Internal String
      */
     @JsonGetter("order_id")
@@ -89,9 +89,9 @@ public class GiftCardActivityLoad {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order]($m/Order) that contains the `GIFT_CARD` line item. Applications that
-     * use the Square Orders API to process orders must specify the order ID in the
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) request.
+     * The ID of the [order](entity:Order) that contains the `GIFT_CARD` line item. Applications
+     * that use the Square Orders API to process orders must specify the order ID in the
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * @return Returns the String
      */
     @JsonIgnore
@@ -103,8 +103,8 @@ public class GiftCardActivityLoad {
      * Internal Getter for LineItemUid.
      * The UID of the `GIFT_CARD` line item in the order that represents the additional funds for
      * the gift card. Applications that use the Square Orders API to process orders must specify the
-     * line item UID in the [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity)
-     * request.
+     * line item UID in the
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * @return Returns the Internal String
      */
     @JsonGetter("line_item_uid")
@@ -118,8 +118,8 @@ public class GiftCardActivityLoad {
      * Getter for LineItemUid.
      * The UID of the `GIFT_CARD` line item in the order that represents the additional funds for
      * the gift card. Applications that use the Square Orders API to process orders must specify the
-     * line item UID in the [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity)
-     * request.
+     * line item UID in the
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * @return Returns the String
      */
     @JsonIgnore
@@ -158,10 +158,10 @@ public class GiftCardActivityLoad {
      * The payment instrument IDs used to process the order for the additional funds, such as a
      * credit card ID or bank account ID. Applications that use a custom order processing system
      * must specify payment instrument IDs in the
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) request. Square uses
-     * this information to perform compliance checks. For applications that use the Square Orders
-     * API to process payments, Square has the necessary instrument IDs to perform compliance
-     * checks.
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
+     * Square uses this information to perform compliance checks. For applications that use the
+     * Square Orders API to process payments, Square has the necessary instrument IDs to perform
+     * compliance checks.
      * @return Returns the Internal List of String
      */
     @JsonGetter("buyer_payment_instrument_ids")
@@ -176,10 +176,10 @@ public class GiftCardActivityLoad {
      * The payment instrument IDs used to process the order for the additional funds, such as a
      * credit card ID or bank account ID. Applications that use a custom order processing system
      * must specify payment instrument IDs in the
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) request. Square uses
-     * this information to perform compliance checks. For applications that use the Square Orders
-     * API to process payments, Square has the necessary instrument IDs to perform compliance
-     * checks.
+     * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
+     * Square uses this information to perform compliance checks. For applications that use the
+     * Square Orders API to process payments, Square has the necessary instrument IDs to perform
+     * compliance checks.
      * @return Returns the List of String
      */
     @JsonIgnore

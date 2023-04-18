@@ -119,7 +119,7 @@ public class OrderLineItemDiscount {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogDiscount]($m/CatalogDiscount).
+     * The catalog object ID referencing [CatalogDiscount](entity:CatalogDiscount).
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -131,7 +131,7 @@ public class OrderLineItemDiscount {
 
     /**
      * Getter for CatalogObjectId.
-     * The catalog object ID referencing [CatalogDiscount]($m/CatalogDiscount).
+     * The catalog object ID referencing [CatalogDiscount](entity:CatalogDiscount).
      * @return Returns the String
      */
     @JsonIgnore
@@ -322,9 +322,9 @@ public class OrderLineItemDiscount {
 
     /**
      * Getter for PricingRuleId.
-     * The object ID of a [pricing rule]($m/CatalogPricingRule) to be applied automatically to this
-     * discount. The specification and application of the discounts, to which a `pricing_rule_id` is
-     * assigned, are completely controlled by the corresponding pricing rule.
+     * The object ID of a [pricing rule](entity:CatalogPricingRule) to be applied automatically to
+     * this discount. The specification and application of the discounts, to which a
+     * `pricing_rule_id` is assigned, are completely controlled by the corresponding pricing rule.
      * @return Returns the String
      */
     @JsonGetter("pricing_rule_id")

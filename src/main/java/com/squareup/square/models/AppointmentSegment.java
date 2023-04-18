@@ -92,8 +92,8 @@ public class AppointmentSegment {
 
     /**
      * Internal Getter for ServiceVariationId.
-     * The ID of the [CatalogItemVariation]($m/CatalogItemVariation) object representing the service
-     * booked in this segment.
+     * The ID of the [CatalogItemVariation](entity:CatalogItemVariation) object representing the
+     * service booked in this segment.
      * @return Returns the Internal String
      */
     @JsonGetter("service_variation_id")
@@ -105,8 +105,8 @@ public class AppointmentSegment {
 
     /**
      * Getter for ServiceVariationId.
-     * The ID of the [CatalogItemVariation]($m/CatalogItemVariation) object representing the service
-     * booked in this segment.
+     * The ID of the [CatalogItemVariation](entity:CatalogItemVariation) object representing the
+     * service booked in this segment.
      * @return Returns the String
      */
     @JsonIgnore
@@ -116,8 +116,8 @@ public class AppointmentSegment {
 
     /**
      * Getter for TeamMemberId.
-     * The ID of the [TeamMember]($m/TeamMember) object representing the team member booked in this
-     * segment.
+     * The ID of the [TeamMember](entity:TeamMember) object representing the team member booked in
+     * this segment.
      * @return Returns the String
      */
     @JsonGetter("team_member_id")

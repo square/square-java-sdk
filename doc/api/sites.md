@@ -28,8 +28,10 @@ CompletableFuture<ListSitesResponse> listSitesAsync()
 ```java
 sitesApi.listSitesAsync().thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

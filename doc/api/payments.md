@@ -45,10 +45,10 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `beginTime` | `String` | Query, Optional | The timestamp for the beginning of the reporting period, in RFC 3339 format.<br>Inclusive. Default: The current time minus one year. |
-| `endTime` | `String` | Query, Optional | The timestamp for the end of the reporting period, in RFC 3339 format.<br><br>Default: The current time. |
-| `sortOrder` | `String` | Query, Optional | The order in which results are listed:<br><br>- `ASC` - Oldest to newest.<br>- `DESC` - Newest to oldest (default). |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). |
+| `beginTime` | `String` | Query, Optional | Indicates the start of the time range to retrieve payments for, in RFC 3339 format.  <br>The range is determined using the `created_at` field for each Payment.<br>Inclusive. Default: The current time minus one year. |
+| `endTime` | `String` | Query, Optional | Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The<br>range is determined using the `created_at` field for each Payment.<br><br>Default: The current time. |
+| `sortOrder` | `String` | Query, Optional | The order in which results are listed by `Payment.created_at`:<br><br>- `ASC` - Oldest to newest.<br>- `DESC` - Newest to oldest (default). |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `locationId` | `String` | Query, Optional | Limit results to the location supplied. By default, results are returned<br>for the default (main) location associated with the seller. |
 | `total` | `Long` | Query, Optional | The exact amount in the `total_money` for a payment. |
 | `last4` | `String` | Query, Optional | The last four digits of a payment card. |
@@ -64,8 +64,10 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 ```java
 paymentsApi.listPaymentsAsync(null, null, null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -100,32 +102,31 @@ CompletableFuture<CreatePaymentResponse> createPaymentAsync(
 ## Example Usage
 
 ```java
-Money amountMoney = new Money.Builder()
-    .amount(1000L)
-    .currency("USD")
-    .build();
-
-Money appFeeMoney = new Money.Builder()
-    .amount(10L)
-    .currency("USD")
-    .build();
-
 CreatePaymentRequest body = new CreatePaymentRequest.Builder(
-        "ccof:GaJGNaZa8x4OgDJn4GB",
-        "7b0f3ec5-086a-4871-8f13-3c81b3875218",
-        amountMoney)
-    .appFeeMoney(appFeeMoney)
-    .autocomplete(true)
-    .customerId("W92WH6P11H4Z77CTET0RNTGFW8")
-    .locationId("L88917AVBK2S5")
-    .referenceId("123456")
-    .note("Brief description")
-    .build();
+    "ccof:GaJGNaZa8x4OgDJn4GB",
+    "7b0f3ec5-086a-4871-8f13-3c81b3875218"
+)
+.amountMoney(new Money.Builder()
+        .amount(1000L)
+        .currency("USD")
+        .build())
+.appFeeMoney(new Money.Builder()
+        .amount(10L)
+        .currency("USD")
+        .build())
+.autocomplete(true)
+.customerId("W92WH6P11H4Z77CTET0RNTGFW8")
+.locationId("L88917AVBK2S5")
+.referenceId("123456")
+.note("Brief description")
+.build();
 
 paymentsApi.createPaymentAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -164,13 +165,16 @@ CompletableFuture<CancelPaymentByIdempotencyKeyResponse> cancelPaymentByIdempote
 
 ```java
 CancelPaymentByIdempotencyKeyRequest body = new CancelPaymentByIdempotencyKeyRequest.Builder(
-        "a7e36d40-d24b-11e8-b568-0800200c9a66")
-    .build();
+    "a7e36d40-d24b-11e8-b568-0800200c9a66"
+)
+.build();
 
 paymentsApi.cancelPaymentByIdempotencyKeyAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -202,8 +206,10 @@ String paymentId = "payment_id0";
 
 paymentsApi.getPaymentAsync(paymentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -235,31 +241,28 @@ CompletableFuture<UpdatePaymentResponse> updatePaymentAsync(
 
 ```java
 String paymentId = "payment_id0";
-Money amountMoney = new Money.Builder()
-    .amount(1000L)
-    .currency("USD")
-    .build();
-
-Money tipMoney = new Money.Builder()
-    .amount(100L)
-    .currency("USD")
-    .build();
-
-Payment payment = new Payment.Builder()
-    .amountMoney(amountMoney)
-    .tipMoney(tipMoney)
-    .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
-    .build();
-
 UpdatePaymentRequest body = new UpdatePaymentRequest.Builder(
-        "956f8b13-e4ec-45d6-85e8-d1d95ef0c5de")
-    .payment(payment)
-    .build();
+    "956f8b13-e4ec-45d6-85e8-d1d95ef0c5de"
+)
+.payment(new Payment.Builder()
+        .amountMoney(new Money.Builder()
+            .amount(1000L)
+            .currency("USD")
+            .build())
+        .tipMoney(new Money.Builder()
+            .amount(100L)
+            .currency("USD")
+            .build())
+        .versionToken("ODhwVQ35xwlzRuoZEwKXucfu7583sPTzK48c5zoGd0g6o")
+        .build())
+.build();
 
 paymentsApi.updatePaymentAsync(paymentId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -292,8 +295,10 @@ String paymentId = "payment_id0";
 
 paymentsApi.cancelPaymentAsync(paymentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -332,8 +337,10 @@ CompletePaymentRequest body = new CompletePaymentRequest.Builder()
 
 paymentsApi.completePaymentAsync(paymentId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

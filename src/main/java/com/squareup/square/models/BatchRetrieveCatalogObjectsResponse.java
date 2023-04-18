@@ -54,7 +54,7 @@ public class BatchRetrieveCatalogObjectsResponse {
 
     /**
      * Getter for Objects.
-     * A list of [CatalogObject]($m/CatalogObject)s returned.
+     * A list of [CatalogObject](entity:CatalogObject)s returned.
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("objects")
@@ -65,7 +65,8 @@ public class BatchRetrieveCatalogObjectsResponse {
 
     /**
      * Getter for RelatedObjects.
-     * A list of [CatalogObject]($m/CatalogObject)s referenced by the object in the `objects` field.
+     * A list of [CatalogObject](entity:CatalogObject)s referenced by the object in the `objects`
+     * field.
      * @return Returns the List of CatalogObject
      */
     @JsonGetter("related_objects")

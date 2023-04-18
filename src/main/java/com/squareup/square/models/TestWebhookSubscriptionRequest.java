@@ -36,9 +36,9 @@ public class TestWebhookSubscriptionRequest {
 
     /**
      * Internal Getter for EventType.
-     * The event type that will be used to test the [Subscription]($m/WebhookSubscription). The
+     * The event type that will be used to test the [Subscription](entity:WebhookSubscription). The
      * event type must be contained in the list of event types in the
-     * [Subscription]($m/WebhookSubscription).
+     * [Subscription](entity:WebhookSubscription).
      * @return Returns the Internal String
      */
     @JsonGetter("event_type")
@@ -50,9 +50,9 @@ public class TestWebhookSubscriptionRequest {
 
     /**
      * Getter for EventType.
-     * The event type that will be used to test the [Subscription]($m/WebhookSubscription). The
+     * The event type that will be used to test the [Subscription](entity:WebhookSubscription). The
      * event type must be contained in the list of event types in the
-     * [Subscription]($m/WebhookSubscription).
+     * [Subscription](entity:WebhookSubscription).
      * @return Returns the String
      */
     @JsonIgnore

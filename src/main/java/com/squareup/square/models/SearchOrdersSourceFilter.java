@@ -37,7 +37,7 @@ public class SearchOrdersSourceFilter {
 
     /**
      * Internal Getter for SourceNames.
-     * Filters by the [Source]($m/OrderSource) `name`. The filter returns any orders with a
+     * Filters by the [Source](entity:OrderSource) `name`. The filter returns any orders with a
      * `source.name` that matches any of the listed source names. Max: 10 source names.
      * @return Returns the Internal List of String
      */
@@ -50,7 +50,7 @@ public class SearchOrdersSourceFilter {
 
     /**
      * Getter for SourceNames.
-     * Filters by the [Source]($m/OrderSource) `name`. The filter returns any orders with a
+     * Filters by the [Source](entity:OrderSource) `name`. The filter returns any orders with a
      * `source.name` that matches any of the listed source names. Max: 10 source names.
      * @return Returns the List of String
      */

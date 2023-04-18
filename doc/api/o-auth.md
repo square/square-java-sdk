@@ -73,8 +73,10 @@ String authorization = "Client CLIENT_SECRET";
 
 oAuthApi.renewTokenAsync(clientId, body, authorization).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -130,8 +132,10 @@ String authorization = "Client CLIENT_SECRET";
 
 oAuthApi.revokeTokenAsync(body, authorization).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -178,16 +182,19 @@ CompletableFuture<ObtainTokenResponse> obtainTokenAsync(
 
 ```java
 ObtainTokenRequest body = new ObtainTokenRequest.Builder(
-        "APPLICATION_ID",
-        "authorization_code")
-    .clientSecret("APPLICATION_SECRET")
-    .code("CODE_FROM_AUTHORIZE")
-    .build();
+    "APPLICATION_ID",
+    "authorization_code"
+)
+.clientSecret("APPLICATION_SECRET")
+.code("CODE_FROM_AUTHORIZE")
+.build();
 
 oAuthApi.obtainTokenAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -234,8 +241,10 @@ String authorization = "Client CLIENT_SECRET";
 
 oAuthApi.retrieveTokenStatusAsync(authorization).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

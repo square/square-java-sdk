@@ -46,27 +46,27 @@ CompletableFuture<CreateTerminalActionResponse> createTerminalActionAsync(
 ## Example Usage
 
 ```java
-SaveCardOptions saveCardOptions = new SaveCardOptions.Builder(
-        "{{CUSTOMER_ID}}")
-    .referenceId("user-id-1")
-    .build();
-
-TerminalAction action = new TerminalAction.Builder()
-    .deviceId("{{DEVICE_ID}}")
-    .deadlineDuration("PT5M")
-    .type("SAVE_CARD")
-    .saveCardOptions(saveCardOptions)
-    .build();
-
 CreateTerminalActionRequest body = new CreateTerminalActionRequest.Builder(
-        "thahn-70e75c10-47f7-4ab6-88cc-aaa4076d065e",
-        action)
-    .build();
+    "thahn-70e75c10-47f7-4ab6-88cc-aaa4076d065e",
+    new TerminalAction.Builder()
+        .deviceId("{{DEVICE_ID}}")
+        .deadlineDuration("PT5M")
+        .type("SAVE_CARD")
+        .saveCardOptions(new SaveCardOptions.Builder(
+            "{{CUSTOMER_ID}}"
+        )
+        .referenceId("user-id-1")
+        .build())
+        .build()
+)
+.build();
 
 terminalApi.createTerminalActionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -94,32 +94,26 @@ CompletableFuture<SearchTerminalActionsResponse> searchTerminalActionsAsync(
 ## Example Usage
 
 ```java
-TimeRange createdAt = new TimeRange.Builder()
-    .startAt("2022-04-01T00:00:00Z")
-    .build();
-
-TerminalActionQueryFilter filter = new TerminalActionQueryFilter.Builder()
-    .createdAt(createdAt)
-    .build();
-
-TerminalActionQuerySort sort = new TerminalActionQuerySort.Builder()
-    .sortOrder("DESC")
-    .build();
-
-TerminalActionQuery query = new TerminalActionQuery.Builder()
-    .filter(filter)
-    .sort(sort)
-    .build();
-
 SearchTerminalActionsRequest body = new SearchTerminalActionsRequest.Builder()
-    .query(query)
+    .query(new TerminalActionQuery.Builder()
+        .filter(new TerminalActionQueryFilter.Builder()
+            .createdAt(new TimeRange.Builder()
+                .startAt("2022-04-01T00:00:00Z")
+                .build())
+            .build())
+        .sort(new TerminalActionQuerySort.Builder()
+            .sortOrder("DESC")
+            .build())
+        .build())
     .limit(2)
     .build();
 
 terminalApi.searchTerminalActionsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -151,8 +145,10 @@ String actionId = "action_id6";
 
 terminalApi.getTerminalActionAsync(actionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -184,8 +180,10 @@ String actionId = "action_id6";
 
 terminalApi.cancelTerminalActionAsync(actionId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -214,31 +212,30 @@ CompletableFuture<CreateTerminalCheckoutResponse> createTerminalCheckoutAsync(
 ## Example Usage
 
 ```java
-Money amountMoney = new Money.Builder()
-    .amount(2610L)
-    .currency("USD")
-    .build();
-
-DeviceCheckoutOptions deviceOptions = new DeviceCheckoutOptions.Builder(
-        "dbb5d83a-7838-11ea-bc55-0242ac130003")
-    .build();
-
-TerminalCheckout checkout = new TerminalCheckout.Builder(
-        amountMoney,
-        deviceOptions)
+CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
+    "28a0c3bc-7839-11ea-bc55-0242ac130003",
+    new TerminalCheckout.Builder(
+        new Money.Builder()
+            .amount(2610L)
+            .currency("USD")
+            .build(),
+        new DeviceCheckoutOptions.Builder(
+            "dbb5d83a-7838-11ea-bc55-0242ac130003"
+        )
+        .build()
+    )
     .referenceId("id11572")
     .note("A brief note")
-    .build();
-
-CreateTerminalCheckoutRequest body = new CreateTerminalCheckoutRequest.Builder(
-        "28a0c3bc-7839-11ea-bc55-0242ac130003",
-        checkout)
-    .build();
+    .build()
+)
+.build();
 
 terminalApi.createTerminalCheckoutAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -266,23 +263,21 @@ CompletableFuture<SearchTerminalCheckoutsResponse> searchTerminalCheckoutsAsync(
 ## Example Usage
 
 ```java
-TerminalCheckoutQueryFilter filter = new TerminalCheckoutQueryFilter.Builder()
-    .status("COMPLETED")
-    .build();
-
-TerminalCheckoutQuery query = new TerminalCheckoutQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchTerminalCheckoutsRequest body = new SearchTerminalCheckoutsRequest.Builder()
-    .query(query)
+    .query(new TerminalCheckoutQuery.Builder()
+        .filter(new TerminalCheckoutQueryFilter.Builder()
+            .status("COMPLETED")
+            .build())
+        .build())
     .limit(2)
     .build();
 
 terminalApi.searchTerminalCheckoutsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -314,8 +309,10 @@ String checkoutId = "checkout_id8";
 
 terminalApi.getTerminalCheckoutAsync(checkoutId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -347,8 +344,10 @@ String checkoutId = "checkout_id8";
 
 terminalApi.cancelTerminalCheckoutAsync(checkoutId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -376,27 +375,27 @@ CompletableFuture<CreateTerminalRefundResponse> createTerminalRefundAsync(
 ## Example Usage
 
 ```java
-Money amountMoney = new Money.Builder()
-    .amount(111L)
-    .currency("CAD")
-    .build();
-
-TerminalRefund refund = new TerminalRefund.Builder(
-        "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
-        amountMoney,
-        "Returning items",
-        "f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
-    .build();
-
 CreateTerminalRefundRequest body = new CreateTerminalRefundRequest.Builder(
-        "402a640b-b26f-401f-b406-46f839590c04")
-    .refund(refund)
-    .build();
+    "402a640b-b26f-401f-b406-46f839590c04"
+)
+.refund(new TerminalRefund.Builder(
+        "5O5OvgkcNUhl7JBuINflcjKqUzXZY",
+        new Money.Builder()
+            .amount(111L)
+            .currency("CAD")
+            .build(),
+        "Returning items",
+        "f72dfb8e-4d65-4e56-aade-ec3fb8d33291"
+    )
+    .build())
+.build();
 
 terminalApi.createTerminalRefundAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -424,23 +423,21 @@ CompletableFuture<SearchTerminalRefundsResponse> searchTerminalRefundsAsync(
 ## Example Usage
 
 ```java
-TerminalRefundQueryFilter filter = new TerminalRefundQueryFilter.Builder()
-    .status("COMPLETED")
-    .build();
-
-TerminalRefundQuery query = new TerminalRefundQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchTerminalRefundsRequest body = new SearchTerminalRefundsRequest.Builder()
-    .query(query)
+    .query(new TerminalRefundQuery.Builder()
+        .filter(new TerminalRefundQueryFilter.Builder()
+            .status("COMPLETED")
+            .build())
+        .build())
     .limit(1)
     .build();
 
 terminalApi.searchTerminalRefundsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -472,8 +469,10 @@ String terminalRefundId = "terminal_refund_id0";
 
 terminalApi.getTerminalRefundAsync(terminalRefundId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -505,8 +504,10 @@ String terminalRefundId = "terminal_refund_id0";
 
 terminalApi.cancelTerminalRefundAsync(terminalRefundId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

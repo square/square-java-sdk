@@ -43,8 +43,10 @@ CompletableFuture<ListCustomerGroupsResponse> listCustomerGroupsAsync(
 ```java
 customerGroupsApi.listCustomerGroupsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -74,18 +76,20 @@ CompletableFuture<CreateCustomerGroupResponse> createCustomerGroupAsync(
 ## Example Usage
 
 ```java
-CustomerGroup group = new CustomerGroup.Builder(
-        "Loyal Customers")
-    .build();
-
 CreateCustomerGroupRequest body = new CreateCustomerGroupRequest.Builder(
-        group)
-    .build();
+    new CustomerGroup.Builder(
+        "Loyal Customers"
+    )
+    .build()
+)
+.build();
 
 customerGroupsApi.createCustomerGroupAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -117,8 +121,10 @@ String groupId = "group_id0";
 
 customerGroupsApi.deleteCustomerGroupAsync(groupId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -150,8 +156,10 @@ String groupId = "group_id0";
 
 customerGroupsApi.retrieveCustomerGroupAsync(groupId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -182,18 +190,20 @@ CompletableFuture<UpdateCustomerGroupResponse> updateCustomerGroupAsync(
 
 ```java
 String groupId = "group_id0";
-CustomerGroup group = new CustomerGroup.Builder(
-        "Loyal Customers")
-    .build();
-
 UpdateCustomerGroupRequest body = new UpdateCustomerGroupRequest.Builder(
-        group)
-    .build();
+    new CustomerGroup.Builder(
+        "Loyal Customers"
+    )
+    .build()
+)
+.build();
 
 customerGroupsApi.updateCustomerGroupAsync(groupId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

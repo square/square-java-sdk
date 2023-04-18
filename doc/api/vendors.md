@@ -41,24 +41,22 @@ CompletableFuture<BulkCreateVendorsResponse> bulkCreateVendorsAsync(
 ## Example Usage
 
 ```java
-Map<String, Vendor> vendors = new LinkedHashMap<>();
-Vendor vendors0 = new Vendor.Builder()
-    .build();
-
-vendors.put("key0", vendors0);
-Vendor vendors1 = new Vendor.Builder()
-    .build();
-
-vendors.put("key1", vendors1);
-
 BulkCreateVendorsRequest body = new BulkCreateVendorsRequest.Builder(
-        vendors)
-    .build();
+    new LinkedHashMap<String, Vendor>() {{
+        put("key0", new Vendor.Builder()
+            .build());
+        put("key1", new Vendor.Builder()
+            .build());
+    }}
+)
+.build();
 
 vendorsApi.bulkCreateVendorsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -86,17 +84,18 @@ CompletableFuture<BulkRetrieveVendorsResponse> bulkRetrieveVendorsAsync(
 ## Example Usage
 
 ```java
-List<String> vendorIds = new LinkedList<>();
-vendorIds.add("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4");
-
 BulkRetrieveVendorsRequest body = new BulkRetrieveVendorsRequest.Builder()
-    .vendorIds(vendorIds)
+    .vendorIds(Arrays.asList(
+        "INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4"
+    ))
     .build();
 
 vendorsApi.bulkRetrieveVendorsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -124,32 +123,28 @@ CompletableFuture<BulkUpdateVendorsResponse> bulkUpdateVendorsAsync(
 ## Example Usage
 
 ```java
-Map<String, UpdateVendorRequest> vendors = new LinkedHashMap<>();
-Vendor vendor = new Vendor.Builder()
-    .build();
-
-UpdateVendorRequest vendors0 = new UpdateVendorRequest.Builder(
-        vendor)
-    .build();
-
-vendors.put("key0", vendors0);
-Vendor vendor = new Vendor.Builder()
-    .build();
-
-UpdateVendorRequest vendors1 = new UpdateVendorRequest.Builder(
-        vendor)
-    .build();
-
-vendors.put("key1", vendors1);
-
 BulkUpdateVendorsRequest body = new BulkUpdateVendorsRequest.Builder(
-        vendors)
-    .build();
+    new LinkedHashMap<String, UpdateVendorRequest>() {{
+        put("key0", new UpdateVendorRequest.Builder(
+            new Vendor.Builder()
+                .build()
+        )
+        .build());
+        put("key1", new UpdateVendorRequest.Builder(
+            new Vendor.Builder()
+                .build()
+        )
+        .build());
+    }}
+)
+.build();
 
 vendorsApi.bulkUpdateVendorsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -178,13 +173,16 @@ CompletableFuture<CreateVendorResponse> createVendorAsync(
 
 ```java
 CreateVendorRequest body = new CreateVendorRequest.Builder(
-        "idempotency_key2")
-    .build();
+    "idempotency_key2"
+)
+.build();
 
 vendorsApi.createVendorAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -217,8 +215,10 @@ SearchVendorsRequest body = new SearchVendorsRequest.Builder()
 
 vendorsApi.searchVendorsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -237,7 +237,7 @@ CompletableFuture<RetrieveVendorResponse> retrieveVendorAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `vendorId` | `String` | Template, Required | ID of the [Vendor](../../doc/models/vendor.md) to retrieve. |
+| `vendorId` | `String` | Template, Required | ID of the [Vendor](entity:Vendor) to retrieve. |
 
 ## Response Type
 
@@ -250,8 +250,10 @@ String vendorId = "vendor_id8";
 
 vendorsApi.retrieveVendorAsync(vendorId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -281,24 +283,25 @@ CompletableFuture<UpdateVendorResponse> updateVendorAsync(
 ## Example Usage
 
 ```java
-Vendor vendor = new Vendor.Builder()
-    .id("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
-    .name("Jack's Chicken Shack")
-    .version(1)
-    .status("ACTIVE")
-    .build();
-
 UpdateVendorRequest body = new UpdateVendorRequest.Builder(
-        vendor)
-    .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
-    .build();
+    new Vendor.Builder()
+        .id("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
+        .name("Jack's Chicken Shack")
+        .version(1)
+        .status("ACTIVE")
+        .build()
+)
+.idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
+.build();
 
 String vendorId = "vendor_id8";
 
 vendorsApi.updateVendorAsync(body, vendorId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

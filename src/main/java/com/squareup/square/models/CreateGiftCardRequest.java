@@ -44,8 +44,8 @@ public class CreateGiftCardRequest {
 
     /**
      * Getter for LocationId.
-     * The ID of the [location]($m/Location) where the gift card should be registered for reporting
-     * purposes. Gift cards can be redeemed at any of the seller's locations.
+     * The ID of the [location](entity:Location) where the gift card should be registered for
+     * reporting purposes. Gift cards can be redeemed at any of the seller's locations.
      * @return Returns the String
      */
     @JsonGetter("location_id")

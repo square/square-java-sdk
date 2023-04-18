@@ -43,8 +43,10 @@ CompletableFuture<ListBankAccountsResponse> listBankAccountsAsync(
 ```java
 bankAccountsApi.listBankAccountsAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -76,8 +78,10 @@ String v1BankAccountId = "v1_bank_account_id8";
 
 bankAccountsApi.getBankAccountByV1IdAsync(v1BankAccountId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -110,8 +114,10 @@ String bankAccountId = "bank_account_id0";
 
 bankAccountsApi.getBankAccountAsync(bankAccountId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

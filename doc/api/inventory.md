@@ -29,7 +29,7 @@ InventoryApi inventoryApi = client.getInventoryApi();
 
 **This endpoint is deprecated.**
 
-Deprecated version of [RetrieveInventoryAdjustment](../../doc/api/inventory.md#retrieve-inventory-adjustment) after the endpoint URL
+Deprecated version of [RetrieveInventoryAdjustment](api-endpoint:Inventory-RetrieveInventoryAdjustment) after the endpoint URL
 is updated to conform to the standard convention.
 
 ```java
@@ -41,7 +41,7 @@ CompletableFuture<RetrieveInventoryAdjustmentResponse> deprecatedRetrieveInvento
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](../../doc/models/inventory-adjustment.md) to retrieve. |
+| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](entity:InventoryAdjustment) to retrieve. |
 
 ## Response Type
 
@@ -54,8 +54,10 @@ String adjustmentId = "adjustment_id0";
 
 inventoryApi.deprecatedRetrieveInventoryAdjustmentAsync(adjustmentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -75,7 +77,7 @@ CompletableFuture<RetrieveInventoryAdjustmentResponse> retrieveInventoryAdjustme
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](../../doc/models/inventory-adjustment.md) to retrieve. |
+| `adjustmentId` | `String` | Template, Required | ID of the [InventoryAdjustment](entity:InventoryAdjustment) to retrieve. |
 
 ## Response Type
 
@@ -88,8 +90,10 @@ String adjustmentId = "adjustment_id0";
 
 inventoryApi.retrieveInventoryAdjustmentAsync(adjustmentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -99,7 +103,7 @@ inventoryApi.retrieveInventoryAdjustmentAsync(adjustmentId).thenAccept(result ->
 
 **This endpoint is deprecated.**
 
-Deprecated version of [BatchChangeInventory](../../doc/api/inventory.md#batch-change-inventory) after the endpoint URL
+Deprecated version of [BatchChangeInventory](api-endpoint:Inventory-BatchChangeInventory) after the endpoint URL
 is updated to conform to the standard convention.
 
 ```java
@@ -120,34 +124,32 @@ CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChangeInventoryAs
 ## Example Usage
 
 ```java
-List<InventoryChange> changes = new LinkedList<>();
-InventoryPhysicalCount physicalCount = new InventoryPhysicalCount.Builder()
-    .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
-    .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
-    .state("IN_STOCK")
-    .locationId("C6W5YS5QM06F5")
-    .quantity("53")
-    .teamMemberId("LRK57NSQ5X7PUD05")
-    .occurredAt("2016-11-16T22:25:24.878Z")
-    .build();
-
-InventoryChange changes0 = new InventoryChange.Builder()
-    .type("PHYSICAL_COUNT")
-    .physicalCount(physicalCount)
-    .build();
-
-changes.add(changes0);
-
 BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
-        "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
-    .changes(changes)
-    .ignoreUnchangedCounts(true)
-    .build();
+    "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe"
+)
+.changes(Arrays.asList(
+        new InventoryChange.Builder()
+            .type("PHYSICAL_COUNT")
+            .physicalCount(new InventoryPhysicalCount.Builder()
+                .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
+                .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
+                .state("IN_STOCK")
+                .locationId("C6W5YS5QM06F5")
+                .quantity("53")
+                .teamMemberId("LRK57NSQ5X7PUD05")
+                .occurredAt("2016-11-16T22:25:24.878Z")
+                .build())
+            .build()
+    ))
+.ignoreUnchangedCounts(true)
+.build();
 
 inventoryApi.deprecatedBatchChangeInventoryAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -157,7 +159,7 @@ inventoryApi.deprecatedBatchChangeInventoryAsync(body).thenAccept(result -> {
 
 **This endpoint is deprecated.**
 
-Deprecated version of [BatchRetrieveInventoryChanges](../../doc/api/inventory.md#batch-retrieve-inventory-changes) after the endpoint URL
+Deprecated version of [BatchRetrieveInventoryChanges](api-endpoint:Inventory-BatchRetrieveInventoryChanges) after the endpoint URL
 is updated to conform to the standard convention.
 
 ```java
@@ -178,31 +180,29 @@ CompletableFuture<BatchRetrieveInventoryChangesResponse> deprecatedBatchRetrieve
 ## Example Usage
 
 ```java
-List<String> catalogObjectIds = new LinkedList<>();
-catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-
-List<String> locationIds = new LinkedList<>();
-locationIds.add("C6W5YS5QM06F5");
-
-List<String> types = new LinkedList<>();
-types.add("PHYSICAL_COUNT");
-
-List<String> states = new LinkedList<>();
-states.add("IN_STOCK");
-
 BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesRequest.Builder()
-    .catalogObjectIds(catalogObjectIds)
-    .locationIds(locationIds)
-    .types(types)
-    .states(states)
+    .catalogObjectIds(Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI"
+    ))
+    .locationIds(Arrays.asList(
+        "C6W5YS5QM06F5"
+    ))
+    .types(Arrays.asList(
+        "PHYSICAL_COUNT"
+    ))
+    .states(Arrays.asList(
+        "IN_STOCK"
+    ))
     .updatedAfter("2016-11-01T00:00:00Z")
     .updatedBefore("2016-12-01T00:00:00Z")
     .build();
 
 inventoryApi.deprecatedBatchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -212,7 +212,7 @@ inventoryApi.deprecatedBatchRetrieveInventoryChangesAsync(body).thenAccept(resul
 
 **This endpoint is deprecated.**
 
-Deprecated version of [BatchRetrieveInventoryCounts](../../doc/api/inventory.md#batch-retrieve-inventory-counts) after the endpoint URL
+Deprecated version of [BatchRetrieveInventoryCounts](api-endpoint:Inventory-BatchRetrieveInventoryCounts) after the endpoint URL
 is updated to conform to the standard convention.
 
 ```java
@@ -233,22 +233,22 @@ CompletableFuture<BatchRetrieveInventoryCountsResponse> deprecatedBatchRetrieveI
 ## Example Usage
 
 ```java
-List<String> catalogObjectIds = new LinkedList<>();
-catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-
-List<String> locationIds = new LinkedList<>();
-locationIds.add("59TNP9SA8VGDA");
-
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
-    .catalogObjectIds(catalogObjectIds)
-    .locationIds(locationIds)
+    .catalogObjectIds(Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI"
+    ))
+    .locationIds(Arrays.asList(
+        "59TNP9SA8VGDA"
+    ))
     .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 
 inventoryApi.deprecatedBatchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -280,34 +280,32 @@ CompletableFuture<BatchChangeInventoryResponse> batchChangeInventoryAsync(
 ## Example Usage
 
 ```java
-List<InventoryChange> changes = new LinkedList<>();
-InventoryPhysicalCount physicalCount = new InventoryPhysicalCount.Builder()
-    .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
-    .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
-    .state("IN_STOCK")
-    .locationId("C6W5YS5QM06F5")
-    .quantity("53")
-    .teamMemberId("LRK57NSQ5X7PUD05")
-    .occurredAt("2016-11-16T22:25:24.878Z")
-    .build();
-
-InventoryChange changes0 = new InventoryChange.Builder()
-    .type("PHYSICAL_COUNT")
-    .physicalCount(physicalCount)
-    .build();
-
-changes.add(changes0);
-
 BatchChangeInventoryRequest body = new BatchChangeInventoryRequest.Builder(
-        "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
-    .changes(changes)
-    .ignoreUnchangedCounts(true)
-    .build();
+    "8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe"
+)
+.changes(Arrays.asList(
+        new InventoryChange.Builder()
+            .type("PHYSICAL_COUNT")
+            .physicalCount(new InventoryPhysicalCount.Builder()
+                .referenceId("1536bfbf-efed-48bf-b17d-a197141b2a92")
+                .catalogObjectId("W62UWFY35CWMYGVWK6TWJDNI")
+                .state("IN_STOCK")
+                .locationId("C6W5YS5QM06F5")
+                .quantity("53")
+                .teamMemberId("LRK57NSQ5X7PUD05")
+                .occurredAt("2016-11-16T22:25:24.878Z")
+                .build())
+            .build()
+    ))
+.ignoreUnchangedCounts(true)
+.build();
 
 inventoryApi.batchChangeInventoryAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -342,31 +340,29 @@ CompletableFuture<BatchRetrieveInventoryChangesResponse> batchRetrieveInventoryC
 ## Example Usage
 
 ```java
-List<String> catalogObjectIds = new LinkedList<>();
-catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-
-List<String> locationIds = new LinkedList<>();
-locationIds.add("C6W5YS5QM06F5");
-
-List<String> types = new LinkedList<>();
-types.add("PHYSICAL_COUNT");
-
-List<String> states = new LinkedList<>();
-states.add("IN_STOCK");
-
 BatchRetrieveInventoryChangesRequest body = new BatchRetrieveInventoryChangesRequest.Builder()
-    .catalogObjectIds(catalogObjectIds)
-    .locationIds(locationIds)
-    .types(types)
-    .states(states)
+    .catalogObjectIds(Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI"
+    ))
+    .locationIds(Arrays.asList(
+        "C6W5YS5QM06F5"
+    ))
+    .types(Arrays.asList(
+        "PHYSICAL_COUNT"
+    ))
+    .states(Arrays.asList(
+        "IN_STOCK"
+    ))
     .updatedAfter("2016-11-01T00:00:00Z")
     .updatedBefore("2016-12-01T00:00:00Z")
     .build();
 
 inventoryApi.batchRetrieveInventoryChangesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -404,22 +400,22 @@ CompletableFuture<BatchRetrieveInventoryCountsResponse> batchRetrieveInventoryCo
 ## Example Usage
 
 ```java
-List<String> catalogObjectIds = new LinkedList<>();
-catalogObjectIds.add("W62UWFY35CWMYGVWK6TWJDNI");
-
-List<String> locationIds = new LinkedList<>();
-locationIds.add("59TNP9SA8VGDA");
-
 BatchRetrieveInventoryCountsRequest body = new BatchRetrieveInventoryCountsRequest.Builder()
-    .catalogObjectIds(catalogObjectIds)
-    .locationIds(locationIds)
+    .catalogObjectIds(Arrays.asList(
+        "W62UWFY35CWMYGVWK6TWJDNI"
+    ))
+    .locationIds(Arrays.asList(
+        "59TNP9SA8VGDA"
+    ))
     .updatedAfter("2016-11-16T00:00:00Z")
     .build();
 
 inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -429,7 +425,7 @@ inventoryApi.batchRetrieveInventoryCountsAsync(body).thenAccept(result -> {
 
 **This endpoint is deprecated.**
 
-Deprecated version of [RetrieveInventoryPhysicalCount](../../doc/api/inventory.md#retrieve-inventory-physical-count) after the endpoint URL
+Deprecated version of [RetrieveInventoryPhysicalCount](api-endpoint:Inventory-RetrieveInventoryPhysicalCount) after the endpoint URL
 is updated to conform to the standard convention.
 
 ```java
@@ -441,7 +437,7 @@ CompletableFuture<RetrieveInventoryPhysicalCountResponse> deprecatedRetrieveInve
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](../../doc/models/inventory-physical-count.md) to retrieve. |
+| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](entity:InventoryPhysicalCount) to retrieve. |
 
 ## Response Type
 
@@ -454,8 +450,10 @@ String physicalCountId = "physical_count_id2";
 
 inventoryApi.deprecatedRetrieveInventoryPhysicalCountAsync(physicalCountId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -475,7 +473,7 @@ CompletableFuture<RetrieveInventoryPhysicalCountResponse> retrieveInventoryPhysi
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](../../doc/models/inventory-physical-count.md) to retrieve. |
+| `physicalCountId` | `String` | Template, Required | ID of the<br>[InventoryPhysicalCount](entity:InventoryPhysicalCount) to retrieve. |
 
 ## Response Type
 
@@ -488,8 +486,10 @@ String physicalCountId = "physical_count_id2";
 
 inventoryApi.retrieveInventoryPhysicalCountAsync(physicalCountId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -509,7 +509,7 @@ CompletableFuture<RetrieveInventoryTransferResponse> retrieveInventoryTransferAs
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `transferId` | `String` | Template, Required | ID of the [InventoryTransfer](../../doc/models/inventory-transfer.md) to retrieve. |
+| `transferId` | `String` | Template, Required | ID of the [InventoryTransfer](entity:InventoryTransfer) to retrieve. |
 
 ## Response Type
 
@@ -522,8 +522,10 @@ String transferId = "transfer_id6";
 
 inventoryApi.retrieveInventoryTransferAsync(transferId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -547,8 +549,8 @@ CompletableFuture<RetrieveInventoryCountResponse> retrieveInventoryCountAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](../../doc/models/catalog-object.md) to retrieve. |
-| `locationIds` | `String` | Query, Optional | The [Location](../../doc/models/location.md) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
+| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](entity:CatalogObject) to retrieve. |
+| `locationIds` | `String` | Query, Optional | The [Location](entity:Location) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
 
 ## Response Type
@@ -562,8 +564,10 @@ String catalogObjectId = "catalog_object_id6";
 
 inventoryApi.retrieveInventoryCountAsync(catalogObjectId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -574,10 +578,10 @@ inventoryApi.retrieveInventoryCountAsync(catalogObjectId, null, null).thenAccept
 **This endpoint is deprecated.**
 
 Returns a set of physical counts and inventory adjustments for the
-provided [CatalogObject](../../doc/models/catalog-object.md) at the requested
-[Location](../../doc/models/location.md)s.
+provided [CatalogObject](entity:CatalogObject) at the requested
+[Location](entity:Location)s.
 
-You can achieve the same result by calling [BatchRetrieveInventoryChanges](../../doc/api/inventory.md#batch-retrieve-inventory-changes)
+You can achieve the same result by calling [BatchRetrieveInventoryChanges](api-endpoint:Inventory-BatchRetrieveInventoryChanges)
 and having the `catalog_object_ids` list contain a single element of the `CatalogObject` ID.
 
 Results are paginated and sorted in descending order according to their
@@ -598,8 +602,8 @@ CompletableFuture<RetrieveInventoryChangesResponse> retrieveInventoryChangesAsyn
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](../../doc/models/catalog-object.md) to retrieve. |
-| `locationIds` | `String` | Query, Optional | The [Location](../../doc/models/location.md) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
+| `catalogObjectId` | `String` | Template, Required | ID of the [CatalogObject](entity:CatalogObject) to retrieve. |
+| `locationIds` | `String` | Query, Optional | The [Location](entity:Location) IDs to look up as a comma-separated<br>list. An empty list queries all locations. |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for the original query.<br><br>See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information. |
 
 ## Response Type
@@ -613,8 +617,10 @@ String catalogObjectId = "catalog_object_id6";
 
 inventoryApi.retrieveInventoryChangesAsync(catalogObjectId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

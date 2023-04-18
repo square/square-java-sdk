@@ -186,7 +186,7 @@ public class GiftCardActivity {
 
     /**
      * Getter for LocationId.
-     * The ID of the [business location]($m/Location) where the activity occurred.
+     * The ID of the [business location](entity:Location) where the activity occurred.
      * @return Returns the String
      */
     @JsonGetter("location_id")

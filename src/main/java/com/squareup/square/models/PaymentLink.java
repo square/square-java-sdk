@@ -22,6 +22,7 @@ public class PaymentLink {
     private final CheckoutOptions checkoutOptions;
     private final PrePopulatedData prePopulatedData;
     private final String url;
+    private final String longUrl;
     private final String createdAt;
     private final String updatedAt;
     private final OptionalNullable<String> paymentNote;
@@ -35,6 +36,7 @@ public class PaymentLink {
      * @param  checkoutOptions  CheckoutOptions value for checkoutOptions.
      * @param  prePopulatedData  PrePopulatedData value for prePopulatedData.
      * @param  url  String value for url.
+     * @param  longUrl  String value for longUrl.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  paymentNote  String value for paymentNote.
@@ -48,6 +50,7 @@ public class PaymentLink {
             @JsonProperty("checkout_options") CheckoutOptions checkoutOptions,
             @JsonProperty("pre_populated_data") PrePopulatedData prePopulatedData,
             @JsonProperty("url") String url,
+            @JsonProperty("long_url") String longUrl,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("payment_note") String paymentNote) {
@@ -58,6 +61,7 @@ public class PaymentLink {
         this.checkoutOptions = checkoutOptions;
         this.prePopulatedData = prePopulatedData;
         this.url = url;
+        this.longUrl = longUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.paymentNote = OptionalNullable.of(paymentNote);
@@ -68,7 +72,7 @@ public class PaymentLink {
      */
     protected PaymentLink(int version, String id, OptionalNullable<String> description,
             String orderId, CheckoutOptions checkoutOptions, PrePopulatedData prePopulatedData,
-            String url, String createdAt, String updatedAt,
+            String url, String longUrl, String createdAt, String updatedAt,
             OptionalNullable<String> paymentNote) {
         this.id = id;
         this.version = version;
@@ -77,6 +81,7 @@ public class PaymentLink {
         this.checkoutOptions = checkoutOptions;
         this.prePopulatedData = prePopulatedData;
         this.url = url;
+        this.longUrl = longUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.paymentNote = paymentNote;
@@ -164,13 +169,24 @@ public class PaymentLink {
 
     /**
      * Getter for Url.
-     * The URL of the payment link.
+     * The shortened URL of the payment link.
      * @return Returns the String
      */
     @JsonGetter("url")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUrl() {
         return url;
+    }
+
+    /**
+     * Getter for LongUrl.
+     * The long URL of the payment link.
+     * @return Returns the String
+     */
+    @JsonGetter("long_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLongUrl() {
+        return longUrl;
     }
 
     /**
@@ -222,7 +238,7 @@ public class PaymentLink {
     @Override
     public int hashCode() {
         return Objects.hash(id, version, description, orderId, checkoutOptions, prePopulatedData,
-                url, createdAt, updatedAt, paymentNote);
+                url, longUrl, createdAt, updatedAt, paymentNote);
     }
 
     @Override
@@ -241,6 +257,7 @@ public class PaymentLink {
             && Objects.equals(checkoutOptions, other.checkoutOptions)
             && Objects.equals(prePopulatedData, other.prePopulatedData)
             && Objects.equals(url, other.url)
+            && Objects.equals(longUrl, other.longUrl)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(paymentNote, other.paymentNote);
@@ -254,8 +271,9 @@ public class PaymentLink {
     public String toString() {
         return "PaymentLink [" + "version=" + version + ", id=" + id + ", description="
                 + description + ", orderId=" + orderId + ", checkoutOptions=" + checkoutOptions
-                + ", prePopulatedData=" + prePopulatedData + ", url=" + url + ", createdAt="
-                + createdAt + ", updatedAt=" + updatedAt + ", paymentNote=" + paymentNote + "]";
+                + ", prePopulatedData=" + prePopulatedData + ", url=" + url + ", longUrl=" + longUrl
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", paymentNote="
+                + paymentNote + "]";
     }
 
     /**
@@ -270,6 +288,7 @@ public class PaymentLink {
                 .checkoutOptions(getCheckoutOptions())
                 .prePopulatedData(getPrePopulatedData())
                 .url(getUrl())
+                .longUrl(getLongUrl())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
         builder.description = internalGetDescription();
@@ -288,6 +307,7 @@ public class PaymentLink {
         private CheckoutOptions checkoutOptions;
         private PrePopulatedData prePopulatedData;
         private String url;
+        private String longUrl;
         private String createdAt;
         private String updatedAt;
         private OptionalNullable<String> paymentNote;
@@ -380,6 +400,16 @@ public class PaymentLink {
         }
 
         /**
+         * Setter for longUrl.
+         * @param  longUrl  String value for longUrl.
+         * @return Builder
+         */
+        public Builder longUrl(String longUrl) {
+            this.longUrl = longUrl;
+            return this;
+        }
+
+        /**
          * Setter for createdAt.
          * @param  createdAt  String value for createdAt.
          * @return Builder
@@ -424,7 +454,7 @@ public class PaymentLink {
          */
         public PaymentLink build() {
             return new PaymentLink(version, id, description, orderId, checkoutOptions,
-                    prePopulatedData, url, createdAt, updatedAt, paymentNote);
+                    prePopulatedData, url, longUrl, createdAt, updatedAt, paymentNote);
         }
     }
 }

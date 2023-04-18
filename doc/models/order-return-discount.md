@@ -18,7 +18,7 @@ order subtotal.
 |  --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | A unique ID that identifies the returned discount only within this order.<br>**Constraints**: *Maximum Length*: `60` | String getUid() |
 | `SourceDiscountUid` | `String` | Optional | The discount `uid` from the order that contains the original application of this discount.<br>**Constraints**: *Maximum Length*: `60` | String getSourceDiscountUid() |
-| `CatalogObjectId` | `String` | Optional | The catalog object ID referencing [CatalogDiscount](../../doc/models/catalog-discount.md).<br>**Constraints**: *Maximum Length*: `192` | String getCatalogObjectId() |
+| `CatalogObjectId` | `String` | Optional | The catalog object ID referencing [CatalogDiscount](entity:CatalogDiscount).<br>**Constraints**: *Maximum Length*: `192` | String getCatalogObjectId() |
 | `CatalogVersion` | `Long` | Optional | The version of the catalog object that this discount references. | Long getCatalogVersion() |
 | `Name` | `String` | Optional | The discount's name.<br>**Constraints**: *Maximum Length*: `255` | String getName() |
 | `Type` | [`String`](../../doc/models/order-line-item-discount-type.md) | Optional | Indicates how the discount is applied to the associated line item or order. | String getType() |
@@ -31,16 +31,22 @@ order subtotal.
 
 ```json
 {
-  "uid": null,
-  "source_discount_uid": null,
-  "catalog_object_id": null,
-  "catalog_version": null,
-  "name": null,
-  "type": null,
-  "percentage": null,
-  "amount_money": null,
-  "applied_money": null,
-  "scope": null
+  "uid": "uid0",
+  "source_discount_uid": "source_discount_uid0",
+  "catalog_object_id": "catalog_object_id6",
+  "catalog_version": 126,
+  "name": "name0",
+  "type": "UNKNOWN_DISCOUNT",
+  "percentage": "percentage8",
+  "amount_money": {
+    "amount": 186,
+    "currency": "NGN"
+  },
+  "applied_money": {
+    "amount": 196,
+    "currency": "PLN"
+  },
+  "scope": "ORDER"
 }
 ```
 

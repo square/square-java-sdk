@@ -48,87 +48,74 @@ CompletableFuture<CreateOrderResponse> createOrderAsync(
 ## Example Usage
 
 ```java
-List<OrderLineItem> lineItems = new LinkedList<>();
-OrderLineItem lineItems0 = new OrderLineItem.Builder(
-        "1")
-    .name("New York Strip Steak")
-    .build();
-
-lineItems.add(lineItems0);
-List<OrderLineItemModifier> modifiers = new LinkedList<>();
-OrderLineItemModifier modifiers0 = new OrderLineItemModifier.Builder()
-    .catalogObjectId("CHQX7Y4KY6N5KINJKZCFURPZ")
-    .build();
-
-modifiers.add(modifiers0);
-
-List<OrderLineItemAppliedDiscount> appliedDiscounts = new LinkedList<>();
-OrderLineItemAppliedDiscount appliedDiscounts0 = new OrderLineItemAppliedDiscount.Builder(
-        "one-dollar-off")
-    .build();
-
-appliedDiscounts.add(appliedDiscounts0);
-
-OrderLineItem lineItems1 = new OrderLineItem.Builder(
-        "2")
-    .catalogObjectId("BEMYCSMIJL46OCDV4KYIKXIB")
-    .modifiers(modifiers)
-    .appliedDiscounts(appliedDiscounts)
-    .build();
-
-lineItems.add(lineItems1);
-
-List<OrderLineItemTax> taxes = new LinkedList<>();
-OrderLineItemTax taxes0 = new OrderLineItemTax.Builder()
-    .uid("state-sales-tax")
-    .name("State Sales Tax")
-    .percentage("9")
-    .scope("ORDER")
-    .build();
-
-taxes.add(taxes0);
-
-List<OrderLineItemDiscount> discounts = new LinkedList<>();
-OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
-    .uid("labor-day-sale")
-    .name("Labor Day Sale")
-    .percentage("5")
-    .scope("ORDER")
-    .build();
-
-discounts.add(discounts0);
-OrderLineItemDiscount discounts1 = new OrderLineItemDiscount.Builder()
-    .uid("membership-discount")
-    .catalogObjectId("DB7L55ZH2BGWI4H23ULIWOQ7")
-    .scope("ORDER")
-    .build();
-
-discounts.add(discounts1);
-OrderLineItemDiscount discounts2 = new OrderLineItemDiscount.Builder()
-    .uid("one-dollar-off")
-    .name("Sale - $1.00 off")
-    .scope("LINE_ITEM")
-    .build();
-
-discounts.add(discounts2);
-
-Order order = new Order.Builder(
-        "057P5VYJ4A5X1")
-    .referenceId("my-order-001")
-    .lineItems(lineItems)
-    .taxes(taxes)
-    .discounts(discounts)
-    .build();
-
 CreateOrderRequest body = new CreateOrderRequest.Builder()
-    .order(order)
+    .order(new Order.Builder(
+        "057P5VYJ4A5X1"
+    )
+    .referenceId("my-order-001")
+    .lineItems(Arrays.asList(
+            new OrderLineItem.Builder(
+                "1"
+            )
+            .name("New York Strip Steak")
+            .basePriceMoney(new Money.Builder()
+                    .build())
+            .build(),
+            new OrderLineItem.Builder(
+                "2"
+            )
+            .catalogObjectId("BEMYCSMIJL46OCDV4KYIKXIB")
+            .modifiers(Arrays.asList(
+                    new OrderLineItemModifier.Builder()
+                        .catalogObjectId("CHQX7Y4KY6N5KINJKZCFURPZ")
+                        .build()
+                ))
+            .appliedDiscounts(Arrays.asList(
+                    new OrderLineItemAppliedDiscount.Builder(
+                        "one-dollar-off"
+                    )
+                    .build()
+                ))
+            .build()
+        ))
+    .taxes(Arrays.asList(
+            new OrderLineItemTax.Builder()
+                .uid("state-sales-tax")
+                .name("State Sales Tax")
+                .percentage("9")
+                .scope("ORDER")
+                .build()
+        ))
+    .discounts(Arrays.asList(
+            new OrderLineItemDiscount.Builder()
+                .uid("labor-day-sale")
+                .name("Labor Day Sale")
+                .percentage("5")
+                .scope("ORDER")
+                .build(),
+            new OrderLineItemDiscount.Builder()
+                .uid("membership-discount")
+                .catalogObjectId("DB7L55ZH2BGWI4H23ULIWOQ7")
+                .scope("ORDER")
+                .build(),
+            new OrderLineItemDiscount.Builder()
+                .uid("one-dollar-off")
+                .name("Sale - $1.00 off")
+                .amountMoney(new Money.Builder()
+                    .build())
+                .scope("LINE_ITEM")
+                .build()
+        ))
+    .build())
     .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
     .build();
 
 ordersApi.createOrderAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -158,19 +145,21 @@ CompletableFuture<BatchRetrieveOrdersResponse> batchRetrieveOrdersAsync(
 ## Example Usage
 
 ```java
-List<String> orderIds = new LinkedList<>();
-orderIds.add("CAISEM82RcpmcFBM0TfOyiHV3es");
-orderIds.add("CAISENgvlJ6jLWAzERDzjyHVybY");
-
 BatchRetrieveOrdersRequest body = new BatchRetrieveOrdersRequest.Builder(
-        orderIds)
-    .locationId("057P5VYJ4A5X1")
-    .build();
+    Arrays.asList(
+        "CAISEM82RcpmcFBM0TfOyiHV3es",
+        "CAISENgvlJ6jLWAzERDzjyHVybY"
+    )
+)
+.locationId("057P5VYJ4A5X1")
+.build();
 
 ordersApi.batchRetrieveOrdersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -198,43 +187,43 @@ CompletableFuture<CalculateOrderResponse> calculateOrderAsync(
 ## Example Usage
 
 ```java
-List<OrderLineItem> lineItems = new LinkedList<>();
-OrderLineItem lineItems0 = new OrderLineItem.Builder(
-        "1")
-    .name("Item 1")
-    .build();
-
-lineItems.add(lineItems0);
-OrderLineItem lineItems1 = new OrderLineItem.Builder(
-        "2")
-    .name("Item 2")
-    .build();
-
-lineItems.add(lineItems1);
-
-List<OrderLineItemDiscount> discounts = new LinkedList<>();
-OrderLineItemDiscount discounts0 = new OrderLineItemDiscount.Builder()
-    .name("50% Off")
-    .percentage("50")
-    .scope("ORDER")
-    .build();
-
-discounts.add(discounts0);
-
-Order order = new Order.Builder(
-        "D7AVYMEAPJ3A3")
-    .lineItems(lineItems)
-    .discounts(discounts)
-    .build();
-
 CalculateOrderRequest body = new CalculateOrderRequest.Builder(
-        order)
-    .build();
+    new Order.Builder(
+        "D7AVYMEAPJ3A3"
+    )
+    .lineItems(Arrays.asList(
+            new OrderLineItem.Builder(
+                "1"
+            )
+            .name("Item 1")
+            .basePriceMoney(new Money.Builder()
+                    .build())
+            .build(),
+            new OrderLineItem.Builder(
+                "2"
+            )
+            .name("Item 2")
+            .basePriceMoney(new Money.Builder()
+                    .build())
+            .build()
+        ))
+    .discounts(Arrays.asList(
+            new OrderLineItemDiscount.Builder()
+                .name("50% Off")
+                .percentage("50")
+                .scope("ORDER")
+                .build()
+        ))
+    .build()
+)
+.build();
 
 ordersApi.calculateOrderAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -264,15 +253,18 @@ CompletableFuture<CloneOrderResponse> cloneOrderAsync(
 
 ```java
 CloneOrderRequest body = new CloneOrderRequest.Builder(
-        "ZAISEM52YcpmcWAzERDOyiWS123")
-    .version(3)
-    .idempotencyKey("UNIQUE_STRING")
-    .build();
+    "ZAISEM52YcpmcWAzERDOyiWS123"
+)
+.version(3)
+.idempotencyKey("UNIQUE_STRING")
+.build();
 
 ordersApi.cloneOrderAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -316,52 +308,40 @@ CompletableFuture<SearchOrdersResponse> searchOrdersAsync(
 ## Example Usage
 
 ```java
-List<String> locationIds = new LinkedList<>();
-locationIds.add("057P5VYJ4A5X1");
-locationIds.add("18YC4JDH91E1H");
-
-List<String> states = new LinkedList<>();
-states.add("COMPLETED");
-
-SearchOrdersStateFilter stateFilter = new SearchOrdersStateFilter.Builder(
-        states)
-    .build();
-
-TimeRange closedAt = new TimeRange.Builder()
-    .startAt("2018-03-03T20:00:00+00:00")
-    .endAt("2019-03-04T21:54:45+00:00")
-    .build();
-
-SearchOrdersDateTimeFilter dateTimeFilter = new SearchOrdersDateTimeFilter.Builder()
-    .closedAt(closedAt)
-    .build();
-
-SearchOrdersFilter filter = new SearchOrdersFilter.Builder()
-    .stateFilter(stateFilter)
-    .dateTimeFilter(dateTimeFilter)
-    .build();
-
-SearchOrdersSort sort = new SearchOrdersSort.Builder(
-        "CLOSED_AT")
-    .sortOrder("DESC")
-    .build();
-
-SearchOrdersQuery query = new SearchOrdersQuery.Builder()
-    .filter(filter)
-    .sort(sort)
-    .build();
-
 SearchOrdersRequest body = new SearchOrdersRequest.Builder()
-    .locationIds(locationIds)
-    .query(query)
+    .locationIds(Arrays.asList(
+        "057P5VYJ4A5X1",
+        "18YC4JDH91E1H"
+    ))
+    .query(new SearchOrdersQuery.Builder()
+        .filter(new SearchOrdersFilter.Builder()
+            .stateFilter(new SearchOrdersStateFilter.Builder(
+                Arrays.asList(
+                    "COMPLETED"
+                )
+            )
+            .build())
+            .dateTimeFilter(new SearchOrdersDateTimeFilter.Builder()
+                .closedAt(new TimeRange.Builder()
+                    .build())
+                .build())
+            .build())
+        .sort(new SearchOrdersSort.Builder(
+            "CLOSED_AT"
+        )
+        .sortOrder("DESC")
+        .build())
+        .build())
     .limit(3)
     .returnEntries(true)
     .build();
 
 ordersApi.searchOrdersAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -393,8 +373,10 @@ String orderId = "order_id6";
 
 ordersApi.retrieveOrderAsync(orderId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -444,8 +426,10 @@ UpdateOrderRequest body = new UpdateOrderRequest.Builder()
 
 ordersApi.updateOrderAsync(orderId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -489,19 +473,21 @@ CompletableFuture<PayOrderResponse> payOrderAsync(
 
 ```java
 String orderId = "order_id6";
-List<String> paymentIds = new LinkedList<>();
-paymentIds.add("EnZdNAlWCmfh6Mt5FMNST1o7taB");
-paymentIds.add("0LRiVlbXVwe8ozu4KbZxd12mvaB");
-
 PayOrderRequest body = new PayOrderRequest.Builder(
-        "c043a359-7ad9-4136-82a9-c3f1d66dcbff")
-    .paymentIds(paymentIds)
-    .build();
+    "c043a359-7ad9-4136-82a9-c3f1d66dcbff"
+)
+.paymentIds(Arrays.asList(
+        "EnZdNAlWCmfh6Mt5FMNST1o7taB",
+        "0LRiVlbXVwe8ozu4KbZxd12mvaB"
+    ))
+.build();
 
 ordersApi.payOrderAsync(orderId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

@@ -38,7 +38,7 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
     /**
      * Internal Getter for IdempotencyKey.
      * A unique string that identifies the
-     * [UpdateWebhookSubscriptionSignatureKey]($e/WebhookSubscriptions/UpdateWebhookSubscriptionSignatureKey)
+     * [UpdateWebhookSubscriptionSignatureKey](api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey)
      * request.
      * @return Returns the Internal String
      */
@@ -52,7 +52,7 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies the
-     * [UpdateWebhookSubscriptionSignatureKey]($e/WebhookSubscriptions/UpdateWebhookSubscriptionSignatureKey)
+     * [UpdateWebhookSubscriptionSignatureKey](api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey)
      * request.
      * @return Returns the String
      */

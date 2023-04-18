@@ -12,7 +12,7 @@ The response to retrieve payout records entries.
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `PayoutEntries` | [`List<PayoutEntry>`](../../doc/models/payout-entry.md) | Optional | The requested list of payout entries, ordered with the given or default sort order. | List<PayoutEntry> getPayoutEntries() |
-| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty, this is the final response.<br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). | String getCursor() |
+| `Cursor` | `String` | Optional | The pagination cursor to be used in a subsequent request. If empty, this is the final response.<br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). | String getCursor() |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | List<Error> getErrors() |
 
 ## Example (as JSON)

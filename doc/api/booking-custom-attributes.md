@@ -52,8 +52,10 @@ CompletableFuture<ListBookingCustomAttributeDefinitionsResponse> listBookingCust
 ```java
 bookingCustomAttributesApi.listBookingCustomAttributeDefinitionsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -87,17 +89,18 @@ CompletableFuture<CreateBookingCustomAttributeDefinitionResponse> createBookingC
 ## Example Usage
 
 ```java
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .build();
-
 CreateBookingCustomAttributeDefinitionRequest body = new CreateBookingCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .build()
+)
+.build();
 
 bookingCustomAttributesApi.createBookingCustomAttributeDefinitionAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -135,8 +138,10 @@ String key = "key0";
 
 bookingCustomAttributesApi.deleteBookingCustomAttributeDefinitionAsync(key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -173,8 +178,10 @@ String key = "key0";
 
 bookingCustomAttributesApi.retrieveBookingCustomAttributeDefinitionAsync(key, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -211,17 +218,18 @@ CompletableFuture<UpdateBookingCustomAttributeDefinitionResponse> updateBookingC
 
 ```java
 String key = "key0";
-CustomAttributeDefinition customAttributeDefinition = new CustomAttributeDefinition.Builder()
-    .build();
-
 UpdateBookingCustomAttributeDefinitionRequest body = new UpdateBookingCustomAttributeDefinitionRequest.Builder(
-        customAttributeDefinition)
-    .build();
+    new CustomAttributeDefinition.Builder()
+        .build()
+)
+.build();
 
 bookingCustomAttributesApi.updateBookingCustomAttributeDefinitionAsync(key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -255,28 +263,28 @@ CompletableFuture<BulkDeleteBookingCustomAttributesResponse> bulkDeleteBookingCu
 ## Example Usage
 
 ```java
-Map<String, BookingCustomAttributeDeleteRequest> values = new LinkedHashMap<>();
-BookingCustomAttributeDeleteRequest values0 = new BookingCustomAttributeDeleteRequest.Builder(
-        "booking_id8",
-        "key4")
-    .build();
-
-values.put("key0", values0);
-BookingCustomAttributeDeleteRequest values1 = new BookingCustomAttributeDeleteRequest.Builder(
-        "booking_id9",
-        "key5")
-    .build();
-
-values.put("key1", values1);
-
 BulkDeleteBookingCustomAttributesRequest body = new BulkDeleteBookingCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BookingCustomAttributeDeleteRequest>() {{
+        put("key0", new BookingCustomAttributeDeleteRequest.Builder(
+            "booking_id8",
+            "key4"
+        )
+        .build());
+        put("key1", new BookingCustomAttributeDeleteRequest.Builder(
+            "booking_id9",
+            "key5"
+        )
+        .build());
+    }}
+)
+.build();
 
 bookingCustomAttributesApi.bulkDeleteBookingCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -310,34 +318,30 @@ CompletableFuture<BulkUpsertBookingCustomAttributesResponse> bulkUpsertBookingCu
 ## Example Usage
 
 ```java
-Map<String, BookingCustomAttributeUpsertRequest> values = new LinkedHashMap<>();
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BookingCustomAttributeUpsertRequest values0 = new BookingCustomAttributeUpsertRequest.Builder(
-        "booking_id8",
-        customAttribute)
-    .build();
-
-values.put("key0", values0);
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
-BookingCustomAttributeUpsertRequest values1 = new BookingCustomAttributeUpsertRequest.Builder(
-        "booking_id9",
-        customAttribute)
-    .build();
-
-values.put("key1", values1);
-
 BulkUpsertBookingCustomAttributesRequest body = new BulkUpsertBookingCustomAttributesRequest.Builder(
-        values)
-    .build();
+    new LinkedHashMap<String, BookingCustomAttributeUpsertRequest>() {{
+        put("key0", new BookingCustomAttributeUpsertRequest.Builder(
+            "booking_id8",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+        put("key1", new BookingCustomAttributeUpsertRequest.Builder(
+            "booking_id9",
+            new CustomAttribute.Builder()
+                .build()
+        )
+        .build());
+    }}
+)
+.build();
 
 bookingCustomAttributesApi.bulkUpsertBookingCustomAttributesAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -362,10 +366,10 @@ CompletableFuture<ListBookingCustomAttributesResponse> listBookingCustomAttribut
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the target [booking](../../doc/models/booking.md). |
+| `bookingId` | `String` | Template, Required | The ID of the target [booking](entity:Booking). |
 | `limit` | `Integer` | Query, Optional | The maximum number of results to return in a single paged response. This limit is advisory.<br>The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.<br>The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `cursor` | `String` | Query, Optional | The cursor returned in the paged response from the previous call to this endpoint.<br>Provide this cursor to retrieve the next page of results for your original request. For more<br>information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
-| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinitions` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each<br>custom attribute. Set this parameter to `true` to get the name and description of each custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -379,8 +383,10 @@ Boolean withDefinitions = false;
 
 bookingCustomAttributesApi.listBookingCustomAttributesAsync(bookingId, null, null, withDefinitions).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -406,7 +412,7 @@ CompletableFuture<DeleteBookingCustomAttributeResponse> deleteBookingCustomAttri
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the target [booking](../../doc/models/booking.md). |
+| `bookingId` | `String` | Template, Required | The ID of the target [booking](entity:Booking). |
 | `key` | `String` | Template, Required | The key of the custom attribute to delete. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
 
 ## Response Type
@@ -421,8 +427,10 @@ String key = "key0";
 
 bookingCustomAttributesApi.deleteBookingCustomAttributeAsync(bookingId, key).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -447,9 +455,9 @@ CompletableFuture<RetrieveBookingCustomAttributeResponse> retrieveBookingCustomA
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the target [booking](../../doc/models/booking.md). |
+| `bookingId` | `String` | Template, Required | The ID of the target [booking](entity:Booking). |
 | `key` | `String` | Template, Required | The key of the custom attribute to retrieve. This key must match the `key` of a custom<br>attribute definition in the Square seller account. If the requesting application is not the<br>definition owner, you must use the qualified key. |
-| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](../../doc/models/custom-attribute-definition.md) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
+| `withDefinition` | `Boolean` | Query, Optional | Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of<br>the custom attribute. Set this parameter to `true` to get the name and description of the custom<br>attribute, information about the data type, or other definition details. The default value is `false`.<br>**Default**: `false` |
 | `version` | `Integer` | Query, Optional | The current version of the custom attribute, which is used for strongly consistent reads to<br>guarantee that you receive the most up-to-date data. When included in the request, Square<br>returns the specified version or a higher version if one exists. If the specified version is<br>higher than the current version, Square returns a `BAD_REQUEST` error. |
 
 ## Response Type
@@ -465,8 +473,10 @@ Boolean withDefinition = false;
 
 bookingCustomAttributesApi.retrieveBookingCustomAttributeAsync(bookingId, key, withDefinition, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -493,7 +503,7 @@ CompletableFuture<UpsertBookingCustomAttributeResponse> upsertBookingCustomAttri
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `String` | Template, Required | The ID of the target [booking](../../doc/models/booking.md). |
+| `bookingId` | `String` | Template, Required | The ID of the target [booking](entity:Booking). |
 | `key` | `String` | Template, Required | The key of the custom attribute to create or update. This key must match the `key` of a<br>custom attribute definition in the Square seller account. If the requesting application is not<br>the definition owner, you must use the qualified key. |
 | `body` | [`UpsertBookingCustomAttributeRequest`](../../doc/models/upsert-booking-custom-attribute-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
@@ -506,17 +516,18 @@ CompletableFuture<UpsertBookingCustomAttributeResponse> upsertBookingCustomAttri
 ```java
 String bookingId = "booking_id4";
 String key = "key0";
-CustomAttribute customAttribute = new CustomAttribute.Builder()
-    .build();
-
 UpsertBookingCustomAttributeRequest body = new UpsertBookingCustomAttributeRequest.Builder(
-        customAttribute)
-    .build();
+    new CustomAttribute.Builder()
+        .build()
+)
+.build();
 
 bookingCustomAttributesApi.upsertBookingCustomAttributeAsync(bookingId, key, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

@@ -52,8 +52,10 @@ String locationId = "location_id4";
 
 cashDrawersApi.listCashDrawerShiftsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -89,8 +91,10 @@ String shiftId = "shift_id0";
 
 cashDrawersApi.retrieveCashDrawerShiftAsync(locationId, shiftId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -129,8 +133,10 @@ String shiftId = "shift_id0";
 
 cashDrawersApi.listCashDrawerShiftEventsAsync(locationId, shiftId, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

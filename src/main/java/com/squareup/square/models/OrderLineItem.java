@@ -30,6 +30,7 @@ public class OrderLineItem {
     private final OptionalNullable<List<OrderLineItemModifier>> modifiers;
     private final OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
     private final OptionalNullable<List<OrderLineItemAppliedDiscount>> appliedDiscounts;
+    private final OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges;
     private final Money basePriceMoney;
     private final Money variationTotalPriceMoney;
     private final Money grossSalesMoney;
@@ -37,6 +38,7 @@ public class OrderLineItem {
     private final Money totalDiscountMoney;
     private final Money totalMoney;
     private final OrderLineItemPricingBlocklists pricingBlocklists;
+    private final Money totalServiceChargeMoney;
 
     /**
      * Initialization constructor.
@@ -53,6 +55,8 @@ public class OrderLineItem {
      * @param  modifiers  List of OrderLineItemModifier value for modifiers.
      * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
      * @param  appliedDiscounts  List of OrderLineItemAppliedDiscount value for appliedDiscounts.
+     * @param  appliedServiceCharges  List of OrderLineItemAppliedServiceCharge value for
+     *         appliedServiceCharges.
      * @param  basePriceMoney  Money value for basePriceMoney.
      * @param  variationTotalPriceMoney  Money value for variationTotalPriceMoney.
      * @param  grossSalesMoney  Money value for grossSalesMoney.
@@ -60,6 +64,7 @@ public class OrderLineItem {
      * @param  totalDiscountMoney  Money value for totalDiscountMoney.
      * @param  totalMoney  Money value for totalMoney.
      * @param  pricingBlocklists  OrderLineItemPricingBlocklists value for pricingBlocklists.
+     * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
      */
     @JsonCreator
     public OrderLineItem(
@@ -76,13 +81,15 @@ public class OrderLineItem {
             @JsonProperty("modifiers") List<OrderLineItemModifier> modifiers,
             @JsonProperty("applied_taxes") List<OrderLineItemAppliedTax> appliedTaxes,
             @JsonProperty("applied_discounts") List<OrderLineItemAppliedDiscount> appliedDiscounts,
+            @JsonProperty("applied_service_charges") List<OrderLineItemAppliedServiceCharge> appliedServiceCharges,
             @JsonProperty("base_price_money") Money basePriceMoney,
             @JsonProperty("variation_total_price_money") Money variationTotalPriceMoney,
             @JsonProperty("gross_sales_money") Money grossSalesMoney,
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
             @JsonProperty("total_money") Money totalMoney,
-            @JsonProperty("pricing_blocklists") OrderLineItemPricingBlocklists pricingBlocklists) {
+            @JsonProperty("pricing_blocklists") OrderLineItemPricingBlocklists pricingBlocklists,
+            @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney) {
         this.uid = OptionalNullable.of(uid);
         this.name = OptionalNullable.of(name);
         this.quantity = quantity;
@@ -96,6 +103,7 @@ public class OrderLineItem {
         this.modifiers = OptionalNullable.of(modifiers);
         this.appliedTaxes = OptionalNullable.of(appliedTaxes);
         this.appliedDiscounts = OptionalNullable.of(appliedDiscounts);
+        this.appliedServiceCharges = OptionalNullable.of(appliedServiceCharges);
         this.basePriceMoney = basePriceMoney;
         this.variationTotalPriceMoney = variationTotalPriceMoney;
         this.grossSalesMoney = grossSalesMoney;
@@ -103,6 +111,7 @@ public class OrderLineItem {
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalMoney = totalMoney;
         this.pricingBlocklists = pricingBlocklists;
+        this.totalServiceChargeMoney = totalServiceChargeMoney;
     }
 
     /**
@@ -116,9 +125,10 @@ public class OrderLineItem {
             OptionalNullable<List<OrderLineItemModifier>> modifiers,
             OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes,
             OptionalNullable<List<OrderLineItemAppliedDiscount>> appliedDiscounts,
+            OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges,
             Money basePriceMoney, Money variationTotalPriceMoney, Money grossSalesMoney,
             Money totalTaxMoney, Money totalDiscountMoney, Money totalMoney,
-            OrderLineItemPricingBlocklists pricingBlocklists) {
+            OrderLineItemPricingBlocklists pricingBlocklists, Money totalServiceChargeMoney) {
         this.uid = uid;
         this.name = name;
         this.quantity = quantity;
@@ -132,6 +142,7 @@ public class OrderLineItem {
         this.modifiers = modifiers;
         this.appliedTaxes = appliedTaxes;
         this.appliedDiscounts = appliedDiscounts;
+        this.appliedServiceCharges = appliedServiceCharges;
         this.basePriceMoney = basePriceMoney;
         this.variationTotalPriceMoney = variationTotalPriceMoney;
         this.grossSalesMoney = grossSalesMoney;
@@ -139,6 +150,7 @@ public class OrderLineItem {
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalMoney = totalMoney;
         this.pricingBlocklists = pricingBlocklists;
+        this.totalServiceChargeMoney = totalServiceChargeMoney;
     }
 
     /**
@@ -234,7 +246,7 @@ public class OrderLineItem {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The [CatalogItemVariation]($m/CatalogItemVariation) ID applied to this line item.
+     * The [CatalogItemVariation](entity:CatalogItemVariation) ID applied to this line item.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -246,7 +258,7 @@ public class OrderLineItem {
 
     /**
      * Getter for CatalogObjectId.
-     * The [CatalogItemVariation]($m/CatalogItemVariation) ID applied to this line item.
+     * The [CatalogItemVariation](entity:CatalogItemVariation) ID applied to this line item.
      * @return Returns the String
      */
     @JsonIgnore
@@ -353,7 +365,7 @@ public class OrderLineItem {
 
     /**
      * Internal Getter for Modifiers.
-     * The [CatalogModifier]($m/CatalogModifier)s applied to this line item.
+     * The [CatalogModifier](entity:CatalogModifier)s applied to this line item.
      * @return Returns the Internal List of OrderLineItemModifier
      */
     @JsonGetter("modifiers")
@@ -365,7 +377,7 @@ public class OrderLineItem {
 
     /**
      * Getter for Modifiers.
-     * The [CatalogModifier]($m/CatalogModifier)s applied to this line item.
+     * The [CatalogModifier](entity:CatalogModifier)s applied to this line item.
      * @return Returns the List of OrderLineItemModifier
      */
     @JsonIgnore
@@ -439,6 +451,36 @@ public class OrderLineItem {
     @JsonIgnore
     public List<OrderLineItemAppliedDiscount> getAppliedDiscounts() {
         return OptionalNullable.getFrom(appliedDiscounts);
+    }
+
+    /**
+     * Internal Getter for AppliedServiceCharges.
+     * The list of references to service charges applied to this line item. Each
+     * `OrderLineItemAppliedServiceCharge` has a `service_charge_id` that references the `uid` of a
+     * top-level `OrderServiceCharge` applied to the line item. On reads, the amount applied is
+     * populated. To change the amount of a service charge, modify the referenced top-level service
+     * charge.
+     * @return Returns the Internal List of OrderLineItemAppliedServiceCharge
+     */
+    @JsonGetter("applied_service_charges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemAppliedServiceCharge>> internalGetAppliedServiceCharges() {
+        return this.appliedServiceCharges;
+    }
+
+    /**
+     * Getter for AppliedServiceCharges.
+     * The list of references to service charges applied to this line item. Each
+     * `OrderLineItemAppliedServiceCharge` has a `service_charge_id` that references the `uid` of a
+     * top-level `OrderServiceCharge` applied to the line item. On reads, the amount applied is
+     * populated. To change the amount of a service charge, modify the referenced top-level service
+     * charge.
+     * @return Returns the List of OrderLineItemAppliedServiceCharge
+     */
+    @JsonIgnore
+    public List<OrderLineItemAppliedServiceCharge> getAppliedServiceCharges() {
+        return OptionalNullable.getFrom(appliedServiceCharges);
     }
 
     /**
@@ -550,12 +592,29 @@ public class OrderLineItem {
         return pricingBlocklists;
     }
 
+    /**
+     * Getter for TotalServiceChargeMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("total_service_charge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getTotalServiceChargeMoney() {
+        return totalServiceChargeMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, name, quantity, quantityUnit, note, catalogObjectId,
                 catalogVersion, variationName, itemType, metadata, modifiers, appliedTaxes,
-                appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossSalesMoney,
-                totalTaxMoney, totalDiscountMoney, totalMoney, pricingBlocklists);
+                appliedDiscounts, appliedServiceCharges, basePriceMoney, variationTotalPriceMoney,
+                grossSalesMoney, totalTaxMoney, totalDiscountMoney, totalMoney, pricingBlocklists,
+                totalServiceChargeMoney);
     }
 
     @Override
@@ -580,13 +639,15 @@ public class OrderLineItem {
             && Objects.equals(modifiers, other.modifiers)
             && Objects.equals(appliedTaxes, other.appliedTaxes)
             && Objects.equals(appliedDiscounts, other.appliedDiscounts)
+            && Objects.equals(appliedServiceCharges, other.appliedServiceCharges)
             && Objects.equals(basePriceMoney, other.basePriceMoney)
             && Objects.equals(variationTotalPriceMoney, other.variationTotalPriceMoney)
             && Objects.equals(grossSalesMoney, other.grossSalesMoney)
             && Objects.equals(totalTaxMoney, other.totalTaxMoney)
             && Objects.equals(totalDiscountMoney, other.totalDiscountMoney)
             && Objects.equals(totalMoney, other.totalMoney)
-            && Objects.equals(pricingBlocklists, other.pricingBlocklists);
+            && Objects.equals(pricingBlocklists, other.pricingBlocklists)
+            && Objects.equals(totalServiceChargeMoney, other.totalServiceChargeMoney);
     }
 
     /**
@@ -600,11 +661,12 @@ public class OrderLineItem {
                 + catalogObjectId + ", catalogVersion=" + catalogVersion + ", variationName="
                 + variationName + ", itemType=" + itemType + ", metadata=" + metadata
                 + ", modifiers=" + modifiers + ", appliedTaxes=" + appliedTaxes
-                + ", appliedDiscounts=" + appliedDiscounts + ", basePriceMoney=" + basePriceMoney
+                + ", appliedDiscounts=" + appliedDiscounts + ", appliedServiceCharges="
+                + appliedServiceCharges + ", basePriceMoney=" + basePriceMoney
                 + ", variationTotalPriceMoney=" + variationTotalPriceMoney + ", grossSalesMoney="
                 + grossSalesMoney + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney="
                 + totalDiscountMoney + ", totalMoney=" + totalMoney + ", pricingBlocklists="
-                + pricingBlocklists + "]";
+                + pricingBlocklists + ", totalServiceChargeMoney=" + totalServiceChargeMoney + "]";
     }
 
     /**
@@ -622,7 +684,8 @@ public class OrderLineItem {
                 .totalTaxMoney(getTotalTaxMoney())
                 .totalDiscountMoney(getTotalDiscountMoney())
                 .totalMoney(getTotalMoney())
-                .pricingBlocklists(getPricingBlocklists());
+                .pricingBlocklists(getPricingBlocklists())
+                .totalServiceChargeMoney(getTotalServiceChargeMoney());
         builder.uid = internalGetUid();
         builder.name = internalGetName();
         builder.note = internalGetNote();
@@ -633,6 +696,7 @@ public class OrderLineItem {
         builder.modifiers = internalGetModifiers();
         builder.appliedTaxes = internalGetAppliedTaxes();
         builder.appliedDiscounts = internalGetAppliedDiscounts();
+        builder.appliedServiceCharges = internalGetAppliedServiceCharges();
         return builder;
     }
 
@@ -653,6 +717,7 @@ public class OrderLineItem {
         private OptionalNullable<List<OrderLineItemModifier>> modifiers;
         private OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes;
         private OptionalNullable<List<OrderLineItemAppliedDiscount>> appliedDiscounts;
+        private OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges;
         private Money basePriceMoney;
         private Money variationTotalPriceMoney;
         private Money grossSalesMoney;
@@ -660,6 +725,7 @@ public class OrderLineItem {
         private Money totalDiscountMoney;
         private Money totalMoney;
         private OrderLineItemPricingBlocklists pricingBlocklists;
+        private Money totalServiceChargeMoney;
 
         /**
          * Initialization constructor.
@@ -891,6 +957,27 @@ public class OrderLineItem {
         }
 
         /**
+         * Setter for appliedServiceCharges.
+         * @param  appliedServiceCharges  List of OrderLineItemAppliedServiceCharge value for
+         *         appliedServiceCharges.
+         * @return Builder
+         */
+        public Builder appliedServiceCharges(
+                List<OrderLineItemAppliedServiceCharge> appliedServiceCharges) {
+            this.appliedServiceCharges = OptionalNullable.of(appliedServiceCharges);
+            return this;
+        }
+
+        /**
+         * UnSetter for appliedServiceCharges.
+         * @return Builder
+         */
+        public Builder unsetAppliedServiceCharges() {
+            appliedServiceCharges = null;
+            return this;
+        }
+
+        /**
          * Setter for basePriceMoney.
          * @param  basePriceMoney  Money value for basePriceMoney.
          * @return Builder
@@ -961,14 +1048,25 @@ public class OrderLineItem {
         }
 
         /**
+         * Setter for totalServiceChargeMoney.
+         * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
+         * @return Builder
+         */
+        public Builder totalServiceChargeMoney(Money totalServiceChargeMoney) {
+            this.totalServiceChargeMoney = totalServiceChargeMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderLineItem} object using the set fields.
          * @return {@link OrderLineItem}
          */
         public OrderLineItem build() {
             return new OrderLineItem(quantity, uid, name, quantityUnit, note, catalogObjectId,
                     catalogVersion, variationName, itemType, metadata, modifiers, appliedTaxes,
-                    appliedDiscounts, basePriceMoney, variationTotalPriceMoney, grossSalesMoney,
-                    totalTaxMoney, totalDiscountMoney, totalMoney, pricingBlocklists);
+                    appliedDiscounts, appliedServiceCharges, basePriceMoney,
+                    variationTotalPriceMoney, grossSalesMoney, totalTaxMoney, totalDiscountMoney,
+                    totalMoney, pricingBlocklists, totalServiceChargeMoney);
         }
     }
 }

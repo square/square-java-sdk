@@ -47,8 +47,8 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for OrderEntries.
-     * A list of [OrderEntries]($m/OrderEntry) that fit the query conditions. The list is populated
-     * only if `return_entries` is set to `true` in the request.
+     * A list of [OrderEntries](entity:OrderEntry) that fit the query conditions. The list is
+     * populated only if `return_entries` is set to `true` in the request.
      * @return Returns the List of OrderEntry
      */
     @JsonGetter("order_entries")
@@ -59,8 +59,8 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Orders.
-     * A list of [Order]($m/Order) objects that match the query conditions. The list is populated
-     * only if `return_entries` is set to `false` in the request.
+     * A list of [Order](entity:Order) objects that match the query conditions. The list is
+     * populated only if `return_entries` is set to `false` in the request.
      * @return Returns the List of Order
      */
     @JsonGetter("orders")
@@ -73,7 +73,7 @@ public class SearchOrdersResponse {
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If unset, this is the final
      * response. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")
@@ -84,7 +84,7 @@ public class SearchOrdersResponse {
 
     /**
      * Getter for Errors.
-     * [Errors]($m/Error) encountered during the search.
+     * [Errors](entity:Error) encountered during the search.
      * @return Returns the List of Error
      */
     @JsonGetter("errors")

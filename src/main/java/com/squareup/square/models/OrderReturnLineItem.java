@@ -35,6 +35,8 @@ public class OrderReturnLineItem {
     private final Money totalTaxMoney;
     private final Money totalDiscountMoney;
     private final Money totalMoney;
+    private final OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges;
+    private final Money totalServiceChargeMoney;
 
     /**
      * Initialization constructor.
@@ -57,6 +59,9 @@ public class OrderReturnLineItem {
      * @param  totalTaxMoney  Money value for totalTaxMoney.
      * @param  totalDiscountMoney  Money value for totalDiscountMoney.
      * @param  totalMoney  Money value for totalMoney.
+     * @param  appliedServiceCharges  List of OrderLineItemAppliedServiceCharge value for
+     *         appliedServiceCharges.
+     * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
      */
     @JsonCreator
     public OrderReturnLineItem(
@@ -78,7 +83,9 @@ public class OrderReturnLineItem {
             @JsonProperty("gross_return_money") Money grossReturnMoney,
             @JsonProperty("total_tax_money") Money totalTaxMoney,
             @JsonProperty("total_discount_money") Money totalDiscountMoney,
-            @JsonProperty("total_money") Money totalMoney) {
+            @JsonProperty("total_money") Money totalMoney,
+            @JsonProperty("applied_service_charges") List<OrderLineItemAppliedServiceCharge> appliedServiceCharges,
+            @JsonProperty("total_service_charge_money") Money totalServiceChargeMoney) {
         this.uid = OptionalNullable.of(uid);
         this.sourceLineItemUid = OptionalNullable.of(sourceLineItemUid);
         this.name = OptionalNullable.of(name);
@@ -98,6 +105,8 @@ public class OrderReturnLineItem {
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalMoney = totalMoney;
+        this.appliedServiceCharges = OptionalNullable.of(appliedServiceCharges);
+        this.totalServiceChargeMoney = totalServiceChargeMoney;
     }
 
     /**
@@ -112,7 +121,9 @@ public class OrderReturnLineItem {
             OptionalNullable<List<OrderLineItemAppliedTax>> appliedTaxes,
             OptionalNullable<List<OrderLineItemAppliedDiscount>> appliedDiscounts,
             Money basePriceMoney, Money variationTotalPriceMoney, Money grossReturnMoney,
-            Money totalTaxMoney, Money totalDiscountMoney, Money totalMoney) {
+            Money totalTaxMoney, Money totalDiscountMoney, Money totalMoney,
+            OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges,
+            Money totalServiceChargeMoney) {
         this.uid = uid;
         this.sourceLineItemUid = sourceLineItemUid;
         this.name = name;
@@ -132,6 +143,8 @@ public class OrderReturnLineItem {
         this.totalTaxMoney = totalTaxMoney;
         this.totalDiscountMoney = totalDiscountMoney;
         this.totalMoney = totalMoney;
+        this.appliedServiceCharges = appliedServiceCharges;
+        this.totalServiceChargeMoney = totalServiceChargeMoney;
     }
 
     /**
@@ -247,7 +260,7 @@ public class OrderReturnLineItem {
 
     /**
      * Internal Getter for CatalogObjectId.
-     * The [CatalogItemVariation]($m/CatalogItemVariation) ID applied to this return line item.
+     * The [CatalogItemVariation](entity:CatalogItemVariation) ID applied to this return line item.
      * @return Returns the Internal String
      */
     @JsonGetter("catalog_object_id")
@@ -259,7 +272,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for CatalogObjectId.
-     * The [CatalogItemVariation]($m/CatalogItemVariation) ID applied to this return line item.
+     * The [CatalogItemVariation](entity:CatalogItemVariation) ID applied to this return line item.
      * @return Returns the String
      */
     @JsonIgnore
@@ -324,7 +337,7 @@ public class OrderReturnLineItem {
 
     /**
      * Internal Getter for ReturnModifiers.
-     * The [CatalogModifier]($m/CatalogModifier)s applied to this line item.
+     * The [CatalogModifier](entity:CatalogModifier)s applied to this line item.
      * @return Returns the Internal List of OrderReturnLineItemModifier
      */
     @JsonGetter("return_modifiers")
@@ -336,7 +349,7 @@ public class OrderReturnLineItem {
 
     /**
      * Getter for ReturnModifiers.
-     * The [CatalogModifier]($m/CatalogModifier)s applied to this line item.
+     * The [CatalogModifier](entity:CatalogModifier)s applied to this line item.
      * @return Returns the List of OrderReturnLineItemModifier
      */
     @JsonIgnore
@@ -494,12 +507,57 @@ public class OrderReturnLineItem {
         return totalMoney;
     }
 
+    /**
+     * Internal Getter for AppliedServiceCharges.
+     * The list of references to `OrderReturnServiceCharge` entities applied to the return line
+     * item. Each `OrderLineItemAppliedServiceCharge` has a `service_charge_uid` that references the
+     * `uid` of a top-level `OrderReturnServiceCharge` applied to the return line item. On reads,
+     * the applied amount is populated.
+     * @return Returns the Internal List of OrderLineItemAppliedServiceCharge
+     */
+    @JsonGetter("applied_service_charges")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<OrderLineItemAppliedServiceCharge>> internalGetAppliedServiceCharges() {
+        return this.appliedServiceCharges;
+    }
+
+    /**
+     * Getter for AppliedServiceCharges.
+     * The list of references to `OrderReturnServiceCharge` entities applied to the return line
+     * item. Each `OrderLineItemAppliedServiceCharge` has a `service_charge_uid` that references the
+     * `uid` of a top-level `OrderReturnServiceCharge` applied to the return line item. On reads,
+     * the applied amount is populated.
+     * @return Returns the List of OrderLineItemAppliedServiceCharge
+     */
+    @JsonIgnore
+    public List<OrderLineItemAppliedServiceCharge> getAppliedServiceCharges() {
+        return OptionalNullable.getFrom(appliedServiceCharges);
+    }
+
+    /**
+     * Getter for TotalServiceChargeMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("total_service_charge_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getTotalServiceChargeMoney() {
+        return totalServiceChargeMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, sourceLineItemUid, name, quantity, quantityUnit, note,
                 catalogObjectId, catalogVersion, variationName, itemType, returnModifiers,
                 appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney,
-                grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
+                grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney,
+                appliedServiceCharges, totalServiceChargeMoney);
     }
 
     @Override
@@ -529,7 +587,9 @@ public class OrderReturnLineItem {
             && Objects.equals(grossReturnMoney, other.grossReturnMoney)
             && Objects.equals(totalTaxMoney, other.totalTaxMoney)
             && Objects.equals(totalDiscountMoney, other.totalDiscountMoney)
-            && Objects.equals(totalMoney, other.totalMoney);
+            && Objects.equals(totalMoney, other.totalMoney)
+            && Objects.equals(appliedServiceCharges, other.appliedServiceCharges)
+            && Objects.equals(totalServiceChargeMoney, other.totalServiceChargeMoney);
     }
 
     /**
@@ -547,7 +607,8 @@ public class OrderReturnLineItem {
                 + ", basePriceMoney=" + basePriceMoney + ", variationTotalPriceMoney="
                 + variationTotalPriceMoney + ", grossReturnMoney=" + grossReturnMoney
                 + ", totalTaxMoney=" + totalTaxMoney + ", totalDiscountMoney=" + totalDiscountMoney
-                + ", totalMoney=" + totalMoney + "]";
+                + ", totalMoney=" + totalMoney + ", appliedServiceCharges=" + appliedServiceCharges
+                + ", totalServiceChargeMoney=" + totalServiceChargeMoney + "]";
     }
 
     /**
@@ -564,7 +625,8 @@ public class OrderReturnLineItem {
                 .grossReturnMoney(getGrossReturnMoney())
                 .totalTaxMoney(getTotalTaxMoney())
                 .totalDiscountMoney(getTotalDiscountMoney())
-                .totalMoney(getTotalMoney());
+                .totalMoney(getTotalMoney())
+                .totalServiceChargeMoney(getTotalServiceChargeMoney());
         builder.uid = internalGetUid();
         builder.sourceLineItemUid = internalGetSourceLineItemUid();
         builder.name = internalGetName();
@@ -575,6 +637,7 @@ public class OrderReturnLineItem {
         builder.returnModifiers = internalGetReturnModifiers();
         builder.appliedTaxes = internalGetAppliedTaxes();
         builder.appliedDiscounts = internalGetAppliedDiscounts();
+        builder.appliedServiceCharges = internalGetAppliedServiceCharges();
         return builder;
     }
 
@@ -601,6 +664,8 @@ public class OrderReturnLineItem {
         private Money totalTaxMoney;
         private Money totalDiscountMoney;
         private Money totalMoney;
+        private OptionalNullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges;
+        private Money totalServiceChargeMoney;
 
         /**
          * Initialization constructor.
@@ -892,6 +957,37 @@ public class OrderReturnLineItem {
         }
 
         /**
+         * Setter for appliedServiceCharges.
+         * @param  appliedServiceCharges  List of OrderLineItemAppliedServiceCharge value for
+         *         appliedServiceCharges.
+         * @return Builder
+         */
+        public Builder appliedServiceCharges(
+                List<OrderLineItemAppliedServiceCharge> appliedServiceCharges) {
+            this.appliedServiceCharges = OptionalNullable.of(appliedServiceCharges);
+            return this;
+        }
+
+        /**
+         * UnSetter for appliedServiceCharges.
+         * @return Builder
+         */
+        public Builder unsetAppliedServiceCharges() {
+            appliedServiceCharges = null;
+            return this;
+        }
+
+        /**
+         * Setter for totalServiceChargeMoney.
+         * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
+         * @return Builder
+         */
+        public Builder totalServiceChargeMoney(Money totalServiceChargeMoney) {
+            this.totalServiceChargeMoney = totalServiceChargeMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OrderReturnLineItem} object using the set fields.
          * @return {@link OrderReturnLineItem}
          */
@@ -899,7 +995,8 @@ public class OrderReturnLineItem {
             return new OrderReturnLineItem(quantity, uid, sourceLineItemUid, name, quantityUnit,
                     note, catalogObjectId, catalogVersion, variationName, itemType, returnModifiers,
                     appliedTaxes, appliedDiscounts, basePriceMoney, variationTotalPriceMoney,
-                    grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney);
+                    grossReturnMoney, totalTaxMoney, totalDiscountMoney, totalMoney,
+                    appliedServiceCharges, totalServiceChargeMoney);
         }
     }
 }

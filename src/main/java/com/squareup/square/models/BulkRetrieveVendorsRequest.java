@@ -37,7 +37,7 @@ public class BulkRetrieveVendorsRequest {
 
     /**
      * Internal Getter for VendorIds.
-     * IDs of the [Vendor]($m/Vendor) objects to retrieve.
+     * IDs of the [Vendor](entity:Vendor) objects to retrieve.
      * @return Returns the Internal List of String
      */
     @JsonGetter("vendor_ids")
@@ -49,7 +49,7 @@ public class BulkRetrieveVendorsRequest {
 
     /**
      * Getter for VendorIds.
-     * IDs of the [Vendor]($m/Vendor) objects to retrieve.
+     * IDs of the [Vendor](entity:Vendor) objects to retrieve.
      * @return Returns the List of String
      */
     @JsonIgnore

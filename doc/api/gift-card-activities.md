@@ -38,7 +38,7 @@ CompletableFuture<ListGiftCardActivitiesResponse> listGiftCardActivitiesAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `giftCardId` | `String` | Query, Optional | If a gift card ID is provided, the endpoint returns activities related<br>to the specified gift card. Otherwise, the endpoint returns all gift card activities for<br>the seller. |
-| `type` | `String` | Query, Optional | If a [type](../../doc/models/gift-card-activity-type.md) is provided, the endpoint returns gift card activities of the specified type.<br>Otherwise, the endpoint returns all types of gift card activities. |
+| `type` | `String` | Query, Optional | If a [type](entity:GiftCardActivityType) is provided, the endpoint returns gift card activities of the specified type.<br>Otherwise, the endpoint returns all types of gift card activities. |
 | `locationId` | `String` | Query, Optional | If a location ID is provided, the endpoint returns gift card activities for the specified location.<br>Otherwise, the endpoint returns gift card activities for all locations. |
 | `beginTime` | `String` | Query, Optional | The timestamp for the beginning of the reporting period, in RFC 3339 format.<br>This start time is inclusive. The default value is the current time minus one year. |
 | `endTime` | `String` | Query, Optional | The timestamp for the end of the reporting period, in RFC 3339 format.<br>This end time is inclusive. The default value is the current time. |
@@ -55,8 +55,10 @@ CompletableFuture<ListGiftCardActivitiesResponse> listGiftCardActivitiesAsync(
 ```java
 giftCardActivitiesApi.listGiftCardActivitiesAsync(null, null, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -86,27 +88,27 @@ CompletableFuture<CreateGiftCardActivityResponse> createGiftCardActivityAsync(
 ## Example Usage
 
 ```java
-GiftCardActivityActivate activateActivityDetails = new GiftCardActivityActivate.Builder()
-    .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
-    .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
-    .build();
-
-GiftCardActivity giftCardActivity = new GiftCardActivity.Builder(
-        "ACTIVATE",
-        "81FN9BNFZTKS4")
-    .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
-    .activateActivityDetails(activateActivityDetails)
-    .build();
-
 CreateGiftCardActivityRequest body = new CreateGiftCardActivityRequest.Builder(
-        "U16kfr-kA70er-q4Rsym-7U7NnY",
-        giftCardActivity)
-    .build();
+    "U16kfr-kA70er-q4Rsym-7U7NnY",
+    new GiftCardActivity.Builder(
+        "ACTIVATE",
+        "81FN9BNFZTKS4"
+    )
+    .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
+    .activateActivityDetails(new GiftCardActivityActivate.Builder()
+            .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
+            .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
+            .build())
+    .build()
+)
+.build();
 
 giftCardActivitiesApi.createGiftCardActivityAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

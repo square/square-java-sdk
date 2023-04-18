@@ -31,7 +31,8 @@ public class CreateWebhookSubscriptionRequest {
     /**
      * Getter for IdempotencyKey.
      * A unique string that identifies the
-     * [CreateWebhookSubscription]($e/WebhookSubscriptions/CreateWebhookSubscription) request.
+     * [CreateWebhookSubscription](api-endpoint:WebhookSubscriptions-CreateWebhookSubscription)
+     * request.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

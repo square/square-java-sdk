@@ -545,7 +545,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * call. When all response pages are retrieved, the results include all custom attributes that
      * are visible to the requesting application, including those that are owned by other
      * applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  visibilityFilter  Optional parameter: Requests that all of the custom attributes be
      *         returned, or only those that are read-only or read-write.
      * @param  cursor  Optional parameter: The cursor returned in the paged response from the
@@ -558,10 +558,10 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      *         more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListOrderCustomAttributesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -582,7 +582,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * call. When all response pages are retrieved, the results include all custom attributes that
      * are visible to the requesting application, including those that are owned by other
      * applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  visibilityFilter  Optional parameter: Requests that all of the custom attributes be
      *         returned, or only those that are read-only or read-write.
      * @param  cursor  Optional parameter: The cursor returned in the paged response from the
@@ -595,10 +595,10 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      *         more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  withDefinitions  Optional parameter: Indicates whether to return the [custom
-     *         attribute definition]($m/CustomAttributeDefinition) in the `definition` field of each
-     *         custom attribute. Set this parameter to `true` to get the name and description of
-     *         each custom attribute, information about the data type, or other definition details.
-     *         The default value is `false`.
+     *         attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+     *         each custom attribute. Set this parameter to `true` to get the name and description
+     *         of each custom attribute, information about the data type, or other definition
+     *         details. The default value is `false`.
      * @return    Returns the ListOrderCustomAttributesResponse response from the API call
      */
     public CompletableFuture<ListOrderCustomAttributesResponse> listOrderCustomAttributesAsync(
@@ -657,7 +657,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * delete a custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes (also known as
      * custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to delete.
      *         This key must match the key of an existing custom attribute definition.
      * @return    Returns the DeleteOrderCustomAttributeResponse response from the API call
@@ -675,7 +675,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * delete a custom attribute owned by another application, the `visibility` setting must be
      * `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes (also known as
      * custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to delete.
      *         This key must match the key of an existing custom attribute definition.
      * @return    Returns the DeleteOrderCustomAttributeResponse response from the API call
@@ -725,7 +725,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that
      * seller-defined custom attributes also known as custom fields) are always set to
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to retrieve.
      *         This key must match the key of an existing custom attribute definition.
      * @param  version  Optional parameter: To enable [optimistic
@@ -733,10 +733,10 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      *         control, include this optional field and specify the current version of the custom
      *         attribute.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of each custom
-     *         attribute. Set this parameter to `true` to get the name and description of each
-     *         custom attribute, information about the data type, or other definition details. The
-     *         default value is `false`.
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of each
+     *         custom attribute. Set this parameter to `true` to get the name and description of
+     *         each custom attribute, information about the data type, or other definition details.
+     *         The default value is `false`.
      * @return    Returns the RetrieveOrderCustomAttributeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -757,7 +757,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that
      * seller-defined custom attributes also known as custom fields) are always set to
      * `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to retrieve.
      *         This key must match the key of an existing custom attribute definition.
      * @param  version  Optional parameter: To enable [optimistic
@@ -765,10 +765,10 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      *         control, include this optional field and specify the current version of the custom
      *         attribute.
      * @param  withDefinition  Optional parameter: Indicates whether to return the [custom attribute
-     *         definition]($m/CustomAttributeDefinition) in the `definition` field of each custom
-     *         attribute. Set this parameter to `true` to get the name and description of each
-     *         custom attribute, information about the data type, or other definition details. The
-     *         default value is `false`.
+     *         definition](entity:CustomAttributeDefinition) in the `definition` field of each
+     *         custom attribute. Set this parameter to `true` to get the name and description of
+     *         each custom attribute, information about the data type, or other definition details.
+     *         The default value is `false`.
      * @return    Returns the RetrieveOrderCustomAttributeResponse response from the API call
      */
     public CompletableFuture<RetrieveOrderCustomAttributeResponse> retrieveOrderCustomAttributeAsync(
@@ -827,7 +827,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * endpoint.) To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom
      * attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to create or
      *         update. This key must match the key of an existing custom attribute definition.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -853,7 +853,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
      * endpoint.) To create or update a custom attribute owned by another application, the
      * `visibility` setting must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom
      * attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
-     * @param  orderId  Required parameter: The ID of the target [order]($m/Order).
+     * @param  orderId  Required parameter: The ID of the target [order](entity:Order).
      * @param  customAttributeKey  Required parameter: The key of the custom attribute to create or
      *         update. This key must match the key of an existing custom attribute definition.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

@@ -45,8 +45,10 @@ String siteId = "site_id6";
 
 snippetsApi.deleteSnippetAsync(siteId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -82,8 +84,10 @@ String siteId = "site_id6";
 
 snippetsApi.retrieveSnippetAsync(siteId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -119,18 +123,20 @@ CompletableFuture<UpsertSnippetResponse> upsertSnippetAsync(
 
 ```java
 String siteId = "site_id6";
-Snippet snippet = new Snippet.Builder(
-        "<script>var js = 1;</script>")
-    .build();
-
 UpsertSnippetRequest body = new UpsertSnippetRequest.Builder(
-        snippet)
-    .build();
+    new Snippet.Builder(
+        "<script>var js = 1;</script>"
+    )
+    .build()
+)
+.build();
 
 snippetsApi.upsertSnippetAsync(siteId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

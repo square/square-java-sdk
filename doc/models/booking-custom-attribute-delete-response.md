@@ -11,7 +11,7 @@ Represents a response for an individual upsert request in a [BulkDeleteBookingCu
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `BookingId` | `String` | Optional | The ID of the [booking](../../doc/models/booking.md) associated with the custom attribute. | String getBookingId() |
+| `BookingId` | `String` | Optional | The ID of the [booking](entity:Booking) associated with the custom attribute. | String getBookingId() |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Any errors that occurred while processing the individual request. | List<Error> getErrors() |
 
 ## Example (as JSON)

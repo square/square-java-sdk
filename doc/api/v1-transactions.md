@@ -55,8 +55,10 @@ String locationId = "location_id4";
 
 v1TransactionsApi.v1ListOrdersAsync(locationId, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -93,8 +95,10 @@ String orderId = "order_id6";
 
 v1TransactionsApi.v1RetrieveOrderAsync(locationId, orderId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -131,13 +135,16 @@ CompletableFuture<V1Order> v1UpdateOrderAsync(
 String locationId = "location_id4";
 String orderId = "order_id6";
 V1UpdateOrderRequest body = new V1UpdateOrderRequest.Builder(
-        "REFUND")
-    .build();
+    "REFUND"
+)
+.build();
 
 v1TransactionsApi.v1UpdateOrderAsync(locationId, orderId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -194,8 +201,10 @@ Boolean includePartial = false;
 
 v1TransactionsApi.v1ListPaymentsAsync(locationId, null, null, null, null, null, includePartial).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -232,8 +241,10 @@ String paymentId = "payment_id0";
 
 v1TransactionsApi.v1RetrievePaymentAsync(locationId, paymentId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -277,8 +288,10 @@ String locationId = "location_id4";
 
 v1TransactionsApi.v1ListRefundsAsync(locationId, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -323,15 +336,18 @@ CompletableFuture<V1Refund> v1CreateRefundAsync(
 ```java
 String locationId = "location_id4";
 V1CreateRefundRequest body = new V1CreateRefundRequest.Builder(
-        "payment_id6",
-        "FULL",
-        "reason8")
-    .build();
+    "payment_id6",
+    "FULL",
+    "reason8"
+)
+.build();
 
 v1TransactionsApi.v1CreateRefundAsync(locationId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -382,8 +398,10 @@ String locationId = "location_id4";
 
 v1TransactionsApi.v1ListSettlementsAsync(locationId, null, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -436,8 +454,10 @@ String settlementId = "settlement_id0";
 
 v1TransactionsApi.v1RetrieveSettlementAsync(locationId, settlementId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

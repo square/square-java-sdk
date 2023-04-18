@@ -26,8 +26,8 @@ public class BulkUpdateVendorsRequest {
 
     /**
      * Getter for Vendors.
-     * A set of [UpdateVendorRequest]($m/UpdateVendorRequest) objects encapsulating to-be-updated
-     * [Vendor]($m/Vendor) objects. The set is represented by a collection of
+     * A set of [UpdateVendorRequest](entity:UpdateVendorRequest) objects encapsulating
+     * to-be-updated [Vendor](entity:Vendor) objects. The set is represented by a collection of
      * `Vendor`-ID/`UpdateVendorRequest`-object pairs.
      * @return Returns the Map of String, UpdateVendorRequest
      */

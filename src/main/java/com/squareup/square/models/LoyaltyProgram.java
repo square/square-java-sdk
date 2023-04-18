@@ -148,7 +148,7 @@ public class LoyaltyProgram {
 
     /**
      * Internal Getter for LocationIds.
-     * The [locations]($m/Location) at which the program is active.
+     * The [locations](entity:Location) at which the program is active.
      * @return Returns the Internal List of String
      */
     @JsonGetter("location_ids")
@@ -160,7 +160,7 @@ public class LoyaltyProgram {
 
     /**
      * Getter for LocationIds.
-     * The [locations]($m/Location) at which the program is active.
+     * The [locations](entity:Location) at which the program is active.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -193,8 +193,8 @@ public class LoyaltyProgram {
     /**
      * Internal Getter for AccrualRules.
      * Defines how buyers can earn loyalty points from the base loyalty program. To check for
-     * associated [loyalty promotions]($m/LoyaltyPromotion) that enable buyers to earn extra points,
-     * call [ListLoyaltyPromotions]($e/Loyalty/ListLoyaltyPromotions).
+     * associated [loyalty promotions](entity:LoyaltyPromotion) that enable buyers to earn extra
+     * points, call [ListLoyaltyPromotions](api-endpoint:Loyalty-ListLoyaltyPromotions).
      * @return Returns the Internal List of LoyaltyProgramAccrualRule
      */
     @JsonGetter("accrual_rules")
@@ -207,8 +207,8 @@ public class LoyaltyProgram {
     /**
      * Getter for AccrualRules.
      * Defines how buyers can earn loyalty points from the base loyalty program. To check for
-     * associated [loyalty promotions]($m/LoyaltyPromotion) that enable buyers to earn extra points,
-     * call [ListLoyaltyPromotions]($e/Loyalty/ListLoyaltyPromotions).
+     * associated [loyalty promotions](entity:LoyaltyPromotion) that enable buyers to earn extra
+     * points, call [ListLoyaltyPromotions](api-endpoint:Loyalty-ListLoyaltyPromotions).
      * @return Returns the List of LoyaltyProgramAccrualRule
      */
     @JsonIgnore

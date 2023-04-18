@@ -37,8 +37,8 @@ CompletableFuture<ListGiftCardsResponse> listGiftCardsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `type` | `String` | Query, Optional | If a [type](../../doc/models/gift-card-type.md) is provided, the endpoint returns gift cards of the specified type.<br>Otherwise, the endpoint returns gift cards of all types. |
-| `state` | `String` | Query, Optional | If a [state](../../doc/models/gift-card-status.md) is provided, the endpoint returns the gift cards in the specified state.<br>Otherwise, the endpoint returns the gift cards of all states. |
+| `type` | `String` | Query, Optional | If a [type](entity:GiftCardType) is provided, the endpoint returns gift cards of the specified type.<br>Otherwise, the endpoint returns gift cards of all types. |
+| `state` | `String` | Query, Optional | If a [state](entity:GiftCardStatus) is provided, the endpoint returns the gift cards in the specified state.<br>Otherwise, the endpoint returns the gift cards of all states. |
 | `limit` | `Integer` | Query, Optional | If a limit is provided, the endpoint returns only the specified number of results per page.<br>The maximum value is 50. The default value is 30.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>If a cursor is not provided, the endpoint returns the first page of the results.<br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
 | `customerId` | `String` | Query, Optional | If a customer ID is provided, the endpoint returns only the gift cards linked to the specified customer. |
@@ -52,8 +52,10 @@ CompletableFuture<ListGiftCardsResponse> listGiftCardsAsync(
 ```java
 giftCardsApi.listGiftCardsAsync(null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -83,20 +85,22 @@ CompletableFuture<CreateGiftCardResponse> createGiftCardAsync(
 ## Example Usage
 
 ```java
-GiftCard giftCard = new GiftCard.Builder(
-        "DIGITAL")
-    .build();
-
 CreateGiftCardRequest body = new CreateGiftCardRequest.Builder(
-        "NC9Tm69EjbjtConu",
-        "81FN9BNFZTKS4",
-        giftCard)
-    .build();
+    "NC9Tm69EjbjtConu",
+    "81FN9BNFZTKS4",
+    new GiftCard.Builder(
+        "DIGITAL"
+    )
+    .build()
+)
+.build();
 
 giftCardsApi.createGiftCardAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -125,13 +129,16 @@ CompletableFuture<RetrieveGiftCardFromGANResponse> retrieveGiftCardFromGANAsync(
 
 ```java
 RetrieveGiftCardFromGANRequest body = new RetrieveGiftCardFromGANRequest.Builder(
-        "7783320001001635")
-    .build();
+    "7783320001001635"
+)
+.build();
 
 giftCardsApi.retrieveGiftCardFromGANAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -160,13 +167,16 @@ CompletableFuture<RetrieveGiftCardFromNonceResponse> retrieveGiftCardFromNonceAs
 
 ```java
 RetrieveGiftCardFromNonceRequest body = new RetrieveGiftCardFromNonceRequest.Builder(
-        "cnon:7783322135245171")
-    .build();
+    "cnon:7783322135245171"
+)
+.build();
 
 giftCardsApi.retrieveGiftCardFromNonceAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -198,13 +208,16 @@ CompletableFuture<LinkCustomerToGiftCardResponse> linkCustomerToGiftCardAsync(
 ```java
 String giftCardId = "gift_card_id8";
 LinkCustomerToGiftCardRequest body = new LinkCustomerToGiftCardRequest.Builder(
-        "GKY0FZ3V717AH8Q2D821PNT2ZW")
-    .build();
+    "GKY0FZ3V717AH8Q2D821PNT2ZW"
+)
+.build();
 
 giftCardsApi.linkCustomerToGiftCardAsync(giftCardId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -236,13 +249,16 @@ CompletableFuture<UnlinkCustomerFromGiftCardResponse> unlinkCustomerFromGiftCard
 ```java
 String giftCardId = "gift_card_id8";
 UnlinkCustomerFromGiftCardRequest body = new UnlinkCustomerFromGiftCardRequest.Builder(
-        "GKY0FZ3V717AH8Q2D821PNT2ZW")
-    .build();
+    "GKY0FZ3V717AH8Q2D821PNT2ZW"
+)
+.build();
 
 giftCardsApi.unlinkCustomerFromGiftCardAsync(giftCardId, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -274,8 +290,10 @@ String id = "id0";
 
 giftCardsApi.retrieveGiftCardAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

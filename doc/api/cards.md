@@ -34,7 +34,7 @@ CompletableFuture<ListCardsResponse> listCardsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this to retrieve the next set of results for your original query.<br><br>See [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination) for more information. |
 | `customerId` | `String` | Query, Optional | Limit results to cards associated with the customer supplied.<br>By default, all cards owned by the merchant are returned. |
 | `includeDisabled` | `Boolean` | Query, Optional | Includes disabled cards.<br>By default, all enabled cards owned by the merchant are returned.<br>**Default**: `false` |
 | `referenceId` | `String` | Query, Optional | Limit results to cards associated with the reference_id supplied. |
@@ -51,8 +51,10 @@ Boolean includeDisabled = false;
 
 cardsApi.listCardsAsync(null, null, includeDisabled, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -80,32 +82,31 @@ CompletableFuture<CreateCardResponse> createCardAsync(
 ## Example Usage
 
 ```java
-Address billingAddress = new Address.Builder()
-    .addressLine1("500 Electric Ave")
-    .addressLine2("Suite 600")
-    .locality("New York")
-    .administrativeDistrictLevel1("NY")
-    .postalCode("10003")
-    .country("US")
-    .build();
-
-Card card = new Card.Builder()
-    .cardholderName("Amelia Earhart")
-    .billingAddress(billingAddress)
-    .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
-    .referenceId("user-id-1")
-    .build();
-
 CreateCardRequest body = new CreateCardRequest.Builder(
-        "4935a656-a929-4792-b97c-8848be85c27c",
-        "cnon:uIbfJXhXETSP197M3GB",
-        card)
-    .build();
+    "4935a656-a929-4792-b97c-8848be85c27c",
+    "cnon:uIbfJXhXETSP197M3GB",
+    new Card.Builder()
+        .cardholderName("Amelia Earhart")
+        .billingAddress(new Address.Builder()
+            .addressLine1("500 Electric Ave")
+            .addressLine2("Suite 600")
+            .locality("New York")
+            .administrativeDistrictLevel1("NY")
+            .postalCode("10003")
+            .country("US")
+            .build())
+        .customerId("VDKXEEKPJN48QDG3BGGFAK05P8")
+        .referenceId("user-id-1")
+        .build()
+)
+.build();
 
 cardsApi.createCardAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -137,8 +138,10 @@ String cardId = "card_id4";
 
 cardsApi.retrieveCardAsync(cardId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -171,8 +174,10 @@ String cardId = "card_id4";
 
 cardsApi.disableCardAsync(cardId).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

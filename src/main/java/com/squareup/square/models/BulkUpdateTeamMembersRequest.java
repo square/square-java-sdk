@@ -27,7 +27,7 @@ public class BulkUpdateTeamMembersRequest {
     /**
      * Getter for TeamMembers.
      * The data used to update the `TeamMember` objects. Each key is the `team_member_id` that maps
-     * to the `UpdateTeamMemberRequest`.
+     * to the `UpdateTeamMemberRequest`. The maximum number of update objects is 25.
      * @return Returns the Map of String, UpdateTeamMemberRequest
      */
     @JsonGetter("team_members")

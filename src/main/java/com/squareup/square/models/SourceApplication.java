@@ -59,7 +59,7 @@ public class SourceApplication {
     /**
      * Internal Getter for ApplicationId.
      * __Read only__ The Square-assigned ID of the application. This field is used only if the
-     * [product]($m/Product) type is `EXTERNAL_API`.
+     * [product](entity:Product) type is `EXTERNAL_API`.
      * @return Returns the Internal String
      */
     @JsonGetter("application_id")
@@ -72,7 +72,7 @@ public class SourceApplication {
     /**
      * Getter for ApplicationId.
      * __Read only__ The Square-assigned ID of the application. This field is used only if the
-     * [product]($m/Product) type is `EXTERNAL_API`.
+     * [product](entity:Product) type is `EXTERNAL_API`.
      * @return Returns the String
      */
     @JsonIgnore

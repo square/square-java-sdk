@@ -250,7 +250,7 @@ public class Location {
     /**
      * Getter for Capabilities.
      * The Square features that are enabled for the location. See
-     * [LocationCapability]($m/LocationCapability) for possible values. See
+     * [LocationCapability](entity:LocationCapability) for possible values. See
      * [LocationCapability](#type-locationcapability) for possible values
      * @return Returns the List of String
      */

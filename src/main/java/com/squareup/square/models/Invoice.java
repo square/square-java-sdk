@@ -205,10 +205,10 @@ public class Invoice {
 
     /**
      * Internal Getter for OrderId.
-     * The ID of the [order]($m/Order) for which the invoice is created. This field is required when
-     * creating an invoice, and the order must be in the `OPEN` state. To view the line items and
-     * other information for the associated order, call the [RetrieveOrder]($e/Orders/RetrieveOrder)
-     * endpoint using the order ID.
+     * The ID of the [order](entity:Order) for which the invoice is created. This field is required
+     * when creating an invoice, and the order must be in the `OPEN` state. To view the line items
+     * and other information for the associated order, call the
+     * [RetrieveOrder](api-endpoint:Orders-RetrieveOrder) endpoint using the order ID.
      * @return Returns the Internal String
      */
     @JsonGetter("order_id")
@@ -220,10 +220,10 @@ public class Invoice {
 
     /**
      * Getter for OrderId.
-     * The ID of the [order]($m/Order) for which the invoice is created. This field is required when
-     * creating an invoice, and the order must be in the `OPEN` state. To view the line items and
-     * other information for the associated order, call the [RetrieveOrder]($e/Orders/RetrieveOrder)
-     * endpoint using the order ID.
+     * The ID of the [order](entity:Order) for which the invoice is created. This field is required
+     * when creating an invoice, and the order must be in the `OPEN` state. To view the line items
+     * and other information for the associated order, call the
+     * [RetrieveOrder](api-endpoint:Orders-RetrieveOrder) endpoint using the order ID.
      * @return Returns the String
      */
     @JsonIgnore
@@ -517,7 +517,7 @@ public class Invoice {
 
     /**
      * Getter for SubscriptionId.
-     * The ID of the [subscription]($m/Subscription) associated with the invoice. This field is
+     * The ID of the [subscription](entity:Subscription) associated with the invoice. This field is
      * present only on subscription billing invoices.
      * @return Returns the String
      */

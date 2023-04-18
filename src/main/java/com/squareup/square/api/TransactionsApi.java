@@ -109,8 +109,8 @@ public interface TransactionsApi {
             final String transactionId);
 
     /**
-     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
-     * with a `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+     * endpoint with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -126,8 +126,8 @@ public interface TransactionsApi {
             final String transactionId) throws ApiException, IOException;
 
     /**
-     * Captures a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
-     * with a `delay_capture` value of `true`. See [Delayed capture
+     * Captures a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+     * endpoint with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -142,8 +142,8 @@ public interface TransactionsApi {
             final String transactionId);
 
     /**
-     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
-     * with a `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+     * endpoint with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated
@@ -159,8 +159,8 @@ public interface TransactionsApi {
             final String transactionId) throws ApiException, IOException;
 
     /**
-     * Cancels a transaction that was created with the [Charge]($e/Transactions/Charge) endpoint
-     * with a `delay_capture` value of `true`. See [Delayed capture
+     * Cancels a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+     * endpoint with a `delay_capture` value of `true`. See [Delayed capture
      * transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
      * for more information.
      * @deprecated

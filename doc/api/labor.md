@@ -56,8 +56,10 @@ CompletableFuture<ListBreakTypesResponse> listBreakTypesAsync(
 ```java
 laborApi.listBreakTypesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -98,22 +100,24 @@ CompletableFuture<CreateBreakTypeResponse> createBreakTypeAsync(
 ## Example Usage
 
 ```java
-BreakType breakType = new BreakType.Builder(
+CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
+    new BreakType.Builder(
         "CGJN03P1D08GF",
         "Lunch Break",
         "PT30M",
-        true)
-    .build();
-
-CreateBreakTypeRequest body = new CreateBreakTypeRequest.Builder(
-        breakType)
-    .idempotencyKey("PAD3NG5KSN2GL")
-    .build();
+        true
+    )
+    .build()
+)
+.idempotencyKey("PAD3NG5KSN2GL")
+.build();
 
 laborApi.createBreakTypeAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -147,8 +151,10 @@ String id = "id0";
 
 laborApi.deleteBreakTypeAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -180,8 +186,10 @@ String id = "id0";
 
 laborApi.getBreakTypeAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -212,22 +220,24 @@ CompletableFuture<UpdateBreakTypeResponse> updateBreakTypeAsync(
 
 ```java
 String id = "id0";
-BreakType breakType = new BreakType.Builder(
+UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
+    new BreakType.Builder(
         "26M7H24AZ9N6R",
         "Lunch",
         "PT50M",
-        true)
+        true
+    )
     .version(1)
-    .build();
-
-UpdateBreakTypeRequest body = new UpdateBreakTypeRequest.Builder(
-        breakType)
-    .build();
+    .build()
+)
+.build();
 
 laborApi.updateBreakTypeAsync(id, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -263,8 +273,10 @@ CompletableFuture<ListEmployeeWagesResponse> listEmployeeWagesAsync(
 ```java
 laborApi.listEmployeeWagesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -298,8 +310,10 @@ String id = "id0";
 
 laborApi.getEmployeeWageAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -345,46 +359,42 @@ CompletableFuture<CreateShiftResponse> createShiftAsync(
 ## Example Usage
 
 ```java
-Money hourlyRate = new Money.Builder()
-    .amount(1100L)
-    .currency("USD")
-    .build();
-
-ShiftWage wage = new ShiftWage.Builder()
-    .title("Barista")
-    .hourlyRate(hourlyRate)
-    .build();
-
-List<Break> breaks = new LinkedList<>();
-Break breaks0 = new Break.Builder(
-        "2019-01-25T11:11:00+00:00",
-        "REGS1EQR1TPZ5",
-        "Tea Break",
-        "PT5M",
-        true)
-    .endAt("2019-01-25T11:16:00+00:00")
-    .build();
-
-breaks.add(breaks0);
-
-Shift shift = new Shift.Builder(
-        "2019-01-25T08:11:00+00:00")
+CreateShiftRequest body = new CreateShiftRequest.Builder(
+    new Shift.Builder(
+        "2019-01-25T08:11:00+00:00"
+    )
     .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T18:11:00+00:00")
-    .wage(wage)
-    .breaks(breaks)
+    .wage(new ShiftWage.Builder()
+            .title("Barista")
+            .hourlyRate(new Money.Builder()
+                .amount(1100L)
+                .currency("USD")
+                .build())
+            .build())
+    .breaks(Arrays.asList(
+            new Break.Builder(
+                "2019-01-25T11:11:00+00:00",
+                "REGS1EQR1TPZ5",
+                "Tea Break",
+                "PT5M",
+                true
+            )
+            .endAt("2019-01-25T11:16:00+00:00")
+            .build()
+        ))
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
-    .build();
-
-CreateShiftRequest body = new CreateShiftRequest.Builder(
-        shift)
-    .idempotencyKey("HIDSNG5KS478L")
-    .build();
+    .build()
+)
+.idempotencyKey("HIDSNG5KS478L")
+.build();
 
 laborApi.createShiftAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -427,34 +437,28 @@ CompletableFuture<SearchShiftsResponse> searchShiftsAsync(
 ## Example Usage
 
 ```java
-DateRange dateRange = new DateRange.Builder()
-    .startDate("2019-01-20")
-    .endDate("2019-02-03")
-    .build();
-
-ShiftWorkday workday = new ShiftWorkday.Builder()
-    .dateRange(dateRange)
-    .matchShiftsBy("START_AT")
-    .defaultTimezone("America/Los_Angeles")
-    .build();
-
-ShiftFilter filter = new ShiftFilter.Builder()
-    .workday(workday)
-    .build();
-
-ShiftQuery query = new ShiftQuery.Builder()
-    .filter(filter)
-    .build();
-
 SearchShiftsRequest body = new SearchShiftsRequest.Builder()
-    .query(query)
+    .query(new ShiftQuery.Builder()
+        .filter(new ShiftFilter.Builder()
+            .workday(new ShiftWorkday.Builder()
+                .dateRange(new DateRange.Builder()
+                    .startDate("2019-01-20")
+                    .endDate("2019-02-03")
+                    .build())
+                .matchShiftsBy("START_AT")
+                .defaultTimezone("America/Los_Angeles")
+                .build())
+            .build())
+        .build())
     .limit(100)
     .build();
 
 laborApi.searchShiftsAsync(body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -486,8 +490,10 @@ String id = "id0";
 
 laborApi.deleteShiftAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -519,8 +525,10 @@ String id = "id0";
 
 laborApi.getShiftAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -557,47 +565,43 @@ CompletableFuture<UpdateShiftResponse> updateShiftAsync(
 
 ```java
 String id = "id0";
-Money hourlyRate = new Money.Builder()
-    .amount(1500L)
-    .currency("USD")
-    .build();
-
-ShiftWage wage = new ShiftWage.Builder()
-    .title("Bartender")
-    .hourlyRate(hourlyRate)
-    .build();
-
-List<Break> breaks = new LinkedList<>();
-Break breaks0 = new Break.Builder(
-        "2019-01-25T11:11:00+00:00",
-        "REGS1EQR1TPZ5",
-        "Tea Break",
-        "PT5M",
-        true)
-    .id("X7GAQYVVRRG6P")
-    .endAt("2019-01-25T11:16:00+00:00")
-    .build();
-
-breaks.add(breaks0);
-
-Shift shift = new Shift.Builder(
-        "2019-01-25T08:11:00+00:00")
+UpdateShiftRequest body = new UpdateShiftRequest.Builder(
+    new Shift.Builder(
+        "2019-01-25T08:11:00+00:00"
+    )
     .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T18:11:00+00:00")
-    .wage(wage)
-    .breaks(breaks)
+    .wage(new ShiftWage.Builder()
+            .title("Bartender")
+            .hourlyRate(new Money.Builder()
+                .amount(1500L)
+                .currency("USD")
+                .build())
+            .build())
+    .breaks(Arrays.asList(
+            new Break.Builder(
+                "2019-01-25T11:11:00+00:00",
+                "REGS1EQR1TPZ5",
+                "Tea Break",
+                "PT5M",
+                true
+            )
+            .id("X7GAQYVVRRG6P")
+            .endAt("2019-01-25T11:16:00+00:00")
+            .build()
+        ))
     .version(1)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
-    .build();
-
-UpdateShiftRequest body = new UpdateShiftRequest.Builder(
-        shift)
-    .build();
+    .build()
+)
+.build();
 
 laborApi.updateShiftAsync(id, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -631,8 +635,10 @@ CompletableFuture<ListTeamMemberWagesResponse> listTeamMemberWagesAsync(
 ```java
 laborApi.listTeamMemberWagesAsync(null, null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -664,8 +670,10 @@ String id = "id0";
 
 laborApi.getTeamMemberWageAsync(id).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -697,8 +705,10 @@ CompletableFuture<ListWorkweekConfigsResponse> listWorkweekConfigsAsync(
 ```java
 laborApi.listWorkweekConfigsAsync(null, null).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```
@@ -729,20 +739,22 @@ CompletableFuture<UpdateWorkweekConfigResponse> updateWorkweekConfigAsync(
 
 ```java
 String id = "id0";
-WorkweekConfig workweekConfig = new WorkweekConfig.Builder(
-        "MON",
-        "10:00")
-    .version(10)
-    .build();
-
 UpdateWorkweekConfigRequest body = new UpdateWorkweekConfigRequest.Builder(
-        workweekConfig)
-    .build();
+    new WorkweekConfig.Builder(
+        "MON",
+        "10:00"
+    )
+    .version(10)
+    .build()
+)
+.build();
 
 laborApi.updateWorkweekConfigAsync(id, body).thenAccept(result -> {
     // TODO success callback handler
+    System.out.println(result);
 }).exceptionally(exception -> {
     // TODO failure callback handler
+    exception.printStackTrace();
     return null;
 });
 ```

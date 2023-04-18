@@ -30,9 +30,9 @@ public interface PayoutsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). If
-     *         request parameters change between requests, subsequent results may contain duplicates
-     *         or missing records.
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     *         If request parameters change between requests, subsequent results may contain
+     *         duplicates or missing records.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. The default value of 100 is also the maximum allowed value. If the provided
@@ -68,9 +68,9 @@ public interface PayoutsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). If
-     *         request parameters change between requests, subsequent results may contain duplicates
-     *         or missing records.
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     *         If request parameters change between requests, subsequent results may contain
+     *         duplicates or missing records.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. The default value of 100 is also the maximum allowed value. If the provided
@@ -115,9 +115,9 @@ public interface PayoutsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). If
-     *         request parameters change between requests, subsequent results may contain duplicates
-     *         or missing records.
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     *         If request parameters change between requests, subsequent results may contain
+     *         duplicates or missing records.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. The default value of 100 is also the maximum allowed value. If the provided
@@ -141,9 +141,9 @@ public interface PayoutsApi {
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). If
-     *         request parameters change between requests, subsequent results may contain duplicates
-     *         or missing records.
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     *         If request parameters change between requests, subsequent results may contain
+     *         duplicates or missing records.
      * @param  limit  Optional parameter: The maximum number of results to be returned in a single
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. The default value of 100 is also the maximum allowed value. If the provided

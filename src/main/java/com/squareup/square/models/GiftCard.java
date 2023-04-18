@@ -170,7 +170,7 @@ public class GiftCard {
 
     /**
      * Getter for CustomerIds.
-     * The IDs of the [customer profiles]($m/Customer) to whom this gift card is linked.
+     * The IDs of the [customer profiles](entity:Customer) to whom this gift card is linked.
      * @return Returns the List of String
      */
     @JsonGetter("customer_ids")

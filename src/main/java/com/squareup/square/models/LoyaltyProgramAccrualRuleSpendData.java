@@ -70,8 +70,8 @@ public class LoyaltyProgramAccrualRuleSpendData {
     /**
      * Internal Getter for ExcludedCategoryIds.
      * The IDs of any `CATEGORY` catalog objects that are excluded from points accrual. You can use
-     * the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
-     * retrieve information about the excluded categories.
+     * the [BatchRetrieveCatalogObjects](api-endpoint:Catalog-BatchRetrieveCatalogObjects) endpoint
+     * to retrieve information about the excluded categories.
      * @return Returns the Internal List of String
      */
     @JsonGetter("excluded_category_ids")
@@ -84,8 +84,8 @@ public class LoyaltyProgramAccrualRuleSpendData {
     /**
      * Getter for ExcludedCategoryIds.
      * The IDs of any `CATEGORY` catalog objects that are excluded from points accrual. You can use
-     * the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
-     * retrieve information about the excluded categories.
+     * the [BatchRetrieveCatalogObjects](api-endpoint:Catalog-BatchRetrieveCatalogObjects) endpoint
+     * to retrieve information about the excluded categories.
      * @return Returns the List of String
      */
     @JsonIgnore
@@ -96,8 +96,8 @@ public class LoyaltyProgramAccrualRuleSpendData {
     /**
      * Internal Getter for ExcludedItemVariationIds.
      * The IDs of any `ITEM_VARIATION` catalog objects that are excluded from points accrual. You
-     * can use the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
-     * retrieve information about the excluded item variations.
+     * can use the [BatchRetrieveCatalogObjects](api-endpoint:Catalog-BatchRetrieveCatalogObjects)
+     * endpoint to retrieve information about the excluded item variations.
      * @return Returns the Internal List of String
      */
     @JsonGetter("excluded_item_variation_ids")
@@ -110,8 +110,8 @@ public class LoyaltyProgramAccrualRuleSpendData {
     /**
      * Getter for ExcludedItemVariationIds.
      * The IDs of any `ITEM_VARIATION` catalog objects that are excluded from points accrual. You
-     * can use the [BatchRetrieveCatalogObjects]($e/Catalog/BatchRetrieveCatalogObjects) endpoint to
-     * retrieve information about the excluded item variations.
+     * can use the [BatchRetrieveCatalogObjects](api-endpoint:Catalog-BatchRetrieveCatalogObjects)
+     * endpoint to retrieve information about the excluded item variations.
      * @return Returns the List of String
      */
     @JsonIgnore

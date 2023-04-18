@@ -66,7 +66,7 @@ public class ListWebhookEventTypesResponse {
     /**
      * Getter for Metadata.
      * Contains the metadata of a webhook event type. For more information, see
-     * [EventTypeMetadata]($m/EventTypeMetadata).
+     * [EventTypeMetadata](entity:EventTypeMetadata).
      * @return Returns the List of EventTypeMetadata
      */
     @JsonGetter("metadata")

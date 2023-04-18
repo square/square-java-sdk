@@ -25,8 +25,8 @@ public class LoyaltyProgramAccrualRuleCategoryData {
 
     /**
      * Getter for CategoryId.
-     * The ID of the `CATEGORY` [catalog object]($m/CatalogObject) that buyers can purchase to earn
-     * points.
+     * The ID of the `CATEGORY` [catalog object](entity:CatalogObject) that buyers can purchase to
+     * earn points.
      * @return Returns the String
      */
     @JsonGetter("category_id")
