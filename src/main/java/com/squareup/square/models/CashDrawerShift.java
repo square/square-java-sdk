@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +20,6 @@ public class CashDrawerShift {
     private final OptionalNullable<String> openedAt;
     private final OptionalNullable<String> endedAt;
     private final OptionalNullable<String> closedAt;
-    private final OptionalNullable<List<String>> employeeIds;
-    private final OptionalNullable<String> openingEmployeeId;
-    private final OptionalNullable<String> endingEmployeeId;
-    private final OptionalNullable<String> closingEmployeeId;
     private final OptionalNullable<String> description;
     private final Money openedCashMoney;
     private final Money cashPaymentMoney;
@@ -34,6 +29,13 @@ public class CashDrawerShift {
     private final Money expectedCashMoney;
     private final Money closedCashMoney;
     private final CashDrawerDevice device;
+    private final String createdAt;
+    private final String updatedAt;
+    private final String locationId;
+    private final List<String> teamMemberIds;
+    private final String openingTeamMemberId;
+    private final String endingTeamMemberId;
+    private final String closingTeamMemberId;
 
     /**
      * Initialization constructor.
@@ -42,10 +44,6 @@ public class CashDrawerShift {
      * @param  openedAt  String value for openedAt.
      * @param  endedAt  String value for endedAt.
      * @param  closedAt  String value for closedAt.
-     * @param  employeeIds  List of String value for employeeIds.
-     * @param  openingEmployeeId  String value for openingEmployeeId.
-     * @param  endingEmployeeId  String value for endingEmployeeId.
-     * @param  closingEmployeeId  String value for closingEmployeeId.
      * @param  description  String value for description.
      * @param  openedCashMoney  Money value for openedCashMoney.
      * @param  cashPaymentMoney  Money value for cashPaymentMoney.
@@ -55,6 +53,13 @@ public class CashDrawerShift {
      * @param  expectedCashMoney  Money value for expectedCashMoney.
      * @param  closedCashMoney  Money value for closedCashMoney.
      * @param  device  CashDrawerDevice value for device.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  locationId  String value for locationId.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
+     * @param  openingTeamMemberId  String value for openingTeamMemberId.
+     * @param  endingTeamMemberId  String value for endingTeamMemberId.
+     * @param  closingTeamMemberId  String value for closingTeamMemberId.
      */
     @JsonCreator
     public CashDrawerShift(
@@ -63,10 +68,6 @@ public class CashDrawerShift {
             @JsonProperty("opened_at") String openedAt,
             @JsonProperty("ended_at") String endedAt,
             @JsonProperty("closed_at") String closedAt,
-            @JsonProperty("employee_ids") List<String> employeeIds,
-            @JsonProperty("opening_employee_id") String openingEmployeeId,
-            @JsonProperty("ending_employee_id") String endingEmployeeId,
-            @JsonProperty("closing_employee_id") String closingEmployeeId,
             @JsonProperty("description") String description,
             @JsonProperty("opened_cash_money") Money openedCashMoney,
             @JsonProperty("cash_payment_money") Money cashPaymentMoney,
@@ -75,16 +76,19 @@ public class CashDrawerShift {
             @JsonProperty("cash_paid_out_money") Money cashPaidOutMoney,
             @JsonProperty("expected_cash_money") Money expectedCashMoney,
             @JsonProperty("closed_cash_money") Money closedCashMoney,
-            @JsonProperty("device") CashDrawerDevice device) {
+            @JsonProperty("device") CashDrawerDevice device,
+            @JsonProperty("created_at") String createdAt,
+            @JsonProperty("updated_at") String updatedAt,
+            @JsonProperty("location_id") String locationId,
+            @JsonProperty("team_member_ids") List<String> teamMemberIds,
+            @JsonProperty("opening_team_member_id") String openingTeamMemberId,
+            @JsonProperty("ending_team_member_id") String endingTeamMemberId,
+            @JsonProperty("closing_team_member_id") String closingTeamMemberId) {
         this.id = id;
         this.state = state;
         this.openedAt = OptionalNullable.of(openedAt);
         this.endedAt = OptionalNullable.of(endedAt);
         this.closedAt = OptionalNullable.of(closedAt);
-        this.employeeIds = OptionalNullable.of(employeeIds);
-        this.openingEmployeeId = OptionalNullable.of(openingEmployeeId);
-        this.endingEmployeeId = OptionalNullable.of(endingEmployeeId);
-        this.closingEmployeeId = OptionalNullable.of(closingEmployeeId);
         this.description = OptionalNullable.of(description);
         this.openedCashMoney = openedCashMoney;
         this.cashPaymentMoney = cashPaymentMoney;
@@ -94,6 +98,13 @@ public class CashDrawerShift {
         this.expectedCashMoney = expectedCashMoney;
         this.closedCashMoney = closedCashMoney;
         this.device = device;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.locationId = locationId;
+        this.teamMemberIds = teamMemberIds;
+        this.openingTeamMemberId = openingTeamMemberId;
+        this.endingTeamMemberId = endingTeamMemberId;
+        this.closingTeamMemberId = closingTeamMemberId;
     }
 
     /**
@@ -101,20 +112,16 @@ public class CashDrawerShift {
      */
     protected CashDrawerShift(String id, String state, OptionalNullable<String> openedAt,
             OptionalNullable<String> endedAt, OptionalNullable<String> closedAt,
-            OptionalNullable<List<String>> employeeIds, OptionalNullable<String> openingEmployeeId,
-            OptionalNullable<String> endingEmployeeId, OptionalNullable<String> closingEmployeeId,
             OptionalNullable<String> description, Money openedCashMoney, Money cashPaymentMoney,
             Money cashRefundsMoney, Money cashPaidInMoney, Money cashPaidOutMoney,
-            Money expectedCashMoney, Money closedCashMoney, CashDrawerDevice device) {
+            Money expectedCashMoney, Money closedCashMoney, CashDrawerDevice device,
+            String createdAt, String updatedAt, String locationId, List<String> teamMemberIds,
+            String openingTeamMemberId, String endingTeamMemberId, String closingTeamMemberId) {
         this.id = id;
         this.state = state;
         this.openedAt = openedAt;
         this.endedAt = endedAt;
         this.closedAt = closedAt;
-        this.employeeIds = employeeIds;
-        this.openingEmployeeId = openingEmployeeId;
-        this.endingEmployeeId = endingEmployeeId;
-        this.closingEmployeeId = closingEmployeeId;
         this.description = description;
         this.openedCashMoney = openedCashMoney;
         this.cashPaymentMoney = cashPaymentMoney;
@@ -124,6 +131,13 @@ public class CashDrawerShift {
         this.expectedCashMoney = expectedCashMoney;
         this.closedCashMoney = closedCashMoney;
         this.device = device;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.locationId = locationId;
+        this.teamMemberIds = teamMemberIds;
+        this.openingTeamMemberId = openingTeamMemberId;
+        this.endingTeamMemberId = endingTeamMemberId;
+        this.closingTeamMemberId = closingTeamMemberId;
     }
 
     /**
@@ -212,98 +226,6 @@ public class CashDrawerShift {
     @JsonIgnore
     public String getClosedAt() {
         return OptionalNullable.getFrom(closedAt);
-    }
-
-    /**
-     * Internal Getter for EmployeeIds.
-     * The IDs of all employees that were logged into Square Point of Sale at any point while the
-     * cash drawer shift was open.
-     * @return Returns the Internal List of String
-     */
-    @JsonGetter("employee_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<List<String>> internalGetEmployeeIds() {
-        return this.employeeIds;
-    }
-
-    /**
-     * Getter for EmployeeIds.
-     * The IDs of all employees that were logged into Square Point of Sale at any point while the
-     * cash drawer shift was open.
-     * @return Returns the List of String
-     */
-    @JsonIgnore
-    public List<String> getEmployeeIds() {
-        return OptionalNullable.getFrom(employeeIds);
-    }
-
-    /**
-     * Internal Getter for OpeningEmployeeId.
-     * The ID of the employee that started the cash drawer shift.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("opening_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetOpeningEmployeeId() {
-        return this.openingEmployeeId;
-    }
-
-    /**
-     * Getter for OpeningEmployeeId.
-     * The ID of the employee that started the cash drawer shift.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getOpeningEmployeeId() {
-        return OptionalNullable.getFrom(openingEmployeeId);
-    }
-
-    /**
-     * Internal Getter for EndingEmployeeId.
-     * The ID of the employee that ended the cash drawer shift.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("ending_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetEndingEmployeeId() {
-        return this.endingEmployeeId;
-    }
-
-    /**
-     * Getter for EndingEmployeeId.
-     * The ID of the employee that ended the cash drawer shift.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getEndingEmployeeId() {
-        return OptionalNullable.getFrom(endingEmployeeId);
-    }
-
-    /**
-     * Internal Getter for ClosingEmployeeId.
-     * The ID of the employee that closed the cash drawer shift by auditing the cash drawer
-     * contents.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("closing_employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetClosingEmployeeId() {
-        return this.closingEmployeeId;
-    }
-
-    /**
-     * Getter for ClosingEmployeeId.
-     * The ID of the employee that closed the cash drawer shift by auditing the cash drawer
-     * contents.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getClosingEmployeeId() {
-        return OptionalNullable.getFrom(closingEmployeeId);
     }
 
     /**
@@ -450,12 +372,91 @@ public class CashDrawerShift {
         return device;
     }
 
+    /**
+     * Getter for CreatedAt.
+     * The shift start time in RFC 3339 format.
+     * @return Returns the String
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * The shift updated at time in RFC 3339 format.
+     * @return Returns the String
+     */
+    @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Getter for LocationId.
+     * The ID of the location the cash drawer shift belongs to.
+     * @return Returns the String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocationId() {
+        return locationId;
+    }
+
+    /**
+     * Getter for TeamMemberIds.
+     * The IDs of all team members that were logged into Square Point of Sale at any point while the
+     * cash drawer shift was open.
+     * @return Returns the List of String
+     */
+    @JsonGetter("team_member_ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getTeamMemberIds() {
+        return teamMemberIds;
+    }
+
+    /**
+     * Getter for OpeningTeamMemberId.
+     * The ID of the team member that started the cash drawer shift.
+     * @return Returns the String
+     */
+    @JsonGetter("opening_team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getOpeningTeamMemberId() {
+        return openingTeamMemberId;
+    }
+
+    /**
+     * Getter for EndingTeamMemberId.
+     * The ID of the team member that ended the cash drawer shift.
+     * @return Returns the String
+     */
+    @JsonGetter("ending_team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEndingTeamMemberId() {
+        return endingTeamMemberId;
+    }
+
+    /**
+     * Getter for ClosingTeamMemberId.
+     * The ID of the team member that closed the cash drawer shift by auditing the cash drawer
+     * contents.
+     * @return Returns the String
+     */
+    @JsonGetter("closing_team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getClosingTeamMemberId() {
+        return closingTeamMemberId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, state, openedAt, endedAt, closedAt, employeeIds, openingEmployeeId,
-                endingEmployeeId, closingEmployeeId, description, openedCashMoney, cashPaymentMoney,
-                cashRefundsMoney, cashPaidInMoney, cashPaidOutMoney, expectedCashMoney,
-                closedCashMoney, device);
+        return Objects.hash(id, state, openedAt, endedAt, closedAt, description, openedCashMoney,
+                cashPaymentMoney, cashRefundsMoney, cashPaidInMoney, cashPaidOutMoney,
+                expectedCashMoney, closedCashMoney, device, createdAt, updatedAt, locationId,
+                teamMemberIds, openingTeamMemberId, endingTeamMemberId, closingTeamMemberId);
     }
 
     @Override
@@ -472,10 +473,6 @@ public class CashDrawerShift {
             && Objects.equals(openedAt, other.openedAt)
             && Objects.equals(endedAt, other.endedAt)
             && Objects.equals(closedAt, other.closedAt)
-            && Objects.equals(employeeIds, other.employeeIds)
-            && Objects.equals(openingEmployeeId, other.openingEmployeeId)
-            && Objects.equals(endingEmployeeId, other.endingEmployeeId)
-            && Objects.equals(closingEmployeeId, other.closingEmployeeId)
             && Objects.equals(description, other.description)
             && Objects.equals(openedCashMoney, other.openedCashMoney)
             && Objects.equals(cashPaymentMoney, other.cashPaymentMoney)
@@ -484,7 +481,14 @@ public class CashDrawerShift {
             && Objects.equals(cashPaidOutMoney, other.cashPaidOutMoney)
             && Objects.equals(expectedCashMoney, other.expectedCashMoney)
             && Objects.equals(closedCashMoney, other.closedCashMoney)
-            && Objects.equals(device, other.device);
+            && Objects.equals(device, other.device)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(locationId, other.locationId)
+            && Objects.equals(teamMemberIds, other.teamMemberIds)
+            && Objects.equals(openingTeamMemberId, other.openingTeamMemberId)
+            && Objects.equals(endingTeamMemberId, other.endingTeamMemberId)
+            && Objects.equals(closingTeamMemberId, other.closingTeamMemberId);
     }
 
     /**
@@ -494,14 +498,15 @@ public class CashDrawerShift {
     @Override
     public String toString() {
         return "CashDrawerShift [" + "id=" + id + ", state=" + state + ", openedAt=" + openedAt
-                + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", employeeIds=" + employeeIds
-                + ", openingEmployeeId=" + openingEmployeeId + ", endingEmployeeId="
-                + endingEmployeeId + ", closingEmployeeId=" + closingEmployeeId + ", description="
-                + description + ", openedCashMoney=" + openedCashMoney + ", cashPaymentMoney="
-                + cashPaymentMoney + ", cashRefundsMoney=" + cashRefundsMoney + ", cashPaidInMoney="
-                + cashPaidInMoney + ", cashPaidOutMoney=" + cashPaidOutMoney
-                + ", expectedCashMoney=" + expectedCashMoney + ", closedCashMoney="
-                + closedCashMoney + ", device=" + device + "]";
+                + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", description=" + description
+                + ", openedCashMoney=" + openedCashMoney + ", cashPaymentMoney=" + cashPaymentMoney
+                + ", cashRefundsMoney=" + cashRefundsMoney + ", cashPaidInMoney=" + cashPaidInMoney
+                + ", cashPaidOutMoney=" + cashPaidOutMoney + ", expectedCashMoney="
+                + expectedCashMoney + ", closedCashMoney=" + closedCashMoney + ", device=" + device
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", locationId="
+                + locationId + ", teamMemberIds=" + teamMemberIds + ", openingTeamMemberId="
+                + openingTeamMemberId + ", endingTeamMemberId=" + endingTeamMemberId
+                + ", closingTeamMemberId=" + closingTeamMemberId + "]";
     }
 
     /**
@@ -520,14 +525,17 @@ public class CashDrawerShift {
                 .cashPaidOutMoney(getCashPaidOutMoney())
                 .expectedCashMoney(getExpectedCashMoney())
                 .closedCashMoney(getClosedCashMoney())
-                .device(getDevice());
+                .device(getDevice())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .locationId(getLocationId())
+                .teamMemberIds(getTeamMemberIds())
+                .openingTeamMemberId(getOpeningTeamMemberId())
+                .endingTeamMemberId(getEndingTeamMemberId())
+                .closingTeamMemberId(getClosingTeamMemberId());
         builder.openedAt = internalGetOpenedAt();
         builder.endedAt = internalGetEndedAt();
         builder.closedAt = internalGetClosedAt();
-        builder.employeeIds = internalGetEmployeeIds();
-        builder.openingEmployeeId = internalGetOpeningEmployeeId();
-        builder.endingEmployeeId = internalGetEndingEmployeeId();
-        builder.closingEmployeeId = internalGetClosingEmployeeId();
         builder.description = internalGetDescription();
         return builder;
     }
@@ -541,10 +549,6 @@ public class CashDrawerShift {
         private OptionalNullable<String> openedAt;
         private OptionalNullable<String> endedAt;
         private OptionalNullable<String> closedAt;
-        private OptionalNullable<List<String>> employeeIds;
-        private OptionalNullable<String> openingEmployeeId;
-        private OptionalNullable<String> endingEmployeeId;
-        private OptionalNullable<String> closingEmployeeId;
         private OptionalNullable<String> description;
         private Money openedCashMoney;
         private Money cashPaymentMoney;
@@ -554,6 +558,13 @@ public class CashDrawerShift {
         private Money expectedCashMoney;
         private Money closedCashMoney;
         private CashDrawerDevice device;
+        private String createdAt;
+        private String updatedAt;
+        private String locationId;
+        private List<String> teamMemberIds;
+        private String openingTeamMemberId;
+        private String endingTeamMemberId;
+        private String closingTeamMemberId;
 
 
 
@@ -631,82 +642,6 @@ public class CashDrawerShift {
          */
         public Builder unsetClosedAt() {
             closedAt = null;
-            return this;
-        }
-
-        /**
-         * Setter for employeeIds.
-         * @param  employeeIds  List of String value for employeeIds.
-         * @return Builder
-         */
-        public Builder employeeIds(List<String> employeeIds) {
-            this.employeeIds = OptionalNullable.of(employeeIds);
-            return this;
-        }
-
-        /**
-         * UnSetter for employeeIds.
-         * @return Builder
-         */
-        public Builder unsetEmployeeIds() {
-            employeeIds = null;
-            return this;
-        }
-
-        /**
-         * Setter for openingEmployeeId.
-         * @param  openingEmployeeId  String value for openingEmployeeId.
-         * @return Builder
-         */
-        public Builder openingEmployeeId(String openingEmployeeId) {
-            this.openingEmployeeId = OptionalNullable.of(openingEmployeeId);
-            return this;
-        }
-
-        /**
-         * UnSetter for openingEmployeeId.
-         * @return Builder
-         */
-        public Builder unsetOpeningEmployeeId() {
-            openingEmployeeId = null;
-            return this;
-        }
-
-        /**
-         * Setter for endingEmployeeId.
-         * @param  endingEmployeeId  String value for endingEmployeeId.
-         * @return Builder
-         */
-        public Builder endingEmployeeId(String endingEmployeeId) {
-            this.endingEmployeeId = OptionalNullable.of(endingEmployeeId);
-            return this;
-        }
-
-        /**
-         * UnSetter for endingEmployeeId.
-         * @return Builder
-         */
-        public Builder unsetEndingEmployeeId() {
-            endingEmployeeId = null;
-            return this;
-        }
-
-        /**
-         * Setter for closingEmployeeId.
-         * @param  closingEmployeeId  String value for closingEmployeeId.
-         * @return Builder
-         */
-        public Builder closingEmployeeId(String closingEmployeeId) {
-            this.closingEmployeeId = OptionalNullable.of(closingEmployeeId);
-            return this;
-        }
-
-        /**
-         * UnSetter for closingEmployeeId.
-         * @return Builder
-         */
-        public Builder unsetClosingEmployeeId() {
-            closingEmployeeId = null;
             return this;
         }
 
@@ -810,14 +745,85 @@ public class CashDrawerShift {
         }
 
         /**
+         * Setter for createdAt.
+         * @param  createdAt  String value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
+         * Setter for locationId.
+         * @param  locationId  String value for locationId.
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+
+        /**
+         * Setter for teamMemberIds.
+         * @param  teamMemberIds  List of String value for teamMemberIds.
+         * @return Builder
+         */
+        public Builder teamMemberIds(List<String> teamMemberIds) {
+            this.teamMemberIds = teamMemberIds;
+            return this;
+        }
+
+        /**
+         * Setter for openingTeamMemberId.
+         * @param  openingTeamMemberId  String value for openingTeamMemberId.
+         * @return Builder
+         */
+        public Builder openingTeamMemberId(String openingTeamMemberId) {
+            this.openingTeamMemberId = openingTeamMemberId;
+            return this;
+        }
+
+        /**
+         * Setter for endingTeamMemberId.
+         * @param  endingTeamMemberId  String value for endingTeamMemberId.
+         * @return Builder
+         */
+        public Builder endingTeamMemberId(String endingTeamMemberId) {
+            this.endingTeamMemberId = endingTeamMemberId;
+            return this;
+        }
+
+        /**
+         * Setter for closingTeamMemberId.
+         * @param  closingTeamMemberId  String value for closingTeamMemberId.
+         * @return Builder
+         */
+        public Builder closingTeamMemberId(String closingTeamMemberId) {
+            this.closingTeamMemberId = closingTeamMemberId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CashDrawerShift} object using the set fields.
          * @return {@link CashDrawerShift}
          */
         public CashDrawerShift build() {
-            return new CashDrawerShift(id, state, openedAt, endedAt, closedAt, employeeIds,
-                    openingEmployeeId, endingEmployeeId, closingEmployeeId, description,
+            return new CashDrawerShift(id, state, openedAt, endedAt, closedAt, description,
                     openedCashMoney, cashPaymentMoney, cashRefundsMoney, cashPaidInMoney,
-                    cashPaidOutMoney, expectedCashMoney, closedCashMoney, device);
+                    cashPaidOutMoney, expectedCashMoney, closedCashMoney, device, createdAt,
+                    updatedAt, locationId, teamMemberIds, openingTeamMemberId, endingTeamMemberId,
+                    closingTeamMemberId);
         }
     }
 }

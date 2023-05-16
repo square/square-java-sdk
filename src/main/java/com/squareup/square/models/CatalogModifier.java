@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,6 +19,7 @@ public class CatalogModifier {
     private final Money priceMoney;
     private final OptionalNullable<Integer> ordinal;
     private final OptionalNullable<String> modifierListId;
+    private final OptionalNullable<List<ModifierLocationOverrides>> locationOverrides;
     private final OptionalNullable<String> imageId;
 
     /**
@@ -27,6 +28,7 @@ public class CatalogModifier {
      * @param  priceMoney  Money value for priceMoney.
      * @param  ordinal  Integer value for ordinal.
      * @param  modifierListId  String value for modifierListId.
+     * @param  locationOverrides  List of ModifierLocationOverrides value for locationOverrides.
      * @param  imageId  String value for imageId.
      */
     @JsonCreator
@@ -35,11 +37,13 @@ public class CatalogModifier {
             @JsonProperty("price_money") Money priceMoney,
             @JsonProperty("ordinal") Integer ordinal,
             @JsonProperty("modifier_list_id") String modifierListId,
+            @JsonProperty("location_overrides") List<ModifierLocationOverrides> locationOverrides,
             @JsonProperty("image_id") String imageId) {
         this.name = OptionalNullable.of(name);
         this.priceMoney = priceMoney;
         this.ordinal = OptionalNullable.of(ordinal);
         this.modifierListId = OptionalNullable.of(modifierListId);
+        this.locationOverrides = OptionalNullable.of(locationOverrides);
         this.imageId = OptionalNullable.of(imageId);
     }
 
@@ -48,11 +52,13 @@ public class CatalogModifier {
      */
     protected CatalogModifier(OptionalNullable<String> name, Money priceMoney,
             OptionalNullable<Integer> ordinal, OptionalNullable<String> modifierListId,
+            OptionalNullable<List<ModifierLocationOverrides>> locationOverrides,
             OptionalNullable<String> imageId) {
         this.name = name;
         this.priceMoney = priceMoney;
         this.ordinal = ordinal;
         this.modifierListId = modifierListId;
+        this.locationOverrides = locationOverrides;
         this.imageId = imageId;
     }
 
@@ -141,6 +147,28 @@ public class CatalogModifier {
     }
 
     /**
+     * Internal Getter for LocationOverrides.
+     * Location-specific price overrides.
+     * @return Returns the Internal List of ModifierLocationOverrides
+     */
+    @JsonGetter("location_overrides")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<ModifierLocationOverrides>> internalGetLocationOverrides() {
+        return this.locationOverrides;
+    }
+
+    /**
+     * Getter for LocationOverrides.
+     * Location-specific price overrides.
+     * @return Returns the List of ModifierLocationOverrides
+     */
+    @JsonIgnore
+    public List<ModifierLocationOverrides> getLocationOverrides() {
+        return OptionalNullable.getFrom(locationOverrides);
+    }
+
+    /**
      * Internal Getter for ImageId.
      * The ID of the image associated with this `CatalogModifier` instance. Currently this image is
      * not displayed by Square, but is free to be displayed in 3rd party applications.
@@ -166,7 +194,8 @@ public class CatalogModifier {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, priceMoney, ordinal, modifierListId, imageId);
+        return Objects.hash(name, priceMoney, ordinal, modifierListId, locationOverrides,
+                imageId);
     }
 
     @Override
@@ -182,6 +211,7 @@ public class CatalogModifier {
             && Objects.equals(priceMoney, other.priceMoney)
             && Objects.equals(ordinal, other.ordinal)
             && Objects.equals(modifierListId, other.modifierListId)
+            && Objects.equals(locationOverrides, other.locationOverrides)
             && Objects.equals(imageId, other.imageId);
     }
 
@@ -192,7 +222,8 @@ public class CatalogModifier {
     @Override
     public String toString() {
         return "CatalogModifier [" + "name=" + name + ", priceMoney=" + priceMoney + ", ordinal="
-                + ordinal + ", modifierListId=" + modifierListId + ", imageId=" + imageId + "]";
+                + ordinal + ", modifierListId=" + modifierListId + ", locationOverrides="
+                + locationOverrides + ", imageId=" + imageId + "]";
     }
 
     /**
@@ -206,6 +237,7 @@ public class CatalogModifier {
         builder.name = internalGetName();
         builder.ordinal = internalGetOrdinal();
         builder.modifierListId = internalGetModifierListId();
+        builder.locationOverrides = internalGetLocationOverrides();
         builder.imageId = internalGetImageId();
         return builder;
     }
@@ -218,6 +250,7 @@ public class CatalogModifier {
         private Money priceMoney;
         private OptionalNullable<Integer> ordinal;
         private OptionalNullable<String> modifierListId;
+        private OptionalNullable<List<ModifierLocationOverrides>> locationOverrides;
         private OptionalNullable<String> imageId;
 
 
@@ -290,6 +323,25 @@ public class CatalogModifier {
         }
 
         /**
+         * Setter for locationOverrides.
+         * @param  locationOverrides  List of ModifierLocationOverrides value for locationOverrides.
+         * @return Builder
+         */
+        public Builder locationOverrides(List<ModifierLocationOverrides> locationOverrides) {
+            this.locationOverrides = OptionalNullable.of(locationOverrides);
+            return this;
+        }
+
+        /**
+         * UnSetter for locationOverrides.
+         * @return Builder
+         */
+        public Builder unsetLocationOverrides() {
+            locationOverrides = null;
+            return this;
+        }
+
+        /**
          * Setter for imageId.
          * @param  imageId  String value for imageId.
          * @return Builder
@@ -313,7 +365,8 @@ public class CatalogModifier {
          * @return {@link CatalogModifier}
          */
         public CatalogModifier build() {
-            return new CatalogModifier(name, priceMoney, ordinal, modifierListId, imageId);
+            return new CatalogModifier(name, priceMoney, ordinal, modifierListId, locationOverrides,
+                    imageId);
         }
     }
 }

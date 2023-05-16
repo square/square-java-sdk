@@ -36,6 +36,7 @@ import com.squareup.square.api.DefaultLaborApi;
 import com.squareup.square.api.DefaultLocationCustomAttributesApi;
 import com.squareup.square.api.DefaultLocationsApi;
 import com.squareup.square.api.DefaultLoyaltyApi;
+import com.squareup.square.api.DefaultMerchantCustomAttributesApi;
 import com.squareup.square.api.DefaultMerchantsApi;
 import com.squareup.square.api.DefaultMobileAuthorizationApi;
 import com.squareup.square.api.DefaultOAuthApi;
@@ -64,6 +65,7 @@ import com.squareup.square.api.LaborApi;
 import com.squareup.square.api.LocationCustomAttributesApi;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.LoyaltyApi;
+import com.squareup.square.api.MerchantCustomAttributesApi;
 import com.squareup.square.api.MerchantsApi;
 import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
@@ -133,6 +135,7 @@ public final class SquareClient implements SquareClientInterface {
     private TransactionsApi transactions;
     private LoyaltyApi loyalty;
     private MerchantsApi merchants;
+    private MerchantCustomAttributesApi merchantCustomAttributes;
     private OrdersApi orders;
     private OrderCustomAttributesApi orderCustomAttributes;
     private PaymentsApi payments;
@@ -148,7 +151,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/28.0.0.20230419 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/29.0.0.20230517 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -268,6 +271,7 @@ public final class SquareClient implements SquareClientInterface {
         transactions = new DefaultTransactionsApi(globalConfig);
         loyalty = new DefaultLoyaltyApi(globalConfig);
         merchants = new DefaultMerchantsApi(globalConfig);
+        merchantCustomAttributes = new DefaultMerchantCustomAttributesApi(globalConfig);
         orders = new DefaultOrdersApi(globalConfig);
         orderCustomAttributes = new DefaultOrderCustomAttributesApi(globalConfig);
         payments = new DefaultPaymentsApi(globalConfig);
@@ -514,6 +518,14 @@ public final class SquareClient implements SquareClientInterface {
     }
 
     /**
+     * Get the instance of MerchantCustomAttributesApi.
+     * @return merchantCustomAttributes
+     */
+    public MerchantCustomAttributesApi getMerchantCustomAttributesApi() {
+        return merchantCustomAttributes;
+    }
+
+    /**
      * Get the instance of OrdersApi.
      * @return orders
      */
@@ -685,7 +697,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "28.0.0.20230419";
+        return "29.0.0.20230517";
     }
 
     /**
@@ -799,7 +811,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2023-04-19";
+        private String squareVersion = "2023-05-17";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;

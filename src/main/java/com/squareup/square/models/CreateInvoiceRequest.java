@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -45,7 +44,7 @@ public class CreateInvoiceRequest {
      * A unique string that identifies the `CreateInvoice` request. If you do not provide
      * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
      * as independent. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

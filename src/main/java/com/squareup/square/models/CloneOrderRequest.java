@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -74,7 +73,7 @@ public class CloneOrderRequest {
      * particular order was cloned successfully, you can reattempt the call with the same
      * idempotency key without worrying about creating duplicate cloned orders. The originally
      * cloned order is returned. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the Internal String
      */
     @JsonGetter("idempotency_key")
@@ -90,7 +89,7 @@ public class CloneOrderRequest {
      * particular order was cloned successfully, you can reattempt the call with the same
      * idempotency key without worrying about creating duplicate cloned orders. The originally
      * cloned order is returned. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonIgnore

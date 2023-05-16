@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -21,6 +20,7 @@ public class CatalogTax {
     private final OptionalNullable<String> percentage;
     private final OptionalNullable<Boolean> appliesToCustomAmounts;
     private final OptionalNullable<Boolean> enabled;
+    private final OptionalNullable<String> appliesToProductSetId;
 
     /**
      * Initialization constructor.
@@ -30,6 +30,7 @@ public class CatalogTax {
      * @param  percentage  String value for percentage.
      * @param  appliesToCustomAmounts  Boolean value for appliesToCustomAmounts.
      * @param  enabled  Boolean value for enabled.
+     * @param  appliesToProductSetId  String value for appliesToProductSetId.
      */
     @JsonCreator
     public CatalogTax(
@@ -38,13 +39,15 @@ public class CatalogTax {
             @JsonProperty("inclusion_type") String inclusionType,
             @JsonProperty("percentage") String percentage,
             @JsonProperty("applies_to_custom_amounts") Boolean appliesToCustomAmounts,
-            @JsonProperty("enabled") Boolean enabled) {
+            @JsonProperty("enabled") Boolean enabled,
+            @JsonProperty("applies_to_product_set_id") String appliesToProductSetId) {
         this.name = OptionalNullable.of(name);
         this.calculationPhase = calculationPhase;
         this.inclusionType = inclusionType;
         this.percentage = OptionalNullable.of(percentage);
         this.appliesToCustomAmounts = OptionalNullable.of(appliesToCustomAmounts);
         this.enabled = OptionalNullable.of(enabled);
+        this.appliesToProductSetId = OptionalNullable.of(appliesToProductSetId);
     }
 
     /**
@@ -52,13 +55,15 @@ public class CatalogTax {
      */
     protected CatalogTax(OptionalNullable<String> name, String calculationPhase,
             String inclusionType, OptionalNullable<String> percentage,
-            OptionalNullable<Boolean> appliesToCustomAmounts, OptionalNullable<Boolean> enabled) {
+            OptionalNullable<Boolean> appliesToCustomAmounts, OptionalNullable<Boolean> enabled,
+            OptionalNullable<String> appliesToProductSetId) {
         this.name = name;
         this.calculationPhase = calculationPhase;
         this.inclusionType = inclusionType;
         this.percentage = percentage;
         this.appliesToCustomAmounts = appliesToCustomAmounts;
         this.enabled = enabled;
+        this.appliesToProductSetId = appliesToProductSetId;
     }
 
     /**
@@ -181,10 +186,34 @@ public class CatalogTax {
         return OptionalNullable.getFrom(enabled);
     }
 
+    /**
+     * Internal Getter for AppliesToProductSetId.
+     * The ID of a `CatalogProductSet` object. If set, the tax is applicable to all products in the
+     * product set.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("applies_to_product_set_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAppliesToProductSetId() {
+        return this.appliesToProductSetId;
+    }
+
+    /**
+     * Getter for AppliesToProductSetId.
+     * The ID of a `CatalogProductSet` object. If set, the tax is applicable to all products in the
+     * product set.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getAppliesToProductSetId() {
+        return OptionalNullable.getFrom(appliesToProductSetId);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, calculationPhase, inclusionType, percentage,
-                appliesToCustomAmounts, enabled);
+                appliesToCustomAmounts, enabled, appliesToProductSetId);
     }
 
     @Override
@@ -201,7 +230,8 @@ public class CatalogTax {
             && Objects.equals(inclusionType, other.inclusionType)
             && Objects.equals(percentage, other.percentage)
             && Objects.equals(appliesToCustomAmounts, other.appliesToCustomAmounts)
-            && Objects.equals(enabled, other.enabled);
+            && Objects.equals(enabled, other.enabled)
+            && Objects.equals(appliesToProductSetId, other.appliesToProductSetId);
     }
 
     /**
@@ -213,7 +243,7 @@ public class CatalogTax {
         return "CatalogTax [" + "name=" + name + ", calculationPhase=" + calculationPhase
                 + ", inclusionType=" + inclusionType + ", percentage=" + percentage
                 + ", appliesToCustomAmounts=" + appliesToCustomAmounts + ", enabled=" + enabled
-                + "]";
+                + ", appliesToProductSetId=" + appliesToProductSetId + "]";
     }
 
     /**
@@ -229,6 +259,7 @@ public class CatalogTax {
         builder.percentage = internalGetPercentage();
         builder.appliesToCustomAmounts = internalGetAppliesToCustomAmounts();
         builder.enabled = internalGetEnabled();
+        builder.appliesToProductSetId = internalGetAppliesToProductSetId();
         return builder;
     }
 
@@ -242,6 +273,7 @@ public class CatalogTax {
         private OptionalNullable<String> percentage;
         private OptionalNullable<Boolean> appliesToCustomAmounts;
         private OptionalNullable<Boolean> enabled;
+        private OptionalNullable<String> appliesToProductSetId;
 
 
 
@@ -342,12 +374,31 @@ public class CatalogTax {
         }
 
         /**
+         * Setter for appliesToProductSetId.
+         * @param  appliesToProductSetId  String value for appliesToProductSetId.
+         * @return Builder
+         */
+        public Builder appliesToProductSetId(String appliesToProductSetId) {
+            this.appliesToProductSetId = OptionalNullable.of(appliesToProductSetId);
+            return this;
+        }
+
+        /**
+         * UnSetter for appliesToProductSetId.
+         * @return Builder
+         */
+        public Builder unsetAppliesToProductSetId() {
+            appliesToProductSetId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogTax} object using the set fields.
          * @return {@link CatalogTax}
          */
         public CatalogTax build() {
             return new CatalogTax(name, calculationPhase, inclusionType, percentage,
-                    appliesToCustomAmounts, enabled);
+                    appliesToCustomAmounts, enabled, appliesToProductSetId);
         }
     }
 }

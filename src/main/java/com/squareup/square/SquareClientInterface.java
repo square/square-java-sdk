@@ -24,6 +24,7 @@ import com.squareup.square.api.LaborApi;
 import com.squareup.square.api.LocationCustomAttributesApi;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.api.LoyaltyApi;
+import com.squareup.square.api.MerchantCustomAttributesApi;
 import com.squareup.square.api.MerchantsApi;
 import com.squareup.square.api.MobileAuthorizationApi;
 import com.squareup.square.api.OAuthApi;
@@ -216,6 +217,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the MerchantsApi instance
      */
     MerchantsApi getMerchantsApi();
+
+    /**
+     * Provides access to MerchantCustomAttributes controller.
+     * @return Returns the MerchantCustomAttributesApi instance
+     */
+    MerchantCustomAttributesApi getMerchantCustomAttributesApi();
 
     /**
      * Provides access to Orders controller.

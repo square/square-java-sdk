@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -16,48 +15,48 @@ import java.util.Objects;
  */
 public class CashDrawerShiftEvent {
     private final String id;
-    private final OptionalNullable<String> employeeId;
     private final String eventType;
     private final Money eventMoney;
     private final String createdAt;
     private final OptionalNullable<String> description;
+    private final String teamMemberId;
 
     /**
      * Initialization constructor.
      * @param  id  String value for id.
-     * @param  employeeId  String value for employeeId.
      * @param  eventType  String value for eventType.
      * @param  eventMoney  Money value for eventMoney.
      * @param  createdAt  String value for createdAt.
      * @param  description  String value for description.
+     * @param  teamMemberId  String value for teamMemberId.
      */
     @JsonCreator
     public CashDrawerShiftEvent(
             @JsonProperty("id") String id,
-            @JsonProperty("employee_id") String employeeId,
             @JsonProperty("event_type") String eventType,
             @JsonProperty("event_money") Money eventMoney,
             @JsonProperty("created_at") String createdAt,
-            @JsonProperty("description") String description) {
+            @JsonProperty("description") String description,
+            @JsonProperty("team_member_id") String teamMemberId) {
         this.id = id;
-        this.employeeId = OptionalNullable.of(employeeId);
         this.eventType = eventType;
         this.eventMoney = eventMoney;
         this.createdAt = createdAt;
         this.description = OptionalNullable.of(description);
+        this.teamMemberId = teamMemberId;
     }
 
     /**
      * Internal initialization constructor.
      */
-    protected CashDrawerShiftEvent(String id, OptionalNullable<String> employeeId, String eventType,
-            Money eventMoney, String createdAt, OptionalNullable<String> description) {
+    protected CashDrawerShiftEvent(String id, String eventType, Money eventMoney, String createdAt,
+            OptionalNullable<String> description, String teamMemberId) {
         this.id = id;
-        this.employeeId = employeeId;
         this.eventType = eventType;
         this.eventMoney = eventMoney;
         this.createdAt = createdAt;
         this.description = description;
+        this.teamMemberId = teamMemberId;
     }
 
     /**
@@ -69,28 +68,6 @@ public class CashDrawerShiftEvent {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getId() {
         return id;
-    }
-
-    /**
-     * Internal Getter for EmployeeId.
-     * The ID of the employee that created the event.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("employee_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetEmployeeId() {
-        return this.employeeId;
-    }
-
-    /**
-     * Getter for EmployeeId.
-     * The ID of the employee that created the event.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getEmployeeId() {
-        return OptionalNullable.getFrom(employeeId);
     }
 
     /**
@@ -123,7 +100,7 @@ public class CashDrawerShiftEvent {
 
     /**
      * Getter for CreatedAt.
-     * The event time in ISO 8601 format.
+     * The event time in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -154,9 +131,20 @@ public class CashDrawerShiftEvent {
         return OptionalNullable.getFrom(description);
     }
 
+    /**
+     * Getter for TeamMemberId.
+     * The ID of the team member that created the event.
+     * @return Returns the String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTeamMemberId() {
+        return teamMemberId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, employeeId, eventType, eventMoney, createdAt, description);
+        return Objects.hash(id, eventType, eventMoney, createdAt, description, teamMemberId);
     }
 
     @Override
@@ -169,11 +157,11 @@ public class CashDrawerShiftEvent {
         }
         CashDrawerShiftEvent other = (CashDrawerShiftEvent) obj;
         return Objects.equals(id, other.id)
-            && Objects.equals(employeeId, other.employeeId)
             && Objects.equals(eventType, other.eventType)
             && Objects.equals(eventMoney, other.eventMoney)
             && Objects.equals(createdAt, other.createdAt)
-            && Objects.equals(description, other.description);
+            && Objects.equals(description, other.description)
+            && Objects.equals(teamMemberId, other.teamMemberId);
     }
 
     /**
@@ -182,9 +170,9 @@ public class CashDrawerShiftEvent {
      */
     @Override
     public String toString() {
-        return "CashDrawerShiftEvent [" + "id=" + id + ", employeeId=" + employeeId + ", eventType="
-                + eventType + ", eventMoney=" + eventMoney + ", createdAt=" + createdAt
-                + ", description=" + description + "]";
+        return "CashDrawerShiftEvent [" + "id=" + id + ", eventType=" + eventType + ", eventMoney="
+                + eventMoney + ", createdAt=" + createdAt + ", description=" + description
+                + ", teamMemberId=" + teamMemberId + "]";
     }
 
     /**
@@ -197,8 +185,8 @@ public class CashDrawerShiftEvent {
                 .id(getId())
                 .eventType(getEventType())
                 .eventMoney(getEventMoney())
-                .createdAt(getCreatedAt());
-        builder.employeeId = internalGetEmployeeId();
+                .createdAt(getCreatedAt())
+                .teamMemberId(getTeamMemberId());
         builder.description = internalGetDescription();
         return builder;
     }
@@ -208,11 +196,11 @@ public class CashDrawerShiftEvent {
      */
     public static class Builder {
         private String id;
-        private OptionalNullable<String> employeeId;
         private String eventType;
         private Money eventMoney;
         private String createdAt;
         private OptionalNullable<String> description;
+        private String teamMemberId;
 
 
 
@@ -223,25 +211,6 @@ public class CashDrawerShiftEvent {
          */
         public Builder id(String id) {
             this.id = id;
-            return this;
-        }
-
-        /**
-         * Setter for employeeId.
-         * @param  employeeId  String value for employeeId.
-         * @return Builder
-         */
-        public Builder employeeId(String employeeId) {
-            this.employeeId = OptionalNullable.of(employeeId);
-            return this;
-        }
-
-        /**
-         * UnSetter for employeeId.
-         * @return Builder
-         */
-        public Builder unsetEmployeeId() {
-            employeeId = null;
             return this;
         }
 
@@ -295,12 +264,22 @@ public class CashDrawerShiftEvent {
         }
 
         /**
+         * Setter for teamMemberId.
+         * @param  teamMemberId  String value for teamMemberId.
+         * @return Builder
+         */
+        public Builder teamMemberId(String teamMemberId) {
+            this.teamMemberId = teamMemberId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CashDrawerShiftEvent} object using the set fields.
          * @return {@link CashDrawerShiftEvent}
          */
         public CashDrawerShiftEvent build() {
-            return new CashDrawerShiftEvent(id, employeeId, eventType, eventMoney, createdAt,
-                    description);
+            return new CashDrawerShiftEvent(id, eventType, eventMoney, createdAt, description,
+                    teamMemberId);
         }
     }
 }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Objects;
@@ -369,7 +368,8 @@ public class Location {
     /**
      * Internal Getter for BusinessName.
      * The name of the location's overall business. This name is present on receipts and other
-     * customer-facing branding.
+     * customer-facing branding, and can be changed no more than three times in a twelve-month
+     * period.
      * @return Returns the Internal String
      */
     @JsonGetter("business_name")
@@ -382,7 +382,8 @@ public class Location {
     /**
      * Getter for BusinessName.
      * The name of the location's overall business. This name is present on receipts and other
-     * customer-facing branding.
+     * customer-facing branding, and can be changed no more than three times in a twelve-month
+     * period.
      * @return Returns the String
      */
     @JsonIgnore
