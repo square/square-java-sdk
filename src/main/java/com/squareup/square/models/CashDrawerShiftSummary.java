@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -24,6 +23,9 @@ public class CashDrawerShiftSummary {
     private final Money openedCashMoney;
     private final Money expectedCashMoney;
     private final Money closedCashMoney;
+    private final String createdAt;
+    private final String updatedAt;
+    private final String locationId;
 
     /**
      * Initialization constructor.
@@ -36,6 +38,9 @@ public class CashDrawerShiftSummary {
      * @param  openedCashMoney  Money value for openedCashMoney.
      * @param  expectedCashMoney  Money value for expectedCashMoney.
      * @param  closedCashMoney  Money value for closedCashMoney.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  locationId  String value for locationId.
      */
     @JsonCreator
     public CashDrawerShiftSummary(
@@ -47,7 +52,10 @@ public class CashDrawerShiftSummary {
             @JsonProperty("description") String description,
             @JsonProperty("opened_cash_money") Money openedCashMoney,
             @JsonProperty("expected_cash_money") Money expectedCashMoney,
-            @JsonProperty("closed_cash_money") Money closedCashMoney) {
+            @JsonProperty("closed_cash_money") Money closedCashMoney,
+            @JsonProperty("created_at") String createdAt,
+            @JsonProperty("updated_at") String updatedAt,
+            @JsonProperty("location_id") String locationId) {
         this.id = id;
         this.state = state;
         this.openedAt = OptionalNullable.of(openedAt);
@@ -57,6 +65,9 @@ public class CashDrawerShiftSummary {
         this.openedCashMoney = openedCashMoney;
         this.expectedCashMoney = expectedCashMoney;
         this.closedCashMoney = closedCashMoney;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.locationId = locationId;
     }
 
     /**
@@ -65,7 +76,7 @@ public class CashDrawerShiftSummary {
     protected CashDrawerShiftSummary(String id, String state, OptionalNullable<String> openedAt,
             OptionalNullable<String> endedAt, OptionalNullable<String> closedAt,
             OptionalNullable<String> description, Money openedCashMoney, Money expectedCashMoney,
-            Money closedCashMoney) {
+            Money closedCashMoney, String createdAt, String updatedAt, String locationId) {
         this.id = id;
         this.state = state;
         this.openedAt = openedAt;
@@ -75,6 +86,9 @@ public class CashDrawerShiftSummary {
         this.openedCashMoney = openedCashMoney;
         this.expectedCashMoney = expectedCashMoney;
         this.closedCashMoney = closedCashMoney;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.locationId = locationId;
     }
 
     /**
@@ -235,10 +249,43 @@ public class CashDrawerShiftSummary {
         return closedCashMoney;
     }
 
+    /**
+     * Getter for CreatedAt.
+     * The shift start time in RFC 3339 format.
+     * @return Returns the String
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * The shift updated at time in RFC 3339 format.
+     * @return Returns the String
+     */
+    @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Getter for LocationId.
+     * The ID of the location the cash drawer shift belongs to.
+     * @return Returns the String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocationId() {
+        return locationId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, state, openedAt, endedAt, closedAt, description, openedCashMoney,
-                expectedCashMoney, closedCashMoney);
+                expectedCashMoney, closedCashMoney, createdAt, updatedAt, locationId);
     }
 
     @Override
@@ -258,7 +305,10 @@ public class CashDrawerShiftSummary {
             && Objects.equals(description, other.description)
             && Objects.equals(openedCashMoney, other.openedCashMoney)
             && Objects.equals(expectedCashMoney, other.expectedCashMoney)
-            && Objects.equals(closedCashMoney, other.closedCashMoney);
+            && Objects.equals(closedCashMoney, other.closedCashMoney)
+            && Objects.equals(createdAt, other.createdAt)
+            && Objects.equals(updatedAt, other.updatedAt)
+            && Objects.equals(locationId, other.locationId);
     }
 
     /**
@@ -270,7 +320,8 @@ public class CashDrawerShiftSummary {
         return "CashDrawerShiftSummary [" + "id=" + id + ", state=" + state + ", openedAt="
                 + openedAt + ", endedAt=" + endedAt + ", closedAt=" + closedAt + ", description="
                 + description + ", openedCashMoney=" + openedCashMoney + ", expectedCashMoney="
-                + expectedCashMoney + ", closedCashMoney=" + closedCashMoney + "]";
+                + expectedCashMoney + ", closedCashMoney=" + closedCashMoney + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", locationId=" + locationId + "]";
     }
 
     /**
@@ -284,7 +335,10 @@ public class CashDrawerShiftSummary {
                 .state(getState())
                 .openedCashMoney(getOpenedCashMoney())
                 .expectedCashMoney(getExpectedCashMoney())
-                .closedCashMoney(getClosedCashMoney());
+                .closedCashMoney(getClosedCashMoney())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .locationId(getLocationId());
         builder.openedAt = internalGetOpenedAt();
         builder.endedAt = internalGetEndedAt();
         builder.closedAt = internalGetClosedAt();
@@ -305,6 +359,9 @@ public class CashDrawerShiftSummary {
         private Money openedCashMoney;
         private Money expectedCashMoney;
         private Money closedCashMoney;
+        private String createdAt;
+        private String updatedAt;
+        private String locationId;
 
 
 
@@ -435,12 +492,43 @@ public class CashDrawerShiftSummary {
         }
 
         /**
+         * Setter for createdAt.
+         * @param  createdAt  String value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAt.
+         * @param  updatedAt  String value for updatedAt.
+         * @return Builder
+         */
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
+         * Setter for locationId.
+         * @param  locationId  String value for locationId.
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CashDrawerShiftSummary} object using the set fields.
          * @return {@link CashDrawerShiftSummary}
          */
         public CashDrawerShiftSummary build() {
             return new CashDrawerShiftSummary(id, state, openedAt, endedAt, closedAt, description,
-                    openedCashMoney, expectedCashMoney, closedCashMoney);
+                    openedCashMoney, expectedCashMoney, closedCashMoney, createdAt, updatedAt,
+                    locationId);
         }
     }
 }

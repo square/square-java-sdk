@@ -64,6 +64,7 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
 .timezone("America/Los_Angeles")
 .source(new SubscriptionSource.Builder()
+        .name("My App")
         .build())
 .build();
 
@@ -208,11 +209,6 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 String subscriptionId = "subscription_id0";
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder()
     .subscription(new Subscription.Builder()
-        .priceOverrideMoney(new Money.Builder()
-            .amount(2000L)
-            .currency("USD")
-            .build())
-        .version(1594155459464L)
         .build())
     .build();
 

@@ -96,7 +96,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
      *         For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  includeDisabled  Optional parameter: Includes disabled
      *         [Subscription](entity:WebhookSubscription)s. By default, all enabled
      *         [Subscription](entity:WebhookSubscription)s are returned.
@@ -124,7 +124,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this to retrieve the next set of results for your original query.
      *         For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  includeDisabled  Optional parameter: Includes disabled
      *         [Subscription](entity:WebhookSubscription)s. By default, all enabled
      *         [Subscription](entity:WebhookSubscription)s are returned.

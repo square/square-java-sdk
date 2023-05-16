@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -99,8 +98,7 @@ public class InvoiceAcceptedPaymentMethods {
 
     /**
      * Internal Getter for BankAccount.
-     * Indicates whether bank transfer payments are accepted. The default value is `false`. This
-     * option is allowed only for invoices that have a single payment request of the `BALANCE` type.
+     * Indicates whether ACH bank transfer payments are accepted. The default value is `false`.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("bank_account")
@@ -112,8 +110,7 @@ public class InvoiceAcceptedPaymentMethods {
 
     /**
      * Getter for BankAccount.
-     * Indicates whether bank transfer payments are accepted. The default value is `false`. This
-     * option is allowed only for invoices that have a single payment request of the `BALANCE` type.
+     * Indicates whether ACH bank transfer payments are accepted. The default value is `false`.
      * @return Returns the Boolean
      */
     @JsonIgnore

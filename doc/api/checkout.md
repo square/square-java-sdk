@@ -78,6 +78,8 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
                         .build()
                     ))
                 .basePriceMoney(new Money.Builder()
+                        .amount(1500L)
+                        .currency("USD")
                         .build())
                 .build(),
                 new OrderLineItem.Builder(
@@ -85,6 +87,8 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
                 )
                 .name("Slim Jeans")
                 .basePriceMoney(new Money.Builder()
+                        .amount(2500L)
+                        .currency("USD")
                         .build())
                 .build(),
                 new OrderLineItem.Builder(
@@ -92,6 +96,8 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
                 )
                 .name("Woven Sweater")
                 .basePriceMoney(new Money.Builder()
+                        .amount(3500L)
+                        .currency("USD")
                         .build())
                 .build()
             ))
@@ -108,6 +114,8 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
                     .uid("56ae1696-z1e3-9328-af6d-f1e04d947gd4")
                     .type("FIXED_AMOUNT")
                     .amountMoney(new Money.Builder()
+                        .amount(100L)
+                        .currency("USD")
                         .build())
                     .scope("LINE_ITEM")
                     .build()

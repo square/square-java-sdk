@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -55,7 +54,7 @@ public class ListWebhookSubscriptionsRequest {
      * Internal Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for your original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the Internal String
      */
     @JsonGetter("cursor")
@@ -69,7 +68,7 @@ public class ListWebhookSubscriptionsRequest {
      * Getter for Cursor.
      * A pagination cursor returned by a previous call to this endpoint. Provide this to retrieve
      * the next set of results for your original query. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonIgnore

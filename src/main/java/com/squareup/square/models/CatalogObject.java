@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 import java.util.Map;
@@ -494,7 +493,8 @@ public class CatalogObject {
 
     /**
      * Getter for ModifierData.
-     * A modifier applicable to items at the time of sale.
+     * A modifier applicable to items at the time of sale. An example of a modifier is a Cheese
+     * add-on to a Burger item.
      * @return Returns the CatalogModifier
      */
     @JsonGetter("modifier_data")

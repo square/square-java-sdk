@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -47,7 +46,8 @@ public class CreateOrderRequest {
      * A value you specify that uniquely identifies this order among orders you have created. If you
      * are unsure whether a particular order was created successfully, you can try it again with the
      * same idempotency key without worrying about creating duplicate orders. For more information,
-     * see [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * see
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

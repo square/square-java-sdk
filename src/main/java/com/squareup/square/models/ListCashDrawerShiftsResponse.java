@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,40 +15,29 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftsResponse {
     private HttpContext httpContext;
-    private final List<CashDrawerShiftSummary> items;
     private final String cursor;
     private final List<Error> errors;
+    private final List<CashDrawerShiftSummary> cashDrawerShifts;
 
     /**
      * Initialization constructor.
-     * @param  items  List of CashDrawerShiftSummary value for items.
      * @param  cursor  String value for cursor.
      * @param  errors  List of Error value for errors.
+     * @param  cashDrawerShifts  List of CashDrawerShiftSummary value for cashDrawerShifts.
      */
     @JsonCreator
     public ListCashDrawerShiftsResponse(
-            @JsonProperty("items") List<CashDrawerShiftSummary> items,
             @JsonProperty("cursor") String cursor,
-            @JsonProperty("errors") List<Error> errors) {
-        this.items = items;
+            @JsonProperty("errors") List<Error> errors,
+            @JsonProperty("cash_drawer_shifts") List<CashDrawerShiftSummary> cashDrawerShifts) {
         this.cursor = cursor;
         this.errors = errors;
+        this.cashDrawerShifts = cashDrawerShifts;
     }
 
     @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
-    }
-
-    /**
-     * Getter for Items.
-     * A collection of CashDrawerShiftSummary objects for shifts that match the query.
-     * @return Returns the List of CashDrawerShiftSummary
-     */
-    @JsonGetter("items")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<CashDrawerShiftSummary> getItems() {
-        return items;
     }
 
     /**
@@ -75,9 +63,20 @@ public class ListCashDrawerShiftsResponse {
         return errors;
     }
 
+    /**
+     * Getter for CashDrawerShifts.
+     * A collection of CashDrawerShiftSummary objects for shifts that match the query.
+     * @return Returns the List of CashDrawerShiftSummary
+     */
+    @JsonGetter("cash_drawer_shifts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<CashDrawerShiftSummary> getCashDrawerShifts() {
+        return cashDrawerShifts;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(items, cursor, errors);
+        return Objects.hash(cursor, errors, cashDrawerShifts);
     }
 
     @Override
@@ -89,9 +88,9 @@ public class ListCashDrawerShiftsResponse {
             return false;
         }
         ListCashDrawerShiftsResponse other = (ListCashDrawerShiftsResponse) obj;
-        return Objects.equals(items, other.items)
-            && Objects.equals(cursor, other.cursor)
-            && Objects.equals(errors, other.errors);
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors)
+            && Objects.equals(cashDrawerShifts, other.cashDrawerShifts);
     }
 
     /**
@@ -100,8 +99,8 @@ public class ListCashDrawerShiftsResponse {
      */
     @Override
     public String toString() {
-        return "ListCashDrawerShiftsResponse [" + "items=" + items + ", cursor=" + cursor
-                + ", errors=" + errors + "]";
+        return "ListCashDrawerShiftsResponse [" + "cursor=" + cursor + ", errors=" + errors
+                + ", cashDrawerShifts=" + cashDrawerShifts + "]";
     }
 
     /**
@@ -111,9 +110,9 @@ public class ListCashDrawerShiftsResponse {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .items(getItems())
                 .cursor(getCursor())
-                .errors(getErrors());
+                .errors(getErrors())
+                .cashDrawerShifts(getCashDrawerShifts());
         return builder;
     }
 
@@ -122,9 +121,9 @@ public class ListCashDrawerShiftsResponse {
      */
     public static class Builder {
         private HttpContext httpContext;
-        private List<CashDrawerShiftSummary> items;
         private String cursor;
         private List<Error> errors;
+        private List<CashDrawerShiftSummary> cashDrawerShifts;
 
 
 
@@ -135,16 +134,6 @@ public class ListCashDrawerShiftsResponse {
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
-            return this;
-        }
-
-        /**
-         * Setter for items.
-         * @param  items  List of CashDrawerShiftSummary value for items.
-         * @return Builder
-         */
-        public Builder items(List<CashDrawerShiftSummary> items) {
-            this.items = items;
             return this;
         }
 
@@ -169,12 +158,22 @@ public class ListCashDrawerShiftsResponse {
         }
 
         /**
+         * Setter for cashDrawerShifts.
+         * @param  cashDrawerShifts  List of CashDrawerShiftSummary value for cashDrawerShifts.
+         * @return Builder
+         */
+        public Builder cashDrawerShifts(List<CashDrawerShiftSummary> cashDrawerShifts) {
+            this.cashDrawerShifts = cashDrawerShifts;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCashDrawerShiftsResponse} object using the set fields.
          * @return {@link ListCashDrawerShiftsResponse}
          */
         public ListCashDrawerShiftsResponse build() {
             ListCashDrawerShiftsResponse model =
-                    new ListCashDrawerShiftsResponse(items, cursor, errors);
+                    new ListCashDrawerShiftsResponse(cursor, errors, cashDrawerShifts);
             model.httpContext = httpContext;
             return model;
         }

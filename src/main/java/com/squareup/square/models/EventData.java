@@ -8,14 +8,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.squareup.square.utilities.JsonObject;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
- * This is a model class for SquareEventData type.
+ * This is a model class for EventData type.
  */
-public class SquareEventData {
+public class EventData {
     private final OptionalNullable<String> type;
     private final String id;
     private final OptionalNullable<Boolean> deleted;
@@ -29,7 +28,7 @@ public class SquareEventData {
      * @param  object  JsonObject value for object.
      */
     @JsonCreator
-    public SquareEventData(
+    public EventData(
             @JsonProperty("type") String type,
             @JsonProperty("id") String id,
             @JsonProperty("deleted") Boolean deleted,
@@ -43,8 +42,8 @@ public class SquareEventData {
     /**
      * Internal initialization constructor.
      */
-    protected SquareEventData(OptionalNullable<String> type, String id,
-            OptionalNullable<Boolean> deleted, OptionalNullable<JsonObject> object) {
+    protected EventData(OptionalNullable<String> type, String id, OptionalNullable<Boolean> deleted,
+            OptionalNullable<JsonObject> object) {
         this.type = type;
         this.id = id;
         this.deleted = deleted;
@@ -140,10 +139,10 @@ public class SquareEventData {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof SquareEventData)) {
+        if (!(obj instanceof EventData)) {
             return false;
         }
-        SquareEventData other = (SquareEventData) obj;
+        EventData other = (EventData) obj;
         return Objects.equals(type, other.type)
             && Objects.equals(id, other.id)
             && Objects.equals(deleted, other.deleted)
@@ -151,19 +150,19 @@ public class SquareEventData {
     }
 
     /**
-     * Converts this SquareEventData into string format.
+     * Converts this EventData into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "SquareEventData [" + "type=" + type + ", id=" + id + ", deleted=" + deleted
-                + ", object=" + object + "]";
+        return "EventData [" + "type=" + type + ", id=" + id + ", deleted=" + deleted + ", object="
+                + object + "]";
     }
 
     /**
-     * Builds a new {@link SquareEventData.Builder} object.
+     * Builds a new {@link EventData.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SquareEventData.Builder} object
+     * @return a new {@link EventData.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -175,7 +174,7 @@ public class SquareEventData {
     }
 
     /**
-     * Class to build instances of {@link SquareEventData}.
+     * Class to build instances of {@link EventData}.
      */
     public static class Builder {
         private OptionalNullable<String> type;
@@ -253,11 +252,11 @@ public class SquareEventData {
         }
 
         /**
-         * Builds a new {@link SquareEventData} object using the set fields.
-         * @return {@link SquareEventData}
+         * Builds a new {@link EventData} object using the set fields.
+         * @return {@link EventData}
          */
-        public SquareEventData build() {
-            return new SquareEventData(type, id, deleted, object);
+        public EventData build() {
+            return new EventData(type, id, deleted, object);
         }
     }
 }

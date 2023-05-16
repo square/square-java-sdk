@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,40 +15,29 @@ import java.util.Objects;
  */
 public class ListCashDrawerShiftEventsResponse {
     private HttpContext httpContext;
-    private final List<CashDrawerShiftEvent> events;
     private final String cursor;
     private final List<Error> errors;
+    private final List<CashDrawerShiftEvent> cashDrawerShiftEvents;
 
     /**
      * Initialization constructor.
-     * @param  events  List of CashDrawerShiftEvent value for events.
      * @param  cursor  String value for cursor.
      * @param  errors  List of Error value for errors.
+     * @param  cashDrawerShiftEvents  List of CashDrawerShiftEvent value for cashDrawerShiftEvents.
      */
     @JsonCreator
     public ListCashDrawerShiftEventsResponse(
-            @JsonProperty("events") List<CashDrawerShiftEvent> events,
             @JsonProperty("cursor") String cursor,
-            @JsonProperty("errors") List<Error> errors) {
-        this.events = events;
+            @JsonProperty("errors") List<Error> errors,
+            @JsonProperty("cash_drawer_shift_events") List<CashDrawerShiftEvent> cashDrawerShiftEvents) {
         this.cursor = cursor;
         this.errors = errors;
+        this.cashDrawerShiftEvents = cashDrawerShiftEvents;
     }
 
     @JsonIgnore
     public HttpContext getContext() {
         return httpContext;
-    }
-
-    /**
-     * Getter for Events.
-     * All of the events (payments, refunds, etc.) for a cash drawer during the shift.
-     * @return Returns the List of CashDrawerShiftEvent
-     */
-    @JsonGetter("events")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<CashDrawerShiftEvent> getEvents() {
-        return events;
     }
 
     /**
@@ -74,9 +62,20 @@ public class ListCashDrawerShiftEventsResponse {
         return errors;
     }
 
+    /**
+     * Getter for CashDrawerShiftEvents.
+     * All of the events (payments, refunds, etc.) for a cash drawer during the shift.
+     * @return Returns the List of CashDrawerShiftEvent
+     */
+    @JsonGetter("cash_drawer_shift_events")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<CashDrawerShiftEvent> getCashDrawerShiftEvents() {
+        return cashDrawerShiftEvents;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(events, cursor, errors);
+        return Objects.hash(cursor, errors, cashDrawerShiftEvents);
     }
 
     @Override
@@ -88,9 +87,9 @@ public class ListCashDrawerShiftEventsResponse {
             return false;
         }
         ListCashDrawerShiftEventsResponse other = (ListCashDrawerShiftEventsResponse) obj;
-        return Objects.equals(events, other.events)
-            && Objects.equals(cursor, other.cursor)
-            && Objects.equals(errors, other.errors);
+        return Objects.equals(cursor, other.cursor)
+            && Objects.equals(errors, other.errors)
+            && Objects.equals(cashDrawerShiftEvents, other.cashDrawerShiftEvents);
     }
 
     /**
@@ -99,8 +98,8 @@ public class ListCashDrawerShiftEventsResponse {
      */
     @Override
     public String toString() {
-        return "ListCashDrawerShiftEventsResponse [" + "events=" + events + ", cursor=" + cursor
-                + ", errors=" + errors + "]";
+        return "ListCashDrawerShiftEventsResponse [" + "cursor=" + cursor + ", errors=" + errors
+                + ", cashDrawerShiftEvents=" + cashDrawerShiftEvents + "]";
     }
 
     /**
@@ -110,9 +109,9 @@ public class ListCashDrawerShiftEventsResponse {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .events(getEvents())
                 .cursor(getCursor())
-                .errors(getErrors());
+                .errors(getErrors())
+                .cashDrawerShiftEvents(getCashDrawerShiftEvents());
         return builder;
     }
 
@@ -121,9 +120,9 @@ public class ListCashDrawerShiftEventsResponse {
      */
     public static class Builder {
         private HttpContext httpContext;
-        private List<CashDrawerShiftEvent> events;
         private String cursor;
         private List<Error> errors;
+        private List<CashDrawerShiftEvent> cashDrawerShiftEvents;
 
 
 
@@ -134,16 +133,6 @@ public class ListCashDrawerShiftEventsResponse {
          */
         public Builder httpContext(HttpContext httpContext) {
             this.httpContext = httpContext;
-            return this;
-        }
-
-        /**
-         * Setter for events.
-         * @param  events  List of CashDrawerShiftEvent value for events.
-         * @return Builder
-         */
-        public Builder events(List<CashDrawerShiftEvent> events) {
-            this.events = events;
             return this;
         }
 
@@ -168,12 +157,23 @@ public class ListCashDrawerShiftEventsResponse {
         }
 
         /**
+         * Setter for cashDrawerShiftEvents.
+         * @param  cashDrawerShiftEvents  List of CashDrawerShiftEvent value for
+         *         cashDrawerShiftEvents.
+         * @return Builder
+         */
+        public Builder cashDrawerShiftEvents(List<CashDrawerShiftEvent> cashDrawerShiftEvents) {
+            this.cashDrawerShiftEvents = cashDrawerShiftEvents;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCashDrawerShiftEventsResponse} object using the set fields.
          * @return {@link ListCashDrawerShiftEventsResponse}
          */
         public ListCashDrawerShiftEventsResponse build() {
             ListCashDrawerShiftEventsResponse model =
-                    new ListCashDrawerShiftEventsResponse(events, cursor, errors);
+                    new ListCashDrawerShiftEventsResponse(cursor, errors, cashDrawerShiftEvents);
             model.httpContext = httpContext;
             return model;
         }

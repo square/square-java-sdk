@@ -7,20 +7,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
- * This is a model class for SquareEvent type.
+ * This is a model class for Event type.
  */
-public class SquareEvent {
+public class Event {
     private final OptionalNullable<String> merchantId;
     private final OptionalNullable<String> locationId;
     private final OptionalNullable<String> type;
     private final OptionalNullable<String> eventId;
     private final String createdAt;
-    private final SquareEventData data;
+    private final EventData data;
 
     /**
      * Initialization constructor.
@@ -29,16 +28,16 @@ public class SquareEvent {
      * @param  type  String value for type.
      * @param  eventId  String value for eventId.
      * @param  createdAt  String value for createdAt.
-     * @param  data  SquareEventData value for data.
+     * @param  data  EventData value for data.
      */
     @JsonCreator
-    public SquareEvent(
+    public Event(
             @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("type") String type,
             @JsonProperty("event_id") String eventId,
             @JsonProperty("created_at") String createdAt,
-            @JsonProperty("data") SquareEventData data) {
+            @JsonProperty("data") EventData data) {
         this.merchantId = OptionalNullable.of(merchantId);
         this.locationId = OptionalNullable.of(locationId);
         this.type = OptionalNullable.of(type);
@@ -50,9 +49,9 @@ public class SquareEvent {
     /**
      * Internal initialization constructor.
      */
-    protected SquareEvent(OptionalNullable<String> merchantId, OptionalNullable<String> locationId,
+    protected Event(OptionalNullable<String> merchantId, OptionalNullable<String> locationId,
             OptionalNullable<String> type, OptionalNullable<String> eventId, String createdAt,
-            SquareEventData data) {
+            EventData data) {
         this.merchantId = merchantId;
         this.locationId = locationId;
         this.type = type;
@@ -162,11 +161,11 @@ public class SquareEvent {
 
     /**
      * Getter for Data.
-     * @return Returns the SquareEventData
+     * @return Returns the EventData
      */
     @JsonGetter("data")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SquareEventData getData() {
+    public EventData getData() {
         return data;
     }
 
@@ -180,10 +179,10 @@ public class SquareEvent {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof SquareEvent)) {
+        if (!(obj instanceof Event)) {
             return false;
         }
-        SquareEvent other = (SquareEvent) obj;
+        Event other = (Event) obj;
         return Objects.equals(merchantId, other.merchantId)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(type, other.type)
@@ -193,20 +192,20 @@ public class SquareEvent {
     }
 
     /**
-     * Converts this SquareEvent into string format.
+     * Converts this Event into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "SquareEvent [" + "merchantId=" + merchantId + ", locationId=" + locationId
-                + ", type=" + type + ", eventId=" + eventId + ", createdAt=" + createdAt + ", data="
-                + data + "]";
+        return "Event [" + "merchantId=" + merchantId + ", locationId=" + locationId + ", type="
+                + type + ", eventId=" + eventId + ", createdAt=" + createdAt + ", data=" + data
+                + "]";
     }
 
     /**
-     * Builds a new {@link SquareEvent.Builder} object.
+     * Builds a new {@link Event.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SquareEvent.Builder} object
+     * @return a new {@link Event.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -220,7 +219,7 @@ public class SquareEvent {
     }
 
     /**
-     * Class to build instances of {@link SquareEvent}.
+     * Class to build instances of {@link Event}.
      */
     public static class Builder {
         private OptionalNullable<String> merchantId;
@@ -228,7 +227,7 @@ public class SquareEvent {
         private OptionalNullable<String> type;
         private OptionalNullable<String> eventId;
         private String createdAt;
-        private SquareEventData data;
+        private EventData data;
 
 
 
@@ -320,20 +319,20 @@ public class SquareEvent {
 
         /**
          * Setter for data.
-         * @param  data  SquareEventData value for data.
+         * @param  data  EventData value for data.
          * @return Builder
          */
-        public Builder data(SquareEventData data) {
+        public Builder data(EventData data) {
             this.data = data;
             return this;
         }
 
         /**
-         * Builds a new {@link SquareEvent} object using the set fields.
-         * @return {@link SquareEvent}
+         * Builds a new {@link Event} object using the set fields.
+         * @return {@link Event}
          */
-        public SquareEvent build() {
-            return new SquareEvent(merchantId, locationId, type, eventId, createdAt, data);
+        public Event build() {
+            return new Event(merchantId, locationId, type, eventId, createdAt, data);
         }
     }
 }

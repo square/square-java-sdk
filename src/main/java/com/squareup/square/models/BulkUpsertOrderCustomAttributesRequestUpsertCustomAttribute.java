@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
@@ -60,7 +59,7 @@ public class BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute {
     /**
      * Internal Getter for IdempotencyKey.
      * A unique identifier for this request, used to ensure idempotency. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the Internal String
      */
     @JsonGetter("idempotency_key")
@@ -73,7 +72,7 @@ public class BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute {
     /**
      * Getter for IdempotencyKey.
      * A unique identifier for this request, used to ensure idempotency. For more information, see
-     * [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency).
+     * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
      * @return Returns the String
      */
     @JsonIgnore

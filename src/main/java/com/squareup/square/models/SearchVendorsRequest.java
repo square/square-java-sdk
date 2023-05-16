@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.apimatic.core.types.BaseModel;
 import java.util.Objects;
 
 /**
@@ -15,25 +14,21 @@ public class SearchVendorsRequest {
     private final SearchVendorsRequestFilter filter;
     private final SearchVendorsRequestSort sort;
     private final String cursor;
-    private final Long limit;
 
     /**
      * Initialization constructor.
      * @param  filter  SearchVendorsRequestFilter value for filter.
      * @param  sort  SearchVendorsRequestSort value for sort.
      * @param  cursor  String value for cursor.
-     * @param  limit  Long value for limit.
      */
     @JsonCreator
     public SearchVendorsRequest(
             @JsonProperty("filter") SearchVendorsRequestFilter filter,
             @JsonProperty("sort") SearchVendorsRequestSort sort,
-            @JsonProperty("cursor") String cursor,
-            @JsonProperty("limit") Long limit) {
+            @JsonProperty("cursor") String cursor) {
         this.filter = filter;
         this.sort = sort;
         this.cursor = cursor;
-        this.limit = limit;
     }
 
     /**
@@ -72,20 +67,9 @@ public class SearchVendorsRequest {
         return cursor;
     }
 
-    /**
-     * Getter for Limit.
-     * Limit on how many vendors will be returned by the search.
-     * @return Returns the Long
-     */
-    @JsonGetter("limit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Long getLimit() {
-        return limit;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(filter, sort, cursor, limit);
+        return Objects.hash(filter, sort, cursor);
     }
 
     @Override
@@ -99,8 +83,7 @@ public class SearchVendorsRequest {
         SearchVendorsRequest other = (SearchVendorsRequest) obj;
         return Objects.equals(filter, other.filter)
             && Objects.equals(sort, other.sort)
-            && Objects.equals(cursor, other.cursor)
-            && Objects.equals(limit, other.limit);
+            && Objects.equals(cursor, other.cursor);
     }
 
     /**
@@ -110,7 +93,7 @@ public class SearchVendorsRequest {
     @Override
     public String toString() {
         return "SearchVendorsRequest [" + "filter=" + filter + ", sort=" + sort + ", cursor="
-                + cursor + ", limit=" + limit + "]";
+                + cursor + "]";
     }
 
     /**
@@ -122,8 +105,7 @@ public class SearchVendorsRequest {
         Builder builder = new Builder()
                 .filter(getFilter())
                 .sort(getSort())
-                .cursor(getCursor())
-                .limit(getLimit());
+                .cursor(getCursor());
         return builder;
     }
 
@@ -134,7 +116,6 @@ public class SearchVendorsRequest {
         private SearchVendorsRequestFilter filter;
         private SearchVendorsRequestSort sort;
         private String cursor;
-        private Long limit;
 
 
 
@@ -169,21 +150,11 @@ public class SearchVendorsRequest {
         }
 
         /**
-         * Setter for limit.
-         * @param  limit  Long value for limit.
-         * @return Builder
-         */
-        public Builder limit(Long limit) {
-            this.limit = limit;
-            return this;
-        }
-
-        /**
          * Builds a new {@link SearchVendorsRequest} object using the set fields.
          * @return {@link SearchVendorsRequest}
          */
         public SearchVendorsRequest build() {
-            return new SearchVendorsRequest(filter, sort, cursor, limit);
+            return new SearchVendorsRequest(filter, sort, cursor);
         }
     }
 }
