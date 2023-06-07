@@ -23,9 +23,16 @@ public class TerminalAction {
     private final String updatedAt;
     private final String appId;
     private final String type;
+    private final QrCodeOptions qrCodeOptions;
     private final SaveCardOptions saveCardOptions;
+    private final SignatureOptions signatureOptions;
+    private final ConfirmationOptions confirmationOptions;
     private final ReceiptOptions receiptOptions;
+    private final DataCollectionOptions dataCollectionOptions;
+    private final SelectOptions selectOptions;
     private final DeviceMetadata deviceMetadata;
+    private final OptionalNullable<Boolean> awaitNextAction;
+    private final OptionalNullable<String> awaitNextActionDuration;
 
     /**
      * Initialization constructor.
@@ -38,9 +45,16 @@ public class TerminalAction {
      * @param  updatedAt  String value for updatedAt.
      * @param  appId  String value for appId.
      * @param  type  String value for type.
+     * @param  qrCodeOptions  QrCodeOptions value for qrCodeOptions.
      * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
+     * @param  signatureOptions  SignatureOptions value for signatureOptions.
+     * @param  confirmationOptions  ConfirmationOptions value for confirmationOptions.
      * @param  receiptOptions  ReceiptOptions value for receiptOptions.
+     * @param  dataCollectionOptions  DataCollectionOptions value for dataCollectionOptions.
+     * @param  selectOptions  SelectOptions value for selectOptions.
      * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
+     * @param  awaitNextAction  Boolean value for awaitNextAction.
+     * @param  awaitNextActionDuration  String value for awaitNextActionDuration.
      */
     @JsonCreator
     public TerminalAction(
@@ -53,9 +67,16 @@ public class TerminalAction {
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("app_id") String appId,
             @JsonProperty("type") String type,
+            @JsonProperty("qr_code_options") QrCodeOptions qrCodeOptions,
             @JsonProperty("save_card_options") SaveCardOptions saveCardOptions,
+            @JsonProperty("signature_options") SignatureOptions signatureOptions,
+            @JsonProperty("confirmation_options") ConfirmationOptions confirmationOptions,
             @JsonProperty("receipt_options") ReceiptOptions receiptOptions,
-            @JsonProperty("device_metadata") DeviceMetadata deviceMetadata) {
+            @JsonProperty("data_collection_options") DataCollectionOptions dataCollectionOptions,
+            @JsonProperty("select_options") SelectOptions selectOptions,
+            @JsonProperty("device_metadata") DeviceMetadata deviceMetadata,
+            @JsonProperty("await_next_action") Boolean awaitNextAction,
+            @JsonProperty("await_next_action_duration") String awaitNextActionDuration) {
         this.id = id;
         this.deviceId = OptionalNullable.of(deviceId);
         this.deadlineDuration = OptionalNullable.of(deadlineDuration);
@@ -65,9 +86,16 @@ public class TerminalAction {
         this.updatedAt = updatedAt;
         this.appId = appId;
         this.type = type;
+        this.qrCodeOptions = qrCodeOptions;
         this.saveCardOptions = saveCardOptions;
+        this.signatureOptions = signatureOptions;
+        this.confirmationOptions = confirmationOptions;
         this.receiptOptions = receiptOptions;
+        this.dataCollectionOptions = dataCollectionOptions;
+        this.selectOptions = selectOptions;
         this.deviceMetadata = deviceMetadata;
+        this.awaitNextAction = OptionalNullable.of(awaitNextAction);
+        this.awaitNextActionDuration = OptionalNullable.of(awaitNextActionDuration);
     }
 
     /**
@@ -76,8 +104,12 @@ public class TerminalAction {
     protected TerminalAction(String id, OptionalNullable<String> deviceId,
             OptionalNullable<String> deadlineDuration, String status, String cancelReason,
             String createdAt, String updatedAt, String appId, String type,
-            SaveCardOptions saveCardOptions, ReceiptOptions receiptOptions,
-            DeviceMetadata deviceMetadata) {
+            QrCodeOptions qrCodeOptions, SaveCardOptions saveCardOptions,
+            SignatureOptions signatureOptions, ConfirmationOptions confirmationOptions,
+            ReceiptOptions receiptOptions, DataCollectionOptions dataCollectionOptions,
+            SelectOptions selectOptions, DeviceMetadata deviceMetadata,
+            OptionalNullable<Boolean> awaitNextAction,
+            OptionalNullable<String> awaitNextActionDuration) {
         this.id = id;
         this.deviceId = deviceId;
         this.deadlineDuration = deadlineDuration;
@@ -87,9 +119,16 @@ public class TerminalAction {
         this.updatedAt = updatedAt;
         this.appId = appId;
         this.type = type;
+        this.qrCodeOptions = qrCodeOptions;
         this.saveCardOptions = saveCardOptions;
+        this.signatureOptions = signatureOptions;
+        this.confirmationOptions = confirmationOptions;
         this.receiptOptions = receiptOptions;
+        this.dataCollectionOptions = dataCollectionOptions;
+        this.selectOptions = selectOptions;
         this.deviceMetadata = deviceMetadata;
+        this.awaitNextAction = awaitNextAction;
+        this.awaitNextActionDuration = awaitNextActionDuration;
     }
 
     /**
@@ -221,6 +260,17 @@ public class TerminalAction {
     }
 
     /**
+     * Getter for QrCodeOptions.
+     * Fields to describe the action that displays QR-Codes.
+     * @return Returns the QrCodeOptions
+     */
+    @JsonGetter("qr_code_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public QrCodeOptions getQrCodeOptions() {
+        return qrCodeOptions;
+    }
+
+    /**
      * Getter for SaveCardOptions.
      * Describes save-card action fields.
      * @return Returns the SaveCardOptions
@@ -229,6 +279,26 @@ public class TerminalAction {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public SaveCardOptions getSaveCardOptions() {
         return saveCardOptions;
+    }
+
+    /**
+     * Getter for SignatureOptions.
+     * @return Returns the SignatureOptions
+     */
+    @JsonGetter("signature_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SignatureOptions getSignatureOptions() {
+        return signatureOptions;
+    }
+
+    /**
+     * Getter for ConfirmationOptions.
+     * @return Returns the ConfirmationOptions
+     */
+    @JsonGetter("confirmation_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ConfirmationOptions getConfirmationOptions() {
+        return confirmationOptions;
     }
 
     /**
@@ -243,6 +313,26 @@ public class TerminalAction {
     }
 
     /**
+     * Getter for DataCollectionOptions.
+     * @return Returns the DataCollectionOptions
+     */
+    @JsonGetter("data_collection_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public DataCollectionOptions getDataCollectionOptions() {
+        return dataCollectionOptions;
+    }
+
+    /**
+     * Getter for SelectOptions.
+     * @return Returns the SelectOptions
+     */
+    @JsonGetter("select_options")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SelectOptions getSelectOptions() {
+        return selectOptions;
+    }
+
+    /**
      * Getter for DeviceMetadata.
      * @return Returns the DeviceMetadata
      */
@@ -252,10 +342,64 @@ public class TerminalAction {
         return deviceMetadata;
     }
 
+    /**
+     * Internal Getter for AwaitNextAction.
+     * Indicates the action will be linked to another action and requires a waiting dialog to be
+     * displayed instead of returning to the idle screen on completion of the action. Only supported
+     * on SIGNATURE, CONFIRMATION, DATA_COLLECTION, and SELECT types.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("await_next_action")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAwaitNextAction() {
+        return this.awaitNextAction;
+    }
+
+    /**
+     * Getter for AwaitNextAction.
+     * Indicates the action will be linked to another action and requires a waiting dialog to be
+     * displayed instead of returning to the idle screen on completion of the action. Only supported
+     * on SIGNATURE, CONFIRMATION, DATA_COLLECTION, and SELECT types.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getAwaitNextAction() {
+        return OptionalNullable.getFrom(awaitNextAction);
+    }
+
+    /**
+     * Internal Getter for AwaitNextActionDuration.
+     * The timeout duration of the waiting dialog as an RFC 3339 duration, after which the waiting
+     * dialog will no longer be displayed and the Terminal will return to the idle screen. Default:
+     * 5 minutes from when the waiting dialog is displayed Maximum: 5 minutes
+     * @return Returns the Internal String
+     */
+    @JsonGetter("await_next_action_duration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAwaitNextActionDuration() {
+        return this.awaitNextActionDuration;
+    }
+
+    /**
+     * Getter for AwaitNextActionDuration.
+     * The timeout duration of the waiting dialog as an RFC 3339 duration, after which the waiting
+     * dialog will no longer be displayed and the Terminal will return to the idle screen. Default:
+     * 5 minutes from when the waiting dialog is displayed Maximum: 5 minutes
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getAwaitNextActionDuration() {
+        return OptionalNullable.getFrom(awaitNextActionDuration);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, deviceId, deadlineDuration, status, cancelReason, createdAt,
-                updatedAt, appId, type, saveCardOptions, receiptOptions, deviceMetadata);
+                updatedAt, appId, type, qrCodeOptions, saveCardOptions, signatureOptions,
+                confirmationOptions, receiptOptions, dataCollectionOptions, selectOptions,
+                deviceMetadata, awaitNextAction, awaitNextActionDuration);
     }
 
     @Override
@@ -276,9 +420,16 @@ public class TerminalAction {
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(appId, other.appId)
             && Objects.equals(type, other.type)
+            && Objects.equals(qrCodeOptions, other.qrCodeOptions)
             && Objects.equals(saveCardOptions, other.saveCardOptions)
+            && Objects.equals(signatureOptions, other.signatureOptions)
+            && Objects.equals(confirmationOptions, other.confirmationOptions)
             && Objects.equals(receiptOptions, other.receiptOptions)
-            && Objects.equals(deviceMetadata, other.deviceMetadata);
+            && Objects.equals(dataCollectionOptions, other.dataCollectionOptions)
+            && Objects.equals(selectOptions, other.selectOptions)
+            && Objects.equals(deviceMetadata, other.deviceMetadata)
+            && Objects.equals(awaitNextAction, other.awaitNextAction)
+            && Objects.equals(awaitNextActionDuration, other.awaitNextActionDuration);
     }
 
     /**
@@ -290,8 +441,13 @@ public class TerminalAction {
         return "TerminalAction [" + "id=" + id + ", deviceId=" + deviceId + ", deadlineDuration="
                 + deadlineDuration + ", status=" + status + ", cancelReason=" + cancelReason
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId
-                + ", type=" + type + ", saveCardOptions=" + saveCardOptions + ", receiptOptions="
-                + receiptOptions + ", deviceMetadata=" + deviceMetadata + "]";
+                + ", type=" + type + ", qrCodeOptions=" + qrCodeOptions + ", saveCardOptions="
+                + saveCardOptions + ", signatureOptions=" + signatureOptions
+                + ", confirmationOptions=" + confirmationOptions + ", receiptOptions="
+                + receiptOptions + ", dataCollectionOptions=" + dataCollectionOptions
+                + ", selectOptions=" + selectOptions + ", deviceMetadata=" + deviceMetadata
+                + ", awaitNextAction=" + awaitNextAction + ", awaitNextActionDuration="
+                + awaitNextActionDuration + "]";
     }
 
     /**
@@ -308,11 +464,18 @@ public class TerminalAction {
                 .updatedAt(getUpdatedAt())
                 .appId(getAppId())
                 .type(getType())
+                .qrCodeOptions(getQrCodeOptions())
                 .saveCardOptions(getSaveCardOptions())
+                .signatureOptions(getSignatureOptions())
+                .confirmationOptions(getConfirmationOptions())
                 .receiptOptions(getReceiptOptions())
+                .dataCollectionOptions(getDataCollectionOptions())
+                .selectOptions(getSelectOptions())
                 .deviceMetadata(getDeviceMetadata());
         builder.deviceId = internalGetDeviceId();
         builder.deadlineDuration = internalGetDeadlineDuration();
+        builder.awaitNextAction = internalGetAwaitNextAction();
+        builder.awaitNextActionDuration = internalGetAwaitNextActionDuration();
         return builder;
     }
 
@@ -329,9 +492,16 @@ public class TerminalAction {
         private String updatedAt;
         private String appId;
         private String type;
+        private QrCodeOptions qrCodeOptions;
         private SaveCardOptions saveCardOptions;
+        private SignatureOptions signatureOptions;
+        private ConfirmationOptions confirmationOptions;
         private ReceiptOptions receiptOptions;
+        private DataCollectionOptions dataCollectionOptions;
+        private SelectOptions selectOptions;
         private DeviceMetadata deviceMetadata;
+        private OptionalNullable<Boolean> awaitNextAction;
+        private OptionalNullable<String> awaitNextActionDuration;
 
 
 
@@ -444,12 +614,42 @@ public class TerminalAction {
         }
 
         /**
+         * Setter for qrCodeOptions.
+         * @param  qrCodeOptions  QrCodeOptions value for qrCodeOptions.
+         * @return Builder
+         */
+        public Builder qrCodeOptions(QrCodeOptions qrCodeOptions) {
+            this.qrCodeOptions = qrCodeOptions;
+            return this;
+        }
+
+        /**
          * Setter for saveCardOptions.
          * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
          * @return Builder
          */
         public Builder saveCardOptions(SaveCardOptions saveCardOptions) {
             this.saveCardOptions = saveCardOptions;
+            return this;
+        }
+
+        /**
+         * Setter for signatureOptions.
+         * @param  signatureOptions  SignatureOptions value for signatureOptions.
+         * @return Builder
+         */
+        public Builder signatureOptions(SignatureOptions signatureOptions) {
+            this.signatureOptions = signatureOptions;
+            return this;
+        }
+
+        /**
+         * Setter for confirmationOptions.
+         * @param  confirmationOptions  ConfirmationOptions value for confirmationOptions.
+         * @return Builder
+         */
+        public Builder confirmationOptions(ConfirmationOptions confirmationOptions) {
+            this.confirmationOptions = confirmationOptions;
             return this;
         }
 
@@ -464,6 +664,26 @@ public class TerminalAction {
         }
 
         /**
+         * Setter for dataCollectionOptions.
+         * @param  dataCollectionOptions  DataCollectionOptions value for dataCollectionOptions.
+         * @return Builder
+         */
+        public Builder dataCollectionOptions(DataCollectionOptions dataCollectionOptions) {
+            this.dataCollectionOptions = dataCollectionOptions;
+            return this;
+        }
+
+        /**
+         * Setter for selectOptions.
+         * @param  selectOptions  SelectOptions value for selectOptions.
+         * @return Builder
+         */
+        public Builder selectOptions(SelectOptions selectOptions) {
+            this.selectOptions = selectOptions;
+            return this;
+        }
+
+        /**
          * Setter for deviceMetadata.
          * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
          * @return Builder
@@ -474,13 +694,52 @@ public class TerminalAction {
         }
 
         /**
+         * Setter for awaitNextAction.
+         * @param  awaitNextAction  Boolean value for awaitNextAction.
+         * @return Builder
+         */
+        public Builder awaitNextAction(Boolean awaitNextAction) {
+            this.awaitNextAction = OptionalNullable.of(awaitNextAction);
+            return this;
+        }
+
+        /**
+         * UnSetter for awaitNextAction.
+         * @return Builder
+         */
+        public Builder unsetAwaitNextAction() {
+            awaitNextAction = null;
+            return this;
+        }
+
+        /**
+         * Setter for awaitNextActionDuration.
+         * @param  awaitNextActionDuration  String value for awaitNextActionDuration.
+         * @return Builder
+         */
+        public Builder awaitNextActionDuration(String awaitNextActionDuration) {
+            this.awaitNextActionDuration = OptionalNullable.of(awaitNextActionDuration);
+            return this;
+        }
+
+        /**
+         * UnSetter for awaitNextActionDuration.
+         * @return Builder
+         */
+        public Builder unsetAwaitNextActionDuration() {
+            awaitNextActionDuration = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TerminalAction} object using the set fields.
          * @return {@link TerminalAction}
          */
         public TerminalAction build() {
             return new TerminalAction(id, deviceId, deadlineDuration, status, cancelReason,
-                    createdAt, updatedAt, appId, type, saveCardOptions, receiptOptions,
-                    deviceMetadata);
+                    createdAt, updatedAt, appId, type, qrCodeOptions, saveCardOptions,
+                    signatureOptions, confirmationOptions, receiptOptions, dataCollectionOptions,
+                    selectOptions, deviceMetadata, awaitNextAction, awaitNextActionDuration);
         }
     }
 }

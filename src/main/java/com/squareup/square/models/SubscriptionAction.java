@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,36 +18,41 @@ public class SubscriptionAction {
     private final String id;
     private final String type;
     private final OptionalNullable<String> effectiveDate;
-    private final OptionalNullable<String> newPlanId;
+    private final OptionalNullable<List<Phase>> phases;
+    private final OptionalNullable<String> newPlanVariationId;
 
     /**
      * Initialization constructor.
      * @param  id  String value for id.
      * @param  type  String value for type.
      * @param  effectiveDate  String value for effectiveDate.
-     * @param  newPlanId  String value for newPlanId.
+     * @param  phases  List of Phase value for phases.
+     * @param  newPlanVariationId  String value for newPlanVariationId.
      */
     @JsonCreator
     public SubscriptionAction(
             @JsonProperty("id") String id,
             @JsonProperty("type") String type,
             @JsonProperty("effective_date") String effectiveDate,
-            @JsonProperty("new_plan_id") String newPlanId) {
+            @JsonProperty("phases") List<Phase> phases,
+            @JsonProperty("new_plan_variation_id") String newPlanVariationId) {
         this.id = id;
         this.type = type;
         this.effectiveDate = OptionalNullable.of(effectiveDate);
-        this.newPlanId = OptionalNullable.of(newPlanId);
+        this.phases = OptionalNullable.of(phases);
+        this.newPlanVariationId = OptionalNullable.of(newPlanVariationId);
     }
 
     /**
      * Internal initialization constructor.
      */
     protected SubscriptionAction(String id, String type, OptionalNullable<String> effectiveDate,
-            OptionalNullable<String> newPlanId) {
+            OptionalNullable<List<Phase>> phases, OptionalNullable<String> newPlanVariationId) {
         this.id = id;
         this.type = type;
         this.effectiveDate = effectiveDate;
-        this.newPlanId = newPlanId;
+        this.phases = phases;
+        this.newPlanVariationId = newPlanVariationId;
     }
 
     /**
@@ -94,30 +100,54 @@ public class SubscriptionAction {
     }
 
     /**
-     * Internal Getter for NewPlanId.
-     * The target subscription plan a subscription switches to, for a `SWAP_PLAN` action.
-     * @return Returns the Internal String
+     * Internal Getter for Phases.
+     * A list of Phases, to pass phase-specific information used in the swap.
+     * @return Returns the Internal List of Phase
      */
-    @JsonGetter("new_plan_id")
+    @JsonGetter("phases")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetNewPlanId() {
-        return this.newPlanId;
+    protected OptionalNullable<List<Phase>> internalGetPhases() {
+        return this.phases;
     }
 
     /**
-     * Getter for NewPlanId.
-     * The target subscription plan a subscription switches to, for a `SWAP_PLAN` action.
+     * Getter for Phases.
+     * A list of Phases, to pass phase-specific information used in the swap.
+     * @return Returns the List of Phase
+     */
+    @JsonIgnore
+    public List<Phase> getPhases() {
+        return OptionalNullable.getFrom(phases);
+    }
+
+    /**
+     * Internal Getter for NewPlanVariationId.
+     * The target subscription plan variation that a subscription switches to, for a `SWAP_PLAN`
+     * action.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("new_plan_variation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetNewPlanVariationId() {
+        return this.newPlanVariationId;
+    }
+
+    /**
+     * Getter for NewPlanVariationId.
+     * The target subscription plan variation that a subscription switches to, for a `SWAP_PLAN`
+     * action.
      * @return Returns the String
      */
     @JsonIgnore
-    public String getNewPlanId() {
-        return OptionalNullable.getFrom(newPlanId);
+    public String getNewPlanVariationId() {
+        return OptionalNullable.getFrom(newPlanVariationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, effectiveDate, newPlanId);
+        return Objects.hash(id, type, effectiveDate, phases, newPlanVariationId);
     }
 
     @Override
@@ -132,7 +162,8 @@ public class SubscriptionAction {
         return Objects.equals(id, other.id)
             && Objects.equals(type, other.type)
             && Objects.equals(effectiveDate, other.effectiveDate)
-            && Objects.equals(newPlanId, other.newPlanId);
+            && Objects.equals(phases, other.phases)
+            && Objects.equals(newPlanVariationId, other.newPlanVariationId);
     }
 
     /**
@@ -142,7 +173,8 @@ public class SubscriptionAction {
     @Override
     public String toString() {
         return "SubscriptionAction [" + "id=" + id + ", type=" + type + ", effectiveDate="
-                + effectiveDate + ", newPlanId=" + newPlanId + "]";
+                + effectiveDate + ", phases=" + phases + ", newPlanVariationId="
+                + newPlanVariationId + "]";
     }
 
     /**
@@ -155,7 +187,8 @@ public class SubscriptionAction {
                 .id(getId())
                 .type(getType());
         builder.effectiveDate = internalGetEffectiveDate();
-        builder.newPlanId = internalGetNewPlanId();
+        builder.phases = internalGetPhases();
+        builder.newPlanVariationId = internalGetNewPlanVariationId();
         return builder;
     }
 
@@ -166,7 +199,8 @@ public class SubscriptionAction {
         private String id;
         private String type;
         private OptionalNullable<String> effectiveDate;
-        private OptionalNullable<String> newPlanId;
+        private OptionalNullable<List<Phase>> phases;
+        private OptionalNullable<String> newPlanVariationId;
 
 
 
@@ -210,21 +244,40 @@ public class SubscriptionAction {
         }
 
         /**
-         * Setter for newPlanId.
-         * @param  newPlanId  String value for newPlanId.
+         * Setter for phases.
+         * @param  phases  List of Phase value for phases.
          * @return Builder
          */
-        public Builder newPlanId(String newPlanId) {
-            this.newPlanId = OptionalNullable.of(newPlanId);
+        public Builder phases(List<Phase> phases) {
+            this.phases = OptionalNullable.of(phases);
             return this;
         }
 
         /**
-         * UnSetter for newPlanId.
+         * UnSetter for phases.
          * @return Builder
          */
-        public Builder unsetNewPlanId() {
-            newPlanId = null;
+        public Builder unsetPhases() {
+            phases = null;
+            return this;
+        }
+
+        /**
+         * Setter for newPlanVariationId.
+         * @param  newPlanVariationId  String value for newPlanVariationId.
+         * @return Builder
+         */
+        public Builder newPlanVariationId(String newPlanVariationId) {
+            this.newPlanVariationId = OptionalNullable.of(newPlanVariationId);
+            return this;
+        }
+
+        /**
+         * UnSetter for newPlanVariationId.
+         * @return Builder
+         */
+        public Builder unsetNewPlanVariationId() {
+            newPlanVariationId = null;
             return this;
         }
 
@@ -233,7 +286,7 @@ public class SubscriptionAction {
          * @return {@link SubscriptionAction}
          */
         public SubscriptionAction build() {
-            return new SubscriptionAction(id, type, effectiveDate, newPlanId);
+            return new SubscriptionAction(id, type, effectiveDate, phases, newPlanVariationId);
         }
     }
 }

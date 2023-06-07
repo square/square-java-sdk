@@ -85,7 +85,7 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square-issued ID of your application, which is available in the OAuth page in the
+     * The Square-issued ID of your application, which is available on the **OAuth** page in the
      * [Developer Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
@@ -96,11 +96,14 @@ public class ObtainTokenRequest {
 
     /**
      * Internal Getter for ClientSecret.
-     * The Square-issued application secret for your application, which is available in the OAuth
-     * page in the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is
-     * only required when you are not using the [OAuth PKCE (Proof Key for Code Exchange)
-     * flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE flow
-     * requires a `code_verifier` instead of a `client_secret`.
+     * The Square-issued application secret for your application, which is available on the
+     * **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps). This
+     * parameter is only required when you're not using the [OAuth PKCE (Proof Key for Code
+     * Exchange) flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE
+     * flow requires a `code_verifier` instead of a `client_secret` when `grant_type` is set to
+     * `authorization_code`. If `grant_type` is set to `refresh_token` and the `refresh_token` is
+     * obtained uaing PKCE, the PKCE flow only requires `client_id`,  `grant_type`,
+     * and `refresh_token`.
      * @return Returns the Internal String
      */
     @JsonGetter("client_secret")
@@ -112,11 +115,14 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for ClientSecret.
-     * The Square-issued application secret for your application, which is available in the OAuth
-     * page in the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is
-     * only required when you are not using the [OAuth PKCE (Proof Key for Code Exchange)
-     * flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE flow
-     * requires a `code_verifier` instead of a `client_secret`.
+     * The Square-issued application secret for your application, which is available on the
+     * **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps). This
+     * parameter is only required when you're not using the [OAuth PKCE (Proof Key for Code
+     * Exchange) flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow). The PKCE
+     * flow requires a `code_verifier` instead of a `client_secret` when `grant_type` is set to
+     * `authorization_code`. If `grant_type` is set to `refresh_token` and the `refresh_token` is
+     * obtained uaing PKCE, the PKCE flow only requires `client_id`,  `grant_type`,
+     * and `refresh_token`.
      * @return Returns the String
      */
     @JsonIgnore
@@ -152,7 +158,7 @@ public class ObtainTokenRequest {
 
     /**
      * Internal Getter for RedirectUri.
-     * The redirect URL assigned in the OAuth page for your application in the [Developer
+     * The redirect URL assigned on the **OAuth** page for your application in the [Developer
      * Dashboard](https://developer.squareup.com/apps).
      * @return Returns the Internal String
      */
@@ -165,7 +171,7 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for RedirectUri.
-     * The redirect URL assigned in the OAuth page for your application in the [Developer
+     * The redirect URL assigned on the **OAuth** page for your application in the [Developer
      * Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */
@@ -295,8 +301,9 @@ public class ObtainTokenRequest {
 
     /**
      * Internal Getter for CodeVerifier.
-     * Must be provided when using PKCE OAuth flow. The `code_verifier` will be used to verify
-     * against the `code_challenge` associated with the `authorization_code`.
+     * Must be provided when using the PKCE OAuth flow if `grant_type` is set
+     * to `authorization_code`. The `code_verifier` is used to verify against the `code_challenge`
+     * associated with the `authorization_code`.
      * @return Returns the Internal String
      */
     @JsonGetter("code_verifier")
@@ -308,8 +315,9 @@ public class ObtainTokenRequest {
 
     /**
      * Getter for CodeVerifier.
-     * Must be provided when using PKCE OAuth flow. The `code_verifier` will be used to verify
-     * against the `code_challenge` associated with the `authorization_code`.
+     * Must be provided when using the PKCE OAuth flow if `grant_type` is set
+     * to `authorization_code`. The `code_verifier` is used to verify against the `code_challenge`
+     * associated with the `authorization_code`.
      * @return Returns the String
      */
     @JsonIgnore

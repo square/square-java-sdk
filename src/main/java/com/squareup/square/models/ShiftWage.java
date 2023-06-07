@@ -16,32 +16,36 @@ import java.util.Objects;
 public class ShiftWage {
     private final OptionalNullable<String> title;
     private final Money hourlyRate;
+    private final String jobId;
 
     /**
      * Initialization constructor.
      * @param  title  String value for title.
      * @param  hourlyRate  Money value for hourlyRate.
+     * @param  jobId  String value for jobId.
      */
     @JsonCreator
     public ShiftWage(
             @JsonProperty("title") String title,
-            @JsonProperty("hourly_rate") Money hourlyRate) {
+            @JsonProperty("hourly_rate") Money hourlyRate,
+            @JsonProperty("job_id") String jobId) {
         this.title = OptionalNullable.of(title);
         this.hourlyRate = hourlyRate;
+        this.jobId = jobId;
     }
 
     /**
      * Internal initialization constructor.
      */
-    protected ShiftWage(OptionalNullable<String> title, Money hourlyRate) {
+    protected ShiftWage(OptionalNullable<String> title, Money hourlyRate, String jobId) {
         this.title = title;
         this.hourlyRate = hourlyRate;
+        this.jobId = jobId;
     }
 
     /**
      * Internal Getter for Title.
-     * The name of the job performed during this shift. Square labor-reporting UIs might group
-     * shifts together by title.
+     * The name of the job performed during this shift.
      * @return Returns the Internal String
      */
     @JsonGetter("title")
@@ -53,8 +57,7 @@ public class ShiftWage {
 
     /**
      * Getter for Title.
-     * The name of the job performed during this shift. Square labor-reporting UIs might group
-     * shifts together by title.
+     * The name of the job performed during this shift.
      * @return Returns the String
      */
     @JsonIgnore
@@ -78,9 +81,21 @@ public class ShiftWage {
         return hourlyRate;
     }
 
+    /**
+     * Getter for JobId.
+     * The id of the job performed during this shift. Square labor-reporting UIs might group shifts
+     * together by id. This cannot be used to retrieve the job.
+     * @return Returns the String
+     */
+    @JsonGetter("job_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getJobId() {
+        return jobId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(title, hourlyRate);
+        return Objects.hash(title, hourlyRate, jobId);
     }
 
     @Override
@@ -93,7 +108,8 @@ public class ShiftWage {
         }
         ShiftWage other = (ShiftWage) obj;
         return Objects.equals(title, other.title)
-            && Objects.equals(hourlyRate, other.hourlyRate);
+            && Objects.equals(hourlyRate, other.hourlyRate)
+            && Objects.equals(jobId, other.jobId);
     }
 
     /**
@@ -102,7 +118,8 @@ public class ShiftWage {
      */
     @Override
     public String toString() {
-        return "ShiftWage [" + "title=" + title + ", hourlyRate=" + hourlyRate + "]";
+        return "ShiftWage [" + "title=" + title + ", hourlyRate=" + hourlyRate + ", jobId=" + jobId
+                + "]";
     }
 
     /**
@@ -112,7 +129,8 @@ public class ShiftWage {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .hourlyRate(getHourlyRate());
+                .hourlyRate(getHourlyRate())
+                .jobId(getJobId());
         builder.title = internalGetTitle();
         return builder;
     }
@@ -123,6 +141,7 @@ public class ShiftWage {
     public static class Builder {
         private OptionalNullable<String> title;
         private Money hourlyRate;
+        private String jobId;
 
 
 
@@ -156,11 +175,21 @@ public class ShiftWage {
         }
 
         /**
+         * Setter for jobId.
+         * @param  jobId  String value for jobId.
+         * @return Builder
+         */
+        public Builder jobId(String jobId) {
+            this.jobId = jobId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ShiftWage} object using the set fields.
          * @return {@link ShiftWage}
          */
         public ShiftWage build() {
-            return new ShiftWage(title, hourlyRate);
+            return new ShiftWage(title, hourlyRate, jobId);
         }
     }
 }

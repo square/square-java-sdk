@@ -26,6 +26,7 @@ public class Payout {
     private final String type;
     private final OptionalNullable<List<PayoutFee>> payoutFee;
     private final OptionalNullable<String> arrivalDate;
+    private final OptionalNullable<String> endToEndId;
 
     /**
      * Initialization constructor.
@@ -40,6 +41,7 @@ public class Payout {
      * @param  type  String value for type.
      * @param  payoutFee  List of PayoutFee value for payoutFee.
      * @param  arrivalDate  String value for arrivalDate.
+     * @param  endToEndId  String value for endToEndId.
      */
     @JsonCreator
     public Payout(
@@ -53,7 +55,8 @@ public class Payout {
             @JsonProperty("version") Integer version,
             @JsonProperty("type") String type,
             @JsonProperty("payout_fee") List<PayoutFee> payoutFee,
-            @JsonProperty("arrival_date") String arrivalDate) {
+            @JsonProperty("arrival_date") String arrivalDate,
+            @JsonProperty("end_to_end_id") String endToEndId) {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
@@ -65,6 +68,7 @@ public class Payout {
         this.type = type;
         this.payoutFee = OptionalNullable.of(payoutFee);
         this.arrivalDate = OptionalNullable.of(arrivalDate);
+        this.endToEndId = OptionalNullable.of(endToEndId);
     }
 
     /**
@@ -73,7 +77,7 @@ public class Payout {
     protected Payout(String id, String locationId, String status, String createdAt,
             String updatedAt, Money amountMoney, Destination destination, Integer version,
             String type, OptionalNullable<List<PayoutFee>> payoutFee,
-            OptionalNullable<String> arrivalDate) {
+            OptionalNullable<String> arrivalDate, OptionalNullable<String> endToEndId) {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
@@ -85,6 +89,7 @@ public class Payout {
         this.type = type;
         this.payoutFee = payoutFee;
         this.arrivalDate = arrivalDate;
+        this.endToEndId = endToEndId;
     }
 
     /**
@@ -239,10 +244,36 @@ public class Payout {
         return OptionalNullable.getFrom(arrivalDate);
     }
 
+    /**
+     * Internal Getter for EndToEndId.
+     * A unique ID for each `Payout` object that might also appear on the seller’s bank statement.
+     * You can use this ID to automate the process of reconciling each payout with the corresponding
+     * line item on the bank statement.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("end_to_end_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetEndToEndId() {
+        return this.endToEndId;
+    }
+
+    /**
+     * Getter for EndToEndId.
+     * A unique ID for each `Payout` object that might also appear on the seller’s bank statement.
+     * You can use this ID to automate the process of reconciling each payout with the corresponding
+     * line item on the bank statement.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getEndToEndId() {
+        return OptionalNullable.getFrom(endToEndId);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, status, locationId, createdAt, updatedAt, amountMoney, destination,
-                version, type, payoutFee, arrivalDate);
+                version, type, payoutFee, arrivalDate, endToEndId);
     }
 
     @Override
@@ -264,7 +295,8 @@ public class Payout {
             && Objects.equals(version, other.version)
             && Objects.equals(type, other.type)
             && Objects.equals(payoutFee, other.payoutFee)
-            && Objects.equals(arrivalDate, other.arrivalDate);
+            && Objects.equals(arrivalDate, other.arrivalDate)
+            && Objects.equals(endToEndId, other.endToEndId);
     }
 
     /**
@@ -276,7 +308,8 @@ public class Payout {
         return "Payout [" + "id=" + id + ", locationId=" + locationId + ", status=" + status
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", amountMoney="
                 + amountMoney + ", destination=" + destination + ", version=" + version + ", type="
-                + type + ", payoutFee=" + payoutFee + ", arrivalDate=" + arrivalDate + "]";
+                + type + ", payoutFee=" + payoutFee + ", arrivalDate=" + arrivalDate
+                + ", endToEndId=" + endToEndId + "]";
     }
 
     /**
@@ -295,6 +328,7 @@ public class Payout {
                 .type(getType());
         builder.payoutFee = internalGetPayoutFee();
         builder.arrivalDate = internalGetArrivalDate();
+        builder.endToEndId = internalGetEndToEndId();
         return builder;
     }
 
@@ -313,6 +347,7 @@ public class Payout {
         private String type;
         private OptionalNullable<List<PayoutFee>> payoutFee;
         private OptionalNullable<String> arrivalDate;
+        private OptionalNullable<String> endToEndId;
 
         /**
          * Initialization constructor.
@@ -453,12 +488,31 @@ public class Payout {
         }
 
         /**
+         * Setter for endToEndId.
+         * @param  endToEndId  String value for endToEndId.
+         * @return Builder
+         */
+        public Builder endToEndId(String endToEndId) {
+            this.endToEndId = OptionalNullable.of(endToEndId);
+            return this;
+        }
+
+        /**
+         * UnSetter for endToEndId.
+         * @return Builder
+         */
+        public Builder unsetEndToEndId() {
+            endToEndId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Payout} object using the set fields.
          * @return {@link Payout}
          */
         public Payout build() {
             return new Payout(id, locationId, status, createdAt, updatedAt, amountMoney,
-                    destination, version, type, payoutFee, arrivalDate);
+                    destination, version, type, payoutFee, arrivalDate, endToEndId);
         }
     }
 }

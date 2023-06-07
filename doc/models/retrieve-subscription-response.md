@@ -13,7 +13,7 @@ Defines output parameters in a response from the
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Errors` | [`List<Error>`](../../doc/models/error.md) | Optional | Errors encountered during the request. | List<Error> getErrors() |
-| `Subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | Represents a subscription to a subscription plan by a subscriber.<br><br>For an overview of the `Subscription` type, see<br>[Subscription object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview). | Subscription getSubscription() |
+| `Subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | Represents a subscription purchased by a customer.<br><br>For more information, see<br>[Manage Subscriptions](https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions). | Subscription getSubscription() |
 
 ## Example (as JSON)
 
@@ -40,7 +40,8 @@ Defines output parameters in a response from the
     },
     "start_date": "2021-10-20",
     "status": "ACTIVE",
-    "timezone": "America/Los_Angeles"
+    "timezone": "America/Los_Angeles",
+    "plan_variation_id": "plan_variation_id8"
   },
   "errors": [
     {

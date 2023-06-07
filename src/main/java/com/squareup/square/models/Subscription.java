@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Subscription {
     private final String id;
     private final String locationId;
-    private final String planId;
+    private final String planVariationId;
     private final String customerId;
     private final String startDate;
     private final OptionalNullable<String> canceledDate;
@@ -32,12 +32,13 @@ public class Subscription {
     private final String timezone;
     private final SubscriptionSource source;
     private final OptionalNullable<List<SubscriptionAction>> actions;
+    private final List<Phase> phases;
 
     /**
      * Initialization constructor.
      * @param  id  String value for id.
      * @param  locationId  String value for locationId.
-     * @param  planId  String value for planId.
+     * @param  planVariationId  String value for planVariationId.
      * @param  customerId  String value for customerId.
      * @param  startDate  String value for startDate.
      * @param  canceledDate  String value for canceledDate.
@@ -52,12 +53,13 @@ public class Subscription {
      * @param  timezone  String value for timezone.
      * @param  source  SubscriptionSource value for source.
      * @param  actions  List of SubscriptionAction value for actions.
+     * @param  phases  List of Phase value for phases.
      */
     @JsonCreator
     public Subscription(
             @JsonProperty("id") String id,
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("plan_id") String planId,
+            @JsonProperty("plan_variation_id") String planVariationId,
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("start_date") String startDate,
             @JsonProperty("canceled_date") String canceledDate,
@@ -71,10 +73,11 @@ public class Subscription {
             @JsonProperty("card_id") String cardId,
             @JsonProperty("timezone") String timezone,
             @JsonProperty("source") SubscriptionSource source,
-            @JsonProperty("actions") List<SubscriptionAction> actions) {
+            @JsonProperty("actions") List<SubscriptionAction> actions,
+            @JsonProperty("phases") List<Phase> phases) {
         this.id = id;
         this.locationId = locationId;
-        this.planId = planId;
+        this.planVariationId = planVariationId;
         this.customerId = customerId;
         this.startDate = startDate;
         this.canceledDate = OptionalNullable.of(canceledDate);
@@ -89,20 +92,21 @@ public class Subscription {
         this.timezone = timezone;
         this.source = source;
         this.actions = OptionalNullable.of(actions);
+        this.phases = phases;
     }
 
     /**
      * Internal initialization constructor.
      */
-    protected Subscription(String id, String locationId, String planId, String customerId,
+    protected Subscription(String id, String locationId, String planVariationId, String customerId,
             String startDate, OptionalNullable<String> canceledDate, String chargedThroughDate,
             String status, OptionalNullable<String> taxPercentage, List<String> invoiceIds,
             Money priceOverrideMoney, Long version, String createdAt,
             OptionalNullable<String> cardId, String timezone, SubscriptionSource source,
-            OptionalNullable<List<SubscriptionAction>> actions) {
+            OptionalNullable<List<SubscriptionAction>> actions, List<Phase> phases) {
         this.id = id;
         this.locationId = locationId;
-        this.planId = planId;
+        this.planVariationId = planVariationId;
         this.customerId = customerId;
         this.startDate = startDate;
         this.canceledDate = canceledDate;
@@ -117,6 +121,7 @@ public class Subscription {
         this.timezone = timezone;
         this.source = source;
         this.actions = actions;
+        this.phases = phases;
     }
 
     /**
@@ -142,14 +147,15 @@ public class Subscription {
     }
 
     /**
-     * Getter for PlanId.
-     * The ID of the subscribed-to [subscription plan](entity:CatalogSubscriptionPlan).
+     * Getter for PlanVariationId.
+     * The ID of the subscribed-to [subscription plan
+     * variation](entity:CatalogSubscriptionPlanVariation).
      * @return Returns the String
      */
-    @JsonGetter("plan_id")
+    @JsonGetter("plan_variation_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPlanId() {
-        return planId;
+    public String getPlanVariationId() {
+        return planVariationId;
     }
 
     /**
@@ -381,11 +387,22 @@ public class Subscription {
         return OptionalNullable.getFrom(actions);
     }
 
+    /**
+     * Getter for Phases.
+     * array of phases for this subscription
+     * @return Returns the List of Phase
+     */
+    @JsonGetter("phases")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<Phase> getPhases() {
+        return phases;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, locationId, planId, customerId, startDate, canceledDate,
+        return Objects.hash(id, locationId, planVariationId, customerId, startDate, canceledDate,
                 chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney, version,
-                createdAt, cardId, timezone, source, actions);
+                createdAt, cardId, timezone, source, actions, phases);
     }
 
     @Override
@@ -399,7 +416,7 @@ public class Subscription {
         Subscription other = (Subscription) obj;
         return Objects.equals(id, other.id)
             && Objects.equals(locationId, other.locationId)
-            && Objects.equals(planId, other.planId)
+            && Objects.equals(planVariationId, other.planVariationId)
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(startDate, other.startDate)
             && Objects.equals(canceledDate, other.canceledDate)
@@ -413,7 +430,8 @@ public class Subscription {
             && Objects.equals(cardId, other.cardId)
             && Objects.equals(timezone, other.timezone)
             && Objects.equals(source, other.source)
-            && Objects.equals(actions, other.actions);
+            && Objects.equals(actions, other.actions)
+            && Objects.equals(phases, other.phases);
     }
 
     /**
@@ -422,13 +440,13 @@ public class Subscription {
      */
     @Override
     public String toString() {
-        return "Subscription [" + "id=" + id + ", locationId=" + locationId + ", planId=" + planId
-                + ", customerId=" + customerId + ", startDate=" + startDate + ", canceledDate="
-                + canceledDate + ", chargedThroughDate=" + chargedThroughDate + ", status=" + status
-                + ", taxPercentage=" + taxPercentage + ", invoiceIds=" + invoiceIds
-                + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
+        return "Subscription [" + "id=" + id + ", locationId=" + locationId + ", planVariationId="
+                + planVariationId + ", customerId=" + customerId + ", startDate=" + startDate
+                + ", canceledDate=" + canceledDate + ", chargedThroughDate=" + chargedThroughDate
+                + ", status=" + status + ", taxPercentage=" + taxPercentage + ", invoiceIds="
+                + invoiceIds + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
                 + ", createdAt=" + createdAt + ", cardId=" + cardId + ", timezone=" + timezone
-                + ", source=" + source + ", actions=" + actions + "]";
+                + ", source=" + source + ", actions=" + actions + ", phases=" + phases + "]";
     }
 
     /**
@@ -440,7 +458,7 @@ public class Subscription {
         Builder builder = new Builder()
                 .id(getId())
                 .locationId(getLocationId())
-                .planId(getPlanId())
+                .planVariationId(getPlanVariationId())
                 .customerId(getCustomerId())
                 .startDate(getStartDate())
                 .chargedThroughDate(getChargedThroughDate())
@@ -450,7 +468,8 @@ public class Subscription {
                 .version(getVersion())
                 .createdAt(getCreatedAt())
                 .timezone(getTimezone())
-                .source(getSource());
+                .source(getSource())
+                .phases(getPhases());
         builder.canceledDate = internalGetCanceledDate();
         builder.taxPercentage = internalGetTaxPercentage();
         builder.cardId = internalGetCardId();
@@ -464,7 +483,7 @@ public class Subscription {
     public static class Builder {
         private String id;
         private String locationId;
-        private String planId;
+        private String planVariationId;
         private String customerId;
         private String startDate;
         private OptionalNullable<String> canceledDate;
@@ -479,6 +498,7 @@ public class Subscription {
         private String timezone;
         private SubscriptionSource source;
         private OptionalNullable<List<SubscriptionAction>> actions;
+        private List<Phase> phases;
 
 
 
@@ -503,12 +523,12 @@ public class Subscription {
         }
 
         /**
-         * Setter for planId.
-         * @param  planId  String value for planId.
+         * Setter for planVariationId.
+         * @param  planVariationId  String value for planVariationId.
          * @return Builder
          */
-        public Builder planId(String planId) {
-            this.planId = planId;
+        public Builder planVariationId(String planVariationId) {
+            this.planVariationId = planVariationId;
             return this;
         }
 
@@ -689,13 +709,24 @@ public class Subscription {
         }
 
         /**
+         * Setter for phases.
+         * @param  phases  List of Phase value for phases.
+         * @return Builder
+         */
+        public Builder phases(List<Phase> phases) {
+            this.phases = phases;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Subscription} object using the set fields.
          * @return {@link Subscription}
          */
         public Subscription build() {
-            return new Subscription(id, locationId, planId, customerId, startDate, canceledDate,
-                    chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney,
-                    version, createdAt, cardId, timezone, source, actions);
+            return new Subscription(id, locationId, planVariationId, customerId, startDate,
+                    canceledDate, chargedThroughDate, status, taxPercentage, invoiceIds,
+                    priceOverrideMoney, version, createdAt, cardId, timezone, source, actions,
+                    phases);
         }
     }
 }
