@@ -49,9 +49,8 @@ public class UpdateSubscriptionResponse {
 
     /**
      * Getter for Subscription.
-     * Represents a subscription to a subscription plan by a subscriber. For an overview of the
-     * `Subscription` type, see [Subscription
-     * object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview).
+     * Represents a subscription purchased by a customer. For more information, see [Manage
+     * Subscriptions](https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions).
      * @return Returns the Subscription
      */
     @JsonGetter("subscription")

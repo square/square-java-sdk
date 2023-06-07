@@ -18,6 +18,7 @@ public class TeamMemberWage {
     private final OptionalNullable<String> teamMemberId;
     private final OptionalNullable<String> title;
     private final Money hourlyRate;
+    private final OptionalNullable<String> jobId;
 
     /**
      * Initialization constructor.
@@ -25,28 +26,32 @@ public class TeamMemberWage {
      * @param  teamMemberId  String value for teamMemberId.
      * @param  title  String value for title.
      * @param  hourlyRate  Money value for hourlyRate.
+     * @param  jobId  String value for jobId.
      */
     @JsonCreator
     public TeamMemberWage(
             @JsonProperty("id") String id,
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("title") String title,
-            @JsonProperty("hourly_rate") Money hourlyRate) {
+            @JsonProperty("hourly_rate") Money hourlyRate,
+            @JsonProperty("job_id") String jobId) {
         this.id = id;
         this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.title = OptionalNullable.of(title);
         this.hourlyRate = hourlyRate;
+        this.jobId = OptionalNullable.of(jobId);
     }
 
     /**
      * Internal initialization constructor.
      */
     protected TeamMemberWage(String id, OptionalNullable<String> teamMemberId,
-            OptionalNullable<String> title, Money hourlyRate) {
+            OptionalNullable<String> title, Money hourlyRate, OptionalNullable<String> jobId) {
         this.id = id;
         this.teamMemberId = teamMemberId;
         this.title = title;
         this.hourlyRate = hourlyRate;
+        this.jobId = jobId;
     }
 
     /**
@@ -120,9 +125,31 @@ public class TeamMemberWage {
         return hourlyRate;
     }
 
+    /**
+     * Internal Getter for JobId.
+     * An identifier for the job that this wage relates to. This cannot be used to retrieve the job.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("job_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetJobId() {
+        return this.jobId;
+    }
+
+    /**
+     * Getter for JobId.
+     * An identifier for the job that this wage relates to. This cannot be used to retrieve the job.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getJobId() {
+        return OptionalNullable.getFrom(jobId);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, teamMemberId, title, hourlyRate);
+        return Objects.hash(id, teamMemberId, title, hourlyRate, jobId);
     }
 
     @Override
@@ -137,7 +164,8 @@ public class TeamMemberWage {
         return Objects.equals(id, other.id)
             && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(title, other.title)
-            && Objects.equals(hourlyRate, other.hourlyRate);
+            && Objects.equals(hourlyRate, other.hourlyRate)
+            && Objects.equals(jobId, other.jobId);
     }
 
     /**
@@ -147,7 +175,7 @@ public class TeamMemberWage {
     @Override
     public String toString() {
         return "TeamMemberWage [" + "id=" + id + ", teamMemberId=" + teamMemberId + ", title="
-                + title + ", hourlyRate=" + hourlyRate + "]";
+                + title + ", hourlyRate=" + hourlyRate + ", jobId=" + jobId + "]";
     }
 
     /**
@@ -161,6 +189,7 @@ public class TeamMemberWage {
                 .hourlyRate(getHourlyRate());
         builder.teamMemberId = internalGetTeamMemberId();
         builder.title = internalGetTitle();
+        builder.jobId = internalGetJobId();
         return builder;
     }
 
@@ -172,6 +201,7 @@ public class TeamMemberWage {
         private OptionalNullable<String> teamMemberId;
         private OptionalNullable<String> title;
         private Money hourlyRate;
+        private OptionalNullable<String> jobId;
 
 
 
@@ -234,11 +264,30 @@ public class TeamMemberWage {
         }
 
         /**
+         * Setter for jobId.
+         * @param  jobId  String value for jobId.
+         * @return Builder
+         */
+        public Builder jobId(String jobId) {
+            this.jobId = OptionalNullable.of(jobId);
+            return this;
+        }
+
+        /**
+         * UnSetter for jobId.
+         * @return Builder
+         */
+        public Builder unsetJobId() {
+            jobId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TeamMemberWage} object using the set fields.
          * @return {@link TeamMemberWage}
          */
         public TeamMemberWage build() {
-            return new TeamMemberWage(id, teamMemberId, title, hourlyRate);
+            return new TeamMemberWage(id, teamMemberId, title, hourlyRate, jobId);
         }
     }
 }

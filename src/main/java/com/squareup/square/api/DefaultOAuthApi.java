@@ -43,12 +43,12 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * Instead, the associated user must recomplete the OAuth flow from the beginning.
      * __Important:__ The `Authorization` header for this endpoint must have the following format:
      * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the Credentials page in the [Developer
+     * application secret on the **Credentials** page in the [Developer
      * Dashboard](https://developer.squareup.com/apps).
      * @deprecated
      * 
-     * @param  clientId  Required parameter: Your application ID, which is available in the OAuth
-     *         page in the [Developer Dashboard](https://developer.squareup.com/apps).
+     * @param  clientId  Required parameter: Your application ID, which is available on the
+     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -74,12 +74,12 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * Instead, the associated user must recomplete the OAuth flow from the beginning.
      * __Important:__ The `Authorization` header for this endpoint must have the following format:
      * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the Credentials page in the [Developer
+     * application secret on the **Credentials** page in the [Developer
      * Dashboard](https://developer.squareup.com/apps).
      * @deprecated
      * 
-     * @param  clientId  Required parameter: Your application ID, which is available in the OAuth
-     *         page in the [Developer Dashboard](https://developer.squareup.com/apps).
+     * @param  clientId  Required parameter: Your application ID, which is available on the
+     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -135,8 +135,8 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * token you specify. When an OAuth access token is revoked, all of the active subscriptions
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the OAuth
-     * page for your application on the Developer Dashboard.
+     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
+     * **OAuth** page for your application in the Developer Dashboard.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -156,8 +156,8 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * token you specify. When an OAuth access token is revoked, all of the active subscriptions
      * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
      * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the OAuth
-     * page for your application on the Developer Dashboard.
+     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
+     * **OAuth** page for your application in the Developer Dashboard.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -207,7 +207,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * to `true`, in which case the endpoint returns only an access token. The `grant_type`
      * parameter specifies the type of OAuth request. If `grant_type` is `authorization_code`, you
      * must include the authorization code you received when a seller granted you authorization. If
-     * `grant_type` is `refresh_token`, you must provide a valid refresh token. If you are using an
+     * `grant_type` is `refresh_token`, you must provide a valid refresh token. If you're using an
      * old version of the Square APIs (prior to March 13, 2019), `grant_type` can be
      * `migration_token` and you must provide a valid migration token. You can use the `scopes`
      * parameter to limit the set of permissions granted to the access token and refresh token. You
@@ -230,7 +230,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * to `true`, in which case the endpoint returns only an access token. The `grant_type`
      * parameter specifies the type of OAuth request. If `grant_type` is `authorization_code`, you
      * must include the authorization code you received when a seller granted you authorization. If
-     * `grant_type` is `refresh_token`, you must provide a valid refresh token. If you are using an
+     * `grant_type` is `refresh_token`, you must provide a valid refresh token. If you're using an
      * old version of the Square APIs (prior to March 13, 2019), `grant_type` can be
      * `migration_token` and you must provide a valid migration token. You can use the `scopes`
      * parameter to limit the set of permissions granted to the access token and refresh token. You

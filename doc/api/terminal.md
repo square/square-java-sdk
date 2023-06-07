@@ -14,6 +14,7 @@ TerminalApi terminalApi = client.getTerminalApi();
 * [Search Terminal Actions](../../doc/api/terminal.md#search-terminal-actions)
 * [Get Terminal Action](../../doc/api/terminal.md#get-terminal-action)
 * [Cancel Terminal Action](../../doc/api/terminal.md#cancel-terminal-action)
+* [Dismiss Terminal Action](../../doc/api/terminal.md#dismiss-terminal-action)
 * [Create Terminal Checkout](../../doc/api/terminal.md#create-terminal-checkout)
 * [Search Terminal Checkouts](../../doc/api/terminal.md#search-terminal-checkouts)
 * [Get Terminal Checkout](../../doc/api/terminal.md#get-terminal-checkout)
@@ -132,7 +133,7 @@ CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction` |
+| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction`. |
 
 ## Response Type
 
@@ -167,7 +168,7 @@ CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction` |
+| `actionId` | `String` | Template, Required | Unique ID for the desired `TerminalAction`. |
 
 ## Response Type
 
@@ -179,6 +180,43 @@ CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
 String actionId = "action_id6";
 
 terminalApi.cancelTerminalActionAsync(actionId).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Dismiss Terminal Action
+
+Dismisses a Terminal action request if the status and type of the request permits it.
+
+See [Link and Dismiss Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions) for more details.
+
+```java
+CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
+    final String actionId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `actionId` | `String` | Template, Required | Unique ID for the `TerminalAction` associated with the waiting dialog to be dismissed. |
+
+## Response Type
+
+[`DismissTerminalActionResponse`](../../doc/models/dismiss-terminal-action-response.md)
+
+## Example Usage
+
+```java
+String actionId = "action_id6";
+
+terminalApi.dismissTerminalActionAsync(actionId).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

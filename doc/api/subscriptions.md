@@ -24,12 +24,14 @@ SubscriptionsApi subscriptionsApi = client.getSubscriptionsApi();
 
 # Create Subscription
 
-Creates a subscription to a subscription plan by a customer.
+Enrolls a customer in a subscription.
 
 If you provide a card on file in the request, Square charges the card for
-the subscription. Otherwise, Square bills an invoice to the customer's email
+the subscription. Otherwise, Square sends an invoice to the customer's email
 address. The subscription starts immediately, unless the request includes
 the optional `start_date`. Each individual subscription is associated with a particular location.
+
+For more information, see [Create a subscription](https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#create-a-subscription).
 
 ```java
 CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
@@ -51,10 +53,10 @@ CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
 ```java
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
     "S8GWD5R9QB376",
-    "6JHXF3B2CW3YKHDV4XEM674H",
     "CHFGVKYY8RSV93M5KCYTG4PN0G"
 )
 .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
+.planId("6JHXF3B2CW3YKHDV4XEM674H")
 .startDate("2021-10-20")
 .taxPercentage("5")
 .priceOverrideMoney(new Money.Builder()
@@ -95,9 +97,6 @@ associated with the specified locations are returned.
 If the request specifies customer IDs, the endpoint orders results
 first by location, within location by customer ID, and within
 customer by subscription creation date.
-
-For more information, see
-[Retrieve subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
 
 ```java
 CompletableFuture<SearchSubscriptionsResponse> searchSubscriptionsAsync(
@@ -146,7 +145,7 @@ subscriptionsApi.searchSubscriptionsAsync(body).thenAccept(result -> {
 
 # Retrieve Subscription
 
-Retrieves a subscription.
+Retrieves a specific subscription.
 
 ```java
 CompletableFuture<RetrieveSubscriptionResponse> retrieveSubscriptionAsync(
@@ -183,8 +182,8 @@ subscriptionsApi.retrieveSubscriptionAsync(subscriptionId, null).thenAccept(resu
 
 # Update Subscription
 
-Updates a subscription. You can set, modify, and clear the
-`subscription` field values.
+Updates a subscription by modifying or clearing `subscription` field values.
+To clear a field, set its value to `null`.
 
 ```java
 CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
@@ -263,9 +262,9 @@ subscriptionsApi.deleteSubscriptionActionAsync(subscriptionId, actionId).thenAcc
 
 # Cancel Subscription
 
-Schedules a `CANCEL` action to cancel an active subscription
-by setting the `canceled_date` field to the end of the active billing period
-and changing the subscription status from ACTIVE to CANCELED after this date.
+Schedules a `CANCEL` action to cancel an active subscription. This
+sets the `canceled_date` field to the end of the active billing period. After this date,
+the subscription status changes from ACTIVE to CANCELED.
 
 ```java
 CompletableFuture<CancelSubscriptionResponse> cancelSubscriptionAsync(
@@ -300,7 +299,7 @@ subscriptionsApi.cancelSubscriptionAsync(subscriptionId).thenAccept(result -> {
 
 # List Subscription Events
 
-Lists all events for a specific subscription.
+Lists all [events](https://developer.squareup.com/docs/subscriptions-api/actions-events) for a specific subscription.
 
 ```java
 CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
@@ -314,7 +313,7 @@ CompletableFuture<ListSubscriptionEventsResponse> listSubscriptionEventsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The ID of the subscription to retrieve the events for. |
-| `cursor` | `String` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `cursor` | `String` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `limit` | `Integer` | Query, Optional | The upper limit on the number of subscription events to return<br>in a paged response. |
 
 ## Response Type
@@ -417,7 +416,8 @@ subscriptionsApi.resumeSubscriptionAsync(subscriptionId, body).thenAccept(result
 
 # Swap Plan
 
-Schedules a `SWAP_PLAN` action to swap a subscription plan in an existing subscription.
+Schedules a `SWAP_PLAN` action to swap a subscription plan variation in an existing subscription.
+For more information, see [Swap Subscription Plan Variations](https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations).
 
 ```java
 CompletableFuture<SwapPlanResponse> swapPlanAsync(
@@ -440,10 +440,8 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-SwapPlanRequest body = new SwapPlanRequest.Builder(
-    null
-)
-.build();
+SwapPlanRequest body = new SwapPlanRequest.Builder()
+    .build();
 
 subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler

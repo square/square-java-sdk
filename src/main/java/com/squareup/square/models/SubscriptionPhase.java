@@ -19,6 +19,7 @@ public class SubscriptionPhase {
     private final OptionalNullable<Integer> periods;
     private final Money recurringPriceMoney;
     private final OptionalNullable<Long> ordinal;
+    private final SubscriptionPricing pricing;
 
     /**
      * Initialization constructor.
@@ -27,6 +28,7 @@ public class SubscriptionPhase {
      * @param  periods  Integer value for periods.
      * @param  recurringPriceMoney  Money value for recurringPriceMoney.
      * @param  ordinal  Long value for ordinal.
+     * @param  pricing  SubscriptionPricing value for pricing.
      */
     @JsonCreator
     public SubscriptionPhase(
@@ -34,12 +36,14 @@ public class SubscriptionPhase {
             @JsonProperty("uid") String uid,
             @JsonProperty("periods") Integer periods,
             @JsonProperty("recurring_price_money") Money recurringPriceMoney,
-            @JsonProperty("ordinal") Long ordinal) {
+            @JsonProperty("ordinal") Long ordinal,
+            @JsonProperty("pricing") SubscriptionPricing pricing) {
         this.uid = OptionalNullable.of(uid);
         this.cadence = cadence;
         this.periods = OptionalNullable.of(periods);
         this.recurringPriceMoney = recurringPriceMoney;
         this.ordinal = OptionalNullable.of(ordinal);
+        this.pricing = pricing;
     }
 
     /**
@@ -47,12 +51,13 @@ public class SubscriptionPhase {
      */
     protected SubscriptionPhase(String cadence, OptionalNullable<String> uid,
             OptionalNullable<Integer> periods, Money recurringPriceMoney,
-            OptionalNullable<Long> ordinal) {
+            OptionalNullable<Long> ordinal, SubscriptionPricing pricing) {
         this.uid = uid;
         this.cadence = cadence;
         this.periods = periods;
         this.recurringPriceMoney = recurringPriceMoney;
         this.ordinal = ordinal;
+        this.pricing = pricing;
     }
 
     /**
@@ -153,9 +158,20 @@ public class SubscriptionPhase {
         return OptionalNullable.getFrom(ordinal);
     }
 
+    /**
+     * Getter for Pricing.
+     * Describes the pricing for the subscription.
+     * @return Returns the SubscriptionPricing
+     */
+    @JsonGetter("pricing")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SubscriptionPricing getPricing() {
+        return pricing;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(uid, cadence, periods, recurringPriceMoney, ordinal);
+        return Objects.hash(uid, cadence, periods, recurringPriceMoney, ordinal, pricing);
     }
 
     @Override
@@ -171,7 +187,8 @@ public class SubscriptionPhase {
             && Objects.equals(cadence, other.cadence)
             && Objects.equals(periods, other.periods)
             && Objects.equals(recurringPriceMoney, other.recurringPriceMoney)
-            && Objects.equals(ordinal, other.ordinal);
+            && Objects.equals(ordinal, other.ordinal)
+            && Objects.equals(pricing, other.pricing);
     }
 
     /**
@@ -182,7 +199,7 @@ public class SubscriptionPhase {
     public String toString() {
         return "SubscriptionPhase [" + "cadence=" + cadence + ", uid=" + uid + ", periods="
                 + periods + ", recurringPriceMoney=" + recurringPriceMoney + ", ordinal=" + ordinal
-                + "]";
+                + ", pricing=" + pricing + "]";
     }
 
     /**
@@ -192,7 +209,8 @@ public class SubscriptionPhase {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(cadence)
-                .recurringPriceMoney(getRecurringPriceMoney());
+                .recurringPriceMoney(getRecurringPriceMoney())
+                .pricing(getPricing());
         builder.uid = internalGetUid();
         builder.periods = internalGetPeriods();
         builder.ordinal = internalGetOrdinal();
@@ -208,6 +226,7 @@ public class SubscriptionPhase {
         private OptionalNullable<Integer> periods;
         private Money recurringPriceMoney;
         private OptionalNullable<Long> ordinal;
+        private SubscriptionPricing pricing;
 
         /**
          * Initialization constructor.
@@ -295,11 +314,22 @@ public class SubscriptionPhase {
         }
 
         /**
+         * Setter for pricing.
+         * @param  pricing  SubscriptionPricing value for pricing.
+         * @return Builder
+         */
+        public Builder pricing(SubscriptionPricing pricing) {
+            this.pricing = pricing;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionPhase} object using the set fields.
          * @return {@link SubscriptionPhase}
          */
         public SubscriptionPhase build() {
-            return new SubscriptionPhase(cadence, uid, periods, recurringPriceMoney, ordinal);
+            return new SubscriptionPhase(cadence, uid, periods, recurringPriceMoney, ordinal,
+                    pricing);
         }
     }
 }

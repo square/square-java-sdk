@@ -16,6 +16,7 @@ import com.squareup.square.models.CreateTerminalCheckoutRequest;
 import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
+import com.squareup.square.models.DismissTerminalActionResponse;
 import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
@@ -159,7 +160,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     /**
      * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
      * for 30 days.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the GetTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -172,7 +173,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     /**
      * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
      * for 30 days.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the GetTerminalActionResponse response from the API call
      */
     public CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
@@ -211,7 +212,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
 
     /**
      * Cancels a Terminal action request if the status of the request permits it.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the CancelTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -223,7 +224,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
 
     /**
      * Cancels a Terminal action request if the status of the request permits it.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the CancelTerminalActionResponse response from the API call
      */
     public CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
@@ -253,6 +254,65 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CancelTerminalActionResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Dismisses a Terminal action request if the status and type of the request permits it. See
+     * [Link and Dismiss
+     * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
+     * for more details.
+     * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
+     *         waiting dialog to be dismissed.
+     * @return    Returns the DismissTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DismissTerminalActionResponse dismissTerminalAction(
+            final String actionId) throws ApiException, IOException {
+        return prepareDismissTerminalActionRequest(actionId).execute();
+    }
+
+    /**
+     * Dismisses a Terminal action request if the status and type of the request permits it. See
+     * [Link and Dismiss
+     * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
+     * for more details.
+     * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
+     *         waiting dialog to be dismissed.
+     * @return    Returns the DismissTerminalActionResponse response from the API call
+     */
+    public CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
+            final String actionId) {
+        try { 
+            return prepareDismissTerminalActionRequest(actionId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for dismissTerminalAction.
+     */
+    private ApiCall<DismissTerminalActionResponse, ApiException> prepareDismissTerminalActionRequest(
+            final String actionId) throws IOException {
+        return new ApiCall.Builder<DismissTerminalActionResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/actions/{action_id}/dismiss")
+                        .templateParam(param -> param.key("action_id").value(actionId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DismissTerminalActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

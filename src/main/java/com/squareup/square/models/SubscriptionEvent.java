@@ -3,8 +3,12 @@ package com.squareup.square.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,29 +18,47 @@ public class SubscriptionEvent {
     private final String id;
     private final String subscriptionEventType;
     private final String effectiveDate;
-    private final String planId;
     private final SubscriptionEventInfo info;
+    private final OptionalNullable<List<Phase>> phases;
+    private final String planVariationId;
 
     /**
      * Initialization constructor.
      * @param  id  String value for id.
      * @param  subscriptionEventType  String value for subscriptionEventType.
      * @param  effectiveDate  String value for effectiveDate.
-     * @param  planId  String value for planId.
+     * @param  planVariationId  String value for planVariationId.
      * @param  info  SubscriptionEventInfo value for info.
+     * @param  phases  List of Phase value for phases.
      */
     @JsonCreator
     public SubscriptionEvent(
             @JsonProperty("id") String id,
             @JsonProperty("subscription_event_type") String subscriptionEventType,
             @JsonProperty("effective_date") String effectiveDate,
-            @JsonProperty("plan_id") String planId,
-            @JsonProperty("info") SubscriptionEventInfo info) {
+            @JsonProperty("plan_variation_id") String planVariationId,
+            @JsonProperty("info") SubscriptionEventInfo info,
+            @JsonProperty("phases") List<Phase> phases) {
         this.id = id;
         this.subscriptionEventType = subscriptionEventType;
         this.effectiveDate = effectiveDate;
-        this.planId = planId;
         this.info = info;
+        this.phases = OptionalNullable.of(phases);
+        this.planVariationId = planVariationId;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected SubscriptionEvent(String id, String subscriptionEventType, String effectiveDate,
+            String planVariationId, SubscriptionEventInfo info,
+            OptionalNullable<List<Phase>> phases) {
+        this.id = id;
+        this.subscriptionEventType = subscriptionEventType;
+        this.effectiveDate = effectiveDate;
+        this.info = info;
+        this.phases = phases;
+        this.planVariationId = planVariationId;
     }
 
     /**
@@ -71,16 +93,6 @@ public class SubscriptionEvent {
     }
 
     /**
-     * Getter for PlanId.
-     * The ID of the subscription plan associated with the subscription.
-     * @return Returns the String
-     */
-    @JsonGetter("plan_id")
-    public String getPlanId() {
-        return planId;
-    }
-
-    /**
      * Getter for Info.
      * Provides information about the subscription event.
      * @return Returns the SubscriptionEventInfo
@@ -91,9 +103,42 @@ public class SubscriptionEvent {
         return info;
     }
 
+    /**
+     * Internal Getter for Phases.
+     * A list of Phases, to pass phase-specific information used in the swap.
+     * @return Returns the Internal List of Phase
+     */
+    @JsonGetter("phases")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Phase>> internalGetPhases() {
+        return this.phases;
+    }
+
+    /**
+     * Getter for Phases.
+     * A list of Phases, to pass phase-specific information used in the swap.
+     * @return Returns the List of Phase
+     */
+    @JsonIgnore
+    public List<Phase> getPhases() {
+        return OptionalNullable.getFrom(phases);
+    }
+
+    /**
+     * Getter for PlanVariationId.
+     * The ID of the subscription plan variation associated with the subscription.
+     * @return Returns the String
+     */
+    @JsonGetter("plan_variation_id")
+    public String getPlanVariationId() {
+        return planVariationId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, subscriptionEventType, effectiveDate, planId, info);
+        return Objects.hash(id, subscriptionEventType, effectiveDate, info, phases,
+                planVariationId);
     }
 
     @Override
@@ -108,8 +153,9 @@ public class SubscriptionEvent {
         return Objects.equals(id, other.id)
             && Objects.equals(subscriptionEventType, other.subscriptionEventType)
             && Objects.equals(effectiveDate, other.effectiveDate)
-            && Objects.equals(planId, other.planId)
-            && Objects.equals(info, other.info);
+            && Objects.equals(info, other.info)
+            && Objects.equals(phases, other.phases)
+            && Objects.equals(planVariationId, other.planVariationId);
     }
 
     /**
@@ -119,8 +165,8 @@ public class SubscriptionEvent {
     @Override
     public String toString() {
         return "SubscriptionEvent [" + "id=" + id + ", subscriptionEventType="
-                + subscriptionEventType + ", effectiveDate=" + effectiveDate + ", planId=" + planId
-                + ", info=" + info + "]";
+                + subscriptionEventType + ", effectiveDate=" + effectiveDate + ", planVariationId="
+                + planVariationId + ", info=" + info + ", phases=" + phases + "]";
     }
 
     /**
@@ -129,8 +175,9 @@ public class SubscriptionEvent {
      * @return a new {@link SubscriptionEvent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planId)
+        Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planVariationId)
                 .info(getInfo());
+        builder.phases = internalGetPhases();
         return builder;
     }
 
@@ -141,22 +188,23 @@ public class SubscriptionEvent {
         private String id;
         private String subscriptionEventType;
         private String effectiveDate;
-        private String planId;
+        private String planVariationId;
         private SubscriptionEventInfo info;
+        private OptionalNullable<List<Phase>> phases;
 
         /**
          * Initialization constructor.
          * @param  id  String value for id.
          * @param  subscriptionEventType  String value for subscriptionEventType.
          * @param  effectiveDate  String value for effectiveDate.
-         * @param  planId  String value for planId.
+         * @param  planVariationId  String value for planVariationId.
          */
         public Builder(String id, String subscriptionEventType, String effectiveDate,
-                String planId) {
+                String planVariationId) {
             this.id = id;
             this.subscriptionEventType = subscriptionEventType;
             this.effectiveDate = effectiveDate;
-            this.planId = planId;
+            this.planVariationId = planVariationId;
         }
 
         /**
@@ -190,12 +238,12 @@ public class SubscriptionEvent {
         }
 
         /**
-         * Setter for planId.
-         * @param  planId  String value for planId.
+         * Setter for planVariationId.
+         * @param  planVariationId  String value for planVariationId.
          * @return Builder
          */
-        public Builder planId(String planId) {
-            this.planId = planId;
+        public Builder planVariationId(String planVariationId) {
+            this.planVariationId = planVariationId;
             return this;
         }
 
@@ -210,11 +258,31 @@ public class SubscriptionEvent {
         }
 
         /**
+         * Setter for phases.
+         * @param  phases  List of Phase value for phases.
+         * @return Builder
+         */
+        public Builder phases(List<Phase> phases) {
+            this.phases = OptionalNullable.of(phases);
+            return this;
+        }
+
+        /**
+         * UnSetter for phases.
+         * @return Builder
+         */
+        public Builder unsetPhases() {
+            phases = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionEvent} object using the set fields.
          * @return {@link SubscriptionEvent}
          */
         public SubscriptionEvent build() {
-            return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planId, info);
+            return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planVariationId,
+                    info, phases);
         }
     }
 }

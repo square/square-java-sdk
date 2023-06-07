@@ -52,7 +52,7 @@ public class RevokeTokenRequest {
 
     /**
      * Internal Getter for ClientId.
-     * The Square-issued ID for your application, which is available in the OAuth page in the
+     * The Square-issued ID for your application, which is available on the **OAuth** page in the
      * [Developer Dashboard](https://developer.squareup.com/apps).
      * @return Returns the Internal String
      */
@@ -65,7 +65,7 @@ public class RevokeTokenRequest {
 
     /**
      * Getter for ClientId.
-     * The Square-issued ID for your application, which is available in the OAuth page in the
+     * The Square-issued ID for your application, which is available on the **OAuth** page in the
      * [Developer Dashboard](https://developer.squareup.com/apps).
      * @return Returns the String
      */

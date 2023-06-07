@@ -24,6 +24,8 @@ public class CheckoutOptions {
     private final AcceptedPaymentMethods acceptedPaymentMethods;
     private final Money appFeeMoney;
     private final ShippingFee shippingFee;
+    private final OptionalNullable<Boolean> enableCoupon;
+    private final OptionalNullable<Boolean> enableLoyalty;
 
     /**
      * Initialization constructor.
@@ -36,6 +38,8 @@ public class CheckoutOptions {
      * @param  acceptedPaymentMethods  AcceptedPaymentMethods value for acceptedPaymentMethods.
      * @param  appFeeMoney  Money value for appFeeMoney.
      * @param  shippingFee  ShippingFee value for shippingFee.
+     * @param  enableCoupon  Boolean value for enableCoupon.
+     * @param  enableLoyalty  Boolean value for enableLoyalty.
      */
     @JsonCreator
     public CheckoutOptions(
@@ -47,7 +51,9 @@ public class CheckoutOptions {
             @JsonProperty("ask_for_shipping_address") Boolean askForShippingAddress,
             @JsonProperty("accepted_payment_methods") AcceptedPaymentMethods acceptedPaymentMethods,
             @JsonProperty("app_fee_money") Money appFeeMoney,
-            @JsonProperty("shipping_fee") ShippingFee shippingFee) {
+            @JsonProperty("shipping_fee") ShippingFee shippingFee,
+            @JsonProperty("enable_coupon") Boolean enableCoupon,
+            @JsonProperty("enable_loyalty") Boolean enableLoyalty) {
         this.allowTipping = OptionalNullable.of(allowTipping);
         this.customFields = OptionalNullable.of(customFields);
         this.subscriptionPlanId = OptionalNullable.of(subscriptionPlanId);
@@ -57,6 +63,8 @@ public class CheckoutOptions {
         this.acceptedPaymentMethods = acceptedPaymentMethods;
         this.appFeeMoney = appFeeMoney;
         this.shippingFee = shippingFee;
+        this.enableCoupon = OptionalNullable.of(enableCoupon);
+        this.enableLoyalty = OptionalNullable.of(enableLoyalty);
     }
 
     /**
@@ -68,7 +76,8 @@ public class CheckoutOptions {
             OptionalNullable<String> merchantSupportEmail,
             OptionalNullable<Boolean> askForShippingAddress,
             AcceptedPaymentMethods acceptedPaymentMethods, Money appFeeMoney,
-            ShippingFee shippingFee) {
+            ShippingFee shippingFee, OptionalNullable<Boolean> enableCoupon,
+            OptionalNullable<Boolean> enableLoyalty) {
         this.allowTipping = allowTipping;
         this.customFields = customFields;
         this.subscriptionPlanId = subscriptionPlanId;
@@ -78,6 +87,8 @@ public class CheckoutOptions {
         this.acceptedPaymentMethods = acceptedPaymentMethods;
         this.appFeeMoney = appFeeMoney;
         this.shippingFee = shippingFee;
+        this.enableCoupon = enableCoupon;
+        this.enableLoyalty = enableLoyalty;
     }
 
     /**
@@ -252,11 +263,59 @@ public class CheckoutOptions {
         return shippingFee;
     }
 
+    /**
+     * Internal Getter for EnableCoupon.
+     * Indicates whether to include the `Add coupon` section for the buyer to provide a Square
+     * marketing coupon in the payment form.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("enable_coupon")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEnableCoupon() {
+        return this.enableCoupon;
+    }
+
+    /**
+     * Getter for EnableCoupon.
+     * Indicates whether to include the `Add coupon` section for the buyer to provide a Square
+     * marketing coupon in the payment form.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getEnableCoupon() {
+        return OptionalNullable.getFrom(enableCoupon);
+    }
+
+    /**
+     * Internal Getter for EnableLoyalty.
+     * Indicates whether to include the `REWARDS` section for the buyer to opt in to loyalty, redeem
+     * rewards in the payment form, or both.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("enable_loyalty")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetEnableLoyalty() {
+        return this.enableLoyalty;
+    }
+
+    /**
+     * Getter for EnableLoyalty.
+     * Indicates whether to include the `REWARDS` section for the buyer to opt in to loyalty, redeem
+     * rewards in the payment form, or both.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getEnableLoyalty() {
+        return OptionalNullable.getFrom(enableLoyalty);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(allowTipping, customFields, subscriptionPlanId, redirectUrl,
                 merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods, appFeeMoney,
-                shippingFee);
+                shippingFee, enableCoupon, enableLoyalty);
     }
 
     @Override
@@ -276,7 +335,9 @@ public class CheckoutOptions {
             && Objects.equals(askForShippingAddress, other.askForShippingAddress)
             && Objects.equals(acceptedPaymentMethods, other.acceptedPaymentMethods)
             && Objects.equals(appFeeMoney, other.appFeeMoney)
-            && Objects.equals(shippingFee, other.shippingFee);
+            && Objects.equals(shippingFee, other.shippingFee)
+            && Objects.equals(enableCoupon, other.enableCoupon)
+            && Objects.equals(enableLoyalty, other.enableLoyalty);
     }
 
     /**
@@ -290,7 +351,8 @@ public class CheckoutOptions {
                 + redirectUrl + ", merchantSupportEmail=" + merchantSupportEmail
                 + ", askForShippingAddress=" + askForShippingAddress + ", acceptedPaymentMethods="
                 + acceptedPaymentMethods + ", appFeeMoney=" + appFeeMoney + ", shippingFee="
-                + shippingFee + "]";
+                + shippingFee + ", enableCoupon=" + enableCoupon + ", enableLoyalty="
+                + enableLoyalty + "]";
     }
 
     /**
@@ -309,6 +371,8 @@ public class CheckoutOptions {
         builder.redirectUrl = internalGetRedirectUrl();
         builder.merchantSupportEmail = internalGetMerchantSupportEmail();
         builder.askForShippingAddress = internalGetAskForShippingAddress();
+        builder.enableCoupon = internalGetEnableCoupon();
+        builder.enableLoyalty = internalGetEnableLoyalty();
         return builder;
     }
 
@@ -325,6 +389,8 @@ public class CheckoutOptions {
         private AcceptedPaymentMethods acceptedPaymentMethods;
         private Money appFeeMoney;
         private ShippingFee shippingFee;
+        private OptionalNullable<Boolean> enableCoupon;
+        private OptionalNullable<Boolean> enableLoyalty;
 
 
 
@@ -473,13 +539,51 @@ public class CheckoutOptions {
         }
 
         /**
+         * Setter for enableCoupon.
+         * @param  enableCoupon  Boolean value for enableCoupon.
+         * @return Builder
+         */
+        public Builder enableCoupon(Boolean enableCoupon) {
+            this.enableCoupon = OptionalNullable.of(enableCoupon);
+            return this;
+        }
+
+        /**
+         * UnSetter for enableCoupon.
+         * @return Builder
+         */
+        public Builder unsetEnableCoupon() {
+            enableCoupon = null;
+            return this;
+        }
+
+        /**
+         * Setter for enableLoyalty.
+         * @param  enableLoyalty  Boolean value for enableLoyalty.
+         * @return Builder
+         */
+        public Builder enableLoyalty(Boolean enableLoyalty) {
+            this.enableLoyalty = OptionalNullable.of(enableLoyalty);
+            return this;
+        }
+
+        /**
+         * UnSetter for enableLoyalty.
+         * @return Builder
+         */
+        public Builder unsetEnableLoyalty() {
+            enableLoyalty = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CheckoutOptions} object using the set fields.
          * @return {@link CheckoutOptions}
          */
         public CheckoutOptions build() {
             return new CheckoutOptions(allowTipping, customFields, subscriptionPlanId, redirectUrl,
                     merchantSupportEmail, askForShippingAddress, acceptedPaymentMethods,
-                    appFeeMoney, shippingFee);
+                    appFeeMoney, shippingFee, enableCoupon, enableLoyalty);
         }
     }
 }

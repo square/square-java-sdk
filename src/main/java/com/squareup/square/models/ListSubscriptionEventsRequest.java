@@ -45,7 +45,7 @@ public class ListSubscriptionEventsRequest {
      * specify the cursor returned from a preceding response here to fetch the next set of results.
      * If the cursor is unset, the response contains the last page of the results. For more
      * information, see
-     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the Internal String
      */
     @JsonGetter("cursor")
@@ -61,7 +61,7 @@ public class ListSubscriptionEventsRequest {
      * specify the cursor returned from a preceding response here to fetch the next set of results.
      * If the cursor is unset, the response contains the last page of the results. For more
      * information, see
-     * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonIgnore

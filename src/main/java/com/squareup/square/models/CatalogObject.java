@@ -570,8 +570,10 @@ public class CatalogObject {
 
     /**
      * Getter for SubscriptionPlanData.
-     * Describes a subscription plan. For more information, see [Set Up and Manage a Subscription
-     * Plan](https://developer.squareup.com/docs/subscriptions-api/setup-plan).
+     * Describes a subscription plan. A subscription plan represents what you want to sell in a
+     * subscription model, and includes references to each of the associated subscription plan
+     * variations. For more information, see [Subscription Plans and
+     * Variations](https://developer.squareup.com/docs/subscriptions-api/plans-and-variations).
      * @return Returns the CatalogSubscriptionPlan
      */
     @JsonGetter("subscription_plan_data")

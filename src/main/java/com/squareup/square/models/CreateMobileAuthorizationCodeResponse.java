@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.square.http.client.HttpContext;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,22 +17,22 @@ public class CreateMobileAuthorizationCodeResponse {
     private HttpContext httpContext;
     private final String authorizationCode;
     private final String expiresAt;
-    private final Error error;
+    private final List<Error> errors;
 
     /**
      * Initialization constructor.
      * @param  authorizationCode  String value for authorizationCode.
      * @param  expiresAt  String value for expiresAt.
-     * @param  error  Error value for error.
+     * @param  errors  List of Error value for errors.
      */
     @JsonCreator
     public CreateMobileAuthorizationCodeResponse(
             @JsonProperty("authorization_code") String authorizationCode,
             @JsonProperty("expires_at") String expiresAt,
-            @JsonProperty("error") Error error) {
+            @JsonProperty("errors") List<Error> errors) {
         this.authorizationCode = authorizationCode;
         this.expiresAt = expiresAt;
-        this.error = error;
+        this.errors = errors;
     }
 
     @JsonIgnore
@@ -64,21 +65,19 @@ public class CreateMobileAuthorizationCodeResponse {
     }
 
     /**
-     * Getter for Error.
-     * Represents an error encountered during a request to the Connect API. See [Handling
-     * errors](https://developer.squareup.com/docs/build-basics/handling-errors) for more
-     * information.
-     * @return Returns the Error
+     * Getter for Errors.
+     * Any errors that occurred during the request.
+     * @return Returns the List of Error
      */
-    @JsonGetter("error")
+    @JsonGetter("errors")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Error getError() {
-        return error;
+    public List<Error> getErrors() {
+        return errors;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorizationCode, expiresAt, error);
+        return Objects.hash(authorizationCode, expiresAt, errors);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class CreateMobileAuthorizationCodeResponse {
         CreateMobileAuthorizationCodeResponse other = (CreateMobileAuthorizationCodeResponse) obj;
         return Objects.equals(authorizationCode, other.authorizationCode)
             && Objects.equals(expiresAt, other.expiresAt)
-            && Objects.equals(error, other.error);
+            && Objects.equals(errors, other.errors);
     }
 
     /**
@@ -102,7 +101,7 @@ public class CreateMobileAuthorizationCodeResponse {
     @Override
     public String toString() {
         return "CreateMobileAuthorizationCodeResponse [" + "authorizationCode=" + authorizationCode
-                + ", expiresAt=" + expiresAt + ", error=" + error + "]";
+                + ", expiresAt=" + expiresAt + ", errors=" + errors + "]";
     }
 
     /**
@@ -114,7 +113,7 @@ public class CreateMobileAuthorizationCodeResponse {
         Builder builder = new Builder()
                 .authorizationCode(getAuthorizationCode())
                 .expiresAt(getExpiresAt())
-                .error(getError());
+                .errors(getErrors());
         return builder;
     }
 
@@ -125,7 +124,7 @@ public class CreateMobileAuthorizationCodeResponse {
         private HttpContext httpContext;
         private String authorizationCode;
         private String expiresAt;
-        private Error error;
+        private List<Error> errors;
 
 
 
@@ -160,12 +159,12 @@ public class CreateMobileAuthorizationCodeResponse {
         }
 
         /**
-         * Setter for error.
-         * @param  error  Error value for error.
+         * Setter for errors.
+         * @param  errors  List of Error value for errors.
          * @return Builder
          */
-        public Builder error(Error error) {
-            this.error = error;
+        public Builder errors(List<Error> errors) {
+            this.errors = errors;
             return this;
         }
 
@@ -175,7 +174,7 @@ public class CreateMobileAuthorizationCodeResponse {
          */
         public CreateMobileAuthorizationCodeResponse build() {
             CreateMobileAuthorizationCodeResponse model =
-                    new CreateMobileAuthorizationCodeResponse(authorizationCode, expiresAt, error);
+                    new CreateMobileAuthorizationCodeResponse(authorizationCode, expiresAt, errors);
             model.httpContext = httpContext;
             return model;
         }

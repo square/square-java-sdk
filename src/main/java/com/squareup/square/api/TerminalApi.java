@@ -11,6 +11,7 @@ import com.squareup.square.models.CreateTerminalCheckoutRequest;
 import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
+import com.squareup.square.models.DismissTerminalActionResponse;
 import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
@@ -73,7 +74,7 @@ public interface TerminalApi {
     /**
      * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
      * for 30 days.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the GetTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -84,7 +85,7 @@ public interface TerminalApi {
     /**
      * Retrieves a Terminal action request by `action_id`. Terminal action requests are available
      * for 30 days.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the GetTerminalActionResponse response from the API call
      */
     CompletableFuture<GetTerminalActionResponse> getTerminalActionAsync(
@@ -92,7 +93,7 @@ public interface TerminalApi {
 
     /**
      * Cancels a Terminal action request if the status of the request permits it.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the CancelTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -102,10 +103,36 @@ public interface TerminalApi {
 
     /**
      * Cancels a Terminal action request if the status of the request permits it.
-     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`
+     * @param  actionId  Required parameter: Unique ID for the desired `TerminalAction`.
      * @return    Returns the CancelTerminalActionResponse response from the API call
      */
     CompletableFuture<CancelTerminalActionResponse> cancelTerminalActionAsync(
+            final String actionId);
+
+    /**
+     * Dismisses a Terminal action request if the status and type of the request permits it. See
+     * [Link and Dismiss
+     * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
+     * for more details.
+     * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
+     *         waiting dialog to be dismissed.
+     * @return    Returns the DismissTerminalActionResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    DismissTerminalActionResponse dismissTerminalAction(
+            final String actionId) throws ApiException, IOException;
+
+    /**
+     * Dismisses a Terminal action request if the status and type of the request permits it. See
+     * [Link and Dismiss
+     * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
+     * for more details.
+     * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
+     *         waiting dialog to be dismissed.
+     * @return    Returns the DismissTerminalActionResponse response from the API call
+     */
+    CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
             final String actionId);
 
     /**

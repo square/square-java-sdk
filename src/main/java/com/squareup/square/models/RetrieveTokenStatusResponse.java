@@ -61,8 +61,8 @@ public class RetrieveTokenStatusResponse {
 
     /**
      * Getter for ExpiresAt.
-     * The date and time when the `access_token` expires, in RFC 3339 format. Empty if token never
-     * expires.
+     * The date and time when the `access_token` expires, in RFC 3339 format. Empty if the token
+     * never expires.
      * @return Returns the String
      */
     @JsonGetter("expires_at")
