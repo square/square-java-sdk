@@ -43,6 +43,7 @@ public class CatalogObject {
     private final CatalogItemOptionValue itemOptionValueData;
     private final CatalogCustomAttributeDefinition customAttributeDefinitionData;
     private final CatalogQuickAmountsSettings quickAmountsSettingsData;
+    private final CatalogSubscriptionPlanVariation subscriptionPlanVariationData;
 
     /**
      * Initialization constructor.
@@ -75,6 +76,8 @@ public class CatalogObject {
      *         customAttributeDefinitionData.
      * @param  quickAmountsSettingsData  CatalogQuickAmountsSettings value for
      *         quickAmountsSettingsData.
+     * @param  subscriptionPlanVariationData  CatalogSubscriptionPlanVariation value for
+     *         subscriptionPlanVariationData.
      */
     @JsonCreator
     public CatalogObject(
@@ -104,7 +107,8 @@ public class CatalogObject {
             @JsonProperty("item_option_data") CatalogItemOption itemOptionData,
             @JsonProperty("item_option_value_data") CatalogItemOptionValue itemOptionValueData,
             @JsonProperty("custom_attribute_definition_data") CatalogCustomAttributeDefinition customAttributeDefinitionData,
-            @JsonProperty("quick_amounts_settings_data") CatalogQuickAmountsSettings quickAmountsSettingsData) {
+            @JsonProperty("quick_amounts_settings_data") CatalogQuickAmountsSettings quickAmountsSettingsData,
+            @JsonProperty("subscription_plan_variation_data") CatalogSubscriptionPlanVariation subscriptionPlanVariationData) {
         this.type = type;
         this.id = id;
         this.updatedAt = updatedAt;
@@ -132,6 +136,7 @@ public class CatalogObject {
         this.itemOptionValueData = itemOptionValueData;
         this.customAttributeDefinitionData = customAttributeDefinitionData;
         this.quickAmountsSettingsData = quickAmountsSettingsData;
+        this.subscriptionPlanVariationData = subscriptionPlanVariationData;
     }
 
     /**
@@ -152,7 +157,8 @@ public class CatalogObject {
             CatalogSubscriptionPlan subscriptionPlanData, CatalogItemOption itemOptionData,
             CatalogItemOptionValue itemOptionValueData,
             CatalogCustomAttributeDefinition customAttributeDefinitionData,
-            CatalogQuickAmountsSettings quickAmountsSettingsData) {
+            CatalogQuickAmountsSettings quickAmountsSettingsData,
+            CatalogSubscriptionPlanVariation subscriptionPlanVariationData) {
         this.type = type;
         this.id = id;
         this.updatedAt = updatedAt;
@@ -180,6 +186,7 @@ public class CatalogObject {
         this.itemOptionValueData = itemOptionValueData;
         this.customAttributeDefinitionData = customAttributeDefinitionData;
         this.quickAmountsSettingsData = quickAmountsSettingsData;
+        this.subscriptionPlanVariationData = subscriptionPlanVariationData;
     }
 
     /**
@@ -632,6 +639,19 @@ public class CatalogObject {
         return quickAmountsSettingsData;
     }
 
+    /**
+     * Getter for SubscriptionPlanVariationData.
+     * Describes a subscription plan variation. A subscription plan variation represents how the
+     * subscription for a product or service is sold. For more information, see [Subscription Plans
+     * and Variations](https://developer.squareup.com/docs/subscriptions-api/plans-and-variations).
+     * @return Returns the CatalogSubscriptionPlanVariation
+     */
+    @JsonGetter("subscription_plan_variation_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CatalogSubscriptionPlanVariation getSubscriptionPlanVariationData() {
+        return subscriptionPlanVariationData;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(type, id, updatedAt, version, isDeleted, customAttributeValues,
@@ -639,7 +659,8 @@ public class CatalogObject {
                 itemData, categoryData, itemVariationData, taxData, discountData, modifierListData,
                 modifierData, timePeriodData, productSetData, pricingRuleData, imageData,
                 measurementUnitData, subscriptionPlanData, itemOptionData, itemOptionValueData,
-                customAttributeDefinitionData, quickAmountsSettingsData);
+                customAttributeDefinitionData, quickAmountsSettingsData,
+                subscriptionPlanVariationData);
     }
 
     @Override
@@ -677,7 +698,8 @@ public class CatalogObject {
             && Objects.equals(itemOptionData, other.itemOptionData)
             && Objects.equals(itemOptionValueData, other.itemOptionValueData)
             && Objects.equals(customAttributeDefinitionData, other.customAttributeDefinitionData)
-            && Objects.equals(quickAmountsSettingsData, other.quickAmountsSettingsData);
+            && Objects.equals(quickAmountsSettingsData, other.quickAmountsSettingsData)
+            && Objects.equals(subscriptionPlanVariationData, other.subscriptionPlanVariationData);
     }
 
     /**
@@ -700,7 +722,8 @@ public class CatalogObject {
                 + ", subscriptionPlanData=" + subscriptionPlanData + ", itemOptionData="
                 + itemOptionData + ", itemOptionValueData=" + itemOptionValueData
                 + ", customAttributeDefinitionData=" + customAttributeDefinitionData
-                + ", quickAmountsSettingsData=" + quickAmountsSettingsData + "]";
+                + ", quickAmountsSettingsData=" + quickAmountsSettingsData
+                + ", subscriptionPlanVariationData=" + subscriptionPlanVariationData + "]";
     }
 
     /**
@@ -728,7 +751,8 @@ public class CatalogObject {
                 .itemOptionData(getItemOptionData())
                 .itemOptionValueData(getItemOptionValueData())
                 .customAttributeDefinitionData(getCustomAttributeDefinitionData())
-                .quickAmountsSettingsData(getQuickAmountsSettingsData());
+                .quickAmountsSettingsData(getQuickAmountsSettingsData())
+                .subscriptionPlanVariationData(getSubscriptionPlanVariationData());
         builder.isDeleted = internalGetIsDeleted();
         builder.customAttributeValues = internalGetCustomAttributeValues();
         builder.catalogV1Ids = internalGetCatalogV1Ids();
@@ -769,6 +793,7 @@ public class CatalogObject {
         private CatalogItemOptionValue itemOptionValueData;
         private CatalogCustomAttributeDefinition customAttributeDefinitionData;
         private CatalogQuickAmountsSettings quickAmountsSettingsData;
+        private CatalogSubscriptionPlanVariation subscriptionPlanVariationData;
 
         /**
          * Initialization constructor.
@@ -1110,6 +1135,18 @@ public class CatalogObject {
         }
 
         /**
+         * Setter for subscriptionPlanVariationData.
+         * @param  subscriptionPlanVariationData  CatalogSubscriptionPlanVariation value for
+         *         subscriptionPlanVariationData.
+         * @return Builder
+         */
+        public Builder subscriptionPlanVariationData(
+                CatalogSubscriptionPlanVariation subscriptionPlanVariationData) {
+            this.subscriptionPlanVariationData = subscriptionPlanVariationData;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogObject} object using the set fields.
          * @return {@link CatalogObject}
          */
@@ -1119,7 +1156,8 @@ public class CatalogObject {
                     itemData, categoryData, itemVariationData, taxData, discountData,
                     modifierListData, modifierData, timePeriodData, productSetData, pricingRuleData,
                     imageData, measurementUnitData, subscriptionPlanData, itemOptionData,
-                    itemOptionValueData, customAttributeDefinitionData, quickAmountsSettingsData);
+                    itemOptionValueData, customAttributeDefinitionData, quickAmountsSettingsData,
+                    subscriptionPlanVariationData);
         }
     }
 }
