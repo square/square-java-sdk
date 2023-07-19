@@ -142,8 +142,8 @@ public class BusinessAppointmentSettings {
 
     /**
      * Internal Getter for MinBookingLeadTimeSeconds.
-     * The minimum lead time in seconds before a service can be booked. Bookings must be created at
-     * least this far ahead of the booking's starting time.
+     * The minimum lead time in seconds before a service can be booked. A booking must be created at
+     * least this amount of time before its starting time.
      * @return Returns the Internal Integer
      */
     @JsonGetter("min_booking_lead_time_seconds")
@@ -155,8 +155,8 @@ public class BusinessAppointmentSettings {
 
     /**
      * Getter for MinBookingLeadTimeSeconds.
-     * The minimum lead time in seconds before a service can be booked. Bookings must be created at
-     * least this far ahead of the booking's starting time.
+     * The minimum lead time in seconds before a service can be booked. A booking must be created at
+     * least this amount of time before its starting time.
      * @return Returns the Integer
      */
     @JsonIgnore
@@ -166,8 +166,8 @@ public class BusinessAppointmentSettings {
 
     /**
      * Internal Getter for MaxBookingLeadTimeSeconds.
-     * The maximum lead time in seconds before a service can be booked. Bookings must be created at
-     * most this far ahead of the booking's starting time.
+     * The maximum lead time in seconds before a service can be booked. A booking must be created at
+     * most this amount of time before its starting time.
      * @return Returns the Internal Integer
      */
     @JsonGetter("max_booking_lead_time_seconds")
@@ -179,8 +179,8 @@ public class BusinessAppointmentSettings {
 
     /**
      * Getter for MaxBookingLeadTimeSeconds.
-     * The maximum lead time in seconds before a service can be booked. Bookings must be created at
-     * most this far ahead of the booking's starting time.
+     * The maximum lead time in seconds before a service can be booked. A booking must be created at
+     * most this amount of time before its starting time.
      * @return Returns the Integer
      */
     @JsonIgnore

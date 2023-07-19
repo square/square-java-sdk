@@ -19,6 +19,7 @@ Represents an action processed by the Square Terminal.
 | `CreatedAt` | `String` | Optional | The time when the `TerminalAction` was created as an RFC 3339 timestamp. | String getCreatedAt() |
 | `UpdatedAt` | `String` | Optional | The time when the `TerminalAction` was last updated as an RFC 3339 timestamp. | String getUpdatedAt() |
 | `AppId` | `String` | Optional | The ID of the application that created the action. | String getAppId() |
+| `LocationId` | `String` | Optional | The location id the action is attached to, if a link can be made.<br>**Constraints**: *Maximum Length*: `64` | String getLocationId() |
 | `Type` | [`String`](../../doc/models/terminal-action-action-type.md) | Optional | Describes the type of this unit and indicates which field contains the unit information. This is an ‘open’ enum. | String getType() |
 | `QrCodeOptions` | [`QrCodeOptions`](../../doc/models/qr-code-options.md) | Optional | Fields to describe the action that displays QR-Codes. | QrCodeOptions getQrCodeOptions() |
 | `SaveCardOptions` | [`SaveCardOptions`](../../doc/models/save-card-options.md) | Optional | Describes save-card action fields. | SaveCardOptions getSaveCardOptions() |

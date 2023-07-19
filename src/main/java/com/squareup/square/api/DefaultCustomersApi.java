@@ -59,6 +59,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
      *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     * @param  count  Optional parameter: Indicates whether to return the total count of customers
+     *         in the `count` field of the response. The default value is `false`.
      * @return    Returns the ListCustomersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -67,8 +69,9 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
             final String cursor,
             final Integer limit,
             final String sortField,
-            final String sortOrder) throws ApiException, IOException {
-        return prepareListCustomersRequest(cursor, limit, sortField, sortOrder).execute();
+            final String sortOrder,
+            final Boolean count) throws ApiException, IOException {
+        return prepareListCustomersRequest(cursor, limit, sortField, sortOrder, count).execute();
     }
 
     /**
@@ -90,15 +93,18 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
      *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     * @param  count  Optional parameter: Indicates whether to return the total count of customers
+     *         in the `count` field of the response. The default value is `false`.
      * @return    Returns the ListCustomersResponse response from the API call
      */
     public CompletableFuture<ListCustomersResponse> listCustomersAsync(
             final String cursor,
             final Integer limit,
             final String sortField,
-            final String sortOrder) {
+            final String sortOrder,
+            final Boolean count) {
         try { 
-            return prepareListCustomersRequest(cursor, limit, sortField, sortOrder).executeAsync(); 
+            return prepareListCustomersRequest(cursor, limit, sortField, sortOrder, count).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -111,7 +117,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
             final String cursor,
             final Integer limit,
             final String sortField,
-            final String sortOrder) throws IOException {
+            final String sortOrder,
+            final Boolean count) throws IOException {
         return new ApiCall.Builder<ListCustomersResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -125,6 +132,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 .value(sortField).isRequired(false))
                         .queryParam(param -> param.key("sort_order")
                                 .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("count")
+                                .value((count != null) ? count : false).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseApi.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

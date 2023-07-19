@@ -18,21 +18,25 @@ public class SearchCustomersResponse {
     private final List<Error> errors;
     private final List<Customer> customers;
     private final String cursor;
+    private final Long count;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  customers  List of Customer value for customers.
      * @param  cursor  String value for cursor.
+     * @param  count  Long value for count.
      */
     @JsonCreator
     public SearchCustomersResponse(
             @JsonProperty("errors") List<Error> errors,
             @JsonProperty("customers") List<Customer> customers,
-            @JsonProperty("cursor") String cursor) {
+            @JsonProperty("cursor") String cursor,
+            @JsonProperty("count") Long count) {
         this.errors = errors;
         this.customers = customers;
         this.cursor = cursor;
+        this.count = count;
     }
 
     @JsonIgnore
@@ -54,7 +58,9 @@ public class SearchCustomersResponse {
     /**
      * Getter for Customers.
      * The customer profiles that match the search query. If any search condition is not met, the
-     * result is an empty object (`{}`).
+     * result is an empty object (`{}`). Only customer profiles with public information
+     * (`given_name`, `family_name`, `company_name`, `email_address`, or `phone_number`) are
+     * included in the response.
      * @return Returns the List of Customer
      */
     @JsonGetter("customers")
@@ -78,9 +84,23 @@ public class SearchCustomersResponse {
         return cursor;
     }
 
+    /**
+     * Getter for Count.
+     * The total count of customers associated with the Square account that match the search query.
+     * Only customer profiles with public information (`given_name`, `family_name`, `company_name`,
+     * `email_address`, or `phone_number`) are counted. This field is present only if `count` is set
+     * to `true` in the request.
+     * @return Returns the Long
+     */
+    @JsonGetter("count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getCount() {
+        return count;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, customers, cursor);
+        return Objects.hash(errors, customers, cursor, count);
     }
 
     @Override
@@ -94,7 +114,8 @@ public class SearchCustomersResponse {
         SearchCustomersResponse other = (SearchCustomersResponse) obj;
         return Objects.equals(errors, other.errors)
             && Objects.equals(customers, other.customers)
-            && Objects.equals(cursor, other.cursor);
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(count, other.count);
     }
 
     /**
@@ -104,7 +125,7 @@ public class SearchCustomersResponse {
     @Override
     public String toString() {
         return "SearchCustomersResponse [" + "errors=" + errors + ", customers=" + customers
-                + ", cursor=" + cursor + "]";
+                + ", cursor=" + cursor + ", count=" + count + "]";
     }
 
     /**
@@ -116,7 +137,8 @@ public class SearchCustomersResponse {
         Builder builder = new Builder()
                 .errors(getErrors())
                 .customers(getCustomers())
-                .cursor(getCursor());
+                .cursor(getCursor())
+                .count(getCount());
         return builder;
     }
 
@@ -128,6 +150,7 @@ public class SearchCustomersResponse {
         private List<Error> errors;
         private List<Customer> customers;
         private String cursor;
+        private Long count;
 
 
 
@@ -172,12 +195,22 @@ public class SearchCustomersResponse {
         }
 
         /**
+         * Setter for count.
+         * @param  count  Long value for count.
+         * @return Builder
+         */
+        public Builder count(Long count) {
+            this.count = count;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchCustomersResponse} object using the set fields.
          * @return {@link SearchCustomersResponse}
          */
         public SearchCustomersResponse build() {
             SearchCustomersResponse model =
-                    new SearchCustomersResponse(errors, customers, cursor);
+                    new SearchCustomersResponse(errors, customers, cursor, count);
             model.httpContext = httpContext;
             return model;
         }

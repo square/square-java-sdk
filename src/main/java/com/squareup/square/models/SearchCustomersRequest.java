@@ -14,21 +14,25 @@ public class SearchCustomersRequest {
     private final String cursor;
     private final Long limit;
     private final CustomerQuery query;
+    private final Boolean count;
 
     /**
      * Initialization constructor.
      * @param  cursor  String value for cursor.
      * @param  limit  Long value for limit.
      * @param  query  CustomerQuery value for query.
+     * @param  count  Boolean value for count.
      */
     @JsonCreator
     public SearchCustomersRequest(
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Long limit,
-            @JsonProperty("query") CustomerQuery query) {
+            @JsonProperty("query") CustomerQuery query,
+            @JsonProperty("count") Boolean count) {
         this.cursor = cursor;
         this.limit = limit;
         this.query = query;
+        this.count = count;
     }
 
     /**
@@ -71,9 +75,21 @@ public class SearchCustomersRequest {
         return query;
     }
 
+    /**
+     * Getter for Count.
+     * Indicates whether to return the total count of matching customers in the `count` field of the
+     * response. The default value is `false`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getCount() {
+        return count;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, limit, query);
+        return Objects.hash(cursor, limit, query, count);
     }
 
     @Override
@@ -87,7 +103,8 @@ public class SearchCustomersRequest {
         SearchCustomersRequest other = (SearchCustomersRequest) obj;
         return Objects.equals(cursor, other.cursor)
             && Objects.equals(limit, other.limit)
-            && Objects.equals(query, other.query);
+            && Objects.equals(query, other.query)
+            && Objects.equals(count, other.count);
     }
 
     /**
@@ -97,7 +114,7 @@ public class SearchCustomersRequest {
     @Override
     public String toString() {
         return "SearchCustomersRequest [" + "cursor=" + cursor + ", limit=" + limit + ", query="
-                + query + "]";
+                + query + ", count=" + count + "]";
     }
 
     /**
@@ -109,7 +126,8 @@ public class SearchCustomersRequest {
         Builder builder = new Builder()
                 .cursor(getCursor())
                 .limit(getLimit())
-                .query(getQuery());
+                .query(getQuery())
+                .count(getCount());
         return builder;
     }
 
@@ -120,6 +138,7 @@ public class SearchCustomersRequest {
         private String cursor;
         private Long limit;
         private CustomerQuery query;
+        private Boolean count;
 
 
 
@@ -154,11 +173,21 @@ public class SearchCustomersRequest {
         }
 
         /**
+         * Setter for count.
+         * @param  count  Boolean value for count.
+         * @return Builder
+         */
+        public Builder count(Boolean count) {
+            this.count = count;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchCustomersRequest} object using the set fields.
          * @return {@link SearchCustomersRequest}
          */
         public SearchCustomersRequest build() {
-            return new SearchCustomersRequest(cursor, limit, query);
+            return new SearchCustomersRequest(cursor, limit, query, count);
         }
     }
 }

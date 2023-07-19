@@ -43,6 +43,8 @@ public interface CustomersApi {
      *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     * @param  count  Optional parameter: Indicates whether to return the total count of customers
+     *         in the `count` field of the response. The default value is `false`.
      * @return    Returns the ListCustomersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -51,7 +53,8 @@ public interface CustomersApi {
             final String cursor,
             final Integer limit,
             final String sortField,
-            final String sortOrder) throws ApiException, IOException;
+            final String sortOrder,
+            final Boolean count) throws ApiException, IOException;
 
     /**
      * Lists customer profiles associated with a Square account. Under normal operating conditions,
@@ -72,13 +75,16 @@ public interface CustomersApi {
      *         value is `DEFAULT`.
      * @param  sortOrder  Optional parameter: Indicates whether customers should be sorted in
      *         ascending (`ASC`) or descending (`DESC`) order. The default value is `ASC`.
+     * @param  count  Optional parameter: Indicates whether to return the total count of customers
+     *         in the `count` field of the response. The default value is `false`.
      * @return    Returns the ListCustomersResponse response from the API call
      */
     CompletableFuture<ListCustomersResponse> listCustomersAsync(
             final String cursor,
             final Integer limit,
             final String sortField,
-            final String sortOrder);
+            final String sortOrder,
+            final Boolean count);
 
     /**
      * Creates a new customer for a business. You must provide at least one of the following values

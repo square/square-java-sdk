@@ -18,6 +18,7 @@ public class InvoiceAcceptedPaymentMethods {
     private final OptionalNullable<Boolean> squareGiftCard;
     private final OptionalNullable<Boolean> bankAccount;
     private final OptionalNullable<Boolean> buyNowPayLater;
+    private final OptionalNullable<Boolean> cashAppPay;
 
     /**
      * Initialization constructor.
@@ -25,17 +26,20 @@ public class InvoiceAcceptedPaymentMethods {
      * @param  squareGiftCard  Boolean value for squareGiftCard.
      * @param  bankAccount  Boolean value for bankAccount.
      * @param  buyNowPayLater  Boolean value for buyNowPayLater.
+     * @param  cashAppPay  Boolean value for cashAppPay.
      */
     @JsonCreator
     public InvoiceAcceptedPaymentMethods(
             @JsonProperty("card") Boolean card,
             @JsonProperty("square_gift_card") Boolean squareGiftCard,
             @JsonProperty("bank_account") Boolean bankAccount,
-            @JsonProperty("buy_now_pay_later") Boolean buyNowPayLater) {
+            @JsonProperty("buy_now_pay_later") Boolean buyNowPayLater,
+            @JsonProperty("cash_app_pay") Boolean cashAppPay) {
         this.card = OptionalNullable.of(card);
         this.squareGiftCard = OptionalNullable.of(squareGiftCard);
         this.bankAccount = OptionalNullable.of(bankAccount);
         this.buyNowPayLater = OptionalNullable.of(buyNowPayLater);
+        this.cashAppPay = OptionalNullable.of(cashAppPay);
     }
 
     /**
@@ -43,11 +47,12 @@ public class InvoiceAcceptedPaymentMethods {
      */
     protected InvoiceAcceptedPaymentMethods(OptionalNullable<Boolean> card,
             OptionalNullable<Boolean> squareGiftCard, OptionalNullable<Boolean> bankAccount,
-            OptionalNullable<Boolean> buyNowPayLater) {
+            OptionalNullable<Boolean> buyNowPayLater, OptionalNullable<Boolean> cashAppPay) {
         this.card = card;
         this.squareGiftCard = squareGiftCard;
         this.bankAccount = bankAccount;
         this.buyNowPayLater = buyNowPayLater;
+        this.cashAppPay = cashAppPay;
     }
 
     /**
@@ -154,9 +159,33 @@ public class InvoiceAcceptedPaymentMethods {
         return OptionalNullable.getFrom(buyNowPayLater);
     }
 
+    /**
+     * Internal Getter for CashAppPay.
+     * Indicates whether Cash App payments are accepted. The default value is `false`. This payment
+     * method is supported only for seller [locations](entity:Location) in the United States.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("cash_app_pay")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetCashAppPay() {
+        return this.cashAppPay;
+    }
+
+    /**
+     * Getter for CashAppPay.
+     * Indicates whether Cash App payments are accepted. The default value is `false`. This payment
+     * method is supported only for seller [locations](entity:Location) in the United States.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getCashAppPay() {
+        return OptionalNullable.getFrom(cashAppPay);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(card, squareGiftCard, bankAccount, buyNowPayLater);
+        return Objects.hash(card, squareGiftCard, bankAccount, buyNowPayLater, cashAppPay);
     }
 
     @Override
@@ -171,7 +200,8 @@ public class InvoiceAcceptedPaymentMethods {
         return Objects.equals(card, other.card)
             && Objects.equals(squareGiftCard, other.squareGiftCard)
             && Objects.equals(bankAccount, other.bankAccount)
-            && Objects.equals(buyNowPayLater, other.buyNowPayLater);
+            && Objects.equals(buyNowPayLater, other.buyNowPayLater)
+            && Objects.equals(cashAppPay, other.cashAppPay);
     }
 
     /**
@@ -182,7 +212,7 @@ public class InvoiceAcceptedPaymentMethods {
     public String toString() {
         return "InvoiceAcceptedPaymentMethods [" + "card=" + card + ", squareGiftCard="
                 + squareGiftCard + ", bankAccount=" + bankAccount + ", buyNowPayLater="
-                + buyNowPayLater + "]";
+                + buyNowPayLater + ", cashAppPay=" + cashAppPay + "]";
     }
 
     /**
@@ -196,6 +226,7 @@ public class InvoiceAcceptedPaymentMethods {
         builder.squareGiftCard = internalGetSquareGiftCard();
         builder.bankAccount = internalGetBankAccount();
         builder.buyNowPayLater = internalGetBuyNowPayLater();
+        builder.cashAppPay = internalGetCashAppPay();
         return builder;
     }
 
@@ -207,6 +238,7 @@ public class InvoiceAcceptedPaymentMethods {
         private OptionalNullable<Boolean> squareGiftCard;
         private OptionalNullable<Boolean> bankAccount;
         private OptionalNullable<Boolean> buyNowPayLater;
+        private OptionalNullable<Boolean> cashAppPay;
 
 
 
@@ -287,12 +319,31 @@ public class InvoiceAcceptedPaymentMethods {
         }
 
         /**
+         * Setter for cashAppPay.
+         * @param  cashAppPay  Boolean value for cashAppPay.
+         * @return Builder
+         */
+        public Builder cashAppPay(Boolean cashAppPay) {
+            this.cashAppPay = OptionalNullable.of(cashAppPay);
+            return this;
+        }
+
+        /**
+         * UnSetter for cashAppPay.
+         * @return Builder
+         */
+        public Builder unsetCashAppPay() {
+            cashAppPay = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceAcceptedPaymentMethods} object using the set fields.
          * @return {@link InvoiceAcceptedPaymentMethods}
          */
         public InvoiceAcceptedPaymentMethods build() {
             return new InvoiceAcceptedPaymentMethods(card, squareGiftCard, bankAccount,
-                    buyNowPayLater);
+                    buyNowPayLater, cashAppPay);
         }
     }
 }

@@ -18,6 +18,7 @@ public class ListCustomersRequest {
     private final OptionalNullable<Integer> limit;
     private final String sortField;
     private final String sortOrder;
+    private final OptionalNullable<Boolean> count;
 
     /**
      * Initialization constructor.
@@ -25,28 +26,32 @@ public class ListCustomersRequest {
      * @param  limit  Integer value for limit.
      * @param  sortField  String value for sortField.
      * @param  sortOrder  String value for sortOrder.
+     * @param  count  Boolean value for count.
      */
     @JsonCreator
     public ListCustomersRequest(
             @JsonProperty("cursor") String cursor,
             @JsonProperty("limit") Integer limit,
             @JsonProperty("sort_field") String sortField,
-            @JsonProperty("sort_order") String sortOrder) {
+            @JsonProperty("sort_order") String sortOrder,
+            @JsonProperty("count") Boolean count) {
         this.cursor = OptionalNullable.of(cursor);
         this.limit = OptionalNullable.of(limit);
         this.sortField = sortField;
         this.sortOrder = sortOrder;
+        this.count = OptionalNullable.of(count);
     }
 
     /**
      * Internal initialization constructor.
      */
     protected ListCustomersRequest(OptionalNullable<String> cursor, OptionalNullable<Integer> limit,
-            String sortField, String sortOrder) {
+            String sortField, String sortOrder, OptionalNullable<Boolean> count) {
         this.cursor = cursor;
         this.limit = limit;
         this.sortField = sortField;
         this.sortOrder = sortOrder;
+        this.count = count;
     }
 
     /**
@@ -127,9 +132,33 @@ public class ListCustomersRequest {
         return sortOrder;
     }
 
+    /**
+     * Internal Getter for Count.
+     * Indicates whether to return the total count of customers in the `count` field of the
+     * response. The default value is `false`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetCount() {
+        return this.count;
+    }
+
+    /**
+     * Getter for Count.
+     * Indicates whether to return the total count of customers in the `count` field of the
+     * response. The default value is `false`.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getCount() {
+        return OptionalNullable.getFrom(count);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(cursor, limit, sortField, sortOrder);
+        return Objects.hash(cursor, limit, sortField, sortOrder, count);
     }
 
     @Override
@@ -144,7 +173,8 @@ public class ListCustomersRequest {
         return Objects.equals(cursor, other.cursor)
             && Objects.equals(limit, other.limit)
             && Objects.equals(sortField, other.sortField)
-            && Objects.equals(sortOrder, other.sortOrder);
+            && Objects.equals(sortOrder, other.sortOrder)
+            && Objects.equals(count, other.count);
     }
 
     /**
@@ -154,7 +184,7 @@ public class ListCustomersRequest {
     @Override
     public String toString() {
         return "ListCustomersRequest [" + "cursor=" + cursor + ", limit=" + limit + ", sortField="
-                + sortField + ", sortOrder=" + sortOrder + "]";
+                + sortField + ", sortOrder=" + sortOrder + ", count=" + count + "]";
     }
 
     /**
@@ -168,6 +198,7 @@ public class ListCustomersRequest {
                 .sortOrder(getSortOrder());
         builder.cursor = internalGetCursor();
         builder.limit = internalGetLimit();
+        builder.count = internalGetCount();
         return builder;
     }
 
@@ -179,6 +210,7 @@ public class ListCustomersRequest {
         private OptionalNullable<Integer> limit;
         private String sortField;
         private String sortOrder;
+        private OptionalNullable<Boolean> count;
 
 
 
@@ -241,11 +273,30 @@ public class ListCustomersRequest {
         }
 
         /**
+         * Setter for count.
+         * @param  count  Boolean value for count.
+         * @return Builder
+         */
+        public Builder count(Boolean count) {
+            this.count = OptionalNullable.of(count);
+            return this;
+        }
+
+        /**
+         * UnSetter for count.
+         * @return Builder
+         */
+        public Builder unsetCount() {
+            count = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCustomersRequest} object using the set fields.
          * @return {@link ListCustomersRequest}
          */
         public ListCustomersRequest build() {
-            return new ListCustomersRequest(cursor, limit, sortField, sortOrder);
+            return new ListCustomersRequest(cursor, limit, sortField, sortOrder, count);
         }
     }
 }
