@@ -31,7 +31,8 @@ public class CreateTerminalRefundRequest {
      * Getter for IdempotencyKey.
      * A unique string that identifies this `CreateRefund` request. Keys can be any valid string but
      * must be unique for every `CreateRefund` request. See [Idempotency
-     * keys](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.
+     * keys](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for
+     * more information.
      * @return Returns the String
      */
     @JsonGetter("idempotency_key")

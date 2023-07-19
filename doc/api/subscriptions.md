@@ -56,18 +56,19 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
     "CHFGVKYY8RSV93M5KCYTG4PN0G"
 )
 .idempotencyKey("8193148c-9586-11e6-99f9-28cfe92138cf")
-.planId("6JHXF3B2CW3YKHDV4XEM674H")
-.startDate("2021-10-20")
-.taxPercentage("5")
-.priceOverrideMoney(new Money.Builder()
-        .amount(100L)
-        .currency("USD")
-        .build())
+.planVariationId("6JHXF3B2CW3YKHDV4XEM674H")
+.startDate("2023-06-20")
 .cardId("ccof:qy5x8hHGYsgLrp4Q4GB")
 .timezone("America/Los_Angeles")
 .source(new SubscriptionSource.Builder()
-        .name("My App")
+        .name("My Application")
         .build())
+.phases(Arrays.asList(
+        new Phase.Builder()
+            .ordinal(0)
+            .orderTemplateId("U2NaowWxzXwpsZU697x7ZHOAnCNZY")
+            .build()
+    ))
 .build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
@@ -441,6 +442,14 @@ CompletableFuture<SwapPlanResponse> swapPlanAsync(
 ```java
 String subscriptionId = "subscription_id0";
 SwapPlanRequest body = new SwapPlanRequest.Builder()
+    .newPlanVariationId("FQ7CDXXWSLUJRPM3GFJSJGZ7")
+    .phases(Arrays.asList(
+        new PhaseInput.Builder(
+            0
+        )
+        .orderTemplateId("uhhnjH9osVv3shUADwaC0b3hNxQZY")
+        .build()
+    ))
     .build();
 
 subscriptionsApi.swapPlanAsync(subscriptionId, body).thenAccept(result -> {

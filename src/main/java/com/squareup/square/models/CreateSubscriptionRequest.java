@@ -14,7 +14,6 @@ import java.util.Objects;
 public class CreateSubscriptionRequest {
     private final String idempotencyKey;
     private final String locationId;
-    private final String planId;
     private final String planVariationId;
     private final String customerId;
     private final String startDate;
@@ -31,7 +30,6 @@ public class CreateSubscriptionRequest {
      * @param  locationId  String value for locationId.
      * @param  customerId  String value for customerId.
      * @param  idempotencyKey  String value for idempotencyKey.
-     * @param  planId  String value for planId.
      * @param  planVariationId  String value for planVariationId.
      * @param  startDate  String value for startDate.
      * @param  canceledDate  String value for canceledDate.
@@ -47,7 +45,6 @@ public class CreateSubscriptionRequest {
             @JsonProperty("location_id") String locationId,
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("idempotency_key") String idempotencyKey,
-            @JsonProperty("plan_id") String planId,
             @JsonProperty("plan_variation_id") String planVariationId,
             @JsonProperty("start_date") String startDate,
             @JsonProperty("canceled_date") String canceledDate,
@@ -59,7 +56,6 @@ public class CreateSubscriptionRequest {
             @JsonProperty("phases") List<Phase> phases) {
         this.idempotencyKey = idempotencyKey;
         this.locationId = locationId;
-        this.planId = planId;
         this.planVariationId = planVariationId;
         this.customerId = customerId;
         this.startDate = startDate;
@@ -94,22 +90,6 @@ public class CreateSubscriptionRequest {
     @JsonGetter("location_id")
     public String getLocationId() {
         return locationId;
-    }
-
-    /**
-     * Getter for PlanId.
-     * The ID of the [subscription
-     * plan](https://developer.squareup.com/docs/subscriptions-api/plans-and-variations) created
-     * using the Catalog API. Deprecated in favour of `plan_variation_id`. For more information, see
-     * [Set Up and Manage a Subscription
-     * Plan](https://developer.squareup.com/docs/subscriptions-api/setup-plan) and [Subscriptions
-     * Walkthrough](https://developer.squareup.com/docs/subscriptions-api/walkthrough).
-     * @return Returns the String
-     */
-    @JsonGetter("plan_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPlanId() {
-        return planId;
     }
 
     /**
@@ -246,9 +226,9 @@ public class CreateSubscriptionRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idempotencyKey, locationId, planId, planVariationId, customerId,
-                startDate, canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone,
-                source, phases);
+        return Objects.hash(idempotencyKey, locationId, planVariationId, customerId, startDate,
+                canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone, source,
+                phases);
     }
 
     @Override
@@ -262,7 +242,6 @@ public class CreateSubscriptionRequest {
         CreateSubscriptionRequest other = (CreateSubscriptionRequest) obj;
         return Objects.equals(idempotencyKey, other.idempotencyKey)
             && Objects.equals(locationId, other.locationId)
-            && Objects.equals(planId, other.planId)
             && Objects.equals(planVariationId, other.planVariationId)
             && Objects.equals(customerId, other.customerId)
             && Objects.equals(startDate, other.startDate)
@@ -282,11 +261,11 @@ public class CreateSubscriptionRequest {
     @Override
     public String toString() {
         return "CreateSubscriptionRequest [" + "locationId=" + locationId + ", customerId="
-                + customerId + ", idempotencyKey=" + idempotencyKey + ", planId=" + planId
-                + ", planVariationId=" + planVariationId + ", startDate=" + startDate
-                + ", canceledDate=" + canceledDate + ", taxPercentage=" + taxPercentage
-                + ", priceOverrideMoney=" + priceOverrideMoney + ", cardId=" + cardId
-                + ", timezone=" + timezone + ", source=" + source + ", phases=" + phases + "]";
+                + customerId + ", idempotencyKey=" + idempotencyKey + ", planVariationId="
+                + planVariationId + ", startDate=" + startDate + ", canceledDate=" + canceledDate
+                + ", taxPercentage=" + taxPercentage + ", priceOverrideMoney=" + priceOverrideMoney
+                + ", cardId=" + cardId + ", timezone=" + timezone + ", source=" + source
+                + ", phases=" + phases + "]";
     }
 
     /**
@@ -297,7 +276,6 @@ public class CreateSubscriptionRequest {
     public Builder toBuilder() {
         Builder builder = new Builder(locationId, customerId)
                 .idempotencyKey(getIdempotencyKey())
-                .planId(getPlanId())
                 .planVariationId(getPlanVariationId())
                 .startDate(getStartDate())
                 .canceledDate(getCanceledDate())
@@ -317,7 +295,6 @@ public class CreateSubscriptionRequest {
         private String locationId;
         private String customerId;
         private String idempotencyKey;
-        private String planId;
         private String planVariationId;
         private String startDate;
         private String canceledDate;
@@ -365,16 +342,6 @@ public class CreateSubscriptionRequest {
          */
         public Builder idempotencyKey(String idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
-            return this;
-        }
-
-        /**
-         * Setter for planId.
-         * @param  planId  String value for planId.
-         * @return Builder
-         */
-        public Builder planId(String planId) {
-            this.planId = planId;
             return this;
         }
 
@@ -473,7 +440,7 @@ public class CreateSubscriptionRequest {
          * @return {@link CreateSubscriptionRequest}
          */
         public CreateSubscriptionRequest build() {
-            return new CreateSubscriptionRequest(locationId, customerId, idempotencyKey, planId,
+            return new CreateSubscriptionRequest(locationId, customerId, idempotencyKey,
                     planVariationId, startDate, canceledDate, taxPercentage, priceOverrideMoney,
                     cardId, timezone, source, phases);
         }

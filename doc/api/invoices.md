@@ -118,6 +118,7 @@ CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
             .squareGiftCard(false)
             .bankAccount(false)
             .buyNowPayLater(false)
+            .cashAppPay(false)
             .build())
         .customFields(Arrays.asList(
             new InvoiceCustomField.Builder()

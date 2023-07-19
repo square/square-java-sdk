@@ -22,6 +22,7 @@ public class TerminalAction {
     private final String createdAt;
     private final String updatedAt;
     private final String appId;
+    private final String locationId;
     private final String type;
     private final QrCodeOptions qrCodeOptions;
     private final SaveCardOptions saveCardOptions;
@@ -44,6 +45,7 @@ public class TerminalAction {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  appId  String value for appId.
+     * @param  locationId  String value for locationId.
      * @param  type  String value for type.
      * @param  qrCodeOptions  QrCodeOptions value for qrCodeOptions.
      * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
@@ -66,6 +68,7 @@ public class TerminalAction {
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
             @JsonProperty("app_id") String appId,
+            @JsonProperty("location_id") String locationId,
             @JsonProperty("type") String type,
             @JsonProperty("qr_code_options") QrCodeOptions qrCodeOptions,
             @JsonProperty("save_card_options") SaveCardOptions saveCardOptions,
@@ -85,6 +88,7 @@ public class TerminalAction {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.appId = appId;
+        this.locationId = locationId;
         this.type = type;
         this.qrCodeOptions = qrCodeOptions;
         this.saveCardOptions = saveCardOptions;
@@ -103,7 +107,7 @@ public class TerminalAction {
      */
     protected TerminalAction(String id, OptionalNullable<String> deviceId,
             OptionalNullable<String> deadlineDuration, String status, String cancelReason,
-            String createdAt, String updatedAt, String appId, String type,
+            String createdAt, String updatedAt, String appId, String locationId, String type,
             QrCodeOptions qrCodeOptions, SaveCardOptions saveCardOptions,
             SignatureOptions signatureOptions, ConfirmationOptions confirmationOptions,
             ReceiptOptions receiptOptions, DataCollectionOptions dataCollectionOptions,
@@ -118,6 +122,7 @@ public class TerminalAction {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.appId = appId;
+        this.locationId = locationId;
         this.type = type;
         this.qrCodeOptions = qrCodeOptions;
         this.saveCardOptions = saveCardOptions;
@@ -245,6 +250,17 @@ public class TerminalAction {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppId() {
         return appId;
+    }
+
+    /**
+     * Getter for LocationId.
+     * The location id the action is attached to, if a link can be made.
+     * @return Returns the String
+     */
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocationId() {
+        return locationId;
     }
 
     /**
@@ -397,9 +413,9 @@ public class TerminalAction {
     @Override
     public int hashCode() {
         return Objects.hash(id, deviceId, deadlineDuration, status, cancelReason, createdAt,
-                updatedAt, appId, type, qrCodeOptions, saveCardOptions, signatureOptions,
-                confirmationOptions, receiptOptions, dataCollectionOptions, selectOptions,
-                deviceMetadata, awaitNextAction, awaitNextActionDuration);
+                updatedAt, appId, locationId, type, qrCodeOptions, saveCardOptions,
+                signatureOptions, confirmationOptions, receiptOptions, dataCollectionOptions,
+                selectOptions, deviceMetadata, awaitNextAction, awaitNextActionDuration);
     }
 
     @Override
@@ -419,6 +435,7 @@ public class TerminalAction {
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
             && Objects.equals(appId, other.appId)
+            && Objects.equals(locationId, other.locationId)
             && Objects.equals(type, other.type)
             && Objects.equals(qrCodeOptions, other.qrCodeOptions)
             && Objects.equals(saveCardOptions, other.saveCardOptions)
@@ -441,13 +458,13 @@ public class TerminalAction {
         return "TerminalAction [" + "id=" + id + ", deviceId=" + deviceId + ", deadlineDuration="
                 + deadlineDuration + ", status=" + status + ", cancelReason=" + cancelReason
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", appId=" + appId
-                + ", type=" + type + ", qrCodeOptions=" + qrCodeOptions + ", saveCardOptions="
-                + saveCardOptions + ", signatureOptions=" + signatureOptions
-                + ", confirmationOptions=" + confirmationOptions + ", receiptOptions="
-                + receiptOptions + ", dataCollectionOptions=" + dataCollectionOptions
-                + ", selectOptions=" + selectOptions + ", deviceMetadata=" + deviceMetadata
-                + ", awaitNextAction=" + awaitNextAction + ", awaitNextActionDuration="
-                + awaitNextActionDuration + "]";
+                + ", locationId=" + locationId + ", type=" + type + ", qrCodeOptions="
+                + qrCodeOptions + ", saveCardOptions=" + saveCardOptions + ", signatureOptions="
+                + signatureOptions + ", confirmationOptions=" + confirmationOptions
+                + ", receiptOptions=" + receiptOptions + ", dataCollectionOptions="
+                + dataCollectionOptions + ", selectOptions=" + selectOptions + ", deviceMetadata="
+                + deviceMetadata + ", awaitNextAction=" + awaitNextAction
+                + ", awaitNextActionDuration=" + awaitNextActionDuration + "]";
     }
 
     /**
@@ -463,6 +480,7 @@ public class TerminalAction {
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .appId(getAppId())
+                .locationId(getLocationId())
                 .type(getType())
                 .qrCodeOptions(getQrCodeOptions())
                 .saveCardOptions(getSaveCardOptions())
@@ -491,6 +509,7 @@ public class TerminalAction {
         private String createdAt;
         private String updatedAt;
         private String appId;
+        private String locationId;
         private String type;
         private QrCodeOptions qrCodeOptions;
         private SaveCardOptions saveCardOptions;
@@ -600,6 +619,16 @@ public class TerminalAction {
          */
         public Builder appId(String appId) {
             this.appId = appId;
+            return this;
+        }
+
+        /**
+         * Setter for locationId.
+         * @param  locationId  String value for locationId.
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
             return this;
         }
 
@@ -737,7 +766,7 @@ public class TerminalAction {
          */
         public TerminalAction build() {
             return new TerminalAction(id, deviceId, deadlineDuration, status, cancelReason,
-                    createdAt, updatedAt, appId, type, qrCodeOptions, saveCardOptions,
+                    createdAt, updatedAt, appId, locationId, type, qrCodeOptions, saveCardOptions,
                     signatureOptions, confirmationOptions, receiptOptions, dataCollectionOptions,
                     selectOptions, deviceMetadata, awaitNextAction, awaitNextActionDuration);
         }

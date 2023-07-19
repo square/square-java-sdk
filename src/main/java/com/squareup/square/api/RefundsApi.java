@@ -19,7 +19,7 @@ public interface RefundsApi {
      * consistent, and new refunds or changes to refunds might take several seconds to appear. The
      * maximum results per page is 100.
      * @param  beginTime  Optional parameter: Indicates the start of the time range to retrieve each
-     *         PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
      *         `created_at` field for each `PaymentRefund`. Default: The current time minus one
      *         year.
      * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve each
@@ -66,7 +66,7 @@ public interface RefundsApi {
      * consistent, and new refunds or changes to refunds might take several seconds to appear. The
      * maximum results per page is 100.
      * @param  beginTime  Optional parameter: Indicates the start of the time range to retrieve each
-     *         PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
      *         `created_at` field for each `PaymentRefund`. Default: The current time minus one
      *         year.
      * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve each

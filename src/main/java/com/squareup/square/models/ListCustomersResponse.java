@@ -18,21 +18,25 @@ public class ListCustomersResponse {
     private final List<Error> errors;
     private final List<Customer> customers;
     private final String cursor;
+    private final Long count;
 
     /**
      * Initialization constructor.
      * @param  errors  List of Error value for errors.
      * @param  customers  List of Customer value for customers.
      * @param  cursor  String value for cursor.
+     * @param  count  Long value for count.
      */
     @JsonCreator
     public ListCustomersResponse(
             @JsonProperty("errors") List<Error> errors,
             @JsonProperty("customers") List<Customer> customers,
-            @JsonProperty("cursor") String cursor) {
+            @JsonProperty("cursor") String cursor,
+            @JsonProperty("count") Long count) {
         this.errors = errors;
         this.customers = customers;
         this.cursor = cursor;
+        this.count = count;
     }
 
     @JsonIgnore
@@ -54,7 +58,8 @@ public class ListCustomersResponse {
     /**
      * Getter for Customers.
      * The customer profiles associated with the Square account or an empty object (`{}`) if none
-     * are found.
+     * are found. Only customer profiles with public information (`given_name`, `family_name`,
+     * `company_name`, `email_address`, or `phone_number`) are included in the response.
      * @return Returns the List of Customer
      */
     @JsonGetter("customers")
@@ -77,9 +82,23 @@ public class ListCustomersResponse {
         return cursor;
     }
 
+    /**
+     * Getter for Count.
+     * The total count of customers associated with the Square account. Only customer profiles with
+     * public information (`given_name`, `family_name`, `company_name`, `email_address`, or
+     * `phone_number`) are counted. This field is present only if `count` is set to `true` in the
+     * request.
+     * @return Returns the Long
+     */
+    @JsonGetter("count")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getCount() {
+        return count;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(errors, customers, cursor);
+        return Objects.hash(errors, customers, cursor, count);
     }
 
     @Override
@@ -93,7 +112,8 @@ public class ListCustomersResponse {
         ListCustomersResponse other = (ListCustomersResponse) obj;
         return Objects.equals(errors, other.errors)
             && Objects.equals(customers, other.customers)
-            && Objects.equals(cursor, other.cursor);
+            && Objects.equals(cursor, other.cursor)
+            && Objects.equals(count, other.count);
     }
 
     /**
@@ -103,7 +123,7 @@ public class ListCustomersResponse {
     @Override
     public String toString() {
         return "ListCustomersResponse [" + "errors=" + errors + ", customers=" + customers
-                + ", cursor=" + cursor + "]";
+                + ", cursor=" + cursor + ", count=" + count + "]";
     }
 
     /**
@@ -115,7 +135,8 @@ public class ListCustomersResponse {
         Builder builder = new Builder()
                 .errors(getErrors())
                 .customers(getCustomers())
-                .cursor(getCursor());
+                .cursor(getCursor())
+                .count(getCount());
         return builder;
     }
 
@@ -127,6 +148,7 @@ public class ListCustomersResponse {
         private List<Error> errors;
         private List<Customer> customers;
         private String cursor;
+        private Long count;
 
 
 
@@ -171,12 +193,22 @@ public class ListCustomersResponse {
         }
 
         /**
+         * Setter for count.
+         * @param  count  Long value for count.
+         * @return Builder
+         */
+        public Builder count(Long count) {
+            this.count = count;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCustomersResponse} object using the set fields.
          * @return {@link ListCustomersResponse}
          */
         public ListCustomersResponse build() {
             ListCustomersResponse model =
-                    new ListCustomersResponse(errors, customers, cursor);
+                    new ListCustomersResponse(errors, customers, cursor, count);
             model.httpContext = httpContext;
             return model;
         }
