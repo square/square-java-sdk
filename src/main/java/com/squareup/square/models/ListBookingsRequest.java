@@ -16,6 +16,7 @@ import java.util.Objects;
 public class ListBookingsRequest {
     private final OptionalNullable<Integer> limit;
     private final OptionalNullable<String> cursor;
+    private final OptionalNullable<String> customerId;
     private final OptionalNullable<String> teamMemberId;
     private final OptionalNullable<String> locationId;
     private final OptionalNullable<String> startAtMin;
@@ -25,6 +26,7 @@ public class ListBookingsRequest {
      * Initialization constructor.
      * @param  limit  Integer value for limit.
      * @param  cursor  String value for cursor.
+     * @param  customerId  String value for customerId.
      * @param  teamMemberId  String value for teamMemberId.
      * @param  locationId  String value for locationId.
      * @param  startAtMin  String value for startAtMin.
@@ -34,12 +36,14 @@ public class ListBookingsRequest {
     public ListBookingsRequest(
             @JsonProperty("limit") Integer limit,
             @JsonProperty("cursor") String cursor,
+            @JsonProperty("customer_id") String customerId,
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("start_at_min") String startAtMin,
             @JsonProperty("start_at_max") String startAtMax) {
         this.limit = OptionalNullable.of(limit);
         this.cursor = OptionalNullable.of(cursor);
+        this.customerId = OptionalNullable.of(customerId);
         this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.locationId = OptionalNullable.of(locationId);
         this.startAtMin = OptionalNullable.of(startAtMin);
@@ -50,10 +54,12 @@ public class ListBookingsRequest {
      * Internal initialization constructor.
      */
     protected ListBookingsRequest(OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
-            OptionalNullable<String> teamMemberId, OptionalNullable<String> locationId,
-            OptionalNullable<String> startAtMin, OptionalNullable<String> startAtMax) {
+            OptionalNullable<String> customerId, OptionalNullable<String> teamMemberId,
+            OptionalNullable<String> locationId, OptionalNullable<String> startAtMin,
+            OptionalNullable<String> startAtMax) {
         this.limit = limit;
         this.cursor = cursor;
+        this.customerId = customerId;
         this.teamMemberId = teamMemberId;
         this.locationId = locationId;
         this.startAtMin = startAtMin;
@@ -104,6 +110,30 @@ public class ListBookingsRequest {
     @JsonIgnore
     public String getCursor() {
         return OptionalNullable.getFrom(cursor);
+    }
+
+    /**
+     * Internal Getter for CustomerId.
+     * The [customer](entity:Customer) for whom to retrieve bookings. If this is not set, bookings
+     * for all customers are retrieved.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * The [customer](entity:Customer) for whom to retrieve bookings. If this is not set, bookings
+     * for all customers are retrieved.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getCustomerId() {
+        return OptionalNullable.getFrom(customerId);
     }
 
     /**
@@ -204,7 +234,8 @@ public class ListBookingsRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(limit, cursor, teamMemberId, locationId, startAtMin, startAtMax);
+        return Objects.hash(limit, cursor, customerId, teamMemberId, locationId, startAtMin,
+                startAtMax);
     }
 
     @Override
@@ -218,6 +249,7 @@ public class ListBookingsRequest {
         ListBookingsRequest other = (ListBookingsRequest) obj;
         return Objects.equals(limit, other.limit)
             && Objects.equals(cursor, other.cursor)
+            && Objects.equals(customerId, other.customerId)
             && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(startAtMin, other.startAtMin)
@@ -230,9 +262,9 @@ public class ListBookingsRequest {
      */
     @Override
     public String toString() {
-        return "ListBookingsRequest [" + "limit=" + limit + ", cursor=" + cursor + ", teamMemberId="
-                + teamMemberId + ", locationId=" + locationId + ", startAtMin=" + startAtMin
-                + ", startAtMax=" + startAtMax + "]";
+        return "ListBookingsRequest [" + "limit=" + limit + ", cursor=" + cursor + ", customerId="
+                + customerId + ", teamMemberId=" + teamMemberId + ", locationId=" + locationId
+                + ", startAtMin=" + startAtMin + ", startAtMax=" + startAtMax + "]";
     }
 
     /**
@@ -244,6 +276,7 @@ public class ListBookingsRequest {
         Builder builder = new Builder();
         builder.limit = internalGetLimit();
         builder.cursor = internalGetCursor();
+        builder.customerId = internalGetCustomerId();
         builder.teamMemberId = internalGetTeamMemberId();
         builder.locationId = internalGetLocationId();
         builder.startAtMin = internalGetStartAtMin();
@@ -257,6 +290,7 @@ public class ListBookingsRequest {
     public static class Builder {
         private OptionalNullable<Integer> limit;
         private OptionalNullable<String> cursor;
+        private OptionalNullable<String> customerId;
         private OptionalNullable<String> teamMemberId;
         private OptionalNullable<String> locationId;
         private OptionalNullable<String> startAtMin;
@@ -299,6 +333,25 @@ public class ListBookingsRequest {
          */
         public Builder unsetCursor() {
             cursor = null;
+            return this;
+        }
+
+        /**
+         * Setter for customerId.
+         * @param  customerId  String value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(String customerId) {
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -383,8 +436,8 @@ public class ListBookingsRequest {
          * @return {@link ListBookingsRequest}
          */
         public ListBookingsRequest build() {
-            return new ListBookingsRequest(limit, cursor, teamMemberId, locationId, startAtMin,
-                    startAtMax);
+            return new ListBookingsRequest(limit, cursor, customerId, teamMemberId, locationId,
+                    startAtMin, startAtMax);
         }
     }
 }

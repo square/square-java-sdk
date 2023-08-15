@@ -48,7 +48,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      *         endpoint returns the gift cards in the specified state. Otherwise, the endpoint
      *         returns the gift cards of all states.
      * @param  limit  Optional parameter: If a limit is provided, the endpoint returns only the
-     *         specified number of results per page. The maximum value is 50. The default value is
+     *         specified number of results per page. The maximum value is 200. The default value is
      *         30. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
@@ -81,7 +81,7 @@ public final class DefaultGiftCardsApi extends BaseApi implements GiftCardsApi {
      *         endpoint returns the gift cards in the specified state. Otherwise, the endpoint
      *         returns the gift cards of all states.
      * @param  limit  Optional parameter: If a limit is provided, the endpoint returns only the
-     *         specified number of results per page. The maximum value is 50. The default value is
+     *         specified number of results per page. The maximum value is 200. The default value is
      *         30. For more information, see
      *         [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this

@@ -36,6 +36,7 @@ public class Payment {
     private final ExternalPaymentDetails externalDetails;
     private final DigitalWalletDetails walletDetails;
     private final BuyNowPayLaterDetails buyNowPayLaterDetails;
+    private final SquareAccountDetails squareAccountDetails;
     private final String locationId;
     private final String orderId;
     private final String referenceId;
@@ -79,6 +80,7 @@ public class Payment {
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
      * @param  walletDetails  DigitalWalletDetails value for walletDetails.
      * @param  buyNowPayLaterDetails  BuyNowPayLaterDetails value for buyNowPayLaterDetails.
+     * @param  squareAccountDetails  SquareAccountDetails value for squareAccountDetails.
      * @param  locationId  String value for locationId.
      * @param  orderId  String value for orderId.
      * @param  referenceId  String value for referenceId.
@@ -122,6 +124,7 @@ public class Payment {
             @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
             @JsonProperty("wallet_details") DigitalWalletDetails walletDetails,
             @JsonProperty("buy_now_pay_later_details") BuyNowPayLaterDetails buyNowPayLaterDetails,
+            @JsonProperty("square_account_details") SquareAccountDetails squareAccountDetails,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("reference_id") String referenceId,
@@ -162,6 +165,7 @@ public class Payment {
         this.externalDetails = externalDetails;
         this.walletDetails = walletDetails;
         this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+        this.squareAccountDetails = squareAccountDetails;
         this.locationId = locationId;
         this.orderId = orderId;
         this.referenceId = referenceId;
@@ -193,12 +197,12 @@ public class Payment {
             String sourceType, CardPaymentDetails cardDetails, CashPaymentDetails cashDetails,
             BankAccountPaymentDetails bankAccountDetails, ExternalPaymentDetails externalDetails,
             DigitalWalletDetails walletDetails, BuyNowPayLaterDetails buyNowPayLaterDetails,
-            String locationId, String orderId, String referenceId, String customerId,
-            String employeeId, String teamMemberId, List<String> refundIds,
-            RiskEvaluation riskEvaluation, String buyerEmailAddress, Address billingAddress,
-            Address shippingAddress, String note, String statementDescriptionIdentifier,
-            List<String> capabilities, String receiptNumber, String receiptUrl,
-            DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
+            SquareAccountDetails squareAccountDetails, String locationId, String orderId,
+            String referenceId, String customerId, String employeeId, String teamMemberId,
+            List<String> refundIds, RiskEvaluation riskEvaluation, String buyerEmailAddress,
+            Address billingAddress, Address shippingAddress, String note,
+            String statementDescriptionIdentifier, List<String> capabilities, String receiptNumber,
+            String receiptUrl, DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
             OptionalNullable<String> versionToken) {
         this.id = id;
         this.createdAt = createdAt;
@@ -221,6 +225,7 @@ public class Payment {
         this.externalDetails = externalDetails;
         this.walletDetails = walletDetails;
         this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+        this.squareAccountDetails = squareAccountDetails;
         this.locationId = locationId;
         this.orderId = orderId;
         this.referenceId = referenceId;
@@ -450,8 +455,9 @@ public class Payment {
     /**
      * Getter for SourceType.
      * The source type for this payment. Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`,
-     * `BUY_NOW_PAY_LATER`, `CASH` and `EXTERNAL`. For information about these payment source types,
-     * see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
+     * `BUY_NOW_PAY_LATER`, `SQUARE_ACCOUNT`, `CASH` and `EXTERNAL`. For information about these
+     * payment source types, see [Take
+     * Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      * @return Returns the String
      */
     @JsonGetter("source_type")
@@ -528,6 +534,17 @@ public class Payment {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public BuyNowPayLaterDetails getBuyNowPayLaterDetails() {
         return buyNowPayLaterDetails;
+    }
+
+    /**
+     * Getter for SquareAccountDetails.
+     * Additional details about Square Account payments.
+     * @return Returns the SquareAccountDetails
+     */
+    @JsonGetter("square_account_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SquareAccountDetails getSquareAccountDetails() {
+        return squareAccountDetails;
     }
 
     /**
@@ -777,9 +794,9 @@ public class Payment {
         return Objects.hash(id, createdAt, updatedAt, amountMoney, tipMoney, totalMoney,
                 appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                 delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
-                externalDetails, walletDetails, buyNowPayLaterDetails, locationId, orderId,
-                referenceId, customerId, employeeId, teamMemberId, refundIds, riskEvaluation,
-                buyerEmailAddress, billingAddress, shippingAddress, note,
+                externalDetails, walletDetails, buyNowPayLaterDetails, squareAccountDetails,
+                locationId, orderId, referenceId, customerId, employeeId, teamMemberId, refundIds,
+                riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress, note,
                 statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
                 deviceDetails, applicationDetails, versionToken);
     }
@@ -814,6 +831,7 @@ public class Payment {
             && Objects.equals(externalDetails, other.externalDetails)
             && Objects.equals(walletDetails, other.walletDetails)
             && Objects.equals(buyNowPayLaterDetails, other.buyNowPayLaterDetails)
+            && Objects.equals(squareAccountDetails, other.squareAccountDetails)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(orderId, other.orderId)
             && Objects.equals(referenceId, other.referenceId)
@@ -851,9 +869,10 @@ public class Payment {
                 + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
                 + ", bankAccountDetails=" + bankAccountDetails + ", externalDetails="
                 + externalDetails + ", walletDetails=" + walletDetails + ", buyNowPayLaterDetails="
-                + buyNowPayLaterDetails + ", locationId=" + locationId + ", orderId=" + orderId
-                + ", referenceId=" + referenceId + ", customerId=" + customerId + ", employeeId="
-                + employeeId + ", teamMemberId=" + teamMemberId + ", refundIds=" + refundIds
+                + buyNowPayLaterDetails + ", squareAccountDetails=" + squareAccountDetails
+                + ", locationId=" + locationId + ", orderId=" + orderId + ", referenceId="
+                + referenceId + ", customerId=" + customerId + ", employeeId=" + employeeId
+                + ", teamMemberId=" + teamMemberId + ", refundIds=" + refundIds
                 + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress=" + buyerEmailAddress
                 + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
                 + ", note=" + note + ", statementDescriptionIdentifier="
@@ -890,6 +909,7 @@ public class Payment {
                 .externalDetails(getExternalDetails())
                 .walletDetails(getWalletDetails())
                 .buyNowPayLaterDetails(getBuyNowPayLaterDetails())
+                .squareAccountDetails(getSquareAccountDetails())
                 .locationId(getLocationId())
                 .orderId(getOrderId())
                 .referenceId(getReferenceId())
@@ -938,6 +958,7 @@ public class Payment {
         private ExternalPaymentDetails externalDetails;
         private DigitalWalletDetails walletDetails;
         private BuyNowPayLaterDetails buyNowPayLaterDetails;
+        private SquareAccountDetails squareAccountDetails;
         private String locationId;
         private String orderId;
         private String referenceId;
@@ -1180,6 +1201,16 @@ public class Payment {
         }
 
         /**
+         * Setter for squareAccountDetails.
+         * @param  squareAccountDetails  SquareAccountDetails value for squareAccountDetails.
+         * @return Builder
+         */
+        public Builder squareAccountDetails(SquareAccountDetails squareAccountDetails) {
+            this.squareAccountDetails = squareAccountDetails;
+            return this;
+        }
+
+        /**
          * Setter for locationId.
          * @param  locationId  String value for locationId.
          * @return Builder
@@ -1387,10 +1418,10 @@ public class Payment {
                     appFeeMoney, approvedMoney, processingFee, refundedMoney, status, delayDuration,
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
                     bankAccountDetails, externalDetails, walletDetails, buyNowPayLaterDetails,
-                    locationId, orderId, referenceId, customerId, employeeId, teamMemberId,
-                    refundIds, riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress,
-                    note, statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                    deviceDetails, applicationDetails, versionToken);
+                    squareAccountDetails, locationId, orderId, referenceId, customerId, employeeId,
+                    teamMemberId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
+                    shippingAddress, note, statementDescriptionIdentifier, capabilities,
+                    receiptNumber, receiptUrl, deviceDetails, applicationDetails, versionToken);
         }
     }
 }

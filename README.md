@@ -72,6 +72,7 @@ mvn test
 
 ### Orders
 * [Orders]
+* [Order Custom Attributes]
 
 ### Subscriptions
 * [Subscriptions]
@@ -98,10 +99,13 @@ mvn test
 
 ### Bookings
 * [Bookings]
+* [Booking Custom Attributes]
 
 ### Business
 * [Merchants]
+* [Merchant Custom Attributes]
 * [Locations]
+* [Location Custom Attributes]
 * [Devices]
 * [Cash Drawers]
 * [Vendors]
@@ -165,9 +169,13 @@ You'll also need to provide logic to handle paginated results.  For more informa
 [Labor]: doc/api/labor.md
 [Loyalty]: doc/api/loyalty.md
 [Bookings]: doc/api/bookings.md
+[Booking Custom Attributes]: doc/api/booking-custom-attributes.md
 [Locations]: doc/api/locations.md
+[Location Custom Attributes]: doc/api/location-custom-attributes.md
 [Merchants]: doc/api/merchants.md
+[Merchant Custom Attributes]: doc/api/merchant-custom-attributes.md
 [Orders]: doc/api/orders.md
+[Order Custom Attributes]: doc/api/order-custom-attributes.md
 [Invoices]: doc/api/invoices.md
 [Apple Pay]: doc/api/apple-pay.md
 [Refunds]: doc/api/refunds.md
