@@ -21,6 +21,7 @@ public class SearchCatalogItemsRequest {
     private final String sortOrder;
     private final List<String> productTypes;
     private final List<CustomAttributeFilter> customAttributeFilters;
+    private final String archivedState;
 
     /**
      * Initialization constructor.
@@ -34,6 +35,7 @@ public class SearchCatalogItemsRequest {
      * @param  productTypes  List of String value for productTypes.
      * @param  customAttributeFilters  List of CustomAttributeFilter value for
      *         customAttributeFilters.
+     * @param  archivedState  String value for archivedState.
      */
     @JsonCreator
     public SearchCatalogItemsRequest(
@@ -45,7 +47,8 @@ public class SearchCatalogItemsRequest {
             @JsonProperty("limit") Integer limit,
             @JsonProperty("sort_order") String sortOrder,
             @JsonProperty("product_types") List<String> productTypes,
-            @JsonProperty("custom_attribute_filters") List<CustomAttributeFilter> customAttributeFilters) {
+            @JsonProperty("custom_attribute_filters") List<CustomAttributeFilter> customAttributeFilters,
+            @JsonProperty("archived_state") String archivedState) {
         this.textFilter = textFilter;
         this.categoryIds = categoryIds;
         this.stockLevels = stockLevels;
@@ -55,6 +58,7 @@ public class SearchCatalogItemsRequest {
         this.sortOrder = sortOrder;
         this.productTypes = productTypes;
         this.customAttributeFilters = customAttributeFilters;
+        this.archivedState = archivedState;
     }
 
     /**
@@ -166,10 +170,23 @@ public class SearchCatalogItemsRequest {
         return customAttributeFilters;
     }
 
+    /**
+     * Getter for ArchivedState.
+     * Defines the values for the `archived_state` query expression used in
+     * [SearchCatalogItems]($e/Catalog/SearchCatalogItems) to return the archived, not archived or
+     * either type of catalog items.
+     * @return Returns the String
+     */
+    @JsonGetter("archived_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getArchivedState() {
+        return archivedState;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(textFilter, categoryIds, stockLevels, enabledLocationIds, cursor, limit,
-                sortOrder, productTypes, customAttributeFilters);
+                sortOrder, productTypes, customAttributeFilters, archivedState);
     }
 
     @Override
@@ -189,7 +206,8 @@ public class SearchCatalogItemsRequest {
             && Objects.equals(limit, other.limit)
             && Objects.equals(sortOrder, other.sortOrder)
             && Objects.equals(productTypes, other.productTypes)
-            && Objects.equals(customAttributeFilters, other.customAttributeFilters);
+            && Objects.equals(customAttributeFilters, other.customAttributeFilters)
+            && Objects.equals(archivedState, other.archivedState);
     }
 
     /**
@@ -202,7 +220,7 @@ public class SearchCatalogItemsRequest {
                 + categoryIds + ", stockLevels=" + stockLevels + ", enabledLocationIds="
                 + enabledLocationIds + ", cursor=" + cursor + ", limit=" + limit + ", sortOrder="
                 + sortOrder + ", productTypes=" + productTypes + ", customAttributeFilters="
-                + customAttributeFilters + "]";
+                + customAttributeFilters + ", archivedState=" + archivedState + "]";
     }
 
     /**
@@ -220,7 +238,8 @@ public class SearchCatalogItemsRequest {
                 .limit(getLimit())
                 .sortOrder(getSortOrder())
                 .productTypes(getProductTypes())
-                .customAttributeFilters(getCustomAttributeFilters());
+                .customAttributeFilters(getCustomAttributeFilters())
+                .archivedState(getArchivedState());
         return builder;
     }
 
@@ -237,6 +256,7 @@ public class SearchCatalogItemsRequest {
         private String sortOrder;
         private List<String> productTypes;
         private List<CustomAttributeFilter> customAttributeFilters;
+        private String archivedState;
 
 
 
@@ -333,13 +353,23 @@ public class SearchCatalogItemsRequest {
         }
 
         /**
+         * Setter for archivedState.
+         * @param  archivedState  String value for archivedState.
+         * @return Builder
+         */
+        public Builder archivedState(String archivedState) {
+            this.archivedState = archivedState;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchCatalogItemsRequest} object using the set fields.
          * @return {@link SearchCatalogItemsRequest}
          */
         public SearchCatalogItemsRequest build() {
             return new SearchCatalogItemsRequest(textFilter, categoryIds, stockLevels,
                     enabledLocationIds, cursor, limit, sortOrder, productTypes,
-                    customAttributeFilters);
+                    customAttributeFilters, archivedState);
         }
     }
 }

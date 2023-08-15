@@ -27,6 +27,9 @@ public class Tender {
     private final String type;
     private final TenderCardDetails cardDetails;
     private final TenderCashDetails cashDetails;
+    private final TenderBankAccountDetails bankAccountDetails;
+    private final TenderBuyNowPayLaterDetails buyNowPayLaterDetails;
+    private final TenderSquareAccountDetails squareAccountDetails;
     private final OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
     private final OptionalNullable<String> paymentId;
 
@@ -44,6 +47,9 @@ public class Tender {
      * @param  customerId  String value for customerId.
      * @param  cardDetails  TenderCardDetails value for cardDetails.
      * @param  cashDetails  TenderCashDetails value for cashDetails.
+     * @param  bankAccountDetails  TenderBankAccountDetails value for bankAccountDetails.
+     * @param  buyNowPayLaterDetails  TenderBuyNowPayLaterDetails value for buyNowPayLaterDetails.
+     * @param  squareAccountDetails  TenderSquareAccountDetails value for squareAccountDetails.
      * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      * @param  paymentId  String value for paymentId.
      */
@@ -61,6 +67,9 @@ public class Tender {
             @JsonProperty("customer_id") String customerId,
             @JsonProperty("card_details") TenderCardDetails cardDetails,
             @JsonProperty("cash_details") TenderCashDetails cashDetails,
+            @JsonProperty("bank_account_details") TenderBankAccountDetails bankAccountDetails,
+            @JsonProperty("buy_now_pay_later_details") TenderBuyNowPayLaterDetails buyNowPayLaterDetails,
+            @JsonProperty("square_account_details") TenderSquareAccountDetails squareAccountDetails,
             @JsonProperty("additional_recipients") List<AdditionalRecipient> additionalRecipients,
             @JsonProperty("payment_id") String paymentId) {
         this.id = id;
@@ -75,6 +84,9 @@ public class Tender {
         this.type = type;
         this.cardDetails = cardDetails;
         this.cashDetails = cashDetails;
+        this.bankAccountDetails = bankAccountDetails;
+        this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+        this.squareAccountDetails = squareAccountDetails;
         this.additionalRecipients = OptionalNullable.of(additionalRecipients);
         this.paymentId = OptionalNullable.of(paymentId);
     }
@@ -86,7 +98,9 @@ public class Tender {
             OptionalNullable<String> transactionId, String createdAt, OptionalNullable<String> note,
             Money amountMoney, Money tipMoney, Money processingFeeMoney,
             OptionalNullable<String> customerId, TenderCardDetails cardDetails,
-            TenderCashDetails cashDetails,
+            TenderCashDetails cashDetails, TenderBankAccountDetails bankAccountDetails,
+            TenderBuyNowPayLaterDetails buyNowPayLaterDetails,
+            TenderSquareAccountDetails squareAccountDetails,
             OptionalNullable<List<AdditionalRecipient>> additionalRecipients,
             OptionalNullable<String> paymentId) {
         this.id = id;
@@ -101,6 +115,9 @@ public class Tender {
         this.type = type;
         this.cardDetails = cardDetails;
         this.cashDetails = cashDetails;
+        this.bankAccountDetails = bankAccountDetails;
+        this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+        this.squareAccountDetails = squareAccountDetails;
         this.additionalRecipients = additionalRecipients;
         this.paymentId = paymentId;
     }
@@ -298,6 +315,41 @@ public class Tender {
     }
 
     /**
+     * Getter for BankAccountDetails.
+     * Represents the details of a tender with `type` `BANK_ACCOUNT`. See
+     * [BankAccountPaymentDetails]($m/BankAccountPaymentDetails) for more exposed details of a bank
+     * account payment.
+     * @return Returns the TenderBankAccountDetails
+     */
+    @JsonGetter("bank_account_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public TenderBankAccountDetails getBankAccountDetails() {
+        return bankAccountDetails;
+    }
+
+    /**
+     * Getter for BuyNowPayLaterDetails.
+     * Represents the details of a tender with `type` `BUY_NOW_PAY_LATER`.
+     * @return Returns the TenderBuyNowPayLaterDetails
+     */
+    @JsonGetter("buy_now_pay_later_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public TenderBuyNowPayLaterDetails getBuyNowPayLaterDetails() {
+        return buyNowPayLaterDetails;
+    }
+
+    /**
+     * Getter for SquareAccountDetails.
+     * Represents the details of a tender with `type` `SQUARE_ACCOUNT`.
+     * @return Returns the TenderSquareAccountDetails
+     */
+    @JsonGetter("square_account_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public TenderSquareAccountDetails getSquareAccountDetails() {
+        return squareAccountDetails;
+    }
+
+    /**
      * Internal Getter for AdditionalRecipients.
      * Additional recipients (other than the merchant) receiving a portion of this tender. For
      * example, fees assessed on the purchase by a third party integration.
@@ -348,8 +400,8 @@ public class Tender {
     @Override
     public int hashCode() {
         return Objects.hash(id, locationId, transactionId, createdAt, note, amountMoney, tipMoney,
-                processingFeeMoney, customerId, type, cardDetails, cashDetails,
-                additionalRecipients, paymentId);
+                processingFeeMoney, customerId, type, cardDetails, cashDetails, bankAccountDetails,
+                buyNowPayLaterDetails, squareAccountDetails, additionalRecipients, paymentId);
     }
 
     @Override
@@ -373,6 +425,9 @@ public class Tender {
             && Objects.equals(type, other.type)
             && Objects.equals(cardDetails, other.cardDetails)
             && Objects.equals(cashDetails, other.cashDetails)
+            && Objects.equals(bankAccountDetails, other.bankAccountDetails)
+            && Objects.equals(buyNowPayLaterDetails, other.buyNowPayLaterDetails)
+            && Objects.equals(squareAccountDetails, other.squareAccountDetails)
             && Objects.equals(additionalRecipients, other.additionalRecipients)
             && Objects.equals(paymentId, other.paymentId);
     }
@@ -388,6 +443,8 @@ public class Tender {
                 + ", amountMoney=" + amountMoney + ", tipMoney=" + tipMoney
                 + ", processingFeeMoney=" + processingFeeMoney + ", customerId=" + customerId
                 + ", cardDetails=" + cardDetails + ", cashDetails=" + cashDetails
+                + ", bankAccountDetails=" + bankAccountDetails + ", buyNowPayLaterDetails="
+                + buyNowPayLaterDetails + ", squareAccountDetails=" + squareAccountDetails
                 + ", additionalRecipients=" + additionalRecipients + ", paymentId=" + paymentId
                 + "]";
     }
@@ -405,7 +462,10 @@ public class Tender {
                 .tipMoney(getTipMoney())
                 .processingFeeMoney(getProcessingFeeMoney())
                 .cardDetails(getCardDetails())
-                .cashDetails(getCashDetails());
+                .cashDetails(getCashDetails())
+                .bankAccountDetails(getBankAccountDetails())
+                .buyNowPayLaterDetails(getBuyNowPayLaterDetails())
+                .squareAccountDetails(getSquareAccountDetails());
         builder.locationId = internalGetLocationId();
         builder.transactionId = internalGetTransactionId();
         builder.note = internalGetNote();
@@ -431,6 +491,9 @@ public class Tender {
         private OptionalNullable<String> customerId;
         private TenderCardDetails cardDetails;
         private TenderCashDetails cashDetails;
+        private TenderBankAccountDetails bankAccountDetails;
+        private TenderBuyNowPayLaterDetails buyNowPayLaterDetails;
+        private TenderSquareAccountDetails squareAccountDetails;
         private OptionalNullable<List<AdditionalRecipient>> additionalRecipients;
         private OptionalNullable<String> paymentId;
 
@@ -599,6 +662,37 @@ public class Tender {
         }
 
         /**
+         * Setter for bankAccountDetails.
+         * @param  bankAccountDetails  TenderBankAccountDetails value for bankAccountDetails.
+         * @return Builder
+         */
+        public Builder bankAccountDetails(TenderBankAccountDetails bankAccountDetails) {
+            this.bankAccountDetails = bankAccountDetails;
+            return this;
+        }
+
+        /**
+         * Setter for buyNowPayLaterDetails.
+         * @param  buyNowPayLaterDetails  TenderBuyNowPayLaterDetails value for
+         *         buyNowPayLaterDetails.
+         * @return Builder
+         */
+        public Builder buyNowPayLaterDetails(TenderBuyNowPayLaterDetails buyNowPayLaterDetails) {
+            this.buyNowPayLaterDetails = buyNowPayLaterDetails;
+            return this;
+        }
+
+        /**
+         * Setter for squareAccountDetails.
+         * @param  squareAccountDetails  TenderSquareAccountDetails value for squareAccountDetails.
+         * @return Builder
+         */
+        public Builder squareAccountDetails(TenderSquareAccountDetails squareAccountDetails) {
+            this.squareAccountDetails = squareAccountDetails;
+            return this;
+        }
+
+        /**
          * Setter for additionalRecipients.
          * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
          * @return Builder
@@ -643,6 +737,7 @@ public class Tender {
         public Tender build() {
             return new Tender(type, id, locationId, transactionId, createdAt, note, amountMoney,
                     tipMoney, processingFeeMoney, customerId, cardDetails, cashDetails,
+                    bankAccountDetails, buyNowPayLaterDetails, squareAccountDetails,
                     additionalRecipients, paymentId);
         }
     }

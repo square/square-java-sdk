@@ -33,6 +33,7 @@ public class CatalogItem {
     private final OptionalNullable<String> sortName;
     private final OptionalNullable<String> descriptionHtml;
     private final String descriptionPlaintext;
+    private final OptionalNullable<Boolean> isArchived;
 
     /**
      * Initialization constructor.
@@ -54,6 +55,7 @@ public class CatalogItem {
      * @param  sortName  String value for sortName.
      * @param  descriptionHtml  String value for descriptionHtml.
      * @param  descriptionPlaintext  String value for descriptionPlaintext.
+     * @param  isArchived  Boolean value for isArchived.
      */
     @JsonCreator
     public CatalogItem(
@@ -74,7 +76,8 @@ public class CatalogItem {
             @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("sort_name") String sortName,
             @JsonProperty("description_html") String descriptionHtml,
-            @JsonProperty("description_plaintext") String descriptionPlaintext) {
+            @JsonProperty("description_plaintext") String descriptionPlaintext,
+            @JsonProperty("is_archived") Boolean isArchived) {
         this.name = OptionalNullable.of(name);
         this.description = OptionalNullable.of(description);
         this.abbreviation = OptionalNullable.of(abbreviation);
@@ -93,6 +96,7 @@ public class CatalogItem {
         this.sortName = OptionalNullable.of(sortName);
         this.descriptionHtml = OptionalNullable.of(descriptionHtml);
         this.descriptionPlaintext = descriptionPlaintext;
+        this.isArchived = OptionalNullable.of(isArchived);
     }
 
     /**
@@ -108,7 +112,8 @@ public class CatalogItem {
             OptionalNullable<Boolean> skipModifierScreen,
             OptionalNullable<List<CatalogItemOptionForItem>> itemOptions,
             OptionalNullable<List<String>> imageIds, OptionalNullable<String> sortName,
-            OptionalNullable<String> descriptionHtml, String descriptionPlaintext) {
+            OptionalNullable<String> descriptionHtml, String descriptionPlaintext,
+            OptionalNullable<Boolean> isArchived) {
         this.name = name;
         this.description = description;
         this.abbreviation = abbreviation;
@@ -127,6 +132,7 @@ public class CatalogItem {
         this.sortName = sortName;
         this.descriptionHtml = descriptionHtml;
         this.descriptionPlaintext = descriptionPlaintext;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -579,12 +585,34 @@ public class CatalogItem {
         return descriptionPlaintext;
     }
 
+    /**
+     * Internal Getter for IsArchived.
+     * Indicates whether this item is archived (`true`) or not (`false`).
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_archived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsArchived() {
+        return this.isArchived;
+    }
+
+    /**
+     * Getter for IsArchived.
+     * Indicates whether this item is archived (`true`) or not (`false`).
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getIsArchived() {
+        return OptionalNullable.getFrom(isArchived);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
                 variations, productType, skipModifierScreen, itemOptions, imageIds, sortName,
-                descriptionHtml, descriptionPlaintext);
+                descriptionHtml, descriptionPlaintext, isArchived);
     }
 
     @Override
@@ -613,7 +641,8 @@ public class CatalogItem {
             && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(sortName, other.sortName)
             && Objects.equals(descriptionHtml, other.descriptionHtml)
-            && Objects.equals(descriptionPlaintext, other.descriptionPlaintext);
+            && Objects.equals(descriptionPlaintext, other.descriptionPlaintext)
+            && Objects.equals(isArchived, other.isArchived);
     }
 
     /**
@@ -630,7 +659,8 @@ public class CatalogItem {
                 + ", variations=" + variations + ", productType=" + productType
                 + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
                 + ", imageIds=" + imageIds + ", sortName=" + sortName + ", descriptionHtml="
-                + descriptionHtml + ", descriptionPlaintext=" + descriptionPlaintext + "]";
+                + descriptionHtml + ", descriptionPlaintext=" + descriptionPlaintext
+                + ", isArchived=" + isArchived + "]";
     }
 
     /**
@@ -658,6 +688,7 @@ public class CatalogItem {
         builder.imageIds = internalGetImageIds();
         builder.sortName = internalGetSortName();
         builder.descriptionHtml = internalGetDescriptionHtml();
+        builder.isArchived = internalGetIsArchived();
         return builder;
     }
 
@@ -683,6 +714,7 @@ public class CatalogItem {
         private OptionalNullable<String> sortName;
         private OptionalNullable<String> descriptionHtml;
         private String descriptionPlaintext;
+        private OptionalNullable<Boolean> isArchived;
 
 
 
@@ -1011,6 +1043,25 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for isArchived.
+         * @param  isArchived  Boolean value for isArchived.
+         * @return Builder
+         */
+        public Builder isArchived(Boolean isArchived) {
+            this.isArchived = OptionalNullable.of(isArchived);
+            return this;
+        }
+
+        /**
+         * UnSetter for isArchived.
+         * @return Builder
+         */
+        public Builder unsetIsArchived() {
+            isArchived = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogItem} object using the set fields.
          * @return {@link CatalogItem}
          */
@@ -1018,7 +1069,7 @@ public class CatalogItem {
             return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
                     availableForPickup, availableElectronically, categoryId, taxIds,
                     modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
-                    imageIds, sortName, descriptionHtml, descriptionPlaintext);
+                    imageIds, sortName, descriptionHtml, descriptionPlaintext, isArchived);
         }
     }
 }

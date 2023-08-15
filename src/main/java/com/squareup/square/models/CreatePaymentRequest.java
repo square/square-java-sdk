@@ -33,6 +33,7 @@ public class CreatePaymentRequest {
     private final String statementDescriptionIdentifier;
     private final CashPaymentDetails cashDetails;
     private final ExternalPaymentDetails externalDetails;
+    private final CustomerDetails customerDetails;
 
     /**
      * Initialization constructor.
@@ -58,6 +59,7 @@ public class CreatePaymentRequest {
      * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
      * @param  cashDetails  CashPaymentDetails value for cashDetails.
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
+     * @param  customerDetails  CustomerDetails value for customerDetails.
      */
     @JsonCreator
     public CreatePaymentRequest(
@@ -82,7 +84,8 @@ public class CreatePaymentRequest {
             @JsonProperty("note") String note,
             @JsonProperty("statement_description_identifier") String statementDescriptionIdentifier,
             @JsonProperty("cash_details") CashPaymentDetails cashDetails,
-            @JsonProperty("external_details") ExternalPaymentDetails externalDetails) {
+            @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
+            @JsonProperty("customer_details") CustomerDetails customerDetails) {
         this.sourceId = sourceId;
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
@@ -105,6 +108,7 @@ public class CreatePaymentRequest {
         this.statementDescriptionIdentifier = statementDescriptionIdentifier;
         this.cashDetails = cashDetails;
         this.externalDetails = externalDetails;
+        this.customerDetails = customerDetails;
     }
 
     /**
@@ -411,13 +415,24 @@ public class CreatePaymentRequest {
         return externalDetails;
     }
 
+    /**
+     * Getter for CustomerDetails.
+     * Details about the customer making the payment.
+     * @return Returns the CustomerDetails
+     */
+    @JsonGetter("customer_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CustomerDetails getCustomerDetails() {
+        return customerDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
                 delayDuration, delayAction, autocomplete, orderId, customerId, locationId,
                 teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
                 buyerEmailAddress, billingAddress, shippingAddress, note,
-                statementDescriptionIdentifier, cashDetails, externalDetails);
+                statementDescriptionIdentifier, cashDetails, externalDetails, customerDetails);
     }
 
     @Override
@@ -451,7 +466,8 @@ public class CreatePaymentRequest {
             && Objects.equals(statementDescriptionIdentifier,
                     other.statementDescriptionIdentifier)
             && Objects.equals(cashDetails, other.cashDetails)
-            && Objects.equals(externalDetails, other.externalDetails);
+            && Objects.equals(externalDetails, other.externalDetails)
+            && Objects.equals(customerDetails, other.customerDetails);
     }
 
     /**
@@ -471,7 +487,8 @@ public class CreatePaymentRequest {
                 + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
                 + ", note=" + note + ", statementDescriptionIdentifier="
                 + statementDescriptionIdentifier + ", cashDetails=" + cashDetails
-                + ", externalDetails=" + externalDetails + "]";
+                + ", externalDetails=" + externalDetails + ", customerDetails=" + customerDetails
+                + "]";
     }
 
     /**
@@ -500,7 +517,8 @@ public class CreatePaymentRequest {
                 .note(getNote())
                 .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
                 .cashDetails(getCashDetails())
-                .externalDetails(getExternalDetails());
+                .externalDetails(getExternalDetails())
+                .customerDetails(getCustomerDetails());
         return builder;
     }
 
@@ -530,6 +548,7 @@ public class CreatePaymentRequest {
         private String statementDescriptionIdentifier;
         private CashPaymentDetails cashDetails;
         private ExternalPaymentDetails externalDetails;
+        private CustomerDetails customerDetails;
 
         /**
          * Initialization constructor.
@@ -762,6 +781,16 @@ public class CreatePaymentRequest {
         }
 
         /**
+         * Setter for customerDetails.
+         * @param  customerDetails  CustomerDetails value for customerDetails.
+         * @return Builder
+         */
+        public Builder customerDetails(CustomerDetails customerDetails) {
+            this.customerDetails = customerDetails;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreatePaymentRequest} object using the set fields.
          * @return {@link CreatePaymentRequest}
          */
@@ -770,7 +799,8 @@ public class CreatePaymentRequest {
                     appFeeMoney, delayDuration, delayAction, autocomplete, orderId, customerId,
                     locationId, teamMemberId, referenceId, verificationToken,
                     acceptPartialAuthorization, buyerEmailAddress, billingAddress, shippingAddress,
-                    note, statementDescriptionIdentifier, cashDetails, externalDetails);
+                    note, statementDescriptionIdentifier, cashDetails, externalDetails,
+                    customerDetails);
         }
     }
 }

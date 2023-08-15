@@ -106,7 +106,7 @@ public class ListGiftCardsRequest {
     /**
      * Internal Getter for Limit.
      * If a limit is provided, the endpoint returns only the specified number of results per page.
-     * The maximum value is 50. The default value is 30. For more information, see
+     * The maximum value is 200. The default value is 30. For more information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the Internal Integer
      */
@@ -120,7 +120,7 @@ public class ListGiftCardsRequest {
     /**
      * Getter for Limit.
      * If a limit is provided, the endpoint returns only the specified number of results per page.
-     * The maximum value is 50. The default value is 30. For more information, see
+     * The maximum value is 200. The default value is 30. For more information, see
      * [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
      * @return Returns the Integer
      */

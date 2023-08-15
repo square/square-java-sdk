@@ -7,6 +7,8 @@ import com.squareup.square.Server;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpMethod;
+import com.squareup.square.models.BulkRetrieveBookingsRequest;
+import com.squareup.square.models.BulkRetrieveBookingsResponse;
 import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
@@ -48,6 +50,8 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
      *         return the next page of the results. Do not set this when retrieving the first page
      *         of the results.
+     * @param  customerId  Optional parameter: The [customer](entity:Customer) for whom to retrieve
+     *         bookings. If this is not set, bookings for all customers are retrieved.
      * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
      *         this is not set, bookings of all members are retrieved.
      * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
@@ -63,12 +67,13 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     public ListBookingsResponse listBookings(
             final Integer limit,
             final String cursor,
+            final String customerId,
             final String teamMemberId,
             final String locationId,
             final String startAtMin,
             final String startAtMax) throws ApiException, IOException {
-        return prepareListBookingsRequest(limit, cursor, teamMemberId, locationId, startAtMin,
-                startAtMax).execute();
+        return prepareListBookingsRequest(limit, cursor, customerId, teamMemberId, locationId,
+                startAtMin, startAtMax).execute();
     }
 
     /**
@@ -80,6 +85,8 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
      *         return the next page of the results. Do not set this when retrieving the first page
      *         of the results.
+     * @param  customerId  Optional parameter: The [customer](entity:Customer) for whom to retrieve
+     *         bookings. If this is not set, bookings for all customers are retrieved.
      * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
      *         this is not set, bookings of all members are retrieved.
      * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
@@ -93,13 +100,14 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     public CompletableFuture<ListBookingsResponse> listBookingsAsync(
             final Integer limit,
             final String cursor,
+            final String customerId,
             final String teamMemberId,
             final String locationId,
             final String startAtMin,
             final String startAtMax) {
         try { 
-            return prepareListBookingsRequest(limit, cursor, teamMemberId, locationId, startAtMin,
-            startAtMax).executeAsync(); 
+            return prepareListBookingsRequest(limit, cursor, customerId, teamMemberId, locationId,
+            startAtMin, startAtMax).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -111,6 +119,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
     private ApiCall<ListBookingsResponse, ApiException> prepareListBookingsRequest(
             final Integer limit,
             final String cursor,
+            final String customerId,
             final String teamMemberId,
             final String locationId,
             final String startAtMin,
@@ -124,6 +133,8 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 .value(limit).isRequired(false))
                         .queryParam(param -> param.key("cursor")
                                 .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("customer_id")
+                                .value(customerId).isRequired(false))
                         .queryParam(param -> param.key("team_member_id")
                                 .value(teamMemberId).isRequired(false))
                         .queryParam(param -> param.key("location_id")
@@ -266,6 +277,67 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SearchAvailabilityResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Bulk-Retrieves a list of bookings by booking IDs. To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth
+     * scope.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveBookingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkRetrieveBookingsResponse bulkRetrieveBookings(
+            final BulkRetrieveBookingsRequest body) throws ApiException, IOException {
+        return prepareBulkRetrieveBookingsRequest(body).execute();
+    }
+
+    /**
+     * Bulk-Retrieves a list of bookings by booking IDs. To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth
+     * scope.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveBookingsResponse response from the API call
+     */
+    public CompletableFuture<BulkRetrieveBookingsResponse> bulkRetrieveBookingsAsync(
+            final BulkRetrieveBookingsRequest body) {
+        try { 
+            return prepareBulkRetrieveBookingsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkRetrieveBookings.
+     */
+    private ApiCall<BulkRetrieveBookingsResponse, ApiException> prepareBulkRetrieveBookingsRequest(
+            final BulkRetrieveBookingsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkRetrieveBookingsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bookings/bulk-retrieve")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkRetrieveBookingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

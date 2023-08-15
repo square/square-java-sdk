@@ -2,6 +2,8 @@
 package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.models.BulkRetrieveBookingsRequest;
+import com.squareup.square.models.BulkRetrieveBookingsResponse;
 import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
@@ -32,6 +34,8 @@ public interface BookingsApi {
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
      *         return the next page of the results. Do not set this when retrieving the first page
      *         of the results.
+     * @param  customerId  Optional parameter: The [customer](entity:Customer) for whom to retrieve
+     *         bookings. If this is not set, bookings for all customers are retrieved.
      * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
      *         this is not set, bookings of all members are retrieved.
      * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
@@ -47,6 +51,7 @@ public interface BookingsApi {
     ListBookingsResponse listBookings(
             final Integer limit,
             final String cursor,
+            final String customerId,
             final String teamMemberId,
             final String locationId,
             final String startAtMin,
@@ -61,6 +66,8 @@ public interface BookingsApi {
      * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
      *         return the next page of the results. Do not set this when retrieving the first page
      *         of the results.
+     * @param  customerId  Optional parameter: The [customer](entity:Customer) for whom to retrieve
+     *         bookings. If this is not set, bookings for all customers are retrieved.
      * @param  teamMemberId  Optional parameter: The team member for whom to retrieve bookings. If
      *         this is not set, bookings of all members are retrieved.
      * @param  locationId  Optional parameter: The location for which to retrieve bookings. If this
@@ -74,6 +81,7 @@ public interface BookingsApi {
     CompletableFuture<ListBookingsResponse> listBookingsAsync(
             final Integer limit,
             final String cursor,
+            final String customerId,
             final String teamMemberId,
             final String locationId,
             final String startAtMin,
@@ -136,6 +144,32 @@ public interface BookingsApi {
      */
     CompletableFuture<SearchAvailabilityResponse> searchAvailabilityAsync(
             final SearchAvailabilityRequest body);
+
+    /**
+     * Bulk-Retrieves a list of bookings by booking IDs. To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth
+     * scope.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveBookingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkRetrieveBookingsResponse bulkRetrieveBookings(
+            final BulkRetrieveBookingsRequest body) throws ApiException, IOException;
+
+    /**
+     * Bulk-Retrieves a list of bookings by booking IDs. To call this endpoint with buyer-level
+     * permissions, set `APPOINTMENTS_READ` for the OAuth scope. To call this endpoint with
+     * seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth
+     * scope.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveBookingsResponse response from the API call
+     */
+    CompletableFuture<BulkRetrieveBookingsResponse> bulkRetrieveBookingsAsync(
+            final BulkRetrieveBookingsRequest body);
 
     /**
      * Retrieves a seller's booking profile.

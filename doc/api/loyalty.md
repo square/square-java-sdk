@@ -519,14 +519,13 @@ CreateLoyaltyPromotionRequest body = new CreateLoyaltyPromotionRequest.Builder(
         new LoyaltyPromotionIncentive.Builder(
             "POINTS_MULTIPLIER"
         )
-        .pointsMultiplierData(new LoyaltyPromotionIncentivePointsMultiplierData.Builder(
-                3
-            )
-            .build())
+        .pointsMultiplierData(new LoyaltyPromotionIncentivePointsMultiplierData.Builder()
+                .multiplier("3.0")
+                .build())
         .build(),
         new LoyaltyPromotionAvailableTimeData.Builder(
             Arrays.asList(
-                "BEGIN:VEVENT\\nDTSTART:20220816T160000\\nDURATION:PT2H\\nRRULE:FREQ=WEEKLY;BYDAY=TU\\nEND:VEVENT"
+                "BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT"
             )
         )
         .build()

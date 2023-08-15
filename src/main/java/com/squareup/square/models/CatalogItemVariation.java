@@ -36,7 +36,6 @@ public class CatalogItemVariation {
     private final OptionalNullable<List<String>> imageIds;
     private final OptionalNullable<List<String>> teamMemberIds;
     private final CatalogStockConversion stockableConversion;
-    private final OptionalNullable<List<String>> itemVariationVendorInfoIds;
 
     /**
      * Initialization constructor.
@@ -63,7 +62,6 @@ public class CatalogItemVariation {
      * @param  imageIds  List of String value for imageIds.
      * @param  teamMemberIds  List of String value for teamMemberIds.
      * @param  stockableConversion  CatalogStockConversion value for stockableConversion.
-     * @param  itemVariationVendorInfoIds  List of String value for itemVariationVendorInfoIds.
      */
     @JsonCreator
     public CatalogItemVariation(
@@ -87,8 +85,7 @@ public class CatalogItemVariation {
             @JsonProperty("stockable") Boolean stockable,
             @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("team_member_ids") List<String> teamMemberIds,
-            @JsonProperty("stockable_conversion") CatalogStockConversion stockableConversion,
-            @JsonProperty("item_variation_vendor_info_ids") List<String> itemVariationVendorInfoIds) {
+            @JsonProperty("stockable_conversion") CatalogStockConversion stockableConversion) {
         this.itemId = OptionalNullable.of(itemId);
         this.name = OptionalNullable.of(name);
         this.sku = OptionalNullable.of(sku);
@@ -110,7 +107,6 @@ public class CatalogItemVariation {
         this.imageIds = OptionalNullable.of(imageIds);
         this.teamMemberIds = OptionalNullable.of(teamMemberIds);
         this.stockableConversion = stockableConversion;
-        this.itemVariationVendorInfoIds = OptionalNullable.of(itemVariationVendorInfoIds);
     }
 
     /**
@@ -127,8 +123,7 @@ public class CatalogItemVariation {
             OptionalNullable<String> measurementUnitId, OptionalNullable<Boolean> sellable,
             OptionalNullable<Boolean> stockable, OptionalNullable<List<String>> imageIds,
             OptionalNullable<List<String>> teamMemberIds,
-            CatalogStockConversion stockableConversion,
-            OptionalNullable<List<String>> itemVariationVendorInfoIds) {
+            CatalogStockConversion stockableConversion) {
         this.itemId = itemId;
         this.name = name;
         this.sku = sku;
@@ -150,7 +145,6 @@ public class CatalogItemVariation {
         this.imageIds = imageIds;
         this.teamMemberIds = teamMemberIds;
         this.stockableConversion = stockableConversion;
-        this.itemVariationVendorInfoIds = itemVariationVendorInfoIds;
     }
 
     /**
@@ -620,39 +614,12 @@ public class CatalogItemVariation {
         return stockableConversion;
     }
 
-    /**
-     * Internal Getter for ItemVariationVendorInfoIds.
-     * A list of ids of [CatalogItemVariationVendorInfo](entity:CatalogItemVariationVendorInfo)
-     * objects that reference this ItemVariation. (Deprecated in favor of
-     * item_variation_vendor_infos)
-     * @return Returns the Internal List of String
-     */
-    @JsonGetter("item_variation_vendor_info_ids")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<List<String>> internalGetItemVariationVendorInfoIds() {
-        return this.itemVariationVendorInfoIds;
-    }
-
-    /**
-     * Getter for ItemVariationVendorInfoIds.
-     * A list of ids of [CatalogItemVariationVendorInfo](entity:CatalogItemVariationVendorInfo)
-     * objects that reference this ItemVariation. (Deprecated in favor of
-     * item_variation_vendor_infos)
-     * @return Returns the List of String
-     */
-    @JsonIgnore
-    public List<String> getItemVariationVendorInfoIds() {
-        return OptionalNullable.getFrom(itemVariationVendorInfoIds);
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(itemId, name, sku, upc, ordinal, pricingType, priceMoney,
                 locationOverrides, trackInventory, inventoryAlertType, inventoryAlertThreshold,
                 userData, serviceDuration, availableForBooking, itemOptionValues, measurementUnitId,
-                sellable, stockable, imageIds, teamMemberIds, stockableConversion,
-                itemVariationVendorInfoIds);
+                sellable, stockable, imageIds, teamMemberIds, stockableConversion);
     }
 
     @Override
@@ -684,8 +651,7 @@ public class CatalogItemVariation {
             && Objects.equals(stockable, other.stockable)
             && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(teamMemberIds, other.teamMemberIds)
-            && Objects.equals(stockableConversion, other.stockableConversion)
-            && Objects.equals(itemVariationVendorInfoIds, other.itemVariationVendorInfoIds);
+            && Objects.equals(stockableConversion, other.stockableConversion);
     }
 
     /**
@@ -704,8 +670,7 @@ public class CatalogItemVariation {
                 + itemOptionValues + ", measurementUnitId=" + measurementUnitId + ", sellable="
                 + sellable + ", stockable=" + stockable + ", imageIds=" + imageIds
                 + ", teamMemberIds=" + teamMemberIds + ", stockableConversion="
-                + stockableConversion + ", itemVariationVendorInfoIds=" + itemVariationVendorInfoIds
-                + "]";
+                + stockableConversion + "]";
     }
 
     /**
@@ -736,7 +701,6 @@ public class CatalogItemVariation {
         builder.stockable = internalGetStockable();
         builder.imageIds = internalGetImageIds();
         builder.teamMemberIds = internalGetTeamMemberIds();
-        builder.itemVariationVendorInfoIds = internalGetItemVariationVendorInfoIds();
         return builder;
     }
 
@@ -765,7 +729,6 @@ public class CatalogItemVariation {
         private OptionalNullable<List<String>> imageIds;
         private OptionalNullable<List<String>> teamMemberIds;
         private CatalogStockConversion stockableConversion;
-        private OptionalNullable<List<String>> itemVariationVendorInfoIds;
 
 
 
@@ -1127,25 +1090,6 @@ public class CatalogItemVariation {
         }
 
         /**
-         * Setter for itemVariationVendorInfoIds.
-         * @param  itemVariationVendorInfoIds  List of String value for itemVariationVendorInfoIds.
-         * @return Builder
-         */
-        public Builder itemVariationVendorInfoIds(List<String> itemVariationVendorInfoIds) {
-            this.itemVariationVendorInfoIds = OptionalNullable.of(itemVariationVendorInfoIds);
-            return this;
-        }
-
-        /**
-         * UnSetter for itemVariationVendorInfoIds.
-         * @return Builder
-         */
-        public Builder unsetItemVariationVendorInfoIds() {
-            itemVariationVendorInfoIds = null;
-            return this;
-        }
-
-        /**
          * Builds a new {@link CatalogItemVariation} object using the set fields.
          * @return {@link CatalogItemVariation}
          */
@@ -1154,7 +1098,7 @@ public class CatalogItemVariation {
                     priceMoney, locationOverrides, trackInventory, inventoryAlertType,
                     inventoryAlertThreshold, userData, serviceDuration, availableForBooking,
                     itemOptionValues, measurementUnitId, sellable, stockable, imageIds,
-                    teamMemberIds, stockableConversion, itemVariationVendorInfoIds);
+                    teamMemberIds, stockableConversion);
         }
     }
 }

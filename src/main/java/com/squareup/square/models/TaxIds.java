@@ -18,6 +18,7 @@ public class TaxIds {
     private final OptionalNullable<String> frSiret;
     private final OptionalNullable<String> frNaf;
     private final OptionalNullable<String> esNif;
+    private final String jpQii;
 
     /**
      * Initialization constructor.
@@ -25,28 +26,32 @@ public class TaxIds {
      * @param  frSiret  String value for frSiret.
      * @param  frNaf  String value for frNaf.
      * @param  esNif  String value for esNif.
+     * @param  jpQii  String value for jpQii.
      */
     @JsonCreator
     public TaxIds(
             @JsonProperty("eu_vat") String euVat,
             @JsonProperty("fr_siret") String frSiret,
             @JsonProperty("fr_naf") String frNaf,
-            @JsonProperty("es_nif") String esNif) {
+            @JsonProperty("es_nif") String esNif,
+            @JsonProperty("jp_qii") String jpQii) {
         this.euVat = OptionalNullable.of(euVat);
         this.frSiret = OptionalNullable.of(frSiret);
         this.frNaf = OptionalNullable.of(frNaf);
         this.esNif = OptionalNullable.of(esNif);
+        this.jpQii = jpQii;
     }
 
     /**
      * Internal initialization constructor.
      */
     protected TaxIds(OptionalNullable<String> euVat, OptionalNullable<String> frSiret,
-            OptionalNullable<String> frNaf, OptionalNullable<String> esNif) {
+            OptionalNullable<String> frNaf, OptionalNullable<String> esNif, String jpQii) {
         this.euVat = euVat;
         this.frSiret = frSiret;
         this.frNaf = frNaf;
         this.esNif = esNif;
+        this.jpQii = jpQii;
     }
 
     /**
@@ -149,9 +154,21 @@ public class TaxIds {
         return OptionalNullable.getFrom(esNif);
     }
 
+    /**
+     * Getter for JpQii.
+     * The QII (Qualified Invoice Issuer) number is a 14-character tax identifier used in Japan. If
+     * it is present, it has been validated. For example, `T1234567890123`.
+     * @return Returns the String
+     */
+    @JsonGetter("jp_qii")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getJpQii() {
+        return jpQii;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(euVat, frSiret, frNaf, esNif);
+        return Objects.hash(euVat, frSiret, frNaf, esNif, jpQii);
     }
 
     @Override
@@ -166,7 +183,8 @@ public class TaxIds {
         return Objects.equals(euVat, other.euVat)
             && Objects.equals(frSiret, other.frSiret)
             && Objects.equals(frNaf, other.frNaf)
-            && Objects.equals(esNif, other.esNif);
+            && Objects.equals(esNif, other.esNif)
+            && Objects.equals(jpQii, other.jpQii);
     }
 
     /**
@@ -176,7 +194,7 @@ public class TaxIds {
     @Override
     public String toString() {
         return "TaxIds [" + "euVat=" + euVat + ", frSiret=" + frSiret + ", frNaf=" + frNaf
-                + ", esNif=" + esNif + "]";
+                + ", esNif=" + esNif + ", jpQii=" + jpQii + "]";
     }
 
     /**
@@ -185,7 +203,8 @@ public class TaxIds {
      * @return a new {@link TaxIds.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder();
+        Builder builder = new Builder()
+                .jpQii(getJpQii());
         builder.euVat = internalGetEuVat();
         builder.frSiret = internalGetFrSiret();
         builder.frNaf = internalGetFrNaf();
@@ -201,6 +220,7 @@ public class TaxIds {
         private OptionalNullable<String> frSiret;
         private OptionalNullable<String> frNaf;
         private OptionalNullable<String> esNif;
+        private String jpQii;
 
 
 
@@ -281,11 +301,21 @@ public class TaxIds {
         }
 
         /**
+         * Setter for jpQii.
+         * @param  jpQii  String value for jpQii.
+         * @return Builder
+         */
+        public Builder jpQii(String jpQii) {
+            this.jpQii = jpQii;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TaxIds} object using the set fields.
          * @return {@link TaxIds}
          */
         public TaxIds build() {
-            return new TaxIds(euVat, frSiret, frNaf, esNif);
+            return new TaxIds(euVat, frSiret, frNaf, esNif, jpQii);
         }
     }
 }

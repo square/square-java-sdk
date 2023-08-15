@@ -23,6 +23,9 @@ Represents a tender (i.e., a method of payment) used in a Square transaction.
 | `Type` | [`String`](../../doc/models/tender-type.md) | Required | Indicates a tender's type. | String getType() |
 | `CardDetails` | [`TenderCardDetails`](../../doc/models/tender-card-details.md) | Optional | Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD` | TenderCardDetails getCardDetails() |
 | `CashDetails` | [`TenderCashDetails`](../../doc/models/tender-cash-details.md) | Optional | Represents the details of a tender with `type` `CASH`. | TenderCashDetails getCashDetails() |
+| `BankAccountDetails` | [`TenderBankAccountDetails`](../../doc/models/tender-bank-account-details.md) | Optional | Represents the details of a tender with `type` `BANK_ACCOUNT`.<br><br>See [BankAccountPaymentDetails](../../doc/models/bank-account-payment-details.md)<br>for more exposed details of a bank account payment. | TenderBankAccountDetails getBankAccountDetails() |
+| `BuyNowPayLaterDetails` | [`TenderBuyNowPayLaterDetails`](../../doc/models/tender-buy-now-pay-later-details.md) | Optional | Represents the details of a tender with `type` `BUY_NOW_PAY_LATER`. | TenderBuyNowPayLaterDetails getBuyNowPayLaterDetails() |
+| `SquareAccountDetails` | [`TenderSquareAccountDetails`](../../doc/models/tender-square-account-details.md) | Optional | Represents the details of a tender with `type` `SQUARE_ACCOUNT`. | TenderSquareAccountDetails getSquareAccountDetails() |
 | `AdditionalRecipients` | [`List<AdditionalRecipient>`](../../doc/models/additional-recipient.md) | Optional | Additional recipients (other than the merchant) receiving a portion of this tender.<br>For example, fees assessed on the purchase by a third party integration. | List<AdditionalRecipient> getAdditionalRecipients() |
 | `PaymentId` | `String` | Optional | The ID of the [Payment](entity:Payment) that corresponds to this tender.<br>This value is only present for payments created with the v2 Payments API.<br>**Constraints**: *Maximum Length*: `192` | String getPaymentId() |
 
@@ -35,7 +38,7 @@ Represents a tender (i.e., a method of payment) used in a Square transaction.
   "transaction_id": "transaction_id8",
   "created_at": "created_at2",
   "note": "note4",
-  "type": "WALLET"
+  "type": "CARD"
 }
 ```
 
