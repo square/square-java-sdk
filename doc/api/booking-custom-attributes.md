@@ -266,13 +266,13 @@ CompletableFuture<BulkDeleteBookingCustomAttributesResponse> bulkDeleteBookingCu
 BulkDeleteBookingCustomAttributesRequest body = new BulkDeleteBookingCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BookingCustomAttributeDeleteRequest>() {{
         put("key0", new BookingCustomAttributeDeleteRequest.Builder(
-            "booking_id8",
-            "key4"
+            "booking_id4",
+            "key0"
         )
         .build());
         put("key1", new BookingCustomAttributeDeleteRequest.Builder(
-            "booking_id9",
-            "key5"
+            "booking_id4",
+            "key0"
         )
         .build());
     }}
@@ -321,13 +321,13 @@ CompletableFuture<BulkUpsertBookingCustomAttributesResponse> bulkUpsertBookingCu
 BulkUpsertBookingCustomAttributesRequest body = new BulkUpsertBookingCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BookingCustomAttributeUpsertRequest>() {{
         put("key0", new BookingCustomAttributeUpsertRequest.Builder(
-            "booking_id8",
+            "booking_id4",
             new CustomAttribute.Builder()
                 .build()
         )
         .build());
         put("key1", new BookingCustomAttributeUpsertRequest.Builder(
-            "booking_id9",
+            "booking_id4",
             new CustomAttribute.Builder()
                 .build()
         )

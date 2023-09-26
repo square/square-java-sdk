@@ -263,8 +263,10 @@ CompletableFuture<BulkDeleteMerchantCustomAttributesResponse> bulkDeleteMerchant
 BulkDeleteMerchantCustomAttributesRequest body = new BulkDeleteMerchantCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest>() {{
         put("id1", new BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest.Builder()
+            .key("alternative_seller_name")
             .build());
         put("id2", new BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest.Builder()
+            .key("has_seen_tutorial")
             .build());
     }}
 )
@@ -315,13 +317,13 @@ CompletableFuture<BulkUpsertMerchantCustomAttributesResponse> bulkUpsertMerchant
 BulkUpsertMerchantCustomAttributesRequest body = new BulkUpsertMerchantCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest>() {{
         put("key0", new BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest.Builder(
-            "merchant_id4",
+            "merchant_id0",
             new CustomAttribute.Builder()
                 .build()
         )
         .build());
         put("key1", new BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest.Builder(
-            "merchant_id5",
+            "merchant_id0",
             new CustomAttribute.Builder()
                 .build()
         )

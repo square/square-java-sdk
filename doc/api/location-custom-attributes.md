@@ -263,10 +263,13 @@ CompletableFuture<BulkDeleteLocationCustomAttributesResponse> bulkDeleteLocation
 BulkDeleteLocationCustomAttributesRequest body = new BulkDeleteLocationCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest>() {{
         put("id1", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .key("bestseller")
             .build());
         put("id2", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .key("bestseller")
             .build());
         put("id3", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
+            .key("phone-number")
             .build());
     }}
 )
@@ -317,13 +320,13 @@ CompletableFuture<BulkUpsertLocationCustomAttributesResponse> bulkUpsertLocation
 BulkUpsertLocationCustomAttributesRequest body = new BulkUpsertLocationCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest>() {{
         put("key0", new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
-            "location_id8",
+            "location_id4",
             new CustomAttribute.Builder()
                 .build()
         )
         .build());
         put("key1", new BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest.Builder(
-            "location_id9",
+            "location_id4",
             new CustomAttribute.Builder()
                 .build()
         )

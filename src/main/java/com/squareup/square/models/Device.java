@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,32 +16,44 @@ import java.util.Objects;
  */
 public class Device {
     private final String id;
-    private final OptionalNullable<String> name;
+    private final DeviceAttributes attributes;
+    private final OptionalNullable<List<Component>> components;
+    private final DeviceStatus status;
 
     /**
      * Initialization constructor.
+     * @param  attributes  DeviceAttributes value for attributes.
      * @param  id  String value for id.
-     * @param  name  String value for name.
+     * @param  components  List of Component value for components.
+     * @param  status  DeviceStatus value for status.
      */
     @JsonCreator
     public Device(
+            @JsonProperty("attributes") DeviceAttributes attributes,
             @JsonProperty("id") String id,
-            @JsonProperty("name") String name) {
+            @JsonProperty("components") List<Component> components,
+            @JsonProperty("status") DeviceStatus status) {
         this.id = id;
-        this.name = OptionalNullable.of(name);
+        this.attributes = attributes;
+        this.components = OptionalNullable.of(components);
+        this.status = status;
     }
 
     /**
      * Internal initialization constructor.
      */
-    protected Device(String id, OptionalNullable<String> name) {
+    protected Device(DeviceAttributes attributes, String id,
+            OptionalNullable<List<Component>> components, DeviceStatus status) {
         this.id = id;
-        this.name = name;
+        this.attributes = attributes;
+        this.components = components;
+        this.status = status;
     }
 
     /**
      * Getter for Id.
-     * The device's Square-issued ID.
+     * A synthetic identifier for the device. The identifier includes a standardized prefix and is
+     * otherwise an opaque id generated from key device fields.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -50,30 +63,49 @@ public class Device {
     }
 
     /**
-     * Internal Getter for Name.
-     * The device's merchant-specified name.
-     * @return Returns the Internal String
+     * Getter for Attributes.
+     * @return Returns the DeviceAttributes
      */
-    @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetName() {
-        return this.name;
+    @JsonGetter("attributes")
+    public DeviceAttributes getAttributes() {
+        return attributes;
     }
 
     /**
-     * Getter for Name.
-     * The device's merchant-specified name.
-     * @return Returns the String
+     * Internal Getter for Components.
+     * A list of components applicable to the device.
+     * @return Returns the Internal List of Component
+     */
+    @JsonGetter("components")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<Component>> internalGetComponents() {
+        return this.components;
+    }
+
+    /**
+     * Getter for Components.
+     * A list of components applicable to the device.
+     * @return Returns the List of Component
      */
     @JsonIgnore
-    public String getName() {
-        return OptionalNullable.getFrom(name);
+    public List<Component> getComponents() {
+        return OptionalNullable.getFrom(components);
+    }
+
+    /**
+     * Getter for Status.
+     * @return Returns the DeviceStatus
+     */
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public DeviceStatus getStatus() {
+        return status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, attributes, components, status);
     }
 
     @Override
@@ -86,7 +118,9 @@ public class Device {
         }
         Device other = (Device) obj;
         return Objects.equals(id, other.id)
-            && Objects.equals(name, other.name);
+            && Objects.equals(attributes, other.attributes)
+            && Objects.equals(components, other.components)
+            && Objects.equals(status, other.status);
     }
 
     /**
@@ -95,7 +129,8 @@ public class Device {
      */
     @Override
     public String toString() {
-        return "Device [" + "id=" + id + ", name=" + name + "]";
+        return "Device [" + "attributes=" + attributes + ", id=" + id + ", components=" + components
+                + ", status=" + status + "]";
     }
 
     /**
@@ -104,9 +139,10 @@ public class Device {
      * @return a new {@link Device.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .id(getId());
-        builder.name = internalGetName();
+        Builder builder = new Builder(attributes)
+                .id(getId())
+                .status(getStatus());
+        builder.components = internalGetComponents();
         return builder;
     }
 
@@ -114,10 +150,28 @@ public class Device {
      * Class to build instances of {@link Device}.
      */
     public static class Builder {
+        private DeviceAttributes attributes;
         private String id;
-        private OptionalNullable<String> name;
+        private OptionalNullable<List<Component>> components;
+        private DeviceStatus status;
 
+        /**
+         * Initialization constructor.
+         * @param  attributes  DeviceAttributes value for attributes.
+         */
+        public Builder(DeviceAttributes attributes) {
+            this.attributes = attributes;
+        }
 
+        /**
+         * Setter for attributes.
+         * @param  attributes  DeviceAttributes value for attributes.
+         * @return Builder
+         */
+        public Builder attributes(DeviceAttributes attributes) {
+            this.attributes = attributes;
+            return this;
+        }
 
         /**
          * Setter for id.
@@ -130,21 +184,31 @@ public class Device {
         }
 
         /**
-         * Setter for name.
-         * @param  name  String value for name.
+         * Setter for components.
+         * @param  components  List of Component value for components.
          * @return Builder
          */
-        public Builder name(String name) {
-            this.name = OptionalNullable.of(name);
+        public Builder components(List<Component> components) {
+            this.components = OptionalNullable.of(components);
             return this;
         }
 
         /**
-         * UnSetter for name.
+         * UnSetter for components.
          * @return Builder
          */
-        public Builder unsetName() {
-            name = null;
+        public Builder unsetComponents() {
+            components = null;
+            return this;
+        }
+
+        /**
+         * Setter for status.
+         * @param  status  DeviceStatus value for status.
+         * @return Builder
+         */
+        public Builder status(DeviceStatus status) {
+            this.status = status;
             return this;
         }
 
@@ -153,7 +217,7 @@ public class Device {
          * @return {@link Device}
          */
         public Device build() {
-            return new Device(id, name);
+            return new Device(attributes, id, components, status);
         }
     }
 }

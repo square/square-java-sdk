@@ -91,7 +91,7 @@ public class TeamMemberBookingProfile {
     /**
      * Internal Getter for IsBookable.
      * Indicates whether the team member can be booked through the Bookings API or the seller's
-     * online booking channel or site (`true) or not (`false`).
+     * online booking channel or site (`true`) or not (`false`).
      * @return Returns the Internal Boolean
      */
     @JsonGetter("is_bookable")
@@ -104,7 +104,7 @@ public class TeamMemberBookingProfile {
     /**
      * Getter for IsBookable.
      * Indicates whether the team member can be booked through the Bookings API or the seller's
-     * online booking channel or site (`true) or not (`false`).
+     * online booking channel or site (`true`) or not (`false`).
      * @return Returns the Boolean
      */
     @JsonIgnore

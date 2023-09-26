@@ -10,7 +10,9 @@ import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CreateDeviceCodeRequest;
 import com.squareup.square.models.CreateDeviceCodeResponse;
 import com.squareup.square.models.GetDeviceCodeResponse;
+import com.squareup.square.models.GetDeviceResponse;
 import com.squareup.square.models.ListDeviceCodesResponse;
+import com.squareup.square.models.ListDevicesResponse;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.GlobalConfiguration;
 import java.io.IOException;
@@ -28,6 +30,92 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
      */
     public DefaultDevicesApi(GlobalConfiguration globalConfig) {
         super(globalConfig);
+    }
+
+    /**
+     * List devices associated with the merchant. Currently, only Terminal API devices are
+     * supported.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. See
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination)
+     *         for more information.
+     * @param  sortOrder  Optional parameter: The order in which results are listed. - `ASC` -
+     *         Oldest to newest. - `DESC` - Newest to oldest (default).
+     * @param  limit  Optional parameter: The number of results to return in a single page.
+     * @param  locationId  Optional parameter: If present, only returns devices at the target
+     *         location.
+     * @return    Returns the ListDevicesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ListDevicesResponse listDevices(
+            final String cursor,
+            final String sortOrder,
+            final Integer limit,
+            final String locationId) throws ApiException, IOException {
+        return prepareListDevicesRequest(cursor, sortOrder, limit, locationId).execute();
+    }
+
+    /**
+     * List devices associated with the merchant. Currently, only Terminal API devices are
+     * supported.
+     * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
+     *         endpoint. Provide this cursor to retrieve the next set of results for the original
+     *         query. See
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination)
+     *         for more information.
+     * @param  sortOrder  Optional parameter: The order in which results are listed. - `ASC` -
+     *         Oldest to newest. - `DESC` - Newest to oldest (default).
+     * @param  limit  Optional parameter: The number of results to return in a single page.
+     * @param  locationId  Optional parameter: If present, only returns devices at the target
+     *         location.
+     * @return    Returns the ListDevicesResponse response from the API call
+     */
+    public CompletableFuture<ListDevicesResponse> listDevicesAsync(
+            final String cursor,
+            final String sortOrder,
+            final Integer limit,
+            final String locationId) {
+        try { 
+            return prepareListDevicesRequest(cursor, sortOrder, limit, locationId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for listDevices.
+     */
+    private ApiCall<ListDevicesResponse, ApiException> prepareListDevicesRequest(
+            final String cursor,
+            final String sortOrder,
+            final Integer limit,
+            final String locationId) throws IOException {
+        return new ApiCall.Builder<ListDevicesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/devices")
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .queryParam(param -> param.key("sort_order")
+                                .value(sortOrder).isRequired(false))
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("location_id")
+                                .value(locationId).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListDevicesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
     }
 
     /**
@@ -217,6 +305,57 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, GetDeviceCodeResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves Device with the associated `device_id`.
+     * @param  deviceId  Required parameter: The unique ID for the desired `Device`.
+     * @return    Returns the GetDeviceResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public GetDeviceResponse getDevice(
+            final String deviceId) throws ApiException, IOException {
+        return prepareGetDeviceRequest(deviceId).execute();
+    }
+
+    /**
+     * Retrieves Device with the associated `device_id`.
+     * @param  deviceId  Required parameter: The unique ID for the desired `Device`.
+     * @return    Returns the GetDeviceResponse response from the API call
+     */
+    public CompletableFuture<GetDeviceResponse> getDeviceAsync(
+            final String deviceId) {
+        try { 
+            return prepareGetDeviceRequest(deviceId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for getDevice.
+     */
+    private ApiCall<GetDeviceResponse, ApiException> prepareGetDeviceRequest(
+            final String deviceId) throws IOException {
+        return new ApiCall.Builder<GetDeviceResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/devices/{device_id}")
+                        .templateParam(param -> param.key("device_id").value(deviceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, GetDeviceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

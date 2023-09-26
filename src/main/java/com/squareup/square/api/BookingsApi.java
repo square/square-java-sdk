@@ -4,6 +4,8 @@ package com.squareup.square.api;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.BulkRetrieveBookingsRequest;
 import com.squareup.square.models.BulkRetrieveBookingsResponse;
+import com.squareup.square.models.BulkRetrieveTeamMemberBookingProfilesRequest;
+import com.squareup.square.models.BulkRetrieveTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
@@ -224,6 +226,26 @@ public interface BookingsApi {
             final Integer limit,
             final String cursor,
             final String locationId);
+
+    /**
+     * Retrieves one or more team members' booking profiles.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveTeamMemberBookingProfilesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkRetrieveTeamMemberBookingProfilesResponse bulkRetrieveTeamMemberBookingProfiles(
+            final BulkRetrieveTeamMemberBookingProfilesRequest body) throws ApiException, IOException;
+
+    /**
+     * Retrieves one or more team members' booking profiles.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveTeamMemberBookingProfilesResponse response from the API call
+     */
+    CompletableFuture<BulkRetrieveTeamMemberBookingProfilesResponse> bulkRetrieveTeamMemberBookingProfilesAsync(
+            final BulkRetrieveTeamMemberBookingProfilesRequest body);
 
     /**
      * Retrieves a team member's booking profile.

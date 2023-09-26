@@ -21,7 +21,7 @@ public class V1Payment {
     private final OptionalNullable<String> merchantId;
     private final String createdAt;
     private final OptionalNullable<String> creatorId;
-    private final Device device;
+    private final V1Device device;
     private final OptionalNullable<String> paymentUrl;
     private final OptionalNullable<String> receiptUrl;
     private final V1Money inclusiveTaxMoney;
@@ -51,7 +51,7 @@ public class V1Payment {
      * @param  merchantId  String value for merchantId.
      * @param  createdAt  String value for createdAt.
      * @param  creatorId  String value for creatorId.
-     * @param  device  Device value for device.
+     * @param  device  V1Device value for device.
      * @param  paymentUrl  String value for paymentUrl.
      * @param  receiptUrl  String value for receiptUrl.
      * @param  inclusiveTaxMoney  V1Money value for inclusiveTaxMoney.
@@ -81,7 +81,7 @@ public class V1Payment {
             @JsonProperty("merchant_id") String merchantId,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("creator_id") String creatorId,
-            @JsonProperty("device") Device device,
+            @JsonProperty("device") V1Device device,
             @JsonProperty("payment_url") String paymentUrl,
             @JsonProperty("receipt_url") String receiptUrl,
             @JsonProperty("inclusive_tax_money") V1Money inclusiveTaxMoney,
@@ -137,12 +137,13 @@ public class V1Payment {
      * Internal initialization constructor.
      */
     protected V1Payment(String id, OptionalNullable<String> merchantId, String createdAt,
-            OptionalNullable<String> creatorId, Device device, OptionalNullable<String> paymentUrl,
-            OptionalNullable<String> receiptUrl, V1Money inclusiveTaxMoney,
-            V1Money additiveTaxMoney, V1Money taxMoney, V1Money tipMoney, V1Money discountMoney,
-            V1Money totalCollectedMoney, V1Money processingFeeMoney, V1Money netTotalMoney,
-            V1Money refundedMoney, V1Money swedishRoundingMoney, V1Money grossSalesMoney,
-            V1Money netSalesMoney, OptionalNullable<List<V1PaymentTax>> inclusiveTax,
+            OptionalNullable<String> creatorId, V1Device device,
+            OptionalNullable<String> paymentUrl, OptionalNullable<String> receiptUrl,
+            V1Money inclusiveTaxMoney, V1Money additiveTaxMoney, V1Money taxMoney, V1Money tipMoney,
+            V1Money discountMoney, V1Money totalCollectedMoney, V1Money processingFeeMoney,
+            V1Money netTotalMoney, V1Money refundedMoney, V1Money swedishRoundingMoney,
+            V1Money grossSalesMoney, V1Money netSalesMoney,
+            OptionalNullable<List<V1PaymentTax>> inclusiveTax,
             OptionalNullable<List<V1PaymentTax>> additiveTax,
             OptionalNullable<List<V1Tender>> tender, OptionalNullable<List<V1Refund>> refunds,
             OptionalNullable<List<V1PaymentItemization>> itemizations, V1Money surchargeMoney,
@@ -252,11 +253,11 @@ public class V1Payment {
 
     /**
      * Getter for Device.
-     * @return Returns the Device
+     * @return Returns the V1Device
      */
     @JsonGetter("device")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Device getDevice() {
+    public V1Device getDevice() {
         return device;
     }
 
@@ -718,7 +719,7 @@ public class V1Payment {
         private OptionalNullable<String> merchantId;
         private String createdAt;
         private OptionalNullable<String> creatorId;
-        private Device device;
+        private V1Device device;
         private OptionalNullable<String> paymentUrl;
         private OptionalNullable<String> receiptUrl;
         private V1Money inclusiveTaxMoney;
@@ -814,10 +815,10 @@ public class V1Payment {
 
         /**
          * Setter for device.
-         * @param  device  Device value for device.
+         * @param  device  V1Device value for device.
          * @return Builder
          */
-        public Builder device(Device device) {
+        public Builder device(V1Device device) {
             this.device = device;
             return this;
         }

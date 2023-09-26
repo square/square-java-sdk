@@ -284,13 +284,13 @@ CompletableFuture<BulkUpsertCustomerCustomAttributesResponse> bulkUpsertCustomer
 BulkUpsertCustomerCustomAttributesRequest body = new BulkUpsertCustomerCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest>() {{
         put("key0", new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-            "customer_id2",
+            "customer_id8",
             new CustomAttribute.Builder()
                 .build()
         )
         .build());
         put("key1", new BulkUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest.Builder(
-            "customer_id3",
+            "customer_id8",
             new CustomAttribute.Builder()
                 .build()
         )

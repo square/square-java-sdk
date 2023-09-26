@@ -34,7 +34,7 @@ Monetary values are <b>negative</b> if they represent an
 | `MerchantId` | `String` | Optional | The unique identifier of the merchant that took the payment. | String getMerchantId() |
 | `CreatedAt` | `String` | Optional | The time when the payment was created, in ISO 8601 format. Reflects the time of the first payment if the object represents an incomplete partial payment, and the time of the last or complete payment otherwise. | String getCreatedAt() |
 | `CreatorId` | `String` | Optional | The unique identifier of the Square account that took the payment. | String getCreatorId() |
-| `Device` | [`Device`](../../doc/models/device.md) | Optional | - | Device getDevice() |
+| `Device` | [`V1Device`](../../doc/models/v1-device.md) | Optional | - | V1Device getDevice() |
 | `PaymentUrl` | `String` | Optional | The URL of the payment's detail page in the merchant dashboard. The merchant must be signed in to the merchant dashboard to view this page. | String getPaymentUrl() |
 | `ReceiptUrl` | `String` | Optional | The URL of the receipt for the payment. Note that for split tender<br>payments, this URL corresponds to the receipt for the first tender<br>listed in the payment's tender field. Each Tender object has its own<br>receipt_url field you can use to get the other receipts associated with<br>a split tender payment. | String getReceiptUrl() |
 | `InclusiveTaxMoney` | [`V1Money`](../../doc/models/v1-money.md) | Optional | - | V1Money getInclusiveTaxMoney() |
@@ -62,10 +62,10 @@ Monetary values are <b>negative</b> if they represent an
 
 ```json
 {
-  "id": "id0",
-  "merchant_id": "merchant_id0",
-  "created_at": "created_at2",
-  "creator_id": "creator_id0",
+  "id": "id2",
+  "merchant_id": "merchant_id8",
+  "created_at": "created_at0",
+  "creator_id": "creator_id2",
   "device": {
     "id": "id6",
     "name": "name6"

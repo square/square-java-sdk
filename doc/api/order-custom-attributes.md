@@ -341,13 +341,13 @@ BulkUpsertOrderCustomAttributesRequest body = new BulkUpsertOrderCustomAttribute
         put("key0", new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
             new CustomAttribute.Builder()
                 .build(),
-            "order_id2"
+            "order_id4"
         )
         .build());
         put("key1", new BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute.Builder(
             new CustomAttribute.Builder()
                 .build(),
-            "order_id1"
+            "order_id4"
         )
         .build());
     }}
