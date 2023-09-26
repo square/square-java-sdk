@@ -10,9 +10,51 @@ DevicesApi devicesApi = client.getDevicesApi();
 
 ## Methods
 
+* [List Devices](../../doc/api/devices.md#list-devices)
 * [List Device Codes](../../doc/api/devices.md#list-device-codes)
 * [Create Device Code](../../doc/api/devices.md#create-device-code)
 * [Get Device Code](../../doc/api/devices.md#get-device-code)
+* [Get Device](../../doc/api/devices.md#get-device)
+
+
+# List Devices
+
+List devices associated with the merchant. Currently, only Terminal API
+devices are supported.
+
+```java
+CompletableFuture<ListDevicesResponse> listDevicesAsync(
+    final String cursor,
+    final String sortOrder,
+    final Integer limit,
+    final String locationId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br>See [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination) for more information. |
+| `sortOrder` | [`String`](../../doc/models/sort-order.md) | Query, Optional | The order in which results are listed.<br><br>- `ASC` - Oldest to newest.<br>- `DESC` - Newest to oldest (default). |
+| `limit` | `Integer` | Query, Optional | The number of results to return in a single page. |
+| `locationId` | `String` | Query, Optional | If present, only returns devices at the target location. |
+
+## Response Type
+
+[`ListDevicesResponse`](../../doc/models/list-devices-response.md)
+
+## Example Usage
+
+```java
+devicesApi.listDevicesAsync(null, null, null, null).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
 
 
 # List Device Codes
@@ -124,6 +166,41 @@ CompletableFuture<GetDeviceCodeResponse> getDeviceCodeAsync(
 String id = "id0";
 
 devicesApi.getDeviceCodeAsync(id).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Get Device
+
+Retrieves Device with the associated `device_id`.
+
+```java
+CompletableFuture<GetDeviceResponse> getDeviceAsync(
+    final String deviceId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `deviceId` | `String` | Template, Required | The unique ID for the desired `Device`. |
+
+## Response Type
+
+[`GetDeviceResponse`](../../doc/models/get-device-response.md)
+
+## Example Usage
+
+```java
+String deviceId = "device_id6";
+
+devicesApi.getDeviceAsync(deviceId).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

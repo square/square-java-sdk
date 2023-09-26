@@ -209,6 +209,8 @@ CompletableFuture<UpdateSubscriptionResponse> updateSubscriptionAsync(
 String subscriptionId = "subscription_id0";
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder()
     .subscription(new Subscription.Builder()
+        .canceledDate("canceled_date6")
+        .cardId("{NEW CARD ID}")
         .build())
     .build();
 

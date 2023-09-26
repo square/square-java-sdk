@@ -16,26 +16,32 @@ import java.util.Objects;
 public class ModifierLocationOverrides {
     private final OptionalNullable<String> locationId;
     private final Money priceMoney;
+    private final Boolean soldOut;
 
     /**
      * Initialization constructor.
      * @param  locationId  String value for locationId.
      * @param  priceMoney  Money value for priceMoney.
+     * @param  soldOut  Boolean value for soldOut.
      */
     @JsonCreator
     public ModifierLocationOverrides(
             @JsonProperty("location_id") String locationId,
-            @JsonProperty("price_money") Money priceMoney) {
+            @JsonProperty("price_money") Money priceMoney,
+            @JsonProperty("sold_out") Boolean soldOut) {
         this.locationId = OptionalNullable.of(locationId);
         this.priceMoney = priceMoney;
+        this.soldOut = soldOut;
     }
 
     /**
      * Internal initialization constructor.
      */
-    protected ModifierLocationOverrides(OptionalNullable<String> locationId, Money priceMoney) {
+    protected ModifierLocationOverrides(OptionalNullable<String> locationId, Money priceMoney,
+            Boolean soldOut) {
         this.locationId = locationId;
         this.priceMoney = priceMoney;
+        this.soldOut = soldOut;
     }
 
     /**
@@ -78,9 +84,23 @@ public class ModifierLocationOverrides {
         return priceMoney;
     }
 
+    /**
+     * Getter for SoldOut.
+     * Indicates whether the modifier is sold out at the specified location or not. As an example,
+     * for cheese (modifier) burger (item), when the modifier is sold out, it is the cheese, but not
+     * the burger, that is sold out. The seller can manually set this sold out status. Attempts by
+     * an application to set this attribute are ignored.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("sold_out")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSoldOut() {
+        return soldOut;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(locationId, priceMoney);
+        return Objects.hash(locationId, priceMoney, soldOut);
     }
 
     @Override
@@ -93,7 +113,8 @@ public class ModifierLocationOverrides {
         }
         ModifierLocationOverrides other = (ModifierLocationOverrides) obj;
         return Objects.equals(locationId, other.locationId)
-            && Objects.equals(priceMoney, other.priceMoney);
+            && Objects.equals(priceMoney, other.priceMoney)
+            && Objects.equals(soldOut, other.soldOut);
     }
 
     /**
@@ -103,7 +124,7 @@ public class ModifierLocationOverrides {
     @Override
     public String toString() {
         return "ModifierLocationOverrides [" + "locationId=" + locationId + ", priceMoney="
-                + priceMoney + "]";
+                + priceMoney + ", soldOut=" + soldOut + "]";
     }
 
     /**
@@ -113,7 +134,8 @@ public class ModifierLocationOverrides {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .priceMoney(getPriceMoney());
+                .priceMoney(getPriceMoney())
+                .soldOut(getSoldOut());
         builder.locationId = internalGetLocationId();
         return builder;
     }
@@ -124,6 +146,7 @@ public class ModifierLocationOverrides {
     public static class Builder {
         private OptionalNullable<String> locationId;
         private Money priceMoney;
+        private Boolean soldOut;
 
 
 
@@ -157,11 +180,21 @@ public class ModifierLocationOverrides {
         }
 
         /**
+         * Setter for soldOut.
+         * @param  soldOut  Boolean value for soldOut.
+         * @return Builder
+         */
+        public Builder soldOut(Boolean soldOut) {
+            this.soldOut = soldOut;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ModifierLocationOverrides} object using the set fields.
          * @return {@link ModifierLocationOverrides}
          */
         public ModifierLocationOverrides build() {
-            return new ModifierLocationOverrides(locationId, priceMoney);
+            return new ModifierLocationOverrides(locationId, priceMoney, soldOut);
         }
     }
 }

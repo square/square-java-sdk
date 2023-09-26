@@ -71,7 +71,8 @@ public class ListEmployeesRequest {
 
     /**
      * Getter for Status.
-     * The status of the Employee being retrieved.
+     * The status of the Employee being retrieved. DEPRECATED at version 2020-08-26. Replaced by
+     * [TeamMemberStatus](entity:TeamMemberStatus).
      * @return Returns the String
      */
     @JsonGetter("status")

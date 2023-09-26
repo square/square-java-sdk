@@ -75,11 +75,10 @@ public interface OAuthApi {
     /**
      * Revokes an access token generated with the OAuth flow. If an account has more than one OAuth
      * access token for your application, this endpoint revokes all of them, regardless of which
-     * token you specify. When an OAuth access token is revoked, all of the active subscriptions
-     * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
-     * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * **OAuth** page for your application in the Developer Dashboard.
+     * token you specify. __Important:__ The `Authorization` header for this endpoint must have the
+     * following format: ``` Authorization: Client APPLICATION_SECRET ``` Replace
+     * `APPLICATION_SECRET` with the application secret on the **OAuth** page for your application
+     * in the Developer Dashboard.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET
@@ -94,11 +93,10 @@ public interface OAuthApi {
     /**
      * Revokes an access token generated with the OAuth flow. If an account has more than one OAuth
      * access token for your application, this endpoint revokes all of them, regardless of which
-     * token you specify. When an OAuth access token is revoked, all of the active subscriptions
-     * associated with that OAuth token are canceled immediately. __Important:__ The `Authorization`
-     * header for this endpoint must have the following format: ``` Authorization: Client
-     * APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the application secret on the
-     * **OAuth** page for your application in the Developer Dashboard.
+     * token you specify. __Important:__ The `Authorization` header for this endpoint must have the
+     * following format: ``` Authorization: Client APPLICATION_SECRET ``` Replace
+     * `APPLICATION_SECRET` with the application secret on the **OAuth** page for your application
+     * in the Developer Dashboard.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @param  authorization  Required parameter: Client APPLICATION_SECRET

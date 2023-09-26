@@ -9,6 +9,8 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.BulkRetrieveBookingsRequest;
 import com.squareup.square.models.BulkRetrieveBookingsResponse;
+import com.squareup.square.models.BulkRetrieveTeamMemberBookingProfilesRequest;
+import com.squareup.square.models.BulkRetrieveTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.CancelBookingRequest;
 import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
@@ -466,6 +468,61 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListTeamMemberBookingProfilesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves one or more team members' booking profiles.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveTeamMemberBookingProfilesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkRetrieveTeamMemberBookingProfilesResponse bulkRetrieveTeamMemberBookingProfiles(
+            final BulkRetrieveTeamMemberBookingProfilesRequest body) throws ApiException, IOException {
+        return prepareBulkRetrieveTeamMemberBookingProfilesRequest(body).execute();
+    }
+
+    /**
+     * Retrieves one or more team members' booking profiles.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveTeamMemberBookingProfilesResponse response from the API call
+     */
+    public CompletableFuture<BulkRetrieveTeamMemberBookingProfilesResponse> bulkRetrieveTeamMemberBookingProfilesAsync(
+            final BulkRetrieveTeamMemberBookingProfilesRequest body) {
+        try { 
+            return prepareBulkRetrieveTeamMemberBookingProfilesRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkRetrieveTeamMemberBookingProfiles.
+     */
+    private ApiCall<BulkRetrieveTeamMemberBookingProfilesResponse, ApiException> prepareBulkRetrieveTeamMemberBookingProfilesRequest(
+            final BulkRetrieveTeamMemberBookingProfilesRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkRetrieveTeamMemberBookingProfilesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bookings/team-member-booking-profiles/bulk-retrieve")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkRetrieveTeamMemberBookingProfilesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

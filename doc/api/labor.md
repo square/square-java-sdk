@@ -361,10 +361,10 @@ CompletableFuture<CreateShiftResponse> createShiftAsync(
 ```java
 CreateShiftRequest body = new CreateShiftRequest.Builder(
     new Shift.Builder(
-        "2019-01-25T08:11:00+00:00"
+        "2019-01-25T03:11:00-05:00"
     )
     .locationId("PAA1RJZZKXBFG")
-    .endAt("2019-01-25T18:11:00+00:00")
+    .endAt("2019-01-25T13:11:00-05:00")
     .wage(new ShiftWage.Builder()
             .title("Barista")
             .hourlyRate(new Money.Builder()
@@ -374,13 +374,13 @@ CreateShiftRequest body = new CreateShiftRequest.Builder(
             .build())
     .breaks(Arrays.asList(
             new Break.Builder(
-                "2019-01-25T11:11:00+00:00",
+                "2019-01-25T06:11:00-05:00",
                 "REGS1EQR1TPZ5",
                 "Tea Break",
                 "PT5M",
                 true
             )
-            .endAt("2019-01-25T11:16:00+00:00")
+            .endAt("2019-01-25T06:16:00-05:00")
             .build()
         ))
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
@@ -567,10 +567,10 @@ CompletableFuture<UpdateShiftResponse> updateShiftAsync(
 String id = "id0";
 UpdateShiftRequest body = new UpdateShiftRequest.Builder(
     new Shift.Builder(
-        "2019-01-25T08:11:00+00:00"
+        "2019-01-25T03:11:00-05:00"
     )
     .locationId("PAA1RJZZKXBFG")
-    .endAt("2019-01-25T18:11:00+00:00")
+    .endAt("2019-01-25T13:11:00-05:00")
     .wage(new ShiftWage.Builder()
             .title("Bartender")
             .hourlyRate(new Money.Builder()
@@ -580,14 +580,14 @@ UpdateShiftRequest body = new UpdateShiftRequest.Builder(
             .build())
     .breaks(Arrays.asList(
             new Break.Builder(
-                "2019-01-25T11:11:00+00:00",
+                "2019-01-25T06:11:00-05:00",
                 "REGS1EQR1TPZ5",
                 "Tea Break",
                 "PT5M",
                 true
             )
             .id("X7GAQYVVRRG6P")
-            .endAt("2019-01-25T11:16:00+00:00")
+            .endAt("2019-01-25T06:16:00-05:00")
             .build()
         ))
     .version(1)

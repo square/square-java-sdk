@@ -38,7 +38,8 @@ public class RetrieveEmployeeResponse {
 
     /**
      * Getter for Employee.
-     * An employee object that is used by the external API.
+     * An employee object that is used by the external API. DEPRECATED at version 2020-08-26.
+     * Replaced by [TeamMember](entity:TeamMember).
      * @return Returns the Employee
      */
     @JsonGetter("employee")

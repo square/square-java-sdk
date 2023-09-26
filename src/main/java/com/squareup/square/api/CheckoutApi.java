@@ -24,9 +24,7 @@ public interface CheckoutApi {
      * provide their payment information using a payment processing workflow hosted on
      * connect.squareup.com. NOTE: The Checkout API has been updated with new features. For more
      * information, see [Checkout API
-     * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights). We
-     * recommend that you use the new [CreatePaymentLink](api-endpoint:Checkout-CreatePaymentLink)
-     * endpoint in place of this previously released endpoint.
+     * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights).
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the business location to associate the
@@ -46,9 +44,7 @@ public interface CheckoutApi {
      * provide their payment information using a payment processing workflow hosted on
      * connect.squareup.com. NOTE: The Checkout API has been updated with new features. For more
      * information, see [Checkout API
-     * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights). We
-     * recommend that you use the new [CreatePaymentLink](api-endpoint:Checkout-CreatePaymentLink)
-     * endpoint in place of this previously released endpoint.
+     * highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights).
      * @deprecated
      * 
      * @param  locationId  Required parameter: The ID of the business location to associate the

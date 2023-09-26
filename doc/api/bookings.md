@@ -16,6 +16,7 @@ BookingsApi bookingsApi = client.getBookingsApi();
 * [Bulk Retrieve Bookings](../../doc/api/bookings.md#bulk-retrieve-bookings)
 * [Retrieve Business Booking Profile](../../doc/api/bookings.md#retrieve-business-booking-profile)
 * [List Team Member Booking Profiles](../../doc/api/bookings.md#list-team-member-booking-profiles)
+* [Bulk Retrieve Team Member Booking Profiles](../../doc/api/bookings.md#bulk-retrieve-team-member-booking-profiles)
 * [Retrieve Team Member Booking Profile](../../doc/api/bookings.md#retrieve-team-member-booking-profile)
 * [Retrieve Booking](../../doc/api/bookings.md#retrieve-booking)
 * [Update Booking](../../doc/api/bookings.md#update-booking)
@@ -273,6 +274,48 @@ CompletableFuture<ListTeamMemberBookingProfilesResponse> listTeamMemberBookingPr
 Boolean bookableOnly = false;
 
 bookingsApi.listTeamMemberBookingProfilesAsync(bookableOnly, null, null, null).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Bulk Retrieve Team Member Booking Profiles
+
+Retrieves one or more team members' booking profiles.
+
+```java
+CompletableFuture<BulkRetrieveTeamMemberBookingProfilesResponse> bulkRetrieveTeamMemberBookingProfilesAsync(
+    final BulkRetrieveTeamMemberBookingProfilesRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkRetrieveTeamMemberBookingProfilesRequest`](../../doc/models/bulk-retrieve-team-member-booking-profiles-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`BulkRetrieveTeamMemberBookingProfilesResponse`](../../doc/models/bulk-retrieve-team-member-booking-profiles-response.md)
+
+## Example Usage
+
+```java
+BulkRetrieveTeamMemberBookingProfilesRequest body = new BulkRetrieveTeamMemberBookingProfilesRequest.Builder(
+    Arrays.asList(
+        "team_member_ids3",
+        "team_member_ids4",
+        "team_member_ids5"
+    )
+)
+.build();
+
+bookingsApi.bulkRetrieveTeamMemberBookingProfilesAsync(body).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {
