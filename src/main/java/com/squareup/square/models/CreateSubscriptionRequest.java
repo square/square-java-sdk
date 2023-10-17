@@ -23,6 +23,7 @@ public class CreateSubscriptionRequest {
     private final String cardId;
     private final String timezone;
     private final SubscriptionSource source;
+    private final Integer monthlyBillingAnchorDate;
     private final List<Phase> phases;
 
     /**
@@ -38,6 +39,7 @@ public class CreateSubscriptionRequest {
      * @param  cardId  String value for cardId.
      * @param  timezone  String value for timezone.
      * @param  source  SubscriptionSource value for source.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
      * @param  phases  List of Phase value for phases.
      */
     @JsonCreator
@@ -53,6 +55,7 @@ public class CreateSubscriptionRequest {
             @JsonProperty("card_id") String cardId,
             @JsonProperty("timezone") String timezone,
             @JsonProperty("source") SubscriptionSource source,
+            @JsonProperty("monthly_billing_anchor_date") Integer monthlyBillingAnchorDate,
             @JsonProperty("phases") List<Phase> phases) {
         this.idempotencyKey = idempotencyKey;
         this.locationId = locationId;
@@ -65,6 +68,7 @@ public class CreateSubscriptionRequest {
         this.cardId = cardId;
         this.timezone = timezone;
         this.source = source;
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.phases = phases;
     }
 
@@ -214,6 +218,17 @@ public class CreateSubscriptionRequest {
     }
 
     /**
+     * Getter for MonthlyBillingAnchorDate.
+     * The day-of-the-month to change the billing date to.
+     * @return Returns the Integer
+     */
+    @JsonGetter("monthly_billing_anchor_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMonthlyBillingAnchorDate() {
+        return monthlyBillingAnchorDate;
+    }
+
+    /**
      * Getter for Phases.
      * array of phases for this subscription
      * @return Returns the List of Phase
@@ -228,7 +243,7 @@ public class CreateSubscriptionRequest {
     public int hashCode() {
         return Objects.hash(idempotencyKey, locationId, planVariationId, customerId, startDate,
                 canceledDate, taxPercentage, priceOverrideMoney, cardId, timezone, source,
-                phases);
+                monthlyBillingAnchorDate, phases);
     }
 
     @Override
@@ -251,6 +266,7 @@ public class CreateSubscriptionRequest {
             && Objects.equals(cardId, other.cardId)
             && Objects.equals(timezone, other.timezone)
             && Objects.equals(source, other.source)
+            && Objects.equals(monthlyBillingAnchorDate, other.monthlyBillingAnchorDate)
             && Objects.equals(phases, other.phases);
     }
 
@@ -265,7 +281,8 @@ public class CreateSubscriptionRequest {
                 + planVariationId + ", startDate=" + startDate + ", canceledDate=" + canceledDate
                 + ", taxPercentage=" + taxPercentage + ", priceOverrideMoney=" + priceOverrideMoney
                 + ", cardId=" + cardId + ", timezone=" + timezone + ", source=" + source
-                + ", phases=" + phases + "]";
+                + ", monthlyBillingAnchorDate=" + monthlyBillingAnchorDate + ", phases=" + phases
+                + "]";
     }
 
     /**
@@ -284,6 +301,7 @@ public class CreateSubscriptionRequest {
                 .cardId(getCardId())
                 .timezone(getTimezone())
                 .source(getSource())
+                .monthlyBillingAnchorDate(getMonthlyBillingAnchorDate())
                 .phases(getPhases());
         return builder;
     }
@@ -303,6 +321,7 @@ public class CreateSubscriptionRequest {
         private String cardId;
         private String timezone;
         private SubscriptionSource source;
+        private Integer monthlyBillingAnchorDate;
         private List<Phase> phases;
 
         /**
@@ -426,6 +445,16 @@ public class CreateSubscriptionRequest {
         }
 
         /**
+         * Setter for monthlyBillingAnchorDate.
+         * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+         * @return Builder
+         */
+        public Builder monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate) {
+            this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
+            return this;
+        }
+
+        /**
          * Setter for phases.
          * @param  phases  List of Phase value for phases.
          * @return Builder
@@ -442,7 +471,7 @@ public class CreateSubscriptionRequest {
         public CreateSubscriptionRequest build() {
             return new CreateSubscriptionRequest(locationId, customerId, idempotencyKey,
                     planVariationId, startDate, canceledDate, taxPercentage, priceOverrideMoney,
-                    cardId, timezone, source, phases);
+                    cardId, timezone, source, monthlyBillingAnchorDate, phases);
         }
     }
 }

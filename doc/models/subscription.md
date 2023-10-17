@@ -31,6 +31,7 @@ For more information, see
 | `Timezone` | `String` | Optional | Timezone that will be used in date calculations for the subscription.<br>Defaults to the timezone of the location based on `location_id`.<br>Format: the IANA Timezone Database identifier for the location timezone (for example, `America/Los_Angeles`). | String getTimezone() |
 | `Source` | [`SubscriptionSource`](../../doc/models/subscription-source.md) | Optional | The origination details of the subscription. | SubscriptionSource getSource() |
 | `Actions` | [`List<SubscriptionAction>`](../../doc/models/subscription-action.md) | Optional | The list of scheduled actions on this subscription. It is set only in the response from  <br>[RetrieveSubscription](../../doc/api/subscriptions.md#retrieve-subscription) with the query parameter<br>of `include=actions` or from<br>[SearchSubscriptions](../../doc/api/subscriptions.md#search-subscriptions) with the input parameter<br>of `include:["actions"]`. | List<SubscriptionAction> getActions() |
+| `MonthlyBillingAnchorDate` | `Integer` | Optional | The day of the month on which the subscription will issue invoices and publish orders. | Integer getMonthlyBillingAnchorDate() |
 | `Phases` | [`List<Phase>`](../../doc/models/phase.md) | Optional | array of phases for this subscription | List<Phase> getPhases() |
 
 ## Example (as JSON)

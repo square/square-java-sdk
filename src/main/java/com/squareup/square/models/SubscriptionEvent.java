@@ -18,6 +18,7 @@ public class SubscriptionEvent {
     private final String id;
     private final String subscriptionEventType;
     private final String effectiveDate;
+    private final Integer monthlyBillingAnchorDate;
     private final SubscriptionEventInfo info;
     private final OptionalNullable<List<Phase>> phases;
     private final String planVariationId;
@@ -28,6 +29,7 @@ public class SubscriptionEvent {
      * @param  subscriptionEventType  String value for subscriptionEventType.
      * @param  effectiveDate  String value for effectiveDate.
      * @param  planVariationId  String value for planVariationId.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
      * @param  info  SubscriptionEventInfo value for info.
      * @param  phases  List of Phase value for phases.
      */
@@ -37,11 +39,13 @@ public class SubscriptionEvent {
             @JsonProperty("subscription_event_type") String subscriptionEventType,
             @JsonProperty("effective_date") String effectiveDate,
             @JsonProperty("plan_variation_id") String planVariationId,
+            @JsonProperty("monthly_billing_anchor_date") Integer monthlyBillingAnchorDate,
             @JsonProperty("info") SubscriptionEventInfo info,
             @JsonProperty("phases") List<Phase> phases) {
         this.id = id;
         this.subscriptionEventType = subscriptionEventType;
         this.effectiveDate = effectiveDate;
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.info = info;
         this.phases = OptionalNullable.of(phases);
         this.planVariationId = planVariationId;
@@ -51,11 +55,12 @@ public class SubscriptionEvent {
      * Internal initialization constructor.
      */
     protected SubscriptionEvent(String id, String subscriptionEventType, String effectiveDate,
-            String planVariationId, SubscriptionEventInfo info,
+            String planVariationId, Integer monthlyBillingAnchorDate, SubscriptionEventInfo info,
             OptionalNullable<List<Phase>> phases) {
         this.id = id;
         this.subscriptionEventType = subscriptionEventType;
         this.effectiveDate = effectiveDate;
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.info = info;
         this.phases = phases;
         this.planVariationId = planVariationId;
@@ -90,6 +95,17 @@ public class SubscriptionEvent {
     @JsonGetter("effective_date")
     public String getEffectiveDate() {
         return effectiveDate;
+    }
+
+    /**
+     * Getter for MonthlyBillingAnchorDate.
+     * The day-of-the-month the billing anchor date was changed to, if applicable.
+     * @return Returns the Integer
+     */
+    @JsonGetter("monthly_billing_anchor_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMonthlyBillingAnchorDate() {
+        return monthlyBillingAnchorDate;
     }
 
     /**
@@ -137,8 +153,8 @@ public class SubscriptionEvent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, subscriptionEventType, effectiveDate, info, phases,
-                planVariationId);
+        return Objects.hash(id, subscriptionEventType, effectiveDate, monthlyBillingAnchorDate,
+                info, phases, planVariationId);
     }
 
     @Override
@@ -153,6 +169,7 @@ public class SubscriptionEvent {
         return Objects.equals(id, other.id)
             && Objects.equals(subscriptionEventType, other.subscriptionEventType)
             && Objects.equals(effectiveDate, other.effectiveDate)
+            && Objects.equals(monthlyBillingAnchorDate, other.monthlyBillingAnchorDate)
             && Objects.equals(info, other.info)
             && Objects.equals(phases, other.phases)
             && Objects.equals(planVariationId, other.planVariationId);
@@ -166,7 +183,8 @@ public class SubscriptionEvent {
     public String toString() {
         return "SubscriptionEvent [" + "id=" + id + ", subscriptionEventType="
                 + subscriptionEventType + ", effectiveDate=" + effectiveDate + ", planVariationId="
-                + planVariationId + ", info=" + info + ", phases=" + phases + "]";
+                + planVariationId + ", monthlyBillingAnchorDate=" + monthlyBillingAnchorDate
+                + ", info=" + info + ", phases=" + phases + "]";
     }
 
     /**
@@ -176,6 +194,7 @@ public class SubscriptionEvent {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, subscriptionEventType, effectiveDate, planVariationId)
+                .monthlyBillingAnchorDate(getMonthlyBillingAnchorDate())
                 .info(getInfo());
         builder.phases = internalGetPhases();
         return builder;
@@ -189,6 +208,7 @@ public class SubscriptionEvent {
         private String subscriptionEventType;
         private String effectiveDate;
         private String planVariationId;
+        private Integer monthlyBillingAnchorDate;
         private SubscriptionEventInfo info;
         private OptionalNullable<List<Phase>> phases;
 
@@ -248,6 +268,16 @@ public class SubscriptionEvent {
         }
 
         /**
+         * Setter for monthlyBillingAnchorDate.
+         * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+         * @return Builder
+         */
+        public Builder monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate) {
+            this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
+            return this;
+        }
+
+        /**
          * Setter for info.
          * @param  info  SubscriptionEventInfo value for info.
          * @return Builder
@@ -282,7 +312,7 @@ public class SubscriptionEvent {
          */
         public SubscriptionEvent build() {
             return new SubscriptionEvent(id, subscriptionEventType, effectiveDate, planVariationId,
-                    info, phases);
+                    monthlyBillingAnchorDate, info, phases);
         }
     }
 }

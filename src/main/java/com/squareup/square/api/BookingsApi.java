@@ -11,9 +11,11 @@ import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
 import com.squareup.square.models.ListBookingsResponse;
+import com.squareup.square.models.ListLocationBookingProfilesResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.RetrieveBookingResponse;
 import com.squareup.square.models.RetrieveBusinessBookingProfileResponse;
+import com.squareup.square.models.RetrieveLocationBookingProfileResponse;
 import com.squareup.square.models.RetrieveTeamMemberBookingProfileResponse;
 import com.squareup.square.models.SearchAvailabilityRequest;
 import com.squareup.square.models.SearchAvailabilityResponse;
@@ -186,6 +188,54 @@ public interface BookingsApi {
      * @return    Returns the RetrieveBusinessBookingProfileResponse response from the API call
      */
     CompletableFuture<RetrieveBusinessBookingProfileResponse> retrieveBusinessBookingProfileAsync();
+
+    /**
+     * Lists location booking profiles of a seller.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @return    Returns the ListLocationBookingProfilesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    ListLocationBookingProfilesResponse listLocationBookingProfiles(
+            final Integer limit,
+            final String cursor) throws ApiException, IOException;
+
+    /**
+     * Lists location booking profiles of a seller.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @return    Returns the ListLocationBookingProfilesResponse response from the API call
+     */
+    CompletableFuture<ListLocationBookingProfilesResponse> listLocationBookingProfilesAsync(
+            final Integer limit,
+            final String cursor);
+
+    /**
+     * Retrieves a seller's location booking profile.
+     * @param  locationId  Required parameter: The ID of the location to retrieve the booking
+     *         profile.
+     * @return    Returns the RetrieveLocationBookingProfileResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveLocationBookingProfileResponse retrieveLocationBookingProfile(
+            final String locationId) throws ApiException, IOException;
+
+    /**
+     * Retrieves a seller's location booking profile.
+     * @param  locationId  Required parameter: The ID of the location to retrieve the booking
+     *         profile.
+     * @return    Returns the RetrieveLocationBookingProfileResponse response from the API call
+     */
+    CompletableFuture<RetrieveLocationBookingProfileResponse> retrieveLocationBookingProfileAsync(
+            final String locationId);
 
     /**
      * Lists booking profiles for team members.

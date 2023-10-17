@@ -32,6 +32,7 @@ public class Subscription {
     private final String timezone;
     private final SubscriptionSource source;
     private final OptionalNullable<List<SubscriptionAction>> actions;
+    private final Integer monthlyBillingAnchorDate;
     private final List<Phase> phases;
 
     /**
@@ -53,6 +54,7 @@ public class Subscription {
      * @param  timezone  String value for timezone.
      * @param  source  SubscriptionSource value for source.
      * @param  actions  List of SubscriptionAction value for actions.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
      * @param  phases  List of Phase value for phases.
      */
     @JsonCreator
@@ -74,6 +76,7 @@ public class Subscription {
             @JsonProperty("timezone") String timezone,
             @JsonProperty("source") SubscriptionSource source,
             @JsonProperty("actions") List<SubscriptionAction> actions,
+            @JsonProperty("monthly_billing_anchor_date") Integer monthlyBillingAnchorDate,
             @JsonProperty("phases") List<Phase> phases) {
         this.id = id;
         this.locationId = locationId;
@@ -92,6 +95,7 @@ public class Subscription {
         this.timezone = timezone;
         this.source = source;
         this.actions = OptionalNullable.of(actions);
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.phases = phases;
     }
 
@@ -103,7 +107,8 @@ public class Subscription {
             String status, OptionalNullable<String> taxPercentage, List<String> invoiceIds,
             Money priceOverrideMoney, Long version, String createdAt,
             OptionalNullable<String> cardId, String timezone, SubscriptionSource source,
-            OptionalNullable<List<SubscriptionAction>> actions, List<Phase> phases) {
+            OptionalNullable<List<SubscriptionAction>> actions, Integer monthlyBillingAnchorDate,
+            List<Phase> phases) {
         this.id = id;
         this.locationId = locationId;
         this.planVariationId = planVariationId;
@@ -121,6 +126,7 @@ public class Subscription {
         this.timezone = timezone;
         this.source = source;
         this.actions = actions;
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.phases = phases;
     }
 
@@ -388,6 +394,17 @@ public class Subscription {
     }
 
     /**
+     * Getter for MonthlyBillingAnchorDate.
+     * The day of the month on which the subscription will issue invoices and publish orders.
+     * @return Returns the Integer
+     */
+    @JsonGetter("monthly_billing_anchor_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getMonthlyBillingAnchorDate() {
+        return monthlyBillingAnchorDate;
+    }
+
+    /**
      * Getter for Phases.
      * array of phases for this subscription
      * @return Returns the List of Phase
@@ -402,7 +419,7 @@ public class Subscription {
     public int hashCode() {
         return Objects.hash(id, locationId, planVariationId, customerId, startDate, canceledDate,
                 chargedThroughDate, status, taxPercentage, invoiceIds, priceOverrideMoney, version,
-                createdAt, cardId, timezone, source, actions, phases);
+                createdAt, cardId, timezone, source, actions, monthlyBillingAnchorDate, phases);
     }
 
     @Override
@@ -431,6 +448,7 @@ public class Subscription {
             && Objects.equals(timezone, other.timezone)
             && Objects.equals(source, other.source)
             && Objects.equals(actions, other.actions)
+            && Objects.equals(monthlyBillingAnchorDate, other.monthlyBillingAnchorDate)
             && Objects.equals(phases, other.phases);
     }
 
@@ -446,7 +464,8 @@ public class Subscription {
                 + ", status=" + status + ", taxPercentage=" + taxPercentage + ", invoiceIds="
                 + invoiceIds + ", priceOverrideMoney=" + priceOverrideMoney + ", version=" + version
                 + ", createdAt=" + createdAt + ", cardId=" + cardId + ", timezone=" + timezone
-                + ", source=" + source + ", actions=" + actions + ", phases=" + phases + "]";
+                + ", source=" + source + ", actions=" + actions + ", monthlyBillingAnchorDate="
+                + monthlyBillingAnchorDate + ", phases=" + phases + "]";
     }
 
     /**
@@ -469,6 +488,7 @@ public class Subscription {
                 .createdAt(getCreatedAt())
                 .timezone(getTimezone())
                 .source(getSource())
+                .monthlyBillingAnchorDate(getMonthlyBillingAnchorDate())
                 .phases(getPhases());
         builder.canceledDate = internalGetCanceledDate();
         builder.taxPercentage = internalGetTaxPercentage();
@@ -498,6 +518,7 @@ public class Subscription {
         private String timezone;
         private SubscriptionSource source;
         private OptionalNullable<List<SubscriptionAction>> actions;
+        private Integer monthlyBillingAnchorDate;
         private List<Phase> phases;
 
 
@@ -709,6 +730,16 @@ public class Subscription {
         }
 
         /**
+         * Setter for monthlyBillingAnchorDate.
+         * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+         * @return Builder
+         */
+        public Builder monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate) {
+            this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
+            return this;
+        }
+
+        /**
          * Setter for phases.
          * @param  phases  List of Phase value for phases.
          * @return Builder
@@ -726,7 +757,7 @@ public class Subscription {
             return new Subscription(id, locationId, planVariationId, customerId, startDate,
                     canceledDate, chargedThroughDate, status, taxPercentage, invoiceIds,
                     priceOverrideMoney, version, createdAt, cardId, timezone, source, actions,
-                    phases);
+                    monthlyBillingAnchorDate, phases);
         }
     }
 }

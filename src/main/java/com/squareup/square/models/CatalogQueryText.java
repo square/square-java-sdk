@@ -25,7 +25,8 @@ public class CatalogQueryText {
 
     /**
      * Getter for Keywords.
-     * A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 characters are ignored.
+     * A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 alphanumeric characters are
+     * ignored.
      * @return Returns the List of String
      */
     @JsonGetter("keywords")

@@ -1,9 +1,12 @@
 
 package com.squareup.square;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+
 
 /**
  * Server to be used.
@@ -25,8 +28,23 @@ public enum Server {
      * Returns the enum member associated with the given string value.
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
+     * @throws IOException when provided value is not mapped to any enum member.
      */
-    @com.fasterxml.jackson.annotation.JsonCreator
+    @JsonCreator
+    public static Server constructFromString(String toConvert) throws IOException {
+        Server enumValue = fromString(toConvert);
+        if (enumValue == null)
+        {
+            throw new IOException("Unable to create enum instance with value: " + toConvert);
+        }
+        return enumValue;
+    }
+
+    /**
+     * Returns the enum member associated with the given string value.
+     * @param toConvert String value to get enum member.
+     * @return The enum member against the given string value.
+     */
     public static Server fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
@@ -35,7 +53,7 @@ public enum Server {
      * Returns the string value associated with the enum member.
      * @return The string value against enum member.
      */
-    @com.fasterxml.jackson.annotation.JsonValue
+    @JsonValue
     public String value() {
         return value;
     }

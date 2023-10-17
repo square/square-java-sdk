@@ -28,7 +28,6 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
     }
 
     /**
-     * ListEmployees.
      * @deprecated
      * 
      * @param  locationId  Optional parameter: Example:
@@ -50,7 +49,6 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
     }
 
     /**
-     * ListEmployees.
      * @deprecated
      * 
      * @param  locationId  Optional parameter: Example:
@@ -108,7 +106,6 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
     }
 
     /**
-     * RetrieveEmployee.
      * @deprecated
      * 
      * @param  id  Required parameter: UUID for the employee that was requested.
@@ -123,7 +120,6 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
     }
 
     /**
-     * RetrieveEmployee.
      * @deprecated
      * 
      * @param  id  Required parameter: UUID for the employee that was requested.

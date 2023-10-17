@@ -14,17 +14,17 @@ import java.util.Objects;
  * This is a model class for PhaseInput type.
  */
 public class PhaseInput {
-    private final int ordinal;
+    private final long ordinal;
     private final OptionalNullable<String> orderTemplateId;
 
     /**
      * Initialization constructor.
-     * @param  ordinal  int value for ordinal.
+     * @param  ordinal  long value for ordinal.
      * @param  orderTemplateId  String value for orderTemplateId.
      */
     @JsonCreator
     public PhaseInput(
-            @JsonProperty("ordinal") int ordinal,
+            @JsonProperty("ordinal") long ordinal,
             @JsonProperty("order_template_id") String orderTemplateId) {
         this.ordinal = ordinal;
         this.orderTemplateId = OptionalNullable.of(orderTemplateId);
@@ -33,7 +33,7 @@ public class PhaseInput {
     /**
      * Internal initialization constructor.
      */
-    protected PhaseInput(int ordinal, OptionalNullable<String> orderTemplateId) {
+    protected PhaseInput(long ordinal, OptionalNullable<String> orderTemplateId) {
         this.ordinal = ordinal;
         this.orderTemplateId = orderTemplateId;
     }
@@ -41,10 +41,10 @@ public class PhaseInput {
     /**
      * Getter for Ordinal.
      * index of phase in total subscription plan
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("ordinal")
-    public int getOrdinal() {
+    public long getOrdinal() {
         return ordinal;
     }
 
@@ -112,23 +112,23 @@ public class PhaseInput {
      * Class to build instances of {@link PhaseInput}.
      */
     public static class Builder {
-        private int ordinal;
+        private long ordinal;
         private OptionalNullable<String> orderTemplateId;
 
         /**
          * Initialization constructor.
-         * @param  ordinal  int value for ordinal.
+         * @param  ordinal  long value for ordinal.
          */
-        public Builder(int ordinal) {
+        public Builder(long ordinal) {
             this.ordinal = ordinal;
         }
 
         /**
          * Setter for ordinal.
-         * @param  ordinal  int value for ordinal.
+         * @param  ordinal  long value for ordinal.
          * @return Builder
          */
-        public Builder ordinal(int ordinal) {
+        public Builder ordinal(long ordinal) {
             this.ordinal = ordinal;
             return this;
         }

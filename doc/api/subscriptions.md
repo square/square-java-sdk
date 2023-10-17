@@ -11,10 +11,12 @@ SubscriptionsApi subscriptionsApi = client.getSubscriptionsApi();
 ## Methods
 
 * [Create Subscription](../../doc/api/subscriptions.md#create-subscription)
+* [Bulk Swap Plan](../../doc/api/subscriptions.md#bulk-swap-plan)
 * [Search Subscriptions](../../doc/api/subscriptions.md#search-subscriptions)
 * [Retrieve Subscription](../../doc/api/subscriptions.md#retrieve-subscription)
 * [Update Subscription](../../doc/api/subscriptions.md#update-subscription)
 * [Delete Subscription Action](../../doc/api/subscriptions.md#delete-subscription-action)
+* [Change Billing Anchor Date](../../doc/api/subscriptions.md#change-billing-anchor-date)
 * [Cancel Subscription](../../doc/api/subscriptions.md#cancel-subscription)
 * [List Subscription Events](../../doc/api/subscriptions.md#list-subscription-events)
 * [Pause Subscription](../../doc/api/subscriptions.md#pause-subscription)
@@ -65,13 +67,54 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
         .build())
 .phases(Arrays.asList(
         new Phase.Builder()
-            .ordinal(0)
+            .ordinal(0L)
             .orderTemplateId("U2NaowWxzXwpsZU697x7ZHOAnCNZY")
             .build()
     ))
 .build();
 
 subscriptionsApi.createSubscriptionAsync(body).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Bulk Swap Plan
+
+Schedules a plan variation change for all active subscriptions under a given plan
+variation. For more information, see [Swap Subscription Plan Variations](https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations).
+
+```java
+CompletableFuture<BulkSwapPlanResponse> bulkSwapPlanAsync(
+    final BulkSwapPlanRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkSwapPlanRequest`](../../doc/models/bulk-swap-plan-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`BulkSwapPlanResponse`](../../doc/models/bulk-swap-plan-response.md)
+
+## Example Usage
+
+```java
+BulkSwapPlanRequest body = new BulkSwapPlanRequest.Builder(
+    "FQ7CDXXWSLUJRPM3GFJSJGZ7",
+    "6JHXF3B2CW3YKHDV4XEM674H",
+    "S8GWD5R9QB376"
+)
+.build();
+
+subscriptionsApi.bulkSwapPlanAsync(body).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {
@@ -253,6 +296,47 @@ String subscriptionId = "subscription_id0";
 String actionId = "action_id6";
 
 subscriptionsApi.deleteSubscriptionActionAsync(subscriptionId, actionId).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Change Billing Anchor Date
+
+Changes the [billing anchor date](https://developer.squareup.com/docs/subscriptions-api/subscription-billing#billing-dates)
+for a subscription.
+
+```java
+CompletableFuture<ChangeBillingAnchorDateResponse> changeBillingAnchorDateAsync(
+    final String subscriptionId,
+    final ChangeBillingAnchorDateRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The ID of the subscription to update the billing anchor date. |
+| `body` | [`ChangeBillingAnchorDateRequest`](../../doc/models/change-billing-anchor-date-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`ChangeBillingAnchorDateResponse`](../../doc/models/change-billing-anchor-date-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+ChangeBillingAnchorDateRequest body = new ChangeBillingAnchorDateRequest.Builder()
+    .monthlyBillingAnchorDate(1)
+    .build();
+
+subscriptionsApi.changeBillingAnchorDateAsync(subscriptionId, body).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {
@@ -447,7 +531,7 @@ SwapPlanRequest body = new SwapPlanRequest.Builder()
     .newPlanVariationId("FQ7CDXXWSLUJRPM3GFJSJGZ7")
     .phases(Arrays.asList(
         new PhaseInput.Builder(
-            0
+            0L
         )
         .orderTemplateId("uhhnjH9osVv3shUADwaC0b3hNxQZY")
         .build()

@@ -16,9 +16,11 @@ import com.squareup.square.models.CancelBookingResponse;
 import com.squareup.square.models.CreateBookingRequest;
 import com.squareup.square.models.CreateBookingResponse;
 import com.squareup.square.models.ListBookingsResponse;
+import com.squareup.square.models.ListLocationBookingProfilesResponse;
 import com.squareup.square.models.ListTeamMemberBookingProfilesResponse;
 import com.squareup.square.models.RetrieveBookingResponse;
 import com.squareup.square.models.RetrieveBusinessBookingProfileResponse;
+import com.squareup.square.models.RetrieveLocationBookingProfileResponse;
 import com.squareup.square.models.RetrieveTeamMemberBookingProfileResponse;
 import com.squareup.square.models.SearchAvailabilityRequest;
 import com.squareup.square.models.SearchAvailabilityResponse;
@@ -384,6 +386,123 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, RetrieveBusinessBookingProfileResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @return    Returns the ListLocationBookingProfilesResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ListLocationBookingProfilesResponse listLocationBookingProfiles(
+            final Integer limit,
+            final String cursor) throws ApiException, IOException {
+        return prepareListLocationBookingProfilesRequest(limit, cursor).execute();
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     * @param  limit  Optional parameter: The maximum number of results to return in a paged
+     *         response.
+     * @param  cursor  Optional parameter: The pagination cursor from the preceding response to
+     *         return the next page of the results. Do not set this when retrieving the first page
+     *         of the results.
+     * @return    Returns the ListLocationBookingProfilesResponse response from the API call
+     */
+    public CompletableFuture<ListLocationBookingProfilesResponse> listLocationBookingProfilesAsync(
+            final Integer limit,
+            final String cursor) {
+        try { 
+            return prepareListLocationBookingProfilesRequest(limit, cursor).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for listLocationBookingProfiles.
+     */
+    private ApiCall<ListLocationBookingProfilesResponse, ApiException> prepareListLocationBookingProfilesRequest(
+            final Integer limit,
+            final String cursor) throws IOException {
+        return new ApiCall.Builder<ListLocationBookingProfilesResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bookings/location-booking-profiles")
+                        .queryParam(param -> param.key("limit")
+                                .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("cursor")
+                                .value(cursor).isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListLocationBookingProfilesResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves a seller's location booking profile.
+     * @param  locationId  Required parameter: The ID of the location to retrieve the booking
+     *         profile.
+     * @return    Returns the RetrieveLocationBookingProfileResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public RetrieveLocationBookingProfileResponse retrieveLocationBookingProfile(
+            final String locationId) throws ApiException, IOException {
+        return prepareRetrieveLocationBookingProfileRequest(locationId).execute();
+    }
+
+    /**
+     * Retrieves a seller's location booking profile.
+     * @param  locationId  Required parameter: The ID of the location to retrieve the booking
+     *         profile.
+     * @return    Returns the RetrieveLocationBookingProfileResponse response from the API call
+     */
+    public CompletableFuture<RetrieveLocationBookingProfileResponse> retrieveLocationBookingProfileAsync(
+            final String locationId) {
+        try { 
+            return prepareRetrieveLocationBookingProfileRequest(locationId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for retrieveLocationBookingProfile.
+     */
+    private ApiCall<RetrieveLocationBookingProfileResponse, ApiException> prepareRetrieveLocationBookingProfileRequest(
+            final String locationId) throws IOException {
+        return new ApiCall.Builder<RetrieveLocationBookingProfileResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/bookings/location-booking-profiles/{location_id}")
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLocationBookingProfileResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

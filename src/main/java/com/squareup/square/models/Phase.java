@@ -15,21 +15,21 @@ import java.util.Objects;
  */
 public class Phase {
     private final OptionalNullable<String> uid;
-    private final OptionalNullable<Integer> ordinal;
+    private final OptionalNullable<Long> ordinal;
     private final OptionalNullable<String> orderTemplateId;
     private final OptionalNullable<String> planPhaseUid;
 
     /**
      * Initialization constructor.
      * @param  uid  String value for uid.
-     * @param  ordinal  Integer value for ordinal.
+     * @param  ordinal  Long value for ordinal.
      * @param  orderTemplateId  String value for orderTemplateId.
      * @param  planPhaseUid  String value for planPhaseUid.
      */
     @JsonCreator
     public Phase(
             @JsonProperty("uid") String uid,
-            @JsonProperty("ordinal") Integer ordinal,
+            @JsonProperty("ordinal") Long ordinal,
             @JsonProperty("order_template_id") String orderTemplateId,
             @JsonProperty("plan_phase_uid") String planPhaseUid) {
         this.uid = OptionalNullable.of(uid);
@@ -41,7 +41,7 @@ public class Phase {
     /**
      * Internal initialization constructor.
      */
-    protected Phase(OptionalNullable<String> uid, OptionalNullable<Integer> ordinal,
+    protected Phase(OptionalNullable<String> uid, OptionalNullable<Long> ordinal,
             OptionalNullable<String> orderTemplateId, OptionalNullable<String> planPhaseUid) {
         this.uid = uid;
         this.ordinal = ordinal;
@@ -74,22 +74,22 @@ public class Phase {
     /**
      * Internal Getter for Ordinal.
      * index of phase in total subscription plan
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("ordinal")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetOrdinal() {
+    protected OptionalNullable<Long> internalGetOrdinal() {
         return this.ordinal;
     }
 
     /**
      * Getter for Ordinal.
      * index of phase in total subscription plan
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonIgnore
-    public Integer getOrdinal() {
+    public Long getOrdinal() {
         return OptionalNullable.getFrom(ordinal);
     }
 
@@ -186,7 +186,7 @@ public class Phase {
      */
     public static class Builder {
         private OptionalNullable<String> uid;
-        private OptionalNullable<Integer> ordinal;
+        private OptionalNullable<Long> ordinal;
         private OptionalNullable<String> orderTemplateId;
         private OptionalNullable<String> planPhaseUid;
 
@@ -213,10 +213,10 @@ public class Phase {
 
         /**
          * Setter for ordinal.
-         * @param  ordinal  Integer value for ordinal.
+         * @param  ordinal  Long value for ordinal.
          * @return Builder
          */
-        public Builder ordinal(Integer ordinal) {
+        public Builder ordinal(Long ordinal) {
             this.ordinal = OptionalNullable.of(ordinal);
             return this;
         }
