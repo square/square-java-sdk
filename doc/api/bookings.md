@@ -15,6 +15,8 @@ BookingsApi bookingsApi = client.getBookingsApi();
 * [Search Availability](../../doc/api/bookings.md#search-availability)
 * [Bulk Retrieve Bookings](../../doc/api/bookings.md#bulk-retrieve-bookings)
 * [Retrieve Business Booking Profile](../../doc/api/bookings.md#retrieve-business-booking-profile)
+* [List Location Booking Profiles](../../doc/api/bookings.md#list-location-booking-profiles)
+* [Retrieve Location Booking Profile](../../doc/api/bookings.md#retrieve-location-booking-profile)
 * [List Team Member Booking Profiles](../../doc/api/bookings.md#list-team-member-booking-profiles)
 * [Bulk Retrieve Team Member Booking Profiles](../../doc/api/bookings.md#bulk-retrieve-team-member-booking-profiles)
 * [Retrieve Team Member Booking Profile](../../doc/api/bookings.md#retrieve-team-member-booking-profile)
@@ -233,6 +235,76 @@ CompletableFuture<RetrieveBusinessBookingProfileResponse> retrieveBusinessBookin
 
 ```java
 bookingsApi.retrieveBusinessBookingProfileAsync().thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# List Location Booking Profiles
+
+Lists location booking profiles of a seller.
+
+```java
+CompletableFuture<ListLocationBookingProfilesResponse> listLocationBookingProfilesAsync(
+    final Integer limit,
+    final String cursor)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `limit` | `Integer` | Query, Optional | The maximum number of results to return in a paged response. |
+| `cursor` | `String` | Query, Optional | The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results. |
+
+## Response Type
+
+[`ListLocationBookingProfilesResponse`](../../doc/models/list-location-booking-profiles-response.md)
+
+## Example Usage
+
+```java
+bookingsApi.listLocationBookingProfilesAsync(null, null).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Retrieve Location Booking Profile
+
+Retrieves a seller's location booking profile.
+
+```java
+CompletableFuture<RetrieveLocationBookingProfileResponse> retrieveLocationBookingProfileAsync(
+    final String locationId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `locationId` | `String` | Template, Required | The ID of the location to retrieve the booking profile. |
+
+## Response Type
+
+[`RetrieveLocationBookingProfileResponse`](../../doc/models/retrieve-location-booking-profile-response.md)
+
+## Example Usage
+
+```java
+String locationId = "location_id4";
+
+bookingsApi.retrieveLocationBookingProfileAsync(locationId).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

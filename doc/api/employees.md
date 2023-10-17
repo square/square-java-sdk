@@ -18,8 +18,6 @@ EmployeesApi employeesApi = client.getEmployeesApi();
 
 **This endpoint is deprecated.**
 
-ListEmployees
-
 ```java
 CompletableFuture<ListEmployeesResponse> listEmployeesAsync(
     final String locationId,
@@ -58,8 +56,6 @@ employeesApi.listEmployeesAsync(null, null, null, null).thenAccept(result -> {
 # Retrieve Employee
 
 **This endpoint is deprecated.**
-
-RetrieveEmployee
 
 ```java
 CompletableFuture<RetrieveEmployeeResponse> retrieveEmployeeAsync(

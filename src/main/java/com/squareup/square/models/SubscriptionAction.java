@@ -18,6 +18,7 @@ public class SubscriptionAction {
     private final String id;
     private final String type;
     private final OptionalNullable<String> effectiveDate;
+    private final OptionalNullable<Integer> monthlyBillingAnchorDate;
     private final OptionalNullable<List<Phase>> phases;
     private final OptionalNullable<String> newPlanVariationId;
 
@@ -26,6 +27,7 @@ public class SubscriptionAction {
      * @param  id  String value for id.
      * @param  type  String value for type.
      * @param  effectiveDate  String value for effectiveDate.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
      * @param  phases  List of Phase value for phases.
      * @param  newPlanVariationId  String value for newPlanVariationId.
      */
@@ -34,11 +36,13 @@ public class SubscriptionAction {
             @JsonProperty("id") String id,
             @JsonProperty("type") String type,
             @JsonProperty("effective_date") String effectiveDate,
+            @JsonProperty("monthly_billing_anchor_date") Integer monthlyBillingAnchorDate,
             @JsonProperty("phases") List<Phase> phases,
             @JsonProperty("new_plan_variation_id") String newPlanVariationId) {
         this.id = id;
         this.type = type;
         this.effectiveDate = OptionalNullable.of(effectiveDate);
+        this.monthlyBillingAnchorDate = OptionalNullable.of(monthlyBillingAnchorDate);
         this.phases = OptionalNullable.of(phases);
         this.newPlanVariationId = OptionalNullable.of(newPlanVariationId);
     }
@@ -47,10 +51,12 @@ public class SubscriptionAction {
      * Internal initialization constructor.
      */
     protected SubscriptionAction(String id, String type, OptionalNullable<String> effectiveDate,
+            OptionalNullable<Integer> monthlyBillingAnchorDate,
             OptionalNullable<List<Phase>> phases, OptionalNullable<String> newPlanVariationId) {
         this.id = id;
         this.type = type;
         this.effectiveDate = effectiveDate;
+        this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.phases = phases;
         this.newPlanVariationId = newPlanVariationId;
     }
@@ -97,6 +103,28 @@ public class SubscriptionAction {
     @JsonIgnore
     public String getEffectiveDate() {
         return OptionalNullable.getFrom(effectiveDate);
+    }
+
+    /**
+     * Internal Getter for MonthlyBillingAnchorDate.
+     * The new billing anchor day value, for a `CHANGE_BILLING_ANCHOR_DATE` action.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("monthly_billing_anchor_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMonthlyBillingAnchorDate() {
+        return this.monthlyBillingAnchorDate;
+    }
+
+    /**
+     * Getter for MonthlyBillingAnchorDate.
+     * The new billing anchor day value, for a `CHANGE_BILLING_ANCHOR_DATE` action.
+     * @return Returns the Integer
+     */
+    @JsonIgnore
+    public Integer getMonthlyBillingAnchorDate() {
+        return OptionalNullable.getFrom(monthlyBillingAnchorDate);
     }
 
     /**
@@ -147,7 +175,8 @@ public class SubscriptionAction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, effectiveDate, phases, newPlanVariationId);
+        return Objects.hash(id, type, effectiveDate, monthlyBillingAnchorDate, phases,
+                newPlanVariationId);
     }
 
     @Override
@@ -162,6 +191,7 @@ public class SubscriptionAction {
         return Objects.equals(id, other.id)
             && Objects.equals(type, other.type)
             && Objects.equals(effectiveDate, other.effectiveDate)
+            && Objects.equals(monthlyBillingAnchorDate, other.monthlyBillingAnchorDate)
             && Objects.equals(phases, other.phases)
             && Objects.equals(newPlanVariationId, other.newPlanVariationId);
     }
@@ -173,8 +203,8 @@ public class SubscriptionAction {
     @Override
     public String toString() {
         return "SubscriptionAction [" + "id=" + id + ", type=" + type + ", effectiveDate="
-                + effectiveDate + ", phases=" + phases + ", newPlanVariationId="
-                + newPlanVariationId + "]";
+                + effectiveDate + ", monthlyBillingAnchorDate=" + monthlyBillingAnchorDate
+                + ", phases=" + phases + ", newPlanVariationId=" + newPlanVariationId + "]";
     }
 
     /**
@@ -187,6 +217,7 @@ public class SubscriptionAction {
                 .id(getId())
                 .type(getType());
         builder.effectiveDate = internalGetEffectiveDate();
+        builder.monthlyBillingAnchorDate = internalGetMonthlyBillingAnchorDate();
         builder.phases = internalGetPhases();
         builder.newPlanVariationId = internalGetNewPlanVariationId();
         return builder;
@@ -199,6 +230,7 @@ public class SubscriptionAction {
         private String id;
         private String type;
         private OptionalNullable<String> effectiveDate;
+        private OptionalNullable<Integer> monthlyBillingAnchorDate;
         private OptionalNullable<List<Phase>> phases;
         private OptionalNullable<String> newPlanVariationId;
 
@@ -240,6 +272,25 @@ public class SubscriptionAction {
          */
         public Builder unsetEffectiveDate() {
             effectiveDate = null;
+            return this;
+        }
+
+        /**
+         * Setter for monthlyBillingAnchorDate.
+         * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+         * @return Builder
+         */
+        public Builder monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate) {
+            this.monthlyBillingAnchorDate = OptionalNullable.of(monthlyBillingAnchorDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for monthlyBillingAnchorDate.
+         * @return Builder
+         */
+        public Builder unsetMonthlyBillingAnchorDate() {
+            monthlyBillingAnchorDate = null;
             return this;
         }
 
@@ -286,7 +337,8 @@ public class SubscriptionAction {
          * @return {@link SubscriptionAction}
          */
         public SubscriptionAction build() {
-            return new SubscriptionAction(id, type, effectiveDate, phases, newPlanVariationId);
+            return new SubscriptionAction(id, type, effectiveDate, monthlyBillingAnchorDate, phases,
+                    newPlanVariationId);
         }
     }
 }

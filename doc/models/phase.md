@@ -12,7 +12,7 @@ Represents a phase, which can override subscription phases as defined by plan_id
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | id of subscription phase | String getUid() |
-| `Ordinal` | `Integer` | Optional | index of phase in total subscription plan | Integer getOrdinal() |
+| `Ordinal` | `Long` | Optional | index of phase in total subscription plan | Long getOrdinal() |
 | `OrderTemplateId` | `String` | Optional | id of order to be used in billing | String getOrderTemplateId() |
 | `PlanPhaseUid` | `String` | Optional | the uid from the plan's phase in catalog | String getPlanPhaseUid() |
 

@@ -2,7 +2,11 @@
 package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
+import com.squareup.square.models.BulkSwapPlanRequest;
+import com.squareup.square.models.BulkSwapPlanResponse;
 import com.squareup.square.models.CancelSubscriptionResponse;
+import com.squareup.square.models.ChangeBillingAnchorDateRequest;
+import com.squareup.square.models.ChangeBillingAnchorDateResponse;
 import com.squareup.square.models.CreateSubscriptionRequest;
 import com.squareup.square.models.CreateSubscriptionResponse;
 import com.squareup.square.models.DeleteSubscriptionActionResponse;
@@ -55,6 +59,30 @@ public interface SubscriptionsApi {
      */
     CompletableFuture<CreateSubscriptionResponse> createSubscriptionAsync(
             final CreateSubscriptionRequest body);
+
+    /**
+     * Schedules a plan variation change for all active subscriptions under a given plan variation.
+     * For more information, see [Swap Subscription Plan
+     * Variations](https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkSwapPlanResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkSwapPlanResponse bulkSwapPlan(
+            final BulkSwapPlanRequest body) throws ApiException, IOException;
+
+    /**
+     * Schedules a plan variation change for all active subscriptions under a given plan variation.
+     * For more information, see [Swap Subscription Plan
+     * Variations](https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkSwapPlanResponse response from the API call
+     */
+    CompletableFuture<BulkSwapPlanResponse> bulkSwapPlanAsync(
+            final BulkSwapPlanRequest body);
 
     /**
      * Searches for subscriptions. Results are ordered chronologically by subscription creation
@@ -163,6 +191,36 @@ public interface SubscriptionsApi {
     CompletableFuture<DeleteSubscriptionActionResponse> deleteSubscriptionActionAsync(
             final String subscriptionId,
             final String actionId);
+
+    /**
+     * Changes the [billing anchor
+     * date](https://developer.squareup.com/docs/subscriptions-api/subscription-billing#billing-dates)
+     * for a subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to update the billing
+     *         anchor date.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the ChangeBillingAnchorDateResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    ChangeBillingAnchorDateResponse changeBillingAnchorDate(
+            final String subscriptionId,
+            final ChangeBillingAnchorDateRequest body) throws ApiException, IOException;
+
+    /**
+     * Changes the [billing anchor
+     * date](https://developer.squareup.com/docs/subscriptions-api/subscription-billing#billing-dates)
+     * for a subscription.
+     * @param  subscriptionId  Required parameter: The ID of the subscription to update the billing
+     *         anchor date.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the ChangeBillingAnchorDateResponse response from the API call
+     */
+    CompletableFuture<ChangeBillingAnchorDateResponse> changeBillingAnchorDateAsync(
+            final String subscriptionId,
+            final ChangeBillingAnchorDateRequest body);
 
     /**
      * Schedules a `CANCEL` action to cancel an active subscription. This sets the `canceled_date`

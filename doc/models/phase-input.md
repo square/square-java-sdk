@@ -11,7 +11,7 @@ Represents the arguments used to construct a new phase.
 
 | Name | Type | Tags | Description | Getter |
 |  --- | --- | --- | --- | --- |
-| `Ordinal` | `int` | Required | index of phase in total subscription plan | int getOrdinal() |
+| `Ordinal` | `long` | Required | index of phase in total subscription plan | long getOrdinal() |
 | `OrderTemplateId` | `String` | Optional | id of order to be used in billing | String getOrderTemplateId() |
 
 ## Example (as JSON)

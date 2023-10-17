@@ -13,7 +13,6 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface EmployeesApi {
     /**
-     * ListEmployees.
      * @deprecated
      * 
      * @param  locationId  Optional parameter: Example:
@@ -32,7 +31,6 @@ public interface EmployeesApi {
             final String cursor) throws ApiException, IOException;
 
     /**
-     * ListEmployees.
      * @deprecated
      * 
      * @param  locationId  Optional parameter: Example:
@@ -50,7 +48,6 @@ public interface EmployeesApi {
             final String cursor);
 
     /**
-     * RetrieveEmployee.
      * @deprecated
      * 
      * @param  id  Required parameter: UUID for the employee that was requested.
@@ -62,7 +59,6 @@ public interface EmployeesApi {
             final String id) throws ApiException, IOException;
 
     /**
-     * RetrieveEmployee.
      * @deprecated
      * 
      * @param  id  Required parameter: UUID for the employee that was requested.

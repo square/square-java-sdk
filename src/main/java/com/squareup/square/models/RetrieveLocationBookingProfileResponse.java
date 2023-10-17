@@ -11,23 +11,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RetrieveBusinessBookingProfileResponse type.
+ * This is a model class for RetrieveLocationBookingProfileResponse type.
  */
-public class RetrieveBusinessBookingProfileResponse {
+public class RetrieveLocationBookingProfileResponse {
     private HttpContext httpContext;
-    private final BusinessBookingProfile businessBookingProfile;
+    private final LocationBookingProfile locationBookingProfile;
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param  businessBookingProfile  BusinessBookingProfile value for businessBookingProfile.
+     * @param  locationBookingProfile  LocationBookingProfile value for locationBookingProfile.
      * @param  errors  List of Error value for errors.
      */
     @JsonCreator
-    public RetrieveBusinessBookingProfileResponse(
-            @JsonProperty("business_booking_profile") BusinessBookingProfile businessBookingProfile,
+    public RetrieveLocationBookingProfileResponse(
+            @JsonProperty("location_booking_profile") LocationBookingProfile locationBookingProfile,
             @JsonProperty("errors") List<Error> errors) {
-        this.businessBookingProfile = businessBookingProfile;
+        this.locationBookingProfile = locationBookingProfile;
         this.errors = errors;
     }
 
@@ -37,14 +37,15 @@ public class RetrieveBusinessBookingProfileResponse {
     }
 
     /**
-     * Getter for BusinessBookingProfile.
-     * A seller's business booking profile, including booking policy, appointment settings, etc.
-     * @return Returns the BusinessBookingProfile
+     * Getter for LocationBookingProfile.
+     * The booking profile of a seller's location, including the location's ID and whether the
+     * location is enabled for online booking.
+     * @return Returns the LocationBookingProfile
      */
-    @JsonGetter("business_booking_profile")
+    @JsonGetter("location_booking_profile")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BusinessBookingProfile getBusinessBookingProfile() {
-        return businessBookingProfile;
+    public LocationBookingProfile getLocationBookingProfile() {
+        return locationBookingProfile;
     }
 
     /**
@@ -60,7 +61,7 @@ public class RetrieveBusinessBookingProfileResponse {
 
     @Override
     public int hashCode() {
-        return Objects.hash(businessBookingProfile, errors);
+        return Objects.hash(locationBookingProfile, errors);
     }
 
     @Override
@@ -68,42 +69,42 @@ public class RetrieveBusinessBookingProfileResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RetrieveBusinessBookingProfileResponse)) {
+        if (!(obj instanceof RetrieveLocationBookingProfileResponse)) {
             return false;
         }
-        RetrieveBusinessBookingProfileResponse other = (RetrieveBusinessBookingProfileResponse) obj;
-        return Objects.equals(businessBookingProfile, other.businessBookingProfile)
+        RetrieveLocationBookingProfileResponse other = (RetrieveLocationBookingProfileResponse) obj;
+        return Objects.equals(locationBookingProfile, other.locationBookingProfile)
             && Objects.equals(errors, other.errors);
     }
 
     /**
-     * Converts this RetrieveBusinessBookingProfileResponse into string format.
+     * Converts this RetrieveLocationBookingProfileResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RetrieveBusinessBookingProfileResponse [" + "businessBookingProfile="
-                + businessBookingProfile + ", errors=" + errors + "]";
+        return "RetrieveLocationBookingProfileResponse [" + "locationBookingProfile="
+                + locationBookingProfile + ", errors=" + errors + "]";
     }
 
     /**
-     * Builds a new {@link RetrieveBusinessBookingProfileResponse.Builder} object.
+     * Builds a new {@link RetrieveLocationBookingProfileResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RetrieveBusinessBookingProfileResponse.Builder} object
+     * @return a new {@link RetrieveLocationBookingProfileResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .businessBookingProfile(getBusinessBookingProfile())
+                .locationBookingProfile(getLocationBookingProfile())
                 .errors(getErrors());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveBusinessBookingProfileResponse}.
+     * Class to build instances of {@link RetrieveLocationBookingProfileResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
-        private BusinessBookingProfile businessBookingProfile;
+        private LocationBookingProfile locationBookingProfile;
         private List<Error> errors;
 
 
@@ -119,12 +120,12 @@ public class RetrieveBusinessBookingProfileResponse {
         }
 
         /**
-         * Setter for businessBookingProfile.
-         * @param  businessBookingProfile  BusinessBookingProfile value for businessBookingProfile.
+         * Setter for locationBookingProfile.
+         * @param  locationBookingProfile  LocationBookingProfile value for locationBookingProfile.
          * @return Builder
          */
-        public Builder businessBookingProfile(BusinessBookingProfile businessBookingProfile) {
-            this.businessBookingProfile = businessBookingProfile;
+        public Builder locationBookingProfile(LocationBookingProfile locationBookingProfile) {
+            this.locationBookingProfile = locationBookingProfile;
             return this;
         }
 
@@ -139,12 +140,12 @@ public class RetrieveBusinessBookingProfileResponse {
         }
 
         /**
-         * Builds a new {@link RetrieveBusinessBookingProfileResponse} object using the set fields.
-         * @return {@link RetrieveBusinessBookingProfileResponse}
+         * Builds a new {@link RetrieveLocationBookingProfileResponse} object using the set fields.
+         * @return {@link RetrieveLocationBookingProfileResponse}
          */
-        public RetrieveBusinessBookingProfileResponse build() {
-            RetrieveBusinessBookingProfileResponse model =
-                    new RetrieveBusinessBookingProfileResponse(businessBookingProfile, errors);
+        public RetrieveLocationBookingProfileResponse build() {
+            RetrieveLocationBookingProfileResponse model =
+                    new RetrieveLocationBookingProfileResponse(locationBookingProfile, errors);
             model.httpContext = httpContext;
             return model;
         }
