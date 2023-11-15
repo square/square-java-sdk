@@ -31,8 +31,11 @@ public class Range {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  min  String value for min.
+     * @param  max  String value for max.
      */
+
     protected Range(OptionalNullable<String> min, OptionalNullable<String> max) {
         this.min = min;
         this.max = max;

@@ -55,8 +55,17 @@ public class ListGiftCardActivitiesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  giftCardId  String value for giftCardId.
+     * @param  type  String value for type.
+     * @param  locationId  String value for locationId.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  sortOrder  String value for sortOrder.
      */
+
     protected ListGiftCardActivitiesRequest(OptionalNullable<String> giftCardId,
             OptionalNullable<String> type, OptionalNullable<String> locationId,
             OptionalNullable<String> beginTime, OptionalNullable<String> endTime,

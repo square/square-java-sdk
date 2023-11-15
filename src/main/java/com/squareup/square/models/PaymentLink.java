@@ -67,8 +67,20 @@ public class PaymentLink {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  version  int value for version.
+     * @param  id  String value for id.
+     * @param  description  String value for description.
+     * @param  orderId  String value for orderId.
+     * @param  checkoutOptions  CheckoutOptions value for checkoutOptions.
+     * @param  prePopulatedData  PrePopulatedData value for prePopulatedData.
+     * @param  url  String value for url.
+     * @param  longUrl  String value for longUrl.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  paymentNote  String value for paymentNote.
      */
+
     protected PaymentLink(int version, String id, OptionalNullable<String> description,
             String orderId, CheckoutOptions checkoutOptions, PrePopulatedData prePopulatedData,
             String url, String longUrl, String createdAt, String updatedAt,

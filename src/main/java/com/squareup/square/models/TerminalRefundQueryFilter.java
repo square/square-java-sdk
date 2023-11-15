@@ -35,8 +35,12 @@ public class TerminalRefundQueryFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  deviceId  String value for deviceId.
+     * @param  createdAt  TimeRange value for createdAt.
+     * @param  status  String value for status.
      */
+
     protected TerminalRefundQueryFilter(OptionalNullable<String> deviceId, TimeRange createdAt,
             OptionalNullable<String> status) {
         this.deviceId = deviceId;

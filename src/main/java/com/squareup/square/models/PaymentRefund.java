@@ -84,8 +84,24 @@ public class PaymentRefund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  status  String value for status.
+     * @param  locationId  String value for locationId.
+     * @param  unlinked  Boolean value for unlinked.
+     * @param  destinationType  String value for destinationType.
+     * @param  destinationDetails  DestinationDetails value for destinationDetails.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  processingFee  List of ProcessingFee value for processingFee.
+     * @param  paymentId  String value for paymentId.
+     * @param  orderId  String value for orderId.
+     * @param  reason  String value for reason.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  teamMemberId  String value for teamMemberId.
      */
+
     protected PaymentRefund(String id, Money amountMoney, OptionalNullable<String> status,
             OptionalNullable<String> locationId, Boolean unlinked,
             OptionalNullable<String> destinationType, DestinationDetails destinationDetails,

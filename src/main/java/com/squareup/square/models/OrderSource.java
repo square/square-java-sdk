@@ -27,8 +27,10 @@ public class OrderSource {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
      */
+
     protected OrderSource(OptionalNullable<String> name) {
         this.name = name;
     }

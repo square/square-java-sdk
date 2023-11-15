@@ -35,8 +35,12 @@ public class OrderLineItemAppliedDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  discountUid  String value for discountUid.
+     * @param  uid  String value for uid.
+     * @param  appliedMoney  Money value for appliedMoney.
      */
+
     protected OrderLineItemAppliedDiscount(String discountUid, OptionalNullable<String> uid,
             Money appliedMoney) {
         this.uid = uid;

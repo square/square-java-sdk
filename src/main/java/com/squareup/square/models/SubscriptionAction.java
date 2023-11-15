@@ -48,8 +48,15 @@ public class SubscriptionAction {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  type  String value for type.
+     * @param  effectiveDate  String value for effectiveDate.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+     * @param  phases  List of Phase value for phases.
+     * @param  newPlanVariationId  String value for newPlanVariationId.
      */
+
     protected SubscriptionAction(String id, String type, OptionalNullable<String> effectiveDate,
             OptionalNullable<Integer> monthlyBillingAnchorDate,
             OptionalNullable<List<Phase>> phases, OptionalNullable<String> newPlanVariationId) {

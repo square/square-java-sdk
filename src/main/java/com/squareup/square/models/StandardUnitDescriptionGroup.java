@@ -33,8 +33,12 @@ public class StandardUnitDescriptionGroup {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  standardUnitDescriptions  List of StandardUnitDescription value for
+     *         standardUnitDescriptions.
+     * @param  languageCode  String value for languageCode.
      */
+
     protected StandardUnitDescriptionGroup(
             OptionalNullable<List<StandardUnitDescription>> standardUnitDescriptions,
             OptionalNullable<String> languageCode) {

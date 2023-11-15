@@ -27,8 +27,10 @@ public class DeviceComponentDetailsNetworkInterfaceDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  ipAddressV4  String value for ipAddressV4.
      */
+
     protected DeviceComponentDetailsNetworkInterfaceDetails(
             OptionalNullable<String> ipAddressV4) {
         this.ipAddressV4 = ipAddressV4;

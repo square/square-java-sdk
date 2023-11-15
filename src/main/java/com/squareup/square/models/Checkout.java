@@ -64,8 +64,19 @@ public class Checkout {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  checkoutPageUrl  String value for checkoutPageUrl.
+     * @param  askForShippingAddress  Boolean value for askForShippingAddress.
+     * @param  merchantSupportEmail  String value for merchantSupportEmail.
+     * @param  prePopulateBuyerEmail  String value for prePopulateBuyerEmail.
+     * @param  prePopulateShippingAddress  Address value for prePopulateShippingAddress.
+     * @param  redirectUrl  String value for redirectUrl.
+     * @param  order  Order value for order.
+     * @param  createdAt  String value for createdAt.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      */
+
     protected Checkout(String id, OptionalNullable<String> checkoutPageUrl,
             OptionalNullable<Boolean> askForShippingAddress,
             OptionalNullable<String> merchantSupportEmail,

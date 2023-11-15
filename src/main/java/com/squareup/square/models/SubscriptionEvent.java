@@ -52,8 +52,16 @@ public class SubscriptionEvent {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  subscriptionEventType  String value for subscriptionEventType.
+     * @param  effectiveDate  String value for effectiveDate.
+     * @param  planVariationId  String value for planVariationId.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+     * @param  info  SubscriptionEventInfo value for info.
+     * @param  phases  List of Phase value for phases.
      */
+
     protected SubscriptionEvent(String id, String subscriptionEventType, String effectiveDate,
             String planVariationId, Integer monthlyBillingAnchorDate, SubscriptionEventInfo info,
             OptionalNullable<List<Phase>> phases) {

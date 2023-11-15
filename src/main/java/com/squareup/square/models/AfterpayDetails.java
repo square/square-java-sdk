@@ -27,8 +27,10 @@ public class AfterpayDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  emailAddress  String value for emailAddress.
      */
+
     protected AfterpayDetails(OptionalNullable<String> emailAddress) {
         this.emailAddress = emailAddress;
     }

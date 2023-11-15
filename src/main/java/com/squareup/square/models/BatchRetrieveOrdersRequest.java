@@ -32,8 +32,11 @@ public class BatchRetrieveOrdersRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderIds  List of String value for orderIds.
+     * @param  locationId  String value for locationId.
      */
+
     protected BatchRetrieveOrdersRequest(List<String> orderIds,
             OptionalNullable<String> locationId) {
         this.locationId = locationId;

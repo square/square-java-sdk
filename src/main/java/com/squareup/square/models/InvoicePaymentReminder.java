@@ -43,8 +43,14 @@ public class InvoicePaymentReminder {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  relativeScheduledDays  Integer value for relativeScheduledDays.
+     * @param  message  String value for message.
+     * @param  status  String value for status.
+     * @param  sentAt  String value for sentAt.
      */
+
     protected InvoicePaymentReminder(String uid, OptionalNullable<Integer> relativeScheduledDays,
             OptionalNullable<String> message, String status, String sentAt) {
         this.uid = uid;

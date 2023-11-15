@@ -40,8 +40,13 @@ public class EventData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  deleted  Boolean value for deleted.
+     * @param  object  JsonObject value for object.
      */
+
     protected EventData(OptionalNullable<String> type, String id, OptionalNullable<Boolean> deleted,
             OptionalNullable<JsonObject> object) {
         this.type = type;

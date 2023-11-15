@@ -35,8 +35,12 @@ public class ListBankAccountsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  locationId  String value for locationId.
      */
+
     protected ListBankAccountsRequest(OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit, OptionalNullable<String> locationId) {
         this.cursor = cursor;

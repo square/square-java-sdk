@@ -32,8 +32,11 @@ public class TeamMemberAssignedLocations {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  assignmentType  String value for assignmentType.
+     * @param  locationIds  List of String value for locationIds.
      */
+
     protected TeamMemberAssignedLocations(String assignmentType,
             OptionalNullable<List<String>> locationIds) {
         this.assignmentType = assignmentType;

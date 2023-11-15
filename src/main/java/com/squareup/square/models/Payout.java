@@ -72,8 +72,21 @@ public class Payout {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  destination  Destination value for destination.
+     * @param  version  Integer value for version.
+     * @param  type  String value for type.
+     * @param  payoutFee  List of PayoutFee value for payoutFee.
+     * @param  arrivalDate  String value for arrivalDate.
+     * @param  endToEndId  String value for endToEndId.
      */
+
     protected Payout(String id, String locationId, String status, String createdAt,
             String updatedAt, Money amountMoney, Destination destination, Integer version,
             String type, OptionalNullable<List<PayoutFee>> payoutFee,

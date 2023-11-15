@@ -43,8 +43,14 @@ public class V1CreateRefundRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  type  String value for type.
+     * @param  reason  String value for reason.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  requestIdempotenceKey  String value for requestIdempotenceKey.
      */
+
     protected V1CreateRefundRequest(String paymentId, String type, String reason,
             V1Money refundedMoney, OptionalNullable<String> requestIdempotenceKey) {
         this.paymentId = paymentId;

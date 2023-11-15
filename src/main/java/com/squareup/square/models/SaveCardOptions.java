@@ -35,8 +35,12 @@ public class SaveCardOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerId  String value for customerId.
+     * @param  cardId  String value for cardId.
+     * @param  referenceId  String value for referenceId.
      */
+
     protected SaveCardOptions(String customerId, String cardId,
             OptionalNullable<String> referenceId) {
         this.customerId = customerId;

@@ -31,8 +31,11 @@ public class UpsertLocationCustomAttributeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttribute  CustomAttribute value for customAttribute.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpsertLocationCustomAttributeRequest(CustomAttribute customAttribute,
             OptionalNullable<String> idempotencyKey) {
         this.customAttribute = customAttribute;

@@ -47,8 +47,15 @@ public class VendorContact {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  ordinal  int value for ordinal.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  removed  Boolean value for removed.
      */
+
     protected VendorContact(int ordinal, String id, OptionalNullable<String> name,
             OptionalNullable<String> emailAddress, OptionalNullable<String> phoneNumber,
             OptionalNullable<Boolean> removed) {

@@ -47,8 +47,15 @@ public class OrderUpdated {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderId  String value for orderId.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
+     * @param  state  String value for state.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected OrderUpdated(OptionalNullable<String> orderId, Integer version,
             OptionalNullable<String> locationId, String state, String createdAt,
             String updatedAt) {

@@ -31,8 +31,11 @@ public class CatalogIdMapping {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  clientObjectId  String value for clientObjectId.
+     * @param  objectId  String value for objectId.
      */
+
     protected CatalogIdMapping(OptionalNullable<String> clientObjectId,
             OptionalNullable<String> objectId) {
         this.clientObjectId = clientObjectId;

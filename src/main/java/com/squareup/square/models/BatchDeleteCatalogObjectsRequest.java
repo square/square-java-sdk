@@ -28,8 +28,10 @@ public class BatchDeleteCatalogObjectsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  objectIds  List of String value for objectIds.
      */
+
     protected BatchDeleteCatalogObjectsRequest(OptionalNullable<List<String>> objectIds) {
         this.objectIds = objectIds;
     }

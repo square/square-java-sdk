@@ -35,8 +35,12 @@ public class BusinessHoursPeriod {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  dayOfWeek  String value for dayOfWeek.
+     * @param  startLocalTime  String value for startLocalTime.
+     * @param  endLocalTime  String value for endLocalTime.
      */
+
     protected BusinessHoursPeriod(String dayOfWeek, OptionalNullable<String> startLocalTime,
             OptionalNullable<String> endLocalTime) {
         this.dayOfWeek = dayOfWeek;

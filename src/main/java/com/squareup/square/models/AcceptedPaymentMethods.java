@@ -39,8 +39,13 @@ public class AcceptedPaymentMethods {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  applePay  Boolean value for applePay.
+     * @param  googlePay  Boolean value for googlePay.
+     * @param  cashAppPay  Boolean value for cashAppPay.
+     * @param  afterpayClearpay  Boolean value for afterpayClearpay.
      */
+
     protected AcceptedPaymentMethods(OptionalNullable<Boolean> applePay,
             OptionalNullable<Boolean> googlePay, OptionalNullable<Boolean> cashAppPay,
             OptionalNullable<Boolean> afterpayClearpay) {

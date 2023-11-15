@@ -100,8 +100,28 @@ public class Subscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  planVariationId  String value for planVariationId.
+     * @param  customerId  String value for customerId.
+     * @param  startDate  String value for startDate.
+     * @param  canceledDate  String value for canceledDate.
+     * @param  chargedThroughDate  String value for chargedThroughDate.
+     * @param  status  String value for status.
+     * @param  taxPercentage  String value for taxPercentage.
+     * @param  invoiceIds  List of String value for invoiceIds.
+     * @param  priceOverrideMoney  Money value for priceOverrideMoney.
+     * @param  version  Long value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  cardId  String value for cardId.
+     * @param  timezone  String value for timezone.
+     * @param  source  SubscriptionSource value for source.
+     * @param  actions  List of SubscriptionAction value for actions.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+     * @param  phases  List of Phase value for phases.
      */
+
     protected Subscription(String id, String locationId, String planVariationId, String customerId,
             String startDate, OptionalNullable<String> canceledDate, String chargedThroughDate,
             String status, OptionalNullable<String> taxPercentage, List<String> invoiceIds,

@@ -115,8 +115,32 @@ public class OrderFulfillmentDeliveryDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  recipient  OrderFulfillmentRecipient value for recipient.
+     * @param  scheduleType  String value for scheduleType.
+     * @param  placedAt  String value for placedAt.
+     * @param  deliverAt  String value for deliverAt.
+     * @param  prepTimeDuration  String value for prepTimeDuration.
+     * @param  deliveryWindowDuration  String value for deliveryWindowDuration.
+     * @param  note  String value for note.
+     * @param  completedAt  String value for completedAt.
+     * @param  inProgressAt  String value for inProgressAt.
+     * @param  rejectedAt  String value for rejectedAt.
+     * @param  readyAt  String value for readyAt.
+     * @param  deliveredAt  String value for deliveredAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  courierPickupAt  String value for courierPickupAt.
+     * @param  courierPickupWindowDuration  String value for courierPickupWindowDuration.
+     * @param  isNoContactDelivery  Boolean value for isNoContactDelivery.
+     * @param  dropoffNotes  String value for dropoffNotes.
+     * @param  courierProviderName  String value for courierProviderName.
+     * @param  courierSupportPhoneNumber  String value for courierSupportPhoneNumber.
+     * @param  squareDeliveryId  String value for squareDeliveryId.
+     * @param  externalDeliveryId  String value for externalDeliveryId.
+     * @param  managedDelivery  Boolean value for managedDelivery.
      */
+
     protected OrderFulfillmentDeliveryDetails(OrderFulfillmentRecipient recipient,
             String scheduleType, String placedAt, OptionalNullable<String> deliverAt,
             OptionalNullable<String> prepTimeDuration,

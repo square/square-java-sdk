@@ -35,8 +35,12 @@ public class OrderLineItemPricingBlocklistsBlockedTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  taxUid  String value for taxUid.
+     * @param  taxCatalogObjectId  String value for taxCatalogObjectId.
      */
+
     protected OrderLineItemPricingBlocklistsBlockedTax(OptionalNullable<String> uid,
             OptionalNullable<String> taxUid, OptionalNullable<String> taxCatalogObjectId) {
         this.uid = uid;

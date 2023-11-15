@@ -44,8 +44,14 @@ public class CatalogItemModifierListInfo {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  modifierListId  String value for modifierListId.
+     * @param  modifierOverrides  List of CatalogModifierOverride value for modifierOverrides.
+     * @param  minSelectedModifiers  Integer value for minSelectedModifiers.
+     * @param  maxSelectedModifiers  Integer value for maxSelectedModifiers.
+     * @param  enabled  Boolean value for enabled.
      */
+
     protected CatalogItemModifierListInfo(String modifierListId,
             OptionalNullable<List<CatalogModifierOverride>> modifierOverrides,
             OptionalNullable<Integer> minSelectedModifiers,

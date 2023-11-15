@@ -56,8 +56,17 @@ public class BankAccountPaymentDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  bankName  String value for bankName.
+     * @param  transferType  String value for transferType.
+     * @param  accountOwnershipType  String value for accountOwnershipType.
+     * @param  fingerprint  String value for fingerprint.
+     * @param  country  String value for country.
+     * @param  statementDescription  String value for statementDescription.
+     * @param  achDetails  ACHDetails value for achDetails.
+     * @param  errors  List of Error value for errors.
      */
+
     protected BankAccountPaymentDetails(OptionalNullable<String> bankName,
             OptionalNullable<String> transferType, OptionalNullable<String> accountOwnershipType,
             OptionalNullable<String> fingerprint, OptionalNullable<String> country,

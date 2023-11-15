@@ -31,8 +31,11 @@ public class CatalogMeasurementUnit {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  measurementUnit  MeasurementUnit value for measurementUnit.
+     * @param  precision  Integer value for precision.
      */
+
     protected CatalogMeasurementUnit(MeasurementUnit measurementUnit,
             OptionalNullable<Integer> precision) {
         this.measurementUnit = measurementUnit;

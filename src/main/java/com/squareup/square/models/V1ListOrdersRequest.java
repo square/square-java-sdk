@@ -35,8 +35,12 @@ public class V1ListOrdersRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  String value for order.
+     * @param  limit  Integer value for limit.
+     * @param  batchToken  String value for batchToken.
      */
+
     protected V1ListOrdersRequest(String order, OptionalNullable<Integer> limit,
             OptionalNullable<String> batchToken) {
         this.order = order;

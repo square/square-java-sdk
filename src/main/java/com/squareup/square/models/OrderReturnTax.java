@@ -59,8 +59,18 @@ public class OrderReturnTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  sourceTaxUid  String value for sourceTaxUid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  scope  String value for scope.
      */
+
     protected OrderReturnTax(OptionalNullable<String> uid, OptionalNullable<String> sourceTaxUid,
             OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,
             OptionalNullable<String> name, String type, OptionalNullable<String> percentage,

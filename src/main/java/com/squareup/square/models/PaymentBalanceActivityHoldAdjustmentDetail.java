@@ -27,8 +27,10 @@ public class PaymentBalanceActivityHoldAdjustmentDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected PaymentBalanceActivityHoldAdjustmentDetail(OptionalNullable<String> paymentId) {
         this.paymentId = paymentId;
     }

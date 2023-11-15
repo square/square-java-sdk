@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>34.0.0.20231018</version>
+  <version>35.0.0.20231115</version>
   <packaging>jar</packaging>
   <name>Square</name>
   <description>Java client library for the Square API</description>

@@ -43,8 +43,14 @@ public class InvoiceAcceptedPaymentMethods {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  card  Boolean value for card.
+     * @param  squareGiftCard  Boolean value for squareGiftCard.
+     * @param  bankAccount  Boolean value for bankAccount.
+     * @param  buyNowPayLater  Boolean value for buyNowPayLater.
+     * @param  cashAppPay  Boolean value for cashAppPay.
      */
+
     protected InvoiceAcceptedPaymentMethods(OptionalNullable<Boolean> card,
             OptionalNullable<Boolean> squareGiftCard, OptionalNullable<Boolean> bankAccount,
             OptionalNullable<Boolean> buyNowPayLater, OptionalNullable<Boolean> cashAppPay) {

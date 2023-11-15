@@ -31,8 +31,11 @@ public class ResumeSubscriptionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  resumeEffectiveDate  String value for resumeEffectiveDate.
+     * @param  resumeChangeTiming  String value for resumeChangeTiming.
      */
+
     protected ResumeSubscriptionRequest(OptionalNullable<String> resumeEffectiveDate,
             String resumeChangeTiming) {
         this.resumeEffectiveDate = resumeEffectiveDate;

@@ -31,8 +31,11 @@ public class QuantityRatio {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  quantity  Integer value for quantity.
+     * @param  quantityDenominator  Integer value for quantityDenominator.
      */
+
     protected QuantityRatio(OptionalNullable<Integer> quantity,
             OptionalNullable<Integer> quantityDenominator) {
         this.quantity = quantity;

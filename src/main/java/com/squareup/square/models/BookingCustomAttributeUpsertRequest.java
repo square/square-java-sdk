@@ -35,8 +35,12 @@ public class BookingCustomAttributeUpsertRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  bookingId  String value for bookingId.
+     * @param  customAttribute  CustomAttribute value for customAttribute.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected BookingCustomAttributeUpsertRequest(String bookingId, CustomAttribute customAttribute,
             OptionalNullable<String> idempotencyKey) {
         this.bookingId = bookingId;

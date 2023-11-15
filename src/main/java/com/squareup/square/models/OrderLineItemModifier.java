@@ -56,8 +56,17 @@ public class OrderLineItemModifier {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  name  String value for name.
+     * @param  quantity  String value for quantity.
+     * @param  basePriceMoney  Money value for basePriceMoney.
+     * @param  totalPriceMoney  Money value for totalPriceMoney.
+     * @param  metadata  Map of String, value for metadata.
      */
+
     protected OrderLineItemModifier(OptionalNullable<String> uid,
             OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,
             OptionalNullable<String> name, OptionalNullable<String> quantity, Money basePriceMoney,

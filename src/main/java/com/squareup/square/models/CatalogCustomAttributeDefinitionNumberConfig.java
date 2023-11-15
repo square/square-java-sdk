@@ -27,8 +27,10 @@ public class CatalogCustomAttributeDefinitionNumberConfig {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  precision  Integer value for precision.
      */
+
     protected CatalogCustomAttributeDefinitionNumberConfig(OptionalNullable<Integer> precision) {
         this.precision = precision;
     }

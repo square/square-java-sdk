@@ -35,8 +35,12 @@ public class PaymentBalanceActivityAppFeeRefundDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  refundId  String value for refundId.
+     * @param  locationId  String value for locationId.
      */
+
     protected PaymentBalanceActivityAppFeeRefundDetail(OptionalNullable<String> paymentId,
             OptionalNullable<String> refundId, OptionalNullable<String> locationId) {
         this.paymentId = paymentId;

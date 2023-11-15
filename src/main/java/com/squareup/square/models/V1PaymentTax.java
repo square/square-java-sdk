@@ -48,8 +48,15 @@ public class V1PaymentTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  errors  List of Error value for errors.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  rate  String value for rate.
+     * @param  inclusionType  String value for inclusionType.
+     * @param  feeId  String value for feeId.
      */
+
     protected V1PaymentTax(OptionalNullable<List<Error>> errors, OptionalNullable<String> name,
             V1Money appliedMoney, OptionalNullable<String> rate, String inclusionType,
             OptionalNullable<String> feeId) {

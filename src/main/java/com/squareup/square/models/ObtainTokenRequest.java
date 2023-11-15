@@ -64,8 +64,19 @@ public class ObtainTokenRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  clientId  String value for clientId.
+     * @param  grantType  String value for grantType.
+     * @param  clientSecret  String value for clientSecret.
+     * @param  code  String value for code.
+     * @param  redirectUri  String value for redirectUri.
+     * @param  refreshToken  String value for refreshToken.
+     * @param  migrationToken  String value for migrationToken.
+     * @param  scopes  List of String value for scopes.
+     * @param  shortLived  Boolean value for shortLived.
+     * @param  codeVerifier  String value for codeVerifier.
      */
+
     protected ObtainTokenRequest(String clientId, String grantType,
             OptionalNullable<String> clientSecret, OptionalNullable<String> code,
             OptionalNullable<String> redirectUri, OptionalNullable<String> refreshToken,

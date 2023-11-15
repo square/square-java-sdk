@@ -31,8 +31,11 @@ public class PaymentBalanceActivityAutomaticSavingsDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  payoutId  String value for payoutId.
      */
+
     protected PaymentBalanceActivityAutomaticSavingsDetail(OptionalNullable<String> paymentId,
             OptionalNullable<String> payoutId) {
         this.paymentId = paymentId;

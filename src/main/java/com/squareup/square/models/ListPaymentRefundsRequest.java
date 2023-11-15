@@ -55,8 +55,17 @@ public class ListPaymentRefundsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  sourceType  String value for sourceType.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListPaymentRefundsRequest(OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<String> sortOrder,
             OptionalNullable<String> cursor, OptionalNullable<String> locationId,

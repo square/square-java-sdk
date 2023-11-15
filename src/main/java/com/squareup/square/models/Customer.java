@@ -104,8 +104,29 @@ public class Customer {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  cards  List of Card value for cards.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  nickname  String value for nickname.
+     * @param  companyName  String value for companyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  birthday  String value for birthday.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  preferences  CustomerPreferences value for preferences.
+     * @param  creationSource  String value for creationSource.
+     * @param  groupIds  List of String value for groupIds.
+     * @param  segmentIds  List of String value for segmentIds.
+     * @param  version  Long value for version.
+     * @param  taxIds  CustomerTaxIds value for taxIds.
      */
+
     protected Customer(String id, String createdAt, String updatedAt,
             OptionalNullable<List<Card>> cards, OptionalNullable<String> givenName,
             OptionalNullable<String> familyName, OptionalNullable<String> nickname,

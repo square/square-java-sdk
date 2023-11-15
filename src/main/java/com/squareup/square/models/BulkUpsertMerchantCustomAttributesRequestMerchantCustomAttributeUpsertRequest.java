@@ -35,8 +35,12 @@ public class BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUps
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  merchantId  String value for merchantId.
+     * @param  customAttribute  CustomAttribute value for customAttribute.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest(
             String merchantId, CustomAttribute customAttribute,
             OptionalNullable<String> idempotencyKey) {

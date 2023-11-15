@@ -56,8 +56,17 @@ public class GiftCard {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  ganSource  String value for ganSource.
+     * @param  state  String value for state.
+     * @param  balanceMoney  Money value for balanceMoney.
+     * @param  gan  String value for gan.
+     * @param  createdAt  String value for createdAt.
+     * @param  customerIds  List of String value for customerIds.
      */
+
     protected GiftCard(String type, String id, String ganSource, String state, Money balanceMoney,
             OptionalNullable<String> gan, String createdAt, List<String> customerIds) {
         this.id = id;

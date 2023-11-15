@@ -158,8 +158,57 @@ public class PayoutEntry {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  payoutId  String value for payoutId.
+     * @param  effectiveAt  String value for effectiveAt.
+     * @param  type  String value for type.
+     * @param  grossAmountMoney  Money value for grossAmountMoney.
+     * @param  feeAmountMoney  Money value for feeAmountMoney.
+     * @param  netAmountMoney  Money value for netAmountMoney.
+     * @param  typeAppFeeRevenueDetails  PaymentBalanceActivityAppFeeRevenueDetail value for
+     *         typeAppFeeRevenueDetails.
+     * @param  typeAppFeeRefundDetails  PaymentBalanceActivityAppFeeRefundDetail value for
+     *         typeAppFeeRefundDetails.
+     * @param  typeAutomaticSavingsDetails  PaymentBalanceActivityAutomaticSavingsDetail value for
+     *         typeAutomaticSavingsDetails.
+     * @param  typeAutomaticSavingsReversedDetails
+     *         PaymentBalanceActivityAutomaticSavingsReversedDetail value for
+     *         typeAutomaticSavingsReversedDetails.
+     * @param  typeChargeDetails  PaymentBalanceActivityChargeDetail value for typeChargeDetails.
+     * @param  typeDepositFeeDetails  PaymentBalanceActivityDepositFeeDetail value for
+     *         typeDepositFeeDetails.
+     * @param  typeDisputeDetails  PaymentBalanceActivityDisputeDetail value for typeDisputeDetails.
+     * @param  typeFeeDetails  PaymentBalanceActivityFeeDetail value for typeFeeDetails.
+     * @param  typeFreeProcessingDetails  PaymentBalanceActivityFreeProcessingDetail value for
+     *         typeFreeProcessingDetails.
+     * @param  typeHoldAdjustmentDetails  PaymentBalanceActivityHoldAdjustmentDetail value for
+     *         typeHoldAdjustmentDetails.
+     * @param  typeOpenDisputeDetails  PaymentBalanceActivityOpenDisputeDetail value for
+     *         typeOpenDisputeDetails.
+     * @param  typeOtherDetails  PaymentBalanceActivityOtherDetail value for typeOtherDetails.
+     * @param  typeOtherAdjustmentDetails  PaymentBalanceActivityOtherAdjustmentDetail value for
+     *         typeOtherAdjustmentDetails.
+     * @param  typeRefundDetails  PaymentBalanceActivityRefundDetail value for typeRefundDetails.
+     * @param  typeReleaseAdjustmentDetails  PaymentBalanceActivityReleaseAdjustmentDetail value for
+     *         typeReleaseAdjustmentDetails.
+     * @param  typeReserveHoldDetails  PaymentBalanceActivityReserveHoldDetail value for
+     *         typeReserveHoldDetails.
+     * @param  typeReserveReleaseDetails  PaymentBalanceActivityReserveReleaseDetail value for
+     *         typeReserveReleaseDetails.
+     * @param  typeSquareCapitalPaymentDetails  PaymentBalanceActivitySquareCapitalPaymentDetail
+     *         value for typeSquareCapitalPaymentDetails.
+     * @param  typeSquareCapitalReversedPaymentDetails
+     *         PaymentBalanceActivitySquareCapitalReversedPaymentDetail value for
+     *         typeSquareCapitalReversedPaymentDetails.
+     * @param  typeTaxOnFeeDetails  PaymentBalanceActivityTaxOnFeeDetail value for
+     *         typeTaxOnFeeDetails.
+     * @param  typeThirdPartyFeeDetails  PaymentBalanceActivityThirdPartyFeeDetail value for
+     *         typeThirdPartyFeeDetails.
+     * @param  typeThirdPartyFeeRefundDetails  PaymentBalanceActivityThirdPartyFeeRefundDetail value
+     *         for typeThirdPartyFeeRefundDetails.
      */
+
     protected PayoutEntry(String id, String payoutId, OptionalNullable<String> effectiveAt,
             String type, Money grossAmountMoney, Money feeAmountMoney, Money netAmountMoney,
             PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails,

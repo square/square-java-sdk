@@ -34,8 +34,13 @@ public class OrderLineItemPricingBlocklists {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  blockedDiscounts  List of OrderLineItemPricingBlocklistsBlockedDiscount value for
+     *         blockedDiscounts.
+     * @param  blockedTaxes  List of OrderLineItemPricingBlocklistsBlockedTax value for
+     *         blockedTaxes.
      */
+
     protected OrderLineItemPricingBlocklists(
             OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts,
             OptionalNullable<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes) {

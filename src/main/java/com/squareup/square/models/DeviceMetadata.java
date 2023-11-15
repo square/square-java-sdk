@@ -71,8 +71,21 @@ public class DeviceMetadata {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  batteryPercentage  String value for batteryPercentage.
+     * @param  chargingState  String value for chargingState.
+     * @param  locationId  String value for locationId.
+     * @param  merchantId  String value for merchantId.
+     * @param  networkConnectionType  String value for networkConnectionType.
+     * @param  paymentRegion  String value for paymentRegion.
+     * @param  serialNumber  String value for serialNumber.
+     * @param  osVersion  String value for osVersion.
+     * @param  appVersion  String value for appVersion.
+     * @param  wifiNetworkName  String value for wifiNetworkName.
+     * @param  wifiNetworkStrength  String value for wifiNetworkStrength.
+     * @param  ipAddress  String value for ipAddress.
      */
+
     protected DeviceMetadata(OptionalNullable<String> batteryPercentage,
             OptionalNullable<String> chargingState, OptionalNullable<String> locationId,
             OptionalNullable<String> merchantId, OptionalNullable<String> networkConnectionType,

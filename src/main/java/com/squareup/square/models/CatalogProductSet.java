@@ -52,8 +52,16 @@ public class CatalogProductSet {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  productIdsAny  List of String value for productIdsAny.
+     * @param  productIdsAll  List of String value for productIdsAll.
+     * @param  quantityExact  Long value for quantityExact.
+     * @param  quantityMin  Long value for quantityMin.
+     * @param  quantityMax  Long value for quantityMax.
+     * @param  allProducts  Boolean value for allProducts.
      */
+
     protected CatalogProductSet(OptionalNullable<String> name,
             OptionalNullable<List<String>> productIdsAny,
             OptionalNullable<List<String>> productIdsAll, OptionalNullable<Long> quantityExact,

@@ -51,8 +51,16 @@ public class CatalogTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  calculationPhase  String value for calculationPhase.
+     * @param  inclusionType  String value for inclusionType.
+     * @param  percentage  String value for percentage.
+     * @param  appliesToCustomAmounts  Boolean value for appliesToCustomAmounts.
+     * @param  enabled  Boolean value for enabled.
+     * @param  appliesToProductSetId  String value for appliesToProductSetId.
      */
+
     protected CatalogTax(OptionalNullable<String> name, String calculationPhase,
             String inclusionType, OptionalNullable<String> percentage,
             OptionalNullable<Boolean> appliesToCustomAmounts, OptionalNullable<Boolean> enabled,

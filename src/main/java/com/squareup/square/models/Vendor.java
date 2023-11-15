@@ -64,8 +64,19 @@ public class Vendor {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  name  String value for name.
+     * @param  address  Address value for address.
+     * @param  contacts  List of VendorContact value for contacts.
+     * @param  accountNumber  String value for accountNumber.
+     * @param  note  String value for note.
+     * @param  version  Integer value for version.
+     * @param  status  String value for status.
      */
+
     protected Vendor(String id, String createdAt, String updatedAt, OptionalNullable<String> name,
             Address address, OptionalNullable<List<VendorContact>> contacts,
             OptionalNullable<String> accountNumber, OptionalNullable<String> note, Integer version,

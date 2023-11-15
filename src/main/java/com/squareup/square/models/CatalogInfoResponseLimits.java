@@ -74,8 +74,23 @@ public class CatalogInfoResponseLimits {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  batchUpsertMaxObjectsPerBatch  Integer value for batchUpsertMaxObjectsPerBatch.
+     * @param  batchUpsertMaxTotalObjects  Integer value for batchUpsertMaxTotalObjects.
+     * @param  batchRetrieveMaxObjectIds  Integer value for batchRetrieveMaxObjectIds.
+     * @param  searchMaxPageLimit  Integer value for searchMaxPageLimit.
+     * @param  batchDeleteMaxObjectIds  Integer value for batchDeleteMaxObjectIds.
+     * @param  updateItemTaxesMaxItemIds  Integer value for updateItemTaxesMaxItemIds.
+     * @param  updateItemTaxesMaxTaxesToEnable  Integer value for updateItemTaxesMaxTaxesToEnable.
+     * @param  updateItemTaxesMaxTaxesToDisable  Integer value for updateItemTaxesMaxTaxesToDisable.
+     * @param  updateItemModifierListsMaxItemIds  Integer value for
+     *         updateItemModifierListsMaxItemIds.
+     * @param  updateItemModifierListsMaxModifierListsToEnable  Integer value for
+     *         updateItemModifierListsMaxModifierListsToEnable.
+     * @param  updateItemModifierListsMaxModifierListsToDisable  Integer value for
+     *         updateItemModifierListsMaxModifierListsToDisable.
      */
+
     protected CatalogInfoResponseLimits(OptionalNullable<Integer> batchUpsertMaxObjectsPerBatch,
             OptionalNullable<Integer> batchUpsertMaxTotalObjects,
             OptionalNullable<Integer> batchRetrieveMaxObjectIds,

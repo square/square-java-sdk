@@ -35,8 +35,12 @@ public class SourceApplication {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  product  String value for product.
+     * @param  applicationId  String value for applicationId.
+     * @param  name  String value for name.
      */
+
     protected SourceApplication(String product, OptionalNullable<String> applicationId,
             OptionalNullable<String> name) {
         this.product = product;

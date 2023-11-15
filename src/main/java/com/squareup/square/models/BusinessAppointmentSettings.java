@@ -76,8 +76,22 @@ public class BusinessAppointmentSettings {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationTypes  List of String value for locationTypes.
+     * @param  alignmentTime  String value for alignmentTime.
+     * @param  minBookingLeadTimeSeconds  Integer value for minBookingLeadTimeSeconds.
+     * @param  maxBookingLeadTimeSeconds  Integer value for maxBookingLeadTimeSeconds.
+     * @param  anyTeamMemberBookingEnabled  Boolean value for anyTeamMemberBookingEnabled.
+     * @param  multipleServiceBookingEnabled  Boolean value for multipleServiceBookingEnabled.
+     * @param  maxAppointmentsPerDayLimitType  String value for maxAppointmentsPerDayLimitType.
+     * @param  maxAppointmentsPerDayLimit  Integer value for maxAppointmentsPerDayLimit.
+     * @param  cancellationWindowSeconds  Integer value for cancellationWindowSeconds.
+     * @param  cancellationFeeMoney  Money value for cancellationFeeMoney.
+     * @param  cancellationPolicy  String value for cancellationPolicy.
+     * @param  cancellationPolicyText  String value for cancellationPolicyText.
+     * @param  skipBookingFlowStaffSelection  Boolean value for skipBookingFlowStaffSelection.
      */
+
     protected BusinessAppointmentSettings(OptionalNullable<List<String>> locationTypes,
             String alignmentTime, OptionalNullable<Integer> minBookingLeadTimeSeconds,
             OptionalNullable<Integer> maxBookingLeadTimeSeconds,

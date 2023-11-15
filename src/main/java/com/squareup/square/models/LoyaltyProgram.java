@@ -60,8 +60,18 @@ public class LoyaltyProgram {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  rewardTiers  List of LoyaltyProgramRewardTier value for rewardTiers.
+     * @param  expirationPolicy  LoyaltyProgramExpirationPolicy value for expirationPolicy.
+     * @param  terminology  LoyaltyProgramTerminology value for terminology.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  accrualRules  List of LoyaltyProgramAccrualRule value for accrualRules.
      */
+
     protected LoyaltyProgram(String id, String status,
             OptionalNullable<List<LoyaltyProgramRewardTier>> rewardTiers,
             LoyaltyProgramExpirationPolicy expirationPolicy, LoyaltyProgramTerminology terminology,

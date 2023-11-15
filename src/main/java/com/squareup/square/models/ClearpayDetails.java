@@ -27,8 +27,10 @@ public class ClearpayDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  emailAddress  String value for emailAddress.
      */
+
     protected ClearpayDetails(OptionalNullable<String> emailAddress) {
         this.emailAddress = emailAddress;
     }

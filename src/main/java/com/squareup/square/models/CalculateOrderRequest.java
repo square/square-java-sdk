@@ -32,8 +32,11 @@ public class CalculateOrderRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  Order value for order.
+     * @param  proposedRewards  List of OrderReward value for proposedRewards.
      */
+
     protected CalculateOrderRequest(Order order,
             OptionalNullable<List<OrderReward>> proposedRewards) {
         this.order = order;

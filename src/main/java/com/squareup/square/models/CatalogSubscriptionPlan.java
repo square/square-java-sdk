@@ -49,8 +49,16 @@ public class CatalogSubscriptionPlan {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  phases  List of SubscriptionPhase value for phases.
+     * @param  subscriptionPlanVariations  List of CatalogObject value for
+     *         subscriptionPlanVariations.
+     * @param  eligibleItemIds  List of String value for eligibleItemIds.
+     * @param  eligibleCategoryIds  List of String value for eligibleCategoryIds.
+     * @param  allItems  Boolean value for allItems.
      */
+
     protected CatalogSubscriptionPlan(String name, OptionalNullable<List<SubscriptionPhase>> phases,
             OptionalNullable<List<CatalogObject>> subscriptionPlanVariations,
             OptionalNullable<List<String>> eligibleItemIds,

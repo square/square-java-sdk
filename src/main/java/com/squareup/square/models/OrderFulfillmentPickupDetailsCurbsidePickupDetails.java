@@ -31,8 +31,11 @@ public class OrderFulfillmentPickupDetailsCurbsidePickupDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  curbsideDetails  String value for curbsideDetails.
+     * @param  buyerArrivedAt  String value for buyerArrivedAt.
      */
+
     protected OrderFulfillmentPickupDetailsCurbsidePickupDetails(
             OptionalNullable<String> curbsideDetails, OptionalNullable<String> buyerArrivedAt) {
         this.curbsideDetails = curbsideDetails;

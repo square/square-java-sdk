@@ -39,8 +39,13 @@ public class ListOrderCustomAttributesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  visibilityFilter  String value for visibilityFilter.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  withDefinitions  Boolean value for withDefinitions.
      */
+
     protected ListOrderCustomAttributesRequest(String visibilityFilter,
             OptionalNullable<String> cursor, OptionalNullable<Integer> limit,
             OptionalNullable<Boolean> withDefinitions) {

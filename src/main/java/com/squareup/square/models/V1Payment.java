@@ -134,8 +134,36 @@ public class V1Payment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  merchantId  String value for merchantId.
+     * @param  createdAt  String value for createdAt.
+     * @param  creatorId  String value for creatorId.
+     * @param  device  V1Device value for device.
+     * @param  paymentUrl  String value for paymentUrl.
+     * @param  receiptUrl  String value for receiptUrl.
+     * @param  inclusiveTaxMoney  V1Money value for inclusiveTaxMoney.
+     * @param  additiveTaxMoney  V1Money value for additiveTaxMoney.
+     * @param  taxMoney  V1Money value for taxMoney.
+     * @param  tipMoney  V1Money value for tipMoney.
+     * @param  discountMoney  V1Money value for discountMoney.
+     * @param  totalCollectedMoney  V1Money value for totalCollectedMoney.
+     * @param  processingFeeMoney  V1Money value for processingFeeMoney.
+     * @param  netTotalMoney  V1Money value for netTotalMoney.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  swedishRoundingMoney  V1Money value for swedishRoundingMoney.
+     * @param  grossSalesMoney  V1Money value for grossSalesMoney.
+     * @param  netSalesMoney  V1Money value for netSalesMoney.
+     * @param  inclusiveTax  List of V1PaymentTax value for inclusiveTax.
+     * @param  additiveTax  List of V1PaymentTax value for additiveTax.
+     * @param  tender  List of V1Tender value for tender.
+     * @param  refunds  List of V1Refund value for refunds.
+     * @param  itemizations  List of V1PaymentItemization value for itemizations.
+     * @param  surchargeMoney  V1Money value for surchargeMoney.
+     * @param  surcharges  List of V1PaymentSurcharge value for surcharges.
+     * @param  isPartial  Boolean value for isPartial.
      */
+
     protected V1Payment(String id, OptionalNullable<String> merchantId, String createdAt,
             OptionalNullable<String> creatorId, V1Device device,
             OptionalNullable<String> paymentUrl, OptionalNullable<String> receiptUrl,

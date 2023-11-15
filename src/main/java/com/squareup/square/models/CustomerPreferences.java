@@ -27,8 +27,10 @@ public class CustomerPreferences {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  emailUnsubscribed  Boolean value for emailUnsubscribed.
      */
+
     protected CustomerPreferences(OptionalNullable<Boolean> emailUnsubscribed) {
         this.emailUnsubscribed = emailUnsubscribed;
     }

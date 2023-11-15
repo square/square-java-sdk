@@ -31,8 +31,11 @@ public class RetrieveOrderCustomAttributeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  version  Integer value for version.
+     * @param  withDefinition  Boolean value for withDefinition.
      */
+
     protected RetrieveOrderCustomAttributeRequest(Integer version,
             OptionalNullable<Boolean> withDefinition) {
         this.version = version;

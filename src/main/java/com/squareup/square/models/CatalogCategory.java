@@ -32,8 +32,11 @@ public class CatalogCategory {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  imageIds  List of String value for imageIds.
      */
+
     protected CatalogCategory(OptionalNullable<String> name,
             OptionalNullable<List<String>> imageIds) {
         this.name = name;

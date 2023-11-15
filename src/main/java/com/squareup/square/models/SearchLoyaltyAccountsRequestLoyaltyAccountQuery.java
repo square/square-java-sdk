@@ -32,8 +32,11 @@ public class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  mappings  List of LoyaltyAccountMapping value for mappings.
+     * @param  customerIds  List of String value for customerIds.
      */
+
     protected SearchLoyaltyAccountsRequestLoyaltyAccountQuery(
             OptionalNullable<List<LoyaltyAccountMapping>> mappings,
             OptionalNullable<List<String>> customerIds) {

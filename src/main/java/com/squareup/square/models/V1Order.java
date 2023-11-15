@@ -126,8 +126,34 @@ public class V1Order {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  errors  List of Error value for errors.
+     * @param  id  String value for id.
+     * @param  buyerEmail  String value for buyerEmail.
+     * @param  recipientName  String value for recipientName.
+     * @param  recipientPhoneNumber  String value for recipientPhoneNumber.
+     * @param  state  String value for state.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  subtotalMoney  V1Money value for subtotalMoney.
+     * @param  totalShippingMoney  V1Money value for totalShippingMoney.
+     * @param  totalTaxMoney  V1Money value for totalTaxMoney.
+     * @param  totalPriceMoney  V1Money value for totalPriceMoney.
+     * @param  totalDiscountMoney  V1Money value for totalDiscountMoney.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  paymentId  String value for paymentId.
+     * @param  buyerNote  String value for buyerNote.
+     * @param  completedNote  String value for completedNote.
+     * @param  refundedNote  String value for refundedNote.
+     * @param  canceledNote  String value for canceledNote.
+     * @param  tender  V1Tender value for tender.
+     * @param  orderHistory  List of V1OrderHistoryEntry value for orderHistory.
+     * @param  promoCode  String value for promoCode.
+     * @param  btcReceiveAddress  String value for btcReceiveAddress.
+     * @param  btcPriceSatoshi  Double value for btcPriceSatoshi.
      */
+
     protected V1Order(OptionalNullable<List<Error>> errors, String id,
             OptionalNullable<String> buyerEmail, OptionalNullable<String> recipientName,
             OptionalNullable<String> recipientPhoneNumber, String state, Address shippingAddress,

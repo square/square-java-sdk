@@ -43,8 +43,14 @@ public class TeamMemberBookingProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  description  String value for description.
+     * @param  displayName  String value for displayName.
+     * @param  isBookable  Boolean value for isBookable.
+     * @param  profileImageUrl  String value for profileImageUrl.
      */
+
     protected TeamMemberBookingProfile(String teamMemberId, String description, String displayName,
             OptionalNullable<Boolean> isBookable, String profileImageUrl) {
         this.teamMemberId = teamMemberId;

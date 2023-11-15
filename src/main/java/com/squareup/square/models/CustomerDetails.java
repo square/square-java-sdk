@@ -31,8 +31,11 @@ public class CustomerDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerInitiated  Boolean value for customerInitiated.
+     * @param  sellerKeyedIn  Boolean value for sellerKeyedIn.
      */
+
     protected CustomerDetails(OptionalNullable<Boolean> customerInitiated,
             OptionalNullable<Boolean> sellerKeyedIn) {
         this.customerInitiated = customerInitiated;

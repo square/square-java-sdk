@@ -88,8 +88,25 @@ public class CardPaymentDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  status  String value for status.
+     * @param  card  Card value for card.
+     * @param  entryMethod  String value for entryMethod.
+     * @param  cvvStatus  String value for cvvStatus.
+     * @param  avsStatus  String value for avsStatus.
+     * @param  authResultCode  String value for authResultCode.
+     * @param  applicationIdentifier  String value for applicationIdentifier.
+     * @param  applicationName  String value for applicationName.
+     * @param  applicationCryptogram  String value for applicationCryptogram.
+     * @param  verificationMethod  String value for verificationMethod.
+     * @param  verificationResults  String value for verificationResults.
+     * @param  statementDescription  String value for statementDescription.
+     * @param  deviceDetails  DeviceDetails value for deviceDetails.
+     * @param  cardPaymentTimeline  CardPaymentTimeline value for cardPaymentTimeline.
+     * @param  refundRequiresCardPresence  Boolean value for refundRequiresCardPresence.
+     * @param  errors  List of Error value for errors.
      */
+
     protected CardPaymentDetails(OptionalNullable<String> status, Card card,
             OptionalNullable<String> entryMethod, OptionalNullable<String> cvvStatus,
             OptionalNullable<String> avsStatus, OptionalNullable<String> authResultCode,

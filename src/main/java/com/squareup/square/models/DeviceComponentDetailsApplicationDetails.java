@@ -39,8 +39,13 @@ public class DeviceComponentDetailsApplicationDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  applicationType  String value for applicationType.
+     * @param  version  String value for version.
+     * @param  sessionLocation  String value for sessionLocation.
+     * @param  deviceCodeId  String value for deviceCodeId.
      */
+
     protected DeviceComponentDetailsApplicationDetails(String applicationType, String version,
             OptionalNullable<String> sessionLocation, OptionalNullable<String> deviceCodeId) {
         this.applicationType = applicationType;

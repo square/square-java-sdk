@@ -27,8 +27,10 @@ public class CatalogTimePeriod {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  event  String value for event.
      */
+
     protected CatalogTimePeriod(OptionalNullable<String> event) {
         this.event = event;
     }

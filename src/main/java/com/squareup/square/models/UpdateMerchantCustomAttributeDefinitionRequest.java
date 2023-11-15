@@ -32,8 +32,12 @@ public class UpdateMerchantCustomAttributeDefinitionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttributeDefinition  CustomAttributeDefinition value for
+     *         customAttributeDefinition.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateMerchantCustomAttributeDefinitionRequest(
             CustomAttributeDefinition customAttributeDefinition,
             OptionalNullable<String> idempotencyKey) {

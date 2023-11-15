@@ -55,8 +55,17 @@ public class DeviceAttributes {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  manufacturer  String value for manufacturer.
+     * @param  model  String value for model.
+     * @param  name  String value for name.
+     * @param  manufacturersId  String value for manufacturersId.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  version  String value for version.
+     * @param  merchantToken  String value for merchantToken.
      */
+
     protected DeviceAttributes(String type, String manufacturer, OptionalNullable<String> model,
             OptionalNullable<String> name, OptionalNullable<String> manufacturersId,
             String updatedAt, String version, OptionalNullable<String> merchantToken) {

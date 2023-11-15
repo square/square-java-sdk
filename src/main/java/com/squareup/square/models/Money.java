@@ -31,8 +31,11 @@ public class Money {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amount  Long value for amount.
+     * @param  currency  String value for currency.
      */
+
     protected Money(OptionalNullable<Long> amount, String currency) {
         this.amount = amount;
         this.currency = currency;

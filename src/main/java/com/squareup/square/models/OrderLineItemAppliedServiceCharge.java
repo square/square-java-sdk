@@ -35,8 +35,12 @@ public class OrderLineItemAppliedServiceCharge {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  serviceChargeUid  String value for serviceChargeUid.
+     * @param  uid  String value for uid.
+     * @param  appliedMoney  Money value for appliedMoney.
      */
+
     protected OrderLineItemAppliedServiceCharge(String serviceChargeUid,
             OptionalNullable<String> uid, Money appliedMoney) {
         this.uid = uid;

@@ -36,8 +36,12 @@ public class FilterValue {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  all  List of String value for all.
+     * @param  any  List of String value for any.
+     * @param  none  List of String value for none.
      */
+
     protected FilterValue(OptionalNullable<List<String>> all, OptionalNullable<List<String>> any,
             OptionalNullable<List<String>> none) {
         this.all = all;

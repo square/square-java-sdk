@@ -27,8 +27,10 @@ public class DeviceComponentDetailsMeasurement {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  value  Integer value for value.
      */
+
     protected DeviceComponentDetailsMeasurement(OptionalNullable<Integer> value) {
         this.value = value;
     }

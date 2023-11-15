@@ -32,8 +32,11 @@ public class SearchVendorsRequestFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  List of String value for name.
+     * @param  status  List of String value for status.
      */
+
     protected SearchVendorsRequestFilter(OptionalNullable<List<String>> name,
             OptionalNullable<List<String>> status) {
         this.name = name;

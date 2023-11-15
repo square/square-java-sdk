@@ -83,8 +83,24 @@ public class OrderFulfillmentShipmentDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  recipient  OrderFulfillmentRecipient value for recipient.
+     * @param  carrier  String value for carrier.
+     * @param  shippingNote  String value for shippingNote.
+     * @param  shippingType  String value for shippingType.
+     * @param  trackingNumber  String value for trackingNumber.
+     * @param  trackingUrl  String value for trackingUrl.
+     * @param  placedAt  String value for placedAt.
+     * @param  inProgressAt  String value for inProgressAt.
+     * @param  packagedAt  String value for packagedAt.
+     * @param  expectedShippedAt  String value for expectedShippedAt.
+     * @param  shippedAt  String value for shippedAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  failedAt  String value for failedAt.
+     * @param  failureReason  String value for failureReason.
      */
+
     protected OrderFulfillmentShipmentDetails(OrderFulfillmentRecipient recipient,
             OptionalNullable<String> carrier, OptionalNullable<String> shippingNote,
             OptionalNullable<String> shippingType, OptionalNullable<String> trackingNumber,

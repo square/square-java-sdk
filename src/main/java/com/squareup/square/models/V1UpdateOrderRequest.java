@@ -43,8 +43,14 @@ public class V1UpdateOrderRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  action  String value for action.
+     * @param  shippedTrackingNumber  String value for shippedTrackingNumber.
+     * @param  completedNote  String value for completedNote.
+     * @param  refundedNote  String value for refundedNote.
+     * @param  canceledNote  String value for canceledNote.
      */
+
     protected V1UpdateOrderRequest(String action, OptionalNullable<String> shippedTrackingNumber,
             OptionalNullable<String> completedNote, OptionalNullable<String> refundedNote,
             OptionalNullable<String> canceledNote) {

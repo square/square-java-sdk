@@ -79,8 +79,23 @@ public class TerminalRefund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  reason  String value for reason.
+     * @param  deviceId  String value for deviceId.
+     * @param  id  String value for id.
+     * @param  refundId  String value for refundId.
+     * @param  orderId  String value for orderId.
+     * @param  deadlineDuration  String value for deadlineDuration.
+     * @param  status  String value for status.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  appId  String value for appId.
+     * @param  locationId  String value for locationId.
      */
+
     protected TerminalRefund(String paymentId, Money amountMoney, String reason, String deviceId,
             String id, String refundId, String orderId, OptionalNullable<String> deadlineDuration,
             String status, String cancelReason, String createdAt, String updatedAt, String appId,

@@ -32,8 +32,11 @@ public class SearchOrdersFulfillmentFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  fulfillmentTypes  List of String value for fulfillmentTypes.
+     * @param  fulfillmentStates  List of String value for fulfillmentStates.
      */
+
     protected SearchOrdersFulfillmentFilter(OptionalNullable<List<String>> fulfillmentTypes,
             OptionalNullable<List<String>> fulfillmentStates) {
         this.fulfillmentTypes = fulfillmentTypes;

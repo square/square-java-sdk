@@ -36,8 +36,12 @@ public class BatchChangeInventoryRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  changes  List of InventoryChange value for changes.
+     * @param  ignoreUnchangedCounts  Boolean value for ignoreUnchangedCounts.
      */
+
     protected BatchChangeInventoryRequest(String idempotencyKey,
             OptionalNullable<List<InventoryChange>> changes,
             OptionalNullable<Boolean> ignoreUnchangedCounts) {

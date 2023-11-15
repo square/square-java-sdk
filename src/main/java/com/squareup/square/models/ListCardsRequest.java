@@ -43,8 +43,14 @@ public class ListCardsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  customerId  String value for customerId.
+     * @param  includeDisabled  Boolean value for includeDisabled.
+     * @param  referenceId  String value for referenceId.
+     * @param  sortOrder  String value for sortOrder.
      */
+
     protected ListCardsRequest(OptionalNullable<String> cursor, OptionalNullable<String> customerId,
             OptionalNullable<Boolean> includeDisabled, OptionalNullable<String> referenceId,
             String sortOrder) {

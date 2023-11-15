@@ -74,9 +74,9 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for AccessToken.
-     * A valid OAuth access token. OAuth access tokens are 64 bytes long. Provide the access token
-     * in a header with every request to Connect API endpoints. For more information, see [OAuth
-     * API: Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough).
+     * A valid OAuth access token. Provide the access token in a header with every request to
+     * Connect API endpoints. For more information, see [OAuth API:
+     * Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough).
      * @return Returns the String
      */
     @JsonGetter("access_token")
@@ -157,8 +157,7 @@ public class ObtainTokenResponse {
 
     /**
      * Getter for RefreshToken.
-     * A refresh token. OAuth refresh tokens are 64 bytes long. For more information, see [Refresh,
-     * Revoke, and Limit the Scope of OAuth
+     * A refresh token. For more information, see [Refresh, Revoke, and Limit the Scope of OAuth
      * Tokens](https://developer.squareup.com/docs/oauth-api/refresh-revoke-limit-scope).
      * @return Returns the String
      */

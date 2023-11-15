@@ -43,8 +43,14 @@ public class ListCustomersRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
+     * @param  sortField  String value for sortField.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  count  Boolean value for count.
      */
+
     protected ListCustomersRequest(OptionalNullable<String> cursor, OptionalNullable<Integer> limit,
             String sortField, String sortOrder, OptionalNullable<Boolean> count) {
         this.cursor = cursor;

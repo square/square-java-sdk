@@ -64,8 +64,19 @@ public class Employee {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  email  String value for email.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  status  String value for status.
+     * @param  isOwner  Boolean value for isOwner.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected Employee(String id, OptionalNullable<String> firstName,
             OptionalNullable<String> lastName, OptionalNullable<String> email,
             OptionalNullable<String> phoneNumber, OptionalNullable<List<String>> locationIds,

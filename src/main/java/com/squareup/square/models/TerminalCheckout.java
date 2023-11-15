@@ -108,8 +108,30 @@ public class TerminalCheckout {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  deviceOptions  DeviceCheckoutOptions value for deviceOptions.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  orderId  String value for orderId.
+     * @param  paymentOptions  PaymentOptions value for paymentOptions.
+     * @param  deadlineDuration  String value for deadlineDuration.
+     * @param  status  String value for status.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  paymentIds  List of String value for paymentIds.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  appId  String value for appId.
+     * @param  locationId  String value for locationId.
+     * @param  paymentType  String value for paymentType.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  customerId  String value for customerId.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+     * @param  tipMoney  Money value for tipMoney.
      */
+
     protected TerminalCheckout(Money amountMoney, DeviceCheckoutOptions deviceOptions, String id,
             OptionalNullable<String> referenceId, OptionalNullable<String> note,
             OptionalNullable<String> orderId, PaymentOptions paymentOptions,

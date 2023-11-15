@@ -32,8 +32,11 @@ public class PaymentLinkRelatedResources {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orders  List of Order value for orders.
+     * @param  subscriptionPlans  List of CatalogObject value for subscriptionPlans.
      */
+
     protected PaymentLinkRelatedResources(OptionalNullable<List<Order>> orders,
             OptionalNullable<List<CatalogObject>> subscriptionPlans) {
         this.orders = orders;

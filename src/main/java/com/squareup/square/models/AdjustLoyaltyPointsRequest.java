@@ -35,8 +35,12 @@ public class AdjustLoyaltyPointsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  adjustPoints  LoyaltyEventAdjustPoints value for adjustPoints.
+     * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
      */
+
     protected AdjustLoyaltyPointsRequest(String idempotencyKey,
             LoyaltyEventAdjustPoints adjustPoints,
             OptionalNullable<Boolean> allowNegativeBalance) {

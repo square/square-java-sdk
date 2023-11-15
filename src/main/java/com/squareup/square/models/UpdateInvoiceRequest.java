@@ -36,8 +36,12 @@ public class UpdateInvoiceRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  invoice  Invoice value for invoice.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  fieldsToClear  List of String value for fieldsToClear.
      */
+
     protected UpdateInvoiceRequest(Invoice invoice, OptionalNullable<String> idempotencyKey,
             OptionalNullable<List<String>> fieldsToClear) {
         this.invoice = invoice;

@@ -34,8 +34,13 @@ public class CatalogCustomAttributeDefinitionSelectionConfig {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  maxAllowedSelections  Integer value for maxAllowedSelections.
+     * @param  allowedSelections  List of
+     *         CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection value for
+     *         allowedSelections.
      */
+
     protected CatalogCustomAttributeDefinitionSelectionConfig(
             OptionalNullable<Integer> maxAllowedSelections,
             OptionalNullable<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>> allowedSelections) {

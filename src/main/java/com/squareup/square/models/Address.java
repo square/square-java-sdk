@@ -79,8 +79,23 @@ public class Address {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  addressLine1  String value for addressLine1.
+     * @param  addressLine2  String value for addressLine2.
+     * @param  addressLine3  String value for addressLine3.
+     * @param  locality  String value for locality.
+     * @param  sublocality  String value for sublocality.
+     * @param  sublocality2  String value for sublocality2.
+     * @param  sublocality3  String value for sublocality3.
+     * @param  administrativeDistrictLevel1  String value for administrativeDistrictLevel1.
+     * @param  administrativeDistrictLevel2  String value for administrativeDistrictLevel2.
+     * @param  administrativeDistrictLevel3  String value for administrativeDistrictLevel3.
+     * @param  postalCode  String value for postalCode.
+     * @param  country  String value for country.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
      */
+
     protected Address(OptionalNullable<String> addressLine1, OptionalNullable<String> addressLine2,
             OptionalNullable<String> addressLine3, OptionalNullable<String> locality,
             OptionalNullable<String> sublocality, OptionalNullable<String> sublocality2,

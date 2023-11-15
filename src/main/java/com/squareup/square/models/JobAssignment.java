@@ -43,8 +43,14 @@ public class JobAssignment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  jobTitle  String value for jobTitle.
+     * @param  payType  String value for payType.
+     * @param  hourlyRate  Money value for hourlyRate.
+     * @param  annualRate  Money value for annualRate.
+     * @param  weeklyHours  Integer value for weeklyHours.
      */
+
     protected JobAssignment(String jobTitle, String payType, Money hourlyRate, Money annualRate,
             OptionalNullable<Integer> weeklyHours) {
         this.jobTitle = jobTitle;

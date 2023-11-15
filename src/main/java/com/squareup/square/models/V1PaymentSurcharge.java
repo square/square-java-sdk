@@ -56,8 +56,17 @@ public class V1PaymentSurcharge {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  rate  String value for rate.
+     * @param  amountMoney  V1Money value for amountMoney.
+     * @param  type  String value for type.
+     * @param  taxable  Boolean value for taxable.
+     * @param  taxes  List of V1PaymentTax value for taxes.
+     * @param  surchargeId  String value for surchargeId.
      */
+
     protected V1PaymentSurcharge(OptionalNullable<String> name, V1Money appliedMoney,
             OptionalNullable<String> rate, V1Money amountMoney, String type,
             OptionalNullable<Boolean> taxable, OptionalNullable<List<V1PaymentTax>> taxes,

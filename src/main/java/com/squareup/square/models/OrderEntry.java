@@ -35,8 +35,12 @@ public class OrderEntry {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderId  String value for orderId.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
      */
+
     protected OrderEntry(OptionalNullable<String> orderId, Integer version,
             OptionalNullable<String> locationId) {
         this.orderId = orderId;

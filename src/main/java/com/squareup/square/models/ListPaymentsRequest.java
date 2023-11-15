@@ -59,8 +59,18 @@ public class ListPaymentsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  total  Long value for total.
+     * @param  last4  String value for last4.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListPaymentsRequest(OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<String> sortOrder,
             OptionalNullable<String> cursor, OptionalNullable<String> locationId,

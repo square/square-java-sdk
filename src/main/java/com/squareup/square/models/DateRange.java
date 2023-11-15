@@ -31,8 +31,11 @@ public class DateRange {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startDate  String value for startDate.
+     * @param  endDate  String value for endDate.
      */
+
     protected DateRange(OptionalNullable<String> startDate, OptionalNullable<String> endDate) {
         this.startDate = startDate;
         this.endDate = endDate;

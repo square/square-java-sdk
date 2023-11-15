@@ -47,8 +47,15 @@ public class SubscriptionPhase {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cadence  String value for cadence.
+     * @param  uid  String value for uid.
+     * @param  periods  Integer value for periods.
+     * @param  recurringPriceMoney  Money value for recurringPriceMoney.
+     * @param  ordinal  Long value for ordinal.
+     * @param  pricing  SubscriptionPricing value for pricing.
      */
+
     protected SubscriptionPhase(String cadence, OptionalNullable<String> uid,
             OptionalNullable<Integer> periods, Money recurringPriceMoney,
             OptionalNullable<Long> ordinal, SubscriptionPricing pricing) {

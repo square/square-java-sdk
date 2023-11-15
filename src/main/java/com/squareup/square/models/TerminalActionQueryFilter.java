@@ -39,8 +39,13 @@ public class TerminalActionQueryFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  deviceId  String value for deviceId.
+     * @param  createdAt  TimeRange value for createdAt.
+     * @param  status  String value for status.
+     * @param  type  String value for type.
      */
+
     protected TerminalActionQueryFilter(OptionalNullable<String> deviceId, TimeRange createdAt,
             OptionalNullable<String> status, String type) {
         this.deviceId = deviceId;

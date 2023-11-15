@@ -31,8 +31,11 @@ public class CancelBookingRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  bookingVersion  Integer value for bookingVersion.
      */
+
     protected CancelBookingRequest(OptionalNullable<String> idempotencyKey,
             OptionalNullable<Integer> bookingVersion) {
         this.idempotencyKey = idempotencyKey;

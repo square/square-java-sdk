@@ -47,8 +47,15 @@ public class Event {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  merchantId  String value for merchantId.
+     * @param  locationId  String value for locationId.
+     * @param  type  String value for type.
+     * @param  eventId  String value for eventId.
+     * @param  createdAt  String value for createdAt.
+     * @param  data  EventData value for data.
      */
+
     protected Event(OptionalNullable<String> merchantId, OptionalNullable<String> locationId,
             OptionalNullable<String> type, OptionalNullable<String> eventId, String createdAt,
             EventData data) {

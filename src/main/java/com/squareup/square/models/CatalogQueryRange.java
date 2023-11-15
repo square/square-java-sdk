@@ -35,8 +35,12 @@ public class CatalogQueryRange {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  attributeName  String value for attributeName.
+     * @param  attributeMinValue  Long value for attributeMinValue.
+     * @param  attributeMaxValue  Long value for attributeMaxValue.
      */
+
     protected CatalogQueryRange(String attributeName, OptionalNullable<Long> attributeMinValue,
             OptionalNullable<Long> attributeMaxValue) {
         this.attributeName = attributeName;

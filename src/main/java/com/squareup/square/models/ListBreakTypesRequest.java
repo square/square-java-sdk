@@ -35,8 +35,12 @@ public class ListBreakTypesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListBreakTypesRequest(OptionalNullable<String> locationId,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.locationId = locationId;

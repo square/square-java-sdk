@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Shift {
     private final String id;
     private final OptionalNullable<String> employeeId;
-    private final OptionalNullable<String> locationId;
+    private final String locationId;
     private final OptionalNullable<String> timezone;
     private final String startAt;
     private final OptionalNullable<String> endAt;
@@ -28,13 +28,14 @@ public class Shift {
     private final String createdAt;
     private final String updatedAt;
     private final OptionalNullable<String> teamMemberId;
+    private final Money declaredCashTipMoney;
 
     /**
      * Initialization constructor.
+     * @param  locationId  String value for locationId.
      * @param  startAt  String value for startAt.
      * @param  id  String value for id.
      * @param  employeeId  String value for employeeId.
-     * @param  locationId  String value for locationId.
      * @param  timezone  String value for timezone.
      * @param  endAt  String value for endAt.
      * @param  wage  ShiftWage value for wage.
@@ -44,13 +45,14 @@ public class Shift {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  teamMemberId  String value for teamMemberId.
+     * @param  declaredCashTipMoney  Money value for declaredCashTipMoney.
      */
     @JsonCreator
     public Shift(
+            @JsonProperty("location_id") String locationId,
             @JsonProperty("start_at") String startAt,
             @JsonProperty("id") String id,
             @JsonProperty("employee_id") String employeeId,
-            @JsonProperty("location_id") String locationId,
             @JsonProperty("timezone") String timezone,
             @JsonProperty("end_at") String endAt,
             @JsonProperty("wage") ShiftWage wage,
@@ -59,10 +61,11 @@ public class Shift {
             @JsonProperty("version") Integer version,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
-            @JsonProperty("team_member_id") String teamMemberId) {
+            @JsonProperty("team_member_id") String teamMemberId,
+            @JsonProperty("declared_cash_tip_money") Money declaredCashTipMoney) {
         this.id = id;
         this.employeeId = OptionalNullable.of(employeeId);
-        this.locationId = OptionalNullable.of(locationId);
+        this.locationId = locationId;
         this.timezone = OptionalNullable.of(timezone);
         this.startAt = startAt;
         this.endAt = OptionalNullable.of(endAt);
@@ -73,16 +76,32 @@ public class Shift {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.teamMemberId = OptionalNullable.of(teamMemberId);
+        this.declaredCashTipMoney = declaredCashTipMoney;
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  startAt  String value for startAt.
+     * @param  id  String value for id.
+     * @param  employeeId  String value for employeeId.
+     * @param  timezone  String value for timezone.
+     * @param  endAt  String value for endAt.
+     * @param  wage  ShiftWage value for wage.
+     * @param  breaks  List of Break value for breaks.
+     * @param  status  String value for status.
+     * @param  version  Integer value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  declaredCashTipMoney  Money value for declaredCashTipMoney.
      */
-    protected Shift(String startAt, String id, OptionalNullable<String> employeeId,
-            OptionalNullable<String> locationId, OptionalNullable<String> timezone,
+
+    protected Shift(String locationId, String startAt, String id,
+            OptionalNullable<String> employeeId, OptionalNullable<String> timezone,
             OptionalNullable<String> endAt, ShiftWage wage, OptionalNullable<List<Break>> breaks,
             String status, Integer version, String createdAt, String updatedAt,
-            OptionalNullable<String> teamMemberId) {
+            OptionalNullable<String> teamMemberId, Money declaredCashTipMoney) {
         this.id = id;
         this.employeeId = employeeId;
         this.locationId = locationId;
@@ -96,6 +115,7 @@ public class Shift {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.teamMemberId = teamMemberId;
+        this.declaredCashTipMoney = declaredCashTipMoney;
     }
 
     /**
@@ -134,27 +154,14 @@ public class Shift {
     }
 
     /**
-     * Internal Getter for LocationId.
-     * The ID of the location this shift occurred at. The location should be based on where the
-     * employee clocked in.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("location_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetLocationId() {
-        return this.locationId;
-    }
-
-    /**
      * Getter for LocationId.
      * The ID of the location this shift occurred at. The location should be based on where the
      * employee clocked in.
      * @return Returns the String
      */
-    @JsonIgnore
+    @JsonGetter("location_id")
     public String getLocationId() {
-        return OptionalNullable.getFrom(locationId);
+        return locationId;
     }
 
     /**
@@ -319,10 +326,26 @@ public class Shift {
         return OptionalNullable.getFrom(teamMemberId);
     }
 
+    /**
+     * Getter for DeclaredCashTipMoney.
+     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
+     * explicitly define whether they are signed or unsigned are considered unsigned and can only
+     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
+     * money transfer. See [Working with Monetary
+     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
+     * more information.
+     * @return Returns the Money
+     */
+    @JsonGetter("declared_cash_tip_money")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Money getDeclaredCashTipMoney() {
+        return declaredCashTipMoney;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, employeeId, locationId, timezone, startAt, endAt, wage, breaks,
-                status, version, createdAt, updatedAt, teamMemberId);
+                status, version, createdAt, updatedAt, teamMemberId, declaredCashTipMoney);
     }
 
     @Override
@@ -346,7 +369,8 @@ public class Shift {
             && Objects.equals(version, other.version)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
-            && Objects.equals(teamMemberId, other.teamMemberId);
+            && Objects.equals(teamMemberId, other.teamMemberId)
+            && Objects.equals(declaredCashTipMoney, other.declaredCashTipMoney);
     }
 
     /**
@@ -355,11 +379,12 @@ public class Shift {
      */
     @Override
     public String toString() {
-        return "Shift [" + "startAt=" + startAt + ", id=" + id + ", employeeId=" + employeeId
-                + ", locationId=" + locationId + ", timezone=" + timezone + ", endAt=" + endAt
+        return "Shift [" + "locationId=" + locationId + ", startAt=" + startAt + ", id=" + id
+                + ", employeeId=" + employeeId + ", timezone=" + timezone + ", endAt=" + endAt
                 + ", wage=" + wage + ", breaks=" + breaks + ", status=" + status + ", version="
                 + version + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", teamMemberId=" + teamMemberId + "]";
+                + ", teamMemberId=" + teamMemberId + ", declaredCashTipMoney="
+                + declaredCashTipMoney + "]";
     }
 
     /**
@@ -368,15 +393,15 @@ public class Shift {
      * @return a new {@link Shift.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(startAt)
+        Builder builder = new Builder(locationId, startAt)
                 .id(getId())
                 .wage(getWage())
                 .status(getStatus())
                 .version(getVersion())
                 .createdAt(getCreatedAt())
-                .updatedAt(getUpdatedAt());
+                .updatedAt(getUpdatedAt())
+                .declaredCashTipMoney(getDeclaredCashTipMoney());
         builder.employeeId = internalGetEmployeeId();
-        builder.locationId = internalGetLocationId();
         builder.timezone = internalGetTimezone();
         builder.endAt = internalGetEndAt();
         builder.breaks = internalGetBreaks();
@@ -388,10 +413,10 @@ public class Shift {
      * Class to build instances of {@link Shift}.
      */
     public static class Builder {
+        private String locationId;
         private String startAt;
         private String id;
         private OptionalNullable<String> employeeId;
-        private OptionalNullable<String> locationId;
         private OptionalNullable<String> timezone;
         private OptionalNullable<String> endAt;
         private ShiftWage wage;
@@ -401,13 +426,26 @@ public class Shift {
         private String createdAt;
         private String updatedAt;
         private OptionalNullable<String> teamMemberId;
+        private Money declaredCashTipMoney;
 
         /**
          * Initialization constructor.
+         * @param  locationId  String value for locationId.
          * @param  startAt  String value for startAt.
          */
-        public Builder(String startAt) {
+        public Builder(String locationId, String startAt) {
+            this.locationId = locationId;
             this.startAt = startAt;
+        }
+
+        /**
+         * Setter for locationId.
+         * @param  locationId  String value for locationId.
+         * @return Builder
+         */
+        public Builder locationId(String locationId) {
+            this.locationId = locationId;
+            return this;
         }
 
         /**
@@ -446,25 +484,6 @@ public class Shift {
          */
         public Builder unsetEmployeeId() {
             employeeId = null;
-            return this;
-        }
-
-        /**
-         * Setter for locationId.
-         * @param  locationId  String value for locationId.
-         * @return Builder
-         */
-        public Builder locationId(String locationId) {
-            this.locationId = OptionalNullable.of(locationId);
-            return this;
-        }
-
-        /**
-         * UnSetter for locationId.
-         * @return Builder
-         */
-        public Builder unsetLocationId() {
-            locationId = null;
             return this;
         }
 
@@ -595,12 +614,22 @@ public class Shift {
         }
 
         /**
+         * Setter for declaredCashTipMoney.
+         * @param  declaredCashTipMoney  Money value for declaredCashTipMoney.
+         * @return Builder
+         */
+        public Builder declaredCashTipMoney(Money declaredCashTipMoney) {
+            this.declaredCashTipMoney = declaredCashTipMoney;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Shift} object using the set fields.
          * @return {@link Shift}
          */
         public Shift build() {
-            return new Shift(startAt, id, employeeId, locationId, timezone, endAt, wage, breaks,
-                    status, version, createdAt, updatedAt, teamMemberId);
+            return new Shift(locationId, startAt, id, employeeId, timezone, endAt, wage, breaks,
+                    status, version, createdAt, updatedAt, teamMemberId, declaredCashTipMoney);
         }
     }
 }

@@ -35,8 +35,12 @@ public class DigitalWalletDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  status  String value for status.
+     * @param  brand  String value for brand.
+     * @param  cashAppDetails  CashAppDetails value for cashAppDetails.
      */
+
     protected DigitalWalletDetails(OptionalNullable<String> status, OptionalNullable<String> brand,
             CashAppDetails cashAppDetails) {
         this.status = status;

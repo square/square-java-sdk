@@ -35,8 +35,12 @@ public class CloneOrderRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderId  String value for orderId.
+     * @param  version  Integer value for version.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected CloneOrderRequest(String orderId, Integer version,
             OptionalNullable<String> idempotencyKey) {
         this.orderId = orderId;

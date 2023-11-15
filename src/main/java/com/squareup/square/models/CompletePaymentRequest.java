@@ -27,8 +27,10 @@ public class CompletePaymentRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  versionToken  String value for versionToken.
      */
+
     protected CompletePaymentRequest(OptionalNullable<String> versionToken) {
         this.versionToken = versionToken;
     }

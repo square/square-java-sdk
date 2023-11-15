@@ -67,8 +67,20 @@ public class TeamMember {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  isOwner  Boolean value for isOwner.
+     * @param  status  String value for status.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  assignedLocations  TeamMemberAssignedLocations value for assignedLocations.
      */
+
     protected TeamMember(String id, OptionalNullable<String> referenceId, Boolean isOwner,
             String status, OptionalNullable<String> givenName, OptionalNullable<String> familyName,
             OptionalNullable<String> emailAddress, OptionalNullable<String> phoneNumber,

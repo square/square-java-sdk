@@ -27,8 +27,10 @@ public class PaginationCursor {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderValue  String value for orderValue.
      */
+
     protected PaginationCursor(OptionalNullable<String> orderValue) {
         this.orderValue = orderValue;
     }

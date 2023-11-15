@@ -27,8 +27,10 @@ public class PaymentBalanceActivityThirdPartyFeeDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected PaymentBalanceActivityThirdPartyFeeDetail(OptionalNullable<String> paymentId) {
         this.paymentId = paymentId;
     }

@@ -35,8 +35,12 @@ public class ListLocationCustomAttributeDefinitionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  visibilityFilter  String value for visibilityFilter.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListLocationCustomAttributeDefinitionsRequest(String visibilityFilter,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.visibilityFilter = visibilityFilter;

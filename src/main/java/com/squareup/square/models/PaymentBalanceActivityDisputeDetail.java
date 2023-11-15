@@ -31,8 +31,11 @@ public class PaymentBalanceActivityDisputeDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  disputeId  String value for disputeId.
      */
+
     protected PaymentBalanceActivityDisputeDetail(OptionalNullable<String> paymentId,
             OptionalNullable<String> disputeId) {
         this.paymentId = paymentId;

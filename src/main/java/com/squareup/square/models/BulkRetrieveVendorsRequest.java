@@ -28,8 +28,10 @@ public class BulkRetrieveVendorsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  vendorIds  List of String value for vendorIds.
      */
+
     protected BulkRetrieveVendorsRequest(OptionalNullable<List<String>> vendorIds) {
         this.vendorIds = vendorIds;
     }

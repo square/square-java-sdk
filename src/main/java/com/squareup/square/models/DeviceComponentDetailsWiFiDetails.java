@@ -43,8 +43,14 @@ public class DeviceComponentDetailsWiFiDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  active  Boolean value for active.
+     * @param  ssid  String value for ssid.
+     * @param  ipAddressV4  String value for ipAddressV4.
+     * @param  secureConnection  String value for secureConnection.
+     * @param  signalStrength  DeviceComponentDetailsMeasurement value for signalStrength.
      */
+
     protected DeviceComponentDetailsWiFiDetails(OptionalNullable<Boolean> active,
             OptionalNullable<String> ssid, OptionalNullable<String> ipAddressV4,
             OptionalNullable<String> secureConnection,

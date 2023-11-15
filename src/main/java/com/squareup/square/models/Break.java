@@ -51,8 +51,16 @@ public class Break {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startAt  String value for startAt.
+     * @param  breakTypeId  String value for breakTypeId.
+     * @param  name  String value for name.
+     * @param  expectedDuration  String value for expectedDuration.
+     * @param  isPaid  boolean value for isPaid.
+     * @param  id  String value for id.
+     * @param  endAt  String value for endAt.
      */
+
     protected Break(String startAt, String breakTypeId, String name, String expectedDuration,
             boolean isPaid, String id, OptionalNullable<String> endAt) {
         this.id = id;

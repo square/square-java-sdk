@@ -71,8 +71,21 @@ public class UpdateCustomerRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  companyName  String value for companyName.
+     * @param  nickname  String value for nickname.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  birthday  String value for birthday.
+     * @param  version  Long value for version.
+     * @param  taxIds  CustomerTaxIds value for taxIds.
      */
+
     protected UpdateCustomerRequest(OptionalNullable<String> givenName,
             OptionalNullable<String> familyName, OptionalNullable<String> companyName,
             OptionalNullable<String> nickname, OptionalNullable<String> emailAddress,

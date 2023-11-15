@@ -81,8 +81,24 @@ public class ChargeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  cardNonce  String value for cardNonce.
+     * @param  customerCardId  String value for customerCardId.
+     * @param  delayCapture  Boolean value for delayCapture.
+     * @param  referenceId  String value for referenceId.
+     * @param  note  String value for note.
+     * @param  customerId  String value for customerId.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  orderId  String value for orderId.
+     * @param  additionalRecipients  List of ChargeRequestAdditionalRecipient value for
+     *         additionalRecipients.
+     * @param  verificationToken  String value for verificationToken.
      */
+
     protected ChargeRequest(String idempotencyKey, Money amountMoney,
             OptionalNullable<String> cardNonce, OptionalNullable<String> customerCardId,
             OptionalNullable<Boolean> delayCapture, OptionalNullable<String> referenceId,

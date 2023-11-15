@@ -40,8 +40,13 @@ public class BatchRetrieveCatalogObjectsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  objectIds  List of String value for objectIds.
+     * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
      */
+
     protected BatchRetrieveCatalogObjectsRequest(List<String> objectIds,
             OptionalNullable<Boolean> includeRelatedObjects, OptionalNullable<Long> catalogVersion,
             OptionalNullable<Boolean> includeDeletedObjects) {

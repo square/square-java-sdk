@@ -27,8 +27,10 @@ public class TestWebhookSubscriptionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  eventType  String value for eventType.
      */
+
     protected TestWebhookSubscriptionRequest(OptionalNullable<String> eventType) {
         this.eventType = eventType;
     }

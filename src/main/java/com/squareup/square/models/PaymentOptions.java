@@ -39,8 +39,13 @@ public class PaymentOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  autocomplete  Boolean value for autocomplete.
+     * @param  delayDuration  String value for delayDuration.
+     * @param  acceptPartialAuthorization  Boolean value for acceptPartialAuthorization.
+     * @param  delayAction  String value for delayAction.
      */
+
     protected PaymentOptions(OptionalNullable<Boolean> autocomplete,
             OptionalNullable<String> delayDuration,
             OptionalNullable<Boolean> acceptPartialAuthorization, String delayAction) {

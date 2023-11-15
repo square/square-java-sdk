@@ -55,8 +55,17 @@ public class CustomerCustomAttributeFilterValue {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  email  CustomerTextFilter value for email.
+     * @param  phone  CustomerTextFilter value for phone.
+     * @param  text  CustomerTextFilter value for text.
+     * @param  selection  FilterValue value for selection.
+     * @param  date  TimeRange value for date.
+     * @param  number  FloatNumberRange value for number.
+     * @param  mBoolean  Boolean value for mBoolean.
+     * @param  address  CustomerAddressFilter value for address.
      */
+
     protected CustomerCustomAttributeFilterValue(CustomerTextFilter email, CustomerTextFilter phone,
             CustomerTextFilter text, FilterValue selection, TimeRange date, FloatNumberRange number,
             OptionalNullable<Boolean> mBoolean, CustomerAddressFilter address) {

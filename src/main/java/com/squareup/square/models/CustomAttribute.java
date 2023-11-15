@@ -52,8 +52,16 @@ public class CustomAttribute {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  key  String value for key.
+     * @param  value  JsonValue value for value.
+     * @param  version  Integer value for version.
+     * @param  visibility  String value for visibility.
+     * @param  definition  CustomAttributeDefinition value for definition.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  String value for createdAt.
      */
+
     protected CustomAttribute(OptionalNullable<String> key, OptionalNullable<JsonValue> value,
             Integer version, String visibility, CustomAttributeDefinition definition,
             String updatedAt, String createdAt) {

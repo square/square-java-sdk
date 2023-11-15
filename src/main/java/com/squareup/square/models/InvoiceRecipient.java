@@ -55,8 +55,17 @@ public class InvoiceRecipient {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerId  String value for customerId.
+     * @param  givenName  String value for givenName.
+     * @param  familyName  String value for familyName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  address  Address value for address.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  companyName  String value for companyName.
+     * @param  taxIds  InvoiceRecipientTaxIds value for taxIds.
      */
+
     protected InvoiceRecipient(OptionalNullable<String> customerId, String givenName,
             String familyName, String emailAddress, Address address, String phoneNumber,
             String companyName, InvoiceRecipientTaxIds taxIds) {

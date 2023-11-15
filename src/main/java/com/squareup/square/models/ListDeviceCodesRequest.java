@@ -40,8 +40,13 @@ public class ListDeviceCodesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
+     * @param  productType  String value for productType.
+     * @param  status  List of String value for status.
      */
+
     protected ListDeviceCodesRequest(OptionalNullable<String> cursor,
             OptionalNullable<String> locationId, String productType,
             OptionalNullable<List<String>> status) {

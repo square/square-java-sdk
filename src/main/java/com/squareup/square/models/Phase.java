@@ -39,8 +39,13 @@ public class Phase {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  ordinal  Long value for ordinal.
+     * @param  orderTemplateId  String value for orderTemplateId.
+     * @param  planPhaseUid  String value for planPhaseUid.
      */
+
     protected Phase(OptionalNullable<String> uid, OptionalNullable<Long> ordinal,
             OptionalNullable<String> orderTemplateId, OptionalNullable<String> planPhaseUid) {
         this.uid = uid;

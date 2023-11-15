@@ -31,8 +31,11 @@ public class UpsertOrderCustomAttributeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttribute  CustomAttribute value for customAttribute.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpsertOrderCustomAttributeRequest(CustomAttribute customAttribute,
             OptionalNullable<String> idempotencyKey) {
         this.customAttribute = customAttribute;

@@ -31,8 +31,11 @@ public class FloatNumberRange {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startAt  String value for startAt.
+     * @param  endAt  String value for endAt.
      */
+
     protected FloatNumberRange(OptionalNullable<String> startAt, OptionalNullable<String> endAt) {
         this.startAt = startAt;
         this.endAt = endAt;

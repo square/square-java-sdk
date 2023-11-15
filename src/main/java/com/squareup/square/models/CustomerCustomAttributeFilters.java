@@ -28,8 +28,10 @@ public class CustomerCustomAttributeFilters {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  filters  List of CustomerCustomAttributeFilter value for filters.
      */
+
     protected CustomerCustomAttributeFilters(
             OptionalNullable<List<CustomerCustomAttributeFilter>> filters) {
         this.filters = filters;

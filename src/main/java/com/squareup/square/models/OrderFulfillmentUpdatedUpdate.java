@@ -35,8 +35,12 @@ public class OrderFulfillmentUpdatedUpdate {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  fulfillmentUid  String value for fulfillmentUid.
+     * @param  oldState  String value for oldState.
+     * @param  newState  String value for newState.
      */
+
     protected OrderFulfillmentUpdatedUpdate(OptionalNullable<String> fulfillmentUid,
             String oldState, String newState) {
         this.fulfillmentUid = fulfillmentUid;

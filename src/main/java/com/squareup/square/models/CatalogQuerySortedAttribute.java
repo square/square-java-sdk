@@ -35,8 +35,12 @@ public class CatalogQuerySortedAttribute {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  attributeName  String value for attributeName.
+     * @param  initialAttributeValue  String value for initialAttributeValue.
+     * @param  sortOrder  String value for sortOrder.
      */
+
     protected CatalogQuerySortedAttribute(String attributeName,
             OptionalNullable<String> initialAttributeValue, String sortOrder) {
         this.attributeName = attributeName;

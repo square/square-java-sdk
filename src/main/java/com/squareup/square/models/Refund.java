@@ -64,8 +64,19 @@ public class Refund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  tenderId  String value for tenderId.
+     * @param  reason  String value for reason.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  status  String value for status.
+     * @param  transactionId  String value for transactionId.
+     * @param  createdAt  String value for createdAt.
+     * @param  processingFeeMoney  Money value for processingFeeMoney.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      */
+
     protected Refund(String id, String locationId, String tenderId, String reason,
             Money amountMoney, String status, OptionalNullable<String> transactionId,
             String createdAt, Money processingFeeMoney,

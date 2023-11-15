@@ -31,8 +31,11 @@ public class ShippingFee {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  charge  Money value for charge.
+     * @param  name  String value for name.
      */
+
     protected ShippingFee(Money charge, OptionalNullable<String> name) {
         this.name = name;
         this.charge = charge;

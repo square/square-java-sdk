@@ -87,8 +87,25 @@ public class V1Tender {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  type  String value for type.
+     * @param  name  String value for name.
+     * @param  employeeId  String value for employeeId.
+     * @param  receiptUrl  String value for receiptUrl.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  panSuffix  String value for panSuffix.
+     * @param  entryMethod  String value for entryMethod.
+     * @param  paymentNote  String value for paymentNote.
+     * @param  totalMoney  V1Money value for totalMoney.
+     * @param  tenderedMoney  V1Money value for tenderedMoney.
+     * @param  tenderedAt  String value for tenderedAt.
+     * @param  settledAt  String value for settledAt.
+     * @param  changeBackMoney  V1Money value for changeBackMoney.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  isExchange  Boolean value for isExchange.
      */
+
     protected V1Tender(String id, String type, OptionalNullable<String> name,
             OptionalNullable<String> employeeId, OptionalNullable<String> receiptUrl,
             String cardBrand, OptionalNullable<String> panSuffix, String entryMethod,

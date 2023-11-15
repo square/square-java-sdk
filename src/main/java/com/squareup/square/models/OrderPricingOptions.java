@@ -31,8 +31,11 @@ public class OrderPricingOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  autoApplyDiscounts  Boolean value for autoApplyDiscounts.
+     * @param  autoApplyTaxes  Boolean value for autoApplyTaxes.
      */
+
     protected OrderPricingOptions(OptionalNullable<Boolean> autoApplyDiscounts,
             OptionalNullable<Boolean> autoApplyTaxes) {
         this.autoApplyDiscounts = autoApplyDiscounts;

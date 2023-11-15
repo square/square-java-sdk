@@ -55,8 +55,17 @@ public class OrderReturnLineItemModifier {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  sourceModifierUid  String value for sourceModifierUid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  name  String value for name.
+     * @param  basePriceMoney  Money value for basePriceMoney.
+     * @param  totalPriceMoney  Money value for totalPriceMoney.
+     * @param  quantity  String value for quantity.
      */
+
     protected OrderReturnLineItemModifier(OptionalNullable<String> uid,
             OptionalNullable<String> sourceModifierUid, OptionalNullable<String> catalogObjectId,
             OptionalNullable<Long> catalogVersion, OptionalNullable<String> name,

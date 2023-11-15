@@ -44,8 +44,14 @@ public class GiftCardActivityActivate {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  orderId  String value for orderId.
+     * @param  lineItemUid  String value for lineItemUid.
+     * @param  referenceId  String value for referenceId.
+     * @param  buyerPaymentInstrumentIds  List of String value for buyerPaymentInstrumentIds.
      */
+
     protected GiftCardActivityActivate(Money amountMoney, OptionalNullable<String> orderId,
             OptionalNullable<String> lineItemUid, OptionalNullable<String> referenceId,
             OptionalNullable<List<String>> buyerPaymentInstrumentIds) {

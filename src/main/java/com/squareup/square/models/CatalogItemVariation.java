@@ -110,8 +110,32 @@ public class CatalogItemVariation {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemId  String value for itemId.
+     * @param  name  String value for name.
+     * @param  sku  String value for sku.
+     * @param  upc  String value for upc.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  pricingType  String value for pricingType.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  locationOverrides  List of ItemVariationLocationOverrides value for
+     *         locationOverrides.
+     * @param  trackInventory  Boolean value for trackInventory.
+     * @param  inventoryAlertType  String value for inventoryAlertType.
+     * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
+     * @param  userData  String value for userData.
+     * @param  serviceDuration  Long value for serviceDuration.
+     * @param  availableForBooking  Boolean value for availableForBooking.
+     * @param  itemOptionValues  List of CatalogItemOptionValueForItemVariation value for
+     *         itemOptionValues.
+     * @param  measurementUnitId  String value for measurementUnitId.
+     * @param  sellable  Boolean value for sellable.
+     * @param  stockable  Boolean value for stockable.
+     * @param  imageIds  List of String value for imageIds.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
+     * @param  stockableConversion  CatalogStockConversion value for stockableConversion.
      */
+
     protected CatalogItemVariation(OptionalNullable<String> itemId, OptionalNullable<String> name,
             OptionalNullable<String> sku, OptionalNullable<String> upc, Integer ordinal,
             String pricingType, Money priceMoney,

@@ -31,8 +31,11 @@ public class CustomerTextFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  exact  String value for exact.
+     * @param  fuzzy  String value for fuzzy.
      */
+
     protected CustomerTextFilter(OptionalNullable<String> exact, OptionalNullable<String> fuzzy) {
         this.exact = exact;
         this.fuzzy = fuzzy;

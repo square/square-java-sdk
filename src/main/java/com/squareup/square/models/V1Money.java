@@ -31,8 +31,11 @@ public class V1Money {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amount  Integer value for amount.
+     * @param  currencyCode  String value for currencyCode.
      */
+
     protected V1Money(OptionalNullable<Integer> amount, String currencyCode) {
         this.amount = amount;
         this.currencyCode = currencyCode;

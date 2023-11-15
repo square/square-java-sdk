@@ -55,8 +55,17 @@ public class Merchant {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  country  String value for country.
+     * @param  id  String value for id.
+     * @param  businessName  String value for businessName.
+     * @param  languageCode  String value for languageCode.
+     * @param  currency  String value for currency.
+     * @param  status  String value for status.
+     * @param  mainLocationId  String value for mainLocationId.
+     * @param  createdAt  String value for createdAt.
      */
+
     protected Merchant(String country, String id, OptionalNullable<String> businessName,
             OptionalNullable<String> languageCode, String currency, String status,
             OptionalNullable<String> mainLocationId, String createdAt) {

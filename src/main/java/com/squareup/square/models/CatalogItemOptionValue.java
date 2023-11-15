@@ -43,8 +43,14 @@ public class CatalogItemOptionValue {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemOptionId  String value for itemOptionId.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  color  String value for color.
+     * @param  ordinal  Integer value for ordinal.
      */
+
     protected CatalogItemOptionValue(OptionalNullable<String> itemOptionId,
             OptionalNullable<String> name, OptionalNullable<String> description,
             OptionalNullable<String> color, OptionalNullable<Integer> ordinal) {

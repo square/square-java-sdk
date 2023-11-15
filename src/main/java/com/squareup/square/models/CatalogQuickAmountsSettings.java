@@ -36,8 +36,12 @@ public class CatalogQuickAmountsSettings {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  option  String value for option.
+     * @param  eligibleForAutoAmounts  Boolean value for eligibleForAutoAmounts.
+     * @param  amounts  List of CatalogQuickAmount value for amounts.
      */
+
     protected CatalogQuickAmountsSettings(String option,
             OptionalNullable<Boolean> eligibleForAutoAmounts,
             OptionalNullable<List<CatalogQuickAmount>> amounts) {

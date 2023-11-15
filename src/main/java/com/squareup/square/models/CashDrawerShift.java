@@ -108,8 +108,30 @@ public class CashDrawerShift {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  state  String value for state.
+     * @param  openedAt  String value for openedAt.
+     * @param  endedAt  String value for endedAt.
+     * @param  closedAt  String value for closedAt.
+     * @param  description  String value for description.
+     * @param  openedCashMoney  Money value for openedCashMoney.
+     * @param  cashPaymentMoney  Money value for cashPaymentMoney.
+     * @param  cashRefundsMoney  Money value for cashRefundsMoney.
+     * @param  cashPaidInMoney  Money value for cashPaidInMoney.
+     * @param  cashPaidOutMoney  Money value for cashPaidOutMoney.
+     * @param  expectedCashMoney  Money value for expectedCashMoney.
+     * @param  closedCashMoney  Money value for closedCashMoney.
+     * @param  device  CashDrawerDevice value for device.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  locationId  String value for locationId.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
+     * @param  openingTeamMemberId  String value for openingTeamMemberId.
+     * @param  endingTeamMemberId  String value for endingTeamMemberId.
+     * @param  closingTeamMemberId  String value for closingTeamMemberId.
      */
+
     protected CashDrawerShift(String id, String state, OptionalNullable<String> openedAt,
             OptionalNullable<String> endedAt, OptionalNullable<String> closedAt,
             OptionalNullable<String> description, Money openedCashMoney, Money cashPaymentMoney,

@@ -36,8 +36,12 @@ public class PayOrderRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  orderVersion  Integer value for orderVersion.
+     * @param  paymentIds  List of String value for paymentIds.
      */
+
     protected PayOrderRequest(String idempotencyKey, OptionalNullable<Integer> orderVersion,
             OptionalNullable<List<String>> paymentIds) {
         this.idempotencyKey = idempotencyKey;

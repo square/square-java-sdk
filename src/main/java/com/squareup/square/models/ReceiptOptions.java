@@ -35,8 +35,12 @@ public class ReceiptOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  printOnly  Boolean value for printOnly.
+     * @param  isDuplicate  Boolean value for isDuplicate.
      */
+
     protected ReceiptOptions(String paymentId, OptionalNullable<Boolean> printOnly,
             OptionalNullable<Boolean> isDuplicate) {
         this.paymentId = paymentId;

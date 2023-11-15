@@ -31,8 +31,11 @@ public class ListCustomerGroupsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListCustomerGroupsRequest(OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit) {
         this.cursor = cursor;

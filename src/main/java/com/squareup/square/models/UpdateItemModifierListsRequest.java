@@ -36,8 +36,12 @@ public class UpdateItemModifierListsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemIds  List of String value for itemIds.
+     * @param  modifierListsToEnable  List of String value for modifierListsToEnable.
+     * @param  modifierListsToDisable  List of String value for modifierListsToDisable.
      */
+
     protected UpdateItemModifierListsRequest(List<String> itemIds,
             OptionalNullable<List<String>> modifierListsToEnable,
             OptionalNullable<List<String>> modifierListsToDisable) {

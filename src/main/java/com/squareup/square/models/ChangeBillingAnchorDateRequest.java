@@ -31,8 +31,11 @@ public class ChangeBillingAnchorDateRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  monthlyBillingAnchorDate  Integer value for monthlyBillingAnchorDate.
+     * @param  effectiveDate  String value for effectiveDate.
      */
+
     protected ChangeBillingAnchorDateRequest(OptionalNullable<Integer> monthlyBillingAnchorDate,
             OptionalNullable<String> effectiveDate) {
         this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;

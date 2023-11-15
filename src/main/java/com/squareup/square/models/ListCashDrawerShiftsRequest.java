@@ -47,8 +47,15 @@ public class ListCashDrawerShiftsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListCashDrawerShiftsRequest(String locationId, String sortOrder,
             OptionalNullable<String> beginTime, OptionalNullable<String> endTime,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {

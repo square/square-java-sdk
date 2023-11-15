@@ -31,8 +31,11 @@ public class ListPaymentLinksRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListPaymentLinksRequest(OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit) {
         this.cursor = cursor;

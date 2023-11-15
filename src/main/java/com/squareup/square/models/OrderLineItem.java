@@ -114,8 +114,32 @@ public class OrderLineItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  quantity  String value for quantity.
+     * @param  uid  String value for uid.
+     * @param  name  String value for name.
+     * @param  quantityUnit  OrderQuantityUnit value for quantityUnit.
+     * @param  note  String value for note.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  variationName  String value for variationName.
+     * @param  itemType  String value for itemType.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  modifiers  List of OrderLineItemModifier value for modifiers.
+     * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
+     * @param  appliedDiscounts  List of OrderLineItemAppliedDiscount value for appliedDiscounts.
+     * @param  appliedServiceCharges  List of OrderLineItemAppliedServiceCharge value for
+     *         appliedServiceCharges.
+     * @param  basePriceMoney  Money value for basePriceMoney.
+     * @param  variationTotalPriceMoney  Money value for variationTotalPriceMoney.
+     * @param  grossSalesMoney  Money value for grossSalesMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  totalDiscountMoney  Money value for totalDiscountMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  pricingBlocklists  OrderLineItemPricingBlocklists value for pricingBlocklists.
+     * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
      */
+
     protected OrderLineItem(String quantity, OptionalNullable<String> uid,
             OptionalNullable<String> name, OrderQuantityUnit quantityUnit,
             OptionalNullable<String> note, OptionalNullable<String> catalogObjectId,

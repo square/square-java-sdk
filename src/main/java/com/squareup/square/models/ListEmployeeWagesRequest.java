@@ -35,8 +35,12 @@ public class ListEmployeeWagesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  employeeId  String value for employeeId.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListEmployeeWagesRequest(OptionalNullable<String> employeeId,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.employeeId = employeeId;

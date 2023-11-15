@@ -36,8 +36,12 @@ public class UpdateOrderRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  Order value for order.
+     * @param  fieldsToClear  List of String value for fieldsToClear.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateOrderRequest(Order order, OptionalNullable<List<String>> fieldsToClear,
             OptionalNullable<String> idempotencyKey) {
         this.order = order;

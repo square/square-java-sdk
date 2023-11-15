@@ -35,8 +35,12 @@ public class ListLoyaltyPromotionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  status  String value for status.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListLoyaltyPromotionsRequest(String status, OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit) {
         this.status = status;

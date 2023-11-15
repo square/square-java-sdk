@@ -61,8 +61,18 @@ public class OrderFulfillment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  type  String value for type.
+     * @param  state  String value for state.
+     * @param  lineItemApplication  String value for lineItemApplication.
+     * @param  entries  List of OrderFulfillmentFulfillmentEntry value for entries.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  pickupDetails  OrderFulfillmentPickupDetails value for pickupDetails.
+     * @param  shipmentDetails  OrderFulfillmentShipmentDetails value for shipmentDetails.
+     * @param  deliveryDetails  OrderFulfillmentDeliveryDetails value for deliveryDetails.
      */
+
     protected OrderFulfillment(OptionalNullable<String> uid, String type, String state,
             String lineItemApplication, List<OrderFulfillmentFulfillmentEntry> entries,
             OptionalNullable<Map<String, String>> metadata,

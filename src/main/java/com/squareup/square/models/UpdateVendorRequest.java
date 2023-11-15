@@ -31,8 +31,11 @@ public class UpdateVendorRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  vendor  Vendor value for vendor.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateVendorRequest(Vendor vendor, OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         this.vendor = vendor;

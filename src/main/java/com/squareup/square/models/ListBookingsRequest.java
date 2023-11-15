@@ -51,8 +51,16 @@ public class ListBookingsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  customerId  String value for customerId.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  locationId  String value for locationId.
+     * @param  startAtMin  String value for startAtMin.
+     * @param  startAtMax  String value for startAtMax.
      */
+
     protected ListBookingsRequest(OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
             OptionalNullable<String> customerId, OptionalNullable<String> teamMemberId,
             OptionalNullable<String> locationId, OptionalNullable<String> startAtMin,

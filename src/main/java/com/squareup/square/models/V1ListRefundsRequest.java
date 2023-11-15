@@ -43,8 +43,14 @@ public class V1ListRefundsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  String value for order.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  batchToken  String value for batchToken.
      */
+
     protected V1ListRefundsRequest(String order, OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<Integer> limit,
             OptionalNullable<String> batchToken) {

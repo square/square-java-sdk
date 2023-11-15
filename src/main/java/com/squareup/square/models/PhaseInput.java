@@ -31,8 +31,11 @@ public class PhaseInput {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  ordinal  long value for ordinal.
+     * @param  orderTemplateId  String value for orderTemplateId.
      */
+
     protected PhaseInput(long ordinal, OptionalNullable<String> orderTemplateId) {
         this.ordinal = ordinal;
         this.orderTemplateId = orderTemplateId;

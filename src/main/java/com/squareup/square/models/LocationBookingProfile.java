@@ -35,8 +35,12 @@ public class LocationBookingProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  bookingSiteUrl  String value for bookingSiteUrl.
+     * @param  onlineBookingEnabled  Boolean value for onlineBookingEnabled.
      */
+
     protected LocationBookingProfile(OptionalNullable<String> locationId,
             OptionalNullable<String> bookingSiteUrl,
             OptionalNullable<Boolean> onlineBookingEnabled) {

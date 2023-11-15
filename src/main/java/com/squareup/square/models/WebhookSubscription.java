@@ -60,8 +60,18 @@ public class WebhookSubscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  enabled  Boolean value for enabled.
+     * @param  eventTypes  List of String value for eventTypes.
+     * @param  notificationUrl  String value for notificationUrl.
+     * @param  apiVersion  String value for apiVersion.
+     * @param  signatureKey  String value for signatureKey.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected WebhookSubscription(String id, OptionalNullable<String> name,
             OptionalNullable<Boolean> enabled, OptionalNullable<List<String>> eventTypes,
             OptionalNullable<String> notificationUrl, OptionalNullable<String> apiVersion,

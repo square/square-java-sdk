@@ -39,8 +39,13 @@ public class GiftCardActivityRefund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  redeemActivityId  String value for redeemActivityId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  referenceId  String value for referenceId.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected GiftCardActivityRefund(OptionalNullable<String> redeemActivityId, Money amountMoney,
             OptionalNullable<String> referenceId, String paymentId) {
         this.redeemActivityId = redeemActivityId;

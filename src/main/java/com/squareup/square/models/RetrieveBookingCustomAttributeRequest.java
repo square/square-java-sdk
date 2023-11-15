@@ -31,8 +31,11 @@ public class RetrieveBookingCustomAttributeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  withDefinition  Boolean value for withDefinition.
+     * @param  version  Integer value for version.
      */
+
     protected RetrieveBookingCustomAttributeRequest(OptionalNullable<Boolean> withDefinition,
             Integer version) {
         this.withDefinition = withDefinition;
