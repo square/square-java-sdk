@@ -40,8 +40,13 @@ public class SearchAvailabilityFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startAtRange  TimeRange value for startAtRange.
+     * @param  locationId  String value for locationId.
+     * @param  segmentFilters  List of SegmentFilter value for segmentFilters.
+     * @param  bookingId  String value for bookingId.
      */
+
     protected SearchAvailabilityFilter(TimeRange startAtRange, OptionalNullable<String> locationId,
             OptionalNullable<List<SegmentFilter>> segmentFilters,
             OptionalNullable<String> bookingId) {

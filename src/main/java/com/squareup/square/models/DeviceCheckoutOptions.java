@@ -43,8 +43,14 @@ public class DeviceCheckoutOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  deviceId  String value for deviceId.
+     * @param  skipReceiptScreen  Boolean value for skipReceiptScreen.
+     * @param  collectSignature  Boolean value for collectSignature.
+     * @param  tipSettings  TipSettings value for tipSettings.
+     * @param  showItemizedCart  Boolean value for showItemizedCart.
      */
+
     protected DeviceCheckoutOptions(String deviceId, OptionalNullable<Boolean> skipReceiptScreen,
             OptionalNullable<Boolean> collectSignature, TipSettings tipSettings,
             OptionalNullable<Boolean> showItemizedCart) {

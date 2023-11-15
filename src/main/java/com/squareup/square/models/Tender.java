@@ -92,8 +92,26 @@ public class Tender {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  transactionId  String value for transactionId.
+     * @param  createdAt  String value for createdAt.
+     * @param  note  String value for note.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  processingFeeMoney  Money value for processingFeeMoney.
+     * @param  customerId  String value for customerId.
+     * @param  cardDetails  TenderCardDetails value for cardDetails.
+     * @param  cashDetails  TenderCashDetails value for cashDetails.
+     * @param  bankAccountDetails  TenderBankAccountDetails value for bankAccountDetails.
+     * @param  buyNowPayLaterDetails  TenderBuyNowPayLaterDetails value for buyNowPayLaterDetails.
+     * @param  squareAccountDetails  TenderSquareAccountDetails value for squareAccountDetails.
+     * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected Tender(String type, String id, OptionalNullable<String> locationId,
             OptionalNullable<String> transactionId, String createdAt, OptionalNullable<String> note,
             Money amountMoney, Money tipMoney, Money processingFeeMoney,

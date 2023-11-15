@@ -28,8 +28,10 @@ public class SearchOrdersCustomerFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerIds  List of String value for customerIds.
      */
+
     protected SearchOrdersCustomerFilter(OptionalNullable<List<String>> customerIds) {
         this.customerIds = customerIds;
     }

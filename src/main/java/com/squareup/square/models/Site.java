@@ -47,8 +47,15 @@ public class Site {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  siteTitle  String value for siteTitle.
+     * @param  domain  String value for domain.
+     * @param  isPublished  Boolean value for isPublished.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected Site(String id, OptionalNullable<String> siteTitle, OptionalNullable<String> domain,
             OptionalNullable<Boolean> isPublished, String createdAt, String updatedAt) {
         this.id = id;

@@ -98,8 +98,27 @@ public class V1Refund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  reason  String value for reason.
+     * @param  refundedMoney  V1Money value for refundedMoney.
+     * @param  refundedProcessingFeeMoney  V1Money value for refundedProcessingFeeMoney.
+     * @param  refundedTaxMoney  V1Money value for refundedTaxMoney.
+     * @param  refundedAdditiveTaxMoney  V1Money value for refundedAdditiveTaxMoney.
+     * @param  refundedAdditiveTax  List of V1PaymentTax value for refundedAdditiveTax.
+     * @param  refundedInclusiveTaxMoney  V1Money value for refundedInclusiveTaxMoney.
+     * @param  refundedInclusiveTax  List of V1PaymentTax value for refundedInclusiveTax.
+     * @param  refundedTipMoney  V1Money value for refundedTipMoney.
+     * @param  refundedDiscountMoney  V1Money value for refundedDiscountMoney.
+     * @param  refundedSurchargeMoney  V1Money value for refundedSurchargeMoney.
+     * @param  refundedSurcharges  List of V1PaymentSurcharge value for refundedSurcharges.
+     * @param  createdAt  String value for createdAt.
+     * @param  processedAt  String value for processedAt.
+     * @param  paymentId  String value for paymentId.
+     * @param  merchantId  String value for merchantId.
+     * @param  isExchange  Boolean value for isExchange.
      */
+
     protected V1Refund(String type, OptionalNullable<String> reason, V1Money refundedMoney,
             V1Money refundedProcessingFeeMoney, V1Money refundedTaxMoney,
             V1Money refundedAdditiveTaxMoney,

@@ -55,8 +55,17 @@ public class CatalogDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  discountType  String value for discountType.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  pinRequired  Boolean value for pinRequired.
+     * @param  labelColor  String value for labelColor.
+     * @param  modifyTaxBasis  String value for modifyTaxBasis.
+     * @param  maximumAmountMoney  Money value for maximumAmountMoney.
      */
+
     protected CatalogDiscount(OptionalNullable<String> name, String discountType,
             OptionalNullable<String> percentage, Money amountMoney,
             OptionalNullable<Boolean> pinRequired, OptionalNullable<String> labelColor,

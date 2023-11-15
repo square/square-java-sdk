@@ -93,8 +93,27 @@ public class BankAccount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  accountNumberSuffix  String value for accountNumberSuffix.
+     * @param  country  String value for country.
+     * @param  currency  String value for currency.
+     * @param  accountType  String value for accountType.
+     * @param  holderName  String value for holderName.
+     * @param  primaryBankIdentificationNumber  String value for primaryBankIdentificationNumber.
+     * @param  status  String value for status.
+     * @param  creditable  boolean value for creditable.
+     * @param  debitable  boolean value for debitable.
+     * @param  secondaryBankIdentificationNumber  String value for
+     *         secondaryBankIdentificationNumber.
+     * @param  debitMandateReferenceId  String value for debitMandateReferenceId.
+     * @param  referenceId  String value for referenceId.
+     * @param  locationId  String value for locationId.
+     * @param  fingerprint  String value for fingerprint.
+     * @param  version  Integer value for version.
+     * @param  bankName  String value for bankName.
      */
+
     protected BankAccount(String id, String accountNumberSuffix, String country, String currency,
             String accountType, String holderName, String primaryBankIdentificationNumber,
             String status, boolean creditable, boolean debitable,

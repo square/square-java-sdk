@@ -47,8 +47,15 @@ public class CashDrawerShiftEvent {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  eventType  String value for eventType.
+     * @param  eventMoney  Money value for eventMoney.
+     * @param  createdAt  String value for createdAt.
+     * @param  description  String value for description.
+     * @param  teamMemberId  String value for teamMemberId.
      */
+
     protected CashDrawerShiftEvent(String id, String eventType, Money eventMoney, String createdAt,
             OptionalNullable<String> description, String teamMemberId) {
         this.id = id;

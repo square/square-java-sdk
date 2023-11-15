@@ -31,8 +31,11 @@ public class DeviceComponentDetailsEthernetDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  active  Boolean value for active.
+     * @param  ipAddressV4  String value for ipAddressV4.
      */
+
     protected DeviceComponentDetailsEthernetDetails(OptionalNullable<Boolean> active,
             OptionalNullable<String> ipAddressV4) {
         this.active = active;

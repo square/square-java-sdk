@@ -63,8 +63,19 @@ public class OrderReturnDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  sourceDiscountUid  String value for sourceDiscountUid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  scope  String value for scope.
      */
+
     protected OrderReturnDiscount(OptionalNullable<String> uid,
             OptionalNullable<String> sourceDiscountUid, OptionalNullable<String> catalogObjectId,
             OptionalNullable<Long> catalogVersion, OptionalNullable<String> name, String type,

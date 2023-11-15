@@ -35,8 +35,12 @@ public class DeviceDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  deviceId  String value for deviceId.
+     * @param  deviceInstallationId  String value for deviceInstallationId.
+     * @param  deviceName  String value for deviceName.
      */
+
     protected DeviceDetails(OptionalNullable<String> deviceId,
             OptionalNullable<String> deviceInstallationId, OptionalNullable<String> deviceName) {
         this.deviceId = deviceId;

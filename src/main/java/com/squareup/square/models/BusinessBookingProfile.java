@@ -56,8 +56,18 @@ public class BusinessBookingProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  sellerId  String value for sellerId.
+     * @param  createdAt  String value for createdAt.
+     * @param  bookingEnabled  Boolean value for bookingEnabled.
+     * @param  customerTimezoneChoice  String value for customerTimezoneChoice.
+     * @param  bookingPolicy  String value for bookingPolicy.
+     * @param  allowUserCancel  Boolean value for allowUserCancel.
+     * @param  businessAppointmentSettings  BusinessAppointmentSettings value for
+     *         businessAppointmentSettings.
+     * @param  supportSellerLevelWrites  Boolean value for supportSellerLevelWrites.
      */
+
     protected BusinessBookingProfile(OptionalNullable<String> sellerId, String createdAt,
             OptionalNullable<Boolean> bookingEnabled, String customerTimezoneChoice,
             String bookingPolicy, OptionalNullable<Boolean> allowUserCancel,

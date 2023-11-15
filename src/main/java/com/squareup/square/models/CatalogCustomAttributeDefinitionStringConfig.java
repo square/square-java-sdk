@@ -27,8 +27,10 @@ public class CatalogCustomAttributeDefinitionStringConfig {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  enforceUniqueness  Boolean value for enforceUniqueness.
      */
+
     protected CatalogCustomAttributeDefinitionStringConfig(
             OptionalNullable<Boolean> enforceUniqueness) {
         this.enforceUniqueness = enforceUniqueness;

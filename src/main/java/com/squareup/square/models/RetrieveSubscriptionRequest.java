@@ -27,8 +27,10 @@ public class RetrieveSubscriptionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  include  String value for include.
      */
+
     protected RetrieveSubscriptionRequest(OptionalNullable<String> include) {
         this.include = include;
     }

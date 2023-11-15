@@ -35,8 +35,12 @@ public class CardPaymentTimeline {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  authorizedAt  String value for authorizedAt.
+     * @param  capturedAt  String value for capturedAt.
+     * @param  voidedAt  String value for voidedAt.
      */
+
     protected CardPaymentTimeline(OptionalNullable<String> authorizedAt,
             OptionalNullable<String> capturedAt, OptionalNullable<String> voidedAt) {
         this.authorizedAt = authorizedAt;

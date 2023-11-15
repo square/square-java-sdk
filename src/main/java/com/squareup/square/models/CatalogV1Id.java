@@ -31,8 +31,11 @@ public class CatalogV1Id {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  catalogV1Id  String value for catalogV1Id.
+     * @param  locationId  String value for locationId.
      */
+
     protected CatalogV1Id(OptionalNullable<String> catalogV1Id,
             OptionalNullable<String> locationId) {
         this.catalogV1Id = catalogV1Id;

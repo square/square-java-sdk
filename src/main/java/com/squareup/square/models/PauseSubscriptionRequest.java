@@ -43,8 +43,14 @@ public class PauseSubscriptionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  pauseEffectiveDate  String value for pauseEffectiveDate.
+     * @param  pauseCycleDuration  Long value for pauseCycleDuration.
+     * @param  resumeEffectiveDate  String value for resumeEffectiveDate.
+     * @param  resumeChangeTiming  String value for resumeChangeTiming.
+     * @param  pauseReason  String value for pauseReason.
      */
+
     protected PauseSubscriptionRequest(OptionalNullable<String> pauseEffectiveDate,
             OptionalNullable<Long> pauseCycleDuration, OptionalNullable<String> resumeEffectiveDate,
             String resumeChangeTiming, OptionalNullable<String> pauseReason) {

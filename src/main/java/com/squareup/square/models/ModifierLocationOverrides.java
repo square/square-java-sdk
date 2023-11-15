@@ -35,8 +35,12 @@ public class ModifierLocationOverrides {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  soldOut  Boolean value for soldOut.
      */
+
     protected ModifierLocationOverrides(OptionalNullable<String> locationId, Money priceMoney,
             Boolean soldOut) {
         this.locationId = locationId;

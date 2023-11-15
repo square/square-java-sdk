@@ -31,8 +31,11 @@ public class ListBookingCustomAttributeDefinitionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListBookingCustomAttributeDefinitionsRequest(OptionalNullable<Integer> limit,
             OptionalNullable<String> cursor) {
         this.limit = limit;

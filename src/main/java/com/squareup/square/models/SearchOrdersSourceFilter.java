@@ -28,8 +28,10 @@ public class SearchOrdersSourceFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  sourceNames  List of String value for sourceNames.
      */
+
     protected SearchOrdersSourceFilter(OptionalNullable<List<String>> sourceNames) {
         this.sourceNames = sourceNames;
     }

@@ -32,8 +32,12 @@ public class UpdateBookingCustomAttributeDefinitionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttributeDefinition  CustomAttributeDefinition value for
+     *         customAttributeDefinition.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateBookingCustomAttributeDefinitionRequest(
             CustomAttributeDefinition customAttributeDefinition,
             OptionalNullable<String> idempotencyKey) {

@@ -47,8 +47,15 @@ public class V1ListPaymentsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  String value for order.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  batchToken  String value for batchToken.
+     * @param  includePartial  Boolean value for includePartial.
      */
+
     protected V1ListPaymentsRequest(String order, OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<Integer> limit,
             OptionalNullable<String> batchToken, OptionalNullable<Boolean> includePartial) {

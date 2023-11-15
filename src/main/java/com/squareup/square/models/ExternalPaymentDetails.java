@@ -39,8 +39,13 @@ public class ExternalPaymentDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  source  String value for source.
+     * @param  sourceId  String value for sourceId.
+     * @param  sourceFeeMoney  Money value for sourceFeeMoney.
      */
+
     protected ExternalPaymentDetails(String type, String source, OptionalNullable<String> sourceId,
             Money sourceFeeMoney) {
         this.type = type;

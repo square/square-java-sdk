@@ -17,30 +17,41 @@ public class ShiftWage {
     private final OptionalNullable<String> title;
     private final Money hourlyRate;
     private final String jobId;
+    private final OptionalNullable<Boolean> tipEligible;
 
     /**
      * Initialization constructor.
      * @param  title  String value for title.
      * @param  hourlyRate  Money value for hourlyRate.
      * @param  jobId  String value for jobId.
+     * @param  tipEligible  Boolean value for tipEligible.
      */
     @JsonCreator
     public ShiftWage(
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate,
-            @JsonProperty("job_id") String jobId) {
+            @JsonProperty("job_id") String jobId,
+            @JsonProperty("tip_eligible") Boolean tipEligible) {
         this.title = OptionalNullable.of(title);
         this.hourlyRate = hourlyRate;
         this.jobId = jobId;
+        this.tipEligible = OptionalNullable.of(tipEligible);
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  title  String value for title.
+     * @param  hourlyRate  Money value for hourlyRate.
+     * @param  jobId  String value for jobId.
+     * @param  tipEligible  Boolean value for tipEligible.
      */
-    protected ShiftWage(OptionalNullable<String> title, Money hourlyRate, String jobId) {
+
+    protected ShiftWage(OptionalNullable<String> title, Money hourlyRate, String jobId,
+            OptionalNullable<Boolean> tipEligible) {
         this.title = title;
         this.hourlyRate = hourlyRate;
         this.jobId = jobId;
+        this.tipEligible = tipEligible;
     }
 
     /**
@@ -93,9 +104,31 @@ public class ShiftWage {
         return jobId;
     }
 
+    /**
+     * Internal Getter for TipEligible.
+     * Whether team members are eligible for tips when working this job.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("tip_eligible")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTipEligible() {
+        return this.tipEligible;
+    }
+
+    /**
+     * Getter for TipEligible.
+     * Whether team members are eligible for tips when working this job.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getTipEligible() {
+        return OptionalNullable.getFrom(tipEligible);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(title, hourlyRate, jobId);
+        return Objects.hash(title, hourlyRate, jobId, tipEligible);
     }
 
     @Override
@@ -109,7 +142,8 @@ public class ShiftWage {
         ShiftWage other = (ShiftWage) obj;
         return Objects.equals(title, other.title)
             && Objects.equals(hourlyRate, other.hourlyRate)
-            && Objects.equals(jobId, other.jobId);
+            && Objects.equals(jobId, other.jobId)
+            && Objects.equals(tipEligible, other.tipEligible);
     }
 
     /**
@@ -119,7 +153,7 @@ public class ShiftWage {
     @Override
     public String toString() {
         return "ShiftWage [" + "title=" + title + ", hourlyRate=" + hourlyRate + ", jobId=" + jobId
-                + "]";
+                + ", tipEligible=" + tipEligible + "]";
     }
 
     /**
@@ -132,6 +166,7 @@ public class ShiftWage {
                 .hourlyRate(getHourlyRate())
                 .jobId(getJobId());
         builder.title = internalGetTitle();
+        builder.tipEligible = internalGetTipEligible();
         return builder;
     }
 
@@ -142,6 +177,7 @@ public class ShiftWage {
         private OptionalNullable<String> title;
         private Money hourlyRate;
         private String jobId;
+        private OptionalNullable<Boolean> tipEligible;
 
 
 
@@ -185,11 +221,30 @@ public class ShiftWage {
         }
 
         /**
+         * Setter for tipEligible.
+         * @param  tipEligible  Boolean value for tipEligible.
+         * @return Builder
+         */
+        public Builder tipEligible(Boolean tipEligible) {
+            this.tipEligible = OptionalNullable.of(tipEligible);
+            return this;
+        }
+
+        /**
+         * UnSetter for tipEligible.
+         * @return Builder
+         */
+        public Builder unsetTipEligible() {
+            tipEligible = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ShiftWage} object using the set fields.
          * @return {@link ShiftWage}
          */
         public ShiftWage build() {
-            return new ShiftWage(title, hourlyRate, jobId);
+            return new ShiftWage(title, hourlyRate, jobId, tipEligible);
         }
     }
 }

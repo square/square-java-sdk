@@ -51,8 +51,16 @@ public class InventoryCount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  state  String value for state.
+     * @param  locationId  String value for locationId.
+     * @param  quantity  String value for quantity.
+     * @param  calculatedAt  String value for calculatedAt.
+     * @param  isEstimated  Boolean value for isEstimated.
      */
+
     protected InventoryCount(OptionalNullable<String> catalogObjectId,
             OptionalNullable<String> catalogObjectType, String state,
             OptionalNullable<String> locationId, OptionalNullable<String> quantity,

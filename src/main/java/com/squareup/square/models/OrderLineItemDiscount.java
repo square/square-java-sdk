@@ -73,8 +73,21 @@ public class OrderLineItemDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  name  String value for name.
+     * @param  type  String value for type.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  scope  String value for scope.
+     * @param  rewardIds  List of String value for rewardIds.
+     * @param  pricingRuleId  String value for pricingRuleId.
      */
+
     protected OrderLineItemDiscount(OptionalNullable<String> uid,
             OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,
             OptionalNullable<String> name, String type, OptionalNullable<String> percentage,

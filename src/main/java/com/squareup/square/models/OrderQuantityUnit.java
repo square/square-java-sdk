@@ -39,8 +39,13 @@ public class OrderQuantityUnit {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  measurementUnit  MeasurementUnit value for measurementUnit.
+     * @param  precision  Integer value for precision.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
+
     protected OrderQuantityUnit(MeasurementUnit measurementUnit,
             OptionalNullable<Integer> precision, OptionalNullable<String> catalogObjectId,
             OptionalNullable<Long> catalogVersion) {

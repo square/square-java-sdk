@@ -35,8 +35,12 @@ public class ListOrderCustomAttributeDefinitionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  visibilityFilter  String value for visibilityFilter.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListOrderCustomAttributeDefinitionsRequest(String visibilityFilter,
             OptionalNullable<String> cursor, OptionalNullable<Integer> limit) {
         this.visibilityFilter = visibilityFilter;

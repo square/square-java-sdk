@@ -40,8 +40,13 @@ public class LoyaltyProgramAccrualRuleSpendData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  taxMode  String value for taxMode.
+     * @param  excludedCategoryIds  List of String value for excludedCategoryIds.
+     * @param  excludedItemVariationIds  List of String value for excludedItemVariationIds.
      */
+
     protected LoyaltyProgramAccrualRuleSpendData(Money amountMoney, String taxMode,
             OptionalNullable<List<String>> excludedCategoryIds,
             OptionalNullable<List<String>> excludedItemVariationIds) {

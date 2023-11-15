@@ -117,8 +117,33 @@ public class Invoice {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
+     * @param  orderId  String value for orderId.
+     * @param  primaryRecipient  InvoiceRecipient value for primaryRecipient.
+     * @param  paymentRequests  List of InvoicePaymentRequest value for paymentRequests.
+     * @param  deliveryMethod  String value for deliveryMethod.
+     * @param  invoiceNumber  String value for invoiceNumber.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  scheduledAt  String value for scheduledAt.
+     * @param  publicUrl  String value for publicUrl.
+     * @param  nextPaymentAmountMoney  Money value for nextPaymentAmountMoney.
+     * @param  status  String value for status.
+     * @param  timezone  String value for timezone.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  acceptedPaymentMethods  InvoiceAcceptedPaymentMethods value for
+     *         acceptedPaymentMethods.
+     * @param  customFields  List of InvoiceCustomField value for customFields.
+     * @param  subscriptionId  String value for subscriptionId.
+     * @param  saleOrServiceDate  String value for saleOrServiceDate.
+     * @param  paymentConditions  String value for paymentConditions.
+     * @param  storePaymentMethodEnabled  Boolean value for storePaymentMethodEnabled.
      */
+
     protected Invoice(String id, Integer version, OptionalNullable<String> locationId,
             OptionalNullable<String> orderId, InvoiceRecipient primaryRecipient,
             OptionalNullable<List<InvoicePaymentRequest>> paymentRequests, String deliveryMethod,

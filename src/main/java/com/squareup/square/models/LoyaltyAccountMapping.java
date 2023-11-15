@@ -35,8 +35,12 @@ public class LoyaltyAccountMapping {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  phoneNumber  String value for phoneNumber.
      */
+
     protected LoyaltyAccountMapping(String id, String createdAt,
             OptionalNullable<String> phoneNumber) {
         this.id = id;

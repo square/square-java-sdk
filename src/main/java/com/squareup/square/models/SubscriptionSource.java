@@ -27,8 +27,10 @@ public class SubscriptionSource {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
      */
+
     protected SubscriptionSource(OptionalNullable<String> name) {
         this.name = name;
     }

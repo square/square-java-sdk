@@ -88,8 +88,25 @@ public class Dispute {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  disputeId  String value for disputeId.
+     * @param  id  String value for id.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  reason  String value for reason.
+     * @param  state  String value for state.
+     * @param  dueAt  String value for dueAt.
+     * @param  disputedPayment  DisputedPayment value for disputedPayment.
+     * @param  evidenceIds  List of String value for evidenceIds.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  brandDisputeId  String value for brandDisputeId.
+     * @param  reportedDate  String value for reportedDate.
+     * @param  reportedAt  String value for reportedAt.
+     * @param  version  Integer value for version.
+     * @param  locationId  String value for locationId.
      */
+
     protected Dispute(OptionalNullable<String> disputeId, String id, Money amountMoney,
             String reason, String state, OptionalNullable<String> dueAt,
             DisputedPayment disputedPayment, OptionalNullable<List<String>> evidenceIds,

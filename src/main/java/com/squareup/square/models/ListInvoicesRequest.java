@@ -35,8 +35,12 @@ public class ListInvoicesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListInvoicesRequest(String locationId, OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit) {
         this.locationId = locationId;

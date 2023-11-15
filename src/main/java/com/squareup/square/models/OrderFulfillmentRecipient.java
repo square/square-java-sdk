@@ -43,8 +43,14 @@ public class OrderFulfillmentRecipient {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerId  String value for customerId.
+     * @param  displayName  String value for displayName.
+     * @param  emailAddress  String value for emailAddress.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  address  Address value for address.
      */
+
     protected OrderFulfillmentRecipient(OptionalNullable<String> customerId,
             OptionalNullable<String> displayName, OptionalNullable<String> emailAddress,
             OptionalNullable<String> phoneNumber, Address address) {

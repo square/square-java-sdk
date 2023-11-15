@@ -68,8 +68,20 @@ public class CheckoutOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  allowTipping  Boolean value for allowTipping.
+     * @param  customFields  List of CustomField value for customFields.
+     * @param  subscriptionPlanId  String value for subscriptionPlanId.
+     * @param  redirectUrl  String value for redirectUrl.
+     * @param  merchantSupportEmail  String value for merchantSupportEmail.
+     * @param  askForShippingAddress  Boolean value for askForShippingAddress.
+     * @param  acceptedPaymentMethods  AcceptedPaymentMethods value for acceptedPaymentMethods.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  shippingFee  ShippingFee value for shippingFee.
+     * @param  enableCoupon  Boolean value for enableCoupon.
+     * @param  enableLoyalty  Boolean value for enableLoyalty.
      */
+
     protected CheckoutOptions(OptionalNullable<Boolean> allowTipping,
             OptionalNullable<List<CustomField>> customFields,
             OptionalNullable<String> subscriptionPlanId, OptionalNullable<String> redirectUrl,

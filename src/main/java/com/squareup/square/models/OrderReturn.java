@@ -57,8 +57,18 @@ public class OrderReturn {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  sourceOrderId  String value for sourceOrderId.
+     * @param  returnLineItems  List of OrderReturnLineItem value for returnLineItems.
+     * @param  returnServiceCharges  List of OrderReturnServiceCharge value for
+     *         returnServiceCharges.
+     * @param  returnTaxes  List of OrderReturnTax value for returnTaxes.
+     * @param  returnDiscounts  List of OrderReturnDiscount value for returnDiscounts.
+     * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
+     * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
      */
+
     protected OrderReturn(OptionalNullable<String> uid, OptionalNullable<String> sourceOrderId,
             OptionalNullable<List<OrderReturnLineItem>> returnLineItems,
             List<OrderReturnServiceCharge> returnServiceCharges,

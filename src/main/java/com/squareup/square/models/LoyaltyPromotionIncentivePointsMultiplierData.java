@@ -31,8 +31,11 @@ public class LoyaltyPromotionIncentivePointsMultiplierData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  pointsMultiplier  Integer value for pointsMultiplier.
+     * @param  multiplier  String value for multiplier.
      */
+
     protected LoyaltyPromotionIncentivePointsMultiplierData(
             OptionalNullable<Integer> pointsMultiplier, OptionalNullable<String> multiplier) {
         this.pointsMultiplier = pointsMultiplier;

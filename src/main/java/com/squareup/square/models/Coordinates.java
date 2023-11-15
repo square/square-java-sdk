@@ -31,8 +31,11 @@ public class Coordinates {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  latitude  Double value for latitude.
+     * @param  longitude  Double value for longitude.
      */
+
     protected Coordinates(OptionalNullable<Double> latitude, OptionalNullable<Double> longitude) {
         this.latitude = latitude;
         this.longitude = longitude;

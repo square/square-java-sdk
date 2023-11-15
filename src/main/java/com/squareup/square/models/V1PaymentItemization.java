@@ -80,8 +80,23 @@ public class V1PaymentItemization {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  quantity  Double value for quantity.
+     * @param  itemizationType  String value for itemizationType.
+     * @param  itemDetail  V1PaymentItemDetail value for itemDetail.
+     * @param  notes  String value for notes.
+     * @param  itemVariationName  String value for itemVariationName.
+     * @param  totalMoney  V1Money value for totalMoney.
+     * @param  singleQuantityMoney  V1Money value for singleQuantityMoney.
+     * @param  grossSalesMoney  V1Money value for grossSalesMoney.
+     * @param  discountMoney  V1Money value for discountMoney.
+     * @param  netSalesMoney  V1Money value for netSalesMoney.
+     * @param  taxes  List of V1PaymentTax value for taxes.
+     * @param  discounts  List of V1PaymentDiscount value for discounts.
+     * @param  modifiers  List of V1PaymentModifier value for modifiers.
      */
+
     protected V1PaymentItemization(OptionalNullable<String> name, OptionalNullable<Double> quantity,
             String itemizationType, V1PaymentItemDetail itemDetail, OptionalNullable<String> notes,
             OptionalNullable<String> itemVariationName, V1Money totalMoney,

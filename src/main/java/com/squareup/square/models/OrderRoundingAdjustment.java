@@ -35,8 +35,12 @@ public class OrderRoundingAdjustment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  name  String value for name.
+     * @param  amountMoney  Money value for amountMoney.
      */
+
     protected OrderRoundingAdjustment(OptionalNullable<String> uid, OptionalNullable<String> name,
             Money amountMoney) {
         this.uid = uid;

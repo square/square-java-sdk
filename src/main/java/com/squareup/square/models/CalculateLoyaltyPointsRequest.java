@@ -35,8 +35,12 @@ public class CalculateLoyaltyPointsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  orderId  String value for orderId.
+     * @param  transactionAmountMoney  Money value for transactionAmountMoney.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
      */
+
     protected CalculateLoyaltyPointsRequest(OptionalNullable<String> orderId,
             Money transactionAmountMoney, OptionalNullable<String> loyaltyAccountId) {
         this.orderId = orderId;

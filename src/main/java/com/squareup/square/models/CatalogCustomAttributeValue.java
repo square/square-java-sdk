@@ -56,8 +56,17 @@ public class CatalogCustomAttributeValue {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  stringValue  String value for stringValue.
+     * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
+     * @param  type  String value for type.
+     * @param  numberValue  String value for numberValue.
+     * @param  booleanValue  Boolean value for booleanValue.
+     * @param  selectionUidValues  List of String value for selectionUidValues.
+     * @param  key  String value for key.
      */
+
     protected CatalogCustomAttributeValue(OptionalNullable<String> name,
             OptionalNullable<String> stringValue, String customAttributeDefinitionId, String type,
             OptionalNullable<String> numberValue, OptionalNullable<Boolean> booleanValue,

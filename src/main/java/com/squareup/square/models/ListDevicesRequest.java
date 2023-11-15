@@ -39,8 +39,13 @@ public class ListDevicesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  limit  Integer value for limit.
+     * @param  locationId  String value for locationId.
      */
+
     protected ListDevicesRequest(OptionalNullable<String> cursor, String sortOrder,
             OptionalNullable<Integer> limit, OptionalNullable<String> locationId) {
         this.cursor = cursor;

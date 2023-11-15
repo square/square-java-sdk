@@ -31,8 +31,11 @@ public class RetrieveCatalogObjectRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
+
     protected RetrieveCatalogObjectRequest(OptionalNullable<Boolean> includeRelatedObjects,
             OptionalNullable<Long> catalogVersion) {
         this.includeRelatedObjects = includeRelatedObjects;

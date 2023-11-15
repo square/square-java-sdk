@@ -177,6 +177,7 @@ public class Headers implements HttpHeaders {
      * Neither headerName nor values can be null.
      * @param headerName The header name to add the value against.
      * @param value The value to add.
+     * @return The current instance after adding the provided header name and value.
      */
     public Headers createHeader(String headerName, String value) {
         add(headerName, value);

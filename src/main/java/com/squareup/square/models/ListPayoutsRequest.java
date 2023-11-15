@@ -51,8 +51,16 @@ public class ListPayoutsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListPayoutsRequest(OptionalNullable<String> locationId, String status,
             OptionalNullable<String> beginTime, OptionalNullable<String> endTime, String sortOrder,
             OptionalNullable<String> cursor, OptionalNullable<Integer> limit) {

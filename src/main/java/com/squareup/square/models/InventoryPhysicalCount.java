@@ -71,8 +71,21 @@ public class InventoryPhysicalCount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  state  String value for state.
+     * @param  locationId  String value for locationId.
+     * @param  quantity  String value for quantity.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
      */
+
     protected InventoryPhysicalCount(String id, OptionalNullable<String> referenceId,
             OptionalNullable<String> catalogObjectId, OptionalNullable<String> catalogObjectType,
             String state, OptionalNullable<String> locationId, OptionalNullable<String> quantity,

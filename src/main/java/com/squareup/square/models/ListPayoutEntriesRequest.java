@@ -35,8 +35,12 @@ public class ListPayoutEntriesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListPayoutEntriesRequest(String sortOrder, OptionalNullable<String> cursor,
             OptionalNullable<Integer> limit) {
         this.sortOrder = sortOrder;

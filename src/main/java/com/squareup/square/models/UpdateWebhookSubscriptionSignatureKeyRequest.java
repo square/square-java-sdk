@@ -27,8 +27,10 @@ public class UpdateWebhookSubscriptionSignatureKeyRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateWebhookSubscriptionSignatureKeyRequest(
             OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;

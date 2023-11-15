@@ -27,8 +27,10 @@ public class ListDisputeEvidenceRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListDisputeEvidenceRequest(OptionalNullable<String> cursor) {
         this.cursor = cursor;
     }

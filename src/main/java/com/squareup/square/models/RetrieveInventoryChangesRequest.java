@@ -31,8 +31,11 @@ public class RetrieveInventoryChangesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationIds  String value for locationIds.
+     * @param  cursor  String value for cursor.
      */
+
     protected RetrieveInventoryChangesRequest(OptionalNullable<String> locationIds,
             OptionalNullable<String> cursor) {
         this.locationIds = locationIds;

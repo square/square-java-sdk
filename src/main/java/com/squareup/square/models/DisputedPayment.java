@@ -27,8 +27,10 @@ public class DisputedPayment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected DisputedPayment(OptionalNullable<String> paymentId) {
         this.paymentId = paymentId;
     }

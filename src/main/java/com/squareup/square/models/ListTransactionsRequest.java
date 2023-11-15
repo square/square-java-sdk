@@ -39,8 +39,13 @@ public class ListTransactionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListTransactionsRequest(OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, String sortOrder, OptionalNullable<String> cursor) {
         this.beginTime = beginTime;

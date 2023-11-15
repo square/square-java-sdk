@@ -35,8 +35,12 @@ public class PayoutFee {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  effectiveAt  String value for effectiveAt.
+     * @param  type  String value for type.
      */
+
     protected PayoutFee(Money amountMoney, OptionalNullable<String> effectiveAt, String type) {
         this.amountMoney = amountMoney;
         this.effectiveAt = effectiveAt;

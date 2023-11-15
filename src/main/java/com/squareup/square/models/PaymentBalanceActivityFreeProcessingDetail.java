@@ -27,8 +27,10 @@ public class PaymentBalanceActivityFreeProcessingDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected PaymentBalanceActivityFreeProcessingDetail(OptionalNullable<String> paymentId) {
         this.paymentId = paymentId;
     }

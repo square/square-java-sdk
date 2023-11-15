@@ -140,8 +140,40 @@ public class CatalogObject {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  id  String value for id.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  version  Long value for version.
+     * @param  isDeleted  Boolean value for isDeleted.
+     * @param  customAttributeValues  Map of String, value for customAttributeValues.
+     * @param  catalogV1Ids  List of CatalogV1Id value for catalogV1Ids.
+     * @param  presentAtAllLocations  Boolean value for presentAtAllLocations.
+     * @param  presentAtLocationIds  List of String value for presentAtLocationIds.
+     * @param  absentAtLocationIds  List of String value for absentAtLocationIds.
+     * @param  itemData  CatalogItem value for itemData.
+     * @param  categoryData  CatalogCategory value for categoryData.
+     * @param  itemVariationData  CatalogItemVariation value for itemVariationData.
+     * @param  taxData  CatalogTax value for taxData.
+     * @param  discountData  CatalogDiscount value for discountData.
+     * @param  modifierListData  CatalogModifierList value for modifierListData.
+     * @param  modifierData  CatalogModifier value for modifierData.
+     * @param  timePeriodData  CatalogTimePeriod value for timePeriodData.
+     * @param  productSetData  CatalogProductSet value for productSetData.
+     * @param  pricingRuleData  CatalogPricingRule value for pricingRuleData.
+     * @param  imageData  CatalogImage value for imageData.
+     * @param  measurementUnitData  CatalogMeasurementUnit value for measurementUnitData.
+     * @param  subscriptionPlanData  CatalogSubscriptionPlan value for subscriptionPlanData.
+     * @param  itemOptionData  CatalogItemOption value for itemOptionData.
+     * @param  itemOptionValueData  CatalogItemOptionValue value for itemOptionValueData.
+     * @param  customAttributeDefinitionData  CatalogCustomAttributeDefinition value for
+     *         customAttributeDefinitionData.
+     * @param  quickAmountsSettingsData  CatalogQuickAmountsSettings value for
+     *         quickAmountsSettingsData.
+     * @param  subscriptionPlanVariationData  CatalogSubscriptionPlanVariation value for
+     *         subscriptionPlanVariationData.
      */
+
     protected CatalogObject(String type, String id, String updatedAt, Long version,
             OptionalNullable<Boolean> isDeleted,
             OptionalNullable<Map<String, CatalogCustomAttributeValue>> customAttributeValues,

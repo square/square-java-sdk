@@ -39,8 +39,13 @@ public class GiftCardActivityRedeem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  paymentId  String value for paymentId.
+     * @param  referenceId  String value for referenceId.
+     * @param  status  String value for status.
      */
+
     protected GiftCardActivityRedeem(Money amountMoney, String paymentId,
             OptionalNullable<String> referenceId, String status) {
         this.amountMoney = amountMoney;

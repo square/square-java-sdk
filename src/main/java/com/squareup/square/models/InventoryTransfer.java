@@ -75,8 +75,22 @@ public class InventoryTransfer {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  state  String value for state.
+     * @param  fromLocationId  String value for fromLocationId.
+     * @param  toLocationId  String value for toLocationId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  quantity  String value for quantity.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
      */
+
     protected InventoryTransfer(String id, OptionalNullable<String> referenceId, String state,
             OptionalNullable<String> fromLocationId, OptionalNullable<String> toLocationId,
             OptionalNullable<String> catalogObjectId, OptionalNullable<String> catalogObjectType,

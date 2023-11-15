@@ -52,8 +52,16 @@ public class AppointmentSegment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  durationMinutes  Integer value for durationMinutes.
+     * @param  serviceVariationId  String value for serviceVariationId.
+     * @param  serviceVariationVersion  Long value for serviceVariationVersion.
+     * @param  intermissionMinutes  Integer value for intermissionMinutes.
+     * @param  anyTeamMember  Boolean value for anyTeamMember.
+     * @param  resourceIds  List of String value for resourceIds.
      */
+
     protected AppointmentSegment(String teamMemberId, OptionalNullable<Integer> durationMinutes,
             OptionalNullable<String> serviceVariationId,
             OptionalNullable<Long> serviceVariationVersion, Integer intermissionMinutes,

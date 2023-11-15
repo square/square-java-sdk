@@ -48,8 +48,15 @@ public class CatalogSubscriptionPlanVariation {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  phases  List of SubscriptionPhase value for phases.
+     * @param  subscriptionPlanId  String value for subscriptionPlanId.
+     * @param  monthlyBillingAnchorDate  Long value for monthlyBillingAnchorDate.
+     * @param  canProrate  Boolean value for canProrate.
+     * @param  successorPlanVariationId  String value for successorPlanVariationId.
      */
+
     protected CatalogSubscriptionPlanVariation(String name, List<SubscriptionPhase> phases,
             OptionalNullable<String> subscriptionPlanId,
             OptionalNullable<Long> monthlyBillingAnchorDate, OptionalNullable<Boolean> canProrate,

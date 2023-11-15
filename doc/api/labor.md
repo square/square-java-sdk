@@ -361,9 +361,9 @@ CompletableFuture<CreateShiftResponse> createShiftAsync(
 ```java
 CreateShiftRequest body = new CreateShiftRequest.Builder(
     new Shift.Builder(
+        "PAA1RJZZKXBFG",
         "2019-01-25T03:11:00-05:00"
     )
-    .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(new ShiftWage.Builder()
             .title("Barista")
@@ -371,6 +371,7 @@ CreateShiftRequest body = new CreateShiftRequest.Builder(
                 .amount(1100L)
                 .currency("USD")
                 .build())
+            .tipEligible(true)
             .build())
     .breaks(Arrays.asList(
             new Break.Builder(
@@ -384,6 +385,10 @@ CreateShiftRequest body = new CreateShiftRequest.Builder(
             .build()
         ))
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
+    .declaredCashTipMoney(new Money.Builder()
+            .amount(500L)
+            .currency("USD")
+            .build())
     .build()
 )
 .idempotencyKey("HIDSNG5KS478L")
@@ -567,9 +572,9 @@ CompletableFuture<UpdateShiftResponse> updateShiftAsync(
 String id = "id0";
 UpdateShiftRequest body = new UpdateShiftRequest.Builder(
     new Shift.Builder(
+        "PAA1RJZZKXBFG",
         "2019-01-25T03:11:00-05:00"
     )
-    .locationId("PAA1RJZZKXBFG")
     .endAt("2019-01-25T13:11:00-05:00")
     .wage(new ShiftWage.Builder()
             .title("Bartender")
@@ -577,6 +582,7 @@ UpdateShiftRequest body = new UpdateShiftRequest.Builder(
                 .amount(1500L)
                 .currency("USD")
                 .build())
+            .tipEligible(true)
             .build())
     .breaks(Arrays.asList(
             new Break.Builder(
@@ -592,6 +598,10 @@ UpdateShiftRequest body = new UpdateShiftRequest.Builder(
         ))
     .version(1)
     .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
+    .declaredCashTipMoney(new Money.Builder()
+            .amount(500L)
+            .currency("USD")
+            .build())
     .build()
 )
 .build();

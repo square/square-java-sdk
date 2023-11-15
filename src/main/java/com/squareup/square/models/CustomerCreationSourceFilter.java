@@ -32,8 +32,11 @@ public class CustomerCreationSourceFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  values  List of String value for values.
+     * @param  rule  String value for rule.
      */
+
     protected CustomerCreationSourceFilter(OptionalNullable<List<String>> values, String rule) {
         this.values = values;
         this.rule = rule;

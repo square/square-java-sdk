@@ -39,8 +39,13 @@ public class CatalogImage {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  url  String value for url.
+     * @param  caption  String value for caption.
+     * @param  photoStudioOrderId  String value for photoStudioOrderId.
      */
+
     protected CatalogImage(OptionalNullable<String> name, OptionalNullable<String> url,
             OptionalNullable<String> caption, OptionalNullable<String> photoStudioOrderId) {
         this.name = name;

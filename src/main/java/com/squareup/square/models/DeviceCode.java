@@ -67,8 +67,20 @@ public class DeviceCode {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  productType  String value for productType.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  code  String value for code.
+     * @param  deviceId  String value for deviceId.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  pairBy  String value for pairBy.
+     * @param  createdAt  String value for createdAt.
+     * @param  statusChangedAt  String value for statusChangedAt.
+     * @param  pairedAt  String value for pairedAt.
      */
+
     protected DeviceCode(String productType, String id, OptionalNullable<String> name, String code,
             String deviceId, OptionalNullable<String> locationId, String status, String pairBy,
             String createdAt, String statusChangedAt, String pairedAt) {

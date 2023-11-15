@@ -35,8 +35,12 @@ public class PrePopulatedData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  buyerEmail  String value for buyerEmail.
+     * @param  buyerPhoneNumber  String value for buyerPhoneNumber.
+     * @param  buyerAddress  Address value for buyerAddress.
      */
+
     protected PrePopulatedData(OptionalNullable<String> buyerEmail,
             OptionalNullable<String> buyerPhoneNumber, Address buyerAddress) {
         this.buyerEmail = buyerEmail;

@@ -91,8 +91,26 @@ public class Card {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  last4  String value for last4.
+     * @param  expMonth  Long value for expMonth.
+     * @param  expYear  Long value for expYear.
+     * @param  cardholderName  String value for cardholderName.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  fingerprint  String value for fingerprint.
+     * @param  customerId  String value for customerId.
+     * @param  merchantId  String value for merchantId.
+     * @param  referenceId  String value for referenceId.
+     * @param  enabled  Boolean value for enabled.
+     * @param  cardType  String value for cardType.
+     * @param  prepaidType  String value for prepaidType.
+     * @param  bin  String value for bin.
+     * @param  version  Long value for version.
+     * @param  cardCoBrand  String value for cardCoBrand.
      */
+
     protected Card(String id, String cardBrand, String last4, OptionalNullable<Long> expMonth,
             OptionalNullable<Long> expYear, OptionalNullable<String> cardholderName,
             Address billingAddress, String fingerprint, OptionalNullable<String> customerId,

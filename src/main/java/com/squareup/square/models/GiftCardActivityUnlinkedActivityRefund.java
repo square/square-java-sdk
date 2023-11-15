@@ -35,8 +35,12 @@ public class GiftCardActivityUnlinkedActivityRefund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  referenceId  String value for referenceId.
+     * @param  paymentId  String value for paymentId.
      */
+
     protected GiftCardActivityUnlinkedActivityRefund(Money amountMoney,
             OptionalNullable<String> referenceId, String paymentId) {
         this.amountMoney = amountMoney;

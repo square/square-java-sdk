@@ -36,8 +36,12 @@ public class SubscriptionPricing {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  discountIds  List of String value for discountIds.
+     * @param  priceMoney  Money value for priceMoney.
      */
+
     protected SubscriptionPricing(String type, OptionalNullable<List<String>> discountIds,
             Money priceMoney) {
         this.type = type;

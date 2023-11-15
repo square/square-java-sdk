@@ -27,8 +27,10 @@ public class CustomerTaxIds {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  euVat  String value for euVat.
      */
+
     protected CustomerTaxIds(OptionalNullable<String> euVat) {
         this.euVat = euVat;
     }

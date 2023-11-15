@@ -35,8 +35,12 @@ public class ShiftWorkday {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  dateRange  DateRange value for dateRange.
+     * @param  matchShiftsBy  String value for matchShiftsBy.
+     * @param  defaultTimezone  String value for defaultTimezone.
      */
+
     protected ShiftWorkday(DateRange dateRange, String matchShiftsBy,
             OptionalNullable<String> defaultTimezone) {
         this.dateRange = dateRange;

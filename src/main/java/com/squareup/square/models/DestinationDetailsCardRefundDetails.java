@@ -31,8 +31,11 @@ public class DestinationDetailsCardRefundDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  card  Card value for card.
+     * @param  entryMethod  String value for entryMethod.
      */
+
     protected DestinationDetailsCardRefundDetails(Card card,
             OptionalNullable<String> entryMethod) {
         this.card = card;

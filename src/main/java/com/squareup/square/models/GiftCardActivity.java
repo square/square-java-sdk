@@ -119,8 +119,39 @@ public class GiftCardActivity {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  locationId  String value for locationId.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  giftCardId  String value for giftCardId.
+     * @param  giftCardGan  String value for giftCardGan.
+     * @param  giftCardBalanceMoney  Money value for giftCardBalanceMoney.
+     * @param  loadActivityDetails  GiftCardActivityLoad value for loadActivityDetails.
+     * @param  activateActivityDetails  GiftCardActivityActivate value for activateActivityDetails.
+     * @param  redeemActivityDetails  GiftCardActivityRedeem value for redeemActivityDetails.
+     * @param  clearBalanceActivityDetails  GiftCardActivityClearBalance value for
+     *         clearBalanceActivityDetails.
+     * @param  deactivateActivityDetails  GiftCardActivityDeactivate value for
+     *         deactivateActivityDetails.
+     * @param  adjustIncrementActivityDetails  GiftCardActivityAdjustIncrement value for
+     *         adjustIncrementActivityDetails.
+     * @param  adjustDecrementActivityDetails  GiftCardActivityAdjustDecrement value for
+     *         adjustDecrementActivityDetails.
+     * @param  refundActivityDetails  GiftCardActivityRefund value for refundActivityDetails.
+     * @param  unlinkedActivityRefundActivityDetails  GiftCardActivityUnlinkedActivityRefund value
+     *         for unlinkedActivityRefundActivityDetails.
+     * @param  importActivityDetails  GiftCardActivityImport value for importActivityDetails.
+     * @param  blockActivityDetails  GiftCardActivityBlock value for blockActivityDetails.
+     * @param  unblockActivityDetails  GiftCardActivityUnblock value for unblockActivityDetails.
+     * @param  importReversalActivityDetails  GiftCardActivityImportReversal value for
+     *         importReversalActivityDetails.
+     * @param  transferBalanceToActivityDetails  GiftCardActivityTransferBalanceTo value for
+     *         transferBalanceToActivityDetails.
+     * @param  transferBalanceFromActivityDetails  GiftCardActivityTransferBalanceFrom value for
+     *         transferBalanceFromActivityDetails.
      */
+
     protected GiftCardActivity(String type, String locationId, String id, String createdAt,
             OptionalNullable<String> giftCardId, OptionalNullable<String> giftCardGan,
             Money giftCardBalanceMoney, GiftCardActivityLoad loadActivityDetails,

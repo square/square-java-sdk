@@ -36,8 +36,12 @@ public class SearchSubscriptionsFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customerIds  List of String value for customerIds.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  sourceNames  List of String value for sourceNames.
      */
+
     protected SearchSubscriptionsFilter(OptionalNullable<List<String>> customerIds,
             OptionalNullable<List<String>> locationIds,
             OptionalNullable<List<String>> sourceNames) {

@@ -31,8 +31,11 @@ public class CatalogModifierOverride {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  modifierId  String value for modifierId.
+     * @param  onByDefault  Boolean value for onByDefault.
      */
+
     protected CatalogModifierOverride(String modifierId, OptionalNullable<Boolean> onByDefault) {
         this.modifierId = modifierId;
         this.onByDefault = onByDefault;

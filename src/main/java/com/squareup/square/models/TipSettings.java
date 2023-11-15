@@ -44,8 +44,14 @@ public class TipSettings {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  allowTipping  Boolean value for allowTipping.
+     * @param  separateTipScreen  Boolean value for separateTipScreen.
+     * @param  customTipField  Boolean value for customTipField.
+     * @param  tipPercentages  List of Integer value for tipPercentages.
+     * @param  smartTipping  Boolean value for smartTipping.
      */
+
     protected TipSettings(OptionalNullable<Boolean> allowTipping,
             OptionalNullable<Boolean> separateTipScreen, OptionalNullable<Boolean> customTipField,
             OptionalNullable<List<Integer>> tipPercentages,

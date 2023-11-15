@@ -132,8 +132,36 @@ public class Location {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
+     * @param  address  Address value for address.
+     * @param  timezone  String value for timezone.
+     * @param  capabilities  List of String value for capabilities.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  merchantId  String value for merchantId.
+     * @param  country  String value for country.
+     * @param  languageCode  String value for languageCode.
+     * @param  currency  String value for currency.
+     * @param  phoneNumber  String value for phoneNumber.
+     * @param  businessName  String value for businessName.
+     * @param  type  String value for type.
+     * @param  websiteUrl  String value for websiteUrl.
+     * @param  businessHours  BusinessHours value for businessHours.
+     * @param  businessEmail  String value for businessEmail.
+     * @param  description  String value for description.
+     * @param  twitterUsername  String value for twitterUsername.
+     * @param  instagramUsername  String value for instagramUsername.
+     * @param  facebookUrl  String value for facebookUrl.
+     * @param  coordinates  Coordinates value for coordinates.
+     * @param  logoUrl  String value for logoUrl.
+     * @param  posBackgroundUrl  String value for posBackgroundUrl.
+     * @param  mcc  String value for mcc.
+     * @param  fullFormatLogoUrl  String value for fullFormatLogoUrl.
+     * @param  taxIds  TaxIds value for taxIds.
      */
+
     protected Location(String id, OptionalNullable<String> name, Address address,
             OptionalNullable<String> timezone, List<String> capabilities, String status,
             String createdAt, String merchantId, String country,
@@ -483,7 +511,7 @@ public class Location {
 
     /**
      * Internal Getter for TwitterUsername.
-     * The Twitter username of the location without the '@' symbol. For example, `Square`.
+     * The Twitter username of the location without the '{@literal @}' symbol. For example, `Square`.
      * @return Returns the Internal String
      */
     @JsonGetter("twitter_username")
@@ -495,7 +523,7 @@ public class Location {
 
     /**
      * Getter for TwitterUsername.
-     * The Twitter username of the location without the '@' symbol. For example, `Square`.
+     * The Twitter username of the location without the '{@literal @}' symbol. For example, `Square`.
      * @return Returns the String
      */
     @JsonIgnore
@@ -505,7 +533,7 @@ public class Location {
 
     /**
      * Internal Getter for InstagramUsername.
-     * The Instagram username of the location without the '@' symbol. For example, `square`.
+     * The Instagram username of the location without the '{@literal @}' symbol. For example, `square`.
      * @return Returns the Internal String
      */
     @JsonGetter("instagram_username")
@@ -517,7 +545,7 @@ public class Location {
 
     /**
      * Getter for InstagramUsername.
-     * The Instagram username of the location without the '@' symbol. For example, `square`.
+     * The Instagram username of the location without the '{@literal @}' symbol. For example, `square`.
      * @return Returns the String
      */
     @JsonIgnore

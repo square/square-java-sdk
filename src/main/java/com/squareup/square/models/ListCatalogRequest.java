@@ -35,8 +35,12 @@ public class ListCatalogRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  types  String value for types.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
+
     protected ListCatalogRequest(OptionalNullable<String> cursor, OptionalNullable<String> types,
             OptionalNullable<Long> catalogVersion) {
         this.cursor = cursor;

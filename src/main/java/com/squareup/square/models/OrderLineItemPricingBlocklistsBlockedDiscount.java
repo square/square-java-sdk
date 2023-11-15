@@ -35,8 +35,12 @@ public class OrderLineItemPricingBlocklistsBlockedDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  discountUid  String value for discountUid.
+     * @param  discountCatalogObjectId  String value for discountCatalogObjectId.
      */
+
     protected OrderLineItemPricingBlocklistsBlockedDiscount(OptionalNullable<String> uid,
             OptionalNullable<String> discountUid,
             OptionalNullable<String> discountCatalogObjectId) {

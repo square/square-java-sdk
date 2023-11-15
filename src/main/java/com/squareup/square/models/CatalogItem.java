@@ -100,8 +100,28 @@ public class CatalogItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  abbreviation  String value for abbreviation.
+     * @param  labelColor  String value for labelColor.
+     * @param  availableOnline  Boolean value for availableOnline.
+     * @param  availableForPickup  Boolean value for availableForPickup.
+     * @param  availableElectronically  Boolean value for availableElectronically.
+     * @param  categoryId  String value for categoryId.
+     * @param  taxIds  List of String value for taxIds.
+     * @param  modifierListInfo  List of CatalogItemModifierListInfo value for modifierListInfo.
+     * @param  variations  List of CatalogObject value for variations.
+     * @param  productType  String value for productType.
+     * @param  skipModifierScreen  Boolean value for skipModifierScreen.
+     * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
+     * @param  imageIds  List of String value for imageIds.
+     * @param  sortName  String value for sortName.
+     * @param  descriptionHtml  String value for descriptionHtml.
+     * @param  descriptionPlaintext  String value for descriptionPlaintext.
+     * @param  isArchived  Boolean value for isArchived.
      */
+
     protected CatalogItem(OptionalNullable<String> name, OptionalNullable<String> description,
             OptionalNullable<String> abbreviation, OptionalNullable<String> labelColor,
             OptionalNullable<Boolean> availableOnline, OptionalNullable<Boolean> availableForPickup,

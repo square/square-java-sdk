@@ -88,8 +88,25 @@ public class Booking {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  version  Integer value for version.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  startAt  String value for startAt.
+     * @param  locationId  String value for locationId.
+     * @param  customerId  String value for customerId.
+     * @param  customerNote  String value for customerNote.
+     * @param  sellerNote  String value for sellerNote.
+     * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
+     * @param  transitionTimeMinutes  Integer value for transitionTimeMinutes.
+     * @param  allDay  Boolean value for allDay.
+     * @param  locationType  String value for locationType.
+     * @param  creatorDetails  BookingCreatorDetails value for creatorDetails.
+     * @param  source  String value for source.
      */
+
     protected Booking(String id, Integer version, String status, String createdAt, String updatedAt,
             OptionalNullable<String> startAt, OptionalNullable<String> locationId,
             OptionalNullable<String> customerId, OptionalNullable<String> customerNote,

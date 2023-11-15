@@ -31,8 +31,11 @@ public class CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelec
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  uid  String value for uid.
      */
+
     protected CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(String name,
             OptionalNullable<String> uid) {
         this.uid = uid;

@@ -31,8 +31,11 @@ public class CatalogItemOptionValueForItemVariation {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemOptionId  String value for itemOptionId.
+     * @param  itemOptionValueId  String value for itemOptionValueId.
      */
+
     protected CatalogItemOptionValueForItemVariation(OptionalNullable<String> itemOptionId,
             OptionalNullable<String> itemOptionValueId) {
         this.itemOptionId = itemOptionId;

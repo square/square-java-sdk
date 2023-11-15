@@ -48,8 +48,15 @@ public class CustomAttributeFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttributeDefinitionId  String value for customAttributeDefinitionId.
+     * @param  key  String value for key.
+     * @param  stringFilter  String value for stringFilter.
+     * @param  numberFilter  Range value for numberFilter.
+     * @param  selectionUidsFilter  List of String value for selectionUidsFilter.
+     * @param  boolFilter  Boolean value for boolFilter.
      */
+
     protected CustomAttributeFilter(OptionalNullable<String> customAttributeDefinitionId,
             OptionalNullable<String> key, OptionalNullable<String> stringFilter, Range numberFilter,
             OptionalNullable<List<String>> selectionUidsFilter,

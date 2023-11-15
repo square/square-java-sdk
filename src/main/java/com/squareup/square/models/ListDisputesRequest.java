@@ -36,8 +36,12 @@ public class ListDisputesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  states  List of String value for states.
+     * @param  locationId  String value for locationId.
      */
+
     protected ListDisputesRequest(OptionalNullable<String> cursor,
             OptionalNullable<List<String>> states, OptionalNullable<String> locationId) {
         this.cursor = cursor;

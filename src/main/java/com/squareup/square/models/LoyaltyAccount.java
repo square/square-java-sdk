@@ -65,8 +65,20 @@ public class LoyaltyAccount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  programId  String value for programId.
+     * @param  id  String value for id.
+     * @param  balance  Integer value for balance.
+     * @param  lifetimePoints  Integer value for lifetimePoints.
+     * @param  customerId  String value for customerId.
+     * @param  enrolledAt  String value for enrolledAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  mapping  LoyaltyAccountMapping value for mapping.
+     * @param  expiringPointDeadlines  List of LoyaltyAccountExpiringPointDeadline value for
+     *         expiringPointDeadlines.
      */
+
     protected LoyaltyAccount(String programId, String id, Integer balance, Integer lifetimePoints,
             OptionalNullable<String> customerId, OptionalNullable<String> enrolledAt,
             String createdAt, String updatedAt, LoyaltyAccountMapping mapping,

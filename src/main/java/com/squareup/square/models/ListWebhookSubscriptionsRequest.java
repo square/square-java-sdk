@@ -39,8 +39,13 @@ public class ListWebhookSubscriptionsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  String value for cursor.
+     * @param  includeDisabled  Boolean value for includeDisabled.
+     * @param  sortOrder  String value for sortOrder.
+     * @param  limit  Integer value for limit.
      */
+
     protected ListWebhookSubscriptionsRequest(OptionalNullable<String> cursor,
             OptionalNullable<Boolean> includeDisabled, String sortOrder,
             OptionalNullable<Integer> limit) {

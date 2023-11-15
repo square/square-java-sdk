@@ -28,8 +28,10 @@ public class BusinessHours {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  periods  List of BusinessHoursPeriod value for periods.
      */
+
     protected BusinessHours(OptionalNullable<List<BusinessHoursPeriod>> periods) {
         this.periods = periods;
     }

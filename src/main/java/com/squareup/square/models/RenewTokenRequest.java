@@ -27,8 +27,10 @@ public class RenewTokenRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  accessToken  String value for accessToken.
      */
+
     protected RenewTokenRequest(OptionalNullable<String> accessToken) {
         this.accessToken = accessToken;
     }

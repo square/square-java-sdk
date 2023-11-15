@@ -31,8 +31,11 @@ public class PaymentBalanceActivityTaxOnFeeDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  taxRateDescription  String value for taxRateDescription.
      */
+
     protected PaymentBalanceActivityTaxOnFeeDetail(OptionalNullable<String> paymentId,
             OptionalNullable<String> taxRateDescription) {
         this.paymentId = paymentId;

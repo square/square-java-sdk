@@ -103,8 +103,29 @@ public class TerminalAction {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  deviceId  String value for deviceId.
+     * @param  deadlineDuration  String value for deadlineDuration.
+     * @param  status  String value for status.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  appId  String value for appId.
+     * @param  locationId  String value for locationId.
+     * @param  type  String value for type.
+     * @param  qrCodeOptions  QrCodeOptions value for qrCodeOptions.
+     * @param  saveCardOptions  SaveCardOptions value for saveCardOptions.
+     * @param  signatureOptions  SignatureOptions value for signatureOptions.
+     * @param  confirmationOptions  ConfirmationOptions value for confirmationOptions.
+     * @param  receiptOptions  ReceiptOptions value for receiptOptions.
+     * @param  dataCollectionOptions  DataCollectionOptions value for dataCollectionOptions.
+     * @param  selectOptions  SelectOptions value for selectOptions.
+     * @param  deviceMetadata  DeviceMetadata value for deviceMetadata.
+     * @param  awaitNextAction  Boolean value for awaitNextAction.
+     * @param  awaitNextActionDuration  String value for awaitNextActionDuration.
      */
+
     protected TerminalAction(String id, OptionalNullable<String> deviceId,
             OptionalNullable<String> deadlineDuration, String status, String cancelReason,
             String createdAt, String updatedAt, String appId, String locationId, String type,

@@ -43,8 +43,14 @@ public class SubscriptionTestResult {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  statusCode  Integer value for statusCode.
+     * @param  payload  String value for payload.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected SubscriptionTestResult(String id, OptionalNullable<Integer> statusCode,
             OptionalNullable<String> payload, String createdAt, String updatedAt) {
         this.id = id;

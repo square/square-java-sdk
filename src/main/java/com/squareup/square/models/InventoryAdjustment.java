@@ -99,8 +99,28 @@ public class InventoryAdjustment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  fromState  String value for fromState.
+     * @param  toState  String value for toState.
+     * @param  locationId  String value for locationId.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogObjectType  String value for catalogObjectType.
+     * @param  quantity  String value for quantity.
+     * @param  totalPriceMoney  Money value for totalPriceMoney.
+     * @param  occurredAt  String value for occurredAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  source  SourceApplication value for source.
+     * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  transactionId  String value for transactionId.
+     * @param  refundId  String value for refundId.
+     * @param  purchaseOrderId  String value for purchaseOrderId.
+     * @param  goodsReceiptId  String value for goodsReceiptId.
+     * @param  adjustmentGroup  InventoryAdjustmentGroup value for adjustmentGroup.
      */
+
     protected InventoryAdjustment(String id, OptionalNullable<String> referenceId, String fromState,
             String toState, OptionalNullable<String> locationId,
             OptionalNullable<String> catalogObjectId, OptionalNullable<String> catalogObjectType,

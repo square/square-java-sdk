@@ -32,8 +32,11 @@ public class SquareAccountDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentSourceToken  String value for paymentSourceToken.
+     * @param  errors  List of Error value for errors.
      */
+
     protected SquareAccountDetails(OptionalNullable<String> paymentSourceToken,
             OptionalNullable<List<Error>> errors) {
         this.paymentSourceToken = paymentSourceToken;

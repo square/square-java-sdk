@@ -39,8 +39,13 @@ public class CatalogQuickAmount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  amount  Money value for amount.
+     * @param  score  Long value for score.
+     * @param  ordinal  Long value for ordinal.
      */
+
     protected CatalogQuickAmount(String type, Money amount, OptionalNullable<Long> score,
             OptionalNullable<Long> ordinal) {
         this.type = type;

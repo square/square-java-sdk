@@ -48,8 +48,15 @@ public class BatchRetrieveInventoryCountsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  catalogObjectIds  List of String value for catalogObjectIds.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  updatedAfter  String value for updatedAfter.
+     * @param  cursor  String value for cursor.
+     * @param  states  List of String value for states.
+     * @param  limit  Integer value for limit.
      */
+
     protected BatchRetrieveInventoryCountsRequest(OptionalNullable<List<String>> catalogObjectIds,
             OptionalNullable<List<String>> locationIds, OptionalNullable<String> updatedAfter,
             OptionalNullable<String> cursor, OptionalNullable<List<String>> states,

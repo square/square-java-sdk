@@ -149,8 +149,40 @@ public class Order {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  id  String value for id.
+     * @param  referenceId  String value for referenceId.
+     * @param  source  OrderSource value for source.
+     * @param  customerId  String value for customerId.
+     * @param  lineItems  List of OrderLineItem value for lineItems.
+     * @param  taxes  List of OrderLineItemTax value for taxes.
+     * @param  discounts  List of OrderLineItemDiscount value for discounts.
+     * @param  serviceCharges  List of OrderServiceCharge value for serviceCharges.
+     * @param  fulfillments  List of Fulfillment value for fulfillments.
+     * @param  returns  List of OrderReturn value for returns.
+     * @param  returnAmounts  OrderMoneyAmounts value for returnAmounts.
+     * @param  netAmounts  OrderMoneyAmounts value for netAmounts.
+     * @param  roundingAdjustment  OrderRoundingAdjustment value for roundingAdjustment.
+     * @param  tenders  List of Tender value for tenders.
+     * @param  refunds  List of Refund value for refunds.
+     * @param  metadata  Map of String, value for metadata.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  closedAt  String value for closedAt.
+     * @param  state  String value for state.
+     * @param  version  Integer value for version.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  totalDiscountMoney  Money value for totalDiscountMoney.
+     * @param  totalTipMoney  Money value for totalTipMoney.
+     * @param  totalServiceChargeMoney  Money value for totalServiceChargeMoney.
+     * @param  ticketName  String value for ticketName.
+     * @param  pricingOptions  OrderPricingOptions value for pricingOptions.
+     * @param  rewards  List of OrderReward value for rewards.
+     * @param  netAmountDueMoney  Money value for netAmountDueMoney.
      */
+
     protected Order(String locationId, String id, OptionalNullable<String> referenceId,
             OrderSource source, OptionalNullable<String> customerId,
             OptionalNullable<List<OrderLineItem>> lineItems,

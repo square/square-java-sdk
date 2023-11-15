@@ -39,8 +39,13 @@ public class ListTeamMemberBookingProfilesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  bookableOnly  Boolean value for bookableOnly.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  locationId  String value for locationId.
      */
+
     protected ListTeamMemberBookingProfilesRequest(OptionalNullable<Boolean> bookableOnly,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
             OptionalNullable<String> locationId) {

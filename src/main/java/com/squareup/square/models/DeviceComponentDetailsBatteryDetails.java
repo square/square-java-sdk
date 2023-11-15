@@ -31,8 +31,11 @@ public class DeviceComponentDetailsBatteryDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  visiblePercent  Integer value for visiblePercent.
+     * @param  externalPower  String value for externalPower.
      */
+
     protected DeviceComponentDetailsBatteryDetails(OptionalNullable<Integer> visiblePercent,
             String externalPower) {
         this.visiblePercent = visiblePercent;

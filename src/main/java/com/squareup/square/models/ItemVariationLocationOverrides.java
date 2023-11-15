@@ -55,8 +55,17 @@ public class ItemVariationLocationOverrides {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  pricingType  String value for pricingType.
+     * @param  trackInventory  Boolean value for trackInventory.
+     * @param  inventoryAlertType  String value for inventoryAlertType.
+     * @param  inventoryAlertThreshold  Long value for inventoryAlertThreshold.
+     * @param  soldOut  Boolean value for soldOut.
+     * @param  soldOutValidUntil  String value for soldOutValidUntil.
      */
+
     protected ItemVariationLocationOverrides(OptionalNullable<String> locationId, Money priceMoney,
             String pricingType, OptionalNullable<Boolean> trackInventory, String inventoryAlertType,
             OptionalNullable<Long> inventoryAlertThreshold, Boolean soldOut,

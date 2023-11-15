@@ -32,8 +32,12 @@ public class UpdateCustomerCustomAttributeDefinitionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttributeDefinition  CustomAttributeDefinition value for
+     *         customAttributeDefinition.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateCustomerCustomAttributeDefinitionRequest(
             CustomAttributeDefinition customAttributeDefinition,
             OptionalNullable<String> idempotencyKey) {

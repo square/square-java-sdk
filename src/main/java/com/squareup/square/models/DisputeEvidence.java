@@ -51,8 +51,16 @@ public class DisputeEvidence {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  evidenceId  String value for evidenceId.
+     * @param  id  String value for id.
+     * @param  disputeId  String value for disputeId.
+     * @param  evidenceFile  DisputeEvidenceFile value for evidenceFile.
+     * @param  evidenceText  String value for evidenceText.
+     * @param  uploadedAt  String value for uploadedAt.
+     * @param  evidenceType  String value for evidenceType.
      */
+
     protected DisputeEvidence(OptionalNullable<String> evidenceId, String id,
             OptionalNullable<String> disputeId, DisputeEvidenceFile evidenceFile,
             OptionalNullable<String> evidenceText, OptionalNullable<String> uploadedAt,

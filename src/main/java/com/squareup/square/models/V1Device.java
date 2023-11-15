@@ -31,8 +31,11 @@ public class V1Device {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
      */
+
     protected V1Device(String id, OptionalNullable<String> name) {
         this.id = id;
         this.name = name;

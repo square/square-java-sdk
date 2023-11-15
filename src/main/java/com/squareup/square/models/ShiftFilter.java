@@ -52,8 +52,16 @@ public class ShiftFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  employeeIds  List of String value for employeeIds.
+     * @param  status  String value for status.
+     * @param  start  TimeRange value for start.
+     * @param  end  TimeRange value for end.
+     * @param  workday  ShiftWorkday value for workday.
+     * @param  teamMemberIds  List of String value for teamMemberIds.
      */
+
     protected ShiftFilter(OptionalNullable<List<String>> locationIds,
             OptionalNullable<List<String>> employeeIds, String status, TimeRange start,
             TimeRange end, ShiftWorkday workday, OptionalNullable<List<String>> teamMemberIds) {

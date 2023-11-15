@@ -19,6 +19,7 @@ public class TeamMemberWage {
     private final OptionalNullable<String> title;
     private final Money hourlyRate;
     private final OptionalNullable<String> jobId;
+    private final OptionalNullable<Boolean> tipEligible;
 
     /**
      * Initialization constructor.
@@ -27,6 +28,7 @@ public class TeamMemberWage {
      * @param  title  String value for title.
      * @param  hourlyRate  Money value for hourlyRate.
      * @param  jobId  String value for jobId.
+     * @param  tipEligible  Boolean value for tipEligible.
      */
     @JsonCreator
     public TeamMemberWage(
@@ -34,24 +36,35 @@ public class TeamMemberWage {
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("title") String title,
             @JsonProperty("hourly_rate") Money hourlyRate,
-            @JsonProperty("job_id") String jobId) {
+            @JsonProperty("job_id") String jobId,
+            @JsonProperty("tip_eligible") Boolean tipEligible) {
         this.id = id;
         this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.title = OptionalNullable.of(title);
         this.hourlyRate = hourlyRate;
         this.jobId = OptionalNullable.of(jobId);
+        this.tipEligible = OptionalNullable.of(tipEligible);
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  title  String value for title.
+     * @param  hourlyRate  Money value for hourlyRate.
+     * @param  jobId  String value for jobId.
+     * @param  tipEligible  Boolean value for tipEligible.
      */
+
     protected TeamMemberWage(String id, OptionalNullable<String> teamMemberId,
-            OptionalNullable<String> title, Money hourlyRate, OptionalNullable<String> jobId) {
+            OptionalNullable<String> title, Money hourlyRate, OptionalNullable<String> jobId,
+            OptionalNullable<Boolean> tipEligible) {
         this.id = id;
         this.teamMemberId = teamMemberId;
         this.title = title;
         this.hourlyRate = hourlyRate;
         this.jobId = jobId;
+        this.tipEligible = tipEligible;
     }
 
     /**
@@ -147,9 +160,31 @@ public class TeamMemberWage {
         return OptionalNullable.getFrom(jobId);
     }
 
+    /**
+     * Internal Getter for TipEligible.
+     * Whether team members are eligible for tips when working this job.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("tip_eligible")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetTipEligible() {
+        return this.tipEligible;
+    }
+
+    /**
+     * Getter for TipEligible.
+     * Whether team members are eligible for tips when working this job.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getTipEligible() {
+        return OptionalNullable.getFrom(tipEligible);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, teamMemberId, title, hourlyRate, jobId);
+        return Objects.hash(id, teamMemberId, title, hourlyRate, jobId, tipEligible);
     }
 
     @Override
@@ -165,7 +200,8 @@ public class TeamMemberWage {
             && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(title, other.title)
             && Objects.equals(hourlyRate, other.hourlyRate)
-            && Objects.equals(jobId, other.jobId);
+            && Objects.equals(jobId, other.jobId)
+            && Objects.equals(tipEligible, other.tipEligible);
     }
 
     /**
@@ -175,7 +211,8 @@ public class TeamMemberWage {
     @Override
     public String toString() {
         return "TeamMemberWage [" + "id=" + id + ", teamMemberId=" + teamMemberId + ", title="
-                + title + ", hourlyRate=" + hourlyRate + ", jobId=" + jobId + "]";
+                + title + ", hourlyRate=" + hourlyRate + ", jobId=" + jobId + ", tipEligible="
+                + tipEligible + "]";
     }
 
     /**
@@ -190,6 +227,7 @@ public class TeamMemberWage {
         builder.teamMemberId = internalGetTeamMemberId();
         builder.title = internalGetTitle();
         builder.jobId = internalGetJobId();
+        builder.tipEligible = internalGetTipEligible();
         return builder;
     }
 
@@ -202,6 +240,7 @@ public class TeamMemberWage {
         private OptionalNullable<String> title;
         private Money hourlyRate;
         private OptionalNullable<String> jobId;
+        private OptionalNullable<Boolean> tipEligible;
 
 
 
@@ -283,11 +322,30 @@ public class TeamMemberWage {
         }
 
         /**
+         * Setter for tipEligible.
+         * @param  tipEligible  Boolean value for tipEligible.
+         * @return Builder
+         */
+        public Builder tipEligible(Boolean tipEligible) {
+            this.tipEligible = OptionalNullable.of(tipEligible);
+            return this;
+        }
+
+        /**
+         * UnSetter for tipEligible.
+         * @return Builder
+         */
+        public Builder unsetTipEligible() {
+            tipEligible = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TeamMemberWage} object using the set fields.
          * @return {@link TeamMemberWage}
          */
         public TeamMemberWage build() {
-            return new TeamMemberWage(id, teamMemberId, title, hourlyRate, jobId);
+            return new TeamMemberWage(id, teamMemberId, title, hourlyRate, jobId, tipEligible);
         }
     }
 }

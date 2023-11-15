@@ -36,8 +36,12 @@ public class UpdateItemTaxesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemIds  List of String value for itemIds.
+     * @param  taxesToEnable  List of String value for taxesToEnable.
+     * @param  taxesToDisable  List of String value for taxesToDisable.
      */
+
     protected UpdateItemTaxesRequest(List<String> itemIds,
             OptionalNullable<List<String>> taxesToEnable,
             OptionalNullable<List<String>> taxesToDisable) {

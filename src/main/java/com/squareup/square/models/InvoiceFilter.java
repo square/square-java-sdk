@@ -32,8 +32,11 @@ public class InvoiceFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  customerIds  List of String value for customerIds.
      */
+
     protected InvoiceFilter(List<String> locationIds,
             OptionalNullable<List<String>> customerIds) {
         this.locationIds = locationIds;

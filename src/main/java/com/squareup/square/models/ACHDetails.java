@@ -35,8 +35,12 @@ public class ACHDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  routingNumber  String value for routingNumber.
+     * @param  accountNumberSuffix  String value for accountNumberSuffix.
+     * @param  accountType  String value for accountType.
      */
+
     protected ACHDetails(OptionalNullable<String> routingNumber,
             OptionalNullable<String> accountNumberSuffix, OptionalNullable<String> accountType) {
         this.routingNumber = routingNumber;

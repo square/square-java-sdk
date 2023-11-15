@@ -35,8 +35,12 @@ public class ProcessingFee {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  effectiveAt  String value for effectiveAt.
+     * @param  type  String value for type.
+     * @param  amountMoney  Money value for amountMoney.
      */
+
     protected ProcessingFee(OptionalNullable<String> effectiveAt, OptionalNullable<String> type,
             Money amountMoney) {
         this.effectiveAt = effectiveAt;

@@ -35,8 +35,12 @@ public class V1PaymentModifier {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  modifierOptionId  String value for modifierOptionId.
      */
+
     protected V1PaymentModifier(OptionalNullable<String> name, V1Money appliedMoney,
             OptionalNullable<String> modifierOptionId) {
         this.name = name;

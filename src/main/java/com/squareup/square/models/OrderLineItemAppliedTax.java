@@ -35,8 +35,12 @@ public class OrderLineItemAppliedTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  taxUid  String value for taxUid.
+     * @param  uid  String value for uid.
+     * @param  appliedMoney  Money value for appliedMoney.
      */
+
     protected OrderLineItemAppliedTax(String taxUid, OptionalNullable<String> uid,
             Money appliedMoney) {
         this.uid = uid;

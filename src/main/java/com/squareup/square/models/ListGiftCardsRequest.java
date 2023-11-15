@@ -43,8 +43,14 @@ public class ListGiftCardsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  state  String value for state.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  customerId  String value for customerId.
      */
+
     protected ListGiftCardsRequest(OptionalNullable<String> type, OptionalNullable<String> state,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor,
             OptionalNullable<String> customerId) {

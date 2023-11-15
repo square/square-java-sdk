@@ -73,8 +73,22 @@ public class CatalogCustomAttributeDefinition {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  type  String value for type.
+     * @param  name  String value for name.
+     * @param  allowedObjectTypes  List of String value for allowedObjectTypes.
+     * @param  description  String value for description.
+     * @param  sourceApplication  SourceApplication value for sourceApplication.
+     * @param  sellerVisibility  String value for sellerVisibility.
+     * @param  appVisibility  String value for appVisibility.
+     * @param  stringConfig  CatalogCustomAttributeDefinitionStringConfig value for stringConfig.
+     * @param  numberConfig  CatalogCustomAttributeDefinitionNumberConfig value for numberConfig.
+     * @param  selectionConfig  CatalogCustomAttributeDefinitionSelectionConfig value for
+     *         selectionConfig.
+     * @param  customAttributeUsageCount  Integer value for customAttributeUsageCount.
+     * @param  key  String value for key.
      */
+
     protected CatalogCustomAttributeDefinition(String type, String name,
             List<String> allowedObjectTypes, OptionalNullable<String> description,
             SourceApplication sourceApplication, String sellerVisibility, String appVisibility,

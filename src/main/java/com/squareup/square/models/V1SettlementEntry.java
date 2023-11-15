@@ -39,8 +39,13 @@ public class V1SettlementEntry {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  paymentId  String value for paymentId.
+     * @param  type  String value for type.
+     * @param  amountMoney  V1Money value for amountMoney.
+     * @param  feeMoney  V1Money value for feeMoney.
      */
+
     protected V1SettlementEntry(OptionalNullable<String> paymentId, String type,
             V1Money amountMoney, V1Money feeMoney) {
         this.paymentId = paymentId;

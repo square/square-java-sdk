@@ -188,8 +188,50 @@ public class Payment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  tipMoney  Money value for tipMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  approvedMoney  Money value for approvedMoney.
+     * @param  processingFee  List of ProcessingFee value for processingFee.
+     * @param  refundedMoney  Money value for refundedMoney.
+     * @param  status  String value for status.
+     * @param  delayDuration  String value for delayDuration.
+     * @param  delayAction  String value for delayAction.
+     * @param  delayedUntil  String value for delayedUntil.
+     * @param  sourceType  String value for sourceType.
+     * @param  cardDetails  CardPaymentDetails value for cardDetails.
+     * @param  cashDetails  CashPaymentDetails value for cashDetails.
+     * @param  bankAccountDetails  BankAccountPaymentDetails value for bankAccountDetails.
+     * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
+     * @param  walletDetails  DigitalWalletDetails value for walletDetails.
+     * @param  buyNowPayLaterDetails  BuyNowPayLaterDetails value for buyNowPayLaterDetails.
+     * @param  squareAccountDetails  SquareAccountDetails value for squareAccountDetails.
+     * @param  locationId  String value for locationId.
+     * @param  orderId  String value for orderId.
+     * @param  referenceId  String value for referenceId.
+     * @param  customerId  String value for customerId.
+     * @param  employeeId  String value for employeeId.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  refundIds  List of String value for refundIds.
+     * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
+     * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  billingAddress  Address value for billingAddress.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  note  String value for note.
+     * @param  statementDescriptionIdentifier  String value for statementDescriptionIdentifier.
+     * @param  capabilities  List of String value for capabilities.
+     * @param  receiptNumber  String value for receiptNumber.
+     * @param  receiptUrl  String value for receiptUrl.
+     * @param  deviceDetails  DeviceDetails value for deviceDetails.
+     * @param  applicationDetails  ApplicationDetails value for applicationDetails.
+     * @param  versionToken  String value for versionToken.
      */
+
     protected Payment(String id, String createdAt, String updatedAt, Money amountMoney,
             Money tipMoney, Money totalMoney, Money appFeeMoney, Money approvedMoney,
             List<ProcessingFee> processingFee, Money refundedMoney, String status,

@@ -31,8 +31,11 @@ public class SubscriptionEventInfo {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  detail  String value for detail.
+     * @param  code  String value for code.
      */
+
     protected SubscriptionEventInfo(OptionalNullable<String> detail, String code) {
         this.detail = detail;
         this.code = code;

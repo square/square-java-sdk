@@ -43,8 +43,14 @@ public class ConfirmationOptions {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  title  String value for title.
+     * @param  body  String value for body.
+     * @param  agreeButtonText  String value for agreeButtonText.
+     * @param  disagreeButtonText  String value for disagreeButtonText.
+     * @param  decision  ConfirmationDecision value for decision.
      */
+
     protected ConfirmationOptions(String title, String body, String agreeButtonText,
             OptionalNullable<String> disagreeButtonText, ConfirmationDecision decision) {
         this.title = title;

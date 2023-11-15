@@ -27,8 +27,10 @@ public class ListMerchantsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cursor  Integer value for cursor.
      */
+
     protected ListMerchantsRequest(OptionalNullable<Integer> cursor) {
         this.cursor = cursor;
     }

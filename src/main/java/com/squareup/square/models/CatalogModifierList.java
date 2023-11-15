@@ -44,8 +44,14 @@ public class CatalogModifierList {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  selectionType  String value for selectionType.
+     * @param  modifiers  List of CatalogObject value for modifiers.
+     * @param  imageIds  List of String value for imageIds.
      */
+
     protected CatalogModifierList(OptionalNullable<String> name, OptionalNullable<Integer> ordinal,
             String selectionType, OptionalNullable<List<CatalogObject>> modifiers,
             OptionalNullable<List<String>> imageIds) {

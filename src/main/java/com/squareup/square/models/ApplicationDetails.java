@@ -31,8 +31,11 @@ public class ApplicationDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  squareProduct  String value for squareProduct.
+     * @param  applicationId  String value for applicationId.
      */
+
     protected ApplicationDetails(String squareProduct, OptionalNullable<String> applicationId) {
         this.squareProduct = squareProduct;
         this.applicationId = applicationId;

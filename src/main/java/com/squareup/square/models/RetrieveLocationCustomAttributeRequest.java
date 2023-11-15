@@ -31,8 +31,11 @@ public class RetrieveLocationCustomAttributeRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  withDefinition  Boolean value for withDefinition.
+     * @param  version  Integer value for version.
      */
+
     protected RetrieveLocationCustomAttributeRequest(OptionalNullable<Boolean> withDefinition,
             Integer version) {
         this.withDefinition = withDefinition;

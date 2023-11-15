@@ -67,8 +67,20 @@ public class RefundPaymentRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appFeeMoney  Money value for appFeeMoney.
+     * @param  paymentId  String value for paymentId.
+     * @param  destinationId  String value for destinationId.
+     * @param  unlinked  Boolean value for unlinked.
+     * @param  locationId  String value for locationId.
+     * @param  customerId  String value for customerId.
+     * @param  reason  String value for reason.
+     * @param  paymentVersionToken  String value for paymentVersionToken.
+     * @param  teamMemberId  String value for teamMemberId.
      */
+
     protected RefundPaymentRequest(String idempotencyKey, Money amountMoney, Money appFeeMoney,
             OptionalNullable<String> paymentId, OptionalNullable<String> destinationId,
             OptionalNullable<Boolean> unlinked, OptionalNullable<String> locationId,

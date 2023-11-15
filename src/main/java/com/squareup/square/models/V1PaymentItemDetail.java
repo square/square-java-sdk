@@ -39,8 +39,13 @@ public class V1PaymentItemDetail {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  categoryName  String value for categoryName.
+     * @param  sku  String value for sku.
+     * @param  itemId  String value for itemId.
+     * @param  itemVariationId  String value for itemVariationId.
      */
+
     protected V1PaymentItemDetail(OptionalNullable<String> categoryName,
             OptionalNullable<String> sku, OptionalNullable<String> itemId,
             OptionalNullable<String> itemVariationId) {

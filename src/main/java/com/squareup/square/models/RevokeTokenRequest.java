@@ -39,8 +39,13 @@ public class RevokeTokenRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  clientId  String value for clientId.
+     * @param  accessToken  String value for accessToken.
+     * @param  merchantId  String value for merchantId.
+     * @param  revokeOnlyAccessToken  Boolean value for revokeOnlyAccessToken.
      */
+
     protected RevokeTokenRequest(OptionalNullable<String> clientId,
             OptionalNullable<String> accessToken, OptionalNullable<String> merchantId,
             OptionalNullable<Boolean> revokeOnlyAccessToken) {

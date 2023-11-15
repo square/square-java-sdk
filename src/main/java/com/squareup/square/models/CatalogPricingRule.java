@@ -76,8 +76,22 @@ public class CatalogPricingRule {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  timePeriodIds  List of String value for timePeriodIds.
+     * @param  discountId  String value for discountId.
+     * @param  matchProductsId  String value for matchProductsId.
+     * @param  applyProductsId  String value for applyProductsId.
+     * @param  excludeProductsId  String value for excludeProductsId.
+     * @param  validFromDate  String value for validFromDate.
+     * @param  validFromLocalTime  String value for validFromLocalTime.
+     * @param  validUntilDate  String value for validUntilDate.
+     * @param  validUntilLocalTime  String value for validUntilLocalTime.
+     * @param  excludeStrategy  String value for excludeStrategy.
+     * @param  minimumOrderSubtotalMoney  Money value for minimumOrderSubtotalMoney.
+     * @param  customerGroupIdsAny  List of String value for customerGroupIdsAny.
      */
+
     protected CatalogPricingRule(OptionalNullable<String> name,
             OptionalNullable<List<String>> timePeriodIds, OptionalNullable<String> discountId,
             OptionalNullable<String> matchProductsId, OptionalNullable<String> applyProductsId,

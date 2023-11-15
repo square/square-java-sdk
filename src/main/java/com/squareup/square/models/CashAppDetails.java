@@ -35,8 +35,12 @@ public class CashAppDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  buyerFullName  String value for buyerFullName.
+     * @param  buyerCountryCode  String value for buyerCountryCode.
+     * @param  buyerCashtag  String value for buyerCashtag.
      */
+
     protected CashAppDetails(OptionalNullable<String> buyerFullName,
             OptionalNullable<String> buyerCountryCode, String buyerCashtag) {
         this.buyerFullName = buyerFullName;

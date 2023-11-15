@@ -35,8 +35,12 @@ public class V1PaymentDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  appliedMoney  V1Money value for appliedMoney.
+     * @param  discountId  String value for discountId.
      */
+
     protected V1PaymentDiscount(OptionalNullable<String> name, V1Money appliedMoney,
             OptionalNullable<String> discountId) {
         this.name = name;

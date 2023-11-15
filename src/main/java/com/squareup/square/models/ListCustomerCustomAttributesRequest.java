@@ -35,8 +35,12 @@ public class ListCustomerCustomAttributesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
+     * @param  withDefinitions  Boolean value for withDefinitions.
      */
+
     protected ListCustomerCustomAttributesRequest(OptionalNullable<Integer> limit,
             OptionalNullable<String> cursor, OptionalNullable<Boolean> withDefinitions) {
         this.limit = limit;

@@ -31,8 +31,11 @@ public class UpdateBookingRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  booking  Booking value for booking.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateBookingRequest(Booking booking, OptionalNullable<String> idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         this.booking = booking;

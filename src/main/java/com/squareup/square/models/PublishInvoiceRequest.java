@@ -31,8 +31,11 @@ public class PublishInvoiceRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  version  int value for version.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected PublishInvoiceRequest(int version, OptionalNullable<String> idempotencyKey) {
         this.version = version;
         this.idempotencyKey = idempotencyKey;

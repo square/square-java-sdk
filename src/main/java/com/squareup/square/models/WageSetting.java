@@ -48,8 +48,15 @@ public class WageSetting {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  teamMemberId  String value for teamMemberId.
+     * @param  jobAssignments  List of JobAssignment value for jobAssignments.
+     * @param  isOvertimeExempt  Boolean value for isOvertimeExempt.
+     * @param  version  Integer value for version.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected WageSetting(OptionalNullable<String> teamMemberId,
             OptionalNullable<List<JobAssignment>> jobAssignments,
             OptionalNullable<Boolean> isOvertimeExempt, Integer version, String createdAt,

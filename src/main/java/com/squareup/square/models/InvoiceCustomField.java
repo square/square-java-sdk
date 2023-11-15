@@ -35,8 +35,12 @@ public class InvoiceCustomField {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  label  String value for label.
+     * @param  value  String value for value.
+     * @param  placement  String value for placement.
      */
+
     protected InvoiceCustomField(OptionalNullable<String> label, OptionalNullable<String> value,
             String placement) {
         this.label = label;

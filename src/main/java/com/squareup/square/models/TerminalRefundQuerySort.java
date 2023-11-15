@@ -27,8 +27,10 @@ public class TerminalRefundQuerySort {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  sortOrder  String value for sortOrder.
      */
+
     protected TerminalRefundQuerySort(OptionalNullable<String> sortOrder) {
         this.sortOrder = sortOrder;
     }

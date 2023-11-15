@@ -48,8 +48,16 @@ public class LoyaltyProgramAccrualRule {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  accrualType  String value for accrualType.
+     * @param  points  Integer value for points.
+     * @param  visitData  LoyaltyProgramAccrualRuleVisitData value for visitData.
+     * @param  spendData  LoyaltyProgramAccrualRuleSpendData value for spendData.
+     * @param  itemVariationData  LoyaltyProgramAccrualRuleItemVariationData value for
+     *         itemVariationData.
+     * @param  categoryData  LoyaltyProgramAccrualRuleCategoryData value for categoryData.
      */
+
     protected LoyaltyProgramAccrualRule(String accrualType, OptionalNullable<Integer> points,
             LoyaltyProgramAccrualRuleVisitData visitData,
             LoyaltyProgramAccrualRuleSpendData spendData,

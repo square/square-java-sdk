@@ -39,8 +39,13 @@ public class ListEmployeesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  status  String value for status.
+     * @param  limit  Integer value for limit.
+     * @param  cursor  String value for cursor.
      */
+
     protected ListEmployeesRequest(OptionalNullable<String> locationId, String status,
             OptionalNullable<Integer> limit, OptionalNullable<String> cursor) {
         this.locationId = locationId;

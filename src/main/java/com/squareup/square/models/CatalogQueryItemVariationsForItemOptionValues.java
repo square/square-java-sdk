@@ -28,8 +28,10 @@ public class CatalogQueryItemVariationsForItemOptionValues {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  itemOptionValueIds  List of String value for itemOptionValueIds.
      */
+
     protected CatalogQueryItemVariationsForItemOptionValues(
             OptionalNullable<List<String>> itemOptionValueIds) {
         this.itemOptionValueIds = itemOptionValueIds;

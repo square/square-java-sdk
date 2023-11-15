@@ -35,8 +35,12 @@ public class DeprecatedCreateDisputeEvidenceFileRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  idempotencyKey  String value for idempotencyKey.
+     * @param  evidenceType  String value for evidenceType.
+     * @param  contentType  String value for contentType.
      */
+
     protected DeprecatedCreateDisputeEvidenceFileRequest(String idempotencyKey, String evidenceType,
             OptionalNullable<String> contentType) {
         this.idempotencyKey = idempotencyKey;

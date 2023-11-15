@@ -96,8 +96,28 @@ public class FulfillmentPickupDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  recipient  FulfillmentRecipient value for recipient.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  autoCompleteDuration  String value for autoCompleteDuration.
+     * @param  scheduleType  String value for scheduleType.
+     * @param  pickupAt  String value for pickupAt.
+     * @param  pickupWindowDuration  String value for pickupWindowDuration.
+     * @param  prepTimeDuration  String value for prepTimeDuration.
+     * @param  note  String value for note.
+     * @param  placedAt  String value for placedAt.
+     * @param  acceptedAt  String value for acceptedAt.
+     * @param  rejectedAt  String value for rejectedAt.
+     * @param  readyAt  String value for readyAt.
+     * @param  expiredAt  String value for expiredAt.
+     * @param  pickedUpAt  String value for pickedUpAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  cancelReason  String value for cancelReason.
+     * @param  isCurbsidePickup  Boolean value for isCurbsidePickup.
+     * @param  curbsidePickupDetails  FulfillmentPickupDetailsCurbsidePickupDetails value for
+     *         curbsidePickupDetails.
      */
+
     protected FulfillmentPickupDetails(FulfillmentRecipient recipient,
             OptionalNullable<String> expiresAt, OptionalNullable<String> autoCompleteDuration,
             String scheduleType, OptionalNullable<String> pickupAt,

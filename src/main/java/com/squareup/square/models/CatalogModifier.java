@@ -48,8 +48,15 @@ public class CatalogModifier {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  priceMoney  Money value for priceMoney.
+     * @param  ordinal  Integer value for ordinal.
+     * @param  modifierListId  String value for modifierListId.
+     * @param  locationOverrides  List of ModifierLocationOverrides value for locationOverrides.
+     * @param  imageId  String value for imageId.
      */
+
     protected CatalogModifier(OptionalNullable<String> name, Money priceMoney,
             OptionalNullable<Integer> ordinal, OptionalNullable<String> modifierListId,
             OptionalNullable<List<ModifierLocationOverrides>> locationOverrides,

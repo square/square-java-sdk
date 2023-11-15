@@ -31,8 +31,11 @@ public class CashDrawerDevice {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  name  String value for name.
      */
+
     protected CashDrawerDevice(String id, OptionalNullable<String> name) {
         this.id = id;
         this.name = name;

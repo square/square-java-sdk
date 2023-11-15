@@ -64,8 +64,19 @@ public class Transaction {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  locationId  String value for locationId.
+     * @param  createdAt  String value for createdAt.
+     * @param  tenders  List of Tender value for tenders.
+     * @param  refunds  List of Refund value for refunds.
+     * @param  referenceId  String value for referenceId.
+     * @param  product  String value for product.
+     * @param  clientId  String value for clientId.
+     * @param  shippingAddress  Address value for shippingAddress.
+     * @param  orderId  String value for orderId.
      */
+
     protected Transaction(String id, OptionalNullable<String> locationId, String createdAt,
             OptionalNullable<List<Tender>> tenders, OptionalNullable<List<Refund>> refunds,
             OptionalNullable<String> referenceId, String product, OptionalNullable<String> clientId,

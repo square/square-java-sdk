@@ -31,8 +31,11 @@ public class DisputeEvidenceFile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  filename  String value for filename.
+     * @param  filetype  String value for filetype.
      */
+
     protected DisputeEvidenceFile(OptionalNullable<String> filename,
             OptionalNullable<String> filetype) {
         this.filename = filename;

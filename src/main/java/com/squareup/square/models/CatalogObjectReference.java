@@ -31,8 +31,11 @@ public class CatalogObjectReference {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  objectId  String value for objectId.
+     * @param  catalogVersion  Long value for catalogVersion.
      */
+
     protected CatalogObjectReference(OptionalNullable<String> objectId,
             OptionalNullable<Long> catalogVersion) {
         this.objectId = objectId;

@@ -76,8 +76,22 @@ public class InvoicePaymentRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  requestMethod  String value for requestMethod.
+     * @param  requestType  String value for requestType.
+     * @param  dueDate  String value for dueDate.
+     * @param  fixedAmountRequestedMoney  Money value for fixedAmountRequestedMoney.
+     * @param  percentageRequested  String value for percentageRequested.
+     * @param  tippingEnabled  Boolean value for tippingEnabled.
+     * @param  automaticPaymentSource  String value for automaticPaymentSource.
+     * @param  cardId  String value for cardId.
+     * @param  reminders  List of InvoicePaymentReminder value for reminders.
+     * @param  computedAmountMoney  Money value for computedAmountMoney.
+     * @param  totalCompletedAmountMoney  Money value for totalCompletedAmountMoney.
+     * @param  roundingAdjustmentIncludedMoney  Money value for roundingAdjustmentIncludedMoney.
      */
+
     protected InvoicePaymentRequest(OptionalNullable<String> uid, String requestMethod,
             String requestType, OptionalNullable<String> dueDate, Money fixedAmountRequestedMoney,
             OptionalNullable<String> percentageRequested, OptionalNullable<Boolean> tippingEnabled,

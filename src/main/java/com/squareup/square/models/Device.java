@@ -40,8 +40,13 @@ public class Device {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  attributes  DeviceAttributes value for attributes.
+     * @param  id  String value for id.
+     * @param  components  List of Component value for components.
+     * @param  status  DeviceStatus value for status.
      */
+
     protected Device(DeviceAttributes attributes, String id,
             OptionalNullable<List<Component>> components, DeviceStatus status) {
         this.id = id;

@@ -39,8 +39,13 @@ public class AdditionalRecipient {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  description  String value for description.
+     * @param  receivableId  String value for receivableId.
      */
+
     protected AdditionalRecipient(String locationId, Money amountMoney,
             OptionalNullable<String> description, OptionalNullable<String> receivableId) {
         this.locationId = locationId;

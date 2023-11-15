@@ -56,8 +56,17 @@ public class CustomAttributeDefinition {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  key  String value for key.
+     * @param  schema  JsonObject value for schema.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  visibility  String value for visibility.
+     * @param  version  Integer value for version.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  String value for createdAt.
      */
+
     protected CustomAttributeDefinition(OptionalNullable<String> key,
             OptionalNullable<JsonObject> schema, OptionalNullable<String> name,
             OptionalNullable<String> description, String visibility, Integer version,

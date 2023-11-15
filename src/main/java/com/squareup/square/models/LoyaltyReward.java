@@ -59,8 +59,18 @@ public class LoyaltyReward {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  loyaltyAccountId  String value for loyaltyAccountId.
+     * @param  rewardTierId  String value for rewardTierId.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  points  Integer value for points.
+     * @param  orderId  String value for orderId.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  redeemedAt  String value for redeemedAt.
      */
+
     protected LoyaltyReward(String loyaltyAccountId, String rewardTierId, String id, String status,
             Integer points, OptionalNullable<String> orderId, String createdAt, String updatedAt,
             String redeemedAt) {

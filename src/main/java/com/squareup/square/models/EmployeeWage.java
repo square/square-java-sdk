@@ -39,8 +39,13 @@ public class EmployeeWage {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  employeeId  String value for employeeId.
+     * @param  title  String value for title.
+     * @param  hourlyRate  Money value for hourlyRate.
      */
+
     protected EmployeeWage(String id, OptionalNullable<String> employeeId,
             OptionalNullable<String> title, Money hourlyRate) {
         this.id = id;

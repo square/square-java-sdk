@@ -76,8 +76,22 @@ public class LoyaltyPromotion {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  incentive  LoyaltyPromotionIncentive value for incentive.
+     * @param  availableTime  LoyaltyPromotionAvailableTimeData value for availableTime.
+     * @param  id  String value for id.
+     * @param  triggerLimit  LoyaltyPromotionTriggerLimit value for triggerLimit.
+     * @param  status  String value for status.
+     * @param  createdAt  String value for createdAt.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  loyaltyProgramId  String value for loyaltyProgramId.
+     * @param  minimumSpendAmountMoney  Money value for minimumSpendAmountMoney.
+     * @param  qualifyingItemVariationIds  List of String value for qualifyingItemVariationIds.
+     * @param  qualifyingCategoryIds  List of String value for qualifyingCategoryIds.
      */
+
     protected LoyaltyPromotion(String name, LoyaltyPromotionIncentive incentive,
             LoyaltyPromotionAvailableTimeData availableTime, String id,
             LoyaltyPromotionTriggerLimit triggerLimit, String status, String createdAt,

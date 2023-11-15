@@ -36,8 +36,12 @@ public class SearchTeamMembersFilter {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationIds  List of String value for locationIds.
+     * @param  status  String value for status.
+     * @param  isOwner  Boolean value for isOwner.
      */
+
     protected SearchTeamMembersFilter(OptionalNullable<List<String>> locationIds, String status,
             OptionalNullable<Boolean> isOwner) {
         this.locationIds = locationIds;

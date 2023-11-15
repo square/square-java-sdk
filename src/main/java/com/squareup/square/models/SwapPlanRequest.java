@@ -32,8 +32,11 @@ public class SwapPlanRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  newPlanVariationId  String value for newPlanVariationId.
+     * @param  phases  List of PhaseInput value for phases.
      */
+
     protected SwapPlanRequest(OptionalNullable<String> newPlanVariationId,
             OptionalNullable<List<PhaseInput>> phases) {
         this.newPlanVariationId = newPlanVariationId;

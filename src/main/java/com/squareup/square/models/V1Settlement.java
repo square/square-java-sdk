@@ -50,8 +50,15 @@ public class V1Settlement {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  String value for id.
+     * @param  status  String value for status.
+     * @param  totalMoney  V1Money value for totalMoney.
+     * @param  initiatedAt  String value for initiatedAt.
+     * @param  bankAccountId  String value for bankAccountId.
+     * @param  entries  List of V1SettlementEntry value for entries.
      */
+
     protected V1Settlement(String id, String status, V1Money totalMoney,
             OptionalNullable<String> initiatedAt, OptionalNullable<String> bankAccountId,
             OptionalNullable<List<V1SettlementEntry>> entries) {

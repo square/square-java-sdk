@@ -35,8 +35,12 @@ public class StandardUnitDescription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  unit  MeasurementUnit value for unit.
+     * @param  name  String value for name.
+     * @param  abbreviation  String value for abbreviation.
      */
+
     protected StandardUnitDescription(MeasurementUnit unit, OptionalNullable<String> name,
             OptionalNullable<String> abbreviation) {
         this.unit = unit;

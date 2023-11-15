@@ -35,8 +35,12 @@ public class LoyaltyEventAccumulatePoints {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  loyaltyProgramId  String value for loyaltyProgramId.
+     * @param  points  Integer value for points.
+     * @param  orderId  String value for orderId.
      */
+
     protected LoyaltyEventAccumulatePoints(String loyaltyProgramId,
             OptionalNullable<Integer> points, OptionalNullable<String> orderId) {
         this.loyaltyProgramId = loyaltyProgramId;

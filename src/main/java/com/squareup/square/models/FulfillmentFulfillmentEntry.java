@@ -40,8 +40,13 @@ public class FulfillmentFulfillmentEntry {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  lineItemUid  String value for lineItemUid.
+     * @param  quantity  String value for quantity.
+     * @param  uid  String value for uid.
+     * @param  metadata  Map of String, value for metadata.
      */
+
     protected FulfillmentFulfillmentEntry(String lineItemUid, String quantity,
             OptionalNullable<String> uid, OptionalNullable<Map<String, String>> metadata) {
         this.uid = uid;

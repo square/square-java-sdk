@@ -35,8 +35,12 @@ public class BuyNowPayLaterDetails {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  brand  String value for brand.
+     * @param  afterpayDetails  AfterpayDetails value for afterpayDetails.
+     * @param  clearpayDetails  ClearpayDetails value for clearpayDetails.
      */
+
     protected BuyNowPayLaterDetails(OptionalNullable<String> brand, AfterpayDetails afterpayDetails,
             ClearpayDetails clearpayDetails) {
         this.brand = brand;

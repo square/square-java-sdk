@@ -36,8 +36,12 @@ public class Availability {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startAt  String value for startAt.
+     * @param  locationId  String value for locationId.
+     * @param  appointmentSegments  List of AppointmentSegment value for appointmentSegments.
      */
+
     protected Availability(OptionalNullable<String> startAt, String locationId,
             OptionalNullable<List<AppointmentSegment>> appointmentSegments) {
         this.startAt = startAt;

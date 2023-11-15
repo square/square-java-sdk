@@ -27,8 +27,10 @@ public class ListWebhookEventTypesRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  apiVersion  String value for apiVersion.
      */
+
     protected ListWebhookEventTypesRequest(OptionalNullable<String> apiVersion) {
         this.apiVersion = apiVersion;
     }

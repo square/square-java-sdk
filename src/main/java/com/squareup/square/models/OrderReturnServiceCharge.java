@@ -84,8 +84,24 @@ public class OrderReturnServiceCharge {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  sourceServiceChargeUid  String value for sourceServiceChargeUid.
+     * @param  name  String value for name.
+     * @param  catalogObjectId  String value for catalogObjectId.
+     * @param  catalogVersion  Long value for catalogVersion.
+     * @param  percentage  String value for percentage.
+     * @param  amountMoney  Money value for amountMoney.
+     * @param  appliedMoney  Money value for appliedMoney.
+     * @param  totalMoney  Money value for totalMoney.
+     * @param  totalTaxMoney  Money value for totalTaxMoney.
+     * @param  calculationPhase  String value for calculationPhase.
+     * @param  taxable  Boolean value for taxable.
+     * @param  appliedTaxes  List of OrderLineItemAppliedTax value for appliedTaxes.
+     * @param  treatmentType  String value for treatmentType.
+     * @param  scope  String value for scope.
      */
+
     protected OrderReturnServiceCharge(OptionalNullable<String> uid,
             OptionalNullable<String> sourceServiceChargeUid, OptionalNullable<String> name,
             OptionalNullable<String> catalogObjectId, OptionalNullable<Long> catalogVersion,

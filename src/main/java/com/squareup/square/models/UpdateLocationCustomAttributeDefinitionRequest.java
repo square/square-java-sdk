@@ -32,8 +32,12 @@ public class UpdateLocationCustomAttributeDefinitionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  customAttributeDefinition  CustomAttributeDefinition value for
+     *         customAttributeDefinition.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected UpdateLocationCustomAttributeDefinitionRequest(
             CustomAttributeDefinition customAttributeDefinition,
             OptionalNullable<String> idempotencyKey) {

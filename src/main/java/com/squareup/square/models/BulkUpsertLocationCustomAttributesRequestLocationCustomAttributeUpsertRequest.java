@@ -35,8 +35,12 @@ public class BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUps
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  locationId  String value for locationId.
+     * @param  customAttribute  CustomAttribute value for customAttribute.
+     * @param  idempotencyKey  String value for idempotencyKey.
      */
+
     protected BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest(
             String locationId, CustomAttribute customAttribute,
             OptionalNullable<String> idempotencyKey) {

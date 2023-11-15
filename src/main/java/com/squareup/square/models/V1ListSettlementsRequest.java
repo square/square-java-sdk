@@ -47,8 +47,15 @@ public class V1ListSettlementsRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  order  String value for order.
+     * @param  beginTime  String value for beginTime.
+     * @param  endTime  String value for endTime.
+     * @param  limit  Integer value for limit.
+     * @param  status  String value for status.
+     * @param  batchToken  String value for batchToken.
      */
+
     protected V1ListSettlementsRequest(String order, OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<Integer> limit, String status,
             OptionalNullable<String> batchToken) {
