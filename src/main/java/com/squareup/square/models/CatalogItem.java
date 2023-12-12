@@ -31,9 +31,13 @@ public class CatalogItem {
     private final OptionalNullable<List<CatalogItemOptionForItem>> itemOptions;
     private final OptionalNullable<List<String>> imageIds;
     private final OptionalNullable<String> sortName;
+    private final OptionalNullable<List<CatalogObjectCategory>> categories;
     private final OptionalNullable<String> descriptionHtml;
     private final String descriptionPlaintext;
+    private final OptionalNullable<List<String>> channels;
     private final OptionalNullable<Boolean> isArchived;
+    private final CatalogEcomSeoData ecomSeoData;
+    private final CatalogObjectCategory reportingCategory;
 
     /**
      * Initialization constructor.
@@ -53,9 +57,13 @@ public class CatalogItem {
      * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
      * @param  imageIds  List of String value for imageIds.
      * @param  sortName  String value for sortName.
+     * @param  categories  List of CatalogObjectCategory value for categories.
      * @param  descriptionHtml  String value for descriptionHtml.
      * @param  descriptionPlaintext  String value for descriptionPlaintext.
+     * @param  channels  List of String value for channels.
      * @param  isArchived  Boolean value for isArchived.
+     * @param  ecomSeoData  CatalogEcomSeoData value for ecomSeoData.
+     * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
      */
     @JsonCreator
     public CatalogItem(
@@ -75,9 +83,13 @@ public class CatalogItem {
             @JsonProperty("item_options") List<CatalogItemOptionForItem> itemOptions,
             @JsonProperty("image_ids") List<String> imageIds,
             @JsonProperty("sort_name") String sortName,
+            @JsonProperty("categories") List<CatalogObjectCategory> categories,
             @JsonProperty("description_html") String descriptionHtml,
             @JsonProperty("description_plaintext") String descriptionPlaintext,
-            @JsonProperty("is_archived") Boolean isArchived) {
+            @JsonProperty("channels") List<String> channels,
+            @JsonProperty("is_archived") Boolean isArchived,
+            @JsonProperty("ecom_seo_data") CatalogEcomSeoData ecomSeoData,
+            @JsonProperty("reporting_category") CatalogObjectCategory reportingCategory) {
         this.name = OptionalNullable.of(name);
         this.description = OptionalNullable.of(description);
         this.abbreviation = OptionalNullable.of(abbreviation);
@@ -94,9 +106,13 @@ public class CatalogItem {
         this.itemOptions = OptionalNullable.of(itemOptions);
         this.imageIds = OptionalNullable.of(imageIds);
         this.sortName = OptionalNullable.of(sortName);
+        this.categories = OptionalNullable.of(categories);
         this.descriptionHtml = OptionalNullable.of(descriptionHtml);
         this.descriptionPlaintext = descriptionPlaintext;
+        this.channels = OptionalNullable.of(channels);
         this.isArchived = OptionalNullable.of(isArchived);
+        this.ecomSeoData = ecomSeoData;
+        this.reportingCategory = reportingCategory;
     }
 
     /**
@@ -117,9 +133,13 @@ public class CatalogItem {
      * @param  itemOptions  List of CatalogItemOptionForItem value for itemOptions.
      * @param  imageIds  List of String value for imageIds.
      * @param  sortName  String value for sortName.
+     * @param  categories  List of CatalogObjectCategory value for categories.
      * @param  descriptionHtml  String value for descriptionHtml.
      * @param  descriptionPlaintext  String value for descriptionPlaintext.
+     * @param  channels  List of String value for channels.
      * @param  isArchived  Boolean value for isArchived.
+     * @param  ecomSeoData  CatalogEcomSeoData value for ecomSeoData.
+     * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
      */
 
     protected CatalogItem(OptionalNullable<String> name, OptionalNullable<String> description,
@@ -132,8 +152,10 @@ public class CatalogItem {
             OptionalNullable<Boolean> skipModifierScreen,
             OptionalNullable<List<CatalogItemOptionForItem>> itemOptions,
             OptionalNullable<List<String>> imageIds, OptionalNullable<String> sortName,
+            OptionalNullable<List<CatalogObjectCategory>> categories,
             OptionalNullable<String> descriptionHtml, String descriptionPlaintext,
-            OptionalNullable<Boolean> isArchived) {
+            OptionalNullable<List<String>> channels, OptionalNullable<Boolean> isArchived,
+            CatalogEcomSeoData ecomSeoData, CatalogObjectCategory reportingCategory) {
         this.name = name;
         this.description = description;
         this.abbreviation = abbreviation;
@@ -150,9 +172,13 @@ public class CatalogItem {
         this.itemOptions = itemOptions;
         this.imageIds = imageIds;
         this.sortName = sortName;
+        this.categories = categories;
         this.descriptionHtml = descriptionHtml;
         this.descriptionPlaintext = descriptionPlaintext;
+        this.channels = channels;
         this.isArchived = isArchived;
+        this.ecomSeoData = ecomSeoData;
+        this.reportingCategory = reportingCategory;
     }
 
     /**
@@ -337,7 +363,8 @@ public class CatalogItem {
 
     /**
      * Internal Getter for CategoryId.
-     * The ID of the item's category, if any.
+     * The ID of the item's category, if any. Deprecated since 2023-12-13. Use
+     * `CatalogItem.categories`, instead.
      * @return Returns the Internal String
      */
     @JsonGetter("category_id")
@@ -349,7 +376,8 @@ public class CatalogItem {
 
     /**
      * Getter for CategoryId.
-     * The ID of the item's category, if any.
+     * The ID of the item's category, if any. Deprecated since 2023-12-13. Use
+     * `CatalogItem.categories`, instead.
      * @return Returns the String
      */
     @JsonIgnore
@@ -554,6 +582,28 @@ public class CatalogItem {
     }
 
     /**
+     * Internal Getter for Categories.
+     * The list of categories.
+     * @return Returns the Internal List of CatalogObjectCategory
+     */
+    @JsonGetter("categories")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<CatalogObjectCategory>> internalGetCategories() {
+        return this.categories;
+    }
+
+    /**
+     * Getter for Categories.
+     * The list of categories.
+     * @return Returns the List of CatalogObjectCategory
+     */
+    @JsonIgnore
+    public List<CatalogObjectCategory> getCategories() {
+        return OptionalNullable.getFrom(categories);
+    }
+
+    /**
      * Internal Getter for DescriptionHtml.
      * The item's description as expressed in valid HTML elements. The length of this field value,
      * including those of HTML tags, is of Unicode points. With application query filters, the text
@@ -606,6 +656,30 @@ public class CatalogItem {
     }
 
     /**
+     * Internal Getter for Channels.
+     * A list of IDs representing channels, such as a Square Online site, where the item can be made
+     * visible or available.
+     * @return Returns the Internal List of String
+     */
+    @JsonGetter("channels")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<String>> internalGetChannels() {
+        return this.channels;
+    }
+
+    /**
+     * Getter for Channels.
+     * A list of IDs representing channels, such as a Square Online site, where the item can be made
+     * visible or available.
+     * @return Returns the List of String
+     */
+    @JsonIgnore
+    public List<String> getChannels() {
+        return OptionalNullable.getFrom(channels);
+    }
+
+    /**
      * Internal Getter for IsArchived.
      * Indicates whether this item is archived (`true`) or not (`false`).
      * @return Returns the Internal Boolean
@@ -627,12 +701,37 @@ public class CatalogItem {
         return OptionalNullable.getFrom(isArchived);
     }
 
+    /**
+     * Getter for EcomSeoData.
+     * SEO data for for a seller's Square Online store.
+     * @return Returns the CatalogEcomSeoData
+     */
+    @JsonGetter("ecom_seo_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CatalogEcomSeoData getEcomSeoData() {
+        return ecomSeoData;
+    }
+
+    /**
+     * Getter for ReportingCategory.
+     * A category that can be assigned to an item or a parent category that can be assigned to
+     * another category. For example, a clothing category can be assigned to a t-shirt item or be
+     * made as the parent category to the pants category.
+     * @return Returns the CatalogObjectCategory
+     */
+    @JsonGetter("reporting_category")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CatalogObjectCategory getReportingCategory() {
+        return reportingCategory;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
                 variations, productType, skipModifierScreen, itemOptions, imageIds, sortName,
-                descriptionHtml, descriptionPlaintext, isArchived);
+                categories, descriptionHtml, descriptionPlaintext, channels, isArchived,
+                ecomSeoData, reportingCategory);
     }
 
     @Override
@@ -660,9 +759,13 @@ public class CatalogItem {
             && Objects.equals(itemOptions, other.itemOptions)
             && Objects.equals(imageIds, other.imageIds)
             && Objects.equals(sortName, other.sortName)
+            && Objects.equals(categories, other.categories)
             && Objects.equals(descriptionHtml, other.descriptionHtml)
             && Objects.equals(descriptionPlaintext, other.descriptionPlaintext)
-            && Objects.equals(isArchived, other.isArchived);
+            && Objects.equals(channels, other.channels)
+            && Objects.equals(isArchived, other.isArchived)
+            && Objects.equals(ecomSeoData, other.ecomSeoData)
+            && Objects.equals(reportingCategory, other.reportingCategory);
     }
 
     /**
@@ -678,9 +781,10 @@ public class CatalogItem {
                 + categoryId + ", taxIds=" + taxIds + ", modifierListInfo=" + modifierListInfo
                 + ", variations=" + variations + ", productType=" + productType
                 + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
-                + ", imageIds=" + imageIds + ", sortName=" + sortName + ", descriptionHtml="
-                + descriptionHtml + ", descriptionPlaintext=" + descriptionPlaintext
-                + ", isArchived=" + isArchived + "]";
+                + ", imageIds=" + imageIds + ", sortName=" + sortName + ", categories=" + categories
+                + ", descriptionHtml=" + descriptionHtml + ", descriptionPlaintext="
+                + descriptionPlaintext + ", channels=" + channels + ", isArchived=" + isArchived
+                + ", ecomSeoData=" + ecomSeoData + ", reportingCategory=" + reportingCategory + "]";
     }
 
     /**
@@ -691,7 +795,9 @@ public class CatalogItem {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .productType(getProductType())
-                .descriptionPlaintext(getDescriptionPlaintext());
+                .descriptionPlaintext(getDescriptionPlaintext())
+                .ecomSeoData(getEcomSeoData())
+                .reportingCategory(getReportingCategory());
         builder.name = internalGetName();
         builder.description = internalGetDescription();
         builder.abbreviation = internalGetAbbreviation();
@@ -707,7 +813,9 @@ public class CatalogItem {
         builder.itemOptions = internalGetItemOptions();
         builder.imageIds = internalGetImageIds();
         builder.sortName = internalGetSortName();
+        builder.categories = internalGetCategories();
         builder.descriptionHtml = internalGetDescriptionHtml();
+        builder.channels = internalGetChannels();
         builder.isArchived = internalGetIsArchived();
         return builder;
     }
@@ -732,9 +840,13 @@ public class CatalogItem {
         private OptionalNullable<List<CatalogItemOptionForItem>> itemOptions;
         private OptionalNullable<List<String>> imageIds;
         private OptionalNullable<String> sortName;
+        private OptionalNullable<List<CatalogObjectCategory>> categories;
         private OptionalNullable<String> descriptionHtml;
         private String descriptionPlaintext;
+        private OptionalNullable<List<String>> channels;
         private OptionalNullable<Boolean> isArchived;
+        private CatalogEcomSeoData ecomSeoData;
+        private CatalogObjectCategory reportingCategory;
 
 
 
@@ -1034,6 +1146,25 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for categories.
+         * @param  categories  List of CatalogObjectCategory value for categories.
+         * @return Builder
+         */
+        public Builder categories(List<CatalogObjectCategory> categories) {
+            this.categories = OptionalNullable.of(categories);
+            return this;
+        }
+
+        /**
+         * UnSetter for categories.
+         * @return Builder
+         */
+        public Builder unsetCategories() {
+            categories = null;
+            return this;
+        }
+
+        /**
          * Setter for descriptionHtml.
          * @param  descriptionHtml  String value for descriptionHtml.
          * @return Builder
@@ -1063,6 +1194,25 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for channels.
+         * @param  channels  List of String value for channels.
+         * @return Builder
+         */
+        public Builder channels(List<String> channels) {
+            this.channels = OptionalNullable.of(channels);
+            return this;
+        }
+
+        /**
+         * UnSetter for channels.
+         * @return Builder
+         */
+        public Builder unsetChannels() {
+            channels = null;
+            return this;
+        }
+
+        /**
          * Setter for isArchived.
          * @param  isArchived  Boolean value for isArchived.
          * @return Builder
@@ -1082,6 +1232,26 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for ecomSeoData.
+         * @param  ecomSeoData  CatalogEcomSeoData value for ecomSeoData.
+         * @return Builder
+         */
+        public Builder ecomSeoData(CatalogEcomSeoData ecomSeoData) {
+            this.ecomSeoData = ecomSeoData;
+            return this;
+        }
+
+        /**
+         * Setter for reportingCategory.
+         * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
+         * @return Builder
+         */
+        public Builder reportingCategory(CatalogObjectCategory reportingCategory) {
+            this.reportingCategory = reportingCategory;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogItem} object using the set fields.
          * @return {@link CatalogItem}
          */
@@ -1089,7 +1259,8 @@ public class CatalogItem {
             return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
                     availableForPickup, availableElectronically, categoryId, taxIds,
                     modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
-                    imageIds, sortName, descriptionHtml, descriptionPlaintext, isArchived);
+                    imageIds, sortName, categories, descriptionHtml, descriptionPlaintext, channels,
+                    isArchived, ecomSeoData, reportingCategory);
         }
     }
 }

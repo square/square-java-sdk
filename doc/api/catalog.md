@@ -172,7 +172,6 @@ BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Bui
                 .presentAtAllLocations(true)
                 .itemData(new CatalogItem.Builder()
                         .name("Tea")
-                        .categoryId("#Beverages")
                         .taxIds(Arrays.asList(
                             "#SalesTax"
                         ))
@@ -193,6 +192,11 @@ BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Bui
                                     .build())
                             .build()
                         ))
+                        .categories(Arrays.asList(
+                            new CatalogObjectCategory.Builder()
+                                .id("#Beverages")
+                                .build()
+                        ))
                         .descriptionHtml("<p><strong>Hot</strong> Leaf Juice</p>")
                         .build())
                 .build(),
@@ -203,7 +207,6 @@ BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Bui
                 .presentAtAllLocations(true)
                 .itemData(new CatalogItem.Builder()
                         .name("Coffee")
-                        .categoryId("#Beverages")
                         .taxIds(Arrays.asList(
                             "#SalesTax"
                         ))
@@ -238,6 +241,11 @@ BatchUpsertCatalogObjectsRequest body = new BatchUpsertCatalogObjectsRequest.Bui
                                         .build())
                                     .build())
                             .build()
+                        ))
+                        .categories(Arrays.asList(
+                            new CatalogObjectCategory.Builder()
+                                .id("#Beverages")
+                                .build()
                         ))
                         .descriptionHtml("<p>Hot <em>Bean Juice</em></p>")
                         .build())
@@ -592,7 +600,8 @@ any [CatalogTax](../../doc/models/catalog-tax.md) objects that apply to it.
 CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
     final String objectId,
     final Boolean includeRelatedObjects,
-    final Long catalogVersion)
+    final Long catalogVersion,
+    final Boolean includeCategoryPathToRoot)
 ```
 
 ## Parameters
@@ -602,6 +611,7 @@ CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
 | `objectId` | `String` | Template, Required | The object ID of any type of catalog objects to be retrieved. |
 | `includeRelatedObjects` | `Boolean` | Query, Optional | If `true`, the response will include additional objects that are related to the<br>requested objects. Related objects are defined as any objects referenced by ID by the results in the `objects` field<br>of the response. These objects are put in the `related_objects` field. Setting this to `true` is<br>helpful when the objects are needed for immediate display to a user.<br>This process only goes one level deep. Objects referenced by the related objects will not be included. For example,<br><br>if the `objects` field of the response contains a CatalogItem, its associated<br>CatalogCategory objects, CatalogTax objects, CatalogImage objects and<br>CatalogModifierLists will be returned in the `related_objects` field of the<br>response. If the `objects` field of the response contains a CatalogItemVariation,<br>its parent CatalogItem will be returned in the `related_objects` field of<br>the response.<br><br>Default value: `false`<br>**Default**: `false` |
 | `catalogVersion` | `Long` | Query, Optional | Requests objects as of a specific version of the catalog. This allows you to retrieve historical<br>versions of objects. The value to retrieve a specific version of an object can be found<br>in the version field of [CatalogObject](../../doc/models/catalog-object.md)s. If not included, results will<br>be from the current version of the catalog. |
+| `includeCategoryPathToRoot` | `Boolean` | Query, Optional | Specifies whether or not to include the `path_to_root` list for each returned category instance. The `path_to_root` list consists<br>of `CategoryPathToRootNode` objects and specifies the path that starts with the immediate parent category of the returned category<br>and ends with its root category. If the returned category is a top-level category, the `path_to_root` list is empty and is not returned<br>in the response payload.<br>**Default**: `false` |
 
 ## Response Type
 
@@ -612,8 +622,9 @@ CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
 ```java
 String objectId = "object_id8";
 Boolean includeRelatedObjects = false;
+Boolean includeCategoryPathToRoot = false;
 
-catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects, null).thenAccept(result -> {
+catalogApi.retrieveCatalogObjectAsync(objectId, includeRelatedObjects, null, includeCategoryPathToRoot).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

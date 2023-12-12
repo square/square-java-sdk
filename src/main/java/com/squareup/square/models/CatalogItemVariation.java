@@ -196,7 +196,9 @@ public class CatalogItemVariation {
     /**
      * Internal Getter for Name.
      * The item variation's name. This is a searchable attribute for use in applicable query
-     * filters, and its value length is of Unicode code points.
+     * filters. Its value has a maximum length of 255 Unicode code points. However, when the parent
+     * [item](entity:CatalogItem) uses [item options](entity:CatalogItemOption), this attribute is
+     * auto-generated, read-only, and can be longer than 255 Unicode code points.
      * @return Returns the Internal String
      */
     @JsonGetter("name")
@@ -209,7 +211,9 @@ public class CatalogItemVariation {
     /**
      * Getter for Name.
      * The item variation's name. This is a searchable attribute for use in applicable query
-     * filters, and its value length is of Unicode code points.
+     * filters. Its value has a maximum length of 255 Unicode code points. However, when the parent
+     * [item](entity:CatalogItem) uses [item options](entity:CatalogItemOption), this attribute is
+     * auto-generated, read-only, and can be longer than 255 Unicode code points.
      * @return Returns the String
      */
     @JsonIgnore

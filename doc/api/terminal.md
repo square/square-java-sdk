@@ -19,10 +19,12 @@ TerminalApi terminalApi = client.getTerminalApi();
 * [Search Terminal Checkouts](../../doc/api/terminal.md#search-terminal-checkouts)
 * [Get Terminal Checkout](../../doc/api/terminal.md#get-terminal-checkout)
 * [Cancel Terminal Checkout](../../doc/api/terminal.md#cancel-terminal-checkout)
+* [Dismiss Terminal Checkout](../../doc/api/terminal.md#dismiss-terminal-checkout)
 * [Create Terminal Refund](../../doc/api/terminal.md#create-terminal-refund)
 * [Search Terminal Refunds](../../doc/api/terminal.md#search-terminal-refunds)
 * [Get Terminal Refund](../../doc/api/terminal.md#get-terminal-refund)
 * [Cancel Terminal Refund](../../doc/api/terminal.md#cancel-terminal-refund)
+* [Dismiss Terminal Refund](../../doc/api/terminal.md#dismiss-terminal-refund)
 
 
 # Create Terminal Action
@@ -205,7 +207,7 @@ CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `actionId` | `String` | Template, Required | Unique ID for the `TerminalAction` associated with the waiting dialog to be dismissed. |
+| `actionId` | `String` | Template, Required | Unique ID for the `TerminalAction` associated with the action to be dismissed. |
 
 ## Response Type
 
@@ -391,6 +393,41 @@ terminalApi.cancelTerminalCheckoutAsync(checkoutId).thenAccept(result -> {
 ```
 
 
+# Dismiss Terminal Checkout
+
+Dismisses a Terminal checkout request if the status and type of the request permits it.
+
+```java
+CompletableFuture<DismissTerminalCheckoutResponse> dismissTerminalCheckoutAsync(
+    final String checkoutId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `checkoutId` | `String` | Template, Required | Unique ID for the `TerminalCheckout` associated with the checkout to be dismissed. |
+
+## Response Type
+
+[`DismissTerminalCheckoutResponse`](../../doc/models/dismiss-terminal-checkout-response.md)
+
+## Example Usage
+
+```java
+String checkoutId = "checkout_id8";
+
+terminalApi.dismissTerminalCheckoutAsync(checkoutId).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
 # Create Terminal Refund
 
 Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for Interac payments on a Square Terminal are supported only for Interac debit cards in Canada. Other refunds for Terminal payments should use the Refunds API. For more information, see [Refunds API](../../doc/api/refunds.md).
@@ -541,6 +578,41 @@ CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(
 String terminalRefundId = "terminal_refund_id0";
 
 terminalApi.cancelTerminalRefundAsync(terminalRefundId).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Dismiss Terminal Refund
+
+Dismisses a Terminal refund request if the status and type of the request permits it.
+
+```java
+CompletableFuture<DismissTerminalRefundResponse> dismissTerminalRefundAsync(
+    final String terminalRefundId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `terminalRefundId` | `String` | Template, Required | Unique ID for the `TerminalRefund` associated with the refund to be dismissed. |
+
+## Response Type
+
+[`DismissTerminalRefundResponse`](../../doc/models/dismiss-terminal-refund-response.md)
+
+## Example Usage
+
+```java
+String terminalRefundId = "terminal_refund_id0";
+
+terminalApi.dismissTerminalRefundAsync(terminalRefundId).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

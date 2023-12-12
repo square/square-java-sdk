@@ -377,6 +377,12 @@ public interface CatalogApi {
      *         retrieve a specific version of an object can be found in the version field of
      *         [CatalogObject]($m/CatalogObject)s. If not included, results will be from the current
      *         version of the catalog.
+     * @param  includeCategoryPathToRoot  Optional parameter: Specifies whether or not to include
+     *         the `path_to_root` list for each returned category instance. The `path_to_root` list
+     *         consists of `CategoryPathToRootNode` objects and specifies the path that starts with
+     *         the immediate parent category of the returned category and ends with its root
+     *         category. If the returned category is a top-level category, the `path_to_root` list
+     *         is empty and is not returned in the response payload.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -384,7 +390,8 @@ public interface CatalogApi {
     RetrieveCatalogObjectResponse retrieveCatalogObject(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion) throws ApiException, IOException;
+            final Long catalogVersion,
+            final Boolean includeCategoryPathToRoot) throws ApiException, IOException;
 
     /**
      * Returns a single [CatalogItem]($m/CatalogItem) as a [CatalogObject]($m/CatalogObject) based
@@ -412,12 +419,19 @@ public interface CatalogApi {
      *         retrieve a specific version of an object can be found in the version field of
      *         [CatalogObject]($m/CatalogObject)s. If not included, results will be from the current
      *         version of the catalog.
+     * @param  includeCategoryPathToRoot  Optional parameter: Specifies whether or not to include
+     *         the `path_to_root` list for each returned category instance. The `path_to_root` list
+     *         consists of `CategoryPathToRootNode` objects and specifies the path that starts with
+     *         the immediate parent category of the returned category and ends with its root
+     *         category. If the returned category is a top-level category, the `path_to_root` list
+     *         is empty and is not returned in the response payload.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion);
+            final Long catalogVersion,
+            final Boolean includeCategoryPathToRoot);
 
     /**
      * Searches for [CatalogObject]($m/CatalogObject) of any type by matching supported search

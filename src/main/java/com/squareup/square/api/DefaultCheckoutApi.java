@@ -13,7 +13,13 @@ import com.squareup.square.models.CreatePaymentLinkRequest;
 import com.squareup.square.models.CreatePaymentLinkResponse;
 import com.squareup.square.models.DeletePaymentLinkResponse;
 import com.squareup.square.models.ListPaymentLinksResponse;
+import com.squareup.square.models.RetrieveLocationSettingsResponse;
+import com.squareup.square.models.RetrieveMerchantSettingsResponse;
 import com.squareup.square.models.RetrievePaymentLinkResponse;
+import com.squareup.square.models.UpdateLocationSettingsRequest;
+import com.squareup.square.models.UpdateLocationSettingsResponse;
+import com.squareup.square.models.UpdateMerchantSettingsRequest;
+import com.squareup.square.models.UpdateMerchantSettingsResponse;
 import com.squareup.square.models.UpdatePaymentLinkRequest;
 import com.squareup.square.models.UpdatePaymentLinkResponse;
 import io.apimatic.core.ApiCall;
@@ -106,6 +112,222 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CreateCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @return    Returns the RetrieveLocationSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public RetrieveLocationSettingsResponse retrieveLocationSettings(
+            final String locationId) throws ApiException, IOException {
+        return prepareRetrieveLocationSettingsRequest(locationId).execute();
+    }
+
+    /**
+     * Retrieves the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @return    Returns the RetrieveLocationSettingsResponse response from the API call
+     */
+    public CompletableFuture<RetrieveLocationSettingsResponse> retrieveLocationSettingsAsync(
+            final String locationId) {
+        try { 
+            return prepareRetrieveLocationSettingsRequest(locationId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for retrieveLocationSettings.
+     */
+    private ApiCall<RetrieveLocationSettingsResponse, ApiException> prepareRetrieveLocationSettingsRequest(
+            final String locationId) throws IOException {
+        return new ApiCall.Builder<RetrieveLocationSettingsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/location-settings/{location_id}")
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveLocationSettingsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Updates the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateLocationSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public UpdateLocationSettingsResponse updateLocationSettings(
+            final String locationId,
+            final UpdateLocationSettingsRequest body) throws ApiException, IOException {
+        return prepareUpdateLocationSettingsRequest(locationId, body).execute();
+    }
+
+    /**
+     * Updates the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateLocationSettingsResponse response from the API call
+     */
+    public CompletableFuture<UpdateLocationSettingsResponse> updateLocationSettingsAsync(
+            final String locationId,
+            final UpdateLocationSettingsRequest body) {
+        try { 
+            return prepareUpdateLocationSettingsRequest(locationId, body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for updateLocationSettings.
+     */
+    private ApiCall<UpdateLocationSettingsResponse, ApiException> prepareUpdateLocationSettingsRequest(
+            final String locationId,
+            final UpdateLocationSettingsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateLocationSettingsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/location-settings/{location_id}")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("location_id").value(locationId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateLocationSettingsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves the merchant-level settings for a Square-hosted checkout page.
+     * @return    Returns the RetrieveMerchantSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public RetrieveMerchantSettingsResponse retrieveMerchantSettings() throws ApiException, IOException {
+        return prepareRetrieveMerchantSettingsRequest().execute();
+    }
+
+    /**
+     * Retrieves the merchant-level settings for a Square-hosted checkout page.
+     * @return    Returns the RetrieveMerchantSettingsResponse response from the API call
+     */
+    public CompletableFuture<RetrieveMerchantSettingsResponse> retrieveMerchantSettingsAsync() {
+        try { 
+            return prepareRetrieveMerchantSettingsRequest().executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for retrieveMerchantSettings.
+     */
+    private ApiCall<RetrieveMerchantSettingsResponse, ApiException> prepareRetrieveMerchantSettingsRequest() throws IOException {
+        return new ApiCall.Builder<RetrieveMerchantSettingsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/merchant-settings")
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, RetrieveMerchantSettingsResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Updates the merchant-level settings for a Square-hosted checkout page.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateMerchantSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public UpdateMerchantSettingsResponse updateMerchantSettings(
+            final UpdateMerchantSettingsRequest body) throws ApiException, IOException {
+        return prepareUpdateMerchantSettingsRequest(body).execute();
+    }
+
+    /**
+     * Updates the merchant-level settings for a Square-hosted checkout page.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateMerchantSettingsResponse response from the API call
+     */
+    public CompletableFuture<UpdateMerchantSettingsResponse> updateMerchantSettingsAsync(
+            final UpdateMerchantSettingsRequest body) {
+        try { 
+            return prepareUpdateMerchantSettingsRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for updateMerchantSettings.
+     */
+    private ApiCall<UpdateMerchantSettingsResponse, ApiException> prepareUpdateMerchantSettingsRequest(
+            final UpdateMerchantSettingsRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<UpdateMerchantSettingsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/online-checkout/merchant-settings")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.PUT))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, UpdateMerchantSettingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

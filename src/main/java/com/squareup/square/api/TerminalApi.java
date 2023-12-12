@@ -12,6 +12,8 @@ import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
 import com.squareup.square.models.DismissTerminalActionResponse;
+import com.squareup.square.models.DismissTerminalCheckoutResponse;
+import com.squareup.square.models.DismissTerminalRefundResponse;
 import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
@@ -115,7 +117,7 @@ public interface TerminalApi {
      * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
      * for more details.
      * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
-     *         waiting dialog to be dismissed.
+     *         action to be dismissed.
      * @return    Returns the DismissTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -129,7 +131,7 @@ public interface TerminalApi {
      * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
      * for more details.
      * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
-     *         waiting dialog to be dismissed.
+     *         action to be dismissed.
      * @return    Returns the DismissTerminalActionResponse response from the API call
      */
     CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
@@ -220,6 +222,26 @@ public interface TerminalApi {
             final String checkoutId);
 
     /**
+     * Dismisses a Terminal checkout request if the status and type of the request permits it.
+     * @param  checkoutId  Required parameter: Unique ID for the `TerminalCheckout` associated with
+     *         the checkout to be dismissed.
+     * @return    Returns the DismissTerminalCheckoutResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    DismissTerminalCheckoutResponse dismissTerminalCheckout(
+            final String checkoutId) throws ApiException, IOException;
+
+    /**
+     * Dismisses a Terminal checkout request if the status and type of the request permits it.
+     * @param  checkoutId  Required parameter: Unique ID for the `TerminalCheckout` associated with
+     *         the checkout to be dismissed.
+     * @return    Returns the DismissTerminalCheckoutResponse response from the API call
+     */
+    CompletableFuture<DismissTerminalCheckoutResponse> dismissTerminalCheckoutAsync(
+            final String checkoutId);
+
+    /**
      * Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for
      * Interac payments on a Square Terminal are supported only for Interac debit cards in Canada.
      * Other refunds for Terminal payments should use the Refunds API. For more information, see
@@ -305,6 +327,26 @@ public interface TerminalApi {
      * @return    Returns the CancelTerminalRefundResponse response from the API call
      */
     CompletableFuture<CancelTerminalRefundResponse> cancelTerminalRefundAsync(
+            final String terminalRefundId);
+
+    /**
+     * Dismisses a Terminal refund request if the status and type of the request permits it.
+     * @param  terminalRefundId  Required parameter: Unique ID for the `TerminalRefund` associated
+     *         with the refund to be dismissed.
+     * @return    Returns the DismissTerminalRefundResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    DismissTerminalRefundResponse dismissTerminalRefund(
+            final String terminalRefundId) throws ApiException, IOException;
+
+    /**
+     * Dismisses a Terminal refund request if the status and type of the request permits it.
+     * @param  terminalRefundId  Required parameter: Unique ID for the `TerminalRefund` associated
+     *         with the refund to be dismissed.
+     * @return    Returns the DismissTerminalRefundResponse response from the API call
+     */
+    CompletableFuture<DismissTerminalRefundResponse> dismissTerminalRefundAsync(
             final String terminalRefundId);
 
 }
