@@ -17,6 +17,8 @@ import com.squareup.square.models.CreateTerminalCheckoutResponse;
 import com.squareup.square.models.CreateTerminalRefundRequest;
 import com.squareup.square.models.CreateTerminalRefundResponse;
 import com.squareup.square.models.DismissTerminalActionResponse;
+import com.squareup.square.models.DismissTerminalCheckoutResponse;
+import com.squareup.square.models.DismissTerminalRefundResponse;
 import com.squareup.square.models.GetTerminalActionResponse;
 import com.squareup.square.models.GetTerminalCheckoutResponse;
 import com.squareup.square.models.GetTerminalRefundResponse;
@@ -267,7 +269,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
      * for more details.
      * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
-     *         waiting dialog to be dismissed.
+     *         action to be dismissed.
      * @return    Returns the DismissTerminalActionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -283,7 +285,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
      * Actions](https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions)
      * for more details.
      * @param  actionId  Required parameter: Unique ID for the `TerminalAction` associated with the
-     *         waiting dialog to be dismissed.
+     *         action to be dismissed.
      * @return    Returns the DismissTerminalActionResponse response from the API call
      */
     public CompletableFuture<DismissTerminalActionResponse> dismissTerminalActionAsync(
@@ -541,6 +543,59 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
     }
 
     /**
+     * Dismisses a Terminal checkout request if the status and type of the request permits it.
+     * @param  checkoutId  Required parameter: Unique ID for the `TerminalCheckout` associated with
+     *         the checkout to be dismissed.
+     * @return    Returns the DismissTerminalCheckoutResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DismissTerminalCheckoutResponse dismissTerminalCheckout(
+            final String checkoutId) throws ApiException, IOException {
+        return prepareDismissTerminalCheckoutRequest(checkoutId).execute();
+    }
+
+    /**
+     * Dismisses a Terminal checkout request if the status and type of the request permits it.
+     * @param  checkoutId  Required parameter: Unique ID for the `TerminalCheckout` associated with
+     *         the checkout to be dismissed.
+     * @return    Returns the DismissTerminalCheckoutResponse response from the API call
+     */
+    public CompletableFuture<DismissTerminalCheckoutResponse> dismissTerminalCheckoutAsync(
+            final String checkoutId) {
+        try { 
+            return prepareDismissTerminalCheckoutRequest(checkoutId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for dismissTerminalCheckout.
+     */
+    private ApiCall<DismissTerminalCheckoutResponse, ApiException> prepareDismissTerminalCheckoutRequest(
+            final String checkoutId) throws IOException {
+        return new ApiCall.Builder<DismissTerminalCheckoutResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/checkouts/{checkout_id}/dismiss")
+                        .templateParam(param -> param.key("checkout_id").value(checkoutId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DismissTerminalCheckoutResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
      * Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for
      * Interac payments on a Square Terminal are supported only for Interac debit cards in Canada.
      * Other refunds for Terminal payments should use the Refunds API. For more information, see
@@ -757,6 +812,59 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CancelTerminalRefundResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Dismisses a Terminal refund request if the status and type of the request permits it.
+     * @param  terminalRefundId  Required parameter: Unique ID for the `TerminalRefund` associated
+     *         with the refund to be dismissed.
+     * @return    Returns the DismissTerminalRefundResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DismissTerminalRefundResponse dismissTerminalRefund(
+            final String terminalRefundId) throws ApiException, IOException {
+        return prepareDismissTerminalRefundRequest(terminalRefundId).execute();
+    }
+
+    /**
+     * Dismisses a Terminal refund request if the status and type of the request permits it.
+     * @param  terminalRefundId  Required parameter: Unique ID for the `TerminalRefund` associated
+     *         with the refund to be dismissed.
+     * @return    Returns the DismissTerminalRefundResponse response from the API call
+     */
+    public CompletableFuture<DismissTerminalRefundResponse> dismissTerminalRefundAsync(
+            final String terminalRefundId) {
+        try { 
+            return prepareDismissTerminalRefundRequest(terminalRefundId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for dismissTerminalRefund.
+     */
+    private ApiCall<DismissTerminalRefundResponse, ApiException> prepareDismissTerminalRefundRequest(
+            final String terminalRefundId) throws IOException {
+        return new ApiCall.Builder<DismissTerminalRefundResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/terminals/refunds/{terminal_refund_id}/dismiss")
+                        .templateParam(param -> param.key("terminal_refund_id").value(terminalRefundId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DismissTerminalRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

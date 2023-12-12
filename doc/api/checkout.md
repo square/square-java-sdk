@@ -11,6 +11,10 @@ CheckoutApi checkoutApi = client.getCheckoutApi();
 ## Methods
 
 * [Create Checkout](../../doc/api/checkout.md#create-checkout)
+* [Retrieve Location Settings](../../doc/api/checkout.md#retrieve-location-settings)
+* [Update Location Settings](../../doc/api/checkout.md#update-location-settings)
+* [Retrieve Merchant Settings](../../doc/api/checkout.md#retrieve-merchant-settings)
+* [Update Merchant Settings](../../doc/api/checkout.md#update-merchant-settings)
 * [List Payment Links](../../doc/api/checkout.md#list-payment-links)
 * [Create Payment Link](../../doc/api/checkout.md#create-payment-link)
 * [Delete Payment Link](../../doc/api/checkout.md#delete-payment-link)
@@ -150,6 +154,148 @@ CreateCheckoutRequest body = new CreateCheckoutRequest.Builder(
 .build();
 
 checkoutApi.createCheckoutAsync(locationId, body).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Retrieve Location Settings
+
+Retrieves the location-level settings for a Square-hosted checkout page.
+
+```java
+CompletableFuture<RetrieveLocationSettingsResponse> retrieveLocationSettingsAsync(
+    final String locationId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `locationId` | `String` | Template, Required | The ID of the location for which to retrieve settings. |
+
+## Response Type
+
+[`RetrieveLocationSettingsResponse`](../../doc/models/retrieve-location-settings-response.md)
+
+## Example Usage
+
+```java
+String locationId = "location_id4";
+
+checkoutApi.retrieveLocationSettingsAsync(locationId).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Update Location Settings
+
+Updates the location-level settings for a Square-hosted checkout page.
+
+```java
+CompletableFuture<UpdateLocationSettingsResponse> updateLocationSettingsAsync(
+    final String locationId,
+    final UpdateLocationSettingsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `locationId` | `String` | Template, Required | The ID of the location for which to retrieve settings. |
+| `body` | [`UpdateLocationSettingsRequest`](../../doc/models/update-location-settings-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`UpdateLocationSettingsResponse`](../../doc/models/update-location-settings-response.md)
+
+## Example Usage
+
+```java
+String locationId = "location_id4";
+UpdateLocationSettingsRequest body = new UpdateLocationSettingsRequest.Builder(
+    new CheckoutLocationSettings.Builder()
+        .build()
+)
+.build();
+
+checkoutApi.updateLocationSettingsAsync(locationId, body).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Retrieve Merchant Settings
+
+Retrieves the merchant-level settings for a Square-hosted checkout page.
+
+```java
+CompletableFuture<RetrieveMerchantSettingsResponse> retrieveMerchantSettingsAsync()
+```
+
+## Response Type
+
+[`RetrieveMerchantSettingsResponse`](../../doc/models/retrieve-merchant-settings-response.md)
+
+## Example Usage
+
+```java
+checkoutApi.retrieveMerchantSettingsAsync().thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Update Merchant Settings
+
+Updates the merchant-level settings for a Square-hosted checkout page.
+
+```java
+CompletableFuture<UpdateMerchantSettingsResponse> updateMerchantSettingsAsync(
+    final UpdateMerchantSettingsRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`UpdateMerchantSettingsRequest`](../../doc/models/update-merchant-settings-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+[`UpdateMerchantSettingsResponse`](../../doc/models/update-merchant-settings-response.md)
+
+## Example Usage
+
+```java
+UpdateMerchantSettingsRequest body = new UpdateMerchantSettingsRequest.Builder(
+    new CheckoutMerchantSettings.Builder()
+        .build()
+)
+.build();
+
+checkoutApi.updateMerchantSettingsAsync(body).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

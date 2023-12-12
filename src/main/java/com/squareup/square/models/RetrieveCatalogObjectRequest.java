@@ -16,30 +16,37 @@ import java.util.Objects;
 public class RetrieveCatalogObjectRequest {
     private final OptionalNullable<Boolean> includeRelatedObjects;
     private final OptionalNullable<Long> catalogVersion;
+    private final OptionalNullable<Boolean> includeCategoryPathToRoot;
 
     /**
      * Initialization constructor.
      * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
      * @param  catalogVersion  Long value for catalogVersion.
+     * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
      */
     @JsonCreator
     public RetrieveCatalogObjectRequest(
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
-            @JsonProperty("catalog_version") Long catalogVersion) {
+            @JsonProperty("catalog_version") Long catalogVersion,
+            @JsonProperty("include_category_path_to_root") Boolean includeCategoryPathToRoot) {
         this.includeRelatedObjects = OptionalNullable.of(includeRelatedObjects);
         this.catalogVersion = OptionalNullable.of(catalogVersion);
+        this.includeCategoryPathToRoot = OptionalNullable.of(includeCategoryPathToRoot);
     }
 
     /**
      * Initialization constructor.
      * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
      * @param  catalogVersion  Long value for catalogVersion.
+     * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
      */
 
     protected RetrieveCatalogObjectRequest(OptionalNullable<Boolean> includeRelatedObjects,
-            OptionalNullable<Long> catalogVersion) {
+            OptionalNullable<Long> catalogVersion,
+            OptionalNullable<Boolean> includeCategoryPathToRoot) {
         this.includeRelatedObjects = includeRelatedObjects;
         this.catalogVersion = catalogVersion;
+        this.includeCategoryPathToRoot = includeCategoryPathToRoot;
     }
 
     /**
@@ -110,9 +117,39 @@ public class RetrieveCatalogObjectRequest {
         return OptionalNullable.getFrom(catalogVersion);
     }
 
+    /**
+     * Internal Getter for IncludeCategoryPathToRoot.
+     * Specifies whether or not to include the `path_to_root` list for each returned category
+     * instance. The `path_to_root` list consists of `CategoryPathToRootNode` objects and specifies
+     * the path that starts with the immediate parent category of the returned category and ends
+     * with its root category. If the returned category is a top-level category, the `path_to_root`
+     * list is empty and is not returned in the response payload.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_category_path_to_root")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeCategoryPathToRoot() {
+        return this.includeCategoryPathToRoot;
+    }
+
+    /**
+     * Getter for IncludeCategoryPathToRoot.
+     * Specifies whether or not to include the `path_to_root` list for each returned category
+     * instance. The `path_to_root` list consists of `CategoryPathToRootNode` objects and specifies
+     * the path that starts with the immediate parent category of the returned category and ends
+     * with its root category. If the returned category is a top-level category, the `path_to_root`
+     * list is empty and is not returned in the response payload.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getIncludeCategoryPathToRoot() {
+        return OptionalNullable.getFrom(includeCategoryPathToRoot);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(includeRelatedObjects, catalogVersion);
+        return Objects.hash(includeRelatedObjects, catalogVersion, includeCategoryPathToRoot);
     }
 
     @Override
@@ -125,7 +162,8 @@ public class RetrieveCatalogObjectRequest {
         }
         RetrieveCatalogObjectRequest other = (RetrieveCatalogObjectRequest) obj;
         return Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
-            && Objects.equals(catalogVersion, other.catalogVersion);
+            && Objects.equals(catalogVersion, other.catalogVersion)
+            && Objects.equals(includeCategoryPathToRoot, other.includeCategoryPathToRoot);
     }
 
     /**
@@ -135,7 +173,8 @@ public class RetrieveCatalogObjectRequest {
     @Override
     public String toString() {
         return "RetrieveCatalogObjectRequest [" + "includeRelatedObjects=" + includeRelatedObjects
-                + ", catalogVersion=" + catalogVersion + "]";
+                + ", catalogVersion=" + catalogVersion + ", includeCategoryPathToRoot="
+                + includeCategoryPathToRoot + "]";
     }
 
     /**
@@ -147,6 +186,7 @@ public class RetrieveCatalogObjectRequest {
         Builder builder = new Builder();
         builder.includeRelatedObjects = internalGetIncludeRelatedObjects();
         builder.catalogVersion = internalGetCatalogVersion();
+        builder.includeCategoryPathToRoot = internalGetIncludeCategoryPathToRoot();
         return builder;
     }
 
@@ -156,6 +196,7 @@ public class RetrieveCatalogObjectRequest {
     public static class Builder {
         private OptionalNullable<Boolean> includeRelatedObjects;
         private OptionalNullable<Long> catalogVersion;
+        private OptionalNullable<Boolean> includeCategoryPathToRoot;
 
 
 
@@ -198,11 +239,31 @@ public class RetrieveCatalogObjectRequest {
         }
 
         /**
+         * Setter for includeCategoryPathToRoot.
+         * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
+         * @return Builder
+         */
+        public Builder includeCategoryPathToRoot(Boolean includeCategoryPathToRoot) {
+            this.includeCategoryPathToRoot = OptionalNullable.of(includeCategoryPathToRoot);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeCategoryPathToRoot.
+         * @return Builder
+         */
+        public Builder unsetIncludeCategoryPathToRoot() {
+            includeCategoryPathToRoot = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RetrieveCatalogObjectRequest} object using the set fields.
          * @return {@link RetrieveCatalogObjectRequest}
          */
         public RetrieveCatalogObjectRequest build() {
-            return new RetrieveCatalogObjectRequest(includeRelatedObjects, catalogVersion);
+            return new RetrieveCatalogObjectRequest(includeRelatedObjects, catalogVersion,
+                    includeCategoryPathToRoot);
         }
     }
 }

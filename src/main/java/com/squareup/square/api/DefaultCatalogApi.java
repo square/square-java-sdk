@@ -723,6 +723,12 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         retrieve a specific version of an object can be found in the version field of
      *         [CatalogObject]($m/CatalogObject)s. If not included, results will be from the current
      *         version of the catalog.
+     * @param  includeCategoryPathToRoot  Optional parameter: Specifies whether or not to include
+     *         the `path_to_root` list for each returned category instance. The `path_to_root` list
+     *         consists of `CategoryPathToRootNode` objects and specifies the path that starts with
+     *         the immediate parent category of the returned category and ends with its root
+     *         category. If the returned category is a top-level category, the `path_to_root` list
+     *         is empty and is not returned in the response payload.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -730,9 +736,10 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     public RetrieveCatalogObjectResponse retrieveCatalogObject(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion) throws ApiException, IOException {
-        return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
-                catalogVersion).execute();
+            final Long catalogVersion,
+            final Boolean includeCategoryPathToRoot) throws ApiException, IOException {
+        return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects, catalogVersion,
+                includeCategoryPathToRoot).execute();
     }
 
     /**
@@ -761,15 +768,22 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
      *         retrieve a specific version of an object can be found in the version field of
      *         [CatalogObject]($m/CatalogObject)s. If not included, results will be from the current
      *         version of the catalog.
+     * @param  includeCategoryPathToRoot  Optional parameter: Specifies whether or not to include
+     *         the `path_to_root` list for each returned category instance. The `path_to_root` list
+     *         consists of `CategoryPathToRootNode` objects and specifies the path that starts with
+     *         the immediate parent category of the returned category and ends with its root
+     *         category. If the returned category is a top-level category, the `path_to_root` list
+     *         is empty and is not returned in the response payload.
      * @return    Returns the RetrieveCatalogObjectResponse response from the API call
      */
     public CompletableFuture<RetrieveCatalogObjectResponse> retrieveCatalogObjectAsync(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion) {
+            final Long catalogVersion,
+            final Boolean includeCategoryPathToRoot) {
         try { 
-            return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects,
-            catalogVersion).executeAsync(); 
+            return prepareRetrieveCatalogObjectRequest(objectId, includeRelatedObjects, catalogVersion,
+            includeCategoryPathToRoot).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -781,7 +795,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
     private ApiCall<RetrieveCatalogObjectResponse, ApiException> prepareRetrieveCatalogObjectRequest(
             final String objectId,
             final Boolean includeRelatedObjects,
-            final Long catalogVersion) throws IOException {
+            final Long catalogVersion,
+            final Boolean includeCategoryPathToRoot) throws IOException {
         return new ApiCall.Builder<RetrieveCatalogObjectResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -791,6 +806,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 .value((includeRelatedObjects != null) ? includeRelatedObjects : false).isRequired(false))
                         .queryParam(param -> param.key("catalog_version")
                                 .value(catalogVersion).isRequired(false))
+                        .queryParam(param -> param.key("include_category_path_to_root")
+                                .value((includeCategoryPathToRoot != null) ? includeCategoryPathToRoot : false).isRequired(false))
                         .templateParam(param -> param.key("object_id").value(objectId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))

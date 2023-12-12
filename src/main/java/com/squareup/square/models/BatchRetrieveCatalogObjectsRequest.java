@@ -19,6 +19,7 @@ public class BatchRetrieveCatalogObjectsRequest {
     private final OptionalNullable<Boolean> includeRelatedObjects;
     private final OptionalNullable<Long> catalogVersion;
     private final OptionalNullable<Boolean> includeDeletedObjects;
+    private final OptionalNullable<Boolean> includeCategoryPathToRoot;
 
     /**
      * Initialization constructor.
@@ -26,17 +27,20 @@ public class BatchRetrieveCatalogObjectsRequest {
      * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
      * @param  catalogVersion  Long value for catalogVersion.
      * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
+     * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
      */
     @JsonCreator
     public BatchRetrieveCatalogObjectsRequest(
             @JsonProperty("object_ids") List<String> objectIds,
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
             @JsonProperty("catalog_version") Long catalogVersion,
-            @JsonProperty("include_deleted_objects") Boolean includeDeletedObjects) {
+            @JsonProperty("include_deleted_objects") Boolean includeDeletedObjects,
+            @JsonProperty("include_category_path_to_root") Boolean includeCategoryPathToRoot) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = OptionalNullable.of(includeRelatedObjects);
         this.catalogVersion = OptionalNullable.of(catalogVersion);
         this.includeDeletedObjects = OptionalNullable.of(includeDeletedObjects);
+        this.includeCategoryPathToRoot = OptionalNullable.of(includeCategoryPathToRoot);
     }
 
     /**
@@ -45,15 +49,18 @@ public class BatchRetrieveCatalogObjectsRequest {
      * @param  includeRelatedObjects  Boolean value for includeRelatedObjects.
      * @param  catalogVersion  Long value for catalogVersion.
      * @param  includeDeletedObjects  Boolean value for includeDeletedObjects.
+     * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
      */
 
     protected BatchRetrieveCatalogObjectsRequest(List<String> objectIds,
             OptionalNullable<Boolean> includeRelatedObjects, OptionalNullable<Long> catalogVersion,
-            OptionalNullable<Boolean> includeDeletedObjects) {
+            OptionalNullable<Boolean> includeDeletedObjects,
+            OptionalNullable<Boolean> includeCategoryPathToRoot) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = includeRelatedObjects;
         this.catalogVersion = catalogVersion;
         this.includeDeletedObjects = includeDeletedObjects;
+        this.includeCategoryPathToRoot = includeCategoryPathToRoot;
     }
 
     /**
@@ -158,10 +165,40 @@ public class BatchRetrieveCatalogObjectsRequest {
         return OptionalNullable.getFrom(includeDeletedObjects);
     }
 
+    /**
+     * Internal Getter for IncludeCategoryPathToRoot.
+     * Specifies whether or not to include the `path_to_root` list for each returned category
+     * instance. The `path_to_root` list consists of `CategoryPathToRootNode` objects and specifies
+     * the path that starts with the immediate parent category of the returned category and ends
+     * with its root category. If the returned category is a top-level category, the `path_to_root`
+     * list is empty and is not returned in the response payload.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("include_category_path_to_root")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIncludeCategoryPathToRoot() {
+        return this.includeCategoryPathToRoot;
+    }
+
+    /**
+     * Getter for IncludeCategoryPathToRoot.
+     * Specifies whether or not to include the `path_to_root` list for each returned category
+     * instance. The `path_to_root` list consists of `CategoryPathToRootNode` objects and specifies
+     * the path that starts with the immediate parent category of the returned category and ends
+     * with its root category. If the returned category is a top-level category, the `path_to_root`
+     * list is empty and is not returned in the response payload.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getIncludeCategoryPathToRoot() {
+        return OptionalNullable.getFrom(includeCategoryPathToRoot);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(objectIds, includeRelatedObjects, catalogVersion,
-                includeDeletedObjects);
+        return Objects.hash(objectIds, includeRelatedObjects, catalogVersion, includeDeletedObjects,
+                includeCategoryPathToRoot);
     }
 
     @Override
@@ -176,7 +213,8 @@ public class BatchRetrieveCatalogObjectsRequest {
         return Objects.equals(objectIds, other.objectIds)
             && Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
             && Objects.equals(catalogVersion, other.catalogVersion)
-            && Objects.equals(includeDeletedObjects, other.includeDeletedObjects);
+            && Objects.equals(includeDeletedObjects, other.includeDeletedObjects)
+            && Objects.equals(includeCategoryPathToRoot, other.includeCategoryPathToRoot);
     }
 
     /**
@@ -187,7 +225,8 @@ public class BatchRetrieveCatalogObjectsRequest {
     public String toString() {
         return "BatchRetrieveCatalogObjectsRequest [" + "objectIds=" + objectIds
                 + ", includeRelatedObjects=" + includeRelatedObjects + ", catalogVersion="
-                + catalogVersion + ", includeDeletedObjects=" + includeDeletedObjects + "]";
+                + catalogVersion + ", includeDeletedObjects=" + includeDeletedObjects
+                + ", includeCategoryPathToRoot=" + includeCategoryPathToRoot + "]";
     }
 
     /**
@@ -200,6 +239,7 @@ public class BatchRetrieveCatalogObjectsRequest {
         builder.includeRelatedObjects = internalGetIncludeRelatedObjects();
         builder.catalogVersion = internalGetCatalogVersion();
         builder.includeDeletedObjects = internalGetIncludeDeletedObjects();
+        builder.includeCategoryPathToRoot = internalGetIncludeCategoryPathToRoot();
         return builder;
     }
 
@@ -211,6 +251,7 @@ public class BatchRetrieveCatalogObjectsRequest {
         private OptionalNullable<Boolean> includeRelatedObjects;
         private OptionalNullable<Long> catalogVersion;
         private OptionalNullable<Boolean> includeDeletedObjects;
+        private OptionalNullable<Boolean> includeCategoryPathToRoot;
 
         /**
          * Initialization constructor.
@@ -288,12 +329,31 @@ public class BatchRetrieveCatalogObjectsRequest {
         }
 
         /**
+         * Setter for includeCategoryPathToRoot.
+         * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
+         * @return Builder
+         */
+        public Builder includeCategoryPathToRoot(Boolean includeCategoryPathToRoot) {
+            this.includeCategoryPathToRoot = OptionalNullable.of(includeCategoryPathToRoot);
+            return this;
+        }
+
+        /**
+         * UnSetter for includeCategoryPathToRoot.
+         * @return Builder
+         */
+        public Builder unsetIncludeCategoryPathToRoot() {
+            includeCategoryPathToRoot = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link BatchRetrieveCatalogObjectsRequest} object using the set fields.
          * @return {@link BatchRetrieveCatalogObjectsRequest}
          */
         public BatchRetrieveCatalogObjectsRequest build() {
             return new BatchRetrieveCatalogObjectsRequest(objectIds, includeRelatedObjects,
-                    catalogVersion, includeDeletedObjects);
+                    catalogVersion, includeDeletedObjects, includeCategoryPathToRoot);
         }
     }
 }

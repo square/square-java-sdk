@@ -8,7 +8,13 @@ import com.squareup.square.models.CreatePaymentLinkRequest;
 import com.squareup.square.models.CreatePaymentLinkResponse;
 import com.squareup.square.models.DeletePaymentLinkResponse;
 import com.squareup.square.models.ListPaymentLinksResponse;
+import com.squareup.square.models.RetrieveLocationSettingsResponse;
+import com.squareup.square.models.RetrieveMerchantSettingsResponse;
 import com.squareup.square.models.RetrievePaymentLinkResponse;
+import com.squareup.square.models.UpdateLocationSettingsRequest;
+import com.squareup.square.models.UpdateLocationSettingsResponse;
+import com.squareup.square.models.UpdateMerchantSettingsRequest;
+import com.squareup.square.models.UpdateMerchantSettingsResponse;
 import com.squareup.square.models.UpdatePaymentLinkRequest;
 import com.squareup.square.models.UpdatePaymentLinkResponse;
 import java.io.IOException;
@@ -57,6 +63,86 @@ public interface CheckoutApi {
     CompletableFuture<CreateCheckoutResponse> createCheckoutAsync(
             final String locationId,
             final CreateCheckoutRequest body);
+
+    /**
+     * Retrieves the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @return    Returns the RetrieveLocationSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveLocationSettingsResponse retrieveLocationSettings(
+            final String locationId) throws ApiException, IOException;
+
+    /**
+     * Retrieves the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @return    Returns the RetrieveLocationSettingsResponse response from the API call
+     */
+    CompletableFuture<RetrieveLocationSettingsResponse> retrieveLocationSettingsAsync(
+            final String locationId);
+
+    /**
+     * Updates the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateLocationSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    UpdateLocationSettingsResponse updateLocationSettings(
+            final String locationId,
+            final UpdateLocationSettingsRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates the location-level settings for a Square-hosted checkout page.
+     * @param  locationId  Required parameter: The ID of the location for which to retrieve
+     *         settings.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateLocationSettingsResponse response from the API call
+     */
+    CompletableFuture<UpdateLocationSettingsResponse> updateLocationSettingsAsync(
+            final String locationId,
+            final UpdateLocationSettingsRequest body);
+
+    /**
+     * Retrieves the merchant-level settings for a Square-hosted checkout page.
+     * @return    Returns the RetrieveMerchantSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveMerchantSettingsResponse retrieveMerchantSettings() throws ApiException, IOException;
+
+    /**
+     * Retrieves the merchant-level settings for a Square-hosted checkout page.
+     * @return    Returns the RetrieveMerchantSettingsResponse response from the API call
+     */
+    CompletableFuture<RetrieveMerchantSettingsResponse> retrieveMerchantSettingsAsync();
+
+    /**
+     * Updates the merchant-level settings for a Square-hosted checkout page.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateMerchantSettingsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    UpdateMerchantSettingsResponse updateMerchantSettings(
+            final UpdateMerchantSettingsRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates the merchant-level settings for a Square-hosted checkout page.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateMerchantSettingsResponse response from the API call
+     */
+    CompletableFuture<UpdateMerchantSettingsResponse> updateMerchantSettingsAsync(
+            final UpdateMerchantSettingsRequest body);
 
     /**
      * Lists all payment links.

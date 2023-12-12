@@ -19,6 +19,7 @@ public class SearchCatalogObjectsRequest {
     private final String beginTime;
     private final CatalogQuery query;
     private final Integer limit;
+    private final Boolean includeCategoryPathToRoot;
 
     /**
      * Initialization constructor.
@@ -29,6 +30,7 @@ public class SearchCatalogObjectsRequest {
      * @param  beginTime  String value for beginTime.
      * @param  query  CatalogQuery value for query.
      * @param  limit  Integer value for limit.
+     * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
      */
     @JsonCreator
     public SearchCatalogObjectsRequest(
@@ -38,7 +40,8 @@ public class SearchCatalogObjectsRequest {
             @JsonProperty("include_related_objects") Boolean includeRelatedObjects,
             @JsonProperty("begin_time") String beginTime,
             @JsonProperty("query") CatalogQuery query,
-            @JsonProperty("limit") Integer limit) {
+            @JsonProperty("limit") Integer limit,
+            @JsonProperty("include_category_path_to_root") Boolean includeCategoryPathToRoot) {
         this.cursor = cursor;
         this.objectTypes = objectTypes;
         this.includeDeletedObjects = includeDeletedObjects;
@@ -46,6 +49,7 @@ public class SearchCatalogObjectsRequest {
         this.beginTime = beginTime;
         this.query = query;
         this.limit = limit;
+        this.includeCategoryPathToRoot = includeCategoryPathToRoot;
     }
 
     /**
@@ -137,10 +141,10 @@ public class SearchCatalogObjectsRequest {
      * [sorted_attribute_query]($m/CatalogQuerySortedAttribute) - [text_query]($m/CatalogQueryText)
      * All other query types cannot be combined with any others. When a query filter is based on an
      * attribute, the attribute must be searchable. Searchable attributes are listed as follows,
-     * along their parent types that can be searched for with applicable query filters. * Searchable
-     * attribute and objects queryable by searchable attributes ** - `name`: `CatalogItem`,
+     * along their parent types that can be searched for with applicable query filters. Searchable
+     * attribute and objects queryable by searchable attributes: - `name`: `CatalogItem`,
      * `CatalogItemVariation`, `CatalogCategory`, `CatalogTax`, `CatalogDiscount`,
-     * `CatalogModifier`, 'CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` -
+     * `CatalogModifier`, `CatalogModifierList`, `CatalogItemOption`, `CatalogItemOptionValue` -
      * `description`: `CatalogItem`, `CatalogItemOptionValue` - `abbreviation`: `CatalogItem` -
      * `upc`: `CatalogItemVariation` - `sku`: `CatalogItemVariation` - `caption`: `CatalogImage` -
      * `display_name`: `CatalogItemOption` For example, to search for [CatalogItem]($m/CatalogItem)
@@ -167,10 +171,25 @@ public class SearchCatalogObjectsRequest {
         return limit;
     }
 
+    /**
+     * Getter for IncludeCategoryPathToRoot.
+     * Specifies whether or not to include the `path_to_root` list for each returned category
+     * instance. The `path_to_root` list consists of `CategoryPathToRootNode` objects and specifies
+     * the path that starts with the immediate parent category of the returned category and ends
+     * with its root category. If the returned category is a top-level category, the `path_to_root`
+     * list is empty and is not returned in the response payload.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("include_category_path_to_root")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getIncludeCategoryPathToRoot() {
+        return includeCategoryPathToRoot;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(cursor, objectTypes, includeDeletedObjects, includeRelatedObjects,
-                beginTime, query, limit);
+                beginTime, query, limit, includeCategoryPathToRoot);
     }
 
     @Override
@@ -188,7 +207,8 @@ public class SearchCatalogObjectsRequest {
             && Objects.equals(includeRelatedObjects, other.includeRelatedObjects)
             && Objects.equals(beginTime, other.beginTime)
             && Objects.equals(query, other.query)
-            && Objects.equals(limit, other.limit);
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(includeCategoryPathToRoot, other.includeCategoryPathToRoot);
     }
 
     /**
@@ -200,7 +220,8 @@ public class SearchCatalogObjectsRequest {
         return "SearchCatalogObjectsRequest [" + "cursor=" + cursor + ", objectTypes=" + objectTypes
                 + ", includeDeletedObjects=" + includeDeletedObjects + ", includeRelatedObjects="
                 + includeRelatedObjects + ", beginTime=" + beginTime + ", query=" + query
-                + ", limit=" + limit + "]";
+                + ", limit=" + limit + ", includeCategoryPathToRoot=" + includeCategoryPathToRoot
+                + "]";
     }
 
     /**
@@ -216,7 +237,8 @@ public class SearchCatalogObjectsRequest {
                 .includeRelatedObjects(getIncludeRelatedObjects())
                 .beginTime(getBeginTime())
                 .query(getQuery())
-                .limit(getLimit());
+                .limit(getLimit())
+                .includeCategoryPathToRoot(getIncludeCategoryPathToRoot());
         return builder;
     }
 
@@ -231,6 +253,7 @@ public class SearchCatalogObjectsRequest {
         private String beginTime;
         private CatalogQuery query;
         private Integer limit;
+        private Boolean includeCategoryPathToRoot;
 
 
 
@@ -305,12 +328,22 @@ public class SearchCatalogObjectsRequest {
         }
 
         /**
+         * Setter for includeCategoryPathToRoot.
+         * @param  includeCategoryPathToRoot  Boolean value for includeCategoryPathToRoot.
+         * @return Builder
+         */
+        public Builder includeCategoryPathToRoot(Boolean includeCategoryPathToRoot) {
+            this.includeCategoryPathToRoot = includeCategoryPathToRoot;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SearchCatalogObjectsRequest} object using the set fields.
          * @return {@link SearchCatalogObjectsRequest}
          */
         public SearchCatalogObjectsRequest build() {
             return new SearchCatalogObjectsRequest(cursor, objectTypes, includeDeletedObjects,
-                    includeRelatedObjects, beginTime, query, limit);
+                    includeRelatedObjects, beginTime, query, limit, includeCategoryPathToRoot);
         }
     }
 }
