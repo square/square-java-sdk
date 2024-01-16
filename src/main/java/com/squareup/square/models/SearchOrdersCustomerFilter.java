@@ -38,7 +38,7 @@ public class SearchOrdersCustomerFilter {
 
     /**
      * Internal Getter for CustomerIds.
-     * A list of customer IDs to filter by. Max: 10 customer IDs.
+     * A list of customer IDs to filter by. Max: 10 customer ids.
      * @return Returns the Internal List of String
      */
     @JsonGetter("customer_ids")
@@ -50,7 +50,7 @@ public class SearchOrdersCustomerFilter {
 
     /**
      * Getter for CustomerIds.
-     * A list of customer IDs to filter by. Max: 10 customer IDs.
+     * A list of customer IDs to filter by. Max: 10 customer ids.
      * @return Returns the List of String
      */
     @JsonIgnore

@@ -16,6 +16,8 @@ InvoicesApi invoicesApi = client.getInvoicesApi();
 * [Delete Invoice](../../doc/api/invoices.md#delete-invoice)
 * [Get Invoice](../../doc/api/invoices.md#get-invoice)
 * [Update Invoice](../../doc/api/invoices.md#update-invoice)
+* [Create Invoice Attachment](../../doc/api/invoices.md#create-invoice-attachment)
+* [Delete Invoice Attachment](../../doc/api/invoices.md#delete-invoice-attachment)
 * [Cancel Invoice](../../doc/api/invoices.md#cancel-invoice)
 * [Publish Invoice](../../doc/api/invoices.md#publish-invoice)
 
@@ -330,6 +332,94 @@ UpdateInvoiceRequest body = new UpdateInvoiceRequest.Builder(
 .build();
 
 invoicesApi.updateInvoiceAsync(invoiceId, body).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Create Invoice Attachment
+
+Uploads a file and attaches it to an invoice. This endpoint accepts HTTP multipart/form-data file uploads
+with a JSON `request` part and a `file` part. The `file` part must be a `readable stream` that contains a file
+in a supported format: GIF, JPEG, PNG, TIFF, BMP, or PDF.
+
+Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can be added only to invoices
+in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+
+```java
+CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachmentAsync(
+    final String invoiceId,
+    final CreateInvoiceAttachmentRequest request,
+    final FileWrapper imageFile)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `invoiceId` | `String` | Template, Required | The ID of the [invoice](entity:Invoice) to attach the file to. |
+| `request` | [`CreateInvoiceAttachmentRequest`](../../doc/models/create-invoice-attachment-request.md) | Form (JSON-Encoded), Optional | Represents a [CreateInvoiceAttachment](../../doc/api/invoices.md#create-invoice-attachment) request. |
+| `imageFile` | `FileWrapper` | Form, Optional | - |
+
+## Response Type
+
+[`CreateInvoiceAttachmentResponse`](../../doc/models/create-invoice-attachment-response.md)
+
+## Example Usage
+
+```java
+String invoiceId = "invoice_id0";
+CreateInvoiceAttachmentRequest request = new CreateInvoiceAttachmentRequest.Builder()
+    .idempotencyKey("ae5e84f9-4742-4fc1-ba12-a3ce3748f1c3")
+    .description("Service contract")
+    .build();
+
+
+invoicesApi.createInvoiceAttachmentAsync(invoiceId, request, null).thenAccept(result -> {
+    // TODO success callback handler
+    System.out.println(result);
+}).exceptionally(exception -> {
+    // TODO failure callback handler
+    exception.printStackTrace();
+    return null;
+});
+```
+
+
+# Delete Invoice Attachment
+
+Removes an attachment from an invoice and permanently deletes the file. Attachments can be removed only
+from invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+
+```java
+CompletableFuture<DeleteInvoiceAttachmentResponse> deleteInvoiceAttachmentAsync(
+    final String invoiceId,
+    final String attachmentId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `invoiceId` | `String` | Template, Required | The ID of the [invoice](entity:Invoice) to delete the attachment from. |
+| `attachmentId` | `String` | Template, Required | The ID of the [attachment](entity:InvoiceAttachment) to delete. |
+
+## Response Type
+
+[`DeleteInvoiceAttachmentResponse`](../../doc/models/delete-invoice-attachment-response.md)
+
+## Example Usage
+
+```java
+String invoiceId = "invoice_id0";
+String attachmentId = "attachment_id6";
+
+invoicesApi.deleteInvoiceAttachmentAsync(invoiceId, attachmentId).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

@@ -43,7 +43,7 @@ public class SearchOrdersRequest {
     /**
      * Getter for LocationIds.
      * The location IDs for the orders to query. All locations must belong to the same merchant.
-     * Min: 1 location ID. Max: 10 location IDs.
+     * Max: 10 location IDs.
      * @return Returns the List of String
      */
     @JsonGetter("location_ids")
@@ -78,8 +78,7 @@ public class SearchOrdersRequest {
 
     /**
      * Getter for Limit.
-     * The maximum number of results to be returned in a single page. It is possible to receive
-     * fewer results than the specified limit on a given page. Default: `500`
+     * The maximum number of results to be returned in a single page. Default: `500` Max: `1000`
      * @return Returns the Integer
      */
     @JsonGetter("limit")

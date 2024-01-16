@@ -222,10 +222,14 @@ public class OrderLineItem {
 
     /**
      * Getter for Quantity.
-     * The quantity purchased, formatted as a decimal number. For example, `"3"`. Line items with a
-     * quantity of `"0"` are automatically removed when paying for or otherwise completing the
-     * order. Line items with a `quantity_unit` can have non-integer quantities. For example,
-     * `"1.70000"`.
+     * The count, or measurement, of a line item being purchased: If `quantity` is a whole number,
+     * and `quantity_unit` is not specified, then `quantity` denotes an item count. For example: `3`
+     * apples. If `quantity` is a whole or decimal number, and `quantity_unit` is also specified,
+     * then `quantity` denotes a measurement. For example: `2.25` pounds of broccoli. For more
+     * information, see [Specify item quantity and measurement
+     * unit](https://developer.squareup.com/docs/orders-api/create-orders#specify-item-quantity-and-measurement-unit).
+     * Line items with a quantity of `0` are automatically removed when paying for or otherwise
+     * completing the order.
      * @return Returns the String
      */
     @JsonGetter("quantity")
@@ -247,7 +251,7 @@ public class OrderLineItem {
 
     /**
      * Internal Getter for Note.
-     * The note of the line item.
+     * An optional note associated with the line item.
      * @return Returns the Internal String
      */
     @JsonGetter("note")
@@ -259,7 +263,7 @@ public class OrderLineItem {
 
     /**
      * Getter for Note.
-     * The note of the line item.
+     * An optional note associated with the line item.
      * @return Returns the String
      */
     @JsonIgnore
