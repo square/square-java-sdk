@@ -72,7 +72,7 @@ public class SearchOrdersResponse {
      * Getter for Cursor.
      * The pagination cursor to be used in a subsequent request. If unset, this is the final
      * response. For more information, see
-     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * [Pagination](https://developer.squareup.com/docs/basics/build-basics/common-api-patterns/pagination).
      * @return Returns the String
      */
     @JsonGetter("cursor")

@@ -25,6 +25,7 @@ public class Fulfillment {
     private final FulfillmentPickupDetails pickupDetails;
     private final FulfillmentShipmentDetails shipmentDetails;
     private final FulfillmentDeliveryDetails deliveryDetails;
+    private final Integer version;
 
     /**
      * Initialization constructor.
@@ -37,6 +38,7 @@ public class Fulfillment {
      * @param  pickupDetails  FulfillmentPickupDetails value for pickupDetails.
      * @param  shipmentDetails  FulfillmentShipmentDetails value for shipmentDetails.
      * @param  deliveryDetails  FulfillmentDeliveryDetails value for deliveryDetails.
+     * @param  version  Integer value for version.
      */
     @JsonCreator
     public Fulfillment(
@@ -48,7 +50,8 @@ public class Fulfillment {
             @JsonProperty("metadata") Map<String, String> metadata,
             @JsonProperty("pickup_details") FulfillmentPickupDetails pickupDetails,
             @JsonProperty("shipment_details") FulfillmentShipmentDetails shipmentDetails,
-            @JsonProperty("delivery_details") FulfillmentDeliveryDetails deliveryDetails) {
+            @JsonProperty("delivery_details") FulfillmentDeliveryDetails deliveryDetails,
+            @JsonProperty("version") Integer version) {
         this.uid = OptionalNullable.of(uid);
         this.type = type;
         this.state = state;
@@ -58,6 +61,7 @@ public class Fulfillment {
         this.pickupDetails = pickupDetails;
         this.shipmentDetails = shipmentDetails;
         this.deliveryDetails = deliveryDetails;
+        this.version = version;
     }
 
     /**
@@ -71,13 +75,14 @@ public class Fulfillment {
      * @param  pickupDetails  FulfillmentPickupDetails value for pickupDetails.
      * @param  shipmentDetails  FulfillmentShipmentDetails value for shipmentDetails.
      * @param  deliveryDetails  FulfillmentDeliveryDetails value for deliveryDetails.
+     * @param  version  Integer value for version.
      */
 
     protected Fulfillment(OptionalNullable<String> uid, String type, String state,
             String lineItemApplication, List<FulfillmentFulfillmentEntry> entries,
             OptionalNullable<Map<String, String>> metadata, FulfillmentPickupDetails pickupDetails,
-            FulfillmentShipmentDetails shipmentDetails,
-            FulfillmentDeliveryDetails deliveryDetails) {
+            FulfillmentShipmentDetails shipmentDetails, FulfillmentDeliveryDetails deliveryDetails,
+            Integer version) {
         this.uid = uid;
         this.type = type;
         this.state = state;
@@ -87,6 +92,7 @@ public class Fulfillment {
         this.pickupDetails = pickupDetails;
         this.shipmentDetails = shipmentDetails;
         this.deliveryDetails = deliveryDetails;
+        this.version = version;
     }
 
     /**
@@ -237,10 +243,23 @@ public class Fulfillment {
         return deliveryDetails;
     }
 
+    /**
+     * Getter for Version.
+     * The version number attributed to the fulfillment and incremented every time there is a
+     * fulfillment-related update. The fulfillment version is an internal field only for use between
+     * Orders and the Fulfillment service.
+     * @return Returns the Integer
+     */
+    @JsonGetter("version")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getVersion() {
+        return version;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uid, type, state, lineItemApplication, entries, metadata, pickupDetails,
-                shipmentDetails, deliveryDetails);
+                shipmentDetails, deliveryDetails, version);
     }
 
     @Override
@@ -260,7 +279,8 @@ public class Fulfillment {
             && Objects.equals(metadata, other.metadata)
             && Objects.equals(pickupDetails, other.pickupDetails)
             && Objects.equals(shipmentDetails, other.shipmentDetails)
-            && Objects.equals(deliveryDetails, other.deliveryDetails);
+            && Objects.equals(deliveryDetails, other.deliveryDetails)
+            && Objects.equals(version, other.version);
     }
 
     /**
@@ -273,7 +293,7 @@ public class Fulfillment {
                 + ", lineItemApplication=" + lineItemApplication + ", entries=" + entries
                 + ", metadata=" + metadata + ", pickupDetails=" + pickupDetails
                 + ", shipmentDetails=" + shipmentDetails + ", deliveryDetails=" + deliveryDetails
-                + "]";
+                + ", version=" + version + "]";
     }
 
     /**
@@ -289,7 +309,8 @@ public class Fulfillment {
                 .entries(getEntries())
                 .pickupDetails(getPickupDetails())
                 .shipmentDetails(getShipmentDetails())
-                .deliveryDetails(getDeliveryDetails());
+                .deliveryDetails(getDeliveryDetails())
+                .version(getVersion());
         builder.uid = internalGetUid();
         builder.metadata = internalGetMetadata();
         return builder;
@@ -308,6 +329,7 @@ public class Fulfillment {
         private FulfillmentPickupDetails pickupDetails;
         private FulfillmentShipmentDetails shipmentDetails;
         private FulfillmentDeliveryDetails deliveryDetails;
+        private Integer version;
 
 
 
@@ -420,12 +442,22 @@ public class Fulfillment {
         }
 
         /**
+         * Setter for version.
+         * @param  version  Integer value for version.
+         * @return Builder
+         */
+        public Builder version(Integer version) {
+            this.version = version;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Fulfillment} object using the set fields.
          * @return {@link Fulfillment}
          */
         public Fulfillment build() {
             return new Fulfillment(uid, type, state, lineItemApplication, entries, metadata,
-                    pickupDetails, shipmentDetails, deliveryDetails);
+                    pickupDetails, shipmentDetails, deliveryDetails, version);
         }
     }
 }

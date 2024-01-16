@@ -9,8 +9,11 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.CancelInvoiceRequest;
 import com.squareup.square.models.CancelInvoiceResponse;
+import com.squareup.square.models.CreateInvoiceAttachmentRequest;
+import com.squareup.square.models.CreateInvoiceAttachmentResponse;
 import com.squareup.square.models.CreateInvoiceRequest;
 import com.squareup.square.models.CreateInvoiceResponse;
+import com.squareup.square.models.DeleteInvoiceAttachmentResponse;
 import com.squareup.square.models.DeleteInvoiceResponse;
 import com.squareup.square.models.GetInvoiceResponse;
 import com.squareup.square.models.ListInvoicesResponse;
@@ -20,8 +23,10 @@ import com.squareup.square.models.SearchInvoicesRequest;
 import com.squareup.square.models.SearchInvoicesResponse;
 import com.squareup.square.models.UpdateInvoiceRequest;
 import com.squareup.square.models.UpdateInvoiceResponse;
+import com.squareup.square.utilities.FileWrapper;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.GlobalConfiguration;
+import io.apimatic.coreinterfaces.http.request.MutliPartRequestType;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -424,6 +429,153 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, UpdateInvoiceResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Uploads a file and attaches it to an invoice. This endpoint accepts HTTP multipart/form-data
+     * file uploads with a JSON `request` part and a `file` part. The `file` part must be a
+     * `readable stream` that contains a file in a supported format: GIF, JPEG, PNG, TIFF, BMP, or
+     * PDF. Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can
+     * be added only to invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to attach the
+     *         file to.
+     * @param  request  Optional parameter: Represents a
+     *         [CreateInvoiceAttachment]($e/Invoices/CreateInvoiceAttachment) request.
+     * @param  imageFile  Optional parameter: Example:
+     * @return    Returns the CreateInvoiceAttachmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public CreateInvoiceAttachmentResponse createInvoiceAttachment(
+            final String invoiceId,
+            final CreateInvoiceAttachmentRequest request,
+            final FileWrapper imageFile) throws ApiException, IOException {
+        return prepareCreateInvoiceAttachmentRequest(invoiceId, request, imageFile).execute();
+    }
+
+    /**
+     * Uploads a file and attaches it to an invoice. This endpoint accepts HTTP multipart/form-data
+     * file uploads with a JSON `request` part and a `file` part. The `file` part must be a
+     * `readable stream` that contains a file in a supported format: GIF, JPEG, PNG, TIFF, BMP, or
+     * PDF. Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can
+     * be added only to invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to attach the
+     *         file to.
+     * @param  request  Optional parameter: Represents a
+     *         [CreateInvoiceAttachment]($e/Invoices/CreateInvoiceAttachment) request.
+     * @param  imageFile  Optional parameter: Example:
+     * @return    Returns the CreateInvoiceAttachmentResponse response from the API call
+     */
+    public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachmentAsync(
+            final String invoiceId,
+            final CreateInvoiceAttachmentRequest request,
+            final FileWrapper imageFile) {
+        try { 
+            return prepareCreateInvoiceAttachmentRequest(invoiceId, request, imageFile).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for createInvoiceAttachment.
+     */
+    private ApiCall<CreateInvoiceAttachmentResponse, ApiException> prepareCreateInvoiceAttachmentRequest(
+            final String invoiceId,
+            final CreateInvoiceAttachmentRequest request,
+            final FileWrapper imageFile) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<CreateInvoiceAttachmentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}/attachments")
+                        .formParam(param -> param.key("request")
+                                .value(request)
+                                .multipartSerializer(() -> 
+                                        ApiHelper.serialize(request))
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART)
+                                .multipartHeaders("Content-Type", "application/json; charset=utf-8"))
+                        .formParam(param -> param.key("image_file")
+                                .value(imageFile)
+                                .multiPartRequestType(MutliPartRequestType.MULTI_PART_FILE)
+                                .multipartHeaders("Content-Type", "image/jpeg"))
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, CreateInvoiceAttachmentResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Removes an attachment from an invoice and permanently deletes the file. Attachments can be
+     * removed only from invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to delete the
+     *         attachment from.
+     * @param  attachmentId  Required parameter: The ID of the
+     *         [attachment](entity:InvoiceAttachment) to delete.
+     * @return    Returns the DeleteInvoiceAttachmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public DeleteInvoiceAttachmentResponse deleteInvoiceAttachment(
+            final String invoiceId,
+            final String attachmentId) throws ApiException, IOException {
+        return prepareDeleteInvoiceAttachmentRequest(invoiceId, attachmentId).execute();
+    }
+
+    /**
+     * Removes an attachment from an invoice and permanently deletes the file. Attachments can be
+     * removed only from invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to delete the
+     *         attachment from.
+     * @param  attachmentId  Required parameter: The ID of the
+     *         [attachment](entity:InvoiceAttachment) to delete.
+     * @return    Returns the DeleteInvoiceAttachmentResponse response from the API call
+     */
+    public CompletableFuture<DeleteInvoiceAttachmentResponse> deleteInvoiceAttachmentAsync(
+            final String invoiceId,
+            final String attachmentId) {
+        try { 
+            return prepareDeleteInvoiceAttachmentRequest(invoiceId, attachmentId).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for deleteInvoiceAttachment.
+     */
+    private ApiCall<DeleteInvoiceAttachmentResponse, ApiException> prepareDeleteInvoiceAttachmentRequest(
+            final String invoiceId,
+            final String attachmentId) throws IOException {
+        return new ApiCall.Builder<DeleteInvoiceAttachmentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/invoices/{invoice_id}/attachments/{attachment_id}")
+                        .templateParam(param -> param.key("invoice_id").value(invoiceId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("attachment_id").value(attachmentId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, DeleteInvoiceAttachmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())

@@ -38,6 +38,7 @@ public class Invoice {
     private final OptionalNullable<String> saleOrServiceDate;
     private final OptionalNullable<String> paymentConditions;
     private final OptionalNullable<Boolean> storePaymentMethodEnabled;
+    private final List<InvoiceAttachment> attachments;
 
     /**
      * Initialization constructor.
@@ -65,6 +66,7 @@ public class Invoice {
      * @param  saleOrServiceDate  String value for saleOrServiceDate.
      * @param  paymentConditions  String value for paymentConditions.
      * @param  storePaymentMethodEnabled  Boolean value for storePaymentMethodEnabled.
+     * @param  attachments  List of InvoiceAttachment value for attachments.
      */
     @JsonCreator
     public Invoice(
@@ -90,7 +92,8 @@ public class Invoice {
             @JsonProperty("subscription_id") String subscriptionId,
             @JsonProperty("sale_or_service_date") String saleOrServiceDate,
             @JsonProperty("payment_conditions") String paymentConditions,
-            @JsonProperty("store_payment_method_enabled") Boolean storePaymentMethodEnabled) {
+            @JsonProperty("store_payment_method_enabled") Boolean storePaymentMethodEnabled,
+            @JsonProperty("attachments") List<InvoiceAttachment> attachments) {
         this.id = id;
         this.version = version;
         this.locationId = OptionalNullable.of(locationId);
@@ -114,6 +117,7 @@ public class Invoice {
         this.saleOrServiceDate = OptionalNullable.of(saleOrServiceDate);
         this.paymentConditions = OptionalNullable.of(paymentConditions);
         this.storePaymentMethodEnabled = OptionalNullable.of(storePaymentMethodEnabled);
+        this.attachments = attachments;
     }
 
     /**
@@ -142,6 +146,7 @@ public class Invoice {
      * @param  saleOrServiceDate  String value for saleOrServiceDate.
      * @param  paymentConditions  String value for paymentConditions.
      * @param  storePaymentMethodEnabled  Boolean value for storePaymentMethodEnabled.
+     * @param  attachments  List of InvoiceAttachment value for attachments.
      */
 
     protected Invoice(String id, Integer version, OptionalNullable<String> locationId,
@@ -154,7 +159,8 @@ public class Invoice {
             InvoiceAcceptedPaymentMethods acceptedPaymentMethods,
             OptionalNullable<List<InvoiceCustomField>> customFields, String subscriptionId,
             OptionalNullable<String> saleOrServiceDate, OptionalNullable<String> paymentConditions,
-            OptionalNullable<Boolean> storePaymentMethodEnabled) {
+            OptionalNullable<Boolean> storePaymentMethodEnabled,
+            List<InvoiceAttachment> attachments) {
         this.id = id;
         this.version = version;
         this.locationId = locationId;
@@ -178,6 +184,7 @@ public class Invoice {
         this.saleOrServiceDate = saleOrServiceDate;
         this.paymentConditions = paymentConditions;
         this.storePaymentMethodEnabled = storePaymentMethodEnabled;
+        this.attachments = attachments;
     }
 
     /**
@@ -635,13 +642,26 @@ public class Invoice {
         return OptionalNullable.getFrom(storePaymentMethodEnabled);
     }
 
+    /**
+     * Getter for Attachments.
+     * Metadata about the attachments on the invoice. Invoice attachments are managed using the
+     * [CreateInvoiceAttachment](api-endpoint:Invoices-CreateInvoiceAttachment) and
+     * [DeleteInvoiceAttachment](api-endpoint:Invoices-DeleteInvoiceAttachment) endpoints.
+     * @return Returns the List of InvoiceAttachment
+     */
+    @JsonGetter("attachments")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<InvoiceAttachment> getAttachments() {
+        return attachments;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, locationId, orderId, primaryRecipient, paymentRequests,
                 deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                 nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
                 acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
-                paymentConditions, storePaymentMethodEnabled);
+                paymentConditions, storePaymentMethodEnabled, attachments);
     }
 
     @Override
@@ -675,7 +695,8 @@ public class Invoice {
             && Objects.equals(subscriptionId, other.subscriptionId)
             && Objects.equals(saleOrServiceDate, other.saleOrServiceDate)
             && Objects.equals(paymentConditions, other.paymentConditions)
-            && Objects.equals(storePaymentMethodEnabled, other.storePaymentMethodEnabled);
+            && Objects.equals(storePaymentMethodEnabled, other.storePaymentMethodEnabled)
+            && Objects.equals(attachments, other.attachments);
     }
 
     /**
@@ -694,7 +715,8 @@ public class Invoice {
                 + ", acceptedPaymentMethods=" + acceptedPaymentMethods + ", customFields="
                 + customFields + ", subscriptionId=" + subscriptionId + ", saleOrServiceDate="
                 + saleOrServiceDate + ", paymentConditions=" + paymentConditions
-                + ", storePaymentMethodEnabled=" + storePaymentMethodEnabled + "]";
+                + ", storePaymentMethodEnabled=" + storePaymentMethodEnabled + ", attachments="
+                + attachments + "]";
     }
 
     /**
@@ -715,7 +737,8 @@ public class Invoice {
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .acceptedPaymentMethods(getAcceptedPaymentMethods())
-                .subscriptionId(getSubscriptionId());
+                .subscriptionId(getSubscriptionId())
+                .attachments(getAttachments());
         builder.locationId = internalGetLocationId();
         builder.orderId = internalGetOrderId();
         builder.paymentRequests = internalGetPaymentRequests();
@@ -757,6 +780,7 @@ public class Invoice {
         private OptionalNullable<String> saleOrServiceDate;
         private OptionalNullable<String> paymentConditions;
         private OptionalNullable<Boolean> storePaymentMethodEnabled;
+        private List<InvoiceAttachment> attachments;
 
 
 
@@ -1092,6 +1116,16 @@ public class Invoice {
         }
 
         /**
+         * Setter for attachments.
+         * @param  attachments  List of InvoiceAttachment value for attachments.
+         * @return Builder
+         */
+        public Builder attachments(List<InvoiceAttachment> attachments) {
+            this.attachments = attachments;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -1100,7 +1134,7 @@ public class Invoice {
                     deliveryMethod, invoiceNumber, title, description, scheduledAt, publicUrl,
                     nextPaymentAmountMoney, status, timezone, createdAt, updatedAt,
                     acceptedPaymentMethods, customFields, subscriptionId, saleOrServiceDate,
-                    paymentConditions, storePaymentMethodEnabled);
+                    paymentConditions, storePaymentMethodEnabled, attachments);
         }
     }
 }

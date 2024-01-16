@@ -4,8 +4,11 @@ package com.squareup.square.api;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.CancelInvoiceRequest;
 import com.squareup.square.models.CancelInvoiceResponse;
+import com.squareup.square.models.CreateInvoiceAttachmentRequest;
+import com.squareup.square.models.CreateInvoiceAttachmentResponse;
 import com.squareup.square.models.CreateInvoiceRequest;
 import com.squareup.square.models.CreateInvoiceResponse;
+import com.squareup.square.models.DeleteInvoiceAttachmentResponse;
 import com.squareup.square.models.DeleteInvoiceResponse;
 import com.squareup.square.models.GetInvoiceResponse;
 import com.squareup.square.models.ListInvoicesResponse;
@@ -15,6 +18,7 @@ import com.squareup.square.models.SearchInvoicesRequest;
 import com.squareup.square.models.SearchInvoicesResponse;
 import com.squareup.square.models.UpdateInvoiceRequest;
 import com.squareup.square.models.UpdateInvoiceResponse;
+import com.squareup.square.utilities.FileWrapper;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
@@ -198,6 +202,72 @@ public interface InvoicesApi {
     CompletableFuture<UpdateInvoiceResponse> updateInvoiceAsync(
             final String invoiceId,
             final UpdateInvoiceRequest body);
+
+    /**
+     * Uploads a file and attaches it to an invoice. This endpoint accepts HTTP multipart/form-data
+     * file uploads with a JSON `request` part and a `file` part. The `file` part must be a
+     * `readable stream` that contains a file in a supported format: GIF, JPEG, PNG, TIFF, BMP, or
+     * PDF. Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can
+     * be added only to invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to attach the
+     *         file to.
+     * @param  request  Optional parameter: Represents a
+     *         [CreateInvoiceAttachment]($e/Invoices/CreateInvoiceAttachment) request.
+     * @param  imageFile  Optional parameter: Example:
+     * @return    Returns the CreateInvoiceAttachmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CreateInvoiceAttachmentResponse createInvoiceAttachment(
+            final String invoiceId,
+            final CreateInvoiceAttachmentRequest request,
+            final FileWrapper imageFile) throws ApiException, IOException;
+
+    /**
+     * Uploads a file and attaches it to an invoice. This endpoint accepts HTTP multipart/form-data
+     * file uploads with a JSON `request` part and a `file` part. The `file` part must be a
+     * `readable stream` that contains a file in a supported format: GIF, JPEG, PNG, TIFF, BMP, or
+     * PDF. Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can
+     * be added only to invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to attach the
+     *         file to.
+     * @param  request  Optional parameter: Represents a
+     *         [CreateInvoiceAttachment]($e/Invoices/CreateInvoiceAttachment) request.
+     * @param  imageFile  Optional parameter: Example:
+     * @return    Returns the CreateInvoiceAttachmentResponse response from the API call
+     */
+    CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachmentAsync(
+            final String invoiceId,
+            final CreateInvoiceAttachmentRequest request,
+            final FileWrapper imageFile);
+
+    /**
+     * Removes an attachment from an invoice and permanently deletes the file. Attachments can be
+     * removed only from invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to delete the
+     *         attachment from.
+     * @param  attachmentId  Required parameter: The ID of the
+     *         [attachment](entity:InvoiceAttachment) to delete.
+     * @return    Returns the DeleteInvoiceAttachmentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    DeleteInvoiceAttachmentResponse deleteInvoiceAttachment(
+            final String invoiceId,
+            final String attachmentId) throws ApiException, IOException;
+
+    /**
+     * Removes an attachment from an invoice and permanently deletes the file. Attachments can be
+     * removed only from invoices in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+     * @param  invoiceId  Required parameter: The ID of the [invoice](entity:Invoice) to delete the
+     *         attachment from.
+     * @param  attachmentId  Required parameter: The ID of the
+     *         [attachment](entity:InvoiceAttachment) to delete.
+     * @return    Returns the DeleteInvoiceAttachmentResponse response from the API call
+     */
+    CompletableFuture<DeleteInvoiceAttachmentResponse> deleteInvoiceAttachmentAsync(
+            final String invoiceId,
+            final String attachmentId);
 
     /**
      * Cancels an invoice. The seller cannot collect payments for the canceled invoice. You cannot

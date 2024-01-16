@@ -37,6 +37,7 @@ public class CatalogItem {
     private final OptionalNullable<List<String>> channels;
     private final OptionalNullable<Boolean> isArchived;
     private final CatalogEcomSeoData ecomSeoData;
+    private final CatalogItemFoodAndBeverageDetails foodAndBeverageDetails;
     private final CatalogObjectCategory reportingCategory;
 
     /**
@@ -63,6 +64,8 @@ public class CatalogItem {
      * @param  channels  List of String value for channels.
      * @param  isArchived  Boolean value for isArchived.
      * @param  ecomSeoData  CatalogEcomSeoData value for ecomSeoData.
+     * @param  foodAndBeverageDetails  CatalogItemFoodAndBeverageDetails value for
+     *         foodAndBeverageDetails.
      * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
      */
     @JsonCreator
@@ -89,6 +92,7 @@ public class CatalogItem {
             @JsonProperty("channels") List<String> channels,
             @JsonProperty("is_archived") Boolean isArchived,
             @JsonProperty("ecom_seo_data") CatalogEcomSeoData ecomSeoData,
+            @JsonProperty("food_and_beverage_details") CatalogItemFoodAndBeverageDetails foodAndBeverageDetails,
             @JsonProperty("reporting_category") CatalogObjectCategory reportingCategory) {
         this.name = OptionalNullable.of(name);
         this.description = OptionalNullable.of(description);
@@ -112,6 +116,7 @@ public class CatalogItem {
         this.channels = OptionalNullable.of(channels);
         this.isArchived = OptionalNullable.of(isArchived);
         this.ecomSeoData = ecomSeoData;
+        this.foodAndBeverageDetails = foodAndBeverageDetails;
         this.reportingCategory = reportingCategory;
     }
 
@@ -139,6 +144,8 @@ public class CatalogItem {
      * @param  channels  List of String value for channels.
      * @param  isArchived  Boolean value for isArchived.
      * @param  ecomSeoData  CatalogEcomSeoData value for ecomSeoData.
+     * @param  foodAndBeverageDetails  CatalogItemFoodAndBeverageDetails value for
+     *         foodAndBeverageDetails.
      * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
      */
 
@@ -155,7 +162,9 @@ public class CatalogItem {
             OptionalNullable<List<CatalogObjectCategory>> categories,
             OptionalNullable<String> descriptionHtml, String descriptionPlaintext,
             OptionalNullable<List<String>> channels, OptionalNullable<Boolean> isArchived,
-            CatalogEcomSeoData ecomSeoData, CatalogObjectCategory reportingCategory) {
+            CatalogEcomSeoData ecomSeoData,
+            CatalogItemFoodAndBeverageDetails foodAndBeverageDetails,
+            CatalogObjectCategory reportingCategory) {
         this.name = name;
         this.description = description;
         this.abbreviation = abbreviation;
@@ -178,6 +187,7 @@ public class CatalogItem {
         this.channels = channels;
         this.isArchived = isArchived;
         this.ecomSeoData = ecomSeoData;
+        this.foodAndBeverageDetails = foodAndBeverageDetails;
         this.reportingCategory = reportingCategory;
     }
 
@@ -713,6 +723,17 @@ public class CatalogItem {
     }
 
     /**
+     * Getter for FoodAndBeverageDetails.
+     * The food and beverage-specific details of a `FOOD_AND_BEV` item.
+     * @return Returns the CatalogItemFoodAndBeverageDetails
+     */
+    @JsonGetter("food_and_beverage_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CatalogItemFoodAndBeverageDetails getFoodAndBeverageDetails() {
+        return foodAndBeverageDetails;
+    }
+
+    /**
      * Getter for ReportingCategory.
      * A category that can be assigned to an item or a parent category that can be assigned to
      * another category. For example, a clothing category can be assigned to a t-shirt item or be
@@ -731,7 +752,7 @@ public class CatalogItem {
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
                 variations, productType, skipModifierScreen, itemOptions, imageIds, sortName,
                 categories, descriptionHtml, descriptionPlaintext, channels, isArchived,
-                ecomSeoData, reportingCategory);
+                ecomSeoData, foodAndBeverageDetails, reportingCategory);
     }
 
     @Override
@@ -765,6 +786,7 @@ public class CatalogItem {
             && Objects.equals(channels, other.channels)
             && Objects.equals(isArchived, other.isArchived)
             && Objects.equals(ecomSeoData, other.ecomSeoData)
+            && Objects.equals(foodAndBeverageDetails, other.foodAndBeverageDetails)
             && Objects.equals(reportingCategory, other.reportingCategory);
     }
 
@@ -784,7 +806,8 @@ public class CatalogItem {
                 + ", imageIds=" + imageIds + ", sortName=" + sortName + ", categories=" + categories
                 + ", descriptionHtml=" + descriptionHtml + ", descriptionPlaintext="
                 + descriptionPlaintext + ", channels=" + channels + ", isArchived=" + isArchived
-                + ", ecomSeoData=" + ecomSeoData + ", reportingCategory=" + reportingCategory + "]";
+                + ", ecomSeoData=" + ecomSeoData + ", foodAndBeverageDetails="
+                + foodAndBeverageDetails + ", reportingCategory=" + reportingCategory + "]";
     }
 
     /**
@@ -797,6 +820,7 @@ public class CatalogItem {
                 .productType(getProductType())
                 .descriptionPlaintext(getDescriptionPlaintext())
                 .ecomSeoData(getEcomSeoData())
+                .foodAndBeverageDetails(getFoodAndBeverageDetails())
                 .reportingCategory(getReportingCategory());
         builder.name = internalGetName();
         builder.description = internalGetDescription();
@@ -846,6 +870,7 @@ public class CatalogItem {
         private OptionalNullable<List<String>> channels;
         private OptionalNullable<Boolean> isArchived;
         private CatalogEcomSeoData ecomSeoData;
+        private CatalogItemFoodAndBeverageDetails foodAndBeverageDetails;
         private CatalogObjectCategory reportingCategory;
 
 
@@ -1242,6 +1267,18 @@ public class CatalogItem {
         }
 
         /**
+         * Setter for foodAndBeverageDetails.
+         * @param  foodAndBeverageDetails  CatalogItemFoodAndBeverageDetails value for
+         *         foodAndBeverageDetails.
+         * @return Builder
+         */
+        public Builder foodAndBeverageDetails(
+                CatalogItemFoodAndBeverageDetails foodAndBeverageDetails) {
+            this.foodAndBeverageDetails = foodAndBeverageDetails;
+            return this;
+        }
+
+        /**
          * Setter for reportingCategory.
          * @param  reportingCategory  CatalogObjectCategory value for reportingCategory.
          * @return Builder
@@ -1260,7 +1297,7 @@ public class CatalogItem {
                     availableForPickup, availableElectronically, categoryId, taxIds,
                     modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
                     imageIds, sortName, categories, descriptionHtml, descriptionPlaintext, channels,
-                    isArchived, ecomSeoData, reportingCategory);
+                    isArchived, ecomSeoData, foodAndBeverageDetails, reportingCategory);
         }
     }
 }

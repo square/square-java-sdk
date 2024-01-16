@@ -161,10 +161,10 @@ public class FulfillmentPickupDetails {
     /**
      * Internal Getter for ExpiresAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment expires if it is not accepted. The timestamp must be in RFC
-     * 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only be set up
-     * to 7 days in the future. If `expires_at` is not set, this pickup fulfillment is automatically
-     * accepted when placed.
+     * indicating when this fulfillment expires if it is not marked in progress. The timestamp must
+     * be in RFC 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only
+     * be set up to 7 days in the future. If `expires_at` is not set, any new payments attached to
+     * the order are automatically completed.
      * @return Returns the Internal String
      */
     @JsonGetter("expires_at")
@@ -177,10 +177,10 @@ public class FulfillmentPickupDetails {
     /**
      * Getter for ExpiresAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when this fulfillment expires if it is not accepted. The timestamp must be in RFC
-     * 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only be set up
-     * to 7 days in the future. If `expires_at` is not set, this pickup fulfillment is automatically
-     * accepted when placed.
+     * indicating when this fulfillment expires if it is not marked in progress. The timestamp must
+     * be in RFC 3339 format (for example, "2016-09-04T23:59:33.123Z"). The expiration time can only
+     * be set up to 7 days in the future. If `expires_at` is not set, any new payments attached to
+     * the order are automatically completed.
      * @return Returns the String
      */
     @JsonIgnore
@@ -190,10 +190,9 @@ public class FulfillmentPickupDetails {
 
     /**
      * Internal Getter for AutoCompleteDuration.
-     * The duration of time after which an open and accepted pickup fulfillment is automatically
-     * moved to the `COMPLETED` state. The duration must be in RFC 3339 format (for example,
-     * "P1W3D"). If not set, this pickup fulfillment remains accepted until it is canceled or
-     * completed.
+     * The duration of time after which an in progress pickup fulfillment is automatically moved to
+     * the `COMPLETED` state. The duration must be in RFC 3339 format (for example, "P1W3D"). If not
+     * set, this pickup fulfillment remains in progress until it is canceled or completed.
      * @return Returns the Internal String
      */
     @JsonGetter("auto_complete_duration")
@@ -205,10 +204,9 @@ public class FulfillmentPickupDetails {
 
     /**
      * Getter for AutoCompleteDuration.
-     * The duration of time after which an open and accepted pickup fulfillment is automatically
-     * moved to the `COMPLETED` state. The duration must be in RFC 3339 format (for example,
-     * "P1W3D"). If not set, this pickup fulfillment remains accepted until it is canceled or
-     * completed.
+     * The duration of time after which an in progress pickup fulfillment is automatically moved to
+     * the `COMPLETED` state. The duration must be in RFC 3339 format (for example, "P1W3D"). If not
+     * set, this pickup fulfillment remains in progress until it is canceled or completed.
      * @return Returns the String
      */
     @JsonIgnore
@@ -345,8 +343,8 @@ public class FulfillmentPickupDetails {
     /**
      * Getter for AcceptedAt.
      * The [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates)
-     * indicating when the fulfillment was accepted. The timestamp must be in RFC 3339 format (for
-     * example, "2016-09-04T23:59:33.123Z").
+     * indicating when the fulfillment was marked in progress. The timestamp must be in RFC 3339
+     * format (for example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("accepted_at")
