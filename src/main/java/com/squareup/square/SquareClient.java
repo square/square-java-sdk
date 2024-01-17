@@ -151,7 +151,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/37.0.0.20240118 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/37.0.1.20240118 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -697,7 +697,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "37.0.0.20240118";
+        return "37.0.1.20240118";
     }
 
     /**
