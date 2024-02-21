@@ -13,7 +13,6 @@ import java.util.Map;
  * Base class for all Apis.
  */
 public abstract class BaseApi {
-    protected final static String AUTHENTICATION_KEY = "global";
     protected static final Map<String, ErrorCase<ApiException>> GLOBAL_ERROR_CASES =
             new HashMap<String, ErrorCase<ApiException>>();
     private GlobalConfiguration globalConfig;

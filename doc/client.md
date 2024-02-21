@@ -5,13 +5,13 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-01-18"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-02-22"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
 | `additionalHeaders` | [`Headers`](headers.md) | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
 | `userAgentDetail` | `String` | Additional detail which can be appended with User-Agent header.<br>*Default*: `"null"` |
-| `accessToken` | `String` | The OAuth 2.0 Access Token to use for API requests. |
+| `bearerAuthCredentials` | [`BearerAuthCredentials`](auth/oauth-2-bearer-token.md) | The Credentials Setter for OAuth 2 Bearer token |
 
 The API client can be initialized as follows:
 
@@ -19,8 +19,11 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2024-01-18")
-    .accessToken("AccessToken")
+    .squareVersion("2024-02-22")
+    .bearerAuthCredentials(new BearerAuthModel.Builder(
+            "AccessToken"
+        )
+        .build())
     .environment(Environment.PRODUCTION)
     .customUrl("https://connect.squareup.com")
     .build();
@@ -33,6 +36,7 @@ package com.example;
 
 import com.squareup.square.SquareClient;
 import com.squareup.square.api.LocationsApi;
+import com.squareup.square.authentication.BearerAuthModel;
 
 public class Program {
 
@@ -40,8 +44,11 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2024-01-18")
-            .accessToken("AccessToken")
+            .squareVersion("2024-02-22")
+            .bearerAuthCredentials(new BearerAuthModel.Builder(
+                    "AccessToken"
+                )
+                .build())
             .build();
 
         LocationsApi locationsApi = client.getLocationsApi();
@@ -120,7 +127,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
 | `getAdditionalHeaders()` | Additional headers to add to each API request. | [`Headers`](headers.md) |
 | `getUserAgentDetail()` | Additional detail which can be appended with User-Agent header. | `String` |
-| `getBearerAuthCredentials()` | The credentials to use with BearerAuth. | `BearerAuthCredentials` |
+| `getBearerAuthCredentials()` | The credentials to use with BearerAuth. | [`BearerAuthCredentials`](auth/oauth-2-bearer-token.md) |
 | `getAccessToken()` | OAuth 2.0 Access Token. | `String` |
 | `getSdkVersion()` | Current SDK Version. | `String` |
 | `getBaseUri(Server server)` | Get base URI by current environment | `String` |

@@ -109,7 +109,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .queryParam(param -> param.key("limit")
                                 .value(limit).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -170,7 +171,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -233,7 +235,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -301,7 +304,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .templateParam(param -> param.key("invoice_id").value(invoiceId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -352,7 +356,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .templateParam(param -> param.key("invoice_id").value(invoiceId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -424,7 +429,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -507,7 +513,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .templateParam(param -> param.key("invoice_id").value(invoiceId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -571,7 +578,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .templateParam(param -> param.key("attachment_id").value(attachmentId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -637,7 +645,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -655,8 +664,10 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * address, charges the customer's card on file, or does nothing. Square also makes the invoice
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
-     * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount.
+     * Square emails the invoice or `PARTIALLY_PAID` if Square charges a card on file for a portion
+     * of the invoice amount. In addition to the required `ORDERS_WRITE` and `INVOICES_WRITE`
+     * permissions, `CUSTOMERS_READ` and `PAYMENTS_WRITE` are required when publishing invoices
+     * configured for card-on-file payments.
      * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -676,8 +687,10 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
      * address, charges the customer's card on file, or does nothing. Square also makes the invoice
      * available on a Square-hosted invoice page. The invoice `status` also changes from `DRAFT` to
      * a status based on the invoice configuration. For example, the status changes to `UNPAID` if
-     * Square emails the invoice or `PARTIALLY_PAID` if Square charge a card on file for a portion
-     * of the invoice amount.
+     * Square emails the invoice or `PARTIALLY_PAID` if Square charges a card on file for a portion
+     * of the invoice amount. In addition to the required `ORDERS_WRITE` and `INVOICES_WRITE`
+     * permissions, `CUSTOMERS_READ` and `PAYMENTS_WRITE` are required when publishing invoices
+     * configured for card-on-file payments.
      * @param  invoiceId  Required parameter: The ID of the invoice to publish.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -711,7 +724,8 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

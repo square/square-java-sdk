@@ -64,7 +64,8 @@ public final class DefaultSitesApi extends BaseApi implements SitesApi {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/v2/sites")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

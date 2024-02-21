@@ -3,6 +3,14 @@ package com.squareup.square.api;
 
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.AddGroupToCustomerResponse;
+import com.squareup.square.models.BulkCreateCustomersRequest;
+import com.squareup.square.models.BulkCreateCustomersResponse;
+import com.squareup.square.models.BulkDeleteCustomersRequest;
+import com.squareup.square.models.BulkDeleteCustomersResponse;
+import com.squareup.square.models.BulkRetrieveCustomersRequest;
+import com.squareup.square.models.BulkRetrieveCustomersResponse;
+import com.squareup.square.models.BulkUpdateCustomersRequest;
+import com.squareup.square.models.BulkUpdateCustomersResponse;
 import com.squareup.square.models.CreateCustomerCardRequest;
 import com.squareup.square.models.CreateCustomerCardResponse;
 import com.squareup.square.models.CreateCustomerRequest;
@@ -111,6 +119,100 @@ public interface CustomersApi {
             final CreateCustomerRequest body);
 
     /**
+     * Creates multiple [customer profiles]($m/Customer) for a business. This endpoint takes a map
+     * of individual create requests and returns a map of responses. You must provide at least one
+     * of the following values in each create request: - `given_name` - `family_name` -
+     * `company_name` - `email_address` - `phone_number`.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkCreateCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkCreateCustomersResponse bulkCreateCustomers(
+            final BulkCreateCustomersRequest body) throws ApiException, IOException;
+
+    /**
+     * Creates multiple [customer profiles]($m/Customer) for a business. This endpoint takes a map
+     * of individual create requests and returns a map of responses. You must provide at least one
+     * of the following values in each create request: - `given_name` - `family_name` -
+     * `company_name` - `email_address` - `phone_number`.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkCreateCustomersResponse response from the API call
+     */
+    CompletableFuture<BulkCreateCustomersResponse> bulkCreateCustomersAsync(
+            final BulkCreateCustomersRequest body);
+
+    /**
+     * Deletes multiple customer profiles. The endpoint takes a list of customer IDs and returns a
+     * map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkDeleteCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkDeleteCustomersResponse bulkDeleteCustomers(
+            final BulkDeleteCustomersRequest body) throws ApiException, IOException;
+
+    /**
+     * Deletes multiple customer profiles. The endpoint takes a list of customer IDs and returns a
+     * map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkDeleteCustomersResponse response from the API call
+     */
+    CompletableFuture<BulkDeleteCustomersResponse> bulkDeleteCustomersAsync(
+            final BulkDeleteCustomersRequest body);
+
+    /**
+     * Retrieves multiple customer profiles. This endpoint takes a list of customer IDs and returns
+     * a map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkRetrieveCustomersResponse bulkRetrieveCustomers(
+            final BulkRetrieveCustomersRequest body) throws ApiException, IOException;
+
+    /**
+     * Retrieves multiple customer profiles. This endpoint takes a list of customer IDs and returns
+     * a map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveCustomersResponse response from the API call
+     */
+    CompletableFuture<BulkRetrieveCustomersResponse> bulkRetrieveCustomersAsync(
+            final BulkRetrieveCustomersRequest body);
+
+    /**
+     * Updates multiple customer profiles. This endpoint takes a map of individual update requests
+     * and returns a map of responses. You cannot use this endpoint to change cards on file. To make
+     * changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkUpdateCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    BulkUpdateCustomersResponse bulkUpdateCustomers(
+            final BulkUpdateCustomersRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates multiple customer profiles. This endpoint takes a map of individual update requests
+     * and returns a map of responses. You cannot use this endpoint to change cards on file. To make
+     * changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkUpdateCustomersResponse response from the API call
+     */
+    CompletableFuture<BulkUpdateCustomersResponse> bulkUpdateCustomersAsync(
+            final BulkUpdateCustomersRequest body);
+
+    /**
      * Searches the customer profiles associated with a Square account using one or more supported
      * query filters. Calling `SearchCustomers` without any explicit query filter returns all
      * customer profiles ordered alphabetically based on `given_name` and `family_name`. Under
@@ -144,11 +246,8 @@ public interface CustomersApi {
 
     /**
      * Deletes a customer profile from a business. This operation also unlinks any associated cards
-     * on file. As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To delete a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile.
+     * on file. To delete a customer profile that was created by merging existing profiles, you must
+     * use the ID of the newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
      * @param  version  Optional parameter: The current version of the customer profile. As a best
      *         practice, you should include this parameter to enable [optimistic
@@ -165,11 +264,8 @@ public interface CustomersApi {
 
     /**
      * Deletes a customer profile from a business. This operation also unlinks any associated cards
-     * on file. As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To delete a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile.
+     * on file. To delete a customer profile that was created by merging existing profiles, you must
+     * use the ID of the newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
      * @param  version  Optional parameter: The current version of the customer profile. As a best
      *         practice, you should include this parameter to enable [optimistic
@@ -203,13 +299,10 @@ public interface CustomersApi {
     /**
      * Updates a customer profile. This endpoint supports sparse updates, so only new or changed
      * fields are required in the request. To add or update a field, specify the new value. To
-     * remove a field, specify `null` (recommended) or specify an empty string (string fields only).
-     * As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To update a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile. You cannot use this endpoint to change cards on file. To
-     * make changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * remove a field, specify `null`. To update a customer profile that was created by merging
+     * existing profiles, you must use the ID of the newly created profile. You cannot use this
+     * endpoint to change cards on file. To make changes, use the [Cards API]($e/Cards) or [Gift
+     * Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -224,13 +317,10 @@ public interface CustomersApi {
     /**
      * Updates a customer profile. This endpoint supports sparse updates, so only new or changed
      * fields are required in the request. To add or update a field, specify the new value. To
-     * remove a field, specify `null` (recommended) or specify an empty string (string fields only).
-     * As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To update a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile. You cannot use this endpoint to change cards on file. To
-     * make changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * remove a field, specify `null`. To update a customer profile that was created by merging
+     * existing profiles, you must use the ID of the newly created profile. You cannot use this
+     * endpoint to change cards on file. To make changes, use the [Cards API]($e/Cards) or [Gift
+     * Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.

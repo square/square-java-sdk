@@ -107,7 +107,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -160,7 +161,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .templateParam(param -> param.key("location_id").value(locationId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -224,7 +226,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -268,7 +271,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/v2/online-checkout/merchant-settings")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -323,7 +327,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -341,7 +346,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. If a cursor is not provided, the endpoint returns the first page of the
      *         results. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  limit  Optional parameter: A limit on the number of results to return per page. The
      *         limit is advisory and the implementation might return more or less results. If the
      *         supplied limit is negative, zero, or greater than the maximum limit of 1000, it is
@@ -362,7 +367,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. If a cursor is not provided, the endpoint returns the first page of the
      *         results. For more information, see
-     *         [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
      * @param  limit  Optional parameter: A limit on the number of results to return per page. The
      *         limit is advisory and the implementation might return more or less results. If the
      *         supplied limit is negative, zero, or greater than the maximum limit of 1000, it is
@@ -395,7 +400,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .queryParam(param -> param.key("limit")
                                 .value(limit).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -452,7 +458,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -503,7 +510,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .templateParam(param -> param.key("id").value(id)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -554,7 +562,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .templateParam(param -> param.key("id").value(id)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -620,7 +629,8 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

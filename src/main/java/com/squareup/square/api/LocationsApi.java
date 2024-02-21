@@ -19,7 +19,7 @@ public interface LocationsApi {
     /**
      * Provides details about all of the seller's
      * [locations](https://developer.squareup.com/docs/locations-api), including those with an
-     * inactive status.
+     * inactive status. Locations are listed alphabetically by `name`.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -29,7 +29,7 @@ public interface LocationsApi {
     /**
      * Provides details about all of the seller's
      * [locations](https://developer.squareup.com/docs/locations-api), including those with an
-     * inactive status.
+     * inactive status. Locations are listed alphabetically by `name`.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     CompletableFuture<ListLocationsResponse> listLocationsAsync();

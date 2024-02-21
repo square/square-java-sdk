@@ -20,6 +20,7 @@ public class CatalogItemModifierListInfo {
     private final OptionalNullable<Integer> minSelectedModifiers;
     private final OptionalNullable<Integer> maxSelectedModifiers;
     private final OptionalNullable<Boolean> enabled;
+    private final OptionalNullable<Integer> ordinal;
 
     /**
      * Initialization constructor.
@@ -28,6 +29,7 @@ public class CatalogItemModifierListInfo {
      * @param  minSelectedModifiers  Integer value for minSelectedModifiers.
      * @param  maxSelectedModifiers  Integer value for maxSelectedModifiers.
      * @param  enabled  Boolean value for enabled.
+     * @param  ordinal  Integer value for ordinal.
      */
     @JsonCreator
     public CatalogItemModifierListInfo(
@@ -35,12 +37,14 @@ public class CatalogItemModifierListInfo {
             @JsonProperty("modifier_overrides") List<CatalogModifierOverride> modifierOverrides,
             @JsonProperty("min_selected_modifiers") Integer minSelectedModifiers,
             @JsonProperty("max_selected_modifiers") Integer maxSelectedModifiers,
-            @JsonProperty("enabled") Boolean enabled) {
+            @JsonProperty("enabled") Boolean enabled,
+            @JsonProperty("ordinal") Integer ordinal) {
         this.modifierListId = modifierListId;
         this.modifierOverrides = OptionalNullable.of(modifierOverrides);
         this.minSelectedModifiers = OptionalNullable.of(minSelectedModifiers);
         this.maxSelectedModifiers = OptionalNullable.of(maxSelectedModifiers);
         this.enabled = OptionalNullable.of(enabled);
+        this.ordinal = OptionalNullable.of(ordinal);
     }
 
     /**
@@ -50,17 +54,20 @@ public class CatalogItemModifierListInfo {
      * @param  minSelectedModifiers  Integer value for minSelectedModifiers.
      * @param  maxSelectedModifiers  Integer value for maxSelectedModifiers.
      * @param  enabled  Boolean value for enabled.
+     * @param  ordinal  Integer value for ordinal.
      */
 
     protected CatalogItemModifierListInfo(String modifierListId,
             OptionalNullable<List<CatalogModifierOverride>> modifierOverrides,
             OptionalNullable<Integer> minSelectedModifiers,
-            OptionalNullable<Integer> maxSelectedModifiers, OptionalNullable<Boolean> enabled) {
+            OptionalNullable<Integer> maxSelectedModifiers, OptionalNullable<Boolean> enabled,
+            OptionalNullable<Integer> ordinal) {
         this.modifierListId = modifierListId;
         this.modifierOverrides = modifierOverrides;
         this.minSelectedModifiers = minSelectedModifiers;
         this.maxSelectedModifiers = maxSelectedModifiers;
         this.enabled = enabled;
+        this.ordinal = ordinal;
     }
 
     /**
@@ -167,10 +174,34 @@ public class CatalogItemModifierListInfo {
         return OptionalNullable.getFrom(enabled);
     }
 
+    /**
+     * Internal Getter for Ordinal.
+     * The position of this `CatalogItemModifierListInfo` object within the `modifier_list_info`
+     * list applied to a `CatalogItem` instance.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("ordinal")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetOrdinal() {
+        return this.ordinal;
+    }
+
+    /**
+     * Getter for Ordinal.
+     * The position of this `CatalogItemModifierListInfo` object within the `modifier_list_info`
+     * list applied to a `CatalogItem` instance.
+     * @return Returns the Integer
+     */
+    @JsonIgnore
+    public Integer getOrdinal() {
+        return OptionalNullable.getFrom(ordinal);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(modifierListId, modifierOverrides, minSelectedModifiers,
-                maxSelectedModifiers, enabled);
+                maxSelectedModifiers, enabled, ordinal);
     }
 
     @Override
@@ -186,7 +217,8 @@ public class CatalogItemModifierListInfo {
             && Objects.equals(modifierOverrides, other.modifierOverrides)
             && Objects.equals(minSelectedModifiers, other.minSelectedModifiers)
             && Objects.equals(maxSelectedModifiers, other.maxSelectedModifiers)
-            && Objects.equals(enabled, other.enabled);
+            && Objects.equals(enabled, other.enabled)
+            && Objects.equals(ordinal, other.ordinal);
     }
 
     /**
@@ -198,7 +230,7 @@ public class CatalogItemModifierListInfo {
         return "CatalogItemModifierListInfo [" + "modifierListId=" + modifierListId
                 + ", modifierOverrides=" + modifierOverrides + ", minSelectedModifiers="
                 + minSelectedModifiers + ", maxSelectedModifiers=" + maxSelectedModifiers
-                + ", enabled=" + enabled + "]";
+                + ", enabled=" + enabled + ", ordinal=" + ordinal + "]";
     }
 
     /**
@@ -212,6 +244,7 @@ public class CatalogItemModifierListInfo {
         builder.minSelectedModifiers = internalGetMinSelectedModifiers();
         builder.maxSelectedModifiers = internalGetMaxSelectedModifiers();
         builder.enabled = internalGetEnabled();
+        builder.ordinal = internalGetOrdinal();
         return builder;
     }
 
@@ -224,6 +257,7 @@ public class CatalogItemModifierListInfo {
         private OptionalNullable<Integer> minSelectedModifiers;
         private OptionalNullable<Integer> maxSelectedModifiers;
         private OptionalNullable<Boolean> enabled;
+        private OptionalNullable<Integer> ordinal;
 
         /**
          * Initialization constructor.
@@ -320,12 +354,31 @@ public class CatalogItemModifierListInfo {
         }
 
         /**
+         * Setter for ordinal.
+         * @param  ordinal  Integer value for ordinal.
+         * @return Builder
+         */
+        public Builder ordinal(Integer ordinal) {
+            this.ordinal = OptionalNullable.of(ordinal);
+            return this;
+        }
+
+        /**
+         * UnSetter for ordinal.
+         * @return Builder
+         */
+        public Builder unsetOrdinal() {
+            ordinal = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CatalogItemModifierListInfo} object using the set fields.
          * @return {@link CatalogItemModifierListInfo}
          */
         public CatalogItemModifierListInfo build() {
             return new CatalogItemModifierListInfo(modifierListId, modifierOverrides,
-                    minSelectedModifiers, maxSelectedModifiers, enabled);
+                    minSelectedModifiers, maxSelectedModifiers, enabled, ordinal);
         }
     }
 }

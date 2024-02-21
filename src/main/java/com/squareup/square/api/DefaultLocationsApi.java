@@ -35,7 +35,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     /**
      * Provides details about all of the seller's
      * [locations](https://developer.squareup.com/docs/locations-api), including those with an
-     * inactive status.
+     * inactive status. Locations are listed alphabetically by `name`.
      * @return    Returns the ListLocationsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -47,7 +47,7 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
     /**
      * Provides details about all of the seller's
      * [locations](https://developer.squareup.com/docs/locations-api), including those with an
-     * inactive status.
+     * inactive status. Locations are listed alphabetically by `name`.
      * @return    Returns the ListLocationsResponse response from the API call
      */
     public CompletableFuture<ListLocationsResponse> listLocationsAsync() {
@@ -68,7 +68,8 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/v2/locations")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -133,7 +134,8 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -190,7 +192,8 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
                         .templateParam(param -> param.key("location_id").value(locationId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -252,7 +255,8 @@ public final class DefaultLocationsApi extends BaseApi implements LocationsApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

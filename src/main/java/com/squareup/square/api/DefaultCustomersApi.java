@@ -8,6 +8,14 @@ import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.AddGroupToCustomerResponse;
+import com.squareup.square.models.BulkCreateCustomersRequest;
+import com.squareup.square.models.BulkCreateCustomersResponse;
+import com.squareup.square.models.BulkDeleteCustomersRequest;
+import com.squareup.square.models.BulkDeleteCustomersResponse;
+import com.squareup.square.models.BulkRetrieveCustomersRequest;
+import com.squareup.square.models.BulkRetrieveCustomersResponse;
+import com.squareup.square.models.BulkUpdateCustomersRequest;
+import com.squareup.square.models.BulkUpdateCustomersResponse;
 import com.squareup.square.models.CreateCustomerCardRequest;
 import com.squareup.square.models.CreateCustomerCardResponse;
 import com.squareup.square.models.CreateCustomerRequest;
@@ -135,7 +143,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .queryParam(param -> param.key("count")
                                 .value((count != null) ? count : false).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -194,11 +203,250 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CreateCustomerResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Creates multiple [customer profiles]($m/Customer) for a business. This endpoint takes a map
+     * of individual create requests and returns a map of responses. You must provide at least one
+     * of the following values in each create request: - `given_name` - `family_name` -
+     * `company_name` - `email_address` - `phone_number`.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkCreateCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkCreateCustomersResponse bulkCreateCustomers(
+            final BulkCreateCustomersRequest body) throws ApiException, IOException {
+        return prepareBulkCreateCustomersRequest(body).execute();
+    }
+
+    /**
+     * Creates multiple [customer profiles]($m/Customer) for a business. This endpoint takes a map
+     * of individual create requests and returns a map of responses. You must provide at least one
+     * of the following values in each create request: - `given_name` - `family_name` -
+     * `company_name` - `email_address` - `phone_number`.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkCreateCustomersResponse response from the API call
+     */
+    public CompletableFuture<BulkCreateCustomersResponse> bulkCreateCustomersAsync(
+            final BulkCreateCustomersRequest body) {
+        try { 
+            return prepareBulkCreateCustomersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkCreateCustomers.
+     */
+    private ApiCall<BulkCreateCustomersResponse, ApiException> prepareBulkCreateCustomersRequest(
+            final BulkCreateCustomersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkCreateCustomersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/bulk-create")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("global"))
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkCreateCustomersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Deletes multiple customer profiles. The endpoint takes a list of customer IDs and returns a
+     * map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkDeleteCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkDeleteCustomersResponse bulkDeleteCustomers(
+            final BulkDeleteCustomersRequest body) throws ApiException, IOException {
+        return prepareBulkDeleteCustomersRequest(body).execute();
+    }
+
+    /**
+     * Deletes multiple customer profiles. The endpoint takes a list of customer IDs and returns a
+     * map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkDeleteCustomersResponse response from the API call
+     */
+    public CompletableFuture<BulkDeleteCustomersResponse> bulkDeleteCustomersAsync(
+            final BulkDeleteCustomersRequest body) {
+        try { 
+            return prepareBulkDeleteCustomersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkDeleteCustomers.
+     */
+    private ApiCall<BulkDeleteCustomersResponse, ApiException> prepareBulkDeleteCustomersRequest(
+            final BulkDeleteCustomersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkDeleteCustomersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/bulk-delete")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("global"))
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkDeleteCustomersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Retrieves multiple customer profiles. This endpoint takes a list of customer IDs and returns
+     * a map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkRetrieveCustomersResponse bulkRetrieveCustomers(
+            final BulkRetrieveCustomersRequest body) throws ApiException, IOException {
+        return prepareBulkRetrieveCustomersRequest(body).execute();
+    }
+
+    /**
+     * Retrieves multiple customer profiles. This endpoint takes a list of customer IDs and returns
+     * a map of responses.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkRetrieveCustomersResponse response from the API call
+     */
+    public CompletableFuture<BulkRetrieveCustomersResponse> bulkRetrieveCustomersAsync(
+            final BulkRetrieveCustomersRequest body) {
+        try { 
+            return prepareBulkRetrieveCustomersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkRetrieveCustomers.
+     */
+    private ApiCall<BulkRetrieveCustomersResponse, ApiException> prepareBulkRetrieveCustomersRequest(
+            final BulkRetrieveCustomersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkRetrieveCustomersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/bulk-retrieve")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("global"))
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkRetrieveCustomersResponse.class))
+                        .nullify404(false)
+                        .contextInitializer((context, result) ->
+                                result.toBuilder().httpContext((HttpContext)context).build())
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Updates multiple customer profiles. This endpoint takes a map of individual update requests
+     * and returns a map of responses. You cannot use this endpoint to change cards on file. To make
+     * changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkUpdateCustomersResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public BulkUpdateCustomersResponse bulkUpdateCustomers(
+            final BulkUpdateCustomersRequest body) throws ApiException, IOException {
+        return prepareBulkUpdateCustomersRequest(body).execute();
+    }
+
+    /**
+     * Updates multiple customer profiles. This endpoint takes a map of individual update requests
+     * and returns a map of responses. You cannot use this endpoint to change cards on file. To make
+     * changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the BulkUpdateCustomersResponse response from the API call
+     */
+    public CompletableFuture<BulkUpdateCustomersResponse> bulkUpdateCustomersAsync(
+            final BulkUpdateCustomersRequest body) {
+        try { 
+            return prepareBulkUpdateCustomersRequest(body).executeAsync(); 
+        } catch (Exception e) {  
+            throw new CompletionException(e); 
+        }
+    }
+
+    /**
+     * Builds the ApiCall object for bulkUpdateCustomers.
+     */
+    private ApiCall<BulkUpdateCustomersResponse, ApiException> prepareBulkUpdateCustomersRequest(
+            final BulkUpdateCustomersRequest body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkUpdateCustomersResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/v2/customers/bulk-update")
+                        .bodyParam(param -> param.value(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("global"))
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, BulkUpdateCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
                                 result.toBuilder().httpContext((HttpContext)context).build())
@@ -261,7 +509,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -275,11 +524,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
 
     /**
      * Deletes a customer profile from a business. This operation also unlinks any associated cards
-     * on file. As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To delete a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile.
+     * on file. To delete a customer profile that was created by merging existing profiles, you must
+     * use the ID of the newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
      * @param  version  Optional parameter: The current version of the customer profile. As a best
      *         practice, you should include this parameter to enable [optimistic
@@ -298,11 +544,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
 
     /**
      * Deletes a customer profile from a business. This operation also unlinks any associated cards
-     * on file. As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To delete a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile.
+     * on file. To delete a customer profile that was created by merging existing profiles, you must
+     * use the ID of the newly created profile.
      * @param  customerId  Required parameter: The ID of the customer to delete.
      * @param  version  Optional parameter: The current version of the customer profile. As a best
      *         practice, you should include this parameter to enable [optimistic
@@ -337,7 +580,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .templateParam(param -> param.key("customer_id").value(customerId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -388,7 +632,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .templateParam(param -> param.key("customer_id").value(customerId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -403,13 +648,10 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
     /**
      * Updates a customer profile. This endpoint supports sparse updates, so only new or changed
      * fields are required in the request. To add or update a field, specify the new value. To
-     * remove a field, specify `null` (recommended) or specify an empty string (string fields only).
-     * As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To update a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile. You cannot use this endpoint to change cards on file. To
-     * make changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * remove a field, specify `null`. To update a customer profile that was created by merging
+     * existing profiles, you must use the ID of the newly created profile. You cannot use this
+     * endpoint to change cards on file. To make changes, use the [Cards API]($e/Cards) or [Gift
+     * Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -426,13 +668,10 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
     /**
      * Updates a customer profile. This endpoint supports sparse updates, so only new or changed
      * fields are required in the request. To add or update a field, specify the new value. To
-     * remove a field, specify `null` (recommended) or specify an empty string (string fields only).
-     * As a best practice, include the `version` field in the request to enable [optimistic
-     * concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
-     * control. If included, the value must be set to the current version of the customer profile.
-     * To update a customer profile that was created by merging existing profiles, you must use the
-     * ID of the newly created profile. You cannot use this endpoint to change cards on file. To
-     * make changes, use the [Cards API]($e/Cards) or [Gift Cards API]($e/GiftCards).
+     * remove a field, specify `null`. To update a customer profile that was created by merging
+     * existing profiles, you must use the ID of the newly created profile. You cannot use this
+     * endpoint to change cards on file. To make changes, use the [Cards API]($e/Cards) or [Gift
+     * Cards API]($e/GiftCards).
      * @param  customerId  Required parameter: The ID of the customer to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -466,7 +705,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -540,7 +780,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -606,7 +847,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .templateParam(param -> param.key("card_id").value(cardId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -668,7 +910,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .templateParam(param -> param.key("group_id").value(groupId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -728,7 +971,8 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                         .templateParam(param -> param.key("group_id").value(groupId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

@@ -132,7 +132,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                         .templateParam(param -> param.key("location_id").value(locationId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -196,7 +197,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                         .templateParam(param -> param.key("transaction_id").value(transactionId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -266,7 +268,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                         .templateParam(param -> param.key("transaction_id").value(transactionId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -336,7 +339,8 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                         .templateParam(param -> param.key("transaction_id").value(transactionId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

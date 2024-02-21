@@ -93,7 +93,8 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
                         .queryParam(param -> param.key("cursor")
                                 .value(cursor).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -148,7 +149,8 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
                         .templateParam(param -> param.key("id").value(id)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
