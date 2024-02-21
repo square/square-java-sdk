@@ -91,7 +91,8 @@ public final class DefaultApplePayApi extends BaseApi implements ApplePayApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

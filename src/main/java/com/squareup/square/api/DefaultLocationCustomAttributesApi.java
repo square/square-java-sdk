@@ -121,7 +121,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .queryParam(param -> param.key("cursor")
                                 .value(cursor).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -188,7 +189,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -245,7 +247,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -321,7 +324,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -389,7 +393,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -448,7 +453,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -523,7 +529,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -636,7 +643,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .templateParam(param -> param.key("location_id").value(locationId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -702,7 +710,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -802,7 +811,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -887,7 +897,8 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

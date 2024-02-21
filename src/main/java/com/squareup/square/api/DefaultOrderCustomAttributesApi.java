@@ -123,7 +123,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .queryParam(param -> param.key("limit")
                                 .value(limit).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -182,7 +183,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -235,7 +237,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -307,7 +310,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .templateParam(param -> param.key("key").value(key)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -373,7 +377,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -450,7 +455,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -527,7 +533,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -640,7 +647,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .templateParam(param -> param.key("order_id").value(orderId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -706,7 +714,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .templateParam(param -> param.key("custom_attribute_key").value(customAttributeKey)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -806,7 +815,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .templateParam(param -> param.key("custom_attribute_key").value(customAttributeKey)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -893,7 +903,8 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

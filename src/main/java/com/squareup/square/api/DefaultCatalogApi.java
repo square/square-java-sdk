@@ -111,7 +111,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -174,7 +175,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -247,7 +249,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -319,7 +322,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 .multiPartRequestType(MutliPartRequestType.MULTI_PART_FILE)
                                 .multipartHeaders("Content-Type", "image/jpeg"))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -398,7 +402,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .templateParam(param -> param.key("image_id").value(imageId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -444,7 +449,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/v2/catalog/info")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -553,7 +559,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .queryParam(param -> param.key("catalog_version")
                                 .value(catalogVersion).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -614,7 +621,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -685,7 +693,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .templateParam(param -> param.key("object_id").value(objectId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -811,7 +820,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .templateParam(param -> param.key("object_id").value(objectId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -886,7 +896,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -961,7 +972,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -1018,7 +1030,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -1075,7 +1088,8 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

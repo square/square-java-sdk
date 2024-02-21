@@ -1,7 +1,7 @@
 
 # Configuration Interface
 
-This is the base class for all exceptions that represent an error response from the server.
+This is the interface for client class that holds the configuration getters.
 
 ## Methods
 
@@ -13,7 +13,6 @@ This is the base class for all exceptions that represent an error response from 
 | `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
 | `getAdditionalHeaders()` | Additional headers to add to each API request. | [`Headers`](headers.md) |
 | `getUserAgentDetail()` | Additional detail which can be appended with User-Agent header. | `String` |
-| `getAccessToken()` | OAuth 2.0 Access Token. | `String` |
 | `getBaseUri(Server server)` | Get base URI by current environment. | `String` |
 | `getBaseUri()` | Get base URI by current environment. | `String` |
 

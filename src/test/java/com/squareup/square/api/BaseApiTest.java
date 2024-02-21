@@ -3,6 +3,7 @@ package com.squareup.square.api;
 
 import com.squareup.square.Environment;
 import com.squareup.square.SquareClient;
+import com.squareup.square.authentication.BearerAuthModel;
 import com.squareup.square.testing.HttpCallbackCatcher;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -62,7 +63,9 @@ public class BaseApiTest {
         final String accessToken = System.getenv("SQUARE_ACCESS_TOKEN");
 
         if (accessToken != null) {
-            builder.accessToken(accessToken);
+            builder.bearerAuthCredentials(new BearerAuthModel
+                    .Builder(accessToken)
+                    .build());
         }
         if (environment != null) {
             builder.environment(Environment.fromString(environment));

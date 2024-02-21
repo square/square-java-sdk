@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>37.0.1.20240118</version>
+  <version>38.0.0.20240222</version>
   <packaging>jar</packaging>
   <name>Square</name>
   <description>Java client library for the Square API</description>
@@ -40,17 +40,17 @@
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core-interfaces</artifactId>
-      <version>[0.1, 0.2)</version>
+      <version>[0.2, 0.3)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.4, 0.5)</version>
+      <version>[0.5, 0.6)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>okhttp-client-adapter</artifactId>
-      <version>[0.1, 0.2)</version>
+      <version>[0.2, 0.3)</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -128,6 +128,19 @@
           </descriptorRefs>
           <appendAssemblyId>false</appendAssemblyId>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

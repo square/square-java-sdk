@@ -77,7 +77,8 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                         .templateParam(param -> param.key("site_id").value(siteId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -138,7 +139,8 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                         .templateParam(param -> param.key("site_id").value(siteId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -214,7 +216,8 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

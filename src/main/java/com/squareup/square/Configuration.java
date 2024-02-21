@@ -1,6 +1,7 @@
 
 package com.squareup.square;
 
+import com.squareup.square.authentication.BearerAuthModel;
 import com.squareup.square.http.Headers;
 import com.squareup.square.http.client.ReadonlyHttpClientConfiguration;
 
@@ -56,6 +57,18 @@ public interface Configuration {
      * @return accessToken
      */
     String getAccessToken();
+
+    /**
+     * The credentials to use with BearerAuth.
+     * @return bearerAuthCredentials
+     */
+    BearerAuthCredentials getBearerAuthCredentials();
+
+    /**
+     * The auth credential model for BearerAuth.
+     * @return the instance of BearerAuthModel
+     */
+    BearerAuthModel getBearerAuthModel();
 
     /**
      * Get base URI by current environment.

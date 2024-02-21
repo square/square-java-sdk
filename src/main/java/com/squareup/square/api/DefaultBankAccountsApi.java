@@ -95,7 +95,8 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                         .queryParam(param -> param.key("location_id")
                                 .value(locationId).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -152,7 +153,8 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                         .templateParam(param -> param.key("v1_bank_account_id").value(v1BankAccountId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -203,7 +205,8 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                         .templateParam(param -> param.key("bank_account_id").value(bankAccountId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseApi.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

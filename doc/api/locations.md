@@ -19,7 +19,7 @@ LocationsApi locationsApi = client.getLocationsApi();
 # List Locations
 
 Provides details about all of the seller's [locations](https://developer.squareup.com/docs/locations-api),
-including those with an inactive status.
+including those with an inactive status. Locations are listed alphabetically by `name`.
 
 ```java
 CompletableFuture<ListLocationsResponse> listLocationsAsync()
