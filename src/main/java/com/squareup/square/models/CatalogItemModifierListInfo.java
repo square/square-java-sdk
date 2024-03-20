@@ -107,7 +107,14 @@ public class CatalogItemModifierListInfo {
     /**
      * Internal Getter for MinSelectedModifiers.
      * If 0 or larger, the smallest number of `CatalogModifier`s that must be selected from this
-     * `CatalogModifierList`.
+     * `CatalogModifierList`. The default value is `-1`. When `CatalogModifierList.selection_type`
+     * is `MULTIPLE`, `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that from zero to the maximum number
+     * of modifiers of the `CatalogModifierList` can be selected from the `CatalogModifierList`.
+     * When the `CatalogModifierList.selection_type` is `SINGLE`,
+     * `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that exactly one modifier must be
+     * present in and can be selected from the `CatalogModifierList`
      * @return Returns the Internal Integer
      */
     @JsonGetter("min_selected_modifiers")
@@ -120,7 +127,14 @@ public class CatalogItemModifierListInfo {
     /**
      * Getter for MinSelectedModifiers.
      * If 0 or larger, the smallest number of `CatalogModifier`s that must be selected from this
-     * `CatalogModifierList`.
+     * `CatalogModifierList`. The default value is `-1`. When `CatalogModifierList.selection_type`
+     * is `MULTIPLE`, `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that from zero to the maximum number
+     * of modifiers of the `CatalogModifierList` can be selected from the `CatalogModifierList`.
+     * When the `CatalogModifierList.selection_type` is `SINGLE`,
+     * `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that exactly one modifier must be
+     * present in and can be selected from the `CatalogModifierList`
      * @return Returns the Integer
      */
     @JsonIgnore
@@ -131,7 +145,14 @@ public class CatalogItemModifierListInfo {
     /**
      * Internal Getter for MaxSelectedModifiers.
      * If 0 or larger, the largest number of `CatalogModifier`s that can be selected from this
-     * `CatalogModifierList`.
+     * `CatalogModifierList`. The default value is `-1`. When `CatalogModifierList.selection_type`
+     * is `MULTIPLE`, `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that from zero to the maximum number
+     * of modifiers of the `CatalogModifierList` can be selected from the `CatalogModifierList`.
+     * When the `CatalogModifierList.selection_type` is `SINGLE`,
+     * `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that exactly one modifier must be
+     * present in and can be selected from the `CatalogModifierList`
      * @return Returns the Internal Integer
      */
     @JsonGetter("max_selected_modifiers")
@@ -144,7 +165,14 @@ public class CatalogItemModifierListInfo {
     /**
      * Getter for MaxSelectedModifiers.
      * If 0 or larger, the largest number of `CatalogModifier`s that can be selected from this
-     * `CatalogModifierList`.
+     * `CatalogModifierList`. The default value is `-1`. When `CatalogModifierList.selection_type`
+     * is `MULTIPLE`, `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that from zero to the maximum number
+     * of modifiers of the `CatalogModifierList` can be selected from the `CatalogModifierList`.
+     * When the `CatalogModifierList.selection_type` is `SINGLE`,
+     * `CatalogModifierListInfo.min_selected_modifiers=-1` and
+     * `CatalogModifierListInfo.max_selected_modifier=-1` means that exactly one modifier must be
+     * present in and can be selected from the `CatalogModifierList`
      * @return Returns the Integer
      */
     @JsonIgnore

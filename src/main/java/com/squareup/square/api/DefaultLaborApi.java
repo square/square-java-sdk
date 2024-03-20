@@ -490,14 +490,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. A `Shift` represents a complete workday for a single employee. You
+     * Creates a new `Shift`. A `Shift` represents a complete workday for a single team member. You
      * must provide the following values in your request to this endpoint: - `location_id` -
-     * `employee_id` - `start_at` An attempt to create a new `Shift` can result in a `BAD_REQUEST`
-     * error when: - The `status` of the new `Shift` is `OPEN` and the employee has another shift
-     * with an `OPEN` status. - The `start_at` date is in the future. - The `start_at` or `end_at`
-     * date overlaps another shift for the same employee. - The `Break` instances are set in the
-     * request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is after the
-     * `Shift.end_at`, or both.
+     * `team_member_id` - `start_at` An attempt to create a new `Shift` can result in a
+     * `BAD_REQUEST` error when: - The `status` of the new `Shift` is `OPEN` and the team member has
+     * another shift with an `OPEN` status. - The `start_at` date is in the future. - The `start_at`
+     * or `end_at` date overlaps another shift for the same team member. - The `Break` instances are
+     * set in the request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is
+     * after the `Shift.end_at`, or both.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateShiftResponse response from the API call
@@ -510,14 +510,14 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Creates a new `Shift`. A `Shift` represents a complete workday for a single employee. You
+     * Creates a new `Shift`. A `Shift` represents a complete workday for a single team member. You
      * must provide the following values in your request to this endpoint: - `location_id` -
-     * `employee_id` - `start_at` An attempt to create a new `Shift` can result in a `BAD_REQUEST`
-     * error when: - The `status` of the new `Shift` is `OPEN` and the employee has another shift
-     * with an `OPEN` status. - The `start_at` date is in the future. - The `start_at` or `end_at`
-     * date overlaps another shift for the same employee. - The `Break` instances are set in the
-     * request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is after the
-     * `Shift.end_at`, or both.
+     * `team_member_id` - `start_at` An attempt to create a new `Shift` can result in a
+     * `BAD_REQUEST` error when: - The `status` of the new `Shift` is `OPEN` and the team member has
+     * another shift with an `OPEN` status. - The `start_at` date is in the future. - The `start_at`
+     * or `end_at` date overlaps another shift for the same team member. - The `Break` instances are
+     * set in the request and a break `start_at` is before the `Shift.start_at`, a break `end_at` is
+     * after the `Shift.end_at`, or both.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateShiftResponse response from the API call
@@ -561,9 +561,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `Shift` records for a business. The list to be returned can be
-     * filtered by: - Location IDs. - Employee IDs. - Shift status (`OPEN` and `CLOSED`). - Shift
-     * start. - Shift end. - Workday details. The list can be sorted by: - `start_at`. - `end_at`. -
-     * `created_at`. - `updated_at`.
+     * filtered by: - Location IDs - Team member IDs - Shift status (`OPEN` or `CLOSED`) - Shift
+     * start - Shift end - Workday details The list can be sorted by: - `START_AT` - `END_AT` -
+     * `CREATED_AT` - `UPDATED_AT`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchShiftsResponse response from the API call
@@ -577,9 +577,9 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
 
     /**
      * Returns a paginated list of `Shift` records for a business. The list to be returned can be
-     * filtered by: - Location IDs. - Employee IDs. - Shift status (`OPEN` and `CLOSED`). - Shift
-     * start. - Shift end. - Workday details. The list can be sorted by: - `start_at`. - `end_at`. -
-     * `created_at`. - `updated_at`.
+     * filtered by: - Location IDs - Team member IDs - Shift status (`OPEN` or `CLOSED`) - Shift
+     * start - Shift end - Workday details The list can be sorted by: - `START_AT` - `END_AT` -
+     * `CREATED_AT` - `UPDATED_AT`.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchShiftsResponse response from the API call
@@ -867,7 +867,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `TeamMemberWage` specified by `id `.
+     * Returns a single `TeamMemberWage` specified by `id`.
      * @param  id  Required parameter: The UUID for the `TeamMemberWage` being retrieved.
      * @return    Returns the GetTeamMemberWageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -879,7 +879,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
     }
 
     /**
-     * Returns a single `TeamMemberWage` specified by `id `.
+     * Returns a single `TeamMemberWage` specified by `id`.
      * @param  id  Required parameter: The UUID for the `TeamMemberWage` being retrieved.
      * @return    Returns the GetTeamMemberWageResponse response from the API call
      */
