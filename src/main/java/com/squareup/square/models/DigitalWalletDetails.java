@@ -74,7 +74,8 @@ public class DigitalWalletDetails {
 
     /**
      * Internal Getter for Brand.
-     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY` or `UNKNOWN`.
+     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY`, `ALIPAY`,
+     * `RAKUTEN_PAY`, `AU_PAY`, `D_BARAI`, `MERPAY`, `WECHAT_PAY` or `UNKNOWN`.
      * @return Returns the Internal String
      */
     @JsonGetter("brand")
@@ -86,7 +87,8 @@ public class DigitalWalletDetails {
 
     /**
      * Getter for Brand.
-     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY` or `UNKNOWN`.
+     * The brand used for the `WALLET` payment. The brand can be `CASH_APP`, `PAYPAY`, `ALIPAY`,
+     * `RAKUTEN_PAY`, `AU_PAY`, `D_BARAI`, `MERPAY`, `WECHAT_PAY` or `UNKNOWN`.
      * @return Returns the String
      */
     @JsonIgnore
