@@ -41,8 +41,7 @@ public enum Environment {
     @JsonCreator
     public static Environment constructFromString(String toConvert) throws IOException {
         Environment enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

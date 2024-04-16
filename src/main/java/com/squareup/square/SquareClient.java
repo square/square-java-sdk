@@ -153,7 +153,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/38.1.0.20240320 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/39.0.0.20240417 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -714,7 +714,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "38.1.0.20240320";
+        return "39.0.0.20240417";
     }
 
     /**
@@ -829,7 +829,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2024-03-20";
+        private String squareVersion = "2024-04-17";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;

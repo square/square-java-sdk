@@ -4,8 +4,6 @@ package com.squareup.square.api;
 import com.squareup.square.exceptions.ApiException;
 import com.squareup.square.models.ObtainTokenRequest;
 import com.squareup.square.models.ObtainTokenResponse;
-import com.squareup.square.models.RenewTokenRequest;
-import com.squareup.square.models.RenewTokenResponse;
 import com.squareup.square.models.RetrieveTokenStatusResponse;
 import com.squareup.square.models.RevokeTokenRequest;
 import com.squareup.square.models.RevokeTokenResponse;
@@ -17,61 +15,6 @@ import java.util.concurrent.CompletableFuture;
  * This can be overridden for the mock calls.
  */
 public interface OAuthApi {
-    /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-     * [Migrate from Renew to Refresh OAuth
-     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
-     * OAuth access token before it expires. OAuth access tokens besides your application's personal
-     * access token expire after 30 days. You can also renew expired tokens within 15 days of their
-     * expiration. You cannot renew an access token that has been expired for more than 15 days.
-     * Instead, the associated user must recomplete the OAuth flow from the beginning.
-     * __Important:__ The `Authorization` header for this endpoint must have the following format:
-     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the **Credentials** page in the [Developer
-     * Dashboard](https://developer.squareup.com/apps).
-     * @deprecated
-     * 
-     * @param  clientId  Required parameter: Your application ID, which is available on the
-     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
-     * @param  body  Required parameter: An object containing the fields to POST for the request.
-     *         See the corresponding object definition for field details.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
-     * @return    Returns the RenewTokenResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated    RenewTokenResponse renewToken(
-            final String clientId,
-            final RenewTokenRequest body,
-            final String authorization) throws ApiException, IOException;
-
-    /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-     * [Migrate from Renew to Refresh OAuth
-     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
-     * OAuth access token before it expires. OAuth access tokens besides your application's personal
-     * access token expire after 30 days. You can also renew expired tokens within 15 days of their
-     * expiration. You cannot renew an access token that has been expired for more than 15 days.
-     * Instead, the associated user must recomplete the OAuth flow from the beginning.
-     * __Important:__ The `Authorization` header for this endpoint must have the following format:
-     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the **Credentials** page in the [Developer
-     * Dashboard](https://developer.squareup.com/apps).
-     * @deprecated
-     * 
-     * @param  clientId  Required parameter: Your application ID, which is available on the
-     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
-     * @param  body  Required parameter: An object containing the fields to POST for the request.
-     *         See the corresponding object definition for field details.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
-     * @return    Returns the RenewTokenResponse response from the API call
-     */
-    @Deprecated
-    CompletableFuture<RenewTokenResponse> renewTokenAsync(
-            final String clientId,
-            final RenewTokenRequest body,
-            final String authorization);
-
     /**
      * Revokes an access token generated with the OAuth flow. If an account has more than one OAuth
      * access token for your application, this endpoint revokes all of them, regardless of which
