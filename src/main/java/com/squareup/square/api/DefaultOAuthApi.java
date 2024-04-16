@@ -9,8 +9,6 @@ import com.squareup.square.http.client.HttpContext;
 import com.squareup.square.http.request.HttpMethod;
 import com.squareup.square.models.ObtainTokenRequest;
 import com.squareup.square.models.ObtainTokenResponse;
-import com.squareup.square.models.RenewTokenRequest;
-import com.squareup.square.models.RenewTokenResponse;
 import com.squareup.square.models.RetrieveTokenStatusResponse;
 import com.squareup.square.models.RevokeTokenRequest;
 import com.squareup.square.models.RevokeTokenResponse;
@@ -31,102 +29,6 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      */
     public DefaultOAuthApi(GlobalConfiguration globalConfig) {
         super(globalConfig);
-    }
-
-    /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-     * [Migrate from Renew to Refresh OAuth
-     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
-     * OAuth access token before it expires. OAuth access tokens besides your application's personal
-     * access token expire after 30 days. You can also renew expired tokens within 15 days of their
-     * expiration. You cannot renew an access token that has been expired for more than 15 days.
-     * Instead, the associated user must recomplete the OAuth flow from the beginning.
-     * __Important:__ The `Authorization` header for this endpoint must have the following format:
-     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the **Credentials** page in the [Developer
-     * Dashboard](https://developer.squareup.com/apps).
-     * @deprecated
-     * 
-     * @param  clientId  Required parameter: Your application ID, which is available on the
-     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
-     * @param  body  Required parameter: An object containing the fields to POST for the request.
-     *         See the corresponding object definition for field details.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
-     * @return    Returns the RenewTokenResponse response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    @Deprecated
-    public RenewTokenResponse renewToken(
-            final String clientId,
-            final RenewTokenRequest body,
-            final String authorization) throws ApiException, IOException {
-        return prepareRenewTokenRequest(clientId, body, authorization).execute();
-    }
-
-    /**
-     * `RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-     * [Migrate from Renew to Refresh OAuth
-     * Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens). Renews an
-     * OAuth access token before it expires. OAuth access tokens besides your application's personal
-     * access token expire after 30 days. You can also renew expired tokens within 15 days of their
-     * expiration. You cannot renew an access token that has been expired for more than 15 days.
-     * Instead, the associated user must recomplete the OAuth flow from the beginning.
-     * __Important:__ The `Authorization` header for this endpoint must have the following format:
-     * ``` Authorization: Client APPLICATION_SECRET ``` Replace `APPLICATION_SECRET` with the
-     * application secret on the **Credentials** page in the [Developer
-     * Dashboard](https://developer.squareup.com/apps).
-     * @deprecated
-     * 
-     * @param  clientId  Required parameter: Your application ID, which is available on the
-     *         **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps).
-     * @param  body  Required parameter: An object containing the fields to POST for the request.
-     *         See the corresponding object definition for field details.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
-     * @return    Returns the RenewTokenResponse response from the API call
-     */
-    @Deprecated
-    public CompletableFuture<RenewTokenResponse> renewTokenAsync(
-            final String clientId,
-            final RenewTokenRequest body,
-            final String authorization) {
-        try { 
-            return prepareRenewTokenRequest(clientId, body, authorization).executeAsync(); 
-        } catch (Exception e) {  
-            throw new CompletionException(e); 
-        }
-    }
-
-    /**
-     * Builds the ApiCall object for renewToken.
-     */
-    private ApiCall<RenewTokenResponse, ApiException> prepareRenewTokenRequest(
-            final String clientId,
-            final RenewTokenRequest body,
-            final String authorization) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<RenewTokenResponse, ApiException>()
-                .globalConfig(getGlobalConfiguration())
-                .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
-                        .path("/oauth2/clients/{client_id}/access-token/renew")
-                        .bodyParam(param -> param.value(body))
-                        .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("client_id").value(clientId)
-                                .shouldEncode(true))
-                        .headerParam(param -> param.key("Content-Type")
-                                .value("application/json").isRequired(false))
-                        .headerParam(param -> param.key("Authorization")
-                                .value(authorization).isRequired(false))
-                        .headerParam(param -> param.key("accept").value("application/json"))
-                        .httpMethod(HttpMethod.POST))
-                .responseHandler(responseHandler -> responseHandler
-                        .deserializer(
-                                response -> ApiHelper.deserialize(response, RenewTokenResponse.class))
-                        .nullify404(false)
-                        .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
-                        .globalErrorCase(GLOBAL_ERROR_CASES))
-                .build();
     }
 
     /**

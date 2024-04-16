@@ -33,8 +33,7 @@ public enum Server {
     @JsonCreator
     public static Server constructFromString(String toConvert) throws IOException {
         Server enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

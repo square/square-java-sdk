@@ -196,8 +196,7 @@ public class OrderLineItemTax {
     /**
      * Internal Getter for Percentage.
      * The percentage of the tax, as a string representation of a decimal number. For example, a
-     * value of `"7.25"` corresponds to a percentage of 7.25%. Either `percentage` or `amount_money`
-     * should be set, but not both.
+     * value of `"7.25"` corresponds to a percentage of 7.25%.
      * @return Returns the Internal String
      */
     @JsonGetter("percentage")
@@ -210,8 +209,7 @@ public class OrderLineItemTax {
     /**
      * Getter for Percentage.
      * The percentage of the tax, as a string representation of a decimal number. For example, a
-     * value of `"7.25"` corresponds to a percentage of 7.25%. Either `percentage` or `amount_money`
-     * should be set, but not both.
+     * value of `"7.25"` corresponds to a percentage of 7.25%.
      * @return Returns the String
      */
     @JsonIgnore

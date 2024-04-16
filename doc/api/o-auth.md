@@ -10,76 +10,9 @@ OAuthApi oAuthApi = client.getOAuthApi();
 
 ## Methods
 
-* [Renew Token](../../doc/api/o-auth.md#renew-token)
 * [Revoke Token](../../doc/api/o-auth.md#revoke-token)
 * [Obtain Token](../../doc/api/o-auth.md#obtain-token)
 * [Retrieve Token Status](../../doc/api/o-auth.md#retrieve-token-status)
-
-
-# Renew Token
-
-**This endpoint is deprecated.**
-
-`RenewToken` is deprecated. For information about refreshing OAuth access tokens, see
-[Migrate from Renew to Refresh OAuth Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens).
-
-Renews an OAuth access token before it expires.
-
-OAuth access tokens besides your application's personal access token expire after 30 days.
-You can also renew expired tokens within 15 days of their expiration.
-You cannot renew an access token that has been expired for more than 15 days.
-Instead, the associated user must recomplete the OAuth flow from the beginning.
-
-__Important:__ The `Authorization` header for this endpoint must have the
-following format:
-
-```
-Authorization: Client APPLICATION_SECRET
-```
-
-Replace `APPLICATION_SECRET` with the application secret on the **Credentials**
-page in the [Developer Dashboard](https://developer.squareup.com/apps).
-
-:information_source: **Note** This endpoint does not require authentication.
-
-```java
-CompletableFuture<RenewTokenResponse> renewTokenAsync(
-    final String clientId,
-    final RenewTokenRequest body,
-    final String authorization)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `clientId` | `String` | Template, Required | Your application ID, which is available on the **OAuth** page in the [Developer Dashboard](https://developer.squareup.com/apps). |
-| `body` | [`RenewTokenRequest`](../../doc/models/renew-token-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
-| `authorization` | `String` | Header, Required | Client APPLICATION_SECRET |
-
-## Response Type
-
-[`RenewTokenResponse`](../../doc/models/renew-token-response.md)
-
-## Example Usage
-
-```java
-String clientId = "client_id8";
-RenewTokenRequest body = new RenewTokenRequest.Builder()
-    .accessToken("ACCESS_TOKEN")
-    .build();
-
-String authorization = "Client CLIENT_SECRET";
-
-oAuthApi.renewTokenAsync(clientId, body, authorization).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
 
 
 # Revoke Token

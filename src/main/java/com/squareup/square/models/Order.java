@@ -562,8 +562,8 @@ public class Order {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp for when the order was created, in RFC 3339 format (for example,
-     * "2016-09-04T23:59:33.123Z").
+     * The timestamp for when the order was created, at server side, in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -574,8 +574,8 @@ public class Order {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp for when the order was last updated, in RFC 3339 format (for example,
-     * "2016-09-04T23:59:33.123Z").
+     * The timestamp for when the order was last updated, at server side, in RFC 3339 format (for
+     * example, "2016-09-04T23:59:33.123Z").
      * @return Returns the String
      */
     @JsonGetter("updated_at")
