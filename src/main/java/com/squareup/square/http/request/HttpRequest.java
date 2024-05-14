@@ -132,16 +132,25 @@ public class HttpRequest implements Request {
                 + ", parameters=" + parameters + "]";
     }
 
+    /**
+     * Get the request URL
+     *
+     * @param arraySerializationFormat Array serialization format
+     * @return The complete URL including serialized query parameters
+     */
     @Override
     public String getUrl(ArraySerializationFormat arraySerializationFormat) {
-        StringBuilder urlBuilder = new StringBuilder(getQueryUrl());
-
-        // set query parameters
-        ApiHelper.appendUrlWithQueryParameters(urlBuilder, getQueryParameters(),
-                arraySerializationFormat);
-
-        // validate and preprocess url
-        return ApiHelper.cleanUrl(urlBuilder);
+        return getQueryUrl();
+    }
+    
+    /**
+     * Get the request URL without query parameters
+     *
+     * @return The complete URL excluding query parameters
+     */
+    @Override
+    public String getUrl() {
+        return ApiHelper.removeQueryParametersFromUrl(getQueryUrl());
     }
 
 }

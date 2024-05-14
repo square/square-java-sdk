@@ -98,6 +98,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Gateway class for the library.
@@ -153,7 +154,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/39.0.0.20240417 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/40.0.0.20240515 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -203,7 +204,7 @@ public final class SquareClient implements SquareClientInterface {
     /**
      * Map of authentication Managers.
      */
-    private Map<String, Authentication> authentications;
+    private Map<String, Authentication> authentications = new HashMap<String, Authentication>();
 
     /**
      * Callback to be called before and after the HTTP call for an endpoint is made.
@@ -213,7 +214,7 @@ public final class SquareClient implements SquareClientInterface {
     private SquareClient(Environment environment, String customUrl, String squareVersion,
             HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
             Headers additionalHeaders, String userAgentDetail, BearerAuthModel bearerAuthModel,
-            Map<String, Authentication> authentications, HttpCallback httpCallback) {
+            HttpCallback httpCallback) {
         this.environment = environment;
         this.customUrl = customUrl;
         this.squareVersion = squareVersion;
@@ -222,25 +223,17 @@ public final class SquareClient implements SquareClientInterface {
         this.additionalHeaders = additionalHeaders;
         this.userAgentDetail = userAgentDetail;
         this.httpCallback = httpCallback;
-        this.authentications = 
-                (authentications == null) ? new HashMap<>() : new HashMap<>(authentications);
         Map<String, String> userAgentConfig = new HashMap<>();
         userAgentConfig.put("{api-version}",
                         squareVersion != null ? squareVersion : "");
         userAgentConfig.put("{detail}",
                 userAgentDetail != null? ApiHelper.tryUrlEncode(userAgentDetail, true):  "");
 
+
         this.bearerAuthModel = bearerAuthModel;
 
-        if (this.authentications.containsKey("global")) {
-            this.bearerAuthManager = (BearerAuthManager) this.authentications.get("global");
-        }
-
-        if (!this.authentications.containsKey("global")
-                || !getBearerAuthCredentials().equals(bearerAuthModel.getAccessToken())) {
-            this.bearerAuthManager = new BearerAuthManager(bearerAuthModel);
-            this.authentications.put("global", bearerAuthManager);
-        }
+        this.bearerAuthManager = new BearerAuthManager(bearerAuthModel);
+        this.authentications.put("global", bearerAuthManager);
 
         GlobalConfiguration globalConfig = new GlobalConfiguration.Builder()
                 .httpClient(httpClient).baseUri(server -> getBaseUri(server))
@@ -714,7 +707,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "39.0.0.20240417";
+        return "40.0.0.20240515";
     }
 
     /**
@@ -815,10 +808,8 @@ public final class SquareClient implements SquareClientInterface {
         builder.userAgentDetail = getUserAgentDetail();
         builder.bearerAuthCredentials(getBearerAuthModel()
                 .toBuilder().build());
-        builder.authentications = authentications;
         builder.httpCallback = httpCallback;
-        builder.httpClientConfig(configBldr -> configBldr =
-                ((HttpClientConfiguration) httpClientConfig).newBuilder());
+        builder.httpClientConfig(() -> ((HttpClientConfiguration) httpClientConfig).newBuilder());
         return builder;
     }
 
@@ -829,12 +820,11 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2024-04-17";
+        private String squareVersion = "2024-05-15";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;
         private BearerAuthModel bearerAuthModel = new BearerAuthModel.Builder("").build();
-        private Map<String, Authentication> authentications = null;
         private HttpCallback httpCallback = null;
         private HttpClientConfiguration.Builder httpClientConfigBuilder =
                 new HttpClientConfiguration.Builder();
@@ -961,6 +951,18 @@ public final class SquareClient implements SquareClientInterface {
         }
 
         /**
+         * Private Setter for the Builder of httpClientConfiguration, takes in an operation to be performed
+         * on the builder instance of HTTP client configuration.
+         * 
+         * @param supplier Supplier for the builder of httpClientConfiguration.
+         * @return Builder
+         */
+        private Builder httpClientConfig(Supplier<HttpClientConfiguration.Builder> supplier) {
+            httpClientConfigBuilder = supplier.get();
+            return this;
+        }
+
+        /**
          * Builds a new SquareClient object using the set fields.
          * @return SquareClient
          */
@@ -970,7 +972,7 @@ public final class SquareClient implements SquareClientInterface {
 
             return new SquareClient(environment, customUrl, squareVersion, httpClient,
                     httpClientConfig, additionalHeaders, userAgentDetail, bearerAuthModel,
-                    authentications, httpCallback);
+                    httpCallback);
         }
     }
 }
