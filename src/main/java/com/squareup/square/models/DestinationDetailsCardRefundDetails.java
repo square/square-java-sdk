@@ -16,30 +16,36 @@ import java.util.Objects;
 public class DestinationDetailsCardRefundDetails {
     private final Card card;
     private final OptionalNullable<String> entryMethod;
+    private final OptionalNullable<String> authResultCode;
 
     /**
      * Initialization constructor.
      * @param  card  Card value for card.
      * @param  entryMethod  String value for entryMethod.
+     * @param  authResultCode  String value for authResultCode.
      */
     @JsonCreator
     public DestinationDetailsCardRefundDetails(
             @JsonProperty("card") Card card,
-            @JsonProperty("entry_method") String entryMethod) {
+            @JsonProperty("entry_method") String entryMethod,
+            @JsonProperty("auth_result_code") String authResultCode) {
         this.card = card;
         this.entryMethod = OptionalNullable.of(entryMethod);
+        this.authResultCode = OptionalNullable.of(authResultCode);
     }
 
     /**
      * Initialization constructor.
      * @param  card  Card value for card.
      * @param  entryMethod  String value for entryMethod.
+     * @param  authResultCode  String value for authResultCode.
      */
 
-    protected DestinationDetailsCardRefundDetails(Card card,
-            OptionalNullable<String> entryMethod) {
+    protected DestinationDetailsCardRefundDetails(Card card, OptionalNullable<String> entryMethod,
+            OptionalNullable<String> authResultCode) {
         this.card = card;
         this.entryMethod = entryMethod;
+        this.authResultCode = authResultCode;
     }
 
     /**
@@ -78,9 +84,31 @@ public class DestinationDetailsCardRefundDetails {
         return OptionalNullable.getFrom(entryMethod);
     }
 
+    /**
+     * Internal Getter for AuthResultCode.
+     * The authorization code provided by the issuer when a refund is approved.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("auth_result_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAuthResultCode() {
+        return this.authResultCode;
+    }
+
+    /**
+     * Getter for AuthResultCode.
+     * The authorization code provided by the issuer when a refund is approved.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getAuthResultCode() {
+        return OptionalNullable.getFrom(authResultCode);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(card, entryMethod);
+        return Objects.hash(card, entryMethod, authResultCode);
     }
 
     @Override
@@ -93,7 +121,8 @@ public class DestinationDetailsCardRefundDetails {
         }
         DestinationDetailsCardRefundDetails other = (DestinationDetailsCardRefundDetails) obj;
         return Objects.equals(card, other.card)
-            && Objects.equals(entryMethod, other.entryMethod);
+            && Objects.equals(entryMethod, other.entryMethod)
+            && Objects.equals(authResultCode, other.authResultCode);
     }
 
     /**
@@ -103,7 +132,7 @@ public class DestinationDetailsCardRefundDetails {
     @Override
     public String toString() {
         return "DestinationDetailsCardRefundDetails [" + "card=" + card + ", entryMethod="
-                + entryMethod + "]";
+                + entryMethod + ", authResultCode=" + authResultCode + "]";
     }
 
     /**
@@ -115,6 +144,7 @@ public class DestinationDetailsCardRefundDetails {
         Builder builder = new Builder()
                 .card(getCard());
         builder.entryMethod = internalGetEntryMethod();
+        builder.authResultCode = internalGetAuthResultCode();
         return builder;
     }
 
@@ -124,6 +154,7 @@ public class DestinationDetailsCardRefundDetails {
     public static class Builder {
         private Card card;
         private OptionalNullable<String> entryMethod;
+        private OptionalNullable<String> authResultCode;
 
 
 
@@ -157,11 +188,30 @@ public class DestinationDetailsCardRefundDetails {
         }
 
         /**
+         * Setter for authResultCode.
+         * @param  authResultCode  String value for authResultCode.
+         * @return Builder
+         */
+        public Builder authResultCode(String authResultCode) {
+            this.authResultCode = OptionalNullable.of(authResultCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for authResultCode.
+         * @return Builder
+         */
+        public Builder unsetAuthResultCode() {
+            authResultCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link DestinationDetailsCardRefundDetails} object using the set fields.
          * @return {@link DestinationDetailsCardRefundDetails}
          */
         public DestinationDetailsCardRefundDetails build() {
-            return new DestinationDetailsCardRefundDetails(card, entryMethod);
+            return new DestinationDetailsCardRefundDetails(card, entryMethod, authResultCode);
         }
     }
 }

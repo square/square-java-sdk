@@ -19,6 +19,7 @@ public class CatalogItem {
     private final OptionalNullable<String> description;
     private final OptionalNullable<String> abbreviation;
     private final OptionalNullable<String> labelColor;
+    private final OptionalNullable<Boolean> isTaxable;
     private final OptionalNullable<Boolean> availableOnline;
     private final OptionalNullable<Boolean> availableForPickup;
     private final OptionalNullable<Boolean> availableElectronically;
@@ -46,6 +47,7 @@ public class CatalogItem {
      * @param  description  String value for description.
      * @param  abbreviation  String value for abbreviation.
      * @param  labelColor  String value for labelColor.
+     * @param  isTaxable  Boolean value for isTaxable.
      * @param  availableOnline  Boolean value for availableOnline.
      * @param  availableForPickup  Boolean value for availableForPickup.
      * @param  availableElectronically  Boolean value for availableElectronically.
@@ -74,6 +76,7 @@ public class CatalogItem {
             @JsonProperty("description") String description,
             @JsonProperty("abbreviation") String abbreviation,
             @JsonProperty("label_color") String labelColor,
+            @JsonProperty("is_taxable") Boolean isTaxable,
             @JsonProperty("available_online") Boolean availableOnline,
             @JsonProperty("available_for_pickup") Boolean availableForPickup,
             @JsonProperty("available_electronically") Boolean availableElectronically,
@@ -98,6 +101,7 @@ public class CatalogItem {
         this.description = OptionalNullable.of(description);
         this.abbreviation = OptionalNullable.of(abbreviation);
         this.labelColor = OptionalNullable.of(labelColor);
+        this.isTaxable = OptionalNullable.of(isTaxable);
         this.availableOnline = OptionalNullable.of(availableOnline);
         this.availableForPickup = OptionalNullable.of(availableForPickup);
         this.availableElectronically = OptionalNullable.of(availableElectronically);
@@ -126,6 +130,7 @@ public class CatalogItem {
      * @param  description  String value for description.
      * @param  abbreviation  String value for abbreviation.
      * @param  labelColor  String value for labelColor.
+     * @param  isTaxable  Boolean value for isTaxable.
      * @param  availableOnline  Boolean value for availableOnline.
      * @param  availableForPickup  Boolean value for availableForPickup.
      * @param  availableElectronically  Boolean value for availableElectronically.
@@ -151,7 +156,8 @@ public class CatalogItem {
 
     protected CatalogItem(OptionalNullable<String> name, OptionalNullable<String> description,
             OptionalNullable<String> abbreviation, OptionalNullable<String> labelColor,
-            OptionalNullable<Boolean> availableOnline, OptionalNullable<Boolean> availableForPickup,
+            OptionalNullable<Boolean> isTaxable, OptionalNullable<Boolean> availableOnline,
+            OptionalNullable<Boolean> availableForPickup,
             OptionalNullable<Boolean> availableElectronically, OptionalNullable<String> categoryId,
             OptionalNullable<List<String>> taxIds,
             OptionalNullable<List<CatalogItemModifierListInfo>> modifierListInfo,
@@ -169,6 +175,7 @@ public class CatalogItem {
         this.description = description;
         this.abbreviation = abbreviation;
         this.labelColor = labelColor;
+        this.isTaxable = isTaxable;
         this.availableOnline = availableOnline;
         this.availableForPickup = availableForPickup;
         this.availableElectronically = availableElectronically;
@@ -301,6 +308,28 @@ public class CatalogItem {
     @JsonIgnore
     public String getLabelColor() {
         return OptionalNullable.getFrom(labelColor);
+    }
+
+    /**
+     * Internal Getter for IsTaxable.
+     * Indicates whether the item is taxable (`true`) or non-taxable (`false`). Default is `true`.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsTaxable() {
+        return this.isTaxable;
+    }
+
+    /**
+     * Getter for IsTaxable.
+     * Indicates whether the item is taxable (`true`) or non-taxable (`false`). Default is `true`.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getIsTaxable() {
+        return OptionalNullable.getFrom(isTaxable);
     }
 
     /**
@@ -748,7 +777,7 @@ public class CatalogItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, abbreviation, labelColor, availableOnline,
+        return Objects.hash(name, description, abbreviation, labelColor, isTaxable, availableOnline,
                 availableForPickup, availableElectronically, categoryId, taxIds, modifierListInfo,
                 variations, productType, skipModifierScreen, itemOptions, imageIds, sortName,
                 categories, descriptionHtml, descriptionPlaintext, channels, isArchived,
@@ -768,6 +797,7 @@ public class CatalogItem {
             && Objects.equals(description, other.description)
             && Objects.equals(abbreviation, other.abbreviation)
             && Objects.equals(labelColor, other.labelColor)
+            && Objects.equals(isTaxable, other.isTaxable)
             && Objects.equals(availableOnline, other.availableOnline)
             && Objects.equals(availableForPickup, other.availableForPickup)
             && Objects.equals(availableElectronically, other.availableElectronically)
@@ -797,11 +827,11 @@ public class CatalogItem {
     @Override
     public String toString() {
         return "CatalogItem [" + "name=" + name + ", description=" + description + ", abbreviation="
-                + abbreviation + ", labelColor=" + labelColor + ", availableOnline="
-                + availableOnline + ", availableForPickup=" + availableForPickup
-                + ", availableElectronically=" + availableElectronically + ", categoryId="
-                + categoryId + ", taxIds=" + taxIds + ", modifierListInfo=" + modifierListInfo
-                + ", variations=" + variations + ", productType=" + productType
+                + abbreviation + ", labelColor=" + labelColor + ", isTaxable=" + isTaxable
+                + ", availableOnline=" + availableOnline + ", availableForPickup="
+                + availableForPickup + ", availableElectronically=" + availableElectronically
+                + ", categoryId=" + categoryId + ", taxIds=" + taxIds + ", modifierListInfo="
+                + modifierListInfo + ", variations=" + variations + ", productType=" + productType
                 + ", skipModifierScreen=" + skipModifierScreen + ", itemOptions=" + itemOptions
                 + ", imageIds=" + imageIds + ", sortName=" + sortName + ", categories=" + categories
                 + ", descriptionHtml=" + descriptionHtml + ", descriptionPlaintext="
@@ -826,6 +856,7 @@ public class CatalogItem {
         builder.description = internalGetDescription();
         builder.abbreviation = internalGetAbbreviation();
         builder.labelColor = internalGetLabelColor();
+        builder.isTaxable = internalGetIsTaxable();
         builder.availableOnline = internalGetAvailableOnline();
         builder.availableForPickup = internalGetAvailableForPickup();
         builder.availableElectronically = internalGetAvailableElectronically();
@@ -852,6 +883,7 @@ public class CatalogItem {
         private OptionalNullable<String> description;
         private OptionalNullable<String> abbreviation;
         private OptionalNullable<String> labelColor;
+        private OptionalNullable<Boolean> isTaxable;
         private OptionalNullable<Boolean> availableOnline;
         private OptionalNullable<Boolean> availableForPickup;
         private OptionalNullable<Boolean> availableElectronically;
@@ -948,6 +980,25 @@ public class CatalogItem {
          */
         public Builder unsetLabelColor() {
             labelColor = null;
+            return this;
+        }
+
+        /**
+         * Setter for isTaxable.
+         * @param  isTaxable  Boolean value for isTaxable.
+         * @return Builder
+         */
+        public Builder isTaxable(Boolean isTaxable) {
+            this.isTaxable = OptionalNullable.of(isTaxable);
+            return this;
+        }
+
+        /**
+         * UnSetter for isTaxable.
+         * @return Builder
+         */
+        public Builder unsetIsTaxable() {
+            isTaxable = null;
             return this;
         }
 
@@ -1293,11 +1344,12 @@ public class CatalogItem {
          * @return {@link CatalogItem}
          */
         public CatalogItem build() {
-            return new CatalogItem(name, description, abbreviation, labelColor, availableOnline,
-                    availableForPickup, availableElectronically, categoryId, taxIds,
-                    modifierListInfo, variations, productType, skipModifierScreen, itemOptions,
-                    imageIds, sortName, categories, descriptionHtml, descriptionPlaintext, channels,
-                    isArchived, ecomSeoData, foodAndBeverageDetails, reportingCategory);
+            return new CatalogItem(name, description, abbreviation, labelColor, isTaxable,
+                    availableOnline, availableForPickup, availableElectronically, categoryId,
+                    taxIds, modifierListInfo, variations, productType, skipModifierScreen,
+                    itemOptions, imageIds, sortName, categories, descriptionHtml,
+                    descriptionPlaintext, channels, isArchived, ecomSeoData, foodAndBeverageDetails,
+                    reportingCategory);
         }
     }
 }
