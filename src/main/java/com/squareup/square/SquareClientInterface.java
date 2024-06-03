@@ -16,6 +16,7 @@ import com.squareup.square.api.CustomersApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
+import com.squareup.square.api.EventsApi;
 import com.squareup.square.api.GiftCardActivitiesApi;
 import com.squareup.square.api.GiftCardsApi;
 import com.squareup.square.api.InventoryApi;
@@ -151,6 +152,12 @@ public interface SquareClientInterface extends Configuration {
      * @return Returns the EmployeesApi instance
      */
     EmployeesApi getEmployeesApi();
+
+    /**
+     * Provides access to Events controller.
+     * @return Returns the EventsApi instance
+     */
+    EventsApi getEventsApi();
 
     /**
      * Provides access to GiftCards controller.
