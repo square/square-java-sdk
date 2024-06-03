@@ -57,7 +57,7 @@ public class EventData {
 
     /**
      * Internal Getter for Type.
-     * Name of the affected object’s type.
+     * The name of the affected object’s type.
      * @return Returns the Internal String
      */
     @JsonGetter("type")
@@ -69,7 +69,7 @@ public class EventData {
 
     /**
      * Getter for Type.
-     * Name of the affected object’s type.
+     * The name of the affected object’s type.
      * @return Returns the String
      */
     @JsonIgnore
@@ -79,7 +79,7 @@ public class EventData {
 
     /**
      * Getter for Id.
-     * ID of the affected object.
+     * The ID of the affected object.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -90,7 +90,7 @@ public class EventData {
 
     /**
      * Internal Getter for Deleted.
-     * Is true if the affected object was deleted. Otherwise absent.
+     * This is true if the affected object has been deleted; otherwise, it's absent.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("deleted")
@@ -102,7 +102,7 @@ public class EventData {
 
     /**
      * Getter for Deleted.
-     * Is true if the affected object was deleted. Otherwise absent.
+     * This is true if the affected object has been deleted; otherwise, it's absent.
      * @return Returns the Boolean
      */
     @JsonIgnore
@@ -112,8 +112,8 @@ public class EventData {
 
     /**
      * Internal Getter for Object.
-     * An object containing fields and values relevant to the event. Is absent if affected object
-     * was deleted.
+     * An object containing fields and values relevant to the event. It is absent if the affected
+     * object has been deleted.
      * @return Returns the Internal JsonObject
      */
     @JsonGetter("object")
@@ -125,8 +125,8 @@ public class EventData {
 
     /**
      * Getter for Object.
-     * An object containing fields and values relevant to the event. Is absent if affected object
-     * was deleted.
+     * An object containing fields and values relevant to the event. It is absent if the affected
+     * object has been deleted.
      * @return Returns the JsonObject
      */
     @JsonIgnore

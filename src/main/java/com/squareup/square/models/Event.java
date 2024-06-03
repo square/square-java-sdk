@@ -91,7 +91,7 @@ public class Event {
 
     /**
      * Internal Getter for LocationId.
-     * The ID of the location associated with the event.
+     * The ID of the target location associated with the event.
      * @return Returns the Internal String
      */
     @JsonGetter("location_id")
@@ -103,7 +103,7 @@ public class Event {
 
     /**
      * Getter for LocationId.
-     * The ID of the location associated with the event.
+     * The ID of the target location associated with the event.
      * @return Returns the String
      */
     @JsonIgnore

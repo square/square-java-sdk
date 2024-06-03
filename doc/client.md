@@ -5,10 +5,10 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-05-15"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-06-04"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
-| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
+| `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
 | `additionalHeaders` | [`Headers`](headers.md) | Additional headers to add to each API request.<br>*Default*: `new Headers()` |
 | `userAgentDetail` | `String` | Additional detail which can be appended with User-Agent header.<br>*Default*: `"null"` |
 | `bearerAuthCredentials` | [`BearerAuthCredentials`](auth/oauth-2-bearer-token.md) | The Credentials Setter for OAuth 2 Bearer token |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2024-05-15")
+    .squareVersion("2024-06-04")
     .bearerAuthCredentials(new BearerAuthModel.Builder(
             "AccessToken"
         )
@@ -44,7 +44,7 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2024-05-15")
+            .squareVersion("2024-06-04")
             .bearerAuthCredentials(new BearerAuthModel.Builder(
                     "AccessToken"
                 )
@@ -90,6 +90,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | `getDevicesApi()` | Provides access to Devices controller. | `DevicesApi` |
 | `getDisputesApi()` | Provides access to Disputes controller. | `DisputesApi` |
 | `getEmployeesApi()` | Provides access to Employees controller. | `EmployeesApi` |
+| `getEventsApi()` | Provides access to Events controller. | `EventsApi` |
 | `getGiftCardsApi()` | Provides access to GiftCards controller. | `GiftCardsApi` |
 | `getGiftCardActivitiesApi()` | Provides access to GiftCardActivities controller. | `GiftCardActivitiesApi` |
 | `getInventoryApi()` | Provides access to Inventory controller. | `InventoryApi` |

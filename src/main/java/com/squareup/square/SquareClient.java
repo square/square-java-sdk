@@ -28,6 +28,7 @@ import com.squareup.square.api.DefaultCustomersApi;
 import com.squareup.square.api.DefaultDevicesApi;
 import com.squareup.square.api.DefaultDisputesApi;
 import com.squareup.square.api.DefaultEmployeesApi;
+import com.squareup.square.api.DefaultEventsApi;
 import com.squareup.square.api.DefaultGiftCardActivitiesApi;
 import com.squareup.square.api.DefaultGiftCardsApi;
 import com.squareup.square.api.DefaultInventoryApi;
@@ -57,6 +58,7 @@ import com.squareup.square.api.DefaultWebhookSubscriptionsApi;
 import com.squareup.square.api.DevicesApi;
 import com.squareup.square.api.DisputesApi;
 import com.squareup.square.api.EmployeesApi;
+import com.squareup.square.api.EventsApi;
 import com.squareup.square.api.GiftCardActivitiesApi;
 import com.squareup.square.api.GiftCardsApi;
 import com.squareup.square.api.InventoryApi;
@@ -127,6 +129,7 @@ public final class SquareClient implements SquareClientInterface {
     private DevicesApi devices;
     private DisputesApi disputes;
     private EmployeesApi employees;
+    private EventsApi events;
     private GiftCardsApi giftCards;
     private GiftCardActivitiesApi giftCardActivities;
     private InventoryApi inventory;
@@ -154,7 +157,7 @@ public final class SquareClient implements SquareClientInterface {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "Square-Java-SDK/40.0.0.20240515 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
+    private static String userAgent = "Square-Java-SDK/40.1.0.20240604 ({api-version}) {engine}/{engine-version} ({os-info}) {detail}";
 
     /**
      * Current API environment.
@@ -262,6 +265,7 @@ public final class SquareClient implements SquareClientInterface {
         devices = new DefaultDevicesApi(globalConfig);
         disputes = new DefaultDisputesApi(globalConfig);
         employees = new DefaultEmployeesApi(globalConfig);
+        events = new DefaultEventsApi(globalConfig);
         giftCards = new DefaultGiftCardsApi(globalConfig);
         giftCardActivities = new DefaultGiftCardActivitiesApi(globalConfig);
         inventory = new DefaultInventoryApi(globalConfig);
@@ -429,6 +433,14 @@ public final class SquareClient implements SquareClientInterface {
      */
     public EmployeesApi getEmployeesApi() {
         return employees;
+    }
+
+    /**
+     * Get the instance of EventsApi.
+     * @return events
+     */
+    public EventsApi getEventsApi() {
+        return events;
     }
 
     /**
@@ -707,7 +719,7 @@ public final class SquareClient implements SquareClientInterface {
      * @return sdkVersion
      */
     public String getSdkVersion() {
-        return "40.0.0.20240515";
+        return "40.1.0.20240604";
     }
 
     /**
@@ -820,7 +832,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2024-05-15";
+        private String squareVersion = "2024-06-04";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;
