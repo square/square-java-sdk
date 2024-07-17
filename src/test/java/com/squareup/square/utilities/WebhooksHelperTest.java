@@ -17,6 +17,17 @@ public class WebhooksHelperTest {
   }
 
   @Test
+  public void testSignatureValidationEscapedPass() {
+    String escpaedRequestBody = "{\"data\":{\"type\":\"webhooks\",\"id\":\">id<\"}}";
+    String newSignatureHeader = "Cxt7+aTi4rKgcA0bC4g9EHdVtLSDWdqccmL5MvihU4U=";
+    String signatureKey = "signature-key";
+    String url = "https://webhook.site/webhooks";
+
+    boolean isAuthentic = WebhooksHelper.isValidWebhookEventSignature(escpaedRequestBody, newSignatureHeader, signatureKey, url);
+    Assert.assertTrue(isAuthentic);
+  }
+
+  @Test
   public void testSignatureValidationFailUrlMismatch() {
     boolean isAuthentic = WebhooksHelper.isValidWebhookEventSignature(REQUEST_BODY, SIGNATURE_HEADER, SIGNATURE_KEY, "https://webhook.site/79a4f3a-dcfa-49ee-bac5-9d0edad886b9");
     Assert.assertFalse(isAuthentic);

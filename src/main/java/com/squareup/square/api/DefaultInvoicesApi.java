@@ -370,12 +370,9 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     }
 
     /**
-     * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
-     * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field and you must provide the complete
-     * `custom_fields` list to update a custom field. Published invoices have additional
-     * restrictions.
+     * Updates an invoice. This endpoint supports sparse updates, so you only need to specify the
+     * fields you want to change along with the required `version` field. Some restrictions apply to
+     * updating invoices. For example, you cannot change the `order_id` or `location_id` field.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
@@ -390,12 +387,9 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
     }
 
     /**
-     * Updates an invoice by modifying fields, clearing fields, or both. For most updates, you can
-     * use a sparse `Invoice` object to add fields or change values and use the `fields_to_clear`
-     * field to specify fields to clear. However, some restrictions apply. For example, you cannot
-     * change the `order_id` or `location_id` field and you must provide the complete
-     * `custom_fields` list to update a custom field. Published invoices have additional
-     * restrictions.
+     * Updates an invoice. This endpoint supports sparse updates, so you only need to specify the
+     * fields you want to change along with the required `version` field. Some restrictions apply to
+     * updating invoices. For example, you cannot change the `order_id` or `location_id` field.
      * @param  invoiceId  Required parameter: The ID of the invoice to update.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
