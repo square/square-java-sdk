@@ -91,7 +91,8 @@ public class UpdateInvoiceRequest {
 
     /**
      * Internal Getter for FieldsToClear.
-     * The list of fields to clear. For examples, see [Update an
+     * The list of fields to clear. Although this field is currently supported, we recommend using
+     * null values or the `remove` field when possible. For examples, see [Update an
      * Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices).
      * @return Returns the Internal List of String
      */
@@ -104,7 +105,8 @@ public class UpdateInvoiceRequest {
 
     /**
      * Getter for FieldsToClear.
-     * The list of fields to clear. For examples, see [Update an
+     * The list of fields to clear. Although this field is currently supported, we recommend using
+     * null values or the `remove` field when possible. For examples, see [Update an
      * Invoice](https://developer.squareup.com/docs/invoices-api/update-invoices).
      * @return Returns the List of String
      */
