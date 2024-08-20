@@ -148,18 +148,9 @@ where `ACCESS_TOKEN` is a
 
 If the access token is expired or not a valid access token, the endpoint returns an `UNAUTHORIZED` error.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```java
-CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync(
-    final String authorization)
+CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync()
 ```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `authorization` | `String` | Header, Required | Client APPLICATION_SECRET |
 
 ## Response Type
 
@@ -168,9 +159,7 @@ CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync(
 ## Example Usage
 
 ```java
-String authorization = "Client CLIENT_SECRET";
-
-oAuthApi.retrieveTokenStatusAsync(authorization).thenAccept(result -> {
+oAuthApi.retrieveTokenStatusAsync().thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

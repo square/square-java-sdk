@@ -187,14 +187,12 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
      * the access token is expired or not a valid access token, the endpoint returns an
      * `UNAUTHORIZED` error.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
      * @return    Returns the RetrieveTokenStatusResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public RetrieveTokenStatusResponse retrieveTokenStatus(
-            final String authorization) throws ApiException, IOException {
-        return prepareRetrieveTokenStatusRequest(authorization).execute();
+    public RetrieveTokenStatusResponse retrieveTokenStatus() throws ApiException, IOException {
+        return prepareRetrieveTokenStatusRequest().execute();
     }
 
     /**
@@ -208,13 +206,11 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
      * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
      * the access token is expired or not a valid access token, the endpoint returns an
      * `UNAUTHORIZED` error.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
      * @return    Returns the RetrieveTokenStatusResponse response from the API call
      */
-    public CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync(
-            final String authorization) {
+    public CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync() {
         try { 
-            return prepareRetrieveTokenStatusRequest(authorization).executeAsync(); 
+            return prepareRetrieveTokenStatusRequest().executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -223,16 +219,15 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
     /**
      * Builds the ApiCall object for retrieveTokenStatus.
      */
-    private ApiCall<RetrieveTokenStatusResponse, ApiException> prepareRetrieveTokenStatusRequest(
-            final String authorization) throws IOException {
+    private ApiCall<RetrieveTokenStatusResponse, ApiException> prepareRetrieveTokenStatusRequest() throws IOException {
         return new ApiCall.Builder<RetrieveTokenStatusResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/oauth2/token/status")
-                        .headerParam(param -> param.key("Authorization")
-                                .value(authorization).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("global"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

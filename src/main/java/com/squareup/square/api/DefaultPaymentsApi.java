@@ -64,6 +64,18 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         page. The default value of 100 is also the maximum allowed value. If the provided
      *         value is greater than 100, it is ignored and the default value is used instead.
      *         Default: `100`
+     * @param  isOfflinePayment  Optional parameter: Whether the payment was taken offline or not.
+     * @param  offlineBeginTime  Optional parameter: Indicates the start of the time range for which
+     *         to retrieve offline payments, in RFC 3339 format for timestamps. The range is
+     *         determined using the `offline_payment_details.client_created_at` field for each
+     *         Payment. If set, payments without a value set in
+     *         `offline_payment_details.client_created_at` will not be returned. Default: The
+     *         current time.
+     * @param  offlineEndTime  Optional parameter: Indicates the end of the time range for which to
+     *         retrieve offline payments, in RFC 3339 format for timestamps. The range is determined
+     *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
+     *         payments without a value set in `offline_payment_details.client_created_at` will not
+     *         be returned. Default: The current time.
      * @return    Returns the ListPaymentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -77,9 +89,13 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Long total,
             final String last4,
             final String cardBrand,
-            final Integer limit) throws ApiException, IOException {
+            final Integer limit,
+            final Boolean isOfflinePayment,
+            final String offlineBeginTime,
+            final String offlineEndTime) throws ApiException, IOException {
         return prepareListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-                last4, cardBrand, limit).execute();
+                last4, cardBrand, limit, isOfflinePayment, offlineBeginTime,
+                offlineEndTime).execute();
     }
 
     /**
@@ -109,6 +125,18 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         page. The default value of 100 is also the maximum allowed value. If the provided
      *         value is greater than 100, it is ignored and the default value is used instead.
      *         Default: `100`
+     * @param  isOfflinePayment  Optional parameter: Whether the payment was taken offline or not.
+     * @param  offlineBeginTime  Optional parameter: Indicates the start of the time range for which
+     *         to retrieve offline payments, in RFC 3339 format for timestamps. The range is
+     *         determined using the `offline_payment_details.client_created_at` field for each
+     *         Payment. If set, payments without a value set in
+     *         `offline_payment_details.client_created_at` will not be returned. Default: The
+     *         current time.
+     * @param  offlineEndTime  Optional parameter: Indicates the end of the time range for which to
+     *         retrieve offline payments, in RFC 3339 format for timestamps. The range is determined
+     *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
+     *         payments without a value set in `offline_payment_details.client_created_at` will not
+     *         be returned. Default: The current time.
      * @return    Returns the ListPaymentsResponse response from the API call
      */
     public CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
@@ -120,10 +148,14 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Long total,
             final String last4,
             final String cardBrand,
-            final Integer limit) {
+            final Integer limit,
+            final Boolean isOfflinePayment,
+            final String offlineBeginTime,
+            final String offlineEndTime) {
         try { 
             return prepareListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-            last4, cardBrand, limit).executeAsync(); 
+            last4, cardBrand, limit, isOfflinePayment, offlineBeginTime,
+            offlineEndTime).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -141,7 +173,10 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Long total,
             final String last4,
             final String cardBrand,
-            final Integer limit) throws IOException {
+            final Integer limit,
+            final Boolean isOfflinePayment,
+            final String offlineBeginTime,
+            final String offlineEndTime) throws IOException {
         return new ApiCall.Builder<ListPaymentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -165,6 +200,12 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 .value(cardBrand).isRequired(false))
                         .queryParam(param -> param.key("limit")
                                 .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("is_offline_payment")
+                                .value((isOfflinePayment != null) ? isOfflinePayment : false).isRequired(false))
+                        .queryParam(param -> param.key("offline_begin_time")
+                                .value(offlineBeginTime).isRequired(false))
+                        .queryParam(param -> param.key("offline_end_time")
+                                .value(offlineEndTime).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("global"))

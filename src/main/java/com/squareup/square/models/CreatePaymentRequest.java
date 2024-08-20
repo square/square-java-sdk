@@ -34,6 +34,7 @@ public class CreatePaymentRequest {
     private final CashPaymentDetails cashDetails;
     private final ExternalPaymentDetails externalDetails;
     private final CustomerDetails customerDetails;
+    private final OfflinePaymentDetails offlinePaymentDetails;
 
     /**
      * Initialization constructor.
@@ -60,6 +61,7 @@ public class CreatePaymentRequest {
      * @param  cashDetails  CashPaymentDetails value for cashDetails.
      * @param  externalDetails  ExternalPaymentDetails value for externalDetails.
      * @param  customerDetails  CustomerDetails value for customerDetails.
+     * @param  offlinePaymentDetails  OfflinePaymentDetails value for offlinePaymentDetails.
      */
     @JsonCreator
     public CreatePaymentRequest(
@@ -85,7 +87,8 @@ public class CreatePaymentRequest {
             @JsonProperty("statement_description_identifier") String statementDescriptionIdentifier,
             @JsonProperty("cash_details") CashPaymentDetails cashDetails,
             @JsonProperty("external_details") ExternalPaymentDetails externalDetails,
-            @JsonProperty("customer_details") CustomerDetails customerDetails) {
+            @JsonProperty("customer_details") CustomerDetails customerDetails,
+            @JsonProperty("offline_payment_details") OfflinePaymentDetails offlinePaymentDetails) {
         this.sourceId = sourceId;
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
@@ -109,6 +112,7 @@ public class CreatePaymentRequest {
         this.cashDetails = cashDetails;
         this.externalDetails = externalDetails;
         this.customerDetails = customerDetails;
+        this.offlinePaymentDetails = offlinePaymentDetails;
     }
 
     /**
@@ -426,13 +430,25 @@ public class CreatePaymentRequest {
         return customerDetails;
     }
 
+    /**
+     * Getter for OfflinePaymentDetails.
+     * Details specific to offline payments.
+     * @return Returns the OfflinePaymentDetails
+     */
+    @JsonGetter("offline_payment_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public OfflinePaymentDetails getOfflinePaymentDetails() {
+        return offlinePaymentDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
                 delayDuration, delayAction, autocomplete, orderId, customerId, locationId,
                 teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
                 buyerEmailAddress, billingAddress, shippingAddress, note,
-                statementDescriptionIdentifier, cashDetails, externalDetails, customerDetails);
+                statementDescriptionIdentifier, cashDetails, externalDetails, customerDetails,
+                offlinePaymentDetails);
     }
 
     @Override
@@ -467,7 +483,8 @@ public class CreatePaymentRequest {
                     other.statementDescriptionIdentifier)
             && Objects.equals(cashDetails, other.cashDetails)
             && Objects.equals(externalDetails, other.externalDetails)
-            && Objects.equals(customerDetails, other.customerDetails);
+            && Objects.equals(customerDetails, other.customerDetails)
+            && Objects.equals(offlinePaymentDetails, other.offlinePaymentDetails);
     }
 
     /**
@@ -488,7 +505,7 @@ public class CreatePaymentRequest {
                 + ", note=" + note + ", statementDescriptionIdentifier="
                 + statementDescriptionIdentifier + ", cashDetails=" + cashDetails
                 + ", externalDetails=" + externalDetails + ", customerDetails=" + customerDetails
-                + "]";
+                + ", offlinePaymentDetails=" + offlinePaymentDetails + "]";
     }
 
     /**
@@ -518,7 +535,8 @@ public class CreatePaymentRequest {
                 .statementDescriptionIdentifier(getStatementDescriptionIdentifier())
                 .cashDetails(getCashDetails())
                 .externalDetails(getExternalDetails())
-                .customerDetails(getCustomerDetails());
+                .customerDetails(getCustomerDetails())
+                .offlinePaymentDetails(getOfflinePaymentDetails());
         return builder;
     }
 
@@ -549,6 +567,7 @@ public class CreatePaymentRequest {
         private CashPaymentDetails cashDetails;
         private ExternalPaymentDetails externalDetails;
         private CustomerDetails customerDetails;
+        private OfflinePaymentDetails offlinePaymentDetails;
 
         /**
          * Initialization constructor.
@@ -791,6 +810,16 @@ public class CreatePaymentRequest {
         }
 
         /**
+         * Setter for offlinePaymentDetails.
+         * @param  offlinePaymentDetails  OfflinePaymentDetails value for offlinePaymentDetails.
+         * @return Builder
+         */
+        public Builder offlinePaymentDetails(OfflinePaymentDetails offlinePaymentDetails) {
+            this.offlinePaymentDetails = offlinePaymentDetails;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreatePaymentRequest} object using the set fields.
          * @return {@link CreatePaymentRequest}
          */
@@ -800,7 +829,7 @@ public class CreatePaymentRequest {
                     locationId, teamMemberId, referenceId, verificationToken,
                     acceptPartialAuthorization, buyerEmailAddress, billingAddress, shippingAddress,
                     note, statementDescriptionIdentifier, cashDetails, externalDetails,
-                    customerDetails);
+                    customerDetails, offlinePaymentDetails);
         }
     }
 }

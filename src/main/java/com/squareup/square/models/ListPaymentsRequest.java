@@ -23,6 +23,9 @@ public class ListPaymentsRequest {
     private final OptionalNullable<String> last4;
     private final OptionalNullable<String> cardBrand;
     private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<Boolean> isOfflinePayment;
+    private final OptionalNullable<String> offlineBeginTime;
+    private final OptionalNullable<String> offlineEndTime;
 
     /**
      * Initialization constructor.
@@ -35,6 +38,9 @@ public class ListPaymentsRequest {
      * @param  last4  String value for last4.
      * @param  cardBrand  String value for cardBrand.
      * @param  limit  Integer value for limit.
+     * @param  isOfflinePayment  Boolean value for isOfflinePayment.
+     * @param  offlineBeginTime  String value for offlineBeginTime.
+     * @param  offlineEndTime  String value for offlineEndTime.
      */
     @JsonCreator
     public ListPaymentsRequest(
@@ -46,7 +52,10 @@ public class ListPaymentsRequest {
             @JsonProperty("total") Long total,
             @JsonProperty("last_4") String last4,
             @JsonProperty("card_brand") String cardBrand,
-            @JsonProperty("limit") Integer limit) {
+            @JsonProperty("limit") Integer limit,
+            @JsonProperty("is_offline_payment") Boolean isOfflinePayment,
+            @JsonProperty("offline_begin_time") String offlineBeginTime,
+            @JsonProperty("offline_end_time") String offlineEndTime) {
         this.beginTime = OptionalNullable.of(beginTime);
         this.endTime = OptionalNullable.of(endTime);
         this.sortOrder = OptionalNullable.of(sortOrder);
@@ -56,6 +65,9 @@ public class ListPaymentsRequest {
         this.last4 = OptionalNullable.of(last4);
         this.cardBrand = OptionalNullable.of(cardBrand);
         this.limit = OptionalNullable.of(limit);
+        this.isOfflinePayment = OptionalNullable.of(isOfflinePayment);
+        this.offlineBeginTime = OptionalNullable.of(offlineBeginTime);
+        this.offlineEndTime = OptionalNullable.of(offlineEndTime);
     }
 
     /**
@@ -69,13 +81,18 @@ public class ListPaymentsRequest {
      * @param  last4  String value for last4.
      * @param  cardBrand  String value for cardBrand.
      * @param  limit  Integer value for limit.
+     * @param  isOfflinePayment  Boolean value for isOfflinePayment.
+     * @param  offlineBeginTime  String value for offlineBeginTime.
+     * @param  offlineEndTime  String value for offlineEndTime.
      */
 
     protected ListPaymentsRequest(OptionalNullable<String> beginTime,
             OptionalNullable<String> endTime, OptionalNullable<String> sortOrder,
             OptionalNullable<String> cursor, OptionalNullable<String> locationId,
             OptionalNullable<Long> total, OptionalNullable<String> last4,
-            OptionalNullable<String> cardBrand, OptionalNullable<Integer> limit) {
+            OptionalNullable<String> cardBrand, OptionalNullable<Integer> limit,
+            OptionalNullable<Boolean> isOfflinePayment, OptionalNullable<String> offlineBeginTime,
+            OptionalNullable<String> offlineEndTime) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.sortOrder = sortOrder;
@@ -85,6 +102,9 @@ public class ListPaymentsRequest {
         this.last4 = last4;
         this.cardBrand = cardBrand;
         this.limit = limit;
+        this.isOfflinePayment = isOfflinePayment;
+        this.offlineBeginTime = offlineBeginTime;
+        this.offlineEndTime = offlineEndTime;
     }
 
     /**
@@ -305,10 +325,92 @@ public class ListPaymentsRequest {
         return OptionalNullable.getFrom(limit);
     }
 
+    /**
+     * Internal Getter for IsOfflinePayment.
+     * Whether the payment was taken offline or not.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("is_offline_payment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIsOfflinePayment() {
+        return this.isOfflinePayment;
+    }
+
+    /**
+     * Getter for IsOfflinePayment.
+     * Whether the payment was taken offline or not.
+     * @return Returns the Boolean
+     */
+    @JsonIgnore
+    public Boolean getIsOfflinePayment() {
+        return OptionalNullable.getFrom(isOfflinePayment);
+    }
+
+    /**
+     * Internal Getter for OfflineBeginTime.
+     * Indicates the start of the time range for which to retrieve offline payments, in RFC 3339
+     * format for timestamps. The range is determined using the
+     * `offline_payment_details.client_created_at` field for each Payment. If set, payments without
+     * a value set in `offline_payment_details.client_created_at` will not be returned. Default: The
+     * current time.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("offline_begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOfflineBeginTime() {
+        return this.offlineBeginTime;
+    }
+
+    /**
+     * Getter for OfflineBeginTime.
+     * Indicates the start of the time range for which to retrieve offline payments, in RFC 3339
+     * format for timestamps. The range is determined using the
+     * `offline_payment_details.client_created_at` field for each Payment. If set, payments without
+     * a value set in `offline_payment_details.client_created_at` will not be returned. Default: The
+     * current time.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getOfflineBeginTime() {
+        return OptionalNullable.getFrom(offlineBeginTime);
+    }
+
+    /**
+     * Internal Getter for OfflineEndTime.
+     * Indicates the end of the time range for which to retrieve offline payments, in RFC 3339
+     * format for timestamps. The range is determined using the
+     * `offline_payment_details.client_created_at` field for each Payment. If set, payments without
+     * a value set in `offline_payment_details.client_created_at` will not be returned. Default: The
+     * current time.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("offline_end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetOfflineEndTime() {
+        return this.offlineEndTime;
+    }
+
+    /**
+     * Getter for OfflineEndTime.
+     * Indicates the end of the time range for which to retrieve offline payments, in RFC 3339
+     * format for timestamps. The range is determined using the
+     * `offline_payment_details.client_created_at` field for each Payment. If set, payments without
+     * a value set in `offline_payment_details.client_created_at` will not be returned. Default: The
+     * current time.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getOfflineEndTime() {
+        return OptionalNullable.getFrom(offlineEndTime);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, total, last4,
-                cardBrand, limit);
+                cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime);
     }
 
     @Override
@@ -328,7 +430,10 @@ public class ListPaymentsRequest {
             && Objects.equals(total, other.total)
             && Objects.equals(last4, other.last4)
             && Objects.equals(cardBrand, other.cardBrand)
-            && Objects.equals(limit, other.limit);
+            && Objects.equals(limit, other.limit)
+            && Objects.equals(isOfflinePayment, other.isOfflinePayment)
+            && Objects.equals(offlineBeginTime, other.offlineBeginTime)
+            && Objects.equals(offlineEndTime, other.offlineEndTime);
     }
 
     /**
@@ -340,7 +445,8 @@ public class ListPaymentsRequest {
         return "ListPaymentsRequest [" + "beginTime=" + beginTime + ", endTime=" + endTime
                 + ", sortOrder=" + sortOrder + ", cursor=" + cursor + ", locationId=" + locationId
                 + ", total=" + total + ", last4=" + last4 + ", cardBrand=" + cardBrand + ", limit="
-                + limit + "]";
+                + limit + ", isOfflinePayment=" + isOfflinePayment + ", offlineBeginTime="
+                + offlineBeginTime + ", offlineEndTime=" + offlineEndTime + "]";
     }
 
     /**
@@ -359,6 +465,9 @@ public class ListPaymentsRequest {
         builder.last4 = internalGetLast4();
         builder.cardBrand = internalGetCardBrand();
         builder.limit = internalGetLimit();
+        builder.isOfflinePayment = internalGetIsOfflinePayment();
+        builder.offlineBeginTime = internalGetOfflineBeginTime();
+        builder.offlineEndTime = internalGetOfflineEndTime();
         return builder;
     }
 
@@ -375,6 +484,9 @@ public class ListPaymentsRequest {
         private OptionalNullable<String> last4;
         private OptionalNullable<String> cardBrand;
         private OptionalNullable<Integer> limit;
+        private OptionalNullable<Boolean> isOfflinePayment;
+        private OptionalNullable<String> offlineBeginTime;
+        private OptionalNullable<String> offlineEndTime;
 
 
 
@@ -550,12 +662,69 @@ public class ListPaymentsRequest {
         }
 
         /**
+         * Setter for isOfflinePayment.
+         * @param  isOfflinePayment  Boolean value for isOfflinePayment.
+         * @return Builder
+         */
+        public Builder isOfflinePayment(Boolean isOfflinePayment) {
+            this.isOfflinePayment = OptionalNullable.of(isOfflinePayment);
+            return this;
+        }
+
+        /**
+         * UnSetter for isOfflinePayment.
+         * @return Builder
+         */
+        public Builder unsetIsOfflinePayment() {
+            isOfflinePayment = null;
+            return this;
+        }
+
+        /**
+         * Setter for offlineBeginTime.
+         * @param  offlineBeginTime  String value for offlineBeginTime.
+         * @return Builder
+         */
+        public Builder offlineBeginTime(String offlineBeginTime) {
+            this.offlineBeginTime = OptionalNullable.of(offlineBeginTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for offlineBeginTime.
+         * @return Builder
+         */
+        public Builder unsetOfflineBeginTime() {
+            offlineBeginTime = null;
+            return this;
+        }
+
+        /**
+         * Setter for offlineEndTime.
+         * @param  offlineEndTime  String value for offlineEndTime.
+         * @return Builder
+         */
+        public Builder offlineEndTime(String offlineEndTime) {
+            this.offlineEndTime = OptionalNullable.of(offlineEndTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for offlineEndTime.
+         * @return Builder
+         */
+        public Builder unsetOfflineEndTime() {
+            offlineEndTime = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListPaymentsRequest} object using the set fields.
          * @return {@link ListPaymentsRequest}
          */
         public ListPaymentsRequest build() {
             return new ListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-                    last4, cardBrand, limit);
+                    last4, cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime);
         }
     }
 }

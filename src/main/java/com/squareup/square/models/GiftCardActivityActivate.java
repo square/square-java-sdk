@@ -166,7 +166,7 @@ public class GiftCardActivityActivate {
      * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * Square uses this information to perform compliance checks. For applications that use the
      * Square Orders API to process payments, Square has the necessary instrument IDs to perform
-     * compliance checks.
+     * compliance checks. Each buyer payment instrument ID can contain a maximum of 255 characters.
      * @return Returns the Internal List of String
      */
     @JsonGetter("buyer_payment_instrument_ids")
@@ -184,7 +184,7 @@ public class GiftCardActivityActivate {
      * [CreateGiftCardActivity](api-endpoint:GiftCardActivities-CreateGiftCardActivity) request.
      * Square uses this information to perform compliance checks. For applications that use the
      * Square Orders API to process payments, Square has the necessary instrument IDs to perform
-     * compliance checks.
+     * compliance checks. Each buyer payment instrument ID can contain a maximum of 255 characters.
      * @return Returns the List of String
      */
     @JsonIgnore
