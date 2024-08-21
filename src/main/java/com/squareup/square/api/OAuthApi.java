@@ -100,13 +100,11 @@ public interface OAuthApi {
      * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
      * the access token is expired or not a valid access token, the endpoint returns an
      * `UNAUTHORIZED` error.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
      * @return    Returns the RetrieveTokenStatusResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    RetrieveTokenStatusResponse retrieveTokenStatus(
-            final String authorization) throws ApiException, IOException;
+    RetrieveTokenStatusResponse retrieveTokenStatus() throws ApiException, IOException;
 
     /**
      * Returns information about an [OAuth access
@@ -119,10 +117,8 @@ public interface OAuthApi {
      * authorization credential](https://developer.squareup.com/docs/build-basics/access-tokens). If
      * the access token is expired or not a valid access token, the endpoint returns an
      * `UNAUTHORIZED` error.
-     * @param  authorization  Required parameter: Client APPLICATION_SECRET
      * @return    Returns the RetrieveTokenStatusResponse response from the API call
      */
-    CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync(
-            final String authorization);
+    CompletableFuture<RetrieveTokenStatusResponse> retrieveTokenStatusAsync();
 
 }

@@ -83,10 +83,11 @@ public interface GiftCardsApi {
             final String customerId);
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
-     * is created, you must call
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) to activate the card
-     * with an initial balance before it can be used for payment.
+     * Creates a digital gift card or registers a physical (plastic) gift card. The resulting gift
+     * card has a `PENDING` state. To activate a gift card so that it can be redeemed for purchases,
+     * call [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) and create an
+     * `ACTIVATE` activity with the initial balance. Alternatively, you can use
+     * [RefundPayment]($e/Refunds/RefundPayment) to refund a payment to the new gift card.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardResponse response from the API call
@@ -97,10 +98,11 @@ public interface GiftCardsApi {
             final CreateGiftCardRequest body) throws ApiException, IOException;
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
-     * is created, you must call
-     * [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) to activate the card
-     * with an initial balance before it can be used for payment.
+     * Creates a digital gift card or registers a physical (plastic) gift card. The resulting gift
+     * card has a `PENDING` state. To activate a gift card so that it can be redeemed for purchases,
+     * call [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity) and create an
+     * `ACTIVATE` activity with the initial balance. Alternatively, you can use
+     * [RefundPayment]($e/Refunds/RefundPayment) to refund a payment to the new gift card.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardResponse response from the API call

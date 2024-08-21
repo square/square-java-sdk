@@ -103,8 +103,8 @@ public interface GiftCardActivitiesApi {
 
     /**
      * Creates a gift card activity to manage the balance or state of a [gift card]($m/GiftCard).
-     * For example, you create an `ACTIVATE` activity to activate a gift card with an initial
-     * balance before the gift card can be used.
+     * For example, create an `ACTIVATE` activity to activate a gift card with an initial balance
+     * before first use.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardActivityResponse response from the API call
@@ -116,8 +116,8 @@ public interface GiftCardActivitiesApi {
 
     /**
      * Creates a gift card activity to manage the balance or state of a [gift card]($m/GiftCard).
-     * For example, you create an `ACTIVATE` activity to activate a gift card with an initial
-     * balance before the gift card can be used.
+     * For example, create an `ACTIVATE` activity to activate a gift card with an initial balance
+     * before first use.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the CreateGiftCardActivityResponse response from the API call

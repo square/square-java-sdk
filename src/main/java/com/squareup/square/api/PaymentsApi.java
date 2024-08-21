@@ -48,6 +48,18 @@ public interface PaymentsApi {
      *         page. The default value of 100 is also the maximum allowed value. If the provided
      *         value is greater than 100, it is ignored and the default value is used instead.
      *         Default: `100`
+     * @param  isOfflinePayment  Optional parameter: Whether the payment was taken offline or not.
+     * @param  offlineBeginTime  Optional parameter: Indicates the start of the time range for which
+     *         to retrieve offline payments, in RFC 3339 format for timestamps. The range is
+     *         determined using the `offline_payment_details.client_created_at` field for each
+     *         Payment. If set, payments without a value set in
+     *         `offline_payment_details.client_created_at` will not be returned. Default: The
+     *         current time.
+     * @param  offlineEndTime  Optional parameter: Indicates the end of the time range for which to
+     *         retrieve offline payments, in RFC 3339 format for timestamps. The range is determined
+     *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
+     *         payments without a value set in `offline_payment_details.client_created_at` will not
+     *         be returned. Default: The current time.
      * @return    Returns the ListPaymentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -61,7 +73,10 @@ public interface PaymentsApi {
             final Long total,
             final String last4,
             final String cardBrand,
-            final Integer limit) throws ApiException, IOException;
+            final Integer limit,
+            final Boolean isOfflinePayment,
+            final String offlineBeginTime,
+            final String offlineEndTime) throws ApiException, IOException;
 
     /**
      * Retrieves a list of payments taken by the account making the request. Results are eventually
@@ -90,6 +105,18 @@ public interface PaymentsApi {
      *         page. The default value of 100 is also the maximum allowed value. If the provided
      *         value is greater than 100, it is ignored and the default value is used instead.
      *         Default: `100`
+     * @param  isOfflinePayment  Optional parameter: Whether the payment was taken offline or not.
+     * @param  offlineBeginTime  Optional parameter: Indicates the start of the time range for which
+     *         to retrieve offline payments, in RFC 3339 format for timestamps. The range is
+     *         determined using the `offline_payment_details.client_created_at` field for each
+     *         Payment. If set, payments without a value set in
+     *         `offline_payment_details.client_created_at` will not be returned. Default: The
+     *         current time.
+     * @param  offlineEndTime  Optional parameter: Indicates the end of the time range for which to
+     *         retrieve offline payments, in RFC 3339 format for timestamps. The range is determined
+     *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
+     *         payments without a value set in `offline_payment_details.client_created_at` will not
+     *         be returned. Default: The current time.
      * @return    Returns the ListPaymentsResponse response from the API call
      */
     CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
@@ -101,7 +128,10 @@ public interface PaymentsApi {
             final Long total,
             final String last4,
             final String cardBrand,
-            final Integer limit);
+            final Integer limit,
+            final Boolean isOfflinePayment,
+            final String offlineBeginTime,
+            final String offlineEndTime);
 
     /**
      * Creates a payment using the provided source. You can use this endpoint to charge a card

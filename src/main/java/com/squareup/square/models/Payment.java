@@ -42,7 +42,7 @@ public class Payment {
     private final String referenceId;
     private final String customerId;
     private final String employeeId;
-    private final String teamMemberId;
+    private final OptionalNullable<String> teamMemberId;
     private final List<String> refundIds;
     private final RiskEvaluation riskEvaluation;
     private final String buyerEmailAddress;
@@ -56,6 +56,7 @@ public class Payment {
     private final DeviceDetails deviceDetails;
     private final ApplicationDetails applicationDetails;
     private final Boolean isOfflinePayment;
+    private final OfflinePaymentDetails offlinePaymentDetails;
     private final OptionalNullable<String> versionToken;
 
     /**
@@ -101,6 +102,7 @@ public class Payment {
      * @param  deviceDetails  DeviceDetails value for deviceDetails.
      * @param  applicationDetails  ApplicationDetails value for applicationDetails.
      * @param  isOfflinePayment  Boolean value for isOfflinePayment.
+     * @param  offlinePaymentDetails  OfflinePaymentDetails value for offlinePaymentDetails.
      * @param  versionToken  String value for versionToken.
      */
     @JsonCreator
@@ -146,6 +148,7 @@ public class Payment {
             @JsonProperty("device_details") DeviceDetails deviceDetails,
             @JsonProperty("application_details") ApplicationDetails applicationDetails,
             @JsonProperty("is_offline_payment") Boolean isOfflinePayment,
+            @JsonProperty("offline_payment_details") OfflinePaymentDetails offlinePaymentDetails,
             @JsonProperty("version_token") String versionToken) {
         this.id = id;
         this.createdAt = createdAt;
@@ -174,7 +177,7 @@ public class Payment {
         this.referenceId = referenceId;
         this.customerId = customerId;
         this.employeeId = employeeId;
-        this.teamMemberId = teamMemberId;
+        this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.refundIds = refundIds;
         this.riskEvaluation = riskEvaluation;
         this.buyerEmailAddress = buyerEmailAddress;
@@ -188,6 +191,7 @@ public class Payment {
         this.deviceDetails = deviceDetails;
         this.applicationDetails = applicationDetails;
         this.isOfflinePayment = isOfflinePayment;
+        this.offlinePaymentDetails = offlinePaymentDetails;
         this.versionToken = OptionalNullable.of(versionToken);
     }
 
@@ -234,6 +238,7 @@ public class Payment {
      * @param  deviceDetails  DeviceDetails value for deviceDetails.
      * @param  applicationDetails  ApplicationDetails value for applicationDetails.
      * @param  isOfflinePayment  Boolean value for isOfflinePayment.
+     * @param  offlinePaymentDetails  OfflinePaymentDetails value for offlinePaymentDetails.
      * @param  versionToken  String value for versionToken.
      */
 
@@ -245,12 +250,14 @@ public class Payment {
             BankAccountPaymentDetails bankAccountDetails, ExternalPaymentDetails externalDetails,
             DigitalWalletDetails walletDetails, BuyNowPayLaterDetails buyNowPayLaterDetails,
             SquareAccountDetails squareAccountDetails, String locationId, String orderId,
-            String referenceId, String customerId, String employeeId, String teamMemberId,
-            List<String> refundIds, RiskEvaluation riskEvaluation, String buyerEmailAddress,
-            Address billingAddress, Address shippingAddress, String note,
-            String statementDescriptionIdentifier, List<String> capabilities, String receiptNumber,
-            String receiptUrl, DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
-            Boolean isOfflinePayment, OptionalNullable<String> versionToken) {
+            String referenceId, String customerId, String employeeId,
+            OptionalNullable<String> teamMemberId, List<String> refundIds,
+            RiskEvaluation riskEvaluation, String buyerEmailAddress, Address billingAddress,
+            Address shippingAddress, String note, String statementDescriptionIdentifier,
+            List<String> capabilities, String receiptNumber, String receiptUrl,
+            DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
+            Boolean isOfflinePayment, OfflinePaymentDetails offlinePaymentDetails,
+            OptionalNullable<String> versionToken) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -292,6 +299,7 @@ public class Payment {
         this.deviceDetails = deviceDetails;
         this.applicationDetails = applicationDetails;
         this.isOfflinePayment = isOfflinePayment;
+        this.offlinePaymentDetails = offlinePaymentDetails;
         this.versionToken = versionToken;
     }
 
@@ -660,14 +668,25 @@ public class Payment {
     }
 
     /**
+     * Internal Getter for TeamMemberId.
+     * An optional ID of the [TeamMember](entity:TeamMember) associated with taking the payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("team_member_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTeamMemberId() {
+        return this.teamMemberId;
+    }
+
+    /**
      * Getter for TeamMemberId.
      * An optional ID of the [TeamMember](entity:TeamMember) associated with taking the payment.
      * @return Returns the String
      */
-    @JsonGetter("team_member_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     public String getTeamMemberId() {
-        return teamMemberId;
+        return OptionalNullable.getFrom(teamMemberId);
     }
 
     /**
@@ -825,6 +844,17 @@ public class Payment {
     }
 
     /**
+     * Getter for OfflinePaymentDetails.
+     * Details specific to offline payments.
+     * @return Returns the OfflinePaymentDetails
+     */
+    @JsonGetter("offline_payment_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public OfflinePaymentDetails getOfflinePaymentDetails() {
+        return offlinePaymentDetails;
+    }
+
+    /**
      * Internal Getter for VersionToken.
      * Used for optimistic concurrency. This opaque token identifies a specific version of the
      * `Payment` object.
@@ -857,7 +887,8 @@ public class Payment {
                 locationId, orderId, referenceId, customerId, employeeId, teamMemberId, refundIds,
                 riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress, note,
                 statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                deviceDetails, applicationDetails, isOfflinePayment, versionToken);
+                deviceDetails, applicationDetails, isOfflinePayment, offlinePaymentDetails,
+                versionToken);
     }
 
     @Override
@@ -911,6 +942,7 @@ public class Payment {
             && Objects.equals(deviceDetails, other.deviceDetails)
             && Objects.equals(applicationDetails, other.applicationDetails)
             && Objects.equals(isOfflinePayment, other.isOfflinePayment)
+            && Objects.equals(offlinePaymentDetails, other.offlinePaymentDetails)
             && Objects.equals(versionToken, other.versionToken);
     }
 
@@ -939,7 +971,8 @@ public class Payment {
                 + statementDescriptionIdentifier + ", capabilities=" + capabilities
                 + ", receiptNumber=" + receiptNumber + ", receiptUrl=" + receiptUrl
                 + ", deviceDetails=" + deviceDetails + ", applicationDetails=" + applicationDetails
-                + ", isOfflinePayment=" + isOfflinePayment + ", versionToken=" + versionToken + "]";
+                + ", isOfflinePayment=" + isOfflinePayment + ", offlinePaymentDetails="
+                + offlinePaymentDetails + ", versionToken=" + versionToken + "]";
     }
 
     /**
@@ -975,7 +1008,6 @@ public class Payment {
                 .referenceId(getReferenceId())
                 .customerId(getCustomerId())
                 .employeeId(getEmployeeId())
-                .teamMemberId(getTeamMemberId())
                 .refundIds(getRefundIds())
                 .riskEvaluation(getRiskEvaluation())
                 .buyerEmailAddress(getBuyerEmailAddress())
@@ -988,8 +1020,10 @@ public class Payment {
                 .receiptUrl(getReceiptUrl())
                 .deviceDetails(getDeviceDetails())
                 .applicationDetails(getApplicationDetails())
-                .isOfflinePayment(getIsOfflinePayment());
+                .isOfflinePayment(getIsOfflinePayment())
+                .offlinePaymentDetails(getOfflinePaymentDetails());
         builder.delayAction = internalGetDelayAction();
+        builder.teamMemberId = internalGetTeamMemberId();
         builder.versionToken = internalGetVersionToken();
         return builder;
     }
@@ -1025,7 +1059,7 @@ public class Payment {
         private String referenceId;
         private String customerId;
         private String employeeId;
-        private String teamMemberId;
+        private OptionalNullable<String> teamMemberId;
         private List<String> refundIds;
         private RiskEvaluation riskEvaluation;
         private String buyerEmailAddress;
@@ -1039,6 +1073,7 @@ public class Payment {
         private DeviceDetails deviceDetails;
         private ApplicationDetails applicationDetails;
         private Boolean isOfflinePayment;
+        private OfflinePaymentDetails offlinePaymentDetails;
         private OptionalNullable<String> versionToken;
 
 
@@ -1328,7 +1363,16 @@ public class Payment {
          * @return Builder
          */
         public Builder teamMemberId(String teamMemberId) {
-            this.teamMemberId = teamMemberId;
+            this.teamMemberId = OptionalNullable.of(teamMemberId);
+            return this;
+        }
+
+        /**
+         * UnSetter for teamMemberId.
+         * @return Builder
+         */
+        public Builder unsetTeamMemberId() {
+            teamMemberId = null;
             return this;
         }
 
@@ -1463,6 +1507,16 @@ public class Payment {
         }
 
         /**
+         * Setter for offlinePaymentDetails.
+         * @param  offlinePaymentDetails  OfflinePaymentDetails value for offlinePaymentDetails.
+         * @return Builder
+         */
+        public Builder offlinePaymentDetails(OfflinePaymentDetails offlinePaymentDetails) {
+            this.offlinePaymentDetails = offlinePaymentDetails;
+            return this;
+        }
+
+        /**
          * Setter for versionToken.
          * @param  versionToken  String value for versionToken.
          * @return Builder
@@ -1494,7 +1548,7 @@ public class Payment {
                     teamMemberId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
                     shippingAddress, note, statementDescriptionIdentifier, capabilities,
                     receiptNumber, receiptUrl, deviceDetails, applicationDetails, isOfflinePayment,
-                    versionToken);
+                    offlinePaymentDetails, versionToken);
         }
     }
 }
