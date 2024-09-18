@@ -98,7 +98,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CreateTerminalActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -156,7 +156,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, SearchTerminalActionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -210,7 +210,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, GetTerminalActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -262,7 +262,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CancelTerminalActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -322,7 +322,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, DismissTerminalActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -380,7 +380,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CreateTerminalCheckoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -440,7 +440,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, SearchTerminalCheckoutsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -494,7 +494,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, GetTerminalCheckoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -546,7 +546,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CancelTerminalCheckoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -600,7 +600,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, DismissTerminalCheckoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -662,7 +662,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CreateTerminalRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -720,7 +720,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, SearchTerminalRefundsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -774,7 +774,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, GetTerminalRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -828,7 +828,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, CancelTerminalRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -882,7 +882,7 @@ public final class DefaultTerminalApi extends BaseApi implements TerminalApi {
                                 response -> ApiHelper.deserialize(response, DismissTerminalRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

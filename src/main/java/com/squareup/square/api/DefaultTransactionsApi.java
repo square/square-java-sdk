@@ -140,7 +140,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                                 response -> ApiHelper.deserialize(response, ListTransactionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -205,7 +205,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                                 response -> ApiHelper.deserialize(response, RetrieveTransactionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -276,7 +276,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                                 response -> ApiHelper.deserialize(response, CaptureTransactionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -347,7 +347,7 @@ public final class DefaultTransactionsApi extends BaseApi implements Transaction
                                 response -> ApiHelper.deserialize(response, VoidTransactionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

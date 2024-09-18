@@ -129,7 +129,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListMerchantCustomAttributeDefinitionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -199,7 +199,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, CreateMerchantCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -257,7 +257,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteMerchantCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -334,7 +334,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveMerchantCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -403,7 +403,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpdateMerchantCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -463,7 +463,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, BulkDeleteMerchantCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -539,7 +539,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, BulkUpsertMerchantCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -653,7 +653,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListMerchantCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -720,7 +720,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteMerchantCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -821,7 +821,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveMerchantCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -907,7 +907,7 @@ public final class DefaultMerchantCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpsertMerchantCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

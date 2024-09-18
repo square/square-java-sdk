@@ -115,7 +115,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, CreateCheckoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -169,7 +169,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLocationSettingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -234,7 +234,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, UpdateLocationSettingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -279,7 +279,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, RetrieveMerchantSettingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -335,7 +335,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, UpdateMerchantSettingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -408,7 +408,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, ListPaymentLinksResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -466,7 +466,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, CreatePaymentLinkResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -518,7 +518,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, DeletePaymentLinkResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -570,7 +570,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, RetrievePaymentLinkResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -637,7 +637,7 @@ public final class DefaultCheckoutApi extends BaseApi implements CheckoutApi {
                                 response -> ApiHelper.deserialize(response, UpdatePaymentLinkResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

@@ -131,7 +131,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, ListOrderCustomAttributeDefinitionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -191,7 +191,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, CreateOrderCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -245,7 +245,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, DeleteOrderCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -318,7 +318,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, RetrieveOrderCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -385,7 +385,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, UpdateOrderCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -463,7 +463,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, BulkDeleteOrderCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -541,7 +541,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, BulkUpsertOrderCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -655,7 +655,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, ListOrderCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -722,7 +722,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, DeleteOrderCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -823,7 +823,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, RetrieveOrderCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -911,7 +911,7 @@ public final class DefaultOrderCustomAttributesApi extends BaseApi implements Or
                                 response -> ApiHelper.deserialize(response, UpsertOrderCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

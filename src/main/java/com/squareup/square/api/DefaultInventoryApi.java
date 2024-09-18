@@ -96,7 +96,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryAdjustmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -152,7 +152,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryAdjustmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -216,7 +216,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchChangeInventoryResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -282,7 +282,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveInventoryChangesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -348,7 +348,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveInventoryCountsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -408,7 +408,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchChangeInventoryResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -470,7 +470,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveInventoryChangesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -536,7 +536,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveInventoryCountsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -600,7 +600,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryPhysicalCountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -656,7 +656,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryPhysicalCountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -710,7 +710,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryTransferResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -793,7 +793,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryCountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -895,7 +895,7 @@ public final class DefaultInventoryApi extends BaseApi implements InventoryApi {
                                 response -> ApiHelper.deserialize(response, RetrieveInventoryChangesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

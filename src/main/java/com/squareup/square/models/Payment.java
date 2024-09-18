@@ -45,6 +45,7 @@ public class Payment {
     private final OptionalNullable<String> teamMemberId;
     private final List<String> refundIds;
     private final RiskEvaluation riskEvaluation;
+    private final String terminalCheckoutId;
     private final String buyerEmailAddress;
     private final Address billingAddress;
     private final Address shippingAddress;
@@ -91,6 +92,7 @@ public class Payment {
      * @param  teamMemberId  String value for teamMemberId.
      * @param  refundIds  List of String value for refundIds.
      * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
+     * @param  terminalCheckoutId  String value for terminalCheckoutId.
      * @param  buyerEmailAddress  String value for buyerEmailAddress.
      * @param  billingAddress  Address value for billingAddress.
      * @param  shippingAddress  Address value for shippingAddress.
@@ -137,6 +139,7 @@ public class Payment {
             @JsonProperty("team_member_id") String teamMemberId,
             @JsonProperty("refund_ids") List<String> refundIds,
             @JsonProperty("risk_evaluation") RiskEvaluation riskEvaluation,
+            @JsonProperty("terminal_checkout_id") String terminalCheckoutId,
             @JsonProperty("buyer_email_address") String buyerEmailAddress,
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("shipping_address") Address shippingAddress,
@@ -180,6 +183,7 @@ public class Payment {
         this.teamMemberId = OptionalNullable.of(teamMemberId);
         this.refundIds = refundIds;
         this.riskEvaluation = riskEvaluation;
+        this.terminalCheckoutId = terminalCheckoutId;
         this.buyerEmailAddress = buyerEmailAddress;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -227,6 +231,7 @@ public class Payment {
      * @param  teamMemberId  String value for teamMemberId.
      * @param  refundIds  List of String value for refundIds.
      * @param  riskEvaluation  RiskEvaluation value for riskEvaluation.
+     * @param  terminalCheckoutId  String value for terminalCheckoutId.
      * @param  buyerEmailAddress  String value for buyerEmailAddress.
      * @param  billingAddress  Address value for billingAddress.
      * @param  shippingAddress  Address value for shippingAddress.
@@ -252,10 +257,10 @@ public class Payment {
             SquareAccountDetails squareAccountDetails, String locationId, String orderId,
             String referenceId, String customerId, String employeeId,
             OptionalNullable<String> teamMemberId, List<String> refundIds,
-            RiskEvaluation riskEvaluation, String buyerEmailAddress, Address billingAddress,
-            Address shippingAddress, String note, String statementDescriptionIdentifier,
-            List<String> capabilities, String receiptNumber, String receiptUrl,
-            DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
+            RiskEvaluation riskEvaluation, String terminalCheckoutId, String buyerEmailAddress,
+            Address billingAddress, Address shippingAddress, String note,
+            String statementDescriptionIdentifier, List<String> capabilities, String receiptNumber,
+            String receiptUrl, DeviceDetails deviceDetails, ApplicationDetails applicationDetails,
             Boolean isOfflinePayment, OfflinePaymentDetails offlinePaymentDetails,
             OptionalNullable<String> versionToken) {
         this.id = id;
@@ -288,6 +293,7 @@ public class Payment {
         this.teamMemberId = teamMemberId;
         this.refundIds = refundIds;
         this.riskEvaluation = riskEvaluation;
+        this.terminalCheckoutId = terminalCheckoutId;
         this.buyerEmailAddress = buyerEmailAddress;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -715,6 +721,17 @@ public class Payment {
     }
 
     /**
+     * Getter for TerminalCheckoutId.
+     * An optional ID for a Terminal checkout that is associated with the payment.
+     * @return Returns the String
+     */
+    @JsonGetter("terminal_checkout_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTerminalCheckoutId() {
+        return terminalCheckoutId;
+    }
+
+    /**
      * Getter for BuyerEmailAddress.
      * The buyer's email address.
      * @return Returns the String
@@ -885,10 +902,10 @@ public class Payment {
                 delayAction, delayedUntil, sourceType, cardDetails, cashDetails, bankAccountDetails,
                 externalDetails, walletDetails, buyNowPayLaterDetails, squareAccountDetails,
                 locationId, orderId, referenceId, customerId, employeeId, teamMemberId, refundIds,
-                riskEvaluation, buyerEmailAddress, billingAddress, shippingAddress, note,
-                statementDescriptionIdentifier, capabilities, receiptNumber, receiptUrl,
-                deviceDetails, applicationDetails, isOfflinePayment, offlinePaymentDetails,
-                versionToken);
+                riskEvaluation, terminalCheckoutId, buyerEmailAddress, billingAddress,
+                shippingAddress, note, statementDescriptionIdentifier, capabilities, receiptNumber,
+                receiptUrl, deviceDetails, applicationDetails, isOfflinePayment,
+                offlinePaymentDetails, versionToken);
     }
 
     @Override
@@ -930,6 +947,7 @@ public class Payment {
             && Objects.equals(teamMemberId, other.teamMemberId)
             && Objects.equals(refundIds, other.refundIds)
             && Objects.equals(riskEvaluation, other.riskEvaluation)
+            && Objects.equals(terminalCheckoutId, other.terminalCheckoutId)
             && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
             && Objects.equals(billingAddress, other.billingAddress)
             && Objects.equals(shippingAddress, other.shippingAddress)
@@ -965,7 +983,8 @@ public class Payment {
                 + ", locationId=" + locationId + ", orderId=" + orderId + ", referenceId="
                 + referenceId + ", customerId=" + customerId + ", employeeId=" + employeeId
                 + ", teamMemberId=" + teamMemberId + ", refundIds=" + refundIds
-                + ", riskEvaluation=" + riskEvaluation + ", buyerEmailAddress=" + buyerEmailAddress
+                + ", riskEvaluation=" + riskEvaluation + ", terminalCheckoutId="
+                + terminalCheckoutId + ", buyerEmailAddress=" + buyerEmailAddress
                 + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
                 + ", note=" + note + ", statementDescriptionIdentifier="
                 + statementDescriptionIdentifier + ", capabilities=" + capabilities
@@ -1010,6 +1029,7 @@ public class Payment {
                 .employeeId(getEmployeeId())
                 .refundIds(getRefundIds())
                 .riskEvaluation(getRiskEvaluation())
+                .terminalCheckoutId(getTerminalCheckoutId())
                 .buyerEmailAddress(getBuyerEmailAddress())
                 .billingAddress(getBillingAddress())
                 .shippingAddress(getShippingAddress())
@@ -1062,6 +1082,7 @@ public class Payment {
         private OptionalNullable<String> teamMemberId;
         private List<String> refundIds;
         private RiskEvaluation riskEvaluation;
+        private String terminalCheckoutId;
         private String buyerEmailAddress;
         private Address billingAddress;
         private Address shippingAddress;
@@ -1397,6 +1418,16 @@ public class Payment {
         }
 
         /**
+         * Setter for terminalCheckoutId.
+         * @param  terminalCheckoutId  String value for terminalCheckoutId.
+         * @return Builder
+         */
+        public Builder terminalCheckoutId(String terminalCheckoutId) {
+            this.terminalCheckoutId = terminalCheckoutId;
+            return this;
+        }
+
+        /**
          * Setter for buyerEmailAddress.
          * @param  buyerEmailAddress  String value for buyerEmailAddress.
          * @return Builder
@@ -1545,10 +1576,10 @@ public class Payment {
                     delayAction, delayedUntil, sourceType, cardDetails, cashDetails,
                     bankAccountDetails, externalDetails, walletDetails, buyNowPayLaterDetails,
                     squareAccountDetails, locationId, orderId, referenceId, customerId, employeeId,
-                    teamMemberId, refundIds, riskEvaluation, buyerEmailAddress, billingAddress,
-                    shippingAddress, note, statementDescriptionIdentifier, capabilities,
-                    receiptNumber, receiptUrl, deviceDetails, applicationDetails, isOfflinePayment,
-                    offlinePaymentDetails, versionToken);
+                    teamMemberId, refundIds, riskEvaluation, terminalCheckoutId, buyerEmailAddress,
+                    billingAddress, shippingAddress, note, statementDescriptionIdentifier,
+                    capabilities, receiptNumber, receiptUrl, deviceDetails, applicationDetails,
+                    isOfflinePayment, offlinePaymentDetails, versionToken);
         }
     }
 }

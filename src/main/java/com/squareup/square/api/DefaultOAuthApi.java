@@ -97,7 +97,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
                                 response -> ApiHelper.deserialize(response, RevokeTokenResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -171,7 +171,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
                                 response -> ApiHelper.deserialize(response, ObtainTokenResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -234,7 +234,7 @@ public final class DefaultOAuthApi extends BaseApi implements OAuthApi {
                                 response -> ApiHelper.deserialize(response, RetrieveTokenStatusResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

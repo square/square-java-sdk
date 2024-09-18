@@ -112,7 +112,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                         .contextInitializer((context, result) -> {
                                 for (int i = 0; i < result.size(); i++) {
                                 result.set(i, result.get(i).toBuilder()
-                                        .httpContext((HttpContext)context).build());
+                                        .httpContext((HttpContext) context).build());
                                 }
                                 return result;
                                 })
@@ -184,7 +184,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                                 response -> ApiHelper.deserialize(response, V1Order.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -264,7 +264,7 @@ public final class DefaultV1TransactionsApi extends BaseApi implements V1Transac
                                 response -> ApiHelper.deserialize(response, V1Order.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

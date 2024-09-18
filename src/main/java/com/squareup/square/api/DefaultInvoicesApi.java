@@ -117,7 +117,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, ListInvoicesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -179,7 +179,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, CreateInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -243,7 +243,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, SearchInvoicesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -312,7 +312,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, DeleteInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -364,7 +364,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, GetInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -431,7 +431,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, UpdateInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -515,7 +515,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, CreateInvoiceAttachmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -580,7 +580,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, DeleteInvoiceAttachmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -647,7 +647,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, CancelInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -726,7 +726,7 @@ public final class DefaultInvoicesApi extends BaseApi implements InvoicesApi {
                                 response -> ApiHelper.deserialize(response, PublishInvoiceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

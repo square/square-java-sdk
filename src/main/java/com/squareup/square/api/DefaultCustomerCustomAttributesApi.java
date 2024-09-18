@@ -118,7 +118,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListCustomerCustomAttributeDefinitionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -192,7 +192,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, CreateCustomerCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -250,7 +250,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteCustomerCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -329,7 +329,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveCustomerCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -400,7 +400,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpdateCustomerCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -478,7 +478,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, BulkUpsertCustomerCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -585,7 +585,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListCustomerCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -656,7 +656,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteCustomerCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -763,7 +763,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveCustomerCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -855,7 +855,7 @@ public final class DefaultCustomerCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpsertCustomerCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

@@ -98,7 +98,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, CreateOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -156,7 +156,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveOrdersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -212,7 +212,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, CalculateOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -272,7 +272,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, CloneOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -346,7 +346,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, SearchOrdersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -398,7 +398,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, RetrieveOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -479,7 +479,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, UpdateOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -558,7 +558,7 @@ public final class DefaultOrdersApi extends BaseApi implements OrdersApi {
                                 response -> ApiHelper.deserialize(response, PayOrderResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

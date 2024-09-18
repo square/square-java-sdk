@@ -129,7 +129,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListLocationCustomAttributeDefinitionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -197,7 +197,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, CreateLocationCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -255,7 +255,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteLocationCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -332,7 +332,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveLocationCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -401,7 +401,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpdateLocationCustomAttributeDefinitionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -461,7 +461,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, BulkDeleteLocationCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -537,7 +537,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, BulkUpsertLocationCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -651,7 +651,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, ListLocationCustomAttributesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -718,7 +718,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, DeleteLocationCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -819,7 +819,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, RetrieveLocationCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -905,7 +905,7 @@ public final class DefaultLocationCustomAttributesApi extends BaseApi implements
                                 response -> ApiHelper.deserialize(response, UpsertLocationCustomAttributeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

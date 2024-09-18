@@ -156,7 +156,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, ListBookingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -226,7 +226,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, CreateBookingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -286,7 +286,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, SearchAvailabilityResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -348,7 +348,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, BulkRetrieveBookingsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -393,7 +393,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveBusinessBookingProfileResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -458,7 +458,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, ListLocationBookingProfilesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -512,7 +512,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLocationBookingProfileResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -597,7 +597,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, ListTeamMemberBookingProfilesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -653,7 +653,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, BulkRetrieveTeamMemberBookingProfilesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -705,7 +705,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveTeamMemberBookingProfileResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -763,7 +763,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveBookingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -836,7 +836,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, UpdateBookingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -909,7 +909,7 @@ public final class DefaultBookingsApi extends BaseApi implements BookingsApi {
                                 response -> ApiHelper.deserialize(response, CancelBookingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

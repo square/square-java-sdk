@@ -31,6 +31,7 @@ public class Booking {
     private final String locationType;
     private final BookingCreatorDetails creatorDetails;
     private final String source;
+    private final Address address;
 
     /**
      * Initialization constructor.
@@ -50,6 +51,7 @@ public class Booking {
      * @param  locationType  String value for locationType.
      * @param  creatorDetails  BookingCreatorDetails value for creatorDetails.
      * @param  source  String value for source.
+     * @param  address  Address value for address.
      */
     @JsonCreator
     public Booking(
@@ -68,7 +70,8 @@ public class Booking {
             @JsonProperty("all_day") Boolean allDay,
             @JsonProperty("location_type") String locationType,
             @JsonProperty("creator_details") BookingCreatorDetails creatorDetails,
-            @JsonProperty("source") String source) {
+            @JsonProperty("source") String source,
+            @JsonProperty("address") Address address) {
         this.id = id;
         this.version = version;
         this.status = status;
@@ -85,6 +88,7 @@ public class Booking {
         this.locationType = locationType;
         this.creatorDetails = creatorDetails;
         this.source = source;
+        this.address = address;
     }
 
     /**
@@ -105,6 +109,7 @@ public class Booking {
      * @param  locationType  String value for locationType.
      * @param  creatorDetails  BookingCreatorDetails value for creatorDetails.
      * @param  source  String value for source.
+     * @param  address  Address value for address.
      */
 
     protected Booking(String id, Integer version, String status, String createdAt, String updatedAt,
@@ -113,7 +118,7 @@ public class Booking {
             OptionalNullable<String> sellerNote,
             OptionalNullable<List<AppointmentSegment>> appointmentSegments,
             Integer transitionTimeMinutes, Boolean allDay, String locationType,
-            BookingCreatorDetails creatorDetails, String source) {
+            BookingCreatorDetails creatorDetails, String source, Address address) {
         this.id = id;
         this.version = version;
         this.status = status;
@@ -130,6 +135,7 @@ public class Booking {
         this.locationType = locationType;
         this.creatorDetails = creatorDetails;
         this.source = source;
+        this.address = address;
     }
 
     /**
@@ -389,11 +395,23 @@ public class Booking {
         return source;
     }
 
+    /**
+     * Getter for Address.
+     * Represents a postal address in a country. For more information, see [Working with
+     * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
+     * @return Returns the Address
+     */
+    @JsonGetter("address")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Address getAddress() {
+        return address;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, version, status, createdAt, updatedAt, startAt, locationId,
                 customerId, customerNote, sellerNote, appointmentSegments, transitionTimeMinutes,
-                allDay, locationType, creatorDetails, source);
+                allDay, locationType, creatorDetails, source, address);
     }
 
     @Override
@@ -420,7 +438,8 @@ public class Booking {
             && Objects.equals(allDay, other.allDay)
             && Objects.equals(locationType, other.locationType)
             && Objects.equals(creatorDetails, other.creatorDetails)
-            && Objects.equals(source, other.source);
+            && Objects.equals(source, other.source)
+            && Objects.equals(address, other.address);
     }
 
     /**
@@ -435,7 +454,7 @@ public class Booking {
                 + customerNote + ", sellerNote=" + sellerNote + ", appointmentSegments="
                 + appointmentSegments + ", transitionTimeMinutes=" + transitionTimeMinutes
                 + ", allDay=" + allDay + ", locationType=" + locationType + ", creatorDetails="
-                + creatorDetails + ", source=" + source + "]";
+                + creatorDetails + ", source=" + source + ", address=" + address + "]";
     }
 
     /**
@@ -454,7 +473,8 @@ public class Booking {
                 .allDay(getAllDay())
                 .locationType(getLocationType())
                 .creatorDetails(getCreatorDetails())
-                .source(getSource());
+                .source(getSource())
+                .address(getAddress());
         builder.startAt = internalGetStartAt();
         builder.locationId = internalGetLocationId();
         builder.customerId = internalGetCustomerId();
@@ -484,6 +504,7 @@ public class Booking {
         private String locationType;
         private BookingCreatorDetails creatorDetails;
         private String source;
+        private Address address;
 
 
 
@@ -702,13 +723,23 @@ public class Booking {
         }
 
         /**
+         * Setter for address.
+         * @param  address  Address value for address.
+         * @return Builder
+         */
+        public Builder address(Address address) {
+            this.address = address;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Booking} object using the set fields.
          * @return {@link Booking}
          */
         public Booking build() {
             return new Booking(id, version, status, createdAt, updatedAt, startAt, locationId,
                     customerId, customerNote, sellerNote, appointmentSegments,
-                    transitionTimeMinutes, allDay, locationType, creatorDetails, source);
+                    transitionTimeMinutes, allDay, locationType, creatorDetails, source, address);
         }
     }
 }

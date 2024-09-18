@@ -103,7 +103,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                                 response -> ApiHelper.deserialize(response, ListBankAccountsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -161,7 +161,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                                 response -> ApiHelper.deserialize(response, GetBankAccountByV1IdResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -213,7 +213,7 @@ public final class DefaultBankAccountsApi extends BaseApi implements BankAccount
                                 response -> ApiHelper.deserialize(response, GetBankAccountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

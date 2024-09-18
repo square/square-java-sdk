@@ -151,7 +151,7 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
                                 response -> ApiHelper.deserialize(response, ListPayoutsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -205,7 +205,7 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
                                 response -> ApiHelper.deserialize(response, GetPayoutResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -298,7 +298,7 @@ public final class DefaultPayoutsApi extends BaseApi implements PayoutsApi {
                                 response -> ApiHelper.deserialize(response, ListPayoutEntriesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
