@@ -119,7 +119,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, BatchDeleteCatalogObjectsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -183,7 +183,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, BatchRetrieveCatalogObjectsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -257,7 +257,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, BatchUpsertCatalogObjectsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -330,7 +330,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, CreateCatalogImageResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -410,7 +410,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, UpdateCatalogImageResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -457,7 +457,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, CatalogInfoResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -567,7 +567,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, ListCatalogResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -629,7 +629,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, UpsertCatalogObjectResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -701,7 +701,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, DeleteCatalogObjectResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -828,7 +828,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, RetrieveCatalogObjectResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -904,7 +904,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, SearchCatalogObjectsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -980,7 +980,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, SearchCatalogItemsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1038,7 +1038,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, UpdateItemModifierListsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1096,7 +1096,7 @@ public final class DefaultCatalogApi extends BaseApi implements CatalogApi {
                                 response -> ApiHelper.deserialize(response, UpdateItemTaxesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

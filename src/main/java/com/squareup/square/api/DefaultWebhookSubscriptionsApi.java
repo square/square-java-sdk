@@ -87,7 +87,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, ListWebhookEventTypesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -180,7 +180,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, ListWebhookSubscriptionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -236,7 +236,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, CreateWebhookSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -290,7 +290,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, DeleteWebhookSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -344,7 +344,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, RetrieveWebhookSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -409,7 +409,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, UpdateWebhookSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -474,7 +474,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, UpdateWebhookSubscriptionSignatureKeyResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -539,7 +539,7 @@ public final class DefaultWebhookSubscriptionsApi extends BaseApi implements Web
                                 response -> ApiHelper.deserialize(response, TestWebhookSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

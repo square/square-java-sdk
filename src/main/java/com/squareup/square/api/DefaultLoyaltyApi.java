@@ -107,7 +107,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, CreateLoyaltyAccountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -169,7 +169,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, SearchLoyaltyAccountsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -223,7 +223,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLoyaltyAccountResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -314,7 +314,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, AccumulateLoyaltyPointsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -385,7 +385,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, AdjustLoyaltyPointsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -449,7 +449,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, SearchLoyaltyEventsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -512,7 +512,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, ListLoyaltyProgramsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -576,7 +576,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLoyaltyProgramResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -667,7 +667,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, CalculateLoyaltyPointsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -764,7 +764,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, ListLoyaltyPromotionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -841,7 +841,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, CreateLoyaltyPromotionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -908,7 +908,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLoyaltyPromotionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -981,7 +981,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, CancelLoyaltyPromotionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1045,7 +1045,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, CreateLoyaltyRewardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1109,7 +1109,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, SearchLoyaltyRewardsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1171,7 +1171,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, DeleteLoyaltyRewardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1225,7 +1225,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, RetrieveLoyaltyRewardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1298,7 +1298,7 @@ public final class DefaultLoyaltyApi extends BaseApi implements LoyaltyApi {
                                 response -> ApiHelper.deserialize(response, RedeemLoyaltyRewardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

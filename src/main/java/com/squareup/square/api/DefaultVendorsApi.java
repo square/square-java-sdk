@@ -90,7 +90,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, BulkCreateVendorsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -146,7 +146,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, BulkRetrieveVendorsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -202,7 +202,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, BulkUpdateVendorsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -258,7 +258,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, CreateVendorResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -316,7 +316,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, SearchVendorsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -368,7 +368,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveVendorResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -431,7 +431,7 @@ public final class DefaultVendorsApi extends BaseApi implements VendorsApi {
                                 response -> ApiHelper.deserialize(response, UpdateVendorResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

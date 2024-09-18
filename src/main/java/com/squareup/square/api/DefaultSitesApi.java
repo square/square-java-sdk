@@ -72,7 +72,7 @@ public final class DefaultSitesApi extends BaseApi implements SitesApi {
                                 response -> ApiHelper.deserialize(response, ListSitesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

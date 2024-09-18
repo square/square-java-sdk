@@ -101,7 +101,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
                                 response -> ApiHelper.deserialize(response, ListCustomerGroupsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -159,7 +159,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
                                 response -> ApiHelper.deserialize(response, CreateCustomerGroupResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -211,7 +211,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
                                 response -> ApiHelper.deserialize(response, DeleteCustomerGroupResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -263,7 +263,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
                                 response -> ApiHelper.deserialize(response, RetrieveCustomerGroupResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -326,7 +326,7 @@ public final class DefaultCustomerGroupsApi extends BaseApi implements CustomerG
                                 response -> ApiHelper.deserialize(response, UpdateCustomerGroupResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

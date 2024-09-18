@@ -101,7 +101,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
                                 response -> ApiHelper.deserialize(response, ListEmployeesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -157,7 +157,7 @@ public final class DefaultEmployeesApi extends BaseApi implements EmployeesApi {
                                 response -> ApiHelper.deserialize(response, RetrieveEmployeeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

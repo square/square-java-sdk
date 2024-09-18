@@ -89,7 +89,7 @@ public final class DefaultMobileAuthorizationApi extends BaseApi implements Mobi
                                 response -> ApiHelper.deserialize(response, CreateMobileAuthorizationCodeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

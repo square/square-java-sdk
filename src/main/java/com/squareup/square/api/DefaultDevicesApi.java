@@ -114,7 +114,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                                 response -> ApiHelper.deserialize(response, ListDevicesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -201,7 +201,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                                 response -> ApiHelper.deserialize(response, ListDeviceCodesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -259,7 +259,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                                 response -> ApiHelper.deserialize(response, CreateDeviceCodeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -311,7 +311,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                                 response -> ApiHelper.deserialize(response, GetDeviceCodeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -363,7 +363,7 @@ public final class DefaultDevicesApi extends BaseApi implements DevicesApi {
                                 response -> ApiHelper.deserialize(response, GetDeviceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

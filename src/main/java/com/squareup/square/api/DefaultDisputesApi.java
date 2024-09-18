@@ -112,7 +112,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, ListDisputesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -164,7 +164,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, RetrieveDisputeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -222,7 +222,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, AcceptDisputeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -287,7 +287,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, ListDisputeEvidenceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -365,7 +365,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, CreateDisputeEvidenceFileResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -430,7 +430,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, CreateDisputeEvidenceTextResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -493,7 +493,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, DeleteDisputeEvidenceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -558,7 +558,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, RetrieveDisputeEvidenceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -622,7 +622,7 @@ public final class DefaultDisputesApi extends BaseApi implements DisputesApi {
                                 response -> ApiHelper.deserialize(response, SubmitEvidenceResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

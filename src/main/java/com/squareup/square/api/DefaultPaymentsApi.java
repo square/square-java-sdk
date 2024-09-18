@@ -215,7 +215,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, ListPaymentsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -277,7 +277,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, CreatePaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -347,7 +347,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, CancelPaymentByIdempotencyKeyResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -399,7 +399,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, GetPaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -464,7 +464,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, UpdatePaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -518,7 +518,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, CancelPaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -583,7 +583,7 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 response -> ApiHelper.deserialize(response, CompletePaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

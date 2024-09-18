@@ -107,7 +107,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, CreateSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -167,7 +167,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, BulkSwapPlanResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -235,7 +235,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, SearchSubscriptionsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -298,7 +298,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, RetrieveSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -363,7 +363,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, UpdateSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -424,7 +424,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, DeleteSubscriptionActionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -493,7 +493,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, ChangeBillingAnchorDateResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -549,7 +549,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, CancelSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -629,7 +629,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, ListSubscriptionEventsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -692,7 +692,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, PauseSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -755,7 +755,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, ResumeSubscriptionResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -824,7 +824,7 @@ public final class DefaultSubscriptionsApi extends BaseApi implements Subscripti
                                 response -> ApiHelper.deserialize(response, SwapPlanResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

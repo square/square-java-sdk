@@ -97,7 +97,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
                                 response -> ApiHelper.deserialize(response, ListCustomerSegmentsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -149,7 +149,7 @@ public final class DefaultCustomerSegmentsApi extends BaseApi implements Custome
                                 response -> ApiHelper.deserialize(response, RetrieveCustomerSegmentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

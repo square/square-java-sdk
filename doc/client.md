@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-08-21"` |
+| `squareVersion` | `String` | Square Connect API versions<br>*Default*: `"2024-09-19"` |
 | `customUrl` | `String` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `"https://connect.squareup.com"` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
@@ -19,7 +19,7 @@ The API client can be initialized as follows:
 SquareClient client = new SquareClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .squareVersion("2024-08-21")
+    .squareVersion("2024-09-19")
     .bearerAuthCredentials(new BearerAuthModel.Builder(
             "AccessToken"
         )
@@ -34,6 +34,7 @@ SquareClient client = new SquareClient.Builder()
 ```java
 package com.example;
 
+import com.squareup.square.Environment;
 import com.squareup.square.SquareClient;
 import com.squareup.square.api.LocationsApi;
 import com.squareup.square.authentication.BearerAuthModel;
@@ -44,11 +45,13 @@ public class Program {
         SquareClient client = new SquareClient.Builder()
             .httpClientConfig(configBuilder -> configBuilder
                     .timeout(0))
-            .squareVersion("2024-08-21")
+            .squareVersion("2024-09-19")
             .bearerAuthCredentials(new BearerAuthModel.Builder(
                     "AccessToken"
                 )
                 .build())
+            .environment(Environment.PRODUCTION)
+            .customUrl("https://connect.squareup.com")
             .build();
 
         LocationsApi locationsApi = client.getLocationsApi();

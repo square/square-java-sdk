@@ -174,7 +174,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
                                 response -> ApiHelper.deserialize(response, ListPaymentRefundsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -236,7 +236,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
                                 response -> ApiHelper.deserialize(response, RefundPaymentResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -288,7 +288,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
                                 response -> ApiHelper.deserialize(response, GetPaymentRefundResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

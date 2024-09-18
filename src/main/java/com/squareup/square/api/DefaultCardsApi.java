@@ -126,7 +126,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
                                 response -> ApiHelper.deserialize(response, ListCardsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -182,7 +182,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
                                 response -> ApiHelper.deserialize(response, CreateCardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -234,7 +234,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveCardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -288,7 +288,7 @@ public final class DefaultCardsApi extends BaseApi implements CardsApi {
                                 response -> ApiHelper.deserialize(response, DisableCardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

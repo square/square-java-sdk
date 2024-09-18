@@ -97,7 +97,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, CreateTeamMemberResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -163,7 +163,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, BulkCreateTeamMembersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -229,7 +229,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, BulkUpdateTeamMembersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -287,7 +287,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, SearchTeamMembersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -343,7 +343,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, RetrieveTeamMemberResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -410,7 +410,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, UpdateTeamMemberResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -468,7 +468,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, RetrieveWageSettingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -541,7 +541,7 @@ public final class DefaultTeamApi extends BaseApi implements TeamApi {
                                 response -> ApiHelper.deserialize(response, UpdateWageSettingResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

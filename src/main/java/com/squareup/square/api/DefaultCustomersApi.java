@@ -151,7 +151,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, ListCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -211,7 +211,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, CreateCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -273,7 +273,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, BulkCreateCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -331,7 +331,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, BulkDeleteCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -389,7 +389,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, BulkRetrieveCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -449,7 +449,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, BulkUpdateCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -517,7 +517,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, SearchCustomersResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -588,7 +588,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, DeleteCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -640,7 +640,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, RetrieveCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -713,7 +713,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, UpdateCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -788,7 +788,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, CreateCustomerCardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -855,7 +855,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, DeleteCustomerCardResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -918,7 +918,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, RemoveGroupFromCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -979,7 +979,7 @@ public final class DefaultCustomersApi extends BaseApi implements CustomersApi {
                                 response -> ApiHelper.deserialize(response, AddGroupToCustomerResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

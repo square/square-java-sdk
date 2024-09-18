@@ -85,7 +85,7 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                                 response -> ApiHelper.deserialize(response, DeleteSnippetResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -147,7 +147,7 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                                 response -> ApiHelper.deserialize(response, RetrieveSnippetResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -224,7 +224,7 @@ public final class DefaultSnippetsApi extends BaseApi implements SnippetsApi {
                                 response -> ApiHelper.deserialize(response, UpsertSnippetResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

@@ -122,7 +122,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                                 response -> ApiHelper.deserialize(response, ListCashDrawerShiftsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -187,7 +187,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                                 response -> ApiHelper.deserialize(response, RetrieveCashDrawerShiftResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -266,7 +266,7 @@ public final class DefaultCashDrawersApi extends BaseApi implements CashDrawersA
                                 response -> ApiHelper.deserialize(response, ListCashDrawerShiftEventsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

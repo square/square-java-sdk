@@ -115,7 +115,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, ListBreakTypesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -179,7 +179,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, CreateBreakTypeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -233,7 +233,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, DeleteBreakTypeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -285,7 +285,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, GetBreakTypeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -348,7 +348,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, UpdateBreakTypeResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -426,7 +426,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, ListEmployeeWagesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -484,7 +484,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, GetEmployeeWageResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -554,7 +554,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, CreateShiftResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -616,7 +616,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, SearchShiftsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -668,7 +668,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, DeleteShiftResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -720,7 +720,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, GetShiftResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -789,7 +789,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, UpdateShiftResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -861,7 +861,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, ListTeamMemberWagesResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -913,7 +913,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, GetTeamMemberWageResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -976,7 +976,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, ListWorkweekConfigsResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -1039,7 +1039,7 @@ public final class DefaultLaborApi extends BaseApi implements LaborApi {
                                 response -> ApiHelper.deserialize(response, UpdateWorkweekConfigResponse.class))
                         .nullify404(false)
                         .contextInitializer((context, result) ->
-                                result.toBuilder().httpContext((HttpContext)context).build())
+                                result.toBuilder().httpContext((HttpContext) context).build())
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
