@@ -11,31 +11,27 @@ import io.apimatic.core.types.OptionalNullable;
 import java.util.Objects;
 
 /**
- * This is a model class for ExternalPaymentDetails type.
+ * This is a model class for DestinationDetailsExternalRefundDetails type.
  */
-public class ExternalPaymentDetails {
+public class DestinationDetailsExternalRefundDetails {
     private final String type;
     private final String source;
     private final OptionalNullable<String> sourceId;
-    private final Money sourceFeeMoney;
 
     /**
      * Initialization constructor.
      * @param  type  String value for type.
      * @param  source  String value for source.
      * @param  sourceId  String value for sourceId.
-     * @param  sourceFeeMoney  Money value for sourceFeeMoney.
      */
     @JsonCreator
-    public ExternalPaymentDetails(
+    public DestinationDetailsExternalRefundDetails(
             @JsonProperty("type") String type,
             @JsonProperty("source") String source,
-            @JsonProperty("source_id") String sourceId,
-            @JsonProperty("source_fee_money") Money sourceFeeMoney) {
+            @JsonProperty("source_id") String sourceId) {
         this.type = type;
         this.source = source;
         this.sourceId = OptionalNullable.of(sourceId);
-        this.sourceFeeMoney = sourceFeeMoney;
     }
 
     /**
@@ -43,28 +39,26 @@ public class ExternalPaymentDetails {
      * @param  type  String value for type.
      * @param  source  String value for source.
      * @param  sourceId  String value for sourceId.
-     * @param  sourceFeeMoney  Money value for sourceFeeMoney.
      */
 
-    protected ExternalPaymentDetails(String type, String source, OptionalNullable<String> sourceId,
-            Money sourceFeeMoney) {
+    protected DestinationDetailsExternalRefundDetails(String type, String source,
+            OptionalNullable<String> sourceId) {
         this.type = type;
         this.source = source;
         this.sourceId = sourceId;
-        this.sourceFeeMoney = sourceFeeMoney;
     }
 
     /**
      * Getter for Type.
-     * The type of external payment the seller received. It can be one of the following: - CHECK -
-     * Paid using a physical check. - BANK_TRANSFER - Paid using external bank transfer. -
-     * OTHER\\_GIFT\\_CARD - Paid using a non-Square gift card. - CRYPTO - Paid using a crypto
-     * currency. - SQUARE_CASH - Paid using Square Cash App. - SOCIAL - Paid using peer-to-peer
-     * payment applications. - EXTERNAL - A third-party application gathered this payment outside of
-     * Square. - EMONEY - Paid using an E-money provider. - CARD - A credit or debit card that
-     * Square does not support. - STORED_BALANCE - Use for house accounts, store credit, and so
-     * forth. - FOOD_VOUCHER - Restaurant voucher provided by employers to employees to pay for
-     * meals - OTHER - A type not listed here.
+     * The type of external refund the seller paid to the buyer. It can be one of the following: -
+     * CHECK - Refunded using a physical check. - BANK_TRANSFER - Refunded using external bank
+     * transfer. - OTHER\\_GIFT\\_CARD - Refunded using a non-Square gift card. - CRYPTO - Refunded
+     * using a crypto currency. - SQUARE_CASH - Refunded using Square Cash App. - SOCIAL - Refunded
+     * using peer-to-peer payment applications. - EXTERNAL - A third-party application gathered this
+     * refund outside of Square. - EMONEY - Refunded using an E-money provider. - CARD - A credit or
+     * debit card that Square does not support. - STORED_BALANCE - Use for house accounts, store
+     * credit, and so forth. - FOOD_VOUCHER - Restaurant voucher provided by employers to employees
+     * to pay for meals - OTHER - A type not listed here.
      * @return Returns the String
      */
     @JsonGetter("type")
@@ -74,7 +68,7 @@ public class ExternalPaymentDetails {
 
     /**
      * Getter for Source.
-     * A description of the external payment source. For example, "Food Delivery Service".
+     * A description of the external refund source. For example, "Food Delivery Service".
      * @return Returns the String
      */
     @JsonGetter("source")
@@ -84,7 +78,7 @@ public class ExternalPaymentDetails {
 
     /**
      * Internal Getter for SourceId.
-     * An ID to associate the payment to its originating source.
+     * An ID to associate the refund to its originating source.
      * @return Returns the Internal String
      */
     @JsonGetter("source_id")
@@ -96,7 +90,7 @@ public class ExternalPaymentDetails {
 
     /**
      * Getter for SourceId.
-     * An ID to associate the payment to its originating source.
+     * An ID to associate the refund to its originating source.
      * @return Returns the String
      */
     @JsonIgnore
@@ -104,25 +98,9 @@ public class ExternalPaymentDetails {
         return OptionalNullable.getFrom(sourceId);
     }
 
-    /**
-     * Getter for SourceFeeMoney.
-     * Represents an amount of money. `Money` fields can be signed or unsigned. Fields that do not
-     * explicitly define whether they are signed or unsigned are considered unsigned and can only
-     * hold positive amounts. For signed fields, the sign of the value indicates the purpose of the
-     * money transfer. See [Working with Monetary
-     * Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts) for
-     * more information.
-     * @return Returns the Money
-     */
-    @JsonGetter("source_fee_money")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Money getSourceFeeMoney() {
-        return sourceFeeMoney;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(type, source, sourceId, sourceFeeMoney);
+        return Objects.hash(type, source, sourceId);
     }
 
     @Override
@@ -130,46 +108,44 @@ public class ExternalPaymentDetails {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof ExternalPaymentDetails)) {
+        if (!(obj instanceof DestinationDetailsExternalRefundDetails)) {
             return false;
         }
-        ExternalPaymentDetails other = (ExternalPaymentDetails) obj;
+        DestinationDetailsExternalRefundDetails other =
+                (DestinationDetailsExternalRefundDetails) obj;
         return Objects.equals(type, other.type)
             && Objects.equals(source, other.source)
-            && Objects.equals(sourceId, other.sourceId)
-            && Objects.equals(sourceFeeMoney, other.sourceFeeMoney);
+            && Objects.equals(sourceId, other.sourceId);
     }
 
     /**
-     * Converts this ExternalPaymentDetails into string format.
+     * Converts this DestinationDetailsExternalRefundDetails into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ExternalPaymentDetails [" + "type=" + type + ", source=" + source + ", sourceId="
-                + sourceId + ", sourceFeeMoney=" + sourceFeeMoney + "]";
+        return "DestinationDetailsExternalRefundDetails [" + "type=" + type + ", source=" + source
+                + ", sourceId=" + sourceId + "]";
     }
 
     /**
-     * Builds a new {@link ExternalPaymentDetails.Builder} object.
+     * Builds a new {@link DestinationDetailsExternalRefundDetails.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ExternalPaymentDetails.Builder} object
+     * @return a new {@link DestinationDetailsExternalRefundDetails.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(type, source)
-                .sourceFeeMoney(getSourceFeeMoney());
+        Builder builder = new Builder(type, source);
         builder.sourceId = internalGetSourceId();
         return builder;
     }
 
     /**
-     * Class to build instances of {@link ExternalPaymentDetails}.
+     * Class to build instances of {@link DestinationDetailsExternalRefundDetails}.
      */
     public static class Builder {
         private String type;
         private String source;
         private OptionalNullable<String> sourceId;
-        private Money sourceFeeMoney;
 
         /**
          * Initialization constructor.
@@ -221,21 +197,11 @@ public class ExternalPaymentDetails {
         }
 
         /**
-         * Setter for sourceFeeMoney.
-         * @param  sourceFeeMoney  Money value for sourceFeeMoney.
-         * @return Builder
+         * Builds a new {@link DestinationDetailsExternalRefundDetails} object using the set fields.
+         * @return {@link DestinationDetailsExternalRefundDetails}
          */
-        public Builder sourceFeeMoney(Money sourceFeeMoney) {
-            this.sourceFeeMoney = sourceFeeMoney;
-            return this;
-        }
-
-        /**
-         * Builds a new {@link ExternalPaymentDetails} object using the set fields.
-         * @return {@link ExternalPaymentDetails}
-         */
-        public ExternalPaymentDetails build() {
-            return new ExternalPaymentDetails(type, source, sourceId, sourceFeeMoney);
+        public DestinationDetailsExternalRefundDetails build() {
+            return new DestinationDetailsExternalRefundDetails(type, source, sourceId);
         }
     }
 }

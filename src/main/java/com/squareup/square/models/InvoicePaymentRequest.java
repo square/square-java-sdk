@@ -167,7 +167,7 @@ public class InvoicePaymentRequest {
      * This field is required to create a payment request. If an `automatic_payment_source` is
      * defined for the request, Square charges the payment source on this date. After this date, the
      * invoice becomes overdue. For example, a payment `due_date` of 2021-03-09 with a `timezone` of
-     * America/Los\_Angeles becomes overdue at midnight on March 9 in America/Los\_Angeles (which
+     * America/Los\\_Angeles becomes overdue at midnight on March 9 in America/Los\\_Angeles (which
      * equals a UTC timestamp of 2021-03-10T08:00:00Z).
      * @return Returns the Internal String
      */
@@ -184,7 +184,7 @@ public class InvoicePaymentRequest {
      * This field is required to create a payment request. If an `automatic_payment_source` is
      * defined for the request, Square charges the payment source on this date. After this date, the
      * invoice becomes overdue. For example, a payment `due_date` of 2021-03-09 with a `timezone` of
-     * America/Los\_Angeles becomes overdue at midnight on March 9 in America/Los\_Angeles (which
+     * America/Los\\_Angeles becomes overdue at midnight on March 9 in America/Los\\_Angeles (which
      * equals a UTC timestamp of 2021-03-10T08:00:00Z).
      * @return Returns the String
      */
