@@ -27,6 +27,7 @@ public class PayoutEntry {
     private final PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails;
     private final PaymentBalanceActivityChargeDetail typeChargeDetails;
     private final PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails;
+    private final PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails;
     private final PaymentBalanceActivityDisputeDetail typeDisputeDetails;
     private final PaymentBalanceActivityFeeDetail typeFeeDetails;
     private final PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails;
@@ -43,6 +44,8 @@ public class PayoutEntry {
     private final PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails;
     private final PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails;
     private final PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails;
+    private final PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails;
+    private final PaymentBalanceActivitySquarePayrollTransferReversedDetail typeSquarePayrollTransferReversedDetails;
 
     /**
      * Initialization constructor.
@@ -65,6 +68,8 @@ public class PayoutEntry {
      * @param  typeChargeDetails  PaymentBalanceActivityChargeDetail value for typeChargeDetails.
      * @param  typeDepositFeeDetails  PaymentBalanceActivityDepositFeeDetail value for
      *         typeDepositFeeDetails.
+     * @param  typeDepositFeeReversedDetails  PaymentBalanceActivityDepositFeeReversedDetail value
+     *         for typeDepositFeeReversedDetails.
      * @param  typeDisputeDetails  PaymentBalanceActivityDisputeDetail value for typeDisputeDetails.
      * @param  typeFeeDetails  PaymentBalanceActivityFeeDetail value for typeFeeDetails.
      * @param  typeFreeProcessingDetails  PaymentBalanceActivityFreeProcessingDetail value for
@@ -94,6 +99,11 @@ public class PayoutEntry {
      *         typeThirdPartyFeeDetails.
      * @param  typeThirdPartyFeeRefundDetails  PaymentBalanceActivityThirdPartyFeeRefundDetail value
      *         for typeThirdPartyFeeRefundDetails.
+     * @param  typeSquarePayrollTransferDetails  PaymentBalanceActivitySquarePayrollTransferDetail
+     *         value for typeSquarePayrollTransferDetails.
+     * @param  typeSquarePayrollTransferReversedDetails
+     *         PaymentBalanceActivitySquarePayrollTransferReversedDetail value for
+     *         typeSquarePayrollTransferReversedDetails.
      */
     @JsonCreator
     public PayoutEntry(
@@ -110,6 +120,7 @@ public class PayoutEntry {
             @JsonProperty("type_automatic_savings_reversed_details") PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails,
             @JsonProperty("type_charge_details") PaymentBalanceActivityChargeDetail typeChargeDetails,
             @JsonProperty("type_deposit_fee_details") PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails,
+            @JsonProperty("type_deposit_fee_reversed_details") PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails,
             @JsonProperty("type_dispute_details") PaymentBalanceActivityDisputeDetail typeDisputeDetails,
             @JsonProperty("type_fee_details") PaymentBalanceActivityFeeDetail typeFeeDetails,
             @JsonProperty("type_free_processing_details") PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails,
@@ -125,7 +136,9 @@ public class PayoutEntry {
             @JsonProperty("type_square_capital_reversed_payment_details") PaymentBalanceActivitySquareCapitalReversedPaymentDetail typeSquareCapitalReversedPaymentDetails,
             @JsonProperty("type_tax_on_fee_details") PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails,
             @JsonProperty("type_third_party_fee_details") PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails,
-            @JsonProperty("type_third_party_fee_refund_details") PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails) {
+            @JsonProperty("type_third_party_fee_refund_details") PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails,
+            @JsonProperty("type_square_payroll_transfer_details") PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails,
+            @JsonProperty("type_square_payroll_transfer_reversed_details") PaymentBalanceActivitySquarePayrollTransferReversedDetail typeSquarePayrollTransferReversedDetails) {
         this.id = id;
         this.payoutId = payoutId;
         this.effectiveAt = OptionalNullable.of(effectiveAt);
@@ -139,6 +152,7 @@ public class PayoutEntry {
         this.typeAutomaticSavingsReversedDetails = typeAutomaticSavingsReversedDetails;
         this.typeChargeDetails = typeChargeDetails;
         this.typeDepositFeeDetails = typeDepositFeeDetails;
+        this.typeDepositFeeReversedDetails = typeDepositFeeReversedDetails;
         this.typeDisputeDetails = typeDisputeDetails;
         this.typeFeeDetails = typeFeeDetails;
         this.typeFreeProcessingDetails = typeFreeProcessingDetails;
@@ -155,6 +169,8 @@ public class PayoutEntry {
         this.typeTaxOnFeeDetails = typeTaxOnFeeDetails;
         this.typeThirdPartyFeeDetails = typeThirdPartyFeeDetails;
         this.typeThirdPartyFeeRefundDetails = typeThirdPartyFeeRefundDetails;
+        this.typeSquarePayrollTransferDetails = typeSquarePayrollTransferDetails;
+        this.typeSquarePayrollTransferReversedDetails = typeSquarePayrollTransferReversedDetails;
     }
 
     /**
@@ -178,6 +194,8 @@ public class PayoutEntry {
      * @param  typeChargeDetails  PaymentBalanceActivityChargeDetail value for typeChargeDetails.
      * @param  typeDepositFeeDetails  PaymentBalanceActivityDepositFeeDetail value for
      *         typeDepositFeeDetails.
+     * @param  typeDepositFeeReversedDetails  PaymentBalanceActivityDepositFeeReversedDetail value
+     *         for typeDepositFeeReversedDetails.
      * @param  typeDisputeDetails  PaymentBalanceActivityDisputeDetail value for typeDisputeDetails.
      * @param  typeFeeDetails  PaymentBalanceActivityFeeDetail value for typeFeeDetails.
      * @param  typeFreeProcessingDetails  PaymentBalanceActivityFreeProcessingDetail value for
@@ -207,6 +225,11 @@ public class PayoutEntry {
      *         typeThirdPartyFeeDetails.
      * @param  typeThirdPartyFeeRefundDetails  PaymentBalanceActivityThirdPartyFeeRefundDetail value
      *         for typeThirdPartyFeeRefundDetails.
+     * @param  typeSquarePayrollTransferDetails  PaymentBalanceActivitySquarePayrollTransferDetail
+     *         value for typeSquarePayrollTransferDetails.
+     * @param  typeSquarePayrollTransferReversedDetails
+     *         PaymentBalanceActivitySquarePayrollTransferReversedDetail value for
+     *         typeSquarePayrollTransferReversedDetails.
      */
 
     protected PayoutEntry(String id, String payoutId, OptionalNullable<String> effectiveAt,
@@ -217,6 +240,7 @@ public class PayoutEntry {
             PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails,
             PaymentBalanceActivityChargeDetail typeChargeDetails,
             PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails,
+            PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails,
             PaymentBalanceActivityDisputeDetail typeDisputeDetails,
             PaymentBalanceActivityFeeDetail typeFeeDetails,
             PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails,
@@ -232,7 +256,9 @@ public class PayoutEntry {
             PaymentBalanceActivitySquareCapitalReversedPaymentDetail typeSquareCapitalReversedPaymentDetails,
             PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails,
             PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails,
-            PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails) {
+            PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails,
+            PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails,
+            PaymentBalanceActivitySquarePayrollTransferReversedDetail typeSquarePayrollTransferReversedDetails) {
         this.id = id;
         this.payoutId = payoutId;
         this.effectiveAt = effectiveAt;
@@ -246,6 +272,7 @@ public class PayoutEntry {
         this.typeAutomaticSavingsReversedDetails = typeAutomaticSavingsReversedDetails;
         this.typeChargeDetails = typeChargeDetails;
         this.typeDepositFeeDetails = typeDepositFeeDetails;
+        this.typeDepositFeeReversedDetails = typeDepositFeeReversedDetails;
         this.typeDisputeDetails = typeDisputeDetails;
         this.typeFeeDetails = typeFeeDetails;
         this.typeFreeProcessingDetails = typeFreeProcessingDetails;
@@ -262,6 +289,8 @@ public class PayoutEntry {
         this.typeTaxOnFeeDetails = typeTaxOnFeeDetails;
         this.typeThirdPartyFeeDetails = typeThirdPartyFeeDetails;
         this.typeThirdPartyFeeRefundDetails = typeThirdPartyFeeRefundDetails;
+        this.typeSquarePayrollTransferDetails = typeSquarePayrollTransferDetails;
+        this.typeSquarePayrollTransferReversedDetails = typeSquarePayrollTransferReversedDetails;
     }
 
     /**
@@ -425,6 +454,16 @@ public class PayoutEntry {
     }
 
     /**
+     * Getter for TypeDepositFeeReversedDetails.
+     * @return Returns the PaymentBalanceActivityDepositFeeReversedDetail
+     */
+    @JsonGetter("type_deposit_fee_reversed_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentBalanceActivityDepositFeeReversedDetail getTypeDepositFeeReversedDetails() {
+        return typeDepositFeeReversedDetails;
+    }
+
+    /**
      * Getter for TypeDisputeDetails.
      * @return Returns the PaymentBalanceActivityDisputeDetail
      */
@@ -584,17 +623,39 @@ public class PayoutEntry {
         return typeThirdPartyFeeRefundDetails;
     }
 
+    /**
+     * Getter for TypeSquarePayrollTransferDetails.
+     * @return Returns the PaymentBalanceActivitySquarePayrollTransferDetail
+     */
+    @JsonGetter("type_square_payroll_transfer_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentBalanceActivitySquarePayrollTransferDetail getTypeSquarePayrollTransferDetails() {
+        return typeSquarePayrollTransferDetails;
+    }
+
+    /**
+     * Getter for TypeSquarePayrollTransferReversedDetails.
+     * @return Returns the PaymentBalanceActivitySquarePayrollTransferReversedDetail
+     */
+    @JsonGetter("type_square_payroll_transfer_reversed_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PaymentBalanceActivitySquarePayrollTransferReversedDetail getTypeSquarePayrollTransferReversedDetails() {
+        return typeSquarePayrollTransferReversedDetails;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, payoutId, effectiveAt, type, grossAmountMoney, feeAmountMoney,
                 netAmountMoney, typeAppFeeRevenueDetails, typeAppFeeRefundDetails,
                 typeAutomaticSavingsDetails, typeAutomaticSavingsReversedDetails, typeChargeDetails,
-                typeDepositFeeDetails, typeDisputeDetails, typeFeeDetails,
-                typeFreeProcessingDetails, typeHoldAdjustmentDetails, typeOpenDisputeDetails,
-                typeOtherDetails, typeOtherAdjustmentDetails, typeRefundDetails,
-                typeReleaseAdjustmentDetails, typeReserveHoldDetails, typeReserveReleaseDetails,
-                typeSquareCapitalPaymentDetails, typeSquareCapitalReversedPaymentDetails,
-                typeTaxOnFeeDetails, typeThirdPartyFeeDetails, typeThirdPartyFeeRefundDetails);
+                typeDepositFeeDetails, typeDepositFeeReversedDetails, typeDisputeDetails,
+                typeFeeDetails, typeFreeProcessingDetails, typeHoldAdjustmentDetails,
+                typeOpenDisputeDetails, typeOtherDetails, typeOtherAdjustmentDetails,
+                typeRefundDetails, typeReleaseAdjustmentDetails, typeReserveHoldDetails,
+                typeReserveReleaseDetails, typeSquareCapitalPaymentDetails,
+                typeSquareCapitalReversedPaymentDetails, typeTaxOnFeeDetails,
+                typeThirdPartyFeeDetails, typeThirdPartyFeeRefundDetails,
+                typeSquarePayrollTransferDetails, typeSquarePayrollTransferReversedDetails);
     }
 
     @Override
@@ -620,6 +681,7 @@ public class PayoutEntry {
                     other.typeAutomaticSavingsReversedDetails)
             && Objects.equals(typeChargeDetails, other.typeChargeDetails)
             && Objects.equals(typeDepositFeeDetails, other.typeDepositFeeDetails)
+            && Objects.equals(typeDepositFeeReversedDetails, other.typeDepositFeeReversedDetails)
             && Objects.equals(typeDisputeDetails, other.typeDisputeDetails)
             && Objects.equals(typeFeeDetails, other.typeFeeDetails)
             && Objects.equals(typeFreeProcessingDetails, other.typeFreeProcessingDetails)
@@ -638,7 +700,11 @@ public class PayoutEntry {
             && Objects.equals(typeTaxOnFeeDetails, other.typeTaxOnFeeDetails)
             && Objects.equals(typeThirdPartyFeeDetails, other.typeThirdPartyFeeDetails)
             && Objects.equals(typeThirdPartyFeeRefundDetails,
-                    other.typeThirdPartyFeeRefundDetails);
+                    other.typeThirdPartyFeeRefundDetails)
+            && Objects.equals(typeSquarePayrollTransferDetails,
+                    other.typeSquarePayrollTransferDetails)
+            && Objects.equals(typeSquarePayrollTransferReversedDetails,
+                    other.typeSquarePayrollTransferReversedDetails);
     }
 
     /**
@@ -655,7 +721,8 @@ public class PayoutEntry {
                 + ", typeAutomaticSavingsDetails=" + typeAutomaticSavingsDetails
                 + ", typeAutomaticSavingsReversedDetails=" + typeAutomaticSavingsReversedDetails
                 + ", typeChargeDetails=" + typeChargeDetails + ", typeDepositFeeDetails="
-                + typeDepositFeeDetails + ", typeDisputeDetails=" + typeDisputeDetails
+                + typeDepositFeeDetails + ", typeDepositFeeReversedDetails="
+                + typeDepositFeeReversedDetails + ", typeDisputeDetails=" + typeDisputeDetails
                 + ", typeFeeDetails=" + typeFeeDetails + ", typeFreeProcessingDetails="
                 + typeFreeProcessingDetails + ", typeHoldAdjustmentDetails="
                 + typeHoldAdjustmentDetails + ", typeOpenDisputeDetails=" + typeOpenDisputeDetails
@@ -668,7 +735,10 @@ public class PayoutEntry {
                 + ", typeSquareCapitalReversedPaymentDetails="
                 + typeSquareCapitalReversedPaymentDetails + ", typeTaxOnFeeDetails="
                 + typeTaxOnFeeDetails + ", typeThirdPartyFeeDetails=" + typeThirdPartyFeeDetails
-                + ", typeThirdPartyFeeRefundDetails=" + typeThirdPartyFeeRefundDetails + "]";
+                + ", typeThirdPartyFeeRefundDetails=" + typeThirdPartyFeeRefundDetails
+                + ", typeSquarePayrollTransferDetails=" + typeSquarePayrollTransferDetails
+                + ", typeSquarePayrollTransferReversedDetails="
+                + typeSquarePayrollTransferReversedDetails + "]";
     }
 
     /**
@@ -688,6 +758,7 @@ public class PayoutEntry {
                 .typeAutomaticSavingsReversedDetails(getTypeAutomaticSavingsReversedDetails())
                 .typeChargeDetails(getTypeChargeDetails())
                 .typeDepositFeeDetails(getTypeDepositFeeDetails())
+                .typeDepositFeeReversedDetails(getTypeDepositFeeReversedDetails())
                 .typeDisputeDetails(getTypeDisputeDetails())
                 .typeFeeDetails(getTypeFeeDetails())
                 .typeFreeProcessingDetails(getTypeFreeProcessingDetails())
@@ -703,7 +774,9 @@ public class PayoutEntry {
                 .typeSquareCapitalReversedPaymentDetails(getTypeSquareCapitalReversedPaymentDetails())
                 .typeTaxOnFeeDetails(getTypeTaxOnFeeDetails())
                 .typeThirdPartyFeeDetails(getTypeThirdPartyFeeDetails())
-                .typeThirdPartyFeeRefundDetails(getTypeThirdPartyFeeRefundDetails());
+                .typeThirdPartyFeeRefundDetails(getTypeThirdPartyFeeRefundDetails())
+                .typeSquarePayrollTransferDetails(getTypeSquarePayrollTransferDetails())
+                .typeSquarePayrollTransferReversedDetails(getTypeSquarePayrollTransferReversedDetails());
         builder.effectiveAt = internalGetEffectiveAt();
         return builder;
     }
@@ -725,6 +798,7 @@ public class PayoutEntry {
         private PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails;
         private PaymentBalanceActivityChargeDetail typeChargeDetails;
         private PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails;
+        private PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails;
         private PaymentBalanceActivityDisputeDetail typeDisputeDetails;
         private PaymentBalanceActivityFeeDetail typeFeeDetails;
         private PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails;
@@ -741,6 +815,8 @@ public class PayoutEntry {
         private PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails;
         private PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails;
         private PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails;
+        private PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails;
+        private PaymentBalanceActivitySquarePayrollTransferReversedDetail typeSquarePayrollTransferReversedDetails;
 
         /**
          * Initialization constructor.
@@ -900,6 +976,18 @@ public class PayoutEntry {
         public Builder typeDepositFeeDetails(
                 PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails) {
             this.typeDepositFeeDetails = typeDepositFeeDetails;
+            return this;
+        }
+
+        /**
+         * Setter for typeDepositFeeReversedDetails.
+         * @param  typeDepositFeeReversedDetails  PaymentBalanceActivityDepositFeeReversedDetail
+         *         value for typeDepositFeeReversedDetails.
+         * @return Builder
+         */
+        public Builder typeDepositFeeReversedDetails(
+                PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails) {
+            this.typeDepositFeeReversedDetails = typeDepositFeeReversedDetails;
             return this;
         }
 
@@ -1092,6 +1180,33 @@ public class PayoutEntry {
         }
 
         /**
+         * Setter for typeSquarePayrollTransferDetails.
+         * @param  typeSquarePayrollTransferDetails
+         *         PaymentBalanceActivitySquarePayrollTransferDetail value for
+         *         typeSquarePayrollTransferDetails.
+         * @return Builder
+         */
+        public Builder typeSquarePayrollTransferDetails(
+                PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails) {
+            this.typeSquarePayrollTransferDetails = typeSquarePayrollTransferDetails;
+            return this;
+        }
+
+        /**
+         * Setter for typeSquarePayrollTransferReversedDetails.
+         * @param  typeSquarePayrollTransferReversedDetails
+         *         PaymentBalanceActivitySquarePayrollTransferReversedDetail value for
+         *         typeSquarePayrollTransferReversedDetails.
+         * @return Builder
+         */
+        public Builder typeSquarePayrollTransferReversedDetails(
+                PaymentBalanceActivitySquarePayrollTransferReversedDetail typeSquarePayrollTransferReversedDetails) {
+            this.typeSquarePayrollTransferReversedDetails =
+                    typeSquarePayrollTransferReversedDetails;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PayoutEntry} object using the set fields.
          * @return {@link PayoutEntry}
          */
@@ -1100,12 +1215,13 @@ public class PayoutEntry {
                     feeAmountMoney, netAmountMoney, typeAppFeeRevenueDetails,
                     typeAppFeeRefundDetails, typeAutomaticSavingsDetails,
                     typeAutomaticSavingsReversedDetails, typeChargeDetails, typeDepositFeeDetails,
-                    typeDisputeDetails, typeFeeDetails, typeFreeProcessingDetails,
-                    typeHoldAdjustmentDetails, typeOpenDisputeDetails, typeOtherDetails,
-                    typeOtherAdjustmentDetails, typeRefundDetails, typeReleaseAdjustmentDetails,
-                    typeReserveHoldDetails, typeReserveReleaseDetails,
+                    typeDepositFeeReversedDetails, typeDisputeDetails, typeFeeDetails,
+                    typeFreeProcessingDetails, typeHoldAdjustmentDetails, typeOpenDisputeDetails,
+                    typeOtherDetails, typeOtherAdjustmentDetails, typeRefundDetails,
+                    typeReleaseAdjustmentDetails, typeReserveHoldDetails, typeReserveReleaseDetails,
                     typeSquareCapitalPaymentDetails, typeSquareCapitalReversedPaymentDetails,
-                    typeTaxOnFeeDetails, typeThirdPartyFeeDetails, typeThirdPartyFeeRefundDetails);
+                    typeTaxOnFeeDetails, typeThirdPartyFeeDetails, typeThirdPartyFeeRefundDetails,
+                    typeSquarePayrollTransferDetails, typeSquarePayrollTransferReversedDetails);
         }
     }
 }

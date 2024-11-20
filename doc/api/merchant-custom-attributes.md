@@ -263,10 +263,8 @@ CompletableFuture<BulkDeleteMerchantCustomAttributesResponse> bulkDeleteMerchant
 BulkDeleteMerchantCustomAttributesRequest body = new BulkDeleteMerchantCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest>() {{
         put("id1", new BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest.Builder()
-            .key("alternative_seller_name")
             .build());
         put("id2", new BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest.Builder()
-            .key("has_seen_tutorial")
             .build());
     }}
 )
