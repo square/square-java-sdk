@@ -30,6 +30,7 @@ public class PaymentRefund {
     private final String createdAt;
     private final String updatedAt;
     private final String teamMemberId;
+    private final String terminalRefundId;
 
     /**
      * Initialization constructor.
@@ -48,6 +49,7 @@ public class PaymentRefund {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  teamMemberId  String value for teamMemberId.
+     * @param  terminalRefundId  String value for terminalRefundId.
      */
     @JsonCreator
     public PaymentRefund(
@@ -65,7 +67,8 @@ public class PaymentRefund {
             @JsonProperty("reason") String reason,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
-            @JsonProperty("team_member_id") String teamMemberId) {
+            @JsonProperty("team_member_id") String teamMemberId,
+            @JsonProperty("terminal_refund_id") String terminalRefundId) {
         this.id = id;
         this.status = OptionalNullable.of(status);
         this.locationId = OptionalNullable.of(locationId);
@@ -81,6 +84,7 @@ public class PaymentRefund {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.teamMemberId = teamMemberId;
+        this.terminalRefundId = terminalRefundId;
     }
 
     /**
@@ -100,6 +104,7 @@ public class PaymentRefund {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  teamMemberId  String value for teamMemberId.
+     * @param  terminalRefundId  String value for terminalRefundId.
      */
 
     protected PaymentRefund(String id, Money amountMoney, OptionalNullable<String> status,
@@ -108,7 +113,7 @@ public class PaymentRefund {
             Money appFeeMoney, OptionalNullable<List<ProcessingFee>> processingFee,
             OptionalNullable<String> paymentId, OptionalNullable<String> orderId,
             OptionalNullable<String> reason, String createdAt, String updatedAt,
-            String teamMemberId) {
+            String teamMemberId, String terminalRefundId) {
         this.id = id;
         this.status = status;
         this.locationId = locationId;
@@ -124,6 +129,7 @@ public class PaymentRefund {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.teamMemberId = teamMemberId;
+        this.terminalRefundId = terminalRefundId;
     }
 
     /**
@@ -380,11 +386,22 @@ public class PaymentRefund {
         return teamMemberId;
     }
 
+    /**
+     * Getter for TerminalRefundId.
+     * An optional ID for a Terminal refund.
+     * @return Returns the String
+     */
+    @JsonGetter("terminal_refund_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTerminalRefundId() {
+        return terminalRefundId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, status, locationId, unlinked, destinationType, destinationDetails,
                 amountMoney, appFeeMoney, processingFee, paymentId, orderId, reason, createdAt,
-                updatedAt, teamMemberId);
+                updatedAt, teamMemberId, terminalRefundId);
     }
 
     @Override
@@ -410,7 +427,8 @@ public class PaymentRefund {
             && Objects.equals(reason, other.reason)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
-            && Objects.equals(teamMemberId, other.teamMemberId);
+            && Objects.equals(teamMemberId, other.teamMemberId)
+            && Objects.equals(terminalRefundId, other.terminalRefundId);
     }
 
     /**
@@ -425,7 +443,7 @@ public class PaymentRefund {
                 + destinationDetails + ", appFeeMoney=" + appFeeMoney + ", processingFee="
                 + processingFee + ", paymentId=" + paymentId + ", orderId=" + orderId + ", reason="
                 + reason + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", teamMemberId=" + teamMemberId + "]";
+                + ", teamMemberId=" + teamMemberId + ", terminalRefundId=" + terminalRefundId + "]";
     }
 
     /**
@@ -440,7 +458,8 @@ public class PaymentRefund {
                 .appFeeMoney(getAppFeeMoney())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .teamMemberId(getTeamMemberId());
+                .teamMemberId(getTeamMemberId())
+                .terminalRefundId(getTerminalRefundId());
         builder.status = internalGetStatus();
         builder.locationId = internalGetLocationId();
         builder.destinationType = internalGetDestinationType();
@@ -470,6 +489,7 @@ public class PaymentRefund {
         private String createdAt;
         private String updatedAt;
         private String teamMemberId;
+        private String terminalRefundId;
 
         /**
          * Initialization constructor.
@@ -695,13 +715,23 @@ public class PaymentRefund {
         }
 
         /**
+         * Setter for terminalRefundId.
+         * @param  terminalRefundId  String value for terminalRefundId.
+         * @return Builder
+         */
+        public Builder terminalRefundId(String terminalRefundId) {
+            this.terminalRefundId = terminalRefundId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PaymentRefund} object using the set fields.
          * @return {@link PaymentRefund}
          */
         public PaymentRefund build() {
             return new PaymentRefund(id, amountMoney, status, locationId, unlinked, destinationType,
                     destinationDetails, appFeeMoney, processingFee, paymentId, orderId, reason,
-                    createdAt, updatedAt, teamMemberId);
+                    createdAt, updatedAt, teamMemberId, terminalRefundId);
         }
     }
 }

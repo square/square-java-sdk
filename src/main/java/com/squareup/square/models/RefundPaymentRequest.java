@@ -185,12 +185,11 @@ public class RefundPaymentRequest {
     /**
      * Internal Getter for DestinationId.
      * The ID indicating where funds will be refunded to. Required for unlinked refunds. For more
-     * information, see [Create an unlinked
-     * refund](https://developer.squareup.com/docs/payments-api/refund-payments#create-an-unlinked-refund).
-     * For refunds linked to Square payments, destination_id is usually omitted; in this case, funds
-     * will be returned to the original payment source. The field may be specified in order to
-     * request a cross-method refund to a gift card. For more information, see [Cross-method refunds
-     * to gift
+     * information, see [Process an Unlinked
+     * Refund](https://developer.squareup.com/docs/refunds-api/unlinked-refunds). For refunds linked
+     * to Square payments, `destination_id` is usually omitted; in this case, funds will be returned
+     * to the original payment source. The field may be specified in order to request a cross-method
+     * refund to a gift card. For more information, see [Cross-method refunds to gift
      * cards](https://developer.squareup.com/docs/payments-api/refund-payments#cross-method-refunds-to-gift-cards).
      * @return Returns the Internal String
      */
@@ -204,12 +203,11 @@ public class RefundPaymentRequest {
     /**
      * Getter for DestinationId.
      * The ID indicating where funds will be refunded to. Required for unlinked refunds. For more
-     * information, see [Create an unlinked
-     * refund](https://developer.squareup.com/docs/payments-api/refund-payments#create-an-unlinked-refund).
-     * For refunds linked to Square payments, destination_id is usually omitted; in this case, funds
-     * will be returned to the original payment source. The field may be specified in order to
-     * request a cross-method refund to a gift card. For more information, see [Cross-method refunds
-     * to gift
+     * information, see [Process an Unlinked
+     * Refund](https://developer.squareup.com/docs/refunds-api/unlinked-refunds). For refunds linked
+     * to Square payments, `destination_id` is usually omitted; in this case, funds will be returned
+     * to the original payment source. The field may be specified in order to request a cross-method
+     * refund to a gift card. For more information, see [Cross-method refunds to gift
      * cards](https://developer.squareup.com/docs/payments-api/refund-payments#cross-method-refunds-to-gift-cards).
      * @return Returns the String
      */

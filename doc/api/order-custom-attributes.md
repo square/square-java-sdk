@@ -279,12 +279,10 @@ BulkDeleteOrderCustomAttributesRequest body = new BulkDeleteOrderCustomAttribute
         put("cover-count", new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
             "7BbXGEIWNldxAzrtGf9GPVZTwZ4F"
         )
-        .key("cover-count")
         .build());
         put("table-number", new BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute.Builder(
             "7BbXGEIWNldxAzrtGf9GPVZTwZ4F"
         )
-        .key("table-number")
         .build());
     }}
 )

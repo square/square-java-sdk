@@ -263,13 +263,10 @@ CompletableFuture<BulkDeleteLocationCustomAttributesResponse> bulkDeleteLocation
 BulkDeleteLocationCustomAttributesRequest body = new BulkDeleteLocationCustomAttributesRequest.Builder(
     new LinkedHashMap<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest>() {{
         put("id1", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
-            .key("bestseller")
             .build());
         put("id2", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
-            .key("bestseller")
             .build());
         put("id3", new BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest.Builder()
-            .key("phone-number")
             .build());
     }}
 )
