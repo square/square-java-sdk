@@ -11,23 +11,27 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RetrieveWageSettingResponse type.
+ * This is a model class for ListJobsResponse type.
  */
-public class RetrieveWageSettingResponse {
+public class ListJobsResponse {
     private HttpContext httpContext;
-    private final WageSetting wageSetting;
+    private final List<Job> jobs;
+    private final String cursor;
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param  wageSetting  WageSetting value for wageSetting.
+     * @param  jobs  List of Job value for jobs.
+     * @param  cursor  String value for cursor.
      * @param  errors  List of Error value for errors.
      */
     @JsonCreator
-    public RetrieveWageSettingResponse(
-            @JsonProperty("wage_setting") WageSetting wageSetting,
+    public ListJobsResponse(
+            @JsonProperty("jobs") List<Job> jobs,
+            @JsonProperty("cursor") String cursor,
             @JsonProperty("errors") List<Error> errors) {
-        this.wageSetting = wageSetting;
+        this.jobs = jobs;
+        this.cursor = cursor;
         this.errors = errors;
     }
 
@@ -37,15 +41,27 @@ public class RetrieveWageSettingResponse {
     }
 
     /**
-     * Getter for WageSetting.
-     * Represents information about the overtime exemption status, job assignments, and compensation
-     * for a [team member]($m/TeamMember).
-     * @return Returns the WageSetting
+     * Getter for Jobs.
+     * The retrieved jobs. A single paged response contains up to 100 jobs.
+     * @return Returns the List of Job
      */
-    @JsonGetter("wage_setting")
+    @JsonGetter("jobs")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public WageSetting getWageSetting() {
-        return wageSetting;
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    /**
+     * Getter for Cursor.
+     * An opaque cursor used to retrieve the next page of results. This field is present only if the
+     * request succeeded and additional results are available. For more information, see
+     * [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return Returns the String
+     */
+    @JsonGetter("cursor")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCursor() {
+        return cursor;
     }
 
     /**
@@ -61,7 +77,7 @@ public class RetrieveWageSettingResponse {
 
     @Override
     public int hashCode() {
-        return Objects.hash(wageSetting, errors);
+        return Objects.hash(jobs, cursor, errors);
     }
 
     @Override
@@ -69,42 +85,45 @@ public class RetrieveWageSettingResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RetrieveWageSettingResponse)) {
+        if (!(obj instanceof ListJobsResponse)) {
             return false;
         }
-        RetrieveWageSettingResponse other = (RetrieveWageSettingResponse) obj;
-        return Objects.equals(wageSetting, other.wageSetting)
+        ListJobsResponse other = (ListJobsResponse) obj;
+        return Objects.equals(jobs, other.jobs)
+            && Objects.equals(cursor, other.cursor)
             && Objects.equals(errors, other.errors);
     }
 
     /**
-     * Converts this RetrieveWageSettingResponse into string format.
+     * Converts this ListJobsResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RetrieveWageSettingResponse [" + "wageSetting=" + wageSetting + ", errors=" + errors
+        return "ListJobsResponse [" + "jobs=" + jobs + ", cursor=" + cursor + ", errors=" + errors
                 + "]";
     }
 
     /**
-     * Builds a new {@link RetrieveWageSettingResponse.Builder} object.
+     * Builds a new {@link ListJobsResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RetrieveWageSettingResponse.Builder} object
+     * @return a new {@link ListJobsResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .wageSetting(getWageSetting())
+                .jobs(getJobs())
+                .cursor(getCursor())
                 .errors(getErrors());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveWageSettingResponse}.
+     * Class to build instances of {@link ListJobsResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
-        private WageSetting wageSetting;
+        private List<Job> jobs;
+        private String cursor;
         private List<Error> errors;
 
 
@@ -120,12 +139,22 @@ public class RetrieveWageSettingResponse {
         }
 
         /**
-         * Setter for wageSetting.
-         * @param  wageSetting  WageSetting value for wageSetting.
+         * Setter for jobs.
+         * @param  jobs  List of Job value for jobs.
          * @return Builder
          */
-        public Builder wageSetting(WageSetting wageSetting) {
-            this.wageSetting = wageSetting;
+        public Builder jobs(List<Job> jobs) {
+            this.jobs = jobs;
+            return this;
+        }
+
+        /**
+         * Setter for cursor.
+         * @param  cursor  String value for cursor.
+         * @return Builder
+         */
+        public Builder cursor(String cursor) {
+            this.cursor = cursor;
             return this;
         }
 
@@ -140,12 +169,12 @@ public class RetrieveWageSettingResponse {
         }
 
         /**
-         * Builds a new {@link RetrieveWageSettingResponse} object using the set fields.
-         * @return {@link RetrieveWageSettingResponse}
+         * Builds a new {@link ListJobsResponse} object using the set fields.
+         * @return {@link ListJobsResponse}
          */
-        public RetrieveWageSettingResponse build() {
-            RetrieveWageSettingResponse model =
-                    new RetrieveWageSettingResponse(wageSetting, errors);
+        public ListJobsResponse build() {
+            ListJobsResponse model =
+                    new ListJobsResponse(jobs, cursor, errors);
             model.httpContext = httpContext;
             return model;
         }

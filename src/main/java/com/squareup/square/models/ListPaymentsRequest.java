@@ -26,6 +26,9 @@ public class ListPaymentsRequest {
     private final OptionalNullable<Boolean> isOfflinePayment;
     private final OptionalNullable<String> offlineBeginTime;
     private final OptionalNullable<String> offlineEndTime;
+    private final OptionalNullable<String> updatedAtBeginTime;
+    private final OptionalNullable<String> updatedAtEndTime;
+    private final String sortField;
 
     /**
      * Initialization constructor.
@@ -41,6 +44,9 @@ public class ListPaymentsRequest {
      * @param  isOfflinePayment  Boolean value for isOfflinePayment.
      * @param  offlineBeginTime  String value for offlineBeginTime.
      * @param  offlineEndTime  String value for offlineEndTime.
+     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+     * @param  updatedAtEndTime  String value for updatedAtEndTime.
+     * @param  sortField  String value for sortField.
      */
     @JsonCreator
     public ListPaymentsRequest(
@@ -55,7 +61,10 @@ public class ListPaymentsRequest {
             @JsonProperty("limit") Integer limit,
             @JsonProperty("is_offline_payment") Boolean isOfflinePayment,
             @JsonProperty("offline_begin_time") String offlineBeginTime,
-            @JsonProperty("offline_end_time") String offlineEndTime) {
+            @JsonProperty("offline_end_time") String offlineEndTime,
+            @JsonProperty("updated_at_begin_time") String updatedAtBeginTime,
+            @JsonProperty("updated_at_end_time") String updatedAtEndTime,
+            @JsonProperty("sort_field") String sortField) {
         this.beginTime = OptionalNullable.of(beginTime);
         this.endTime = OptionalNullable.of(endTime);
         this.sortOrder = OptionalNullable.of(sortOrder);
@@ -68,6 +77,9 @@ public class ListPaymentsRequest {
         this.isOfflinePayment = OptionalNullable.of(isOfflinePayment);
         this.offlineBeginTime = OptionalNullable.of(offlineBeginTime);
         this.offlineEndTime = OptionalNullable.of(offlineEndTime);
+        this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
+        this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
+        this.sortField = sortField;
     }
 
     /**
@@ -84,6 +96,9 @@ public class ListPaymentsRequest {
      * @param  isOfflinePayment  Boolean value for isOfflinePayment.
      * @param  offlineBeginTime  String value for offlineBeginTime.
      * @param  offlineEndTime  String value for offlineEndTime.
+     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+     * @param  updatedAtEndTime  String value for updatedAtEndTime.
+     * @param  sortField  String value for sortField.
      */
 
     protected ListPaymentsRequest(OptionalNullable<String> beginTime,
@@ -92,7 +107,8 @@ public class ListPaymentsRequest {
             OptionalNullable<Long> total, OptionalNullable<String> last4,
             OptionalNullable<String> cardBrand, OptionalNullable<Integer> limit,
             OptionalNullable<Boolean> isOfflinePayment, OptionalNullable<String> offlineBeginTime,
-            OptionalNullable<String> offlineEndTime) {
+            OptionalNullable<String> offlineEndTime, OptionalNullable<String> updatedAtBeginTime,
+            OptionalNullable<String> updatedAtEndTime, String sortField) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.sortOrder = sortOrder;
@@ -105,6 +121,9 @@ public class ListPaymentsRequest {
         this.isOfflinePayment = isOfflinePayment;
         this.offlineBeginTime = offlineBeginTime;
         this.offlineEndTime = offlineEndTime;
+        this.updatedAtBeginTime = updatedAtBeginTime;
+        this.updatedAtEndTime = updatedAtEndTime;
+        this.sortField = sortField;
     }
 
     /**
@@ -159,8 +178,8 @@ public class ListPaymentsRequest {
 
     /**
      * Internal Getter for SortOrder.
-     * The order in which results are listed by `Payment.created_at`: - `ASC` - Oldest to newest. -
-     * `DESC` - Newest to oldest (default).
+     * The order in which results are listed by `ListPaymentsRequest.sort_field`: - `ASC` - Oldest
+     * to newest. - `DESC` - Newest to oldest (default).
      * @return Returns the Internal String
      */
     @JsonGetter("sort_order")
@@ -172,8 +191,8 @@ public class ListPaymentsRequest {
 
     /**
      * Getter for SortOrder.
-     * The order in which results are listed by `Payment.created_at`: - `ASC` - Oldest to newest. -
-     * `DESC` - Newest to oldest (default).
+     * The order in which results are listed by `ListPaymentsRequest.sort_field`: - `ASC` - Oldest
+     * to newest. - `DESC` - Newest to oldest (default).
      * @return Returns the String
      */
     @JsonIgnore
@@ -407,10 +426,69 @@ public class ListPaymentsRequest {
         return OptionalNullable.getFrom(offlineEndTime);
     }
 
+    /**
+     * Internal Getter for UpdatedAtBeginTime.
+     * Indicates the start of the time range to retrieve payments for, in RFC 3339 format. The range
+     * is determined using the `updated_at` field for each Payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_at_begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedAtBeginTime() {
+        return this.updatedAtBeginTime;
+    }
+
+    /**
+     * Getter for UpdatedAtBeginTime.
+     * Indicates the start of the time range to retrieve payments for, in RFC 3339 format. The range
+     * is determined using the `updated_at` field for each Payment.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getUpdatedAtBeginTime() {
+        return OptionalNullable.getFrom(updatedAtBeginTime);
+    }
+
+    /**
+     * Internal Getter for UpdatedAtEndTime.
+     * Indicates the end of the time range to retrieve payments for, in RFC 3339 format. The range
+     * is determined using the `updated_at` field for each Payment.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_at_end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedAtEndTime() {
+        return this.updatedAtEndTime;
+    }
+
+    /**
+     * Getter for UpdatedAtEndTime.
+     * Indicates the end of the time range to retrieve payments for, in RFC 3339 format. The range
+     * is determined using the `updated_at` field for each Payment.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getUpdatedAtEndTime() {
+        return OptionalNullable.getFrom(updatedAtEndTime);
+    }
+
+    /**
+     * Getter for SortField.
+     * @return Returns the String
+     */
+    @JsonGetter("sort_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getSortField() {
+        return sortField;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, total, last4,
-                cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime);
+                cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime,
+                updatedAtBeginTime, updatedAtEndTime, sortField);
     }
 
     @Override
@@ -433,7 +511,10 @@ public class ListPaymentsRequest {
             && Objects.equals(limit, other.limit)
             && Objects.equals(isOfflinePayment, other.isOfflinePayment)
             && Objects.equals(offlineBeginTime, other.offlineBeginTime)
-            && Objects.equals(offlineEndTime, other.offlineEndTime);
+            && Objects.equals(offlineEndTime, other.offlineEndTime)
+            && Objects.equals(updatedAtBeginTime, other.updatedAtBeginTime)
+            && Objects.equals(updatedAtEndTime, other.updatedAtEndTime)
+            && Objects.equals(sortField, other.sortField);
     }
 
     /**
@@ -446,7 +527,9 @@ public class ListPaymentsRequest {
                 + ", sortOrder=" + sortOrder + ", cursor=" + cursor + ", locationId=" + locationId
                 + ", total=" + total + ", last4=" + last4 + ", cardBrand=" + cardBrand + ", limit="
                 + limit + ", isOfflinePayment=" + isOfflinePayment + ", offlineBeginTime="
-                + offlineBeginTime + ", offlineEndTime=" + offlineEndTime + "]";
+                + offlineBeginTime + ", offlineEndTime=" + offlineEndTime + ", updatedAtBeginTime="
+                + updatedAtBeginTime + ", updatedAtEndTime=" + updatedAtEndTime + ", sortField="
+                + sortField + "]";
     }
 
     /**
@@ -455,7 +538,8 @@ public class ListPaymentsRequest {
      * @return a new {@link ListPaymentsRequest.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder();
+        Builder builder = new Builder()
+                .sortField(getSortField());
         builder.beginTime = internalGetBeginTime();
         builder.endTime = internalGetEndTime();
         builder.sortOrder = internalGetSortOrder();
@@ -468,6 +552,8 @@ public class ListPaymentsRequest {
         builder.isOfflinePayment = internalGetIsOfflinePayment();
         builder.offlineBeginTime = internalGetOfflineBeginTime();
         builder.offlineEndTime = internalGetOfflineEndTime();
+        builder.updatedAtBeginTime = internalGetUpdatedAtBeginTime();
+        builder.updatedAtEndTime = internalGetUpdatedAtEndTime();
         return builder;
     }
 
@@ -487,6 +573,9 @@ public class ListPaymentsRequest {
         private OptionalNullable<Boolean> isOfflinePayment;
         private OptionalNullable<String> offlineBeginTime;
         private OptionalNullable<String> offlineEndTime;
+        private OptionalNullable<String> updatedAtBeginTime;
+        private OptionalNullable<String> updatedAtEndTime;
+        private String sortField;
 
 
 
@@ -719,12 +808,61 @@ public class ListPaymentsRequest {
         }
 
         /**
+         * Setter for updatedAtBeginTime.
+         * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+         * @return Builder
+         */
+        public Builder updatedAtBeginTime(String updatedAtBeginTime) {
+            this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedAtBeginTime.
+         * @return Builder
+         */
+        public Builder unsetUpdatedAtBeginTime() {
+            updatedAtBeginTime = null;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAtEndTime.
+         * @param  updatedAtEndTime  String value for updatedAtEndTime.
+         * @return Builder
+         */
+        public Builder updatedAtEndTime(String updatedAtEndTime) {
+            this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedAtEndTime.
+         * @return Builder
+         */
+        public Builder unsetUpdatedAtEndTime() {
+            updatedAtEndTime = null;
+            return this;
+        }
+
+        /**
+         * Setter for sortField.
+         * @param  sortField  String value for sortField.
+         * @return Builder
+         */
+        public Builder sortField(String sortField) {
+            this.sortField = sortField;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListPaymentsRequest} object using the set fields.
          * @return {@link ListPaymentsRequest}
          */
         public ListPaymentsRequest build() {
             return new ListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-                    last4, cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime);
+                    last4, cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime,
+                    updatedAtBeginTime, updatedAtEndTime, sortField);
         }
     }
 }

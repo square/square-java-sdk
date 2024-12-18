@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>42.0.0.20241120</version>
+  <version>42.1.0.20241218</version>
   <packaging>jar</packaging>
   <name>Square</name>
   <description>Java client library for the Square API</description>
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.6.4, 0.7)</version>
+      <version>[0.6.6, 0.7)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>

@@ -38,7 +38,8 @@ public class UpdateWageSettingResponse {
 
     /**
      * Getter for WageSetting.
-     * An object representing a team member's wage information.
+     * Represents information about the overtime exemption status, job assignments, and compensation
+     * for a [team member]($m/TeamMember).
      * @return Returns the WageSetting
      */
     @JsonGetter("wage_setting")

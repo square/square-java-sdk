@@ -71,7 +71,7 @@ public class WageSetting {
 
     /**
      * Internal Getter for TeamMemberId.
-     * The unique ID of the `TeamMember` whom this wage setting describes.
+     * The ID of the team member associated with the wage setting.
      * @return Returns the Internal String
      */
     @JsonGetter("team_member_id")
@@ -83,7 +83,7 @@ public class WageSetting {
 
     /**
      * Getter for TeamMemberId.
-     * The unique ID of the `TeamMember` whom this wage setting describes.
+     * The ID of the team member associated with the wage setting.
      * @return Returns the String
      */
     @JsonIgnore
@@ -93,9 +93,8 @@ public class WageSetting {
 
     /**
      * Internal Getter for JobAssignments.
-     * Required. The ordered list of jobs that the team member is assigned to. The first job
-     * assignment is considered the team member's primary job. The minimum length is 1 and the
-     * maximum length is 12.
+     * **Required** The ordered list of jobs that the team member is assigned to. The first job
+     * assignment is considered the team member's primary job.
      * @return Returns the Internal List of JobAssignment
      */
     @JsonGetter("job_assignments")
@@ -107,9 +106,8 @@ public class WageSetting {
 
     /**
      * Getter for JobAssignments.
-     * Required. The ordered list of jobs that the team member is assigned to. The first job
-     * assignment is considered the team member's primary job. The minimum length is 1 and the
-     * maximum length is 12.
+     * **Required** The ordered list of jobs that the team member is assigned to. The first job
+     * assignment is considered the team member's primary job.
      * @return Returns the List of JobAssignment
      */
     @JsonIgnore
@@ -141,9 +139,10 @@ public class WageSetting {
 
     /**
      * Getter for Version.
-     * Used for resolving concurrency issues. The request fails if the version provided does not
-     * match the server version at the time of the request. If not provided, Square executes a blind
-     * write, potentially overwriting data from another write. For more information, see [optimistic
+     * **Read only** Used for resolving concurrency issues. The request fails if the version
+     * provided does not match the server version at the time of the request. If not provided,
+     * Square executes a blind write, potentially overwriting data from another write. For more
+     * information, see [optimistic
      * concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency).
      * @return Returns the Integer
      */
@@ -155,8 +154,7 @@ public class WageSetting {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp, in RFC 3339 format, describing when the wage setting object was created. For
-     * example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
+     * The timestamp when the wage setting was created, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -167,8 +165,7 @@ public class WageSetting {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp, in RFC 3339 format, describing when the wage setting object was last updated.
-     * For example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
+     * The timestamp when the wage setting was last updated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")

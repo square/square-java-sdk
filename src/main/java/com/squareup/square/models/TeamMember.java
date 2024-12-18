@@ -25,6 +25,7 @@ public class TeamMember {
     private final String createdAt;
     private final String updatedAt;
     private final TeamMemberAssignedLocations assignedLocations;
+    private final WageSetting wageSetting;
 
     /**
      * Initialization constructor.
@@ -39,6 +40,7 @@ public class TeamMember {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  assignedLocations  TeamMemberAssignedLocations value for assignedLocations.
+     * @param  wageSetting  WageSetting value for wageSetting.
      */
     @JsonCreator
     public TeamMember(
@@ -52,7 +54,8 @@ public class TeamMember {
             @JsonProperty("phone_number") String phoneNumber,
             @JsonProperty("created_at") String createdAt,
             @JsonProperty("updated_at") String updatedAt,
-            @JsonProperty("assigned_locations") TeamMemberAssignedLocations assignedLocations) {
+            @JsonProperty("assigned_locations") TeamMemberAssignedLocations assignedLocations,
+            @JsonProperty("wage_setting") WageSetting wageSetting) {
         this.id = id;
         this.referenceId = OptionalNullable.of(referenceId);
         this.isOwner = isOwner;
@@ -64,6 +67,7 @@ public class TeamMember {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.assignedLocations = assignedLocations;
+        this.wageSetting = wageSetting;
     }
 
     /**
@@ -79,12 +83,14 @@ public class TeamMember {
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
      * @param  assignedLocations  TeamMemberAssignedLocations value for assignedLocations.
+     * @param  wageSetting  WageSetting value for wageSetting.
      */
 
     protected TeamMember(String id, OptionalNullable<String> referenceId, Boolean isOwner,
             String status, OptionalNullable<String> givenName, OptionalNullable<String> familyName,
             OptionalNullable<String> emailAddress, OptionalNullable<String> phoneNumber,
-            String createdAt, String updatedAt, TeamMemberAssignedLocations assignedLocations) {
+            String createdAt, String updatedAt, TeamMemberAssignedLocations assignedLocations,
+            WageSetting wageSetting) {
         this.id = id;
         this.referenceId = referenceId;
         this.isOwner = isOwner;
@@ -96,6 +102,7 @@ public class TeamMember {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.assignedLocations = assignedLocations;
+        this.wageSetting = wageSetting;
     }
 
     /**
@@ -199,7 +206,8 @@ public class TeamMember {
 
     /**
      * Internal Getter for EmailAddress.
-     * The email address associated with the team member.
+     * The email address associated with the team member. After accepting the invitation from
+     * Square, only the team member can change this value.
      * @return Returns the Internal String
      */
     @JsonGetter("email_address")
@@ -211,7 +219,8 @@ public class TeamMember {
 
     /**
      * Getter for EmailAddress.
-     * The email address associated with the team member.
+     * The email address associated with the team member. After accepting the invitation from
+     * Square, only the team member can change this value.
      * @return Returns the String
      */
     @JsonIgnore
@@ -245,8 +254,7 @@ public class TeamMember {
 
     /**
      * Getter for CreatedAt.
-     * The timestamp, in RFC 3339 format, describing when the team member was created. For example,
-     * "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
+     * The timestamp when the team member was created, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("created_at")
@@ -257,8 +265,7 @@ public class TeamMember {
 
     /**
      * Getter for UpdatedAt.
-     * The timestamp, in RFC 3339 format, describing when the team member was last updated. For
-     * example, "2018-10-04T04:00:00-07:00" or "2019-02-05T12:00:00Z".
+     * The timestamp when the team member was last updated, in RFC 3339 format.
      * @return Returns the String
      */
     @JsonGetter("updated_at")
@@ -278,10 +285,22 @@ public class TeamMember {
         return assignedLocations;
     }
 
+    /**
+     * Getter for WageSetting.
+     * Represents information about the overtime exemption status, job assignments, and compensation
+     * for a [team member]($m/TeamMember).
+     * @return Returns the WageSetting
+     */
+    @JsonGetter("wage_setting")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public WageSetting getWageSetting() {
+        return wageSetting;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, referenceId, isOwner, status, givenName, familyName, emailAddress,
-                phoneNumber, createdAt, updatedAt, assignedLocations);
+                phoneNumber, createdAt, updatedAt, assignedLocations, wageSetting);
     }
 
     @Override
@@ -303,7 +322,8 @@ public class TeamMember {
             && Objects.equals(phoneNumber, other.phoneNumber)
             && Objects.equals(createdAt, other.createdAt)
             && Objects.equals(updatedAt, other.updatedAt)
-            && Objects.equals(assignedLocations, other.assignedLocations);
+            && Objects.equals(assignedLocations, other.assignedLocations)
+            && Objects.equals(wageSetting, other.wageSetting);
     }
 
     /**
@@ -316,7 +336,7 @@ public class TeamMember {
                 + ", status=" + status + ", givenName=" + givenName + ", familyName=" + familyName
                 + ", emailAddress=" + emailAddress + ", phoneNumber=" + phoneNumber + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", assignedLocations="
-                + assignedLocations + "]";
+                + assignedLocations + ", wageSetting=" + wageSetting + "]";
     }
 
     /**
@@ -331,7 +351,8 @@ public class TeamMember {
                 .status(getStatus())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .assignedLocations(getAssignedLocations());
+                .assignedLocations(getAssignedLocations())
+                .wageSetting(getWageSetting());
         builder.referenceId = internalGetReferenceId();
         builder.givenName = internalGetGivenName();
         builder.familyName = internalGetFamilyName();
@@ -355,6 +376,7 @@ public class TeamMember {
         private String createdAt;
         private String updatedAt;
         private TeamMemberAssignedLocations assignedLocations;
+        private WageSetting wageSetting;
 
 
 
@@ -514,12 +536,23 @@ public class TeamMember {
         }
 
         /**
+         * Setter for wageSetting.
+         * @param  wageSetting  WageSetting value for wageSetting.
+         * @return Builder
+         */
+        public Builder wageSetting(WageSetting wageSetting) {
+            this.wageSetting = wageSetting;
+            return this;
+        }
+
+        /**
          * Builds a new {@link TeamMember} object using the set fields.
          * @return {@link TeamMember}
          */
         public TeamMember build() {
             return new TeamMember(id, referenceId, isOwner, status, givenName, familyName,
-                    emailAddress, phoneNumber, createdAt, updatedAt, assignedLocations);
+                    emailAddress, phoneNumber, createdAt, updatedAt, assignedLocations,
+                    wageSetting);
         }
     }
 }
