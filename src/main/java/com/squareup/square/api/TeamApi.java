@@ -6,12 +6,18 @@ import com.squareup.square.models.BulkCreateTeamMembersRequest;
 import com.squareup.square.models.BulkCreateTeamMembersResponse;
 import com.squareup.square.models.BulkUpdateTeamMembersRequest;
 import com.squareup.square.models.BulkUpdateTeamMembersResponse;
+import com.squareup.square.models.CreateJobRequest;
+import com.squareup.square.models.CreateJobResponse;
 import com.squareup.square.models.CreateTeamMemberRequest;
 import com.squareup.square.models.CreateTeamMemberResponse;
+import com.squareup.square.models.ListJobsResponse;
+import com.squareup.square.models.RetrieveJobResponse;
 import com.squareup.square.models.RetrieveTeamMemberResponse;
 import com.squareup.square.models.RetrieveWageSettingResponse;
 import com.squareup.square.models.SearchTeamMembersRequest;
 import com.squareup.square.models.SearchTeamMembersResponse;
+import com.squareup.square.models.UpdateJobRequest;
+import com.squareup.square.models.UpdateJobResponse;
 import com.squareup.square.models.UpdateTeamMemberRequest;
 import com.squareup.square.models.UpdateTeamMemberResponse;
 import com.squareup.square.models.UpdateWageSettingRequest;
@@ -111,8 +117,103 @@ public interface TeamApi {
             final BulkUpdateTeamMembersRequest body);
 
     /**
+     * Lists jobs in a seller account. Results are sorted by title in ascending order.
+     * @param  cursor  Optional parameter: The pagination cursor returned by the previous call to
+     *         this endpoint. Provide this cursor to retrieve the next page of results for your
+     *         original request. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return    Returns the ListJobsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    ListJobsResponse listJobs(
+            final String cursor) throws ApiException, IOException;
+
+    /**
+     * Lists jobs in a seller account. Results are sorted by title in ascending order.
+     * @param  cursor  Optional parameter: The pagination cursor returned by the previous call to
+     *         this endpoint. Provide this cursor to retrieve the next page of results for your
+     *         original request. For more information, see
+     *         [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+     * @return    Returns the ListJobsResponse response from the API call
+     */
+    CompletableFuture<ListJobsResponse> listJobsAsync(
+            final String cursor);
+
+    /**
+     * Creates a job in a seller account. A job defines a title and tip eligibility. Note that
+     * compensation is defined in a [job assignment]($m/JobAssignment) in a team member's wage
+     * setting.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateJobResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    CreateJobResponse createJob(
+            final CreateJobRequest body) throws ApiException, IOException;
+
+    /**
+     * Creates a job in a seller account. A job defines a title and tip eligibility. Note that
+     * compensation is defined in a [job assignment]($m/JobAssignment) in a team member's wage
+     * setting.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the CreateJobResponse response from the API call
+     */
+    CompletableFuture<CreateJobResponse> createJobAsync(
+            final CreateJobRequest body);
+
+    /**
+     * Retrieves a specified job.
+     * @param  jobId  Required parameter: The ID of the job to retrieve.
+     * @return    Returns the RetrieveJobResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    RetrieveJobResponse retrieveJob(
+            final String jobId) throws ApiException, IOException;
+
+    /**
+     * Retrieves a specified job.
+     * @param  jobId  Required parameter: The ID of the job to retrieve.
+     * @return    Returns the RetrieveJobResponse response from the API call
+     */
+    CompletableFuture<RetrieveJobResponse> retrieveJobAsync(
+            final String jobId);
+
+    /**
+     * Updates the title or tip eligibility of a job. Changes to the title propagate to all
+     * `JobAssignment`, `Shift`, and `TeamMemberWage` objects that reference the job ID. Changes to
+     * tip eligibility propagate to all `TeamMemberWage` objects that reference the job ID.
+     * @param  jobId  Required parameter: The ID of the job to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateJobResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    UpdateJobResponse updateJob(
+            final String jobId,
+            final UpdateJobRequest body) throws ApiException, IOException;
+
+    /**
+     * Updates the title or tip eligibility of a job. Changes to the title propagate to all
+     * `JobAssignment`, `Shift`, and `TeamMemberWage` objects that reference the job ID. Changes to
+     * tip eligibility propagate to all `TeamMemberWage` objects that reference the job ID.
+     * @param  jobId  Required parameter: The ID of the job to update.
+     * @param  body  Required parameter: An object containing the fields to POST for the request.
+     *         See the corresponding object definition for field details.
+     * @return    Returns the UpdateJobResponse response from the API call
+     */
+    CompletableFuture<UpdateJobResponse> updateJobAsync(
+            final String jobId,
+            final UpdateJobRequest body);
+
+    /**
      * Returns a paginated list of `TeamMember` objects for a business. The list can be filtered by
-     * the following: - location IDs - `status`.
+     * location IDs, `ACTIVE` or `INACTIVE` status, or whether the team member is the Square account
+     * owner.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTeamMembersResponse response from the API call
@@ -124,7 +225,8 @@ public interface TeamApi {
 
     /**
      * Returns a paginated list of `TeamMember` objects for a business. The list can be filtered by
-     * the following: - location IDs - `status`.
+     * location IDs, `ACTIVE` or `INACTIVE` status, or whether the team member is the Square account
+     * owner.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
      *         See the corresponding object definition for field details.
      * @return    Returns the SearchTeamMembersResponse response from the API call
@@ -183,9 +285,12 @@ public interface TeamApi {
             final UpdateTeamMemberRequest body);
 
     /**
-     * Retrieves a `WageSetting` object for a team member specified by `TeamMember.id`. Learn about
-     * [Troubleshooting the Team
-     * API](https://developer.squareup.com/docs/team/troubleshooting#retrievewagesetting).
+     * Retrieves a `WageSetting` object for a team member specified by `TeamMember.id`. For more
+     * information, see [Troubleshooting the Team
+     * API](https://developer.squareup.com/docs/team/troubleshooting#retrievewagesetting). Square
+     * recommends using [RetrieveTeamMember]($e/Team/RetrieveTeamMember) or
+     * [SearchTeamMembers]($e/Team/SearchTeamMembers) to get this information directly from the
+     * `TeamMember.wage_setting` field.
      * @param  teamMemberId  Required parameter: The ID of the team member for which to retrieve the
      *         wage setting.
      * @return    Returns the RetrieveWageSettingResponse response from the API call
@@ -196,9 +301,12 @@ public interface TeamApi {
             final String teamMemberId) throws ApiException, IOException;
 
     /**
-     * Retrieves a `WageSetting` object for a team member specified by `TeamMember.id`. Learn about
-     * [Troubleshooting the Team
-     * API](https://developer.squareup.com/docs/team/troubleshooting#retrievewagesetting).
+     * Retrieves a `WageSetting` object for a team member specified by `TeamMember.id`. For more
+     * information, see [Troubleshooting the Team
+     * API](https://developer.squareup.com/docs/team/troubleshooting#retrievewagesetting). Square
+     * recommends using [RetrieveTeamMember]($e/Team/RetrieveTeamMember) or
+     * [SearchTeamMembers]($e/Team/SearchTeamMembers) to get this information directly from the
+     * `TeamMember.wage_setting` field.
      * @param  teamMemberId  Required parameter: The ID of the team member for which to retrieve the
      *         wage setting.
      * @return    Returns the RetrieveWageSettingResponse response from the API call
@@ -208,10 +316,13 @@ public interface TeamApi {
 
     /**
      * Creates or updates a `WageSetting` object. The object is created if a `WageSetting` with the
-     * specified `team_member_id` does not exist. Otherwise, it fully replaces the `WageSetting`
-     * object for the team member. The `WageSetting` is returned on a successful update. Learn about
-     * [Troubleshooting the Team
+     * specified `team_member_id` doesn't exist. Otherwise, it fully replaces the `WageSetting`
+     * object for the team member. The `WageSetting` is returned on a successful update. For more
+     * information, see [Troubleshooting the Team
      * API](https://developer.squareup.com/docs/team/troubleshooting#create-or-update-a-wage-setting).
+     * Square recommends using [CreateTeamMember]($e/Team/CreateTeamMember) or
+     * [UpdateTeamMember]($e/Team/UpdateTeamMember) to manage the `TeamMember.wage_setting` field
+     * directly.
      * @param  teamMemberId  Required parameter: The ID of the team member for which to update the
      *         `WageSetting` object.
      * @param  body  Required parameter: An object containing the fields to POST for the request.
@@ -226,10 +337,13 @@ public interface TeamApi {
 
     /**
      * Creates or updates a `WageSetting` object. The object is created if a `WageSetting` with the
-     * specified `team_member_id` does not exist. Otherwise, it fully replaces the `WageSetting`
-     * object for the team member. The `WageSetting` is returned on a successful update. Learn about
-     * [Troubleshooting the Team
+     * specified `team_member_id` doesn't exist. Otherwise, it fully replaces the `WageSetting`
+     * object for the team member. The `WageSetting` is returned on a successful update. For more
+     * information, see [Troubleshooting the Team
      * API](https://developer.squareup.com/docs/team/troubleshooting#create-or-update-a-wage-setting).
+     * Square recommends using [CreateTeamMember]($e/Team/CreateTeamMember) or
+     * [UpdateTeamMember]($e/Team/UpdateTeamMember) to manage the `TeamMember.wage_setting` field
+     * directly.
      * @param  teamMemberId  Required parameter: The ID of the team member for which to update the
      *         `WageSetting` object.
      * @param  body  Required parameter: An object containing the fields to POST for the request.

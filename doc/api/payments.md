@@ -41,7 +41,10 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
     final Integer limit,
     final Boolean isOfflinePayment,
     final String offlineBeginTime,
-    final String offlineEndTime)
+    final String offlineEndTime,
+    final String updatedAtBeginTime,
+    final String updatedAtEndTime,
+    final String sortField)
 ```
 
 ## Parameters
@@ -50,7 +53,7 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 |  --- | --- | --- | --- |
 | `beginTime` | `String` | Query, Optional | Indicates the start of the time range to retrieve payments for, in RFC 3339 format.  <br>The range is determined using the `created_at` field for each Payment.<br>Inclusive. Default: The current time minus one year. |
 | `endTime` | `String` | Query, Optional | Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The<br>range is determined using the `created_at` field for each Payment.<br><br>Default: The current time. |
-| `sortOrder` | `String` | Query, Optional | The order in which results are listed by `Payment.created_at`:<br><br>- `ASC` - Oldest to newest.<br>- `DESC` - Newest to oldest (default). |
+| `sortOrder` | `String` | Query, Optional | The order in which results are listed by `ListPaymentsRequest.sort_field`:<br><br>- `ASC` - Oldest to newest.<br>- `DESC` - Newest to oldest (default). |
 | `cursor` | `String` | Query, Optional | A pagination cursor returned by a previous call to this endpoint.<br>Provide this cursor to retrieve the next set of results for the original query.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `locationId` | `String` | Query, Optional | Limit results to the location supplied. By default, results are returned<br>for the default (main) location associated with the seller. |
 | `total` | `Long` | Query, Optional | The exact amount in the `total_money` for a payment. |
@@ -60,6 +63,9 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 | `isOfflinePayment` | `Boolean` | Query, Optional | Whether the payment was taken offline or not.<br>**Default**: `false` |
 | `offlineBeginTime` | `String` | Query, Optional | Indicates the start of the time range for which to retrieve offline payments, in RFC 3339<br>format for timestamps. The range is determined using the<br>`offline_payment_details.client_created_at` field for each Payment. If set, payments without a<br>value set in `offline_payment_details.client_created_at` will not be returned.<br><br>Default: The current time. |
 | `offlineEndTime` | `String` | Query, Optional | Indicates the end of the time range for which to retrieve offline payments, in RFC 3339<br>format for timestamps. The range is determined using the<br>`offline_payment_details.client_created_at` field for each Payment. If set, payments without a<br>value set in `offline_payment_details.client_created_at` will not be returned.<br><br>Default: The current time. |
+| `updatedAtBeginTime` | `String` | Query, Optional | Indicates the start of the time range to retrieve payments for, in RFC 3339 format.  The<br>range is determined using the `updated_at` field for each Payment. |
+| `updatedAtEndTime` | `String` | Query, Optional | Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The<br>range is determined using the `updated_at` field for each Payment. |
+| `sortField` | [`String`](../../doc/models/payment-sort-field.md) | Query, Optional | The field used to sort results by. The default is `CREATED_AT`. |
 
 ## Response Type
 
@@ -70,7 +76,7 @@ CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
 ```java
 Boolean isOfflinePayment = false;
 
-paymentsApi.listPaymentsAsync(null, null, null, null, null, null, null, null, null, isOfflinePayment, null, null).thenAccept(result -> {
+paymentsApi.listPaymentsAsync(null, null, null, null, null, null, null, null, null, isOfflinePayment, null, null, null, null, null).thenAccept(result -> {
     // TODO success callback handler
     System.out.println(result);
 }).exceptionally(exception -> {

@@ -27,6 +27,7 @@ public class CreatePaymentRequest {
     private final String verificationToken;
     private final Boolean acceptPartialAuthorization;
     private final String buyerEmailAddress;
+    private final String buyerPhoneNumber;
     private final Address billingAddress;
     private final Address shippingAddress;
     private final String note;
@@ -54,6 +55,7 @@ public class CreatePaymentRequest {
      * @param  verificationToken  String value for verificationToken.
      * @param  acceptPartialAuthorization  Boolean value for acceptPartialAuthorization.
      * @param  buyerEmailAddress  String value for buyerEmailAddress.
+     * @param  buyerPhoneNumber  String value for buyerPhoneNumber.
      * @param  billingAddress  Address value for billingAddress.
      * @param  shippingAddress  Address value for shippingAddress.
      * @param  note  String value for note.
@@ -81,6 +83,7 @@ public class CreatePaymentRequest {
             @JsonProperty("verification_token") String verificationToken,
             @JsonProperty("accept_partial_authorization") Boolean acceptPartialAuthorization,
             @JsonProperty("buyer_email_address") String buyerEmailAddress,
+            @JsonProperty("buyer_phone_number") String buyerPhoneNumber,
             @JsonProperty("billing_address") Address billingAddress,
             @JsonProperty("shipping_address") Address shippingAddress,
             @JsonProperty("note") String note,
@@ -105,6 +108,7 @@ public class CreatePaymentRequest {
         this.verificationToken = verificationToken;
         this.acceptPartialAuthorization = acceptPartialAuthorization;
         this.buyerEmailAddress = buyerEmailAddress;
+        this.buyerPhoneNumber = buyerPhoneNumber;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
         this.note = note;
@@ -343,6 +347,20 @@ public class CreatePaymentRequest {
     }
 
     /**
+     * Getter for BuyerPhoneNumber.
+     * The buyer's phone number. Must follow the following format: 1. A leading + symbol (followed
+     * by a country code) 2. The phone number can contain spaces and the special characters `(` ,
+     * `)` , `-` , and `.`. Alphabetical characters aren't allowed. 3. The phone number must contain
+     * between 9 and 16 digits.
+     * @return Returns the String
+     */
+    @JsonGetter("buyer_phone_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getBuyerPhoneNumber() {
+        return buyerPhoneNumber;
+    }
+
+    /**
      * Getter for BillingAddress.
      * Represents a postal address in a country. For more information, see [Working with
      * Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses).
@@ -446,7 +464,7 @@ public class CreatePaymentRequest {
         return Objects.hash(sourceId, idempotencyKey, amountMoney, tipMoney, appFeeMoney,
                 delayDuration, delayAction, autocomplete, orderId, customerId, locationId,
                 teamMemberId, referenceId, verificationToken, acceptPartialAuthorization,
-                buyerEmailAddress, billingAddress, shippingAddress, note,
+                buyerEmailAddress, buyerPhoneNumber, billingAddress, shippingAddress, note,
                 statementDescriptionIdentifier, cashDetails, externalDetails, customerDetails,
                 offlinePaymentDetails);
     }
@@ -476,6 +494,7 @@ public class CreatePaymentRequest {
             && Objects.equals(verificationToken, other.verificationToken)
             && Objects.equals(acceptPartialAuthorization, other.acceptPartialAuthorization)
             && Objects.equals(buyerEmailAddress, other.buyerEmailAddress)
+            && Objects.equals(buyerPhoneNumber, other.buyerPhoneNumber)
             && Objects.equals(billingAddress, other.billingAddress)
             && Objects.equals(shippingAddress, other.shippingAddress)
             && Objects.equals(note, other.note)
@@ -501,11 +520,12 @@ public class CreatePaymentRequest {
                 + ", teamMemberId=" + teamMemberId + ", referenceId=" + referenceId
                 + ", verificationToken=" + verificationToken + ", acceptPartialAuthorization="
                 + acceptPartialAuthorization + ", buyerEmailAddress=" + buyerEmailAddress
-                + ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress
-                + ", note=" + note + ", statementDescriptionIdentifier="
-                + statementDescriptionIdentifier + ", cashDetails=" + cashDetails
-                + ", externalDetails=" + externalDetails + ", customerDetails=" + customerDetails
-                + ", offlinePaymentDetails=" + offlinePaymentDetails + "]";
+                + ", buyerPhoneNumber=" + buyerPhoneNumber + ", billingAddress=" + billingAddress
+                + ", shippingAddress=" + shippingAddress + ", note=" + note
+                + ", statementDescriptionIdentifier=" + statementDescriptionIdentifier
+                + ", cashDetails=" + cashDetails + ", externalDetails=" + externalDetails
+                + ", customerDetails=" + customerDetails + ", offlinePaymentDetails="
+                + offlinePaymentDetails + "]";
     }
 
     /**
@@ -529,6 +549,7 @@ public class CreatePaymentRequest {
                 .verificationToken(getVerificationToken())
                 .acceptPartialAuthorization(getAcceptPartialAuthorization())
                 .buyerEmailAddress(getBuyerEmailAddress())
+                .buyerPhoneNumber(getBuyerPhoneNumber())
                 .billingAddress(getBillingAddress())
                 .shippingAddress(getShippingAddress())
                 .note(getNote())
@@ -560,6 +581,7 @@ public class CreatePaymentRequest {
         private String verificationToken;
         private Boolean acceptPartialAuthorization;
         private String buyerEmailAddress;
+        private String buyerPhoneNumber;
         private Address billingAddress;
         private Address shippingAddress;
         private String note;
@@ -740,6 +762,16 @@ public class CreatePaymentRequest {
         }
 
         /**
+         * Setter for buyerPhoneNumber.
+         * @param  buyerPhoneNumber  String value for buyerPhoneNumber.
+         * @return Builder
+         */
+        public Builder buyerPhoneNumber(String buyerPhoneNumber) {
+            this.buyerPhoneNumber = buyerPhoneNumber;
+            return this;
+        }
+
+        /**
          * Setter for billingAddress.
          * @param  billingAddress  Address value for billingAddress.
          * @return Builder
@@ -827,9 +859,9 @@ public class CreatePaymentRequest {
             return new CreatePaymentRequest(sourceId, idempotencyKey, amountMoney, tipMoney,
                     appFeeMoney, delayDuration, delayAction, autocomplete, orderId, customerId,
                     locationId, teamMemberId, referenceId, verificationToken,
-                    acceptPartialAuthorization, buyerEmailAddress, billingAddress, shippingAddress,
-                    note, statementDescriptionIdentifier, cashDetails, externalDetails,
-                    customerDetails, offlinePaymentDetails);
+                    acceptPartialAuthorization, buyerEmailAddress, buyerPhoneNumber, billingAddress,
+                    shippingAddress, note, statementDescriptionIdentifier, cashDetails,
+                    externalDetails, customerDetails, offlinePaymentDetails);
         }
     }
 }

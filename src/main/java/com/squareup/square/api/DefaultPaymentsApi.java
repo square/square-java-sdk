@@ -48,8 +48,8 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         for, in RFC 3339 format. The range is determined using the `created_at` field for
      *         each Payment. Default: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed by
-     *         `Payment.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
-     *         (default).
+     *         `ListPaymentsRequest.sort_field`: - `ASC` - Oldest to newest. - `DESC` - Newest to
+     *         oldest (default).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
@@ -76,6 +76,14 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
      *         payments without a value set in `offline_payment_details.client_created_at` will not
      *         be returned. Default: The current time.
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to
+     *         retrieve payments for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each Payment.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve
+     *         payments for, in RFC 3339 format. The range is determined using the `updated_at`
+     *         field for each Payment.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is
+     *         `CREATED_AT`.
      * @return    Returns the ListPaymentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -92,10 +100,13 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Integer limit,
             final Boolean isOfflinePayment,
             final String offlineBeginTime,
-            final String offlineEndTime) throws ApiException, IOException {
+            final String offlineEndTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) throws ApiException, IOException {
         return prepareListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-                last4, cardBrand, limit, isOfflinePayment, offlineBeginTime,
-                offlineEndTime).execute();
+                last4, cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime,
+                updatedAtBeginTime, updatedAtEndTime, sortField).execute();
     }
 
     /**
@@ -109,8 +120,8 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         for, in RFC 3339 format. The range is determined using the `created_at` field for
      *         each Payment. Default: The current time.
      * @param  sortOrder  Optional parameter: The order in which results are listed by
-     *         `Payment.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
-     *         (default).
+     *         `ListPaymentsRequest.sort_field`: - `ASC` - Oldest to newest. - `DESC` - Newest to
+     *         oldest (default).
      * @param  cursor  Optional parameter: A pagination cursor returned by a previous call to this
      *         endpoint. Provide this cursor to retrieve the next set of results for the original
      *         query. For more information, see
@@ -137,6 +148,14 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
      *         using the `offline_payment_details.client_created_at` field for each Payment. If set,
      *         payments without a value set in `offline_payment_details.client_created_at` will not
      *         be returned. Default: The current time.
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to
+     *         retrieve payments for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each Payment.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve
+     *         payments for, in RFC 3339 format. The range is determined using the `updated_at`
+     *         field for each Payment.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is
+     *         `CREATED_AT`.
      * @return    Returns the ListPaymentsResponse response from the API call
      */
     public CompletableFuture<ListPaymentsResponse> listPaymentsAsync(
@@ -151,11 +170,14 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Integer limit,
             final Boolean isOfflinePayment,
             final String offlineBeginTime,
-            final String offlineEndTime) {
+            final String offlineEndTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) {
         try { 
             return prepareListPaymentsRequest(beginTime, endTime, sortOrder, cursor, locationId, total,
-            last4, cardBrand, limit, isOfflinePayment, offlineBeginTime,
-            offlineEndTime).executeAsync(); 
+            last4, cardBrand, limit, isOfflinePayment, offlineBeginTime, offlineEndTime,
+            updatedAtBeginTime, updatedAtEndTime, sortField).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -176,7 +198,10 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
             final Integer limit,
             final Boolean isOfflinePayment,
             final String offlineBeginTime,
-            final String offlineEndTime) throws IOException {
+            final String offlineEndTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) throws IOException {
         return new ApiCall.Builder<ListPaymentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -206,6 +231,12 @@ public final class DefaultPaymentsApi extends BaseApi implements PaymentsApi {
                                 .value(offlineBeginTime).isRequired(false))
                         .queryParam(param -> param.key("offline_end_time")
                                 .value(offlineEndTime).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_begin_time")
+                                .value(updatedAtBeginTime).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_end_time")
+                                .value(updatedAtEndTime).isRequired(false))
+                        .queryParam(param -> param.key("sort_field")
+                                .value(sortField).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("global"))

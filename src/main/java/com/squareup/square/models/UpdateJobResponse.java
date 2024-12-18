@@ -11,23 +11,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is a model class for RetrieveWageSettingResponse type.
+ * This is a model class for UpdateJobResponse type.
  */
-public class RetrieveWageSettingResponse {
+public class UpdateJobResponse {
     private HttpContext httpContext;
-    private final WageSetting wageSetting;
+    private final Job job;
     private final List<Error> errors;
 
     /**
      * Initialization constructor.
-     * @param  wageSetting  WageSetting value for wageSetting.
+     * @param  job  Job value for job.
      * @param  errors  List of Error value for errors.
      */
     @JsonCreator
-    public RetrieveWageSettingResponse(
-            @JsonProperty("wage_setting") WageSetting wageSetting,
+    public UpdateJobResponse(
+            @JsonProperty("job") Job job,
             @JsonProperty("errors") List<Error> errors) {
-        this.wageSetting = wageSetting;
+        this.job = job;
         this.errors = errors;
     }
 
@@ -37,15 +37,16 @@ public class RetrieveWageSettingResponse {
     }
 
     /**
-     * Getter for WageSetting.
-     * Represents information about the overtime exemption status, job assignments, and compensation
-     * for a [team member]($m/TeamMember).
-     * @return Returns the WageSetting
+     * Getter for Job.
+     * Represents a job that can be assigned to [team members]($m/TeamMember). This object defines
+     * the job's title and tip eligibility. Compensation is defined in a [job
+     * assignment]($m/JobAssignment) in a team member's wage setting.
+     * @return Returns the Job
      */
-    @JsonGetter("wage_setting")
+    @JsonGetter("job")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public WageSetting getWageSetting() {
-        return wageSetting;
+    public Job getJob() {
+        return job;
     }
 
     /**
@@ -61,7 +62,7 @@ public class RetrieveWageSettingResponse {
 
     @Override
     public int hashCode() {
-        return Objects.hash(wageSetting, errors);
+        return Objects.hash(job, errors);
     }
 
     @Override
@@ -69,42 +70,41 @@ public class RetrieveWageSettingResponse {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RetrieveWageSettingResponse)) {
+        if (!(obj instanceof UpdateJobResponse)) {
             return false;
         }
-        RetrieveWageSettingResponse other = (RetrieveWageSettingResponse) obj;
-        return Objects.equals(wageSetting, other.wageSetting)
+        UpdateJobResponse other = (UpdateJobResponse) obj;
+        return Objects.equals(job, other.job)
             && Objects.equals(errors, other.errors);
     }
 
     /**
-     * Converts this RetrieveWageSettingResponse into string format.
+     * Converts this UpdateJobResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "RetrieveWageSettingResponse [" + "wageSetting=" + wageSetting + ", errors=" + errors
-                + "]";
+        return "UpdateJobResponse [" + "job=" + job + ", errors=" + errors + "]";
     }
 
     /**
-     * Builds a new {@link RetrieveWageSettingResponse.Builder} object.
+     * Builds a new {@link UpdateJobResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RetrieveWageSettingResponse.Builder} object
+     * @return a new {@link UpdateJobResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .wageSetting(getWageSetting())
+                .job(getJob())
                 .errors(getErrors());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link RetrieveWageSettingResponse}.
+     * Class to build instances of {@link UpdateJobResponse}.
      */
     public static class Builder {
         private HttpContext httpContext;
-        private WageSetting wageSetting;
+        private Job job;
         private List<Error> errors;
 
 
@@ -120,12 +120,12 @@ public class RetrieveWageSettingResponse {
         }
 
         /**
-         * Setter for wageSetting.
-         * @param  wageSetting  WageSetting value for wageSetting.
+         * Setter for job.
+         * @param  job  Job value for job.
          * @return Builder
          */
-        public Builder wageSetting(WageSetting wageSetting) {
-            this.wageSetting = wageSetting;
+        public Builder job(Job job) {
+            this.job = job;
             return this;
         }
 
@@ -140,12 +140,12 @@ public class RetrieveWageSettingResponse {
         }
 
         /**
-         * Builds a new {@link RetrieveWageSettingResponse} object using the set fields.
-         * @return {@link RetrieveWageSettingResponse}
+         * Builds a new {@link UpdateJobResponse} object using the set fields.
+         * @return {@link UpdateJobResponse}
          */
-        public RetrieveWageSettingResponse build() {
-            RetrieveWageSettingResponse model =
-                    new RetrieveWageSettingResponse(wageSetting, errors);
+        public UpdateJobResponse build() {
+            UpdateJobResponse model =
+                    new UpdateJobResponse(job, errors);
             model.httpContext = httpContext;
             return model;
         }

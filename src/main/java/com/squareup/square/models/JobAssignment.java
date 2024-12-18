@@ -14,50 +14,69 @@ import java.util.Objects;
  * This is a model class for JobAssignment type.
  */
 public class JobAssignment {
-    private final String jobTitle;
+    private final OptionalNullable<String> jobTitle;
     private final String payType;
     private final Money hourlyRate;
     private final Money annualRate;
     private final OptionalNullable<Integer> weeklyHours;
+    private final OptionalNullable<String> jobId;
 
     /**
      * Initialization constructor.
-     * @param  jobTitle  String value for jobTitle.
      * @param  payType  String value for payType.
+     * @param  jobTitle  String value for jobTitle.
      * @param  hourlyRate  Money value for hourlyRate.
      * @param  annualRate  Money value for annualRate.
      * @param  weeklyHours  Integer value for weeklyHours.
+     * @param  jobId  String value for jobId.
      */
     @JsonCreator
     public JobAssignment(
-            @JsonProperty("job_title") String jobTitle,
             @JsonProperty("pay_type") String payType,
+            @JsonProperty("job_title") String jobTitle,
             @JsonProperty("hourly_rate") Money hourlyRate,
             @JsonProperty("annual_rate") Money annualRate,
-            @JsonProperty("weekly_hours") Integer weeklyHours) {
-        this.jobTitle = jobTitle;
+            @JsonProperty("weekly_hours") Integer weeklyHours,
+            @JsonProperty("job_id") String jobId) {
+        this.jobTitle = OptionalNullable.of(jobTitle);
         this.payType = payType;
         this.hourlyRate = hourlyRate;
         this.annualRate = annualRate;
         this.weeklyHours = OptionalNullable.of(weeklyHours);
+        this.jobId = OptionalNullable.of(jobId);
     }
 
     /**
      * Initialization constructor.
-     * @param  jobTitle  String value for jobTitle.
      * @param  payType  String value for payType.
+     * @param  jobTitle  String value for jobTitle.
      * @param  hourlyRate  Money value for hourlyRate.
      * @param  annualRate  Money value for annualRate.
      * @param  weeklyHours  Integer value for weeklyHours.
+     * @param  jobId  String value for jobId.
      */
 
-    protected JobAssignment(String jobTitle, String payType, Money hourlyRate, Money annualRate,
-            OptionalNullable<Integer> weeklyHours) {
+    protected JobAssignment(String payType, OptionalNullable<String> jobTitle, Money hourlyRate,
+            Money annualRate, OptionalNullable<Integer> weeklyHours,
+            OptionalNullable<String> jobId) {
         this.jobTitle = jobTitle;
         this.payType = payType;
         this.hourlyRate = hourlyRate;
         this.annualRate = annualRate;
         this.weeklyHours = weeklyHours;
+        this.jobId = jobId;
+    }
+
+    /**
+     * Internal Getter for JobTitle.
+     * The title of the job.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("job_title")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetJobTitle() {
+        return this.jobTitle;
     }
 
     /**
@@ -65,9 +84,9 @@ public class JobAssignment {
      * The title of the job.
      * @return Returns the String
      */
-    @JsonGetter("job_title")
+    @JsonIgnore
     public String getJobTitle() {
-        return jobTitle;
+        return OptionalNullable.getFrom(jobTitle);
     }
 
     /**
@@ -134,9 +153,31 @@ public class JobAssignment {
         return OptionalNullable.getFrom(weeklyHours);
     }
 
+    /**
+     * Internal Getter for JobId.
+     * The ID of the [job]($m/Job).
+     * @return Returns the Internal String
+     */
+    @JsonGetter("job_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetJobId() {
+        return this.jobId;
+    }
+
+    /**
+     * Getter for JobId.
+     * The ID of the [job]($m/Job).
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getJobId() {
+        return OptionalNullable.getFrom(jobId);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(jobTitle, payType, hourlyRate, annualRate, weeklyHours);
+        return Objects.hash(jobTitle, payType, hourlyRate, annualRate, weeklyHours, jobId);
     }
 
     @Override
@@ -152,7 +193,8 @@ public class JobAssignment {
             && Objects.equals(payType, other.payType)
             && Objects.equals(hourlyRate, other.hourlyRate)
             && Objects.equals(annualRate, other.annualRate)
-            && Objects.equals(weeklyHours, other.weeklyHours);
+            && Objects.equals(weeklyHours, other.weeklyHours)
+            && Objects.equals(jobId, other.jobId);
     }
 
     /**
@@ -161,8 +203,9 @@ public class JobAssignment {
      */
     @Override
     public String toString() {
-        return "JobAssignment [" + "jobTitle=" + jobTitle + ", payType=" + payType + ", hourlyRate="
-                + hourlyRate + ", annualRate=" + annualRate + ", weeklyHours=" + weeklyHours + "]";
+        return "JobAssignment [" + "payType=" + payType + ", jobTitle=" + jobTitle + ", hourlyRate="
+                + hourlyRate + ", annualRate=" + annualRate + ", weeklyHours=" + weeklyHours
+                + ", jobId=" + jobId + "]";
     }
 
     /**
@@ -171,10 +214,12 @@ public class JobAssignment {
      * @return a new {@link JobAssignment.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(jobTitle, payType)
+        Builder builder = new Builder(payType)
                 .hourlyRate(getHourlyRate())
                 .annualRate(getAnnualRate());
+        builder.jobTitle = internalGetJobTitle();
         builder.weeklyHours = internalGetWeeklyHours();
+        builder.jobId = internalGetJobId();
         return builder;
     }
 
@@ -182,30 +227,19 @@ public class JobAssignment {
      * Class to build instances of {@link JobAssignment}.
      */
     public static class Builder {
-        private String jobTitle;
         private String payType;
+        private OptionalNullable<String> jobTitle;
         private Money hourlyRate;
         private Money annualRate;
         private OptionalNullable<Integer> weeklyHours;
+        private OptionalNullable<String> jobId;
 
         /**
          * Initialization constructor.
-         * @param  jobTitle  String value for jobTitle.
          * @param  payType  String value for payType.
          */
-        public Builder(String jobTitle, String payType) {
-            this.jobTitle = jobTitle;
+        public Builder(String payType) {
             this.payType = payType;
-        }
-
-        /**
-         * Setter for jobTitle.
-         * @param  jobTitle  String value for jobTitle.
-         * @return Builder
-         */
-        public Builder jobTitle(String jobTitle) {
-            this.jobTitle = jobTitle;
-            return this;
         }
 
         /**
@@ -215,6 +249,25 @@ public class JobAssignment {
          */
         public Builder payType(String payType) {
             this.payType = payType;
+            return this;
+        }
+
+        /**
+         * Setter for jobTitle.
+         * @param  jobTitle  String value for jobTitle.
+         * @return Builder
+         */
+        public Builder jobTitle(String jobTitle) {
+            this.jobTitle = OptionalNullable.of(jobTitle);
+            return this;
+        }
+
+        /**
+         * UnSetter for jobTitle.
+         * @return Builder
+         */
+        public Builder unsetJobTitle() {
+            jobTitle = null;
             return this;
         }
 
@@ -258,11 +311,30 @@ public class JobAssignment {
         }
 
         /**
+         * Setter for jobId.
+         * @param  jobId  String value for jobId.
+         * @return Builder
+         */
+        public Builder jobId(String jobId) {
+            this.jobId = OptionalNullable.of(jobId);
+            return this;
+        }
+
+        /**
+         * UnSetter for jobId.
+         * @return Builder
+         */
+        public Builder unsetJobId() {
+            jobId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link JobAssignment} object using the set fields.
          * @return {@link JobAssignment}
          */
         public JobAssignment build() {
-            return new JobAssignment(jobTitle, payType, hourlyRate, annualRate, weeklyHours);
+            return new JobAssignment(payType, jobTitle, hourlyRate, annualRate, weeklyHours, jobId);
         }
     }
 }
