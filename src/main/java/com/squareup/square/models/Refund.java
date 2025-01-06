@@ -18,7 +18,7 @@ public class Refund {
     private final String id;
     private final String locationId;
     private final OptionalNullable<String> transactionId;
-    private final String tenderId;
+    private final OptionalNullable<String> tenderId;
     private final String createdAt;
     private final String reason;
     private final Money amountMoney;
@@ -54,7 +54,7 @@ public class Refund {
         this.id = id;
         this.locationId = locationId;
         this.transactionId = OptionalNullable.of(transactionId);
-        this.tenderId = tenderId;
+        this.tenderId = OptionalNullable.of(tenderId);
         this.createdAt = createdAt;
         this.reason = reason;
         this.amountMoney = amountMoney;
@@ -77,7 +77,7 @@ public class Refund {
      * @param  additionalRecipients  List of AdditionalRecipient value for additionalRecipients.
      */
 
-    protected Refund(String id, String locationId, String tenderId, String reason,
+    protected Refund(String id, String locationId, OptionalNullable<String> tenderId, String reason,
             Money amountMoney, String status, OptionalNullable<String> transactionId,
             String createdAt, Money processingFeeMoney,
             OptionalNullable<List<AdditionalRecipient>> additionalRecipients) {
@@ -136,13 +136,25 @@ public class Refund {
     }
 
     /**
+     * Internal Getter for TenderId.
+     * The ID of the refunded tender.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tender_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTenderId() {
+        return this.tenderId;
+    }
+
+    /**
      * Getter for TenderId.
      * The ID of the refunded tender.
      * @return Returns the String
      */
-    @JsonGetter("tender_id")
+    @JsonIgnore
     public String getTenderId() {
-        return tenderId;
+        return OptionalNullable.getFrom(tenderId);
     }
 
     /**
@@ -277,10 +289,11 @@ public class Refund {
      * @return a new {@link Refund.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, locationId, tenderId, reason, amountMoney, status)
+        Builder builder = new Builder(id, locationId, reason, amountMoney, status)
                 .createdAt(getCreatedAt())
                 .processingFeeMoney(getProcessingFeeMoney());
         builder.transactionId = internalGetTransactionId();
+        builder.tenderId = internalGetTenderId();
         builder.additionalRecipients = internalGetAdditionalRecipients();
         return builder;
     }
@@ -291,7 +304,7 @@ public class Refund {
     public static class Builder {
         private String id;
         private String locationId;
-        private String tenderId;
+        private OptionalNullable<String> tenderId;
         private String reason;
         private Money amountMoney;
         private String status;
@@ -304,16 +317,14 @@ public class Refund {
          * Initialization constructor.
          * @param  id  String value for id.
          * @param  locationId  String value for locationId.
-         * @param  tenderId  String value for tenderId.
          * @param  reason  String value for reason.
          * @param  amountMoney  Money value for amountMoney.
          * @param  status  String value for status.
          */
-        public Builder(String id, String locationId, String tenderId, String reason,
+        public Builder(String id, String locationId, String reason,
                 Money amountMoney, String status) {
             this.id = id;
             this.locationId = locationId;
-            this.tenderId = tenderId;
             this.reason = reason;
             this.amountMoney = amountMoney;
             this.status = status;
@@ -345,7 +356,16 @@ public class Refund {
          * @return Builder
          */
         public Builder tenderId(String tenderId) {
-            this.tenderId = tenderId;
+            this.tenderId = OptionalNullable.of(tenderId);
+            return this;
+        }
+
+        /**
+         * UnSetter for tenderId.
+         * @return Builder
+         */
+        public Builder unsetTenderId() {
+            tenderId = null;
             return this;
         }
 
