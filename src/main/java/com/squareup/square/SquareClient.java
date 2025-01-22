@@ -832,7 +832,7 @@ public final class SquareClient implements SquareClientInterface {
 
         private Environment environment = Environment.PRODUCTION;
         private String customUrl = "https://connect.squareup.com";
-        private String squareVersion = "2024-12-18";
+        private String squareVersion = "2025-01-23";
         private HttpClient httpClient;
         private Headers additionalHeaders = new Headers();
         private String userAgentDetail = null;
