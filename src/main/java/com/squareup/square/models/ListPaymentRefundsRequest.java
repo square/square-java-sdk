@@ -406,10 +406,10 @@ public class ListPaymentRefundsRequest {
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(status, other.status)
             && Objects.equals(sourceType, other.sourceType)
-            && Objects.equals(limit, other.limit);
+            && Objects.equals(limit, other.limit)
             && Objects.equals(updatedAtBeginTime, other.updatedAtBeginTime)
             && Objects.equals(updatedAtEndTime, other.updatedAtEndTime)
-            && Objects.equals(sortField, other.sortField)
+            && Objects.equals(sortField, other.sortField);
     }
 
     /**
