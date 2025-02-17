@@ -41,6 +41,14 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve each
      *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
      *         `created_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @param  sortOrder  Optional parameter: The order in which results are listed by
      *         `PaymentRefund.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
      *         (default).
@@ -70,6 +78,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     public ListPaymentRefundsResponse listPaymentRefunds(
             final String beginTime,
             final String endTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField,
             final String sortOrder,
             final String cursor,
             final String locationId,
@@ -91,6 +102,14 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      * @param  endTime  Optional parameter: Indicates the end of the time range to retrieve each
      *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
      *         `created_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @param  sortOrder  Optional parameter: The order in which results are listed by
      *         `PaymentRefund.created_at`: - `ASC` - Oldest to newest. - `DESC` - Newest to oldest
      *         (default).
@@ -118,6 +137,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     public CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
             final String beginTime,
             final String endTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField,
             final String sortOrder,
             final String cursor,
             final String locationId,
@@ -125,7 +147,7 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String sourceType,
             final Integer limit) {
         try { 
-            return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
+            return prepareListPaymentRefundsRequest(beginTime, endTime, updatedAtBeginTime, updatedAtEndTime, sortField, sortOrder, cursor, locationId,
             status, sourceType, limit).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
@@ -138,6 +160,9 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
     private ApiCall<ListPaymentRefundsResponse, ApiException> prepareListPaymentRefundsRequest(
             final String beginTime,
             final String endTime,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField,
             final String sortOrder,
             final String cursor,
             final String locationId,
@@ -153,6 +178,12 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
                                 .value(beginTime).isRequired(false))
                         .queryParam(param -> param.key("end_time")
                                 .value(endTime).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_begin_time")
+                                .value(updatedAtBeginTime).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_end_time")
+                                .value(updatedAtEndTime).isRequired(false))
+                        .queryParam(param -> param.key("sort_field")
+                                .value(sortField).isRequired(false))
                         .queryParam(param -> param.key("sort_order")
                                 .value(sortOrder).isRequired(false))
                         .queryParam(param -> param.key("cursor")
