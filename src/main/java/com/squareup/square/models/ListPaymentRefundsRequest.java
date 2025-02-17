@@ -16,88 +16,88 @@ import java.util.Objects;
 public class ListPaymentRefundsRequest {
     private final OptionalNullable<String> beginTime;
     private final OptionalNullable<String> endTime;
-    private final OptionalNullable<String> updatedAtBeginTime;
-    private final OptionalNullable<String> updatedAtEndTime;
-    private final OptionalNullable<String> sortField;
     private final OptionalNullable<String> sortOrder;
     private final OptionalNullable<String> cursor;
     private final OptionalNullable<String> locationId;
     private final OptionalNullable<String> status;
     private final OptionalNullable<String> sourceType;
     private final OptionalNullable<Integer> limit;
+    private final OptionalNullable<String> updatedAtBeginTime;
+    private final OptionalNullable<String> updatedAtEndTime;
+    private final OptionalNullable<String> sortField;
 
     /**
      * Initialization constructor.
      * @param  beginTime  String value for beginTime.
      * @param  endTime  String value for endTime.
-     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
-     * @param  updatedAtEndTime  String value for updatedAtEndTime.
-     * @param  sortField  String value for sortField.
      * @param  sortOrder  String value for sortOrder.
      * @param  cursor  String value for cursor.
      * @param  locationId  String value for locationId.
      * @param  status  String value for status.
      * @param  sourceType  String value for sourceType.
      * @param  limit  Integer value for limit.
+     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+     * @param  updatedAtEndTime  String value for updatedAtEndTime.
+     * @param  sortField  String value for sortField.
      */
     @JsonCreator
     public ListPaymentRefundsRequest(
             @JsonProperty("begin_time") String beginTime,
             @JsonProperty("end_time") String endTime,
-            @JsonProperty("updated_at_begin_time") String updatedAtBeginTime,
-            @JsonProperty("updated_at_end_time") String updatedAtEndTime,
-            @JsonProperty("sort_field") String sortField,
             @JsonProperty("sort_order") String sortOrder,
             @JsonProperty("cursor") String cursor,
             @JsonProperty("location_id") String locationId,
             @JsonProperty("status") String status,
             @JsonProperty("source_type") String sourceType,
-            @JsonProperty("limit") Integer limit) {
+            @JsonProperty("limit") Integer limit,
+            @JsonProperty("updated_at_begin_time") String updatedAtBeginTime,
+            @JsonProperty("updated_at_end_time") String updatedAtEndTime,
+            @JsonProperty("sort_field") String sortField) {
         this.beginTime = OptionalNullable.of(beginTime);
         this.endTime = OptionalNullable.of(endTime);
-        this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
-        this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
-        this.sortField = OptionalNullable.of(sortField);
         this.sortOrder = OptionalNullable.of(sortOrder);
         this.cursor = OptionalNullable.of(cursor);
         this.locationId = OptionalNullable.of(locationId);
         this.status = OptionalNullable.of(status);
         this.sourceType = OptionalNullable.of(sourceType);
         this.limit = OptionalNullable.of(limit);
+        this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
+        this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
+        this.sortField = OptionalNullable.of(sortField);
     }
 
     /**
      * Initialization constructor.
      * @param  beginTime  String value for beginTime.
      * @param  endTime  String value for endTime.
-     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
-     * @param  updatedAtEndTime  String value for updatedAtEndTime.
-     * @param  sortField  String value for sortField.
      * @param  sortOrder  String value for sortOrder.
      * @param  cursor  String value for cursor.
      * @param  locationId  String value for locationId.
      * @param  status  String value for status.
      * @param  sourceType  String value for sourceType.
      * @param  limit  Integer value for limit.
+     * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+     * @param  updatedAtEndTime  String value for updatedAtEndTime.
+     * @param  sortField  String value for sortField.
      */
 
     protected ListPaymentRefundsRequest(OptionalNullable<String> beginTime,
-            OptionalNullable<String> endTime, OptionalNullable<String> updatedAtBeginTime,
-            OptionalNullable<String> updatedAtEndTime, OptionalNullable<String> sortField,
-            OptionalNullable<String> sortOrder, OptionalNullable<String> cursor,
-            OptionalNullable<String> locationId, OptionalNullable<String> status,
-            OptionalNullable<String> sourceType, OptionalNullable<Integer> limit) {
+            OptionalNullable<String> endTime, OptionalNullable<String> sortOrder, 
+            OptionalNullable<String> cursor, OptionalNullable<String> locationId,
+            OptionalNullable<String> status, OptionalNullable<String> sourceType,
+            OptionalNullable<Integer> limit, OptionalNullable<String> updatedAtBeginTime,
+            OptionalNullable<String> updatedAtEndTime, OptionalNullable<String> sortField) {
         this.beginTime = beginTime;
         this.endTime = endTime;
-        this.updatedAtBeginTime = updatedAtBeginTime;
-        this.updatedAtEndTime = updatedAtEndTime;
-        this.sortField = sortField;
         this.sortOrder = sortOrder;
         this.cursor = cursor;
         this.locationId = locationId;
         this.status = status;
         this.sourceType = sourceType;
         this.limit = limit;
+        this.updatedAtBeginTime = updatedAtBeginTime;
+        this.updatedAtEndTime = updatedAtEndTime;
+        this.sortField = sortField;
     }
 
     /**
@@ -150,82 +150,6 @@ public class ListPaymentRefundsRequest {
     @JsonIgnore
     public String getEndTime() {
         return OptionalNullable.getFrom(endTime);
-    }
-
-    /**
-     * Internal Getter for UpdatedAtBeginTime.
-     * Indicates the start of the time range to retrieve each `PaymentRefund` for, in RFC 3339
-     * format. The range is determined using the `updated_at` field for each `PaymentRefund`.
-     * Default: if omitted, the time range starts at `beginTime`.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("updated_at_begin_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetUpdatedAtBeginTime() {
-        return this.updatedAtBeginTime;
-    }
-
-    /**
-     * Getter for UpdatedAtBeginTime.
-     * Indicates the start of the time range to retrieve each `PaymentRefund` for, in RFC 3339
-     * format. The range is determined using the `updated_at` field for each `PaymentRefund`.
-     * Default: if omitted, the time range starts at `beginTime`.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getUpdatedAtBeginTime() {
-        return OptionalNullable.getFrom(updatedAtBeginTime);
-    }
-
-    /**
-     * Internal Getter for UpdatedAtEndTime.
-     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
-     * The range is determined using the `updated_at` field for each `PaymentRefund`. Default: The
-     * current time.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("updated_at_end_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetUpdatedAtEndTime() {
-        return this.updatedAtEndTime;
-    }
-
-    /**
-     * Getter for UpdatedAtEndTime.
-     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
-     * The range is determined using the `updated_at` field for each `PaymentRefund`. Default: The
-     * current time.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getUpdatedAtEndTime() {
-        return OptionalNullable.getFrom(updatedAtEndTime);
-    }
-
-    /**
-     * Internal Getter for SortField.
-     * The field used to sort results by. The default is `CREATED_AT`.
-     * Current values include `CREATED_AT` and `UPDATED_AT`.
-     * @return Returns the Internal String
-     */
-    @JsonGetter("sort_field")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetSortField() {
-        return this.sortField;
-    }
-
-    /**
-     * Getter for SortField.
-     * The field used to sort results by. The default is `CREATED_AT`.
-     * Current values include `CREATED_AT` and `UPDATED_AT`.
-     * @return Returns the String
-     */
-    @JsonIgnore
-    public String getSortField() {
-        return OptionalNullable.getFrom(sortField);
     }
 
     /**
@@ -384,10 +308,86 @@ public class ListPaymentRefundsRequest {
         return OptionalNullable.getFrom(limit);
     }
 
+    /**
+     * Internal Getter for UpdatedAtBeginTime.
+     * Indicates the start of the time range to retrieve each `PaymentRefund` for, in RFC 3339
+     * format. The range is determined using the `updated_at` field for each `PaymentRefund`.
+     * Default: if omitted, the time range starts at `beginTime`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_at_begin_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedAtBeginTime() {
+        return this.updatedAtBeginTime;
+    }
+
+    /**
+     * Getter for UpdatedAtBeginTime.
+     * Indicates the start of the time range to retrieve each `PaymentRefund` for, in RFC 3339
+     * format. The range is determined using the `updated_at` field for each `PaymentRefund`.
+     * Default: if omitted, the time range starts at `beginTime`.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getUpdatedAtBeginTime() {
+        return OptionalNullable.getFrom(updatedAtBeginTime);
+    }
+
+    /**
+     * Internal Getter for UpdatedAtEndTime.
+     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
+     * The range is determined using the `updated_at` field for each `PaymentRefund`. Default: The
+     * current time.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("updated_at_end_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUpdatedAtEndTime() {
+        return this.updatedAtEndTime;
+    }
+
+    /**
+     * Getter for UpdatedAtEndTime.
+     * Indicates the end of the time range to retrieve each `PaymentRefund` for, in RFC 3339 format.
+     * The range is determined using the `updated_at` field for each `PaymentRefund`. Default: The
+     * current time.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getUpdatedAtEndTime() {
+        return OptionalNullable.getFrom(updatedAtEndTime);
+    }
+
+    /**
+     * Internal Getter for SortField.
+     * The field used to sort results by. The default is `CREATED_AT`.
+     * Current values include `CREATED_AT` and `UPDATED_AT`.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("sort_field")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSortField() {
+        return this.sortField;
+    }
+
+    /**
+     * Getter for SortField.
+     * The field used to sort results by. The default is `CREATED_AT`.
+     * Current values include `CREATED_AT` and `UPDATED_AT`.
+     * @return Returns the String
+     */
+    @JsonIgnore
+    public String getSortField() {
+        return OptionalNullable.getFrom(sortField);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(beginTime, endTime, updatedAtBeginTime, updatedAtEndTime, sortField,
-                sortOrder, cursor, locationId, status, sourceType, limit);
+        return Objects.hash(beginTime, endTime, sortOrder, cursor, locationId, status, 
+        sourceType, limit, updatedAtBeginTime, updatedAtEndTime, sortField);
     }
 
     @Override
@@ -401,15 +401,15 @@ public class ListPaymentRefundsRequest {
         ListPaymentRefundsRequest other = (ListPaymentRefundsRequest) obj;
         return Objects.equals(beginTime, other.beginTime)
             && Objects.equals(endTime, other.endTime)
-            && Objects.equals(updatedAtBeginTime, other.updatedAtBeginTime)
-            && Objects.equals(updatedAtEndTime, other.updatedAtEndTime)
-            && Objects.equals(sortField, other.sortField)
             && Objects.equals(sortOrder, other.sortOrder)
             && Objects.equals(cursor, other.cursor)
             && Objects.equals(locationId, other.locationId)
             && Objects.equals(status, other.status)
             && Objects.equals(sourceType, other.sourceType)
             && Objects.equals(limit, other.limit);
+            && Objects.equals(updatedAtBeginTime, other.updatedAtBeginTime)
+            && Objects.equals(updatedAtEndTime, other.updatedAtEndTime)
+            && Objects.equals(sortField, other.sortField)
     }
 
     /**
@@ -419,10 +419,10 @@ public class ListPaymentRefundsRequest {
     @Override
     public String toString() {
         return "ListPaymentRefundsRequest [" + "beginTime=" + beginTime + ", endTime=" + endTime
+                + ", sortOrder=" + sortOrder + ", cursor=" + cursor + ", locationId=" + locationId
+                + ", status=" + status + ", sourceType=" + sourceType + ", limit=" + limit
                 + ", updatedAtBeginTime=" + updatedAtBeginTime + ", updatedAtEndTime="
-                + updatedAtEndTime + ", sortField=" + sortField + ", sortOrder=" + sortOrder
-                + ", cursor=" + cursor + ", locationId=" + locationId + ", status=" + status
-                + ", sourceType=" + sourceType + ", limit=" + limit + "]";
+                + updatedAtEndTime + ", sortField=" + sortField + "]";
     }
 
     /**
@@ -434,15 +434,15 @@ public class ListPaymentRefundsRequest {
         Builder builder = new Builder();
         builder.beginTime = internalGetBeginTime();
         builder.endTime = internalGetEndTime();
-        builder.updatedAtBeginTime = internalGetUpdatedAtBeginTime();
-        builder.updatedAtEndTime = internalGetUpdatedAtEndTime();
-        builder.sortField = internalGetSortField();
         builder.sortOrder = internalGetSortOrder();
         builder.cursor = internalGetCursor();
         builder.locationId = internalGetLocationId();
         builder.status = internalGetStatus();
         builder.sourceType = internalGetSourceType();
         builder.limit = internalGetLimit();
+        builder.updatedAtBeginTime = internalGetUpdatedAtBeginTime();
+        builder.updatedAtEndTime = internalGetUpdatedAtEndTime();
+        builder.sortField = internalGetSortField();
         return builder;
     }
 
@@ -452,15 +452,15 @@ public class ListPaymentRefundsRequest {
     public static class Builder {
         private OptionalNullable<String> beginTime;
         private OptionalNullable<String> endTime;
-        private OptionalNullable<String> updatedAtBeginTime;
-        private OptionalNullable<String> updatedAtEndTime;
-        private OptionalNullable<String> sortField;
         private OptionalNullable<String> sortOrder;
         private OptionalNullable<String> cursor;
         private OptionalNullable<String> locationId;
         private OptionalNullable<String> status;
         private OptionalNullable<String> sourceType;
         private OptionalNullable<Integer> limit;
+        private OptionalNullable<String> updatedAtBeginTime;
+        private OptionalNullable<String> updatedAtEndTime;
+        private OptionalNullable<String> sortField;
 
 
 
@@ -499,63 +499,6 @@ public class ListPaymentRefundsRequest {
          */
         public Builder unsetEndTime() {
             endTime = null;
-            return this;
-        }
-
-        /**
-         * Setter for updatedAtBeginTime.
-         * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
-         * @return Builder
-         */
-        public Builder updatedAtBeginTime(String updatedAtBeginTime) {
-            this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
-            return this;
-        }
-
-        /**
-         * UnSetter for updatedAtBeginTime.
-         * @return Builder
-         */
-        public Builder unsetUpdatedAtBeginTime() {
-            updatedAtBeginTime = null;
-            return this;
-        }
-
-        /**
-         * Setter for updatedAtEndTime.
-         * @param  updatedAtEndTime  String value for updatedAtEndTime.
-         * @return Builder
-         */
-        public Builder updatedAtEndTime(String updatedAtEndTime) {
-            this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
-            return this;
-        }
-
-        /**
-         * UnSetter for updatedAtEndTime.
-         * @return Builder
-         */
-        public Builder unsetUpdatedAtEndTime() {
-            updatedAtEndTime = null;
-            return this;
-        }
-
-        /**
-         * Setter for sortField.
-         * @param  sortField  String value for sortField.
-         * @return Builder
-         */
-        public Builder sortField(String sortField) {
-            this.sortField = OptionalNullable.of(sortField);
-            return this;
-        }
-
-        /**
-         * UnSetter for sortField.
-         * @return Builder
-         */
-        public Builder unsetSortField() {
-            sortField = null;
             return this;
         }
 
@@ -674,13 +617,69 @@ public class ListPaymentRefundsRequest {
         }
 
         /**
+         * Setter for updatedAtBeginTime.
+         * @param  updatedAtBeginTime  String value for updatedAtBeginTime.
+         * @return Builder
+         */
+        public Builder updatedAtBeginTime(String updatedAtBeginTime) {
+            this.updatedAtBeginTime = OptionalNullable.of(updatedAtBeginTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedAtBeginTime.
+         * @return Builder
+         */
+        public Builder unsetUpdatedAtBeginTime() {
+            updatedAtBeginTime = null;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAtEndTime.
+         * @param  updatedAtEndTime  String value for updatedAtEndTime.
+         * @return Builder
+         */
+        public Builder updatedAtEndTime(String updatedAtEndTime) {
+            this.updatedAtEndTime = OptionalNullable.of(updatedAtEndTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for updatedAtEndTime.
+         * @return Builder
+         */
+        public Builder unsetUpdatedAtEndTime() {
+            updatedAtEndTime = null;
+            return this;
+        }
+
+        /**
+         * Setter for sortField.
+         * @param  sortField  String value for sortField.
+         * @return Builder
+         */
+        public Builder sortField(String sortField) {
+            this.sortField = OptionalNullable.of(sortField);
+            return this;
+        }
+
+        /**
+         * UnSetter for sortField.
+         * @return Builder
+         */
+        public Builder unsetSortField() {
+            sortField = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListPaymentRefundsRequest} object using the set fields.
          * @return {@link ListPaymentRefundsRequest}
          */
         public ListPaymentRefundsRequest build() {
-            return new ListPaymentRefundsRequest(beginTime, endTime, updatedAtBeginTime,
-                    updatedAtEndTime, sortField, sortOrder, cursor, locationId, status, sourceType,
-                    limit);
+            return new ListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId, status,
+                    sourceType, limit, updatedAtBeginTime, updatedAtEndTime, sortField);
         }
     }
 }

@@ -147,8 +147,8 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String updatedAtEndTime,
             final String sortField) {
         try { 
-            return prepareListPaymentRefundsRequest(beginTime, endTime, updatedAtBeginTime, updatedAtEndTime, sortField, sortOrder, cursor, locationId,
-            status, sourceType, limit).executeAsync(); 
+            return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
+            status, sourceType, limit, updatedAtBeginTime, updatedAtEndTime, sortField).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
