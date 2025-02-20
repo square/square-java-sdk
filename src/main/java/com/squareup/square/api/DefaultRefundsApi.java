@@ -63,6 +63,14 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. If the supplied value is greater than 100, no more than 100 results are
      *         returned. Default: 100
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @return    Returns the ListPaymentRefundsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -75,9 +83,12 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit) throws ApiException, IOException {
+            final Integer limit,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) throws ApiException, IOException {
         return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
-                status, sourceType, limit).execute();
+                status, sourceType, limit, updatedAtBeginTime, updatedAtEndTime, sortField).execute();
     }
 
     /**
@@ -113,6 +124,14 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. If the supplied value is greater than 100, no more than 100 results are
      *         returned. Default: 100
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @return    Returns the ListPaymentRefundsResponse response from the API call
      */
     public CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
@@ -123,10 +142,13 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit) {
+            final Integer limit,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) {
         try { 
             return prepareListPaymentRefundsRequest(beginTime, endTime, sortOrder, cursor, locationId,
-            status, sourceType, limit).executeAsync(); 
+            status, sourceType, limit, updatedAtBeginTime, updatedAtEndTime, sortField).executeAsync(); 
         } catch (Exception e) {  
             throw new CompletionException(e); 
         }
@@ -143,7 +165,10 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit) throws IOException {
+            final Integer limit,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) throws IOException {
         return new ApiCall.Builder<ListPaymentRefundsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -165,6 +190,12 @@ public final class DefaultRefundsApi extends BaseApi implements RefundsApi {
                                 .value(sourceType).isRequired(false))
                         .queryParam(param -> param.key("limit")
                                 .value(limit).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_begin_time")
+                                .value(updatedAtBeginTime).isRequired(false))
+                        .queryParam(param -> param.key("updated_at_end_time")
+                                .value(updatedAtEndTime).isRequired(false))
+                        .queryParam(param -> param.key("sort_field")
+                                .value(sortField).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("global"))

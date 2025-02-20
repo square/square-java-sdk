@@ -47,6 +47,14 @@ public interface RefundsApi {
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. If the supplied value is greater than 100, no more than 100 results are
      *         returned. Default: 100
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @return    Returns the ListPaymentRefundsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -59,7 +67,10 @@ public interface RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit) throws ApiException, IOException;
+            final Integer limit,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField) throws ApiException, IOException;
 
     /**
      * Retrieves a list of refunds for the account making the request. Results are eventually
@@ -94,6 +105,14 @@ public interface RefundsApi {
      *         page. It is possible to receive fewer results than the specified limit on a given
      *         page. If the supplied value is greater than 100, no more than 100 results are
      *         returned. Default: 100
+     * @param  updatedAtBeginTime  Optional parameter: Indicates the start of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: if omitted, the time range starts at `beginTime`.
+     * @param  updatedAtEndTime  Optional parameter: Indicates the end of the time range to retrieve each
+     *         `PaymentRefund` for, in RFC 3339 format. The range is determined using the
+     *         `updated_at` field for each `PaymentRefund`. Default: The current time.
+     * @param  sortField  Optional parameter: The field used to sort results by. The default is `CREATED_AT`.
+     *         Current values include `CREATED_AT` and `UPDATED_AT`.
      * @return    Returns the ListPaymentRefundsResponse response from the API call
      */
     CompletableFuture<ListPaymentRefundsResponse> listPaymentRefundsAsync(
@@ -104,7 +123,10 @@ public interface RefundsApi {
             final String locationId,
             final String status,
             final String sourceType,
-            final Integer limit);
+            final Integer limit,
+            final String updatedAtBeginTime,
+            final String updatedAtEndTime,
+            final String sortField);
 
     /**
      * Refunds a payment. You can refund the entire payment amount or a portion of it. You can use
