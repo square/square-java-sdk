@@ -3,10 +3,29 @@
  */
 package com.squareup.square.core;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.squareup.square.types.Error;
+import com.squareup.square.types.ErrorCategory;
+import com.squareup.square.types.ErrorCode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 /**
  * This exception type will be thrown for any non-2XX API responses.
  */
 public class SquareApiException extends SquareException {
+
+    private static final String V1_CODE_KEY = "type";
+    private static final String ERRORS_KEY = "errors";
+    private static final String V1_DETAIL_KEY = "message";
+    private static final String FIELD_KEY = "field";
+    private static final Error FALLBACK_ERROR = Error.builder()
+            .category(ErrorCategory.API_ERROR)
+            .code(ErrorCode.valueOf("UNKNOWN"))
+            .build();
+
     /**
      * The error code of the response that triggered the exception.
      */
@@ -17,10 +36,13 @@ public class SquareApiException extends SquareException {
      */
     private final Object body;
 
+    private final List<Error> errors;
+
     public SquareApiException(String message, int statusCode, Object body) {
         super(message);
         this.statusCode = statusCode;
         this.body = body;
+        this.errors = parseErrors(body);
     }
 
     /**
@@ -37,9 +59,96 @@ public class SquareApiException extends SquareException {
         return this.body;
     }
 
+    /**
+     * @return the errors
+     */
+    public List<Error> errors() {
+        return this.errors;
+    }
+
     @java.lang.Override
     public String toString() {
-        return "SquareApiException{" + "message: " + getMessage() + ", statusCode: " + statusCode + ", body: " + body
-                + "}";
+        return "SquareClientApiException{" + "message: " + getMessage() + ", statusCode: " + statusCode + ", body: "
+                + body + "}";
+    }
+
+    private static List<Error> parseErrors(Object body) {
+        List<Error> errors = new ArrayList<>();
+        JsonNode json = ObjectMappers.JSON_MAPPER.valueToTree(body);
+
+        if (json.isValueNode()) {
+            if (!json.isTextual()) {
+                errors.add(FALLBACK_ERROR);
+                return errors;
+            }
+            try {
+                json = ObjectMappers.JSON_MAPPER.readTree(json.textValue());
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if (json.isObject()) {
+            JsonNode errorsNode = json.get(ERRORS_KEY);
+            if (errorsNode != null) {
+                if (!errorsNode.isArray()) {
+                    errors.add(FALLBACK_ERROR);
+                    return errors;
+                }
+
+                json = errorsNode;
+            } else {
+                Optional<ErrorCode> code = Optional.ofNullable(json.get(V1_CODE_KEY))
+                        .filter(JsonNode::isTextual)
+                        .map(JsonNode::textValue)
+                        .map(ErrorCode::valueOf);
+                Optional<String> detail = Optional.ofNullable(json.get(V1_DETAIL_KEY))
+                        .filter(JsonNode::isTextual)
+                        .map(JsonNode::textValue);
+                Optional<String> field = Optional.ofNullable(json.get(FIELD_KEY))
+                        .filter(JsonNode::isTextual)
+                        .map(JsonNode::textValue);
+
+                errors.add(Error.builder()
+                        .category(ErrorCategory.API_ERROR)
+                        .code(code.orElse(ErrorCode.valueOf("UNKNOWN")))
+                        .detail(detail)
+                        .field(field)
+                        .build());
+                return errors;
+            }
+        }
+
+        if (json.isArray()) {
+            for (JsonNode errorNode : json) {
+                try {
+                    errors.add(ObjectMappers.JSON_MAPPER.readValue(errorNode.toString(), Error.class));
+                } catch (JsonProcessingException e) {
+                    Optional<ErrorCode> code = Optional.ofNullable(errorNode.get(V1_CODE_KEY))
+                            .filter(JsonNode::isTextual)
+                            .map(JsonNode::textValue)
+                            .map(ErrorCode::valueOf);
+                    Optional<String> detail = Optional.ofNullable(errorNode.get(V1_CODE_KEY))
+                            .filter(JsonNode::isTextual)
+                            .map(JsonNode::textValue);
+                    Optional<String> field = Optional.ofNullable(errorNode.get(FIELD_KEY))
+                            .filter(JsonNode::isTextual)
+                            .map(JsonNode::textValue);
+
+                    errors.add(Error.builder()
+                            .from(FALLBACK_ERROR)
+                            .category(ErrorCategory.API_ERROR)
+                            .code(code.orElse(ErrorCode.valueOf("UNKNOWN")))
+                            .detail(detail)
+                            .field(field)
+                            .build());
+                }
+            }
+
+            return errors;
+        }
+
+        errors.add(FALLBACK_ERROR);
+        return errors;
     }
 }

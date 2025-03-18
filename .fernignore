@@ -1,1 +1,8 @@
 # Specify files that shouldn't be modified by Fern
+README.md
+settings.gradle
+legacy-sdk
+src/test/java/com/squareup/square/integration
+src/main/java/com/squareup/square/core/SquareApiException.java
+src/main/java/com/squareup/square/utilities/WebhooksHelper.java
+src/test/resources/testdata

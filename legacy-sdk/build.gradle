@@ -1,0 +1,82 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.diffplug.spotless' version '6.11.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.apimatic:core-interfaces:0.3.1'
+    implementation 'io.apimatic:core:0.6.6'
+    implementation 'io.apimatic:okhttp-client-adapter:0.3.1'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:4.12.3'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+spotless {
+    java {
+        palantirJavaFormat()
+    }
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+jar {
+    dependsOn(":generatePomFileForMavenPublication")
+    archiveBaseName = "square-legacy"
+}
+
+sourcesJar {
+    archiveBaseName = "square-legacy"
+}
+
+javadocJar {
+    archiveBaseName = "square-legacy"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.squareup'
+            artifactId = 'square-legacy'
+            version = rootProject.publishing.publications.maven.version
+            from components.java
+            pom {
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                scm {
+                    connection = rootProject.publishing.publications.maven.pom.scm.connection
+                    developerConnection = rootProject.publishing.publications.maven.pom.scm.developerConnection
+                    url = rootProject.publishing.publications.maven.pom.scm.url
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url rootProject.publishing.repositories.maven.url
+            credentials {
+                username rootProject.publishing.repositories.maven.credentials.username
+                password rootProject.publishing.repositories.maven.credentials.password
+            }
+        }
+    }
+}
