@@ -72,6 +72,8 @@ public final class Invoice {
 
     private final Optional<List<InvoiceAttachment>> attachments;
 
+    private final Optional<String> creatorTeamMemberId;
+
     private final Map<String, Object> additionalProperties;
 
     private Invoice(
@@ -99,6 +101,7 @@ public final class Invoice {
             Optional<String> paymentConditions,
             Optional<Boolean> storePaymentMethodEnabled,
             Optional<List<InvoiceAttachment>> attachments,
+            Optional<String> creatorTeamMemberId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.version = version;
@@ -124,6 +127,7 @@ public final class Invoice {
         this.paymentConditions = paymentConditions;
         this.storePaymentMethodEnabled = storePaymentMethodEnabled;
         this.attachments = attachments;
+        this.creatorTeamMemberId = creatorTeamMemberId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -410,6 +414,15 @@ public final class Invoice {
         return attachments;
     }
 
+    /**
+     * @return The ID of the <a href="entity:TeamMember">team member</a> who created the invoice.
+     * This field is present only on invoices created in the Square Dashboard or Square Invoices app by a logged-in team member.
+     */
+    @JsonProperty("creator_team_member_id")
+    public Optional<String> getCreatorTeamMemberId() {
+        return creatorTeamMemberId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("location_id")
     private Optional<String> _getLocationId() {
@@ -511,7 +524,8 @@ public final class Invoice {
                 && saleOrServiceDate.equals(other.saleOrServiceDate)
                 && paymentConditions.equals(other.paymentConditions)
                 && storePaymentMethodEnabled.equals(other.storePaymentMethodEnabled)
-                && attachments.equals(other.attachments);
+                && attachments.equals(other.attachments)
+                && creatorTeamMemberId.equals(other.creatorTeamMemberId);
     }
 
     @java.lang.Override
@@ -540,7 +554,8 @@ public final class Invoice {
                 this.saleOrServiceDate,
                 this.paymentConditions,
                 this.storePaymentMethodEnabled,
-                this.attachments);
+                this.attachments,
+                this.creatorTeamMemberId);
     }
 
     @java.lang.Override
@@ -602,6 +617,8 @@ public final class Invoice {
 
         private Optional<List<InvoiceAttachment>> attachments = Optional.empty();
 
+        private Optional<String> creatorTeamMemberId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -632,6 +649,7 @@ public final class Invoice {
             paymentConditions(other.getPaymentConditions());
             storePaymentMethodEnabled(other.getStorePaymentMethodEnabled());
             attachments(other.getAttachments());
+            creatorTeamMemberId(other.getCreatorTeamMemberId());
             return this;
         }
 
@@ -1020,6 +1038,17 @@ public final class Invoice {
             return this;
         }
 
+        @JsonSetter(value = "creator_team_member_id", nulls = Nulls.SKIP)
+        public Builder creatorTeamMemberId(Optional<String> creatorTeamMemberId) {
+            this.creatorTeamMemberId = creatorTeamMemberId;
+            return this;
+        }
+
+        public Builder creatorTeamMemberId(String creatorTeamMemberId) {
+            this.creatorTeamMemberId = Optional.ofNullable(creatorTeamMemberId);
+            return this;
+        }
+
         public Invoice build() {
             return new Invoice(
                     id,
@@ -1046,6 +1075,7 @@ public final class Invoice {
                     paymentConditions,
                     storePaymentMethodEnabled,
                     attachments,
+                    creatorTeamMemberId,
                     additionalProperties);
         }
     }

@@ -57,6 +57,12 @@ public final class Card {
 
     private final Optional<CardCoBrand> cardCoBrand;
 
+    private final Optional<String> issuerAlert;
+
+    private final Optional<String> issuerAlertAt;
+
+    private final Optional<Boolean> hsaFsa;
+
     private final Map<String, Object> additionalProperties;
 
     private Card(
@@ -77,6 +83,9 @@ public final class Card {
             Optional<String> bin,
             Optional<Long> version,
             Optional<CardCoBrand> cardCoBrand,
+            Optional<String> issuerAlert,
+            Optional<String> issuerAlertAt,
+            Optional<Boolean> hsaFsa,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.cardBrand = cardBrand;
@@ -95,6 +104,9 @@ public final class Card {
         this.bin = bin;
         this.version = version;
         this.cardCoBrand = cardCoBrand;
+        this.issuerAlert = issuerAlert;
+        this.issuerAlertAt = issuerAlertAt;
+        this.hsaFsa = hsaFsa;
         this.additionalProperties = additionalProperties;
     }
 
@@ -157,7 +169,9 @@ public final class Card {
     }
 
     /**
-     * @return The billing address for this card.
+     * @return The billing address for this card. <code>US</code> postal codes can be provided as a 5-digit zip code
+     * or 9-digit ZIP+4 (example: <code>12345-6789</code>). For a full list of field meanings by country, see
+     * <a href="https://developer.squareup.com/docs/build-basics/common-data-types/working-with-addresses">Working with Addresses</a>.
      */
     @JsonProperty("billing_address")
     public Optional<Address> getBillingAddress() {
@@ -175,7 +189,7 @@ public final class Card {
     }
 
     /**
-     * @return <strong>Required</strong> The ID of a customer created using the Customers API to be associated with the card.
+     * @return <strong>Required</strong> The ID of a <a href="entity:Customer">customer</a> to be associated with the card.
      */
     @JsonIgnore
     public Optional<String> getCustomerId() {
@@ -225,8 +239,7 @@ public final class Card {
     }
 
     /**
-     * @return Indicates whether the Card is prepaid or not.
-     * The Card object includes this field only in response to Payments API calls.
+     * @return Indicates whether the card is prepaid or not.
      * See <a href="#type-cardprepaidtype">CardPrepaidType</a> for possible values
      */
     @JsonProperty("prepaid_type")
@@ -261,6 +274,37 @@ public final class Card {
     @JsonProperty("card_co_brand")
     public Optional<CardCoBrand> getCardCoBrand() {
         return cardCoBrand;
+    }
+
+    /**
+     * @return An alert from the issuing bank about the card status. Alerts can indicate whether
+     * future charges to the card are likely to fail. For more information, see
+     * <a href="https://developer.squareup.com/docs/cards-api/manage-card-on-file-declines">Manage Card on File Declines</a>.
+     * <p>This field is present only if there's an active issuer alert.
+     * See <a href="#type-issueralert">IssuerAlert</a> for possible values</p>
+     */
+    @JsonProperty("issuer_alert")
+    public Optional<String> getIssuerAlert() {
+        return issuerAlert;
+    }
+
+    /**
+     * @return The timestamp of when the current issuer alert was received and processed, in
+     * RFC 3339 format.
+     * <p>This field is present only if there's an active issuer alert.</p>
+     */
+    @JsonProperty("issuer_alert_at")
+    public Optional<String> getIssuerAlertAt() {
+        return issuerAlertAt;
+    }
+
+    /**
+     * @return Indicates whether the card is linked to a Health Savings Account (HSA) or Flexible
+     * Spending Account (FSA), based on the card BIN.
+     */
+    @JsonProperty("hsa_fsa")
+    public Optional<Boolean> getHsaFsa() {
+        return hsaFsa;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -321,7 +365,10 @@ public final class Card {
                 && prepaidType.equals(other.prepaidType)
                 && bin.equals(other.bin)
                 && version.equals(other.version)
-                && cardCoBrand.equals(other.cardCoBrand);
+                && cardCoBrand.equals(other.cardCoBrand)
+                && issuerAlert.equals(other.issuerAlert)
+                && issuerAlertAt.equals(other.issuerAlertAt)
+                && hsaFsa.equals(other.hsaFsa);
     }
 
     @java.lang.Override
@@ -343,7 +390,10 @@ public final class Card {
                 this.prepaidType,
                 this.bin,
                 this.version,
-                this.cardCoBrand);
+                this.cardCoBrand,
+                this.issuerAlert,
+                this.issuerAlertAt,
+                this.hsaFsa);
     }
 
     @java.lang.Override
@@ -391,6 +441,12 @@ public final class Card {
 
         private Optional<CardCoBrand> cardCoBrand = Optional.empty();
 
+        private Optional<String> issuerAlert = Optional.empty();
+
+        private Optional<String> issuerAlertAt = Optional.empty();
+
+        private Optional<Boolean> hsaFsa = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -414,6 +470,9 @@ public final class Card {
             bin(other.getBin());
             version(other.getVersion());
             cardCoBrand(other.getCardCoBrand());
+            issuerAlert(other.getIssuerAlert());
+            issuerAlertAt(other.getIssuerAlertAt());
+            hsaFsa(other.getHsaFsa());
             return this;
         }
 
@@ -659,6 +718,39 @@ public final class Card {
             return this;
         }
 
+        @JsonSetter(value = "issuer_alert", nulls = Nulls.SKIP)
+        public Builder issuerAlert(Optional<String> issuerAlert) {
+            this.issuerAlert = issuerAlert;
+            return this;
+        }
+
+        public Builder issuerAlert(String issuerAlert) {
+            this.issuerAlert = Optional.ofNullable(issuerAlert);
+            return this;
+        }
+
+        @JsonSetter(value = "issuer_alert_at", nulls = Nulls.SKIP)
+        public Builder issuerAlertAt(Optional<String> issuerAlertAt) {
+            this.issuerAlertAt = issuerAlertAt;
+            return this;
+        }
+
+        public Builder issuerAlertAt(String issuerAlertAt) {
+            this.issuerAlertAt = Optional.ofNullable(issuerAlertAt);
+            return this;
+        }
+
+        @JsonSetter(value = "hsa_fsa", nulls = Nulls.SKIP)
+        public Builder hsaFsa(Optional<Boolean> hsaFsa) {
+            this.hsaFsa = hsaFsa;
+            return this;
+        }
+
+        public Builder hsaFsa(Boolean hsaFsa) {
+            this.hsaFsa = Optional.ofNullable(hsaFsa);
+            return this;
+        }
+
         public Card build() {
             return new Card(
                     id,
@@ -678,6 +770,9 @@ public final class Card {
                     bin,
                     version,
                     cardCoBrand,
+                    issuerAlert,
+                    issuerAlertAt,
+                    hsaFsa,
                     additionalProperties);
         }
     }

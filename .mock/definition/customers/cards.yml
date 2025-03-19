@@ -133,6 +133,9 @@ service:
                 bin: bin
                 version: 1000000
                 card_co_brand: UNKNOWN
+                issuer_alert: ISSUER_ALERT_CARD_CLOSED
+                issuer_alert_at: issuer_alert_at
+                hsa_fsa: true
     delete:
       path: /v2/customers/{customer_id}/cards/{card_id}
       method: DELETE

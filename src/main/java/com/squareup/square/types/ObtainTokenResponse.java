@@ -73,9 +73,11 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return A valid OAuth access token.
-     * Provide the access token in a header with every request to Connect API
-     * endpoints. For more information, see <a href="https://developer.squareup.com/docs/oauth-api/walkthrough">OAuth API: Walkthrough</a>.
+     * @return An OAuth access token used to authorize Square API requests on behalf of the seller.
+     * Include this token as a bearer token in the <code>Authorization</code> header of your API requests.
+     * <p>OAuth access tokens expire in 30 days (except <code>short_lived</code> access tokens). You should call
+     * <code>ObtainToken</code> and provide the returned <code>refresh_token</code> to get a new access token well before
+     * the current one expires. For more information, see <a href="https://developer.squareup.com/docs/oauth-api/walkthrough">OAuth API: Walkthrough</a>.</p>
      */
     @JsonProperty("access_token")
     public Optional<String> getAccessToken() {
@@ -83,7 +85,7 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return This value is always <em>bearer</em>.
+     * @return The type of access token. This value is always <code>bearer</code>.
      */
     @JsonProperty("token_type")
     public Optional<String> getTokenType() {
@@ -91,7 +93,7 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return The date when the <code>access_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.
+     * @return The timestamp of when the <code>access_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.
      */
     @JsonProperty("expires_at")
     public Optional<String> getExpiresAt() {
@@ -99,7 +101,7 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return The ID of the authorizing merchant's business.
+     * @return The ID of the authorizing <a href="entity:Merchant">merchant</a> (seller), which represents a business.
      */
     @JsonProperty("merchant_id")
     public Optional<String> getMerchantId() {
@@ -107,8 +109,8 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return <strong>LEGACY FIELD</strong>. The ID of a subscription plan the merchant signed up
-     * for. The ID is only present if the merchant signed up for a subscription plan during authorization.
+     * @return <strong>LEGACY</strong> The ID of merchant's subscription.
+     * The ID is only present if the merchant signed up for a subscription plan during authorization.
      */
     @JsonProperty("subscription_id")
     public Optional<String> getSubscriptionId() {
@@ -116,7 +118,7 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return <strong>LEGACY FIELD</strong>. The ID of the subscription plan the merchant signed
+     * @return <strong>LEGACY</strong> The ID of the subscription plan the merchant signed
      * up for. The ID is only present if the merchant signed up for a subscription plan during
      * authorization.
      */
@@ -126,8 +128,10 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return The OpenID token belonging to this person. This token is only present if the
-     * OPENID scope is included in the authorization request.
+     * @return The OpenID token that belongs to this person. This token is only present if the
+     * <code>OPENID</code> scope is included in the authorization request.
+     * <p>Deprecated at version 2021-09-15. Square doesn't support OpenID or other single sign-on (SSO)
+     * protocols on top of OAuth.</p>
      */
     @JsonProperty("id_token")
     public Optional<String> getIdToken() {
@@ -135,8 +139,18 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return A refresh token.
-     * For more information, see <a href="https://developer.squareup.com/docs/oauth-api/refresh-revoke-limit-scope">Refresh, Revoke, and Limit the Scope of OAuth Tokens</a>.
+     * @return A refresh token that can be used in an <code>ObtainToken</code> request to generate a new access token.
+     * <p>With the code flow:</p>
+     * <ul>
+     * <li>For the <code>authorization_code</code> grant type, the refresh token is multi-use and never expires.</li>
+     * <li>For the <code>refresh_token</code> grant type, the response returns the same refresh token.</li>
+     * </ul>
+     * <p>With the PKCE flow:</p>
+     * <ul>
+     * <li>For the <code>authorization_code</code> grant type, the refresh token is single-use and expires in 90 days.</li>
+     * <li>For the <code>refresh_token</code> grant type, the refresh token is a new single-use refresh token that expires in 90 days.</li>
+     * </ul>
+     * <p>For more information, see <a href="https://developer.squareup.com/docs/oauth-api/refresh-revoke-limit-scope">Refresh, Revoke, and Limit the Scope of OAuth Tokens</a>.</p>
      */
     @JsonProperty("refresh_token")
     public Optional<String> getRefreshToken() {
@@ -144,8 +158,8 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return A Boolean indicating that the access token is a short-lived access token.
-     * The short-lived access token returned in the response expires in 24 hours.
+     * @return Indicates whether the access_token is short lived. If <code>true</code>, the access token expires
+     * in 24 hours. If <code>false</code>, the access token expires in 30 days.
      */
     @JsonProperty("short_lived")
     public Optional<Boolean> getShortLived() {
@@ -161,7 +175,9 @@ public final class ObtainTokenResponse {
     }
 
     /**
-     * @return The date when the <code>refresh_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.
+     * @return The timestamp of when the <code>refresh_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a>
+     * format.
+     * <p>This field is only returned for the PKCE flow.</p>
      */
     @JsonProperty("refresh_token_expires_at")
     public Optional<String> getRefreshTokenExpiresAt() {

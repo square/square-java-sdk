@@ -96,41 +96,49 @@ service:
       method: POST
       auth: false
       docs: >-
-        Returns an OAuth access token and a refresh token unless the 
+        Returns an OAuth access token and refresh token using the
+        `authorization_code`
 
-        `short_lived` parameter is set to `true`, in which case the endpoint 
-
-        returns only an access token.
+        or `refresh_token` grant type.
 
 
-        The `grant_type` parameter specifies the type of OAuth request. If 
+        When `grant_type` is `authorization_code`:
 
-        `grant_type` is `authorization_code`, you must include the
-        authorization 
+        - With the [code
+        flow](https://developer.squareup.com/docs/oauth-api/overview#code-flow),
 
-        code you received when a seller granted you authorization. If
-        `grant_type` 
+        provide `code`, `client_id`, and `client_secret`.
 
-        is `refresh_token`, you must provide a valid refresh token. If you're
-        using 
+        - With the [PKCE
+        flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow),
 
-        an old version of the Square APIs (prior to March 13, 2019),
-        `grant_type` 
+        provide `code`, `client_id`, and `code_verifier`. 
 
-        can be `migration_token` and you must provide a valid migration token.
+
+        When `grant_type` is `refresh_token`:
+
+        - With the code flow, provide `refresh_token`, `client_id`, and
+        `client_secret`.
+
+        The response returns the same refresh token provided in the request.
+
+        - With the PKCE flow, provide `refresh_token` and `client_id`. The
+        response returns
+
+        a new refresh token.
 
 
         You can use the `scopes` parameter to limit the set of permissions
-        granted 
+        authorized by the
 
-        to the access token and refresh token. You can use the `short_lived`
-        parameter 
+        access token. You can use the `short_lived` parameter to create an
+        access token that
 
-        to create an access token that expires in 24 hours.
+        expires in 24 hours.
 
 
-        __Note:__ OAuth tokens should be encrypted and stored on a secure
-        server. 
+        __Important:__ OAuth tokens should be encrypted and stored on a secure
+        server.
 
         Application clients should never interact directly with OAuth tokens.
       source:
@@ -143,77 +151,112 @@ service:
             client_id:
               type: string
               docs: >-
-                The Square-issued ID of your application, which is available on
-                the **OAuth** page in the
+                The Square-issued ID of your application, which is available as
+                the **Application ID**
 
-                [Developer Dashboard](https://developer.squareup.com/apps).
+                on the **OAuth** page in the [Developer
+                Console](https://developer.squareup.com/apps).
+
+
+                Required for the code flow and PKCE flow for any grant type.
               validation:
                 maxLength: 191
             client_secret:
               type: optional<nullable<string>>
-              docs: "The Square-issued application secret for your application, which is available on the **OAuth** page\nin the [Developer Dashboard](https://developer.squareup.com/apps). This parameter is only required when \nyou're not using the [OAuth PKCE (Proof Key for Code Exchange) flow](https://developer.squareup.com/docs/oauth-api/overview#pkce-flow).\nThe PKCE flow requires a\_`code_verifier`\_instead of a\_`client_secret`\_when `grant_type`\_is\_set to `authorization_code`. \nIf\_`grant_type`\_is set to\_`refresh_token`\_and the\_`refresh_token`\_is obtained uaing PKCE, the PKCE flow only requires\_`client_id`,\_\n`grant_type`, and\_`refresh_token`."
+              docs: >-
+                The secret key for your application, which is available as the
+                **Application secret**
+
+                on the **OAuth** page in the [Developer
+                Console](https://developer.squareup.com/apps).
+
+
+                Required for the code flow for any grant type. Don't confuse
+                your client secret with your
+
+                personal access token.
               validation:
                 minLength: 2
                 maxLength: 1024
             code:
               type: optional<nullable<string>>
               docs: >-
-                The authorization code to exchange.
+                The authorization code to exchange for an OAuth access token.
+                This is the `code`
 
-                This code is required if `grant_type` is set to
-                `authorization_code` to indicate that
+                value that Square sent to your redirect URL in the authorization
+                response.
 
-                the application wants to exchange an authorization code for an
-                OAuth access token.
+
+                Required for the code flow and PKCE flow if `grant_type` is
+                `authorization_code`.
               validation:
                 maxLength: 191
             redirect_uri:
               type: optional<nullable<string>>
               docs: >-
-                The redirect URL assigned on the **OAuth** page for your
-                application in the [Developer
-                Dashboard](https://developer.squareup.com/apps).
+                The redirect URL for your application, which you registered as
+                the **Redirect URL**
+
+                on the **OAuth** page in the [Developer
+                Console](https://developer.squareup.com/apps).
+
+
+                Required for the code flow and PKCE flow if `grant_type` is
+                `authorization_code` and
+
+                you provided the `redirect_uri` parameter in your authorization
+                URL.
               validation:
                 maxLength: 2048
             grant_type:
               type: string
               docs: >-
-                Specifies the method to request an OAuth access token.
+                The method used to obtain an OAuth access token. The request
+                must include the
 
-                Valid values are `authorization_code`, `refresh_token`, and
-                `migration_token`.
+                credential that corresponds to the specified grant type. Valid
+                values are:
+
+                - `authorization_code` - Requires the `code` field.
+
+                - `refresh_token` - Requires the `refresh_token` field.
+
+                - `migration_token` - LEGACY for access tokens obtained using a
+                Square API version prior
+
+                to 2019-03-13. Requires the `migration_token` field.
               validation:
                 minLength: 10
                 maxLength: 20
             refresh_token:
               type: optional<nullable<string>>
               docs: >-
-                A valid refresh token for generating a new OAuth access token.
+                A valid refresh token used to generate a new OAuth access token.
+                This is a
+
+                refresh token that was returned in a previous `ObtainToken`
+                response.
 
 
-                A valid refresh token is required if `grant_type` is set to
-                `refresh_token`
-
-                to indicate that the application wants a replacement for an
-                expired OAuth access token.
+                Required for the code flow and PKCE flow if `grant_type` is
+                `refresh_token`.
               validation:
                 minLength: 2
                 maxLength: 1024
             migration_token:
               type: optional<nullable<string>>
               docs: >-
-                A legacy OAuth access token obtained using a Connect API version
-                prior
+                __LEGACY__ A valid access token (obtained using a Square API
+                version prior to 2019-03-13)
 
-                to 2019-03-13. This parameter is required if `grant_type` is set
-                to
+                used to generate a new OAuth access token.
 
-                `migration_token` to indicate that the application wants to get
-                a replacement
 
-                OAuth access token. The response also returns a refresh token.
+                Required if `grant_type` is `migration_token`. For more
+                information, see
 
-                For more information, see [Migrate to Using Refresh
+                [Migrate to Using Refresh
                 Tokens](https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens).
               validation:
                 minLength: 2
@@ -221,31 +264,45 @@ service:
             scopes:
               type: optional<nullable<list<string>>>
               docs: >-
-                A JSON list of strings representing the permissions that the
-                application is requesting.
+                The list of permissions that are explicitly requested for the
+                access token.
 
                 For example,
-                "`["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"]`".
+                ["MERCHANT_PROFILE_READ","PAYMENTS_READ","BANK_ACCOUNTS_READ"].
 
 
-                The access token returned in the response is granted the
-                permissions
+                The returned access token is limited to the permissions that are
+                the intersection
 
-                that comprise the intersection between the requested list of
-                permissions and those
+                of these requested permissions and those authorized by the
+                provided `refresh_token`.
 
-                that belong to the provided refresh token.
+
+                Optional for the code flow and PKCE flow if `grant_type` is
+                `refresh_token`.
             short_lived:
               type: optional<nullable<boolean>>
               docs: >-
-                A Boolean indicating a request for a short-lived access token.
+                Indicates whether the returned access token should expire in 24
+                hours.
 
 
-                The short-lived access token returned in the response expires in
-                24 hours.
+                Optional for the code flow and PKCE flow for any grant type. The
+                default value is `false`.
             code_verifier:
               type: optional<nullable<string>>
-              docs: "Must be provided when using the PKCE OAuth flow if `grant_type`\_is set to\_`authorization_code`. The `code_verifier` is used to verify against the\n`code_challenge` associated with the `authorization_code`."
+              docs: >-
+                The secret your application generated for the authorization
+                request used to
+
+                obtain the authorization code. This is the source of the
+                `code_challenge` hash you
+
+                provided in your authorization URL.
+
+
+                Required for the PKCE flow if `grant_type` is
+                `authorization_code`.
         content-type: application/json
       response:
         docs: Success
@@ -253,21 +310,21 @@ service:
         status-code: 200
       examples:
         - request:
-            client_id: APPLICATION_ID
-            client_secret: APPLICATION_SECRET
-            code: CODE_FROM_AUTHORIZE
+            client_id: sq0idp-uaPHILoPzWZk3tlJqlML0g
+            client_secret: sq0csp-30a-4C_tVOnTh14Piza2BfTPBXyLafLPWSzY1qAjeBfM
+            code: sq0cgb-l0SBqxs4uwxErTVyYOdemg
             grant_type: authorization_code
           response:
             body:
-              access_token: ACCESS_TOKEN
+              access_token: EAAl3ikZIe18J-2-cHlV2bL4-EaZHGoJUhtEBT7QA6-7AgwIHw8Xe1IoUvGsNxA
               token_type: bearer
-              expires_at: '2006-01-02T15:04:05Z'
-              merchant_id: MERCHANT_ID
+              expires_at: '2025-04-03T18:31:06Z'
+              merchant_id: MLQW2MYBY81PZ
               subscription_id: subscription_id
               plan_id: plan_id
               id_token: id_token
-              refresh_token: REFRESH_TOKEN
-              short_lived: true
+              refresh_token: EQAAl0OcByu3IYJYScGGg-8E5YNf0r0b6jCTCMy5nOcRZ4ok0wbWAL8vY3tZWNcc
+              short_lived: false
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
