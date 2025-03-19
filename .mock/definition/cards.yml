@@ -91,6 +91,9 @@ service:
                   bin: '411111'
                   version: 1
                   card_co_brand: UNKNOWN
+                  issuer_alert: ISSUER_ALERT_CARD_CLOSED
+                  issuer_alert_at: issuer_alert_at
+                  hsa_fsa: false
               cursor: cursor
     create:
       path: /v2/cards
@@ -207,6 +210,9 @@ service:
                 bin: '411111'
                 version: 1
                 card_co_brand: UNKNOWN
+                issuer_alert: ISSUER_ALERT_CARD_CLOSED
+                issuer_alert_at: issuer_alert_at
+                hsa_fsa: false
     get:
       path: /v2/cards/{card_id}
       method: GET
@@ -268,6 +274,9 @@ service:
                 bin: '411111'
                 version: 1
                 card_co_brand: UNKNOWN
+                issuer_alert: ISSUER_ALERT_CARD_CLOSED
+                issuer_alert_at: issuer_alert_at
+                hsa_fsa: false
     disable:
       path: /v2/cards/{card_id}/disable
       method: POST
@@ -331,5 +340,8 @@ service:
                 bin: '411111'
                 version: 2
                 card_co_brand: UNKNOWN
+                issuer_alert: ISSUER_ALERT_CARD_CLOSED
+                issuer_alert_at: issuer_alert_at
+                hsa_fsa: false
   source:
     openapi: openapi/openapi.json

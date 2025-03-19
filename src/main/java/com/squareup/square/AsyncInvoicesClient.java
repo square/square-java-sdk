@@ -479,6 +479,7 @@ public class AsyncInvoicesClient {
      * in a supported format: GIF, JPEG, PNG, TIFF, BMP, or PDF.
      * <p>Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can be added only to invoices
      * in the <code>DRAFT</code>, <code>SCHEDULED</code>, <code>UNPAID</code>, or <code>PARTIALLY_PAID</code> state.</p>
+     * <p><strong>NOTE:</strong> When testing in the Sandbox environment, the total file size is limited to 1 KB.</p>
      */
     public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
             CreateInvoiceAttachmentRequest request) {
@@ -491,6 +492,7 @@ public class AsyncInvoicesClient {
      * in a supported format: GIF, JPEG, PNG, TIFF, BMP, or PDF.
      * <p>Invoices can have up to 10 attachments with a total file size of 25 MB. Attachments can be added only to invoices
      * in the <code>DRAFT</code>, <code>SCHEDULED</code>, <code>UNPAID</code>, or <code>PARTIALLY_PAID</code> state.</p>
+     * <p><strong>NOTE:</strong> When testing in the Sandbox environment, the total file size is limited to 1 KB.</p>
      */
     public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
             CreateInvoiceAttachmentRequest request, RequestOptions requestOptions) {

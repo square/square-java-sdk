@@ -73,8 +73,9 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return The Square-issued ID of your application, which is available on the <strong>OAuth</strong> page in the
-     * <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.
+     * @return The Square-issued ID of your application, which is available as the <strong>Application ID</strong>
+     * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.
+     * <p>Required for the code flow and PKCE flow for any grant type.</p>
      */
     @JsonProperty("client_id")
     public String getClientId() {
@@ -82,12 +83,10 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return The Square-issued application secret for your application, which is available on the <strong>OAuth</strong> page
-     * in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>. This parameter is only required when
-     * you're not using the <a href="https://developer.squareup.com/docs/oauth-api/overview#pkce-flow">OAuth PKCE (Proof Key for Code Exchange) flow</a>.
-     * The PKCE flow requires a <code>code_verifier</code> instead of a <code>client_secret</code> when <code>grant_type</code> is set to <code>authorization_code</code>.
-     * If <code>grant_type</code> is set to <code>refresh_token</code> and the <code>refresh_token</code> is obtained uaing PKCE, the PKCE flow only requires <code>client_id</code>,
-     * <code>grant_type</code>, and <code>refresh_token</code>.
+     * @return The secret key for your application, which is available as the <strong>Application secret</strong>
+     * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.
+     * <p>Required for the code flow for any grant type. Don't confuse your client secret with your
+     * personal access token.</p>
      */
     @JsonIgnore
     public Optional<String> getClientSecret() {
@@ -98,9 +97,9 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return The authorization code to exchange.
-     * This code is required if <code>grant_type</code> is set to <code>authorization_code</code> to indicate that
-     * the application wants to exchange an authorization code for an OAuth access token.
+     * @return The authorization code to exchange for an OAuth access token. This is the <code>code</code>
+     * value that Square sent to your redirect URL in the authorization response.
+     * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
      */
     @JsonIgnore
     public Optional<String> getCode() {
@@ -111,7 +110,10 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return The redirect URL assigned on the <strong>OAuth</strong> page for your application in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.
+     * @return The redirect URL for your application, which you registered as the <strong>Redirect URL</strong>
+     * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.
+     * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code> and
+     * you provided the <code>redirect_uri</code> parameter in your authorization URL.</p>
      */
     @JsonIgnore
     public Optional<String> getRedirectUri() {
@@ -122,8 +124,14 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return Specifies the method to request an OAuth access token.
-     * Valid values are <code>authorization_code</code>, <code>refresh_token</code>, and <code>migration_token</code>.
+     * @return The method used to obtain an OAuth access token. The request must include the
+     * credential that corresponds to the specified grant type. Valid values are:
+     * <ul>
+     * <li><code>authorization_code</code> - Requires the <code>code</code> field.</li>
+     * <li><code>refresh_token</code> - Requires the <code>refresh_token</code> field.</li>
+     * <li><code>migration_token</code> - LEGACY for access tokens obtained using a Square API version prior
+     * to 2019-03-13. Requires the <code>migration_token</code> field.</li>
+     * </ul>
      */
     @JsonProperty("grant_type")
     public String getGrantType() {
@@ -131,9 +139,9 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return A valid refresh token for generating a new OAuth access token.
-     * <p>A valid refresh token is required if <code>grant_type</code> is set to <code>refresh_token</code>
-     * to indicate that the application wants a replacement for an expired OAuth access token.</p>
+     * @return A valid refresh token used to generate a new OAuth access token. This is a
+     * refresh token that was returned in a previous <code>ObtainToken</code> response.
+     * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
      */
     @JsonIgnore
     public Optional<String> getRefreshToken() {
@@ -144,11 +152,10 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return A legacy OAuth access token obtained using a Connect API version prior
-     * to 2019-03-13. This parameter is required if <code>grant_type</code> is set to
-     * <code>migration_token</code> to indicate that the application wants to get a replacement
-     * OAuth access token. The response also returns a refresh token.
-     * For more information, see <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.
+     * @return <strong>LEGACY</strong> A valid access token (obtained using a Square API version prior to 2019-03-13)
+     * used to generate a new OAuth access token.
+     * <p>Required if <code>grant_type</code> is <code>migration_token</code>. For more information, see
+     * <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.</p>
      */
     @JsonIgnore
     public Optional<String> getMigrationToken() {
@@ -159,11 +166,11 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return A JSON list of strings representing the permissions that the application is requesting.
-     * For example, &quot;<code>[&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;]</code>&quot;.
-     * <p>The access token returned in the response is granted the permissions
-     * that comprise the intersection between the requested list of permissions and those
-     * that belong to the provided refresh token.</p>
+     * @return The list of permissions that are explicitly requested for the access token.
+     * For example, [&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;].
+     * <p>The returned access token is limited to the permissions that are the intersection
+     * of these requested permissions and those authorized by the provided <code>refresh_token</code>.</p>
+     * <p>Optional for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
      */
     @JsonIgnore
     public Optional<List<String>> getScopes() {
@@ -174,8 +181,8 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return A Boolean indicating a request for a short-lived access token.
-     * <p>The short-lived access token returned in the response expires in 24 hours.</p>
+     * @return Indicates whether the returned access token should expire in 24 hours.
+     * <p>Optional for the code flow and PKCE flow for any grant type. The default value is <code>false</code>.</p>
      */
     @JsonIgnore
     public Optional<Boolean> getShortLived() {
@@ -186,8 +193,10 @@ public final class ObtainTokenRequest {
     }
 
     /**
-     * @return Must be provided when using the PKCE OAuth flow if <code>grant_type</code> is set to <code>authorization_code</code>. The <code>code_verifier</code> is used to verify against the
-     * <code>code_challenge</code> associated with the <code>authorization_code</code>.
+     * @return The secret your application generated for the authorization request used to
+     * obtain the authorization code. This is the source of the <code>code_challenge</code> hash you
+     * provided in your authorization URL.
+     * <p>Required for the PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
      */
     @JsonIgnore
     public Optional<String> getCodeVerifier() {
@@ -398,8 +407,9 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The Square-issued ID of your application, which is available on the <strong>OAuth</strong> page in the
-         * <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.</p>
+         * <p>The Square-issued ID of your application, which is available as the <strong>Application ID</strong>
+         * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
+         * <p>Required for the code flow and PKCE flow for any grant type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -410,8 +420,14 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>Specifies the method to request an OAuth access token.
-         * Valid values are <code>authorization_code</code>, <code>refresh_token</code>, and <code>migration_token</code>.</p>
+         * <p>The method used to obtain an OAuth access token. The request must include the
+         * credential that corresponds to the specified grant type. Valid values are:</p>
+         * <ul>
+         * <li><code>authorization_code</code> - Requires the <code>code</code> field.</li>
+         * <li><code>refresh_token</code> - Requires the <code>refresh_token</code> field.</li>
+         * <li><code>migration_token</code> - LEGACY for access tokens obtained using a Square API version prior
+         * to 2019-03-13. Requires the <code>migration_token</code> field.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -422,8 +438,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>Must be provided when using the PKCE OAuth flow if <code>grant_type</code> is set to <code>authorization_code</code>. The <code>code_verifier</code> is used to verify against the
-         * <code>code_challenge</code> associated with the <code>authorization_code</code>.</p>
+         * <p>The secret your application generated for the authorization request used to
+         * obtain the authorization code. This is the source of the <code>code_challenge</code> hash you
+         * provided in your authorization URL.</p>
+         * <p>Required for the PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -439,8 +457,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>Must be provided when using the PKCE OAuth flow if <code>grant_type</code> is set to <code>authorization_code</code>. The <code>code_verifier</code> is used to verify against the
-         * <code>code_challenge</code> associated with the <code>authorization_code</code>.</p>
+         * <p>The secret your application generated for the authorization request used to
+         * obtain the authorization code. This is the source of the <code>code_challenge</code> hash you
+         * provided in your authorization URL.</p>
+         * <p>Required for the PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -457,8 +477,8 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A Boolean indicating a request for a short-lived access token.</p>
-         * <p>The short-lived access token returned in the response expires in 24 hours.</p>
+         * <p>Indicates whether the returned access token should expire in 24 hours.</p>
+         * <p>Optional for the code flow and PKCE flow for any grant type. The default value is <code>false</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -474,8 +494,8 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A Boolean indicating a request for a short-lived access token.</p>
-         * <p>The short-lived access token returned in the response expires in 24 hours.</p>
+         * <p>Indicates whether the returned access token should expire in 24 hours.</p>
+         * <p>Optional for the code flow and PKCE flow for any grant type. The default value is <code>false</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -492,11 +512,11 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A JSON list of strings representing the permissions that the application is requesting.
-         * For example, &quot;<code>[&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;]</code>&quot;.</p>
-         * <p>The access token returned in the response is granted the permissions
-         * that comprise the intersection between the requested list of permissions and those
-         * that belong to the provided refresh token.</p>
+         * <p>The list of permissions that are explicitly requested for the access token.
+         * For example, [&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;].</p>
+         * <p>The returned access token is limited to the permissions that are the intersection
+         * of these requested permissions and those authorized by the provided <code>refresh_token</code>.</p>
+         * <p>Optional for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -512,11 +532,11 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A JSON list of strings representing the permissions that the application is requesting.
-         * For example, &quot;<code>[&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;]</code>&quot;.</p>
-         * <p>The access token returned in the response is granted the permissions
-         * that comprise the intersection between the requested list of permissions and those
-         * that belong to the provided refresh token.</p>
+         * <p>The list of permissions that are explicitly requested for the access token.
+         * For example, [&quot;MERCHANT_PROFILE_READ&quot;,&quot;PAYMENTS_READ&quot;,&quot;BANK_ACCOUNTS_READ&quot;].</p>
+         * <p>The returned access token is limited to the permissions that are the intersection
+         * of these requested permissions and those authorized by the provided <code>refresh_token</code>.</p>
+         * <p>Optional for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -533,11 +553,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A legacy OAuth access token obtained using a Connect API version prior
-         * to 2019-03-13. This parameter is required if <code>grant_type</code> is set to
-         * <code>migration_token</code> to indicate that the application wants to get a replacement
-         * OAuth access token. The response also returns a refresh token.
-         * For more information, see <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.</p>
+         * <p><strong>LEGACY</strong> A valid access token (obtained using a Square API version prior to 2019-03-13)
+         * used to generate a new OAuth access token.</p>
+         * <p>Required if <code>grant_type</code> is <code>migration_token</code>. For more information, see
+         * <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -553,11 +572,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A legacy OAuth access token obtained using a Connect API version prior
-         * to 2019-03-13. This parameter is required if <code>grant_type</code> is set to
-         * <code>migration_token</code> to indicate that the application wants to get a replacement
-         * OAuth access token. The response also returns a refresh token.
-         * For more information, see <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.</p>
+         * <p><strong>LEGACY</strong> A valid access token (obtained using a Square API version prior to 2019-03-13)
+         * used to generate a new OAuth access token.</p>
+         * <p>Required if <code>grant_type</code> is <code>migration_token</code>. For more information, see
+         * <a href="https://developer.squareup.com/docs/oauth-api/migrate-to-refresh-tokens">Migrate to Using Refresh Tokens</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -574,9 +592,9 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A valid refresh token for generating a new OAuth access token.</p>
-         * <p>A valid refresh token is required if <code>grant_type</code> is set to <code>refresh_token</code>
-         * to indicate that the application wants a replacement for an expired OAuth access token.</p>
+         * <p>A valid refresh token used to generate a new OAuth access token. This is a
+         * refresh token that was returned in a previous <code>ObtainToken</code> response.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -592,9 +610,9 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>A valid refresh token for generating a new OAuth access token.</p>
-         * <p>A valid refresh token is required if <code>grant_type</code> is set to <code>refresh_token</code>
-         * to indicate that the application wants a replacement for an expired OAuth access token.</p>
+         * <p>A valid refresh token used to generate a new OAuth access token. This is a
+         * refresh token that was returned in a previous <code>ObtainToken</code> response.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>refresh_token</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -611,7 +629,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The redirect URL assigned on the <strong>OAuth</strong> page for your application in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.</p>
+         * <p>The redirect URL for your application, which you registered as the <strong>Redirect URL</strong>
+         * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code> and
+         * you provided the <code>redirect_uri</code> parameter in your authorization URL.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -627,7 +648,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The redirect URL assigned on the <strong>OAuth</strong> page for your application in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.</p>
+         * <p>The redirect URL for your application, which you registered as the <strong>Redirect URL</strong>
+         * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code> and
+         * you provided the <code>redirect_uri</code> parameter in your authorization URL.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -644,9 +668,9 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The authorization code to exchange.
-         * This code is required if <code>grant_type</code> is set to <code>authorization_code</code> to indicate that
-         * the application wants to exchange an authorization code for an OAuth access token.</p>
+         * <p>The authorization code to exchange for an OAuth access token. This is the <code>code</code>
+         * value that Square sent to your redirect URL in the authorization response.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -662,9 +686,9 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The authorization code to exchange.
-         * This code is required if <code>grant_type</code> is set to <code>authorization_code</code> to indicate that
-         * the application wants to exchange an authorization code for an OAuth access token.</p>
+         * <p>The authorization code to exchange for an OAuth access token. This is the <code>code</code>
+         * value that Square sent to your redirect URL in the authorization response.</p>
+         * <p>Required for the code flow and PKCE flow if <code>grant_type</code> is <code>authorization_code</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -681,12 +705,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The Square-issued application secret for your application, which is available on the <strong>OAuth</strong> page
-         * in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>. This parameter is only required when
-         * you're not using the <a href="https://developer.squareup.com/docs/oauth-api/overview#pkce-flow">OAuth PKCE (Proof Key for Code Exchange) flow</a>.
-         * The PKCE flow requires a <code>code_verifier</code> instead of a <code>client_secret</code> when <code>grant_type</code> is set to <code>authorization_code</code>.
-         * If <code>grant_type</code> is set to <code>refresh_token</code> and the <code>refresh_token</code> is obtained uaing PKCE, the PKCE flow only requires <code>client_id</code>,
-         * <code>grant_type</code>, and <code>refresh_token</code>.</p>
+         * <p>The secret key for your application, which is available as the <strong>Application secret</strong>
+         * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
+         * <p>Required for the code flow for any grant type. Don't confuse your client secret with your
+         * personal access token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -702,12 +724,10 @@ public final class ObtainTokenRequest {
         }
 
         /**
-         * <p>The Square-issued application secret for your application, which is available on the <strong>OAuth</strong> page
-         * in the <a href="https://developer.squareup.com/apps">Developer Dashboard</a>. This parameter is only required when
-         * you're not using the <a href="https://developer.squareup.com/docs/oauth-api/overview#pkce-flow">OAuth PKCE (Proof Key for Code Exchange) flow</a>.
-         * The PKCE flow requires a <code>code_verifier</code> instead of a <code>client_secret</code> when <code>grant_type</code> is set to <code>authorization_code</code>.
-         * If <code>grant_type</code> is set to <code>refresh_token</code> and the <code>refresh_token</code> is obtained uaing PKCE, the PKCE flow only requires <code>client_id</code>,
-         * <code>grant_type</code>, and <code>refresh_token</code>.</p>
+         * <p>The secret key for your application, which is available as the <strong>Application secret</strong>
+         * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
+         * <p>Required for the code flow for any grant type. Don't confuse your client secret with your
+         * personal access token.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

@@ -228,6 +228,9 @@ public final class ErrorCode {
 
     public static final ErrorCode INVALID_CARD_DATA = new ErrorCode(Value.INVALID_CARD_DATA, "INVALID_CARD_DATA");
 
+    public static final ErrorCode ORDER_UNPAID_NOT_RETURNABLE =
+            new ErrorCode(Value.ORDER_UNPAID_NOT_RETURNABLE, "ORDER_UNPAID_NOT_RETURNABLE");
+
     public static final ErrorCode CHECKOUT_EXPIRED = new ErrorCode(Value.CHECKOUT_EXPIRED, "CHECKOUT_EXPIRED");
 
     public static final ErrorCode UNPROCESSABLE_ENTITY =
@@ -591,6 +594,8 @@ public final class ErrorCode {
                 return visitor.visitPaymentAmountMismatch();
             case INVALID_CARD_DATA:
                 return visitor.visitInvalidCardData();
+            case ORDER_UNPAID_NOT_RETURNABLE:
+                return visitor.visitOrderUnpaidNotReturnable();
             case CHECKOUT_EXPIRED:
                 return visitor.visitCheckoutExpired();
             case UNPROCESSABLE_ENTITY:
@@ -904,6 +909,8 @@ public final class ErrorCode {
                 return PAYMENT_AMOUNT_MISMATCH;
             case "INVALID_CARD_DATA":
                 return INVALID_CARD_DATA;
+            case "ORDER_UNPAID_NOT_RETURNABLE":
+                return ORDER_UNPAID_NOT_RETURNABLE;
             case "CHECKOUT_EXPIRED":
                 return CHECKOUT_EXPIRED;
             case "UNPROCESSABLE_ENTITY":
@@ -1256,6 +1263,8 @@ public final class ErrorCode {
 
         LOCATION_MISMATCH,
 
+        ORDER_UNPAID_NOT_RETURNABLE,
+
         IDEMPOTENCY_KEY_REUSED,
 
         UNEXPECTED_VALUE,
@@ -1563,6 +1572,8 @@ public final class ErrorCode {
         T visitUnsupportedLoyaltyRewardTier();
 
         T visitLocationMismatch();
+
+        T visitOrderUnpaidNotReturnable();
 
         T visitIdempotencyKeyReused();
 

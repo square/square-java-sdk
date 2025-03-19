@@ -2727,7 +2727,15 @@ types:
           maxLength: 96
       billing_address:
         type: optional<Address>
-        docs: The billing address for this card.
+        docs: >-
+          The billing address for this card. `US` postal codes can be provided
+          as a 5-digit zip code
+
+          or 9-digit ZIP+4 (example: `12345-6789`). For a full list of field
+          meanings by country, see
+
+          [Working with
+          Addresses](https://developer.squareup.com/docs/build-basics/common-data-types/working-with-addresses).
       fingerprint:
         type: optional<string>
         docs: >-
@@ -2743,8 +2751,8 @@ types:
       customer_id:
         type: optional<nullable<string>>
         docs: >-
-          **Required** The ID of a customer created using the Customers API to
-          be associated with the card.
+          **Required** The ID of a [customer](entity:Customer) to be associated
+          with the card.
       merchant_id:
         type: optional<string>
         docs: The ID of the merchant associated with the card.
@@ -2775,12 +2783,8 @@ types:
           See [CardType](#type-cardtype) for possible values
       prepaid_type:
         type: optional<CardPrepaidType>
-        docs: >-
-          Indicates whether the Card is prepaid or not.
-
-          The Card object includes this field only in response to Payments API
-          calls.
-
+        docs: |-
+          Indicates whether the card is prepaid or not.
           See [CardPrepaidType](#type-cardprepaidtype) for possible values
       bin:
         type: optional<string>
@@ -2811,6 +2815,41 @@ types:
           co-brand of AFTERPAY.
 
           See [CardCoBrand](#type-cardcobrand) for possible values
+      issuer_alert:
+        type: optional<CardIssuerAlert>
+        docs: >-
+          An alert from the issuing bank about the card status. Alerts can
+          indicate whether
+
+          future charges to the card are likely to fail. For more information,
+          see
+
+          [Manage Card on File
+          Declines](https://developer.squareup.com/docs/cards-api/manage-card-on-file-declines).
+
+
+          This field is present only if there's an active issuer alert.
+
+          See [IssuerAlert](#type-issueralert) for possible values
+      issuer_alert_at:
+        type: optional<string>
+        docs: >-
+          The timestamp of when the current issuer alert was received and
+          processed, in
+
+          RFC 3339 format.
+
+
+          This field is present only if there's an active issuer alert.
+        access: read-only
+      hsa_fsa:
+        type: optional<boolean>
+        docs: >-
+          Indicates whether the card is linked to a Health Savings Account (HSA)
+          or Flexible
+
+          Spending Account (FSA), based on the card BIN.
+        access: read-only
     source:
       openapi: openapi/openapi.json
   CardBrand:
@@ -2840,6 +2879,9 @@ types:
     docs: Indicates the brand for a co-branded card.
     source:
       openapi: openapi/openapi.json
+  CardIssuerAlert:
+    type: literal<"ISSUER_ALERT_CARD_CLOSED">
+    docs: Indicates the type of issuer alert for a [card on file](entity:Card).
   CardPaymentDetails:
     docs: >-
       Reflects the current status of a card payment. Contains only
@@ -10546,6 +10588,7 @@ types:
       - SOURCE_EXPIRED
       - UNSUPPORTED_LOYALTY_REWARD_TIER
       - LOCATION_MISMATCH
+      - ORDER_UNPAID_NOT_RETURNABLE
       - IDEMPOTENCY_KEY_REUSED
       - UNEXPECTED_VALUE
       - SANDBOX_NOT_SUPPORTED
@@ -13554,6 +13597,15 @@ types:
           [DeleteInvoiceAttachment](api-endpoint:Invoices-DeleteInvoiceAttachment)
           endpoints.
         access: read-only
+      creator_team_member_id:
+        type: optional<string>
+        docs: >-
+          The ID of the [team member](entity:TeamMember) who created the
+          invoice.
+
+          This field is present only on invoices created in the Square Dashboard
+          or Square Invoices app by a logged-in team member.
+        access: read-only
     source:
       openapi: openapi/openapi.json
   InvoiceAcceptedPaymentMethods:
@@ -16156,6 +16208,8 @@ types:
       reason:
         type: optional<nullable<string>>
         docs: The reason for the adjustment of points.
+        validation:
+          maxLength: 3500
     source:
       openapi: openapi/openapi.json
   LoyaltyEventCreateReward:
@@ -17506,50 +17560,62 @@ types:
     source:
       openapi: openapi/openapi.json
   ObtainTokenResponse:
+    docs: Represents an [ObtainToken](api-endpoint:OAuth-ObtainToken) response.
     properties:
       access_token:
         type: optional<string>
         docs: >-
-          A valid OAuth access token. 
+          An OAuth access token used to authorize Square API requests on behalf
+          of the seller.
 
-          Provide the access token in a header with every request to Connect API
+          Include this token as a bearer token in the `Authorization` header of
+          your API requests.
 
-          endpoints. For more information, see [OAuth API:
+
+          OAuth access tokens expire in 30 days (except `short_lived` access
+          tokens). You should call
+
+          `ObtainToken` and provide the returned `refresh_token` to get a new
+          access token well before
+
+          the current one expires. For more information, see [OAuth API:
           Walkthrough](https://developer.squareup.com/docs/oauth-api/walkthrough).
         validation:
           minLength: 2
           maxLength: 1024
       token_type:
         type: optional<string>
-        docs: This value is always _bearer_.
+        docs: The type of access token. This value is always `bearer`.
         validation:
           minLength: 2
           maxLength: 10
       expires_at:
         type: optional<string>
         docs: >-
-          The date when the `access_token` expires, in [ISO
+          The timestamp of when the `access_token` expires, in [ISO
           8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
         validation:
           minLength: 20
           maxLength: 48
       merchant_id:
         type: optional<string>
-        docs: The ID of the authorizing merchant's business.
+        docs: >-
+          The ID of the authorizing [merchant](entity:Merchant) (seller), which
+          represents a business.
         validation:
           minLength: 8
           maxLength: 191
       subscription_id:
         type: optional<string>
         docs: >-
-          __LEGACY FIELD__. The ID of a subscription plan the merchant signed up
+          __LEGACY__ The ID of merchant's subscription.
 
-          for. The ID is only present if the merchant signed up for a
-          subscription plan during authorization.
+          The ID is only present if the merchant signed up for a subscription
+          plan during authorization.
       plan_id:
         type: optional<string>
         docs: >-
-          __LEGACY FIELD__. The ID of the subscription plan the merchant signed
+          __LEGACY__ The ID of the subscription plan the merchant signed
 
           up for. The ID is only present if the merchant signed up for a
           subscription plan during
@@ -17558,14 +17624,40 @@ types:
       id_token:
         type: optional<string>
         docs: >-
-          The OpenID token belonging to this person. This token is only present
-          if the
+          The OpenID token that belongs to this person. This token is only
+          present if the
 
-          OPENID scope is included in the authorization request.
+          `OPENID` scope is included in the authorization request.
+
+
+          Deprecated at version 2021-09-15. Square doesn't support OpenID or
+          other single sign-on (SSO)
+
+          protocols on top of OAuth.
       refresh_token:
         type: optional<string>
         docs: >-
-          A refresh token. 
+          A refresh token that can be used in an `ObtainToken` request to
+          generate a new access token.
+
+
+          With the code flow:
+
+          - For the `authorization_code` grant type, the refresh token is
+          multi-use and never expires.
+
+          - For the `refresh_token` grant type, the response returns the same
+          refresh token.
+
+
+          With the PKCE flow:
+
+          - For the `authorization_code` grant type, the refresh token is
+          single-use and expires in 90 days.
+
+          - For the `refresh_token` grant type, the refresh token is a new
+          single-use refresh token that expires in 90 days.
+
 
           For more information, see [Refresh, Revoke, and Limit the Scope of
           OAuth
@@ -17576,19 +17668,23 @@ types:
       short_lived:
         type: optional<boolean>
         docs: >-
-          A Boolean indicating that the access token is a short-lived access
-          token.
+          Indicates whether the access_token is short lived. If `true`, the
+          access token expires
 
-          The short-lived access token returned in the response expires in 24
-          hours.
+          in 24 hours. If `false`, the access token expires in 30 days.
       errors:
         type: optional<list<Error>>
         docs: Any errors that occurred during the request.
       refresh_token_expires_at:
         type: optional<string>
         docs: >-
-          The date when the `refresh_token` expires, in [ISO
-          8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
+          The timestamp of when the `refresh_token` expires, in [ISO
+          8601](http://www.iso.org/iso/home/standards/iso8601.htm)
+
+          format.
+
+
+          This field is only returned for the PKCE flow.
         validation:
           minLength: 20
           maxLength: 48

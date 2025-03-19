@@ -118,6 +118,7 @@ service:
                       hash: 273ee02cb6f5f8a3a8ca23604930dd53
                       mime_type: image/jpeg
                       uploaded_at: '2030-01-13T21:24:10Z'
+                  creator_team_member_id: creator_team_member_id
                 - id: inv:0-ChC366qAfskpGrBI_1bozs9mEA3
                   version: 3
                   location_id: ES0RJRZYEC39A
@@ -181,6 +182,7 @@ service:
                   store_payment_method_enabled: false
                   attachments:
                     - {}
+                  creator_team_member_id: creator_team_member_id
               cursor: ChoIDhIWVm54ZVRhLXhySFBOejBBM2xJb2daUQoFCI4IGAE
               errors:
                 - category: API_ERROR
@@ -331,6 +333,7 @@ service:
                 store_payment_method_enabled: false
                 attachments:
                   - {}
+                creator_team_member_id: creator_team_member_id
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
@@ -403,6 +406,7 @@ service:
               sort:
                 field: INVOICE_SORT_DATE
                 order: DESC
+            limit: 100
           response:
             body:
               invoices:
@@ -462,6 +466,7 @@ service:
                   store_payment_method_enabled: false
                   attachments:
                     - {}
+                  creator_team_member_id: creator_team_member_id
                 - id: inv:0-ChC366qAfskpGrBI_1bozs9mEA3
                   version: 3
                   location_id: ES0RJRZYEC39A
@@ -525,6 +530,7 @@ service:
                   store_payment_method_enabled: false
                   attachments:
                     - {}
+                  creator_team_member_id: creator_team_member_id
               cursor: ChoIDhIWVm54ZVRhLXhySFBOejBBM2xJb2daUQoFCI4IGAE
               errors:
                 - category: API_ERROR
@@ -615,6 +621,7 @@ service:
                 store_payment_method_enabled: false
                 attachments:
                   - {}
+                creator_team_member_id: creator_team_member_id
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
@@ -760,6 +767,7 @@ service:
                 store_payment_method_enabled: false
                 attachments:
                   - {}
+                creator_team_member_id: creator_team_member_id
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
@@ -828,6 +836,10 @@ service:
         Attachments can be added only to invoices
 
         in the `DRAFT`, `SCHEDULED`, `UNPAID`, or `PARTIALLY_PAID` state.
+
+
+        __NOTE:__ When testing in the Sandbox environment, the total file size
+        is limited to 1 KB.
       source:
         openapi: openapi/openapi.json
       display-name: CreateInvoiceAttachment
@@ -1013,6 +1025,7 @@ service:
                 store_payment_method_enabled: false
                 attachments:
                   - {}
+                creator_team_member_id: creator_team_member_id
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
@@ -1162,6 +1175,7 @@ service:
                 store_payment_method_enabled: false
                 attachments:
                   - {}
+                creator_team_member_id: creator_team_member_id
               errors:
                 - category: API_ERROR
                   code: INTERNAL_SERVER_ERROR
