@@ -1,194 +1,365 @@
-![Square logo]
+# Square Java Library
 
-# Square Java SDK
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
 
-[![Travis status](https://travis-ci.com/square/square-java-sdk.svg?branch=master)](https://travis-ci.com/square/square-java-sdk)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.squareup/square/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.squareup/square)
-[![Apache-2 license](https://img.shields.io/badge/license-Apache2-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-
-Use this library to integrate Square payments into your app and grow your business with Square APIs including Catalog, Customers, Employees, Inventory, Labor, Locations, and Orders.
-
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Quickstart](#quickstart)
-* [Usage](#usage)
-* [Tests](#tests)
-* [SDK Reference](#sdk-reference)
-* [Deprecated APIs](#deprecated-apis)
+The Square Java library provides convenient access to the Square API from Java.
 
 ## Requirements
 
 Use of the Square Java SDK requires:
 
-* Java 8 or higher
-* Maven or Gradle
+- Java 8+
 
 ## Installation
 
-For more information, see [Set Up Your Square SDK for a Java Project](https://developer.squareup.com/docs/sdks/java/setup-project).
+### Gradle
 
-## Quickstart
+Add the dependency in your `build.gradle`:
 
-For more information, see [Square Java SDK Quickstart](https://developer.squareup.com/docs/sdks/java/quick-start).
+```groovy
+dependencies {
+    implementation 'com.squareup:square:44.0.0.20250319'
+}
+```
+
+### Maven
+
+Add the dependency in your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.squareup</groupId>
+    <artifactId>square</artifactId>
+    <version>44.0.0.20250319</version>
+</dependency>
+```
 
 ## Usage
-For more information, see [Using the Square Java SDK](https://developer.squareup.com/docs/sdks/java/using-java-sdk).
 
-## Tests
+Instantiate and use the client with the following:
 
-First, clone the repo locally and `cd` into the directory.
+```java
+package com.square.examples;
 
-```sh
-git clone https://github.com/square/square-java-sdk.git
-cd square-java-sdk
+import com.squareup.square.SquareClient;
+import com.squareup.square.types.CashPaymentDetails;
+import com.squareup.square.types.CreatePaymentRequest;
+import com.squareup.square.types.CreatePaymentResponse;
+import com.squareup.square.types.Currency;
+import com.squareup.square.types.Money;
+
+public class QuickStart {
+
+    public static void main(String[] args) {
+        SquareClient square = SquareClient.builder().build();
+        CreatePaymentResponse response = square.payments()
+                .create(CreatePaymentRequest.builder()
+                        .sourceId("CASH")
+                        .idempotencyKey("4935a656-a929-4792-b97c-8848be85c27c")
+                        .amountMoney(Money.builder()
+                                .amount(100L)
+                                .currency(Currency.USD)
+                                .build())
+                        .tipMoney(Money.builder()
+                                .amount(50L)
+                                .currency(Currency.USD)
+                                .build())
+                        .cashDetails(CashPaymentDetails.builder()
+                                .buyerSuppliedMoney(Money.builder()
+                                        .amount(200L)
+                                        .currency(Currency.USD)
+                                        .build())
+                                .build())
+                        .build());
+    }
+}
 ```
 
-Before running the tests, find a sandbox token in your [Developer Dashboard] and set a `SQUARE_ACCESS_TOKEN` environment variable.
+## Instantiation
 
-```sh
-export SQUARE_ENVIRONMENT=sandbox
-export SQUARE_ACCESS_TOKEN="YOUR_SANDBOX_ACCESS_TOKEN"
+To get started with the Square SDK, instantiate the `SquareClient` class as follows:
+
+```java
+import com.squareup.square.SquareClient;
+
+SquareClient square = SquareClient.builder().token("SQUARE_TOKEN").build();
 ```
 
-If you are using Maven, run the tests with below command
+Alternatively, you can omit the token when constructing the client. In this case, the SDK will automatically read the 
+token from the `SQUARE_TOKEN` environment variable:
 
-```sh
-mvn test
+```java
+import com.squareup.square.SquareClient;
+
+SquareClient square = SquareClient.builder().build();
 ```
 
-## SDK Reference
+### Environment and Custom URLs
 
-### Payments
-* [Payments]
-* [Refunds]
-* [Disputes]
-* [Checkout]
-* [Apple Pay]
-* [Cards]
-* [Payouts]
+This SDK allows you to configure different environments or custom URLs for API requests. You can either use the 
+predefined environments or specify your own custom URL.
 
-### Terminal
-* [Terminal]
+**Environments**
 
-### Orders
-* [Orders]
-* [Order Custom Attributes]
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.Environment;
 
-### Subscriptions
-* [Subscriptions]
+SquareClient square = SquareClient.builder().environment(Environment.PRODUCTION).build();
+```
 
-### Invoices
-* [Invoices]
+**Custom URL**
 
-### Items
-* [Catalog]
-* [Inventory]
+```java
+import com.squareup.square.SquareClient;
 
-### Customers
-* [Customers]
-* [Customer Custom Attributes]
-* [Customer Groups]
-* [Customer Segments]
+SquareClient square = SquareClient.builder().url("https://custom-staging.com").build();
+```
 
-### Loyalty
-* [Loyalty]
+## Enums
 
-### Gift Cards
-* [Gift Cards]
-* [Gift Card Activities]
+This SDK wraps enums for forward compatibility. We define enum properties as constant type instances with `String` properties 
+and use `valueOf` to specify custom enum types that may not yet be included as constants.
 
-### Bookings
-* [Bookings]
-* [Booking Custom Attributes]
+### Example Usage
 
-### Business
-* [Merchants]
-* [Merchant Custom Attributes]
-* [Locations]
-* [Location Custom Attributes]
-* [Devices]
-* [Cash Drawers]
-* [Vendors]
+**Supported Property**
 
-### Team
-* [Team]
-* [Labor]
+```java
+import com.squareup.square.types.InvoicePaymentRequest;
+import com.squareup.square.types.InvoiceRequestType;
 
-### Financials
-* [Bank Accounts]
+InvoicePaymentRequest paymentRequest = InvoicePaymentRequest.builder()
+        .requestType(InvoiceRequestType.BALANCE)
+        .build();
+```
 
-### Online
-* [Sites]
-* [Snippets]
+**Custom Property**
 
-### Authorization
-* [Mobile Authorization]
-* [OAuth]
+```java
+import com.squareup.square.types.InvoicePaymentRequest;
+import com.squareup.square.types.InvoiceRequestType;
 
-### Webhook Subscriptions
-* [Webhook Subscriptions]
-## Deprecated APIs
+InvoicePaymentRequest paymentRequest = InvoicePaymentRequest.builder()
+        .requestType(InvoiceRequestType.valueOf("CUSTOM"))
+        .build();
+```
 
-The following Square APIs are [deprecated](https://developer.squareup.com/docs/build-basics/api-lifecycle):
- 
-* [Employees] - replaced by the [Team] API. For more information, see [Migrate from the Employees API](https://developer.squareup.com/docs/team/migrate-from-v2-employees).
- 
-* [Transactions] - replaced by the [Orders] and [Payments] APIs.  For more information, see [Migrate from the Transactions API](https://developer.squareup.com/docs/payments-api/migrate-from-transactions-api).
+## Versioning
+By default, the SDK is pinned to the version 2025-03-19. If you would like to 
+override this version you can simply pass in a request option.
 
-#### Usage Notes for V1 Transactions
+```java
+client.cards().create(..., RequestOptions.builder()
+    .version("2024-05-04")  // override the version used
+    .build());
+```
 
-The Square API supersedes the legacy Connect V1 APIs. Square strongly discourages using Connect V1 for most use cases.  However, you must still use Connect V1 for listing settlements and listing payments. For more information, see [When to Use Connect V1](https://developer.squareup.com/docs/build-basics/using-connect-v1.html).
+## Automatic Pagination
 
-In the Square Java SDK, the  [`V1TransactionsApi`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md) class provides [`ListSettlements`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md#list-settlements) and [`ListPayments`](https://github.com/square/square-java-sdk/blob/master/doc/api/v1-transactions.md#list-payments) for accessing these Connect V1 endpoints.  However, Square has identified an issue that prevents these methods from returning results.  There is no workaround for this issue.  
+Paginated requests will return an `Iterable<T>`, which can be used to loop through the underlying items.
 
-If you need to use [List settlements](https://developer.squareup.com/reference/square/settlements-api/v1-list-settlements) or [List payments](https://developer.squareup.com/reference/square/settlements-api/v1-list-payments), you should send HTTP ```GET``` requests directly to these Connect V1 endpoints.  The response body consists of a JSON list of objects, which you can process as needed.
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.SyncPagingIterable;
+import com.squareup.square.types.Payment;
+import com.squareup.square.types.PaymentsListRequest;
 
-You'll also need to provide logic to handle paginated results.  For more information, see [Pagination in Connect V1](https://developer.squareup.com/docs/working-with-apis/pagination#pagination-in-connect-v1).
+SquareClient square = SquareClient.builder().token("YOUR_TOKEN").build();
 
+SyncPagingIterable<Payment> payments =
+        square.payments().list(PaymentsListRequest.builder().total(100L).build());
 
-[//]: # "Link anchor definitions"
-[Square Logo]: https://docs.connect.squareup.com/images/github/github-square-logo.svg
-[Developer Dashboard]: https://developer.squareup.com/apps
-[Square API]: https://squareup.com/developers
-[sign up for a developer account]: https://squareup.com/signup?v=developers
-[Client]: doc/client.md
-[Devices]: doc/api/devices.md
-[Disputes]: doc/api/disputes.md
-[Terminal]: doc/api/terminal.md
-[Cash Drawers]: doc/api/cash-drawers.md
-[Vendors]: doc/api/vendors.md
-[Customer Groups]: doc/api/customer-groups.md
-[Customer Segments]: doc/api/customer-segments.md
-[Bank Accounts]: doc/api/bank-accounts.md
-[Payments]: doc/api/payments.md
-[Checkout]: doc/api/checkout.md
-[Catalog]: doc/api/catalog.md
-[Customers]: doc/api/customers.md
-[Customer Custom Attributes]: doc/api/customer-custom-attributes.md
-[Inventory]: doc/api/inventory.md
-[Labor]: doc/api/labor.md
-[Loyalty]: doc/api/loyalty.md
-[Bookings]: doc/api/bookings.md
-[Booking Custom Attributes]: doc/api/booking-custom-attributes.md
-[Locations]: doc/api/locations.md
-[Location Custom Attributes]: doc/api/location-custom-attributes.md
-[Merchants]: doc/api/merchants.md
-[Merchant Custom Attributes]: doc/api/merchant-custom-attributes.md
-[Orders]: doc/api/orders.md
-[Order Custom Attributes]: doc/api/order-custom-attributes.md
-[Invoices]: doc/api/invoices.md
-[Apple Pay]: doc/api/apple-pay.md
-[Refunds]: doc/api/refunds.md
-[Subscriptions]: doc/api/subscriptions.md
-[Mobile Authorization]: doc/api/mobile-authorization.md
-[OAuth]: doc/api/o-auth.md
-[Team]: doc/api/team.md
-[Sites]: doc/api/sites.md
-[Snippets]: doc/api/snippets.md
-[Cards]: doc/api/cards.md
-[Payouts]: doc/api/payouts.md
-[Gift Cards]: doc/api/gift-cards.md
-[Gift Card Activities]: doc/api/gift-card-activities.md
-[Employees]: doc/api/employees.md
-[Transactions]: doc/api/transactions.md
-[Webhook Subscriptions]: doc/api/webhook-subscriptions.md
+for (Payment payment : payments) {
+    System.out.printf(
+            "payment: ID: %s Created at: %s, Updated at: %s\n",
+            payment.getId(), payment.getCreatedAt(), payment.getUpdatedAt());
+}
+```
+
+or stream them:  
+
+```java
+square.payments()
+        .list(PaymentsListRequest.builder().total(100L).build())
+        .streamItems()
+        .map(item -> ...);
+```
+
+or calling `nextPage()` to perform the pagination manually:
+
+```java
+// First page
+List<Payment> pagePayments = payments.getItems();
+for (Payment payment : pagePayments) {
+    // ...
+}
+
+// Remaining pages
+while (payments.hasNext()) {
+    pagePayments = payments.nextPage().getItems();
+    for (Payment payment : pagePayments) {
+        // ...
+    }
+}
+```
+
+## Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retriable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retriable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```java
+square.cards().create(..., RequestOptions.builder()
+  .maxRetries(1)
+  .build());
+```
+
+## Timeouts
+
+The SDK defaults to a 60 second timeout. You can configure this with a timeout 
+option at the client or request level.
+
+```java
+square.cards().create(..., RequestOptions.builder()
+  .timeout(10)
+  .build());
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (`4xx` or `5xx` response), a `SquareApiException` will be thrown.
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.SquareApiException;
+
+try {
+    square.payments().create(...);
+} catch (SquareApiException e) {
+    System.out.println("Square API exception occurred: " + e.getMessage());
+    System.out.println("Status code: " + e.statusCode());
+    System.out.println("Response body: " + e.body());
+}
+```
+
+## Webhook Signature Verification
+
+The SDK provides utility methods that allow you to verify webhook signatures and ensure that all webhook events 
+originate from Square. The `WebhooksHelper.verifySignature` method can be used to easily verify the signature like so:
+
+```java
+import com.squareup.square.utilities.WebhooksHelper;
+
+boolean isValid = WebhooksHelper.verifySignature(
+        requestBody,
+        headers.get("x-square-hmacsha256-signature"),
+        "YOUR_SIGNATURE_KEY",
+        "https://example.com/webhook" // The URL where event notifications are sent.
+);
+```
+
+## Legacy SDK
+
+While the new SDK has a lot of improvements, we at Square understand that it takes time to upgrade when there are breaking changes. 
+To make the migration easier, the new SDK also exports the legacy SDK as `com.squareup.square.legacy...`. Here's an example of how you 
+can use the legacy SDK alongside the new SDK inside a single file:
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.Environment;
+
+SquareClient square = 
+        SquareClient.builder()
+                .environment(Environment.PRODUCTION)
+                .token("YOUR_TOKEN")
+                .build();
+
+com.squareup.square.legacy.SquareClient legacyClient = 
+        new com.squareup.square.legacy.SquareClient.Builder()
+                .environment(com.squareup.square.legacy.Environment.PRODUCTION)
+                .accessToken("YOUR_TOKEN")
+                .build();
+```
+
+We recommend migrating to the new SDK using the following steps:
+
+1. Include the following dependencies in your project
+
+Gradle:
+
+```groovy
+dependencies {
+    implementation 'com.squareup:square:44.0.0.20250319'
+    implementation 'com.squareup:square-legacy:44.0.0.20250319'
+}
+```
+
+Maven:
+
+```xml
+<dependency>
+    <groupId>com.squareup</groupId>
+    <artifactId>square</artifactId>
+    <version>44.0.0.20250319</version>
+</dependency>
+<dependency>
+    <groupId>com.squareup</groupId>
+    <artifactId>square-legacy</artifactId>
+    <version>44.0.0.20250319</version>
+</dependency>
+```
+
+2. Search and replace all imports from `com.squareup.square` to `com.squareup.square.legacy`
+3. Gradually move over to use the new SDK by importing it from the `com.squareup.square` import
+## Advanced
+
+### Custom HTTP Client
+
+This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one. However, you can pass your own client like so:
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.Environment;
+import okhttp3.OkHttpClient;
+
+OkHttpClient customClient = ... ;
+
+SquareClient square =
+        SquareClient.builder()
+                .environment(Environment.PRODUCTION)
+                .token("YOUR_TOKEN")
+                .httpClient(customClient)
+                .build();
+```
+
+### Receive Additional Properties
+
+Every response type includes the `getAdditionalProperties` method, which returns an array that contains any properties in the JSON response that 
+were not specified in the returned class. Similar to the use case for sending additional parameters, this can be useful for API features not present in the SDK yet.
+
+You can access the additional properties like so:
+
+```java
+CreatePaymentResponse payments = square.payments().create(...);
+Map<String, Object> additionalProperties = payments.getAdditionalProperties();
+```
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!

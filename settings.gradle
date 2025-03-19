@@ -1,0 +1,3 @@
+rootProject.name = 'square-java-sdk'
+include 'sample-app'
+include 'legacy-sdk'
