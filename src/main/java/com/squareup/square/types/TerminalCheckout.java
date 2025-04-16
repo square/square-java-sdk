@@ -170,7 +170,7 @@ public final class TerminalCheckout {
     }
 
     /**
-     * @return Payment-specific options for the checkout request. Supported only in the US.
+     * @return Payment-specific options for the checkout request.
      */
     @JsonProperty("payment_options")
     public Optional<PaymentOptions> getPaymentOptions() {
@@ -297,7 +297,6 @@ public final class TerminalCheckout {
      * <p>The fee currency code must match the currency associated with the seller that is accepting the payment. The application must be from a developer account in the same country and using the same currency code as the seller.</p>
      * <p>For more information about the application fee scenario, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
      * <p>To set this field, PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS OAuth permission is required. For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees#permissions">Permissions</a>.</p>
-     * <p>Supported only in the US.</p>
      */
     @JsonProperty("app_fee_money")
     public Optional<Money> getAppFeeMoney() {
@@ -307,7 +306,7 @@ public final class TerminalCheckout {
     /**
      * @return Optional additional payment information to include on the customer's card statement as
      * part of the statement description. This can be, for example, an invoice number, ticket number,
-     * or short description that uniquely identifies the purchase. Supported only in the US.
+     * or short description that uniquely identifies the purchase.
      */
     @JsonIgnore
     public Optional<String> getStatementDescriptionIdentifier() {
@@ -319,8 +318,7 @@ public final class TerminalCheckout {
 
     /**
      * @return The amount designated as a tip, in addition to <code>amount_money</code>. This may only be set for a
-     * checkout that has tipping disabled (<code>tip_settings.allow_tipping</code> is <code>false</code>). Supported only in
-     * the US.
+     * checkout that has tipping disabled (<code>tip_settings.allow_tipping</code> is <code>false</code>).
      */
     @JsonProperty("tip_money")
     public Optional<Money> getTipMoney() {
@@ -642,8 +640,7 @@ public final class TerminalCheckout {
 
         /**
          * <p>The amount designated as a tip, in addition to <code>amount_money</code>. This may only be set for a
-         * checkout that has tipping disabled (<code>tip_settings.allow_tipping</code> is <code>false</code>). Supported only in
-         * the US.</p>
+         * checkout that has tipping disabled (<code>tip_settings.allow_tipping</code> is <code>false</code>).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -662,7 +659,7 @@ public final class TerminalCheckout {
         /**
          * <p>Optional additional payment information to include on the customer's card statement as
          * part of the statement description. This can be, for example, an invoice number, ticket number,
-         * or short description that uniquely identifies the purchase. Supported only in the US.</p>
+         * or short description that uniquely identifies the purchase.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -680,7 +677,7 @@ public final class TerminalCheckout {
         /**
          * <p>Optional additional payment information to include on the customer's card statement as
          * part of the statement description. This can be, for example, an invoice number, ticket number,
-         * or short description that uniquely identifies the purchase. Supported only in the US.</p>
+         * or short description that uniquely identifies the purchase.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -704,7 +701,6 @@ public final class TerminalCheckout {
          * <p>The fee currency code must match the currency associated with the seller that is accepting the payment. The application must be from a developer account in the same country and using the same currency code as the seller.</p>
          * <p>For more information about the application fee scenario, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
          * <p>To set this field, PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS OAuth permission is required. For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees#permissions">Permissions</a>.</p>
-         * <p>Supported only in the US.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -967,7 +963,7 @@ public final class TerminalCheckout {
         }
 
         /**
-         * <p>Payment-specific options for the checkout request. Supported only in the US.</p>
+         * <p>Payment-specific options for the checkout request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

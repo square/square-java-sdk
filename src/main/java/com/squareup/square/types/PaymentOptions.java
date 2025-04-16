@@ -47,8 +47,8 @@ public final class PaymentOptions {
     }
 
     /**
-     * @return Indicates whether the <code>Payment</code> objects created from this <code>TerminalCheckout</code> are automatically
-     * <code>COMPLETED</code> or left in an <code>APPROVED</code> state for later modification.
+     * @return Indicates whether the <code>Payment</code> objects created from this <code>TerminalCheckout</code> are
+     * automatically <code>COMPLETED</code> or left in an <code>APPROVED</code> state for later modification.
      * <p>Default: true</p>
      */
     @JsonIgnore

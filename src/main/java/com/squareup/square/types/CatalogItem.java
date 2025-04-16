@@ -48,6 +48,10 @@ public final class CatalogItem {
 
     private final Optional<List<CatalogItemOptionForItem>> itemOptions;
 
+    private final Optional<String> ecomUri;
+
+    private final Optional<List<String>> ecomImageUris;
+
     private final Optional<List<String>> imageIds;
 
     private final Optional<String> sortName;
@@ -68,6 +72,8 @@ public final class CatalogItem {
 
     private final Optional<CatalogObjectCategory> reportingCategory;
 
+    private final Optional<Boolean> isAlcoholic;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogItem(
@@ -83,6 +89,8 @@ public final class CatalogItem {
             Optional<CatalogItemProductType> productType,
             Optional<Boolean> skipModifierScreen,
             Optional<List<CatalogItemOptionForItem>> itemOptions,
+            Optional<String> ecomUri,
+            Optional<List<String>> ecomImageUris,
             Optional<List<String>> imageIds,
             Optional<String> sortName,
             Optional<List<CatalogObjectCategory>> categories,
@@ -93,6 +101,7 @@ public final class CatalogItem {
             Optional<CatalogEcomSeoData> ecomSeoData,
             Optional<CatalogItemFoodAndBeverageDetails> foodAndBeverageDetails,
             Optional<CatalogObjectCategory> reportingCategory,
+            Optional<Boolean> isAlcoholic,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.description = description;
@@ -106,6 +115,8 @@ public final class CatalogItem {
         this.productType = productType;
         this.skipModifierScreen = skipModifierScreen;
         this.itemOptions = itemOptions;
+        this.ecomUri = ecomUri;
+        this.ecomImageUris = ecomImageUris;
         this.imageIds = imageIds;
         this.sortName = sortName;
         this.categories = categories;
@@ -116,6 +127,7 @@ public final class CatalogItem {
         this.ecomSeoData = ecomSeoData;
         this.foodAndBeverageDetails = foodAndBeverageDetails;
         this.reportingCategory = reportingCategory;
+        this.isAlcoholic = isAlcoholic;
         this.additionalProperties = additionalProperties;
     }
 
@@ -271,6 +283,28 @@ public final class CatalogItem {
     }
 
     /**
+     * @return Deprecated; see go/ecomUriUseCases. A URI pointing to a published e-commerce product page for the Item.
+     */
+    @JsonIgnore
+    public Optional<String> getEcomUri() {
+        if (ecomUri == null) {
+            return Optional.empty();
+        }
+        return ecomUri;
+    }
+
+    /**
+     * @return Deprecated; see go/ecomUriUseCases. A comma-separated list of encoded URIs pointing to a set of published e-commerce images for the Item.
+     */
+    @JsonIgnore
+    public Optional<List<String>> getEcomImageUris() {
+        if (ecomImageUris == null) {
+            return Optional.empty();
+        }
+        return ecomImageUris;
+    }
+
+    /**
      * @return The IDs of images associated with this <code>CatalogItem</code> instance.
      * These images will be shown to customers in Square Online Store.
      * The first image will show up as the icon for this item in POS.
@@ -397,6 +431,17 @@ public final class CatalogItem {
         return reportingCategory;
     }
 
+    /**
+     * @return Indicates whether this item is alcoholic (<code>true</code>) or not (<code>false</code>).
+     */
+    @JsonIgnore
+    public Optional<Boolean> getIsAlcoholic() {
+        if (isAlcoholic == null) {
+            return Optional.empty();
+        }
+        return isAlcoholic;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
@@ -464,6 +509,18 @@ public final class CatalogItem {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("ecom_uri")
+    private Optional<String> _getEcomUri() {
+        return ecomUri;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("ecom_image_uris")
+    private Optional<List<String>> _getEcomImageUris() {
+        return ecomImageUris;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("image_ids")
     private Optional<List<String>> _getImageIds() {
         return imageIds;
@@ -499,6 +556,12 @@ public final class CatalogItem {
         return isArchived;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("is_alcoholic")
+    private Optional<Boolean> _getIsAlcoholic() {
+        return isAlcoholic;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -523,6 +586,8 @@ public final class CatalogItem {
                 && productType.equals(other.productType)
                 && skipModifierScreen.equals(other.skipModifierScreen)
                 && itemOptions.equals(other.itemOptions)
+                && ecomUri.equals(other.ecomUri)
+                && ecomImageUris.equals(other.ecomImageUris)
                 && imageIds.equals(other.imageIds)
                 && sortName.equals(other.sortName)
                 && categories.equals(other.categories)
@@ -532,7 +597,8 @@ public final class CatalogItem {
                 && isArchived.equals(other.isArchived)
                 && ecomSeoData.equals(other.ecomSeoData)
                 && foodAndBeverageDetails.equals(other.foodAndBeverageDetails)
-                && reportingCategory.equals(other.reportingCategory);
+                && reportingCategory.equals(other.reportingCategory)
+                && isAlcoholic.equals(other.isAlcoholic);
     }
 
     @java.lang.Override
@@ -550,6 +616,8 @@ public final class CatalogItem {
                 this.productType,
                 this.skipModifierScreen,
                 this.itemOptions,
+                this.ecomUri,
+                this.ecomImageUris,
                 this.imageIds,
                 this.sortName,
                 this.categories,
@@ -559,7 +627,8 @@ public final class CatalogItem {
                 this.isArchived,
                 this.ecomSeoData,
                 this.foodAndBeverageDetails,
-                this.reportingCategory);
+                this.reportingCategory,
+                this.isAlcoholic);
     }
 
     @java.lang.Override
@@ -597,6 +666,10 @@ public final class CatalogItem {
 
         private Optional<List<CatalogItemOptionForItem>> itemOptions = Optional.empty();
 
+        private Optional<String> ecomUri = Optional.empty();
+
+        private Optional<List<String>> ecomImageUris = Optional.empty();
+
         private Optional<List<String>> imageIds = Optional.empty();
 
         private Optional<String> sortName = Optional.empty();
@@ -617,6 +690,8 @@ public final class CatalogItem {
 
         private Optional<CatalogObjectCategory> reportingCategory = Optional.empty();
 
+        private Optional<Boolean> isAlcoholic = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -635,6 +710,8 @@ public final class CatalogItem {
             productType(other.getProductType());
             skipModifierScreen(other.getSkipModifierScreen());
             itemOptions(other.getItemOptions());
+            ecomUri(other.getEcomUri());
+            ecomImageUris(other.getEcomImageUris());
             imageIds(other.getImageIds());
             sortName(other.getSortName());
             categories(other.getCategories());
@@ -645,6 +722,7 @@ public final class CatalogItem {
             ecomSeoData(other.getEcomSeoData());
             foodAndBeverageDetails(other.getFoodAndBeverageDetails());
             reportingCategory(other.getReportingCategory());
+            isAlcoholic(other.getIsAlcoholic());
             return this;
         }
 
@@ -901,6 +979,50 @@ public final class CatalogItem {
             return this;
         }
 
+        @JsonSetter(value = "ecom_uri", nulls = Nulls.SKIP)
+        public Builder ecomUri(Optional<String> ecomUri) {
+            this.ecomUri = ecomUri;
+            return this;
+        }
+
+        public Builder ecomUri(String ecomUri) {
+            this.ecomUri = Optional.ofNullable(ecomUri);
+            return this;
+        }
+
+        public Builder ecomUri(Nullable<String> ecomUri) {
+            if (ecomUri.isNull()) {
+                this.ecomUri = null;
+            } else if (ecomUri.isEmpty()) {
+                this.ecomUri = Optional.empty();
+            } else {
+                this.ecomUri = Optional.of(ecomUri.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "ecom_image_uris", nulls = Nulls.SKIP)
+        public Builder ecomImageUris(Optional<List<String>> ecomImageUris) {
+            this.ecomImageUris = ecomImageUris;
+            return this;
+        }
+
+        public Builder ecomImageUris(List<String> ecomImageUris) {
+            this.ecomImageUris = Optional.ofNullable(ecomImageUris);
+            return this;
+        }
+
+        public Builder ecomImageUris(Nullable<List<String>> ecomImageUris) {
+            if (ecomImageUris.isNull()) {
+                this.ecomImageUris = null;
+            } else if (ecomImageUris.isEmpty()) {
+                this.ecomImageUris = Optional.empty();
+            } else {
+                this.ecomImageUris = Optional.of(ecomImageUris.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "image_ids", nulls = Nulls.SKIP)
         public Builder imageIds(Optional<List<String>> imageIds) {
             this.imageIds = imageIds;
@@ -1077,6 +1199,28 @@ public final class CatalogItem {
             return this;
         }
 
+        @JsonSetter(value = "is_alcoholic", nulls = Nulls.SKIP)
+        public Builder isAlcoholic(Optional<Boolean> isAlcoholic) {
+            this.isAlcoholic = isAlcoholic;
+            return this;
+        }
+
+        public Builder isAlcoholic(Boolean isAlcoholic) {
+            this.isAlcoholic = Optional.ofNullable(isAlcoholic);
+            return this;
+        }
+
+        public Builder isAlcoholic(Nullable<Boolean> isAlcoholic) {
+            if (isAlcoholic.isNull()) {
+                this.isAlcoholic = null;
+            } else if (isAlcoholic.isEmpty()) {
+                this.isAlcoholic = Optional.empty();
+            } else {
+                this.isAlcoholic = Optional.of(isAlcoholic.get());
+            }
+            return this;
+        }
+
         public CatalogItem build() {
             return new CatalogItem(
                     name,
@@ -1091,6 +1235,8 @@ public final class CatalogItem {
                     productType,
                     skipModifierScreen,
                     itemOptions,
+                    ecomUri,
+                    ecomImageUris,
                     imageIds,
                     sortName,
                     categories,
@@ -1101,6 +1247,7 @@ public final class CatalogItem {
                     ecomSeoData,
                     foodAndBeverageDetails,
                     reportingCategory,
+                    isAlcoholic,
                     additionalProperties);
         }
     }

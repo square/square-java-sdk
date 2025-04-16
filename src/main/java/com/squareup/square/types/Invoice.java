@@ -276,9 +276,11 @@ public final class Invoice {
     }
 
     /**
-     * @return The URL of the Square-hosted invoice page.
-     * After you publish the invoice using the <code>PublishInvoice</code> endpoint, Square hosts the invoice
-     * page and returns the page URL in the response.
+     * @return A temporary link to the Square-hosted payment page where the customer can pay the
+     * invoice. If the link expires, customers can provide the email address or phone number
+     * associated with the invoice and request a new link directly from the expired payment page.
+     * <p>This field is added after the invoice is published and reaches the scheduled date
+     * (if one is defined).</p>
      */
     @JsonProperty("public_url")
     public Optional<String> getPublicUrl() {
