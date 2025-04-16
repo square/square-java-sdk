@@ -5,31 +5,27 @@ package com.squareup.square.types;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.squareup.square.core.Nullable;
-import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = BatchDeleteCatalogObjectsRequest.Builder.class)
 public final class BatchDeleteCatalogObjectsRequest {
-    private final Optional<List<String>> objectIds;
+    private final List<String> objectIds;
 
     private final Map<String, Object> additionalProperties;
 
-    private BatchDeleteCatalogObjectsRequest(
-            Optional<List<String>> objectIds, Map<String, Object> additionalProperties) {
+    private BatchDeleteCatalogObjectsRequest(List<String> objectIds, Map<String, Object> additionalProperties) {
         this.objectIds = objectIds;
         this.additionalProperties = additionalProperties;
     }
@@ -39,17 +35,8 @@ public final class BatchDeleteCatalogObjectsRequest {
      * in the graph that depend on that object will be deleted as well (for example, deleting a
      * CatalogItem will delete its CatalogItemVariation.
      */
-    @JsonIgnore
-    public Optional<List<String>> getObjectIds() {
-        if (objectIds == null) {
-            return Optional.empty();
-        }
-        return objectIds;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("object_ids")
-    private Optional<List<String>> _getObjectIds() {
+    public List<String> getObjectIds() {
         return objectIds;
     }
 
@@ -84,7 +71,7 @@ public final class BatchDeleteCatalogObjectsRequest {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> objectIds = Optional.empty();
+        private List<String> objectIds = new ArrayList<>();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -97,24 +84,19 @@ public final class BatchDeleteCatalogObjectsRequest {
         }
 
         @JsonSetter(value = "object_ids", nulls = Nulls.SKIP)
-        public Builder objectIds(Optional<List<String>> objectIds) {
-            this.objectIds = objectIds;
-            return this;
-        }
-
         public Builder objectIds(List<String> objectIds) {
-            this.objectIds = Optional.ofNullable(objectIds);
+            this.objectIds.clear();
+            this.objectIds.addAll(objectIds);
             return this;
         }
 
-        public Builder objectIds(Nullable<List<String>> objectIds) {
-            if (objectIds.isNull()) {
-                this.objectIds = null;
-            } else if (objectIds.isEmpty()) {
-                this.objectIds = Optional.empty();
-            } else {
-                this.objectIds = Optional.of(objectIds.get());
-            }
+        public Builder addObjectIds(String objectIds) {
+            this.objectIds.add(objectIds);
+            return this;
+        }
+
+        public Builder addAllObjectIds(List<String> objectIds) {
+            this.objectIds.addAll(objectIds);
             return this;
         }
 

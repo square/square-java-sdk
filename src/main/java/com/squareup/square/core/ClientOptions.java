@@ -32,10 +32,10 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.squareup:square/44.0.0.20250319");
+                put("User-Agent", "com.squareup:square/44.1.0.20250416");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.square.fern:api-sdk");
-                put("X-Fern-SDK-Version", "44.0.0.20250319");
+                put("X-Fern-SDK-Version", "44.1.0.20250416");
             }
         });
         this.headerSuppliers = headerSuppliers;

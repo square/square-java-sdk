@@ -130,6 +130,14 @@ public final class CatalogObject {
         return new CatalogObject(new SubscriptionProductValue(value));
     }
 
+    public static CatalogObject subscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation value) {
+        return new CatalogObject(new SubscriptionPlanVariationValue(value));
+    }
+
+    public static CatalogObject availabilityPeriod(CatalogObjectAvailabilityPeriod value) {
+        return new CatalogObject(new AvailabilityPeriodValue(value));
+    }
+
     public boolean isItem() {
         return value instanceof ItemValue;
     }
@@ -232,6 +240,14 @@ public final class CatalogObject {
 
     public boolean isSubscriptionProduct() {
         return value instanceof SubscriptionProductValue;
+    }
+
+    public boolean isSubscriptionPlanVariation() {
+        return value instanceof SubscriptionPlanVariationValue;
+    }
+
+    public boolean isAvailabilityPeriod() {
+        return value instanceof AvailabilityPeriodValue;
     }
 
     public boolean _isUnknown() {
@@ -420,6 +436,20 @@ public final class CatalogObject {
         return Optional.empty();
     }
 
+    public Optional<CatalogObjectSubscriptionPlanVariation> getSubscriptionPlanVariation() {
+        if (isSubscriptionPlanVariation()) {
+            return Optional.of(((SubscriptionPlanVariationValue) value).value);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<CatalogObjectAvailabilityPeriod> getAvailabilityPeriod() {
+        if (isAvailabilityPeriod()) {
+            return Optional.of(((AvailabilityPeriodValue) value).value);
+        }
+        return Optional.empty();
+    }
+
     public Optional<Object> _getUnknown() {
         if (_isUnknown()) {
             return Optional.of(((_UnknownValue) value).value);
@@ -485,6 +515,10 @@ public final class CatalogObject {
 
         T visitSubscriptionProduct(CatalogObjectSubscriptionProduct subscriptionProduct);
 
+        T visitSubscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation subscriptionPlanVariation);
+
+        T visitAvailabilityPeriod(CatalogObjectAvailabilityPeriod availabilityPeriod);
+
         T _visitUnknown(Object unknownType);
     }
 
@@ -515,7 +549,9 @@ public final class CatalogObject {
         @JsonSubTypes.Type(ResourceValue.class),
         @JsonSubTypes.Type(CheckoutLinkValue.class),
         @JsonSubTypes.Type(AddressValue.class),
-        @JsonSubTypes.Type(SubscriptionProductValue.class)
+        @JsonSubTypes.Type(SubscriptionProductValue.class),
+        @JsonSubTypes.Type(SubscriptionPlanVariationValue.class),
+        @JsonSubTypes.Type(AvailabilityPeriodValue.class)
     })
     @JsonIgnoreProperties(ignoreUnknown = true)
     private interface Value {
@@ -1522,6 +1558,84 @@ public final class CatalogObject {
         }
 
         private boolean equalTo(SubscriptionProductValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "CatalogObject{" + "value: " + value + "}";
+        }
+    }
+
+    @JsonTypeName("SUBSCRIPTION_PLAN_VARIATION")
+    @JsonIgnoreProperties("type")
+    private static final class SubscriptionPlanVariationValue implements Value {
+        @JsonUnwrapped
+        private CatalogObjectSubscriptionPlanVariation value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private SubscriptionPlanVariationValue() {}
+
+        private SubscriptionPlanVariationValue(CatalogObjectSubscriptionPlanVariation value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitSubscriptionPlanVariation(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof SubscriptionPlanVariationValue && equalTo((SubscriptionPlanVariationValue) other);
+        }
+
+        private boolean equalTo(SubscriptionPlanVariationValue other) {
+            return value.equals(other.value);
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @java.lang.Override
+        public String toString() {
+            return "CatalogObject{" + "value: " + value + "}";
+        }
+    }
+
+    @JsonTypeName("AVAILABILITY_PERIOD")
+    @JsonIgnoreProperties("type")
+    private static final class AvailabilityPeriodValue implements Value {
+        @JsonUnwrapped
+        private CatalogObjectAvailabilityPeriod value;
+
+        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+        private AvailabilityPeriodValue() {}
+
+        private AvailabilityPeriodValue(CatalogObjectAvailabilityPeriod value) {
+            this.value = value;
+        }
+
+        @java.lang.Override
+        public <T> T visit(Visitor<T> visitor) {
+            return visitor.visitAvailabilityPeriod(value);
+        }
+
+        @java.lang.Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            return other instanceof AvailabilityPeriodValue && equalTo((AvailabilityPeriodValue) other);
+        }
+
+        private boolean equalTo(AvailabilityPeriodValue other) {
             return value.equals(other.value);
         }
 

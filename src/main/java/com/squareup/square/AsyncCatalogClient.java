@@ -78,24 +78,6 @@ public class AsyncCatalogClient {
      * While one (batch or non-batch) delete request is being processed, other (batched and non-batched)
      * delete requests are rejected with the <code>429</code> error code.</p>
      */
-    public CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDelete() {
-        return batchDelete(BatchDeleteCatalogObjectsRequest.builder().build());
-    }
-
-    /**
-     * Deletes a set of <a href="entity:CatalogItem">CatalogItem</a>s based on the
-     * provided list of target IDs and returns a set of successfully deleted IDs in
-     * the response. Deletion is a cascading event such that all children of the
-     * targeted object are also deleted. For example, deleting a CatalogItem will
-     * also delete all of its <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
-     * children.
-     * <p><code>BatchDeleteCatalogObjects</code> succeeds even if only a portion of the targeted
-     * IDs can be deleted. The response will only include IDs that were
-     * actually deleted.</p>
-     * <p>To ensure consistency, only one delete request is processed at a time per seller account.
-     * While one (batch or non-batch) delete request is being processed, other (batched and non-batched)
-     * delete requests are rejected with the <code>429</code> error code.</p>
-     */
     public CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDelete(BatchDeleteCatalogObjectsRequest request) {
         return batchDelete(request, null);
     }
