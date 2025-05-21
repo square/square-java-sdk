@@ -12,7 +12,7 @@ public final class SquareClientBuilder {
 
     private String token = System.getenv("SQUARE_TOKEN");
 
-    private String version = "2025-04-16";
+    private String version = "2025-05-21";
 
     private Environment environment = Environment.PRODUCTION;
 

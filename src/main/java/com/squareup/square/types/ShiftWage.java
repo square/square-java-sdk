@@ -68,7 +68,7 @@ public final class ShiftWage {
 
     /**
      * @return The id of the job performed during this shift. Square
-     * labor-reporting UIs might group shifts together by id. This cannot be used to retrieve the job.
+     * labor-reporting UIs might group shifts together by id.
      */
     @JsonProperty("job_id")
     public Optional<String> getJobId() {

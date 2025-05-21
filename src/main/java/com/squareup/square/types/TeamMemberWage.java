@@ -94,8 +94,7 @@ public final class TeamMemberWage {
     }
 
     /**
-     * @return An identifier for the job that this wage relates to. This cannot be
-     * used to retrieve the job.
+     * @return An identifier for the <a href="entity:Job">job</a> that this wage relates to.
      */
     @JsonIgnore
     public Optional<String> getJobId() {

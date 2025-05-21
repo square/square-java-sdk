@@ -68,7 +68,7 @@ public final class Break {
     }
 
     /**
-     * @return RFC 3339; follows the same timezone information as <code>Shift</code>. Precision up to
+     * @return RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
      * the minute is respected; seconds are truncated.
      */
     @JsonProperty("start_at")
@@ -77,7 +77,7 @@ public final class Break {
     }
 
     /**
-     * @return RFC 3339; follows the same timezone information as <code>Shift</code>. Precision up to
+     * @return RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
      * the minute is respected; seconds are truncated.
      */
     @JsonIgnore
@@ -89,7 +89,7 @@ public final class Break {
     }
 
     /**
-     * @return The <code>BreakType</code> that this <code>Break</code> was templated on.
+     * @return The <a href="entity:BreakType">BreakType</a> that this break was templated on.
      */
     @JsonProperty("break_type_id")
     public String getBreakTypeId() {
@@ -107,6 +107,7 @@ public final class Break {
     /**
      * @return Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
      * the break.
+     * <p>Example for break expected duration of 15 minutes: PT15M</p>
      */
     @JsonProperty("expected_duration")
     public String getExpectedDuration() {
@@ -235,7 +236,7 @@ public final class Break {
         }
 
         /**
-         * <p>RFC 3339; follows the same timezone information as <code>Shift</code>. Precision up to
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
          * the minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -247,7 +248,7 @@ public final class Break {
         }
 
         /**
-         * <p>The <code>BreakType</code> that this <code>Break</code> was templated on.</p>
+         * <p>The <a href="entity:BreakType">BreakType</a> that this break was templated on.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -271,6 +272,7 @@ public final class Break {
         /**
          * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
          * the break.</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -293,7 +295,7 @@ public final class Break {
         }
 
         /**
-         * <p>RFC 3339; follows the same timezone information as <code>Shift</code>. Precision up to
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
          * the minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -310,7 +312,7 @@ public final class Break {
         }
 
         /**
-         * <p>RFC 3339; follows the same timezone information as <code>Shift</code>. Precision up to
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
          * the minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

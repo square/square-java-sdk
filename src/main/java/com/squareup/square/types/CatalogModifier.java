@@ -28,6 +28,8 @@ public final class CatalogModifier {
 
     private final Optional<Money> priceMoney;
 
+    private final Optional<Boolean> onByDefault;
+
     private final Optional<Integer> ordinal;
 
     private final Optional<String> modifierListId;
@@ -36,22 +38,28 @@ public final class CatalogModifier {
 
     private final Optional<String> imageId;
 
+    private final Optional<Boolean> hiddenOnline;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogModifier(
             Optional<String> name,
             Optional<Money> priceMoney,
+            Optional<Boolean> onByDefault,
             Optional<Integer> ordinal,
             Optional<String> modifierListId,
             Optional<List<ModifierLocationOverrides>> locationOverrides,
             Optional<String> imageId,
+            Optional<Boolean> hiddenOnline,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.priceMoney = priceMoney;
+        this.onByDefault = onByDefault;
         this.ordinal = ordinal;
         this.modifierListId = modifierListId;
         this.locationOverrides = locationOverrides;
         this.imageId = imageId;
+        this.hiddenOnline = hiddenOnline;
         this.additionalProperties = additionalProperties;
     }
 
@@ -72,6 +80,18 @@ public final class CatalogModifier {
     @JsonProperty("price_money")
     public Optional<Money> getPriceMoney() {
         return priceMoney;
+    }
+
+    /**
+     * @return When <code>true</code>, this modifier is selected by default when displaying the modifier list.
+     * This setting can be overridden at the item level using <code>CatalogModifierListInfo.modifier_overrides</code>.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getOnByDefault() {
+        if (onByDefault == null) {
+            return Optional.empty();
+        }
+        return onByDefault;
     }
 
     /**
@@ -119,10 +139,27 @@ public final class CatalogModifier {
         return imageId;
     }
 
+    /**
+     * @return When <code>true</code>, this modifier is hidden from online ordering channels. This setting can be overridden at the item level using <code>CatalogModifierListInfo.modifier_overrides</code>.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getHiddenOnline() {
+        if (hiddenOnline == null) {
+            return Optional.empty();
+        }
+        return hiddenOnline;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
         return name;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("on_by_default")
+    private Optional<Boolean> _getOnByDefault() {
+        return onByDefault;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -149,6 +186,12 @@ public final class CatalogModifier {
         return imageId;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("hidden_online")
+    private Optional<Boolean> _getHiddenOnline() {
+        return hiddenOnline;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -163,16 +206,25 @@ public final class CatalogModifier {
     private boolean equalTo(CatalogModifier other) {
         return name.equals(other.name)
                 && priceMoney.equals(other.priceMoney)
+                && onByDefault.equals(other.onByDefault)
                 && ordinal.equals(other.ordinal)
                 && modifierListId.equals(other.modifierListId)
                 && locationOverrides.equals(other.locationOverrides)
-                && imageId.equals(other.imageId);
+                && imageId.equals(other.imageId)
+                && hiddenOnline.equals(other.hiddenOnline);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.name, this.priceMoney, this.ordinal, this.modifierListId, this.locationOverrides, this.imageId);
+                this.name,
+                this.priceMoney,
+                this.onByDefault,
+                this.ordinal,
+                this.modifierListId,
+                this.locationOverrides,
+                this.imageId,
+                this.hiddenOnline);
     }
 
     @java.lang.Override
@@ -190,6 +242,8 @@ public final class CatalogModifier {
 
         private Optional<Money> priceMoney = Optional.empty();
 
+        private Optional<Boolean> onByDefault = Optional.empty();
+
         private Optional<Integer> ordinal = Optional.empty();
 
         private Optional<String> modifierListId = Optional.empty();
@@ -197,6 +251,8 @@ public final class CatalogModifier {
         private Optional<List<ModifierLocationOverrides>> locationOverrides = Optional.empty();
 
         private Optional<String> imageId = Optional.empty();
+
+        private Optional<Boolean> hiddenOnline = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -206,10 +262,12 @@ public final class CatalogModifier {
         public Builder from(CatalogModifier other) {
             name(other.getName());
             priceMoney(other.getPriceMoney());
+            onByDefault(other.getOnByDefault());
             ordinal(other.getOrdinal());
             modifierListId(other.getModifierListId());
             locationOverrides(other.getLocationOverrides());
             imageId(other.getImageId());
+            hiddenOnline(other.getHiddenOnline());
             return this;
         }
 
@@ -243,6 +301,28 @@ public final class CatalogModifier {
 
         public Builder priceMoney(Money priceMoney) {
             this.priceMoney = Optional.ofNullable(priceMoney);
+            return this;
+        }
+
+        @JsonSetter(value = "on_by_default", nulls = Nulls.SKIP)
+        public Builder onByDefault(Optional<Boolean> onByDefault) {
+            this.onByDefault = onByDefault;
+            return this;
+        }
+
+        public Builder onByDefault(Boolean onByDefault) {
+            this.onByDefault = Optional.ofNullable(onByDefault);
+            return this;
+        }
+
+        public Builder onByDefault(Nullable<Boolean> onByDefault) {
+            if (onByDefault.isNull()) {
+                this.onByDefault = null;
+            } else if (onByDefault.isEmpty()) {
+                this.onByDefault = Optional.empty();
+            } else {
+                this.onByDefault = Optional.of(onByDefault.get());
+            }
             return this;
         }
 
@@ -334,9 +414,39 @@ public final class CatalogModifier {
             return this;
         }
 
+        @JsonSetter(value = "hidden_online", nulls = Nulls.SKIP)
+        public Builder hiddenOnline(Optional<Boolean> hiddenOnline) {
+            this.hiddenOnline = hiddenOnline;
+            return this;
+        }
+
+        public Builder hiddenOnline(Boolean hiddenOnline) {
+            this.hiddenOnline = Optional.ofNullable(hiddenOnline);
+            return this;
+        }
+
+        public Builder hiddenOnline(Nullable<Boolean> hiddenOnline) {
+            if (hiddenOnline.isNull()) {
+                this.hiddenOnline = null;
+            } else if (hiddenOnline.isEmpty()) {
+                this.hiddenOnline = Optional.empty();
+            } else {
+                this.hiddenOnline = Optional.of(hiddenOnline.get());
+            }
+            return this;
+        }
+
         public CatalogModifier build() {
             return new CatalogModifier(
-                    name, priceMoney, ordinal, modifierListId, locationOverrides, imageId, additionalProperties);
+                    name,
+                    priceMoney,
+                    onByDefault,
+                    ordinal,
+                    modifierListId,
+                    locationOverrides,
+                    imageId,
+                    hiddenOnline,
+                    additionalProperties);
         }
     }
 }

@@ -34,6 +34,10 @@ public final class CatalogModifierList {
 
     private final Optional<List<String>> imageIds;
 
+    private final Optional<Boolean> allowQuantities;
+
+    private final Optional<Boolean> isConversational;
+
     private final Optional<CatalogModifierListModifierType> modifierType;
 
     private final Optional<Integer> maxLength;
@@ -41,6 +45,12 @@ public final class CatalogModifierList {
     private final Optional<Boolean> textRequired;
 
     private final Optional<String> internalName;
+
+    private final Optional<Long> minSelectedModifiers;
+
+    private final Optional<Long> maxSelectedModifiers;
+
+    private final Optional<Boolean> hiddenFromCustomer;
 
     private final Map<String, Object> additionalProperties;
 
@@ -50,20 +60,30 @@ public final class CatalogModifierList {
             Optional<CatalogModifierListSelectionType> selectionType,
             Optional<List<CatalogObject>> modifiers,
             Optional<List<String>> imageIds,
+            Optional<Boolean> allowQuantities,
+            Optional<Boolean> isConversational,
             Optional<CatalogModifierListModifierType> modifierType,
             Optional<Integer> maxLength,
             Optional<Boolean> textRequired,
             Optional<String> internalName,
+            Optional<Long> minSelectedModifiers,
+            Optional<Long> maxSelectedModifiers,
+            Optional<Boolean> hiddenFromCustomer,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.ordinal = ordinal;
         this.selectionType = selectionType;
         this.modifiers = modifiers;
         this.imageIds = imageIds;
+        this.allowQuantities = allowQuantities;
+        this.isConversational = isConversational;
         this.modifierType = modifierType;
         this.maxLength = maxLength;
         this.textRequired = textRequired;
         this.internalName = internalName;
+        this.minSelectedModifiers = minSelectedModifiers;
+        this.maxSelectedModifiers = maxSelectedModifiers;
+        this.hiddenFromCustomer = hiddenFromCustomer;
         this.additionalProperties = additionalProperties;
     }
 
@@ -91,10 +111,9 @@ public final class CatalogModifierList {
     }
 
     /**
-     * @return Indicates whether a single (<code>SINGLE</code>) or multiple (<code>MULTIPLE</code>) modifiers from the list
-     * can be applied to a single <code>CatalogItem</code>.
-     * <p>For text-based modifiers, the <code>selection_type</code> attribute is always <code>SINGLE</code>. The other value is ignored.
-     * See <a href="#type-catalogmodifierlistselectiontype">CatalogModifierListSelectionType</a> for possible values</p>
+     * @return <strong>Deprecated</strong>: Indicates whether a single (<code>SINGLE</code>) modifier or multiple (<code>MULTIPLE</code>) modifiers can be selected. Use
+     * <code>min_selected_modifiers</code> and <code>max_selected_modifiers</code> instead.
+     * See <a href="#type-catalogmodifierlistselectiontype">CatalogModifierListSelectionType</a> for possible values
      */
     @JsonProperty("selection_type")
     public Optional<CatalogModifierListSelectionType> getSelectionType() {
@@ -130,6 +149,28 @@ public final class CatalogModifierList {
             return Optional.empty();
         }
         return imageIds;
+    }
+
+    /**
+     * @return When <code>true</code>, allows multiple quantities of the same modifier to be selected.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getAllowQuantities() {
+        if (allowQuantities == null) {
+            return Optional.empty();
+        }
+        return allowQuantities;
+    }
+
+    /**
+     * @return True if modifiers belonging to this list can be used conversationally.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getIsConversational() {
+        if (isConversational == null) {
+            return Optional.empty();
+        }
+        return isConversational;
     }
 
     /**
@@ -183,6 +224,54 @@ public final class CatalogModifierList {
         return internalName;
     }
 
+    /**
+     * @return The minimum number of modifiers that must be selected from this list. The value can be overridden with <code>CatalogItemModifierListInfo</code>.
+     * <p>Values:</p>
+     * <ul>
+     * <li>0: No selection is required.</li>
+     * <li>-1: Default value, the attribute was not set by the client. Treated as no selection required.</li>
+     * <li>&gt;0: The required minimum modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+     * <li>&lt; -1: Invalid. Treated as no selection required.</li>
+     * </ul>
+     */
+    @JsonIgnore
+    public Optional<Long> getMinSelectedModifiers() {
+        if (minSelectedModifiers == null) {
+            return Optional.empty();
+        }
+        return minSelectedModifiers;
+    }
+
+    /**
+     * @return The maximum number of modifiers that must be selected from this list. The value can be overridden with <code>CatalogItemModifierListInfo</code>.
+     * <p>Values:</p>
+     * <ul>
+     * <li>0: No maximum limit.</li>
+     * <li>-1: Default value, the attribute was not set by the client. Treated as no maximum limit.</li>
+     * <li>&gt;0: The maximum total modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+     * <li>&lt; -1: Invalid. Treated as no maximum limit.</li>
+     * </ul>
+     */
+    @JsonIgnore
+    public Optional<Long> getMaxSelectedModifiers() {
+        if (maxSelectedModifiers == null) {
+            return Optional.empty();
+        }
+        return maxSelectedModifiers;
+    }
+
+    /**
+     * @return If <code>true</code>, modifiers from this list are hidden from customer receipts. The default value is <code>false</code>.
+     * This setting can be overridden with <code>CatalogItemModifierListInfo.hidden_from_customer_override</code>.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getHiddenFromCustomer() {
+        if (hiddenFromCustomer == null) {
+            return Optional.empty();
+        }
+        return hiddenFromCustomer;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
@@ -208,6 +297,18 @@ public final class CatalogModifierList {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_quantities")
+    private Optional<Boolean> _getAllowQuantities() {
+        return allowQuantities;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("is_conversational")
+    private Optional<Boolean> _getIsConversational() {
+        return isConversational;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("max_length")
     private Optional<Integer> _getMaxLength() {
         return maxLength;
@@ -223,6 +324,24 @@ public final class CatalogModifierList {
     @JsonProperty("internal_name")
     private Optional<String> _getInternalName() {
         return internalName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("min_selected_modifiers")
+    private Optional<Long> _getMinSelectedModifiers() {
+        return minSelectedModifiers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("max_selected_modifiers")
+    private Optional<Long> _getMaxSelectedModifiers() {
+        return maxSelectedModifiers;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("hidden_from_customer")
+    private Optional<Boolean> _getHiddenFromCustomer() {
+        return hiddenFromCustomer;
     }
 
     @java.lang.Override
@@ -242,10 +361,15 @@ public final class CatalogModifierList {
                 && selectionType.equals(other.selectionType)
                 && modifiers.equals(other.modifiers)
                 && imageIds.equals(other.imageIds)
+                && allowQuantities.equals(other.allowQuantities)
+                && isConversational.equals(other.isConversational)
                 && modifierType.equals(other.modifierType)
                 && maxLength.equals(other.maxLength)
                 && textRequired.equals(other.textRequired)
-                && internalName.equals(other.internalName);
+                && internalName.equals(other.internalName)
+                && minSelectedModifiers.equals(other.minSelectedModifiers)
+                && maxSelectedModifiers.equals(other.maxSelectedModifiers)
+                && hiddenFromCustomer.equals(other.hiddenFromCustomer);
     }
 
     @java.lang.Override
@@ -256,10 +380,15 @@ public final class CatalogModifierList {
                 this.selectionType,
                 this.modifiers,
                 this.imageIds,
+                this.allowQuantities,
+                this.isConversational,
                 this.modifierType,
                 this.maxLength,
                 this.textRequired,
-                this.internalName);
+                this.internalName,
+                this.minSelectedModifiers,
+                this.maxSelectedModifiers,
+                this.hiddenFromCustomer);
     }
 
     @java.lang.Override
@@ -283,6 +412,10 @@ public final class CatalogModifierList {
 
         private Optional<List<String>> imageIds = Optional.empty();
 
+        private Optional<Boolean> allowQuantities = Optional.empty();
+
+        private Optional<Boolean> isConversational = Optional.empty();
+
         private Optional<CatalogModifierListModifierType> modifierType = Optional.empty();
 
         private Optional<Integer> maxLength = Optional.empty();
@@ -290,6 +423,12 @@ public final class CatalogModifierList {
         private Optional<Boolean> textRequired = Optional.empty();
 
         private Optional<String> internalName = Optional.empty();
+
+        private Optional<Long> minSelectedModifiers = Optional.empty();
+
+        private Optional<Long> maxSelectedModifiers = Optional.empty();
+
+        private Optional<Boolean> hiddenFromCustomer = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -302,10 +441,15 @@ public final class CatalogModifierList {
             selectionType(other.getSelectionType());
             modifiers(other.getModifiers());
             imageIds(other.getImageIds());
+            allowQuantities(other.getAllowQuantities());
+            isConversational(other.getIsConversational());
             modifierType(other.getModifierType());
             maxLength(other.getMaxLength());
             textRequired(other.getTextRequired());
             internalName(other.getInternalName());
+            minSelectedModifiers(other.getMinSelectedModifiers());
+            maxSelectedModifiers(other.getMaxSelectedModifiers());
+            hiddenFromCustomer(other.getHiddenFromCustomer());
             return this;
         }
 
@@ -408,6 +552,50 @@ public final class CatalogModifierList {
             return this;
         }
 
+        @JsonSetter(value = "allow_quantities", nulls = Nulls.SKIP)
+        public Builder allowQuantities(Optional<Boolean> allowQuantities) {
+            this.allowQuantities = allowQuantities;
+            return this;
+        }
+
+        public Builder allowQuantities(Boolean allowQuantities) {
+            this.allowQuantities = Optional.ofNullable(allowQuantities);
+            return this;
+        }
+
+        public Builder allowQuantities(Nullable<Boolean> allowQuantities) {
+            if (allowQuantities.isNull()) {
+                this.allowQuantities = null;
+            } else if (allowQuantities.isEmpty()) {
+                this.allowQuantities = Optional.empty();
+            } else {
+                this.allowQuantities = Optional.of(allowQuantities.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "is_conversational", nulls = Nulls.SKIP)
+        public Builder isConversational(Optional<Boolean> isConversational) {
+            this.isConversational = isConversational;
+            return this;
+        }
+
+        public Builder isConversational(Boolean isConversational) {
+            this.isConversational = Optional.ofNullable(isConversational);
+            return this;
+        }
+
+        public Builder isConversational(Nullable<Boolean> isConversational) {
+            if (isConversational.isNull()) {
+                this.isConversational = null;
+            } else if (isConversational.isEmpty()) {
+                this.isConversational = Optional.empty();
+            } else {
+                this.isConversational = Optional.of(isConversational.get());
+            }
+            return this;
+        }
+
         @JsonSetter(value = "modifier_type", nulls = Nulls.SKIP)
         public Builder modifierType(Optional<CatalogModifierListModifierType> modifierType) {
             this.modifierType = modifierType;
@@ -485,6 +673,72 @@ public final class CatalogModifierList {
             return this;
         }
 
+        @JsonSetter(value = "min_selected_modifiers", nulls = Nulls.SKIP)
+        public Builder minSelectedModifiers(Optional<Long> minSelectedModifiers) {
+            this.minSelectedModifiers = minSelectedModifiers;
+            return this;
+        }
+
+        public Builder minSelectedModifiers(Long minSelectedModifiers) {
+            this.minSelectedModifiers = Optional.ofNullable(minSelectedModifiers);
+            return this;
+        }
+
+        public Builder minSelectedModifiers(Nullable<Long> minSelectedModifiers) {
+            if (minSelectedModifiers.isNull()) {
+                this.minSelectedModifiers = null;
+            } else if (minSelectedModifiers.isEmpty()) {
+                this.minSelectedModifiers = Optional.empty();
+            } else {
+                this.minSelectedModifiers = Optional.of(minSelectedModifiers.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "max_selected_modifiers", nulls = Nulls.SKIP)
+        public Builder maxSelectedModifiers(Optional<Long> maxSelectedModifiers) {
+            this.maxSelectedModifiers = maxSelectedModifiers;
+            return this;
+        }
+
+        public Builder maxSelectedModifiers(Long maxSelectedModifiers) {
+            this.maxSelectedModifiers = Optional.ofNullable(maxSelectedModifiers);
+            return this;
+        }
+
+        public Builder maxSelectedModifiers(Nullable<Long> maxSelectedModifiers) {
+            if (maxSelectedModifiers.isNull()) {
+                this.maxSelectedModifiers = null;
+            } else if (maxSelectedModifiers.isEmpty()) {
+                this.maxSelectedModifiers = Optional.empty();
+            } else {
+                this.maxSelectedModifiers = Optional.of(maxSelectedModifiers.get());
+            }
+            return this;
+        }
+
+        @JsonSetter(value = "hidden_from_customer", nulls = Nulls.SKIP)
+        public Builder hiddenFromCustomer(Optional<Boolean> hiddenFromCustomer) {
+            this.hiddenFromCustomer = hiddenFromCustomer;
+            return this;
+        }
+
+        public Builder hiddenFromCustomer(Boolean hiddenFromCustomer) {
+            this.hiddenFromCustomer = Optional.ofNullable(hiddenFromCustomer);
+            return this;
+        }
+
+        public Builder hiddenFromCustomer(Nullable<Boolean> hiddenFromCustomer) {
+            if (hiddenFromCustomer.isNull()) {
+                this.hiddenFromCustomer = null;
+            } else if (hiddenFromCustomer.isEmpty()) {
+                this.hiddenFromCustomer = Optional.empty();
+            } else {
+                this.hiddenFromCustomer = Optional.of(hiddenFromCustomer.get());
+            }
+            return this;
+        }
+
         public CatalogModifierList build() {
             return new CatalogModifierList(
                     name,
@@ -492,10 +746,15 @@ public final class CatalogModifierList {
                     selectionType,
                     modifiers,
                     imageIds,
+                    allowQuantities,
+                    isConversational,
                     modifierType,
                     maxLength,
                     textRequired,
                     internalName,
+                    minSelectedModifiers,
+                    maxSelectedModifiers,
+                    hiddenFromCustomer,
                     additionalProperties);
         }
     }

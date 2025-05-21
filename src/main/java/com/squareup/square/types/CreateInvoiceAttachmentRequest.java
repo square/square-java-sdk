@@ -26,14 +26,14 @@ public final class CreateInvoiceAttachmentRequest {
 
     private final String invoiceId;
 
-    private final Optional<Object> request;
+    private final Optional<CreateInvoiceAttachmentRequestData> request;
 
     private final Map<String, Object> additionalProperties;
 
     private CreateInvoiceAttachmentRequest(
             Optional<File> imageFile,
             String invoiceId,
-            Optional<Object> request,
+            Optional<CreateInvoiceAttachmentRequestData> request,
             Map<String, Object> additionalProperties) {
         this.imageFile = imageFile;
         this.invoiceId = invoiceId;
@@ -55,7 +55,7 @@ public final class CreateInvoiceAttachmentRequest {
     }
 
     @JsonProperty("request")
-    public Optional<Object> getRequest() {
+    public Optional<CreateInvoiceAttachmentRequestData> getRequest() {
         return request;
     }
 
@@ -101,16 +101,16 @@ public final class CreateInvoiceAttachmentRequest {
 
         _FinalStage imageFile(File imageFile);
 
-        _FinalStage request(Optional<Object> request);
+        _FinalStage request(Optional<CreateInvoiceAttachmentRequestData> request);
 
-        _FinalStage request(Object request);
+        _FinalStage request(CreateInvoiceAttachmentRequestData request);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements InvoiceIdStage, _FinalStage {
         private String invoiceId;
 
-        private Optional<Object> request = Optional.empty();
+        private Optional<CreateInvoiceAttachmentRequestData> request = Optional.empty();
 
         private Optional<File> imageFile = Optional.empty();
 
@@ -139,14 +139,14 @@ public final class CreateInvoiceAttachmentRequest {
         }
 
         @java.lang.Override
-        public _FinalStage request(Object request) {
+        public _FinalStage request(CreateInvoiceAttachmentRequestData request) {
             this.request = Optional.ofNullable(request);
             return this;
         }
 
         @java.lang.Override
         @JsonSetter(value = "request", nulls = Nulls.SKIP)
-        public _FinalStage request(Optional<Object> request) {
+        public _FinalStage request(Optional<CreateInvoiceAttachmentRequestData> request) {
             this.request = request;
             return this;
         }

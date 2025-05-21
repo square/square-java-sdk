@@ -37,6 +37,12 @@ public final class CatalogItemModifierListInfo {
 
     private final Optional<Integer> ordinal;
 
+    private final Optional<Object> allowQuantities;
+
+    private final Optional<Object> isConversational;
+
+    private final Optional<Object> hiddenFromCustomerOverride;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogItemModifierListInfo(
@@ -46,6 +52,9 @@ public final class CatalogItemModifierListInfo {
             Optional<Integer> maxSelectedModifiers,
             Optional<Boolean> enabled,
             Optional<Integer> ordinal,
+            Optional<Object> allowQuantities,
+            Optional<Object> isConversational,
+            Optional<Object> hiddenFromCustomerOverride,
             Map<String, Object> additionalProperties) {
         this.modifierListId = modifierListId;
         this.modifierOverrides = modifierOverrides;
@@ -53,6 +62,9 @@ public final class CatalogItemModifierListInfo {
         this.maxSelectedModifiers = maxSelectedModifiers;
         this.enabled = enabled;
         this.ordinal = ordinal;
+        this.allowQuantities = allowQuantities;
+        this.isConversational = isConversational;
+        this.hiddenFromCustomerOverride = hiddenFromCustomerOverride;
         this.additionalProperties = additionalProperties;
     }
 
@@ -65,7 +77,7 @@ public final class CatalogItemModifierListInfo {
     }
 
     /**
-     * @return A set of <code>CatalogModifierOverride</code> objects that override whether a given <code>CatalogModifier</code> is enabled by default.
+     * @return A set of <code>CatalogModifierOverride</code> objects that override default modifier settings for this item.
      */
     @JsonIgnore
     public Optional<List<CatalogModifierOverride>> getModifierOverrides() {
@@ -76,14 +88,15 @@ public final class CatalogItemModifierListInfo {
     }
 
     /**
-     * @return If 0 or larger, the smallest number of <code>CatalogModifier</code>s that must be selected from this <code>CatalogModifierList</code>.
-     * The default value is <code>-1</code>.
-     * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-     * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-     * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-     * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-     * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-     * and can be selected from the <code>CatalogModifierList</code></p>
+     * @return The minimum number of modifiers that must be selected from this modifier list.
+     * Values:
+     * <ul>
+     * <li>0: No selection is required.</li>
+     * <li>-1: Default value, the attribute was not set by the client. When <code>max_selected_modifiers</code> is
+     * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+     * <li>&gt;0: The required minimum modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+     * <li>&lt; -1: Invalid. Treated as no selection required.</li>
+     * </ul>
      */
     @JsonIgnore
     public Optional<Integer> getMinSelectedModifiers() {
@@ -94,14 +107,15 @@ public final class CatalogItemModifierListInfo {
     }
 
     /**
-     * @return If 0 or larger, the largest number of <code>CatalogModifier</code>s that can be selected from this <code>CatalogModifierList</code>.
-     * The default value is <code>-1</code>.
-     * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-     * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-     * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-     * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-     * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-     * and can be selected from the <code>CatalogModifierList</code></p>
+     * @return The maximum number of modifiers that can be selected.
+     * Values:
+     * <ul>
+     * <li>0: No maximum limit.</li>
+     * <li>-1: Default value, the attribute was not set by the client. When <code>min_selected_modifiers</code> is
+     * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+     * <li>&gt;0: The maximum total modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+     * <li>&lt; -1: Invalid. Treated as no maximum limit.</li>
+     * </ul>
      */
     @JsonIgnore
     public Optional<Integer> getMaxSelectedModifiers() {
@@ -132,6 +146,21 @@ public final class CatalogItemModifierListInfo {
             return Optional.empty();
         }
         return ordinal;
+    }
+
+    @JsonProperty("allow_quantities")
+    public Optional<Object> getAllowQuantities() {
+        return allowQuantities;
+    }
+
+    @JsonProperty("is_conversational")
+    public Optional<Object> getIsConversational() {
+        return isConversational;
+    }
+
+    @JsonProperty("hidden_from_customer_override")
+    public Optional<Object> getHiddenFromCustomerOverride() {
+        return hiddenFromCustomerOverride;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -181,7 +210,10 @@ public final class CatalogItemModifierListInfo {
                 && minSelectedModifiers.equals(other.minSelectedModifiers)
                 && maxSelectedModifiers.equals(other.maxSelectedModifiers)
                 && enabled.equals(other.enabled)
-                && ordinal.equals(other.ordinal);
+                && ordinal.equals(other.ordinal)
+                && allowQuantities.equals(other.allowQuantities)
+                && isConversational.equals(other.isConversational)
+                && hiddenFromCustomerOverride.equals(other.hiddenFromCustomerOverride);
     }
 
     @java.lang.Override
@@ -192,7 +224,10 @@ public final class CatalogItemModifierListInfo {
                 this.minSelectedModifiers,
                 this.maxSelectedModifiers,
                 this.enabled,
-                this.ordinal);
+                this.ordinal,
+                this.allowQuantities,
+                this.isConversational,
+                this.hiddenFromCustomerOverride);
     }
 
     @java.lang.Override
@@ -242,11 +277,29 @@ public final class CatalogItemModifierListInfo {
         _FinalStage ordinal(Integer ordinal);
 
         _FinalStage ordinal(Nullable<Integer> ordinal);
+
+        _FinalStage allowQuantities(Optional<Object> allowQuantities);
+
+        _FinalStage allowQuantities(Object allowQuantities);
+
+        _FinalStage isConversational(Optional<Object> isConversational);
+
+        _FinalStage isConversational(Object isConversational);
+
+        _FinalStage hiddenFromCustomerOverride(Optional<Object> hiddenFromCustomerOverride);
+
+        _FinalStage hiddenFromCustomerOverride(Object hiddenFromCustomerOverride);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ModifierListIdStage, _FinalStage {
         private String modifierListId;
+
+        private Optional<Object> hiddenFromCustomerOverride = Optional.empty();
+
+        private Optional<Object> isConversational = Optional.empty();
+
+        private Optional<Object> allowQuantities = Optional.empty();
 
         private Optional<Integer> ordinal = Optional.empty();
 
@@ -271,6 +324,9 @@ public final class CatalogItemModifierListInfo {
             maxSelectedModifiers(other.getMaxSelectedModifiers());
             enabled(other.getEnabled());
             ordinal(other.getOrdinal());
+            allowQuantities(other.getAllowQuantities());
+            isConversational(other.getIsConversational());
+            hiddenFromCustomerOverride(other.getHiddenFromCustomerOverride());
             return this;
         }
 
@@ -282,6 +338,45 @@ public final class CatalogItemModifierListInfo {
         @JsonSetter("modifier_list_id")
         public _FinalStage modifierListId(@NotNull String modifierListId) {
             this.modifierListId = Objects.requireNonNull(modifierListId, "modifierListId must not be null");
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage hiddenFromCustomerOverride(Object hiddenFromCustomerOverride) {
+            this.hiddenFromCustomerOverride = Optional.ofNullable(hiddenFromCustomerOverride);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "hidden_from_customer_override", nulls = Nulls.SKIP)
+        public _FinalStage hiddenFromCustomerOverride(Optional<Object> hiddenFromCustomerOverride) {
+            this.hiddenFromCustomerOverride = hiddenFromCustomerOverride;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage isConversational(Object isConversational) {
+            this.isConversational = Optional.ofNullable(isConversational);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "is_conversational", nulls = Nulls.SKIP)
+        public _FinalStage isConversational(Optional<Object> isConversational) {
+            this.isConversational = isConversational;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage allowQuantities(Object allowQuantities) {
+            this.allowQuantities = Optional.ofNullable(allowQuantities);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "allow_quantities", nulls = Nulls.SKIP)
+        public _FinalStage allowQuantities(Optional<Object> allowQuantities) {
+            this.allowQuantities = allowQuantities;
             return this;
         }
 
@@ -354,14 +449,15 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>If 0 or larger, the largest number of <code>CatalogModifier</code>s that can be selected from this <code>CatalogModifierList</code>.
-         * The default value is <code>-1</code>.</p>
-         * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-         * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-         * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-         * and can be selected from the <code>CatalogModifierList</code></p>
+         * <p>The maximum number of modifiers that can be selected.
+         * Values:</p>
+         * <ul>
+         * <li>0: No maximum limit.</li>
+         * <li>-1: Default value, the attribute was not set by the client. When <code>min_selected_modifiers</code> is
+         * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+         * <li>&gt;0: The maximum total modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no maximum limit.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -377,14 +473,15 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>If 0 or larger, the largest number of <code>CatalogModifier</code>s that can be selected from this <code>CatalogModifierList</code>.
-         * The default value is <code>-1</code>.</p>
-         * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-         * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-         * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-         * and can be selected from the <code>CatalogModifierList</code></p>
+         * <p>The maximum number of modifiers that can be selected.
+         * Values:</p>
+         * <ul>
+         * <li>0: No maximum limit.</li>
+         * <li>-1: Default value, the attribute was not set by the client. When <code>min_selected_modifiers</code> is
+         * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+         * <li>&gt;0: The maximum total modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no maximum limit.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -401,14 +498,15 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>If 0 or larger, the smallest number of <code>CatalogModifier</code>s that must be selected from this <code>CatalogModifierList</code>.
-         * The default value is <code>-1</code>.</p>
-         * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-         * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-         * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-         * and can be selected from the <code>CatalogModifierList</code></p>
+         * <p>The minimum number of modifiers that must be selected from this modifier list.
+         * Values:</p>
+         * <ul>
+         * <li>0: No selection is required.</li>
+         * <li>-1: Default value, the attribute was not set by the client. When <code>max_selected_modifiers</code> is
+         * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+         * <li>&gt;0: The required minimum modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no selection required.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -424,14 +522,15 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>If 0 or larger, the smallest number of <code>CatalogModifier</code>s that must be selected from this <code>CatalogModifierList</code>.
-         * The default value is <code>-1</code>.</p>
-         * <p>When  <code>CatalogModifierList.selection_type</code> is <code>MULTIPLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that from zero to the maximum number of modifiers of
-         * the <code>CatalogModifierList</code> can be selected from the <code>CatalogModifierList</code>.</p>
-         * <p>When the <code>CatalogModifierList.selection_type</code> is <code>SINGLE</code>, <code>CatalogModifierListInfo.min_selected_modifiers=-1</code>
-         * and <code>CatalogModifierListInfo.max_selected_modifier=-1</code> means that exactly one modifier must be present in
-         * and can be selected from the <code>CatalogModifierList</code></p>
+         * <p>The minimum number of modifiers that must be selected from this modifier list.
+         * Values:</p>
+         * <ul>
+         * <li>0: No selection is required.</li>
+         * <li>-1: Default value, the attribute was not set by the client. When <code>max_selected_modifiers</code> is
+         * also -1, use the minimum and maximum selection values set on the <code>CatalogItemModifierList</code>.</li>
+         * <li>&gt;0: The required minimum modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no selection required.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -448,7 +547,7 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>A set of <code>CatalogModifierOverride</code> objects that override whether a given <code>CatalogModifier</code> is enabled by default.</p>
+         * <p>A set of <code>CatalogModifierOverride</code> objects that override default modifier settings for this item.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -464,7 +563,7 @@ public final class CatalogItemModifierListInfo {
         }
 
         /**
-         * <p>A set of <code>CatalogModifierOverride</code> objects that override whether a given <code>CatalogModifier</code> is enabled by default.</p>
+         * <p>A set of <code>CatalogModifierOverride</code> objects that override default modifier settings for this item.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -489,6 +588,9 @@ public final class CatalogItemModifierListInfo {
                     maxSelectedModifiers,
                     enabled,
                     ordinal,
+                    allowQuantities,
+                    isConversational,
+                    hiddenFromCustomerOverride,
                     additionalProperties);
         }
     }
