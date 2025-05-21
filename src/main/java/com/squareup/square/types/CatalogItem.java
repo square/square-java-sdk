@@ -283,7 +283,7 @@ public final class CatalogItem {
     }
 
     /**
-     * @return Deprecated; see go/ecomUriUseCases. A URI pointing to a published e-commerce product page for the Item.
+     * @return Deprecated. A URI pointing to a published e-commerce product page for the Item.
      */
     @JsonIgnore
     public Optional<String> getEcomUri() {
@@ -294,7 +294,7 @@ public final class CatalogItem {
     }
 
     /**
-     * @return Deprecated; see go/ecomUriUseCases. A comma-separated list of encoded URIs pointing to a set of published e-commerce images for the Item.
+     * @return Deprecated. A comma-separated list of encoded URIs pointing to a set of published e-commerce images for the Item.
      */
     @JsonIgnore
     public Optional<List<String>> getEcomImageUris() {

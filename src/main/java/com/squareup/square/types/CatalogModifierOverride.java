@@ -28,12 +28,22 @@ public final class CatalogModifierOverride {
 
     private final Optional<Boolean> onByDefault;
 
+    private final Optional<Object> hiddenOnlineOverride;
+
+    private final Optional<Object> onByDefaultOverride;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogModifierOverride(
-            String modifierId, Optional<Boolean> onByDefault, Map<String, Object> additionalProperties) {
+            String modifierId,
+            Optional<Boolean> onByDefault,
+            Optional<Object> hiddenOnlineOverride,
+            Optional<Object> onByDefaultOverride,
+            Map<String, Object> additionalProperties) {
         this.modifierId = modifierId;
         this.onByDefault = onByDefault;
+        this.hiddenOnlineOverride = hiddenOnlineOverride;
+        this.onByDefaultOverride = onByDefaultOverride;
         this.additionalProperties = additionalProperties;
     }
 
@@ -46,7 +56,7 @@ public final class CatalogModifierOverride {
     }
 
     /**
-     * @return If <code>true</code>, this <code>CatalogModifier</code> should be selected by default for this <code>CatalogItem</code>.
+     * @return <strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.
      */
     @JsonIgnore
     public Optional<Boolean> getOnByDefault() {
@@ -54,6 +64,16 @@ public final class CatalogModifierOverride {
             return Optional.empty();
         }
         return onByDefault;
+    }
+
+    @JsonProperty("hidden_online_override")
+    public Optional<Object> getHiddenOnlineOverride() {
+        return hiddenOnlineOverride;
+    }
+
+    @JsonProperty("on_by_default_override")
+    public Optional<Object> getOnByDefaultOverride() {
+        return onByDefaultOverride;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -74,12 +94,15 @@ public final class CatalogModifierOverride {
     }
 
     private boolean equalTo(CatalogModifierOverride other) {
-        return modifierId.equals(other.modifierId) && onByDefault.equals(other.onByDefault);
+        return modifierId.equals(other.modifierId)
+                && onByDefault.equals(other.onByDefault)
+                && hiddenOnlineOverride.equals(other.hiddenOnlineOverride)
+                && onByDefaultOverride.equals(other.onByDefaultOverride);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.modifierId, this.onByDefault);
+        return Objects.hash(this.modifierId, this.onByDefault, this.hiddenOnlineOverride, this.onByDefaultOverride);
     }
 
     @java.lang.Override
@@ -105,11 +128,23 @@ public final class CatalogModifierOverride {
         _FinalStage onByDefault(Boolean onByDefault);
 
         _FinalStage onByDefault(Nullable<Boolean> onByDefault);
+
+        _FinalStage hiddenOnlineOverride(Optional<Object> hiddenOnlineOverride);
+
+        _FinalStage hiddenOnlineOverride(Object hiddenOnlineOverride);
+
+        _FinalStage onByDefaultOverride(Optional<Object> onByDefaultOverride);
+
+        _FinalStage onByDefaultOverride(Object onByDefaultOverride);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ModifierIdStage, _FinalStage {
         private String modifierId;
+
+        private Optional<Object> onByDefaultOverride = Optional.empty();
+
+        private Optional<Object> hiddenOnlineOverride = Optional.empty();
 
         private Optional<Boolean> onByDefault = Optional.empty();
 
@@ -122,6 +157,8 @@ public final class CatalogModifierOverride {
         public Builder from(CatalogModifierOverride other) {
             modifierId(other.getModifierId());
             onByDefault(other.getOnByDefault());
+            hiddenOnlineOverride(other.getHiddenOnlineOverride());
+            onByDefaultOverride(other.getOnByDefaultOverride());
             return this;
         }
 
@@ -136,8 +173,34 @@ public final class CatalogModifierOverride {
             return this;
         }
 
+        @java.lang.Override
+        public _FinalStage onByDefaultOverride(Object onByDefaultOverride) {
+            this.onByDefaultOverride = Optional.ofNullable(onByDefaultOverride);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "on_by_default_override", nulls = Nulls.SKIP)
+        public _FinalStage onByDefaultOverride(Optional<Object> onByDefaultOverride) {
+            this.onByDefaultOverride = onByDefaultOverride;
+            return this;
+        }
+
+        @java.lang.Override
+        public _FinalStage hiddenOnlineOverride(Object hiddenOnlineOverride) {
+            this.hiddenOnlineOverride = Optional.ofNullable(hiddenOnlineOverride);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "hidden_online_override", nulls = Nulls.SKIP)
+        public _FinalStage hiddenOnlineOverride(Optional<Object> hiddenOnlineOverride) {
+            this.hiddenOnlineOverride = hiddenOnlineOverride;
+            return this;
+        }
+
         /**
-         * <p>If <code>true</code>, this <code>CatalogModifier</code> should be selected by default for this <code>CatalogItem</code>.</p>
+         * <p><strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -153,7 +216,7 @@ public final class CatalogModifierOverride {
         }
 
         /**
-         * <p>If <code>true</code>, this <code>CatalogModifier</code> should be selected by default for this <code>CatalogItem</code>.</p>
+         * <p><strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -171,7 +234,8 @@ public final class CatalogModifierOverride {
 
         @java.lang.Override
         public CatalogModifierOverride build() {
-            return new CatalogModifierOverride(modifierId, onByDefault, additionalProperties);
+            return new CatalogModifierOverride(
+                    modifierId, onByDefault, hiddenOnlineOverride, onByDefaultOverride, additionalProperties);
         }
     }
 }

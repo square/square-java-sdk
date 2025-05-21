@@ -6,7 +6,6 @@ package com.squareup.square;
 import com.squareup.square.cashdrawers.AsyncCashDrawersClient;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.Suppliers;
-import com.squareup.square.labor.AsyncLaborClient;
 import com.squareup.square.webhooks.AsyncWebhooksClient;
 import java.util.function.Supplier;
 
@@ -45,6 +44,8 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncInvoicesClient> invoicesClient;
 
+    protected final Supplier<AsyncLaborClient> laborClient;
+
     protected final Supplier<AsyncLocationsClient> locationsClient;
 
     protected final Supplier<AsyncLoyaltyClient> loyaltyClient;
@@ -77,8 +78,6 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncCashDrawersClient> cashDrawersClient;
 
-    protected final Supplier<AsyncLaborClient> laborClient;
-
     protected final Supplier<AsyncWebhooksClient> webhooksClient;
 
     public AsyncSquareClient(ClientOptions clientOptions) {
@@ -99,6 +98,7 @@ public class AsyncSquareClient {
         this.giftCardsClient = Suppliers.memoize(() -> new AsyncGiftCardsClient(clientOptions));
         this.inventoryClient = Suppliers.memoize(() -> new AsyncInventoryClient(clientOptions));
         this.invoicesClient = Suppliers.memoize(() -> new AsyncInvoicesClient(clientOptions));
+        this.laborClient = Suppliers.memoize(() -> new AsyncLaborClient(clientOptions));
         this.locationsClient = Suppliers.memoize(() -> new AsyncLocationsClient(clientOptions));
         this.loyaltyClient = Suppliers.memoize(() -> new AsyncLoyaltyClient(clientOptions));
         this.merchantsClient = Suppliers.memoize(() -> new AsyncMerchantsClient(clientOptions));
@@ -115,7 +115,6 @@ public class AsyncSquareClient {
         this.terminalClient = Suppliers.memoize(() -> new AsyncTerminalClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new AsyncVendorsClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new AsyncCashDrawersClient(clientOptions));
-        this.laborClient = Suppliers.memoize(() -> new AsyncLaborClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new AsyncWebhooksClient(clientOptions));
     }
 
@@ -183,6 +182,10 @@ public class AsyncSquareClient {
         return this.invoicesClient.get();
     }
 
+    public AsyncLaborClient labor() {
+        return this.laborClient.get();
+    }
+
     public AsyncLocationsClient locations() {
         return this.locationsClient.get();
     }
@@ -245,10 +248,6 @@ public class AsyncSquareClient {
 
     public AsyncCashDrawersClient cashDrawers() {
         return this.cashDrawersClient.get();
-    }
-
-    public AsyncLaborClient labor() {
-        return this.laborClient.get();
     }
 
     public AsyncWebhooksClient webhooks() {

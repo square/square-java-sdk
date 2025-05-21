@@ -58,18 +58,6 @@ public final class CatalogObject {
         return new CatalogObject(new ModifierValue(value));
     }
 
-    public static CatalogObject diningOption(CatalogObjectDiningOption value) {
-        return new CatalogObject(new DiningOptionValue(value));
-    }
-
-    public static CatalogObject taxExemption(CatalogObjectTaxExemption value) {
-        return new CatalogObject(new TaxExemptionValue(value));
-    }
-
-    public static CatalogObject serviceCharge(CatalogObjectServiceCharge value) {
-        return new CatalogObject(new ServiceChargeValue(value));
-    }
-
     public static CatalogObject pricingRule(CatalogObjectPricingRule value) {
         return new CatalogObject(new PricingRuleValue(value));
     }
@@ -86,8 +74,8 @@ public final class CatalogObject {
         return new CatalogObject(new MeasurementUnitValue(value));
     }
 
-    public static CatalogObject subscriptionPlan(CatalogObjectSubscriptionPlan value) {
-        return new CatalogObject(new SubscriptionPlanValue(value));
+    public static CatalogObject subscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation value) {
+        return new CatalogObject(new SubscriptionPlanVariationValue(value));
     }
 
     public static CatalogObject itemOption(CatalogObjectItemOption value) {
@@ -106,32 +94,8 @@ public final class CatalogObject {
         return new CatalogObject(new QuickAmountsSettingsValue(value));
     }
 
-    public static CatalogObject component(CatalogObjectComponent value) {
-        return new CatalogObject(new ComponentValue(value));
-    }
-
-    public static CatalogObject composition(CatalogObjectComposition value) {
-        return new CatalogObject(new CompositionValue(value));
-    }
-
-    public static CatalogObject resource(CatalogObjectResource value) {
-        return new CatalogObject(new ResourceValue(value));
-    }
-
-    public static CatalogObject checkoutLink(CatalogObjectCheckoutLink value) {
-        return new CatalogObject(new CheckoutLinkValue(value));
-    }
-
-    public static CatalogObject address(CatalogObjectAddress value) {
-        return new CatalogObject(new AddressValue(value));
-    }
-
-    public static CatalogObject subscriptionProduct(CatalogObjectSubscriptionProduct value) {
-        return new CatalogObject(new SubscriptionProductValue(value));
-    }
-
-    public static CatalogObject subscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation value) {
-        return new CatalogObject(new SubscriptionPlanVariationValue(value));
+    public static CatalogObject subscriptionPlan(CatalogObjectSubscriptionPlan value) {
+        return new CatalogObject(new SubscriptionPlanValue(value));
     }
 
     public static CatalogObject availabilityPeriod(CatalogObjectAvailabilityPeriod value) {
@@ -170,18 +134,6 @@ public final class CatalogObject {
         return value instanceof ModifierValue;
     }
 
-    public boolean isDiningOption() {
-        return value instanceof DiningOptionValue;
-    }
-
-    public boolean isTaxExemption() {
-        return value instanceof TaxExemptionValue;
-    }
-
-    public boolean isServiceCharge() {
-        return value instanceof ServiceChargeValue;
-    }
-
     public boolean isPricingRule() {
         return value instanceof PricingRuleValue;
     }
@@ -198,8 +150,8 @@ public final class CatalogObject {
         return value instanceof MeasurementUnitValue;
     }
 
-    public boolean isSubscriptionPlan() {
-        return value instanceof SubscriptionPlanValue;
+    public boolean isSubscriptionPlanVariation() {
+        return value instanceof SubscriptionPlanVariationValue;
     }
 
     public boolean isItemOption() {
@@ -218,32 +170,8 @@ public final class CatalogObject {
         return value instanceof QuickAmountsSettingsValue;
     }
 
-    public boolean isComponent() {
-        return value instanceof ComponentValue;
-    }
-
-    public boolean isComposition() {
-        return value instanceof CompositionValue;
-    }
-
-    public boolean isResource() {
-        return value instanceof ResourceValue;
-    }
-
-    public boolean isCheckoutLink() {
-        return value instanceof CheckoutLinkValue;
-    }
-
-    public boolean isAddress() {
-        return value instanceof AddressValue;
-    }
-
-    public boolean isSubscriptionProduct() {
-        return value instanceof SubscriptionProductValue;
-    }
-
-    public boolean isSubscriptionPlanVariation() {
-        return value instanceof SubscriptionPlanVariationValue;
+    public boolean isSubscriptionPlan() {
+        return value instanceof SubscriptionPlanValue;
     }
 
     public boolean isAvailabilityPeriod() {
@@ -310,27 +238,6 @@ public final class CatalogObject {
         return Optional.empty();
     }
 
-    public Optional<CatalogObjectDiningOption> getDiningOption() {
-        if (isDiningOption()) {
-            return Optional.of(((DiningOptionValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectTaxExemption> getTaxExemption() {
-        if (isTaxExemption()) {
-            return Optional.of(((TaxExemptionValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectServiceCharge> getServiceCharge() {
-        if (isServiceCharge()) {
-            return Optional.of(((ServiceChargeValue) value).value);
-        }
-        return Optional.empty();
-    }
-
     public Optional<CatalogObjectPricingRule> getPricingRule() {
         if (isPricingRule()) {
             return Optional.of(((PricingRuleValue) value).value);
@@ -359,9 +266,9 @@ public final class CatalogObject {
         return Optional.empty();
     }
 
-    public Optional<CatalogObjectSubscriptionPlan> getSubscriptionPlan() {
-        if (isSubscriptionPlan()) {
-            return Optional.of(((SubscriptionPlanValue) value).value);
+    public Optional<CatalogObjectSubscriptionPlanVariation> getSubscriptionPlanVariation() {
+        if (isSubscriptionPlanVariation()) {
+            return Optional.of(((SubscriptionPlanVariationValue) value).value);
         }
         return Optional.empty();
     }
@@ -394,51 +301,9 @@ public final class CatalogObject {
         return Optional.empty();
     }
 
-    public Optional<CatalogObjectComponent> getComponent() {
-        if (isComponent()) {
-            return Optional.of(((ComponentValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectComposition> getComposition() {
-        if (isComposition()) {
-            return Optional.of(((CompositionValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectResource> getResource() {
-        if (isResource()) {
-            return Optional.of(((ResourceValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectCheckoutLink> getCheckoutLink() {
-        if (isCheckoutLink()) {
-            return Optional.of(((CheckoutLinkValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectAddress> getAddress() {
-        if (isAddress()) {
-            return Optional.of(((AddressValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectSubscriptionProduct> getSubscriptionProduct() {
-        if (isSubscriptionProduct()) {
-            return Optional.of(((SubscriptionProductValue) value).value);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<CatalogObjectSubscriptionPlanVariation> getSubscriptionPlanVariation() {
-        if (isSubscriptionPlanVariation()) {
-            return Optional.of(((SubscriptionPlanVariationValue) value).value);
+    public Optional<CatalogObjectSubscriptionPlan> getSubscriptionPlan() {
+        if (isSubscriptionPlan()) {
+            return Optional.of(((SubscriptionPlanValue) value).value);
         }
         return Optional.empty();
     }
@@ -479,12 +344,6 @@ public final class CatalogObject {
 
         T visitModifier(CatalogObjectModifier modifier);
 
-        T visitDiningOption(CatalogObjectDiningOption diningOption);
-
-        T visitTaxExemption(CatalogObjectTaxExemption taxExemption);
-
-        T visitServiceCharge(CatalogObjectServiceCharge serviceCharge);
-
         T visitPricingRule(CatalogObjectPricingRule pricingRule);
 
         T visitProductSet(CatalogObjectProductSet productSet);
@@ -493,7 +352,7 @@ public final class CatalogObject {
 
         T visitMeasurementUnit(CatalogObjectMeasurementUnit measurementUnit);
 
-        T visitSubscriptionPlan(CatalogObjectSubscriptionPlan subscriptionPlan);
+        T visitSubscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation subscriptionPlanVariation);
 
         T visitItemOption(CatalogObjectItemOption itemOption);
 
@@ -503,19 +362,7 @@ public final class CatalogObject {
 
         T visitQuickAmountsSettings(CatalogObjectQuickAmountsSettings quickAmountsSettings);
 
-        T visitComponent(CatalogObjectComponent component);
-
-        T visitComposition(CatalogObjectComposition composition);
-
-        T visitResource(CatalogObjectResource resource);
-
-        T visitCheckoutLink(CatalogObjectCheckoutLink checkoutLink);
-
-        T visitAddress(CatalogObjectAddress address);
-
-        T visitSubscriptionProduct(CatalogObjectSubscriptionProduct subscriptionProduct);
-
-        T visitSubscriptionPlanVariation(CatalogObjectSubscriptionPlanVariation subscriptionPlanVariation);
+        T visitSubscriptionPlan(CatalogObjectSubscriptionPlan subscriptionPlan);
 
         T visitAvailabilityPeriod(CatalogObjectAvailabilityPeriod availabilityPeriod);
 
@@ -532,25 +379,16 @@ public final class CatalogObject {
         @JsonSubTypes.Type(DiscountValue.class),
         @JsonSubTypes.Type(ModifierListValue.class),
         @JsonSubTypes.Type(ModifierValue.class),
-        @JsonSubTypes.Type(DiningOptionValue.class),
-        @JsonSubTypes.Type(TaxExemptionValue.class),
-        @JsonSubTypes.Type(ServiceChargeValue.class),
         @JsonSubTypes.Type(PricingRuleValue.class),
         @JsonSubTypes.Type(ProductSetValue.class),
         @JsonSubTypes.Type(TimePeriodValue.class),
         @JsonSubTypes.Type(MeasurementUnitValue.class),
-        @JsonSubTypes.Type(SubscriptionPlanValue.class),
+        @JsonSubTypes.Type(SubscriptionPlanVariationValue.class),
         @JsonSubTypes.Type(ItemOptionValue.class),
         @JsonSubTypes.Type(ItemOptionValValue.class),
         @JsonSubTypes.Type(CustomAttributeDefinitionValue.class),
         @JsonSubTypes.Type(QuickAmountsSettingsValue.class),
-        @JsonSubTypes.Type(ComponentValue.class),
-        @JsonSubTypes.Type(CompositionValue.class),
-        @JsonSubTypes.Type(ResourceValue.class),
-        @JsonSubTypes.Type(CheckoutLinkValue.class),
-        @JsonSubTypes.Type(AddressValue.class),
-        @JsonSubTypes.Type(SubscriptionProductValue.class),
-        @JsonSubTypes.Type(SubscriptionPlanVariationValue.class),
+        @JsonSubTypes.Type(SubscriptionPlanValue.class),
         @JsonSubTypes.Type(AvailabilityPeriodValue.class)
     })
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -870,123 +708,6 @@ public final class CatalogObject {
         }
     }
 
-    @JsonTypeName("DINING_OPTION")
-    @JsonIgnoreProperties("type")
-    private static final class DiningOptionValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectDiningOption value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private DiningOptionValue() {}
-
-        private DiningOptionValue(CatalogObjectDiningOption value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitDiningOption(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof DiningOptionValue && equalTo((DiningOptionValue) other);
-        }
-
-        private boolean equalTo(DiningOptionValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("TAX_EXEMPTION")
-    @JsonIgnoreProperties("type")
-    private static final class TaxExemptionValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectTaxExemption value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private TaxExemptionValue() {}
-
-        private TaxExemptionValue(CatalogObjectTaxExemption value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitTaxExemption(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof TaxExemptionValue && equalTo((TaxExemptionValue) other);
-        }
-
-        private boolean equalTo(TaxExemptionValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("SERVICE_CHARGE")
-    @JsonIgnoreProperties("type")
-    private static final class ServiceChargeValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectServiceCharge value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private ServiceChargeValue() {}
-
-        private ServiceChargeValue(CatalogObjectServiceCharge value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitServiceCharge(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof ServiceChargeValue && equalTo((ServiceChargeValue) other);
-        }
-
-        private boolean equalTo(ServiceChargeValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
     @JsonTypeName("PRICING_RULE")
     @JsonIgnoreProperties("type")
     private static final class PricingRuleValue implements Value {
@@ -1143,31 +864,31 @@ public final class CatalogObject {
         }
     }
 
-    @JsonTypeName("SUBSCRIPTION_PLAN")
+    @JsonTypeName("SUBSCRIPTION_PLAN_VARIATION")
     @JsonIgnoreProperties("type")
-    private static final class SubscriptionPlanValue implements Value {
+    private static final class SubscriptionPlanVariationValue implements Value {
         @JsonUnwrapped
-        private CatalogObjectSubscriptionPlan value;
+        private CatalogObjectSubscriptionPlanVariation value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private SubscriptionPlanValue() {}
+        private SubscriptionPlanVariationValue() {}
 
-        private SubscriptionPlanValue(CatalogObjectSubscriptionPlan value) {
+        private SubscriptionPlanVariationValue(CatalogObjectSubscriptionPlanVariation value) {
             this.value = value;
         }
 
         @java.lang.Override
         public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitSubscriptionPlan(value);
+            return visitor.visitSubscriptionPlanVariation(value);
         }
 
         @java.lang.Override
         public boolean equals(Object other) {
             if (this == other) return true;
-            return other instanceof SubscriptionPlanValue && equalTo((SubscriptionPlanValue) other);
+            return other instanceof SubscriptionPlanVariationValue && equalTo((SubscriptionPlanVariationValue) other);
         }
 
-        private boolean equalTo(SubscriptionPlanValue other) {
+        private boolean equalTo(SubscriptionPlanVariationValue other) {
             return value.equals(other.value);
         }
 
@@ -1338,265 +1059,31 @@ public final class CatalogObject {
         }
     }
 
-    @JsonTypeName("COMPONENT")
+    @JsonTypeName("SUBSCRIPTION_PLAN")
     @JsonIgnoreProperties("type")
-    private static final class ComponentValue implements Value {
+    private static final class SubscriptionPlanValue implements Value {
         @JsonUnwrapped
-        private CatalogObjectComponent value;
+        private CatalogObjectSubscriptionPlan value;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private ComponentValue() {}
+        private SubscriptionPlanValue() {}
 
-        private ComponentValue(CatalogObjectComponent value) {
+        private SubscriptionPlanValue(CatalogObjectSubscriptionPlan value) {
             this.value = value;
         }
 
         @java.lang.Override
         public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitComponent(value);
+            return visitor.visitSubscriptionPlan(value);
         }
 
         @java.lang.Override
         public boolean equals(Object other) {
             if (this == other) return true;
-            return other instanceof ComponentValue && equalTo((ComponentValue) other);
+            return other instanceof SubscriptionPlanValue && equalTo((SubscriptionPlanValue) other);
         }
 
-        private boolean equalTo(ComponentValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("COMPOSITION")
-    @JsonIgnoreProperties("type")
-    private static final class CompositionValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectComposition value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private CompositionValue() {}
-
-        private CompositionValue(CatalogObjectComposition value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitComposition(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof CompositionValue && equalTo((CompositionValue) other);
-        }
-
-        private boolean equalTo(CompositionValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("RESOURCE")
-    @JsonIgnoreProperties("type")
-    private static final class ResourceValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectResource value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private ResourceValue() {}
-
-        private ResourceValue(CatalogObjectResource value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitResource(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof ResourceValue && equalTo((ResourceValue) other);
-        }
-
-        private boolean equalTo(ResourceValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("CHECKOUT_LINK")
-    @JsonIgnoreProperties("type")
-    private static final class CheckoutLinkValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectCheckoutLink value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private CheckoutLinkValue() {}
-
-        private CheckoutLinkValue(CatalogObjectCheckoutLink value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitCheckoutLink(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof CheckoutLinkValue && equalTo((CheckoutLinkValue) other);
-        }
-
-        private boolean equalTo(CheckoutLinkValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("ADDRESS")
-    @JsonIgnoreProperties("type")
-    private static final class AddressValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectAddress value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private AddressValue() {}
-
-        private AddressValue(CatalogObjectAddress value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitAddress(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof AddressValue && equalTo((AddressValue) other);
-        }
-
-        private boolean equalTo(AddressValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("SUBSCRIPTION_PRODUCT")
-    @JsonIgnoreProperties("type")
-    private static final class SubscriptionProductValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectSubscriptionProduct value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private SubscriptionProductValue() {}
-
-        private SubscriptionProductValue(CatalogObjectSubscriptionProduct value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitSubscriptionProduct(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof SubscriptionProductValue && equalTo((SubscriptionProductValue) other);
-        }
-
-        private boolean equalTo(SubscriptionProductValue other) {
-            return value.equals(other.value);
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            return Objects.hash(this.value);
-        }
-
-        @java.lang.Override
-        public String toString() {
-            return "CatalogObject{" + "value: " + value + "}";
-        }
-    }
-
-    @JsonTypeName("SUBSCRIPTION_PLAN_VARIATION")
-    @JsonIgnoreProperties("type")
-    private static final class SubscriptionPlanVariationValue implements Value {
-        @JsonUnwrapped
-        private CatalogObjectSubscriptionPlanVariation value;
-
-        @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-        private SubscriptionPlanVariationValue() {}
-
-        private SubscriptionPlanVariationValue(CatalogObjectSubscriptionPlanVariation value) {
-            this.value = value;
-        }
-
-        @java.lang.Override
-        public <T> T visit(Visitor<T> visitor) {
-            return visitor.visitSubscriptionPlanVariation(value);
-        }
-
-        @java.lang.Override
-        public boolean equals(Object other) {
-            if (this == other) return true;
-            return other instanceof SubscriptionPlanVariationValue && equalTo((SubscriptionPlanVariationValue) other);
-        }
-
-        private boolean equalTo(SubscriptionPlanVariationValue other) {
+        private boolean equalTo(SubscriptionPlanValue other) {
             return value.equals(other.value);
         }
 

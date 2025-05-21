@@ -78,7 +78,7 @@ public final class BreakType {
 
     /**
      * @return A human-readable name for this type of break. The name is displayed to
-     * employees in Square products.
+     * team members in Square products.
      */
     @JsonProperty("break_name")
     public String getBreakName() {
@@ -88,7 +88,7 @@ public final class BreakType {
     /**
      * @return Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
      * this break. Precision less than minutes is truncated.
-     * <p>Example for break expected duration of 15 minutes: T15M</p>
+     * <p>Example for break expected duration of 15 minutes: PT15M</p>
      */
     @JsonProperty("expected_duration")
     public String getExpectedDuration() {
@@ -263,7 +263,7 @@ public final class BreakType {
 
         /**
          * <p>A human-readable name for this type of break. The name is displayed to
-         * employees in Square products.</p>
+         * team members in Square products.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -276,7 +276,7 @@ public final class BreakType {
         /**
          * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
          * this break. Precision less than minutes is truncated.</p>
-         * <p>Example for break expected duration of 15 minutes: T15M</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override

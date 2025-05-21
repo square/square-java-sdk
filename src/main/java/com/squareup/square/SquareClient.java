@@ -6,7 +6,6 @@ package com.squareup.square;
 import com.squareup.square.cashdrawers.CashDrawersClient;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.Suppliers;
-import com.squareup.square.labor.LaborClient;
 import com.squareup.square.webhooks.WebhooksClient;
 import java.util.function.Supplier;
 
@@ -45,6 +44,8 @@ public class SquareClient {
 
     protected final Supplier<InvoicesClient> invoicesClient;
 
+    protected final Supplier<LaborClient> laborClient;
+
     protected final Supplier<LocationsClient> locationsClient;
 
     protected final Supplier<LoyaltyClient> loyaltyClient;
@@ -77,8 +78,6 @@ public class SquareClient {
 
     protected final Supplier<CashDrawersClient> cashDrawersClient;
 
-    protected final Supplier<LaborClient> laborClient;
-
     protected final Supplier<WebhooksClient> webhooksClient;
 
     public SquareClient(ClientOptions clientOptions) {
@@ -99,6 +98,7 @@ public class SquareClient {
         this.giftCardsClient = Suppliers.memoize(() -> new GiftCardsClient(clientOptions));
         this.inventoryClient = Suppliers.memoize(() -> new InventoryClient(clientOptions));
         this.invoicesClient = Suppliers.memoize(() -> new InvoicesClient(clientOptions));
+        this.laborClient = Suppliers.memoize(() -> new LaborClient(clientOptions));
         this.locationsClient = Suppliers.memoize(() -> new LocationsClient(clientOptions));
         this.loyaltyClient = Suppliers.memoize(() -> new LoyaltyClient(clientOptions));
         this.merchantsClient = Suppliers.memoize(() -> new MerchantsClient(clientOptions));
@@ -115,7 +115,6 @@ public class SquareClient {
         this.terminalClient = Suppliers.memoize(() -> new TerminalClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new VendorsClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new CashDrawersClient(clientOptions));
-        this.laborClient = Suppliers.memoize(() -> new LaborClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new WebhooksClient(clientOptions));
     }
 
@@ -183,6 +182,10 @@ public class SquareClient {
         return this.invoicesClient.get();
     }
 
+    public LaborClient labor() {
+        return this.laborClient.get();
+    }
+
     public LocationsClient locations() {
         return this.locationsClient.get();
     }
@@ -245,10 +248,6 @@ public class SquareClient {
 
     public CashDrawersClient cashDrawers() {
         return this.cashDrawersClient.get();
-    }
-
-    public LaborClient labor() {
-        return this.laborClient.get();
     }
 
     public WebhooksClient webhooks() {
