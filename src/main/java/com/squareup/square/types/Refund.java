@@ -31,7 +31,7 @@ public final class Refund {
 
     private final Optional<String> transactionId;
 
-    private final String tenderId;
+    private final Optional<String> tenderId;
 
     private final Optional<String> createdAt;
 
@@ -51,7 +51,7 @@ public final class Refund {
             String id,
             String locationId,
             Optional<String> transactionId,
-            String tenderId,
+            Optional<String> tenderId,
             Optional<String> createdAt,
             String reason,
             Money amountMoney,
@@ -102,8 +102,11 @@ public final class Refund {
     /**
      * @return The ID of the refunded tender.
      */
-    @JsonProperty("tender_id")
-    public String getTenderId() {
+    @JsonIgnore
+    public Optional<String> getTenderId() {
+        if (tenderId == null) {
+            return Optional.empty();
+        }
         return tenderId;
     }
 
@@ -168,6 +171,12 @@ public final class Refund {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("tender_id")
+    private Optional<String> _getTenderId() {
+        return tenderId;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("additional_recipients")
     private Optional<List<AdditionalRecipient>> _getAdditionalRecipients() {
         return additionalRecipients;
@@ -228,11 +237,7 @@ public final class Refund {
     }
 
     public interface LocationIdStage {
-        TenderIdStage locationId(@NotNull String locationId);
-    }
-
-    public interface TenderIdStage {
-        ReasonStage tenderId(@NotNull String tenderId);
+        ReasonStage locationId(@NotNull String locationId);
     }
 
     public interface ReasonStage {
@@ -256,6 +261,12 @@ public final class Refund {
 
         _FinalStage transactionId(Nullable<String> transactionId);
 
+        _FinalStage tenderId(Optional<String> tenderId);
+
+        _FinalStage tenderId(String tenderId);
+
+        _FinalStage tenderId(Nullable<String> tenderId);
+
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
@@ -273,18 +284,10 @@ public final class Refund {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
-            implements IdStage,
-                    LocationIdStage,
-                    TenderIdStage,
-                    ReasonStage,
-                    AmountMoneyStage,
-                    StatusStage,
-                    _FinalStage {
+            implements IdStage, LocationIdStage, ReasonStage, AmountMoneyStage, StatusStage, _FinalStage {
         private String id;
 
         private String locationId;
-
-        private String tenderId;
 
         private String reason;
 
@@ -297,6 +300,8 @@ public final class Refund {
         private Optional<Money> processingFeeMoney = Optional.empty();
 
         private Optional<String> createdAt = Optional.empty();
+
+        private Optional<String> tenderId = Optional.empty();
 
         private Optional<String> transactionId = Optional.empty();
 
@@ -337,19 +342,8 @@ public final class Refund {
          */
         @java.lang.Override
         @JsonSetter("location_id")
-        public TenderIdStage locationId(@NotNull String locationId) {
+        public ReasonStage locationId(@NotNull String locationId) {
             this.locationId = Objects.requireNonNull(locationId, "locationId must not be null");
-            return this;
-        }
-
-        /**
-         * <p>The ID of the refunded tender.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("tender_id")
-        public ReasonStage tenderId(@NotNull String tenderId) {
-            this.tenderId = Objects.requireNonNull(tenderId, "tenderId must not be null");
             return this;
         }
 
@@ -454,6 +448,39 @@ public final class Refund {
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * <p>The ID of the refunded tender.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tenderId(Nullable<String> tenderId) {
+            if (tenderId.isNull()) {
+                this.tenderId = null;
+            } else if (tenderId.isEmpty()) {
+                this.tenderId = Optional.empty();
+            } else {
+                this.tenderId = Optional.of(tenderId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>The ID of the refunded tender.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage tenderId(String tenderId) {
+            this.tenderId = Optional.ofNullable(tenderId);
+            return this;
+        }
+
+        @java.lang.Override
+        @JsonSetter(value = "tender_id", nulls = Nulls.SKIP)
+        public _FinalStage tenderId(Optional<String> tenderId) {
+            this.tenderId = tenderId;
             return this;
         }
 

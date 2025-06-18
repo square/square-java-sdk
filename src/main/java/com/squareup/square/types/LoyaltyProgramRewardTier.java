@@ -27,8 +27,6 @@ public final class LoyaltyProgramRewardTier {
 
     private final Optional<String> name;
 
-    private final Optional<LoyaltyProgramRewardDefinition> definition;
-
     private final Optional<String> createdAt;
 
     private final CatalogObjectReference pricingRuleReference;
@@ -39,14 +37,12 @@ public final class LoyaltyProgramRewardTier {
             Optional<String> id,
             int points,
             Optional<String> name,
-            Optional<LoyaltyProgramRewardDefinition> definition,
             Optional<String> createdAt,
             CatalogObjectReference pricingRuleReference,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.points = points;
         this.name = name;
-        this.definition = definition;
         this.createdAt = createdAt;
         this.pricingRuleReference = pricingRuleReference;
         this.additionalProperties = additionalProperties;
@@ -74,15 +70,6 @@ public final class LoyaltyProgramRewardTier {
     @JsonProperty("name")
     public Optional<String> getName() {
         return name;
-    }
-
-    /**
-     * @return Provides details about the reward tier definition.
-     * DEPRECATED at version 2020-12-16. Replaced by the <code>pricing_rule_reference</code> field.
-     */
-    @JsonProperty("definition")
-    public Optional<LoyaltyProgramRewardDefinition> getDefinition() {
-        return definition;
     }
 
     /**
@@ -119,15 +106,13 @@ public final class LoyaltyProgramRewardTier {
         return id.equals(other.id)
                 && points == other.points
                 && name.equals(other.name)
-                && definition.equals(other.definition)
                 && createdAt.equals(other.createdAt)
                 && pricingRuleReference.equals(other.pricingRuleReference);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.id, this.points, this.name, this.definition, this.createdAt, this.pricingRuleReference);
+        return Objects.hash(this.id, this.points, this.name, this.createdAt, this.pricingRuleReference);
     }
 
     @java.lang.Override
@@ -160,10 +145,6 @@ public final class LoyaltyProgramRewardTier {
 
         _FinalStage name(String name);
 
-        _FinalStage definition(Optional<LoyaltyProgramRewardDefinition> definition);
-
-        _FinalStage definition(LoyaltyProgramRewardDefinition definition);
-
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
@@ -176,8 +157,6 @@ public final class LoyaltyProgramRewardTier {
         private CatalogObjectReference pricingRuleReference;
 
         private Optional<String> createdAt = Optional.empty();
-
-        private Optional<LoyaltyProgramRewardDefinition> definition = Optional.empty();
 
         private Optional<String> name = Optional.empty();
 
@@ -193,7 +172,6 @@ public final class LoyaltyProgramRewardTier {
             id(other.getId());
             points(other.getPoints());
             name(other.getName());
-            definition(other.getDefinition());
             createdAt(other.getCreatedAt());
             pricingRuleReference(other.getPricingRuleReference());
             return this;
@@ -243,24 +221,6 @@ public final class LoyaltyProgramRewardTier {
         }
 
         /**
-         * <p>Provides details about the reward tier definition.
-         * DEPRECATED at version 2020-12-16. Replaced by the <code>pricing_rule_reference</code> field.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage definition(LoyaltyProgramRewardDefinition definition) {
-            this.definition = Optional.ofNullable(definition);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "definition", nulls = Nulls.SKIP)
-        public _FinalStage definition(Optional<LoyaltyProgramRewardDefinition> definition) {
-            this.definition = definition;
-            return this;
-        }
-
-        /**
          * <p>The name of the reward tier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -297,7 +257,7 @@ public final class LoyaltyProgramRewardTier {
         @java.lang.Override
         public LoyaltyProgramRewardTier build() {
             return new LoyaltyProgramRewardTier(
-                    id, points, name, definition, createdAt, pricingRuleReference, additionalProperties);
+                    id, points, name, createdAt, pricingRuleReference, additionalProperties);
         }
     }
 }
