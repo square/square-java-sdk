@@ -3,16 +3,18 @@
  */
 package com.squareup.square.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.square.types.Error;
 import com.squareup.square.types.ErrorCategory;
 import com.squareup.square.types.ErrorCode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Optional;
+
 import okhttp3.Response;
 
 /**
@@ -39,7 +41,7 @@ public class SquareApiException extends SquareException {
      */
     private final Object body;
 
-    private final Map<String, List<String>> headers;
+    private final Map<String, List<String>> headers = new HashMap<>();
 
     private final List<Error> errors;
 
@@ -54,7 +56,7 @@ public class SquareApiException extends SquareException {
         super(message);
         this.statusCode = statusCode;
         this.body = body;
-        this.headers = new HashMap<>();
+        this.errors = parseErrors(body);
         rawResponse.headers().forEach(header -> {
             String key = header.component1();
             String value = header.component2();
