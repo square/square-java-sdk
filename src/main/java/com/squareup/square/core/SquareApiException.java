@@ -36,6 +36,8 @@ public class SquareApiException extends SquareException {
      */
     private final Object body;
 
+    private final Map<String, List<String>> headers;
+
     private final List<Error> errors;
 
     public SquareApiException(String message, int statusCode, Object body) {
@@ -43,6 +45,18 @@ public class SquareApiException extends SquareException {
         this.statusCode = statusCode;
         this.body = body;
         this.errors = parseErrors(body);
+    }
+
+    public ApiError(String message, int statusCode, Object body, Response rawResponse) {
+        super(message);
+        this.statusCode = statusCode;
+        this.body = body;
+        this.headers = new HashMap<>();
+        rawResponse.headers().forEach(header -> {
+            String key = header.component1();
+            String value = header.component2();
+            this.headers.computeIfAbsent(key, _str -> new ArrayList<>()).add(value);
+        });
     }
 
     /**
@@ -64,6 +78,13 @@ public class SquareApiException extends SquareException {
      */
     public List<Error> errors() {
         return this.errors;
+    }
+
+    /**
+     * @return the headers
+     */
+    public Map<String, List<String>> headers() {
+        return this.headers;
     }
 
     @java.lang.Override
