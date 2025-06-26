@@ -47,7 +47,7 @@ public class SquareApiException extends SquareException {
         this.errors = parseErrors(body);
     }
 
-    public ApiError(String message, int statusCode, Object body, Response rawResponse) {
+    public SquareApiException(String message, int statusCode, Object body, Response rawResponse) {
         super(message);
         this.statusCode = statusCode;
         this.body = body;
