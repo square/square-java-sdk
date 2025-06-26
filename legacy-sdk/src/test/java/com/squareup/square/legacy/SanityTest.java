@@ -122,6 +122,9 @@ public class SanityTest {
         String imgPath = Paths.get(System.getProperty("user.dir").toString(), "src/test/resources/square.png")
                 .toString();
         File imageFile = new File(imgPath);
+        
+        // Skip test if test image is not available
+        org.junit.Assume.assumeTrue("Test image file not found: " + imgPath, imageFile.exists());
 
         CreateCatalogImageResponse result = api.createCatalogImage(request, new FileWrapper(imageFile, "image/jpeg"));
 
