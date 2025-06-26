@@ -100,6 +100,9 @@ public final class RegisterDomainResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -111,6 +114,11 @@ public final class RegisterDomainResponse {
             return this;
         }
 
+        /**
+         * <p>The status of the domain registration.</p>
+         * <p>See <a href="entity:RegisterDomainResponseStatus">RegisterDomainResponseStatus</a> for possible values.
+         * See <a href="#type-registerdomainresponsestatus">RegisterDomainResponseStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<RegisterDomainResponseStatus> status) {
             this.status = status;

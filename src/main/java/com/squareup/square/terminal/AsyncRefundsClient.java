@@ -3,13 +3,8 @@
  */
 package com.squareup.square.terminal;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.terminal.types.CancelRefundsRequest;
 import com.squareup.square.terminal.types.CreateTerminalRefundRequest;
 import com.squareup.square.terminal.types.GetRefundsRequest;
@@ -18,31 +13,30 @@ import com.squareup.square.types.CancelTerminalRefundResponse;
 import com.squareup.square.types.CreateTerminalRefundResponse;
 import com.squareup.square.types.GetTerminalRefundResponse;
 import com.squareup.square.types.SearchTerminalRefundsResponse;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncRefundsClient {
     protected final ClientOptions clientOptions;
 
+    private final AsyncRawRefundsClient rawClient;
+
     public AsyncRefundsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawRefundsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawRefundsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for Interac payments on a Square Terminal are supported only for Interac debit cards in Canada. Other refunds for Terminal payments should use the Refunds API. For more information, see <a href="api:Refunds">Refunds API</a>.
      */
     public CompletableFuture<CreateTerminalRefundResponse> create(CreateTerminalRefundRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
@@ -50,69 +44,21 @@ public class AsyncRefundsClient {
      */
     public CompletableFuture<CreateTerminalRefundResponse> create(
             CreateTerminalRefundRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CreateTerminalRefundResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), CreateTerminalRefundResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
     public CompletableFuture<SearchTerminalRefundsResponse> search() {
-        return search(SearchTerminalRefundsRequest.builder().build());
+        return this.rawClient.search().thenApply(response -> response.body());
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
     public CompletableFuture<SearchTerminalRefundsResponse> search(SearchTerminalRefundsRequest request) {
-        return search(request, null);
+        return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
     /**
@@ -120,118 +66,28 @@ public class AsyncRefundsClient {
      */
     public CompletableFuture<SearchTerminalRefundsResponse> search(
             SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SearchTerminalRefundsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), SearchTerminalRefundsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for 30 days.
      */
     public CompletableFuture<GetTerminalRefundResponse> get(GetRefundsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for 30 days.
      */
     public CompletableFuture<GetTerminalRefundResponse> get(GetRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .addPathSegment(request.getTerminalRefundId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetTerminalRefundResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetTerminalRefundResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Cancels an Interac Terminal refund request by refund request ID if the status of the request permits it.
      */
     public CompletableFuture<CancelTerminalRefundResponse> cancel(CancelRefundsRequest request) {
-        return cancel(request, null);
+        return this.rawClient.cancel(request).thenApply(response -> response.body());
     }
 
     /**
@@ -239,49 +95,6 @@ public class AsyncRefundsClient {
      */
     public CompletableFuture<CancelTerminalRefundResponse> cancel(
             CancelRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .addPathSegment(request.getTerminalRefundId())
-                .addPathSegments("cancel")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CancelTerminalRefundResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), CancelTerminalRefundResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.cancel(request, requestOptions).thenApply(response -> response.body());
     }
 }

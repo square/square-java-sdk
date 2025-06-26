@@ -98,6 +98,9 @@ public final class GetInventoryTransferResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class GetInventoryTransferResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <a href="entity:InventoryTransfer">InventoryTransfer</a>.</p>
+         */
         @JsonSetter(value = "transfer", nulls = Nulls.SKIP)
         public Builder transfer(Optional<InventoryTransfer> transfer) {
             this.transfer = transfer;

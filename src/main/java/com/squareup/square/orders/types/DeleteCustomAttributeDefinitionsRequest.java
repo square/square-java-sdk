@@ -67,6 +67,9 @@ public final class DeleteCustomAttributeDefinitionsRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to delete.</p>
+         */
         _FinalStage key(@NotNull String key);
 
         Builder from(DeleteCustomAttributeDefinitionsRequest other);
@@ -92,6 +95,7 @@ public final class DeleteCustomAttributeDefinitionsRequest {
         }
 
         /**
+         * <p>The key of the custom attribute definition to delete.</p>
          * <p>The key of the custom attribute definition to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

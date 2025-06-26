@@ -113,6 +113,9 @@ public final class SearchTimecardsResponse {
             return this;
         }
 
+        /**
+         * <p>Timecards.</p>
+         */
         @JsonSetter(value = "timecards", nulls = Nulls.SKIP)
         public Builder timecards(Optional<List<Timecard>> timecards) {
             this.timecards = timecards;
@@ -124,6 +127,9 @@ public final class SearchTimecardsResponse {
             return this;
         }
 
+        /**
+         * <p>An opaque cursor for fetching the next page.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -135,6 +141,9 @@ public final class SearchTimecardsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

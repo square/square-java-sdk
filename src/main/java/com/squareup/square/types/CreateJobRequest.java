@@ -79,12 +79,20 @@ public final class CreateJobRequest {
     }
 
     public interface JobStage {
+        /**
+         * <p>The job to create. The <code>title</code> field is required and <code>is_tip_eligible</code> defaults to true.</p>
+         */
         IdempotencyKeyStage job(@NotNull Job job);
 
         Builder from(CreateJobRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique identifier for the <code>CreateJob</code> request. Keys can be any valid string,
+         * but must be unique for each request. For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
@@ -112,6 +120,7 @@ public final class CreateJobRequest {
 
         /**
          * <p>The job to create. The <code>title</code> field is required and <code>is_tip_eligible</code> defaults to true.</p>
+         * <p>The job to create. The <code>title</code> field is required and <code>is_tip_eligible</code> defaults to true.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +131,9 @@ public final class CreateJobRequest {
         }
 
         /**
+         * <p>A unique identifier for the <code>CreateJob</code> request. Keys can be any valid string,
+         * but must be unique for each request. For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
          * <p>A unique identifier for the <code>CreateJob</code> request. Keys can be any valid string,
          * but must be unique for each request. For more information, see
          * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>

@@ -124,6 +124,9 @@ public final class TerminalCheckoutCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the created object’s type, <code>&quot;checkout&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class TerminalCheckoutCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the created terminal checkout.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class TerminalCheckoutCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the created terminal checkout</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<TerminalCheckoutCreatedEventObject> object) {
             this.object = object;

@@ -113,6 +113,9 @@ public final class ListBookingsResponse {
             return this;
         }
 
+        /**
+         * <p>The list of targeted bookings.</p>
+         */
         @JsonSetter(value = "bookings", nulls = Nulls.SKIP)
         public Builder bookings(Optional<List<Booking>> bookings) {
             this.bookings = bookings;
@@ -124,6 +127,9 @@ public final class ListBookingsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in the subsequent request to get the next page of the results. Stop retrieving the next page of the results when the cursor is not set.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -135,6 +141,9 @@ public final class ListBookingsResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

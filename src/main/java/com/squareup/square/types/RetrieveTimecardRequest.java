@@ -66,6 +66,9 @@ public final class RetrieveTimecardRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>Timecard</code> being retrieved.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(RetrieveTimecardRequest other);
@@ -91,6 +94,7 @@ public final class RetrieveTimecardRequest {
         }
 
         /**
+         * <p>The UUID for the <code>Timecard</code> being retrieved.</p>
          * <p>The UUID for the <code>Timecard</code> being retrieved.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

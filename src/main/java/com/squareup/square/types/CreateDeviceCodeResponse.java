@@ -96,6 +96,9 @@ public final class CreateDeviceCodeResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class CreateDeviceCodeResponse {
             return this;
         }
 
+        /**
+         * <p>The created DeviceCode object containing the device code string.</p>
+         */
         @JsonSetter(value = "device_code", nulls = Nulls.SKIP)
         public Builder deviceCode(Optional<DeviceCode> deviceCode) {
             this.deviceCode = deviceCode;

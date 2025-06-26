@@ -3,14 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchChangeInventoryRequest;
 import com.squareup.square.types.BatchChangeInventoryResponse;
@@ -23,8 +17,6 @@ import com.squareup.square.types.DeprecatedGetAdjustmentInventoryRequest;
 import com.squareup.square.types.DeprecatedGetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetAdjustmentInventoryRequest;
 import com.squareup.square.types.GetInventoryAdjustmentResponse;
-import com.squareup.square.types.GetInventoryChangesResponse;
-import com.squareup.square.types.GetInventoryCountResponse;
 import com.squareup.square.types.GetInventoryPhysicalCountResponse;
 import com.squareup.square.types.GetInventoryRequest;
 import com.squareup.square.types.GetInventoryTransferResponse;
@@ -32,28 +24,23 @@ import com.squareup.square.types.GetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetTransferInventoryRequest;
 import com.squareup.square.types.InventoryChange;
 import com.squareup.square.types.InventoryCount;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncInventoryClient {
     protected final ClientOptions clientOptions;
 
+    private final AsyncRawInventoryClient rawClient;
+
     public AsyncInventoryClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawInventoryClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawInventoryClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -62,7 +49,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryAdjustmentResponse> deprecatedGetAdjustment(
             DeprecatedGetAdjustmentInventoryRequest request) {
-        return deprecatedGetAdjustment(request, null);
+        return this.rawClient.deprecatedGetAdjustment(request).thenApply(response -> response.body());
     }
 
     /**
@@ -71,49 +58,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryAdjustmentResponse> deprecatedGetAdjustment(
             DeprecatedGetAdjustmentInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/adjustment")
-                .addPathSegment(request.getAdjustmentId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetInventoryAdjustmentResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryAdjustmentResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.deprecatedGetAdjustment(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -121,7 +66,7 @@ public class AsyncInventoryClient {
      * with the provided <code>adjustment_id</code>.
      */
     public CompletableFuture<GetInventoryAdjustmentResponse> getAdjustment(GetAdjustmentInventoryRequest request) {
-        return getAdjustment(request, null);
+        return this.rawClient.getAdjustment(request).thenApply(response -> response.body());
     }
 
     /**
@@ -130,49 +75,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryAdjustmentResponse> getAdjustment(
             GetAdjustmentInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/adjustments")
-                .addPathSegment(request.getAdjustmentId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetInventoryAdjustmentResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryAdjustmentResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.getAdjustment(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -180,7 +83,7 @@ public class AsyncInventoryClient {
      * is updated to conform to the standard convention.
      */
     public CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChange(BatchChangeInventoryRequest request) {
-        return deprecatedBatchChange(request, null);
+        return this.rawClient.deprecatedBatchChange(request).thenApply(response -> response.body());
     }
 
     /**
@@ -189,55 +92,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchChangeInventoryResponse> deprecatedBatchChange(
             BatchChangeInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/batch-change")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchChangeInventoryResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchChangeInventoryResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.deprecatedBatchChange(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -245,8 +100,7 @@ public class AsyncInventoryClient {
      * is updated to conform to the standard convention.
      */
     public CompletableFuture<BatchGetInventoryChangesResponse> deprecatedBatchGetChanges() {
-        return deprecatedBatchGetChanges(
-                BatchRetrieveInventoryChangesRequest.builder().build());
+        return this.rawClient.deprecatedBatchGetChanges().thenApply(response -> response.body());
     }
 
     /**
@@ -255,7 +109,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchGetInventoryChangesResponse> deprecatedBatchGetChanges(
             BatchRetrieveInventoryChangesRequest request) {
-        return deprecatedBatchGetChanges(request, null);
+        return this.rawClient.deprecatedBatchGetChanges(request).thenApply(response -> response.body());
     }
 
     /**
@@ -264,55 +118,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchGetInventoryChangesResponse> deprecatedBatchGetChanges(
             BatchRetrieveInventoryChangesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/batch-retrieve-changes")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchGetInventoryChangesResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchGetInventoryChangesResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.deprecatedBatchGetChanges(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -320,7 +126,7 @@ public class AsyncInventoryClient {
      * is updated to conform to the standard convention.
      */
     public CompletableFuture<BatchGetInventoryCountsResponse> deprecatedBatchGetCounts() {
-        return deprecatedBatchGetCounts(BatchGetInventoryCountsRequest.builder().build());
+        return this.rawClient.deprecatedBatchGetCounts().thenApply(response -> response.body());
     }
 
     /**
@@ -329,7 +135,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchGetInventoryCountsResponse> deprecatedBatchGetCounts(
             BatchGetInventoryCountsRequest request) {
-        return deprecatedBatchGetCounts(request, null);
+        return this.rawClient.deprecatedBatchGetCounts(request).thenApply(response -> response.body());
     }
 
     /**
@@ -338,55 +144,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchGetInventoryCountsResponse> deprecatedBatchGetCounts(
             BatchGetInventoryCountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/batch-retrieve-counts")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchGetInventoryCountsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchGetInventoryCountsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.deprecatedBatchGetCounts(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -396,7 +154,7 @@ public class AsyncInventoryClient {
      * On failure: returns a list of related errors.</p>
      */
     public CompletableFuture<BatchChangeInventoryResponse> batchCreateChanges(BatchChangeInventoryRequest request) {
-        return batchCreateChanges(request, null);
+        return this.rawClient.batchCreateChanges(request).thenApply(response -> response.body());
     }
 
     /**
@@ -407,55 +165,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<BatchChangeInventoryResponse> batchCreateChanges(
             BatchChangeInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/changes/batch-create")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchChangeInventoryResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchChangeInventoryResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchCreateChanges(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -467,7 +177,7 @@ public class AsyncInventoryClient {
      * that cannot be handled by other, simpler endpoints.</p>
      */
     public CompletableFuture<SyncPagingIterable<InventoryChange>> batchGetChanges() {
-        return batchGetChanges(BatchRetrieveInventoryChangesRequest.builder().build());
+        return this.rawClient.batchGetChanges().thenApply(response -> response.body());
     }
 
     /**
@@ -480,7 +190,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryChange>> batchGetChanges(
             BatchRetrieveInventoryChangesRequest request) {
-        return batchGetChanges(request, null);
+        return this.rawClient.batchGetChanges(request).thenApply(response -> response.body());
     }
 
     /**
@@ -493,72 +203,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryChange>> batchGetChanges(
             BatchRetrieveInventoryChangesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/changes/batch-retrieve")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<InventoryChange>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        BatchGetInventoryChangesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchGetInventoryChangesResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        BatchRetrieveInventoryChangesRequest nextRequest =
-                                BatchRetrieveInventoryChangesRequest.builder()
-                                        .from(request)
-                                        .cursor(startingAfter)
-                                        .build();
-                        List<InventoryChange> result =
-                                parsedResponse.getChanges().orElse(Collections.emptyList());
-                        future.complete(
-                                new SyncPagingIterable<InventoryChange>(startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return batchGetChanges(nextRequest, requestOptions)
-                                                .get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchGetChanges(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -573,7 +218,7 @@ public class AsyncInventoryClient {
      * in response to receiving a Webhook notification.</p>
      */
     public CompletableFuture<SyncPagingIterable<InventoryCount>> batchGetCounts() {
-        return batchGetCounts(BatchGetInventoryCountsRequest.builder().build());
+        return this.rawClient.batchGetCounts().thenApply(response -> response.body());
     }
 
     /**
@@ -589,7 +234,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryCount>> batchGetCounts(
             BatchGetInventoryCountsRequest request) {
-        return batchGetCounts(request, null);
+        return this.rawClient.batchGetCounts(request).thenApply(response -> response.body());
     }
 
     /**
@@ -605,70 +250,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryCount>> batchGetCounts(
             BatchGetInventoryCountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/counts/batch-retrieve")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<InventoryCount>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        BatchGetInventoryCountsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchGetInventoryCountsResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        BatchGetInventoryCountsRequest nextRequest = BatchGetInventoryCountsRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<InventoryCount> result = parsedResponse.getCounts().orElse(Collections.emptyList());
-                        future.complete(
-                                new SyncPagingIterable<InventoryCount>(startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return batchGetCounts(nextRequest, requestOptions)
-                                                .get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchGetCounts(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -677,7 +259,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryPhysicalCountResponse> deprecatedGetPhysicalCount(
             DeprecatedGetPhysicalCountInventoryRequest request) {
-        return deprecatedGetPhysicalCount(request, null);
+        return this.rawClient.deprecatedGetPhysicalCount(request).thenApply(response -> response.body());
     }
 
     /**
@@ -686,49 +268,9 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryPhysicalCountResponse> deprecatedGetPhysicalCount(
             DeprecatedGetPhysicalCountInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/physical-count")
-                .addPathSegment(request.getPhysicalCountId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetInventoryPhysicalCountResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryPhysicalCountResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient
+                .deprecatedGetPhysicalCount(request, requestOptions)
+                .thenApply(response -> response.body());
     }
 
     /**
@@ -737,7 +279,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryPhysicalCountResponse> getPhysicalCount(
             GetPhysicalCountInventoryRequest request) {
-        return getPhysicalCount(request, null);
+        return this.rawClient.getPhysicalCount(request).thenApply(response -> response.body());
     }
 
     /**
@@ -746,49 +288,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryPhysicalCountResponse> getPhysicalCount(
             GetPhysicalCountInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/physical-counts")
-                .addPathSegment(request.getPhysicalCountId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetInventoryPhysicalCountResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryPhysicalCountResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.getPhysicalCount(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -796,7 +296,7 @@ public class AsyncInventoryClient {
      * with the provided <code>transfer_id</code>.
      */
     public CompletableFuture<GetInventoryTransferResponse> getTransfer(GetTransferInventoryRequest request) {
-        return getTransfer(request, null);
+        return this.rawClient.getTransfer(request).thenApply(response -> response.body());
     }
 
     /**
@@ -805,49 +305,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<GetInventoryTransferResponse> getTransfer(
             GetTransferInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/transfers")
-                .addPathSegment(request.getTransferId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetInventoryTransferResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryTransferResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.getTransfer(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -857,7 +315,7 @@ public class AsyncInventoryClient {
      * For more sophisticated queries, use a batch endpoint.
      */
     public CompletableFuture<SyncPagingIterable<InventoryCount>> get(GetInventoryRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
@@ -868,70 +326,7 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryCount>> get(
             GetInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory")
-                .addPathSegment(request.getCatalogObjectId());
-        if (request.getLocationIds().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_ids", request.getLocationIds().get(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<InventoryCount>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        GetInventoryCountResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryCountResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        GetInventoryRequest nextRequest = GetInventoryRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<InventoryCount> result = parsedResponse.getCounts().orElse(Collections.emptyList());
-                        future.complete(
-                                new SyncPagingIterable<InventoryCount>(startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return get(nextRequest, requestOptions).get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -947,7 +342,7 @@ public class AsyncInventoryClient {
      * sophisticated queries, use a batch endpoint.</p>
      */
     public CompletableFuture<SyncPagingIterable<InventoryChange>> changes(ChangesInventoryRequest request) {
-        return changes(request, null);
+        return this.rawClient.changes(request).thenApply(response -> response.body());
     }
 
     /**
@@ -964,72 +359,6 @@ public class AsyncInventoryClient {
      */
     public CompletableFuture<SyncPagingIterable<InventoryChange>> changes(
             ChangesInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory")
-                .addPathSegment(request.getCatalogObjectId())
-                .addPathSegments("changes");
-        if (request.getLocationIds().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_ids", request.getLocationIds().get(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<InventoryChange>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        GetInventoryChangesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetInventoryChangesResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ChangesInventoryRequest nextRequest = ChangesInventoryRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<InventoryChange> result =
-                                parsedResponse.getChanges().orElse(Collections.emptyList());
-                        future.complete(
-                                new SyncPagingIterable<InventoryChange>(startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return changes(nextRequest, requestOptions)
-                                                .get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.changes(request, requestOptions).thenApply(response -> response.body());
     }
 }

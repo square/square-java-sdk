@@ -216,6 +216,10 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The ID of the customer. This is the customer profile ID that
+         * you provide when creating a draft invoice.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -238,6 +242,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's given (that is, first) name.</p>
+         */
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public Builder givenName(Optional<String> givenName) {
             this.givenName = givenName;
@@ -249,6 +256,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's family (that is, last) name.</p>
+         */
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public Builder familyName(Optional<String> familyName) {
             this.familyName = familyName;
@@ -260,6 +270,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's email address.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;
@@ -271,6 +284,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's physical address.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;
@@ -282,6 +298,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's phone number.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -293,6 +312,9 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The name of the recipient's company.</p>
+         */
         @JsonSetter(value = "company_name", nulls = Nulls.SKIP)
         public Builder companyName(Optional<String> companyName) {
             this.companyName = companyName;
@@ -304,6 +326,10 @@ public final class InvoiceRecipient {
             return this;
         }
 
+        /**
+         * <p>The recipient's tax IDs. The country of the seller account determines whether this field
+         * is available for the customer. For more information, see <a href="https://developer.squareup.com/docs/invoices-api/overview#recipient-tax-ids">Invoice recipient tax IDs</a>.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(Optional<InvoiceRecipientTaxIds> taxIds) {
             this.taxIds = taxIds;

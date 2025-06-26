@@ -91,16 +91,25 @@ public final class ChargeRequestAdditionalRecipient {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The location ID for a recipient (other than the merchant) receiving a portion of the tender.</p>
+         */
         DescriptionStage locationId(@NotNull String locationId);
 
         Builder from(ChargeRequestAdditionalRecipient other);
     }
 
     public interface DescriptionStage {
+        /**
+         * <p>The description of the additional recipient.</p>
+         */
         AmountMoneyStage description(@NotNull String description);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money distributed to the recipient.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
     }
 
@@ -131,6 +140,7 @@ public final class ChargeRequestAdditionalRecipient {
 
         /**
          * <p>The location ID for a recipient (other than the merchant) receiving a portion of the tender.</p>
+         * <p>The location ID for a recipient (other than the merchant) receiving a portion of the tender.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -142,6 +152,7 @@ public final class ChargeRequestAdditionalRecipient {
 
         /**
          * <p>The description of the additional recipient.</p>
+         * <p>The description of the additional recipient.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,6 +163,7 @@ public final class ChargeRequestAdditionalRecipient {
         }
 
         /**
+         * <p>The amount of money distributed to the recipient.</p>
          * <p>The amount of money distributed to the recipient.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

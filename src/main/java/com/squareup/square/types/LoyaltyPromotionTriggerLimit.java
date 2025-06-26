@@ -82,6 +82,9 @@ public final class LoyaltyPromotionTriggerLimit {
     }
 
     public interface TimesStage {
+        /**
+         * <p>The maximum number of times a buyer can trigger the promotion during the specified <code>interval</code>.</p>
+         */
         _FinalStage times(int times);
 
         Builder from(LoyaltyPromotionTriggerLimit other);
@@ -90,6 +93,10 @@ public final class LoyaltyPromotionTriggerLimit {
     public interface _FinalStage {
         LoyaltyPromotionTriggerLimit build();
 
+        /**
+         * <p>The time period the limit applies to.
+         * See <a href="#type-loyaltypromotiontriggerlimitinterval">LoyaltyPromotionTriggerLimitInterval</a> for possible values</p>
+         */
         _FinalStage interval(Optional<LoyaltyPromotionTriggerLimitInterval> interval);
 
         _FinalStage interval(LoyaltyPromotionTriggerLimitInterval interval);
@@ -115,6 +122,7 @@ public final class LoyaltyPromotionTriggerLimit {
 
         /**
          * <p>The maximum number of times a buyer can trigger the promotion during the specified <code>interval</code>.</p>
+         * <p>The maximum number of times a buyer can trigger the promotion during the specified <code>interval</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +143,10 @@ public final class LoyaltyPromotionTriggerLimit {
             return this;
         }
 
+        /**
+         * <p>The time period the limit applies to.
+         * See <a href="#type-loyaltypromotiontriggerlimitinterval">LoyaltyPromotionTriggerLimitInterval</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "interval", nulls = Nulls.SKIP)
         public _FinalStage interval(Optional<LoyaltyPromotionTriggerLimitInterval> interval) {

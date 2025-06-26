@@ -125,6 +125,12 @@ public final class SearchOrdersFulfillmentFilter {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:FulfillmentType">fulfillment types</a> to filter
+         * for. The list returns orders if any of its fulfillments match any of the fulfillment types
+         * listed in this field.
+         * See <a href="#type-fulfillmenttype">FulfillmentType</a> for possible values</p>
+         */
         @JsonSetter(value = "fulfillment_types", nulls = Nulls.SKIP)
         public Builder fulfillmentTypes(Optional<List<FulfillmentType>> fulfillmentTypes) {
             this.fulfillmentTypes = fulfillmentTypes;
@@ -147,6 +153,12 @@ public final class SearchOrdersFulfillmentFilter {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:FulfillmentState">fulfillment states</a> to filter
+         * for. The list returns orders if any of its fulfillments match any of the
+         * fulfillment states listed in this field.
+         * See <a href="#type-fulfillmentstate">FulfillmentState</a> for possible values</p>
+         */
         @JsonSetter(value = "fulfillment_states", nulls = Nulls.SKIP)
         public Builder fulfillmentStates(Optional<List<FulfillmentState>> fulfillmentStates) {
             this.fulfillmentStates = fulfillmentStates;

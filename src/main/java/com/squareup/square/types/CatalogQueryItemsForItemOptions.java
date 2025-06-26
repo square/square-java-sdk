@@ -96,6 +96,11 @@ public final class CatalogQueryItemsForItemOptions {
             return this;
         }
 
+        /**
+         * <p>A set of <code>CatalogItemOption</code> IDs to be used to find associated
+         * <code>CatalogItem</code>s. All Items that contain all of the given Item Options (in any order)
+         * will be returned.</p>
+         */
         @JsonSetter(value = "item_option_ids", nulls = Nulls.SKIP)
         public Builder itemOptionIds(Optional<List<String>> itemOptionIds) {
             this.itemOptionIds = itemOptionIds;

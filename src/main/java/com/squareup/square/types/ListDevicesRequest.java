@@ -175,6 +175,11 @@ public final class ListDevicesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -197,6 +202,13 @@ public final class ListDevicesRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed.</p>
+         * <ul>
+         * <li><code>ASC</code> - Oldest to newest.</li>
+         * <li><code>DESC</code> - Newest to oldest (default).</li>
+         * </ul>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;
@@ -219,6 +231,9 @@ public final class ListDevicesRequest {
             return this;
         }
 
+        /**
+         * <p>The number of results to return in a single page.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -241,6 +256,9 @@ public final class ListDevicesRequest {
             return this;
         }
 
+        /**
+         * <p>If present, only returns devices at the target location.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

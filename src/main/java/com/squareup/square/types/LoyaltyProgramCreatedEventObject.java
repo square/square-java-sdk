@@ -81,6 +81,9 @@ public final class LoyaltyProgramCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The loyalty program that was created.</p>
+         */
         @JsonSetter(value = "loyalty_program", nulls = Nulls.SKIP)
         public Builder loyaltyProgram(Optional<LoyaltyProgram> loyaltyProgram) {
             this.loyaltyProgram = loyaltyProgram;

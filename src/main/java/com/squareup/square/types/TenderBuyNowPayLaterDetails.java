@@ -101,6 +101,10 @@ public final class TenderBuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>The Buy Now Pay Later brand.
+         * See <a href="#type-brand">Brand</a> for possible values</p>
+         */
         @JsonSetter(value = "buy_now_pay_later_brand", nulls = Nulls.SKIP)
         public Builder buyNowPayLaterBrand(Optional<TenderBuyNowPayLaterDetailsBrand> buyNowPayLaterBrand) {
             this.buyNowPayLaterBrand = buyNowPayLaterBrand;
@@ -112,6 +116,12 @@ public final class TenderBuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>The buy now pay later payment's current state (such as <code>AUTHORIZED</code> or
+         * <code>CAPTURED</code>). See <a href="entity:TenderBuyNowPayLaterDetailsStatus">TenderBuyNowPayLaterDetailsStatus</a>
+         * for possible values.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TenderBuyNowPayLaterDetailsStatus> status) {
             this.status = status;

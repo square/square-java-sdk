@@ -84,6 +84,12 @@ public final class LoyaltyEventTypeFilter {
             return this;
         }
 
+        /**
+         * <p>The loyalty event types used to filter the result.
+         * If multiple values are specified, the endpoint uses a
+         * logical OR to combine them.
+         * See <a href="#type-loyaltyeventtype">LoyaltyEventType</a> for possible values</p>
+         */
         @JsonSetter(value = "types", nulls = Nulls.SKIP)
         public Builder types(List<LoyaltyEventType> types) {
             this.types.clear();

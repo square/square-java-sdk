@@ -117,6 +117,9 @@ public final class SearchLoyaltyAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>The search criteria for the request.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<SearchLoyaltyAccountsRequestLoyaltyAccountQuery> query) {
             this.query = query;
@@ -128,6 +131,9 @@ public final class SearchLoyaltyAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to include in the response. The default value is 30.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -139,6 +145,13 @@ public final class SearchLoyaltyAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to
+         * this endpoint. Provide this to retrieve the next set of
+         * results for the original query.</p>
+         * <p>For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

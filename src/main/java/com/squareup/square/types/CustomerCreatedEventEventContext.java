@@ -81,6 +81,9 @@ public final class CustomerCreatedEventEventContext {
             return this;
         }
 
+        /**
+         * <p>Information about the merge operation associated with the event.</p>
+         */
         @JsonSetter(value = "merge", nulls = Nulls.SKIP)
         public Builder merge(Optional<CustomerCreatedEventEventContextMerge> merge) {
             this.merge = merge;

@@ -96,6 +96,9 @@ public final class CreateTeamMemberResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully created <code>TeamMember</code> object.</p>
+         */
         @JsonSetter(value = "team_member", nulls = Nulls.SKIP)
         public Builder teamMember(Optional<TeamMember> teamMember) {
             this.teamMember = teamMember;
@@ -107,6 +110,9 @@ public final class CreateTeamMemberResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

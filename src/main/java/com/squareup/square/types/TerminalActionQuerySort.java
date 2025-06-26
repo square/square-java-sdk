@@ -85,6 +85,14 @@ public final class TerminalActionQuerySort {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed.</p>
+         * <ul>
+         * <li><code>ASC</code> - Oldest to newest.</li>
+         * <li><code>DESC</code> - Newest to oldest (default).
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</li>
+         * </ul>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;

@@ -209,6 +209,9 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the CatalogObjects to be retrieved.</p>
+         */
         @JsonSetter(value = "object_ids", nulls = Nulls.SKIP)
         public Builder objectIds(List<String> objectIds) {
             this.objectIds.clear();
@@ -226,6 +229,20 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, the response will include additional objects that are related to the
+         * requested objects. Related objects are defined as any objects referenced by ID by the results in the <code>objects</code> field
+         * of the response. These objects are put in the <code>related_objects</code> field. Setting this to <code>true</code> is
+         * helpful when the objects are needed for immediate display to a user.
+         * This process only goes one level deep. Objects referenced by the related objects will not be included. For example,</p>
+         * <p>if the <code>objects</code> field of the response contains a CatalogItem, its associated
+         * CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+         * CatalogModifierLists will be returned in the <code>related_objects</code> field of the
+         * response. If the <code>objects</code> field of the response contains a CatalogItemVariation,
+         * its parent CatalogItem will be returned in the <code>related_objects</code> field of
+         * the response.</p>
+         * <p>Default value: <code>false</code></p>
+         */
         @JsonSetter(value = "include_related_objects", nulls = Nulls.SKIP)
         public Builder includeRelatedObjects(Optional<Boolean> includeRelatedObjects) {
             this.includeRelatedObjects = includeRelatedObjects;
@@ -248,6 +265,12 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>The specific version of the catalog objects to be included in the response.
+         * This allows you to retrieve historical versions of objects. The specified version value is matched against
+         * the <a href="entity:CatalogObject">CatalogObject</a>s' <code>version</code> attribute. If not included, results will
+         * be from the current version of the catalog.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;
@@ -270,6 +293,9 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to include (<code>true</code>) or not (<code>false</code>) in the response deleted objects, namely, those with the <code>is_deleted</code> attribute set to <code>true</code>.</p>
+         */
         @JsonSetter(value = "include_deleted_objects", nulls = Nulls.SKIP)
         public Builder includeDeletedObjects(Optional<Boolean> includeDeletedObjects) {
             this.includeDeletedObjects = includeDeletedObjects;
@@ -292,6 +318,12 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies whether or not to include the <code>path_to_root</code> list for each returned category instance. The <code>path_to_root</code> list consists
+         * of <code>CategoryPathToRootNode</code> objects and specifies the path that starts with the immediate parent category of the returned category
+         * and ends with its root category. If the returned category is a top-level category, the <code>path_to_root</code> list is empty and is not returned
+         * in the response payload.</p>
+         */
         @JsonSetter(value = "include_category_path_to_root", nulls = Nulls.SKIP)
         public Builder includeCategoryPathToRoot(Optional<Boolean> includeCategoryPathToRoot) {
             this.includeCategoryPathToRoot = includeCategoryPathToRoot;

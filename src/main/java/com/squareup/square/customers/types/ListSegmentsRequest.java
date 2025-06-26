@@ -120,6 +120,11 @@ public final class ListSegmentsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by previous calls to <code>ListCustomerSegments</code>.
+         * This cursor is used to retrieve the next set of query results.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -142,6 +147,11 @@ public final class ListSegmentsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
+         * If the specified limit is less than 1 or greater than 50, Square returns a <code>400 VALUE_TOO_LOW</code> or <code>400 VALUE_TOO_HIGH</code> error. The default value is 50.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

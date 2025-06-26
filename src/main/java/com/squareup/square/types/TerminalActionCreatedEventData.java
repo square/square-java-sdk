@@ -124,6 +124,9 @@ public final class TerminalActionCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the created object’s type, <code>&quot;action&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class TerminalActionCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the created terminal action.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class TerminalActionCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the created terminal action.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<TerminalActionCreatedEventObject> object) {
             this.object = object;

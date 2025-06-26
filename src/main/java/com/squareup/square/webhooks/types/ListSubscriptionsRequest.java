@@ -177,6 +177,11 @@ public final class ListSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -199,6 +204,10 @@ public final class ListSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>Includes disabled <a href="entity:WebhookSubscription">Subscription</a>s.
+         * By default, all enabled <a href="entity:WebhookSubscription">Subscription</a>s are returned.</p>
+         */
         @JsonSetter(value = "include_disabled", nulls = Nulls.SKIP)
         public Builder includeDisabled(Optional<Boolean> includeDisabled) {
             this.includeDisabled = includeDisabled;
@@ -221,6 +230,10 @@ public final class ListSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>Sorts the returned list by when the <a href="entity:WebhookSubscription">Subscription</a> was created with the specified order.
+         * This field defaults to ASC.</p>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;
@@ -243,6 +256,12 @@ public final class ListSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.
+         * It is possible to receive fewer results than the specified limit on a given page.
+         * The default value of 100 is also the maximum allowed value.</p>
+         * <p>Default: 100</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

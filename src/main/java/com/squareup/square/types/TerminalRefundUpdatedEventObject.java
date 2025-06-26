@@ -81,6 +81,9 @@ public final class TerminalRefundUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated terminal refund.</p>
+         */
         @JsonSetter(value = "refund", nulls = Nulls.SKIP)
         public Builder refund(Optional<TerminalRefund> refund) {
             this.refund = refund;

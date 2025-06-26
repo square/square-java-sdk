@@ -115,6 +115,9 @@ public final class AccumulateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class AccumulateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>The resulting loyalty event. Starting in Square version 2022-08-17, this field is no longer returned.</p>
+         */
         @JsonSetter(value = "event", nulls = Nulls.SKIP)
         public Builder event(Optional<LoyaltyEvent> event) {
             this.event = event;
@@ -137,6 +143,11 @@ public final class AccumulateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>The resulting loyalty events. If the purchase qualifies for points, the <code>ACCUMULATE_POINTS</code> event
+         * is always included. When using the Orders API, the <code>ACCUMULATE_PROMOTION_POINTS</code> event is included
+         * if the purchase also qualifies for a loyalty promotion.</p>
+         */
         @JsonSetter(value = "events", nulls = Nulls.SKIP)
         public Builder events(Optional<List<LoyaltyEvent>> events) {
             this.events = events;

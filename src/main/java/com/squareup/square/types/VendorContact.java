@@ -175,6 +175,9 @@ public final class VendorContact {
     }
 
     public interface OrdinalStage {
+        /**
+         * <p>The ordinal of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         _FinalStage ordinal(int ordinal);
 
         Builder from(VendorContact other);
@@ -183,28 +186,45 @@ public final class VendorContact {
     public interface _FinalStage {
         VendorContact build();
 
+        /**
+         * <p>A unique Square-generated ID for the <a href="entity:VendorContact">VendorContact</a>.
+         * This field is required when attempting to update a <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The name of the <a href="entity:VendorContact">VendorContact</a>.
+         * This field is required when attempting to create a <a href="entity:Vendor">Vendor</a>.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
 
         _FinalStage name(Nullable<String> name);
 
+        /**
+         * <p>The email address of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         _FinalStage emailAddress(Optional<String> emailAddress);
 
         _FinalStage emailAddress(String emailAddress);
 
         _FinalStage emailAddress(Nullable<String> emailAddress);
 
+        /**
+         * <p>The phone number of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         _FinalStage phoneNumber(Optional<String> phoneNumber);
 
         _FinalStage phoneNumber(String phoneNumber);
 
         _FinalStage phoneNumber(Nullable<String> phoneNumber);
 
+        /**
+         * <p>The state of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         _FinalStage removed(Optional<Boolean> removed);
 
         _FinalStage removed(Boolean removed);
@@ -244,6 +264,7 @@ public final class VendorContact {
 
         /**
          * <p>The ordinal of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         * <p>The ordinal of the <a href="entity:VendorContact">VendorContact</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,6 +300,9 @@ public final class VendorContact {
             return this;
         }
 
+        /**
+         * <p>The state of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "removed", nulls = Nulls.SKIP)
         public _FinalStage removed(Optional<Boolean> removed) {
@@ -312,6 +336,9 @@ public final class VendorContact {
             return this;
         }
 
+        /**
+         * <p>The phone number of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
@@ -345,6 +372,9 @@ public final class VendorContact {
             return this;
         }
 
+        /**
+         * <p>The email address of the <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public _FinalStage emailAddress(Optional<String> emailAddress) {
@@ -380,6 +410,10 @@ public final class VendorContact {
             return this;
         }
 
+        /**
+         * <p>The name of the <a href="entity:VendorContact">VendorContact</a>.
+         * This field is required when attempting to create a <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
@@ -398,6 +432,10 @@ public final class VendorContact {
             return this;
         }
 
+        /**
+         * <p>A unique Square-generated ID for the <a href="entity:VendorContact">VendorContact</a>.
+         * This field is required when attempting to update a <a href="entity:VendorContact">VendorContact</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

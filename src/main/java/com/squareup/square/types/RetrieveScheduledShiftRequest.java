@@ -66,6 +66,9 @@ public final class RetrieveScheduledShiftRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the scheduled shift to retrieve.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(RetrieveScheduledShiftRequest other);
@@ -91,6 +94,7 @@ public final class RetrieveScheduledShiftRequest {
         }
 
         /**
+         * <p>The ID of the scheduled shift to retrieve.</p>
          * <p>The ID of the scheduled shift to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

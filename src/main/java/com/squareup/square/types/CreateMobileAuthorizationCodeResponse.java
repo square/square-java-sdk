@@ -118,6 +118,10 @@ public final class CreateMobileAuthorizationCodeResponse {
             return this;
         }
 
+        /**
+         * <p>The generated authorization code that connects a mobile application instance
+         * to a Square account.</p>
+         */
         @JsonSetter(value = "authorization_code", nulls = Nulls.SKIP)
         public Builder authorizationCode(Optional<String> authorizationCode) {
             this.authorizationCode = authorizationCode;
@@ -129,6 +133,10 @@ public final class CreateMobileAuthorizationCodeResponse {
             return this;
         }
 
+        /**
+         * <p>The timestamp when <code>authorization_code</code> expires, in
+         * <a href="https://tools.ietf.org/html/rfc3339">RFC 3339</a> format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public Builder expiresAt(Optional<String> expiresAt) {
             this.expiresAt = expiresAt;
@@ -140,6 +148,9 @@ public final class CreateMobileAuthorizationCodeResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

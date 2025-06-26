@@ -117,6 +117,9 @@ public final class CatalogQueryRange {
     }
 
     public interface AttributeNameStage {
+        /**
+         * <p>The name of the attribute to be searched.</p>
+         */
         _FinalStage attributeName(@NotNull String attributeName);
 
         Builder from(CatalogQueryRange other);
@@ -125,12 +128,18 @@ public final class CatalogQueryRange {
     public interface _FinalStage {
         CatalogQueryRange build();
 
+        /**
+         * <p>The desired minimum value for the search attribute (inclusive).</p>
+         */
         _FinalStage attributeMinValue(Optional<Long> attributeMinValue);
 
         _FinalStage attributeMinValue(Long attributeMinValue);
 
         _FinalStage attributeMinValue(Nullable<Long> attributeMinValue);
 
+        /**
+         * <p>The desired maximum value for the search attribute (inclusive).</p>
+         */
         _FinalStage attributeMaxValue(Optional<Long> attributeMaxValue);
 
         _FinalStage attributeMaxValue(Long attributeMaxValue);
@@ -160,6 +169,7 @@ public final class CatalogQueryRange {
         }
 
         /**
+         * <p>The name of the attribute to be searched.</p>
          * <p>The name of the attribute to be searched.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -196,6 +206,9 @@ public final class CatalogQueryRange {
             return this;
         }
 
+        /**
+         * <p>The desired maximum value for the search attribute (inclusive).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "attribute_max_value", nulls = Nulls.SKIP)
         public _FinalStage attributeMaxValue(Optional<Long> attributeMaxValue) {
@@ -229,6 +242,9 @@ public final class CatalogQueryRange {
             return this;
         }
 
+        /**
+         * <p>The desired minimum value for the search attribute (inclusive).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "attribute_min_value", nulls = Nulls.SKIP)
         public _FinalStage attributeMinValue(Optional<Long> attributeMinValue) {

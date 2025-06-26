@@ -96,6 +96,9 @@ public final class GetMerchantResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetMerchantResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>Merchant</code> object.</p>
+         */
         @JsonSetter(value = "merchant", nulls = Nulls.SKIP)
         public Builder merchant(Optional<Merchant> merchant) {
             this.merchant = merchant;

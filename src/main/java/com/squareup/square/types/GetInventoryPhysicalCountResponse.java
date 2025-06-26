@@ -98,6 +98,9 @@ public final class GetInventoryPhysicalCountResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class GetInventoryPhysicalCountResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a>.</p>
+         */
         @JsonSetter(value = "count", nulls = Nulls.SKIP)
         public Builder count(Optional<InventoryPhysicalCount> count) {
             this.count = count;

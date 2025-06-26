@@ -102,6 +102,19 @@ public final class CatalogTimePeriod {
             return this;
         }
 
+        /**
+         * <p>An iCalendar (RFC 5545) <a href="https://tools.ietf.org/html/rfc5545#section-3.6.1">event</a>, which
+         * specifies the name, timing, duration and recurrence of this time period.</p>
+         * <p>Example:</p>
+         * <pre><code>DTSTART:20190707T180000
+         * DURATION:P2H
+         * RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR
+         * </code></pre>
+         * <p>Only <code>SUMMARY</code>, <code>DTSTART</code>, <code>DURATION</code> and <code>RRULE</code> fields are supported.
+         * <code>DTSTART</code> must be in local (unzoned) time format. Note that while <code>BEGIN:VEVENT</code>
+         * and <code>END:VEVENT</code> is not required in the request. The response will always
+         * include them.</p>
+         */
         @JsonSetter(value = "event", nulls = Nulls.SKIP)
         public Builder event(Optional<String> event) {
             this.event = event;

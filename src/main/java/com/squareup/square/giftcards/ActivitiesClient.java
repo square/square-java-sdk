@@ -3,37 +3,29 @@
  */
 package com.squareup.square.giftcards;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.giftcards.types.CreateGiftCardActivityRequest;
 import com.squareup.square.giftcards.types.ListActivitiesRequest;
 import com.squareup.square.types.CreateGiftCardActivityResponse;
 import com.squareup.square.types.GiftCardActivity;
-import com.squareup.square.types.ListGiftCardActivitiesResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class ActivitiesClient {
     protected final ClientOptions clientOptions;
 
+    private final RawActivitiesClient rawClient;
+
     public ActivitiesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawActivitiesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawActivitiesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -43,7 +35,7 @@ public class ActivitiesClient {
      * for all gift cards in a specific region, or for activities within a time window.
      */
     public SyncPagingIterable<GiftCardActivity> list() {
-        return list(ListActivitiesRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
@@ -53,7 +45,7 @@ public class ActivitiesClient {
      * for all gift cards in a specific region, or for activities within a time window.
      */
     public SyncPagingIterable<GiftCardActivity> list(ListActivitiesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -63,75 +55,7 @@ public class ActivitiesClient {
      * for all gift cards in a specific region, or for activities within a time window.
      */
     public SyncPagingIterable<GiftCardActivity> list(ListActivitiesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards/activities");
-        if (request.getGiftCardId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "gift_card_id", request.getGiftCardId().get(), false);
-        }
-        if (request.getType().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "type", request.getType().get(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        if (request.getBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "begin_time", request.getBeginTime().get(), false);
-        }
-        if (request.getEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "end_time", request.getEndTime().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListGiftCardActivitiesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ListGiftCardActivitiesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListActivitiesRequest nextRequest = ListActivitiesRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<GiftCardActivity> result =
-                        parsedResponse.getGiftCardActivities().orElse(Collections.emptyList());
-                return new SyncPagingIterable<GiftCardActivity>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -139,7 +63,7 @@ public class ActivitiesClient {
      * For example, create an <code>ACTIVATE</code> activity to activate a gift card with an initial balance before first use.
      */
     public CreateGiftCardActivityResponse create(CreateGiftCardActivityRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -147,40 +71,6 @@ public class ActivitiesClient {
      * For example, create an <code>ACTIVATE</code> activity to activate a gift card with an initial balance before first use.
      */
     public CreateGiftCardActivityResponse create(CreateGiftCardActivityRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards/activities")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateGiftCardActivityResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 }

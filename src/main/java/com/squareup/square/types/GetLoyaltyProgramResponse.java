@@ -96,6 +96,9 @@ public final class GetLoyaltyProgramResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetLoyaltyProgramResponse {
             return this;
         }
 
+        /**
+         * <p>The loyalty program that was requested.</p>
+         */
         @JsonSetter(value = "program", nulls = Nulls.SKIP)
         public Builder program(Optional<LoyaltyProgram> program) {
             this.program = program;

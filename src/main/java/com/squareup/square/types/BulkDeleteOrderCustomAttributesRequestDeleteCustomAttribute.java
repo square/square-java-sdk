@@ -82,6 +82,9 @@ public final class BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute other);
@@ -90,6 +93,10 @@ public final class BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute {
     public interface _FinalStage {
         BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute build();
 
+        /**
+         * <p>The key of the custom attribute to delete.  This key must match the key
+         * of an existing custom attribute definition.</p>
+         */
         _FinalStage key(Optional<String> key);
 
         _FinalStage key(String key);
@@ -115,6 +122,7 @@ public final class BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute {
 
         /**
          * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +143,10 @@ public final class BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute {
             return this;
         }
 
+        /**
+         * <p>The key of the custom attribute to delete.  This key must match the key
+         * of an existing custom attribute definition.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public _FinalStage key(Optional<String> key) {

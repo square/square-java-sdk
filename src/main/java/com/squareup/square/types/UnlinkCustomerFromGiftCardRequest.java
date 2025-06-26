@@ -78,12 +78,18 @@ public final class UnlinkCustomerFromGiftCardRequest {
     }
 
     public interface GiftCardIdStage {
+        /**
+         * <p>The ID of the gift card to be unlinked.</p>
+         */
         CustomerIdStage giftCardId(@NotNull String giftCardId);
 
         Builder from(UnlinkCustomerFromGiftCardRequest other);
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to unlink from the gift card.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
     }
 
@@ -111,6 +117,7 @@ public final class UnlinkCustomerFromGiftCardRequest {
 
         /**
          * <p>The ID of the gift card to be unlinked.</p>
+         * <p>The ID of the gift card to be unlinked.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class UnlinkCustomerFromGiftCardRequest {
         }
 
         /**
+         * <p>The ID of the customer to unlink from the gift card.</p>
          * <p>The ID of the customer to unlink from the gift card.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

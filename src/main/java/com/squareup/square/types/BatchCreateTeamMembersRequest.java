@@ -84,6 +84,12 @@ public final class BatchCreateTeamMembersRequest {
             return this;
         }
 
+        /**
+         * <p>The data used to create the <code>TeamMember</code> objects. Each key is the <code>idempotency_key</code> that maps to the <code>CreateTeamMemberRequest</code>.
+         * The maximum number of create objects is 25.</p>
+         * <p>If you include a team member's <code>wage_setting</code>, you must provide <code>job_id</code> for each job assignment. To get job IDs,
+         * call <a href="api-endpoint:Team-ListJobs">ListJobs</a>.</p>
+         */
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Map<String, CreateTeamMemberRequest> teamMembers) {
             this.teamMembers.clear();

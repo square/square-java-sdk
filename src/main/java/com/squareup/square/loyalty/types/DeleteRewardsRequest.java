@@ -66,6 +66,9 @@ public final class DeleteRewardsRequest {
     }
 
     public interface RewardIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to delete.</p>
+         */
         _FinalStage rewardId(@NotNull String rewardId);
 
         Builder from(DeleteRewardsRequest other);
@@ -91,6 +94,7 @@ public final class DeleteRewardsRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to delete.</p>
          * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

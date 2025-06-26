@@ -93,6 +93,9 @@ public final class DeleteCustomersRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to delete.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
 
         Builder from(DeleteCustomersRequest other);
@@ -101,6 +104,10 @@ public final class DeleteCustomersRequest {
     public interface _FinalStage {
         DeleteCustomersRequest build();
 
+        /**
+         * <p>The current version of the customer profile.</p>
+         * <p>As a best practice, you should include this parameter to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control.  For more information, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#delete-customer-profile">Delete a customer profile</a>.</p>
+         */
         _FinalStage version(Optional<Long> version);
 
         _FinalStage version(Long version);
@@ -127,6 +134,7 @@ public final class DeleteCustomersRequest {
         }
 
         /**
+         * <p>The ID of the customer to delete.</p>
          * <p>The ID of the customer to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -165,6 +173,10 @@ public final class DeleteCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>The current version of the customer profile.</p>
+         * <p>As a best practice, you should include this parameter to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control.  For more information, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#delete-customer-profile">Delete a customer profile</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Long> version) {

@@ -98,6 +98,9 @@ public final class BatchCreateTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully created <code>TeamMember</code> objects. Each key is the <code>idempotency_key</code> that maps to the <code>CreateTeamMemberRequest</code>.</p>
+         */
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Optional<Map<String, CreateTeamMemberResponse>> teamMembers) {
             this.teamMembers = teamMembers;
@@ -109,6 +112,9 @@ public final class BatchCreateTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

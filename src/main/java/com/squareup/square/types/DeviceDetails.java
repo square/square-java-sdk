@@ -144,6 +144,9 @@ public final class DeviceDetails {
             return this;
         }
 
+        /**
+         * <p>The Square-issued ID of the device.</p>
+         */
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public Builder deviceId(Optional<String> deviceId) {
             this.deviceId = deviceId;
@@ -166,6 +169,9 @@ public final class DeviceDetails {
             return this;
         }
 
+        /**
+         * <p>The Square-issued installation ID for the device.</p>
+         */
         @JsonSetter(value = "device_installation_id", nulls = Nulls.SKIP)
         public Builder deviceInstallationId(Optional<String> deviceInstallationId) {
             this.deviceInstallationId = deviceInstallationId;
@@ -188,6 +194,9 @@ public final class DeviceDetails {
             return this;
         }
 
+        /**
+         * <p>The name of the device set by the seller.</p>
+         */
         @JsonSetter(value = "device_name", nulls = Nulls.SKIP)
         public Builder deviceName(Optional<String> deviceName) {
             this.deviceName = deviceName;

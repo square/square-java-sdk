@@ -66,6 +66,9 @@ public final class GetActionsRequest {
     }
 
     public interface ActionIdStage {
+        /**
+         * <p>Unique ID for the desired <code>TerminalAction</code>.</p>
+         */
         _FinalStage actionId(@NotNull String actionId);
 
         Builder from(GetActionsRequest other);
@@ -91,6 +94,7 @@ public final class GetActionsRequest {
         }
 
         /**
+         * <p>Unique ID for the desired <code>TerminalAction</code>.</p>
          * <p>Unique ID for the desired <code>TerminalAction</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

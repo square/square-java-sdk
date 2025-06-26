@@ -66,6 +66,9 @@ public final class GetWageSettingRequest {
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the team member for which to retrieve the wage setting.</p>
+         */
         _FinalStage teamMemberId(@NotNull String teamMemberId);
 
         Builder from(GetWageSettingRequest other);
@@ -91,6 +94,7 @@ public final class GetWageSettingRequest {
         }
 
         /**
+         * <p>The ID of the team member for which to retrieve the wage setting.</p>
          * <p>The ID of the team member for which to retrieve the wage setting.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -120,6 +120,9 @@ public final class ChangeBillingAnchorDateRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to update the billing anchor date.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(ChangeBillingAnchorDateRequest other);
@@ -128,12 +131,21 @@ public final class ChangeBillingAnchorDateRequest {
     public interface _FinalStage {
         ChangeBillingAnchorDateRequest build();
 
+        /**
+         * <p>The anchor day for the billing cycle.</p>
+         */
         _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Nullable<Integer> monthlyBillingAnchorDate);
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the scheduled <code>BILLING_ANCHOR_CHANGE</code> action takes
+         * place on the subscription.</p>
+         * <p>When this date is unspecified or falls within the current billing cycle, the billing anchor date
+         * is changed immediately.</p>
+         */
         _FinalStage effectiveDate(Optional<String> effectiveDate);
 
         _FinalStage effectiveDate(String effectiveDate);
@@ -163,6 +175,7 @@ public final class ChangeBillingAnchorDateRequest {
         }
 
         /**
+         * <p>The ID of the subscription to update the billing anchor date.</p>
          * <p>The ID of the subscription to update the billing anchor date.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -205,6 +218,12 @@ public final class ChangeBillingAnchorDateRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the scheduled <code>BILLING_ANCHOR_CHANGE</code> action takes
+         * place on the subscription.</p>
+         * <p>When this date is unspecified or falls within the current billing cycle, the billing anchor date
+         * is changed immediately.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "effective_date", nulls = Nulls.SKIP)
         public _FinalStage effectiveDate(Optional<String> effectiveDate) {
@@ -238,6 +257,9 @@ public final class ChangeBillingAnchorDateRequest {
             return this;
         }
 
+        /**
+         * <p>The anchor day for the billing cycle.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate) {

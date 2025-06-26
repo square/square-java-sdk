@@ -66,6 +66,9 @@ public final class GetEmployeesRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>UUID for the employee that was requested.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetEmployeesRequest other);
@@ -91,6 +94,7 @@ public final class GetEmployeesRequest {
         }
 
         /**
+         * <p>UUID for the employee that was requested.</p>
          * <p>UUID for the employee that was requested.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -275,6 +275,9 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the return only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -297,6 +300,10 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>An order that contains the original sale of these return line items. This is unset
+         * for unlinked returns.</p>
+         */
         @JsonSetter(value = "source_order_id", nulls = Nulls.SKIP)
         public Builder sourceOrderId(Optional<String> sourceOrderId) {
             this.sourceOrderId = sourceOrderId;
@@ -319,6 +326,9 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A collection of line items that are being returned.</p>
+         */
         @JsonSetter(value = "return_line_items", nulls = Nulls.SKIP)
         public Builder returnLineItems(Optional<List<OrderReturnLineItem>> returnLineItems) {
             this.returnLineItems = returnLineItems;
@@ -341,6 +351,9 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A collection of service charges that are being returned.</p>
+         */
         @JsonSetter(value = "return_service_charges", nulls = Nulls.SKIP)
         public Builder returnServiceCharges(Optional<List<OrderReturnServiceCharge>> returnServiceCharges) {
             this.returnServiceCharges = returnServiceCharges;
@@ -363,6 +376,11 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A collection of references to taxes being returned for an order, including the total
+         * applied tax amount to be returned. The taxes must reference a top-level tax ID from the source
+         * order.</p>
+         */
         @JsonSetter(value = "return_taxes", nulls = Nulls.SKIP)
         public Builder returnTaxes(Optional<List<OrderReturnTax>> returnTaxes) {
             this.returnTaxes = returnTaxes;
@@ -374,6 +392,11 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A collection of references to discounts being returned for an order, including the total
+         * applied discount amount to be returned. The discounts must reference a top-level discount ID
+         * from the source order.</p>
+         */
         @JsonSetter(value = "return_discounts", nulls = Nulls.SKIP)
         public Builder returnDiscounts(Optional<List<OrderReturnDiscount>> returnDiscounts) {
             this.returnDiscounts = returnDiscounts;
@@ -385,6 +408,9 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A collection of references to tips being returned for an order.</p>
+         */
         @JsonSetter(value = "return_tips", nulls = Nulls.SKIP)
         public Builder returnTips(Optional<List<OrderReturnTip>> returnTips) {
             this.returnTips = returnTips;
@@ -407,6 +433,11 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>A positive or negative rounding adjustment to the total value being returned. Adjustments are commonly
+         * used to apply cash rounding when the minimum unit of the account is smaller than the lowest
+         * physical denomination of the currency.</p>
+         */
         @JsonSetter(value = "rounding_adjustment", nulls = Nulls.SKIP)
         public Builder roundingAdjustment(Optional<OrderRoundingAdjustment> roundingAdjustment) {
             this.roundingAdjustment = roundingAdjustment;
@@ -418,6 +449,9 @@ public final class OrderReturn {
             return this;
         }
 
+        /**
+         * <p>An aggregate monetary value being returned by this return entry.</p>
+         */
         @JsonSetter(value = "return_amounts", nulls = Nulls.SKIP)
         public Builder returnAmounts(Optional<OrderMoneyAmounts> returnAmounts) {
             this.returnAmounts = returnAmounts;

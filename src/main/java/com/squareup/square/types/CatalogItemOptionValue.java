@@ -197,6 +197,9 @@ public final class CatalogItemOptionValue {
             return this;
         }
 
+        /**
+         * <p>Unique ID of the associated item option.</p>
+         */
         @JsonSetter(value = "item_option_id", nulls = Nulls.SKIP)
         public Builder itemOptionId(Optional<String> itemOptionId) {
             this.itemOptionId = itemOptionId;
@@ -219,6 +222,9 @@ public final class CatalogItemOptionValue {
             return this;
         }
 
+        /**
+         * <p>Name of this item option value. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -241,6 +247,9 @@ public final class CatalogItemOptionValue {
             return this;
         }
 
+        /**
+         * <p>A human-readable description for the option value. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -263,6 +272,12 @@ public final class CatalogItemOptionValue {
             return this;
         }
 
+        /**
+         * <p>The HTML-supported hex color for the item option (e.g., &quot;#ff8d4e85&quot;).
+         * Only displayed if <code>show_colors</code> is enabled on the parent <code>ItemOption</code>. When
+         * left unset, <code>color</code> defaults to white (&quot;#ffffff&quot;) when <code>show_colors</code> is
+         * enabled on the parent <code>ItemOption</code>.</p>
+         */
         @JsonSetter(value = "color", nulls = Nulls.SKIP)
         public Builder color(Optional<String> color) {
             this.color = color;
@@ -285,6 +300,9 @@ public final class CatalogItemOptionValue {
             return this;
         }
 
+        /**
+         * <p>Determines where this option value appears in a list of option values.</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Integer> ordinal) {
             this.ordinal = ordinal;

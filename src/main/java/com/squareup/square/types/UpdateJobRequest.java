@@ -78,12 +78,19 @@ public final class UpdateJobRequest {
     }
 
     public interface JobIdStage {
+        /**
+         * <p>The ID of the job to update.</p>
+         */
         JobStage jobId(@NotNull String jobId);
 
         Builder from(UpdateJobRequest other);
     }
 
     public interface JobStage {
+        /**
+         * <p>The job with the updated fields, either <code>title</code>, <code>is_tip_eligible</code>, or both. Only changed fields need
+         * to be included in the request. Optionally include <code>version</code> to enable optimistic concurrency control.</p>
+         */
         _FinalStage job(@NotNull Job job);
     }
 
@@ -111,6 +118,7 @@ public final class UpdateJobRequest {
 
         /**
          * <p>The ID of the job to update.</p>
+         * <p>The ID of the job to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +129,8 @@ public final class UpdateJobRequest {
         }
 
         /**
+         * <p>The job with the updated fields, either <code>title</code>, <code>is_tip_eligible</code>, or both. Only changed fields need
+         * to be included in the request. Optionally include <code>version</code> to enable optimistic concurrency control.</p>
          * <p>The job with the updated fields, either <code>title</code>, <code>is_tip_eligible</code>, or both. Only changed fields need
          * to be included in the request. Optionally include <code>version</code> to enable optimistic concurrency control.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

@@ -66,6 +66,9 @@ public final class GetDisputesRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute you want more details about.</p>
+         */
         _FinalStage disputeId(@NotNull String disputeId);
 
         Builder from(GetDisputesRequest other);
@@ -91,6 +94,7 @@ public final class GetDisputesRequest {
         }
 
         /**
+         * <p>The ID of the dispute you want more details about.</p>
          * <p>The ID of the dispute you want more details about.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

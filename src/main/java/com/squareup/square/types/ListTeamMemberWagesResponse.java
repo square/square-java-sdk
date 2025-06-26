@@ -116,6 +116,9 @@ public final class ListTeamMemberWagesResponse {
             return this;
         }
 
+        /**
+         * <p>A page of <code>TeamMemberWage</code> results.</p>
+         */
         @JsonSetter(value = "team_member_wages", nulls = Nulls.SKIP)
         public Builder teamMemberWages(Optional<List<TeamMemberWage>> teamMemberWages) {
             this.teamMemberWages = teamMemberWages;
@@ -127,6 +130,10 @@ public final class ListTeamMemberWagesResponse {
             return this;
         }
 
+        /**
+         * <p>The value supplied in the subsequent request to fetch the next page
+         * of <code>TeamMemberWage</code> results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -138,6 +145,9 @@ public final class ListTeamMemberWagesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

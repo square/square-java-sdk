@@ -82,6 +82,9 @@ public final class UpdateSubscriptionRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to update.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(UpdateSubscriptionRequest other);
@@ -90,6 +93,11 @@ public final class UpdateSubscriptionRequest {
     public interface _FinalStage {
         UpdateSubscriptionRequest build();
 
+        /**
+         * <p>The subscription object containing the current version, and fields to update.
+         * Unset fields will be left at their current server values, and JSON <code>null</code> values will
+         * be treated as a request to clear the relevant data.</p>
+         */
         _FinalStage subscription(Optional<Subscription> subscription);
 
         _FinalStage subscription(Subscription subscription);
@@ -115,6 +123,7 @@ public final class UpdateSubscriptionRequest {
 
         /**
          * <p>The ID of the subscription to update.</p>
+         * <p>The ID of the subscription to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -136,6 +145,11 @@ public final class UpdateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The subscription object containing the current version, and fields to update.
+         * Unset fields will be left at their current server values, and JSON <code>null</code> values will
+         * be treated as a request to clear the relevant data.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public _FinalStage subscription(Optional<Subscription> subscription) {

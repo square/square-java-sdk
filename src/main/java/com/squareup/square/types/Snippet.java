@@ -122,6 +122,9 @@ public final class Snippet {
     }
 
     public interface ContentStage {
+        /**
+         * <p>The snippet code, which can contain valid HTML, JavaScript, or both.</p>
+         */
         _FinalStage content(@NotNull String content);
 
         Builder from(Snippet other);
@@ -130,18 +133,30 @@ public final class Snippet {
     public interface _FinalStage {
         Snippet build();
 
+        /**
+         * <p>The Square-assigned ID for the snippet.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The ID of the site that contains the snippet.</p>
+         */
         _FinalStage siteId(Optional<String> siteId);
 
         _FinalStage siteId(String siteId);
 
+        /**
+         * <p>The timestamp of when the snippet was initially added to the site, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp of when the snippet was last updated on the site, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
@@ -176,6 +191,7 @@ public final class Snippet {
 
         /**
          * <p>The snippet code, which can contain valid HTML, JavaScript, or both.</p>
+         * <p>The snippet code, which can contain valid HTML, JavaScript, or both.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -195,6 +211,9 @@ public final class Snippet {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the snippet was last updated on the site, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -212,6 +231,9 @@ public final class Snippet {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the snippet was initially added to the site, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -229,6 +251,9 @@ public final class Snippet {
             return this;
         }
 
+        /**
+         * <p>The ID of the site that contains the snippet.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "site_id", nulls = Nulls.SKIP)
         public _FinalStage siteId(Optional<String> siteId) {
@@ -246,6 +271,9 @@ public final class Snippet {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID for the snippet.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

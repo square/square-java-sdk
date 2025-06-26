@@ -3,204 +3,91 @@
  */
 package com.squareup.square.checkout;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.checkout.types.CreatePaymentLinkRequest;
 import com.squareup.square.checkout.types.DeletePaymentLinksRequest;
 import com.squareup.square.checkout.types.GetPaymentLinksRequest;
 import com.squareup.square.checkout.types.ListPaymentLinksRequest;
 import com.squareup.square.checkout.types.UpdatePaymentLinkRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.CreatePaymentLinkResponse;
 import com.squareup.square.types.DeletePaymentLinkResponse;
 import com.squareup.square.types.GetPaymentLinkResponse;
-import com.squareup.square.types.ListPaymentLinksResponse;
 import com.squareup.square.types.PaymentLink;
 import com.squareup.square.types.UpdatePaymentLinkResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class PaymentLinksClient {
     protected final ClientOptions clientOptions;
 
+    private final RawPaymentLinksClient rawClient;
+
     public PaymentLinksClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawPaymentLinksClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawPaymentLinksClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Lists all payment links.
      */
     public SyncPagingIterable<PaymentLink> list() {
-        return list(ListPaymentLinksRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
      * Lists all payment links.
      */
     public SyncPagingIterable<PaymentLink> list(ListPaymentLinksRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
      * Lists all payment links.
      */
     public SyncPagingIterable<PaymentLink> list(ListPaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/payment-links");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListPaymentLinksResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListPaymentLinksResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListPaymentLinksRequest nextRequest = ListPaymentLinksRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<PaymentLink> result = parsedResponse.getPaymentLinks().orElse(Collections.emptyList());
-                return new SyncPagingIterable<PaymentLink>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
      * Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
      */
     public CreatePaymentLinkResponse create() {
-        return create(CreatePaymentLinkRequest.builder().build());
+        return this.rawClient.create().body();
     }
 
     /**
      * Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
      */
     public CreatePaymentLinkResponse create(CreatePaymentLinkRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
      * Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
      */
     public CreatePaymentLinkResponse create(CreatePaymentLinkRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/payment-links")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreatePaymentLinkResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
      * Retrieves a payment link.
      */
     public GetPaymentLinkResponse get(GetPaymentLinksRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Retrieves a payment link.
      */
     public GetPaymentLinkResponse get(GetPaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/payment-links")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetPaymentLinkResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -209,7 +96,7 @@ public class PaymentLinksClient {
      * You cannot update other fields such as the <code>order_id</code>, <code>version</code>, <code>URL</code>, or <code>timestamp</code> field.
      */
     public UpdatePaymentLinkResponse update(UpdatePaymentLinkRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).body();
     }
 
     /**
@@ -218,83 +105,20 @@ public class PaymentLinksClient {
      * You cannot update other fields such as the <code>order_id</code>, <code>version</code>, <code>URL</code>, or <code>timestamp</code> field.
      */
     public UpdatePaymentLinkResponse update(UpdatePaymentLinkRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/payment-links")
-                .addPathSegment(request.getId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdatePaymentLinkResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.update(request, requestOptions).body();
     }
 
     /**
      * Deletes a payment link.
      */
     public DeletePaymentLinkResponse delete(DeletePaymentLinksRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).body();
     }
 
     /**
      * Deletes a payment link.
      */
     public DeletePaymentLinkResponse delete(DeletePaymentLinksRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/payment-links")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DeletePaymentLinkResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.delete(request, requestOptions).body();
     }
 }

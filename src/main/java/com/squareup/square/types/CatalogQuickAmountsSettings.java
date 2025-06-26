@@ -120,6 +120,10 @@ public final class CatalogQuickAmountsSettings {
     }
 
     public interface OptionStage {
+        /**
+         * <p>Represents the option seller currently uses on Quick Amounts.
+         * See <a href="#type-catalogquickamountssettingsoption">CatalogQuickAmountsSettingsOption</a> for possible values</p>
+         */
         _FinalStage option(@NotNull CatalogQuickAmountsSettingsOption option);
 
         Builder from(CatalogQuickAmountsSettings other);
@@ -128,12 +132,19 @@ public final class CatalogQuickAmountsSettings {
     public interface _FinalStage {
         CatalogQuickAmountsSettings build();
 
+        /**
+         * <p>Represents location's eligibility for auto amounts
+         * The boolean should be consistent with whether there are AUTO amounts in the <code>amounts</code>.</p>
+         */
         _FinalStage eligibleForAutoAmounts(Optional<Boolean> eligibleForAutoAmounts);
 
         _FinalStage eligibleForAutoAmounts(Boolean eligibleForAutoAmounts);
 
         _FinalStage eligibleForAutoAmounts(Nullable<Boolean> eligibleForAutoAmounts);
 
+        /**
+         * <p>Represents a set of Quick Amounts at this location.</p>
+         */
         _FinalStage amounts(Optional<List<CatalogQuickAmount>> amounts);
 
         _FinalStage amounts(List<CatalogQuickAmount> amounts);
@@ -163,6 +174,8 @@ public final class CatalogQuickAmountsSettings {
         }
 
         /**
+         * <p>Represents the option seller currently uses on Quick Amounts.
+         * See <a href="#type-catalogquickamountssettingsoption">CatalogQuickAmountsSettingsOption</a> for possible values</p>
          * <p>Represents the option seller currently uses on Quick Amounts.
          * See <a href="#type-catalogquickamountssettingsoption">CatalogQuickAmountsSettingsOption</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -200,6 +213,9 @@ public final class CatalogQuickAmountsSettings {
             return this;
         }
 
+        /**
+         * <p>Represents a set of Quick Amounts at this location.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "amounts", nulls = Nulls.SKIP)
         public _FinalStage amounts(Optional<List<CatalogQuickAmount>> amounts) {
@@ -235,6 +251,10 @@ public final class CatalogQuickAmountsSettings {
             return this;
         }
 
+        /**
+         * <p>Represents location's eligibility for auto amounts
+         * The boolean should be consistent with whether there are AUTO amounts in the <code>amounts</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "eligible_for_auto_amounts", nulls = Nulls.SKIP)
         public _FinalStage eligibleForAutoAmounts(Optional<Boolean> eligibleForAutoAmounts) {

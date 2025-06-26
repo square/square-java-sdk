@@ -120,6 +120,9 @@ public final class StandardUnitDescriptionGroup {
             return this;
         }
 
+        /**
+         * <p>List of standard (non-custom) measurement units in this description group.</p>
+         */
         @JsonSetter(value = "standard_unit_descriptions", nulls = Nulls.SKIP)
         public Builder standardUnitDescriptions(Optional<List<StandardUnitDescription>> standardUnitDescriptions) {
             this.standardUnitDescriptions = standardUnitDescriptions;
@@ -142,6 +145,9 @@ public final class StandardUnitDescriptionGroup {
             return this;
         }
 
+        /**
+         * <p>IETF language tag.</p>
+         */
         @JsonSetter(value = "language_code", nulls = Nulls.SKIP)
         public Builder languageCode(Optional<String> languageCode) {
             this.languageCode = languageCode;

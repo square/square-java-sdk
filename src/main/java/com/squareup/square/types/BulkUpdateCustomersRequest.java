@@ -86,6 +86,14 @@ public final class BulkUpdateCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>A map of 1 to 100 individual update requests, represented by <code>customer ID: { customer data }</code>
+         * key-value pairs.</p>
+         * <p>Each key is the ID of the <a href="entity:Customer">customer profile</a> to update. To update a customer profile
+         * that was created by merging existing profiles, provide the ID of the newly created profile.</p>
+         * <p>Each value contains the updated customer data. Only new or changed fields are required. To add or
+         * update a field, specify the new value. To remove a field, specify <code>null</code>.</p>
+         */
         @JsonSetter(value = "customers", nulls = Nulls.SKIP)
         public Builder customers(Map<String, BulkUpdateCustomerData> customers) {
             this.customers.clear();

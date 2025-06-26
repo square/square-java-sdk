@@ -98,6 +98,9 @@ public final class DismissTerminalCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class DismissTerminalCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>Current state of the checkout to be dismissed.</p>
+         */
         @JsonSetter(value = "checkout", nulls = Nulls.SKIP)
         public Builder checkout(Optional<TerminalCheckout> checkout) {
             this.checkout = checkout;

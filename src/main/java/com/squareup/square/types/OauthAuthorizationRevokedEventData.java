@@ -125,6 +125,9 @@ public final class OauthAuthorizationRevokedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;revocation&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -147,6 +150,9 @@ public final class OauthAuthorizationRevokedEventData {
             return this;
         }
 
+        /**
+         * <p>Not applicable, revocation is not an object</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -158,6 +164,9 @@ public final class OauthAuthorizationRevokedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing information about revocation event.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<OauthAuthorizationRevokedEventObject> object) {
             this.object = object;

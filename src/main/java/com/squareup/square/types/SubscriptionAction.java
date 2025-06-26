@@ -209,6 +209,9 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>The ID of an action scoped to a subscription.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -220,6 +223,10 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>The type of the action.
+         * See <a href="#type-subscriptionactiontype">SubscriptionActionType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<SubscriptionActionType> type) {
             this.type = type;
@@ -231,6 +238,9 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the action occurs on the subscription.</p>
+         */
         @JsonSetter(value = "effective_date", nulls = Nulls.SKIP)
         public Builder effectiveDate(Optional<String> effectiveDate) {
             this.effectiveDate = effectiveDate;
@@ -253,6 +263,9 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>The new billing anchor day value, for a <code>CHANGE_BILLING_ANCHOR_DATE</code> action.</p>
+         */
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public Builder monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate) {
             this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
@@ -275,6 +288,9 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>A list of Phases, to pass phase-specific information used in the swap.</p>
+         */
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public Builder phases(Optional<List<Phase>> phases) {
             this.phases = phases;
@@ -297,6 +313,9 @@ public final class SubscriptionAction {
             return this;
         }
 
+        /**
+         * <p>The target subscription plan variation that a subscription switches to, for a <code>SWAP_PLAN</code> action.</p>
+         */
         @JsonSetter(value = "new_plan_variation_id", nulls = Nulls.SKIP)
         public Builder newPlanVariationId(Optional<String> newPlanVariationId) {
             this.newPlanVariationId = newPlanVariationId;

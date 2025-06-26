@@ -116,6 +116,9 @@ public final class ListCustomerSegmentsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListCustomerSegmentsResponse {
             return this;
         }
 
+        /**
+         * <p>The list of customer segments belonging to the associated Square account.</p>
+         */
         @JsonSetter(value = "segments", nulls = Nulls.SKIP)
         public Builder segments(Optional<List<CustomerSegment>> segments) {
             this.segments = segments;
@@ -138,6 +144,12 @@ public final class ListCustomerSegmentsResponse {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor to be used in subsequent calls to <code>ListCustomerSegments</code>
+         * to retrieve the next set of query results. The cursor is only present if the request succeeded and
+         * additional results are available.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

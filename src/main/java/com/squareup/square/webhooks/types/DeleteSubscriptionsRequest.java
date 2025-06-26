@@ -66,6 +66,9 @@ public final class DeleteSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to delete.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(DeleteSubscriptionsRequest other);
@@ -91,6 +94,7 @@ public final class DeleteSubscriptionsRequest {
         }
 
         /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to delete.</p>
          * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

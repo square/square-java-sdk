@@ -97,6 +97,9 @@ public final class TenderCashDetails {
             return this;
         }
 
+        /**
+         * <p>The total amount of cash provided by the buyer, before change is given.</p>
+         */
         @JsonSetter(value = "buyer_tendered_money", nulls = Nulls.SKIP)
         public Builder buyerTenderedMoney(Optional<Money> buyerTenderedMoney) {
             this.buyerTenderedMoney = buyerTenderedMoney;
@@ -108,6 +111,9 @@ public final class TenderCashDetails {
             return this;
         }
 
+        /**
+         * <p>The amount of change returned to the buyer.</p>
+         */
         @JsonSetter(value = "change_back_money", nulls = Nulls.SKIP)
         public Builder changeBackMoney(Optional<Money> changeBackMoney) {
             this.changeBackMoney = changeBackMoney;

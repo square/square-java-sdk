@@ -199,6 +199,10 @@ public final class CatalogItemOption {
             return this;
         }
 
+        /**
+         * <p>The item option's display name for the seller. Must be unique across
+         * all item options. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -221,6 +225,9 @@ public final class CatalogItemOption {
             return this;
         }
 
+        /**
+         * <p>The item option's display name for the customer. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public Builder displayName(Optional<String> displayName) {
             this.displayName = displayName;
@@ -243,6 +250,11 @@ public final class CatalogItemOption {
             return this;
         }
 
+        /**
+         * <p>The item option's human-readable description. Displayed in the Square
+         * Point of Sale app for the seller and in the Online Store or on receipts for
+         * the buyer. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -265,6 +277,9 @@ public final class CatalogItemOption {
             return this;
         }
 
+        /**
+         * <p>If true, display colors for entries in <code>values</code> when present.</p>
+         */
         @JsonSetter(value = "show_colors", nulls = Nulls.SKIP)
         public Builder showColors(Optional<Boolean> showColors) {
             this.showColors = showColors;
@@ -287,6 +302,10 @@ public final class CatalogItemOption {
             return this;
         }
 
+        /**
+         * <p>A list of CatalogObjects containing the
+         * <code>CatalogItemOptionValue</code>s for this item.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Optional<List<CatalogObject>> values) {
             this.values = values;

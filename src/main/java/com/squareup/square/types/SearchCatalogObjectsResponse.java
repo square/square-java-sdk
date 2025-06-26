@@ -149,6 +149,9 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -160,6 +163,10 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If unset, this is the final response.
+         * See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -171,6 +178,9 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The CatalogObjects returned.</p>
+         */
         @JsonSetter(value = "objects", nulls = Nulls.SKIP)
         public Builder objects(Optional<List<CatalogObject>> objects) {
             this.objects = objects;
@@ -182,6 +192,9 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of CatalogObjects referenced by the objects in the <code>objects</code> field.</p>
+         */
         @JsonSetter(value = "related_objects", nulls = Nulls.SKIP)
         public Builder relatedObjects(Optional<List<CatalogObject>> relatedObjects) {
             this.relatedObjects = relatedObjects;
@@ -193,6 +206,10 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>When the associated product catalog was last updated. Will
+         * match the value for <code>end_time</code> or <code>cursor</code> if either field is included in the <code>SearchCatalog</code> request.</p>
+         */
         @JsonSetter(value = "latest_time", nulls = Nulls.SKIP)
         public Builder latestTime(Optional<String> latestTime) {
             this.latestTime = latestTime;

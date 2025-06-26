@@ -97,6 +97,9 @@ public final class CreateCatalogImageResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -108,6 +111,10 @@ public final class CreateCatalogImageResponse {
             return this;
         }
 
+        /**
+         * <p>The newly created <code>CatalogImage</code> including a Square-generated
+         * URL for the encapsulated image file.</p>
+         */
         @JsonSetter(value = "image", nulls = Nulls.SKIP)
         public Builder image(Optional<CatalogObject> image) {
             this.image = image;

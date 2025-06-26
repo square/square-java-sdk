@@ -135,24 +135,40 @@ public final class PayOrderRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the order being paid.</p>
+         */
         IdempotencyKeyStage orderId(@NotNull String orderId);
 
         Builder from(PayOrderRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A value you specify that uniquely identifies this request among requests you have sent. If
+         * you are unsure whether a particular payment request was completed successfully, you can reattempt
+         * it with the same idempotency key without worrying about duplicate payments.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface _FinalStage {
         PayOrderRequest build();
 
+        /**
+         * <p>The version of the order being paid. If not supplied, the latest version will be paid.</p>
+         */
         _FinalStage orderVersion(Optional<Integer> orderVersion);
 
         _FinalStage orderVersion(Integer orderVersion);
 
         _FinalStage orderVersion(Nullable<Integer> orderVersion);
 
+        /**
+         * <p>The IDs of the <a href="entity:Payment">payments</a> to collect.
+         * The payment total must match the order total.</p>
+         */
         _FinalStage paymentIds(Optional<List<String>> paymentIds);
 
         _FinalStage paymentIds(List<String> paymentIds);
@@ -186,6 +202,7 @@ public final class PayOrderRequest {
 
         /**
          * <p>The ID of the order being paid.</p>
+         * <p>The ID of the order being paid.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -196,6 +213,10 @@ public final class PayOrderRequest {
         }
 
         /**
+         * <p>A value you specify that uniquely identifies this request among requests you have sent. If
+         * you are unsure whether a particular payment request was completed successfully, you can reattempt
+         * it with the same idempotency key without worrying about duplicate payments.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
          * <p>A value you specify that uniquely identifies this request among requests you have sent. If
          * you are unsure whether a particular payment request was completed successfully, you can reattempt
          * it with the same idempotency key without worrying about duplicate payments.</p>
@@ -237,6 +258,10 @@ public final class PayOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the <a href="entity:Payment">payments</a> to collect.
+         * The payment total must match the order total.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_ids", nulls = Nulls.SKIP)
         public _FinalStage paymentIds(Optional<List<String>> paymentIds) {
@@ -270,6 +295,9 @@ public final class PayOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The version of the order being paid. If not supplied, the latest version will be paid.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_version", nulls = Nulls.SKIP)
         public _FinalStage orderVersion(Optional<Integer> orderVersion) {

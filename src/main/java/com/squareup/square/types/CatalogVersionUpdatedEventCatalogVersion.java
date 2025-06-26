@@ -82,6 +82,9 @@ public final class CatalogVersionUpdatedEventCatalogVersion {
             return this;
         }
 
+        /**
+         * <p>Last modification timestamp in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

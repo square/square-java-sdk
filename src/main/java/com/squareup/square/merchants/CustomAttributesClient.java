@@ -3,14 +3,8 @@
  */
 package com.squareup.square.merchants;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.merchants.types.BulkDeleteMerchantCustomAttributesRequest;
 import com.squareup.square.merchants.types.BulkUpsertMerchantCustomAttributesRequest;
@@ -22,26 +16,24 @@ import com.squareup.square.types.BulkDeleteMerchantCustomAttributesResponse;
 import com.squareup.square.types.BulkUpsertMerchantCustomAttributesResponse;
 import com.squareup.square.types.CustomAttribute;
 import com.squareup.square.types.DeleteMerchantCustomAttributeResponse;
-import com.squareup.square.types.ListMerchantCustomAttributesResponse;
 import com.squareup.square.types.RetrieveMerchantCustomAttributeResponse;
 import com.squareup.square.types.UpsertMerchantCustomAttributeResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class CustomAttributesClient {
     protected final ClientOptions clientOptions;
 
+    private final RawCustomAttributesClient rawClient;
+
     public CustomAttributesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawCustomAttributesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawCustomAttributesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -50,7 +42,7 @@ public class CustomAttributesClient {
      * <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public BulkDeleteMerchantCustomAttributesResponse batchDelete(BulkDeleteMerchantCustomAttributesRequest request) {
-        return batchDelete(request, null);
+        return this.rawClient.batchDelete(request).body();
     }
 
     /**
@@ -60,42 +52,7 @@ public class CustomAttributesClient {
      */
     public BulkDeleteMerchantCustomAttributesResponse batchDelete(
             BulkDeleteMerchantCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants/custom-attributes/bulk-delete")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BulkDeleteMerchantCustomAttributesResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchDelete(request, requestOptions).body();
     }
 
     /**
@@ -111,7 +68,7 @@ public class CustomAttributesClient {
      * must be <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public BulkUpsertMerchantCustomAttributesResponse batchUpsert(BulkUpsertMerchantCustomAttributesRequest request) {
-        return batchUpsert(request, null);
+        return this.rawClient.batchUpsert(request).body();
     }
 
     /**
@@ -128,42 +85,7 @@ public class CustomAttributesClient {
      */
     public BulkUpsertMerchantCustomAttributesResponse batchUpsert(
             BulkUpsertMerchantCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants/custom-attributes/bulk-upsert")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BulkUpsertMerchantCustomAttributesResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchUpsert(request, requestOptions).body();
     }
 
     /**
@@ -175,7 +97,7 @@ public class CustomAttributesClient {
      * and set to <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public SyncPagingIterable<CustomAttribute> list(ListCustomAttributesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -188,67 +110,7 @@ public class CustomAttributesClient {
      */
     public SyncPagingIterable<CustomAttribute> list(
             ListCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants")
-                .addPathSegment(request.getMerchantId())
-                .addPathSegments("custom-attributes");
-        if (request.getVisibilityFilter().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "visibility_filter",
-                    request.getVisibilityFilter().get().toString(),
-                    false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getWithDefinitions().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definitions",
-                    request.getWithDefinitions().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListMerchantCustomAttributesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ListMerchantCustomAttributesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListCustomAttributesRequest nextRequest = ListCustomAttributesRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<CustomAttribute> result =
-                        parsedResponse.getCustomAttributes().orElse(Collections.emptyList());
-                return new SyncPagingIterable<CustomAttribute>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -259,7 +121,7 @@ public class CustomAttributesClient {
      * <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public RetrieveMerchantCustomAttributeResponse get(GetCustomAttributesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -271,48 +133,7 @@ public class CustomAttributesClient {
      */
     public RetrieveMerchantCustomAttributeResponse get(
             GetCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants")
-                .addPathSegment(request.getMerchantId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey());
-        if (request.getWithDefinition().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definition",
-                    request.getWithDefinition().get().toString(),
-                    false);
-        }
-        if (request.getVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "version", request.getVersion().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), RetrieveMerchantCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -324,7 +145,7 @@ public class CustomAttributesClient {
      * must be <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public UpsertMerchantCustomAttributeResponse upsert(UpsertMerchantCustomAttributeRequest request) {
-        return upsert(request, null);
+        return this.rawClient.upsert(request).body();
     }
 
     /**
@@ -337,45 +158,7 @@ public class CustomAttributesClient {
      */
     public UpsertMerchantCustomAttributeResponse upsert(
             UpsertMerchantCustomAttributeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants")
-                .addPathSegment(request.getMerchantId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), UpsertMerchantCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.upsert(request, requestOptions).body();
     }
 
     /**
@@ -384,7 +167,7 @@ public class CustomAttributesClient {
      * <code>VISIBILITY_READ_WRITE_VALUES</code>.
      */
     public DeleteMerchantCustomAttributeResponse delete(DeleteCustomAttributesRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).body();
     }
 
     /**
@@ -394,37 +177,6 @@ public class CustomAttributesClient {
      */
     public DeleteMerchantCustomAttributeResponse delete(
             DeleteCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants")
-                .addPathSegment(request.getMerchantId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), DeleteMerchantCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.delete(request, requestOptions).body();
     }
 }

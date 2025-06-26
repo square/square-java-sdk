@@ -96,6 +96,9 @@ public final class RetrieveTimecardResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>Timecard</code>.</p>
+         */
         @JsonSetter(value = "timecard", nulls = Nulls.SKIP)
         public Builder timecard(Optional<Timecard> timecard) {
             this.timecard = timecard;
@@ -107,6 +110,9 @@ public final class RetrieveTimecardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

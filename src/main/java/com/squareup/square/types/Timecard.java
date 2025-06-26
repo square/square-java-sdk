@@ -280,64 +280,113 @@ public final class Timecard {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Location">location</a> for this timecard. The location should be based on
+         * where the team member clocked in.</p>
+         */
         StartAtStage locationId(@NotNull String locationId);
 
         Builder from(Timecard other);
     }
 
     public interface StartAtStage {
+        /**
+         * <p>The start time of the timecard, in RFC 3339 format and shifted to the location
+         * timezone + offset. Precision up to the minute is respected; seconds are truncated.</p>
+         */
         TeamMemberIdStage startAt(@NotNull String startAt);
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the <a href="entity:TeamMember">team member</a> this timecard belongs to.</p>
+         */
         _FinalStage teamMemberId(@NotNull String teamMemberId);
     }
 
     public interface _FinalStage {
         Timecard build();
 
+        /**
+         * <p><strong>Read only</strong> The Square-issued UUID for this object.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p><strong>Read only</strong> The time zone calculated from the location based on the <code>location_id</code>,
+         * provided as a convenience value. Format: the IANA time zone database identifier for the
+         * location time zone.</p>
+         */
         _FinalStage timezone(Optional<String> timezone);
 
         _FinalStage timezone(String timezone);
 
         _FinalStage timezone(Nullable<String> timezone);
 
+        /**
+         * <p>The end time of the timecard, in RFC 3339 format and shifted to the location
+         * timezone + offset. Precision up to the minute is respected; seconds are truncated.</p>
+         */
         _FinalStage endAt(Optional<String> endAt);
 
         _FinalStage endAt(String endAt);
 
         _FinalStage endAt(Nullable<String> endAt);
 
+        /**
+         * <p>Job and pay related information. If the wage is not set on create, it defaults to a wage
+         * of zero. If the title is not set on create, it defaults to the name of the role the team member
+         * is assigned to, if any.</p>
+         */
         _FinalStage wage(Optional<TimecardWage> wage);
 
         _FinalStage wage(TimecardWage wage);
 
+        /**
+         * <p>A list of all the paid or unpaid breaks that were taken during this timecard.</p>
+         */
         _FinalStage breaks(Optional<List<Break>> breaks);
 
         _FinalStage breaks(List<Break> breaks);
 
         _FinalStage breaks(Nullable<List<Break>> breaks);
 
+        /**
+         * <p>Describes the working state of the timecard.
+         * See <a href="#type-timecardstatus">TimecardStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<TimecardStatus> status);
 
         _FinalStage status(TimecardStatus status);
 
+        /**
+         * <p><strong>Read only</strong> The current version of the timecard, which is incremented with each update.
+         * This field is used for <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control to ensure that requests don't overwrite data from another request.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>The timestamp of when the timecard was created, in RFC 3339 format presented as UTC.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp of when the timecard was last updated, in RFC 3339 format presented as UTC.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The cash tips declared by the team member for this timecard.</p>
+         */
         _FinalStage declaredCashTipMoney(Optional<Money> declaredCashTipMoney);
 
         _FinalStage declaredCashTipMoney(Money declaredCashTipMoney);
@@ -397,6 +446,8 @@ public final class Timecard {
         /**
          * <p>The ID of the <a href="entity:Location">location</a> for this timecard. The location should be based on
          * where the team member clocked in.</p>
+         * <p>The ID of the <a href="entity:Location">location</a> for this timecard. The location should be based on
+         * where the team member clocked in.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -409,6 +460,8 @@ public final class Timecard {
         /**
          * <p>The start time of the timecard, in RFC 3339 format and shifted to the location
          * timezone + offset. Precision up to the minute is respected; seconds are truncated.</p>
+         * <p>The start time of the timecard, in RFC 3339 format and shifted to the location
+         * timezone + offset. Precision up to the minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -419,6 +472,7 @@ public final class Timecard {
         }
 
         /**
+         * <p>The ID of the <a href="entity:TeamMember">team member</a> this timecard belongs to.</p>
          * <p>The ID of the <a href="entity:TeamMember">team member</a> this timecard belongs to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -439,6 +493,9 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>The cash tips declared by the team member for this timecard.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "declared_cash_tip_money", nulls = Nulls.SKIP)
         public _FinalStage declaredCashTipMoney(Optional<Money> declaredCashTipMoney) {
@@ -456,6 +513,9 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the timecard was last updated, in RFC 3339 format presented as UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -473,6 +533,9 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the timecard was created, in RFC 3339 format presented as UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -492,6 +555,11 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The current version of the timecard, which is incremented with each update.
+         * This field is used for <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control to ensure that requests don't overwrite data from another request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -510,6 +578,10 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>Describes the working state of the timecard.
+         * See <a href="#type-timecardstatus">TimecardStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<TimecardStatus> status) {
@@ -543,6 +615,9 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>A list of all the paid or unpaid breaks that were taken during this timecard.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "breaks", nulls = Nulls.SKIP)
         public _FinalStage breaks(Optional<List<Break>> breaks) {
@@ -562,6 +637,11 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>Job and pay related information. If the wage is not set on create, it defaults to a wage
+         * of zero. If the title is not set on create, it defaults to the name of the role the team member
+         * is assigned to, if any.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "wage", nulls = Nulls.SKIP)
         public _FinalStage wage(Optional<TimecardWage> wage) {
@@ -597,6 +677,10 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p>The end time of the timecard, in RFC 3339 format and shifted to the location
+         * timezone + offset. Precision up to the minute is respected; seconds are truncated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public _FinalStage endAt(Optional<String> endAt) {
@@ -634,6 +718,11 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The time zone calculated from the location based on the <code>location_id</code>,
+         * provided as a convenience value. Format: the IANA time zone database identifier for the
+         * location time zone.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public _FinalStage timezone(Optional<String> timezone) {
@@ -651,6 +740,9 @@ public final class Timecard {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The Square-issued UUID for this object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

@@ -96,6 +96,9 @@ public final class UpdatePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred when updating the payment link.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class UpdatePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>The updated payment link.</p>
+         */
         @JsonSetter(value = "payment_link", nulls = Nulls.SKIP)
         public Builder paymentLink(Optional<PaymentLink> paymentLink) {
             this.paymentLink = paymentLink;

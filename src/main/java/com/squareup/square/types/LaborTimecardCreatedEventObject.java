@@ -80,6 +80,9 @@ public final class LaborTimecardCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The new <code>Timecard</code>.</p>
+         */
         @JsonSetter(value = "timecard", nulls = Nulls.SKIP)
         public Builder timecard(Optional<Timecard> timecard) {
             this.timecard = timecard;

@@ -98,6 +98,10 @@ public final class V1OrderHistoryEntry {
             return this;
         }
 
+        /**
+         * <p>The type of action performed on the order.
+         * See <a href="#type-v1orderhistoryentryaction">V1OrderHistoryEntryAction</a> for possible values</p>
+         */
         @JsonSetter(value = "action", nulls = Nulls.SKIP)
         public Builder action(Optional<V1OrderHistoryEntryAction> action) {
             this.action = action;
@@ -109,6 +113,9 @@ public final class V1OrderHistoryEntry {
             return this;
         }
 
+        /**
+         * <p>The time when the action was performed, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;

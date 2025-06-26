@@ -99,6 +99,10 @@ public final class SearchVendorsRequestSort {
             return this;
         }
 
+        /**
+         * <p>Specifies the sort key to sort the returned vendors.
+         * See <a href="#type-field">Field</a> for possible values</p>
+         */
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public Builder field(Optional<SearchVendorsRequestSortField> field) {
             this.field = field;
@@ -110,6 +114,10 @@ public final class SearchVendorsRequestSort {
             return this;
         }
 
+        /**
+         * <p>Specifies the sort order for the returned vendors.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<SortOrder> order) {
             this.order = order;

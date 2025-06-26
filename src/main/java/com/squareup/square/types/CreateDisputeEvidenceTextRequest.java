@@ -110,22 +110,35 @@ public final class CreateDisputeEvidenceTextRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute for which you want to upload evidence.</p>
+         */
         IdempotencyKeyStage disputeId(@NotNull String disputeId);
 
         Builder from(CreateDisputeEvidenceTextRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         EvidenceTextStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface EvidenceTextStage {
+        /**
+         * <p>The evidence string.</p>
+         */
         _FinalStage evidenceText(@NotNull String evidenceText);
     }
 
     public interface _FinalStage {
         CreateDisputeEvidenceTextRequest build();
 
+        /**
+         * <p>The type of evidence you are uploading.
+         * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
+         */
         _FinalStage evidenceType(Optional<DisputeEvidenceType> evidenceType);
 
         _FinalStage evidenceType(DisputeEvidenceType evidenceType);
@@ -157,6 +170,7 @@ public final class CreateDisputeEvidenceTextRequest {
 
         /**
          * <p>The ID of the dispute for which you want to upload evidence.</p>
+         * <p>The ID of the dispute for which you want to upload evidence.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -168,6 +182,7 @@ public final class CreateDisputeEvidenceTextRequest {
 
         /**
          * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -178,6 +193,7 @@ public final class CreateDisputeEvidenceTextRequest {
         }
 
         /**
+         * <p>The evidence string.</p>
          * <p>The evidence string.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -199,6 +215,10 @@ public final class CreateDisputeEvidenceTextRequest {
             return this;
         }
 
+        /**
+         * <p>The type of evidence you are uploading.
+         * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "evidence_type", nulls = Nulls.SKIP)
         public _FinalStage evidenceType(Optional<DisputeEvidenceType> evidenceType) {

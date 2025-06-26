@@ -95,6 +95,10 @@ public final class Destination {
             return this;
         }
 
+        /**
+         * <p>Type of the destination such as a bank account or debit card.
+         * See <a href="#type-destinationtype">DestinationType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<DestinationType> type) {
             this.type = type;
@@ -106,6 +110,9 @@ public final class Destination {
             return this;
         }
 
+        /**
+         * <p>Square issued unique ID (also known as the instrument ID) associated with this destination.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;

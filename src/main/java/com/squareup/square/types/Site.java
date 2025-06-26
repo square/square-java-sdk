@@ -192,6 +192,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the site.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -203,6 +206,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>The title of the site.</p>
+         */
         @JsonSetter(value = "site_title", nulls = Nulls.SKIP)
         public Builder siteTitle(Optional<String> siteTitle) {
             this.siteTitle = siteTitle;
@@ -225,6 +231,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>The domain of the site (without the protocol). For example, <code>mysite1.square.site</code>.</p>
+         */
         @JsonSetter(value = "domain", nulls = Nulls.SKIP)
         public Builder domain(Optional<String> domain) {
             this.domain = domain;
@@ -247,6 +256,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the site is published.</p>
+         */
         @JsonSetter(value = "is_published", nulls = Nulls.SKIP)
         public Builder isPublished(Optional<Boolean> isPublished) {
             this.isPublished = isPublished;
@@ -269,6 +281,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the site was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -280,6 +295,9 @@ public final class Site {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the site was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

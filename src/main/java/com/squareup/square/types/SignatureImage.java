@@ -96,6 +96,10 @@ public final class SignatureImage {
             return this;
         }
 
+        /**
+         * <p>The mime/type of the image data.
+         * Use <code>image/png;base64</code> for png.</p>
+         */
         @JsonSetter(value = "image_type", nulls = Nulls.SKIP)
         public Builder imageType(Optional<String> imageType) {
             this.imageType = imageType;
@@ -107,6 +111,9 @@ public final class SignatureImage {
             return this;
         }
 
+        /**
+         * <p>The base64 representation of the image.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<String> data) {
             this.data = data;

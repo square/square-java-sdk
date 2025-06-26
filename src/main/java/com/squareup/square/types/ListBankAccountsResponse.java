@@ -116,6 +116,9 @@ public final class ListBankAccountsResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListBankAccountsResponse {
             return this;
         }
 
+        /**
+         * <p>List of BankAccounts associated with this account.</p>
+         */
         @JsonSetter(value = "bank_accounts", nulls = Nulls.SKIP)
         public Builder bankAccounts(Optional<List<BankAccount>> bankAccounts) {
             this.bankAccounts = bankAccounts;
@@ -138,6 +144,12 @@ public final class ListBankAccountsResponse {
             return this;
         }
 
+        /**
+         * <p>When a response is truncated, it includes a cursor that you can
+         * use in a subsequent request to fetch next set of bank accounts.
+         * If empty, this is the final response.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

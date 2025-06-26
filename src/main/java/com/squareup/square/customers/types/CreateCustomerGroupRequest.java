@@ -81,6 +81,9 @@ public final class CreateCustomerGroupRequest {
     }
 
     public interface GroupStage {
+        /**
+         * <p>The customer group to create.</p>
+         */
         _FinalStage group(@NotNull CustomerGroup group);
 
         Builder from(CreateCustomerGroupRequest other);
@@ -89,6 +92,9 @@ public final class CreateCustomerGroupRequest {
     public interface _FinalStage {
         CreateCustomerGroupRequest build();
 
+        /**
+         * <p>The idempotency key for the request. For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -114,6 +120,7 @@ public final class CreateCustomerGroupRequest {
 
         /**
          * <p>The customer group to create.</p>
+         * <p>The customer group to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,6 +140,9 @@ public final class CreateCustomerGroupRequest {
             return this;
         }
 
+        /**
+         * <p>The idempotency key for the request. For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

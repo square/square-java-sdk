@@ -132,6 +132,9 @@ public final class SearchEventsResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -143,6 +146,9 @@ public final class SearchEventsResponse {
             return this;
         }
 
+        /**
+         * <p>The list of <a href="entity:Event">Event</a>s returned by the search.</p>
+         */
         @JsonSetter(value = "events", nulls = Nulls.SKIP)
         public Builder events(Optional<List<Event>> events) {
             this.events = events;
@@ -154,6 +160,9 @@ public final class SearchEventsResponse {
             return this;
         }
 
+        /**
+         * <p>Contains the metadata of an event. For more information, see <a href="entity:Event">Event</a>.</p>
+         */
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public Builder metadata(Optional<List<EventMetadata>> metadata) {
             this.metadata = metadata;
@@ -165,6 +174,10 @@ public final class SearchEventsResponse {
             return this;
         }
 
+        /**
+         * <p>When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of events. If empty, this is the final response.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

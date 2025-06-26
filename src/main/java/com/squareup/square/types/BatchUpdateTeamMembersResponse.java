@@ -98,6 +98,9 @@ public final class BatchUpdateTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully updated <code>TeamMember</code> objects. Each key is the <code>team_member_id</code> that maps to the <code>UpdateTeamMemberRequest</code>.</p>
+         */
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Optional<Map<String, UpdateTeamMemberResponse>> teamMembers) {
             this.teamMembers = teamMembers;
@@ -109,6 +112,9 @@ public final class BatchUpdateTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

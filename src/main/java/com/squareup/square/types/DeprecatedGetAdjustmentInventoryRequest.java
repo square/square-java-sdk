@@ -67,6 +67,9 @@ public final class DeprecatedGetAdjustmentInventoryRequest {
     }
 
     public interface AdjustmentIdStage {
+        /**
+         * <p>ID of the <a href="entity:InventoryAdjustment">InventoryAdjustment</a> to retrieve.</p>
+         */
         _FinalStage adjustmentId(@NotNull String adjustmentId);
 
         Builder from(DeprecatedGetAdjustmentInventoryRequest other);
@@ -92,6 +95,7 @@ public final class DeprecatedGetAdjustmentInventoryRequest {
         }
 
         /**
+         * <p>ID of the <a href="entity:InventoryAdjustment">InventoryAdjustment</a> to retrieve.</p>
          * <p>ID of the <a href="entity:InventoryAdjustment">InventoryAdjustment</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

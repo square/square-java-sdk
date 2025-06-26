@@ -95,6 +95,9 @@ public final class TimecardQuery {
             return this;
         }
 
+        /**
+         * <p>Query filter options.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<TimecardFilter> filter) {
             this.filter = filter;
@@ -106,6 +109,9 @@ public final class TimecardQuery {
             return this;
         }
 
+        /**
+         * <p>Sort order details.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<TimecardSort> sort) {
             this.sort = sort;

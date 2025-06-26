@@ -260,58 +260,98 @@ public final class Payout {
     }
 
     public interface IdStage {
+        /**
+         * <p>A unique ID for the payout.</p>
+         */
         LocationIdStage id(@NotNull String id);
 
         Builder from(Payout other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location associated with the payout.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
     public interface _FinalStage {
         Payout build();
 
+        /**
+         * <p>Indicates the payout status.
+         * See <a href="#type-payoutstatus">PayoutStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<PayoutStatus> status);
 
         _FinalStage status(PayoutStatus status);
 
+        /**
+         * <p>The timestamp of when the payout was created and submitted for deposit to the seller's banking destination, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp of when the payout was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The amount of money involved in the payout. A positive amount indicates a deposit, and a negative amount indicates a withdrawal. This amount is never zero.</p>
+         */
         _FinalStage amountMoney(Optional<Money> amountMoney);
 
         _FinalStage amountMoney(Money amountMoney);
 
+        /**
+         * <p>Information about the banking destination (such as a bank account, Square checking account, or debit card)
+         * against which the payout was made.</p>
+         */
         _FinalStage destination(Optional<Destination> destination);
 
         _FinalStage destination(Destination destination);
 
+        /**
+         * <p>The version number, which is incremented each time an update is made to this payout record.
+         * The version number helps developers receive event notifications or feeds out of order.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>Indicates the payout type.
+         * See <a href="#type-payouttype">PayoutType</a> for possible values</p>
+         */
         _FinalStage type(Optional<PayoutType> type);
 
         _FinalStage type(PayoutType type);
 
+        /**
+         * <p>A list of transfer fees and any taxes on the fees assessed by Square for this payout.</p>
+         */
         _FinalStage payoutFee(Optional<List<PayoutFee>> payoutFee);
 
         _FinalStage payoutFee(List<PayoutFee> payoutFee);
 
         _FinalStage payoutFee(Nullable<List<PayoutFee>> payoutFee);
 
+        /**
+         * <p>The calendar date, in ISO 8601 format (YYYY-MM-DD), when the payout is due to arrive in the seller’s banking destination.</p>
+         */
         _FinalStage arrivalDate(Optional<String> arrivalDate);
 
         _FinalStage arrivalDate(String arrivalDate);
 
         _FinalStage arrivalDate(Nullable<String> arrivalDate);
 
+        /**
+         * <p>A unique ID for each <code>Payout</code> object that might also appear on the seller’s bank statement. You can use this ID to automate the process of reconciling each payout with the corresponding line item on the bank statement.</p>
+         */
         _FinalStage endToEndId(Optional<String> endToEndId);
 
         _FinalStage endToEndId(String endToEndId);
@@ -369,6 +409,7 @@ public final class Payout {
 
         /**
          * <p>A unique ID for the payout.</p>
+         * <p>A unique ID for the payout.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -379,6 +420,7 @@ public final class Payout {
         }
 
         /**
+         * <p>The ID of the location associated with the payout.</p>
          * <p>The ID of the location associated with the payout.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -415,6 +457,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>A unique ID for each <code>Payout</code> object that might also appear on the seller’s bank statement. You can use this ID to automate the process of reconciling each payout with the corresponding line item on the bank statement.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_to_end_id", nulls = Nulls.SKIP)
         public _FinalStage endToEndId(Optional<String> endToEndId) {
@@ -448,6 +493,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>The calendar date, in ISO 8601 format (YYYY-MM-DD), when the payout is due to arrive in the seller’s banking destination.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "arrival_date", nulls = Nulls.SKIP)
         public _FinalStage arrivalDate(Optional<String> arrivalDate) {
@@ -481,6 +529,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>A list of transfer fees and any taxes on the fees assessed by Square for this payout.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payout_fee", nulls = Nulls.SKIP)
         public _FinalStage payoutFee(Optional<List<PayoutFee>> payoutFee) {
@@ -499,6 +550,10 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>Indicates the payout type.
+         * See <a href="#type-payouttype">PayoutType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public _FinalStage type(Optional<PayoutType> type) {
@@ -517,6 +572,10 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>The version number, which is incremented each time an update is made to this payout record.
+         * The version number helps developers receive event notifications or feeds out of order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -535,6 +594,10 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>Information about the banking destination (such as a bank account, Square checking account, or debit card)
+         * against which the payout was made.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "destination", nulls = Nulls.SKIP)
         public _FinalStage destination(Optional<Destination> destination) {
@@ -552,6 +615,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>The amount of money involved in the payout. A positive amount indicates a deposit, and a negative amount indicates a withdrawal. This amount is never zero.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public _FinalStage amountMoney(Optional<Money> amountMoney) {
@@ -569,6 +635,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the payout was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -586,6 +655,9 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the payout was created and submitted for deposit to the seller's banking destination, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -604,6 +676,10 @@ public final class Payout {
             return this;
         }
 
+        /**
+         * <p>Indicates the payout status.
+         * See <a href="#type-payoutstatus">PayoutStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<PayoutStatus> status) {

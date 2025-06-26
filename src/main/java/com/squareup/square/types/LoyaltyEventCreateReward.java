@@ -16,21 +16,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LoyaltyEventCreateReward.Builder.class)
 public final class LoyaltyEventCreateReward {
-    private final String loyaltyProgramId;
+    private final Optional<String> loyaltyProgramId;
 
     private final Optional<String> rewardId;
 
-    private final int points;
+    private final Optional<Integer> points;
 
     private final Map<String, Object> additionalProperties;
 
     private LoyaltyEventCreateReward(
-            String loyaltyProgramId, Optional<String> rewardId, int points, Map<String, Object> additionalProperties) {
+            Optional<String> loyaltyProgramId,
+            Optional<String> rewardId,
+            Optional<Integer> points,
+            Map<String, Object> additionalProperties) {
         this.loyaltyProgramId = loyaltyProgramId;
         this.rewardId = rewardId;
         this.points = points;
@@ -41,7 +43,7 @@ public final class LoyaltyEventCreateReward {
      * @return The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.
      */
     @JsonProperty("loyalty_program_id")
-    public String getLoyaltyProgramId() {
+    public Optional<String> getLoyaltyProgramId() {
         return loyaltyProgramId;
     }
 
@@ -58,7 +60,7 @@ public final class LoyaltyEventCreateReward {
      * @return The loyalty points used to create the reward.
      */
     @JsonProperty("points")
-    public int getPoints() {
+    public Optional<Integer> getPoints() {
         return points;
     }
 
@@ -76,7 +78,7 @@ public final class LoyaltyEventCreateReward {
     private boolean equalTo(LoyaltyEventCreateReward other) {
         return loyaltyProgramId.equals(other.loyaltyProgramId)
                 && rewardId.equals(other.rewardId)
-                && points == other.points;
+                && points.equals(other.points);
     }
 
     @java.lang.Override
@@ -89,42 +91,23 @@ public final class LoyaltyEventCreateReward {
         return ObjectMappers.stringify(this);
     }
 
-    public static LoyaltyProgramIdStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface LoyaltyProgramIdStage {
-        PointsStage loyaltyProgramId(@NotNull String loyaltyProgramId);
-
-        Builder from(LoyaltyEventCreateReward other);
-    }
-
-    public interface PointsStage {
-        _FinalStage points(int points);
-    }
-
-    public interface _FinalStage {
-        LoyaltyEventCreateReward build();
-
-        _FinalStage rewardId(Optional<String> rewardId);
-
-        _FinalStage rewardId(String rewardId);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements LoyaltyProgramIdStage, PointsStage, _FinalStage {
-        private String loyaltyProgramId;
-
-        private int points;
+    public static final class Builder {
+        private Optional<String> loyaltyProgramId = Optional.empty();
 
         private Optional<String> rewardId = Optional.empty();
+
+        private Optional<Integer> points = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(LoyaltyEventCreateReward other) {
             loyaltyProgramId(other.getLoyaltyProgramId());
             rewardId(other.getRewardId());
@@ -134,45 +117,47 @@ public final class LoyaltyEventCreateReward {
 
         /**
          * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        @JsonSetter("loyalty_program_id")
-        public PointsStage loyaltyProgramId(@NotNull String loyaltyProgramId) {
-            this.loyaltyProgramId = Objects.requireNonNull(loyaltyProgramId, "loyaltyProgramId must not be null");
+        @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
+        public Builder loyaltyProgramId(Optional<String> loyaltyProgramId) {
+            this.loyaltyProgramId = loyaltyProgramId;
             return this;
         }
 
-        /**
-         * <p>The loyalty points used to create the reward.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("points")
-        public _FinalStage points(int points) {
-            this.points = points;
+        public Builder loyaltyProgramId(String loyaltyProgramId) {
+            this.loyaltyProgramId = Optional.ofNullable(loyaltyProgramId);
             return this;
         }
 
         /**
          * <p>The Square-assigned ID of the created <a href="entity:LoyaltyReward">loyalty reward</a>.
          * This field is returned only if the event source is <code>LOYALTY_API</code>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        public _FinalStage rewardId(String rewardId) {
-            this.rewardId = Optional.ofNullable(rewardId);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "reward_id", nulls = Nulls.SKIP)
-        public _FinalStage rewardId(Optional<String> rewardId) {
+        public Builder rewardId(Optional<String> rewardId) {
             this.rewardId = rewardId;
             return this;
         }
 
-        @java.lang.Override
+        public Builder rewardId(String rewardId) {
+            this.rewardId = Optional.ofNullable(rewardId);
+            return this;
+        }
+
+        /**
+         * <p>The loyalty points used to create the reward.</p>
+         */
+        @JsonSetter(value = "points", nulls = Nulls.SKIP)
+        public Builder points(Optional<Integer> points) {
+            this.points = points;
+            return this;
+        }
+
+        public Builder points(Integer points) {
+            this.points = Optional.ofNullable(points);
+            return this;
+        }
+
         public LoyaltyEventCreateReward build() {
             return new LoyaltyEventCreateReward(loyaltyProgramId, rewardId, points, additionalProperties);
         }

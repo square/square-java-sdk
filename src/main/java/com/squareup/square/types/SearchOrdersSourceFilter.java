@@ -95,6 +95,11 @@ public final class SearchOrdersSourceFilter {
             return this;
         }
 
+        /**
+         * <p>Filters by the <a href="entity:OrderSource">Source</a> <code>name</code>. The filter returns any orders
+         * with a <code>source.name</code> that matches any of the listed source names.</p>
+         * <p>Max: 10 source names.</p>
+         */
         @JsonSetter(value = "source_names", nulls = Nulls.SKIP)
         public Builder sourceNames(Optional<List<String>> sourceNames) {
             this.sourceNames = sourceNames;

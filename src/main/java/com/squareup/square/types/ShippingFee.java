@@ -91,6 +91,9 @@ public final class ShippingFee {
     }
 
     public interface ChargeStage {
+        /**
+         * <p>The amount and currency for the shipping fee.</p>
+         */
         _FinalStage charge(@NotNull Money charge);
 
         Builder from(ShippingFee other);
@@ -99,6 +102,9 @@ public final class ShippingFee {
     public interface _FinalStage {
         ShippingFee build();
 
+        /**
+         * <p>The name for the shipping fee.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
@@ -125,6 +131,7 @@ public final class ShippingFee {
         }
 
         /**
+         * <p>The amount and currency for the shipping fee.</p>
          * <p>The amount and currency for the shipping fee.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -161,6 +168,9 @@ public final class ShippingFee {
             return this;
         }
 
+        /**
+         * <p>The name for the shipping fee.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {

@@ -66,6 +66,9 @@ public final class DeletePaymentLinksRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the payment link to delete.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(DeletePaymentLinksRequest other);
@@ -91,6 +94,7 @@ public final class DeletePaymentLinksRequest {
         }
 
         /**
+         * <p>The ID of the payment link to delete.</p>
          * <p>The ID of the payment link to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

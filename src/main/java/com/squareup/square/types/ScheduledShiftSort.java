@@ -99,6 +99,10 @@ public final class ScheduledShiftSort {
             return this;
         }
 
+        /**
+         * <p>The field to sort on. The default value is <code>START_AT</code>.
+         * See <a href="#type-scheduledshiftsortfield">ScheduledShiftSortField</a> for possible values</p>
+         */
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public Builder field(Optional<ScheduledShiftSortField> field) {
             this.field = field;
@@ -110,6 +114,10 @@ public final class ScheduledShiftSort {
             return this;
         }
 
+        /**
+         * <p>The order in which results are returned. The default value is <code>ASC</code>.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<SortOrder> order) {
             this.order = order;

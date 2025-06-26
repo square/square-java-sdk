@@ -81,12 +81,20 @@ public final class CreateTerminalCheckoutRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>CreateCheckout</code> request. Keys can be any valid string but
+         * must be unique for every <code>CreateCheckout</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         */
         CheckoutStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateTerminalCheckoutRequest other);
     }
 
     public interface CheckoutStage {
+        /**
+         * <p>The checkout to create.</p>
+         */
         _FinalStage checkout(@NotNull TerminalCheckout checkout);
     }
 
@@ -116,6 +124,9 @@ public final class CreateTerminalCheckoutRequest {
          * <p>A unique string that identifies this <code>CreateCheckout</code> request. Keys can be any valid string but
          * must be unique for every <code>CreateCheckout</code> request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         * <p>A unique string that identifies this <code>CreateCheckout</code> request. Keys can be any valid string but
+         * must be unique for every <code>CreateCheckout</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -126,6 +137,7 @@ public final class CreateTerminalCheckoutRequest {
         }
 
         /**
+         * <p>The checkout to create.</p>
          * <p>The checkout to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

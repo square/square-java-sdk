@@ -117,6 +117,11 @@ public final class ApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The Square product, such as Square Point of Sale (POS),
+         * Square Invoices, or Square Virtual Terminal.
+         * See <a href="#type-externalsquareproduct">ExternalSquareProduct</a> for possible values</p>
+         */
         @JsonSetter(value = "square_product", nulls = Nulls.SKIP)
         public Builder squareProduct(Optional<ApplicationDetailsExternalSquareProduct> squareProduct) {
             this.squareProduct = squareProduct;
@@ -128,6 +133,15 @@ public final class ApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The Square ID assigned to the application used to take the payment.
+         * Application developers can use this information to identify payments that
+         * their application processed.
+         * For example, if a developer uses a custom application to process payments,
+         * this field contains the application ID from the Developer Dashboard.
+         * If a seller uses a <a href="https://developer.squareup.com/docs/app-marketplace">Square App Marketplace</a>
+         * application to process payments, the field contains the corresponding application ID.</p>
+         */
         @JsonSetter(value = "application_id", nulls = Nulls.SKIP)
         public Builder applicationId(Optional<String> applicationId) {
             this.applicationId = applicationId;

@@ -116,6 +116,9 @@ public final class ListCustomerGroupsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListCustomerGroupsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of customer groups belonging to the current seller.</p>
+         */
         @JsonSetter(value = "groups", nulls = Nulls.SKIP)
         public Builder groups(Optional<List<CustomerGroup>> groups) {
             this.groups = groups;
@@ -138,6 +144,12 @@ public final class ListCustomerGroupsResponse {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor to retrieve the next set of results for your
+         * original query to the endpoint. This value is present only if the request
+         * succeeded and additional results are available.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

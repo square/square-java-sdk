@@ -99,6 +99,9 @@ public final class GetTeamMemberBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>The returned team member booking profile.</p>
+         */
         @JsonSetter(value = "team_member_booking_profile", nulls = Nulls.SKIP)
         public Builder teamMemberBookingProfile(Optional<TeamMemberBookingProfile> teamMemberBookingProfile) {
             this.teamMemberBookingProfile = teamMemberBookingProfile;
@@ -110,6 +113,9 @@ public final class GetTeamMemberBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

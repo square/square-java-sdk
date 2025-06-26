@@ -144,6 +144,9 @@ public final class CardPaymentTimeline {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the payment was authorized, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "authorized_at", nulls = Nulls.SKIP)
         public Builder authorizedAt(Optional<String> authorizedAt) {
             this.authorizedAt = authorizedAt;
@@ -166,6 +169,9 @@ public final class CardPaymentTimeline {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the payment was captured, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "captured_at", nulls = Nulls.SKIP)
         public Builder capturedAt(Optional<String> capturedAt) {
             this.capturedAt = capturedAt;
@@ -188,6 +194,9 @@ public final class CardPaymentTimeline {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the payment was voided, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "voided_at", nulls = Nulls.SKIP)
         public Builder voidedAt(Optional<String> voidedAt) {
             this.voidedAt = voidedAt;

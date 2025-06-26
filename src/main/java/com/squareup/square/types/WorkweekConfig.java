@@ -143,30 +143,55 @@ public final class WorkweekConfig {
     }
 
     public interface StartOfWeekStage {
+        /**
+         * <p>The day of the week on which a business week starts for
+         * compensation purposes.
+         * See <a href="#type-weekday">Weekday</a> for possible values</p>
+         */
         StartOfDayLocalTimeStage startOfWeek(@NotNull Weekday startOfWeek);
 
         Builder from(WorkweekConfig other);
     }
 
     public interface StartOfDayLocalTimeStage {
+        /**
+         * <p>The local time at which a business week starts. Represented as a
+         * string in <code>HH:MM</code> format (<code>HH:MM:SS</code> is also accepted, but seconds are
+         * truncated).</p>
+         */
         _FinalStage startOfDayLocalTime(@NotNull String startOfDayLocalTime);
     }
 
     public interface _FinalStage {
         WorkweekConfig build();
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If not provided,
+         * Square executes a blind write; potentially overwriting data from another
+         * write.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
@@ -206,6 +231,9 @@ public final class WorkweekConfig {
          * <p>The day of the week on which a business week starts for
          * compensation purposes.
          * See <a href="#type-weekday">Weekday</a> for possible values</p>
+         * <p>The day of the week on which a business week starts for
+         * compensation purposes.
+         * See <a href="#type-weekday">Weekday</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -216,6 +244,9 @@ public final class WorkweekConfig {
         }
 
         /**
+         * <p>The local time at which a business week starts. Represented as a
+         * string in <code>HH:MM</code> format (<code>HH:MM:SS</code> is also accepted, but seconds are
+         * truncated).</p>
          * <p>The local time at which a business week starts. Represented as a
          * string in <code>HH:MM</code> format (<code>HH:MM:SS</code> is also accepted, but seconds are
          * truncated).</p>
@@ -239,6 +270,9 @@ public final class WorkweekConfig {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -256,6 +290,9 @@ public final class WorkweekConfig {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -276,6 +313,12 @@ public final class WorkweekConfig {
             return this;
         }
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If not provided,
+         * Square executes a blind write; potentially overwriting data from another
+         * write.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -293,6 +336,9 @@ public final class WorkweekConfig {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

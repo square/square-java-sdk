@@ -96,6 +96,9 @@ public final class CreateCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>The newly created <code>checkout</code> object associated with the provided idempotency key.</p>
+         */
         @JsonSetter(value = "checkout", nulls = Nulls.SKIP)
         public Builder checkout(Optional<Checkout> checkout) {
             this.checkout = checkout;
@@ -107,6 +110,9 @@ public final class CreateCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

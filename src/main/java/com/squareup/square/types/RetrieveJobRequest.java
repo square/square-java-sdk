@@ -66,6 +66,9 @@ public final class RetrieveJobRequest {
     }
 
     public interface JobIdStage {
+        /**
+         * <p>The ID of the job to retrieve.</p>
+         */
         _FinalStage jobId(@NotNull String jobId);
 
         Builder from(RetrieveJobRequest other);
@@ -91,6 +94,7 @@ public final class RetrieveJobRequest {
         }
 
         /**
+         * <p>The ID of the job to retrieve.</p>
          * <p>The ID of the job to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

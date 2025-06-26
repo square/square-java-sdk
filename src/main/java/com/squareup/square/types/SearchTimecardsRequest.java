@@ -112,6 +112,9 @@ public final class SearchTimecardsRequest {
             return this;
         }
 
+        /**
+         * <p>Query filters.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<TimecardQuery> query) {
             this.query = query;
@@ -123,6 +126,9 @@ public final class SearchTimecardsRequest {
             return this;
         }
 
+        /**
+         * <p>The number of resources in a page (200 by default).</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -134,6 +140,9 @@ public final class SearchTimecardsRequest {
             return this;
         }
 
+        /**
+         * <p>An opaque cursor for fetching the next page.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

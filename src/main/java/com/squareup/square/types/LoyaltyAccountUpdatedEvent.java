@@ -177,6 +177,9 @@ public final class LoyaltyAccountUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of the Square seller associated with the event.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -199,6 +202,9 @@ public final class LoyaltyAccountUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The type of event. For this event, the value is <code>loyalty.account.updated</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -221,6 +227,10 @@ public final class LoyaltyAccountUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The unique ID for the event, which is used for
+         * <a href="https://developer.squareup.com/docs/webhooks/step4manage#webhooks-best-practices">idempotency support</a>.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -243,6 +253,9 @@ public final class LoyaltyAccountUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the event was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -254,6 +267,9 @@ public final class LoyaltyAccountUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The data associated with the event.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<LoyaltyAccountUpdatedEventData> data) {
             this.data = data;

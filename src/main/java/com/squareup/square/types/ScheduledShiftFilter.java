@@ -233,6 +233,11 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts for the specified locations. When omitted, shifts for all
+         * locations are returned. If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a>
+         * to get location IDs.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -255,6 +260,10 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts whose <code>start_at</code> time is within the specified
+         * time range (inclusive).</p>
+         */
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
         public Builder start(Optional<TimeRange> start) {
             this.start = start;
@@ -266,6 +275,10 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts whose <code>end_at</code> time is within the specified
+         * time range (inclusive).</p>
+         */
         @JsonSetter(value = "end", nulls = Nulls.SKIP)
         public Builder end(Optional<TimeRange> end) {
             this.end = end;
@@ -277,6 +290,9 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts based on a workday date range.</p>
+         */
         @JsonSetter(value = "workday", nulls = Nulls.SKIP)
         public Builder workday(Optional<ScheduledShiftWorkday> workday) {
             this.workday = workday;
@@ -288,6 +304,13 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts assigned to specified team members. If needed, call
+         * <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a> to get team member IDs.</p>
+         * <p>To return only the shifts assigned to the specified team members, include the
+         * <code>assignment_status</code> filter in the query. Otherwise, all unassigned shifts are
+         * returned along with shifts assigned to the specified team members.</p>
+         */
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(Optional<List<String>> teamMemberIds) {
             this.teamMemberIds = teamMemberIds;
@@ -310,6 +333,14 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts based on whether a team member is assigned. A shift is
+         * assigned if the <code>team_member_id</code> field is populated in the <code>draft_shift_details</code>
+         * or <code>published_shift details</code> field of the shift.</p>
+         * <p>To return only draft or published shifts, include the <code>scheduled_shift_statuses</code>
+         * filter in the query.
+         * See <a href="#type-scheduledshiftfilterassignmentstatus">ScheduledShiftFilterAssignmentStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "assignment_status", nulls = Nulls.SKIP)
         public Builder assignmentStatus(Optional<ScheduledShiftFilterAssignmentStatus> assignmentStatus) {
             this.assignmentStatus = assignmentStatus;
@@ -321,6 +352,13 @@ public final class ScheduledShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Return shifts based on the draft or published status of the shift.
+         * A shift is published if the <code>published_shift_details</code> field is present.</p>
+         * <p>Note that shifts with <code>draft_shift_details.is_deleted</code> set to <code>true</code> are ignored
+         * with the <code>DRAFT</code> filter.
+         * See <a href="#type-scheduledshiftfilterscheduledshiftstatus">ScheduledShiftFilterScheduledShiftStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "scheduled_shift_statuses", nulls = Nulls.SKIP)
         public Builder scheduledShiftStatuses(
                 Optional<List<ScheduledShiftFilterScheduledShiftStatus>> scheduledShiftStatuses) {

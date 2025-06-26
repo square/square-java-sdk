@@ -115,6 +115,9 @@ public final class CreatePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class CreatePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>The created payment link.</p>
+         */
         @JsonSetter(value = "payment_link", nulls = Nulls.SKIP)
         public Builder paymentLink(Optional<PaymentLink> paymentLink) {
             this.paymentLink = paymentLink;
@@ -137,6 +143,9 @@ public final class CreatePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>The list of related objects.</p>
+         */
         @JsonSetter(value = "related_resources", nulls = Nulls.SKIP)
         public Builder relatedResources(Optional<PaymentLinkRelatedResources> relatedResources) {
             this.relatedResources = relatedResources;

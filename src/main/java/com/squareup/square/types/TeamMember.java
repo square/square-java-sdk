@@ -322,6 +322,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The unique ID for the team member.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -333,6 +336,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>A second ID used to associate the team member with an entity in another system.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -355,6 +361,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>Whether the team member is the owner of the Square account.</p>
+         */
         @JsonSetter(value = "is_owner", nulls = Nulls.SKIP)
         public Builder isOwner(Optional<Boolean> isOwner) {
             this.isOwner = isOwner;
@@ -366,6 +375,10 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>Describes the status of the team member.
+         * See <a href="#type-teammemberstatus">TeamMemberStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TeamMemberStatus> status) {
             this.status = status;
@@ -377,6 +390,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The given name (that is, the first name) associated with the team member.</p>
+         */
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public Builder givenName(Optional<String> givenName) {
             this.givenName = givenName;
@@ -399,6 +415,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The family name (that is, the last name) associated with the team member.</p>
+         */
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public Builder familyName(Optional<String> familyName) {
             this.familyName = familyName;
@@ -421,6 +440,10 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The email address associated with the team member. After accepting the invitation
+         * from Square, only the team member can change this value.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;
@@ -443,6 +466,11 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The team member's phone number, in E.164 format. For example:
+         * +14155552671 - the country code is 1 for US
+         * +551155256325 - the country code is 55 for BR</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -465,6 +493,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the team member was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -476,6 +507,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the team member was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -487,6 +521,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>Describes the team member's assigned locations.</p>
+         */
         @JsonSetter(value = "assigned_locations", nulls = Nulls.SKIP)
         public Builder assignedLocations(Optional<TeamMemberAssignedLocations> assignedLocations) {
             this.assignedLocations = assignedLocations;
@@ -498,6 +535,9 @@ public final class TeamMember {
             return this;
         }
 
+        /**
+         * <p>Information about the team member's overtime exemption status, job assignments, and compensation.</p>
+         */
         @JsonSetter(value = "wage_setting", nulls = Nulls.SKIP)
         public Builder wageSetting(Optional<WageSetting> wageSetting) {
             this.wageSetting = wageSetting;

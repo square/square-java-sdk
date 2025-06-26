@@ -115,6 +115,9 @@ public final class BatchGetCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class BatchGetCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:CatalogObject">CatalogObject</a>s returned.</p>
+         */
         @JsonSetter(value = "objects", nulls = Nulls.SKIP)
         public Builder objects(Optional<List<CatalogObject>> objects) {
             this.objects = objects;
@@ -137,6 +143,9 @@ public final class BatchGetCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:CatalogObject">CatalogObject</a>s referenced by the object in the <code>objects</code> field.</p>
+         */
         @JsonSetter(value = "related_objects", nulls = Nulls.SKIP)
         public Builder relatedObjects(Optional<List<CatalogObject>> relatedObjects) {
             this.relatedObjects = relatedObjects;

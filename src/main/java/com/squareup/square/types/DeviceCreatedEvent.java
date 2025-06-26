@@ -176,6 +176,9 @@ public final class DeviceCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The merchant the newly created device belongs to.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -198,6 +201,9 @@ public final class DeviceCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The type of event this represents. The value is <code>&quot;device.created&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -220,6 +226,9 @@ public final class DeviceCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>A UUID that uniquely identifies this device creation event.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -242,6 +251,9 @@ public final class DeviceCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The time when the device creation event was first created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -253,6 +265,9 @@ public final class DeviceCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The metadata associated with the device creation event.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<DeviceCreatedEventData> data) {
             this.data = data;

@@ -101,6 +101,10 @@ public final class CreateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The order to create. If this field is set, the only other top-level field that can be
+         * set is the <code>idempotency_key</code>.</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<Order> order) {
             this.order = order;
@@ -112,6 +116,14 @@ public final class CreateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A value you specify that uniquely identifies this
+         * order among orders you have created.</p>
+         * <p>If you are unsure whether a particular order was created successfully,
+         * you can try it again with the same idempotency key without
+         * worrying about creating duplicate orders.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public Builder idempotencyKey(Optional<String> idempotencyKey) {
             this.idempotencyKey = idempotencyKey;

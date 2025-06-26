@@ -98,6 +98,9 @@ public final class CreateInvoiceAttachmentResponse {
             return this;
         }
 
+        /**
+         * <p>Metadata about the attachment that was added to the invoice.</p>
+         */
         @JsonSetter(value = "attachment", nulls = Nulls.SKIP)
         public Builder attachment(Optional<InvoiceAttachment> attachment) {
             this.attachment = attachment;
@@ -109,6 +112,9 @@ public final class CreateInvoiceAttachmentResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

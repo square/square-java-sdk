@@ -118,6 +118,9 @@ public final class ListInvoicesRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location for which to list invoices.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(ListInvoicesRequest other);
@@ -126,12 +129,21 @@ public final class ListInvoicesRequest {
     public interface _FinalStage {
         ListInvoicesRequest build();
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
 
         _FinalStage cursor(Nullable<String> cursor);
 
+        /**
+         * <p>The maximum number of invoices to return (200 is the maximum <code>limit</code>).
+         * If not provided, the server uses a default limit of 100 invoices.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
@@ -161,6 +173,7 @@ public final class ListInvoicesRequest {
         }
 
         /**
+         * <p>The ID of the location for which to list invoices.</p>
          * <p>The ID of the location for which to list invoices.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -199,6 +212,10 @@ public final class ListInvoicesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of invoices to return (200 is the maximum <code>limit</code>).
+         * If not provided, the server uses a default limit of 100 invoices.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -236,6 +253,11 @@ public final class ListInvoicesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {

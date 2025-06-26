@@ -4,10 +4,7 @@
 package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.terminal.ActionsClient;
 import com.squareup.square.terminal.CheckoutsClient;
@@ -18,18 +15,12 @@ import com.squareup.square.types.DismissTerminalCheckoutRequest;
 import com.squareup.square.types.DismissTerminalCheckoutResponse;
 import com.squareup.square.types.DismissTerminalRefundRequest;
 import com.squareup.square.types.DismissTerminalRefundResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class TerminalClient {
     protected final ClientOptions clientOptions;
+
+    private final RawTerminalClient rawClient;
 
     protected final Supplier<ActionsClient> actionsClient;
 
@@ -39,9 +30,17 @@ public class TerminalClient {
 
     public TerminalClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawTerminalClient(clientOptions);
         this.actionsClient = Suppliers.memoize(() -> new ActionsClient(clientOptions));
         this.checkoutsClient = Suppliers.memoize(() -> new CheckoutsClient(clientOptions));
         this.refundsClient = Suppliers.memoize(() -> new RefundsClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawTerminalClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -49,7 +48,7 @@ public class TerminalClient {
      * <p>See <a href="https://developer.squareup.com/docs/terminal-api/advanced-features/custom-workflows/link-and-dismiss-actions">Link and Dismiss Actions</a> for more details.</p>
      */
     public DismissTerminalActionResponse dismissTerminalAction(DismissTerminalActionRequest request) {
-        return dismissTerminalAction(request, null);
+        return this.rawClient.dismissTerminalAction(request).body();
     }
 
     /**
@@ -58,43 +57,14 @@ public class TerminalClient {
      */
     public DismissTerminalActionResponse dismissTerminalAction(
             DismissTerminalActionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/actions")
-                .addPathSegment(request.getActionId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DismissTerminalActionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.dismissTerminalAction(request, requestOptions).body();
     }
 
     /**
      * Dismisses a Terminal checkout request if the status and type of the request permits it.
      */
     public DismissTerminalCheckoutResponse dismissTerminalCheckout(DismissTerminalCheckoutRequest request) {
-        return dismissTerminalCheckout(request, null);
+        return this.rawClient.dismissTerminalCheckout(request).body();
     }
 
     /**
@@ -102,44 +72,14 @@ public class TerminalClient {
      */
     public DismissTerminalCheckoutResponse dismissTerminalCheckout(
             DismissTerminalCheckoutRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/checkouts")
-                .addPathSegment(request.getCheckoutId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), DismissTerminalCheckoutResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.dismissTerminalCheckout(request, requestOptions).body();
     }
 
     /**
      * Dismisses a Terminal refund request if the status and type of the request permits it.
      */
     public DismissTerminalRefundResponse dismissTerminalRefund(DismissTerminalRefundRequest request) {
-        return dismissTerminalRefund(request, null);
+        return this.rawClient.dismissTerminalRefund(request).body();
     }
 
     /**
@@ -147,36 +87,7 @@ public class TerminalClient {
      */
     public DismissTerminalRefundResponse dismissTerminalRefund(
             DismissTerminalRefundRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .addPathSegment(request.getTerminalRefundId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DismissTerminalRefundResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.dismissTerminalRefund(request, requestOptions).body();
     }
 
     public ActionsClient actions() {

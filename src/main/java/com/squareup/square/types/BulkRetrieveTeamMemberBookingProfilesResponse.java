@@ -99,6 +99,9 @@ public final class BulkRetrieveTeamMemberBookingProfilesResponse {
             return this;
         }
 
+        /**
+         * <p>The returned team members' booking profiles, as a map with <code>team_member_id</code> as the key and <a href="entity:TeamMemberBookingProfile">TeamMemberBookingProfile</a> the value.</p>
+         */
         @JsonSetter(value = "team_member_booking_profiles", nulls = Nulls.SKIP)
         public Builder teamMemberBookingProfiles(
                 Optional<Map<String, GetTeamMemberBookingProfileResponse>> teamMemberBookingProfiles) {
@@ -112,6 +115,9 @@ public final class BulkRetrieveTeamMemberBookingProfilesResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

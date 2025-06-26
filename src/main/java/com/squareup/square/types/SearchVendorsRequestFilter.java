@@ -120,6 +120,9 @@ public final class SearchVendorsRequestFilter {
             return this;
         }
 
+        /**
+         * <p>The names of the <a href="entity:Vendor">Vendor</a> objects to retrieve.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<List<String>> name) {
             this.name = name;
@@ -142,6 +145,10 @@ public final class SearchVendorsRequestFilter {
             return this;
         }
 
+        /**
+         * <p>The statuses of the <a href="entity:Vendor">Vendor</a> objects to retrieve.
+         * See <a href="#type-vendorstatus">VendorStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<List<VendorStatus>> status) {
             this.status = status;

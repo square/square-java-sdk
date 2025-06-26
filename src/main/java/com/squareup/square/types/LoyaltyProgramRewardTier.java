@@ -125,26 +125,44 @@ public final class LoyaltyProgramRewardTier {
     }
 
     public interface PointsStage {
+        /**
+         * <p>The points exchanged for the reward tier.</p>
+         */
         PricingRuleReferenceStage points(int points);
 
         Builder from(LoyaltyProgramRewardTier other);
     }
 
     public interface PricingRuleReferenceStage {
+        /**
+         * <p>A reference to the specific version of a <code>PRICING_RULE</code> catalog object that contains information about the reward tier discount.</p>
+         * <p>Use <code>object_id</code> and <code>catalog_version</code> with the <a href="api-endpoint:Catalog-RetrieveCatalogObject">RetrieveCatalogObject</a> endpoint
+         * to get discount details. Make sure to set <code>include_related_objects</code> to true in the request to retrieve all catalog objects
+         * that define the discount. For more information, see <a href="https://developer.squareup.com/docs/loyalty-api/loyalty-rewards#get-discount-details">Getting discount details for a reward tier</a>.</p>
+         */
         _FinalStage pricingRuleReference(@NotNull CatalogObjectReference pricingRuleReference);
     }
 
     public interface _FinalStage {
         LoyaltyProgramRewardTier build();
 
+        /**
+         * <p>The Square-assigned ID of the reward tier.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The name of the reward tier.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
 
+        /**
+         * <p>The timestamp when the reward tier was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
@@ -179,6 +197,7 @@ public final class LoyaltyProgramRewardTier {
 
         /**
          * <p>The points exchanged for the reward tier.</p>
+         * <p>The points exchanged for the reward tier.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -189,6 +208,10 @@ public final class LoyaltyProgramRewardTier {
         }
 
         /**
+         * <p>A reference to the specific version of a <code>PRICING_RULE</code> catalog object that contains information about the reward tier discount.</p>
+         * <p>Use <code>object_id</code> and <code>catalog_version</code> with the <a href="api-endpoint:Catalog-RetrieveCatalogObject">RetrieveCatalogObject</a> endpoint
+         * to get discount details. Make sure to set <code>include_related_objects</code> to true in the request to retrieve all catalog objects
+         * that define the discount. For more information, see <a href="https://developer.squareup.com/docs/loyalty-api/loyalty-rewards#get-discount-details">Getting discount details for a reward tier</a>.</p>
          * <p>A reference to the specific version of a <code>PRICING_RULE</code> catalog object that contains information about the reward tier discount.</p>
          * <p>Use <code>object_id</code> and <code>catalog_version</code> with the <a href="api-endpoint:Catalog-RetrieveCatalogObject">RetrieveCatalogObject</a> endpoint
          * to get discount details. Make sure to set <code>include_related_objects</code> to true in the request to retrieve all catalog objects
@@ -213,6 +236,9 @@ public final class LoyaltyProgramRewardTier {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the reward tier was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -230,6 +256,9 @@ public final class LoyaltyProgramRewardTier {
             return this;
         }
 
+        /**
+         * <p>The name of the reward tier.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
@@ -247,6 +276,9 @@ public final class LoyaltyProgramRewardTier {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the reward tier.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

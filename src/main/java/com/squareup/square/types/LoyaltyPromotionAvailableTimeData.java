@@ -127,6 +127,10 @@ public final class LoyaltyPromotionAvailableTimeData {
             return this;
         }
 
+        /**
+         * <p>The date that the promotion starts, in <code>YYYY-MM-DD</code> format. Square populates this field
+         * based on the provided <code>time_periods</code>.</p>
+         */
         @JsonSetter(value = "start_date", nulls = Nulls.SKIP)
         public Builder startDate(Optional<String> startDate) {
             this.startDate = startDate;
@@ -138,6 +142,11 @@ public final class LoyaltyPromotionAvailableTimeData {
             return this;
         }
 
+        /**
+         * <p>The date that the promotion ends, in <code>YYYY-MM-DD</code> format. Square populates this field
+         * based on the provided <code>time_periods</code>. If an end date is not specified, an <code>ACTIVE</code> promotion
+         * remains available until it is canceled.</p>
+         */
         @JsonSetter(value = "end_date", nulls = Nulls.SKIP)
         public Builder endDate(Optional<String> endDate) {
             this.endDate = endDate;
@@ -149,6 +158,17 @@ public final class LoyaltyPromotionAvailableTimeData {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="https://tools.ietf.org/html/rfc5545#section-3.6.1">iCalendar (RFC 5545) events</a>
+         * (<code>VEVENT</code>). Each event represents an available time period per day or days of the week.
+         * A day can have a maximum of one available time period.</p>
+         * <p>Only <code>DTSTART</code>, <code>DURATION</code>, and <code>RRULE</code> are supported. <code>DTSTART</code> and <code>DURATION</code> are required and
+         * timestamps must be in local (unzoned) time format. Include <code>RRULE</code> to specify recurring promotions,
+         * an end date (using the <code>UNTIL</code> keyword), or both. For more information, see
+         * <a href="https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#available-time">Available time</a>.</p>
+         * <p>Note that <code>BEGIN:VEVENT</code> and <code>END:VEVENT</code> are optional in a <code>CreateLoyaltyPromotion</code> request
+         * but are always included in the response.</p>
+         */
         @JsonSetter(value = "time_periods", nulls = Nulls.SKIP)
         public Builder timePeriods(List<String> timePeriods) {
             this.timePeriods.clear();

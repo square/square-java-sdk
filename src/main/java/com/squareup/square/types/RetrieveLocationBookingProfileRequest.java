@@ -67,6 +67,9 @@ public final class RetrieveLocationBookingProfileRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to retrieve the booking profile.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(RetrieveLocationBookingProfileRequest other);
@@ -92,6 +95,7 @@ public final class RetrieveLocationBookingProfileRequest {
         }
 
         /**
+         * <p>The ID of the location to retrieve the booking profile.</p>
          * <p>The ID of the location to retrieve the booking profile.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

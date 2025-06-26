@@ -366,6 +366,10 @@ public final class Tender {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of tender, such as <code>CARD</code> or <code>CASH</code>.
+         * See <a href="#type-tendertype">TenderType</a> for possible values</p>
+         */
         _FinalStage type(@NotNull TenderType type);
 
         Builder from(Tender other);
@@ -374,76 +378,136 @@ public final class Tender {
     public interface _FinalStage {
         Tender build();
 
+        /**
+         * <p>The tender's unique ID. It is the associated payment ID.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The ID of the transaction's associated location.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
 
         _FinalStage locationId(Nullable<String> locationId);
 
+        /**
+         * <p>The ID of the tender's associated transaction.</p>
+         */
         _FinalStage transactionId(Optional<String> transactionId);
 
         _FinalStage transactionId(String transactionId);
 
         _FinalStage transactionId(Nullable<String> transactionId);
 
+        /**
+         * <p>The timestamp for when the tender was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>An optional note associated with the tender at the time of payment.</p>
+         */
         _FinalStage note(Optional<String> note);
 
         _FinalStage note(String note);
 
         _FinalStage note(Nullable<String> note);
 
+        /**
+         * <p>The total amount of the tender, including <code>tip_money</code>. If the tender has a <code>payment_id</code>,
+         * the <code>total_money</code> of the corresponding <a href="entity:Payment">Payment</a> will be equal to the
+         * <code>amount_money</code> of the tender.</p>
+         */
         _FinalStage amountMoney(Optional<Money> amountMoney);
 
         _FinalStage amountMoney(Money amountMoney);
 
+        /**
+         * <p>The tip's amount of the tender.</p>
+         */
         _FinalStage tipMoney(Optional<Money> tipMoney);
 
         _FinalStage tipMoney(Money tipMoney);
 
+        /**
+         * <p>The amount of any Square processing fees applied to the tender.</p>
+         * <p>This field is not immediately populated when a new transaction is created.
+         * It is usually available after about ten seconds.</p>
+         */
         _FinalStage processingFeeMoney(Optional<Money> processingFeeMoney);
 
         _FinalStage processingFeeMoney(Money processingFeeMoney);
 
+        /**
+         * <p>If the tender is associated with a customer or represents a customer's card on file,
+         * this is the ID of the associated customer.</p>
+         */
         _FinalStage customerId(Optional<String> customerId);
 
         _FinalStage customerId(String customerId);
 
         _FinalStage customerId(Nullable<String> customerId);
 
+        /**
+         * <p>The details of the card tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>CARD</code>.</p>
+         */
         _FinalStage cardDetails(Optional<TenderCardDetails> cardDetails);
 
         _FinalStage cardDetails(TenderCardDetails cardDetails);
 
+        /**
+         * <p>The details of the cash tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>CASH</code>.</p>
+         */
         _FinalStage cashDetails(Optional<TenderCashDetails> cashDetails);
 
         _FinalStage cashDetails(TenderCashDetails cashDetails);
 
+        /**
+         * <p>The details of the bank account tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>BANK_ACCOUNT</code>.</p>
+         */
         _FinalStage bankAccountDetails(Optional<TenderBankAccountDetails> bankAccountDetails);
 
         _FinalStage bankAccountDetails(TenderBankAccountDetails bankAccountDetails);
 
+        /**
+         * <p>The details of a Buy Now Pay Later tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>BUY_NOW_PAY_LATER</code>.</p>
+         */
         _FinalStage buyNowPayLaterDetails(Optional<TenderBuyNowPayLaterDetails> buyNowPayLaterDetails);
 
         _FinalStage buyNowPayLaterDetails(TenderBuyNowPayLaterDetails buyNowPayLaterDetails);
 
+        /**
+         * <p>The details of a Square Account tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>SQUARE_ACCOUNT</code>.</p>
+         */
         _FinalStage squareAccountDetails(Optional<TenderSquareAccountDetails> squareAccountDetails);
 
         _FinalStage squareAccountDetails(TenderSquareAccountDetails squareAccountDetails);
 
+        /**
+         * <p>Additional recipients (other than the merchant) receiving a portion of this tender.
+         * For example, fees assessed on the purchase by a third party integration.</p>
+         */
         _FinalStage additionalRecipients(Optional<List<AdditionalRecipient>> additionalRecipients);
 
         _FinalStage additionalRecipients(List<AdditionalRecipient> additionalRecipients);
 
         _FinalStage additionalRecipients(Nullable<List<AdditionalRecipient>> additionalRecipients);
 
+        /**
+         * <p>The ID of the <a href="entity:Payment">Payment</a> that corresponds to this tender.
+         * This value is only present for payments created with the v2 Payments API.</p>
+         */
         _FinalStage paymentId(Optional<String> paymentId);
 
         _FinalStage paymentId(String paymentId);
@@ -517,6 +581,8 @@ public final class Tender {
         /**
          * <p>The type of tender, such as <code>CARD</code> or <code>CASH</code>.
          * See <a href="#type-tendertype">TenderType</a> for possible values</p>
+         * <p>The type of tender, such as <code>CARD</code> or <code>CASH</code>.
+         * See <a href="#type-tendertype">TenderType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -554,6 +620,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Payment">Payment</a> that corresponds to this tender.
+         * This value is only present for payments created with the v2 Payments API.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public _FinalStage paymentId(Optional<String> paymentId) {
@@ -589,6 +659,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>Additional recipients (other than the merchant) receiving a portion of this tender.
+         * For example, fees assessed on the purchase by a third party integration.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "additional_recipients", nulls = Nulls.SKIP)
         public _FinalStage additionalRecipients(Optional<List<AdditionalRecipient>> additionalRecipients) {
@@ -607,6 +681,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The details of a Square Account tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>SQUARE_ACCOUNT</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "square_account_details", nulls = Nulls.SKIP)
         public _FinalStage squareAccountDetails(Optional<TenderSquareAccountDetails> squareAccountDetails) {
@@ -625,6 +703,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The details of a Buy Now Pay Later tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>BUY_NOW_PAY_LATER</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "buy_now_pay_later_details", nulls = Nulls.SKIP)
         public _FinalStage buyNowPayLaterDetails(Optional<TenderBuyNowPayLaterDetails> buyNowPayLaterDetails) {
@@ -643,6 +725,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The details of the bank account tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>BANK_ACCOUNT</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "bank_account_details", nulls = Nulls.SKIP)
         public _FinalStage bankAccountDetails(Optional<TenderBankAccountDetails> bankAccountDetails) {
@@ -661,6 +747,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The details of the cash tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>CASH</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cash_details", nulls = Nulls.SKIP)
         public _FinalStage cashDetails(Optional<TenderCashDetails> cashDetails) {
@@ -679,6 +769,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The details of the card tender.</p>
+         * <p>This value is present only if the value of <code>type</code> is <code>CARD</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "card_details", nulls = Nulls.SKIP)
         public _FinalStage cardDetails(Optional<TenderCardDetails> cardDetails) {
@@ -714,6 +808,10 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>If the tender is associated with a customer or represents a customer's card on file,
+         * this is the ID of the associated customer.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public _FinalStage customerId(Optional<String> customerId) {
@@ -733,6 +831,11 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The amount of any Square processing fees applied to the tender.</p>
+         * <p>This field is not immediately populated when a new transaction is created.
+         * It is usually available after about ten seconds.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "processing_fee_money", nulls = Nulls.SKIP)
         public _FinalStage processingFeeMoney(Optional<Money> processingFeeMoney) {
@@ -750,6 +853,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The tip's amount of the tender.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tip_money", nulls = Nulls.SKIP)
         public _FinalStage tipMoney(Optional<Money> tipMoney) {
@@ -769,6 +875,11 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The total amount of the tender, including <code>tip_money</code>. If the tender has a <code>payment_id</code>,
+         * the <code>total_money</code> of the corresponding <a href="entity:Payment">Payment</a> will be equal to the
+         * <code>amount_money</code> of the tender.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public _FinalStage amountMoney(Optional<Money> amountMoney) {
@@ -802,6 +913,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>An optional note associated with the tender at the time of payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public _FinalStage note(Optional<String> note) {
@@ -819,6 +933,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the tender was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -852,6 +969,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The ID of the tender's associated transaction.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "transaction_id", nulls = Nulls.SKIP)
         public _FinalStage transactionId(Optional<String> transactionId) {
@@ -885,6 +1005,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The ID of the transaction's associated location.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {
@@ -902,6 +1025,9 @@ public final class Tender {
             return this;
         }
 
+        /**
+         * <p>The tender's unique ID. It is the associated payment ID.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

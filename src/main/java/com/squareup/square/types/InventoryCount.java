@@ -236,6 +236,10 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the
+         * <a href="entity:CatalogObject">CatalogObject</a> being tracked.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -258,6 +262,11 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:CatalogObjectType">type</a> of the <a href="entity:CatalogObject">CatalogObject</a> being tracked.</p>
+         * <p>The Inventory API supports setting and reading the <code>&quot;catalog_object_type&quot;: &quot;ITEM_VARIATION&quot;</code> field value.
+         * In addition, it can also read the <code>&quot;catalog_object_type&quot;: &quot;ITEM&quot;</code> field value that is set by the Square Restaurants app.</p>
+         */
         @JsonSetter(value = "catalog_object_type", nulls = Nulls.SKIP)
         public Builder catalogObjectType(Optional<String> catalogObjectType) {
             this.catalogObjectType = catalogObjectType;
@@ -280,6 +289,11 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>The current <a href="entity:InventoryState">inventory state</a> for the related
+         * quantity of items.
+         * See <a href="#type-inventorystate">InventoryState</a> for possible values</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<InventoryState> state) {
             this.state = state;
@@ -291,6 +305,10 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the <a href="entity:Location">Location</a> where the related
+         * quantity of items is being tracked.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -313,6 +331,10 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>The number of items affected by the estimated count as a decimal string.
+         * Can support up to 5 digits after the decimal point.</p>
+         */
         @JsonSetter(value = "quantity", nulls = Nulls.SKIP)
         public Builder quantity(Optional<String> quantity) {
             this.quantity = quantity;
@@ -335,6 +357,10 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>An RFC 3339-formatted timestamp that indicates when the most recent physical count or adjustment affecting
+         * the estimated count is received.</p>
+         */
         @JsonSetter(value = "calculated_at", nulls = Nulls.SKIP)
         public Builder calculatedAt(Optional<String> calculatedAt) {
             this.calculatedAt = calculatedAt;
@@ -346,6 +372,13 @@ public final class InventoryCount {
             return this;
         }
 
+        /**
+         * <p>Whether the inventory count is for composed variation (TRUE) or not (FALSE). If true, the inventory count will not be present in the response of
+         * any of these endpoints: <a href="api-endpoint:Inventory-BatchChangeInventory">BatchChangeInventory</a>,
+         * <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a>,
+         * <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a>, and
+         * <a href="api-endpoint:Inventory-RetrieveInventoryChanges">RetrieveInventoryChanges</a>.</p>
+         */
         @JsonSetter(value = "is_estimated", nulls = Nulls.SKIP)
         public Builder isEstimated(Optional<Boolean> isEstimated) {
             this.isEstimated = isEstimated;

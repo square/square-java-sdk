@@ -77,12 +77,18 @@ public final class DeleteEvidenceRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute from which you want to remove evidence.</p>
+         */
         EvidenceIdStage disputeId(@NotNull String disputeId);
 
         Builder from(DeleteEvidenceRequest other);
     }
 
     public interface EvidenceIdStage {
+        /**
+         * <p>The ID of the evidence you want to remove.</p>
+         */
         _FinalStage evidenceId(@NotNull String evidenceId);
     }
 
@@ -110,6 +116,7 @@ public final class DeleteEvidenceRequest {
 
         /**
          * <p>The ID of the dispute from which you want to remove evidence.</p>
+         * <p>The ID of the dispute from which you want to remove evidence.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class DeleteEvidenceRequest {
         }
 
         /**
+         * <p>The ID of the evidence you want to remove.</p>
          * <p>The ID of the evidence you want to remove.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

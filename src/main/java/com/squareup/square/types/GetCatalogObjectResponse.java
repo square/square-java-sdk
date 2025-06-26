@@ -115,6 +115,9 @@ public final class GetCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class GetCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>The <code>CatalogObject</code>s returned.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<CatalogObject> object) {
             this.object = object;
@@ -137,6 +143,9 @@ public final class GetCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <code>CatalogObject</code>s referenced by the object in the <code>object</code> field.</p>
+         */
         @JsonSetter(value = "related_objects", nulls = Nulls.SKIP)
         public Builder relatedObjects(Optional<List<CatalogObject>> relatedObjects) {
             this.relatedObjects = relatedObjects;

@@ -286,6 +286,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The idempotency key for the request.	For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public Builder idempotencyKey(Optional<String> idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -297,6 +301,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The given name (that is, the first name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public Builder givenName(Optional<String> givenName) {
             this.givenName = givenName;
@@ -308,6 +316,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The family name (that is, the last name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public Builder familyName(Optional<String> familyName) {
             this.familyName = familyName;
@@ -319,6 +331,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A business name associated with the customer profile.</p>
+         * <p>The maximum length for this value is 500 characters.</p>
+         */
         @JsonSetter(value = "company_name", nulls = Nulls.SKIP)
         public Builder companyName(Optional<String> companyName) {
             this.companyName = companyName;
@@ -330,6 +346,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A nickname for the customer profile.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         @JsonSetter(value = "nickname", nulls = Nulls.SKIP)
         public Builder nickname(Optional<String> nickname) {
             this.nickname = nickname;
@@ -341,6 +361,10 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The email address associated with the customer profile.</p>
+         * <p>The maximum length for this value is 254 characters.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;
@@ -352,6 +376,11 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The physical address associated with the customer profile. For maximum length constraints, see
+         * <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#address">Customer addresses</a>.
+         * The <code>first_name</code> and <code>last_name</code> fields are ignored if they are present in the request.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;
@@ -363,6 +392,11 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The phone number associated with the customer profile. The phone number must be valid and can contain
+         * 9–16 digits, with an optional <code>+</code> prefix and country code. For more information, see
+         * <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number">Customer phone numbers</a>.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -374,6 +408,11 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>An optional second ID used to associate the customer profile with an
+         * entity in another system.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -385,6 +424,9 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A custom note associated with the customer profile.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -396,6 +438,11 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The birthday associated with the customer profile, in <code>YYYY-MM-DD</code> or <code>MM-DD</code> format. For example,
+         * specify <code>1998-09-21</code> for September 21, 1998, or <code>09-21</code> for September 21. Birthdays are returned in <code>YYYY-MM-DD</code>
+         * format, where <code>YYYY</code> is the specified birth year or <code>0000</code> if a birth year is not specified.</p>
+         */
         @JsonSetter(value = "birthday", nulls = Nulls.SKIP)
         public Builder birthday(Optional<String> birthday) {
             this.birthday = birthday;
@@ -407,6 +454,11 @@ public final class CreateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The tax ID associated with the customer profile. This field is available only for customers of sellers
+         * in EU countries or the United Kingdom. For more information,
+         * see <a href="https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids">Customer tax IDs</a>.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(Optional<CustomerTaxIds> taxIds) {
             this.taxIds = taxIds;

@@ -117,6 +117,9 @@ public final class CancelBookingRequest {
     }
 
     public interface BookingIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-cancelled booking.</p>
+         */
         _FinalStage bookingId(@NotNull String bookingId);
 
         Builder from(CancelBookingRequest other);
@@ -125,12 +128,18 @@ public final class CancelBookingRequest {
     public interface _FinalStage {
         CancelBookingRequest build();
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
 
         _FinalStage idempotencyKey(Nullable<String> idempotencyKey);
 
+        /**
+         * <p>The revision number for the booking used for optimistic concurrency.</p>
+         */
         _FinalStage bookingVersion(Optional<Integer> bookingVersion);
 
         _FinalStage bookingVersion(Integer bookingVersion);
@@ -160,6 +169,7 @@ public final class CancelBookingRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-cancelled booking.</p>
          * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-cancelled booking.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -196,6 +206,9 @@ public final class CancelBookingRequest {
             return this;
         }
 
+        /**
+         * <p>The revision number for the booking used for optimistic concurrency.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "booking_version", nulls = Nulls.SKIP)
         public _FinalStage bookingVersion(Optional<Integer> bookingVersion) {
@@ -229,6 +242,9 @@ public final class CancelBookingRequest {
             return this;
         }
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

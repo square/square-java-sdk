@@ -271,6 +271,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>The modifier name.  This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -293,6 +296,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>The modifier price.</p>
+         */
         @JsonSetter(value = "price_money", nulls = Nulls.SKIP)
         public Builder priceMoney(Optional<Money> priceMoney) {
             this.priceMoney = priceMoney;
@@ -304,6 +310,10 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>When <code>true</code>, this modifier is selected by default when displaying the modifier list.
+         * This setting can be overridden at the item level using <code>CatalogModifierListInfo.modifier_overrides</code>.</p>
+         */
         @JsonSetter(value = "on_by_default", nulls = Nulls.SKIP)
         public Builder onByDefault(Optional<Boolean> onByDefault) {
             this.onByDefault = onByDefault;
@@ -326,6 +336,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>Determines where this <code>CatalogModifier</code> appears in the <code>CatalogModifierList</code>.</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Integer> ordinal) {
             this.ordinal = ordinal;
@@ -348,6 +361,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>The ID of the <code>CatalogModifierList</code> associated with this modifier.</p>
+         */
         @JsonSetter(value = "modifier_list_id", nulls = Nulls.SKIP)
         public Builder modifierListId(Optional<String> modifierListId) {
             this.modifierListId = modifierListId;
@@ -370,6 +386,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>Location-specific price overrides.</p>
+         */
         @JsonSetter(value = "location_overrides", nulls = Nulls.SKIP)
         public Builder locationOverrides(Optional<List<ModifierLocationOverrides>> locationOverrides) {
             this.locationOverrides = locationOverrides;
@@ -392,6 +411,10 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>The ID of the image associated with this <code>CatalogModifier</code> instance.
+         * Currently this image is not displayed by Square, but is free to be displayed in 3rd party applications.</p>
+         */
         @JsonSetter(value = "image_id", nulls = Nulls.SKIP)
         public Builder imageId(Optional<String> imageId) {
             this.imageId = imageId;
@@ -414,6 +437,9 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>When <code>true</code>, this modifier is hidden from online ordering channels. This setting can be overridden at the item level using <code>CatalogModifierListInfo.modifier_overrides</code>.</p>
+         */
         @JsonSetter(value = "hidden_online", nulls = Nulls.SKIP)
         public Builder hiddenOnline(Optional<Boolean> hiddenOnline) {
             this.hiddenOnline = hiddenOnline;

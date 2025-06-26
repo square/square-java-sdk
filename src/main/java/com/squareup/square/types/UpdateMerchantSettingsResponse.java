@@ -98,6 +98,9 @@ public final class UpdateMerchantSettingsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred when updating the merchant settings.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class UpdateMerchantSettingsResponse {
             return this;
         }
 
+        /**
+         * <p>The updated merchant settings.</p>
+         */
         @JsonSetter(value = "merchant_settings", nulls = Nulls.SKIP)
         public Builder merchantSettings(Optional<CheckoutMerchantSettings> merchantSettings) {
             this.merchantSettings = merchantSettings;

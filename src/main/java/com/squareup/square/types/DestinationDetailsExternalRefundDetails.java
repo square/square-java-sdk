@@ -120,18 +120,43 @@ public final class DestinationDetailsExternalRefundDetails {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of external refund the seller paid to the buyer. It can be one of the
+         * following:</p>
+         * <ul>
+         * <li>CHECK - Refunded using a physical check.</li>
+         * <li>BANK_TRANSFER - Refunded using external bank transfer.</li>
+         * <li>OTHER_GIFT_CARD - Refunded using a non-Square gift card.</li>
+         * <li>CRYPTO - Refunded using a crypto currency.</li>
+         * <li>SQUARE_CASH - Refunded using Square Cash App.</li>
+         * <li>SOCIAL - Refunded using peer-to-peer payment applications.</li>
+         * <li>EXTERNAL - A third-party application gathered this refund outside of Square.</li>
+         * <li>EMONEY - Refunded using an E-money provider.</li>
+         * <li>CARD - A credit or debit card that Square does not support.</li>
+         * <li>STORED_BALANCE - Use for house accounts, store credit, and so forth.</li>
+         * <li>FOOD_VOUCHER - Restaurant voucher provided by employers to employees to pay for meals</li>
+         * <li>OTHER - A type not listed here.</li>
+         * </ul>
+         */
         SourceStage type(@NotNull String type);
 
         Builder from(DestinationDetailsExternalRefundDetails other);
     }
 
     public interface SourceStage {
+        /**
+         * <p>A description of the external refund source. For example,
+         * &quot;Food Delivery Service&quot;.</p>
+         */
         _FinalStage source(@NotNull String source);
     }
 
     public interface _FinalStage {
         DestinationDetailsExternalRefundDetails build();
 
+        /**
+         * <p>An ID to associate the refund to its originating source.</p>
+         */
         _FinalStage sourceId(Optional<String> sourceId);
 
         _FinalStage sourceId(String sourceId);
@@ -177,6 +202,22 @@ public final class DestinationDetailsExternalRefundDetails {
          * <li>FOOD_VOUCHER - Restaurant voucher provided by employers to employees to pay for meals</li>
          * <li>OTHER - A type not listed here.</li>
          * </ul>
+         * <p>The type of external refund the seller paid to the buyer. It can be one of the
+         * following:</p>
+         * <ul>
+         * <li>CHECK - Refunded using a physical check.</li>
+         * <li>BANK_TRANSFER - Refunded using external bank transfer.</li>
+         * <li>OTHER_GIFT_CARD - Refunded using a non-Square gift card.</li>
+         * <li>CRYPTO - Refunded using a crypto currency.</li>
+         * <li>SQUARE_CASH - Refunded using Square Cash App.</li>
+         * <li>SOCIAL - Refunded using peer-to-peer payment applications.</li>
+         * <li>EXTERNAL - A third-party application gathered this refund outside of Square.</li>
+         * <li>EMONEY - Refunded using an E-money provider.</li>
+         * <li>CARD - A credit or debit card that Square does not support.</li>
+         * <li>STORED_BALANCE - Use for house accounts, store credit, and so forth.</li>
+         * <li>FOOD_VOUCHER - Restaurant voucher provided by employers to employees to pay for meals</li>
+         * <li>OTHER - A type not listed here.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -187,6 +228,8 @@ public final class DestinationDetailsExternalRefundDetails {
         }
 
         /**
+         * <p>A description of the external refund source. For example,
+         * &quot;Food Delivery Service&quot;.</p>
          * <p>A description of the external refund source. For example,
          * &quot;Food Delivery Service&quot;.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -224,6 +267,9 @@ public final class DestinationDetailsExternalRefundDetails {
             return this;
         }
 
+        /**
+         * <p>An ID to associate the refund to its originating source.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "source_id", nulls = Nulls.SKIP)
         public _FinalStage sourceId(Optional<String> sourceId) {

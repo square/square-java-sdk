@@ -66,6 +66,9 @@ public final class CancelRefundsRequest {
     }
 
     public interface TerminalRefundIdStage {
+        /**
+         * <p>The unique ID for the desired <code>TerminalRefund</code>.</p>
+         */
         _FinalStage terminalRefundId(@NotNull String terminalRefundId);
 
         Builder from(CancelRefundsRequest other);
@@ -91,6 +94,7 @@ public final class CancelRefundsRequest {
         }
 
         /**
+         * <p>The unique ID for the desired <code>TerminalRefund</code>.</p>
          * <p>The unique ID for the desired <code>TerminalRefund</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

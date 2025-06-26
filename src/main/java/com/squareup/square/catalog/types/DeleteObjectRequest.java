@@ -68,6 +68,11 @@ public final class DeleteObjectRequest {
     }
 
     public interface ObjectIdStage {
+        /**
+         * <p>The ID of the catalog object to be deleted. When an object is deleted, other
+         * objects in the graph that depend on that object will be deleted as well (for example, deleting a
+         * catalog item will delete its catalog item variations).</p>
+         */
         _FinalStage objectId(@NotNull String objectId);
 
         Builder from(DeleteObjectRequest other);
@@ -93,6 +98,9 @@ public final class DeleteObjectRequest {
         }
 
         /**
+         * <p>The ID of the catalog object to be deleted. When an object is deleted, other
+         * objects in the graph that depend on that object will be deleted as well (for example, deleting a
+         * catalog item will delete its catalog item variations).</p>
          * <p>The ID of the catalog object to be deleted. When an object is deleted, other
          * objects in the graph that depend on that object will be deleted as well (for example, deleting a
          * catalog item will delete its catalog item variations).</p>

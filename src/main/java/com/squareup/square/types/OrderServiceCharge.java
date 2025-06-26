@@ -460,6 +460,9 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the service charge only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -482,6 +485,9 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The name of the service charge.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -504,6 +510,9 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The catalog object ID referencing the service charge <a href="entity:CatalogObject">CatalogObject</a>.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -526,6 +535,9 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this service charge references.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;
@@ -548,6 +560,11 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The service charge percentage as a string representation of a
+         * decimal number. For example, <code>&quot;7.25&quot;</code> indicates a service charge of 7.25%.</p>
+         * <p>Exactly 1 of <code>percentage</code> or <code>amount_money</code> should be set.</p>
+         */
         @JsonSetter(value = "percentage", nulls = Nulls.SKIP)
         public Builder percentage(Optional<String> percentage) {
             this.percentage = percentage;
@@ -570,6 +587,10 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The amount of a non-percentage-based service charge.</p>
+         * <p>Exactly one of <code>percentage</code> or <code>amount_money</code> should be set.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -581,6 +602,15 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The amount of money applied to the order by the service charge,
+         * including any inclusive tax amounts, as calculated by Square.</p>
+         * <ul>
+         * <li>For fixed-amount service charges, <code>applied_money</code> is equal to <code>amount_money</code>.</li>
+         * <li>For percentage-based service charges, <code>applied_money</code> is the money
+         * calculated using the percentage.</li>
+         * </ul>
+         */
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public Builder appliedMoney(Optional<Money> appliedMoney) {
             this.appliedMoney = appliedMoney;
@@ -592,6 +622,13 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The total amount of money to collect for the service charge.</p>
+         * <p><strong>Note</strong>: If an inclusive tax is applied to the service charge,
+         * <code>total_money</code> does not equal <code>applied_money</code> plus <code>total_tax_money</code>
+         * because the inclusive tax amount is already included in both
+         * <code>applied_money</code> and <code>total_tax_money</code>.</p>
+         */
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public Builder totalMoney(Optional<Money> totalMoney) {
             this.totalMoney = totalMoney;
@@ -603,6 +640,9 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The total amount of tax money to collect for the service charge.</p>
+         */
         @JsonSetter(value = "total_tax_money", nulls = Nulls.SKIP)
         public Builder totalTaxMoney(Optional<Money> totalTaxMoney) {
             this.totalTaxMoney = totalTaxMoney;
@@ -614,6 +654,10 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The calculation phase at which to apply the service charge.
+         * See <a href="#type-orderservicechargecalculationphase">OrderServiceChargeCalculationPhase</a> for possible values</p>
+         */
         @JsonSetter(value = "calculation_phase", nulls = Nulls.SKIP)
         public Builder calculationPhase(Optional<OrderServiceChargeCalculationPhase> calculationPhase) {
             this.calculationPhase = calculationPhase;
@@ -625,6 +669,11 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the service charge can be taxed. If set to <code>true</code>,
+         * order-level taxes automatically apply to the service charge. Note that
+         * service charges calculated in the <code>TOTAL_PHASE</code> cannot be marked as taxable.</p>
+         */
         @JsonSetter(value = "taxable", nulls = Nulls.SKIP)
         public Builder taxable(Optional<Boolean> taxable) {
             this.taxable = taxable;
@@ -647,6 +696,18 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The list of references to the taxes applied to this service charge. Each
+         * <code>OrderLineItemAppliedTax</code> has a <code>tax_uid</code> that references the <code>uid</code> of a top-level
+         * <code>OrderLineItemTax</code> that is being applied to this service charge. On reads, the amount applied
+         * is populated.</p>
+         * <p>An <code>OrderLineItemAppliedTax</code> is automatically created on every taxable service charge
+         * for all <code>ORDER</code> scoped taxes that are added to the order. <code>OrderLineItemAppliedTax</code> records
+         * for <code>LINE_ITEM</code> scoped taxes must be added in requests for the tax to apply to any taxable
+         * service charge. Taxable service charges have the <code>taxable</code> field set to <code>true</code> and calculated
+         * in the <code>SUBTOTAL_PHASE</code>.</p>
+         * <p>To change the amount of a tax, modify the referenced top-level tax.</p>
+         */
         @JsonSetter(value = "applied_taxes", nulls = Nulls.SKIP)
         public Builder appliedTaxes(Optional<List<OrderLineItemAppliedTax>> appliedTaxes) {
             this.appliedTaxes = appliedTaxes;
@@ -669,6 +730,21 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>Application-defined data attached to this service charge. Metadata fields are intended
+         * to store descriptive references or associations with an entity in another system or store brief
+         * information about the object. Square does not process this field; it only stores and returns it
+         * in relevant API calls. Do not use metadata to store any sensitive information (such as personally
+         * identifiable information or card details).</p>
+         * <p>Keys written by applications must be 60 characters or less and must be in the character set
+         * <code>[a-zA-Z0-9_-]</code>. Entries can also include metadata generated by Square. These keys are prefixed
+         * with a namespace, separated from the key with a ':' character.</p>
+         * <p>Values have a maximum length of 255 characters.</p>
+         * <p>An application can have up to 10 entries per metadata field.</p>
+         * <p>Entries written by applications are private and can only be read or modified by the same
+         * application.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/metadata">Metadata</a>.</p>
+         */
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public Builder metadata(Optional<Map<String, Optional<String>>> metadata) {
             this.metadata = metadata;
@@ -691,6 +767,10 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The type of the service charge.
+         * See <a href="#type-orderservicechargetype">OrderServiceChargeType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<OrderServiceChargeType> type) {
             this.type = type;
@@ -702,6 +782,10 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The treatment type of the service charge.
+         * See <a href="#type-orderservicechargetreatmenttype">OrderServiceChargeTreatmentType</a> for possible values</p>
+         */
         @JsonSetter(value = "treatment_type", nulls = Nulls.SKIP)
         public Builder treatmentType(Optional<OrderServiceChargeTreatmentType> treatmentType) {
             this.treatmentType = treatmentType;
@@ -713,6 +797,16 @@ public final class OrderServiceCharge {
             return this;
         }
 
+        /**
+         * <p>Indicates the level at which the apportioned service charge applies. For <code>ORDER</code>
+         * scoped service charges, Square generates references in <code>applied_service_charges</code> on
+         * all order line items that do not have them. For <code>LINE_ITEM</code> scoped service charges,
+         * the service charge only applies to line items with a service charge reference in their
+         * <code>applied_service_charges</code> field.</p>
+         * <p>This field is immutable. To change the scope of an apportioned service charge, you must delete
+         * the apportioned service charge and re-add it as a new apportioned service charge.
+         * See <a href="#type-orderservicechargescope">OrderServiceChargeScope</a> for possible values</p>
+         */
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
         public Builder scope(Optional<OrderServiceChargeScope> scope) {
             this.scope = scope;

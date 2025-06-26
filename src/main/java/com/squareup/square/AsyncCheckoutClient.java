@@ -3,14 +3,9 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.checkout.AsyncPaymentLinksClient;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.types.RetrieveLocationSettingsRequest;
 import com.squareup.square.types.RetrieveLocationSettingsResponse;
@@ -19,28 +14,27 @@ import com.squareup.square.types.UpdateLocationSettingsRequest;
 import com.squareup.square.types.UpdateLocationSettingsResponse;
 import com.squareup.square.types.UpdateMerchantSettingsRequest;
 import com.squareup.square.types.UpdateMerchantSettingsResponse;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncCheckoutClient {
     protected final ClientOptions clientOptions;
+
+    private final AsyncRawCheckoutClient rawClient;
 
     protected final Supplier<AsyncPaymentLinksClient> paymentLinksClient;
 
     public AsyncCheckoutClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawCheckoutClient(clientOptions);
         this.paymentLinksClient = Suppliers.memoize(() -> new AsyncPaymentLinksClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawCheckoutClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -48,7 +42,7 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<RetrieveLocationSettingsResponse> retrieveLocationSettings(
             RetrieveLocationSettingsRequest request) {
-        return retrieveLocationSettings(request, null);
+        return this.rawClient.retrieveLocationSettings(request).thenApply(response -> response.body());
     }
 
     /**
@@ -56,49 +50,7 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<RetrieveLocationSettingsResponse> retrieveLocationSettings(
             RetrieveLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<RetrieveLocationSettingsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), RetrieveLocationSettingsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.retrieveLocationSettings(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -106,7 +58,7 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<UpdateLocationSettingsResponse> updateLocationSettings(
             UpdateLocationSettingsRequest request) {
-        return updateLocationSettings(request, null);
+        return this.rawClient.updateLocationSettings(request).thenApply(response -> response.body());
     }
 
     /**
@@ -114,111 +66,21 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<UpdateLocationSettingsResponse> updateLocationSettings(
             UpdateLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpdateLocationSettingsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpdateLocationSettingsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.updateLocationSettings(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves the merchant-level settings for a Square-hosted checkout page.
      */
     public CompletableFuture<RetrieveMerchantSettingsResponse> retrieveMerchantSettings() {
-        return retrieveMerchantSettings(null);
+        return this.rawClient.retrieveMerchantSettings().thenApply(response -> response.body());
     }
 
     /**
      * Retrieves the merchant-level settings for a Square-hosted checkout page.
      */
     public CompletableFuture<RetrieveMerchantSettingsResponse> retrieveMerchantSettings(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<RetrieveMerchantSettingsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), RetrieveMerchantSettingsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.retrieveMerchantSettings(requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -226,7 +88,7 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<UpdateMerchantSettingsResponse> updateMerchantSettings(
             UpdateMerchantSettingsRequest request) {
-        return updateMerchantSettings(request, null);
+        return this.rawClient.updateMerchantSettings(request).thenApply(response -> response.body());
     }
 
     /**
@@ -234,55 +96,7 @@ public class AsyncCheckoutClient {
      */
     public CompletableFuture<UpdateMerchantSettingsResponse> updateMerchantSettings(
             UpdateMerchantSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpdateMerchantSettingsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpdateMerchantSettingsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.updateMerchantSettings(request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncPaymentLinksClient paymentLinks() {

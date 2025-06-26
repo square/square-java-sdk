@@ -96,6 +96,9 @@ public final class GetCustomerResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetCustomerResponse {
             return this;
         }
 
+        /**
+         * <p>The requested customer.</p>
+         */
         @JsonSetter(value = "customer", nulls = Nulls.SKIP)
         public Builder customer(Optional<Customer> customer) {
             this.customer = customer;

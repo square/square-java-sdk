@@ -106,6 +106,9 @@ public final class CashDrawerDevice {
             return this;
         }
 
+        /**
+         * <p>The device Square-issued ID</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -117,6 +120,9 @@ public final class CashDrawerDevice {
             return this;
         }
 
+        /**
+         * <p>The device merchant-specified name.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;

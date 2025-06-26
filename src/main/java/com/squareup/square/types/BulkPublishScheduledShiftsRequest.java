@@ -107,6 +107,14 @@ public final class BulkPublishScheduledShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>A map of 1 to 100 key-value pairs that represent individual publish requests.</p>
+         * <ul>
+         * <li>Each key is the ID of a scheduled shift you want to publish.</li>
+         * <li>Each value is a <code>BulkPublishScheduledShiftsData</code> object that contains the
+         * <code>version</code> field or is an empty object.</li>
+         * </ul>
+         */
         @JsonSetter(value = "scheduled_shifts", nulls = Nulls.SKIP)
         public Builder scheduledShifts(Map<String, BulkPublishScheduledShiftsData> scheduledShifts) {
             this.scheduledShifts.clear();
@@ -124,6 +132,12 @@ public final class BulkPublishScheduledShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether Square should send email notifications to team members and
+         * which team members should receive the notifications. This setting applies to all shifts
+         * specified in the bulk operation. The default value is <code>AFFECTED</code>.
+         * See <a href="#type-scheduledshiftnotificationaudience">ScheduledShiftNotificationAudience</a> for possible values</p>
+         */
         @JsonSetter(value = "scheduled_shift_notification_audience", nulls = Nulls.SKIP)
         public Builder scheduledShiftNotificationAudience(
                 Optional<ScheduledShiftNotificationAudience> scheduledShiftNotificationAudience) {

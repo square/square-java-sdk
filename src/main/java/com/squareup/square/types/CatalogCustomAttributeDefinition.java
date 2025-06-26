@@ -266,58 +266,112 @@ public final class CatalogCustomAttributeDefinition {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of this custom attribute. Cannot be modified after creation.
+         * Required.
+         * See <a href="#type-catalogcustomattributedefinitiontype">CatalogCustomAttributeDefinitionType</a> for possible values</p>
+         */
         NameStage type(@NotNull CatalogCustomAttributeDefinitionType type);
 
         Builder from(CatalogCustomAttributeDefinition other);
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of this definition for API and seller-facing UI purposes.
+         * The name must be unique within the (merchant, application) pair. Required.
+         * May not be empty and may not exceed 255 characters. Can be modified after creation.</p>
+         */
         _FinalStage name(@NotNull String name);
     }
 
     public interface _FinalStage {
         CatalogCustomAttributeDefinition build();
 
+        /**
+         * <p>Seller-oriented description of the meaning of this Custom Attribute,
+         * any constraints that the seller should observe, etc. May be displayed as a tooltip in Square UIs.</p>
+         */
         _FinalStage description(Optional<String> description);
 
         _FinalStage description(String description);
 
         _FinalStage description(Nullable<String> description);
 
+        /**
+         * <p><strong>Read only.</strong> Contains information about the application that
+         * created this custom attribute definition.</p>
+         */
         _FinalStage sourceApplication(Optional<SourceApplication> sourceApplication);
 
         _FinalStage sourceApplication(SourceApplication sourceApplication);
 
+        /**
+         * <p>The set of <code>CatalogObject</code> types that this custom atttribute may be applied to.
+         * Currently, only <code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, and <code>CATEGORY</code> are allowed. At least one type must be included.
+         * See <a href="#type-catalogobjecttype">CatalogObjectType</a> for possible values</p>
+         */
         _FinalStage allowedObjectTypes(List<CatalogObjectType> allowedObjectTypes);
 
         _FinalStage addAllowedObjectTypes(CatalogObjectType allowedObjectTypes);
 
         _FinalStage addAllAllowedObjectTypes(List<CatalogObjectType> allowedObjectTypes);
 
+        /**
+         * <p>The visibility of a custom attribute in seller-facing UIs (including Square Point
+         * of Sale applications and Square Dashboard). May be modified.
+         * See <a href="#type-catalogcustomattributedefinitionsellervisibility">CatalogCustomAttributeDefinitionSellerVisibility</a> for possible values</p>
+         */
         _FinalStage sellerVisibility(Optional<CatalogCustomAttributeDefinitionSellerVisibility> sellerVisibility);
 
         _FinalStage sellerVisibility(CatalogCustomAttributeDefinitionSellerVisibility sellerVisibility);
 
+        /**
+         * <p>The visibility of a custom attribute to applications other than the application
+         * that created the attribute.
+         * See <a href="#type-catalogcustomattributedefinitionappvisibility">CatalogCustomAttributeDefinitionAppVisibility</a> for possible values</p>
+         */
         _FinalStage appVisibility(Optional<CatalogCustomAttributeDefinitionAppVisibility> appVisibility);
 
         _FinalStage appVisibility(CatalogCustomAttributeDefinitionAppVisibility appVisibility);
 
+        /**
+         * <p>Optionally, populated when <code>type</code> = <code>STRING</code>, unset otherwise.</p>
+         */
         _FinalStage stringConfig(Optional<CatalogCustomAttributeDefinitionStringConfig> stringConfig);
 
         _FinalStage stringConfig(CatalogCustomAttributeDefinitionStringConfig stringConfig);
 
+        /**
+         * <p>Optionally, populated when <code>type</code> = <code>NUMBER</code>, unset otherwise.</p>
+         */
         _FinalStage numberConfig(Optional<CatalogCustomAttributeDefinitionNumberConfig> numberConfig);
 
         _FinalStage numberConfig(CatalogCustomAttributeDefinitionNumberConfig numberConfig);
 
+        /**
+         * <p>Populated when <code>type</code> is set to <code>SELECTION</code>, unset otherwise.</p>
+         */
         _FinalStage selectionConfig(Optional<CatalogCustomAttributeDefinitionSelectionConfig> selectionConfig);
 
         _FinalStage selectionConfig(CatalogCustomAttributeDefinitionSelectionConfig selectionConfig);
 
+        /**
+         * <p>The number of custom attributes that reference this
+         * custom attribute definition. Set by the server in response to a ListCatalog
+         * request with <code>include_counts</code> set to <code>true</code>.  If the actual count is greater
+         * than 100, <code>custom_attribute_usage_count</code> will be set to <code>100</code>.</p>
+         */
         _FinalStage customAttributeUsageCount(Optional<Integer> customAttributeUsageCount);
 
         _FinalStage customAttributeUsageCount(Integer customAttributeUsageCount);
 
+        /**
+         * <p>The name of the desired custom attribute key that can be used to access
+         * the custom attribute value on catalog objects. Cannot be modified after the
+         * custom attribute definition has been created.
+         * Must be between 1 and 60 characters, and may only contain the characters <code>[a-zA-Z0-9_-]</code>.</p>
+         */
         _FinalStage key(Optional<String> key);
 
         _FinalStage key(String key);
@@ -377,6 +431,9 @@ public final class CatalogCustomAttributeDefinition {
          * <p>The type of this custom attribute. Cannot be modified after creation.
          * Required.
          * See <a href="#type-catalogcustomattributedefinitiontype">CatalogCustomAttributeDefinitionType</a> for possible values</p>
+         * <p>The type of this custom attribute. Cannot be modified after creation.
+         * Required.
+         * See <a href="#type-catalogcustomattributedefinitiontype">CatalogCustomAttributeDefinitionType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -387,6 +444,9 @@ public final class CatalogCustomAttributeDefinition {
         }
 
         /**
+         * <p>The name of this definition for API and seller-facing UI purposes.
+         * The name must be unique within the (merchant, application) pair. Required.
+         * May not be empty and may not exceed 255 characters. Can be modified after creation.</p>
          * <p>The name of this definition for API and seller-facing UI purposes.
          * The name must be unique within the (merchant, application) pair. Required.
          * May not be empty and may not exceed 255 characters. Can be modified after creation.</p>
@@ -431,6 +491,12 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The name of the desired custom attribute key that can be used to access
+         * the custom attribute value on catalog objects. Cannot be modified after the
+         * custom attribute definition has been created.
+         * Must be between 1 and 60 characters, and may only contain the characters <code>[a-zA-Z0-9_-]</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public _FinalStage key(Optional<String> key) {
@@ -451,6 +517,12 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The number of custom attributes that reference this
+         * custom attribute definition. Set by the server in response to a ListCatalog
+         * request with <code>include_counts</code> set to <code>true</code>.  If the actual count is greater
+         * than 100, <code>custom_attribute_usage_count</code> will be set to <code>100</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "custom_attribute_usage_count", nulls = Nulls.SKIP)
         public _FinalStage customAttributeUsageCount(Optional<Integer> customAttributeUsageCount) {
@@ -468,6 +540,9 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Populated when <code>type</code> is set to <code>SELECTION</code>, unset otherwise.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "selection_config", nulls = Nulls.SKIP)
         public _FinalStage selectionConfig(Optional<CatalogCustomAttributeDefinitionSelectionConfig> selectionConfig) {
@@ -485,6 +560,9 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Optionally, populated when <code>type</code> = <code>NUMBER</code>, unset otherwise.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "number_config", nulls = Nulls.SKIP)
         public _FinalStage numberConfig(Optional<CatalogCustomAttributeDefinitionNumberConfig> numberConfig) {
@@ -502,6 +580,9 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Optionally, populated when <code>type</code> = <code>STRING</code>, unset otherwise.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "string_config", nulls = Nulls.SKIP)
         public _FinalStage stringConfig(Optional<CatalogCustomAttributeDefinitionStringConfig> stringConfig) {
@@ -521,6 +602,11 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The visibility of a custom attribute to applications other than the application
+         * that created the attribute.
+         * See <a href="#type-catalogcustomattributedefinitionappvisibility">CatalogCustomAttributeDefinitionAppVisibility</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "app_visibility", nulls = Nulls.SKIP)
         public _FinalStage appVisibility(Optional<CatalogCustomAttributeDefinitionAppVisibility> appVisibility) {
@@ -540,6 +626,11 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The visibility of a custom attribute in seller-facing UIs (including Square Point
+         * of Sale applications and Square Dashboard). May be modified.
+         * See <a href="#type-catalogcustomattributedefinitionsellervisibility">CatalogCustomAttributeDefinitionSellerVisibility</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "seller_visibility", nulls = Nulls.SKIP)
         public _FinalStage sellerVisibility(
@@ -572,6 +663,11 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The set of <code>CatalogObject</code> types that this custom atttribute may be applied to.
+         * Currently, only <code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, and <code>CATEGORY</code> are allowed. At least one type must be included.
+         * See <a href="#type-catalogobjecttype">CatalogObjectType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "allowed_object_types", nulls = Nulls.SKIP)
         public _FinalStage allowedObjectTypes(List<CatalogObjectType> allowedObjectTypes) {
@@ -591,6 +687,10 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p><strong>Read only.</strong> Contains information about the application that
+         * created this custom attribute definition.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "source_application", nulls = Nulls.SKIP)
         public _FinalStage sourceApplication(Optional<SourceApplication> sourceApplication) {
@@ -626,6 +726,10 @@ public final class CatalogCustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Seller-oriented description of the meaning of this Custom Attribute,
+         * any constraints that the seller should observe, etc. May be displayed as a tooltip in Square UIs.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {

@@ -133,22 +133,44 @@ public final class UpsertLocationCustomAttributeRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Location">location</a>.</p>
+         */
         KeyStage locationId(@NotNull String locationId);
 
         Builder from(UpsertLocationCustomAttributeRequest other);
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
+         */
         CustomAttributeStage key(@NotNull String key);
     }
 
     public interface CustomAttributeStage {
+        /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types">Supported data types</a>.</li>
+         * <li><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for an update operation, include the current version of the custom attribute.
+         * If this is not important for your application, version can be set to -1.</li>
+         * </ul>
+         */
         _FinalStage customAttribute(@NotNull CustomAttribute customAttribute);
     }
 
     public interface _FinalStage {
         UpsertLocationCustomAttributeRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -182,6 +204,7 @@ public final class UpsertLocationCustomAttributeRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Location">location</a>.</p>
+         * <p>The ID of the target <a href="entity:Location">location</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -195,6 +218,9 @@ public final class UpsertLocationCustomAttributeRequest {
          * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
          * custom attribute definition in the Square seller account. If the requesting application is not
          * the definition owner, you must use the qualified key.</p>
+         * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -205,6 +231,14 @@ public final class UpsertLocationCustomAttributeRequest {
         }
 
         /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types">Supported data types</a>.</li>
+         * <li><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for an update operation, include the current version of the custom attribute.
+         * If this is not important for your application, version can be set to -1.</li>
+         * </ul>
          * <p>The custom attribute to create or update, with the following fields:</p>
          * <ul>
          * <li><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
@@ -250,6 +284,10 @@ public final class UpsertLocationCustomAttributeRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

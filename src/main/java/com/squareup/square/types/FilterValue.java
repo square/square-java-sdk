@@ -144,6 +144,9 @@ public final class FilterValue {
             return this;
         }
 
+        /**
+         * <p>A list of terms that must be present on the field of the resource.</p>
+         */
         @JsonSetter(value = "all", nulls = Nulls.SKIP)
         public Builder all(Optional<List<String>> all) {
             this.all = all;
@@ -166,6 +169,10 @@ public final class FilterValue {
             return this;
         }
 
+        /**
+         * <p>A list of terms where at least one of them must be present on the
+         * field of the resource.</p>
+         */
         @JsonSetter(value = "any", nulls = Nulls.SKIP)
         public Builder any(Optional<List<String>> any) {
             this.any = any;
@@ -188,6 +195,9 @@ public final class FilterValue {
             return this;
         }
 
+        /**
+         * <p>A list of terms that must not be present on the field the resource</p>
+         */
         @JsonSetter(value = "none", nulls = Nulls.SKIP)
         public Builder none(Optional<List<String>> none) {
             this.none = none;

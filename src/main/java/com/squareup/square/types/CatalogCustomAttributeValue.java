@@ -255,6 +255,9 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>The name of the custom attribute.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -277,6 +280,9 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>The string value of the custom attribute.  Populated if <code>type</code> = <code>STRING</code>.</p>
+         */
         @JsonSetter(value = "string_value", nulls = Nulls.SKIP)
         public Builder stringValue(Optional<String> stringValue) {
             this.stringValue = stringValue;
@@ -299,6 +305,9 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>The id of the <a href="entity:CatalogCustomAttributeDefinition">CatalogCustomAttributeDefinition</a> this value belongs to.</p>
+         */
         @JsonSetter(value = "custom_attribute_definition_id", nulls = Nulls.SKIP)
         public Builder customAttributeDefinitionId(Optional<String> customAttributeDefinitionId) {
             this.customAttributeDefinitionId = customAttributeDefinitionId;
@@ -310,6 +319,10 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>A copy of type from the associated <code>CatalogCustomAttributeDefinition</code>.
+         * See <a href="#type-catalogcustomattributedefinitiontype">CatalogCustomAttributeDefinitionType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<CatalogCustomAttributeDefinitionType> type) {
             this.type = type;
@@ -321,6 +334,10 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>Populated if <code>type</code> = <code>NUMBER</code>. Contains a string
+         * representation of a decimal number, using a <code>.</code> as the decimal separator.</p>
+         */
         @JsonSetter(value = "number_value", nulls = Nulls.SKIP)
         public Builder numberValue(Optional<String> numberValue) {
             this.numberValue = numberValue;
@@ -343,6 +360,9 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>A <code>true</code> or <code>false</code> value. Populated if <code>type</code> = <code>BOOLEAN</code>.</p>
+         */
         @JsonSetter(value = "boolean_value", nulls = Nulls.SKIP)
         public Builder booleanValue(Optional<Boolean> booleanValue) {
             this.booleanValue = booleanValue;
@@ -365,6 +385,9 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>One or more choices from <code>allowed_selections</code>. Populated if <code>type</code> = <code>SELECTION</code>.</p>
+         */
         @JsonSetter(value = "selection_uid_values", nulls = Nulls.SKIP)
         public Builder selectionUidValues(Optional<List<String>> selectionUidValues) {
             this.selectionUidValues = selectionUidValues;
@@ -387,6 +410,11 @@ public final class CatalogCustomAttributeValue {
             return this;
         }
 
+        /**
+         * <p>If the associated <code>CatalogCustomAttributeDefinition</code> object is defined by another application, this key is prefixed by the defining application ID.
+         * For example, if the CatalogCustomAttributeDefinition has a key attribute of &quot;cocoa_brand&quot; and the defining application ID is &quot;abcd1234&quot;, this key is &quot;abcd1234:cocoa_brand&quot;
+         * when the application making the request is different from the application defining the custom attribute definition. Otherwise, the key is simply &quot;cocoa_brand&quot;.</p>
+         */
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public Builder key(Optional<String> key) {
             this.key = key;

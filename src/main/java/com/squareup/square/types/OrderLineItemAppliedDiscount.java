@@ -111,6 +111,12 @@ public final class OrderLineItemAppliedDiscount {
     }
 
     public interface DiscountUidStage {
+        /**
+         * <p>The <code>uid</code> of the discount that the applied discount represents. It must
+         * reference a discount present in the <code>order.discounts</code> field.</p>
+         * <p>This field is immutable. To change which discounts apply to a line item,
+         * you must delete the discount and re-add it as a new <code>OrderLineItemAppliedDiscount</code>.</p>
+         */
         _FinalStage discountUid(@NotNull String discountUid);
 
         Builder from(OrderLineItemAppliedDiscount other);
@@ -119,12 +125,18 @@ public final class OrderLineItemAppliedDiscount {
     public interface _FinalStage {
         OrderLineItemAppliedDiscount build();
 
+        /**
+         * <p>A unique ID that identifies the applied discount only within this order.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
 
         _FinalStage uid(Nullable<String> uid);
 
+        /**
+         * <p>The amount of money applied by the discount to the line item.</p>
+         */
         _FinalStage appliedMoney(Optional<Money> appliedMoney);
 
         _FinalStage appliedMoney(Money appliedMoney);
@@ -156,6 +168,10 @@ public final class OrderLineItemAppliedDiscount {
          * reference a discount present in the <code>order.discounts</code> field.</p>
          * <p>This field is immutable. To change which discounts apply to a line item,
          * you must delete the discount and re-add it as a new <code>OrderLineItemAppliedDiscount</code>.</p>
+         * <p>The <code>uid</code> of the discount that the applied discount represents. It must
+         * reference a discount present in the <code>order.discounts</code> field.</p>
+         * <p>This field is immutable. To change which discounts apply to a line item,
+         * you must delete the discount and re-add it as a new <code>OrderLineItemAppliedDiscount</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -175,6 +191,9 @@ public final class OrderLineItemAppliedDiscount {
             return this;
         }
 
+        /**
+         * <p>The amount of money applied by the discount to the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public _FinalStage appliedMoney(Optional<Money> appliedMoney) {
@@ -208,6 +227,9 @@ public final class OrderLineItemAppliedDiscount {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the applied discount only within this order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

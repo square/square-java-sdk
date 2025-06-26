@@ -129,6 +129,12 @@ public final class CatalogCustomAttributeDefinitionSelectionConfig {
             return this;
         }
 
+        /**
+         * <p>The maximum number of selections that can be set. The maximum value for this
+         * attribute is 100. The default value is 1. The value can be modified, but changing the value will not
+         * affect existing custom attribute values on objects. Clients need to
+         * handle custom attributes with more selected values than allowed by this limit.</p>
+         */
         @JsonSetter(value = "max_allowed_selections", nulls = Nulls.SKIP)
         public Builder maxAllowedSelections(Optional<Integer> maxAllowedSelections) {
             this.maxAllowedSelections = maxAllowedSelections;
@@ -151,6 +157,10 @@ public final class CatalogCustomAttributeDefinitionSelectionConfig {
             return this;
         }
 
+        /**
+         * <p>The set of valid <code>CatalogCustomAttributeSelections</code>. Up to a maximum of 100
+         * selections can be defined. Can be modified.</p>
+         */
         @JsonSetter(value = "allowed_selections", nulls = Nulls.SKIP)
         public Builder allowedSelections(
                 Optional<List<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection>>

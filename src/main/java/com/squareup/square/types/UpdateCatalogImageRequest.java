@@ -68,6 +68,11 @@ public final class UpdateCatalogImageRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this UpdateCatalogImage request.
+         * Keys can be any valid string but must be unique for every UpdateCatalogImage request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(UpdateCatalogImageRequest other);
@@ -93,6 +98,9 @@ public final class UpdateCatalogImageRequest {
         }
 
         /**
+         * <p>A unique string that identifies this UpdateCatalogImage request.
+         * Keys can be any valid string but must be unique for every UpdateCatalogImage request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
          * <p>A unique string that identifies this UpdateCatalogImage request.
          * Keys can be any valid string but must be unique for every UpdateCatalogImage request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>

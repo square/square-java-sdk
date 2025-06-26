@@ -145,6 +145,9 @@ public final class AchDetails {
             return this;
         }
 
+        /**
+         * <p>The routing number for the bank account.</p>
+         */
         @JsonSetter(value = "routing_number", nulls = Nulls.SKIP)
         public Builder routingNumber(Optional<String> routingNumber) {
             this.routingNumber = routingNumber;
@@ -167,6 +170,9 @@ public final class AchDetails {
             return this;
         }
 
+        /**
+         * <p>The last few digits of the bank account number.</p>
+         */
         @JsonSetter(value = "account_number_suffix", nulls = Nulls.SKIP)
         public Builder accountNumberSuffix(Optional<String> accountNumberSuffix) {
             this.accountNumberSuffix = accountNumberSuffix;
@@ -189,6 +195,10 @@ public final class AchDetails {
             return this;
         }
 
+        /**
+         * <p>The type of the bank account performing the transfer. The account type can be <code>CHECKING</code>,
+         * <code>SAVINGS</code>, or <code>UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "account_type", nulls = Nulls.SKIP)
         public Builder accountType(Optional<String> accountType) {
             this.accountType = accountType;

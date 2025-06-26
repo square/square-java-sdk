@@ -135,6 +135,9 @@ public final class PrePopulatedData {
             return this;
         }
 
+        /**
+         * <p>The buyer email to prepopulate in the payment form.</p>
+         */
         @JsonSetter(value = "buyer_email", nulls = Nulls.SKIP)
         public Builder buyerEmail(Optional<String> buyerEmail) {
             this.buyerEmail = buyerEmail;
@@ -157,6 +160,9 @@ public final class PrePopulatedData {
             return this;
         }
 
+        /**
+         * <p>The buyer phone number to prepopulate in the payment form.</p>
+         */
         @JsonSetter(value = "buyer_phone_number", nulls = Nulls.SKIP)
         public Builder buyerPhoneNumber(Optional<String> buyerPhoneNumber) {
             this.buyerPhoneNumber = buyerPhoneNumber;
@@ -179,6 +185,9 @@ public final class PrePopulatedData {
             return this;
         }
 
+        /**
+         * <p>The buyer address to prepopulate in the payment form.</p>
+         */
         @JsonSetter(value = "buyer_address", nulls = Nulls.SKIP)
         public Builder buyerAddress(Optional<Address> buyerAddress) {
             this.buyerAddress = buyerAddress;

@@ -271,6 +271,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>A Square-generated unique ID for the subscription.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -282,6 +285,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The name of this subscription.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -304,6 +310,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the subscription is enabled (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public Builder enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
@@ -326,6 +335,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The event types associated with this subscription.</p>
+         */
         @JsonSetter(value = "event_types", nulls = Nulls.SKIP)
         public Builder eventTypes(Optional<List<String>> eventTypes) {
             this.eventTypes = eventTypes;
@@ -348,6 +360,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The URL to which webhooks are sent.</p>
+         */
         @JsonSetter(value = "notification_url", nulls = Nulls.SKIP)
         public Builder notificationUrl(Optional<String> notificationUrl) {
             this.notificationUrl = notificationUrl;
@@ -370,6 +385,11 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The API version of the subscription.
+         * This field is optional for <code>CreateWebhookSubscription</code>.
+         * The value defaults to the API version used by the application.</p>
+         */
         @JsonSetter(value = "api_version", nulls = Nulls.SKIP)
         public Builder apiVersion(Optional<String> apiVersion) {
             this.apiVersion = apiVersion;
@@ -392,6 +412,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The Square-generated signature key used to validate the origin of the webhook event.</p>
+         */
         @JsonSetter(value = "signature_key", nulls = Nulls.SKIP)
         public Builder signatureKey(Optional<String> signatureKey) {
             this.signatureKey = signatureKey;
@@ -403,6 +426,9 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the subscription was created, in RFC 3339 format. For example, &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -414,6 +440,10 @@ public final class WebhookSubscription {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the subscription was last updated, in RFC 3339 format.
+         * For example, &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

@@ -109,6 +109,9 @@ public final class CatalogVersionUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -131,6 +134,9 @@ public final class CatalogVersionUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing fields and values relevant to the event. Is absent if affected object was deleted.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<CatalogVersionUpdatedEventObject> object) {
             this.object = object;

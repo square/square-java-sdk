@@ -229,6 +229,10 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>The filter to return results by <code>CatalogObject</code> ID.
+         * The filter is applicable only when set.  The default is null.</p>
+         */
         @JsonSetter(value = "catalog_object_ids", nulls = Nulls.SKIP)
         public Builder catalogObjectIds(Optional<List<String>> catalogObjectIds) {
             this.catalogObjectIds = catalogObjectIds;
@@ -251,6 +255,10 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>The filter to return results by <code>Location</code> ID.
+         * This filter is applicable only when set. The default is null.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -273,6 +281,11 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>The filter to return results with their <code>calculated_at</code> value
+         * after the given time as specified in an RFC 3339 timestamp.
+         * The default value is the UNIX epoch of (<code>1970-01-01T00:00:00Z</code>).</p>
+         */
         @JsonSetter(value = "updated_after", nulls = Nulls.SKIP)
         public Builder updatedAfter(Optional<String> updatedAfter) {
             this.updatedAfter = updatedAfter;
@@ -295,6 +308,11 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for the original query.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -317,6 +335,11 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>The filter to return results by <code>InventoryState</code>. The filter is only applicable when set.
+         * Ignored are untracked states of <code>NONE</code>, <code>SOLD</code>, and <code>UNLINKED_RETURN</code>.
+         * The default is null.</p>
+         */
         @JsonSetter(value = "states", nulls = Nulls.SKIP)
         public Builder states(Optional<List<InventoryState>> states) {
             this.states = states;
@@ -339,6 +362,9 @@ public final class BatchGetInventoryCountsRequest {
             return this;
         }
 
+        /**
+         * <p>The number of <a href="entity:InventoryCount">records</a> to return.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

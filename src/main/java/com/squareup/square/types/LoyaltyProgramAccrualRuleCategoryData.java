@@ -68,6 +68,10 @@ public final class LoyaltyProgramAccrualRuleCategoryData {
     }
 
     public interface CategoryIdStage {
+        /**
+         * <p>The ID of the <code>CATEGORY</code> <a href="entity:CatalogObject">catalog object</a> that buyers can purchase to earn
+         * points.</p>
+         */
         _FinalStage categoryId(@NotNull String categoryId);
 
         Builder from(LoyaltyProgramAccrualRuleCategoryData other);
@@ -93,6 +97,8 @@ public final class LoyaltyProgramAccrualRuleCategoryData {
         }
 
         /**
+         * <p>The ID of the <code>CATEGORY</code> <a href="entity:CatalogObject">catalog object</a> that buyers can purchase to earn
+         * points.</p>
          * <p>The ID of the <code>CATEGORY</code> <a href="entity:CatalogObject">catalog object</a> that buyers can purchase to earn
          * points.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

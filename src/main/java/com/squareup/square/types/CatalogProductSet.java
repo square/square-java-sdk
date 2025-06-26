@@ -268,6 +268,10 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>User-defined name for the product set. For example, &quot;Clearance Items&quot;
+         * or &quot;Winter Sale Items&quot;.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -290,6 +294,15 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>Unique IDs for any <code>CatalogObject</code> included in this product set. Any
+         * number of these catalog objects can be in an order for a pricing rule to apply.</p>
+         * <p>This can be used with <code>product_ids_all</code> in a parent <code>CatalogProductSet</code> to
+         * match groups of products for a bulk discount, such as a discount for an
+         * entree and side combo.</p>
+         * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
+         * <p>Max: 500 catalog object IDs.</p>
+         */
         @JsonSetter(value = "product_ids_any", nulls = Nulls.SKIP)
         public Builder productIdsAny(Optional<List<String>> productIdsAny) {
             this.productIdsAny = productIdsAny;
@@ -312,6 +325,12 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>Unique IDs for any <code>CatalogObject</code> included in this product set.
+         * All objects in this set must be included in an order for a pricing rule to apply.</p>
+         * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
+         * <p>Max: 500 catalog object IDs.</p>
+         */
         @JsonSetter(value = "product_ids_all", nulls = Nulls.SKIP)
         public Builder productIdsAll(Optional<List<String>> productIdsAll) {
             this.productIdsAll = productIdsAll;
@@ -334,6 +353,11 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>If set, there must be exactly this many items from <code>products_any</code> or <code>products_all</code>
+         * in the cart for the discount to apply.</p>
+         * <p>Cannot be combined with either <code>quantity_min</code> or <code>quantity_max</code>.</p>
+         */
         @JsonSetter(value = "quantity_exact", nulls = Nulls.SKIP)
         public Builder quantityExact(Optional<Long> quantityExact) {
             this.quantityExact = quantityExact;
@@ -356,6 +380,11 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>If set, there must be at least this many items from <code>products_any</code> or <code>products_all</code>
+         * in a cart for the discount to apply. See <code>quantity_exact</code>. Defaults to 0 if
+         * <code>quantity_exact</code>, <code>quantity_min</code> and <code>quantity_max</code> are all unspecified.</p>
+         */
         @JsonSetter(value = "quantity_min", nulls = Nulls.SKIP)
         public Builder quantityMin(Optional<Long> quantityMin) {
             this.quantityMin = quantityMin;
@@ -378,6 +407,10 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>If set, the pricing rule will apply to a maximum of this many items from
+         * <code>products_any</code> or <code>products_all</code>.</p>
+         */
         @JsonSetter(value = "quantity_max", nulls = Nulls.SKIP)
         public Builder quantityMax(Optional<Long> quantityMax) {
             this.quantityMax = quantityMax;
@@ -400,6 +433,10 @@ public final class CatalogProductSet {
             return this;
         }
 
+        /**
+         * <p>If set to <code>true</code>, the product set will include every item in the catalog.
+         * Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
+         */
         @JsonSetter(value = "all_products", nulls = Nulls.SKIP)
         public Builder allProducts(Optional<Boolean> allProducts) {
             this.allProducts = allProducts;

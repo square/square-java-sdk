@@ -66,6 +66,9 @@ public final class GetTransferInventoryRequest {
     }
 
     public interface TransferIdStage {
+        /**
+         * <p>ID of the <a href="entity:InventoryTransfer">InventoryTransfer</a> to retrieve.</p>
+         */
         _FinalStage transferId(@NotNull String transferId);
 
         Builder from(GetTransferInventoryRequest other);
@@ -91,6 +94,7 @@ public final class GetTransferInventoryRequest {
         }
 
         /**
+         * <p>ID of the <a href="entity:InventoryTransfer">InventoryTransfer</a> to retrieve.</p>
          * <p>ID of the <a href="entity:InventoryTransfer">InventoryTransfer</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

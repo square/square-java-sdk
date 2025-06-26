@@ -186,6 +186,9 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
+        /**
+         * <p>A boolean to represent whether the WiFI interface is currently active.</p>
+         */
         @JsonSetter(value = "active", nulls = Nulls.SKIP)
         public Builder active(Optional<Boolean> active) {
             this.active = active;
@@ -208,6 +211,9 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
+        /**
+         * <p>The name of the connected WIFI network.</p>
+         */
         @JsonSetter(value = "ssid", nulls = Nulls.SKIP)
         public Builder ssid(Optional<String> ssid) {
             this.ssid = ssid;
@@ -230,6 +236,9 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
+        /**
+         * <p>The string representation of the device’s IPv4 address.</p>
+         */
         @JsonSetter(value = "ip_address_v4", nulls = Nulls.SKIP)
         public Builder ipAddressV4(Optional<String> ipAddressV4) {
             this.ipAddressV4 = ipAddressV4;
@@ -252,6 +261,10 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
+        /**
+         * <p>The security protocol for a secure connection (e.g. WPA2). None provided if the connection
+         * is unsecured.</p>
+         */
         @JsonSetter(value = "secure_connection", nulls = Nulls.SKIP)
         public Builder secureConnection(Optional<String> secureConnection) {
             this.secureConnection = secureConnection;
@@ -274,6 +287,9 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
+        /**
+         * <p>A representation of signal strength of the WIFI network connection.</p>
+         */
         @JsonSetter(value = "signal_strength", nulls = Nulls.SKIP)
         public Builder signalStrength(Optional<DeviceComponentDetailsMeasurement> signalStrength) {
             this.signalStrength = signalStrength;

@@ -87,6 +87,11 @@ public final class BulkUpsertLocationCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>A map containing 1 to 25 individual upsert requests. For each request, provide an
+         * arbitrary ID that is unique for this <code>BulkUpsertLocationCustomAttributes</code> request and the
+         * information needed to create or update a custom attribute.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(
                 Map<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest> values) {

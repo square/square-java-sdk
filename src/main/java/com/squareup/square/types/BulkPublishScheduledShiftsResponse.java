@@ -106,6 +106,16 @@ public final class BulkPublishScheduledShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>A map of key-value pairs that represent responses for individual publish requests.
+         * The order of responses might differ from the order in which the requests were provided.</p>
+         * <ul>
+         * <li>Each key is the scheduled shift ID that was specified for a publish request.</li>
+         * <li>Each value is the corresponding response. If the request succeeds, the value is the
+         * published scheduled shift. If the request fails, the value is an <code>errors</code> array containing
+         * any errors that occurred while processing the request.</li>
+         * </ul>
+         */
         @JsonSetter(value = "responses", nulls = Nulls.SKIP)
         public Builder responses(Optional<Map<String, PublishScheduledShiftResponse>> responses) {
             this.responses = responses;
@@ -117,6 +127,9 @@ public final class BulkPublishScheduledShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>Any top-level errors that prevented the bulk operation from succeeding.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

@@ -66,6 +66,9 @@ public final class DeleteGroupsRequest {
     }
 
     public interface GroupIdStage {
+        /**
+         * <p>The ID of the customer group to delete.</p>
+         */
         _FinalStage groupId(@NotNull String groupId);
 
         Builder from(DeleteGroupsRequest other);
@@ -91,6 +94,7 @@ public final class DeleteGroupsRequest {
         }
 
         /**
+         * <p>The ID of the customer group to delete.</p>
          * <p>The ID of the customer group to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

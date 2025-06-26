@@ -107,16 +107,41 @@ public final class CreateGiftCardRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         LocationIdStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateGiftCardRequest other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Location">location</a> where the gift card should be registered for
+         * reporting purposes. Gift cards can be redeemed at any of the seller's locations.</p>
+         */
         GiftCardStage locationId(@NotNull String locationId);
     }
 
     public interface GiftCardStage {
+        /**
+         * <p>The gift card to create. The <code>type</code> field is required for this request. The <code>gan_source</code>
+         * and <code>gan</code> fields are included as follows:</p>
+         * <p>To direct Square to generate a 16-digit GAN, omit <code>gan_source</code> and <code>gan</code>.</p>
+         * <p>To provide a custom GAN, include <code>gan_source</code> and <code>gan</code>.</p>
+         * <ul>
+         * <li>For <code>gan_source</code>, specify <code>OTHER</code>.</li>
+         * <li>For <code>gan</code>, provide a custom GAN containing 8 to 20 alphanumeric characters. The GAN must be
+         * unique for the seller and cannot start with the same bank identification number (BIN) as major
+         * credit cards. Do not use GANs that are easy to guess (such as 12345678) because they greatly
+         * increase the risk of fraud. It is the responsibility of the developer to ensure the security
+         * of their custom GANs. For more information, see
+         * <a href="https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#custom-gans">Custom GANs</a>.</li>
+         * </ul>
+         * <p>To register an unused, physical gift card that the seller previously ordered from Square,
+         * include <code>gan</code> and provide the GAN that is printed on the gift card.</p>
+         */
         _FinalStage giftCard(@NotNull GiftCard giftCard);
     }
 
@@ -148,6 +173,8 @@ public final class CreateGiftCardRequest {
         /**
          * <p>A unique identifier for this request, used to ensure idempotency. For more information,
          * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -160,6 +187,8 @@ public final class CreateGiftCardRequest {
         /**
          * <p>The ID of the <a href="entity:Location">location</a> where the gift card should be registered for
          * reporting purposes. Gift cards can be redeemed at any of the seller's locations.</p>
+         * <p>The ID of the <a href="entity:Location">location</a> where the gift card should be registered for
+         * reporting purposes. Gift cards can be redeemed at any of the seller's locations.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -170,6 +199,21 @@ public final class CreateGiftCardRequest {
         }
 
         /**
+         * <p>The gift card to create. The <code>type</code> field is required for this request. The <code>gan_source</code>
+         * and <code>gan</code> fields are included as follows:</p>
+         * <p>To direct Square to generate a 16-digit GAN, omit <code>gan_source</code> and <code>gan</code>.</p>
+         * <p>To provide a custom GAN, include <code>gan_source</code> and <code>gan</code>.</p>
+         * <ul>
+         * <li>For <code>gan_source</code>, specify <code>OTHER</code>.</li>
+         * <li>For <code>gan</code>, provide a custom GAN containing 8 to 20 alphanumeric characters. The GAN must be
+         * unique for the seller and cannot start with the same bank identification number (BIN) as major
+         * credit cards. Do not use GANs that are easy to guess (such as 12345678) because they greatly
+         * increase the risk of fraud. It is the responsibility of the developer to ensure the security
+         * of their custom GANs. For more information, see
+         * <a href="https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#custom-gans">Custom GANs</a>.</li>
+         * </ul>
+         * <p>To register an unused, physical gift card that the seller previously ordered from Square,
+         * include <code>gan</code> and provide the GAN that is printed on the gift card.</p>
          * <p>The gift card to create. The <code>type</code> field is required for this request. The <code>gan_source</code>
          * and <code>gan</code> fields are included as follows:</p>
          * <p>To direct Square to generate a 16-digit GAN, omit <code>gan_source</code> and <code>gan</code>.</p>

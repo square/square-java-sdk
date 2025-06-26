@@ -136,6 +136,10 @@ public final class SearchOrdersResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:OrderEntry">OrderEntries</a> that fit the query
+         * conditions. The list is populated only if <code>return_entries</code> is set to <code>true</code> in the request.</p>
+         */
         @JsonSetter(value = "order_entries", nulls = Nulls.SKIP)
         public Builder orderEntries(Optional<List<OrderEntry>> orderEntries) {
             this.orderEntries = orderEntries;
@@ -147,6 +151,11 @@ public final class SearchOrdersResponse {
             return this;
         }
 
+        /**
+         * <p>A list of
+         * <a href="entity:Order">Order</a> objects that match the query conditions. The list is populated only if
+         * <code>return_entries</code> is set to <code>false</code> in the request.</p>
+         */
         @JsonSetter(value = "orders", nulls = Nulls.SKIP)
         public Builder orders(Optional<List<Order>> orders) {
             this.orders = orders;
@@ -158,6 +167,11 @@ public final class SearchOrdersResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If unset,
+         * this is the final response.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -169,6 +183,9 @@ public final class SearchOrdersResponse {
             return this;
         }
 
+        /**
+         * <p><a href="entity:Error">Errors</a> encountered during the search.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

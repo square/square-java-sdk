@@ -111,6 +111,12 @@ public final class OrderLineItemAppliedServiceCharge {
     }
 
     public interface ServiceChargeUidStage {
+        /**
+         * <p>The <code>uid</code> of the service charge that the applied service charge represents. It must
+         * reference a service charge present in the <code>order.service_charges</code> field.</p>
+         * <p>This field is immutable. To change which service charges apply to a line item,
+         * delete and add a new <code>OrderLineItemAppliedServiceCharge</code>.</p>
+         */
         _FinalStage serviceChargeUid(@NotNull String serviceChargeUid);
 
         Builder from(OrderLineItemAppliedServiceCharge other);
@@ -119,12 +125,18 @@ public final class OrderLineItemAppliedServiceCharge {
     public interface _FinalStage {
         OrderLineItemAppliedServiceCharge build();
 
+        /**
+         * <p>A unique ID that identifies the applied service charge only within this order.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
 
         _FinalStage uid(Nullable<String> uid);
 
+        /**
+         * <p>The amount of money applied by the service charge to the line item.</p>
+         */
         _FinalStage appliedMoney(Optional<Money> appliedMoney);
 
         _FinalStage appliedMoney(Money appliedMoney);
@@ -156,6 +168,10 @@ public final class OrderLineItemAppliedServiceCharge {
          * reference a service charge present in the <code>order.service_charges</code> field.</p>
          * <p>This field is immutable. To change which service charges apply to a line item,
          * delete and add a new <code>OrderLineItemAppliedServiceCharge</code>.</p>
+         * <p>The <code>uid</code> of the service charge that the applied service charge represents. It must
+         * reference a service charge present in the <code>order.service_charges</code> field.</p>
+         * <p>This field is immutable. To change which service charges apply to a line item,
+         * delete and add a new <code>OrderLineItemAppliedServiceCharge</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -175,6 +191,9 @@ public final class OrderLineItemAppliedServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The amount of money applied by the service charge to the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public _FinalStage appliedMoney(Optional<Money> appliedMoney) {
@@ -208,6 +227,9 @@ public final class OrderLineItemAppliedServiceCharge {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the applied service charge only within this order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

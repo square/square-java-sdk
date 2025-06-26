@@ -93,6 +93,9 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(UpdateWebhookSubscriptionSignatureKeyRequest other);
@@ -101,6 +104,9 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
     public interface _FinalStage {
         UpdateWebhookSubscriptionSignatureKeyRequest build();
 
+        /**
+         * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey">UpdateWebhookSubscriptionSignatureKey</a> request.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -127,6 +133,7 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
         }
 
         /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
          * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -163,6 +170,9 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey">UpdateWebhookSubscriptionSignatureKey</a> request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

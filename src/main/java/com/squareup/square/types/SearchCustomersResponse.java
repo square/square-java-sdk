@@ -139,6 +139,9 @@ public final class SearchCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -150,6 +153,11 @@ public final class SearchCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>The customer profiles that match the search query. If any search condition is not met, the result is an empty object (<code>{}</code>).
+         * Only customer profiles with public information (<code>given_name</code>, <code>family_name</code>, <code>company_name</code>, <code>email_address</code>, or <code>phone_number</code>)
+         * are included in the response.</p>
+         */
         @JsonSetter(value = "customers", nulls = Nulls.SKIP)
         public Builder customers(Optional<List<Customer>> customers) {
             this.customers = customers;
@@ -161,6 +169,13 @@ public final class SearchCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor that can be used during subsequent calls
+         * to <code>SearchCustomers</code> to retrieve the next set of results associated
+         * with the original query. Pagination cursors are only present when
+         * a request succeeds and additional results are available.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -172,6 +187,11 @@ public final class SearchCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>The total count of customers associated with the Square account that match the search query. Only customer profiles with
+         * public information (<code>given_name</code>, <code>family_name</code>, <code>company_name</code>, <code>email_address</code>, or <code>phone_number</code>) are counted. This field is
+         * present only if <code>count</code> is set to <code>true</code> in the request.</p>
+         */
         @JsonSetter(value = "count", nulls = Nulls.SKIP)
         public Builder count(Optional<Long> count) {
             this.count = count;

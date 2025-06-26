@@ -169,6 +169,11 @@ public final class JobAssignment {
     }
 
     public interface PayTypeStage {
+        /**
+         * <p>The current pay type for the job assignment used to
+         * calculate the pay amount in a pay period.
+         * See <a href="#type-jobassignmentpaytype">JobAssignmentPayType</a> for possible values</p>
+         */
         _FinalStage payType(@NotNull JobAssignmentPayType payType);
 
         Builder from(JobAssignment other);
@@ -177,26 +182,42 @@ public final class JobAssignment {
     public interface _FinalStage {
         JobAssignment build();
 
+        /**
+         * <p>The title of the job.</p>
+         */
         _FinalStage jobTitle(Optional<String> jobTitle);
 
         _FinalStage jobTitle(String jobTitle);
 
         _FinalStage jobTitle(Nullable<String> jobTitle);
 
+        /**
+         * <p>The hourly pay rate of the job. For <code>SALARY</code> pay types, Square calculates the hourly rate based on
+         * <code>annual_rate</code> and <code>weekly_hours</code>.</p>
+         */
         _FinalStage hourlyRate(Optional<Money> hourlyRate);
 
         _FinalStage hourlyRate(Money hourlyRate);
 
+        /**
+         * <p>The total pay amount for a 12-month period on the job. Set if the job <code>PayType</code> is <code>SALARY</code>.</p>
+         */
         _FinalStage annualRate(Optional<Money> annualRate);
 
         _FinalStage annualRate(Money annualRate);
 
+        /**
+         * <p>The planned hours per week for the job. Set if the job <code>PayType</code> is <code>SALARY</code>.</p>
+         */
         _FinalStage weeklyHours(Optional<Integer> weeklyHours);
 
         _FinalStage weeklyHours(Integer weeklyHours);
 
         _FinalStage weeklyHours(Nullable<Integer> weeklyHours);
 
+        /**
+         * <p>The ID of the <a href="entity:Job">job</a>.</p>
+         */
         _FinalStage jobId(Optional<String> jobId);
 
         _FinalStage jobId(String jobId);
@@ -238,6 +259,9 @@ public final class JobAssignment {
          * <p>The current pay type for the job assignment used to
          * calculate the pay amount in a pay period.
          * See <a href="#type-jobassignmentpaytype">JobAssignmentPayType</a> for possible values</p>
+         * <p>The current pay type for the job assignment used to
+         * calculate the pay amount in a pay period.
+         * See <a href="#type-jobassignmentpaytype">JobAssignmentPayType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -273,6 +297,9 @@ public final class JobAssignment {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Job">job</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "job_id", nulls = Nulls.SKIP)
         public _FinalStage jobId(Optional<String> jobId) {
@@ -306,6 +333,9 @@ public final class JobAssignment {
             return this;
         }
 
+        /**
+         * <p>The planned hours per week for the job. Set if the job <code>PayType</code> is <code>SALARY</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "weekly_hours", nulls = Nulls.SKIP)
         public _FinalStage weeklyHours(Optional<Integer> weeklyHours) {
@@ -323,6 +353,9 @@ public final class JobAssignment {
             return this;
         }
 
+        /**
+         * <p>The total pay amount for a 12-month period on the job. Set if the job <code>PayType</code> is <code>SALARY</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "annual_rate", nulls = Nulls.SKIP)
         public _FinalStage annualRate(Optional<Money> annualRate) {
@@ -341,6 +374,10 @@ public final class JobAssignment {
             return this;
         }
 
+        /**
+         * <p>The hourly pay rate of the job. For <code>SALARY</code> pay types, Square calculates the hourly rate based on
+         * <code>annual_rate</code> and <code>weekly_hours</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "hourly_rate", nulls = Nulls.SKIP)
         public _FinalStage hourlyRate(Optional<Money> hourlyRate) {
@@ -374,6 +411,9 @@ public final class JobAssignment {
             return this;
         }
 
+        /**
+         * <p>The title of the job.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "job_title", nulls = Nulls.SKIP)
         public _FinalStage jobTitle(Optional<String> jobTitle) {

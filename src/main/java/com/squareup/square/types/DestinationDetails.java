@@ -114,6 +114,9 @@ public final class DestinationDetails {
             return this;
         }
 
+        /**
+         * <p>Details about a card refund. Only populated if the destination_type is <code>CARD</code>.</p>
+         */
         @JsonSetter(value = "card_details", nulls = Nulls.SKIP)
         public Builder cardDetails(Optional<DestinationDetailsCardRefundDetails> cardDetails) {
             this.cardDetails = cardDetails;
@@ -125,6 +128,9 @@ public final class DestinationDetails {
             return this;
         }
 
+        /**
+         * <p>Details about a cash refund. Only populated if the destination_type is <code>CASH</code>.</p>
+         */
         @JsonSetter(value = "cash_details", nulls = Nulls.SKIP)
         public Builder cashDetails(Optional<DestinationDetailsCashRefundDetails> cashDetails) {
             this.cashDetails = cashDetails;
@@ -136,6 +142,9 @@ public final class DestinationDetails {
             return this;
         }
 
+        /**
+         * <p>Details about an external refund. Only populated if the destination_type is <code>EXTERNAL</code>.</p>
+         */
         @JsonSetter(value = "external_details", nulls = Nulls.SKIP)
         public Builder externalDetails(Optional<DestinationDetailsExternalRefundDetails> externalDetails) {
             this.externalDetails = externalDetails;

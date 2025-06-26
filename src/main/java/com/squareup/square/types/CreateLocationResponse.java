@@ -96,6 +96,9 @@ public final class CreateLocationResponse {
             return this;
         }
 
+        /**
+         * <p>Information about <a href="https://developer.squareup.com/docs/build-basics/handling-errors">errors</a> encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class CreateLocationResponse {
             return this;
         }
 
+        /**
+         * <p>The newly created <code>Location</code> object.</p>
+         */
         @JsonSetter(value = "location", nulls = Nulls.SKIP)
         public Builder location(Optional<Location> location) {
             this.location = location;

@@ -82,12 +82,21 @@ public final class CreateTerminalActionRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>CreateAction</code> request. Keys can be any valid string
+         * but must be unique for every <code>CreateAction</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more
+         * information.</p>
+         */
         ActionStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateTerminalActionRequest other);
     }
 
     public interface ActionStage {
+        /**
+         * <p>The Action to create.</p>
+         */
         _FinalStage action(@NotNull TerminalAction action);
     }
 
@@ -118,6 +127,10 @@ public final class CreateTerminalActionRequest {
          * but must be unique for every <code>CreateAction</code> request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more
          * information.</p>
+         * <p>A unique string that identifies this <code>CreateAction</code> request. Keys can be any valid string
+         * but must be unique for every <code>CreateAction</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more
+         * information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -128,6 +141,7 @@ public final class CreateTerminalActionRequest {
         }
 
         /**
+         * <p>The Action to create.</p>
          * <p>The Action to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

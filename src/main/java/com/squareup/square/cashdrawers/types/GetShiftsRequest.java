@@ -77,12 +77,18 @@ public final class GetShiftsRequest {
     }
 
     public interface ShiftIdStage {
+        /**
+         * <p>The shift ID.</p>
+         */
         LocationIdStage shiftId(@NotNull String shiftId);
 
         Builder from(GetShiftsRequest other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to retrieve cash drawer shifts from.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
@@ -110,6 +116,7 @@ public final class GetShiftsRequest {
 
         /**
          * <p>The shift ID.</p>
+         * <p>The shift ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class GetShiftsRequest {
         }
 
         /**
+         * <p>The ID of the location to retrieve cash drawer shifts from.</p>
          * <p>The ID of the location to retrieve cash drawer shifts from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

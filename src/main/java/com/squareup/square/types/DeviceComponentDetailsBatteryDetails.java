@@ -111,6 +111,9 @@ public final class DeviceComponentDetailsBatteryDetails {
             return this;
         }
 
+        /**
+         * <p>The battery charge percentage as displayed on the device.</p>
+         */
         @JsonSetter(value = "visible_percent", nulls = Nulls.SKIP)
         public Builder visiblePercent(Optional<Integer> visiblePercent) {
             this.visiblePercent = visiblePercent;
@@ -133,6 +136,10 @@ public final class DeviceComponentDetailsBatteryDetails {
             return this;
         }
 
+        /**
+         * <p>The status of external_power.
+         * See <a href="#type-externalpower">ExternalPower</a> for possible values</p>
+         */
         @JsonSetter(value = "external_power", nulls = Nulls.SKIP)
         public Builder externalPower(Optional<DeviceComponentDetailsExternalPower> externalPower) {
             this.externalPower = externalPower;

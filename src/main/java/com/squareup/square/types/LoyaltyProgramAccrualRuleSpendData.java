@@ -138,24 +138,42 @@ public final class LoyaltyProgramAccrualRuleSpendData {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount that buyers must spend to earn points.
+         * For example, given an &quot;Earn 1 point for every $10 spent&quot; accrual rule, a buyer who spends $105 earns 10 points.</p>
+         */
         TaxModeStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(LoyaltyProgramAccrualRuleSpendData other);
     }
 
     public interface TaxModeStage {
+        /**
+         * <p>Indicates how taxes should be treated when calculating the purchase amount used for points accrual.
+         * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
+         */
         _FinalStage taxMode(@NotNull LoyaltyProgramAccrualRuleTaxMode taxMode);
     }
 
     public interface _FinalStage {
         LoyaltyProgramAccrualRuleSpendData build();
 
+        /**
+         * <p>The IDs of any <code>CATEGORY</code> catalog objects that are excluded from points accrual.</p>
+         * <p>You can use the <a href="api-endpoint:Catalog-BatchRetrieveCatalogObjects">BatchRetrieveCatalogObjects</a>
+         * endpoint to retrieve information about the excluded categories.</p>
+         */
         _FinalStage excludedCategoryIds(Optional<List<String>> excludedCategoryIds);
 
         _FinalStage excludedCategoryIds(List<String> excludedCategoryIds);
 
         _FinalStage excludedCategoryIds(Nullable<List<String>> excludedCategoryIds);
 
+        /**
+         * <p>The IDs of any <code>ITEM_VARIATION</code> catalog objects that are excluded from points accrual.</p>
+         * <p>You can use the <a href="api-endpoint:Catalog-BatchRetrieveCatalogObjects">BatchRetrieveCatalogObjects</a>
+         * endpoint to retrieve information about the excluded item variations.</p>
+         */
         _FinalStage excludedItemVariationIds(Optional<List<String>> excludedItemVariationIds);
 
         _FinalStage excludedItemVariationIds(List<String> excludedItemVariationIds);
@@ -190,6 +208,8 @@ public final class LoyaltyProgramAccrualRuleSpendData {
         /**
          * <p>The amount that buyers must spend to earn points.
          * For example, given an &quot;Earn 1 point for every $10 spent&quot; accrual rule, a buyer who spends $105 earns 10 points.</p>
+         * <p>The amount that buyers must spend to earn points.
+         * For example, given an &quot;Earn 1 point for every $10 spent&quot; accrual rule, a buyer who spends $105 earns 10 points.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -200,6 +220,8 @@ public final class LoyaltyProgramAccrualRuleSpendData {
         }
 
         /**
+         * <p>Indicates how taxes should be treated when calculating the purchase amount used for points accrual.
+         * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
          * <p>Indicates how taxes should be treated when calculating the purchase amount used for points accrual.
          * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -241,6 +263,11 @@ public final class LoyaltyProgramAccrualRuleSpendData {
             return this;
         }
 
+        /**
+         * <p>The IDs of any <code>ITEM_VARIATION</code> catalog objects that are excluded from points accrual.</p>
+         * <p>You can use the <a href="api-endpoint:Catalog-BatchRetrieveCatalogObjects">BatchRetrieveCatalogObjects</a>
+         * endpoint to retrieve information about the excluded item variations.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "excluded_item_variation_ids", nulls = Nulls.SKIP)
         public _FinalStage excludedItemVariationIds(Optional<List<String>> excludedItemVariationIds) {
@@ -278,6 +305,11 @@ public final class LoyaltyProgramAccrualRuleSpendData {
             return this;
         }
 
+        /**
+         * <p>The IDs of any <code>CATEGORY</code> catalog objects that are excluded from points accrual.</p>
+         * <p>You can use the <a href="api-endpoint:Catalog-BatchRetrieveCatalogObjects">BatchRetrieveCatalogObjects</a>
+         * endpoint to retrieve information about the excluded categories.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "excluded_category_ids", nulls = Nulls.SKIP)
         public _FinalStage excludedCategoryIds(Optional<List<String>> excludedCategoryIds) {

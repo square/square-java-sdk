@@ -96,6 +96,9 @@ public final class LinkCustomerToGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class LinkCustomerToGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>The gift card with the ID of the linked customer listed in the <code>customer_ids</code> field.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;

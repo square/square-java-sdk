@@ -96,6 +96,10 @@ public final class VendorCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The operation on the vendor that caused the event to be published. The value is <code>CREATED</code>.
+         * See <a href="#type-operation">Operation</a> for possible values</p>
+         */
         @JsonSetter(value = "operation", nulls = Nulls.SKIP)
         public Builder operation(Optional<String> operation) {
             this.operation = operation;
@@ -107,6 +111,9 @@ public final class VendorCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created vendor as the result of the specified operation.</p>
+         */
         @JsonSetter(value = "vendor", nulls = Nulls.SKIP)
         public Builder vendor(Optional<Vendor> vendor) {
             this.vendor = vendor;

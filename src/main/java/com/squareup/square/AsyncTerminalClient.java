@@ -4,10 +4,7 @@
 package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.terminal.AsyncActionsClient;
 import com.squareup.square.terminal.AsyncCheckoutsClient;
@@ -18,22 +15,13 @@ import com.squareup.square.types.DismissTerminalCheckoutRequest;
 import com.squareup.square.types.DismissTerminalCheckoutResponse;
 import com.squareup.square.types.DismissTerminalRefundRequest;
 import com.squareup.square.types.DismissTerminalRefundResponse;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncTerminalClient {
     protected final ClientOptions clientOptions;
+
+    private final AsyncRawTerminalClient rawClient;
 
     protected final Supplier<AsyncActionsClient> actionsClient;
 
@@ -43,9 +31,17 @@ public class AsyncTerminalClient {
 
     public AsyncTerminalClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawTerminalClient(clientOptions);
         this.actionsClient = Suppliers.memoize(() -> new AsyncActionsClient(clientOptions));
         this.checkoutsClient = Suppliers.memoize(() -> new AsyncCheckoutsClient(clientOptions));
         this.refundsClient = Suppliers.memoize(() -> new AsyncRefundsClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawTerminalClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -54,7 +50,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalActionResponse> dismissTerminalAction(
             DismissTerminalActionRequest request) {
-        return dismissTerminalAction(request, null);
+        return this.rawClient.dismissTerminalAction(request).thenApply(response -> response.body());
     }
 
     /**
@@ -63,50 +59,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalActionResponse> dismissTerminalAction(
             DismissTerminalActionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/actions")
-                .addPathSegment(request.getActionId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<DismissTerminalActionResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), DismissTerminalActionResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.dismissTerminalAction(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -114,7 +67,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalCheckoutResponse> dismissTerminalCheckout(
             DismissTerminalCheckoutRequest request) {
-        return dismissTerminalCheckout(request, null);
+        return this.rawClient.dismissTerminalCheckout(request).thenApply(response -> response.body());
     }
 
     /**
@@ -122,50 +75,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalCheckoutResponse> dismissTerminalCheckout(
             DismissTerminalCheckoutRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/checkouts")
-                .addPathSegment(request.getCheckoutId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<DismissTerminalCheckoutResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), DismissTerminalCheckoutResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.dismissTerminalCheckout(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -173,7 +83,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalRefundResponse> dismissTerminalRefund(
             DismissTerminalRefundRequest request) {
-        return dismissTerminalRefund(request, null);
+        return this.rawClient.dismissTerminalRefund(request).thenApply(response -> response.body());
     }
 
     /**
@@ -181,50 +91,7 @@ public class AsyncTerminalClient {
      */
     public CompletableFuture<DismissTerminalRefundResponse> dismissTerminalRefund(
             DismissTerminalRefundRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .addPathSegment(request.getTerminalRefundId())
-                .addPathSegments("dismiss")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<DismissTerminalRefundResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), DismissTerminalRefundResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.dismissTerminalRefund(request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncActionsClient actions() {

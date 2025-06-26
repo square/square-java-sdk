@@ -89,6 +89,9 @@ public final class CreateInvoiceAttachmentRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to attach the file to.</p>
+         */
         _FinalStage invoiceId(@NotNull String invoiceId);
 
         Builder from(CreateInvoiceAttachmentRequest other);
@@ -128,6 +131,7 @@ public final class CreateInvoiceAttachmentRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to attach the file to.</p>
          * <p>The ID of the <a href="entity:Invoice">invoice</a> to attach the file to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

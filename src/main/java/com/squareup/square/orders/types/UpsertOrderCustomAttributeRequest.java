@@ -134,22 +134,46 @@ public final class UpsertOrderCustomAttributeRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         */
         CustomAttributeKeyStage orderId(@NotNull String orderId);
 
         Builder from(UpsertOrderCustomAttributeRequest other);
     }
 
     public interface CustomAttributeKeyStage {
+        /**
+         * <p>The key of the custom attribute to create or update.  This key must match the key
+         * of an existing custom attribute definition.</p>
+         */
         CustomAttributeStage customAttributeKey(@NotNull String customAttributeKey);
     }
 
     public interface CustomAttributeStage {
+        /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attributes#value-data-types">Value data types</a>.</p>
+         * </li>
+         * <li>
+         * <p><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         * </li>
+         * </ul>
+         */
         _FinalStage customAttribute(@NotNull CustomAttribute customAttribute);
     }
 
     public interface _FinalStage {
         UpsertOrderCustomAttributeRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -184,6 +208,7 @@ public final class UpsertOrderCustomAttributeRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -196,6 +221,8 @@ public final class UpsertOrderCustomAttributeRequest {
         /**
          * <p>The key of the custom attribute to create or update.  This key must match the key
          * of an existing custom attribute definition.</p>
+         * <p>The key of the custom attribute to create or update.  This key must match the key
+         * of an existing custom attribute definition.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -206,6 +233,17 @@ public final class UpsertOrderCustomAttributeRequest {
         }
 
         /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attributes#value-data-types">Value data types</a>.</p>
+         * </li>
+         * <li>
+         * <p><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         * </li>
+         * </ul>
          * <p>The custom attribute to create or update, with the following fields:</p>
          * <ul>
          * <li>
@@ -254,6 +292,10 @@ public final class UpsertOrderCustomAttributeRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

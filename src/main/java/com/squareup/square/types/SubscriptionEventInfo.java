@@ -110,6 +110,9 @@ public final class SubscriptionEventInfo {
             return this;
         }
 
+        /**
+         * <p>A human-readable explanation for the event.</p>
+         */
         @JsonSetter(value = "detail", nulls = Nulls.SKIP)
         public Builder detail(Optional<String> detail) {
             this.detail = detail;
@@ -132,6 +135,10 @@ public final class SubscriptionEventInfo {
             return this;
         }
 
+        /**
+         * <p>An info code indicating the subscription event that occurred.
+         * See <a href="#type-infocode">InfoCode</a> for possible values</p>
+         */
         @JsonSetter(value = "code", nulls = Nulls.SKIP)
         public Builder code(Optional<SubscriptionEventInfoCode> code) {
             this.code = code;

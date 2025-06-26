@@ -166,6 +166,10 @@ public final class SubscriptionPhase {
     }
 
     public interface CadenceStage {
+        /**
+         * <p>The billing cadence of the phase. For example, weekly or monthly. This field cannot be changed after a <code>SubscriptionPhase</code> is created.
+         * See <a href="#type-subscriptioncadence">SubscriptionCadence</a> for possible values</p>
+         */
         _FinalStage cadence(@NotNull SubscriptionCadence cadence);
 
         Builder from(SubscriptionPhase other);
@@ -174,28 +178,43 @@ public final class SubscriptionPhase {
     public interface _FinalStage {
         SubscriptionPhase build();
 
+        /**
+         * <p>The Square-assigned ID of the subscription phase. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
 
         _FinalStage uid(Nullable<String> uid);
 
+        /**
+         * <p>The number of <code>cadence</code>s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         _FinalStage periods(Optional<Integer> periods);
 
         _FinalStage periods(Integer periods);
 
         _FinalStage periods(Nullable<Integer> periods);
 
+        /**
+         * <p>The amount to bill for each <code>cadence</code>. Failure to specify this field results in a <code>MISSING_REQUIRED_PARAMETER</code> error at runtime.</p>
+         */
         _FinalStage recurringPriceMoney(Optional<Money> recurringPriceMoney);
 
         _FinalStage recurringPriceMoney(Money recurringPriceMoney);
 
+        /**
+         * <p>The position this phase appears in the sequence of phases defined for the plan, indexed from 0. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         _FinalStage ordinal(Optional<Long> ordinal);
 
         _FinalStage ordinal(Long ordinal);
 
         _FinalStage ordinal(Nullable<Long> ordinal);
 
+        /**
+         * <p>The subscription pricing.</p>
+         */
         _FinalStage pricing(Optional<SubscriptionPricing> pricing);
 
         _FinalStage pricing(SubscriptionPricing pricing);
@@ -234,6 +253,8 @@ public final class SubscriptionPhase {
         /**
          * <p>The billing cadence of the phase. For example, weekly or monthly. This field cannot be changed after a <code>SubscriptionPhase</code> is created.
          * See <a href="#type-subscriptioncadence">SubscriptionCadence</a> for possible values</p>
+         * <p>The billing cadence of the phase. For example, weekly or monthly. This field cannot be changed after a <code>SubscriptionPhase</code> is created.
+         * See <a href="#type-subscriptioncadence">SubscriptionCadence</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -253,6 +274,9 @@ public final class SubscriptionPhase {
             return this;
         }
 
+        /**
+         * <p>The subscription pricing.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pricing", nulls = Nulls.SKIP)
         public _FinalStage pricing(Optional<SubscriptionPricing> pricing) {
@@ -286,6 +310,9 @@ public final class SubscriptionPhase {
             return this;
         }
 
+        /**
+         * <p>The position this phase appears in the sequence of phases defined for the plan, indexed from 0. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public _FinalStage ordinal(Optional<Long> ordinal) {
@@ -303,6 +330,9 @@ public final class SubscriptionPhase {
             return this;
         }
 
+        /**
+         * <p>The amount to bill for each <code>cadence</code>. Failure to specify this field results in a <code>MISSING_REQUIRED_PARAMETER</code> error at runtime.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "recurring_price_money", nulls = Nulls.SKIP)
         public _FinalStage recurringPriceMoney(Optional<Money> recurringPriceMoney) {
@@ -336,6 +366,9 @@ public final class SubscriptionPhase {
             return this;
         }
 
+        /**
+         * <p>The number of <code>cadence</code>s the phase lasts. If not set, the phase never ends. Only the last phase can be indefinite. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "periods", nulls = Nulls.SKIP)
         public _FinalStage periods(Optional<Integer> periods) {
@@ -369,6 +402,9 @@ public final class SubscriptionPhase {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the subscription phase. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

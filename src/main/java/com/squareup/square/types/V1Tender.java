@@ -416,6 +416,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The tender's unique ID.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -427,6 +430,10 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The type of tender.
+         * See <a href="#type-v1tendertype">V1TenderType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<V1TenderType> type) {
             this.type = type;
@@ -438,6 +445,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>A human-readable description of the tender.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -460,6 +470,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The ID of the employee that processed the tender.</p>
+         */
         @JsonSetter(value = "employee_id", nulls = Nulls.SKIP)
         public Builder employeeId(Optional<String> employeeId) {
             this.employeeId = employeeId;
@@ -482,6 +495,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The URL of the receipt for the tender.</p>
+         */
         @JsonSetter(value = "receipt_url", nulls = Nulls.SKIP)
         public Builder receiptUrl(Optional<String> receiptUrl) {
             this.receiptUrl = receiptUrl;
@@ -504,6 +520,10 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The brand of credit card provided.
+         * See <a href="#type-v1tendercardbrand">V1TenderCardBrand</a> for possible values</p>
+         */
         @JsonSetter(value = "card_brand", nulls = Nulls.SKIP)
         public Builder cardBrand(Optional<V1TenderCardBrand> cardBrand) {
             this.cardBrand = cardBrand;
@@ -515,6 +535,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The last four digits of the provided credit card's account number.</p>
+         */
         @JsonSetter(value = "pan_suffix", nulls = Nulls.SKIP)
         public Builder panSuffix(Optional<String> panSuffix) {
             this.panSuffix = panSuffix;
@@ -537,6 +560,10 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The tender's unique ID.
+         * See <a href="#type-v1tenderentrymethod">V1TenderEntryMethod</a> for possible values</p>
+         */
         @JsonSetter(value = "entry_method", nulls = Nulls.SKIP)
         public Builder entryMethod(Optional<V1TenderEntryMethod> entryMethod) {
             this.entryMethod = entryMethod;
@@ -548,6 +575,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>Notes entered by the merchant about the tender at the time of payment, if any. Typically only present for tender with the type: OTHER.</p>
+         */
         @JsonSetter(value = "payment_note", nulls = Nulls.SKIP)
         public Builder paymentNote(Optional<String> paymentNote) {
             this.paymentNote = paymentNote;
@@ -570,6 +600,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The total amount of money provided in this form of tender.</p>
+         */
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public Builder totalMoney(Optional<V1Money> totalMoney) {
             this.totalMoney = totalMoney;
@@ -581,6 +614,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The amount of total_money applied to the payment.</p>
+         */
         @JsonSetter(value = "tendered_money", nulls = Nulls.SKIP)
         public Builder tenderedMoney(Optional<V1Money> tenderedMoney) {
             this.tenderedMoney = tenderedMoney;
@@ -592,6 +628,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The time when the tender was created, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "tendered_at", nulls = Nulls.SKIP)
         public Builder tenderedAt(Optional<String> tenderedAt) {
             this.tenderedAt = tenderedAt;
@@ -614,6 +653,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The time when the tender was settled, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "settled_at", nulls = Nulls.SKIP)
         public Builder settledAt(Optional<String> settledAt) {
             this.settledAt = settledAt;
@@ -636,6 +678,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The amount of total_money returned to the buyer as change.</p>
+         */
         @JsonSetter(value = "change_back_money", nulls = Nulls.SKIP)
         public Builder changeBackMoney(Optional<V1Money> changeBackMoney) {
             this.changeBackMoney = changeBackMoney;
@@ -647,6 +692,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>The total of all refunds applied to this tender. This amount is always negative or zero.</p>
+         */
         @JsonSetter(value = "refunded_money", nulls = Nulls.SKIP)
         public Builder refundedMoney(Optional<V1Money> refundedMoney) {
             this.refundedMoney = refundedMoney;
@@ -658,6 +706,9 @@ public final class V1Tender {
             return this;
         }
 
+        /**
+         * <p>Indicates whether or not the tender is associated with an exchange. If is_exchange is true, the tender represents the value of goods returned in an exchange not the actual money paid. The exchange value reduces the tender amounts needed to pay for items purchased in the exchange.</p>
+         */
         @JsonSetter(value = "is_exchange", nulls = Nulls.SKIP)
         public Builder isExchange(Optional<Boolean> isExchange) {
             this.isExchange = isExchange;

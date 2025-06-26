@@ -3,14 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.disputes.EvidenceClient;
@@ -24,143 +18,63 @@ import com.squareup.square.types.Dispute;
 import com.squareup.square.types.GetDisputeResponse;
 import com.squareup.square.types.GetDisputesRequest;
 import com.squareup.square.types.ListDisputesRequest;
-import com.squareup.square.types.ListDisputesResponse;
 import com.squareup.square.types.SubmitEvidenceDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class DisputesClient {
     protected final ClientOptions clientOptions;
+
+    private final RawDisputesClient rawClient;
 
     protected final Supplier<EvidenceClient> evidenceClient;
 
     public DisputesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawDisputesClient(clientOptions);
         this.evidenceClient = Suppliers.memoize(() -> new EvidenceClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawDisputesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Returns a list of disputes associated with a particular account.
      */
     public SyncPagingIterable<Dispute> list() {
-        return list(ListDisputesRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
      * Returns a list of disputes associated with a particular account.
      */
     public SyncPagingIterable<Dispute> list(ListDisputesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
      * Returns a list of disputes associated with a particular account.
      */
     public SyncPagingIterable<Dispute> list(ListDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getStates().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "states", request.getStates().get().toString(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListDisputesResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListDisputesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListDisputesRequest nextRequest = ListDisputesRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<Dispute> result = parsedResponse.getDisputes().orElse(Collections.emptyList());
-                return new SyncPagingIterable<Dispute>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
      * Returns details about a specific dispute.
      */
     public GetDisputeResponse get(GetDisputesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Returns details about a specific dispute.
      */
     public GetDisputeResponse get(GetDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetDisputeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -170,7 +84,7 @@ public class DisputesClient {
      * does not have sufficient funds, Square debits the associated bank account.</p>
      */
     public AcceptDisputeResponse accept(AcceptDisputesRequest request) {
-        return accept(request, null);
+        return this.rawClient.accept(request).body();
     }
 
     /**
@@ -180,36 +94,7 @@ public class DisputesClient {
      * does not have sufficient funds, Square debits the associated bank account.</p>
      */
     public AcceptDisputeResponse accept(AcceptDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("accept")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), AcceptDisputeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.accept(request, requestOptions).body();
     }
 
     /**
@@ -217,7 +102,7 @@ public class DisputesClient {
      * multipart/form-data file uploads in HEIC, HEIF, JPEG, PDF, PNG, and TIFF formats.
      */
     public CreateDisputeEvidenceFileResponse createEvidenceFile(CreateEvidenceFileDisputesRequest request) {
-        return createEvidenceFile(request, null);
+        return this.rawClient.createEvidenceFile(request).body();
     }
 
     /**
@@ -226,66 +111,14 @@ public class DisputesClient {
      */
     public CreateDisputeEvidenceFileResponse createEvidenceFile(
             CreateEvidenceFileDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("evidence-files")
-                .build();
-        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        try {
-            if (request.getRequest().isPresent()) {
-                body.addFormDataPart(
-                        "request",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getRequest().get()));
-            }
-            if (request.getImageFile().isPresent()) {
-                String imageFileMimeType =
-                        Files.probeContentType(request.getImageFile().get().toPath());
-                MediaType imageFileMimeTypeMediaType =
-                        imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                body.addFormDataPart(
-                        "image_file",
-                        request.getImageFile().get().getName(),
-                        RequestBody.create(
-                                imageFileMimeTypeMediaType,
-                                request.getImageFile().get()));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body.build())
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), CreateDisputeEvidenceFileResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.createEvidenceFile(request, requestOptions).body();
     }
 
     /**
      * Uploads text to use as evidence for a dispute challenge.
      */
     public CreateDisputeEvidenceTextResponse createEvidenceText(CreateDisputeEvidenceTextRequest request) {
-        return createEvidenceText(request, null);
+        return this.rawClient.createEvidenceText(request).body();
     }
 
     /**
@@ -293,44 +126,7 @@ public class DisputesClient {
      */
     public CreateDisputeEvidenceTextResponse createEvidenceText(
             CreateDisputeEvidenceTextRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("evidence-text")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), CreateDisputeEvidenceTextResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.createEvidenceText(request, requestOptions).body();
     }
 
     /**
@@ -342,7 +138,7 @@ public class DisputesClient {
      * a dispute after submission.</p>
      */
     public SubmitEvidenceResponse submitEvidence(SubmitEvidenceDisputesRequest request) {
-        return submitEvidence(request, null);
+        return this.rawClient.submitEvidence(request).body();
     }
 
     /**
@@ -354,36 +150,7 @@ public class DisputesClient {
      * a dispute after submission.</p>
      */
     public SubmitEvidenceResponse submitEvidence(SubmitEvidenceDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("submit-evidence")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SubmitEvidenceResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.submitEvidence(request, requestOptions).body();
     }
 
     public EvidenceClient evidence() {

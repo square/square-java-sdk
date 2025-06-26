@@ -272,6 +272,9 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The name of the bank associated with the bank account.</p>
+         */
         @JsonSetter(value = "bank_name", nulls = Nulls.SKIP)
         public Builder bankName(Optional<String> bankName) {
             this.bankName = bankName;
@@ -294,6 +297,9 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The type of the bank transfer. The type can be <code>ACH</code> or <code>UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "transfer_type", nulls = Nulls.SKIP)
         public Builder transferType(Optional<String> transferType) {
             this.transferType = transferType;
@@ -316,6 +322,10 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The ownership type of the bank account performing the transfer.
+         * The type can be <code>INDIVIDUAL</code>, <code>COMPANY</code>, or <code>ACCOUNT_TYPE_UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "account_ownership_type", nulls = Nulls.SKIP)
         public Builder accountOwnershipType(Optional<String> accountOwnershipType) {
             this.accountOwnershipType = accountOwnershipType;
@@ -338,6 +348,10 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>Uniquely identifies the bank account for this seller and can be used
+         * to determine if payments are from the same bank account.</p>
+         */
         @JsonSetter(value = "fingerprint", nulls = Nulls.SKIP)
         public Builder fingerprint(Optional<String> fingerprint) {
             this.fingerprint = fingerprint;
@@ -360,6 +374,9 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The two-letter ISO code representing the country the bank account is located in.</p>
+         */
         @JsonSetter(value = "country", nulls = Nulls.SKIP)
         public Builder country(Optional<String> country) {
             this.country = country;
@@ -382,6 +399,9 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The statement description as sent to the bank.</p>
+         */
         @JsonSetter(value = "statement_description", nulls = Nulls.SKIP)
         public Builder statementDescription(Optional<String> statementDescription) {
             this.statementDescription = statementDescription;
@@ -404,6 +424,10 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>ACH-specific information about the transfer. The information is only populated
+         * if the <code>transfer_type</code> is <code>ACH</code>.</p>
+         */
         @JsonSetter(value = "ach_details", nulls = Nulls.SKIP)
         public Builder achDetails(Optional<AchDetails> achDetails) {
             this.achDetails = achDetails;
@@ -415,6 +439,9 @@ public final class BankAccountPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

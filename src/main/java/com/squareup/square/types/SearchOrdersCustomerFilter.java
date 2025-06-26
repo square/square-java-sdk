@@ -94,6 +94,10 @@ public final class SearchOrdersCustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A list of customer IDs to filter by.</p>
+         * <p>Max: 10 customer ids.</p>
+         */
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(Optional<List<String>> customerIds) {
             this.customerIds = customerIds;

@@ -152,6 +152,9 @@ public final class EmployeeWage {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -163,6 +166,9 @@ public final class EmployeeWage {
             return this;
         }
 
+        /**
+         * <p>The <code>Employee</code> that this wage is assigned to.</p>
+         */
         @JsonSetter(value = "employee_id", nulls = Nulls.SKIP)
         public Builder employeeId(Optional<String> employeeId) {
             this.employeeId = employeeId;
@@ -185,6 +191,9 @@ public final class EmployeeWage {
             return this;
         }
 
+        /**
+         * <p>The job title that this wage relates to.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -207,6 +216,10 @@ public final class EmployeeWage {
             return this;
         }
 
+        /**
+         * <p>Can be a custom-set hourly wage or the calculated effective hourly
+         * wage based on the annual wage and hours worked per week.</p>
+         */
         @JsonSetter(value = "hourly_rate", nulls = Nulls.SKIP)
         public Builder hourlyRate(Optional<Money> hourlyRate) {
             this.hourlyRate = hourlyRate;

@@ -114,6 +114,9 @@ public final class EventTypeMetadata {
             return this;
         }
 
+        /**
+         * <p>The event type.</p>
+         */
         @JsonSetter(value = "event_type", nulls = Nulls.SKIP)
         public Builder eventType(Optional<String> eventType) {
             this.eventType = eventType;
@@ -125,6 +128,9 @@ public final class EventTypeMetadata {
             return this;
         }
 
+        /**
+         * <p>The API version at which the event type was introduced.</p>
+         */
         @JsonSetter(value = "api_version_introduced", nulls = Nulls.SKIP)
         public Builder apiVersionIntroduced(Optional<String> apiVersionIntroduced) {
             this.apiVersionIntroduced = apiVersionIntroduced;
@@ -136,6 +142,9 @@ public final class EventTypeMetadata {
             return this;
         }
 
+        /**
+         * <p>The release status of the event type.</p>
+         */
         @JsonSetter(value = "release_status", nulls = Nulls.SKIP)
         public Builder releaseStatus(Optional<String> releaseStatus) {
             this.releaseStatus = releaseStatus;

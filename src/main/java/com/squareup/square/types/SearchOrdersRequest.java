@@ -157,6 +157,11 @@ public final class SearchOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>The location IDs for the orders to query. All locations must belong to
+         * the same merchant.</p>
+         * <p>Max: 10 location IDs.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -168,6 +173,11 @@ public final class SearchOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -179,6 +189,10 @@ public final class SearchOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>Query conditions used to filter or sort the results. Note that when
+         * retrieving additional pages using a cursor, you must use the original query.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<SearchOrdersQuery> query) {
             this.query = query;
@@ -190,6 +204,11 @@ public final class SearchOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.</p>
+         * <p>Default: <code>500</code>
+         * Max: <code>1000</code></p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -201,6 +220,12 @@ public final class SearchOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>A Boolean that controls the format of the search results. If <code>true</code>,
+         * <code>SearchOrders</code> returns <a href="entity:OrderEntry">OrderEntry</a> objects. If <code>false</code>, <code>SearchOrders</code>
+         * returns complete order objects.</p>
+         * <p>Default: <code>false</code>.</p>
+         */
         @JsonSetter(value = "return_entries", nulls = Nulls.SKIP)
         public Builder returnEntries(Optional<Boolean> returnEntries) {
             this.returnEntries = returnEntries;

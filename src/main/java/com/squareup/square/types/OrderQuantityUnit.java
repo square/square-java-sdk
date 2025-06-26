@@ -167,6 +167,10 @@ public final class OrderQuantityUnit {
             return this;
         }
 
+        /**
+         * <p>A <a href="entity:MeasurementUnit">MeasurementUnit</a> that represents the
+         * unit of measure for the quantity.</p>
+         */
         @JsonSetter(value = "measurement_unit", nulls = Nulls.SKIP)
         public Builder measurementUnit(Optional<MeasurementUnit> measurementUnit) {
             this.measurementUnit = measurementUnit;
@@ -178,6 +182,12 @@ public final class OrderQuantityUnit {
             return this;
         }
 
+        /**
+         * <p>For non-integer quantities, represents the number of digits after the decimal point that are
+         * recorded for this quantity.</p>
+         * <p>For example, a precision of 1 allows quantities such as <code>&quot;1.0&quot;</code> and <code>&quot;1.1&quot;</code>, but not <code>&quot;1.01&quot;</code>.</p>
+         * <p>Min: 0. Max: 5.</p>
+         */
         @JsonSetter(value = "precision", nulls = Nulls.SKIP)
         public Builder precision(Optional<Integer> precision) {
             this.precision = precision;
@@ -200,6 +210,11 @@ public final class OrderQuantityUnit {
             return this;
         }
 
+        /**
+         * <p>The catalog object ID referencing the
+         * <a href="entity:CatalogMeasurementUnit">CatalogMeasurementUnit</a>.</p>
+         * <p>This field is set when this is a catalog-backed measurement unit.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -222,6 +237,10 @@ public final class OrderQuantityUnit {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this measurement unit references.</p>
+         * <p>This field is set when this is a catalog-backed measurement unit.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;

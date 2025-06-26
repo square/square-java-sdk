@@ -128,6 +128,9 @@ public final class ModifierLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The ID of the <code>Location</code> object representing the location. This can include a deactivated location.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -150,6 +153,10 @@ public final class ModifierLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The overridden price at the specified location. If this is unspecified, the modifier price is not overridden.
+         * The modifier becomes free of charge at the specified location, when this <code>price_money</code> field is set to 0.</p>
+         */
         @JsonSetter(value = "price_money", nulls = Nulls.SKIP)
         public Builder priceMoney(Optional<Money> priceMoney) {
             this.priceMoney = priceMoney;
@@ -161,6 +168,10 @@ public final class ModifierLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the modifier is sold out at the specified location or not. As an example, for cheese (modifier) burger (item), when the modifier is sold out, it is the cheese, but not the burger, that is sold out.
+         * The seller can manually set this sold out status. Attempts by an application to set this attribute are ignored.</p>
+         */
         @JsonSetter(value = "sold_out", nulls = Nulls.SKIP)
         public Builder soldOut(Optional<Boolean> soldOut) {
             this.soldOut = soldOut;

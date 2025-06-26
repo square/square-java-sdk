@@ -103,6 +103,14 @@ public final class BulkCreateCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>A map of responses that correspond to individual create requests, represented by
+         * key-value pairs.</p>
+         * <p>Each key is the idempotency key that was provided for a create request and each value
+         * is the corresponding response.
+         * If the request succeeds, the value is the new customer profile.
+         * If the request fails, the value contains any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "responses", nulls = Nulls.SKIP)
         public Builder responses(Optional<Map<String, CreateCustomerResponse>> responses) {
             this.responses = responses;
@@ -114,6 +122,9 @@ public final class BulkCreateCustomersResponse {
             return this;
         }
 
+        /**
+         * <p>Any top-level errors that prevented the bulk operation from running.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

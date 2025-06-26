@@ -156,6 +156,10 @@ public final class TerminalActionQueryFilter {
             return this;
         }
 
+        /**
+         * <p><code>TerminalAction</code>s associated with a specific device. If no device is specified then all
+         * <code>TerminalAction</code>s for the merchant will be displayed.</p>
+         */
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public Builder deviceId(Optional<String> deviceId) {
             this.deviceId = deviceId;
@@ -178,6 +182,11 @@ public final class TerminalActionQueryFilter {
             return this;
         }
 
+        /**
+         * <p>Time range for the beginning of the reporting period. Inclusive.
+         * Default value: The current time minus one day.
+         * Note that <code>TerminalAction</code>s are available for 30 days after creation.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;
@@ -189,6 +198,10 @@ public final class TerminalActionQueryFilter {
             return this;
         }
 
+        /**
+         * <p>Filter results with the desired status of the <code>TerminalAction</code>
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, <code>COMPLETED</code></p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -211,6 +224,10 @@ public final class TerminalActionQueryFilter {
             return this;
         }
 
+        /**
+         * <p>Filter results with the requested ActionType.
+         * See <a href="#type-terminalactionactiontype">TerminalActionActionType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<TerminalActionActionType> type) {
             this.type = type;

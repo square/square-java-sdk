@@ -170,6 +170,9 @@ public final class ListTransactionsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to list transactions for.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(ListTransactionsRequest other);
@@ -178,24 +181,44 @@ public final class ListTransactionsRequest {
     public interface _FinalStage {
         ListTransactionsRequest build();
 
+        /**
+         * <p>The beginning of the requested reporting period, in RFC 3339 format.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Date ranges</a> for details on date inclusivity/exclusivity.</p>
+         * <p>Default value: The current time minus one year.</p>
+         */
         _FinalStage beginTime(Optional<String> beginTime);
 
         _FinalStage beginTime(String beginTime);
 
         _FinalStage beginTime(Nullable<String> beginTime);
 
+        /**
+         * <p>The end of the requested reporting period, in RFC 3339 format.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Date ranges</a> for details on date inclusivity/exclusivity.</p>
+         * <p>Default value: The current time.</p>
+         */
         _FinalStage endTime(Optional<String> endTime);
 
         _FinalStage endTime(String endTime);
 
         _FinalStage endTime(Nullable<String> endTime);
 
+        /**
+         * <p>The order in which results are listed in the response (<code>ASC</code> for
+         * oldest first, <code>DESC</code> for newest first).</p>
+         * <p>Default value: <code>DESC</code></p>
+         */
         _FinalStage sortOrder(Optional<SortOrder> sortOrder);
 
         _FinalStage sortOrder(SortOrder sortOrder);
 
         _FinalStage sortOrder(Nullable<SortOrder> sortOrder);
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for your original query.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Paginating results</a> for more information.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -231,6 +254,7 @@ public final class ListTransactionsRequest {
         }
 
         /**
+         * <p>The ID of the location to list transactions for.</p>
          * <p>The ID of the location to list transactions for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -271,6 +295,11 @@ public final class ListTransactionsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for your original query.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Paginating results</a> for more information.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -308,6 +337,11 @@ public final class ListTransactionsRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed in the response (<code>ASC</code> for
+         * oldest first, <code>DESC</code> for newest first).</p>
+         * <p>Default value: <code>DESC</code></p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public _FinalStage sortOrder(Optional<SortOrder> sortOrder) {
@@ -345,6 +379,11 @@ public final class ListTransactionsRequest {
             return this;
         }
 
+        /**
+         * <p>The end of the requested reporting period, in RFC 3339 format.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Date ranges</a> for details on date inclusivity/exclusivity.</p>
+         * <p>Default value: The current time.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_time", nulls = Nulls.SKIP)
         public _FinalStage endTime(Optional<String> endTime) {
@@ -382,6 +421,11 @@ public final class ListTransactionsRequest {
             return this;
         }
 
+        /**
+         * <p>The beginning of the requested reporting period, in RFC 3339 format.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Date ranges</a> for details on date inclusivity/exclusivity.</p>
+         * <p>Default value: The current time minus one year.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public _FinalStage beginTime(Optional<String> beginTime) {

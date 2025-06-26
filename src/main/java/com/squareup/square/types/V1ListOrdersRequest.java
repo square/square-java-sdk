@@ -140,6 +140,9 @@ public final class V1ListOrdersRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to list online store orders for.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(V1ListOrdersRequest other);
@@ -148,18 +151,28 @@ public final class V1ListOrdersRequest {
     public interface _FinalStage {
         V1ListOrdersRequest build();
 
+        /**
+         * <p>The order in which payments are listed in the response.</p>
+         */
         _FinalStage order(Optional<SortOrder> order);
 
         _FinalStage order(SortOrder order);
 
         _FinalStage order(Nullable<SortOrder> order);
 
+        /**
+         * <p>The maximum number of payments to return in a single response. This value cannot exceed 200.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
 
         _FinalStage limit(Nullable<Integer> limit);
 
+        /**
+         * <p>A pagination cursor to retrieve the next set of results for your
+         * original query to the endpoint.</p>
+         */
         _FinalStage batchToken(Optional<String> batchToken);
 
         _FinalStage batchToken(String batchToken);
@@ -192,6 +205,7 @@ public final class V1ListOrdersRequest {
         }
 
         /**
+         * <p>The ID of the location to list online store orders for.</p>
          * <p>The ID of the location to list online store orders for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -230,6 +244,10 @@ public final class V1ListOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor to retrieve the next set of results for your
+         * original query to the endpoint.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "batch_token", nulls = Nulls.SKIP)
         public _FinalStage batchToken(Optional<String> batchToken) {
@@ -263,6 +281,9 @@ public final class V1ListOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of payments to return in a single response. This value cannot exceed 200.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -296,6 +317,9 @@ public final class V1ListOrdersRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which payments are listed in the response.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public _FinalStage order(Optional<SortOrder> order) {

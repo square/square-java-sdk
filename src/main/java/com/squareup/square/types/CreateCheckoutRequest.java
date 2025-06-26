@@ -231,46 +231,109 @@ public final class CreateCheckoutRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the business location to associate the checkout with.</p>
+         */
         IdempotencyKeyStage locationId(@NotNull String locationId);
 
         Builder from(CreateCheckoutRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this checkout among others you have created. It can be
+         * any valid string but must be unique for every order sent to Square Checkout for a given location ID.</p>
+         * <p>The idempotency key is used to avoid processing the same order more than once. If you are
+         * unsure whether a particular checkout was created successfully, you can attempt it again with
+         * the same idempotency key and all the same other parameters without worrying about creating duplicates.</p>
+         * <p>You should use a random number/string generator native to the language
+         * you are working in to generate strings for your idempotency keys.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         OrderStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface OrderStage {
+        /**
+         * <p>The order including line items to be checked out.</p>
+         */
         _FinalStage order(@NotNull CreateOrderRequest order);
     }
 
     public interface _FinalStage {
         CreateCheckoutRequest build();
 
+        /**
+         * <p>If <code>true</code>, Square Checkout collects shipping information on your behalf and stores
+         * that information with the transaction information in the Square Seller Dashboard.</p>
+         * <p>Default: <code>false</code>.</p>
+         */
         _FinalStage askForShippingAddress(Optional<Boolean> askForShippingAddress);
 
         _FinalStage askForShippingAddress(Boolean askForShippingAddress);
 
+        /**
+         * <p>The email address to display on the Square Checkout confirmation page
+         * and confirmation email that the buyer can use to contact the seller.</p>
+         * <p>If this value is not set, the confirmation page and email display the
+         * primary email address associated with the seller's Square account.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         _FinalStage merchantSupportEmail(Optional<String> merchantSupportEmail);
 
         _FinalStage merchantSupportEmail(String merchantSupportEmail);
 
+        /**
+         * <p>If provided, the buyer's email is prepopulated on the checkout page
+         * as an editable text field.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         _FinalStage prePopulateBuyerEmail(Optional<String> prePopulateBuyerEmail);
 
         _FinalStage prePopulateBuyerEmail(String prePopulateBuyerEmail);
 
+        /**
+         * <p>If provided, the buyer's shipping information is prepopulated on the
+         * checkout page as editable text fields.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         _FinalStage prePopulateShippingAddress(Optional<Address> prePopulateShippingAddress);
 
         _FinalStage prePopulateShippingAddress(Address prePopulateShippingAddress);
 
+        /**
+         * <p>The URL to redirect to after the checkout is completed with <code>checkoutId</code>,
+         * <code>transactionId</code>, and <code>referenceId</code> appended as URL parameters. For example,
+         * if the provided redirect URL is <code>http://www.example.com/order-complete</code>, a
+         * successful transaction redirects the customer to:</p>
+         * <p><code>http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx</code></p>
+         * <p>If you do not provide a redirect URL, Square Checkout displays an order
+         * confirmation page on your behalf; however, it is strongly recommended that
+         * you provide a redirect URL so you can verify the transaction results and
+         * finalize the order through your existing/normal confirmation workflow.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         _FinalStage redirectUrl(Optional<String> redirectUrl);
 
         _FinalStage redirectUrl(String redirectUrl);
 
+        /**
+         * <p>The basic primitive of a multi-party transaction. The value is optional.
+         * The transaction facilitated by you can be split from here.</p>
+         * <p>If you provide this value, the <code>amount_money</code> value in your <code>additional_recipients</code> field
+         * cannot be more than 90% of the <code>total_money</code> calculated by Square for your order.
+         * The <code>location_id</code> must be a valid seller location where the checkout is occurring.</p>
+         * <p>This field requires <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission.</p>
+         * <p>This field is currently not supported in the Square Sandbox.</p>
+         */
         _FinalStage additionalRecipients(Optional<List<ChargeRequestAdditionalRecipient>> additionalRecipients);
 
         _FinalStage additionalRecipients(List<ChargeRequestAdditionalRecipient> additionalRecipients);
 
+        /**
+         * <p>An optional note to associate with the <code>checkout</code> object.</p>
+         * <p>This value cannot exceed 60 characters.</p>
+         */
         _FinalStage note(Optional<String> note);
 
         _FinalStage note(String note);
@@ -320,6 +383,7 @@ public final class CreateCheckoutRequest {
 
         /**
          * <p>The ID of the business location to associate the checkout with.</p>
+         * <p>The ID of the business location to associate the checkout with.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -338,6 +402,14 @@ public final class CreateCheckoutRequest {
          * <p>You should use a random number/string generator native to the language
          * you are working in to generate strings for your idempotency keys.</p>
          * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         * <p>A unique string that identifies this checkout among others you have created. It can be
+         * any valid string but must be unique for every order sent to Square Checkout for a given location ID.</p>
+         * <p>The idempotency key is used to avoid processing the same order more than once. If you are
+         * unsure whether a particular checkout was created successfully, you can attempt it again with
+         * the same idempotency key and all the same other parameters without worrying about creating duplicates.</p>
+         * <p>You should use a random number/string generator native to the language
+         * you are working in to generate strings for your idempotency keys.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -348,6 +420,7 @@ public final class CreateCheckoutRequest {
         }
 
         /**
+         * <p>The order including line items to be checked out.</p>
          * <p>The order including line items to be checked out.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -369,6 +442,10 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>An optional note to associate with the <code>checkout</code> object.</p>
+         * <p>This value cannot exceed 60 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public _FinalStage note(Optional<String> note) {
@@ -392,6 +469,15 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>The basic primitive of a multi-party transaction. The value is optional.
+         * The transaction facilitated by you can be split from here.</p>
+         * <p>If you provide this value, the <code>amount_money</code> value in your <code>additional_recipients</code> field
+         * cannot be more than 90% of the <code>total_money</code> calculated by Square for your order.
+         * The <code>location_id</code> must be a valid seller location where the checkout is occurring.</p>
+         * <p>This field requires <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission.</p>
+         * <p>This field is currently not supported in the Square Sandbox.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "additional_recipients", nulls = Nulls.SKIP)
         public _FinalStage additionalRecipients(Optional<List<ChargeRequestAdditionalRecipient>> additionalRecipients) {
@@ -418,6 +504,18 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>The URL to redirect to after the checkout is completed with <code>checkoutId</code>,
+         * <code>transactionId</code>, and <code>referenceId</code> appended as URL parameters. For example,
+         * if the provided redirect URL is <code>http://www.example.com/order-complete</code>, a
+         * successful transaction redirects the customer to:</p>
+         * <p><code>http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx</code></p>
+         * <p>If you do not provide a redirect URL, Square Checkout displays an order
+         * confirmation page on your behalf; however, it is strongly recommended that
+         * you provide a redirect URL so you can verify the transaction results and
+         * finalize the order through your existing/normal confirmation workflow.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "redirect_url", nulls = Nulls.SKIP)
         public _FinalStage redirectUrl(Optional<String> redirectUrl) {
@@ -437,6 +535,11 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>If provided, the buyer's shipping information is prepopulated on the
+         * checkout page as editable text fields.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pre_populate_shipping_address", nulls = Nulls.SKIP)
         public _FinalStage prePopulateShippingAddress(Optional<Address> prePopulateShippingAddress) {
@@ -456,6 +559,11 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>If provided, the buyer's email is prepopulated on the checkout page
+         * as an editable text field.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pre_populate_buyer_email", nulls = Nulls.SKIP)
         public _FinalStage prePopulateBuyerEmail(Optional<String> prePopulateBuyerEmail) {
@@ -477,6 +585,13 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>The email address to display on the Square Checkout confirmation page
+         * and confirmation email that the buyer can use to contact the seller.</p>
+         * <p>If this value is not set, the confirmation page and email display the
+         * primary email address associated with the seller's Square account.</p>
+         * <p>Default: none; only exists if explicitly set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "merchant_support_email", nulls = Nulls.SKIP)
         public _FinalStage merchantSupportEmail(Optional<String> merchantSupportEmail) {
@@ -496,6 +611,11 @@ public final class CreateCheckoutRequest {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, Square Checkout collects shipping information on your behalf and stores
+         * that information with the transaction information in the Square Seller Dashboard.</p>
+         * <p>Default: <code>false</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ask_for_shipping_address", nulls = Nulls.SKIP)
         public _FinalStage askForShippingAddress(Optional<Boolean> askForShippingAddress) {

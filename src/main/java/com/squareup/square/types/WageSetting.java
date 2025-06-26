@@ -203,6 +203,9 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p>The ID of the team member associated with the wage setting.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -225,6 +228,10 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p><strong>Required</strong> The ordered list of jobs that the team member is assigned to.
+         * The first job assignment is considered the team member's primary job.</p>
+         */
         @JsonSetter(value = "job_assignments", nulls = Nulls.SKIP)
         public Builder jobAssignments(Optional<List<JobAssignment>> jobAssignments) {
             this.jobAssignments = jobAssignments;
@@ -247,6 +254,9 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p>Whether the team member is exempt from the overtime rules of the seller's country.</p>
+         */
         @JsonSetter(value = "is_overtime_exempt", nulls = Nulls.SKIP)
         public Builder isOvertimeExempt(Optional<Boolean> isOvertimeExempt) {
             this.isOvertimeExempt = isOvertimeExempt;
@@ -269,6 +279,12 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If not provided,
+         * Square executes a blind write, potentially overwriting data from another write. For more information,
+         * see <a href="https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency">optimistic concurrency</a>.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -280,6 +296,9 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the wage setting was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -291,6 +310,9 @@ public final class WageSetting {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the wage setting was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

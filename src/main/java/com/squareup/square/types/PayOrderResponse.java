@@ -96,6 +96,9 @@ public final class PayOrderResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class PayOrderResponse {
             return this;
         }
 
+        /**
+         * <p>The paid, updated <a href="entity:Order">order</a>.</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<Order> order) {
             this.order = order;

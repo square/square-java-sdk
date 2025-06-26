@@ -109,6 +109,9 @@ public final class CustomerGroup {
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of the customer group.</p>
+         */
         _FinalStage name(@NotNull String name);
 
         Builder from(CustomerGroup other);
@@ -117,14 +120,23 @@ public final class CustomerGroup {
     public interface _FinalStage {
         CustomerGroup build();
 
+        /**
+         * <p>A unique Square-generated ID for the customer group.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The timestamp when the customer group was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp when the customer group was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
@@ -156,6 +168,7 @@ public final class CustomerGroup {
 
         /**
          * <p>The name of the customer group.</p>
+         * <p>The name of the customer group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -175,6 +188,9 @@ public final class CustomerGroup {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the customer group was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -192,6 +208,9 @@ public final class CustomerGroup {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the customer group was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -209,6 +228,9 @@ public final class CustomerGroup {
             return this;
         }
 
+        /**
+         * <p>A unique Square-generated ID for the customer group.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

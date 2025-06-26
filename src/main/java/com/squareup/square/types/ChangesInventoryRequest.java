@@ -120,6 +120,9 @@ public final class ChangesInventoryRequest {
     }
 
     public interface CatalogObjectIdStage {
+        /**
+         * <p>ID of the <a href="entity:CatalogObject">CatalogObject</a> to retrieve.</p>
+         */
         _FinalStage catalogObjectId(@NotNull String catalogObjectId);
 
         Builder from(ChangesInventoryRequest other);
@@ -128,12 +131,21 @@ public final class ChangesInventoryRequest {
     public interface _FinalStage {
         ChangesInventoryRequest build();
 
+        /**
+         * <p>The <a href="entity:Location">Location</a> IDs to look up as a comma-separated
+         * list. An empty list queries all locations.</p>
+         */
         _FinalStage locationIds(Optional<String> locationIds);
 
         _FinalStage locationIds(String locationIds);
 
         _FinalStage locationIds(Nullable<String> locationIds);
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for the original query.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -163,6 +175,7 @@ public final class ChangesInventoryRequest {
         }
 
         /**
+         * <p>ID of the <a href="entity:CatalogObject">CatalogObject</a> to retrieve.</p>
          * <p>ID of the <a href="entity:CatalogObject">CatalogObject</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -203,6 +216,11 @@ public final class ChangesInventoryRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for the original query.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -238,6 +256,10 @@ public final class ChangesInventoryRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Location">Location</a> IDs to look up as a comma-separated
+         * list. An empty list queries all locations.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public _FinalStage locationIds(Optional<String> locationIds) {

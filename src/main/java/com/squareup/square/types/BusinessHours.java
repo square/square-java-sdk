@@ -93,6 +93,9 @@ public final class BusinessHours {
             return this;
         }
 
+        /**
+         * <p>The list of time periods during which the business is open. There can be at most 10 periods per day.</p>
+         */
         @JsonSetter(value = "periods", nulls = Nulls.SKIP)
         public Builder periods(Optional<List<BusinessHoursPeriod>> periods) {
             this.periods = periods;

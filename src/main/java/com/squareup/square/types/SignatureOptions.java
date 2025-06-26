@@ -95,18 +95,27 @@ public final class SignatureOptions {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text to display in the signature capture flow on the Terminal.</p>
+         */
         BodyStage title(@NotNull String title);
 
         Builder from(SignatureOptions other);
     }
 
     public interface BodyStage {
+        /**
+         * <p>The body text to display in the signature capture flow on the Terminal.</p>
+         */
         _FinalStage body(@NotNull String body);
     }
 
     public interface _FinalStage {
         SignatureOptions build();
 
+        /**
+         * <p>An image representation of the collected signature.</p>
+         */
         _FinalStage signature(Optional<List<SignatureImage>> signature);
 
         _FinalStage signature(List<SignatureImage> signature);
@@ -135,6 +144,7 @@ public final class SignatureOptions {
 
         /**
          * <p>The title text to display in the signature capture flow on the Terminal.</p>
+         * <p>The title text to display in the signature capture flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -145,6 +155,7 @@ public final class SignatureOptions {
         }
 
         /**
+         * <p>The body text to display in the signature capture flow on the Terminal.</p>
          * <p>The body text to display in the signature capture flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -165,6 +176,9 @@ public final class SignatureOptions {
             return this;
         }
 
+        /**
+         * <p>An image representation of the collected signature.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "signature", nulls = Nulls.SKIP)
         public _FinalStage signature(Optional<List<SignatureImage>> signature) {

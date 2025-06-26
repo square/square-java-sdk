@@ -66,6 +66,9 @@ public final class RetrieveLocationSettingsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location for which to retrieve settings.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(RetrieveLocationSettingsRequest other);
@@ -91,6 +94,7 @@ public final class RetrieveLocationSettingsRequest {
         }
 
         /**
+         * <p>The ID of the location for which to retrieve settings.</p>
          * <p>The ID of the location for which to retrieve settings.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

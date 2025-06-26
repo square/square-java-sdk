@@ -313,72 +313,125 @@ public final class Shift {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location this shift occurred at. The location should be based on
+         * where the employee clocked in.</p>
+         */
         StartAtStage locationId(@NotNull String locationId);
 
         Builder from(Shift other);
     }
 
     public interface StartAtStage {
+        /**
+         * <p>RFC 3339; shifted to the location timezone + offset. Precision up to the
+         * minute is respected; seconds are truncated.</p>
+         */
         _FinalStage startAt(@NotNull String startAt);
     }
 
     public interface _FinalStage {
         Shift build();
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use <code>team_member_id</code> instead.</p>
+         */
         _FinalStage employeeId(Optional<String> employeeId);
 
         _FinalStage employeeId(String employeeId);
 
         _FinalStage employeeId(Nullable<String> employeeId);
 
+        /**
+         * <p>The read-only convenience value that is calculated from the location based
+         * on the <code>location_id</code>. Format: the IANA timezone database identifier for the
+         * location timezone.</p>
+         */
         _FinalStage timezone(Optional<String> timezone);
 
         _FinalStage timezone(String timezone);
 
         _FinalStage timezone(Nullable<String> timezone);
 
+        /**
+         * <p>RFC 3339; shifted to the timezone + offset. Precision up to the minute is
+         * respected; seconds are truncated.</p>
+         */
         _FinalStage endAt(Optional<String> endAt);
 
         _FinalStage endAt(String endAt);
 
         _FinalStage endAt(Nullable<String> endAt);
 
+        /**
+         * <p>Job and pay related information. If the wage is not set on create, it defaults to a wage
+         * of zero. If the title is not set on create, it defaults to the name of the role the employee
+         * is assigned to, if any.</p>
+         */
         _FinalStage wage(Optional<ShiftWage> wage);
 
         _FinalStage wage(ShiftWage wage);
 
+        /**
+         * <p>A list of all the paid or unpaid breaks that were taken during this shift.</p>
+         */
         _FinalStage breaks(Optional<List<Break>> breaks);
 
         _FinalStage breaks(List<Break> breaks);
 
         _FinalStage breaks(Nullable<List<Break>> breaks);
 
+        /**
+         * <p>Describes the working state of the current <code>Shift</code>.
+         * See <a href="#type-shiftstatus">ShiftStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<ShiftStatus> status);
 
         _FinalStage status(ShiftStatus status);
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If not provided,
+         * Square executes a blind write; potentially overwriting data from another
+         * write.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The ID of the team member this shift belongs to. Replaced <code>employee_id</code> at version &quot;2020-08-26&quot;.</p>
+         */
         _FinalStage teamMemberId(Optional<String> teamMemberId);
 
         _FinalStage teamMemberId(String teamMemberId);
 
         _FinalStage teamMemberId(Nullable<String> teamMemberId);
 
+        /**
+         * <p>The tips declared by the team member for the shift.</p>
+         */
         _FinalStage declaredCashTipMoney(Optional<Money> declaredCashTipMoney);
 
         _FinalStage declaredCashTipMoney(Money declaredCashTipMoney);
@@ -441,6 +494,8 @@ public final class Shift {
         /**
          * <p>The ID of the location this shift occurred at. The location should be based on
          * where the employee clocked in.</p>
+         * <p>The ID of the location this shift occurred at. The location should be based on
+         * where the employee clocked in.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -451,6 +506,8 @@ public final class Shift {
         }
 
         /**
+         * <p>RFC 3339; shifted to the location timezone + offset. Precision up to the
+         * minute is respected; seconds are truncated.</p>
          * <p>RFC 3339; shifted to the location timezone + offset. Precision up to the
          * minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -472,6 +529,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>The tips declared by the team member for the shift.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "declared_cash_tip_money", nulls = Nulls.SKIP)
         public _FinalStage declaredCashTipMoney(Optional<Money> declaredCashTipMoney) {
@@ -505,6 +565,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>The ID of the team member this shift belongs to. Replaced <code>employee_id</code> at version &quot;2020-08-26&quot;.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public _FinalStage teamMemberId(Optional<String> teamMemberId) {
@@ -522,6 +585,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -539,6 +605,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format; presented in UTC.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -559,6 +628,12 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If not provided,
+         * Square executes a blind write; potentially overwriting data from another
+         * write.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -577,6 +652,10 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>Describes the working state of the current <code>Shift</code>.
+         * See <a href="#type-shiftstatus">ShiftStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<ShiftStatus> status) {
@@ -610,6 +689,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>A list of all the paid or unpaid breaks that were taken during this shift.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "breaks", nulls = Nulls.SKIP)
         public _FinalStage breaks(Optional<List<Break>> breaks) {
@@ -629,6 +711,11 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>Job and pay related information. If the wage is not set on create, it defaults to a wage
+         * of zero. If the title is not set on create, it defaults to the name of the role the employee
+         * is assigned to, if any.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "wage", nulls = Nulls.SKIP)
         public _FinalStage wage(Optional<ShiftWage> wage) {
@@ -664,6 +751,10 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>RFC 3339; shifted to the timezone + offset. Precision up to the minute is
+         * respected; seconds are truncated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public _FinalStage endAt(Optional<String> endAt) {
@@ -701,6 +792,11 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>The read-only convenience value that is calculated from the location based
+         * on the <code>location_id</code>. Format: the IANA timezone database identifier for the
+         * location timezone.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public _FinalStage timezone(Optional<String> timezone) {
@@ -734,6 +830,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>The ID of the employee this shift belongs to. DEPRECATED at version 2020-08-26. Use <code>team_member_id</code> instead.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "employee_id", nulls = Nulls.SKIP)
         public _FinalStage employeeId(Optional<String> employeeId) {
@@ -751,6 +850,9 @@ public final class Shift {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

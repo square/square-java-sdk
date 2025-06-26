@@ -89,16 +89,26 @@ public final class QrCodeOptions {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text to display in the QR code flow on the Terminal.</p>
+         */
         BodyStage title(@NotNull String title);
 
         Builder from(QrCodeOptions other);
     }
 
     public interface BodyStage {
+        /**
+         * <p>The body text to display in the QR code flow on the Terminal.</p>
+         */
         BarcodeContentsStage body(@NotNull String body);
     }
 
     public interface BarcodeContentsStage {
+        /**
+         * <p>The text representation of the data to show in the QR code
+         * as UTF8-encoded data.</p>
+         */
         _FinalStage barcodeContents(@NotNull String barcodeContents);
     }
 
@@ -129,6 +139,7 @@ public final class QrCodeOptions {
 
         /**
          * <p>The title text to display in the QR code flow on the Terminal.</p>
+         * <p>The title text to display in the QR code flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -140,6 +151,7 @@ public final class QrCodeOptions {
 
         /**
          * <p>The body text to display in the QR code flow on the Terminal.</p>
+         * <p>The body text to display in the QR code flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -150,6 +162,8 @@ public final class QrCodeOptions {
         }
 
         /**
+         * <p>The text representation of the data to show in the QR code
+         * as UTF8-encoded data.</p>
          * <p>The text representation of the data to show in the QR code
          * as UTF8-encoded data.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

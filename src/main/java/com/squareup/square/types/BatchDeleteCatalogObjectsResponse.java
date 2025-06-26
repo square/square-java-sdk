@@ -115,6 +115,9 @@ public final class BatchDeleteCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class BatchDeleteCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The IDs of all CatalogObjects deleted by this request.</p>
+         */
         @JsonSetter(value = "deleted_object_ids", nulls = Nulls.SKIP)
         public Builder deletedObjectIds(Optional<List<String>> deletedObjectIds) {
             this.deletedObjectIds = deletedObjectIds;
@@ -137,6 +143,9 @@ public final class BatchDeleteCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The database <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> of this deletion in RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "deleted_at", nulls = Nulls.SKIP)
         public Builder deletedAt(Optional<String> deletedAt) {
             this.deletedAt = deletedAt;

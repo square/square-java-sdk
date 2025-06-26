@@ -172,6 +172,9 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The Square-issued ID of the scheduled shift.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -183,6 +186,10 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p>The latest draft shift details for the scheduled shift. Draft shift details are used to
+         * stage and manage shifts before publishing. This field is always present.</p>
+         */
         @JsonSetter(value = "draft_shift_details", nulls = Nulls.SKIP)
         public Builder draftShiftDetails(Optional<ScheduledShiftDetails> draftShiftDetails) {
             this.draftShiftDetails = draftShiftDetails;
@@ -194,6 +201,10 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p>The current published (public) shift details for the scheduled shift. This field is
+         * present only if the shift was published.</p>
+         */
         @JsonSetter(value = "published_shift_details", nulls = Nulls.SKIP)
         public Builder publishedShiftDetails(Optional<ScheduledShiftDetails> publishedShiftDetails) {
             this.publishedShiftDetails = publishedShiftDetails;
@@ -205,6 +216,11 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The current version of the scheduled shift, which is incremented with each update.
+         * This field is used for <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control to ensure that requests don't overwrite data from another request.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -216,6 +232,9 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the scheduled shift was created, in RFC 3339 format presented as UTC.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -227,6 +246,9 @@ public final class ScheduledShift {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the scheduled shift was last updated, in RFC 3339 format presented as UTC.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

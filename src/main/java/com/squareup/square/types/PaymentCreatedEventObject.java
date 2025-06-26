@@ -80,6 +80,9 @@ public final class PaymentCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created payment.</p>
+         */
         @JsonSetter(value = "payment", nulls = Nulls.SKIP)
         public Builder payment(Optional<Payment> payment) {
             this.payment = payment;

@@ -90,6 +90,9 @@ public final class UpdateImagesRequest {
     }
 
     public interface ImageIdStage {
+        /**
+         * <p>The ID of the <code>CatalogImage</code> object to update the encapsulated image file.</p>
+         */
         _FinalStage imageId(@NotNull String imageId);
 
         Builder from(UpdateImagesRequest other);
@@ -129,6 +132,7 @@ public final class UpdateImagesRequest {
         }
 
         /**
+         * <p>The ID of the <code>CatalogImage</code> object to update the encapsulated image file.</p>
          * <p>The ID of the <code>CatalogImage</code> object to update the encapsulated image file.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

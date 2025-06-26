@@ -149,6 +149,9 @@ public final class LoyaltyEventFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by loyalty account.</p>
+         */
         @JsonSetter(value = "loyalty_account_filter", nulls = Nulls.SKIP)
         public Builder loyaltyAccountFilter(Optional<LoyaltyEventLoyaltyAccountFilter> loyaltyAccountFilter) {
             this.loyaltyAccountFilter = loyaltyAccountFilter;
@@ -160,6 +163,9 @@ public final class LoyaltyEventFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by event type.</p>
+         */
         @JsonSetter(value = "type_filter", nulls = Nulls.SKIP)
         public Builder typeFilter(Optional<LoyaltyEventTypeFilter> typeFilter) {
             this.typeFilter = typeFilter;
@@ -171,6 +177,11 @@ public final class LoyaltyEventFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by date time range.
+         * For each range, the start time is inclusive and the end time
+         * is exclusive.</p>
+         */
         @JsonSetter(value = "date_time_filter", nulls = Nulls.SKIP)
         public Builder dateTimeFilter(Optional<LoyaltyEventDateTimeFilter> dateTimeFilter) {
             this.dateTimeFilter = dateTimeFilter;
@@ -182,6 +193,9 @@ public final class LoyaltyEventFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by location.</p>
+         */
         @JsonSetter(value = "location_filter", nulls = Nulls.SKIP)
         public Builder locationFilter(Optional<LoyaltyEventLocationFilter> locationFilter) {
             this.locationFilter = locationFilter;
@@ -193,6 +207,9 @@ public final class LoyaltyEventFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by the order associated with the event.</p>
+         */
         @JsonSetter(value = "order_filter", nulls = Nulls.SKIP)
         public Builder orderFilter(Optional<LoyaltyEventOrderFilter> orderFilter) {
             this.orderFilter = orderFilter;

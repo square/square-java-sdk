@@ -131,6 +131,9 @@ public final class BatchUpsertCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -142,6 +145,9 @@ public final class BatchUpsertCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The created successfully created CatalogObjects.</p>
+         */
         @JsonSetter(value = "objects", nulls = Nulls.SKIP)
         public Builder objects(Optional<List<CatalogObject>> objects) {
             this.objects = objects;
@@ -153,6 +159,9 @@ public final class BatchUpsertCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The database <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> of this update in RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -164,6 +173,9 @@ public final class BatchUpsertCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>The mapping between client and server IDs for this upsert.</p>
+         */
         @JsonSetter(value = "id_mappings", nulls = Nulls.SKIP)
         public Builder idMappings(Optional<List<CatalogIdMapping>> idMappings) {
             this.idMappings = idMappings;

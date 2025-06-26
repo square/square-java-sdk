@@ -180,6 +180,9 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>The unique ID of the event.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -191,6 +194,10 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>The type of cash drawer shift event.
+         * See <a href="#type-cashdrawereventtype">CashDrawerEventType</a> for possible values</p>
+         */
         @JsonSetter(value = "event_type", nulls = Nulls.SKIP)
         public Builder eventType(Optional<CashDrawerEventType> eventType) {
             this.eventType = eventType;
@@ -202,6 +209,12 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>The amount of money that was added to or removed from the cash drawer
+         * in the event. The amount can be positive (for added money)
+         * or zero (for other tender type payments). The addition or removal of money can be determined by
+         * by the event type.</p>
+         */
         @JsonSetter(value = "event_money", nulls = Nulls.SKIP)
         public Builder eventMoney(Optional<Money> eventMoney) {
             this.eventMoney = eventMoney;
@@ -213,6 +226,9 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>The event time in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -224,6 +240,10 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>An optional description of the event, entered by the employee that
+         * created the event.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -246,6 +266,9 @@ public final class CashDrawerShiftEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of the team member that created the event.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;

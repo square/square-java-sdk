@@ -334,6 +334,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the payment allows tipping.</p>
+         */
         @JsonSetter(value = "allow_tipping", nulls = Nulls.SKIP)
         public Builder allowTipping(Optional<Boolean> allowTipping) {
             this.allowTipping = allowTipping;
@@ -356,6 +359,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The custom fields requesting information from the buyer.</p>
+         */
         @JsonSetter(value = "custom_fields", nulls = Nulls.SKIP)
         public Builder customFields(Optional<List<CustomField>> customFields) {
             this.customFields = customFields;
@@ -378,6 +384,10 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The ID of the subscription plan for the buyer to pay and subscribe.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/subscription-plan-checkout">Subscription Plan Checkout</a>.</p>
+         */
         @JsonSetter(value = "subscription_plan_id", nulls = Nulls.SKIP)
         public Builder subscriptionPlanId(Optional<String> subscriptionPlanId) {
             this.subscriptionPlanId = subscriptionPlanId;
@@ -400,6 +410,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The confirmation page URL to redirect the buyer to after Square processes the payment.</p>
+         */
         @JsonSetter(value = "redirect_url", nulls = Nulls.SKIP)
         public Builder redirectUrl(Optional<String> redirectUrl) {
             this.redirectUrl = redirectUrl;
@@ -422,6 +435,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The email address that buyers can use to contact the seller.</p>
+         */
         @JsonSetter(value = "merchant_support_email", nulls = Nulls.SKIP)
         public Builder merchantSupportEmail(Optional<String> merchantSupportEmail) {
             this.merchantSupportEmail = merchantSupportEmail;
@@ -444,6 +460,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to include the address fields in the payment form.</p>
+         */
         @JsonSetter(value = "ask_for_shipping_address", nulls = Nulls.SKIP)
         public Builder askForShippingAddress(Optional<Boolean> askForShippingAddress) {
             this.askForShippingAddress = askForShippingAddress;
@@ -466,6 +485,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The methods allowed for buyers during checkout.</p>
+         */
         @JsonSetter(value = "accepted_payment_methods", nulls = Nulls.SKIP)
         public Builder acceptedPaymentMethods(Optional<AcceptedPaymentMethods> acceptedPaymentMethods) {
             this.acceptedPaymentMethods = acceptedPaymentMethods;
@@ -477,6 +499,13 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The amount of money that the developer is taking as a fee for facilitating the payment on behalf of the seller.</p>
+         * <p>The amount cannot be more than 90% of the total amount of the payment.</p>
+         * <p>The amount must be specified in the smallest denomination of the applicable currency (for example, US dollar amounts are specified in cents). For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-data-types/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         * <p>The fee currency code must match the currency associated with the seller that is accepting the payment. The application must be from a developer account in the same country and using the same currency code as the seller. For more information about the application fee scenario, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
+         * <p>To set this field, <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission is required. For more information, see <a href="https://developer.squareup.com/docs/payments-api/collect-fees/additional-considerations#permissions">Permissions</a>.</p>
+         */
         @JsonSetter(value = "app_fee_money", nulls = Nulls.SKIP)
         public Builder appFeeMoney(Optional<Money> appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
@@ -488,6 +517,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>The fee associated with shipping to be applied to the <code>Order</code> as a service charge.</p>
+         */
         @JsonSetter(value = "shipping_fee", nulls = Nulls.SKIP)
         public Builder shippingFee(Optional<ShippingFee> shippingFee) {
             this.shippingFee = shippingFee;
@@ -499,6 +531,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to include the <code>Add coupon</code> section for the buyer to provide a Square marketing coupon in the payment form.</p>
+         */
         @JsonSetter(value = "enable_coupon", nulls = Nulls.SKIP)
         public Builder enableCoupon(Optional<Boolean> enableCoupon) {
             this.enableCoupon = enableCoupon;
@@ -521,6 +556,9 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to include the <code>REWARDS</code> section for the buyer to opt in to loyalty, redeem rewards in the payment form, or both.</p>
+         */
         @JsonSetter(value = "enable_loyalty", nulls = Nulls.SKIP)
         public Builder enableLoyalty(Optional<Boolean> enableLoyalty) {
             this.enableLoyalty = enableLoyalty;

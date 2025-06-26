@@ -80,6 +80,9 @@ public final class DisputeEvidenceDeletedEventObject {
             return this;
         }
 
+        /**
+         * <p>The dispute object.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<Dispute> object) {
             this.object = object;

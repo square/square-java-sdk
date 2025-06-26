@@ -66,6 +66,9 @@ public final class GetAccountsRequest {
     }
 
     public interface AccountIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to retrieve.</p>
+         */
         _FinalStage accountId(@NotNull String accountId);
 
         Builder from(GetAccountsRequest other);
@@ -91,6 +94,7 @@ public final class GetAccountsRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to retrieve.</p>
          * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

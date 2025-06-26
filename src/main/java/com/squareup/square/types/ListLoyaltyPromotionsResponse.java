@@ -117,6 +117,9 @@ public final class ListLoyaltyPromotionsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -128,6 +131,9 @@ public final class ListLoyaltyPromotionsResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved loyalty promotions.</p>
+         */
         @JsonSetter(value = "loyalty_promotions", nulls = Nulls.SKIP)
         public Builder loyaltyPromotions(Optional<List<LoyaltyPromotion>> loyaltyPromotions) {
             this.loyaltyPromotions = loyaltyPromotions;
@@ -139,6 +145,11 @@ public final class ListLoyaltyPromotionsResponse {
             return this;
         }
 
+        /**
+         * <p>The cursor to use in your next call to this endpoint to retrieve the next page of results
+         * for your original request. This field is present only if the request succeeded and additional
+         * results are available. For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

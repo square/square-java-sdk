@@ -66,6 +66,9 @@ public final class DismissTerminalRefundRequest {
     }
 
     public interface TerminalRefundIdStage {
+        /**
+         * <p>Unique ID for the <code>TerminalRefund</code> associated with the refund to be dismissed.</p>
+         */
         _FinalStage terminalRefundId(@NotNull String terminalRefundId);
 
         Builder from(DismissTerminalRefundRequest other);
@@ -91,6 +94,7 @@ public final class DismissTerminalRefundRequest {
         }
 
         /**
+         * <p>Unique ID for the <code>TerminalRefund</code> associated with the refund to be dismissed.</p>
          * <p>Unique ID for the <code>TerminalRefund</code> associated with the refund to be dismissed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

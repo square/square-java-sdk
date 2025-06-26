@@ -130,24 +130,36 @@ public final class AdditionalRecipient {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The location ID for a recipient (other than the merchant) receiving a portion of this tender.</p>
+         */
         AmountMoneyStage locationId(@NotNull String locationId);
 
         Builder from(AdditionalRecipient other);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money distributed to the recipient.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
     }
 
     public interface _FinalStage {
         AdditionalRecipient build();
 
+        /**
+         * <p>The description of the additional recipient.</p>
+         */
         _FinalStage description(Optional<String> description);
 
         _FinalStage description(String description);
 
         _FinalStage description(Nullable<String> description);
 
+        /**
+         * <p>The unique ID for the RETIRED <code>AdditionalRecipientReceivable</code> object. This field should be empty for any <code>AdditionalRecipient</code> objects created after the retirement.</p>
+         */
         _FinalStage receivableId(Optional<String> receivableId);
 
         _FinalStage receivableId(String receivableId);
@@ -181,6 +193,7 @@ public final class AdditionalRecipient {
 
         /**
          * <p>The location ID for a recipient (other than the merchant) receiving a portion of this tender.</p>
+         * <p>The location ID for a recipient (other than the merchant) receiving a portion of this tender.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -191,6 +204,7 @@ public final class AdditionalRecipient {
         }
 
         /**
+         * <p>The amount of money distributed to the recipient.</p>
          * <p>The amount of money distributed to the recipient.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -227,6 +241,9 @@ public final class AdditionalRecipient {
             return this;
         }
 
+        /**
+         * <p>The unique ID for the RETIRED <code>AdditionalRecipientReceivable</code> object. This field should be empty for any <code>AdditionalRecipient</code> objects created after the retirement.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "receivable_id", nulls = Nulls.SKIP)
         public _FinalStage receivableId(Optional<String> receivableId) {
@@ -260,6 +277,9 @@ public final class AdditionalRecipient {
             return this;
         }
 
+        /**
+         * <p>The description of the additional recipient.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {

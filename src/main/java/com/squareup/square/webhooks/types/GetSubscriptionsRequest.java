@@ -66,6 +66,9 @@ public final class GetSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to retrieve.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(GetSubscriptionsRequest other);
@@ -91,6 +94,7 @@ public final class GetSubscriptionsRequest {
         }
 
         /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to retrieve.</p>
          * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

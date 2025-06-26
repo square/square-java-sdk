@@ -124,6 +124,9 @@ public final class PayoutSentEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;payout&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class PayoutSentEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the sent payout.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class PayoutSentEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the sent payout.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<PayoutSentEventObject> object) {
             this.object = object;

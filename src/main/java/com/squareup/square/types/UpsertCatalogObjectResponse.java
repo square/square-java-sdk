@@ -115,6 +115,9 @@ public final class UpsertCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class UpsertCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully created or updated CatalogObject.</p>
+         */
         @JsonSetter(value = "catalog_object", nulls = Nulls.SKIP)
         public Builder catalogObject(Optional<CatalogObject> catalogObject) {
             this.catalogObject = catalogObject;
@@ -137,6 +143,9 @@ public final class UpsertCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>The mapping between client and server IDs for this upsert.</p>
+         */
         @JsonSetter(value = "id_mappings", nulls = Nulls.SKIP)
         public Builder idMappings(Optional<List<CatalogIdMapping>> idMappings) {
             this.idMappings = idMappings;

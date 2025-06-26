@@ -107,6 +107,9 @@ public final class GiftCardCustomerLinkedEventObject {
             return this;
         }
 
+        /**
+         * <p>The gift card with the updated <code>customer_ids</code> field.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;
@@ -118,6 +121,9 @@ public final class GiftCardCustomerLinkedEventObject {
             return this;
         }
 
+        /**
+         * <p>The ID of the linked <a href="entity:Customer">customer</a>.</p>
+         */
         @JsonSetter(value = "linked_customer_id", nulls = Nulls.SKIP)
         public Builder linkedCustomerId(Optional<String> linkedCustomerId) {
             this.linkedCustomerId = linkedCustomerId;

@@ -66,6 +66,9 @@ public final class GetSnippetsRequest {
     }
 
     public interface SiteIdStage {
+        /**
+         * <p>The ID of the site that contains the snippet.</p>
+         */
         _FinalStage siteId(@NotNull String siteId);
 
         Builder from(GetSnippetsRequest other);
@@ -91,6 +94,7 @@ public final class GetSnippetsRequest {
         }
 
         /**
+         * <p>The ID of the site that contains the snippet.</p>
          * <p>The ID of the site that contains the snippet.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

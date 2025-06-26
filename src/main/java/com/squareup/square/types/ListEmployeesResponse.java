@@ -121,6 +121,9 @@ public final class ListEmployeesResponse {
             return this;
         }
 
+        /**
+         * <p>The token to be used to retrieve the next page of results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -132,6 +135,9 @@ public final class ListEmployeesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

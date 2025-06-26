@@ -113,6 +113,9 @@ public final class ListMerchantsResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -124,6 +127,9 @@ public final class ListMerchantsResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>Merchant</code> entities.</p>
+         */
         @JsonSetter(value = "merchant", nulls = Nulls.SKIP)
         public Builder merchant(Optional<List<Merchant>> merchant) {
             this.merchant = merchant;
@@ -135,6 +141,9 @@ public final class ListMerchantsResponse {
             return this;
         }
 
+        /**
+         * <p>If the  response is truncated, the cursor to use in next  request to fetch next set of objects.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<Integer> cursor) {
             this.cursor = cursor;
