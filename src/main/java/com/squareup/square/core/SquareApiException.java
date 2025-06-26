@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Optional;
+import okhttp3.Response;
 
 /**
  * This exception type will be thrown for any non-2XX API responses.
