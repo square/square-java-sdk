@@ -98,6 +98,9 @@ public final class GetTeamMemberWageResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>TeamMemberWage</code> object.</p>
+         */
         @JsonSetter(value = "team_member_wage", nulls = Nulls.SKIP)
         public Builder teamMemberWage(Optional<TeamMemberWage> teamMemberWage) {
             this.teamMemberWage = teamMemberWage;
@@ -109,6 +112,9 @@ public final class GetTeamMemberWageResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

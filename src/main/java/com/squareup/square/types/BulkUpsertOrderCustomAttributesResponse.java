@@ -100,6 +100,9 @@ public final class BulkUpsertOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -111,6 +114,9 @@ public final class BulkUpsertOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>A map of responses that correspond to individual upsert operations for custom attributes.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, UpsertOrderCustomAttributeResponse> values) {
             this.values.clear();

@@ -66,6 +66,9 @@ public final class LoyaltyEventLoyaltyAccountFilter {
     }
 
     public interface LoyaltyAccountIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> associated with loyalty events.</p>
+         */
         _FinalStage loyaltyAccountId(@NotNull String loyaltyAccountId);
 
         Builder from(LoyaltyEventLoyaltyAccountFilter other);
@@ -91,6 +94,7 @@ public final class LoyaltyEventLoyaltyAccountFilter {
         }
 
         /**
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> associated with loyalty events.</p>
          * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> associated with loyalty events.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

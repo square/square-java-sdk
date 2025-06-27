@@ -92,6 +92,9 @@ public final class CustomerPreferences {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the customer has unsubscribed from marketing campaign emails. A value of <code>true</code> means that the customer chose to opt out of email marketing from the current Square seller or from all Square sellers. This value is read-only from the Customers API.</p>
+         */
         @JsonSetter(value = "email_unsubscribed", nulls = Nulls.SKIP)
         public Builder emailUnsubscribed(Optional<Boolean> emailUnsubscribed) {
             this.emailUnsubscribed = emailUnsubscribed;

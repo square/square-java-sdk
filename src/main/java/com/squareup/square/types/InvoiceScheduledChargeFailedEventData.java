@@ -125,6 +125,9 @@ public final class InvoiceScheduledChargeFailedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;invoice&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -147,6 +150,9 @@ public final class InvoiceScheduledChargeFailedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the affected invoice.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -158,6 +164,9 @@ public final class InvoiceScheduledChargeFailedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the invoice that experienced the failed scheduled charge.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<InvoiceScheduledChargeFailedEventObject> object) {
             this.object = object;

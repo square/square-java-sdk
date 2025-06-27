@@ -196,44 +196,72 @@ public final class LoyaltyReward {
     }
 
     public interface LoyaltyAccountIdStage {
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the reward belongs.</p>
+         */
         RewardTierIdStage loyaltyAccountId(@NotNull String loyaltyAccountId);
 
         Builder from(LoyaltyReward other);
     }
 
     public interface RewardTierIdStage {
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgramRewardTier">reward tier</a> used to create the reward.</p>
+         */
         _FinalStage rewardTierId(@NotNull String rewardTierId);
     }
 
     public interface _FinalStage {
         LoyaltyReward build();
 
+        /**
+         * <p>The Square-assigned ID of the loyalty reward.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The status of a loyalty reward.
+         * See <a href="#type-loyaltyrewardstatus">LoyaltyRewardStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<LoyaltyRewardStatus> status);
 
         _FinalStage status(LoyaltyRewardStatus status);
 
+        /**
+         * <p>The number of loyalty points used for the reward.</p>
+         */
         _FinalStage points(Optional<Integer> points);
 
         _FinalStage points(Integer points);
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:Order">order</a> to which the reward is attached.</p>
+         */
         _FinalStage orderId(Optional<String> orderId);
 
         _FinalStage orderId(String orderId);
 
         _FinalStage orderId(Nullable<String> orderId);
 
+        /**
+         * <p>The timestamp when the reward was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp when the reward was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The timestamp when the reward was redeemed, in RFC 3339 format.</p>
+         */
         _FinalStage redeemedAt(Optional<String> redeemedAt);
 
         _FinalStage redeemedAt(String redeemedAt);
@@ -280,6 +308,7 @@ public final class LoyaltyReward {
 
         /**
          * <p>The Square-assigned ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the reward belongs.</p>
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the reward belongs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -290,6 +319,7 @@ public final class LoyaltyReward {
         }
 
         /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgramRewardTier">reward tier</a> used to create the reward.</p>
          * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgramRewardTier">reward tier</a> used to create the reward.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -310,6 +340,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the reward was redeemed, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "redeemed_at", nulls = Nulls.SKIP)
         public _FinalStage redeemedAt(Optional<String> redeemedAt) {
@@ -327,6 +360,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the reward was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -344,6 +380,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the reward was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -377,6 +416,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:Order">order</a> to which the reward is attached.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public _FinalStage orderId(Optional<String> orderId) {
@@ -394,6 +436,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The number of loyalty points used for the reward.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "points", nulls = Nulls.SKIP)
         public _FinalStage points(Optional<Integer> points) {
@@ -412,6 +457,10 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The status of a loyalty reward.
+         * See <a href="#type-loyaltyrewardstatus">LoyaltyRewardStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<LoyaltyRewardStatus> status) {
@@ -429,6 +478,9 @@ public final class LoyaltyReward {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the loyalty reward.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

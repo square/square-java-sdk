@@ -80,6 +80,9 @@ public final class ConfirmationDecision {
             return this;
         }
 
+        /**
+         * <p>The buyer's decision to the displayed terms.</p>
+         */
         @JsonSetter(value = "has_agreed", nulls = Nulls.SKIP)
         public Builder hasAgreed(Optional<Boolean> hasAgreed) {
             this.hasAgreed = hasAgreed;

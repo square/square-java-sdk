@@ -67,6 +67,10 @@ public final class LoyaltyProgramExpirationPolicy {
     }
 
     public interface ExpirationDurationStage {
+        /**
+         * <p>The number of months before points expire, in <code>P[n]M</code> RFC 3339 duration format. For example, a value of <code>P12M</code> represents a duration of 12 months.
+         * Points are valid through the last day of the month in which they are scheduled to expire. For example, with a  <code>P12M</code> duration, points earned on July 6, 2020 expire on August 1, 2021.</p>
+         */
         _FinalStage expirationDuration(@NotNull String expirationDuration);
 
         Builder from(LoyaltyProgramExpirationPolicy other);
@@ -92,6 +96,8 @@ public final class LoyaltyProgramExpirationPolicy {
         }
 
         /**
+         * <p>The number of months before points expire, in <code>P[n]M</code> RFC 3339 duration format. For example, a value of <code>P12M</code> represents a duration of 12 months.
+         * Points are valid through the last day of the month in which they are scheduled to expire. For example, with a  <code>P12M</code> duration, points earned on July 6, 2020 expire on August 1, 2021.</p>
          * <p>The number of months before points expire, in <code>P[n]M</code> RFC 3339 duration format. For example, a value of <code>P12M</code> represents a duration of 12 months.
          * Points are valid through the last day of the month in which they are scheduled to expire. For example, with a  <code>P12M</code> duration, points earned on July 6, 2020 expire on August 1, 2021.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

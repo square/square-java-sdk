@@ -119,6 +119,9 @@ public final class ListEventsSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to retrieve the events for.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(ListEventsSubscriptionsRequest other);
@@ -127,12 +130,22 @@ public final class ListEventsSubscriptionsRequest {
     public interface _FinalStage {
         ListEventsSubscriptionsRequest build();
 
+        /**
+         * <p>When the total number of resulting subscription events exceeds the limit of a paged response,
+         * specify the cursor returned from a preceding response here to fetch the next set of results.
+         * If the cursor is unset, the response contains the last page of the results.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
 
         _FinalStage cursor(Nullable<String> cursor);
 
+        /**
+         * <p>The upper limit on the number of subscription events to return
+         * in a paged response.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
@@ -162,6 +175,7 @@ public final class ListEventsSubscriptionsRequest {
         }
 
         /**
+         * <p>The ID of the subscription to retrieve the events for.</p>
          * <p>The ID of the subscription to retrieve the events for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -200,6 +214,10 @@ public final class ListEventsSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>The upper limit on the number of subscription events to return
+         * in a paged response.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -239,6 +257,12 @@ public final class ListEventsSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>When the total number of resulting subscription events exceeds the limit of a paged response,
+         * specify the cursor returned from a preceding response here to fetch the next set of results.
+         * If the cursor is unset, the response contains the last page of the results.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {

@@ -3,7 +3,6 @@
  */
 package com.squareup.square.bookings;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.bookings.types.BulkDeleteBookingCustomAttributesRequest;
 import com.squareup.square.bookings.types.BulkUpsertBookingCustomAttributesRequest;
 import com.squareup.square.bookings.types.DeleteCustomAttributesRequest;
@@ -11,42 +10,31 @@ import com.squareup.square.bookings.types.GetCustomAttributesRequest;
 import com.squareup.square.bookings.types.ListCustomAttributesRequest;
 import com.squareup.square.bookings.types.UpsertBookingCustomAttributeRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BulkDeleteBookingCustomAttributesResponse;
 import com.squareup.square.types.BulkUpsertBookingCustomAttributesResponse;
 import com.squareup.square.types.CustomAttribute;
 import com.squareup.square.types.DeleteBookingCustomAttributeResponse;
-import com.squareup.square.types.ListBookingCustomAttributesResponse;
 import com.squareup.square.types.RetrieveBookingCustomAttributeResponse;
 import com.squareup.square.types.UpsertBookingCustomAttributeResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncCustomAttributesClient {
     protected final ClientOptions clientOptions;
 
+    private final AsyncRawCustomAttributesClient rawClient;
+
     public AsyncCustomAttributesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawCustomAttributesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawCustomAttributesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -58,7 +46,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<BulkDeleteBookingCustomAttributesResponse> batchDelete(
             BulkDeleteBookingCustomAttributesRequest request) {
-        return batchDelete(request, null);
+        return this.rawClient.batchDelete(request).thenApply(response -> response.body());
     }
 
     /**
@@ -70,55 +58,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<BulkDeleteBookingCustomAttributesResponse> batchDelete(
             BulkDeleteBookingCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attributes/bulk-delete")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BulkDeleteBookingCustomAttributesResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BulkDeleteBookingCustomAttributesResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchDelete(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -130,7 +70,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<BulkUpsertBookingCustomAttributesResponse> batchUpsert(
             BulkUpsertBookingCustomAttributesRequest request) {
-        return batchUpsert(request, null);
+        return this.rawClient.batchUpsert(request).thenApply(response -> response.body());
     }
 
     /**
@@ -142,55 +82,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<BulkUpsertBookingCustomAttributesResponse> batchUpsert(
             BulkUpsertBookingCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attributes/bulk-upsert")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BulkUpsertBookingCustomAttributesResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BulkUpsertBookingCustomAttributesResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchUpsert(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -199,7 +91,7 @@ public class AsyncCustomAttributesClient {
      * To call this endpoint with seller-level permissions, set <code>APPOINTMENTS_ALL_READ</code> and <code>APPOINTMENTS_READ</code> for the OAuth scope.</p>
      */
     public CompletableFuture<SyncPagingIterable<CustomAttribute>> list(ListCustomAttributesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
@@ -209,79 +101,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<SyncPagingIterable<CustomAttribute>> list(
             ListCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings")
-                .addPathSegment(request.getBookingId())
-                .addPathSegments("custom-attributes");
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getWithDefinitions().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definitions",
-                    request.getWithDefinitions().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<CustomAttribute>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        ListBookingCustomAttributesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), ListBookingCustomAttributesResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ListCustomAttributesRequest nextRequest = ListCustomAttributesRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<CustomAttribute> result =
-                                parsedResponse.getCustomAttributes().orElse(Collections.emptyList());
-                        future.complete(
-                                new SyncPagingIterable<CustomAttribute>(startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return list(nextRequest, requestOptions).get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -290,7 +110,7 @@ public class AsyncCustomAttributesClient {
      * To call this endpoint with seller-level permissions, set <code>APPOINTMENTS_ALL_READ</code> and <code>APPOINTMENTS_READ</code> for the OAuth scope.</p>
      */
     public CompletableFuture<RetrieveBookingCustomAttributeResponse> get(GetCustomAttributesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
@@ -300,61 +120,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<RetrieveBookingCustomAttributeResponse> get(
             GetCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings")
-                .addPathSegment(request.getBookingId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey());
-        if (request.getWithDefinition().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definition",
-                    request.getWithDefinition().get().toString(),
-                    false);
-        }
-        if (request.getVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "version", request.getVersion().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<RetrieveBookingCustomAttributeResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), RetrieveBookingCustomAttributeResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -365,7 +131,7 @@ public class AsyncCustomAttributesClient {
      * or <em>Appointments Premium</em>.</p>
      */
     public CompletableFuture<UpsertBookingCustomAttributeResponse> upsert(UpsertBookingCustomAttributeRequest request) {
-        return upsert(request, null);
+        return this.rawClient.upsert(request).thenApply(response -> response.body());
     }
 
     /**
@@ -377,58 +143,7 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<UpsertBookingCustomAttributeResponse> upsert(
             UpsertBookingCustomAttributeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings")
-                .addPathSegment(request.getBookingId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpsertBookingCustomAttributeResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpsertBookingCustomAttributeResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.upsert(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -439,7 +154,7 @@ public class AsyncCustomAttributesClient {
      * or <em>Appointments Premium</em>.</p>
      */
     public CompletableFuture<DeleteBookingCustomAttributeResponse> delete(DeleteCustomAttributesRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).thenApply(response -> response.body());
     }
 
     /**
@@ -451,50 +166,6 @@ public class AsyncCustomAttributesClient {
      */
     public CompletableFuture<DeleteBookingCustomAttributeResponse> delete(
             DeleteCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings")
-                .addPathSegment(request.getBookingId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getKey())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<DeleteBookingCustomAttributeResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), DeleteBookingCustomAttributeResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.delete(request, requestOptions).thenApply(response -> response.body());
     }
 }

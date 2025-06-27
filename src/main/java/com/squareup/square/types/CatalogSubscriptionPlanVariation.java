@@ -184,6 +184,9 @@ public final class CatalogSubscriptionPlanVariation {
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of the plan variation.</p>
+         */
         _FinalStage name(@NotNull String name);
 
         Builder from(CatalogSubscriptionPlanVariation other);
@@ -192,30 +195,47 @@ public final class CatalogSubscriptionPlanVariation {
     public interface _FinalStage {
         CatalogSubscriptionPlanVariation build();
 
+        /**
+         * <p>A list containing each <a href="entity:SubscriptionPhase">SubscriptionPhase</a> for this plan variation.</p>
+         */
         _FinalStage phases(List<SubscriptionPhase> phases);
 
         _FinalStage addPhases(SubscriptionPhase phases);
 
         _FinalStage addAllPhases(List<SubscriptionPhase> phases);
 
+        /**
+         * <p>The id of the subscription plan, if there is one.</p>
+         */
         _FinalStage subscriptionPlanId(Optional<String> subscriptionPlanId);
 
         _FinalStage subscriptionPlanId(String subscriptionPlanId);
 
         _FinalStage subscriptionPlanId(Nullable<String> subscriptionPlanId);
 
+        /**
+         * <p>The day of the month the billing period starts.</p>
+         */
         _FinalStage monthlyBillingAnchorDate(Optional<Long> monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Long monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Nullable<Long> monthlyBillingAnchorDate);
 
+        /**
+         * <p>Whether bills for this plan variation can be split for proration.</p>
+         */
         _FinalStage canProrate(Optional<Boolean> canProrate);
 
         _FinalStage canProrate(Boolean canProrate);
 
         _FinalStage canProrate(Nullable<Boolean> canProrate);
 
+        /**
+         * <p>The ID of a &quot;successor&quot; plan variation to this one. If the field is set, and this object is disabled at all
+         * locations, it indicates that this variation is deprecated and the object identified by the successor ID be used in
+         * its stead.</p>
+         */
         _FinalStage successorPlanVariationId(Optional<String> successorPlanVariationId);
 
         _FinalStage successorPlanVariationId(String successorPlanVariationId);
@@ -254,6 +274,7 @@ public final class CatalogSubscriptionPlanVariation {
         }
 
         /**
+         * <p>The name of the plan variation.</p>
          * <p>The name of the plan variation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -294,6 +315,11 @@ public final class CatalogSubscriptionPlanVariation {
             return this;
         }
 
+        /**
+         * <p>The ID of a &quot;successor&quot; plan variation to this one. If the field is set, and this object is disabled at all
+         * locations, it indicates that this variation is deprecated and the object identified by the successor ID be used in
+         * its stead.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "successor_plan_variation_id", nulls = Nulls.SKIP)
         public _FinalStage successorPlanVariationId(Optional<String> successorPlanVariationId) {
@@ -327,6 +353,9 @@ public final class CatalogSubscriptionPlanVariation {
             return this;
         }
 
+        /**
+         * <p>Whether bills for this plan variation can be split for proration.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "can_prorate", nulls = Nulls.SKIP)
         public _FinalStage canProrate(Optional<Boolean> canProrate) {
@@ -360,6 +389,9 @@ public final class CatalogSubscriptionPlanVariation {
             return this;
         }
 
+        /**
+         * <p>The day of the month the billing period starts.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public _FinalStage monthlyBillingAnchorDate(Optional<Long> monthlyBillingAnchorDate) {
@@ -393,6 +425,9 @@ public final class CatalogSubscriptionPlanVariation {
             return this;
         }
 
+        /**
+         * <p>The id of the subscription plan, if there is one.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "subscription_plan_id", nulls = Nulls.SKIP)
         public _FinalStage subscriptionPlanId(Optional<String> subscriptionPlanId) {
@@ -420,6 +455,9 @@ public final class CatalogSubscriptionPlanVariation {
             return this;
         }
 
+        /**
+         * <p>A list containing each <a href="entity:SubscriptionPhase">SubscriptionPhase</a> for this plan variation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(List<SubscriptionPhase> phases) {

@@ -282,6 +282,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the returned tax only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -304,6 +307,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The tax <code>uid</code> from the order that contains the original tax charge.</p>
+         */
         @JsonSetter(value = "source_tax_uid", nulls = Nulls.SKIP)
         public Builder sourceTaxUid(Optional<String> sourceTaxUid) {
             this.sourceTaxUid = sourceTaxUid;
@@ -326,6 +332,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The catalog object ID referencing <a href="entity:CatalogTax">CatalogTax</a>.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -348,6 +357,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this tax references.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;
@@ -370,6 +382,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The tax's name.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -392,6 +407,10 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>Indicates the calculation method used to apply the tax.
+         * See <a href="#type-orderlineitemtaxtype">OrderLineItemTaxType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<OrderLineItemTaxType> type) {
             this.type = type;
@@ -403,6 +422,10 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The percentage of the tax, as a string representation of a decimal number.
+         * For example, a value of <code>&quot;7.25&quot;</code> corresponds to a percentage of 7.25%.</p>
+         */
         @JsonSetter(value = "percentage", nulls = Nulls.SKIP)
         public Builder percentage(Optional<String> percentage) {
             this.percentage = percentage;
@@ -425,6 +448,9 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>The amount of money applied by the tax in an order.</p>
+         */
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public Builder appliedMoney(Optional<Money> appliedMoney) {
             this.appliedMoney = appliedMoney;
@@ -436,6 +462,13 @@ public final class OrderReturnTax {
             return this;
         }
 
+        /**
+         * <p>Indicates the level at which the <code>OrderReturnTax</code> applies. For <code>ORDER</code> scoped
+         * taxes, Square generates references in <code>applied_taxes</code> on all
+         * <code>OrderReturnLineItem</code>s. For <code>LINE_ITEM</code> scoped taxes, the tax is only applied to
+         * <code>OrderReturnLineItem</code>s with references in their <code>applied_discounts</code> field.
+         * See <a href="#type-orderlineitemtaxscope">OrderLineItemTaxScope</a> for possible values</p>
+         */
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
         public Builder scope(Optional<OrderLineItemTaxScope> scope) {
             this.scope = scope;

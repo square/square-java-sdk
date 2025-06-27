@@ -77,12 +77,18 @@ public final class CatalogQueryPrefix {
     }
 
     public interface AttributeNameStage {
+        /**
+         * <p>The name of the attribute to be searched.</p>
+         */
         AttributePrefixStage attributeName(@NotNull String attributeName);
 
         Builder from(CatalogQueryPrefix other);
     }
 
     public interface AttributePrefixStage {
+        /**
+         * <p>The desired prefix of the search attribute value.</p>
+         */
         _FinalStage attributePrefix(@NotNull String attributePrefix);
     }
 
@@ -110,6 +116,7 @@ public final class CatalogQueryPrefix {
 
         /**
          * <p>The name of the attribute to be searched.</p>
+         * <p>The name of the attribute to be searched.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class CatalogQueryPrefix {
         }
 
         /**
+         * <p>The desired prefix of the search attribute value.</p>
          * <p>The desired prefix of the search attribute value.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

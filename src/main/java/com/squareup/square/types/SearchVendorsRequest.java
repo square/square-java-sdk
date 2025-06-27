@@ -114,6 +114,9 @@ public final class SearchVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies a filter used to search for vendors.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<SearchVendorsRequestFilter> filter) {
             this.filter = filter;
@@ -125,6 +128,9 @@ public final class SearchVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies a sorter used to sort the returned vendors.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<SearchVendorsRequestSort> sort) {
             this.sort = sort;
@@ -136,6 +142,11 @@ public final class SearchVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for the original query.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

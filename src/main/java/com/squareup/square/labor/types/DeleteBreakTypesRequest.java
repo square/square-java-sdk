@@ -66,6 +66,9 @@ public final class DeleteBreakTypesRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>BreakType</code> being deleted.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(DeleteBreakTypesRequest other);
@@ -91,6 +94,7 @@ public final class DeleteBreakTypesRequest {
         }
 
         /**
+         * <p>The UUID for the <code>BreakType</code> being deleted.</p>
          * <p>The UUID for the <code>BreakType</code> being deleted.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

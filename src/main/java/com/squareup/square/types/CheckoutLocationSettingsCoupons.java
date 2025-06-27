@@ -92,6 +92,9 @@ public final class CheckoutLocationSettingsCoupons {
             return this;
         }
 
+        /**
+         * <p>Indicates whether coupons are enabled for this location.</p>
+         */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public Builder enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;

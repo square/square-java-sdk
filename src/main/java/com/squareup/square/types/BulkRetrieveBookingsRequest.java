@@ -81,6 +81,9 @@ public final class BulkRetrieveBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>A non-empty list of <a href="entity:Booking">Booking</a> IDs specifying bookings to retrieve.</p>
+         */
         @JsonSetter(value = "booking_ids", nulls = Nulls.SKIP)
         public Builder bookingIds(List<String> bookingIds) {
             this.bookingIds.clear();

@@ -66,6 +66,9 @@ public final class CancelPaymentsRequest {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>The ID of the payment to cancel.</p>
+         */
         _FinalStage paymentId(@NotNull String paymentId);
 
         Builder from(CancelPaymentsRequest other);
@@ -91,6 +94,7 @@ public final class CancelPaymentsRequest {
         }
 
         /**
+         * <p>The ID of the payment to cancel.</p>
          * <p>The ID of the payment to cancel.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

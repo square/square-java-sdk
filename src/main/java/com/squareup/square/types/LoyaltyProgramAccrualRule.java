@@ -155,6 +155,10 @@ public final class LoyaltyProgramAccrualRule {
     }
 
     public interface AccrualTypeStage {
+        /**
+         * <p>The type of the accrual rule that defines how buyers can earn points.
+         * See <a href="#type-loyaltyprogramaccrualruletype">LoyaltyProgramAccrualRuleType</a> for possible values</p>
+         */
         _FinalStage accrualType(@NotNull LoyaltyProgramAccrualRuleType accrualType);
 
         Builder from(LoyaltyProgramAccrualRule other);
@@ -163,24 +167,40 @@ public final class LoyaltyProgramAccrualRule {
     public interface _FinalStage {
         LoyaltyProgramAccrualRule build();
 
+        /**
+         * <p>The number of points that
+         * buyers earn based on the <code>accrual_type</code>.</p>
+         */
         _FinalStage points(Optional<Integer> points);
 
         _FinalStage points(Integer points);
 
         _FinalStage points(Nullable<Integer> points);
 
+        /**
+         * <p>Additional data for rules with the <code>VISIT</code> accrual type.</p>
+         */
         _FinalStage visitData(Optional<LoyaltyProgramAccrualRuleVisitData> visitData);
 
         _FinalStage visitData(LoyaltyProgramAccrualRuleVisitData visitData);
 
+        /**
+         * <p>Additional data for rules with the <code>SPEND</code> accrual type.</p>
+         */
         _FinalStage spendData(Optional<LoyaltyProgramAccrualRuleSpendData> spendData);
 
         _FinalStage spendData(LoyaltyProgramAccrualRuleSpendData spendData);
 
+        /**
+         * <p>Additional data for rules with the <code>ITEM_VARIATION</code> accrual type.</p>
+         */
         _FinalStage itemVariationData(Optional<LoyaltyProgramAccrualRuleItemVariationData> itemVariationData);
 
         _FinalStage itemVariationData(LoyaltyProgramAccrualRuleItemVariationData itemVariationData);
 
+        /**
+         * <p>Additional data for rules with the <code>CATEGORY</code> accrual type.</p>
+         */
         _FinalStage categoryData(Optional<LoyaltyProgramAccrualRuleCategoryData> categoryData);
 
         _FinalStage categoryData(LoyaltyProgramAccrualRuleCategoryData categoryData);
@@ -219,6 +239,8 @@ public final class LoyaltyProgramAccrualRule {
         /**
          * <p>The type of the accrual rule that defines how buyers can earn points.
          * See <a href="#type-loyaltyprogramaccrualruletype">LoyaltyProgramAccrualRuleType</a> for possible values</p>
+         * <p>The type of the accrual rule that defines how buyers can earn points.
+         * See <a href="#type-loyaltyprogramaccrualruletype">LoyaltyProgramAccrualRuleType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -238,6 +260,9 @@ public final class LoyaltyProgramAccrualRule {
             return this;
         }
 
+        /**
+         * <p>Additional data for rules with the <code>CATEGORY</code> accrual type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "category_data", nulls = Nulls.SKIP)
         public _FinalStage categoryData(Optional<LoyaltyProgramAccrualRuleCategoryData> categoryData) {
@@ -255,6 +280,9 @@ public final class LoyaltyProgramAccrualRule {
             return this;
         }
 
+        /**
+         * <p>Additional data for rules with the <code>ITEM_VARIATION</code> accrual type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "item_variation_data", nulls = Nulls.SKIP)
         public _FinalStage itemVariationData(Optional<LoyaltyProgramAccrualRuleItemVariationData> itemVariationData) {
@@ -272,6 +300,9 @@ public final class LoyaltyProgramAccrualRule {
             return this;
         }
 
+        /**
+         * <p>Additional data for rules with the <code>SPEND</code> accrual type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "spend_data", nulls = Nulls.SKIP)
         public _FinalStage spendData(Optional<LoyaltyProgramAccrualRuleSpendData> spendData) {
@@ -289,6 +320,9 @@ public final class LoyaltyProgramAccrualRule {
             return this;
         }
 
+        /**
+         * <p>Additional data for rules with the <code>VISIT</code> accrual type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "visit_data", nulls = Nulls.SKIP)
         public _FinalStage visitData(Optional<LoyaltyProgramAccrualRuleVisitData> visitData) {
@@ -324,6 +358,10 @@ public final class LoyaltyProgramAccrualRule {
             return this;
         }
 
+        /**
+         * <p>The number of points that
+         * buyers earn based on the <code>accrual_type</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "points", nulls = Nulls.SKIP)
         public _FinalStage points(Optional<Integer> points) {

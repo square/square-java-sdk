@@ -4,11 +4,7 @@
 package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BankAccount;
 import com.squareup.square.types.GetBankAccountByV1IdResponse;
@@ -16,133 +12,57 @@ import com.squareup.square.types.GetBankAccountResponse;
 import com.squareup.square.types.GetBankAccountsRequest;
 import com.squareup.square.types.GetByV1IdBankAccountsRequest;
 import com.squareup.square.types.ListBankAccountsRequest;
-import com.squareup.square.types.ListBankAccountsResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class BankAccountsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawBankAccountsClient rawClient;
+
     public BankAccountsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawBankAccountsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawBankAccountsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
      */
     public SyncPagingIterable<BankAccount> list() {
-        return list(ListBankAccountsRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
      * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
      */
     public SyncPagingIterable<BankAccount> list(ListBankAccountsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
      * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
      */
     public SyncPagingIterable<BankAccount> list(ListBankAccountsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bank-accounts");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListBankAccountsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListBankAccountsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListBankAccountsRequest nextRequest = ListBankAccountsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<BankAccount> result = parsedResponse.getBankAccounts().orElse(Collections.emptyList());
-                return new SyncPagingIterable<BankAccount>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
      * Returns details of a <a href="entity:BankAccount">BankAccount</a> identified by V1 bank account ID.
      */
     public GetBankAccountByV1IdResponse getByV1Id(GetByV1IdBankAccountsRequest request) {
-        return getByV1Id(request, null);
+        return this.rawClient.getByV1Id(request).body();
     }
 
     /**
      * Returns details of a <a href="entity:BankAccount">BankAccount</a> identified by V1 bank account ID.
      */
     public GetBankAccountByV1IdResponse getByV1Id(GetByV1IdBankAccountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bank-accounts/by-v1-id")
-                .addPathSegment(request.getV1BankAccountId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetBankAccountByV1IdResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.getByV1Id(request, requestOptions).body();
     }
 
     /**
@@ -150,7 +70,7 @@ public class BankAccountsClient {
      * linked to a Square account.
      */
     public GetBankAccountResponse get(GetBankAccountsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -158,34 +78,6 @@ public class BankAccountsClient {
      * linked to a Square account.
      */
     public GetBankAccountResponse get(GetBankAccountsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bank-accounts")
-                .addPathSegment(request.getBankAccountId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetBankAccountResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 }

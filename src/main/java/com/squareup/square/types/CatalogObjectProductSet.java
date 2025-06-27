@@ -249,6 +249,14 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
     }
 
     public interface IdStage {
+        /**
+         * <p>An identifier to reference this object in the catalog. When a new <code>CatalogObject</code>
+         * is inserted, the client should set the id to a temporary identifier starting with
+         * a &quot;<code>#</code>&quot; character. Other objects being inserted or updated within the same request
+         * may use this identifier to refer to the new object.</p>
+         * <p>When the server receives the new object, it will supply a unique identifier that
+         * replaces the temporary identifier for all future references.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(CatalogObjectProductSet other);
@@ -257,42 +265,94 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
     public interface _FinalStage {
         CatalogObjectProductSet build();
 
+        /**
+         * <p>Last modification <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> in RFC 3339 format, e.g., <code>&quot;2016-08-15T23:59:33.123Z&quot;</code>
+         * would indicate the UTC time (denoted by <code>Z</code>) of August 15, 2016 at 23:59:33 and 123 milliseconds.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The version of the object. When updating an object, the version supplied
+         * must match the version in the database, otherwise the write will be rejected as conflicting.</p>
+         */
         _FinalStage version(Optional<Long> version);
 
         _FinalStage version(Long version);
 
+        /**
+         * <p>If <code>true</code>, the object has been deleted from the database. Must be <code>false</code> for new objects
+         * being inserted. When deleted, the <code>updated_at</code> field will equal the deletion time.</p>
+         */
         _FinalStage isDeleted(Optional<Boolean> isDeleted);
 
         _FinalStage isDeleted(Boolean isDeleted);
 
+        /**
+         * <p>A map (key-value pairs) of application-defined custom attribute values. The value of a key-value pair
+         * is a <a href="entity:CatalogCustomAttributeValue">CatalogCustomAttributeValue</a> object. The key is the <code>key</code> attribute
+         * value defined in the associated <a href="entity:CatalogCustomAttributeDefinition">CatalogCustomAttributeDefinition</a>
+         * object defined by the application making the request.</p>
+         * <p>If the <code>CatalogCustomAttributeDefinition</code> object is
+         * defined by another application, the <code>CatalogCustomAttributeDefinition</code>'s key attribute value is prefixed by
+         * the defining application ID. For example, if the <code>CatalogCustomAttributeDefinition</code> has a <code>key</code> attribute of
+         * <code>&quot;cocoa_brand&quot;</code> and the defining application ID is <code>&quot;abcd1234&quot;</code>, the key in the map is <code>&quot;abcd1234:cocoa_brand&quot;</code>
+         * if the application making the request is different from the application defining the custom attribute definition.
+         * Otherwise, the key used in the map is simply <code>&quot;cocoa_brand&quot;</code>.</p>
+         * <p>Application-defined custom attributes are set at a global (location-independent) level.
+         * Custom attribute values are intended to store additional information about a catalog object
+         * or associations with an entity in another system. Do not use custom attributes
+         * to store any sensitive information (personally identifiable information, card details, etc.).</p>
+         */
         _FinalStage customAttributeValues(Optional<Map<String, CatalogCustomAttributeValue>> customAttributeValues);
 
         _FinalStage customAttributeValues(Map<String, CatalogCustomAttributeValue> customAttributeValues);
 
+        /**
+         * <p>The Connect v1 IDs for this object at each location where it is present, where they
+         * differ from the object's Connect V2 ID. The field will only be present for objects that
+         * have been created or modified by legacy APIs.</p>
+         */
         _FinalStage catalogV1Ids(Optional<List<CatalogV1Id>> catalogV1Ids);
 
         _FinalStage catalogV1Ids(List<CatalogV1Id> catalogV1Ids);
 
+        /**
+         * <p>If <code>true</code>, this object is present at all locations (including future locations), except where specified in
+         * the <code>absent_at_location_ids</code> field. If <code>false</code>, this object is not present at any locations (including future locations),
+         * except where specified in the <code>present_at_location_ids</code> field. If not specified, defaults to <code>true</code>.</p>
+         */
         _FinalStage presentAtAllLocations(Optional<Boolean> presentAtAllLocations);
 
         _FinalStage presentAtAllLocations(Boolean presentAtAllLocations);
 
+        /**
+         * <p>A list of locations where the object is present, even if <code>present_at_all_locations</code> is <code>false</code>.
+         * This can include locations that are deactivated.</p>
+         */
         _FinalStage presentAtLocationIds(Optional<List<String>> presentAtLocationIds);
 
         _FinalStage presentAtLocationIds(List<String> presentAtLocationIds);
 
+        /**
+         * <p>A list of locations where the object is not present, even if <code>present_at_all_locations</code> is <code>true</code>.
+         * This can include locations that are deactivated.</p>
+         */
         _FinalStage absentAtLocationIds(Optional<List<String>> absentAtLocationIds);
 
         _FinalStage absentAtLocationIds(List<String> absentAtLocationIds);
 
+        /**
+         * <p>Identifies the <code>CatalogImage</code> attached to this <code>CatalogObject</code>.</p>
+         */
         _FinalStage imageId(Optional<String> imageId);
 
         _FinalStage imageId(String imageId);
 
+        /**
+         * <p>Structured data for a <code>CatalogProductSet</code>, set for CatalogObjects of type <code>PRODUCT_SET</code>.</p>
+         */
         _FinalStage productSetData(Optional<CatalogProductSet> productSetData);
 
         _FinalStage productSetData(CatalogProductSet productSetData);
@@ -350,6 +410,12 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
          * may use this identifier to refer to the new object.</p>
          * <p>When the server receives the new object, it will supply a unique identifier that
          * replaces the temporary identifier for all future references.</p>
+         * <p>An identifier to reference this object in the catalog. When a new <code>CatalogObject</code>
+         * is inserted, the client should set the id to a temporary identifier starting with
+         * a &quot;<code>#</code>&quot; character. Other objects being inserted or updated within the same request
+         * may use this identifier to refer to the new object.</p>
+         * <p>When the server receives the new object, it will supply a unique identifier that
+         * replaces the temporary identifier for all future references.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -369,6 +435,9 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>Structured data for a <code>CatalogProductSet</code>, set for CatalogObjects of type <code>PRODUCT_SET</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "product_set_data", nulls = Nulls.SKIP)
         public _FinalStage productSetData(Optional<CatalogProductSet> productSetData) {
@@ -386,6 +455,9 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>Identifies the <code>CatalogImage</code> attached to this <code>CatalogObject</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "image_id", nulls = Nulls.SKIP)
         public _FinalStage imageId(Optional<String> imageId) {
@@ -404,6 +476,10 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>A list of locations where the object is not present, even if <code>present_at_all_locations</code> is <code>true</code>.
+         * This can include locations that are deactivated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "absent_at_location_ids", nulls = Nulls.SKIP)
         public _FinalStage absentAtLocationIds(Optional<List<String>> absentAtLocationIds) {
@@ -422,6 +498,10 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>A list of locations where the object is present, even if <code>present_at_all_locations</code> is <code>false</code>.
+         * This can include locations that are deactivated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "present_at_location_ids", nulls = Nulls.SKIP)
         public _FinalStage presentAtLocationIds(Optional<List<String>> presentAtLocationIds) {
@@ -441,6 +521,11 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, this object is present at all locations (including future locations), except where specified in
+         * the <code>absent_at_location_ids</code> field. If <code>false</code>, this object is not present at any locations (including future locations),
+         * except where specified in the <code>present_at_location_ids</code> field. If not specified, defaults to <code>true</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "present_at_all_locations", nulls = Nulls.SKIP)
         public _FinalStage presentAtAllLocations(Optional<Boolean> presentAtAllLocations) {
@@ -460,6 +545,11 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>The Connect v1 IDs for this object at each location where it is present, where they
+         * differ from the object's Connect V2 ID. The field will only be present for objects that
+         * have been created or modified by legacy APIs.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "catalog_v1_ids", nulls = Nulls.SKIP)
         public _FinalStage catalogV1Ids(Optional<List<CatalogV1Id>> catalogV1Ids) {
@@ -490,6 +580,22 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>A map (key-value pairs) of application-defined custom attribute values. The value of a key-value pair
+         * is a <a href="entity:CatalogCustomAttributeValue">CatalogCustomAttributeValue</a> object. The key is the <code>key</code> attribute
+         * value defined in the associated <a href="entity:CatalogCustomAttributeDefinition">CatalogCustomAttributeDefinition</a>
+         * object defined by the application making the request.</p>
+         * <p>If the <code>CatalogCustomAttributeDefinition</code> object is
+         * defined by another application, the <code>CatalogCustomAttributeDefinition</code>'s key attribute value is prefixed by
+         * the defining application ID. For example, if the <code>CatalogCustomAttributeDefinition</code> has a <code>key</code> attribute of
+         * <code>&quot;cocoa_brand&quot;</code> and the defining application ID is <code>&quot;abcd1234&quot;</code>, the key in the map is <code>&quot;abcd1234:cocoa_brand&quot;</code>
+         * if the application making the request is different from the application defining the custom attribute definition.
+         * Otherwise, the key used in the map is simply <code>&quot;cocoa_brand&quot;</code>.</p>
+         * <p>Application-defined custom attributes are set at a global (location-independent) level.
+         * Custom attribute values are intended to store additional information about a catalog object
+         * or associations with an entity in another system. Do not use custom attributes
+         * to store any sensitive information (personally identifiable information, card details, etc.).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "custom_attribute_values", nulls = Nulls.SKIP)
         public _FinalStage customAttributeValues(
@@ -509,6 +615,10 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, the object has been deleted from the database. Must be <code>false</code> for new objects
+         * being inserted. When deleted, the <code>updated_at</code> field will equal the deletion time.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "is_deleted", nulls = Nulls.SKIP)
         public _FinalStage isDeleted(Optional<Boolean> isDeleted) {
@@ -527,6 +637,10 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>The version of the object. When updating an object, the version supplied
+         * must match the version in the database, otherwise the write will be rejected as conflicting.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Long> version) {
@@ -545,6 +659,10 @@ public final class CatalogObjectProductSet implements ICatalogObjectBase {
             return this;
         }
 
+        /**
+         * <p>Last modification <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> in RFC 3339 format, e.g., <code>&quot;2016-08-15T23:59:33.123Z&quot;</code>
+         * would indicate the UTC time (denoted by <code>Z</code>) of August 15, 2016 at 23:59:33 and 123 milliseconds.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {

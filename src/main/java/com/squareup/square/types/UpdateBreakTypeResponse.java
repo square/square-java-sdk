@@ -96,6 +96,9 @@ public final class UpdateBreakTypeResponse {
             return this;
         }
 
+        /**
+         * <p>The response object.</p>
+         */
         @JsonSetter(value = "break_type", nulls = Nulls.SKIP)
         public Builder breakType(Optional<BreakType> breakType) {
             this.breakType = breakType;
@@ -107,6 +110,9 @@ public final class UpdateBreakTypeResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

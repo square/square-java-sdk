@@ -98,16 +98,28 @@ public final class CreateLoyaltyPromotionRequest {
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to associate with the promotion.
+         * To get the program ID, call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a>
+         * using the <code>main</code> keyword.</p>
+         */
         LoyaltyPromotionStage programId(@NotNull String programId);
 
         Builder from(CreateLoyaltyPromotionRequest other);
     }
 
     public interface LoyaltyPromotionStage {
+        /**
+         * <p>The loyalty promotion to create.</p>
+         */
         IdempotencyKeyStage loyaltyPromotion(@NotNull LoyaltyPromotion loyaltyPromotion);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique identifier for this request, which is used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
@@ -141,6 +153,9 @@ public final class CreateLoyaltyPromotionRequest {
          * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to associate with the promotion.
          * To get the program ID, call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a>
          * using the <code>main</code> keyword.</p>
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to associate with the promotion.
+         * To get the program ID, call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a>
+         * using the <code>main</code> keyword.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,6 +167,7 @@ public final class CreateLoyaltyPromotionRequest {
 
         /**
          * <p>The loyalty promotion to create.</p>
+         * <p>The loyalty promotion to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -162,6 +178,8 @@ public final class CreateLoyaltyPromotionRequest {
         }
 
         /**
+         * <p>A unique identifier for this request, which is used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
          * <p>A unique identifier for this request, which is used to ensure idempotency. For more information,
          * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

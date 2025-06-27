@@ -361,6 +361,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>A unique Square-generated ID for the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -372,6 +376,11 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>An optional ID provided by the application to tie the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to an external
+         * system.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -394,6 +403,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the
+         * <a href="entity:CatalogObject">CatalogObject</a> being tracked.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -416,6 +429,11 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:CatalogObjectType">type</a> of the <a href="entity:CatalogObject">CatalogObject</a> being tracked.</p>
+         * <p>The Inventory API supports setting and reading the <code>&quot;catalog_object_type&quot;: &quot;ITEM_VARIATION&quot;</code> field value.
+         * In addition, it can also read the <code>&quot;catalog_object_type&quot;: &quot;ITEM&quot;</code> field value that is set by the Square Restaurants app.</p>
+         */
         @JsonSetter(value = "catalog_object_type", nulls = Nulls.SKIP)
         public Builder catalogObjectType(Optional<String> catalogObjectType) {
             this.catalogObjectType = catalogObjectType;
@@ -438,6 +456,11 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The current <a href="entity:InventoryState">inventory state</a> for the related
+         * quantity of items.
+         * See <a href="#type-inventorystate">InventoryState</a> for possible values</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<InventoryState> state) {
             this.state = state;
@@ -449,6 +472,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the <a href="entity:Location">Location</a> where the related
+         * quantity of items is being tracked.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -471,6 +498,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The number of items affected by the physical count as a decimal string.
+         * The number can support up to 5 digits after the decimal point.</p>
+         */
         @JsonSetter(value = "quantity", nulls = Nulls.SKIP)
         public Builder quantity(Optional<String> quantity) {
             this.quantity = quantity;
@@ -493,6 +524,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>Information about the application with which the
+         * physical count is submitted.</p>
+         */
         @JsonSetter(value = "source", nulls = Nulls.SKIP)
         public Builder source(Optional<SourceApplication> source) {
             this.source = source;
@@ -504,6 +539,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the <a href="entity:Employee">Employee</a> responsible for the
+         * physical count.</p>
+         */
         @JsonSetter(value = "employee_id", nulls = Nulls.SKIP)
         public Builder employeeId(Optional<String> employeeId) {
             this.employeeId = employeeId;
@@ -526,6 +565,10 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the <a href="entity:TeamMember">Team Member</a> responsible for the
+         * physical count.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -548,6 +591,12 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>A client-generated RFC 3339-formatted timestamp that indicates when
+         * the physical count was examined. For physical count updates, the <code>occurred_at</code>
+         * timestamp cannot be older than 24 hours or in the future relative to the
+         * time of the request.</p>
+         */
         @JsonSetter(value = "occurred_at", nulls = Nulls.SKIP)
         public Builder occurredAt(Optional<String> occurredAt) {
             this.occurredAt = occurredAt;
@@ -570,6 +619,9 @@ public final class InventoryPhysicalCount {
             return this;
         }
 
+        /**
+         * <p>An RFC 3339-formatted timestamp that indicates when the physical count is received.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;

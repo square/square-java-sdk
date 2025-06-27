@@ -82,6 +82,9 @@ public final class GiftCardActivityCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The new gift card activity.</p>
+         */
         @JsonSetter(value = "gift_card_activity", nulls = Nulls.SKIP)
         public Builder giftCardActivity(Optional<GiftCardActivity> giftCardActivity) {
             this.giftCardActivity = giftCardActivity;

@@ -83,6 +83,10 @@ public final class BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttrib
             return this;
         }
 
+        /**
+         * <p>The key of the associated custom attribute definition.
+         * Represented as a qualified key if the requesting app is not the definition owner.</p>
+         */
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public Builder key(Optional<String> key) {
             this.key = key;

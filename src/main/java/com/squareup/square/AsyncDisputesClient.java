@@ -3,14 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.disputes.AsyncEvidenceClient;
@@ -24,52 +18,43 @@ import com.squareup.square.types.Dispute;
 import com.squareup.square.types.GetDisputeResponse;
 import com.squareup.square.types.GetDisputesRequest;
 import com.squareup.square.types.ListDisputesRequest;
-import com.squareup.square.types.ListDisputesResponse;
 import com.squareup.square.types.SubmitEvidenceDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncDisputesClient {
     protected final ClientOptions clientOptions;
+
+    private final AsyncRawDisputesClient rawClient;
 
     protected final Supplier<AsyncEvidenceClient> evidenceClient;
 
     public AsyncDisputesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawDisputesClient(clientOptions);
         this.evidenceClient = Suppliers.memoize(() -> new AsyncEvidenceClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawDisputesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Returns a list of disputes associated with a particular account.
      */
     public CompletableFuture<SyncPagingIterable<Dispute>> list() {
-        return list(ListDisputesRequest.builder().build());
+        return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
      * Returns a list of disputes associated with a particular account.
      */
     public CompletableFuture<SyncPagingIterable<Dispute>> list(ListDisputesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
@@ -77,128 +62,21 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<SyncPagingIterable<Dispute>> list(
             ListDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getStates().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "states", request.getStates().get().toString(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<Dispute>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        ListDisputesResponse parsedResponse =
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListDisputesResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ListDisputesRequest nextRequest = ListDisputesRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<Dispute> result = parsedResponse.getDisputes().orElse(Collections.emptyList());
-                        future.complete(new SyncPagingIterable<Dispute>(startingAfter.isPresent(), result, () -> {
-                            try {
-                                return list(nextRequest, requestOptions).get();
-                            } catch (InterruptedException | ExecutionException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Returns details about a specific dispute.
      */
     public CompletableFuture<GetDisputeResponse> get(GetDisputesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
      * Returns details about a specific dispute.
      */
     public CompletableFuture<GetDisputeResponse> get(GetDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetDisputeResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetDisputeResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -208,7 +86,7 @@ public class AsyncDisputesClient {
      * does not have sufficient funds, Square debits the associated bank account.</p>
      */
     public CompletableFuture<AcceptDisputeResponse> accept(AcceptDisputesRequest request) {
-        return accept(request, null);
+        return this.rawClient.accept(request).thenApply(response -> response.body());
     }
 
     /**
@@ -219,50 +97,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<AcceptDisputeResponse> accept(
             AcceptDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("accept")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<AcceptDisputeResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), AcceptDisputeResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.accept(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -271,7 +106,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
             CreateEvidenceFileDisputesRequest request) {
-        return createEvidenceFile(request, null);
+        return this.rawClient.createEvidenceFile(request).thenApply(response -> response.body());
     }
 
     /**
@@ -280,72 +115,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
             CreateEvidenceFileDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("evidence-files")
-                .build();
-        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        try {
-            if (request.getRequest().isPresent()) {
-                body.addFormDataPart(
-                        "request",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getRequest().get()));
-            }
-            if (request.getImageFile().isPresent()) {
-                String imageFileMimeType =
-                        Files.probeContentType(request.getImageFile().get().toPath());
-                MediaType imageFileMimeTypeMediaType =
-                        imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                body.addFormDataPart(
-                        "image_file",
-                        request.getImageFile().get().getName(),
-                        RequestBody.create(
-                                imageFileMimeTypeMediaType,
-                                request.getImageFile().get()));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body.build())
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CreateDisputeEvidenceFileResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), CreateDisputeEvidenceFileResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.createEvidenceFile(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -353,7 +123,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<CreateDisputeEvidenceTextResponse> createEvidenceText(
             CreateDisputeEvidenceTextRequest request) {
-        return createEvidenceText(request, null);
+        return this.rawClient.createEvidenceText(request).thenApply(response -> response.body());
     }
 
     /**
@@ -361,57 +131,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<CreateDisputeEvidenceTextResponse> createEvidenceText(
             CreateDisputeEvidenceTextRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("evidence-text")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CreateDisputeEvidenceTextResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), CreateDisputeEvidenceTextResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.createEvidenceText(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -423,7 +143,7 @@ public class AsyncDisputesClient {
      * a dispute after submission.</p>
      */
     public CompletableFuture<SubmitEvidenceResponse> submitEvidence(SubmitEvidenceDisputesRequest request) {
-        return submitEvidence(request, null);
+        return this.rawClient.submitEvidence(request).thenApply(response -> response.body());
     }
 
     /**
@@ -436,50 +156,7 @@ public class AsyncDisputesClient {
      */
     public CompletableFuture<SubmitEvidenceResponse> submitEvidence(
             SubmitEvidenceDisputesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/disputes")
-                .addPathSegment(request.getDisputeId())
-                .addPathSegments("submit-evidence")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SubmitEvidenceResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), SubmitEvidenceResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.submitEvidence(request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncEvidenceClient evidence() {

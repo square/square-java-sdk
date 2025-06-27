@@ -101,6 +101,9 @@ public final class BulkDeleteOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -112,6 +115,10 @@ public final class BulkDeleteOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>A map of responses that correspond to individual delete requests. Each response has the same ID
+         * as the corresponding request and contains either a <code>custom_attribute</code> or an <code>errors</code> field.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, DeleteOrderCustomAttributeResponse> values) {
             this.values.clear();

@@ -117,6 +117,10 @@ public final class ListCashDrawerShiftEventsResponse {
             return this;
         }
 
+        /**
+         * <p>Opaque cursor for fetching the next page. Cursor is not present in
+         * the last page of results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -128,6 +132,9 @@ public final class ListCashDrawerShiftEventsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -139,6 +146,10 @@ public final class ListCashDrawerShiftEventsResponse {
             return this;
         }
 
+        /**
+         * <p>All of the events (payments, refunds, etc.) for a cash drawer during
+         * the shift.</p>
+         */
         @JsonSetter(value = "cash_drawer_shift_events", nulls = Nulls.SKIP)
         public Builder cashDrawerShiftEvents(Optional<List<CashDrawerShiftEvent>> cashDrawerShiftEvents) {
             this.cashDrawerShiftEvents = cashDrawerShiftEvents;

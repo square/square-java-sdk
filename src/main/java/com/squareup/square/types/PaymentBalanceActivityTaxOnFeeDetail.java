@@ -117,6 +117,9 @@ public final class PaymentBalanceActivityTaxOnFeeDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment associated with this activity.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -139,6 +142,9 @@ public final class PaymentBalanceActivityTaxOnFeeDetail {
             return this;
         }
 
+        /**
+         * <p>The description of the tax rate being applied. For example: &quot;GST&quot;, &quot;HST&quot;.</p>
+         */
         @JsonSetter(value = "tax_rate_description", nulls = Nulls.SKIP)
         public Builder taxRateDescription(Optional<String> taxRateDescription) {
             this.taxRateDescription = taxRateDescription;

@@ -115,6 +115,9 @@ public final class CatalogInfoResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class CatalogInfoResponse {
             return this;
         }
 
+        /**
+         * <p>Limits that apply to this API.</p>
+         */
         @JsonSetter(value = "limits", nulls = Nulls.SKIP)
         public Builder limits(Optional<CatalogInfoResponseLimits> limits) {
             this.limits = limits;
@@ -137,6 +143,9 @@ public final class CatalogInfoResponse {
             return this;
         }
 
+        /**
+         * <p>Names and abbreviations for standard units.</p>
+         */
         @JsonSetter(value = "standard_unit_description_group", nulls = Nulls.SKIP)
         public Builder standardUnitDescriptionGroup(
                 Optional<StandardUnitDescriptionGroup> standardUnitDescriptionGroup) {

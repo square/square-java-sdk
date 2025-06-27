@@ -117,6 +117,9 @@ public final class DeviceComponentDetailsEthernetDetails {
             return this;
         }
 
+        /**
+         * <p>A boolean to represent whether the Ethernet interface is currently active.</p>
+         */
         @JsonSetter(value = "active", nulls = Nulls.SKIP)
         public Builder active(Optional<Boolean> active) {
             this.active = active;
@@ -139,6 +142,9 @@ public final class DeviceComponentDetailsEthernetDetails {
             return this;
         }
 
+        /**
+         * <p>The string representation of the device’s IPv4 address.</p>
+         */
         @JsonSetter(value = "ip_address_v4", nulls = Nulls.SKIP)
         public Builder ipAddressV4(Optional<String> ipAddressV4) {
             this.ipAddressV4 = ipAddressV4;

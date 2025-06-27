@@ -118,6 +118,9 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay {
             return this;
         }
 
+        /**
+         * <p>Afterpay is shown as an option for order totals falling within the configured range.</p>
+         */
         @JsonSetter(value = "order_eligibility_range", nulls = Nulls.SKIP)
         public Builder orderEligibilityRange(
                 Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibilityRange>
@@ -132,6 +135,9 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay {
             return this;
         }
 
+        /**
+         * <p>Afterpay is shown as an option for item totals falling within the configured range.</p>
+         */
         @JsonSetter(value = "item_eligibility_range", nulls = Nulls.SKIP)
         public Builder itemEligibilityRange(
                 Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibilityRange> itemEligibilityRange) {
@@ -145,6 +151,9 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the payment method is enabled for the account.</p>
+         */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public Builder enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;

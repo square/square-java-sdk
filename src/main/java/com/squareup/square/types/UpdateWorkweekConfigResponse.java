@@ -98,6 +98,9 @@ public final class UpdateWorkweekConfigResponse {
             return this;
         }
 
+        /**
+         * <p>The response object.</p>
+         */
         @JsonSetter(value = "workweek_config", nulls = Nulls.SKIP)
         public Builder workweekConfig(Optional<WorkweekConfig> workweekConfig) {
             this.workweekConfig = workweekConfig;
@@ -109,6 +112,9 @@ public final class UpdateWorkweekConfigResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

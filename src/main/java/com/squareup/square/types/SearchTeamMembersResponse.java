@@ -114,6 +114,9 @@ public final class SearchTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The filtered list of <code>TeamMember</code> objects.</p>
+         */
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Optional<List<TeamMember>> teamMembers) {
             this.teamMembers = teamMembers;
@@ -125,6 +128,10 @@ public final class SearchTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The opaque cursor for fetching the next page. For more information, see
+         * <a href="https://developer.squareup.com/docs/working-with-apis/pagination">pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -136,6 +143,9 @@ public final class SearchTeamMembersResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

@@ -96,6 +96,9 @@ public final class GetGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>The gift card retrieved.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;

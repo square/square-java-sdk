@@ -142,6 +142,9 @@ public final class CheckoutLocationSettingsPolicy {
             return this;
         }
 
+        /**
+         * <p>A unique ID to identify the policy when making changes. You must set the UID for policy updates, but it’s optional when setting new policies.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -164,6 +167,9 @@ public final class CheckoutLocationSettingsPolicy {
             return this;
         }
 
+        /**
+         * <p>The title of the policy. This is required when setting the description, though you can update it in a different request.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -186,6 +192,9 @@ public final class CheckoutLocationSettingsPolicy {
             return this;
         }
 
+        /**
+         * <p>The description of the policy.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;

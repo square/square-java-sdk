@@ -129,6 +129,10 @@ public final class CatalogItemFoodAndBeverageDetailsIngredient {
             return this;
         }
 
+        /**
+         * <p>The dietary preference type of the ingredient. Supported values include <code>STANDARD</code> and <code>CUSTOM</code> as specified in <code>FoodAndBeverageDetails.DietaryPreferenceType</code>.
+         * See <a href="#type-dietarypreferencetype">DietaryPreferenceType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<CatalogItemFoodAndBeverageDetailsDietaryPreferenceType> type) {
             this.type = type;
@@ -140,6 +144,10 @@ public final class CatalogItemFoodAndBeverageDetailsIngredient {
             return this;
         }
 
+        /**
+         * <p>The name of the ingredient from a standard pre-defined list. This should be null if it's a custom dietary preference.
+         * See <a href="#type-standardingredient">StandardIngredient</a> for possible values</p>
+         */
         @JsonSetter(value = "standard_name", nulls = Nulls.SKIP)
         public Builder standardName(
                 Optional<CatalogItemFoodAndBeverageDetailsIngredientStandardIngredient> standardName) {
@@ -152,6 +160,9 @@ public final class CatalogItemFoodAndBeverageDetailsIngredient {
             return this;
         }
 
+        /**
+         * <p>The name of a custom user-defined ingredient. This should be null if it's a standard dietary preference.</p>
+         */
         @JsonSetter(value = "custom_name", nulls = Nulls.SKIP)
         public Builder customName(Optional<String> customName) {
             this.customName = customName;

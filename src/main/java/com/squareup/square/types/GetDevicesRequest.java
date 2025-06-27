@@ -66,6 +66,9 @@ public final class GetDevicesRequest {
     }
 
     public interface DeviceIdStage {
+        /**
+         * <p>The unique ID for the desired <code>Device</code>.</p>
+         */
         _FinalStage deviceId(@NotNull String deviceId);
 
         Builder from(GetDevicesRequest other);
@@ -91,6 +94,7 @@ public final class GetDevicesRequest {
         }
 
         /**
+         * <p>The unique ID for the desired <code>Device</code>.</p>
          * <p>The unique ID for the desired <code>Device</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

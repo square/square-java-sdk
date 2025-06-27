@@ -367,84 +367,150 @@ public final class BankAccount {
     }
 
     public interface IdStage {
+        /**
+         * <p>The unique, Square-issued identifier for the bank account.</p>
+         */
         AccountNumberSuffixStage id(@NotNull String id);
 
         Builder from(BankAccount other);
     }
 
     public interface AccountNumberSuffixStage {
+        /**
+         * <p>The last few digits of the account number.</p>
+         */
         CountryStage accountNumberSuffix(@NotNull String accountNumberSuffix);
     }
 
     public interface CountryStage {
+        /**
+         * <p>The ISO 3166 Alpha-2 country code where the bank account is based.
+         * See <a href="#type-country">Country</a> for possible values</p>
+         */
         CurrencyStage country(@NotNull Country country);
     }
 
     public interface CurrencyStage {
+        /**
+         * <p>The 3-character ISO 4217 currency code indicating the operating
+         * currency of the bank account. For example, the currency code for US dollars
+         * is <code>USD</code>.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         AccountTypeStage currency(@NotNull Currency currency);
     }
 
     public interface AccountTypeStage {
+        /**
+         * <p>The financial purpose of the associated bank account.
+         * See <a href="#type-bankaccounttype">BankAccountType</a> for possible values</p>
+         */
         HolderNameStage accountType(@NotNull BankAccountType accountType);
     }
 
     public interface HolderNameStage {
+        /**
+         * <p>Name of the account holder. This name must match the name
+         * on the targeted bank account record.</p>
+         */
         PrimaryBankIdentificationNumberStage holderName(@NotNull String holderName);
     }
 
     public interface PrimaryBankIdentificationNumberStage {
+        /**
+         * <p>Primary identifier for the bank. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
+         */
         StatusStage primaryBankIdentificationNumber(@NotNull String primaryBankIdentificationNumber);
     }
 
     public interface StatusStage {
+        /**
+         * <p>Read-only. The current verification status of this BankAccount object.
+         * See <a href="#type-bankaccountstatus">BankAccountStatus</a> for possible values</p>
+         */
         CreditableStage status(@NotNull BankAccountStatus status);
     }
 
     public interface CreditableStage {
+        /**
+         * <p>Indicates whether it is possible for Square to send money to this bank account.</p>
+         */
         DebitableStage creditable(boolean creditable);
     }
 
     public interface DebitableStage {
+        /**
+         * <p>Indicates whether it is possible for Square to take money from this
+         * bank account.</p>
+         */
         _FinalStage debitable(boolean debitable);
     }
 
     public interface _FinalStage {
         BankAccount build();
 
+        /**
+         * <p>Secondary identifier for the bank. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
+         */
         _FinalStage secondaryBankIdentificationNumber(Optional<String> secondaryBankIdentificationNumber);
 
         _FinalStage secondaryBankIdentificationNumber(String secondaryBankIdentificationNumber);
 
         _FinalStage secondaryBankIdentificationNumber(Nullable<String> secondaryBankIdentificationNumber);
 
+        /**
+         * <p>Reference identifier that will be displayed to UK bank account owners
+         * when collecting direct debit authorization. Only required for UK bank accounts.</p>
+         */
         _FinalStage debitMandateReferenceId(Optional<String> debitMandateReferenceId);
 
         _FinalStage debitMandateReferenceId(String debitMandateReferenceId);
 
         _FinalStage debitMandateReferenceId(Nullable<String> debitMandateReferenceId);
 
+        /**
+         * <p>Client-provided identifier for linking the banking account to an entity
+         * in a third-party system (for example, a bank account number or a user identifier).</p>
+         */
         _FinalStage referenceId(Optional<String> referenceId);
 
         _FinalStage referenceId(String referenceId);
 
         _FinalStage referenceId(Nullable<String> referenceId);
 
+        /**
+         * <p>The location to which the bank account belongs.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
 
         _FinalStage locationId(Nullable<String> locationId);
 
+        /**
+         * <p>A Square-assigned, unique identifier for the bank account based on the
+         * account information. The account fingerprint can be used to compare account
+         * entries and determine if the they represent the same real-world bank account.</p>
+         */
         _FinalStage fingerprint(Optional<String> fingerprint);
 
         _FinalStage fingerprint(String fingerprint);
 
         _FinalStage fingerprint(Nullable<String> fingerprint);
 
+        /**
+         * <p>The current version of the <code>BankAccount</code>.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>Read only. Name of actual financial institution.
+         * For example &quot;Bank of America&quot;.</p>
+         */
         _FinalStage bankName(Optional<String> bankName);
 
         _FinalStage bankName(String bankName);
@@ -528,6 +594,7 @@ public final class BankAccount {
 
         /**
          * <p>The unique, Square-issued identifier for the bank account.</p>
+         * <p>The unique, Square-issued identifier for the bank account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -538,6 +605,7 @@ public final class BankAccount {
         }
 
         /**
+         * <p>The last few digits of the account number.</p>
          * <p>The last few digits of the account number.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -550,6 +618,8 @@ public final class BankAccount {
         }
 
         /**
+         * <p>The ISO 3166 Alpha-2 country code where the bank account is based.
+         * See <a href="#type-country">Country</a> for possible values</p>
          * <p>The ISO 3166 Alpha-2 country code where the bank account is based.
          * See <a href="#type-country">Country</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -566,6 +636,10 @@ public final class BankAccount {
          * currency of the bank account. For example, the currency code for US dollars
          * is <code>USD</code>.
          * See <a href="#type-currency">Currency</a> for possible values</p>
+         * <p>The 3-character ISO 4217 currency code indicating the operating
+         * currency of the bank account. For example, the currency code for US dollars
+         * is <code>USD</code>.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -576,6 +650,8 @@ public final class BankAccount {
         }
 
         /**
+         * <p>The financial purpose of the associated bank account.
+         * See <a href="#type-bankaccounttype">BankAccountType</a> for possible values</p>
          * <p>The financial purpose of the associated bank account.
          * See <a href="#type-bankaccounttype">BankAccountType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -590,6 +666,8 @@ public final class BankAccount {
         /**
          * <p>Name of the account holder. This name must match the name
          * on the targeted bank account record.</p>
+         * <p>Name of the account holder. This name must match the name
+         * on the targeted bank account record.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -600,6 +678,8 @@ public final class BankAccount {
         }
 
         /**
+         * <p>Primary identifier for the bank. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
          * <p>Primary identifier for the bank. For more information, see
          * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -615,6 +695,8 @@ public final class BankAccount {
         /**
          * <p>Read-only. The current verification status of this BankAccount object.
          * See <a href="#type-bankaccountstatus">BankAccountStatus</a> for possible values</p>
+         * <p>Read-only. The current verification status of this BankAccount object.
+         * See <a href="#type-bankaccountstatus">BankAccountStatus</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -626,6 +708,7 @@ public final class BankAccount {
 
         /**
          * <p>Indicates whether it is possible for Square to send money to this bank account.</p>
+         * <p>Indicates whether it is possible for Square to send money to this bank account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -636,6 +719,8 @@ public final class BankAccount {
         }
 
         /**
+         * <p>Indicates whether it is possible for Square to take money from this
+         * bank account.</p>
          * <p>Indicates whether it is possible for Square to take money from this
          * bank account.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -675,6 +760,10 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>Read only. Name of actual financial institution.
+         * For example &quot;Bank of America&quot;.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "bank_name", nulls = Nulls.SKIP)
         public _FinalStage bankName(Optional<String> bankName) {
@@ -692,6 +781,9 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>The current version of the <code>BankAccount</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -729,6 +821,11 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>A Square-assigned, unique identifier for the bank account based on the
+         * account information. The account fingerprint can be used to compare account
+         * entries and determine if the they represent the same real-world bank account.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "fingerprint", nulls = Nulls.SKIP)
         public _FinalStage fingerprint(Optional<String> fingerprint) {
@@ -762,6 +859,9 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>The location to which the bank account belongs.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {
@@ -797,6 +897,10 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>Client-provided identifier for linking the banking account to an entity
+         * in a third-party system (for example, a bank account number or a user identifier).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public _FinalStage referenceId(Optional<String> referenceId) {
@@ -832,6 +936,10 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>Reference identifier that will be displayed to UK bank account owners
+         * when collecting direct debit authorization. Only required for UK bank accounts.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "debit_mandate_reference_id", nulls = Nulls.SKIP)
         public _FinalStage debitMandateReferenceId(Optional<String> debitMandateReferenceId) {
@@ -867,6 +975,10 @@ public final class BankAccount {
             return this;
         }
 
+        /**
+         * <p>Secondary identifier for the bank. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "secondary_bank_identification_number", nulls = Nulls.SKIP)
         public _FinalStage secondaryBankIdentificationNumber(Optional<String> secondaryBankIdentificationNumber) {

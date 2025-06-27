@@ -97,6 +97,9 @@ public final class TerminalRefundQuery {
             return this;
         }
 
+        /**
+         * <p>The filter for the Terminal refund query.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<TerminalRefundQueryFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class TerminalRefundQuery {
             return this;
         }
 
+        /**
+         * <p>The sort order for the Terminal refund query.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<TerminalRefundQuerySort> sort) {
             this.sort = sort;

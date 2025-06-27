@@ -83,6 +83,12 @@ public final class CreateVendorRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A client-supplied, universally unique identifier (UUID) to make this <a href="api-endpoint:Vendors-CreateVendor">CreateVendor</a> call idempotent.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateVendorRequest other);
@@ -91,6 +97,9 @@ public final class CreateVendorRequest {
     public interface _FinalStage {
         CreateVendorRequest build();
 
+        /**
+         * <p>The requested <a href="entity:Vendor">Vendor</a> to be created.</p>
+         */
         _FinalStage vendor(Optional<Vendor> vendor);
 
         _FinalStage vendor(Vendor vendor);
@@ -119,6 +128,10 @@ public final class CreateVendorRequest {
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
          * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
          * information.</p>
+         * <p>A client-supplied, universally unique identifier (UUID) to make this <a href="api-endpoint:Vendors-CreateVendor">CreateVendor</a> call idempotent.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -138,6 +151,9 @@ public final class CreateVendorRequest {
             return this;
         }
 
+        /**
+         * <p>The requested <a href="entity:Vendor">Vendor</a> to be created.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "vendor", nulls = Nulls.SKIP)
         public _FinalStage vendor(Optional<Vendor> vendor) {

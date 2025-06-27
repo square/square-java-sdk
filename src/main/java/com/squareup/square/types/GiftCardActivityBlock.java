@@ -67,6 +67,10 @@ public final class GiftCardActivityBlock {
     }
 
     public interface ReasonStage {
+        /**
+         * <p>The reason the gift card was blocked.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
+         */
         _FinalStage reason(@NotNull String reason);
 
         Builder from(GiftCardActivityBlock other);
@@ -92,6 +96,8 @@ public final class GiftCardActivityBlock {
         }
 
         /**
+         * <p>The reason the gift card was blocked.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
          * <p>The reason the gift card was blocked.
          * See <a href="#type-reason">Reason</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.

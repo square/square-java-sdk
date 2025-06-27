@@ -115,6 +115,9 @@ public final class ListJobsResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved jobs. A single paged response contains up to 100 jobs.</p>
+         */
         @JsonSetter(value = "jobs", nulls = Nulls.SKIP)
         public Builder jobs(Optional<List<Job>> jobs) {
             this.jobs = jobs;
@@ -126,6 +129,11 @@ public final class ListJobsResponse {
             return this;
         }
 
+        /**
+         * <p>An opaque cursor used to retrieve the next page of results. This field is present only
+         * if the request succeeded and additional results are available. For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -137,6 +145,9 @@ public final class ListJobsResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

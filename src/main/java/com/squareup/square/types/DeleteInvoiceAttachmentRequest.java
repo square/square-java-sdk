@@ -78,12 +78,18 @@ public final class DeleteInvoiceAttachmentRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to delete the attachment from.</p>
+         */
         AttachmentIdStage invoiceId(@NotNull String invoiceId);
 
         Builder from(DeleteInvoiceAttachmentRequest other);
     }
 
     public interface AttachmentIdStage {
+        /**
+         * <p>The ID of the <a href="entity:InvoiceAttachment">attachment</a> to delete.</p>
+         */
         _FinalStage attachmentId(@NotNull String attachmentId);
     }
 
@@ -111,6 +117,7 @@ public final class DeleteInvoiceAttachmentRequest {
 
         /**
          * <p>The ID of the <a href="entity:Invoice">invoice</a> to delete the attachment from.</p>
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to delete the attachment from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class DeleteInvoiceAttachmentRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:InvoiceAttachment">attachment</a> to delete.</p>
          * <p>The ID of the <a href="entity:InvoiceAttachment">attachment</a> to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

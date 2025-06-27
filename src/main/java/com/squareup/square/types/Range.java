@@ -117,6 +117,10 @@ public final class Range {
             return this;
         }
 
+        /**
+         * <p>The lower bound of the number range. At least one of <code>min</code> or <code>max</code> must be specified.
+         * If unspecified, the results will have no minimum value.</p>
+         */
         @JsonSetter(value = "min", nulls = Nulls.SKIP)
         public Builder min(Optional<String> min) {
             this.min = min;
@@ -139,6 +143,10 @@ public final class Range {
             return this;
         }
 
+        /**
+         * <p>The upper bound of the number range. At least one of <code>min</code> or <code>max</code> must be specified.
+         * If unspecified, the results will have no maximum value.</p>
+         */
         @JsonSetter(value = "max", nulls = Nulls.SKIP)
         public Builder max(Optional<String> max) {
             this.max = max;

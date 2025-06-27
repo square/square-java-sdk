@@ -97,6 +97,10 @@ public final class SearchEventsSort {
             return this;
         }
 
+        /**
+         * <p>Sort events by event types.
+         * See <a href="#type-searcheventssortfield">SearchEventsSortField</a> for possible values</p>
+         */
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public Builder field(Optional<String> field) {
             this.field = field;
@@ -108,6 +112,10 @@ public final class SearchEventsSort {
             return this;
         }
 
+        /**
+         * <p>The order to use for sorting the events.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<SortOrder> order) {
             this.order = order;

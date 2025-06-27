@@ -87,6 +87,14 @@ public final class CreateScheduledShiftRequest {
     }
 
     public interface ScheduledShiftStage {
+        /**
+         * <p>The scheduled shift with <code>draft_shift_details</code>.
+         * If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a> to get location IDs,
+         * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get job IDs, and <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a>
+         * to get team member IDs and current job assignments.</p>
+         * <p>The <code>start_at</code> and <code>end_at</code> timestamps must be provided in the time zone + offset of the
+         * shift location specified in <code>location_id</code>. Example for Pacific Standard Time: 2024-10-31T12:30:00-08:00</p>
+         */
         _FinalStage scheduledShift(@NotNull ScheduledShift scheduledShift);
 
         Builder from(CreateScheduledShiftRequest other);
@@ -95,6 +103,11 @@ public final class CreateScheduledShiftRequest {
     public interface _FinalStage {
         CreateScheduledShiftRequest build();
 
+        /**
+         * <p>A unique identifier for the <code>CreateScheduledShift</code> request, used to ensure the
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
+         * of the operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -125,6 +138,12 @@ public final class CreateScheduledShiftRequest {
          * to get team member IDs and current job assignments.</p>
          * <p>The <code>start_at</code> and <code>end_at</code> timestamps must be provided in the time zone + offset of the
          * shift location specified in <code>location_id</code>. Example for Pacific Standard Time: 2024-10-31T12:30:00-08:00</p>
+         * <p>The scheduled shift with <code>draft_shift_details</code>.
+         * If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a> to get location IDs,
+         * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get job IDs, and <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a>
+         * to get team member IDs and current job assignments.</p>
+         * <p>The <code>start_at</code> and <code>end_at</code> timestamps must be provided in the time zone + offset of the
+         * shift location specified in <code>location_id</code>. Example for Pacific Standard Time: 2024-10-31T12:30:00-08:00</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -146,6 +165,11 @@ public final class CreateScheduledShiftRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for the <code>CreateScheduledShift</code> request, used to ensure the
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
+         * of the operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

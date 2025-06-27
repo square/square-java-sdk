@@ -96,6 +96,9 @@ public final class CreateJobResponse {
             return this;
         }
 
+        /**
+         * <p>The new job.</p>
+         */
         @JsonSetter(value = "job", nulls = Nulls.SKIP)
         public Builder job(Optional<Job> job) {
             this.job = job;
@@ -107,6 +110,9 @@ public final class CreateJobResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

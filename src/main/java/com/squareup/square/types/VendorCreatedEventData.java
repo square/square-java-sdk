@@ -124,6 +124,9 @@ public final class VendorCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The type of the event data object. The value is <code>vendor</code></p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class VendorCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the event data object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class VendorCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the created vendor.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<VendorCreatedEventObject> object) {
             this.object = object;

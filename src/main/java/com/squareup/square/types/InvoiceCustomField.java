@@ -134,6 +134,9 @@ public final class InvoiceCustomField {
             return this;
         }
 
+        /**
+         * <p>The label or title of the custom field. This field is required for a custom field.</p>
+         */
         @JsonSetter(value = "label", nulls = Nulls.SKIP)
         public Builder label(Optional<String> label) {
             this.label = label;
@@ -156,6 +159,9 @@ public final class InvoiceCustomField {
             return this;
         }
 
+        /**
+         * <p>The text of the custom field. If omitted, only the label is rendered.</p>
+         */
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public Builder value(Optional<String> value) {
             this.value = value;
@@ -178,6 +184,10 @@ public final class InvoiceCustomField {
             return this;
         }
 
+        /**
+         * <p>The location of the custom field on the invoice. This field is required for a custom field.
+         * See <a href="#type-invoicecustomfieldplacement">InvoiceCustomFieldPlacement</a> for possible values</p>
+         */
         @JsonSetter(value = "placement", nulls = Nulls.SKIP)
         public Builder placement(Optional<InvoiceCustomFieldPlacement> placement) {
             this.placement = placement;

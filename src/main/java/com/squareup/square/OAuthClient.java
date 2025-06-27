@@ -3,32 +3,29 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.types.ObtainTokenRequest;
 import com.squareup.square.types.ObtainTokenResponse;
 import com.squareup.square.types.RetrieveTokenStatusResponse;
 import com.squareup.square.types.RevokeTokenRequest;
 import com.squareup.square.types.RevokeTokenResponse;
-import java.io.IOException;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class OAuthClient {
     protected final ClientOptions clientOptions;
 
+    private final RawOAuthClient rawClient;
+
     public OAuthClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawOAuthClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawOAuthClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -43,7 +40,7 @@ public class OAuthClient {
      * page for your application in the Developer Dashboard.</p>
      */
     public RevokeTokenResponse revokeToken() {
-        return revokeToken(RevokeTokenRequest.builder().build());
+        return this.rawClient.revokeToken().body();
     }
 
     /**
@@ -58,7 +55,7 @@ public class OAuthClient {
      * page for your application in the Developer Dashboard.</p>
      */
     public RevokeTokenResponse revokeToken(RevokeTokenRequest request) {
-        return revokeToken(request, null);
+        return this.rawClient.revokeToken(request).body();
     }
 
     /**
@@ -73,41 +70,7 @@ public class OAuthClient {
      * page for your application in the Developer Dashboard.</p>
      */
     public RevokeTokenResponse revokeToken(RevokeTokenRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("oauth2/revoke")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RevokeTokenResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.revokeToken(request, requestOptions).body();
     }
 
     /**
@@ -134,7 +97,7 @@ public class OAuthClient {
      * Application clients should never interact directly with OAuth tokens.</p>
      */
     public ObtainTokenResponse obtainToken(ObtainTokenRequest request) {
-        return obtainToken(request, null);
+        return this.rawClient.obtainToken(request).body();
     }
 
     /**
@@ -161,41 +124,7 @@ public class OAuthClient {
      * Application clients should never interact directly with OAuth tokens.</p>
      */
     public ObtainTokenResponse obtainToken(ObtainTokenRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("oauth2/token")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ObtainTokenResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.obtainToken(request, requestOptions).body();
     }
 
     /**
@@ -209,7 +138,7 @@ public class OAuthClient {
      * <p>If the access token is expired or not a valid access token, the endpoint returns an <code>UNAUTHORIZED</code> error.</p>
      */
     public RetrieveTokenStatusResponse retrieveTokenStatus() {
-        return retrieveTokenStatus(null);
+        return this.rawClient.retrieveTokenStatus().body();
     }
 
     /**
@@ -223,66 +152,14 @@ public class OAuthClient {
      * <p>If the access token is expired or not a valid access token, the endpoint returns an <code>UNAUTHORIZED</code> error.</p>
      */
     public RetrieveTokenStatusResponse retrieveTokenStatus(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("oauth2/token/status")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RetrieveTokenStatusResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.retrieveTokenStatus(requestOptions).body();
     }
 
     public void authorize() {
-        authorize(null);
+        this.rawClient.authorize().body();
     }
 
     public void authorize(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("oauth2/authorize")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return;
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        this.rawClient.authorize(requestOptions).body();
     }
 }

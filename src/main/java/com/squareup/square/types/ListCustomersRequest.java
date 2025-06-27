@@ -202,6 +202,11 @@ public final class ListCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -224,6 +229,11 @@ public final class ListCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
+         * If the specified limit is less than 1 or greater than 100, Square returns a <code>400 VALUE_TOO_LOW</code> or <code>400 VALUE_TOO_HIGH</code> error. The default value is 100.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -246,6 +256,10 @@ public final class ListCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates how customers should be sorted.</p>
+         * <p>The default value is <code>DEFAULT</code>.</p>
+         */
         @JsonSetter(value = "sort_field", nulls = Nulls.SKIP)
         public Builder sortField(Optional<CustomerSortField> sortField) {
             this.sortField = sortField;
@@ -268,6 +282,11 @@ public final class ListCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether customers should be sorted in ascending (<code>ASC</code>) or
+         * descending (<code>DESC</code>) order.</p>
+         * <p>The default value is <code>ASC</code>.</p>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;
@@ -290,6 +309,10 @@ public final class ListCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to return the total count of customers in the <code>count</code> field of the response.</p>
+         * <p>The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "count", nulls = Nulls.SKIP)
         public Builder count(Optional<Boolean> count) {
             this.count = count;

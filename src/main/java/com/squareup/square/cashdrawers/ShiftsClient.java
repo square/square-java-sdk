@@ -7,33 +7,27 @@ import com.squareup.square.cashdrawers.types.GetShiftsRequest;
 import com.squareup.square.cashdrawers.types.ListEventsShiftsRequest;
 import com.squareup.square.cashdrawers.types.ListShiftsRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.CashDrawerShiftEvent;
 import com.squareup.square.types.CashDrawerShiftSummary;
 import com.squareup.square.types.GetCashDrawerShiftResponse;
-import com.squareup.square.types.ListCashDrawerShiftEventsResponse;
-import com.squareup.square.types.ListCashDrawerShiftsResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class ShiftsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawShiftsClient rawClient;
+
     public ShiftsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawShiftsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawShiftsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -41,7 +35,7 @@ public class ShiftsClient {
      * in a date range.
      */
     public SyncPagingIterable<CashDrawerShiftSummary> list(ListShiftsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -49,64 +43,7 @@ public class ShiftsClient {
      * in a date range.
      */
     public SyncPagingIterable<CashDrawerShiftSummary> list(ListShiftsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/cash-drawers/shifts");
-        QueryStringMapper.addQueryParameter(httpUrl, "location_id", request.getLocationId(), false);
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get().toString(), false);
-        }
-        if (request.getBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "begin_time", request.getBeginTime().get(), false);
-        }
-        if (request.getEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "end_time", request.getEndTime().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListCashDrawerShiftsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListCashDrawerShiftsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListShiftsRequest nextRequest = ListShiftsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<CashDrawerShiftSummary> result =
-                        parsedResponse.getCashDrawerShifts().orElse(Collections.emptyList());
-                return new SyncPagingIterable<CashDrawerShiftSummary>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -114,7 +51,7 @@ public class ShiftsClient {
      * <a href="api-endpoint:CashDrawers-ListCashDrawerShiftEvents">ListCashDrawerShiftEvents</a> for a list of cash drawer shift events.
      */
     public GetCashDrawerShiftResponse get(GetShiftsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -122,42 +59,14 @@ public class ShiftsClient {
      * <a href="api-endpoint:CashDrawers-ListCashDrawerShiftEvents">ListCashDrawerShiftEvents</a> for a list of cash drawer shift events.
      */
     public GetCashDrawerShiftResponse get(GetShiftsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/cash-drawers/shifts")
-                .addPathSegment(request.getShiftId());
-        QueryStringMapper.addQueryParameter(httpUrl, "location_id", request.getLocationId(), false);
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetCashDrawerShiftResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
      * Provides a paginated list of events for a single cash drawer shift.
      */
     public SyncPagingIterable<CashDrawerShiftEvent> listEvents(ListEventsShiftsRequest request) {
-        return listEvents(request, null);
+        return this.rawClient.listEvents(request).body();
     }
 
     /**
@@ -165,53 +74,6 @@ public class ShiftsClient {
      */
     public SyncPagingIterable<CashDrawerShiftEvent> listEvents(
             ListEventsShiftsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/cash-drawers/shifts")
-                .addPathSegment(request.getShiftId())
-                .addPathSegments("events");
-        QueryStringMapper.addQueryParameter(httpUrl, "location_id", request.getLocationId(), false);
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListCashDrawerShiftEventsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ListCashDrawerShiftEventsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListEventsShiftsRequest nextRequest = ListEventsShiftsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<CashDrawerShiftEvent> result =
-                        parsedResponse.getCashDrawerShiftEvents().orElse(Collections.emptyList());
-                return new SyncPagingIterable<CashDrawerShiftEvent>(
-                        startingAfter.isPresent(), result, () -> listEvents(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.listEvents(request, requestOptions).body();
     }
 }

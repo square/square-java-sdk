@@ -484,6 +484,11 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the start of the time range to retrieve payments for, in RFC 3339 format.
+         * The range is determined using the <code>created_at</code> field for each Payment.
+         * Inclusive. Default: The current time minus one year.</p>
+         */
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public Builder beginTime(Optional<String> beginTime) {
             this.beginTime = beginTime;
@@ -506,6 +511,11 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The
+         * range is determined using the <code>created_at</code> field for each Payment.</p>
+         * <p>Default: The current time.</p>
+         */
         @JsonSetter(value = "end_time", nulls = Nulls.SKIP)
         public Builder endTime(Optional<String> endTime) {
             this.endTime = endTime;
@@ -528,6 +538,13 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed by <code>ListPaymentsRequest.sort_field</code>:</p>
+         * <ul>
+         * <li><code>ASC</code> - Oldest to newest.</li>
+         * <li><code>DESC</code> - Newest to oldest (default).</li>
+         * </ul>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<String> sortOrder) {
             this.sortOrder = sortOrder;
@@ -550,6 +567,11 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -572,6 +594,10 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Limit results to the location supplied. By default, results are returned
+         * for the default (main) location associated with the seller.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -594,6 +620,9 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The exact amount in the <code>total_money</code> for a payment.</p>
+         */
         @JsonSetter(value = "total", nulls = Nulls.SKIP)
         public Builder total(Optional<Long> total) {
             this.total = total;
@@ -616,6 +645,9 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The last four digits of a payment card.</p>
+         */
         @JsonSetter(value = "last_4", nulls = Nulls.SKIP)
         public Builder last4(Optional<String> last4) {
             this.last4 = last4;
@@ -638,6 +670,9 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The brand of the payment card (for example, VISA).</p>
+         */
         @JsonSetter(value = "card_brand", nulls = Nulls.SKIP)
         public Builder cardBrand(Optional<String> cardBrand) {
             this.cardBrand = cardBrand;
@@ -660,6 +695,13 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.
+         * It is possible to receive fewer results than the specified limit on a given page.</p>
+         * <p>The default value of 100 is also the maximum allowed value. If the provided value is
+         * greater than 100, it is ignored and the default value is used instead.</p>
+         * <p>Default: <code>100</code></p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -682,6 +724,9 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Whether the payment was taken offline or not.</p>
+         */
         @JsonSetter(value = "is_offline_payment", nulls = Nulls.SKIP)
         public Builder isOfflinePayment(Optional<Boolean> isOfflinePayment) {
             this.isOfflinePayment = isOfflinePayment;
@@ -704,6 +749,13 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the start of the time range for which to retrieve offline payments, in RFC 3339
+         * format for timestamps. The range is determined using the
+         * <code>offline_payment_details.client_created_at</code> field for each Payment. If set, payments without a
+         * value set in <code>offline_payment_details.client_created_at</code> will not be returned.</p>
+         * <p>Default: The current time.</p>
+         */
         @JsonSetter(value = "offline_begin_time", nulls = Nulls.SKIP)
         public Builder offlineBeginTime(Optional<String> offlineBeginTime) {
             this.offlineBeginTime = offlineBeginTime;
@@ -726,6 +778,13 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the end of the time range for which to retrieve offline payments, in RFC 3339
+         * format for timestamps. The range is determined using the
+         * <code>offline_payment_details.client_created_at</code> field for each Payment. If set, payments without a
+         * value set in <code>offline_payment_details.client_created_at</code> will not be returned.</p>
+         * <p>Default: The current time.</p>
+         */
         @JsonSetter(value = "offline_end_time", nulls = Nulls.SKIP)
         public Builder offlineEndTime(Optional<String> offlineEndTime) {
             this.offlineEndTime = offlineEndTime;
@@ -748,6 +807,10 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the start of the time range to retrieve payments for, in RFC 3339 format.  The
+         * range is determined using the <code>updated_at</code> field for each Payment.</p>
+         */
         @JsonSetter(value = "updated_at_begin_time", nulls = Nulls.SKIP)
         public Builder updatedAtBeginTime(Optional<String> updatedAtBeginTime) {
             this.updatedAtBeginTime = updatedAtBeginTime;
@@ -770,6 +833,10 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The
+         * range is determined using the <code>updated_at</code> field for each Payment.</p>
+         */
         @JsonSetter(value = "updated_at_end_time", nulls = Nulls.SKIP)
         public Builder updatedAtEndTime(Optional<String> updatedAtEndTime) {
             this.updatedAtEndTime = updatedAtEndTime;
@@ -792,6 +859,9 @@ public final class ListPaymentsRequest {
             return this;
         }
 
+        /**
+         * <p>The field used to sort results by. The default is <code>CREATED_AT</code>.</p>
+         */
         @JsonSetter(value = "sort_field", nulls = Nulls.SKIP)
         public Builder sortField(Optional<ListPaymentsRequestSortField> sortField) {
             this.sortField = sortField;

@@ -96,6 +96,9 @@ public final class ListSitesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class ListSitesResponse {
             return this;
         }
 
+        /**
+         * <p>The sites that belong to the seller.</p>
+         */
         @JsonSetter(value = "sites", nulls = Nulls.SKIP)
         public Builder sites(Optional<List<Site>> sites) {
             this.sites = sites;

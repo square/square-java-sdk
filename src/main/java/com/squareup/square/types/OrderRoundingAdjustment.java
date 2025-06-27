@@ -133,6 +133,9 @@ public final class OrderRoundingAdjustment {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the rounding adjustment only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -155,6 +158,9 @@ public final class OrderRoundingAdjustment {
             return this;
         }
 
+        /**
+         * <p>The name of the rounding adjustment from the original sale order.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -177,6 +183,9 @@ public final class OrderRoundingAdjustment {
             return this;
         }
 
+        /**
+         * <p>The actual rounding adjustment amount.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;

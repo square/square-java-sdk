@@ -139,24 +139,44 @@ public final class UpdateInvoiceRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the invoice to update.</p>
+         */
         InvoiceStage invoiceId(@NotNull String invoiceId);
 
         Builder from(UpdateInvoiceRequest other);
     }
 
     public interface InvoiceStage {
+        /**
+         * <p>The invoice fields to add, change, or clear. Fields can be cleared using
+         * null values or the <code>remove</code> field (for individual payment requests or reminders).
+         * The current invoice <code>version</code> is also required. For more information, including requirements,
+         * limitations, and more examples, see <a href="https://developer.squareup.com/docs/invoices-api/update-invoices">Update an Invoice</a>.</p>
+         */
         _FinalStage invoice(@NotNull Invoice invoice);
     }
 
     public interface _FinalStage {
         UpdateInvoiceRequest build();
 
+        /**
+         * <p>A unique string that identifies the <code>UpdateInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
 
         _FinalStage idempotencyKey(Nullable<String> idempotencyKey);
 
+        /**
+         * <p>The list of fields to clear. Although this field is currently supported, we
+         * recommend using null values or the <code>remove</code> field when possible. For examples, see
+         * <a href="https://developer.squareup.com/docs/invoices-api/update-invoices">Update an Invoice</a>.</p>
+         */
         _FinalStage fieldsToClear(Optional<List<String>> fieldsToClear);
 
         _FinalStage fieldsToClear(List<String> fieldsToClear);
@@ -190,6 +210,7 @@ public final class UpdateInvoiceRequest {
 
         /**
          * <p>The ID of the invoice to update.</p>
+         * <p>The ID of the invoice to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -200,6 +221,10 @@ public final class UpdateInvoiceRequest {
         }
 
         /**
+         * <p>The invoice fields to add, change, or clear. Fields can be cleared using
+         * null values or the <code>remove</code> field (for individual payment requests or reminders).
+         * The current invoice <code>version</code> is also required. For more information, including requirements,
+         * limitations, and more examples, see <a href="https://developer.squareup.com/docs/invoices-api/update-invoices">Update an Invoice</a>.</p>
          * <p>The invoice fields to add, change, or clear. Fields can be cleared using
          * null values or the <code>remove</code> field (for individual payment requests or reminders).
          * The current invoice <code>version</code> is also required. For more information, including requirements,
@@ -243,6 +268,11 @@ public final class UpdateInvoiceRequest {
             return this;
         }
 
+        /**
+         * <p>The list of fields to clear. Although this field is currently supported, we
+         * recommend using null values or the <code>remove</code> field when possible. For examples, see
+         * <a href="https://developer.squareup.com/docs/invoices-api/update-invoices">Update an Invoice</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "fields_to_clear", nulls = Nulls.SKIP)
         public _FinalStage fieldsToClear(Optional<List<String>> fieldsToClear) {
@@ -282,6 +312,12 @@ public final class UpdateInvoiceRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <code>UpdateInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

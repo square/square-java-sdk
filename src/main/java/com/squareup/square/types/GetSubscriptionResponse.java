@@ -98,6 +98,9 @@ public final class GetSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class GetSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The subscription retrieved.</p>
+         */
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public Builder subscription(Optional<Subscription> subscription) {
             this.subscription = subscription;

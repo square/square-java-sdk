@@ -130,6 +130,9 @@ public final class ScheduledShiftWorkday {
             return this;
         }
 
+        /**
+         * <p>Dates for fetching the scheduled shifts.</p>
+         */
         @JsonSetter(value = "date_range", nulls = Nulls.SKIP)
         public Builder dateRange(Optional<DateRange> dateRange) {
             this.dateRange = dateRange;
@@ -141,6 +144,10 @@ public final class ScheduledShiftWorkday {
             return this;
         }
 
+        /**
+         * <p>The strategy on which the dates are applied.
+         * See <a href="#type-scheduledshiftworkdaymatcher">ScheduledShiftWorkdayMatcher</a> for possible values</p>
+         */
         @JsonSetter(value = "match_scheduled_shifts_by", nulls = Nulls.SKIP)
         public Builder matchScheduledShiftsBy(Optional<ScheduledShiftWorkdayMatcher> matchScheduledShiftsBy) {
             this.matchScheduledShiftsBy = matchScheduledShiftsBy;
@@ -152,6 +159,12 @@ public final class ScheduledShiftWorkday {
             return this;
         }
 
+        /**
+         * <p>Location-specific timezones convert workdays to datetime filters.
+         * Every location included in the query must have a timezone or this field
+         * must be provided as a fallback. Format: the IANA timezone database
+         * identifier for the relevant timezone.</p>
+         */
         @JsonSetter(value = "default_timezone", nulls = Nulls.SKIP)
         public Builder defaultTimezone(Optional<String> defaultTimezone) {
             this.defaultTimezone = defaultTimezone;

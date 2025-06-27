@@ -130,6 +130,11 @@ public final class GiftCardActivityRedeem {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount deducted from the gift card for the redemption. This value is a positive integer.</p>
+         * <p>Applications that use a custom payment processing system must specify this amount in the
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(GiftCardActivityRedeem other);
@@ -138,16 +143,32 @@ public final class GiftCardActivityRedeem {
     public interface _FinalStage {
         GiftCardActivityRedeem build();
 
+        /**
+         * <p>The ID of the payment that represents the gift card redemption. Square populates this field
+         * if the payment was processed by Square.</p>
+         */
         _FinalStage paymentId(Optional<String> paymentId);
 
         _FinalStage paymentId(String paymentId);
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         * <p>Applications that use a custom payment processing system can use this field to track information
+         * related to an order or payment.</p>
+         */
         _FinalStage referenceId(Optional<String> referenceId);
 
         _FinalStage referenceId(String referenceId);
 
         _FinalStage referenceId(Nullable<String> referenceId);
 
+        /**
+         * <p>The status of the gift card redemption. Gift cards redeemed from Square Point of Sale or the
+         * Square Seller Dashboard use a two-state process: <code>PENDING</code>
+         * to <code>COMPLETED</code> or <code>PENDING</code> to  <code>CANCELED</code>. Gift cards redeemed using the Gift Card Activities API
+         * always have a <code>COMPLETED</code> status.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         _FinalStage status(Optional<GiftCardActivityRedeemStatus> status);
 
         _FinalStage status(GiftCardActivityRedeemStatus status);
@@ -181,6 +202,9 @@ public final class GiftCardActivityRedeem {
          * <p>The amount deducted from the gift card for the redemption. This value is a positive integer.</p>
          * <p>Applications that use a custom payment processing system must specify this amount in the
          * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
+         * <p>The amount deducted from the gift card for the redemption. This value is a positive integer.</p>
+         * <p>Applications that use a custom payment processing system must specify this amount in the
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -204,6 +228,13 @@ public final class GiftCardActivityRedeem {
             return this;
         }
 
+        /**
+         * <p>The status of the gift card redemption. Gift cards redeemed from Square Point of Sale or the
+         * Square Seller Dashboard use a two-state process: <code>PENDING</code>
+         * to <code>COMPLETED</code> or <code>PENDING</code> to  <code>CANCELED</code>. Gift cards redeemed using the Gift Card Activities API
+         * always have a <code>COMPLETED</code> status.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<GiftCardActivityRedeemStatus> status) {
@@ -241,6 +272,11 @@ public final class GiftCardActivityRedeem {
             return this;
         }
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         * <p>Applications that use a custom payment processing system can use this field to track information
+         * related to an order or payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public _FinalStage referenceId(Optional<String> referenceId) {
@@ -259,6 +295,10 @@ public final class GiftCardActivityRedeem {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment that represents the gift card redemption. Square populates this field
+         * if the payment was processed by Square.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public _FinalStage paymentId(Optional<String> paymentId) {

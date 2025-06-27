@@ -96,6 +96,9 @@ public final class GetBankAccountByV1IdResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetBankAccountByV1IdResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>BankAccount</code> object.</p>
+         */
         @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
         public Builder bankAccount(Optional<BankAccount> bankAccount) {
             this.bankAccount = bankAccount;

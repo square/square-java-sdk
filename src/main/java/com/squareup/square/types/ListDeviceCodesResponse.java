@@ -116,6 +116,9 @@ public final class ListDeviceCodesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListDeviceCodesResponse {
             return this;
         }
 
+        /**
+         * <p>The queried DeviceCode.</p>
+         */
         @JsonSetter(value = "device_codes", nulls = Nulls.SKIP)
         public Builder deviceCodes(Optional<List<DeviceCode>> deviceCodes) {
             this.deviceCodes = deviceCodes;
@@ -138,6 +144,12 @@ public final class ListDeviceCodesResponse {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor to retrieve the next set of results for your
+         * original query to the endpoint. This value is present only if the request
+         * succeeded and additional results are available.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Paginating results</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

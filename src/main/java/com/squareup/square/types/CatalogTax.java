@@ -237,6 +237,9 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>The tax's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -259,6 +262,10 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>Whether the tax is calculated based on a payment's subtotal or total.
+         * See <a href="#type-taxcalculationphase">TaxCalculationPhase</a> for possible values</p>
+         */
         @JsonSetter(value = "calculation_phase", nulls = Nulls.SKIP)
         public Builder calculationPhase(Optional<TaxCalculationPhase> calculationPhase) {
             this.calculationPhase = calculationPhase;
@@ -270,6 +277,10 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>Whether the tax is <code>ADDITIVE</code> or <code>INCLUSIVE</code>.
+         * See <a href="#type-taxinclusiontype">TaxInclusionType</a> for possible values</p>
+         */
         @JsonSetter(value = "inclusion_type", nulls = Nulls.SKIP)
         public Builder inclusionType(Optional<TaxInclusionType> inclusionType) {
             this.inclusionType = inclusionType;
@@ -281,6 +292,10 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>The percentage of the tax in decimal form, using a <code>'.'</code> as the decimal separator and without a <code>'%'</code> sign.
+         * A value of <code>7.5</code> corresponds to 7.5%. For a location-specific tax rate, contact the tax authority of the location or a tax consultant.</p>
+         */
         @JsonSetter(value = "percentage", nulls = Nulls.SKIP)
         public Builder percentage(Optional<String> percentage) {
             this.percentage = percentage;
@@ -303,6 +318,10 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, the fee applies to custom amounts entered into the Square Point of Sale
+         * app that are not associated with a particular <code>CatalogItem</code>.</p>
+         */
         @JsonSetter(value = "applies_to_custom_amounts", nulls = Nulls.SKIP)
         public Builder appliesToCustomAmounts(Optional<Boolean> appliesToCustomAmounts) {
             this.appliesToCustomAmounts = appliesToCustomAmounts;
@@ -325,6 +344,9 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>A Boolean flag to indicate whether the tax is displayed as enabled (<code>true</code>) in the Square Point of Sale app or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public Builder enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;
@@ -347,6 +369,9 @@ public final class CatalogTax {
             return this;
         }
 
+        /**
+         * <p>The ID of a <code>CatalogProductSet</code> object. If set, the tax is applicable to all products in the product set.</p>
+         */
         @JsonSetter(value = "applies_to_product_set_id", nulls = Nulls.SKIP)
         public Builder appliesToProductSetId(Optional<String> appliesToProductSetId) {
             this.appliesToProductSetId = appliesToProductSetId;

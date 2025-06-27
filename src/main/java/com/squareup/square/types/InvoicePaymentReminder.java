@@ -171,6 +171,10 @@ public final class InvoicePaymentReminder {
             return this;
         }
 
+        /**
+         * <p>A Square-assigned ID that uniquely identifies the reminder within the
+         * <code>InvoicePaymentRequest</code>.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -182,6 +186,11 @@ public final class InvoicePaymentReminder {
             return this;
         }
 
+        /**
+         * <p>The number of days before (a negative number) or after (a positive number)
+         * the payment request <code>due_date</code> when the reminder is sent. For example, -3 indicates that
+         * the reminder should be sent 3 days before the payment request <code>due_date</code>.</p>
+         */
         @JsonSetter(value = "relative_scheduled_days", nulls = Nulls.SKIP)
         public Builder relativeScheduledDays(Optional<Integer> relativeScheduledDays) {
             this.relativeScheduledDays = relativeScheduledDays;
@@ -204,6 +213,9 @@ public final class InvoicePaymentReminder {
             return this;
         }
 
+        /**
+         * <p>The reminder message.</p>
+         */
         @JsonSetter(value = "message", nulls = Nulls.SKIP)
         public Builder message(Optional<String> message) {
             this.message = message;
@@ -226,6 +238,10 @@ public final class InvoicePaymentReminder {
             return this;
         }
 
+        /**
+         * <p>The status of the reminder.
+         * See <a href="#type-invoicepaymentreminderstatus">InvoicePaymentReminderStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<InvoicePaymentReminderStatus> status) {
             this.status = status;
@@ -237,6 +253,9 @@ public final class InvoicePaymentReminder {
             return this;
         }
 
+        /**
+         * <p>If sent, the timestamp when the reminder was sent, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "sent_at", nulls = Nulls.SKIP)
         public Builder sentAt(Optional<String> sentAt) {
             this.sentAt = sentAt;

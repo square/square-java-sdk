@@ -81,6 +81,9 @@ public final class CatalogQueryItemsForTax {
             return this;
         }
 
+        /**
+         * <p>A set of <code>CatalogTax</code> IDs to be used to find associated <code>CatalogItem</code>s.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(List<String> taxIds) {
             this.taxIds.clear();

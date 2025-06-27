@@ -191,6 +191,9 @@ public final class ListEmployeesRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies the EmployeeStatus to filter the employee by.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<EmployeeStatus> status) {
             this.status = status;
@@ -213,6 +216,9 @@ public final class ListEmployeesRequest {
             return this;
         }
 
+        /**
+         * <p>The number of employees to be returned on each page.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -235,6 +241,9 @@ public final class ListEmployeesRequest {
             return this;
         }
 
+        /**
+         * <p>The token required to retrieve the specified page of results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

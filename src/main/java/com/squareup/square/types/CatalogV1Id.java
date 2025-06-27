@@ -116,6 +116,9 @@ public final class CatalogV1Id {
             return this;
         }
 
+        /**
+         * <p>The ID for an object used in the Square API V1, if the object ID differs from the Square API V2 object ID.</p>
+         */
         @JsonSetter(value = "catalog_v1_id", nulls = Nulls.SKIP)
         public Builder catalogV1Id(Optional<String> catalogV1Id) {
             this.catalogV1Id = catalogV1Id;
@@ -138,6 +141,9 @@ public final class CatalogV1Id {
             return this;
         }
 
+        /**
+         * <p>The ID of the <code>Location</code> this Connect V1 ID is associated with.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

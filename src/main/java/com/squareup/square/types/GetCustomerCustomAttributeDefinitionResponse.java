@@ -99,6 +99,9 @@ public final class GetCustomerCustomAttributeDefinitionResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved custom attribute definition.</p>
+         */
         @JsonSetter(value = "custom_attribute_definition", nulls = Nulls.SKIP)
         public Builder customAttributeDefinition(Optional<CustomAttributeDefinition> customAttributeDefinition) {
             this.customAttributeDefinition = customAttributeDefinition;
@@ -110,6 +113,9 @@ public final class GetCustomerCustomAttributeDefinitionResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

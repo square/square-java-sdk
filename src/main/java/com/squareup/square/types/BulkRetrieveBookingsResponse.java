@@ -98,6 +98,9 @@ public final class BulkRetrieveBookingsResponse {
             return this;
         }
 
+        /**
+         * <p>Requested bookings returned as a map containing <code>booking_id</code> as the key and <code>RetrieveBookingResponse</code> as the value.</p>
+         */
         @JsonSetter(value = "bookings", nulls = Nulls.SKIP)
         public Builder bookings(Optional<Map<String, GetBookingResponse>> bookings) {
             this.bookings = bookings;
@@ -109,6 +112,9 @@ public final class BulkRetrieveBookingsResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

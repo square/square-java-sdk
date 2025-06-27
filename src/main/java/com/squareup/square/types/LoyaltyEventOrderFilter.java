@@ -66,6 +66,9 @@ public final class LoyaltyEventOrderFilter {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Order">order</a> associated with the event.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(LoyaltyEventOrderFilter other);
@@ -91,6 +94,7 @@ public final class LoyaltyEventOrderFilter {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Order">order</a> associated with the event.</p>
          * <p>The ID of the <a href="entity:Order">order</a> associated with the event.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

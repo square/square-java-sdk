@@ -4,36 +4,30 @@
 package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.GetPayoutResponse;
 import com.squareup.square.types.GetPayoutsRequest;
 import com.squareup.square.types.ListEntriesPayoutsRequest;
-import com.squareup.square.types.ListPayoutEntriesResponse;
 import com.squareup.square.types.ListPayoutsRequest;
-import com.squareup.square.types.ListPayoutsResponse;
 import com.squareup.square.types.Payout;
 import com.squareup.square.types.PayoutEntry;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class PayoutsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawPayoutsClient rawClient;
+
     public PayoutsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawPayoutsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawPayoutsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -42,7 +36,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public SyncPagingIterable<Payout> list() {
-        return list(ListPayoutsRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
@@ -51,7 +45,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public SyncPagingIterable<Payout> list(ListPayoutsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -60,70 +54,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public SyncPagingIterable<Payout> list(ListPayoutsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/payouts");
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        if (request.getStatus().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "status", request.getStatus().get().toString(), false);
-        }
-        if (request.getBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "begin_time", request.getBeginTime().get(), false);
-        }
-        if (request.getEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "end_time", request.getEndTime().get(), false);
-        }
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListPayoutsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListPayoutsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListPayoutsRequest nextRequest = ListPayoutsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<Payout> result = parsedResponse.getPayouts().orElse(Collections.emptyList());
-                return new SyncPagingIterable<Payout>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -131,7 +62,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public GetPayoutResponse get(GetPayoutsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -139,35 +70,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public GetPayoutResponse get(GetPayoutsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/payouts")
-                .addPathSegment(request.getPayoutId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetPayoutResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -175,7 +78,7 @@ public class PayoutsClient {
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
     public SyncPagingIterable<PayoutEntry> listEntries(ListEntriesPayoutsRequest request) {
-        return listEntries(request, null);
+        return this.rawClient.listEntries(request).body();
     }
 
     /**
@@ -184,55 +87,6 @@ public class PayoutsClient {
      */
     public SyncPagingIterable<PayoutEntry> listEntries(
             ListEntriesPayoutsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/payouts")
-                .addPathSegment(request.getPayoutId())
-                .addPathSegments("payout-entries");
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListPayoutEntriesResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListPayoutEntriesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListEntriesPayoutsRequest nextRequest = ListEntriesPayoutsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<PayoutEntry> result = parsedResponse.getPayoutEntries().orElse(Collections.emptyList());
-                return new SyncPagingIterable<PayoutEntry>(
-                        startingAfter.isPresent(), result, () -> listEntries(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.listEntries(request, requestOptions).body();
     }
 }

@@ -117,6 +117,9 @@ public final class ListOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved custom attributes. If no custom attribute are found, Square returns an empty object (<code>{}</code>).</p>
+         */
         @JsonSetter(value = "custom_attributes", nulls = Nulls.SKIP)
         public Builder customAttributes(Optional<List<CustomAttribute>> customAttributes) {
             this.customAttributes = customAttributes;
@@ -128,6 +131,11 @@ public final class ListOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>The cursor to provide in your next call to this endpoint to retrieve the next page of results for your original request.
+         * This field is present only if the request succeeded and additional results are available.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -139,6 +147,9 @@ public final class ListOrderCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

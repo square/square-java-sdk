@@ -66,6 +66,9 @@ public final class GetInvoicesRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the invoice to retrieve.</p>
+         */
         _FinalStage invoiceId(@NotNull String invoiceId);
 
         Builder from(GetInvoicesRequest other);
@@ -91,6 +94,7 @@ public final class GetInvoicesRequest {
         }
 
         /**
+         * <p>The ID of the invoice to retrieve.</p>
          * <p>The ID of the invoice to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

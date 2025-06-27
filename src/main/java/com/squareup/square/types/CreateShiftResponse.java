@@ -96,6 +96,9 @@ public final class CreateShiftResponse {
             return this;
         }
 
+        /**
+         * <p>The <code>Shift</code> that was created on the request.</p>
+         */
         @JsonSetter(value = "shift", nulls = Nulls.SKIP)
         public Builder shift(Optional<Shift> shift) {
             this.shift = shift;
@@ -107,6 +110,9 @@ public final class CreateShiftResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

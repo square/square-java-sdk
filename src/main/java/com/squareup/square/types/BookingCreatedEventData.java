@@ -124,6 +124,9 @@ public final class BookingCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The type of the event data object. The value is <code>&quot;booking&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class BookingCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the event data object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class BookingCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the created booking.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<BookingCreatedEventObject> object) {
             this.object = object;

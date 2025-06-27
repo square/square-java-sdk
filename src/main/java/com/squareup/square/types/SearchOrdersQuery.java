@@ -97,6 +97,9 @@ public final class SearchOrdersQuery {
             return this;
         }
 
+        /**
+         * <p>Criteria to filter results by.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<SearchOrdersFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class SearchOrdersQuery {
             return this;
         }
 
+        /**
+         * <p>Criteria to sort results by.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<SearchOrdersSort> sort) {
             this.sort = sort;

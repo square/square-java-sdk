@@ -82,6 +82,9 @@ public final class TerminalCheckoutCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created terminal checkout</p>
+         */
         @JsonSetter(value = "checkout", nulls = Nulls.SKIP)
         public Builder checkout(Optional<TerminalCheckout> checkout) {
             this.checkout = checkout;

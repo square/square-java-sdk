@@ -96,6 +96,9 @@ public final class BatchGetOrdersResponse {
             return this;
         }
 
+        /**
+         * <p>The requested orders. This will omit any requested orders that do not exist.</p>
+         */
         @JsonSetter(value = "orders", nulls = Nulls.SKIP)
         public Builder orders(Optional<List<Order>> orders) {
             this.orders = orders;
@@ -107,6 +110,9 @@ public final class BatchGetOrdersResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

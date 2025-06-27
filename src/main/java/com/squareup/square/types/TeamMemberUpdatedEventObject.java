@@ -80,6 +80,9 @@ public final class TeamMemberUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated team member.</p>
+         */
         @JsonSetter(value = "team_member", nulls = Nulls.SKIP)
         public Builder teamMember(Optional<TeamMember> teamMember) {
             this.teamMember = teamMember;

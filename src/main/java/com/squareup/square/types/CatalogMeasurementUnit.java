@@ -117,6 +117,9 @@ public final class CatalogMeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Indicates the unit used to measure the quantity of a catalog item variation.</p>
+         */
         @JsonSetter(value = "measurement_unit", nulls = Nulls.SKIP)
         public Builder measurementUnit(Optional<MeasurementUnit> measurementUnit) {
             this.measurementUnit = measurementUnit;
@@ -128,6 +131,17 @@ public final class CatalogMeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>An integer between 0 and 5 that represents the maximum number of
+         * positions allowed after the decimal in quantities measured with this unit.
+         * For example:</p>
+         * <ul>
+         * <li>if the precision is 0, the quantity can be 1, 2, 3, etc.</li>
+         * <li>if the precision is 1, the quantity can be 0.1, 0.2, etc.</li>
+         * <li>if the precision is 2, the quantity can be 0.01, 0.12, etc.</li>
+         * </ul>
+         * <p>Default: 3</p>
+         */
         @JsonSetter(value = "precision", nulls = Nulls.SKIP)
         public Builder precision(Optional<Integer> precision) {
             this.precision = precision;

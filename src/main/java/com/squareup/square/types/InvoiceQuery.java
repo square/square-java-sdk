@@ -80,6 +80,10 @@ public final class InvoiceQuery {
     }
 
     public interface FilterStage {
+        /**
+         * <p>Query filters to apply in searching invoices.
+         * For more information, see <a href="https://developer.squareup.com/docs/invoices-api/retrieve-list-search-invoices#search-invoices">Search for invoices</a>.</p>
+         */
         _FinalStage filter(@NotNull InvoiceFilter filter);
 
         Builder from(InvoiceQuery other);
@@ -88,6 +92,9 @@ public final class InvoiceQuery {
     public interface _FinalStage {
         InvoiceQuery build();
 
+        /**
+         * <p>Describes the sort order for the search result.</p>
+         */
         _FinalStage sort(Optional<InvoiceSort> sort);
 
         _FinalStage sort(InvoiceSort sort);
@@ -114,6 +121,8 @@ public final class InvoiceQuery {
         /**
          * <p>Query filters to apply in searching invoices.
          * For more information, see <a href="https://developer.squareup.com/docs/invoices-api/retrieve-list-search-invoices#search-invoices">Search for invoices</a>.</p>
+         * <p>Query filters to apply in searching invoices.
+         * For more information, see <a href="https://developer.squareup.com/docs/invoices-api/retrieve-list-search-invoices#search-invoices">Search for invoices</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,6 +142,9 @@ public final class InvoiceQuery {
             return this;
         }
 
+        /**
+         * <p>Describes the sort order for the search result.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public _FinalStage sort(Optional<InvoiceSort> sort) {

@@ -98,6 +98,9 @@ public final class UnlinkCustomerFromGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,10 @@ public final class UnlinkCustomerFromGiftCardResponse {
             return this;
         }
 
+        /**
+         * <p>The gift card with the ID of the unlinked customer removed from the <code>customer_ids</code> field.
+         * If no other customers are linked, the <code>customer_ids</code> field is also removed.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;

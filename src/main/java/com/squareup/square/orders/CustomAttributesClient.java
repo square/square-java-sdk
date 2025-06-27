@@ -3,14 +3,8 @@
  */
 package com.squareup.square.orders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.orders.types.BulkDeleteOrderCustomAttributesRequest;
 import com.squareup.square.orders.types.BulkUpsertOrderCustomAttributesRequest;
@@ -22,26 +16,24 @@ import com.squareup.square.types.BulkDeleteOrderCustomAttributesResponse;
 import com.squareup.square.types.BulkUpsertOrderCustomAttributesResponse;
 import com.squareup.square.types.CustomAttribute;
 import com.squareup.square.types.DeleteOrderCustomAttributeResponse;
-import com.squareup.square.types.ListOrderCustomAttributesResponse;
 import com.squareup.square.types.RetrieveOrderCustomAttributeResponse;
 import com.squareup.square.types.UpsertOrderCustomAttributeResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class CustomAttributesClient {
     protected final ClientOptions clientOptions;
 
+    private final RawCustomAttributesClient rawClient;
+
     public CustomAttributesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawCustomAttributesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawCustomAttributesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -58,7 +50,7 @@ public class CustomAttributesClient {
      * (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public BulkDeleteOrderCustomAttributesResponse batchDelete(BulkDeleteOrderCustomAttributesRequest request) {
-        return batchDelete(request, null);
+        return this.rawClient.batchDelete(request).body();
     }
 
     /**
@@ -76,42 +68,7 @@ public class CustomAttributesClient {
      */
     public BulkDeleteOrderCustomAttributesResponse batchDelete(
             BulkDeleteOrderCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders/custom-attributes/bulk-delete")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BulkDeleteOrderCustomAttributesResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchDelete(request, requestOptions).body();
     }
 
     /**
@@ -128,7 +85,7 @@ public class CustomAttributesClient {
      * (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public BulkUpsertOrderCustomAttributesResponse batchUpsert(BulkUpsertOrderCustomAttributesRequest request) {
-        return batchUpsert(request, null);
+        return this.rawClient.batchUpsert(request).body();
     }
 
     /**
@@ -146,42 +103,7 @@ public class CustomAttributesClient {
      */
     public BulkUpsertOrderCustomAttributesResponse batchUpsert(
             BulkUpsertOrderCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders/custom-attributes/bulk-upsert")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BulkUpsertOrderCustomAttributesResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchUpsert(request, requestOptions).body();
     }
 
     /**
@@ -193,7 +115,7 @@ public class CustomAttributesClient {
      * and set to <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public SyncPagingIterable<CustomAttribute> list(ListCustomAttributesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -206,67 +128,7 @@ public class CustomAttributesClient {
      */
     public SyncPagingIterable<CustomAttribute> list(
             ListCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders")
-                .addPathSegment(request.getOrderId())
-                .addPathSegments("custom-attributes");
-        if (request.getVisibilityFilter().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "visibility_filter",
-                    request.getVisibilityFilter().get().toString(),
-                    false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getWithDefinitions().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definitions",
-                    request.getWithDefinitions().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListOrderCustomAttributesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ListOrderCustomAttributesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListCustomAttributesRequest nextRequest = ListCustomAttributesRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<CustomAttribute> result =
-                        parsedResponse.getCustomAttributes().orElse(Collections.emptyList());
-                return new SyncPagingIterable<CustomAttribute>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -278,7 +140,7 @@ public class CustomAttributesClient {
      * also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public RetrieveOrderCustomAttributeResponse get(GetCustomAttributesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -290,48 +152,7 @@ public class CustomAttributesClient {
      * also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public RetrieveOrderCustomAttributeResponse get(GetCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders")
-                .addPathSegment(request.getOrderId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getCustomAttributeKey());
-        if (request.getVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "version", request.getVersion().get().toString(), false);
-        }
-        if (request.getWithDefinition().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "with_definition",
-                    request.getWithDefinition().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), RetrieveOrderCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -344,7 +165,7 @@ public class CustomAttributesClient {
      * (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public UpsertOrderCustomAttributeResponse upsert(UpsertOrderCustomAttributeRequest request) {
-        return upsert(request, null);
+        return this.rawClient.upsert(request).body();
     }
 
     /**
@@ -358,45 +179,7 @@ public class CustomAttributesClient {
      */
     public UpsertOrderCustomAttributeResponse upsert(
             UpsertOrderCustomAttributeRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders")
-                .addPathSegment(request.getOrderId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getCustomAttributeKey())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), UpsertOrderCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.upsert(request, requestOptions).body();
     }
 
     /**
@@ -406,7 +189,7 @@ public class CustomAttributesClient {
      * (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
     public DeleteOrderCustomAttributeResponse delete(DeleteCustomAttributesRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).body();
     }
 
     /**
@@ -417,37 +200,6 @@ public class CustomAttributesClient {
      */
     public DeleteOrderCustomAttributeResponse delete(
             DeleteCustomAttributesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/orders")
-                .addPathSegment(request.getOrderId())
-                .addPathSegments("custom-attributes")
-                .addPathSegment(request.getCustomAttributeKey())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), DeleteOrderCustomAttributeResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.delete(request, requestOptions).body();
     }
 }

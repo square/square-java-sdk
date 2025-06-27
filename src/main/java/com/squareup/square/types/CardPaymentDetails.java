@@ -470,6 +470,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The card payment's current state. The state can be AUTHORIZED, CAPTURED, VOIDED, or
+         * FAILED.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -492,6 +496,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The credit card's non-confidential details.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;
@@ -503,6 +510,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The method used to enter the card's details for the payment. The method can be
+         * <code>KEYED</code>, <code>SWIPED</code>, <code>EMV</code>, <code>ON_FILE</code>, or <code>CONTACTLESS</code>.</p>
+         */
         @JsonSetter(value = "entry_method", nulls = Nulls.SKIP)
         public Builder entryMethod(Optional<String> entryMethod) {
             this.entryMethod = entryMethod;
@@ -525,6 +536,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The status code returned from the Card Verification Value (CVV) check. The code can be
+         * <code>CVV_ACCEPTED</code>, <code>CVV_REJECTED</code>, or <code>CVV_NOT_CHECKED</code>.</p>
+         */
         @JsonSetter(value = "cvv_status", nulls = Nulls.SKIP)
         public Builder cvvStatus(Optional<String> cvvStatus) {
             this.cvvStatus = cvvStatus;
@@ -547,6 +562,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The status code returned from the Address Verification System (AVS) check. The code can be
+         * <code>AVS_ACCEPTED</code>, <code>AVS_REJECTED</code>, or <code>AVS_NOT_CHECKED</code>.</p>
+         */
         @JsonSetter(value = "avs_status", nulls = Nulls.SKIP)
         public Builder avsStatus(Optional<String> avsStatus) {
             this.avsStatus = avsStatus;
@@ -569,6 +588,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The status code returned by the card issuer that describes the payment's
+         * authorization status.</p>
+         */
         @JsonSetter(value = "auth_result_code", nulls = Nulls.SKIP)
         public Builder authResultCode(Optional<String> authResultCode) {
             this.authResultCode = authResultCode;
@@ -591,6 +614,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>For EMV payments, the application ID identifies the EMV application used for the payment.</p>
+         */
         @JsonSetter(value = "application_identifier", nulls = Nulls.SKIP)
         public Builder applicationIdentifier(Optional<String> applicationIdentifier) {
             this.applicationIdentifier = applicationIdentifier;
@@ -613,6 +639,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>For EMV payments, the human-readable name of the EMV application used for the payment.</p>
+         */
         @JsonSetter(value = "application_name", nulls = Nulls.SKIP)
         public Builder applicationName(Optional<String> applicationName) {
             this.applicationName = applicationName;
@@ -635,6 +664,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>For EMV payments, the cryptogram generated for the payment.</p>
+         */
         @JsonSetter(value = "application_cryptogram", nulls = Nulls.SKIP)
         public Builder applicationCryptogram(Optional<String> applicationCryptogram) {
             this.applicationCryptogram = applicationCryptogram;
@@ -657,6 +689,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>For EMV payments, the method used to verify the cardholder's identity. The method can be
+         * <code>PIN</code>, <code>SIGNATURE</code>, <code>PIN_AND_SIGNATURE</code>, <code>ON_DEVICE</code>, or <code>NONE</code>.</p>
+         */
         @JsonSetter(value = "verification_method", nulls = Nulls.SKIP)
         public Builder verificationMethod(Optional<String> verificationMethod) {
             this.verificationMethod = verificationMethod;
@@ -679,6 +715,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>For EMV payments, the results of the cardholder verification. The result can be
+         * <code>SUCCESS</code>, <code>FAILURE</code>, or <code>UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "verification_results", nulls = Nulls.SKIP)
         public Builder verificationResults(Optional<String> verificationResults) {
             this.verificationResults = verificationResults;
@@ -701,6 +741,11 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The statement description sent to the card networks.</p>
+         * <p>Note: The actual statement description varies and is likely to be truncated and appended with
+         * additional information on a per issuer basis.</p>
+         */
         @JsonSetter(value = "statement_description", nulls = Nulls.SKIP)
         public Builder statementDescription(Optional<String> statementDescription) {
             this.statementDescription = statementDescription;
@@ -723,6 +768,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p><strong>Deprecated</strong>: Use <code>Payment.device_details</code> instead.</p>
+         * <p>Details about the device that took the payment.</p>
+         */
         @JsonSetter(value = "device_details", nulls = Nulls.SKIP)
         public Builder deviceDetails(Optional<DeviceDetails> deviceDetails) {
             this.deviceDetails = deviceDetails;
@@ -734,6 +783,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The timeline for card payments.</p>
+         */
         @JsonSetter(value = "card_payment_timeline", nulls = Nulls.SKIP)
         public Builder cardPaymentTimeline(Optional<CardPaymentTimeline> cardPaymentTimeline) {
             this.cardPaymentTimeline = cardPaymentTimeline;
@@ -745,6 +797,10 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>Whether the card must be physically present for the payment to
+         * be refunded.  If set to <code>true</code>, the card must be present.</p>
+         */
         @JsonSetter(value = "refund_requires_card_presence", nulls = Nulls.SKIP)
         public Builder refundRequiresCardPresence(Optional<Boolean> refundRequiresCardPresence) {
             this.refundRequiresCardPresence = refundRequiresCardPresence;
@@ -767,6 +823,9 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

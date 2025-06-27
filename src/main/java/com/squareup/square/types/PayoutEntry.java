@@ -523,131 +523,213 @@ public final class PayoutEntry {
     }
 
     public interface IdStage {
+        /**
+         * <p>A unique ID for the payout entry.</p>
+         */
         PayoutIdStage id(@NotNull String id);
 
         Builder from(PayoutEntry other);
     }
 
     public interface PayoutIdStage {
+        /**
+         * <p>The ID of the payout entries’ associated payout.</p>
+         */
         _FinalStage payoutId(@NotNull String payoutId);
     }
 
     public interface _FinalStage {
         PayoutEntry build();
 
+        /**
+         * <p>The timestamp of when the payout entry affected the balance, in RFC 3339 format.</p>
+         */
         _FinalStage effectiveAt(Optional<String> effectiveAt);
 
         _FinalStage effectiveAt(String effectiveAt);
 
         _FinalStage effectiveAt(Nullable<String> effectiveAt);
 
+        /**
+         * <p>The type of activity associated with this payout entry.
+         * See <a href="#type-activitytype">ActivityType</a> for possible values</p>
+         */
         _FinalStage type(Optional<ActivityType> type);
 
         _FinalStage type(ActivityType type);
 
+        /**
+         * <p>The amount of money involved in this payout entry.</p>
+         */
         _FinalStage grossAmountMoney(Optional<Money> grossAmountMoney);
 
         _FinalStage grossAmountMoney(Money grossAmountMoney);
 
+        /**
+         * <p>The amount of Square fees associated with this payout entry.</p>
+         */
         _FinalStage feeAmountMoney(Optional<Money> feeAmountMoney);
 
         _FinalStage feeAmountMoney(Money feeAmountMoney);
 
+        /**
+         * <p>The net proceeds from this transaction after any fees.</p>
+         */
         _FinalStage netAmountMoney(Optional<Money> netAmountMoney);
 
         _FinalStage netAmountMoney(Money netAmountMoney);
 
+        /**
+         * <p>Details of any developer app fee revenue generated on a payment.</p>
+         */
         _FinalStage typeAppFeeRevenueDetails(
                 Optional<PaymentBalanceActivityAppFeeRevenueDetail> typeAppFeeRevenueDetails);
 
         _FinalStage typeAppFeeRevenueDetails(PaymentBalanceActivityAppFeeRevenueDetail typeAppFeeRevenueDetails);
 
+        /**
+         * <p>Details of a refund for an app fee on a payment.</p>
+         */
         _FinalStage typeAppFeeRefundDetails(Optional<PaymentBalanceActivityAppFeeRefundDetail> typeAppFeeRefundDetails);
 
         _FinalStage typeAppFeeRefundDetails(PaymentBalanceActivityAppFeeRefundDetail typeAppFeeRefundDetails);
 
+        /**
+         * <p>Details of any automatic transfer from the payment processing balance to the Square Savings account. These are, generally, proportional to the merchant's sales.</p>
+         */
         _FinalStage typeAutomaticSavingsDetails(
                 Optional<PaymentBalanceActivityAutomaticSavingsDetail> typeAutomaticSavingsDetails);
 
         _FinalStage typeAutomaticSavingsDetails(
                 PaymentBalanceActivityAutomaticSavingsDetail typeAutomaticSavingsDetails);
 
+        /**
+         * <p>Details of any automatic transfer from the Square Savings account back to the processing balance. These are, generally, proportional to the merchant's refunds.</p>
+         */
         _FinalStage typeAutomaticSavingsReversedDetails(
                 Optional<PaymentBalanceActivityAutomaticSavingsReversedDetail> typeAutomaticSavingsReversedDetails);
 
         _FinalStage typeAutomaticSavingsReversedDetails(
                 PaymentBalanceActivityAutomaticSavingsReversedDetail typeAutomaticSavingsReversedDetails);
 
+        /**
+         * <p>Details of credit card payment captures.</p>
+         */
         _FinalStage typeChargeDetails(Optional<PaymentBalanceActivityChargeDetail> typeChargeDetails);
 
         _FinalStage typeChargeDetails(PaymentBalanceActivityChargeDetail typeChargeDetails);
 
+        /**
+         * <p>Details of any fees involved with deposits such as for instant deposits.</p>
+         */
         _FinalStage typeDepositFeeDetails(Optional<PaymentBalanceActivityDepositFeeDetail> typeDepositFeeDetails);
 
         _FinalStage typeDepositFeeDetails(PaymentBalanceActivityDepositFeeDetail typeDepositFeeDetails);
 
+        /**
+         * <p>Details of any reversal or refund of fees involved with deposits such as for instant deposits.</p>
+         */
         _FinalStage typeDepositFeeReversedDetails(
                 Optional<PaymentBalanceActivityDepositFeeReversedDetail> typeDepositFeeReversedDetails);
 
         _FinalStage typeDepositFeeReversedDetails(
                 PaymentBalanceActivityDepositFeeReversedDetail typeDepositFeeReversedDetails);
 
+        /**
+         * <p>Details of any balance change due to a dispute event.</p>
+         */
         _FinalStage typeDisputeDetails(Optional<PaymentBalanceActivityDisputeDetail> typeDisputeDetails);
 
         _FinalStage typeDisputeDetails(PaymentBalanceActivityDisputeDetail typeDisputeDetails);
 
+        /**
+         * <p>Details of adjustments due to the Square processing fee.</p>
+         */
         _FinalStage typeFeeDetails(Optional<PaymentBalanceActivityFeeDetail> typeFeeDetails);
 
         _FinalStage typeFeeDetails(PaymentBalanceActivityFeeDetail typeFeeDetails);
 
+        /**
+         * <p>Square offers Free Payments Processing for a variety of business scenarios including seller referral or when Square wants to apologize for a bug, customer service, repricing complication, and so on. This entry represents details of any credit to the merchant for the purposes of Free Processing.</p>
+         */
         _FinalStage typeFreeProcessingDetails(
                 Optional<PaymentBalanceActivityFreeProcessingDetail> typeFreeProcessingDetails);
 
         _FinalStage typeFreeProcessingDetails(PaymentBalanceActivityFreeProcessingDetail typeFreeProcessingDetails);
 
+        /**
+         * <p>Details of any adjustment made by Square related to the holding or releasing of a payment.</p>
+         */
         _FinalStage typeHoldAdjustmentDetails(
                 Optional<PaymentBalanceActivityHoldAdjustmentDetail> typeHoldAdjustmentDetails);
 
         _FinalStage typeHoldAdjustmentDetails(PaymentBalanceActivityHoldAdjustmentDetail typeHoldAdjustmentDetails);
 
+        /**
+         * <p>Details of any open disputes.</p>
+         */
         _FinalStage typeOpenDisputeDetails(Optional<PaymentBalanceActivityOpenDisputeDetail> typeOpenDisputeDetails);
 
         _FinalStage typeOpenDisputeDetails(PaymentBalanceActivityOpenDisputeDetail typeOpenDisputeDetails);
 
+        /**
+         * <p>Details of any other type that does not belong in the rest of the types.</p>
+         */
         _FinalStage typeOtherDetails(Optional<PaymentBalanceActivityOtherDetail> typeOtherDetails);
 
         _FinalStage typeOtherDetails(PaymentBalanceActivityOtherDetail typeOtherDetails);
 
+        /**
+         * <p>Details of any other type of adjustments that don't fall under existing types.</p>
+         */
         _FinalStage typeOtherAdjustmentDetails(
                 Optional<PaymentBalanceActivityOtherAdjustmentDetail> typeOtherAdjustmentDetails);
 
         _FinalStage typeOtherAdjustmentDetails(PaymentBalanceActivityOtherAdjustmentDetail typeOtherAdjustmentDetails);
 
+        /**
+         * <p>Details of a refund for an existing card payment.</p>
+         */
         _FinalStage typeRefundDetails(Optional<PaymentBalanceActivityRefundDetail> typeRefundDetails);
 
         _FinalStage typeRefundDetails(PaymentBalanceActivityRefundDetail typeRefundDetails);
 
+        /**
+         * <p>Details of fees released for adjustments.</p>
+         */
         _FinalStage typeReleaseAdjustmentDetails(
                 Optional<PaymentBalanceActivityReleaseAdjustmentDetail> typeReleaseAdjustmentDetails);
 
         _FinalStage typeReleaseAdjustmentDetails(
                 PaymentBalanceActivityReleaseAdjustmentDetail typeReleaseAdjustmentDetails);
 
+        /**
+         * <p>Details of fees paid for funding risk reserve.</p>
+         */
         _FinalStage typeReserveHoldDetails(Optional<PaymentBalanceActivityReserveHoldDetail> typeReserveHoldDetails);
 
         _FinalStage typeReserveHoldDetails(PaymentBalanceActivityReserveHoldDetail typeReserveHoldDetails);
 
+        /**
+         * <p>Details of fees released from risk reserve.</p>
+         */
         _FinalStage typeReserveReleaseDetails(
                 Optional<PaymentBalanceActivityReserveReleaseDetail> typeReserveReleaseDetails);
 
         _FinalStage typeReserveReleaseDetails(PaymentBalanceActivityReserveReleaseDetail typeReserveReleaseDetails);
 
+        /**
+         * <p>Details of capital merchant cash advance (MCA) assessments. These are, generally, proportional to the merchant's sales but may be issued for other reasons related to the MCA.</p>
+         */
         _FinalStage typeSquareCapitalPaymentDetails(
                 Optional<PaymentBalanceActivitySquareCapitalPaymentDetail> typeSquareCapitalPaymentDetails);
 
         _FinalStage typeSquareCapitalPaymentDetails(
                 PaymentBalanceActivitySquareCapitalPaymentDetail typeSquareCapitalPaymentDetails);
 
+        /**
+         * <p>Details of capital merchant cash advance (MCA) assessment refunds. These are, generally, proportional to the merchant's refunds but may be issued for other reasons related to the MCA.</p>
+         */
         _FinalStage typeSquareCapitalReversedPaymentDetails(
                 Optional<PaymentBalanceActivitySquareCapitalReversedPaymentDetail>
                         typeSquareCapitalReversedPaymentDetails);
@@ -655,27 +737,42 @@ public final class PayoutEntry {
         _FinalStage typeSquareCapitalReversedPaymentDetails(
                 PaymentBalanceActivitySquareCapitalReversedPaymentDetail typeSquareCapitalReversedPaymentDetails);
 
+        /**
+         * <p>Details of tax paid on fee amounts.</p>
+         */
         _FinalStage typeTaxOnFeeDetails(Optional<PaymentBalanceActivityTaxOnFeeDetail> typeTaxOnFeeDetails);
 
         _FinalStage typeTaxOnFeeDetails(PaymentBalanceActivityTaxOnFeeDetail typeTaxOnFeeDetails);
 
+        /**
+         * <p>Details of fees collected by a 3rd party platform.</p>
+         */
         _FinalStage typeThirdPartyFeeDetails(
                 Optional<PaymentBalanceActivityThirdPartyFeeDetail> typeThirdPartyFeeDetails);
 
         _FinalStage typeThirdPartyFeeDetails(PaymentBalanceActivityThirdPartyFeeDetail typeThirdPartyFeeDetails);
 
+        /**
+         * <p>Details of refunded fees from a 3rd party platform.</p>
+         */
         _FinalStage typeThirdPartyFeeRefundDetails(
                 Optional<PaymentBalanceActivityThirdPartyFeeRefundDetail> typeThirdPartyFeeRefundDetails);
 
         _FinalStage typeThirdPartyFeeRefundDetails(
                 PaymentBalanceActivityThirdPartyFeeRefundDetail typeThirdPartyFeeRefundDetails);
 
+        /**
+         * <p>Details of a payroll payment that was transferred to a team member’s bank account.</p>
+         */
         _FinalStage typeSquarePayrollTransferDetails(
                 Optional<PaymentBalanceActivitySquarePayrollTransferDetail> typeSquarePayrollTransferDetails);
 
         _FinalStage typeSquarePayrollTransferDetails(
                 PaymentBalanceActivitySquarePayrollTransferDetail typeSquarePayrollTransferDetails);
 
+        /**
+         * <p>Details of a payroll payment to a team member’s bank account that was deposited back to the seller’s account by Square.</p>
+         */
         _FinalStage typeSquarePayrollTransferReversedDetails(
                 Optional<PaymentBalanceActivitySquarePayrollTransferReversedDetail>
                         typeSquarePayrollTransferReversedDetails);
@@ -801,6 +898,7 @@ public final class PayoutEntry {
 
         /**
          * <p>A unique ID for the payout entry.</p>
+         * <p>A unique ID for the payout entry.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -811,6 +909,7 @@ public final class PayoutEntry {
         }
 
         /**
+         * <p>The ID of the payout entries’ associated payout.</p>
          * <p>The ID of the payout entries’ associated payout.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -833,6 +932,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of a payroll payment to a team member’s bank account that was deposited back to the seller’s account by Square.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_square_payroll_transfer_reversed_details", nulls = Nulls.SKIP)
         public _FinalStage typeSquarePayrollTransferReversedDetails(
@@ -853,6 +955,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of a payroll payment that was transferred to a team member’s bank account.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_square_payroll_transfer_details", nulls = Nulls.SKIP)
         public _FinalStage typeSquarePayrollTransferDetails(
@@ -872,6 +977,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of refunded fees from a 3rd party platform.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_third_party_fee_refund_details", nulls = Nulls.SKIP)
         public _FinalStage typeThirdPartyFeeRefundDetails(
@@ -891,6 +999,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of fees collected by a 3rd party platform.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_third_party_fee_details", nulls = Nulls.SKIP)
         public _FinalStage typeThirdPartyFeeDetails(
@@ -909,6 +1020,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of tax paid on fee amounts.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_tax_on_fee_details", nulls = Nulls.SKIP)
         public _FinalStage typeTaxOnFeeDetails(Optional<PaymentBalanceActivityTaxOnFeeDetail> typeTaxOnFeeDetails) {
@@ -927,6 +1041,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of capital merchant cash advance (MCA) assessment refunds. These are, generally, proportional to the merchant's refunds but may be issued for other reasons related to the MCA.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_square_capital_reversed_payment_details", nulls = Nulls.SKIP)
         public _FinalStage typeSquareCapitalReversedPaymentDetails(
@@ -947,6 +1064,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of capital merchant cash advance (MCA) assessments. These are, generally, proportional to the merchant's sales but may be issued for other reasons related to the MCA.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_square_capital_payment_details", nulls = Nulls.SKIP)
         public _FinalStage typeSquareCapitalPaymentDetails(
@@ -966,6 +1086,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of fees released from risk reserve.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_reserve_release_details", nulls = Nulls.SKIP)
         public _FinalStage typeReserveReleaseDetails(
@@ -984,6 +1107,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of fees paid for funding risk reserve.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_reserve_hold_details", nulls = Nulls.SKIP)
         public _FinalStage typeReserveHoldDetails(
@@ -1003,6 +1129,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of fees released for adjustments.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_release_adjustment_details", nulls = Nulls.SKIP)
         public _FinalStage typeReleaseAdjustmentDetails(
@@ -1021,6 +1150,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of a refund for an existing card payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_refund_details", nulls = Nulls.SKIP)
         public _FinalStage typeRefundDetails(Optional<PaymentBalanceActivityRefundDetail> typeRefundDetails) {
@@ -1039,6 +1171,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any other type of adjustments that don't fall under existing types.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_other_adjustment_details", nulls = Nulls.SKIP)
         public _FinalStage typeOtherAdjustmentDetails(
@@ -1057,6 +1192,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any other type that does not belong in the rest of the types.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_other_details", nulls = Nulls.SKIP)
         public _FinalStage typeOtherDetails(Optional<PaymentBalanceActivityOtherDetail> typeOtherDetails) {
@@ -1074,6 +1212,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any open disputes.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_open_dispute_details", nulls = Nulls.SKIP)
         public _FinalStage typeOpenDisputeDetails(
@@ -1093,6 +1234,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any adjustment made by Square related to the holding or releasing of a payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_hold_adjustment_details", nulls = Nulls.SKIP)
         public _FinalStage typeHoldAdjustmentDetails(
@@ -1112,6 +1256,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Square offers Free Payments Processing for a variety of business scenarios including seller referral or when Square wants to apologize for a bug, customer service, repricing complication, and so on. This entry represents details of any credit to the merchant for the purposes of Free Processing.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_free_processing_details", nulls = Nulls.SKIP)
         public _FinalStage typeFreeProcessingDetails(
@@ -1130,6 +1277,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of adjustments due to the Square processing fee.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_fee_details", nulls = Nulls.SKIP)
         public _FinalStage typeFeeDetails(Optional<PaymentBalanceActivityFeeDetail> typeFeeDetails) {
@@ -1147,6 +1297,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any balance change due to a dispute event.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_dispute_details", nulls = Nulls.SKIP)
         public _FinalStage typeDisputeDetails(Optional<PaymentBalanceActivityDisputeDetail> typeDisputeDetails) {
@@ -1165,6 +1318,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any reversal or refund of fees involved with deposits such as for instant deposits.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_deposit_fee_reversed_details", nulls = Nulls.SKIP)
         public _FinalStage typeDepositFeeReversedDetails(
@@ -1183,6 +1339,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any fees involved with deposits such as for instant deposits.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_deposit_fee_details", nulls = Nulls.SKIP)
         public _FinalStage typeDepositFeeDetails(
@@ -1201,6 +1360,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of credit card payment captures.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_charge_details", nulls = Nulls.SKIP)
         public _FinalStage typeChargeDetails(Optional<PaymentBalanceActivityChargeDetail> typeChargeDetails) {
@@ -1219,6 +1381,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any automatic transfer from the Square Savings account back to the processing balance. These are, generally, proportional to the merchant's refunds.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_automatic_savings_reversed_details", nulls = Nulls.SKIP)
         public _FinalStage typeAutomaticSavingsReversedDetails(
@@ -1238,6 +1403,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any automatic transfer from the payment processing balance to the Square Savings account. These are, generally, proportional to the merchant's sales.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_automatic_savings_details", nulls = Nulls.SKIP)
         public _FinalStage typeAutomaticSavingsDetails(
@@ -1256,6 +1424,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of a refund for an app fee on a payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_app_fee_refund_details", nulls = Nulls.SKIP)
         public _FinalStage typeAppFeeRefundDetails(
@@ -1275,6 +1446,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>Details of any developer app fee revenue generated on a payment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type_app_fee_revenue_details", nulls = Nulls.SKIP)
         public _FinalStage typeAppFeeRevenueDetails(
@@ -1293,6 +1467,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>The net proceeds from this transaction after any fees.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "net_amount_money", nulls = Nulls.SKIP)
         public _FinalStage netAmountMoney(Optional<Money> netAmountMoney) {
@@ -1310,6 +1487,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>The amount of Square fees associated with this payout entry.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "fee_amount_money", nulls = Nulls.SKIP)
         public _FinalStage feeAmountMoney(Optional<Money> feeAmountMoney) {
@@ -1327,6 +1507,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>The amount of money involved in this payout entry.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gross_amount_money", nulls = Nulls.SKIP)
         public _FinalStage grossAmountMoney(Optional<Money> grossAmountMoney) {
@@ -1345,6 +1528,10 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>The type of activity associated with this payout entry.
+         * See <a href="#type-activitytype">ActivityType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public _FinalStage type(Optional<ActivityType> type) {
@@ -1378,6 +1565,9 @@ public final class PayoutEntry {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the payout entry affected the balance, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "effective_at", nulls = Nulls.SKIP)
         public _FinalStage effectiveAt(Optional<String> effectiveAt) {

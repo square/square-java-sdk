@@ -66,6 +66,9 @@ public final class GetRefundsRequest {
     }
 
     public interface RefundIdStage {
+        /**
+         * <p>The unique ID for the desired <code>PaymentRefund</code>.</p>
+         */
         _FinalStage refundId(@NotNull String refundId);
 
         Builder from(GetRefundsRequest other);
@@ -91,6 +94,7 @@ public final class GetRefundsRequest {
         }
 
         /**
+         * <p>The unique ID for the desired <code>PaymentRefund</code>.</p>
          * <p>The unique ID for the desired <code>PaymentRefund</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

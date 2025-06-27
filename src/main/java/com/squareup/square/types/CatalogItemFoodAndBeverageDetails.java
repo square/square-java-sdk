@@ -146,6 +146,9 @@ public final class CatalogItemFoodAndBeverageDetails {
             return this;
         }
 
+        /**
+         * <p>The calorie count (in the unit of kcal) for the <code>FOOD_AND_BEV</code> type of items.</p>
+         */
         @JsonSetter(value = "calorie_count", nulls = Nulls.SKIP)
         public Builder calorieCount(Optional<Integer> calorieCount) {
             this.calorieCount = calorieCount;
@@ -168,6 +171,9 @@ public final class CatalogItemFoodAndBeverageDetails {
             return this;
         }
 
+        /**
+         * <p>The dietary preferences for the <code>FOOD_AND_BEV</code> item.</p>
+         */
         @JsonSetter(value = "dietary_preferences", nulls = Nulls.SKIP)
         public Builder dietaryPreferences(
                 Optional<List<CatalogItemFoodAndBeverageDetailsDietaryPreference>> dietaryPreferences) {
@@ -192,6 +198,9 @@ public final class CatalogItemFoodAndBeverageDetails {
             return this;
         }
 
+        /**
+         * <p>The ingredients for the <code>FOOD_AND_BEV</code> type item.</p>
+         */
         @JsonSetter(value = "ingredients", nulls = Nulls.SKIP)
         public Builder ingredients(Optional<List<CatalogItemFoodAndBeverageDetailsIngredient>> ingredients) {
             this.ingredients = ingredients;

@@ -66,6 +66,9 @@ public final class GetPaymentLinksRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of link to retrieve.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetPaymentLinksRequest other);
@@ -91,6 +94,7 @@ public final class GetPaymentLinksRequest {
         }
 
         /**
+         * <p>The ID of link to retrieve.</p>
          * <p>The ID of link to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -111,20 +111,35 @@ public final class AccumulateLoyaltyPointsRequest {
     }
 
     public interface AccountIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
+         */
         AccumulatePointsStage accountId(@NotNull String accountId);
 
         Builder from(AccumulateLoyaltyPointsRequest other);
     }
 
     public interface AccumulatePointsStage {
+        /**
+         * <p>The points to add to the account.
+         * If you are using the Orders API to manage orders, specify the order ID.
+         * Otherwise, specify the points to add.</p>
+         */
         IdempotencyKeyStage accumulatePoints(@NotNull LoyaltyEventAccumulatePoints accumulatePoints);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies the <code>AccumulateLoyaltyPoints</code> request.
+         * Keys can be any valid string but must be unique for every request.</p>
+         */
         LocationIdStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The <a href="entity:Location">location</a> where the purchase was made.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
@@ -159,6 +174,7 @@ public final class AccumulateLoyaltyPointsRequest {
 
         /**
          * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -169,6 +185,9 @@ public final class AccumulateLoyaltyPointsRequest {
         }
 
         /**
+         * <p>The points to add to the account.
+         * If you are using the Orders API to manage orders, specify the order ID.
+         * Otherwise, specify the points to add.</p>
          * <p>The points to add to the account.
          * If you are using the Orders API to manage orders, specify the order ID.
          * Otherwise, specify the points to add.</p>
@@ -184,6 +203,8 @@ public final class AccumulateLoyaltyPointsRequest {
         /**
          * <p>A unique string that identifies the <code>AccumulateLoyaltyPoints</code> request.
          * Keys can be any valid string but must be unique for every request.</p>
+         * <p>A unique string that identifies the <code>AccumulateLoyaltyPoints</code> request.
+         * Keys can be any valid string but must be unique for every request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -194,6 +215,7 @@ public final class AccumulateLoyaltyPointsRequest {
         }
 
         /**
+         * <p>The <a href="entity:Location">location</a> where the purchase was made.</p>
          * <p>The <a href="entity:Location">location</a> where the purchase was made.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

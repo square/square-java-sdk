@@ -121,6 +121,9 @@ public final class FulfillmentPickupDetailsCurbsidePickupDetails {
             return this;
         }
 
+        /**
+         * <p>Specific details for curbside pickup, such as parking number and vehicle model.</p>
+         */
         @JsonSetter(value = "curbside_details", nulls = Nulls.SKIP)
         public Builder curbsideDetails(Optional<String> curbsideDetails) {
             this.curbsideDetails = curbsideDetails;
@@ -143,6 +146,11 @@ public final class FulfillmentPickupDetailsCurbsidePickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the buyer arrived and is waiting for pickup. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "buyer_arrived_at", nulls = Nulls.SKIP)
         public Builder buyerArrivedAt(Optional<String> buyerArrivedAt) {
             this.buyerArrivedAt = buyerArrivedAt;

@@ -136,6 +136,9 @@ public final class Availability {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the beginning time of the slot available for booking.</p>
+         */
         @JsonSetter(value = "start_at", nulls = Nulls.SKIP)
         public Builder startAt(Optional<String> startAt) {
             this.startAt = startAt;
@@ -158,6 +161,9 @@ public final class Availability {
             return this;
         }
 
+        /**
+         * <p>The ID of the location available for booking.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -169,6 +175,9 @@ public final class Availability {
             return this;
         }
 
+        /**
+         * <p>The list of appointment segments available for booking</p>
+         */
         @JsonSetter(value = "appointment_segments", nulls = Nulls.SKIP)
         public Builder appointmentSegments(Optional<List<AppointmentSegment>> appointmentSegments) {
             this.appointmentSegments = appointmentSegments;

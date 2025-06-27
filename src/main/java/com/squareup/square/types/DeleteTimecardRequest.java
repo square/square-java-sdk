@@ -66,6 +66,9 @@ public final class DeleteTimecardRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>Timecard</code> being deleted.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(DeleteTimecardRequest other);
@@ -91,6 +94,7 @@ public final class DeleteTimecardRequest {
         }
 
         /**
+         * <p>The UUID for the <code>Timecard</code> being deleted.</p>
          * <p>The UUID for the <code>Timecard</code> being deleted.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

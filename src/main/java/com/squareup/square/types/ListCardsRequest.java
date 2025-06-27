@@ -199,6 +199,11 @@ public final class ListCardsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for your original query.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -221,6 +226,10 @@ public final class ListCardsRequest {
             return this;
         }
 
+        /**
+         * <p>Limit results to cards associated with the customer supplied.
+         * By default, all cards owned by the merchant are returned.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -243,6 +252,10 @@ public final class ListCardsRequest {
             return this;
         }
 
+        /**
+         * <p>Includes disabled cards.
+         * By default, all enabled cards owned by the merchant are returned.</p>
+         */
         @JsonSetter(value = "include_disabled", nulls = Nulls.SKIP)
         public Builder includeDisabled(Optional<Boolean> includeDisabled) {
             this.includeDisabled = includeDisabled;
@@ -265,6 +278,9 @@ public final class ListCardsRequest {
             return this;
         }
 
+        /**
+         * <p>Limit results to cards associated with the reference_id supplied.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -287,6 +303,10 @@ public final class ListCardsRequest {
             return this;
         }
 
+        /**
+         * <p>Sorts the returned list by when the card was created with the specified order.
+         * This field defaults to ASC.</p>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;

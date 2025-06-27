@@ -66,6 +66,9 @@ public final class GetGroupsRequest {
     }
 
     public interface GroupIdStage {
+        /**
+         * <p>The ID of the customer group to retrieve.</p>
+         */
         _FinalStage groupId(@NotNull String groupId);
 
         Builder from(GetGroupsRequest other);
@@ -91,6 +94,7 @@ public final class GetGroupsRequest {
         }
 
         /**
+         * <p>The ID of the customer group to retrieve.</p>
          * <p>The ID of the customer group to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

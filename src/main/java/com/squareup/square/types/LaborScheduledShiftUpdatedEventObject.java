@@ -82,6 +82,9 @@ public final class LaborScheduledShiftUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated <code>ScheduledShift</code>.</p>
+         */
         @JsonSetter(value = "ScheduledShift", nulls = Nulls.SKIP)
         public Builder scheduledShift(Optional<ScheduledShift> scheduledShift) {
             this.scheduledShift = scheduledShift;

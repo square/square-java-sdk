@@ -82,6 +82,10 @@ public final class SearchOrdersStateFilter {
             return this;
         }
 
+        /**
+         * <p>States to filter for.
+         * See <a href="#type-orderstate">OrderState</a> for possible values</p>
+         */
         @JsonSetter(value = "states", nulls = Nulls.SKIP)
         public Builder states(List<OrderState> states) {
             this.states.clear();

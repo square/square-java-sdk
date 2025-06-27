@@ -116,6 +116,9 @@ public final class ListLocationProfilesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a paged response.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -138,6 +141,9 @@ public final class ListLocationProfilesRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

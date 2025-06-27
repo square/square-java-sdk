@@ -77,12 +77,18 @@ public final class RemoveGroupsRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to remove from the group.</p>
+         */
         GroupIdStage customerId(@NotNull String customerId);
 
         Builder from(RemoveGroupsRequest other);
     }
 
     public interface GroupIdStage {
+        /**
+         * <p>The ID of the customer group to remove the customer from.</p>
+         */
         _FinalStage groupId(@NotNull String groupId);
     }
 
@@ -110,6 +116,7 @@ public final class RemoveGroupsRequest {
 
         /**
          * <p>The ID of the customer to remove from the group.</p>
+         * <p>The ID of the customer to remove from the group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class RemoveGroupsRequest {
         }
 
         /**
+         * <p>The ID of the customer group to remove the customer from.</p>
          * <p>The ID of the customer group to remove the customer from.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

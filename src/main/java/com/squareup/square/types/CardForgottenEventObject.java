@@ -80,6 +80,9 @@ public final class CardForgottenEventObject {
             return this;
         }
 
+        /**
+         * <p>The forgotten card.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<CardForgottenEventCard> card) {
             this.card = card;

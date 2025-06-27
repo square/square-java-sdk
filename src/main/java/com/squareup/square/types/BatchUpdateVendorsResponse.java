@@ -100,6 +100,9 @@ public final class BatchUpdateVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered when the request fails.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -111,6 +114,11 @@ public final class BatchUpdateVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>A set of <a href="entity:UpdateVendorResponse">UpdateVendorResponse</a> objects encapsulating successfully created <a href="entity:Vendor">Vendor</a>
+         * objects or error responses for failed attempts. The set is represented by a collection of <code>Vendor</code>-ID/<code>UpdateVendorResponse</code>-object or
+         * <code>Vendor</code>-ID/error-object pairs.</p>
+         */
         @JsonSetter(value = "responses", nulls = Nulls.SKIP)
         public Builder responses(Optional<Map<String, UpdateVendorResponse>> responses) {
             this.responses = responses;

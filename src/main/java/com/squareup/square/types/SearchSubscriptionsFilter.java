@@ -145,6 +145,9 @@ public final class SearchSubscriptionsFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select subscriptions based on the subscribing customer IDs.</p>
+         */
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(Optional<List<String>> customerIds) {
             this.customerIds = customerIds;
@@ -167,6 +170,9 @@ public final class SearchSubscriptionsFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select subscriptions based on the location.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -189,6 +195,9 @@ public final class SearchSubscriptionsFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select subscriptions based on the source application.</p>
+         */
         @JsonSetter(value = "source_names", nulls = Nulls.SKIP)
         public Builder sourceNames(Optional<List<String>> sourceNames) {
             this.sourceNames = sourceNames;

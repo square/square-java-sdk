@@ -93,6 +93,9 @@ public final class ListEvidenceRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute.</p>
+         */
         _FinalStage disputeId(@NotNull String disputeId);
 
         Builder from(ListEvidenceRequest other);
@@ -101,6 +104,11 @@ public final class ListEvidenceRequest {
     public interface _FinalStage {
         ListEvidenceRequest build();
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -127,6 +135,7 @@ public final class ListEvidenceRequest {
         }
 
         /**
+         * <p>The ID of the dispute.</p>
          * <p>The ID of the dispute.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -167,6 +176,11 @@ public final class ListEvidenceRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {

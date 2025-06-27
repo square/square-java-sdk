@@ -1,11 +1,16 @@
 plugins {
     id 'java-library'
+    id 'maven-publish'
     id 'com.diffplug.spotless' version '6.11.0'
-    id 'com.vanniktech.maven.publish' version '0.27.0'
+    id 'signing'
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
 }
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    }
 }
 
 dependencies {
@@ -16,6 +21,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -31,8 +37,33 @@ spotless {
     }
 }
 
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+
 group = 'com.squareup'
+
 version = '45.0.0.20250618'
+
+jar {
+    dependsOn(":generatePomFileForMavenPublication")
+    archiveBaseName = "square"
+}
+
+sourcesJar {
+    archiveBaseName = "square"
+}
+
+javadocJar {
+    archiveBaseName = "square"
+}
+
+signing {
+    sign(publishing.publications)
+}
 
 test {
     useJUnitPlatform()
@@ -41,48 +72,58 @@ test {
     }
 }
 
-// Configure maven publishing for Central Portal
-mavenPublishing {
-    publishToMavenCentral()
-    signAllPublications()
-    
-    coordinates("com.squareup", "square", "$version")
-
-    pom {
-        name = "Square Java SDK"
-        description = "Official Square Java SDK"
-        inceptionYear = "2019"
-        url = "https://github.com/square/square-java-sdk"
-        
-        licenses {
-            license {
-                name = "MIT License"
-                url = "https://opensource.org/licenses/MIT"
-                distribution = "repo"
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.squareup'
+            artifactId = 'square'
+            version = '45.0.0.20250618'
+            from components.java
+            pom {
+                name = 'square'
+                description = 'The official SDK of square'
+                url = 'https://buildwithfern.com'
+                licenses {
+                    license {
+                        name = 'MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'square'
+                        email = 'developers@square.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/square/square-java-sdk.git'
+                    developerConnection = 'scm:git:git://github.com/square/square-java-sdk.git'
+                    url = 'https://github.com/square/square-java-sdk'
+                }
             }
-        }
-        
-        developers {
-            developer {
-                id = "square"
-                name = "Square"
-                url = "https://github.com/square"
-            }
-        }
-        
-        scm {
-            url = "https://github.com/square/square-java-sdk"
-            connection = "scm:git:git://github.com/square/square-java-sdk.git"
-            developerConnection = "scm:git:ssh://git@github.com/square/square-java-sdk.git"
         }
     }
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-    
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
+sonatypeCentralUpload {
+    username = "$System.env.MAVEN_USERNAME"
+    password = "$System.env.MAVEN_PASSWORD"
+
+    archives = files(
+        "$buildDir/libs/square-" + version + ".jar",
+        "$buildDir/libs/square-" + version + "-sources.jar",
+        "$buildDir/libs/square-" + version + "-javadoc.jar"
+    )
+
+    pom = file("$buildDir/publications/maven/pom-default.xml")
+    signingKey = "$System.env.MAVEN_SIGNATURE_SECRET_KEY"
+    signingKeyPassphrase = "$System.env.MAVEN_SIGNATURE_PASSWORD"
 }
+
+signing {
+    def signingKeyId = "$System.env.MAVEN_SIGNATURE_SECRET_KEY"
+    def signingPassword = "$System.env.MAVEN_SIGNATURE_PASSWORD"
+    useInMemoryPgpKeys(signingKeyId, signingPassword)
+    sign publishing.publications.maven
+}
+
+sonatypeCentralUpload.dependsOn build

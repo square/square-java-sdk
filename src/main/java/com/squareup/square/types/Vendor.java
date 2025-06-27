@@ -281,6 +281,10 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>A unique Square-generated ID for the <a href="entity:Vendor">Vendor</a>.
+         * This field is required when attempting to update a <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -292,6 +296,10 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>An RFC 3339-formatted timestamp that indicates when the
+         * <a href="entity:Vendor">Vendor</a> was created.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -303,6 +311,10 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>An RFC 3339-formatted timestamp that indicates when the
+         * <a href="entity:Vendor">Vendor</a> was last updated.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -314,6 +326,10 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The name of the <a href="entity:Vendor">Vendor</a>.
+         * This field is required when attempting to create or update a <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -336,6 +352,9 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The address of the <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;
@@ -347,6 +366,9 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The contacts of the <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "contacts", nulls = Nulls.SKIP)
         public Builder contacts(Optional<List<VendorContact>> contacts) {
             this.contacts = contacts;
@@ -369,6 +391,9 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The account number of the <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "account_number", nulls = Nulls.SKIP)
         public Builder accountNumber(Optional<String> accountNumber) {
             this.accountNumber = accountNumber;
@@ -391,6 +416,9 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>A note detailing information about the <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -413,6 +441,9 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The version of the <a href="entity:Vendor">Vendor</a>.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -424,6 +455,10 @@ public final class Vendor {
             return this;
         }
 
+        /**
+         * <p>The status of the <a href="entity:Vendor">Vendor</a>.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<VendorStatus> status) {
             this.status = status;

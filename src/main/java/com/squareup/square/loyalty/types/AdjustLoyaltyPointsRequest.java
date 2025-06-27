@@ -126,22 +126,38 @@ public final class AdjustLoyaltyPointsRequest {
     }
 
     public interface AccountIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
+         */
         IdempotencyKeyStage accountId(@NotNull String accountId);
 
         Builder from(AdjustLoyaltyPointsRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>AdjustLoyaltyPoints</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
+         */
         AdjustPointsStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface AdjustPointsStage {
+        /**
+         * <p>The points to add or subtract and the reason for the adjustment. To add points, specify a positive integer.
+         * To subtract points, specify a negative integer.</p>
+         */
         _FinalStage adjustPoints(@NotNull LoyaltyEventAdjustPoints adjustPoints);
     }
 
     public interface _FinalStage {
         AdjustLoyaltyPointsRequest build();
 
+        /**
+         * <p>Indicates whether to allow a negative adjustment to result in a negative balance. If <code>true</code>, a negative
+         * balance is allowed when subtracting points. If <code>false</code>, Square returns a <code>BAD_REQUEST</code> error when subtracting
+         * the specified number of points would result in a negative balance. The default value is <code>false</code>.</p>
+         */
         _FinalStage allowNegativeBalance(Optional<Boolean> allowNegativeBalance);
 
         _FinalStage allowNegativeBalance(Boolean allowNegativeBalance);
@@ -175,6 +191,7 @@ public final class AdjustLoyaltyPointsRequest {
 
         /**
          * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -187,6 +204,8 @@ public final class AdjustLoyaltyPointsRequest {
         /**
          * <p>A unique string that identifies this <code>AdjustLoyaltyPoints</code> request.
          * Keys can be any valid string, but must be unique for every request.</p>
+         * <p>A unique string that identifies this <code>AdjustLoyaltyPoints</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -197,6 +216,8 @@ public final class AdjustLoyaltyPointsRequest {
         }
 
         /**
+         * <p>The points to add or subtract and the reason for the adjustment. To add points, specify a positive integer.
+         * To subtract points, specify a negative integer.</p>
          * <p>The points to add or subtract and the reason for the adjustment. To add points, specify a positive integer.
          * To subtract points, specify a negative integer.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -238,6 +259,11 @@ public final class AdjustLoyaltyPointsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to allow a negative adjustment to result in a negative balance. If <code>true</code>, a negative
+         * balance is allowed when subtracting points. If <code>false</code>, Square returns a <code>BAD_REQUEST</code> error when subtracting
+         * the specified number of points would result in a negative balance. The default value is <code>false</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "allow_negative_balance", nulls = Nulls.SKIP)
         public _FinalStage allowNegativeBalance(Optional<Boolean> allowNegativeBalance) {

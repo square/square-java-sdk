@@ -82,6 +82,9 @@ public final class MerchantSettingsUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated merchant settings.</p>
+         */
         @JsonSetter(value = "merchant_settings", nulls = Nulls.SKIP)
         public Builder merchantSettings(Optional<CheckoutMerchantSettings> merchantSettings) {
             this.merchantSettings = merchantSettings;

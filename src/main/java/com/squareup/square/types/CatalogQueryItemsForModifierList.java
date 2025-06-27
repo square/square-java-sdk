@@ -81,6 +81,9 @@ public final class CatalogQueryItemsForModifierList {
             return this;
         }
 
+        /**
+         * <p>A set of <code>CatalogModifierList</code> IDs to be used to find associated <code>CatalogItem</code>s.</p>
+         */
         @JsonSetter(value = "modifier_list_ids", nulls = Nulls.SKIP)
         public Builder modifierListIds(List<String> modifierListIds) {
             this.modifierListIds.clear();

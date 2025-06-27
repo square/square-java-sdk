@@ -102,6 +102,17 @@ public final class CatalogCustomAttributeDefinitionNumberConfig {
             return this;
         }
 
+        /**
+         * <p>An integer between 0 and 5 that represents the maximum number of
+         * positions allowed after the decimal in number custom attribute values
+         * For example:</p>
+         * <ul>
+         * <li>if the precision is 0, the quantity can be 1, 2, 3, etc.</li>
+         * <li>if the precision is 1, the quantity can be 0.1, 0.2, etc.</li>
+         * <li>if the precision is 2, the quantity can be 0.01, 0.12, etc.</li>
+         * </ul>
+         * <p>Default: 5</p>
+         */
         @JsonSetter(value = "precision", nulls = Nulls.SKIP)
         public Builder precision(Optional<Integer> precision) {
             this.precision = precision;

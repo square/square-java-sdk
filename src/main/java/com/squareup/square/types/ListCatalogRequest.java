@@ -157,6 +157,11 @@ public final class ListCatalogRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor returned in the previous response. Leave unset for an initial request.
+         * The page size is currently set to be 100.
+         * See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -179,6 +184,19 @@ public final class ListCatalogRequest {
             return this;
         }
 
+        /**
+         * <p>An optional case-insensitive, comma-separated list of object types to retrieve.</p>
+         * <p>The valid values are defined in the <a href="entity:CatalogObjectType">CatalogObjectType</a> enum, for example,
+         * <code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>,
+         * <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>IMAGE</code>, etc.</p>
+         * <p>If this is unspecified, the operation returns objects of all the top level types at the version
+         * of the Square API used to make the request. Object types that are nested onto other object types
+         * are not included in the defaults.</p>
+         * <p>At the current API version the default object types are:
+         * ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST,
+         * PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,
+         * SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS.</p>
+         */
         @JsonSetter(value = "types", nulls = Nulls.SKIP)
         public Builder types(Optional<String> types) {
             this.types = types;
@@ -201,6 +219,12 @@ public final class ListCatalogRequest {
             return this;
         }
 
+        /**
+         * <p>The specific version of the catalog objects to be included in the response.
+         * This allows you to retrieve historical versions of objects. The specified version value is matched against
+         * the <a href="entity:CatalogObject">CatalogObject</a>s' <code>version</code> attribute.  If not included, results will be from the
+         * current version of the catalog.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;

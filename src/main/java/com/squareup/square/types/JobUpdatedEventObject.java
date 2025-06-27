@@ -80,6 +80,9 @@ public final class JobUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated job.</p>
+         */
         @JsonSetter(value = "job", nulls = Nulls.SKIP)
         public Builder job(Optional<Job> job) {
             this.job = job;

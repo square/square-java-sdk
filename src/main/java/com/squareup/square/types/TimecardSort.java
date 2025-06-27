@@ -97,6 +97,10 @@ public final class TimecardSort {
             return this;
         }
 
+        /**
+         * <p>The field to sort on.
+         * See <a href="#type-timecardsortfield">TimecardSortField</a> for possible values</p>
+         */
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public Builder field(Optional<TimecardSortField> field) {
             this.field = field;
@@ -108,6 +112,10 @@ public final class TimecardSort {
             return this;
         }
 
+        /**
+         * <p>The order in which results are returned. Defaults to DESC.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<SortOrder> order) {
             this.order = order;

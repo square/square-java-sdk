@@ -100,6 +100,9 @@ public final class CreateSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -111,6 +114,11 @@ public final class CreateSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The newly created subscription.</p>
+         * <p>For more information, see
+         * <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#subscription-object">Subscription object</a>.</p>
+         */
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public Builder subscription(Optional<Subscription> subscription) {
             this.subscription = subscription;

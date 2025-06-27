@@ -147,6 +147,11 @@ public final class SearchAvailabilityFilter {
     }
 
     public interface StartAtRangeStage {
+        /**
+         * <p>The query expression to search for buy-accessible availabilities with their starting times falling within the specified time range.
+         * The time range must be at least 24 hours and at most 32 days long.
+         * For waitlist availabilities, the time range can be 0 or more up to 367 days long.</p>
+         */
         _FinalStage startAtRange(@NotNull TimeRange startAtRange);
 
         Builder from(SearchAvailabilityFilter other);
@@ -155,18 +160,32 @@ public final class SearchAvailabilityFilter {
     public interface _FinalStage {
         SearchAvailabilityFilter build();
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities with their location IDs matching the specified location ID.
+         * This query expression cannot be set if <code>booking_id</code> is set.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
 
         _FinalStage locationId(Nullable<String> locationId);
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities matching the specified list of segment filters.
+         * If the size of the <code>segment_filters</code> list is <code>n</code>, the search returns availabilities with <code>n</code> segments per availability.</p>
+         * <p>This query expression cannot be set if <code>booking_id</code> is set.</p>
+         */
         _FinalStage segmentFilters(Optional<List<SegmentFilter>> segmentFilters);
 
         _FinalStage segmentFilters(List<SegmentFilter> segmentFilters);
 
         _FinalStage segmentFilters(Nullable<List<SegmentFilter>> segmentFilters);
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities for an existing booking by matching the specified <code>booking_id</code> value.
+         * This is commonly used to reschedule an appointment.
+         * If this expression is set, the <code>location_id</code> and <code>segment_filters</code> expressions cannot be set.</p>
+         */
         _FinalStage bookingId(Optional<String> bookingId);
 
         _FinalStage bookingId(String bookingId);
@@ -199,6 +218,9 @@ public final class SearchAvailabilityFilter {
         }
 
         /**
+         * <p>The query expression to search for buy-accessible availabilities with their starting times falling within the specified time range.
+         * The time range must be at least 24 hours and at most 32 days long.
+         * For waitlist availabilities, the time range can be 0 or more up to 367 days long.</p>
          * <p>The query expression to search for buy-accessible availabilities with their starting times falling within the specified time range.
          * The time range must be at least 24 hours and at most 32 days long.
          * For waitlist availabilities, the time range can be 0 or more up to 367 days long.</p>
@@ -241,6 +263,11 @@ public final class SearchAvailabilityFilter {
             return this;
         }
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities for an existing booking by matching the specified <code>booking_id</code> value.
+         * This is commonly used to reschedule an appointment.
+         * If this expression is set, the <code>location_id</code> and <code>segment_filters</code> expressions cannot be set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "booking_id", nulls = Nulls.SKIP)
         public _FinalStage bookingId(Optional<String> bookingId) {
@@ -278,6 +305,11 @@ public final class SearchAvailabilityFilter {
             return this;
         }
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities matching the specified list of segment filters.
+         * If the size of the <code>segment_filters</code> list is <code>n</code>, the search returns availabilities with <code>n</code> segments per availability.</p>
+         * <p>This query expression cannot be set if <code>booking_id</code> is set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "segment_filters", nulls = Nulls.SKIP)
         public _FinalStage segmentFilters(Optional<List<SegmentFilter>> segmentFilters) {
@@ -313,6 +345,10 @@ public final class SearchAvailabilityFilter {
             return this;
         }
 
+        /**
+         * <p>The query expression to search for buyer-accessible availabilities with their location IDs matching the specified location ID.
+         * This query expression cannot be set if <code>booking_id</code> is set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {

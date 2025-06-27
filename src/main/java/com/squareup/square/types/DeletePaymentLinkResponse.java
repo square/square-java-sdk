@@ -122,6 +122,9 @@ public final class DeletePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>The ID of the link that is deleted.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -133,6 +136,10 @@ public final class DeletePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>The ID of the order that is canceled. When a payment link is deleted, Square updates the
+         * the <code>state</code> (of the order that the checkout link created) to CANCELED.</p>
+         */
         @JsonSetter(value = "cancelled_order_id", nulls = Nulls.SKIP)
         public Builder cancelledOrderId(Optional<String> cancelledOrderId) {
             this.cancelledOrderId = cancelledOrderId;

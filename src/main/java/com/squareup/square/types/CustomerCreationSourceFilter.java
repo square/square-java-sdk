@@ -114,6 +114,10 @@ public final class CustomerCreationSourceFilter {
             return this;
         }
 
+        /**
+         * <p>The list of creation sources used as filtering criteria.
+         * See <a href="#type-customercreationsource">CustomerCreationSource</a> for possible values</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Optional<List<CustomerCreationSource>> values) {
             this.values = values;
@@ -136,6 +140,12 @@ public final class CustomerCreationSourceFilter {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a customer profile matching the filter criteria
+         * should be included in the result or excluded from the result.</p>
+         * <p>Default: <code>INCLUDE</code>.
+         * See <a href="#type-customerinclusionexclusion">CustomerInclusionExclusion</a> for possible values</p>
+         */
         @JsonSetter(value = "rule", nulls = Nulls.SKIP)
         public Builder rule(Optional<CustomerInclusionExclusion> rule) {
             this.rule = rule;

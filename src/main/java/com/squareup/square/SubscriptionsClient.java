@@ -3,14 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BulkSwapPlanRequest;
 import com.squareup.square.types.BulkSwapPlanResponse;
@@ -25,7 +19,6 @@ import com.squareup.square.types.DeleteSubscriptionActionResponse;
 import com.squareup.square.types.GetSubscriptionResponse;
 import com.squareup.square.types.GetSubscriptionsRequest;
 import com.squareup.square.types.ListEventsSubscriptionsRequest;
-import com.squareup.square.types.ListSubscriptionEventsResponse;
 import com.squareup.square.types.PauseSubscriptionRequest;
 import com.squareup.square.types.PauseSubscriptionResponse;
 import com.squareup.square.types.ResumeSubscriptionRequest;
@@ -37,23 +30,22 @@ import com.squareup.square.types.SwapPlanRequest;
 import com.squareup.square.types.SwapPlanResponse;
 import com.squareup.square.types.UpdateSubscriptionRequest;
 import com.squareup.square.types.UpdateSubscriptionResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class SubscriptionsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawSubscriptionsClient rawClient;
+
     public SubscriptionsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawSubscriptionsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawSubscriptionsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -65,7 +57,7 @@ public class SubscriptionsClient {
      * <p>For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#create-a-subscription">Create a subscription</a>.</p>
      */
     public CreateSubscriptionResponse create(CreateSubscriptionRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -77,41 +69,7 @@ public class SubscriptionsClient {
      * <p>For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#create-a-subscription">Create a subscription</a>.</p>
      */
     public CreateSubscriptionResponse create(CreateSubscriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
@@ -119,7 +77,7 @@ public class SubscriptionsClient {
      * variation. For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations">Swap Subscription Plan Variations</a>.
      */
     public BulkSwapPlanResponse bulkSwapPlan(BulkSwapPlanRequest request) {
-        return bulkSwapPlan(request, null);
+        return this.rawClient.bulkSwapPlan(request).body();
     }
 
     /**
@@ -127,41 +85,7 @@ public class SubscriptionsClient {
      * variation. For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations">Swap Subscription Plan Variations</a>.
      */
     public BulkSwapPlanResponse bulkSwapPlan(BulkSwapPlanRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions/bulk-swap-plan")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BulkSwapPlanResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.bulkSwapPlan(request, requestOptions).body();
     }
 
     /**
@@ -179,7 +103,7 @@ public class SubscriptionsClient {
      * customer by subscription creation date.</p>
      */
     public SearchSubscriptionsResponse search() {
-        return search(SearchSubscriptionsRequest.builder().build());
+        return this.rawClient.search().body();
     }
 
     /**
@@ -197,7 +121,7 @@ public class SubscriptionsClient {
      * customer by subscription creation date.</p>
      */
     public SearchSubscriptionsResponse search(SearchSubscriptionsRequest request) {
-        return search(request, null);
+        return this.rawClient.search(request).body();
     }
 
     /**
@@ -215,86 +139,21 @@ public class SubscriptionsClient {
      * customer by subscription creation date.</p>
      */
     public SearchSubscriptionsResponse search(SearchSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchSubscriptionsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.search(request, requestOptions).body();
     }
 
     /**
      * Retrieves a specific subscription.
      */
     public GetSubscriptionResponse get(GetSubscriptionsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Retrieves a specific subscription.
      */
     public GetSubscriptionResponse get(GetSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId());
-        if (request.getInclude().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "include", request.getInclude().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -302,7 +161,7 @@ public class SubscriptionsClient {
      * To clear a field, set its value to <code>null</code>.
      */
     public UpdateSubscriptionResponse update(UpdateSubscriptionRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).body();
     }
 
     /**
@@ -310,49 +169,14 @@ public class SubscriptionsClient {
      * To clear a field, set its value to <code>null</code>.
      */
     public UpdateSubscriptionResponse update(UpdateSubscriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.update(request, requestOptions).body();
     }
 
     /**
      * Deletes a scheduled action for a subscription.
      */
     public DeleteSubscriptionActionResponse deleteAction(DeleteActionSubscriptionsRequest request) {
-        return deleteAction(request, null);
+        return this.rawClient.deleteAction(request).body();
     }
 
     /**
@@ -360,38 +184,7 @@ public class SubscriptionsClient {
      */
     public DeleteSubscriptionActionResponse deleteAction(
             DeleteActionSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("actions")
-                .addPathSegment(request.getActionId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), DeleteSubscriptionActionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.deleteAction(request, requestOptions).body();
     }
 
     /**
@@ -399,7 +192,7 @@ public class SubscriptionsClient {
      * for a subscription.
      */
     public ChangeBillingAnchorDateResponse changeBillingAnchorDate(ChangeBillingAnchorDateRequest request) {
-        return changeBillingAnchorDate(request, null);
+        return this.rawClient.changeBillingAnchorDate(request).body();
     }
 
     /**
@@ -408,44 +201,7 @@ public class SubscriptionsClient {
      */
     public ChangeBillingAnchorDateResponse changeBillingAnchorDate(
             ChangeBillingAnchorDateRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("billing-anchor")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ChangeBillingAnchorDateResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.changeBillingAnchorDate(request, requestOptions).body();
     }
 
     /**
@@ -454,7 +210,7 @@ public class SubscriptionsClient {
      * the subscription status changes from ACTIVE to CANCELED.
      */
     public CancelSubscriptionResponse cancel(CancelSubscriptionsRequest request) {
-        return cancel(request, null);
+        return this.rawClient.cancel(request).body();
     }
 
     /**
@@ -463,43 +219,14 @@ public class SubscriptionsClient {
      * the subscription status changes from ACTIVE to CANCELED.
      */
     public CancelSubscriptionResponse cancel(CancelSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("cancel")
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CancelSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.cancel(request, requestOptions).body();
     }
 
     /**
      * Lists all <a href="https://developer.squareup.com/docs/subscriptions-api/actions-events">events</a> for a specific subscription.
      */
     public SyncPagingIterable<SubscriptionEvent> listEvents(ListEventsSubscriptionsRequest request) {
-        return listEvents(request, null);
+        return this.rawClient.listEvents(request).body();
     }
 
     /**
@@ -507,153 +234,35 @@ public class SubscriptionsClient {
      */
     public SyncPagingIterable<SubscriptionEvent> listEvents(
             ListEventsSubscriptionsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("events");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListSubscriptionEventsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), ListSubscriptionEventsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListEventsSubscriptionsRequest nextRequest = ListEventsSubscriptionsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<SubscriptionEvent> result =
-                        parsedResponse.getSubscriptionEvents().orElse(Collections.emptyList());
-                return new SyncPagingIterable<SubscriptionEvent>(
-                        startingAfter.isPresent(), result, () -> listEvents(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.listEvents(request, requestOptions).body();
     }
 
     /**
      * Schedules a <code>PAUSE</code> action to pause an active subscription.
      */
     public PauseSubscriptionResponse pause(PauseSubscriptionRequest request) {
-        return pause(request, null);
+        return this.rawClient.pause(request).body();
     }
 
     /**
      * Schedules a <code>PAUSE</code> action to pause an active subscription.
      */
     public PauseSubscriptionResponse pause(PauseSubscriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("pause")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), PauseSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.pause(request, requestOptions).body();
     }
 
     /**
      * Schedules a <code>RESUME</code> action to resume a paused or a deactivated subscription.
      */
     public ResumeSubscriptionResponse resume(ResumeSubscriptionRequest request) {
-        return resume(request, null);
+        return this.rawClient.resume(request).body();
     }
 
     /**
      * Schedules a <code>RESUME</code> action to resume a paused or a deactivated subscription.
      */
     public ResumeSubscriptionResponse resume(ResumeSubscriptionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("resume")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ResumeSubscriptionResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.resume(request, requestOptions).body();
     }
 
     /**
@@ -661,7 +270,7 @@ public class SubscriptionsClient {
      * For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations">Swap Subscription Plan Variations</a>.
      */
     public SwapPlanResponse swapPlan(SwapPlanRequest request) {
-        return swapPlan(request, null);
+        return this.rawClient.swapPlan(request).body();
     }
 
     /**
@@ -669,42 +278,6 @@ public class SubscriptionsClient {
      * For more information, see <a href="https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations">Swap Subscription Plan Variations</a>.
      */
     public SwapPlanResponse swapPlan(SwapPlanRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/subscriptions")
-                .addPathSegment(request.getSubscriptionId())
-                .addPathSegments("swap-plan")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SwapPlanResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.swapPlan(request, requestOptions).body();
     }
 }

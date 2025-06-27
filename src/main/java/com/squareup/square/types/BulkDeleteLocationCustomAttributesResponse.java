@@ -102,6 +102,10 @@ public final class BulkDeleteLocationCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>A map of responses that correspond to individual delete requests. Each response has the
+         * same key as the corresponding request.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(
                 Map<String, BulkDeleteLocationCustomAttributesResponseLocationCustomAttributeDeleteResponse> values) {
@@ -122,6 +126,9 @@ public final class BulkDeleteLocationCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

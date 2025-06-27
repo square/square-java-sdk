@@ -77,12 +77,18 @@ public final class AddGroupsRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to add to a group.</p>
+         */
         GroupIdStage customerId(@NotNull String customerId);
 
         Builder from(AddGroupsRequest other);
     }
 
     public interface GroupIdStage {
+        /**
+         * <p>The ID of the customer group to add the customer to.</p>
+         */
         _FinalStage groupId(@NotNull String groupId);
     }
 
@@ -110,6 +116,7 @@ public final class AddGroupsRequest {
 
         /**
          * <p>The ID of the customer to add to a group.</p>
+         * <p>The ID of the customer to add to a group.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class AddGroupsRequest {
         }
 
         /**
+         * <p>The ID of the customer group to add the customer to.</p>
          * <p>The ID of the customer group to add the customer to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

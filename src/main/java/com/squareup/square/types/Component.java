@@ -143,6 +143,11 @@ public final class Component {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of this component. Each component type has expected properties expressed
+         * in a structured format within its corresponding <code>*_details</code> field.
+         * See <a href="#type-componenttype">ComponentType</a> for possible values</p>
+         */
         _FinalStage type(@NotNull ComponentComponentType type);
 
         Builder from(Component other);
@@ -151,22 +156,37 @@ public final class Component {
     public interface _FinalStage {
         Component build();
 
+        /**
+         * <p>Structured data for an <code>Application</code>, set for Components of type <code>APPLICATION</code>.</p>
+         */
         _FinalStage applicationDetails(Optional<DeviceComponentDetailsApplicationDetails> applicationDetails);
 
         _FinalStage applicationDetails(DeviceComponentDetailsApplicationDetails applicationDetails);
 
+        /**
+         * <p>Structured data for a <code>CardReader</code>, set for Components of type <code>CARD_READER</code>.</p>
+         */
         _FinalStage cardReaderDetails(Optional<DeviceComponentDetailsCardReaderDetails> cardReaderDetails);
 
         _FinalStage cardReaderDetails(DeviceComponentDetailsCardReaderDetails cardReaderDetails);
 
+        /**
+         * <p>Structured data for a <code>Battery</code>, set for Components of type <code>BATTERY</code>.</p>
+         */
         _FinalStage batteryDetails(Optional<DeviceComponentDetailsBatteryDetails> batteryDetails);
 
         _FinalStage batteryDetails(DeviceComponentDetailsBatteryDetails batteryDetails);
 
+        /**
+         * <p>Structured data for a <code>WiFi</code> interface, set for Components of type <code>WIFI</code>.</p>
+         */
         _FinalStage wifiDetails(Optional<DeviceComponentDetailsWiFiDetails> wifiDetails);
 
         _FinalStage wifiDetails(DeviceComponentDetailsWiFiDetails wifiDetails);
 
+        /**
+         * <p>Structured data for an <code>Ethernet</code> interface, set for Components of type <code>ETHERNET</code>.</p>
+         */
         _FinalStage ethernetDetails(Optional<DeviceComponentDetailsEthernetDetails> ethernetDetails);
 
         _FinalStage ethernetDetails(DeviceComponentDetailsEthernetDetails ethernetDetails);
@@ -206,6 +226,9 @@ public final class Component {
          * <p>The type of this component. Each component type has expected properties expressed
          * in a structured format within its corresponding <code>*_details</code> field.
          * See <a href="#type-componenttype">ComponentType</a> for possible values</p>
+         * <p>The type of this component. Each component type has expected properties expressed
+         * in a structured format within its corresponding <code>*_details</code> field.
+         * See <a href="#type-componenttype">ComponentType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -225,6 +248,9 @@ public final class Component {
             return this;
         }
 
+        /**
+         * <p>Structured data for an <code>Ethernet</code> interface, set for Components of type <code>ETHERNET</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ethernet_details", nulls = Nulls.SKIP)
         public _FinalStage ethernetDetails(Optional<DeviceComponentDetailsEthernetDetails> ethernetDetails) {
@@ -242,6 +268,9 @@ public final class Component {
             return this;
         }
 
+        /**
+         * <p>Structured data for a <code>WiFi</code> interface, set for Components of type <code>WIFI</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "wifi_details", nulls = Nulls.SKIP)
         public _FinalStage wifiDetails(Optional<DeviceComponentDetailsWiFiDetails> wifiDetails) {
@@ -259,6 +288,9 @@ public final class Component {
             return this;
         }
 
+        /**
+         * <p>Structured data for a <code>Battery</code>, set for Components of type <code>BATTERY</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "battery_details", nulls = Nulls.SKIP)
         public _FinalStage batteryDetails(Optional<DeviceComponentDetailsBatteryDetails> batteryDetails) {
@@ -276,6 +308,9 @@ public final class Component {
             return this;
         }
 
+        /**
+         * <p>Structured data for a <code>CardReader</code>, set for Components of type <code>CARD_READER</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "card_reader_details", nulls = Nulls.SKIP)
         public _FinalStage cardReaderDetails(Optional<DeviceComponentDetailsCardReaderDetails> cardReaderDetails) {
@@ -293,6 +328,9 @@ public final class Component {
             return this;
         }
 
+        /**
+         * <p>Structured data for an <code>Application</code>, set for Components of type <code>APPLICATION</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "application_details", nulls = Nulls.SKIP)
         public _FinalStage applicationDetails(Optional<DeviceComponentDetailsApplicationDetails> applicationDetails) {

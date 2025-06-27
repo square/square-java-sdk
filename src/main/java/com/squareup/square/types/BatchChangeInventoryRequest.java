@@ -125,6 +125,13 @@ public final class BatchChangeInventoryRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A client-supplied, universally unique identifier (UUID) for the
+         * request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(BatchChangeInventoryRequest other);
@@ -133,12 +140,21 @@ public final class BatchChangeInventoryRequest {
     public interface _FinalStage {
         BatchChangeInventoryRequest build();
 
+        /**
+         * <p>The set of physical counts and inventory adjustments to be made.
+         * Changes are applied based on the client-supplied timestamp and may be sent
+         * out of order.</p>
+         */
         _FinalStage changes(Optional<List<InventoryChange>> changes);
 
         _FinalStage changes(List<InventoryChange> changes);
 
         _FinalStage changes(Nullable<List<InventoryChange>> changes);
 
+        /**
+         * <p>Indicates whether the current physical count should be ignored if
+         * the quantity is unchanged since the last physical count. Default: <code>true</code>.</p>
+         */
         _FinalStage ignoreUnchangedCounts(Optional<Boolean> ignoreUnchangedCounts);
 
         _FinalStage ignoreUnchangedCounts(Boolean ignoreUnchangedCounts);
@@ -168,6 +184,11 @@ public final class BatchChangeInventoryRequest {
         }
 
         /**
+         * <p>A client-supplied, universally unique identifier (UUID) for the
+         * request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
          * <p>A client-supplied, universally unique identifier (UUID) for the
          * request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
@@ -210,6 +231,10 @@ public final class BatchChangeInventoryRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the current physical count should be ignored if
+         * the quantity is unchanged since the last physical count. Default: <code>true</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ignore_unchanged_counts", nulls = Nulls.SKIP)
         public _FinalStage ignoreUnchangedCounts(Optional<Boolean> ignoreUnchangedCounts) {
@@ -247,6 +272,11 @@ public final class BatchChangeInventoryRequest {
             return this;
         }
 
+        /**
+         * <p>The set of physical counts and inventory adjustments to be made.
+         * Changes are applied based on the client-supplied timestamp and may be sent
+         * out of order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "changes", nulls = Nulls.SKIP)
         public _FinalStage changes(Optional<List<InventoryChange>> changes) {

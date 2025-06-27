@@ -77,12 +77,18 @@ public final class LoyaltyProgramTerminology {
     }
 
     public interface OneStage {
+        /**
+         * <p>A singular unit for a point (for example, 1 point is called 1 star).</p>
+         */
         OtherStage one(@NotNull String one);
 
         Builder from(LoyaltyProgramTerminology other);
     }
 
     public interface OtherStage {
+        /**
+         * <p>A plural unit for point (for example, 10 points is called 10 stars).</p>
+         */
         _FinalStage other(@NotNull String other);
     }
 
@@ -110,6 +116,7 @@ public final class LoyaltyProgramTerminology {
 
         /**
          * <p>A singular unit for a point (for example, 1 point is called 1 star).</p>
+         * <p>A singular unit for a point (for example, 1 point is called 1 star).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class LoyaltyProgramTerminology {
         }
 
         /**
+         * <p>A plural unit for point (for example, 10 points is called 10 stars).</p>
          * <p>A plural unit for point (for example, 10 points is called 10 stars).</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

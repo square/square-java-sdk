@@ -183,6 +183,11 @@ public final class PaymentOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the <code>Payment</code> objects created from this <code>TerminalCheckout</code> are
+         * automatically <code>COMPLETED</code> or left in an <code>APPROVED</code> state for later modification.</p>
+         * <p>Default: true</p>
+         */
         @JsonSetter(value = "autocomplete", nulls = Nulls.SKIP)
         public Builder autocomplete(Optional<Boolean> autocomplete) {
             this.autocomplete = autocomplete;
@@ -205,6 +210,17 @@ public final class PaymentOptions {
             return this;
         }
 
+        /**
+         * <p>The duration of time after the payment's creation when Square automatically resolves the
+         * payment. This automatic resolution applies only to payments that do not reach a terminal state
+         * (<code>COMPLETED</code> or <code>CANCELED</code>) before the <code>delay_duration</code> time period.</p>
+         * <p>This parameter should be specified as a time duration, in RFC 3339 format, with a minimum value
+         * of 1 minute and a maximum value of 36 hours. This feature is only supported for card payments,
+         * and all payments will be considered card-present.</p>
+         * <p>This parameter can only be set for a delayed capture payment (<code>autocomplete=false</code>). For more
+         * information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold">Delayed Capture</a>.</p>
+         * <p>Default: &quot;PT36H&quot; (36 hours) from the creation time</p>
+         */
         @JsonSetter(value = "delay_duration", nulls = Nulls.SKIP)
         public Builder delayDuration(Optional<String> delayDuration) {
             this.delayDuration = delayDuration;
@@ -227,6 +243,16 @@ public final class PaymentOptions {
             return this;
         }
 
+        /**
+         * <p>If set to <code>true</code> and charging a Square Gift Card, a payment might be returned with
+         * <code>amount_money</code> equal to less than what was requested. For example, a request for $20 when charging
+         * a Square Gift Card with a balance of $5 results in an APPROVED payment of $5. You might choose
+         * to prompt the buyer for an additional payment to cover the remainder or cancel the Gift Card
+         * payment.</p>
+         * <p>This parameter can only be set for a delayed capture payment (<code>autocomplete=false</code>).</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments/card-payments/partial-payments-with-gift-cards">Take Partial Payments</a>.</p>
+         * <p>Default: false</p>
+         */
         @JsonSetter(value = "accept_partial_authorization", nulls = Nulls.SKIP)
         public Builder acceptPartialAuthorization(Optional<Boolean> acceptPartialAuthorization) {
             this.acceptPartialAuthorization = acceptPartialAuthorization;
@@ -249,6 +275,15 @@ public final class PaymentOptions {
             return this;
         }
 
+        /**
+         * <p>The action to be applied to the <code>Payment</code> when the delay_duration has elapsed.
+         * The action must be CANCEL or COMPLETE.</p>
+         * <p>The action cannot be set to COMPLETE if an <code>order_id</code> is present on the TerminalCheckout.</p>
+         * <p>This parameter can only be set for a delayed capture payment (<code>autocomplete=false</code>). For more
+         * information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold">Delayed Capture</a>.</p>
+         * <p>Default: CANCEL
+         * See <a href="#type-delayaction">DelayAction</a> for possible values</p>
+         */
         @JsonSetter(value = "delay_action", nulls = Nulls.SKIP)
         public Builder delayAction(Optional<PaymentOptionsDelayAction> delayAction) {
             this.delayAction = delayAction;

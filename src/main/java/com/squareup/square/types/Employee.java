@@ -297,6 +297,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>UUID for this object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -308,6 +311,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>The employee's first name.</p>
+         */
         @JsonSetter(value = "first_name", nulls = Nulls.SKIP)
         public Builder firstName(Optional<String> firstName) {
             this.firstName = firstName;
@@ -330,6 +336,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>The employee's last name.</p>
+         */
         @JsonSetter(value = "last_name", nulls = Nulls.SKIP)
         public Builder lastName(Optional<String> lastName) {
             this.lastName = lastName;
@@ -352,6 +361,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>The employee's email address</p>
+         */
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public Builder email(Optional<String> email) {
             this.email = email;
@@ -374,6 +386,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>The employee's phone number in E.164 format, i.e. &quot;+12125554250&quot;</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -396,6 +411,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>A list of location IDs where this employee has access to.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -418,6 +436,10 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>Specifies the status of the employees being fetched.
+         * See <a href="#type-employeestatus">EmployeeStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<EmployeeStatus> status) {
             this.status = status;
@@ -429,6 +451,11 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>Whether this employee is the owner of the merchant. Each merchant
+         * has one owner employee, and that employee has full authority over
+         * the account.</p>
+         */
         @JsonSetter(value = "is_owner", nulls = Nulls.SKIP)
         public Builder isOwner(Optional<Boolean> isOwner) {
             this.isOwner = isOwner;
@@ -451,6 +478,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -462,6 +492,9 @@ public final class Employee {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

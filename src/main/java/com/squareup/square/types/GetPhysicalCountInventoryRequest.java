@@ -67,6 +67,10 @@ public final class GetPhysicalCountInventoryRequest {
     }
 
     public interface PhysicalCountIdStage {
+        /**
+         * <p>ID of the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
+         */
         _FinalStage physicalCountId(@NotNull String physicalCountId);
 
         Builder from(GetPhysicalCountInventoryRequest other);
@@ -92,6 +96,8 @@ public final class GetPhysicalCountInventoryRequest {
         }
 
         /**
+         * <p>ID of the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
          * <p>ID of the
          * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

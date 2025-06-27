@@ -115,6 +115,9 @@ public final class GetInventoryChangesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class GetInventoryChangesResponse {
             return this;
         }
 
+        /**
+         * <p>The set of inventory changes for the requested object and locations.</p>
+         */
         @JsonSetter(value = "changes", nulls = Nulls.SKIP)
         public Builder changes(Optional<List<InventoryChange>> changes) {
             this.changes = changes;
@@ -137,6 +143,11 @@ public final class GetInventoryChangesResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If unset,
+         * this is the final response.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -85,6 +85,13 @@ public final class BatchUpdateTeamMembersRequest {
             return this;
         }
 
+        /**
+         * <p>The data used to update the <code>TeamMember</code> objects. Each key is the <code>team_member_id</code> that maps to the <code>UpdateTeamMemberRequest</code>.
+         * The maximum number of update objects is 25.</p>
+         * <p>For each team member, include the fields to add, change, or clear. Fields can be cleared using a null value.
+         * To update <code>wage_setting.job_assignments</code>, you must provide the complete list of job assignments. If needed,
+         * call <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get the required <code>job_id</code> values.</p>
+         */
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Map<String, UpdateTeamMemberRequest> teamMembers) {
             this.teamMembers.clear();

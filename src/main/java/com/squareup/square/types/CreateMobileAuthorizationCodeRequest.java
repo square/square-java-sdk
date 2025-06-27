@@ -82,6 +82,9 @@ public final class CreateMobileAuthorizationCodeRequest {
             return this;
         }
 
+        /**
+         * <p>The Square location ID that the authorization code should be tied to.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

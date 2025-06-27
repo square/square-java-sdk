@@ -119,6 +119,11 @@ public final class DateRange {
             return this;
         }
 
+        /**
+         * <p>A string in <code>YYYY-MM-DD</code> format, such as <code>2017-10-31</code>, per the ISO 8601
+         * extended format for calendar dates.
+         * The beginning of a date range (inclusive).</p>
+         */
         @JsonSetter(value = "start_date", nulls = Nulls.SKIP)
         public Builder startDate(Optional<String> startDate) {
             this.startDate = startDate;
@@ -141,6 +146,11 @@ public final class DateRange {
             return this;
         }
 
+        /**
+         * <p>A string in <code>YYYY-MM-DD</code> format, such as <code>2017-10-31</code>, per the ISO 8601
+         * extended format for calendar dates.
+         * The end of a date range (inclusive).</p>
+         */
         @JsonSetter(value = "end_date", nulls = Nulls.SKIP)
         public Builder endDate(Optional<String> endDate) {
             this.endDate = endDate;

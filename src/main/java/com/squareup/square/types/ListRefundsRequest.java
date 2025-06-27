@@ -379,6 +379,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the start of the time range to retrieve each <code>PaymentRefund</code> for, in RFC 3339
+         * format.  The range is determined using the <code>created_at</code> field for each <code>PaymentRefund</code>.</p>
+         * <p>Default: The current time minus one year.</p>
+         */
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public Builder beginTime(Optional<String> beginTime) {
             this.beginTime = beginTime;
@@ -401,6 +406,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the end of the time range to retrieve each <code>PaymentRefund</code> for, in RFC 3339
+         * format.  The range is determined using the <code>created_at</code> field for each <code>PaymentRefund</code>.</p>
+         * <p>Default: The current time.</p>
+         */
         @JsonSetter(value = "end_time", nulls = Nulls.SKIP)
         public Builder endTime(Optional<String> endTime) {
             this.endTime = endTime;
@@ -423,6 +433,13 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed by <code>PaymentRefund.created_at</code>:</p>
+         * <ul>
+         * <li><code>ASC</code> - Oldest to newest.</li>
+         * <li><code>DESC</code> - Newest to oldest (default).</li>
+         * </ul>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<String> sortOrder) {
             this.sortOrder = sortOrder;
@@ -445,6 +462,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -467,6 +489,10 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Limit results to the location supplied. By default, results are returned
+         * for all locations associated with the seller.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -489,6 +515,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>If provided, only refunds with the given status are returned.
+         * For a list of refund status values, see <a href="entity:PaymentRefund">PaymentRefund</a>.</p>
+         * <p>Default: If omitted, refunds are returned regardless of their status.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -511,6 +542,13 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>If provided, only returns refunds whose payments have the indicated source type.
+         * Current values include <code>CARD</code>, <code>BANK_ACCOUNT</code>, <code>WALLET</code>, <code>CASH</code>, and <code>EXTERNAL</code>.
+         * For information about these payment source types, see
+         * <a href="https://developer.squareup.com/docs/payments-api/take-payments">Take Payments</a>.</p>
+         * <p>Default: If omitted, refunds are returned regardless of the source type.</p>
+         */
         @JsonSetter(value = "source_type", nulls = Nulls.SKIP)
         public Builder sourceType(Optional<String> sourceType) {
             this.sourceType = sourceType;
@@ -533,6 +571,12 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.</p>
+         * <p>It is possible to receive fewer results than the specified limit on a given page.</p>
+         * <p>If the supplied value is greater than 100, no more than 100 results are returned.</p>
+         * <p>Default: 100</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -555,6 +599,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the start of the time range to retrieve each <code>PaymentRefund</code> for, in RFC 3339
+         * format.  The range is determined using the <code>updated_at</code> field for each <code>PaymentRefund</code>.</p>
+         * <p>Default: If omitted, the time range starts at <code>begin_time</code>.</p>
+         */
         @JsonSetter(value = "updated_at_begin_time", nulls = Nulls.SKIP)
         public Builder updatedAtBeginTime(Optional<String> updatedAtBeginTime) {
             this.updatedAtBeginTime = updatedAtBeginTime;
@@ -577,6 +626,11 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates the end of the time range to retrieve each <code>PaymentRefund</code> for, in RFC 3339
+         * format.  The range is determined using the <code>updated_at</code> field for each <code>PaymentRefund</code>.</p>
+         * <p>Default: The current time.</p>
+         */
         @JsonSetter(value = "updated_at_end_time", nulls = Nulls.SKIP)
         public Builder updatedAtEndTime(Optional<String> updatedAtEndTime) {
             this.updatedAtEndTime = updatedAtEndTime;
@@ -599,6 +653,9 @@ public final class ListRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>The field used to sort results by. The default is <code>CREATED_AT</code>.</p>
+         */
         @JsonSetter(value = "sort_field", nulls = Nulls.SKIP)
         public Builder sortField(Optional<ListPaymentRefundsRequestSortField> sortField) {
             this.sortField = sortField;

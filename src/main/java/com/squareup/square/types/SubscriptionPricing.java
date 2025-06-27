@@ -126,6 +126,10 @@ public final class SubscriptionPricing {
             return this;
         }
 
+        /**
+         * <p>RELATIVE or STATIC
+         * See <a href="#type-subscriptionpricingtype">SubscriptionPricingType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<SubscriptionPricingType> type) {
             this.type = type;
@@ -137,6 +141,9 @@ public final class SubscriptionPricing {
             return this;
         }
 
+        /**
+         * <p>The ids of the discount catalog objects</p>
+         */
         @JsonSetter(value = "discount_ids", nulls = Nulls.SKIP)
         public Builder discountIds(Optional<List<String>> discountIds) {
             this.discountIds = discountIds;
@@ -159,6 +166,9 @@ public final class SubscriptionPricing {
             return this;
         }
 
+        /**
+         * <p>The price of the subscription, if STATIC</p>
+         */
         @JsonSetter(value = "price_money", nulls = Nulls.SKIP)
         public Builder priceMoney(Optional<Money> priceMoney) {
             this.priceMoney = priceMoney;

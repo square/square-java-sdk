@@ -96,6 +96,9 @@ public final class CancelTerminalRefundResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class CancelTerminalRefundResponse {
             return this;
         }
 
+        /**
+         * <p>The updated <code>TerminalRefund</code>.</p>
+         */
         @JsonSetter(value = "refund", nulls = Nulls.SKIP)
         public Builder refund(Optional<TerminalRefund> refund) {
             this.refund = refund;

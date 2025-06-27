@@ -470,6 +470,12 @@ public final class OrderReturnLineItem {
     }
 
     public interface QuantityStage {
+        /**
+         * <p>The quantity returned, formatted as a decimal number.
+         * For example, <code>&quot;3&quot;</code>.</p>
+         * <p>Line items with a <code>quantity_unit</code> can have non-integer quantities.
+         * For example, <code>&quot;1.70000&quot;</code>.</p>
+         */
         _FinalStage quantity(@NotNull String quantity);
 
         Builder from(OrderReturnLineItem other);
@@ -478,104 +484,177 @@ public final class OrderReturnLineItem {
     public interface _FinalStage {
         OrderReturnLineItem build();
 
+        /**
+         * <p>A unique ID for this return line-item entry.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
 
         _FinalStage uid(Nullable<String> uid);
 
+        /**
+         * <p>The <code>uid</code> of the line item in the original sale order.</p>
+         */
         _FinalStage sourceLineItemUid(Optional<String> sourceLineItemUid);
 
         _FinalStage sourceLineItemUid(String sourceLineItemUid);
 
         _FinalStage sourceLineItemUid(Nullable<String> sourceLineItemUid);
 
+        /**
+         * <p>The name of the line item.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
 
         _FinalStage name(Nullable<String> name);
 
+        /**
+         * <p>The unit and precision that this return line item's quantity is measured in.</p>
+         */
         _FinalStage quantityUnit(Optional<OrderQuantityUnit> quantityUnit);
 
         _FinalStage quantityUnit(OrderQuantityUnit quantityUnit);
 
+        /**
+         * <p>The note of the return line item.</p>
+         */
         _FinalStage note(Optional<String> note);
 
         _FinalStage note(String note);
 
         _FinalStage note(Nullable<String> note);
 
+        /**
+         * <p>The <a href="entity:CatalogItemVariation">CatalogItemVariation</a> ID applied to this return line item.</p>
+         */
         _FinalStage catalogObjectId(Optional<String> catalogObjectId);
 
         _FinalStage catalogObjectId(String catalogObjectId);
 
         _FinalStage catalogObjectId(Nullable<String> catalogObjectId);
 
+        /**
+         * <p>The version of the catalog object that this line item references.</p>
+         */
         _FinalStage catalogVersion(Optional<Long> catalogVersion);
 
         _FinalStage catalogVersion(Long catalogVersion);
 
         _FinalStage catalogVersion(Nullable<Long> catalogVersion);
 
+        /**
+         * <p>The name of the variation applied to this return line item.</p>
+         */
         _FinalStage variationName(Optional<String> variationName);
 
         _FinalStage variationName(String variationName);
 
         _FinalStage variationName(Nullable<String> variationName);
 
+        /**
+         * <p>The type of line item: an itemized return, a non-itemized return (custom amount),
+         * or the return of an unactivated gift card sale.
+         * See <a href="#type-orderlineitemitemtype">OrderLineItemItemType</a> for possible values</p>
+         */
         _FinalStage itemType(Optional<OrderLineItemItemType> itemType);
 
         _FinalStage itemType(OrderLineItemItemType itemType);
 
+        /**
+         * <p>The <a href="entity:CatalogModifier">CatalogModifier</a>s applied to this line item.</p>
+         */
         _FinalStage returnModifiers(Optional<List<OrderReturnLineItemModifier>> returnModifiers);
 
         _FinalStage returnModifiers(List<OrderReturnLineItemModifier> returnModifiers);
 
         _FinalStage returnModifiers(Nullable<List<OrderReturnLineItemModifier>> returnModifiers);
 
+        /**
+         * <p>The list of references to <code>OrderReturnTax</code> entities applied to the return line item. Each
+         * <code>OrderLineItemAppliedTax</code> has a <code>tax_uid</code> that references the <code>uid</code> of a top-level
+         * <code>OrderReturnTax</code> applied to the return line item. On reads, the applied amount
+         * is populated.</p>
+         */
         _FinalStage appliedTaxes(Optional<List<OrderLineItemAppliedTax>> appliedTaxes);
 
         _FinalStage appliedTaxes(List<OrderLineItemAppliedTax> appliedTaxes);
 
         _FinalStage appliedTaxes(Nullable<List<OrderLineItemAppliedTax>> appliedTaxes);
 
+        /**
+         * <p>The list of references to <code>OrderReturnDiscount</code> entities applied to the return line item. Each
+         * <code>OrderLineItemAppliedDiscount</code> has a <code>discount_uid</code> that references the <code>uid</code> of a top-level
+         * <code>OrderReturnDiscount</code> applied to the return line item. On reads, the applied amount
+         * is populated.</p>
+         */
         _FinalStage appliedDiscounts(Optional<List<OrderLineItemAppliedDiscount>> appliedDiscounts);
 
         _FinalStage appliedDiscounts(List<OrderLineItemAppliedDiscount> appliedDiscounts);
 
         _FinalStage appliedDiscounts(Nullable<List<OrderLineItemAppliedDiscount>> appliedDiscounts);
 
+        /**
+         * <p>The base price for a single unit of the line item.</p>
+         */
         _FinalStage basePriceMoney(Optional<Money> basePriceMoney);
 
         _FinalStage basePriceMoney(Money basePriceMoney);
 
+        /**
+         * <p>The total price of all item variations returned in this line item.
+         * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code> and
+         * does not include modifiers.</p>
+         */
         _FinalStage variationTotalPriceMoney(Optional<Money> variationTotalPriceMoney);
 
         _FinalStage variationTotalPriceMoney(Money variationTotalPriceMoney);
 
+        /**
+         * <p>The gross return amount of money calculated as (item base price + modifiers price) * quantity.</p>
+         */
         _FinalStage grossReturnMoney(Optional<Money> grossReturnMoney);
 
         _FinalStage grossReturnMoney(Money grossReturnMoney);
 
+        /**
+         * <p>The total amount of tax money to return for the line item.</p>
+         */
         _FinalStage totalTaxMoney(Optional<Money> totalTaxMoney);
 
         _FinalStage totalTaxMoney(Money totalTaxMoney);
 
+        /**
+         * <p>The total amount of discount money to return for the line item.</p>
+         */
         _FinalStage totalDiscountMoney(Optional<Money> totalDiscountMoney);
 
         _FinalStage totalDiscountMoney(Money totalDiscountMoney);
 
+        /**
+         * <p>The total amount of money to return for this line item.</p>
+         */
         _FinalStage totalMoney(Optional<Money> totalMoney);
 
         _FinalStage totalMoney(Money totalMoney);
 
+        /**
+         * <p>The list of references to <code>OrderReturnServiceCharge</code> entities applied to the return
+         * line item. Each <code>OrderLineItemAppliedServiceCharge</code> has a <code>service_charge_uid</code> that
+         * references the <code>uid</code> of a top-level <code>OrderReturnServiceCharge</code> applied to the return line
+         * item. On reads, the applied amount is populated.</p>
+         */
         _FinalStage appliedServiceCharges(Optional<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges);
 
         _FinalStage appliedServiceCharges(List<OrderLineItemAppliedServiceCharge> appliedServiceCharges);
 
         _FinalStage appliedServiceCharges(Nullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges);
 
+        /**
+         * <p>The total amount of apportioned service charge money to return for the line item.</p>
+         */
         _FinalStage totalServiceChargeMoney(Optional<Money> totalServiceChargeMoney);
 
         _FinalStage totalServiceChargeMoney(Money totalServiceChargeMoney);
@@ -661,6 +740,10 @@ public final class OrderReturnLineItem {
          * For example, <code>&quot;3&quot;</code>.</p>
          * <p>Line items with a <code>quantity_unit</code> can have non-integer quantities.
          * For example, <code>&quot;1.70000&quot;</code>.</p>
+         * <p>The quantity returned, formatted as a decimal number.
+         * For example, <code>&quot;3&quot;</code>.</p>
+         * <p>Line items with a <code>quantity_unit</code> can have non-integer quantities.
+         * For example, <code>&quot;1.70000&quot;</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -680,6 +763,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The total amount of apportioned service charge money to return for the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_service_charge_money", nulls = Nulls.SKIP)
         public _FinalStage totalServiceChargeMoney(Optional<Money> totalServiceChargeMoney) {
@@ -720,6 +806,12 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The list of references to <code>OrderReturnServiceCharge</code> entities applied to the return
+         * line item. Each <code>OrderLineItemAppliedServiceCharge</code> has a <code>service_charge_uid</code> that
+         * references the <code>uid</code> of a top-level <code>OrderReturnServiceCharge</code> applied to the return line
+         * item. On reads, the applied amount is populated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_service_charges", nulls = Nulls.SKIP)
         public _FinalStage appliedServiceCharges(
@@ -738,6 +830,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The total amount of money to return for this line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public _FinalStage totalMoney(Optional<Money> totalMoney) {
@@ -755,6 +850,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The total amount of discount money to return for the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_discount_money", nulls = Nulls.SKIP)
         public _FinalStage totalDiscountMoney(Optional<Money> totalDiscountMoney) {
@@ -772,6 +870,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The total amount of tax money to return for the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_tax_money", nulls = Nulls.SKIP)
         public _FinalStage totalTaxMoney(Optional<Money> totalTaxMoney) {
@@ -789,6 +890,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The gross return amount of money calculated as (item base price + modifiers price) * quantity.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gross_return_money", nulls = Nulls.SKIP)
         public _FinalStage grossReturnMoney(Optional<Money> grossReturnMoney) {
@@ -808,6 +912,11 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The total price of all item variations returned in this line item.
+         * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code> and
+         * does not include modifiers.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "variation_total_price_money", nulls = Nulls.SKIP)
         public _FinalStage variationTotalPriceMoney(Optional<Money> variationTotalPriceMoney) {
@@ -825,6 +934,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The base price for a single unit of the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "base_price_money", nulls = Nulls.SKIP)
         public _FinalStage basePriceMoney(Optional<Money> basePriceMoney) {
@@ -864,6 +976,12 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The list of references to <code>OrderReturnDiscount</code> entities applied to the return line item. Each
+         * <code>OrderLineItemAppliedDiscount</code> has a <code>discount_uid</code> that references the <code>uid</code> of a top-level
+         * <code>OrderReturnDiscount</code> applied to the return line item. On reads, the applied amount
+         * is populated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_discounts", nulls = Nulls.SKIP)
         public _FinalStage appliedDiscounts(Optional<List<OrderLineItemAppliedDiscount>> appliedDiscounts) {
@@ -903,6 +1021,12 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The list of references to <code>OrderReturnTax</code> entities applied to the return line item. Each
+         * <code>OrderLineItemAppliedTax</code> has a <code>tax_uid</code> that references the <code>uid</code> of a top-level
+         * <code>OrderReturnTax</code> applied to the return line item. On reads, the applied amount
+         * is populated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_taxes", nulls = Nulls.SKIP)
         public _FinalStage appliedTaxes(Optional<List<OrderLineItemAppliedTax>> appliedTaxes) {
@@ -936,6 +1060,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:CatalogModifier">CatalogModifier</a>s applied to this line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "return_modifiers", nulls = Nulls.SKIP)
         public _FinalStage returnModifiers(Optional<List<OrderReturnLineItemModifier>> returnModifiers) {
@@ -955,6 +1082,11 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The type of line item: an itemized return, a non-itemized return (custom amount),
+         * or the return of an unactivated gift card sale.
+         * See <a href="#type-orderlineitemitemtype">OrderLineItemItemType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "item_type", nulls = Nulls.SKIP)
         public _FinalStage itemType(Optional<OrderLineItemItemType> itemType) {
@@ -988,6 +1120,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The name of the variation applied to this return line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "variation_name", nulls = Nulls.SKIP)
         public _FinalStage variationName(Optional<String> variationName) {
@@ -1021,6 +1156,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this line item references.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public _FinalStage catalogVersion(Optional<Long> catalogVersion) {
@@ -1054,6 +1192,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:CatalogItemVariation">CatalogItemVariation</a> ID applied to this return line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public _FinalStage catalogObjectId(Optional<String> catalogObjectId) {
@@ -1087,6 +1228,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The note of the return line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public _FinalStage note(Optional<String> note) {
@@ -1104,6 +1248,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The unit and precision that this return line item's quantity is measured in.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "quantity_unit", nulls = Nulls.SKIP)
         public _FinalStage quantityUnit(Optional<OrderQuantityUnit> quantityUnit) {
@@ -1137,6 +1284,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The name of the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
@@ -1170,6 +1320,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>The <code>uid</code> of the line item in the original sale order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "source_line_item_uid", nulls = Nulls.SKIP)
         public _FinalStage sourceLineItemUid(Optional<String> sourceLineItemUid) {
@@ -1203,6 +1356,9 @@ public final class OrderReturnLineItem {
             return this;
         }
 
+        /**
+         * <p>A unique ID for this return line-item entry.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

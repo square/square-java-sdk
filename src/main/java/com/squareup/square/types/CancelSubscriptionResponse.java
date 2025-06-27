@@ -113,6 +113,9 @@ public final class CancelSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -124,6 +127,9 @@ public final class CancelSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The specified subscription scheduled for cancellation according to the action created by the request.</p>
+         */
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public Builder subscription(Optional<Subscription> subscription) {
             this.subscription = subscription;
@@ -135,6 +141,9 @@ public final class CancelSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>A list of a single <code>CANCEL</code> action scheduled for the subscription.</p>
+         */
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
         public Builder actions(Optional<List<SubscriptionAction>> actions) {
             this.actions = actions;

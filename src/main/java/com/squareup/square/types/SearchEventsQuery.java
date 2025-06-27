@@ -97,6 +97,9 @@ public final class SearchEventsQuery {
             return this;
         }
 
+        /**
+         * <p>Criteria to filter events by.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<SearchEventsFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class SearchEventsQuery {
             return this;
         }
 
+        /**
+         * <p>Criteria to sort events by.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<SearchEventsSort> sort) {
             this.sort = sort;

@@ -622,6 +622,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -644,6 +647,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The order's unique identifier.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -655,6 +661,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The email address of the order's buyer.</p>
+         */
         @JsonSetter(value = "buyer_email", nulls = Nulls.SKIP)
         public Builder buyerEmail(Optional<String> buyerEmail) {
             this.buyerEmail = buyerEmail;
@@ -677,6 +686,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The name of the order's buyer.</p>
+         */
         @JsonSetter(value = "recipient_name", nulls = Nulls.SKIP)
         public Builder recipientName(Optional<String> recipientName) {
             this.recipientName = recipientName;
@@ -699,6 +711,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The phone number to use for the order's delivery.</p>
+         */
         @JsonSetter(value = "recipient_phone_number", nulls = Nulls.SKIP)
         public Builder recipientPhoneNumber(Optional<String> recipientPhoneNumber) {
             this.recipientPhoneNumber = recipientPhoneNumber;
@@ -721,6 +736,10 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>Whether the tax is an ADDITIVE tax or an INCLUSIVE tax.
+         * See <a href="#type-v1orderstate">V1OrderState</a> for possible values</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<V1OrderState> state) {
             this.state = state;
@@ -732,6 +751,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The address to ship the order to.</p>
+         */
         @JsonSetter(value = "shipping_address", nulls = Nulls.SKIP)
         public Builder shippingAddress(Optional<Address> shippingAddress) {
             this.shippingAddress = shippingAddress;
@@ -743,6 +765,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The amount of all items purchased in the order, before taxes and shipping.</p>
+         */
         @JsonSetter(value = "subtotal_money", nulls = Nulls.SKIP)
         public Builder subtotalMoney(Optional<V1Money> subtotalMoney) {
             this.subtotalMoney = subtotalMoney;
@@ -754,6 +779,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The shipping cost for the order.</p>
+         */
         @JsonSetter(value = "total_shipping_money", nulls = Nulls.SKIP)
         public Builder totalShippingMoney(Optional<V1Money> totalShippingMoney) {
             this.totalShippingMoney = totalShippingMoney;
@@ -765,6 +793,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The total of all taxes applied to the order.</p>
+         */
         @JsonSetter(value = "total_tax_money", nulls = Nulls.SKIP)
         public Builder totalTaxMoney(Optional<V1Money> totalTaxMoney) {
             this.totalTaxMoney = totalTaxMoney;
@@ -776,6 +807,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The total cost of the order.</p>
+         */
         @JsonSetter(value = "total_price_money", nulls = Nulls.SKIP)
         public Builder totalPriceMoney(Optional<V1Money> totalPriceMoney) {
             this.totalPriceMoney = totalPriceMoney;
@@ -787,6 +821,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The total of all discounts applied to the order.</p>
+         */
         @JsonSetter(value = "total_discount_money", nulls = Nulls.SKIP)
         public Builder totalDiscountMoney(Optional<V1Money> totalDiscountMoney) {
             this.totalDiscountMoney = totalDiscountMoney;
@@ -798,6 +835,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The time when the order was created, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -809,6 +849,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The time when the order was last modified, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -820,6 +863,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The time when the order expires if no action is taken, in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public Builder expiresAt(Optional<String> expiresAt) {
             this.expiresAt = expiresAt;
@@ -842,6 +888,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The unique identifier of the payment associated with the order.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -864,6 +913,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>A note provided by the buyer when the order was created, if any.</p>
+         */
         @JsonSetter(value = "buyer_note", nulls = Nulls.SKIP)
         public Builder buyerNote(Optional<String> buyerNote) {
             this.buyerNote = buyerNote;
@@ -886,6 +938,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>A note provided by the merchant when the order's state was set to COMPLETED, if any</p>
+         */
         @JsonSetter(value = "completed_note", nulls = Nulls.SKIP)
         public Builder completedNote(Optional<String> completedNote) {
             this.completedNote = completedNote;
@@ -908,6 +963,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>A note provided by the merchant when the order's state was set to REFUNDED, if any.</p>
+         */
         @JsonSetter(value = "refunded_note", nulls = Nulls.SKIP)
         public Builder refundedNote(Optional<String> refundedNote) {
             this.refundedNote = refundedNote;
@@ -930,6 +988,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>A note provided by the merchant when the order's state was set to CANCELED, if any.</p>
+         */
         @JsonSetter(value = "canceled_note", nulls = Nulls.SKIP)
         public Builder canceledNote(Optional<String> canceledNote) {
             this.canceledNote = canceledNote;
@@ -952,6 +1013,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The tender used to pay for the order.</p>
+         */
         @JsonSetter(value = "tender", nulls = Nulls.SKIP)
         public Builder tender(Optional<V1Tender> tender) {
             this.tender = tender;
@@ -963,6 +1027,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The history of actions associated with the order.</p>
+         */
         @JsonSetter(value = "order_history", nulls = Nulls.SKIP)
         public Builder orderHistory(Optional<List<V1OrderHistoryEntry>> orderHistory) {
             this.orderHistory = orderHistory;
@@ -985,6 +1052,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>The promo code provided by the buyer, if any.</p>
+         */
         @JsonSetter(value = "promo_code", nulls = Nulls.SKIP)
         public Builder promoCode(Optional<String> promoCode) {
             this.promoCode = promoCode;
@@ -1007,6 +1077,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>For Bitcoin transactions, the address that the buyer sent Bitcoin to.</p>
+         */
         @JsonSetter(value = "btc_receive_address", nulls = Nulls.SKIP)
         public Builder btcReceiveAddress(Optional<String> btcReceiveAddress) {
             this.btcReceiveAddress = btcReceiveAddress;
@@ -1029,6 +1102,9 @@ public final class V1Order {
             return this;
         }
 
+        /**
+         * <p>For Bitcoin transactions, the price of the buyer's order in satoshi (100 million satoshi equals 1 BTC).</p>
+         */
         @JsonSetter(value = "btc_price_satoshi", nulls = Nulls.SKIP)
         public Builder btcPriceSatoshi(Optional<Double> btcPriceSatoshi) {
             this.btcPriceSatoshi = btcPriceSatoshi;

@@ -137,6 +137,10 @@ public final class TerminalRefundQueryFilter {
             return this;
         }
 
+        /**
+         * <p><code>TerminalRefund</code> objects associated with a specific device. If no device is specified, then all
+         * <code>TerminalRefund</code> objects for the signed-in account are displayed.</p>
+         */
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public Builder deviceId(Optional<String> deviceId) {
             this.deviceId = deviceId;
@@ -159,6 +163,11 @@ public final class TerminalRefundQueryFilter {
             return this;
         }
 
+        /**
+         * <p>The timestamp for the beginning of the reporting period, in RFC 3339 format. Inclusive.
+         * Default value: The current time minus one day.
+         * Note that <code>TerminalRefund</code>s are available for 30 days after creation.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;
@@ -170,6 +179,10 @@ public final class TerminalRefundQueryFilter {
             return this;
         }
 
+        /**
+         * <p>Filtered results with the desired status of the <code>TerminalRefund</code>.
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, or <code>COMPLETED</code>.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;

@@ -85,6 +85,11 @@ public final class LoyaltyProgramAccrualRuleVisitData {
     }
 
     public interface TaxModeStage {
+        /**
+         * <p>Indicates how taxes should be treated when calculating the purchase amount to determine whether the visit qualifies for points.
+         * This setting applies only if <code>minimum_amount_money</code> is specified.
+         * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
+         */
         _FinalStage taxMode(@NotNull LoyaltyProgramAccrualRuleTaxMode taxMode);
 
         Builder from(LoyaltyProgramAccrualRuleVisitData other);
@@ -93,6 +98,9 @@ public final class LoyaltyProgramAccrualRuleVisitData {
     public interface _FinalStage {
         LoyaltyProgramAccrualRuleVisitData build();
 
+        /**
+         * <p>The minimum purchase required during the visit to quality for points.</p>
+         */
         _FinalStage minimumAmountMoney(Optional<Money> minimumAmountMoney);
 
         _FinalStage minimumAmountMoney(Money minimumAmountMoney);
@@ -120,6 +128,9 @@ public final class LoyaltyProgramAccrualRuleVisitData {
          * <p>Indicates how taxes should be treated when calculating the purchase amount to determine whether the visit qualifies for points.
          * This setting applies only if <code>minimum_amount_money</code> is specified.
          * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
+         * <p>Indicates how taxes should be treated when calculating the purchase amount to determine whether the visit qualifies for points.
+         * This setting applies only if <code>minimum_amount_money</code> is specified.
+         * See <a href="#type-loyaltyprogramaccrualruletaxmode">LoyaltyProgramAccrualRuleTaxMode</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -139,6 +150,9 @@ public final class LoyaltyProgramAccrualRuleVisitData {
             return this;
         }
 
+        /**
+         * <p>The minimum purchase required during the visit to quality for points.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "minimum_amount_money", nulls = Nulls.SKIP)
         public _FinalStage minimumAmountMoney(Optional<Money> minimumAmountMoney) {

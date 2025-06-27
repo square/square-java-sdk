@@ -195,40 +195,62 @@ public final class V1UpdateOrderRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the order's associated location.</p>
+         */
         OrderIdStage locationId(@NotNull String locationId);
 
         Builder from(V1UpdateOrderRequest other);
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
+         */
         ActionStage orderId(@NotNull String orderId);
     }
 
     public interface ActionStage {
+        /**
+         * <p>The action to perform on the order (COMPLETE, CANCEL, or REFUND).
+         * See <a href="#type-v1updateorderrequestaction">V1UpdateOrderRequestAction</a> for possible values</p>
+         */
         _FinalStage action(@NotNull V1UpdateOrderRequestAction action);
     }
 
     public interface _FinalStage {
         V1UpdateOrderRequest build();
 
+        /**
+         * <p>The tracking number of the shipment associated with the order. Only valid if action is COMPLETE.</p>
+         */
         _FinalStage shippedTrackingNumber(Optional<String> shippedTrackingNumber);
 
         _FinalStage shippedTrackingNumber(String shippedTrackingNumber);
 
         _FinalStage shippedTrackingNumber(Nullable<String> shippedTrackingNumber);
 
+        /**
+         * <p>A merchant-specified note about the completion of the order. Only valid if action is COMPLETE.</p>
+         */
         _FinalStage completedNote(Optional<String> completedNote);
 
         _FinalStage completedNote(String completedNote);
 
         _FinalStage completedNote(Nullable<String> completedNote);
 
+        /**
+         * <p>A merchant-specified note about the refunding of the order. Only valid if action is REFUND.</p>
+         */
         _FinalStage refundedNote(Optional<String> refundedNote);
 
         _FinalStage refundedNote(String refundedNote);
 
         _FinalStage refundedNote(Nullable<String> refundedNote);
 
+        /**
+         * <p>A merchant-specified note about the canceling of the order. Only valid if action is CANCEL.</p>
+         */
         _FinalStage canceledNote(Optional<String> canceledNote);
 
         _FinalStage canceledNote(String canceledNote);
@@ -271,6 +293,7 @@ public final class V1UpdateOrderRequest {
 
         /**
          * <p>The ID of the order's associated location.</p>
+         * <p>The ID of the order's associated location.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -282,6 +305,7 @@ public final class V1UpdateOrderRequest {
 
         /**
          * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
+         * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -292,6 +316,8 @@ public final class V1UpdateOrderRequest {
         }
 
         /**
+         * <p>The action to perform on the order (COMPLETE, CANCEL, or REFUND).
+         * See <a href="#type-v1updateorderrequestaction">V1UpdateOrderRequestAction</a> for possible values</p>
          * <p>The action to perform on the order (COMPLETE, CANCEL, or REFUND).
          * See <a href="#type-v1updateorderrequestaction">V1UpdateOrderRequestAction</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -329,6 +355,9 @@ public final class V1UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A merchant-specified note about the canceling of the order. Only valid if action is CANCEL.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "canceled_note", nulls = Nulls.SKIP)
         public _FinalStage canceledNote(Optional<String> canceledNote) {
@@ -362,6 +391,9 @@ public final class V1UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A merchant-specified note about the refunding of the order. Only valid if action is REFUND.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "refunded_note", nulls = Nulls.SKIP)
         public _FinalStage refundedNote(Optional<String> refundedNote) {
@@ -395,6 +427,9 @@ public final class V1UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A merchant-specified note about the completion of the order. Only valid if action is COMPLETE.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "completed_note", nulls = Nulls.SKIP)
         public _FinalStage completedNote(Optional<String> completedNote) {
@@ -428,6 +463,9 @@ public final class V1UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The tracking number of the shipment associated with the order. Only valid if action is COMPLETE.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "shipped_tracking_number", nulls = Nulls.SKIP)
         public _FinalStage shippedTrackingNumber(Optional<String> shippedTrackingNumber) {

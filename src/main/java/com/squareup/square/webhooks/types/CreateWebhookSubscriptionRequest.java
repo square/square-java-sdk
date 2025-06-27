@@ -83,6 +83,9 @@ public final class CreateWebhookSubscriptionRequest {
     }
 
     public interface SubscriptionStage {
+        /**
+         * <p>The <a href="entity:WebhookSubscription">Subscription</a> to create.</p>
+         */
         _FinalStage subscription(@NotNull WebhookSubscription subscription);
 
         Builder from(CreateWebhookSubscriptionRequest other);
@@ -91,6 +94,9 @@ public final class CreateWebhookSubscriptionRequest {
     public interface _FinalStage {
         CreateWebhookSubscriptionRequest build();
 
+        /**
+         * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-CreateWebhookSubscription">CreateWebhookSubscription</a> request.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -116,6 +122,7 @@ public final class CreateWebhookSubscriptionRequest {
 
         /**
          * <p>The <a href="entity:WebhookSubscription">Subscription</a> to create.</p>
+         * <p>The <a href="entity:WebhookSubscription">Subscription</a> to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +142,9 @@ public final class CreateWebhookSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-CreateWebhookSubscription">CreateWebhookSubscription</a> request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

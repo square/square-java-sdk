@@ -83,6 +83,11 @@ public final class LoyaltyEventLocationFilter {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Location">location</a> IDs for loyalty events to query.
+         * If multiple values are specified, the endpoint uses
+         * a logical OR to combine them.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(List<String> locationIds) {
             this.locationIds.clear();

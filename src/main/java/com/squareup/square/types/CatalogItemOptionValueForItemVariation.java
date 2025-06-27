@@ -119,6 +119,9 @@ public final class CatalogItemOptionValueForItemVariation {
             return this;
         }
 
+        /**
+         * <p>The unique id of an item option.</p>
+         */
         @JsonSetter(value = "item_option_id", nulls = Nulls.SKIP)
         public Builder itemOptionId(Optional<String> itemOptionId) {
             this.itemOptionId = itemOptionId;
@@ -141,6 +144,9 @@ public final class CatalogItemOptionValueForItemVariation {
             return this;
         }
 
+        /**
+         * <p>The unique id of the selected value for the item option.</p>
+         */
         @JsonSetter(value = "item_option_value_id", nulls = Nulls.SKIP)
         public Builder itemOptionValueId(Optional<String> itemOptionValueId) {
             this.itemOptionValueId = itemOptionValueId;

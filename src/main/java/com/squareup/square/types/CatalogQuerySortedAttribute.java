@@ -111,6 +111,9 @@ public final class CatalogQuerySortedAttribute {
     }
 
     public interface AttributeNameStage {
+        /**
+         * <p>The attribute whose value is used as the sort key.</p>
+         */
         _FinalStage attributeName(@NotNull String attributeName);
 
         Builder from(CatalogQuerySortedAttribute other);
@@ -119,12 +122,21 @@ public final class CatalogQuerySortedAttribute {
     public interface _FinalStage {
         CatalogQuerySortedAttribute build();
 
+        /**
+         * <p>The first attribute value to be returned by the query. Ascending sorts will return only
+         * objects with this value or greater, while descending sorts will return only objects with this value
+         * or less. If unset, start at the beginning (for ascending sorts) or end (for descending sorts).</p>
+         */
         _FinalStage initialAttributeValue(Optional<String> initialAttributeValue);
 
         _FinalStage initialAttributeValue(String initialAttributeValue);
 
         _FinalStage initialAttributeValue(Nullable<String> initialAttributeValue);
 
+        /**
+         * <p>The desired sort order, <code>&quot;ASC&quot;</code> (ascending) or <code>&quot;DESC&quot;</code> (descending).
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         _FinalStage sortOrder(Optional<SortOrder> sortOrder);
 
         _FinalStage sortOrder(SortOrder sortOrder);
@@ -153,6 +165,7 @@ public final class CatalogQuerySortedAttribute {
 
         /**
          * <p>The attribute whose value is used as the sort key.</p>
+         * <p>The attribute whose value is used as the sort key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,6 +186,10 @@ public final class CatalogQuerySortedAttribute {
             return this;
         }
 
+        /**
+         * <p>The desired sort order, <code>&quot;ASC&quot;</code> (ascending) or <code>&quot;DESC&quot;</code> (descending).
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public _FinalStage sortOrder(Optional<SortOrder> sortOrder) {
@@ -210,6 +227,11 @@ public final class CatalogQuerySortedAttribute {
             return this;
         }
 
+        /**
+         * <p>The first attribute value to be returned by the query. Ascending sorts will return only
+         * objects with this value or greater, while descending sorts will return only objects with this value
+         * or less. If unset, start at the beginning (for ascending sorts) or end (for descending sorts).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "initial_attribute_value", nulls = Nulls.SKIP)
         public _FinalStage initialAttributeValue(Optional<String> initialAttributeValue) {

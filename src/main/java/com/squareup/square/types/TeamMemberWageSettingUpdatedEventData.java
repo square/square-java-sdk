@@ -125,6 +125,9 @@ public final class TeamMemberWageSettingUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;wage_setting&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -147,6 +150,9 @@ public final class TeamMemberWageSettingUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the updated team member wage setting.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -158,6 +164,9 @@ public final class TeamMemberWageSettingUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the updated team member wage setting.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<TeamMemberWageSettingUpdatedEventObject> object) {
             this.object = object;

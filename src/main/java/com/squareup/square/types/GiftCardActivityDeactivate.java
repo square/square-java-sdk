@@ -68,6 +68,10 @@ public final class GiftCardActivityDeactivate {
     }
 
     public interface ReasonStage {
+        /**
+         * <p>The reason the gift card was deactivated.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
+         */
         _FinalStage reason(@NotNull GiftCardActivityDeactivateReason reason);
 
         Builder from(GiftCardActivityDeactivate other);
@@ -93,6 +97,8 @@ public final class GiftCardActivityDeactivate {
         }
 
         /**
+         * <p>The reason the gift card was deactivated.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
          * <p>The reason the gift card was deactivated.
          * See <a href="#type-reason">Reason</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.

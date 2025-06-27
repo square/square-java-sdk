@@ -66,6 +66,9 @@ public final class GiftCardActivityImport {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The balance amount on the imported gift card.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(GiftCardActivityImport other);
@@ -91,6 +94,7 @@ public final class GiftCardActivityImport {
         }
 
         /**
+         * <p>The balance amount on the imported gift card.</p>
          * <p>The balance amount on the imported gift card.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

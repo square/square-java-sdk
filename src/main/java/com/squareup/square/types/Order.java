@@ -622,6 +622,9 @@ public final class Order {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the seller location that this order is associated with.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(Order other);
@@ -630,140 +633,276 @@ public final class Order {
     public interface _FinalStage {
         Order build();
 
+        /**
+         * <p>The order's unique ID.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>A client-specified ID to associate an entity in another system
+         * with this order.</p>
+         */
         _FinalStage referenceId(Optional<String> referenceId);
 
         _FinalStage referenceId(String referenceId);
 
         _FinalStage referenceId(Nullable<String> referenceId);
 
+        /**
+         * <p>The origination details of the order.</p>
+         */
         _FinalStage source(Optional<OrderSource> source);
 
         _FinalStage source(OrderSource source);
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">customer</a> associated with the order.</p>
+         * <p>You should specify a <code>customer_id</code> on the order (or the payment) to ensure that transactions
+         * are reliably linked to customers. Omitting this field might result in the creation of new
+         * <a href="https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles">instant profiles</a>.</p>
+         */
         _FinalStage customerId(Optional<String> customerId);
 
         _FinalStage customerId(String customerId);
 
         _FinalStage customerId(Nullable<String> customerId);
 
+        /**
+         * <p>The line items included in the order.</p>
+         */
         _FinalStage lineItems(Optional<List<OrderLineItem>> lineItems);
 
         _FinalStage lineItems(List<OrderLineItem> lineItems);
 
         _FinalStage lineItems(Nullable<List<OrderLineItem>> lineItems);
 
+        /**
+         * <p>The list of all taxes associated with the order.</p>
+         * <p>Taxes can be scoped to either <code>ORDER</code> or <code>LINE_ITEM</code>. For taxes with <code>LINE_ITEM</code> scope, an
+         * <code>OrderLineItemAppliedTax</code> must be added to each line item that the tax applies to. For taxes
+         * with <code>ORDER</code> scope, the server generates an <code>OrderLineItemAppliedTax</code> for every line item.</p>
+         * <p>On reads, each tax in the list includes the total amount of that tax applied to the order.</p>
+         * <p><strong>IMPORTANT</strong>: If <code>LINE_ITEM</code> scope is set on any taxes in this field, using the deprecated
+         * <code>line_items.taxes</code> field results in an error. Use <code>line_items.applied_taxes</code>
+         * instead.</p>
+         */
         _FinalStage taxes(Optional<List<OrderLineItemTax>> taxes);
 
         _FinalStage taxes(List<OrderLineItemTax> taxes);
 
         _FinalStage taxes(Nullable<List<OrderLineItemTax>> taxes);
 
+        /**
+         * <p>The list of all discounts associated with the order.</p>
+         * <p>Discounts can be scoped to either <code>ORDER</code> or <code>LINE_ITEM</code>. For discounts scoped to <code>LINE_ITEM</code>,
+         * an <code>OrderLineItemAppliedDiscount</code> must be added to each line item that the discount applies to.
+         * For discounts with <code>ORDER</code> scope, the server generates an <code>OrderLineItemAppliedDiscount</code>
+         * for every line item.</p>
+         * <p><strong>IMPORTANT</strong>: If <code>LINE_ITEM</code> scope is set on any discounts in this field, using the deprecated
+         * <code>line_items.discounts</code> field results in an error. Use <code>line_items.applied_discounts</code>
+         * instead.</p>
+         */
         _FinalStage discounts(Optional<List<OrderLineItemDiscount>> discounts);
 
         _FinalStage discounts(List<OrderLineItemDiscount> discounts);
 
         _FinalStage discounts(Nullable<List<OrderLineItemDiscount>> discounts);
 
+        /**
+         * <p>A list of service charges applied to the order.</p>
+         */
         _FinalStage serviceCharges(Optional<List<OrderServiceCharge>> serviceCharges);
 
         _FinalStage serviceCharges(List<OrderServiceCharge> serviceCharges);
 
         _FinalStage serviceCharges(Nullable<List<OrderServiceCharge>> serviceCharges);
 
+        /**
+         * <p>Details about order fulfillment.</p>
+         * <p>Orders can only be created with at most one fulfillment. However, orders returned
+         * by the API might contain multiple fulfillments.</p>
+         */
         _FinalStage fulfillments(Optional<List<Fulfillment>> fulfillments);
 
         _FinalStage fulfillments(List<Fulfillment> fulfillments);
 
         _FinalStage fulfillments(Nullable<List<Fulfillment>> fulfillments);
 
+        /**
+         * <p>A collection of items from sale orders being returned in this one. Normally part of an
+         * itemized return or exchange. There is exactly one <code>Return</code> object per sale <code>Order</code> being
+         * referenced.</p>
+         */
         _FinalStage returns(Optional<List<OrderReturn>> returns);
 
         _FinalStage returns(List<OrderReturn> returns);
 
+        /**
+         * <p>The rollup of the returned money amounts.</p>
+         */
         _FinalStage returnAmounts(Optional<OrderMoneyAmounts> returnAmounts);
 
         _FinalStage returnAmounts(OrderMoneyAmounts returnAmounts);
 
+        /**
+         * <p>The net money amounts (sale money - return money).</p>
+         */
         _FinalStage netAmounts(Optional<OrderMoneyAmounts> netAmounts);
 
         _FinalStage netAmounts(OrderMoneyAmounts netAmounts);
 
+        /**
+         * <p>A positive rounding adjustment to the total of the order. This adjustment is commonly
+         * used to apply cash rounding when the minimum unit of account is smaller than the lowest physical
+         * denomination of the currency.</p>
+         */
         _FinalStage roundingAdjustment(Optional<OrderRoundingAdjustment> roundingAdjustment);
 
         _FinalStage roundingAdjustment(OrderRoundingAdjustment roundingAdjustment);
 
+        /**
+         * <p>The tenders that were used to pay for the order.</p>
+         */
         _FinalStage tenders(Optional<List<Tender>> tenders);
 
         _FinalStage tenders(List<Tender> tenders);
 
+        /**
+         * <p>The refunds that are part of this order.</p>
+         */
         _FinalStage refunds(Optional<List<Refund>> refunds);
 
         _FinalStage refunds(List<Refund> refunds);
 
+        /**
+         * <p>Application-defined data attached to this order. Metadata fields are intended
+         * to store descriptive references or associations with an entity in another system or store brief
+         * information about the object. Square does not process this field; it only stores and returns it
+         * in relevant API calls. Do not use metadata to store any sensitive information (such as personally
+         * identifiable information or card details).</p>
+         * <p>Keys written by applications must be 60 characters or less and must be in the character set
+         * <code>[a-zA-Z0-9_-]</code>. Entries can also include metadata generated by Square. These keys are prefixed
+         * with a namespace, separated from the key with a ':' character.</p>
+         * <p>Values have a maximum length of 255 characters.</p>
+         * <p>An application can have up to 10 entries per metadata field.</p>
+         * <p>Entries written by applications are private and can only be read or modified by the same
+         * application.</p>
+         * <p>For more information, see  <a href="https://developer.squareup.com/docs/build-basics/metadata">Metadata</a>.</p>
+         */
         _FinalStage metadata(Optional<Map<String, Optional<String>>> metadata);
 
         _FinalStage metadata(Map<String, Optional<String>> metadata);
 
         _FinalStage metadata(Nullable<Map<String, Optional<String>>> metadata);
 
+        /**
+         * <p>The timestamp for when the order was created, at server side, in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp for when the order was last updated, at server side, in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The timestamp for when the order reached a terminal <a href="entity:OrderState">state</a>, in RFC 3339 format (for example &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         _FinalStage closedAt(Optional<String> closedAt);
 
         _FinalStage closedAt(String closedAt);
 
+        /**
+         * <p>The current state of the order.
+         * See <a href="#type-orderstate">OrderState</a> for possible values</p>
+         */
         _FinalStage state(Optional<OrderState> state);
 
         _FinalStage state(OrderState state);
 
+        /**
+         * <p>The version number, which is incremented each time an update is committed to the order.
+         * Orders not created through the API do not include a version number and
+         * therefore cannot be updated.</p>
+         * <p><a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders">Read more about working with versions</a>.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>The total amount of money to collect for the order.</p>
+         */
         _FinalStage totalMoney(Optional<Money> totalMoney);
 
         _FinalStage totalMoney(Money totalMoney);
 
+        /**
+         * <p>The total amount of tax money to collect for the order.</p>
+         */
         _FinalStage totalTaxMoney(Optional<Money> totalTaxMoney);
 
         _FinalStage totalTaxMoney(Money totalTaxMoney);
 
+        /**
+         * <p>The total amount of discount money to collect for the order.</p>
+         */
         _FinalStage totalDiscountMoney(Optional<Money> totalDiscountMoney);
 
         _FinalStage totalDiscountMoney(Money totalDiscountMoney);
 
+        /**
+         * <p>The total amount of tip money to collect for the order.</p>
+         */
         _FinalStage totalTipMoney(Optional<Money> totalTipMoney);
 
         _FinalStage totalTipMoney(Money totalTipMoney);
 
+        /**
+         * <p>The total amount of money collected in service charges for the order.</p>
+         * <p>Note: <code>total_service_charge_money</code> is the sum of <code>applied_money</code> fields for each individual
+         * service charge. Therefore, <code>total_service_charge_money</code> only includes inclusive tax amounts,
+         * not additive tax amounts.</p>
+         */
         _FinalStage totalServiceChargeMoney(Optional<Money> totalServiceChargeMoney);
 
         _FinalStage totalServiceChargeMoney(Money totalServiceChargeMoney);
 
+        /**
+         * <p>A short-term identifier for the order (such as a customer first name,
+         * table number, or auto-generated order number that resets daily).</p>
+         */
         _FinalStage ticketName(Optional<String> ticketName);
 
         _FinalStage ticketName(String ticketName);
 
         _FinalStage ticketName(Nullable<String> ticketName);
 
+        /**
+         * <p>Pricing options for an order. The options affect how the order's price is calculated.
+         * They can be used, for example, to apply automatic price adjustments that are based on
+         * preconfigured <a href="entity:CatalogPricingRule">pricing rules</a>.</p>
+         */
         _FinalStage pricingOptions(Optional<OrderPricingOptions> pricingOptions);
 
         _FinalStage pricingOptions(OrderPricingOptions pricingOptions);
 
+        /**
+         * <p>A set-like list of Rewards that have been added to the Order.</p>
+         */
         _FinalStage rewards(Optional<List<OrderReward>> rewards);
 
         _FinalStage rewards(List<OrderReward> rewards);
 
+        /**
+         * <p>The net amount of money due on the order.</p>
+         */
         _FinalStage netAmountDueMoney(Optional<Money> netAmountDueMoney);
 
         _FinalStage netAmountDueMoney(Money netAmountDueMoney);
@@ -876,6 +1015,7 @@ public final class Order {
 
         /**
          * <p>The ID of the seller location that this order is associated with.</p>
+         * <p>The ID of the seller location that this order is associated with.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -895,6 +1035,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The net amount of money due on the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "net_amount_due_money", nulls = Nulls.SKIP)
         public _FinalStage netAmountDueMoney(Optional<Money> netAmountDueMoney) {
@@ -912,6 +1055,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A set-like list of Rewards that have been added to the Order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "rewards", nulls = Nulls.SKIP)
         public _FinalStage rewards(Optional<List<OrderReward>> rewards) {
@@ -931,6 +1077,11 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>Pricing options for an order. The options affect how the order's price is calculated.
+         * They can be used, for example, to apply automatic price adjustments that are based on
+         * preconfigured <a href="entity:CatalogPricingRule">pricing rules</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pricing_options", nulls = Nulls.SKIP)
         public _FinalStage pricingOptions(Optional<OrderPricingOptions> pricingOptions) {
@@ -966,6 +1117,10 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A short-term identifier for the order (such as a customer first name,
+         * table number, or auto-generated order number that resets daily).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ticket_name", nulls = Nulls.SKIP)
         public _FinalStage ticketName(Optional<String> ticketName) {
@@ -986,6 +1141,12 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The total amount of money collected in service charges for the order.</p>
+         * <p>Note: <code>total_service_charge_money</code> is the sum of <code>applied_money</code> fields for each individual
+         * service charge. Therefore, <code>total_service_charge_money</code> only includes inclusive tax amounts,
+         * not additive tax amounts.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_service_charge_money", nulls = Nulls.SKIP)
         public _FinalStage totalServiceChargeMoney(Optional<Money> totalServiceChargeMoney) {
@@ -1003,6 +1164,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The total amount of tip money to collect for the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_tip_money", nulls = Nulls.SKIP)
         public _FinalStage totalTipMoney(Optional<Money> totalTipMoney) {
@@ -1020,6 +1184,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The total amount of discount money to collect for the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_discount_money", nulls = Nulls.SKIP)
         public _FinalStage totalDiscountMoney(Optional<Money> totalDiscountMoney) {
@@ -1037,6 +1204,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The total amount of tax money to collect for the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_tax_money", nulls = Nulls.SKIP)
         public _FinalStage totalTaxMoney(Optional<Money> totalTaxMoney) {
@@ -1054,6 +1224,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The total amount of money to collect for the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public _FinalStage totalMoney(Optional<Money> totalMoney) {
@@ -1074,6 +1247,12 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The version number, which is incremented each time an update is committed to the order.
+         * Orders not created through the API do not include a version number and
+         * therefore cannot be updated.</p>
+         * <p><a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders">Read more about working with versions</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -1092,6 +1271,10 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The current state of the order.
+         * See <a href="#type-orderstate">OrderState</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public _FinalStage state(Optional<OrderState> state) {
@@ -1109,6 +1292,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the order reached a terminal <a href="entity:OrderState">state</a>, in RFC 3339 format (for example &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "closed_at", nulls = Nulls.SKIP)
         public _FinalStage closedAt(Optional<String> closedAt) {
@@ -1126,6 +1312,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the order was last updated, at server side, in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -1143,6 +1332,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the order was created, at server side, in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -1200,6 +1392,21 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>Application-defined data attached to this order. Metadata fields are intended
+         * to store descriptive references or associations with an entity in another system or store brief
+         * information about the object. Square does not process this field; it only stores and returns it
+         * in relevant API calls. Do not use metadata to store any sensitive information (such as personally
+         * identifiable information or card details).</p>
+         * <p>Keys written by applications must be 60 characters or less and must be in the character set
+         * <code>[a-zA-Z0-9_-]</code>. Entries can also include metadata generated by Square. These keys are prefixed
+         * with a namespace, separated from the key with a ':' character.</p>
+         * <p>Values have a maximum length of 255 characters.</p>
+         * <p>An application can have up to 10 entries per metadata field.</p>
+         * <p>Entries written by applications are private and can only be read or modified by the same
+         * application.</p>
+         * <p>For more information, see  <a href="https://developer.squareup.com/docs/build-basics/metadata">Metadata</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public _FinalStage metadata(Optional<Map<String, Optional<String>>> metadata) {
@@ -1217,6 +1424,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The refunds that are part of this order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "refunds", nulls = Nulls.SKIP)
         public _FinalStage refunds(Optional<List<Refund>> refunds) {
@@ -1234,6 +1444,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The tenders that were used to pay for the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tenders", nulls = Nulls.SKIP)
         public _FinalStage tenders(Optional<List<Tender>> tenders) {
@@ -1253,6 +1466,11 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A positive rounding adjustment to the total of the order. This adjustment is commonly
+         * used to apply cash rounding when the minimum unit of account is smaller than the lowest physical
+         * denomination of the currency.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "rounding_adjustment", nulls = Nulls.SKIP)
         public _FinalStage roundingAdjustment(Optional<OrderRoundingAdjustment> roundingAdjustment) {
@@ -1270,6 +1488,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The net money amounts (sale money - return money).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "net_amounts", nulls = Nulls.SKIP)
         public _FinalStage netAmounts(Optional<OrderMoneyAmounts> netAmounts) {
@@ -1287,6 +1508,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The rollup of the returned money amounts.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "return_amounts", nulls = Nulls.SKIP)
         public _FinalStage returnAmounts(Optional<OrderMoneyAmounts> returnAmounts) {
@@ -1306,6 +1530,11 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A collection of items from sale orders being returned in this one. Normally part of an
+         * itemized return or exchange. There is exactly one <code>Return</code> object per sale <code>Order</code> being
+         * referenced.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "returns", nulls = Nulls.SKIP)
         public _FinalStage returns(Optional<List<OrderReturn>> returns) {
@@ -1343,6 +1572,11 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>Details about order fulfillment.</p>
+         * <p>Orders can only be created with at most one fulfillment. However, orders returned
+         * by the API might contain multiple fulfillments.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "fulfillments", nulls = Nulls.SKIP)
         public _FinalStage fulfillments(Optional<List<Fulfillment>> fulfillments) {
@@ -1376,6 +1610,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A list of service charges applied to the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "service_charges", nulls = Nulls.SKIP)
         public _FinalStage serviceCharges(Optional<List<OrderServiceCharge>> serviceCharges) {
@@ -1423,6 +1660,16 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The list of all discounts associated with the order.</p>
+         * <p>Discounts can be scoped to either <code>ORDER</code> or <code>LINE_ITEM</code>. For discounts scoped to <code>LINE_ITEM</code>,
+         * an <code>OrderLineItemAppliedDiscount</code> must be added to each line item that the discount applies to.
+         * For discounts with <code>ORDER</code> scope, the server generates an <code>OrderLineItemAppliedDiscount</code>
+         * for every line item.</p>
+         * <p><strong>IMPORTANT</strong>: If <code>LINE_ITEM</code> scope is set on any discounts in this field, using the deprecated
+         * <code>line_items.discounts</code> field results in an error. Use <code>line_items.applied_discounts</code>
+         * instead.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "discounts", nulls = Nulls.SKIP)
         public _FinalStage discounts(Optional<List<OrderLineItemDiscount>> discounts) {
@@ -1470,6 +1717,16 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The list of all taxes associated with the order.</p>
+         * <p>Taxes can be scoped to either <code>ORDER</code> or <code>LINE_ITEM</code>. For taxes with <code>LINE_ITEM</code> scope, an
+         * <code>OrderLineItemAppliedTax</code> must be added to each line item that the tax applies to. For taxes
+         * with <code>ORDER</code> scope, the server generates an <code>OrderLineItemAppliedTax</code> for every line item.</p>
+         * <p>On reads, each tax in the list includes the total amount of that tax applied to the order.</p>
+         * <p><strong>IMPORTANT</strong>: If <code>LINE_ITEM</code> scope is set on any taxes in this field, using the deprecated
+         * <code>line_items.taxes</code> field results in an error. Use <code>line_items.applied_taxes</code>
+         * instead.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "taxes", nulls = Nulls.SKIP)
         public _FinalStage taxes(Optional<List<OrderLineItemTax>> taxes) {
@@ -1503,6 +1760,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The line items included in the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "line_items", nulls = Nulls.SKIP)
         public _FinalStage lineItems(Optional<List<OrderLineItem>> lineItems) {
@@ -1542,6 +1802,12 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">customer</a> associated with the order.</p>
+         * <p>You should specify a <code>customer_id</code> on the order (or the payment) to ensure that transactions
+         * are reliably linked to customers. Omitting this field might result in the creation of new
+         * <a href="https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles">instant profiles</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public _FinalStage customerId(Optional<String> customerId) {
@@ -1559,6 +1825,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The origination details of the order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "source", nulls = Nulls.SKIP)
         public _FinalStage source(Optional<OrderSource> source) {
@@ -1594,6 +1863,10 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>A client-specified ID to associate an entity in another system
+         * with this order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public _FinalStage referenceId(Optional<String> referenceId) {
@@ -1611,6 +1884,9 @@ public final class Order {
             return this;
         }
 
+        /**
+         * <p>The order's unique ID.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

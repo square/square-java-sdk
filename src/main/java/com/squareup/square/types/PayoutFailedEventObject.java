@@ -80,6 +80,9 @@ public final class PayoutFailedEventObject {
             return this;
         }
 
+        /**
+         * <p>The payout that failed.</p>
+         */
         @JsonSetter(value = "payout", nulls = Nulls.SKIP)
         public Builder payout(Optional<Payout> payout) {
             this.payout = payout;

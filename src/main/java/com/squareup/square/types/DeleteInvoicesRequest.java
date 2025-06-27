@@ -94,6 +94,9 @@ public final class DeleteInvoicesRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the invoice to delete.</p>
+         */
         _FinalStage invoiceId(@NotNull String invoiceId);
 
         Builder from(DeleteInvoicesRequest other);
@@ -102,6 +105,11 @@ public final class DeleteInvoicesRequest {
     public interface _FinalStage {
         DeleteInvoicesRequest build();
 
+        /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to delete.
+         * If you do not know the version, you can call <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or
+         * <a href="api-endpoint:Invoices-ListInvoices">ListInvoices</a>.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
@@ -128,6 +136,7 @@ public final class DeleteInvoicesRequest {
         }
 
         /**
+         * <p>The ID of the invoice to delete.</p>
          * <p>The ID of the invoice to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -168,6 +177,11 @@ public final class DeleteInvoicesRequest {
             return this;
         }
 
+        /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to delete.
+         * If you do not know the version, you can call <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or
+         * <a href="api-endpoint:Invoices-ListInvoices">ListInvoices</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

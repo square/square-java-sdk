@@ -148,6 +148,9 @@ public final class OrderLineItemPricingBlocklistsBlockedTax {
             return this;
         }
 
+        /**
+         * <p>A unique ID of the <code>BlockedTax</code> within the order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -170,6 +173,10 @@ public final class OrderLineItemPricingBlocklistsBlockedTax {
             return this;
         }
 
+        /**
+         * <p>The <code>uid</code> of the tax that should be blocked. Use this field to block
+         * ad hoc taxes. For catalog, taxes use the <code>tax_catalog_object_id</code> field.</p>
+         */
         @JsonSetter(value = "tax_uid", nulls = Nulls.SKIP)
         public Builder taxUid(Optional<String> taxUid) {
             this.taxUid = taxUid;
@@ -192,6 +199,11 @@ public final class OrderLineItemPricingBlocklistsBlockedTax {
             return this;
         }
 
+        /**
+         * <p>The <code>catalog_object_id</code> of the tax that should be blocked.
+         * Use this field to block catalog taxes. For ad hoc taxes, use the
+         * <code>tax_uid</code> field.</p>
+         */
         @JsonSetter(value = "tax_catalog_object_id", nulls = Nulls.SKIP)
         public Builder taxCatalogObjectId(Optional<String> taxCatalogObjectId) {
             this.taxCatalogObjectId = taxCatalogObjectId;

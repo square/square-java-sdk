@@ -81,12 +81,20 @@ public final class CreateDeviceCodeRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this CreateDeviceCode request. Keys can
+         * be any valid string but must be unique for every CreateDeviceCode request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         */
         DeviceCodeStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateDeviceCodeRequest other);
     }
 
     public interface DeviceCodeStage {
+        /**
+         * <p>The device code to create.</p>
+         */
         _FinalStage deviceCode(@NotNull DeviceCode deviceCode);
     }
 
@@ -116,6 +124,9 @@ public final class CreateDeviceCodeRequest {
          * <p>A unique string that identifies this CreateDeviceCode request. Keys can
          * be any valid string but must be unique for every CreateDeviceCode request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         * <p>A unique string that identifies this CreateDeviceCode request. Keys can
+         * be any valid string but must be unique for every CreateDeviceCode request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -126,6 +137,7 @@ public final class CreateDeviceCodeRequest {
         }
 
         /**
+         * <p>The device code to create.</p>
          * <p>The device code to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

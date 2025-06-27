@@ -80,6 +80,9 @@ public final class CardUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated card.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;

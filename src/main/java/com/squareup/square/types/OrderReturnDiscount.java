@@ -305,6 +305,9 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the returned discount only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -327,6 +330,9 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The discount <code>uid</code> from the order that contains the original application of this discount.</p>
+         */
         @JsonSetter(value = "source_discount_uid", nulls = Nulls.SKIP)
         public Builder sourceDiscountUid(Optional<String> sourceDiscountUid) {
             this.sourceDiscountUid = sourceDiscountUid;
@@ -349,6 +355,9 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The catalog object ID referencing <a href="entity:CatalogDiscount">CatalogDiscount</a>.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -371,6 +380,9 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this discount references.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;
@@ -393,6 +405,9 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The discount's name.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -415,6 +430,12 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The type of the discount. If it is created by the API, it is <code>FIXED_PERCENTAGE</code> or <code>FIXED_AMOUNT</code>.</p>
+         * <p>Discounts that do not reference a catalog object ID must have a type of
+         * <code>FIXED_PERCENTAGE</code> or <code>FIXED_AMOUNT</code>.
+         * See <a href="#type-orderlineitemdiscounttype">OrderLineItemDiscountType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<OrderLineItemDiscountType> type) {
             this.type = type;
@@ -426,6 +447,11 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The percentage of the tax, as a string representation of a decimal number.
+         * A value of <code>&quot;7.25&quot;</code> corresponds to a percentage of 7.25%.</p>
+         * <p><code>percentage</code> is not set for amount-based discounts.</p>
+         */
         @JsonSetter(value = "percentage", nulls = Nulls.SKIP)
         public Builder percentage(Optional<String> percentage) {
             this.percentage = percentage;
@@ -448,6 +474,10 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The total declared monetary amount of the discount.</p>
+         * <p><code>amount_money</code> is not set for percentage-based discounts.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -459,6 +489,11 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>The amount of discount actually applied to this line item. When an amount-based
+         * discount is at the order level, this value is different from <code>amount_money</code> because the discount
+         * is distributed across the line items.</p>
+         */
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public Builder appliedMoney(Optional<Money> appliedMoney) {
             this.appliedMoney = appliedMoney;
@@ -470,6 +505,13 @@ public final class OrderReturnDiscount {
             return this;
         }
 
+        /**
+         * <p>Indicates the level at which the <code>OrderReturnDiscount</code> applies. For <code>ORDER</code> scoped
+         * discounts, the server generates references in <code>applied_discounts</code> on all
+         * <code>OrderReturnLineItem</code>s. For <code>LINE_ITEM</code> scoped discounts, the discount is only applied to
+         * <code>OrderReturnLineItem</code>s with references in their <code>applied_discounts</code> field.
+         * See <a href="#type-orderlineitemdiscountscope">OrderLineItemDiscountScope</a> for possible values</p>
+         */
         @JsonSetter(value = "scope", nulls = Nulls.SKIP)
         public Builder scope(Optional<OrderLineItemDiscountScope> scope) {
             this.scope = scope;

@@ -66,6 +66,9 @@ public final class GetSegmentsRequest {
     }
 
     public interface SegmentIdStage {
+        /**
+         * <p>The Square-issued ID of the customer segment.</p>
+         */
         _FinalStage segmentId(@NotNull String segmentId);
 
         Builder from(GetSegmentsRequest other);
@@ -91,6 +94,7 @@ public final class GetSegmentsRequest {
         }
 
         /**
+         * <p>The Square-issued ID of the customer segment.</p>
          * <p>The Square-issued ID of the customer segment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

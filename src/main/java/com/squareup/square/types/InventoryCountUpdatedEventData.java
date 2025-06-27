@@ -124,6 +124,9 @@ public final class InventoryCountUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type. For this event, the value is <code>inventory_counts</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class InventoryCountUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the affected object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class InventoryCountUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing fields and values relevant to the event. Is absent if affected object was deleted.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<InventoryCountUpdatedEventObject> object) {
             this.object = object;

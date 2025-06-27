@@ -78,12 +78,18 @@ public final class LinkCustomerToGiftCardRequest {
     }
 
     public interface GiftCardIdStage {
+        /**
+         * <p>The ID of the gift card to be linked.</p>
+         */
         CustomerIdStage giftCardId(@NotNull String giftCardId);
 
         Builder from(LinkCustomerToGiftCardRequest other);
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to link to the gift card.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
     }
 
@@ -111,6 +117,7 @@ public final class LinkCustomerToGiftCardRequest {
 
         /**
          * <p>The ID of the gift card to be linked.</p>
+         * <p>The ID of the gift card to be linked.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class LinkCustomerToGiftCardRequest {
         }
 
         /**
+         * <p>The ID of the customer to link to the gift card.</p>
          * <p>The ID of the customer to link to the gift card.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

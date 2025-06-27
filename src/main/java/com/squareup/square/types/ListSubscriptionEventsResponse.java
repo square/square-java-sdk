@@ -118,6 +118,9 @@ public final class ListSubscriptionEventsResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -129,6 +132,9 @@ public final class ListSubscriptionEventsResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved subscription events.</p>
+         */
         @JsonSetter(value = "subscription_events", nulls = Nulls.SKIP)
         public Builder subscriptionEvents(Optional<List<SubscriptionEvent>> subscriptionEvents) {
             this.subscriptionEvents = subscriptionEvents;
@@ -140,6 +146,12 @@ public final class ListSubscriptionEventsResponse {
             return this;
         }
 
+        /**
+         * <p>When the total number of resulting subscription events exceeds the limit of a paged response,
+         * the response includes a cursor for you to use in a subsequent request to fetch the next set of events.
+         * If the cursor is unset, the response contains the last page of the results.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

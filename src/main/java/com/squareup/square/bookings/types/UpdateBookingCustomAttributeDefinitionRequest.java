@@ -122,18 +122,39 @@ public final class UpdateBookingCustomAttributeDefinitionRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to update.</p>
+         */
         CustomAttributeDefinitionStage key(@NotNull String key);
 
         Builder from(UpdateBookingCustomAttributeDefinitionRequest other);
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition that contains the fields to update. Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.</li>
+         * </ul>
+         * <p>For more information, see
+         * <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields">Updatable definition fields</a>.</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include the optional <code>version</code> field and specify the current version of the custom attribute definition.</p>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
     }
 
     public interface _FinalStage {
         UpdateBookingCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -164,6 +185,7 @@ public final class UpdateBookingCustomAttributeDefinitionRequest {
 
         /**
          * <p>The key of the custom attribute definition to update.</p>
+         * <p>The key of the custom attribute definition to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -174,6 +196,18 @@ public final class UpdateBookingCustomAttributeDefinitionRequest {
         }
 
         /**
+         * <p>The custom attribute definition that contains the fields to update. Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.</li>
+         * </ul>
+         * <p>For more information, see
+         * <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields">Updatable definition fields</a>.</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include the optional <code>version</code> field and specify the current version of the custom attribute definition.</p>
          * <p>The custom attribute definition that contains the fields to update. Only the following fields can be updated:</p>
          * <ul>
          * <li><code>name</code></li>
@@ -224,6 +258,10 @@ public final class UpdateBookingCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

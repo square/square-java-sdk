@@ -97,16 +97,28 @@ public final class BulkSwapPlanRequest {
     }
 
     public interface NewPlanVariationIdStage {
+        /**
+         * <p>The ID of the new subscription plan variation.</p>
+         * <p>This field is required.</p>
+         */
         OldPlanVariationIdStage newPlanVariationId(@NotNull String newPlanVariationId);
 
         Builder from(BulkSwapPlanRequest other);
     }
 
     public interface OldPlanVariationIdStage {
+        /**
+         * <p>The ID of the plan variation whose subscriptions should be swapped. Active subscriptions
+         * using this plan variation will be subscribed to the new plan variation on their next billing
+         * day.</p>
+         */
         LocationIdStage oldPlanVariationId(@NotNull String oldPlanVariationId);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to associate with the swapped subscriptions.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
@@ -139,6 +151,8 @@ public final class BulkSwapPlanRequest {
         /**
          * <p>The ID of the new subscription plan variation.</p>
          * <p>This field is required.</p>
+         * <p>The ID of the new subscription plan variation.</p>
+         * <p>This field is required.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,6 +166,9 @@ public final class BulkSwapPlanRequest {
          * <p>The ID of the plan variation whose subscriptions should be swapped. Active subscriptions
          * using this plan variation will be subscribed to the new plan variation on their next billing
          * day.</p>
+         * <p>The ID of the plan variation whose subscriptions should be swapped. Active subscriptions
+         * using this plan variation will be subscribed to the new plan variation on their next billing
+         * day.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -162,6 +179,7 @@ public final class BulkSwapPlanRequest {
         }
 
         /**
+         * <p>The ID of the location to associate with the swapped subscriptions.</p>
          * <p>The ID of the location to associate with the swapped subscriptions.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

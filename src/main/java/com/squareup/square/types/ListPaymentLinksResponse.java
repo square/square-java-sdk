@@ -115,6 +115,9 @@ public final class ListPaymentLinksResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class ListPaymentLinksResponse {
             return this;
         }
 
+        /**
+         * <p>The list of payment links.</p>
+         */
         @JsonSetter(value = "payment_links", nulls = Nulls.SKIP)
         public Builder paymentLinks(Optional<List<PaymentLink>> paymentLinks) {
             this.paymentLinks = paymentLinks;
@@ -137,6 +143,11 @@ public final class ListPaymentLinksResponse {
             return this;
         }
 
+        /**
+         * <p>When a response is truncated, it includes a cursor that you can use in a subsequent request
+         * to retrieve the next set of gift cards. If a cursor is not present, this is the final response.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -134,24 +134,40 @@ public final class GetCustomAttributesRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         */
         CustomAttributeKeyStage orderId(@NotNull String orderId);
 
         Builder from(GetCustomAttributesRequest other);
     }
 
     public interface CustomAttributeKeyStage {
+        /**
+         * <p>The key of the custom attribute to retrieve.  This key must match the key of an
+         * existing custom attribute definition.</p>
+         */
         _FinalStage customAttributeKey(@NotNull String customAttributeKey);
     }
 
     public interface _FinalStage {
         GetCustomAttributesRequest build();
 
+        /**
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
         _FinalStage version(Nullable<Integer> version);
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of each
+         * custom attribute. Set this parameter to <code>true</code> to get the name and description of each custom attribute,
+         * information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         _FinalStage withDefinition(Optional<Boolean> withDefinition);
 
         _FinalStage withDefinition(Boolean withDefinition);
@@ -185,6 +201,7 @@ public final class GetCustomAttributesRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -195,6 +212,8 @@ public final class GetCustomAttributesRequest {
         }
 
         /**
+         * <p>The key of the custom attribute to retrieve.  This key must match the key of an
+         * existing custom attribute definition.</p>
          * <p>The key of the custom attribute to retrieve.  This key must match the key of an
          * existing custom attribute definition.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -236,6 +255,11 @@ public final class GetCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of each
+         * custom attribute. Set this parameter to <code>true</code> to get the name and description of each custom attribute,
+         * information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "with_definition", nulls = Nulls.SKIP)
         public _FinalStage withDefinition(Optional<Boolean> withDefinition) {
@@ -271,6 +295,10 @@ public final class GetCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

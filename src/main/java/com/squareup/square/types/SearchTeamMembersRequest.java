@@ -113,6 +113,9 @@ public final class SearchTeamMembersRequest {
             return this;
         }
 
+        /**
+         * <p>The query parameters.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<SearchTeamMembersQuery> query) {
             this.query = query;
@@ -124,6 +127,9 @@ public final class SearchTeamMembersRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of <code>TeamMember</code> objects in a page (100 by default).</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -135,6 +141,10 @@ public final class SearchTeamMembersRequest {
             return this;
         }
 
+        /**
+         * <p>The opaque cursor for fetching the next page. For more information, see
+         * <a href="https://developer.squareup.com/docs/working-with-apis/pagination">pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

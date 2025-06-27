@@ -379,6 +379,10 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>Types of the location allowed for bookings.
+         * See <a href="#type-businessappointmentsettingsbookinglocationtype">BusinessAppointmentSettingsBookingLocationType</a> for possible values</p>
+         */
         @JsonSetter(value = "location_types", nulls = Nulls.SKIP)
         public Builder locationTypes(Optional<List<BusinessAppointmentSettingsBookingLocationType>> locationTypes) {
             this.locationTypes = locationTypes;
@@ -401,6 +405,10 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The time unit of the service duration for bookings.
+         * See <a href="#type-businessappointmentsettingsalignmenttime">BusinessAppointmentSettingsAlignmentTime</a> for possible values</p>
+         */
         @JsonSetter(value = "alignment_time", nulls = Nulls.SKIP)
         public Builder alignmentTime(Optional<BusinessAppointmentSettingsAlignmentTime> alignmentTime) {
             this.alignmentTime = alignmentTime;
@@ -412,6 +420,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The minimum lead time in seconds before a service can be booked. A booking must be created at least this amount of time before its starting time.</p>
+         */
         @JsonSetter(value = "min_booking_lead_time_seconds", nulls = Nulls.SKIP)
         public Builder minBookingLeadTimeSeconds(Optional<Integer> minBookingLeadTimeSeconds) {
             this.minBookingLeadTimeSeconds = minBookingLeadTimeSeconds;
@@ -434,6 +445,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The maximum lead time in seconds before a service can be booked. A booking must be created at most this amount of time before its starting time.</p>
+         */
         @JsonSetter(value = "max_booking_lead_time_seconds", nulls = Nulls.SKIP)
         public Builder maxBookingLeadTimeSeconds(Optional<Integer> maxBookingLeadTimeSeconds) {
             this.maxBookingLeadTimeSeconds = maxBookingLeadTimeSeconds;
@@ -456,6 +470,10 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a customer can choose from all available time slots and have a staff member assigned
+         * automatically (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "any_team_member_booking_enabled", nulls = Nulls.SKIP)
         public Builder anyTeamMemberBookingEnabled(Optional<Boolean> anyTeamMemberBookingEnabled) {
             this.anyTeamMemberBookingEnabled = anyTeamMemberBookingEnabled;
@@ -478,6 +496,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a customer can book multiple services in a single online booking.</p>
+         */
         @JsonSetter(value = "multiple_service_booking_enabled", nulls = Nulls.SKIP)
         public Builder multipleServiceBookingEnabled(Optional<Boolean> multipleServiceBookingEnabled) {
             this.multipleServiceBookingEnabled = multipleServiceBookingEnabled;
@@ -500,6 +521,11 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the daily appointment limit applies to team members or to
+         * business locations.
+         * See <a href="#type-businessappointmentsettingsmaxappointmentsperdaylimittype">BusinessAppointmentSettingsMaxAppointmentsPerDayLimitType</a> for possible values</p>
+         */
         @JsonSetter(value = "max_appointments_per_day_limit_type", nulls = Nulls.SKIP)
         public Builder maxAppointmentsPerDayLimitType(
                 Optional<BusinessAppointmentSettingsMaxAppointmentsPerDayLimitType> maxAppointmentsPerDayLimitType) {
@@ -513,6 +539,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The maximum number of daily appointments per team member or per location.</p>
+         */
         @JsonSetter(value = "max_appointments_per_day_limit", nulls = Nulls.SKIP)
         public Builder maxAppointmentsPerDayLimit(Optional<Integer> maxAppointmentsPerDayLimit) {
             this.maxAppointmentsPerDayLimit = maxAppointmentsPerDayLimit;
@@ -535,6 +564,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The cut-off time in seconds for allowing clients to cancel or reschedule an appointment.</p>
+         */
         @JsonSetter(value = "cancellation_window_seconds", nulls = Nulls.SKIP)
         public Builder cancellationWindowSeconds(Optional<Integer> cancellationWindowSeconds) {
             this.cancellationWindowSeconds = cancellationWindowSeconds;
@@ -557,6 +589,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The flat-fee amount charged for a no-show booking.</p>
+         */
         @JsonSetter(value = "cancellation_fee_money", nulls = Nulls.SKIP)
         public Builder cancellationFeeMoney(Optional<Money> cancellationFeeMoney) {
             this.cancellationFeeMoney = cancellationFeeMoney;
@@ -568,6 +603,10 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The cancellation policy adopted by the seller.
+         * See <a href="#type-businessappointmentsettingscancellationpolicy">BusinessAppointmentSettingsCancellationPolicy</a> for possible values</p>
+         */
         @JsonSetter(value = "cancellation_policy", nulls = Nulls.SKIP)
         public Builder cancellationPolicy(Optional<BusinessAppointmentSettingsCancellationPolicy> cancellationPolicy) {
             this.cancellationPolicy = cancellationPolicy;
@@ -579,6 +618,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>The free-form text of the seller's cancellation policy.</p>
+         */
         @JsonSetter(value = "cancellation_policy_text", nulls = Nulls.SKIP)
         public Builder cancellationPolicyText(Optional<String> cancellationPolicyText) {
             this.cancellationPolicyText = cancellationPolicyText;
@@ -601,6 +643,9 @@ public final class BusinessAppointmentSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether customers has an assigned staff member (<code>true</code>) or can select s staff member of their choice (<code>false</code>).</p>
+         */
         @JsonSetter(value = "skip_booking_flow_staff_selection", nulls = Nulls.SKIP)
         public Builder skipBookingFlowStaffSelection(Optional<Boolean> skipBookingFlowStaffSelection) {
             this.skipBookingFlowStaffSelection = skipBookingFlowStaffSelection;

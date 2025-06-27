@@ -176,38 +176,69 @@ public final class BreakType {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the business location this type of break applies to.</p>
+         */
         BreakNameStage locationId(@NotNull String locationId);
 
         Builder from(BreakType other);
     }
 
     public interface BreakNameStage {
+        /**
+         * <p>A human-readable name for this type of break. The name is displayed to
+         * team members in Square products.</p>
+         */
         ExpectedDurationStage breakName(@NotNull String breakName);
     }
 
     public interface ExpectedDurationStage {
+        /**
+         * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
+         * this break. Precision less than minutes is truncated.</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
+         */
         IsPaidStage expectedDuration(@NotNull String expectedDuration);
     }
 
     public interface IsPaidStage {
+        /**
+         * <p>Whether this break counts towards time worked for compensation
+         * purposes.</p>
+         */
         _FinalStage isPaid(boolean isPaid);
     }
 
     public interface _FinalStage {
         BreakType build();
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If a value is not
+         * provided, Square's servers execute a &quot;blind&quot; write; potentially
+         * overwriting another writer's data.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
@@ -252,6 +283,7 @@ public final class BreakType {
 
         /**
          * <p>The ID of the business location this type of break applies to.</p>
+         * <p>The ID of the business location this type of break applies to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -262,6 +294,8 @@ public final class BreakType {
         }
 
         /**
+         * <p>A human-readable name for this type of break. The name is displayed to
+         * team members in Square products.</p>
          * <p>A human-readable name for this type of break. The name is displayed to
          * team members in Square products.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -277,6 +311,9 @@ public final class BreakType {
          * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
          * this break. Precision less than minutes is truncated.</p>
          * <p>Example for break expected duration of 15 minutes: PT15M</p>
+         * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
+         * this break. Precision less than minutes is truncated.</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -287,6 +324,8 @@ public final class BreakType {
         }
 
         /**
+         * <p>Whether this break counts towards time worked for compensation
+         * purposes.</p>
          * <p>Whether this break counts towards time worked for compensation
          * purposes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -308,6 +347,9 @@ public final class BreakType {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -325,6 +367,9 @@ public final class BreakType {
             return this;
         }
 
+        /**
+         * <p>A read-only timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -345,6 +390,12 @@ public final class BreakType {
             return this;
         }
 
+        /**
+         * <p>Used for resolving concurrency issues. The request fails if the version
+         * provided does not match the server version at the time of the request. If a value is not
+         * provided, Square's servers execute a &quot;blind&quot; write; potentially
+         * overwriting another writer's data.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -362,6 +413,9 @@ public final class BreakType {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

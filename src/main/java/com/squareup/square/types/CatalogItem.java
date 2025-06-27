@@ -726,6 +726,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The item's name. This is a searchable attribute for use in applicable query filters, its value must not be empty, and the length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -748,6 +751,14 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The item's description. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.</p>
+         * <p>Deprecated at 2022-07-20, this field is planned to retire in 6 months. You should migrate to use <code>description_html</code> to set the description
+         * of the <a href="entity:CatalogItem">CatalogItem</a> instance.  The <code>description</code> and <code>description_html</code> field values are kept in sync. If you try to
+         * set the both fields, the <code>description_html</code> text value overwrites the <code>description</code> value. Updates in one field are also reflected in the other,
+         * except for when you use an early version before Square API 2022-07-20 and <code>description_html</code> is set to blank, setting the <code>description</code> value to null
+         * does not nullify <code>description_html</code>.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -770,6 +781,10 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The text of the item's display label in the Square Point of Sale app. Only up to the first five characters of the string are used.
+         * This attribute is searchable, and its value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "abbreviation", nulls = Nulls.SKIP)
         public Builder abbreviation(Optional<String> abbreviation) {
             this.abbreviation = abbreviation;
@@ -792,6 +807,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The color of the item's display label in the Square Point of Sale app. This must be a valid hex color code.</p>
+         */
         @JsonSetter(value = "label_color", nulls = Nulls.SKIP)
         public Builder labelColor(Optional<String> labelColor) {
             this.labelColor = labelColor;
@@ -814,6 +832,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the item is taxable (<code>true</code>) or non-taxable (<code>false</code>). Default is <code>true</code>.</p>
+         */
         @JsonSetter(value = "is_taxable", nulls = Nulls.SKIP)
         public Builder isTaxable(Optional<Boolean> isTaxable) {
             this.isTaxable = isTaxable;
@@ -836,6 +857,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The ID of the item's category, if any. Deprecated since 2023-12-13. Use <code>CatalogItem.categories</code>, instead.</p>
+         */
         @JsonSetter(value = "category_id", nulls = Nulls.SKIP)
         public Builder categoryId(Optional<String> categoryId) {
             this.categoryId = categoryId;
@@ -858,6 +882,11 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A set of IDs indicating the taxes enabled for
+         * this item. When updating an item, any taxes listed here will be added to the item.
+         * Taxes may also be added to or deleted from an item using <code>UpdateItemTaxes</code>.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(Optional<List<String>> taxIds) {
             this.taxIds = taxIds;
@@ -880,6 +909,12 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A set of <code>CatalogItemModifierListInfo</code> objects
+         * representing the modifier lists that apply to this item, along with the overrides and min
+         * and max limits that are specific to this item. Modifier lists
+         * may also be added to or deleted from an item using <code>UpdateItemModifierLists</code>.</p>
+         */
         @JsonSetter(value = "modifier_list_info", nulls = Nulls.SKIP)
         public Builder modifierListInfo(Optional<List<CatalogItemModifierListInfo>> modifierListInfo) {
             this.modifierListInfo = modifierListInfo;
@@ -902,6 +937,10 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:CatalogItemVariation">CatalogItemVariation</a> objects for this item. An item must have
+         * at least one variation.</p>
+         */
         @JsonSetter(value = "variations", nulls = Nulls.SKIP)
         public Builder variations(Optional<List<CatalogObject>> variations) {
             this.variations = variations;
@@ -924,6 +963,12 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The product type of the item. Once set, the <code>product_type</code> value cannot be modified.</p>
+         * <p>Items of the <code>LEGACY_SQUARE_ONLINE_SERVICE</code> and <code>LEGACY_SQUARE_ONLINE_MEMBERSHIP</code> product types can be updated
+         * but cannot be created using the API.
+         * See <a href="#type-catalogitemproducttype">CatalogItemProductType</a> for possible values</p>
+         */
         @JsonSetter(value = "product_type", nulls = Nulls.SKIP)
         public Builder productType(Optional<CatalogItemProductType> productType) {
             this.productType = productType;
@@ -935,6 +980,14 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>If <code>false</code>, the Square Point of Sale app will present the <code>CatalogItem</code>'s
+         * details screen immediately, allowing the merchant to choose <code>CatalogModifier</code>s
+         * before adding the item to the cart.  This is the default behavior.</p>
+         * <p>If <code>true</code>, the Square Point of Sale app will immediately add the item to the cart with the pre-selected
+         * modifiers, and merchants can edit modifiers by drilling down onto the item's details.</p>
+         * <p>Third-party clients are encouraged to implement similar behaviors.</p>
+         */
         @JsonSetter(value = "skip_modifier_screen", nulls = Nulls.SKIP)
         public Builder skipModifierScreen(Optional<Boolean> skipModifierScreen) {
             this.skipModifierScreen = skipModifierScreen;
@@ -957,6 +1010,11 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>List of item options IDs for this item. Used to manage and group item
+         * variations in a specified order.</p>
+         * <p>Maximum: 6 item options.</p>
+         */
         @JsonSetter(value = "item_options", nulls = Nulls.SKIP)
         public Builder itemOptions(Optional<List<CatalogItemOptionForItem>> itemOptions) {
             this.itemOptions = itemOptions;
@@ -979,6 +1037,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>Deprecated. A URI pointing to a published e-commerce product page for the Item.</p>
+         */
         @JsonSetter(value = "ecom_uri", nulls = Nulls.SKIP)
         public Builder ecomUri(Optional<String> ecomUri) {
             this.ecomUri = ecomUri;
@@ -1001,6 +1062,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>Deprecated. A comma-separated list of encoded URIs pointing to a set of published e-commerce images for the Item.</p>
+         */
         @JsonSetter(value = "ecom_image_uris", nulls = Nulls.SKIP)
         public Builder ecomImageUris(Optional<List<String>> ecomImageUris) {
             this.ecomImageUris = ecomImageUris;
@@ -1023,6 +1087,11 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The IDs of images associated with this <code>CatalogItem</code> instance.
+         * These images will be shown to customers in Square Online Store.
+         * The first image will show up as the icon for this item in POS.</p>
+         */
         @JsonSetter(value = "image_ids", nulls = Nulls.SKIP)
         public Builder imageIds(Optional<List<String>> imageIds) {
             this.imageIds = imageIds;
@@ -1045,6 +1114,11 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A name to sort the item by. If this name is unspecified, namely, the <code>sort_name</code> field is absent, the regular <code>name</code> field is used for sorting.
+         * Its value must not be empty.</p>
+         * <p>It is currently supported for sellers of the Japanese locale only.</p>
+         */
         @JsonSetter(value = "sort_name", nulls = Nulls.SKIP)
         public Builder sortName(Optional<String> sortName) {
             this.sortName = sortName;
@@ -1067,6 +1141,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The list of categories.</p>
+         */
         @JsonSetter(value = "categories", nulls = Nulls.SKIP)
         public Builder categories(Optional<List<CatalogObjectCategory>> categories) {
             this.categories = categories;
@@ -1089,6 +1166,33 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The item's description as expressed in valid HTML elements. The length of this field value, including those of HTML tags,
+         * is of Unicode points. With application query filters, the text values of the HTML elements and attributes are searchable. Invalid or
+         * unsupported HTML elements or attributes are ignored.</p>
+         * <p>Supported HTML elements include:</p>
+         * <ul>
+         * <li><code>a</code>: Link. Supports linking to website URLs, email address, and telephone numbers.</li>
+         * <li><code>b</code>, <code>strong</code>:  Bold text</li>
+         * <li><code>br</code>: Line break</li>
+         * <li><code>code</code>: Computer code</li>
+         * <li><code>div</code>: Section</li>
+         * <li><code>h1-h6</code>: Headings</li>
+         * <li><code>i</code>, <code>em</code>: Italics</li>
+         * <li><code>li</code>: List element</li>
+         * <li><code>ol</code>: Numbered list</li>
+         * <li><code>p</code>: Paragraph</li>
+         * <li><code>ul</code>: Bullet list</li>
+         * <li><code>u</code>: Underline</li>
+         * </ul>
+         * <p>Supported HTML attributes include:</p>
+         * <ul>
+         * <li><code>align</code>: Alignment of the text content</li>
+         * <li><code>href</code>: Link destination</li>
+         * <li><code>rel</code>: Relationship between link's target and source</li>
+         * <li><code>target</code>: Place to open the linked document</li>
+         * </ul>
+         */
         @JsonSetter(value = "description_html", nulls = Nulls.SKIP)
         public Builder descriptionHtml(Optional<String> descriptionHtml) {
             this.descriptionHtml = descriptionHtml;
@@ -1111,6 +1215,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A server-generated plaintext version of the <code>description_html</code> field, without formatting tags.</p>
+         */
         @JsonSetter(value = "description_plaintext", nulls = Nulls.SKIP)
         public Builder descriptionPlaintext(Optional<String> descriptionPlaintext) {
             this.descriptionPlaintext = descriptionPlaintext;
@@ -1122,6 +1229,10 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>A list of IDs representing channels, such as a Square Online site, where the item can be made visible or available.
+         * This field is read only and cannot be edited.</p>
+         */
         @JsonSetter(value = "channels", nulls = Nulls.SKIP)
         public Builder channels(Optional<List<String>> channels) {
             this.channels = channels;
@@ -1144,6 +1255,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>Indicates whether this item is archived (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "is_archived", nulls = Nulls.SKIP)
         public Builder isArchived(Optional<Boolean> isArchived) {
             this.isArchived = isArchived;
@@ -1166,6 +1280,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The SEO data for a seller's Square Online store.</p>
+         */
         @JsonSetter(value = "ecom_seo_data", nulls = Nulls.SKIP)
         public Builder ecomSeoData(Optional<CatalogEcomSeoData> ecomSeoData) {
             this.ecomSeoData = ecomSeoData;
@@ -1177,6 +1294,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The food and beverage-specific details for the <code>FOOD_AND_BEV</code> item.</p>
+         */
         @JsonSetter(value = "food_and_beverage_details", nulls = Nulls.SKIP)
         public Builder foodAndBeverageDetails(Optional<CatalogItemFoodAndBeverageDetails> foodAndBeverageDetails) {
             this.foodAndBeverageDetails = foodAndBeverageDetails;
@@ -1188,6 +1308,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>The item's reporting category.</p>
+         */
         @JsonSetter(value = "reporting_category", nulls = Nulls.SKIP)
         public Builder reportingCategory(Optional<CatalogObjectCategory> reportingCategory) {
             this.reportingCategory = reportingCategory;
@@ -1199,6 +1322,9 @@ public final class CatalogItem {
             return this;
         }
 
+        /**
+         * <p>Indicates whether this item is alcoholic (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "is_alcoholic", nulls = Nulls.SKIP)
         public Builder isAlcoholic(Optional<Boolean> isAlcoholic) {
             this.isAlcoholic = isAlcoholic;

@@ -116,6 +116,9 @@ public final class CategoryPathToRootNode {
             return this;
         }
 
+        /**
+         * <p>The category's ID.</p>
+         */
         @JsonSetter(value = "category_id", nulls = Nulls.SKIP)
         public Builder categoryId(Optional<String> categoryId) {
             this.categoryId = categoryId;
@@ -138,6 +141,9 @@ public final class CategoryPathToRootNode {
             return this;
         }
 
+        /**
+         * <p>The category's name.</p>
+         */
         @JsonSetter(value = "category_name", nulls = Nulls.SKIP)
         public Builder categoryName(Optional<String> categoryName) {
             this.categoryName = categoryName;

@@ -97,6 +97,10 @@ public final class CreateInvoiceAttachmentRequestData {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <code>CreateInvoiceAttachment</code> request.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public Builder idempotencyKey(Optional<String> idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -108,6 +112,9 @@ public final class CreateInvoiceAttachmentRequestData {
             return this;
         }
 
+        /**
+         * <p>The description of the attachment to display on the invoice.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;

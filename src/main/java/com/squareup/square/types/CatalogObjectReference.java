@@ -116,6 +116,9 @@ public final class CatalogObjectReference {
             return this;
         }
 
+        /**
+         * <p>The ID of the referenced object.</p>
+         */
         @JsonSetter(value = "object_id", nulls = Nulls.SKIP)
         public Builder objectId(Optional<String> objectId) {
             this.objectId = objectId;
@@ -138,6 +141,9 @@ public final class CatalogObjectReference {
             return this;
         }
 
+        /**
+         * <p>The version of the object.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;

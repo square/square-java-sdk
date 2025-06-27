@@ -82,6 +82,11 @@ public final class CreateLocationRequest {
             return this;
         }
 
+        /**
+         * <p>The initial values of the location being created. The <code>name</code> field is required and must be unique within a seller account.
+         * All other fields are optional, but any information you care about for the location should be included.
+         * The remaining fields are automatically added based on the data from the <a href="https://developer.squareup.com/docs/locations-api#about-the-main-location">main location</a>.</p>
+         */
         @JsonSetter(value = "location", nulls = Nulls.SKIP)
         public Builder location(Optional<Location> location) {
             this.location = location;

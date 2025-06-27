@@ -94,6 +94,9 @@ public final class GetCustomAttributeDefinitionsRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to retrieve.</p>
+         */
         _FinalStage key(@NotNull String key);
 
         Builder from(GetCustomAttributeDefinitionsRequest other);
@@ -102,6 +105,10 @@ public final class GetCustomAttributeDefinitionsRequest {
     public interface _FinalStage {
         GetCustomAttributeDefinitionsRequest build();
 
+        /**
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
@@ -128,6 +135,7 @@ public final class GetCustomAttributeDefinitionsRequest {
         }
 
         /**
+         * <p>The key of the custom attribute definition to retrieve.</p>
          * <p>The key of the custom attribute definition to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -166,6 +174,10 @@ public final class GetCustomAttributeDefinitionsRequest {
             return this;
         }
 
+        /**
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, include this optional field and specify the current version of the custom attribute.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

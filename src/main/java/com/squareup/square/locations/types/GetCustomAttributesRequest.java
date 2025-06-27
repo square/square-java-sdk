@@ -137,24 +137,43 @@ public final class GetCustomAttributesRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Location">location</a>.</p>
+         */
         KeyStage locationId(@NotNull String locationId);
 
         Builder from(GetCustomAttributesRequest other);
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute to retrieve. This key must match the <code>key</code> of a custom
+         * attribute definition in the Square seller account. If the requesting application is not the
+         * definition owner, you must use the qualified key.</p>
+         */
         _FinalStage key(@NotNull String key);
     }
 
     public interface _FinalStage {
         GetCustomAttributesRequest build();
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of
+         * the custom attribute. Set this parameter to <code>true</code> to get the name and description of the custom
+         * attribute, information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         _FinalStage withDefinition(Optional<Boolean> withDefinition);
 
         _FinalStage withDefinition(Boolean withDefinition);
 
         _FinalStage withDefinition(Nullable<Boolean> withDefinition);
 
+        /**
+         * <p>The current version of the custom attribute, which is used for strongly consistent reads to
+         * guarantee that you receive the most up-to-date data. When included in the request, Square
+         * returns the specified version or a higher version if one exists. If the specified version is
+         * higher than the current version, Square returns a <code>BAD_REQUEST</code> error.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
@@ -188,6 +207,7 @@ public final class GetCustomAttributesRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Location">location</a>.</p>
+         * <p>The ID of the target <a href="entity:Location">location</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -198,6 +218,9 @@ public final class GetCustomAttributesRequest {
         }
 
         /**
+         * <p>The key of the custom attribute to retrieve. This key must match the <code>key</code> of a custom
+         * attribute definition in the Square seller account. If the requesting application is not the
+         * definition owner, you must use the qualified key.</p>
          * <p>The key of the custom attribute to retrieve. This key must match the <code>key</code> of a custom
          * attribute definition in the Square seller account. If the requesting application is not the
          * definition owner, you must use the qualified key.</p>
@@ -242,6 +265,12 @@ public final class GetCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>The current version of the custom attribute, which is used for strongly consistent reads to
+         * guarantee that you receive the most up-to-date data. When included in the request, Square
+         * returns the specified version or a higher version if one exists. If the specified version is
+         * higher than the current version, Square returns a <code>BAD_REQUEST</code> error.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {
@@ -279,6 +308,11 @@ public final class GetCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of
+         * the custom attribute. Set this parameter to <code>true</code> to get the name and description of the custom
+         * attribute, information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "with_definition", nulls = Nulls.SKIP)
         public _FinalStage withDefinition(Optional<Boolean> withDefinition) {

@@ -99,6 +99,9 @@ public final class RetrieveOrderCustomAttributeResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved custom attribute. If <code>with_definition</code> was set to <code>true</code> in the request, the custom attribute definition is returned in the `definition field.</p>
+         */
         @JsonSetter(value = "custom_attribute", nulls = Nulls.SKIP)
         public Builder customAttribute(Optional<CustomAttribute> customAttribute) {
             this.customAttribute = customAttribute;
@@ -110,6 +113,9 @@ public final class RetrieveOrderCustomAttributeResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

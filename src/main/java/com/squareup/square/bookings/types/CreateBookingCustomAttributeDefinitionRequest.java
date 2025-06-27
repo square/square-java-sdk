@@ -107,6 +107,30 @@ public final class CreateBookingCustomAttributeDefinitionRequest {
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition to create, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>key</code></p>
+         * </li>
+         * <li>
+         * <p><code>name</code>. If provided, <code>name</code> must be unique (case-sensitive) across all visible booking-related custom attribute
+         * definitions for the seller.</p>
+         * </li>
+         * <li>
+         * <p><code>description</code></p>
+         * </li>
+         * <li>
+         * <p><code>visibility</code>. Note that all custom attributes are visible in exported booking data, including those set to
+         * <code>VISIBILITY_HIDDEN</code>.</p>
+         * </li>
+         * <li>
+         * <p><code>schema</code>. With the exception of the <code>Selection</code> data type, the <code>schema</code> is specified as a
+         * simple URL to the JSON schema definition hosted on the Square CDN. For more information, see
+         * <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#specify-schema">Specifying the schema</a>.</p>
+         * </li>
+         * </ul>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
 
         Builder from(CreateBookingCustomAttributeDefinitionRequest other);
@@ -115,6 +139,10 @@ public final class CreateBookingCustomAttributeDefinitionRequest {
     public interface _FinalStage {
         CreateBookingCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -161,6 +189,28 @@ public final class CreateBookingCustomAttributeDefinitionRequest {
          * <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#specify-schema">Specifying the schema</a>.</p>
          * </li>
          * </ul>
+         * <p>The custom attribute definition to create, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>key</code></p>
+         * </li>
+         * <li>
+         * <p><code>name</code>. If provided, <code>name</code> must be unique (case-sensitive) across all visible booking-related custom attribute
+         * definitions for the seller.</p>
+         * </li>
+         * <li>
+         * <p><code>description</code></p>
+         * </li>
+         * <li>
+         * <p><code>visibility</code>. Note that all custom attributes are visible in exported booking data, including those set to
+         * <code>VISIBILITY_HIDDEN</code>.</p>
+         * </li>
+         * <li>
+         * <p><code>schema</code>. With the exception of the <code>Selection</code> data type, the <code>schema</code> is specified as a
+         * simple URL to the JSON schema definition hosted on the Square CDN. For more information, see
+         * <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#specify-schema">Specifying the schema</a>.</p>
+         * </li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -182,6 +232,10 @@ public final class CreateBookingCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

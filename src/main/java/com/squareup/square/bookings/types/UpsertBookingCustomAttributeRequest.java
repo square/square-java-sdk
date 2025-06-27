@@ -137,22 +137,48 @@ public final class UpsertBookingCustomAttributeRequest {
     }
 
     public interface BookingIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
+         */
         KeyStage bookingId(@NotNull String bookingId);
 
         Builder from(UpsertBookingCustomAttributeRequest other);
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
+         */
         CustomAttributeStage key(@NotNull String key);
     }
 
     public interface CustomAttributeStage {
+        /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attributes#value-data-types">Value data types</a>.</p>
+         * </li>
+         * <li>
+         * <p><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for an update operation, include this optional field and specify the current version
+         * of the custom attribute.</p>
+         * </li>
+         * </ul>
+         */
         _FinalStage customAttribute(@NotNull CustomAttribute customAttribute);
     }
 
     public interface _FinalStage {
         UpsertBookingCustomAttributeRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -186,6 +212,7 @@ public final class UpsertBookingCustomAttributeRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
+         * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -199,6 +226,9 @@ public final class UpsertBookingCustomAttributeRequest {
          * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
          * custom attribute definition in the Square seller account. If the requesting application is not
          * the definition owner, you must use the qualified key.</p>
+         * <p>The key of the custom attribute to create or update. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -209,6 +239,18 @@ public final class UpsertBookingCustomAttributeRequest {
         }
 
         /**
+         * <p>The custom attribute to create or update, with the following fields:</p>
+         * <ul>
+         * <li>
+         * <p><code>value</code>. This value must conform to the <code>schema</code> specified by the definition.
+         * For more information, see <a href="https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attributes#value-data-types">Value data types</a>.</p>
+         * </li>
+         * <li>
+         * <p><code>version</code>. To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for an update operation, include this optional field and specify the current version
+         * of the custom attribute.</p>
+         * </li>
+         * </ul>
          * <p>The custom attribute to create or update, with the following fields:</p>
          * <ul>
          * <li>
@@ -258,6 +300,10 @@ public final class UpsertBookingCustomAttributeRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

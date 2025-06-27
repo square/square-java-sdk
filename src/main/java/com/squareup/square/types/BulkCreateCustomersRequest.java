@@ -85,6 +85,13 @@ public final class BulkCreateCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>A map of 1 to 100 individual create requests, represented by <code>idempotency key: { customer data }</code>
+         * key-value pairs.</p>
+         * <p>Each key is an <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency key</a>
+         * that uniquely identifies the create request. Each value contains the customer data used to create the
+         * customer profile.</p>
+         */
         @JsonSetter(value = "customers", nulls = Nulls.SKIP)
         public Builder customers(Map<String, BulkCreateCustomerData> customers) {
             this.customers.clear();

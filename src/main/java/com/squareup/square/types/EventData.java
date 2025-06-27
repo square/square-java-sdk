@@ -160,6 +160,9 @@ public final class EventData {
             return this;
         }
 
+        /**
+         * <p>The name of the affected object’s type.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -182,6 +185,9 @@ public final class EventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the affected object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -193,6 +199,9 @@ public final class EventData {
             return this;
         }
 
+        /**
+         * <p>This is true if the affected object has been deleted; otherwise, it's absent.</p>
+         */
         @JsonSetter(value = "deleted", nulls = Nulls.SKIP)
         public Builder deleted(Optional<Boolean> deleted) {
             this.deleted = deleted;
@@ -215,6 +224,9 @@ public final class EventData {
             return this;
         }
 
+        /**
+         * <p>An object containing fields and values relevant to the event. It is absent if the affected object has been deleted.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<Map<String, Object>> object) {
             this.object = object;

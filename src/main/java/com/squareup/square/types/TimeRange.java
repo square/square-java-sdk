@@ -117,6 +117,10 @@ public final class TimeRange {
             return this;
         }
 
+        /**
+         * <p>A datetime value in RFC 3339 format indicating when the time range
+         * starts.</p>
+         */
         @JsonSetter(value = "start_at", nulls = Nulls.SKIP)
         public Builder startAt(Optional<String> startAt) {
             this.startAt = startAt;
@@ -139,6 +143,10 @@ public final class TimeRange {
             return this;
         }
 
+        /**
+         * <p>A datetime value in RFC 3339 format indicating when the time range
+         * ends.</p>
+         */
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public Builder endAt(Optional<String> endAt) {
             this.endAt = endAt;

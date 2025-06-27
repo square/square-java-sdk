@@ -82,6 +82,10 @@ public final class BatchUpdateVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>A set of <a href="entity:UpdateVendorRequest">UpdateVendorRequest</a> objects encapsulating to-be-updated <a href="entity:Vendor">Vendor</a>
+         * objects. The set is represented by  a collection of <code>Vendor</code>-ID/<code>UpdateVendorRequest</code>-object pairs.</p>
+         */
         @JsonSetter(value = "vendors", nulls = Nulls.SKIP)
         public Builder vendors(Map<String, UpdateVendorRequest> vendors) {
             this.vendors.clear();

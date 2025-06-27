@@ -191,6 +191,9 @@ public final class CatalogSubscriptionPlan {
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of the plan.</p>
+         */
         _FinalStage name(@NotNull String name);
 
         Builder from(CatalogSubscriptionPlan other);
@@ -199,30 +202,46 @@ public final class CatalogSubscriptionPlan {
     public interface _FinalStage {
         CatalogSubscriptionPlan build();
 
+        /**
+         * <p>A list of SubscriptionPhase containing the <a href="entity:SubscriptionPhase">SubscriptionPhase</a> for this plan.
+         * This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING error</p>
+         */
         _FinalStage phases(Optional<List<SubscriptionPhase>> phases);
 
         _FinalStage phases(List<SubscriptionPhase> phases);
 
         _FinalStage phases(Nullable<List<SubscriptionPhase>> phases);
 
+        /**
+         * <p>The list of subscription plan variations available for this product</p>
+         */
         _FinalStage subscriptionPlanVariations(Optional<List<CatalogObject>> subscriptionPlanVariations);
 
         _FinalStage subscriptionPlanVariations(List<CatalogObject> subscriptionPlanVariations);
 
         _FinalStage subscriptionPlanVariations(Nullable<List<CatalogObject>> subscriptionPlanVariations);
 
+        /**
+         * <p>The list of IDs of <code>CatalogItems</code> that are eligible for subscription by this SubscriptionPlan's variations.</p>
+         */
         _FinalStage eligibleItemIds(Optional<List<String>> eligibleItemIds);
 
         _FinalStage eligibleItemIds(List<String> eligibleItemIds);
 
         _FinalStage eligibleItemIds(Nullable<List<String>> eligibleItemIds);
 
+        /**
+         * <p>The list of IDs of <code>CatalogCategory</code> that are eligible for subscription by this SubscriptionPlan's variations.</p>
+         */
         _FinalStage eligibleCategoryIds(Optional<List<String>> eligibleCategoryIds);
 
         _FinalStage eligibleCategoryIds(List<String> eligibleCategoryIds);
 
         _FinalStage eligibleCategoryIds(Nullable<List<String>> eligibleCategoryIds);
 
+        /**
+         * <p>If true, all items in the merchant's catalog are subscribable by this SubscriptionPlan.</p>
+         */
         _FinalStage allItems(Optional<Boolean> allItems);
 
         _FinalStage allItems(Boolean allItems);
@@ -262,6 +281,7 @@ public final class CatalogSubscriptionPlan {
 
         /**
          * <p>The name of the plan.</p>
+         * <p>The name of the plan.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -297,6 +317,9 @@ public final class CatalogSubscriptionPlan {
             return this;
         }
 
+        /**
+         * <p>If true, all items in the merchant's catalog are subscribable by this SubscriptionPlan.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "all_items", nulls = Nulls.SKIP)
         public _FinalStage allItems(Optional<Boolean> allItems) {
@@ -330,6 +353,9 @@ public final class CatalogSubscriptionPlan {
             return this;
         }
 
+        /**
+         * <p>The list of IDs of <code>CatalogCategory</code> that are eligible for subscription by this SubscriptionPlan's variations.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "eligible_category_ids", nulls = Nulls.SKIP)
         public _FinalStage eligibleCategoryIds(Optional<List<String>> eligibleCategoryIds) {
@@ -363,6 +389,9 @@ public final class CatalogSubscriptionPlan {
             return this;
         }
 
+        /**
+         * <p>The list of IDs of <code>CatalogItems</code> that are eligible for subscription by this SubscriptionPlan's variations.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "eligible_item_ids", nulls = Nulls.SKIP)
         public _FinalStage eligibleItemIds(Optional<List<String>> eligibleItemIds) {
@@ -396,6 +425,9 @@ public final class CatalogSubscriptionPlan {
             return this;
         }
 
+        /**
+         * <p>The list of subscription plan variations available for this product</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "subscription_plan_variations", nulls = Nulls.SKIP)
         public _FinalStage subscriptionPlanVariations(Optional<List<CatalogObject>> subscriptionPlanVariations) {
@@ -431,6 +463,10 @@ public final class CatalogSubscriptionPlan {
             return this;
         }
 
+        /**
+         * <p>A list of SubscriptionPhase containing the <a href="entity:SubscriptionPhase">SubscriptionPhase</a> for this plan.
+         * This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING error</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(Optional<List<SubscriptionPhase>> phases) {

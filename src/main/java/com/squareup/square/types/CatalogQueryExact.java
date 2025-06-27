@@ -78,12 +78,19 @@ public final class CatalogQueryExact {
     }
 
     public interface AttributeNameStage {
+        /**
+         * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
+         */
         AttributeValueStage attributeName(@NotNull String attributeName);
 
         Builder from(CatalogQueryExact other);
     }
 
     public interface AttributeValueStage {
+        /**
+         * <p>The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial.
+         * For example, if a specified value of &quot;sma&quot;, objects with the named attribute value of &quot;Small&quot;, &quot;small&quot; are both matched.</p>
+         */
         _FinalStage attributeValue(@NotNull String attributeValue);
     }
 
@@ -111,6 +118,7 @@ public final class CatalogQueryExact {
 
         /**
          * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
+         * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +129,8 @@ public final class CatalogQueryExact {
         }
 
         /**
+         * <p>The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial.
+         * For example, if a specified value of &quot;sma&quot;, objects with the named attribute value of &quot;Small&quot;, &quot;small&quot; are both matched.</p>
          * <p>The desired value of the search attribute. Matching of the attribute value is case insensitive and can be partial.
          * For example, if a specified value of &quot;sma&quot;, objects with the named attribute value of &quot;Small&quot;, &quot;small&quot; are both matched.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

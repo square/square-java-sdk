@@ -116,22 +116,41 @@ public final class CreateCatalogImageRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this CreateCatalogImage request.
+         * Keys can be any valid string but must be unique for every CreateCatalogImage request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         */
         ImageStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateCatalogImageRequest other);
     }
 
     public interface ImageStage {
+        /**
+         * <p>The new <code>CatalogObject</code> of the <code>IMAGE</code> type, namely, a <code>CatalogImage</code> object, to encapsulate the specified image file.</p>
+         */
         _FinalStage image(@NotNull CatalogObject image);
     }
 
     public interface _FinalStage {
         CreateCatalogImageRequest build();
 
+        /**
+         * <p>Unique ID of the <code>CatalogObject</code> to attach this <code>CatalogImage</code> object to. Leave this
+         * field empty to create unattached images, for example if you are building an integration
+         * where an image can be attached to catalog items at a later time.</p>
+         */
         _FinalStage objectId(Optional<String> objectId);
 
         _FinalStage objectId(String objectId);
 
+        /**
+         * <p>If this is set to <code>true</code>, the image created will be the primary, or first image of the object referenced by <code>object_id</code>.
+         * If the <code>CatalogObject</code> already has a primary <code>CatalogImage</code>, setting this field to <code>true</code> will replace the primary image.
+         * If this is set to <code>false</code> and you use the Square API version 2021-12-15 or later, the image id will be appended to the list of <code>image_ids</code> on the object.</p>
+         * <p>With Square API version 2021-12-15 or later, the default value is <code>false</code>. Otherwise, the effective default value is <code>true</code>.</p>
+         */
         _FinalStage isPrimary(Optional<Boolean> isPrimary);
 
         _FinalStage isPrimary(Boolean isPrimary);
@@ -165,6 +184,9 @@ public final class CreateCatalogImageRequest {
          * <p>A unique string that identifies this CreateCatalogImage request.
          * Keys can be any valid string but must be unique for every CreateCatalogImage request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         * <p>A unique string that identifies this CreateCatalogImage request.
+         * Keys can be any valid string but must be unique for every CreateCatalogImage request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -175,6 +197,7 @@ public final class CreateCatalogImageRequest {
         }
 
         /**
+         * <p>The new <code>CatalogObject</code> of the <code>IMAGE</code> type, namely, a <code>CatalogImage</code> object, to encapsulate the specified image file.</p>
          * <p>The new <code>CatalogObject</code> of the <code>IMAGE</code> type, namely, a <code>CatalogImage</code> object, to encapsulate the specified image file.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -198,6 +221,12 @@ public final class CreateCatalogImageRequest {
             return this;
         }
 
+        /**
+         * <p>If this is set to <code>true</code>, the image created will be the primary, or first image of the object referenced by <code>object_id</code>.
+         * If the <code>CatalogObject</code> already has a primary <code>CatalogImage</code>, setting this field to <code>true</code> will replace the primary image.
+         * If this is set to <code>false</code> and you use the Square API version 2021-12-15 or later, the image id will be appended to the list of <code>image_ids</code> on the object.</p>
+         * <p>With Square API version 2021-12-15 or later, the default value is <code>false</code>. Otherwise, the effective default value is <code>true</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "is_primary", nulls = Nulls.SKIP)
         public _FinalStage isPrimary(Optional<Boolean> isPrimary) {
@@ -217,6 +246,11 @@ public final class CreateCatalogImageRequest {
             return this;
         }
 
+        /**
+         * <p>Unique ID of the <code>CatalogObject</code> to attach this <code>CatalogImage</code> object to. Leave this
+         * field empty to create unattached images, for example if you are building an integration
+         * where an image can be attached to catalog items at a later time.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "object_id", nulls = Nulls.SKIP)
         public _FinalStage objectId(Optional<String> objectId) {

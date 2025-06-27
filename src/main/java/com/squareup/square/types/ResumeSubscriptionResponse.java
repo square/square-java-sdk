@@ -113,6 +113,9 @@ public final class ResumeSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -124,6 +127,9 @@ public final class ResumeSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The resumed subscription.</p>
+         */
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public Builder subscription(Optional<Subscription> subscription) {
             this.subscription = subscription;
@@ -135,6 +141,9 @@ public final class ResumeSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <code>RESUME</code> actions created by the request and scheduled for the subscription.</p>
+         */
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
         public Builder actions(Optional<List<SubscriptionAction>> actions) {
             this.actions = actions;

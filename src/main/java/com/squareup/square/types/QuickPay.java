@@ -88,16 +88,25 @@ public final class QuickPay {
     }
 
     public interface NameStage {
+        /**
+         * <p>The ad hoc item name. In the resulting <code>Order</code>, this name appears as the line item name.</p>
+         */
         PriceMoneyStage name(@NotNull String name);
 
         Builder from(QuickPay other);
     }
 
     public interface PriceMoneyStage {
+        /**
+         * <p>The price of the item.</p>
+         */
         LocationIdStage priceMoney(@NotNull Money priceMoney);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the business location the checkout is associated with.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
@@ -128,6 +137,7 @@ public final class QuickPay {
 
         /**
          * <p>The ad hoc item name. In the resulting <code>Order</code>, this name appears as the line item name.</p>
+         * <p>The ad hoc item name. In the resulting <code>Order</code>, this name appears as the line item name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -139,6 +149,7 @@ public final class QuickPay {
 
         /**
          * <p>The price of the item.</p>
+         * <p>The price of the item.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -149,6 +160,7 @@ public final class QuickPay {
         }
 
         /**
+         * <p>The ID of the business location the checkout is associated with.</p>
          * <p>The ID of the business location the checkout is associated with.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

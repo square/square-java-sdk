@@ -117,6 +117,9 @@ public final class CalculateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -128,6 +131,9 @@ public final class CalculateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>The number of points that the buyer can earn from the base loyalty program.</p>
+         */
         @JsonSetter(value = "points", nulls = Nulls.SKIP)
         public Builder points(Optional<Integer> points) {
             this.points = points;
@@ -139,6 +145,11 @@ public final class CalculateLoyaltyPointsResponse {
             return this;
         }
 
+        /**
+         * <p>The number of points that the buyer can earn from a loyalty promotion. To be eligible
+         * to earn promotion points, the purchase must first qualify for program points. When <code>order_id</code>
+         * is not provided in the request, this value is always 0.</p>
+         */
         @JsonSetter(value = "promotion_points", nulls = Nulls.SKIP)
         public Builder promotionPoints(Optional<Integer> promotionPoints) {
             this.promotionPoints = promotionPoints;

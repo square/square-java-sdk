@@ -115,6 +115,9 @@ public final class CloneOrderRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the order to clone.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(CloneOrderRequest other);
@@ -123,10 +126,23 @@ public final class CloneOrderRequest {
     public interface _FinalStage {
         CloneOrderRequest build();
 
+        /**
+         * <p>An optional order version for concurrency protection.</p>
+         * <p>If a version is provided, it must match the latest stored version of the order to clone.
+         * If a version is not provided, the API clones the latest version.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>A value you specify that uniquely identifies this clone request.</p>
+         * <p>If you are unsure whether a particular order was cloned successfully,
+         * you can reattempt the call with the same idempotency key without
+         * worrying about creating duplicate cloned orders.
+         * The originally cloned order is returned.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -156,6 +172,7 @@ public final class CloneOrderRequest {
         }
 
         /**
+         * <p>The ID of the order to clone.</p>
          * <p>The ID of the order to clone.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -202,6 +219,14 @@ public final class CloneOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A value you specify that uniquely identifies this clone request.</p>
+         * <p>If you are unsure whether a particular order was cloned successfully,
+         * you can reattempt the call with the same idempotency key without
+         * worrying about creating duplicate cloned orders.
+         * The originally cloned order is returned.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {
@@ -221,6 +246,11 @@ public final class CloneOrderRequest {
             return this;
         }
 
+        /**
+         * <p>An optional order version for concurrency protection.</p>
+         * <p>If a version is provided, it must match the latest stored version of the order to clone.
+         * If a version is not provided, the API clones the latest version.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

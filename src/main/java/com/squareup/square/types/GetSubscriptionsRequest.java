@@ -96,6 +96,9 @@ public final class GetSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to retrieve.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(GetSubscriptionsRequest other);
@@ -104,6 +107,13 @@ public final class GetSubscriptionsRequest {
     public interface _FinalStage {
         GetSubscriptionsRequest build();
 
+        /**
+         * <p>A query parameter to specify related information to be included in the response.</p>
+         * <p>The supported query parameter values are:</p>
+         * <ul>
+         * <li><code>actions</code>: to include scheduled actions on the targeted subscription.</li>
+         * </ul>
+         */
         _FinalStage include(Optional<String> include);
 
         _FinalStage include(String include);
@@ -130,6 +140,7 @@ public final class GetSubscriptionsRequest {
         }
 
         /**
+         * <p>The ID of the subscription to retrieve.</p>
          * <p>The ID of the subscription to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -174,6 +185,13 @@ public final class GetSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>A query parameter to specify related information to be included in the response.</p>
+         * <p>The supported query parameter values are:</p>
+         * <ul>
+         * <li><code>actions</code>: to include scheduled actions on the targeted subscription.</li>
+         * </ul>
+         */
         @java.lang.Override
         @JsonSetter(value = "include", nulls = Nulls.SKIP)
         public _FinalStage include(Optional<String> include) {

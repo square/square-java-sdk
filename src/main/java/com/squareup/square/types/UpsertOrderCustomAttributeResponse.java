@@ -99,6 +99,9 @@ public final class UpsertOrderCustomAttributeResponse {
             return this;
         }
 
+        /**
+         * <p>The order custom attribute that was created or modified.</p>
+         */
         @JsonSetter(value = "custom_attribute", nulls = Nulls.SKIP)
         public Builder customAttribute(Optional<CustomAttribute> customAttribute) {
             this.customAttribute = customAttribute;
@@ -110,6 +113,9 @@ public final class UpsertOrderCustomAttributeResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

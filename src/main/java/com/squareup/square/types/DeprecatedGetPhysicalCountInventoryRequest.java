@@ -69,6 +69,10 @@ public final class DeprecatedGetPhysicalCountInventoryRequest {
     }
 
     public interface PhysicalCountIdStage {
+        /**
+         * <p>ID of the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
+         */
         _FinalStage physicalCountId(@NotNull String physicalCountId);
 
         Builder from(DeprecatedGetPhysicalCountInventoryRequest other);
@@ -94,6 +98,8 @@ public final class DeprecatedGetPhysicalCountInventoryRequest {
         }
 
         /**
+         * <p>ID of the
+         * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
          * <p>ID of the
          * <a href="entity:InventoryPhysicalCount">InventoryPhysicalCount</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

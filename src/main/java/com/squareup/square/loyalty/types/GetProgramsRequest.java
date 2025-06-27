@@ -66,6 +66,9 @@ public final class GetProgramsRequest {
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the loyalty program or the keyword <code>main</code>. Either value can be used to retrieve the single loyalty program that belongs to the seller.</p>
+         */
         _FinalStage programId(@NotNull String programId);
 
         Builder from(GetProgramsRequest other);
@@ -91,6 +94,7 @@ public final class GetProgramsRequest {
         }
 
         /**
+         * <p>The ID of the loyalty program or the keyword <code>main</code>. Either value can be used to retrieve the single loyalty program that belongs to the seller.</p>
          * <p>The ID of the loyalty program or the keyword <code>main</code>. Either value can be used to retrieve the single loyalty program that belongs to the seller.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

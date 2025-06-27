@@ -80,6 +80,9 @@ public final class CollectedData {
             return this;
         }
 
+        /**
+         * <p>The buyer's input text.</p>
+         */
         @JsonSetter(value = "input_text", nulls = Nulls.SKIP)
         public Builder inputText(Optional<String> inputText) {
             this.inputText = inputText;

@@ -66,6 +66,9 @@ public final class GetShiftsRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>Shift</code> being retrieved.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetShiftsRequest other);
@@ -91,6 +94,7 @@ public final class GetShiftsRequest {
         }
 
         /**
+         * <p>The UUID for the <code>Shift</code> being retrieved.</p>
          * <p>The UUID for the <code>Shift</code> being retrieved.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

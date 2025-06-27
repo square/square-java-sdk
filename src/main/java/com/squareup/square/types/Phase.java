@@ -169,6 +169,9 @@ public final class Phase {
             return this;
         }
 
+        /**
+         * <p>id of subscription phase</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -191,6 +194,9 @@ public final class Phase {
             return this;
         }
 
+        /**
+         * <p>index of phase in total subscription plan</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Long> ordinal) {
             this.ordinal = ordinal;
@@ -213,6 +219,9 @@ public final class Phase {
             return this;
         }
 
+        /**
+         * <p>id of order to be used in billing</p>
+         */
         @JsonSetter(value = "order_template_id", nulls = Nulls.SKIP)
         public Builder orderTemplateId(Optional<String> orderTemplateId) {
             this.orderTemplateId = orderTemplateId;
@@ -235,6 +244,9 @@ public final class Phase {
             return this;
         }
 
+        /**
+         * <p>the uid from the plan's phase in catalog</p>
+         */
         @JsonSetter(value = "plan_phase_uid", nulls = Nulls.SKIP)
         public Builder planPhaseUid(Optional<String> planPhaseUid) {
             this.planPhaseUid = planPhaseUid;

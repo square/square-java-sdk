@@ -81,6 +81,9 @@ public final class LoyaltyAccountUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The loyalty account that was updated.</p>
+         */
         @JsonSetter(value = "loyalty_account", nulls = Nulls.SKIP)
         public Builder loyaltyAccount(Optional<LoyaltyAccount> loyaltyAccount) {
             this.loyaltyAccount = loyaltyAccount;

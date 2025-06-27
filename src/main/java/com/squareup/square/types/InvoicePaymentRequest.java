@@ -384,6 +384,9 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the payment request in an <a href="entity:Invoice">invoice</a>.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -406,6 +409,17 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates how Square processes the payment request. DEPRECATED at version 2021-01-21. Replaced by the
+         * <code>Invoice.delivery_method</code> and <code>InvoicePaymentRequest.automatic_payment_source</code> fields.</p>
+         * <p>One of the following is required when creating an invoice:</p>
+         * <ul>
+         * <li>(Recommended) The <code>delivery_method</code> field of the invoice. To configure an automatic payment, the
+         * <code>automatic_payment_source</code> field of the payment request is also required.</li>
+         * <li>This <code>request_method</code> field. Note that <code>invoice</code> objects returned in responses do not include <code>request_method</code>.
+         * See <a href="#type-invoicerequestmethod">InvoiceRequestMethod</a> for possible values</li>
+         * </ul>
+         */
         @JsonSetter(value = "request_method", nulls = Nulls.SKIP)
         public Builder requestMethod(Optional<InvoiceRequestMethod> requestMethod) {
             this.requestMethod = requestMethod;
@@ -417,6 +431,11 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Identifies the payment request type. This type defines how the payment request amount is determined.
+         * This field is required to create a payment request.
+         * See <a href="#type-invoicerequesttype">InvoiceRequestType</a> for possible values</p>
+         */
         @JsonSetter(value = "request_type", nulls = Nulls.SKIP)
         public Builder requestType(Optional<InvoiceRequestType> requestType) {
             this.requestType = requestType;
@@ -428,6 +447,14 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The due date (in the invoice's time zone) for the payment request, in <code>YYYY-MM-DD</code> format. This field
+         * is required to create a payment request. If an <code>automatic_payment_source</code> is defined for the request, Square
+         * charges the payment source on this date.</p>
+         * <p>After this date, the invoice becomes overdue. For example, a payment <code>due_date</code> of 2021-03-09 with a <code>timezone</code>
+         * of America/Los_Angeles becomes overdue at midnight on March 9 in America/Los_Angeles (which equals a UTC
+         * timestamp of 2021-03-10T08:00:00Z).</p>
+         */
         @JsonSetter(value = "due_date", nulls = Nulls.SKIP)
         public Builder dueDate(Optional<String> dueDate) {
             this.dueDate = dueDate;
@@ -450,6 +477,12 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>If the payment request specifies <code>DEPOSIT</code> or <code>INSTALLMENT</code> as the <code>request_type</code>,
+         * this indicates the request amount.
+         * You cannot specify this when <code>request_type</code> is <code>BALANCE</code> or when the
+         * payment request includes the <code>percentage_requested</code> field.</p>
+         */
         @JsonSetter(value = "fixed_amount_requested_money", nulls = Nulls.SKIP)
         public Builder fixedAmountRequestedMoney(Optional<Money> fixedAmountRequestedMoney) {
             this.fixedAmountRequestedMoney = fixedAmountRequestedMoney;
@@ -461,6 +494,17 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies the amount for the payment request in percentage:</p>
+         * <ul>
+         * <li>When the payment <code>request_type</code> is <code>DEPOSIT</code>, it is the percentage of the order's total amount.</li>
+         * <li>When the payment <code>request_type</code> is <code>INSTALLMENT</code>, it is the percentage of the order's total less
+         * the deposit, if requested. The sum of the <code>percentage_requested</code> in all installment
+         * payment requests must be equal to 100.</li>
+         * </ul>
+         * <p>You cannot specify this when the payment <code>request_type</code> is <code>BALANCE</code> or when the
+         * payment request specifies the <code>fixed_amount_requested_money</code> field.</p>
+         */
         @JsonSetter(value = "percentage_requested", nulls = Nulls.SKIP)
         public Builder percentageRequested(Optional<String> percentageRequested) {
             this.percentageRequested = percentageRequested;
@@ -483,6 +527,12 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>If set to true, the Square-hosted invoice page (the <code>public_url</code> field of the invoice)
+         * provides a place for the customer to pay a tip.</p>
+         * <p>This field is allowed only on the final payment request
+         * and the payment <code>request_type</code> must be <code>BALANCE</code> or <code>INSTALLMENT</code>.</p>
+         */
         @JsonSetter(value = "tipping_enabled", nulls = Nulls.SKIP)
         public Builder tippingEnabled(Optional<Boolean> tippingEnabled) {
             this.tippingEnabled = tippingEnabled;
@@ -505,6 +555,11 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The payment method for an automatic payment.</p>
+         * <p>The default value is <code>NONE</code>.
+         * See <a href="#type-invoiceautomaticpaymentsource">InvoiceAutomaticPaymentSource</a> for possible values</p>
+         */
         @JsonSetter(value = "automatic_payment_source", nulls = Nulls.SKIP)
         public Builder automaticPaymentSource(Optional<InvoiceAutomaticPaymentSource> automaticPaymentSource) {
             this.automaticPaymentSource = automaticPaymentSource;
@@ -516,6 +571,10 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the credit or debit card on file to charge for the payment request. To get the cards on file for a customer,
+         * call <a href="api-endpoint:Cards-ListCards">ListCards</a> and include the <code>customer_id</code> of the invoice recipient.</p>
+         */
         @JsonSetter(value = "card_id", nulls = Nulls.SKIP)
         public Builder cardId(Optional<String> cardId) {
             this.cardId = cardId;
@@ -538,6 +597,9 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>A list of one or more reminders to send for the payment request.</p>
+         */
         @JsonSetter(value = "reminders", nulls = Nulls.SKIP)
         public Builder reminders(Optional<List<InvoicePaymentReminder>> reminders) {
             this.reminders = reminders;
@@ -560,6 +622,10 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The amount of the payment request, computed using the order amount and information from the various payment
+         * request fields (<code>request_type</code>, <code>fixed_amount_requested_money</code>, and <code>percentage_requested</code>).</p>
+         */
         @JsonSetter(value = "computed_amount_money", nulls = Nulls.SKIP)
         public Builder computedAmountMoney(Optional<Money> computedAmountMoney) {
             this.computedAmountMoney = computedAmountMoney;
@@ -571,6 +637,11 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The amount of money already paid for the specific payment request.
+         * This amount might include a rounding adjustment if the most recent invoice payment
+         * was in cash in a currency that rounds cash payments (such as, <code>CAD</code> or <code>AUD</code>).</p>
+         */
         @JsonSetter(value = "total_completed_amount_money", nulls = Nulls.SKIP)
         public Builder totalCompletedAmountMoney(Optional<Money> totalCompletedAmountMoney) {
             this.totalCompletedAmountMoney = totalCompletedAmountMoney;
@@ -582,6 +653,13 @@ public final class InvoicePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>If the most recent payment was a cash payment
+         * in a currency that rounds cash payments (such as, <code>CAD</code> or <code>AUD</code>) and the payment
+         * is rounded from <code>computed_amount_money</code> in the payment request, then this
+         * field specifies the rounding adjustment applied. This amount
+         * might be negative.</p>
+         */
         @JsonSetter(value = "rounding_adjustment_included_money", nulls = Nulls.SKIP)
         public Builder roundingAdjustmentIncludedMoney(Optional<Money> roundingAdjustmentIncludedMoney) {
             this.roundingAdjustmentIncludedMoney = roundingAdjustmentIncludedMoney;

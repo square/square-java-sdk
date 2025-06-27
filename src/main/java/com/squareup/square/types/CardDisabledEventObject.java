@@ -80,6 +80,9 @@ public final class CardDisabledEventObject {
             return this;
         }
 
+        /**
+         * <p>The disabled card.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;

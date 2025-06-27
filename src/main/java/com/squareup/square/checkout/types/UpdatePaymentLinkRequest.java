@@ -79,12 +79,19 @@ public final class UpdatePaymentLinkRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the payment link to update.</p>
+         */
         PaymentLinkStage id(@NotNull String id);
 
         Builder from(UpdatePaymentLinkRequest other);
     }
 
     public interface PaymentLinkStage {
+        /**
+         * <p>The <code>payment_link</code> object describing the updates to apply.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/manage-checkout#update-a-payment-link">Update a payment link</a>.</p>
+         */
         _FinalStage paymentLink(@NotNull PaymentLink paymentLink);
     }
 
@@ -112,6 +119,7 @@ public final class UpdatePaymentLinkRequest {
 
         /**
          * <p>The ID of the payment link to update.</p>
+         * <p>The ID of the payment link to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +130,8 @@ public final class UpdatePaymentLinkRequest {
         }
 
         /**
+         * <p>The <code>payment_link</code> object describing the updates to apply.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/manage-checkout#update-a-payment-link">Update a payment link</a>.</p>
          * <p>The <code>payment_link</code> object describing the updates to apply.
          * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/manage-checkout#update-a-payment-link">Update a payment link</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

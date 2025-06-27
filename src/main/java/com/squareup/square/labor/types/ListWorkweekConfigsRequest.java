@@ -116,6 +116,9 @@ public final class ListWorkweekConfigsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of <code>WorkweekConfigs</code> results to return per page.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -138,6 +141,9 @@ public final class ListWorkweekConfigsRequest {
             return this;
         }
 
+        /**
+         * <p>A pointer to the next page of <code>WorkweekConfig</code> results to fetch.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

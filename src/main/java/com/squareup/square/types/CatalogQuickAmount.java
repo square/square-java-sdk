@@ -132,24 +132,38 @@ public final class CatalogQuickAmount {
     }
 
     public interface TypeStage {
+        /**
+         * <p>Represents the type of the Quick Amount.
+         * See <a href="#type-catalogquickamounttype">CatalogQuickAmountType</a> for possible values</p>
+         */
         AmountStage type(@NotNull CatalogQuickAmountType type);
 
         Builder from(CatalogQuickAmount other);
     }
 
     public interface AmountStage {
+        /**
+         * <p>Represents the actual amount of the Quick Amount with Money type.</p>
+         */
         _FinalStage amount(@NotNull Money amount);
     }
 
     public interface _FinalStage {
         CatalogQuickAmount build();
 
+        /**
+         * <p>Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].
+         * MANUAL type amount will always have score = 100.</p>
+         */
         _FinalStage score(Optional<Long> score);
 
         _FinalStage score(Long score);
 
         _FinalStage score(Nullable<Long> score);
 
+        /**
+         * <p>The order in which this Quick Amount should be displayed.</p>
+         */
         _FinalStage ordinal(Optional<Long> ordinal);
 
         _FinalStage ordinal(Long ordinal);
@@ -184,6 +198,8 @@ public final class CatalogQuickAmount {
         /**
          * <p>Represents the type of the Quick Amount.
          * See <a href="#type-catalogquickamounttype">CatalogQuickAmountType</a> for possible values</p>
+         * <p>Represents the type of the Quick Amount.
+         * See <a href="#type-catalogquickamounttype">CatalogQuickAmountType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -194,6 +210,7 @@ public final class CatalogQuickAmount {
         }
 
         /**
+         * <p>Represents the actual amount of the Quick Amount with Money type.</p>
          * <p>Represents the actual amount of the Quick Amount with Money type.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -230,6 +247,9 @@ public final class CatalogQuickAmount {
             return this;
         }
 
+        /**
+         * <p>The order in which this Quick Amount should be displayed.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public _FinalStage ordinal(Optional<Long> ordinal) {
@@ -265,6 +285,10 @@ public final class CatalogQuickAmount {
             return this;
         }
 
+        /**
+         * <p>Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].
+         * MANUAL type amount will always have score = 100.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "score", nulls = Nulls.SKIP)
         public _FinalStage score(Optional<Long> score) {

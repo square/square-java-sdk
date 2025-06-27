@@ -67,6 +67,10 @@ public final class GetLocationsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to retrieve. Specify the string
+         * &quot;main&quot; to return the main location.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(GetLocationsRequest other);
@@ -92,6 +96,8 @@ public final class GetLocationsRequest {
         }
 
         /**
+         * <p>The ID of the location to retrieve. Specify the string
+         * &quot;main&quot; to return the main location.</p>
          * <p>The ID of the location to retrieve. Specify the string
          * &quot;main&quot; to return the main location.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

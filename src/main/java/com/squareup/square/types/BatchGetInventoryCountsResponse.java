@@ -116,6 +116,9 @@ public final class BatchGetInventoryCountsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,10 @@ public final class BatchGetInventoryCountsResponse {
             return this;
         }
 
+        /**
+         * <p>The current calculated inventory counts for the requested objects
+         * and locations.</p>
+         */
         @JsonSetter(value = "counts", nulls = Nulls.SKIP)
         public Builder counts(Optional<List<InventoryCount>> counts) {
             this.counts = counts;
@@ -138,6 +145,11 @@ public final class BatchGetInventoryCountsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If unset,
+         * this is the final response.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -78,12 +78,18 @@ public final class UpdateLocationSettingsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location for which to retrieve settings.</p>
+         */
         LocationSettingsStage locationId(@NotNull String locationId);
 
         Builder from(UpdateLocationSettingsRequest other);
     }
 
     public interface LocationSettingsStage {
+        /**
+         * <p>Describe your updates using the <code>location_settings</code> object. Make sure it contains only the fields that have changed.</p>
+         */
         _FinalStage locationSettings(@NotNull CheckoutLocationSettings locationSettings);
     }
 
@@ -111,6 +117,7 @@ public final class UpdateLocationSettingsRequest {
 
         /**
          * <p>The ID of the location for which to retrieve settings.</p>
+         * <p>The ID of the location for which to retrieve settings.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class UpdateLocationSettingsRequest {
         }
 
         /**
+         * <p>Describe your updates using the <code>location_settings</code> object. Make sure it contains only the fields that have changed.</p>
          * <p>Describe your updates using the <code>location_settings</code> object. Make sure it contains only the fields that have changed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

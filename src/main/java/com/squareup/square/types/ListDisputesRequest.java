@@ -145,6 +145,11 @@ public final class ListDisputesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -167,6 +172,9 @@ public final class ListDisputesRequest {
             return this;
         }
 
+        /**
+         * <p>The dispute states used to filter the result. If not specified, the endpoint returns all disputes.</p>
+         */
         @JsonSetter(value = "states", nulls = Nulls.SKIP)
         public Builder states(Optional<DisputeState> states) {
             this.states = states;
@@ -189,6 +197,10 @@ public final class ListDisputesRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the location for which to return a list of disputes.
+         * If not specified, the endpoint returns disputes associated with all locations.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

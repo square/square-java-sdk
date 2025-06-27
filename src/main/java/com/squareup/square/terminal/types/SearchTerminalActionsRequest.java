@@ -117,6 +117,10 @@ public final class SearchTerminalActionsRequest {
             return this;
         }
 
+        /**
+         * <p>Queries terminal actions based on given conditions and sort order.
+         * Leaving this unset will return all actions with the default sort order.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<TerminalActionQuery> query) {
             this.query = query;
@@ -128,6 +132,12 @@ public final class SearchTerminalActionsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for the original query.
+         * See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more
+         * information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -139,6 +149,9 @@ public final class SearchTerminalActionsRequest {
             return this;
         }
 
+        /**
+         * <p>Limit the number of results returned for a single request.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

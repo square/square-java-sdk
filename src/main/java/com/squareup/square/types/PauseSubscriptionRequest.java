@@ -188,6 +188,9 @@ public final class PauseSubscriptionRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to pause.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(PauseSubscriptionRequest other);
@@ -196,28 +199,51 @@ public final class PauseSubscriptionRequest {
     public interface _FinalStage {
         PauseSubscriptionRequest build();
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the scheduled <code>PAUSE</code> action takes place on the subscription.</p>
+         * <p>When this date is unspecified or falls within the current billing cycle, the subscription is paused
+         * on the starting date of the next billing cycle.</p>
+         */
         _FinalStage pauseEffectiveDate(Optional<String> pauseEffectiveDate);
 
         _FinalStage pauseEffectiveDate(String pauseEffectiveDate);
 
         _FinalStage pauseEffectiveDate(Nullable<String> pauseEffectiveDate);
 
+        /**
+         * <p>The number of billing cycles the subscription will be paused before it is reactivated.</p>
+         * <p>When this is set, a <code>RESUME</code> action is also scheduled to take place on the subscription at
+         * the end of the specified pause cycle duration. In this case, neither <code>resume_effective_date</code>
+         * nor <code>resume_change_timing</code> may be specified.</p>
+         */
         _FinalStage pauseCycleDuration(Optional<Long> pauseCycleDuration);
 
         _FinalStage pauseCycleDuration(Long pauseCycleDuration);
 
         _FinalStage pauseCycleDuration(Nullable<Long> pauseCycleDuration);
 
+        /**
+         * <p>The date when the subscription is reactivated by a scheduled <code>RESUME</code> action.
+         * This date must be at least one billing cycle ahead of <code>pause_effective_date</code>.</p>
+         */
         _FinalStage resumeEffectiveDate(Optional<String> resumeEffectiveDate);
 
         _FinalStage resumeEffectiveDate(String resumeEffectiveDate);
 
         _FinalStage resumeEffectiveDate(Nullable<String> resumeEffectiveDate);
 
+        /**
+         * <p>The timing whether the subscription is reactivated immediately or at the end of the billing cycle, relative to
+         * <code>resume_effective_date</code>.
+         * See <a href="#type-changetiming">ChangeTiming</a> for possible values</p>
+         */
         _FinalStage resumeChangeTiming(Optional<ChangeTiming> resumeChangeTiming);
 
         _FinalStage resumeChangeTiming(ChangeTiming resumeChangeTiming);
 
+        /**
+         * <p>The user-provided reason to pause the subscription.</p>
+         */
         _FinalStage pauseReason(Optional<String> pauseReason);
 
         _FinalStage pauseReason(String pauseReason);
@@ -257,6 +283,7 @@ public final class PauseSubscriptionRequest {
 
         /**
          * <p>The ID of the subscription to pause.</p>
+         * <p>The ID of the subscription to pause.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -292,6 +319,9 @@ public final class PauseSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The user-provided reason to pause the subscription.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pause_reason", nulls = Nulls.SKIP)
         public _FinalStage pauseReason(Optional<String> pauseReason) {
@@ -311,6 +341,11 @@ public final class PauseSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The timing whether the subscription is reactivated immediately or at the end of the billing cycle, relative to
+         * <code>resume_effective_date</code>.
+         * See <a href="#type-changetiming">ChangeTiming</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "resume_change_timing", nulls = Nulls.SKIP)
         public _FinalStage resumeChangeTiming(Optional<ChangeTiming> resumeChangeTiming) {
@@ -346,6 +381,10 @@ public final class PauseSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The date when the subscription is reactivated by a scheduled <code>RESUME</code> action.
+         * This date must be at least one billing cycle ahead of <code>pause_effective_date</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "resume_effective_date", nulls = Nulls.SKIP)
         public _FinalStage resumeEffectiveDate(Optional<String> resumeEffectiveDate) {
@@ -385,6 +424,12 @@ public final class PauseSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The number of billing cycles the subscription will be paused before it is reactivated.</p>
+         * <p>When this is set, a <code>RESUME</code> action is also scheduled to take place on the subscription at
+         * the end of the specified pause cycle duration. In this case, neither <code>resume_effective_date</code>
+         * nor <code>resume_change_timing</code> may be specified.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pause_cycle_duration", nulls = Nulls.SKIP)
         public _FinalStage pauseCycleDuration(Optional<Long> pauseCycleDuration) {
@@ -422,6 +467,11 @@ public final class PauseSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the scheduled <code>PAUSE</code> action takes place on the subscription.</p>
+         * <p>When this date is unspecified or falls within the current billing cycle, the subscription is paused
+         * on the starting date of the next billing cycle.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pause_effective_date", nulls = Nulls.SKIP)
         public _FinalStage pauseEffectiveDate(Optional<String> pauseEffectiveDate) {

@@ -141,6 +141,9 @@ public final class CalculateLoyaltyPointsRequest {
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>, which defines the rules for accruing points.</p>
+         */
         _FinalStage programId(@NotNull String programId);
 
         Builder from(CalculateLoyaltyPointsRequest other);
@@ -149,16 +152,35 @@ public final class CalculateLoyaltyPointsRequest {
     public interface _FinalStage {
         CalculateLoyaltyPointsRequest build();
 
+        /**
+         * <p>The <a href="entity:Order">order</a> ID for which to calculate the points.
+         * Specify this field if your application uses the Orders API to process orders.
+         * Otherwise, specify the <code>transaction_amount_money</code>.</p>
+         */
         _FinalStage orderId(Optional<String> orderId);
 
         _FinalStage orderId(String orderId);
 
         _FinalStage orderId(Nullable<String> orderId);
 
+        /**
+         * <p>The purchase amount for which to calculate the points.
+         * Specify this field if your application does not use the Orders API to process orders.
+         * Otherwise, specify the <code>order_id</code>.</p>
+         */
         _FinalStage transactionAmountMoney(Optional<Money> transactionAmountMoney);
 
         _FinalStage transactionAmountMoney(Money transactionAmountMoney);
 
+        /**
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>. Optionally specify this field
+         * if your application uses the Orders API to process orders.</p>
+         * <p>If specified, the <code>promotion_points</code> field in the response shows the number of points the buyer would
+         * earn from the purchase. In this case, Square uses the account ID to determine whether the promotion's
+         * <code>trigger_limit</code> (the maximum number of times that a buyer can trigger the promotion) has been reached.
+         * If not specified, the <code>promotion_points</code> field shows the number of points the purchase qualifies
+         * for regardless of the trigger limit.</p>
+         */
         _FinalStage loyaltyAccountId(Optional<String> loyaltyAccountId);
 
         _FinalStage loyaltyAccountId(String loyaltyAccountId);
@@ -191,6 +213,7 @@ public final class CalculateLoyaltyPointsRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>, which defines the rules for accruing points.</p>
          * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>, which defines the rules for accruing points.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -239,6 +262,15 @@ public final class CalculateLoyaltyPointsRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the target <a href="entity:LoyaltyAccount">loyalty account</a>. Optionally specify this field
+         * if your application uses the Orders API to process orders.</p>
+         * <p>If specified, the <code>promotion_points</code> field in the response shows the number of points the buyer would
+         * earn from the purchase. In this case, Square uses the account ID to determine whether the promotion's
+         * <code>trigger_limit</code> (the maximum number of times that a buyer can trigger the promotion) has been reached.
+         * If not specified, the <code>promotion_points</code> field shows the number of points the purchase qualifies
+         * for regardless of the trigger limit.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "loyalty_account_id", nulls = Nulls.SKIP)
         public _FinalStage loyaltyAccountId(Optional<String> loyaltyAccountId) {
@@ -258,6 +290,11 @@ public final class CalculateLoyaltyPointsRequest {
             return this;
         }
 
+        /**
+         * <p>The purchase amount for which to calculate the points.
+         * Specify this field if your application does not use the Orders API to process orders.
+         * Otherwise, specify the <code>order_id</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "transaction_amount_money", nulls = Nulls.SKIP)
         public _FinalStage transactionAmountMoney(Optional<Money> transactionAmountMoney) {
@@ -295,6 +332,11 @@ public final class CalculateLoyaltyPointsRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Order">order</a> ID for which to calculate the points.
+         * Specify this field if your application uses the Orders API to process orders.
+         * Otherwise, specify the <code>transaction_amount_money</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public _FinalStage orderId(Optional<String> orderId) {

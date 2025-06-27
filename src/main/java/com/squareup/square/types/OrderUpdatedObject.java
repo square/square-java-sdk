@@ -80,6 +80,9 @@ public final class OrderUpdatedObject {
             return this;
         }
 
+        /**
+         * <p>Information about the updated order.</p>
+         */
         @JsonSetter(value = "order_updated", nulls = Nulls.SKIP)
         public Builder orderUpdated(Optional<OrderUpdated> orderUpdated) {
             this.orderUpdated = orderUpdated;

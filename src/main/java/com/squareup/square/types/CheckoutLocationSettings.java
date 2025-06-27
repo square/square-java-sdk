@@ -220,6 +220,9 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>The ID of the location that these settings apply to.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -242,6 +245,9 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether customers are allowed to leave notes at checkout.</p>
+         */
         @JsonSetter(value = "customer_notes_enabled", nulls = Nulls.SKIP)
         public Builder customerNotesEnabled(Optional<Boolean> customerNotesEnabled) {
             this.customerNotesEnabled = customerNotesEnabled;
@@ -264,6 +270,10 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>Policy information is displayed at the bottom of the checkout pages.
+         * You can set a maximum of two policies.</p>
+         */
         @JsonSetter(value = "policies", nulls = Nulls.SKIP)
         public Builder policies(Optional<List<CheckoutLocationSettingsPolicy>> policies) {
             this.policies = policies;
@@ -286,6 +296,9 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>The branding settings for this location.</p>
+         */
         @JsonSetter(value = "branding", nulls = Nulls.SKIP)
         public Builder branding(Optional<CheckoutLocationSettingsBranding> branding) {
             this.branding = branding;
@@ -297,6 +310,9 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>The tip settings for this location.</p>
+         */
         @JsonSetter(value = "tipping", nulls = Nulls.SKIP)
         public Builder tipping(Optional<CheckoutLocationSettingsTipping> tipping) {
             this.tipping = tipping;
@@ -308,6 +324,9 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>The coupon settings for this location.</p>
+         */
         @JsonSetter(value = "coupons", nulls = Nulls.SKIP)
         public Builder coupons(Optional<CheckoutLocationSettingsCoupons> coupons) {
             this.coupons = coupons;
@@ -319,6 +338,12 @@ public final class CheckoutLocationSettings {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the settings were last updated, in RFC 3339 format.
+         * Examples for January 25th, 2020 6:25:34pm Pacific Standard Time:
+         * UTC: 2020-01-26T02:25:34Z
+         * Pacific Standard Time with UTC offset: 2020-01-25T18:25:34-08:00</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

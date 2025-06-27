@@ -119,6 +119,9 @@ public final class SquareAccountDetails {
             return this;
         }
 
+        /**
+         * <p>Unique identifier for the payment source used for this payment.</p>
+         */
         @JsonSetter(value = "payment_source_token", nulls = Nulls.SKIP)
         public Builder paymentSourceToken(Optional<String> paymentSourceToken) {
             this.paymentSourceToken = paymentSourceToken;
@@ -141,6 +144,9 @@ public final class SquareAccountDetails {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

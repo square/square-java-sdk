@@ -98,6 +98,9 @@ public final class TestWebhookSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class TestWebhookSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:SubscriptionTestResult">SubscriptionTestResult</a>.</p>
+         */
         @JsonSetter(value = "subscription_test_result", nulls = Nulls.SKIP)
         public Builder subscriptionTestResult(Optional<SubscriptionTestResult> subscriptionTestResult) {
             this.subscriptionTestResult = subscriptionTestResult;

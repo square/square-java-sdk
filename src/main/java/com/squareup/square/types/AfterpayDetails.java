@@ -92,6 +92,9 @@ public final class AfterpayDetails {
             return this;
         }
 
+        /**
+         * <p>Email address on the buyer's Afterpay account.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;

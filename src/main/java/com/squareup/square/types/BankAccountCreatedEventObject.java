@@ -80,6 +80,9 @@ public final class BankAccountCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created bank account.</p>
+         */
         @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
         public Builder bankAccount(Optional<BankAccount> bankAccount) {
             this.bankAccount = bankAccount;

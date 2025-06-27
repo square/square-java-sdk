@@ -124,6 +124,9 @@ public final class GiftCardCustomerLinkedEventData {
             return this;
         }
 
+        /**
+         * <p>The type of object affected by the event. For this event, the value is <code>gift_card</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class GiftCardCustomerLinkedEventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the updated gift card.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class GiftCardCustomerLinkedEventData {
             return this;
         }
 
+        /**
+         * <p>An object that contains the updated gift card and the ID of the linked customer.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<GiftCardCustomerLinkedEventObject> object) {
             this.object = object;

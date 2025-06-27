@@ -3,39 +3,31 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.GetPaymentRefundResponse;
 import com.squareup.square.types.GetRefundsRequest;
-import com.squareup.square.types.ListPaymentRefundsResponse;
 import com.squareup.square.types.ListRefundsRequest;
 import com.squareup.square.types.PaymentRefund;
 import com.squareup.square.types.RefundPaymentRequest;
 import com.squareup.square.types.RefundPaymentResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class RefundsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawRefundsClient rawClient;
+
     public RefundsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawRefundsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawRefundsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -45,7 +37,7 @@ public class RefundsClient {
      * <p>The maximum results per page is 100.</p>
      */
     public SyncPagingIterable<PaymentRefund> list() {
-        return list(ListRefundsRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
@@ -55,7 +47,7 @@ public class RefundsClient {
      * <p>The maximum results per page is 100.</p>
      */
     public SyncPagingIterable<PaymentRefund> list(ListRefundsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -65,92 +57,7 @@ public class RefundsClient {
      * <p>The maximum results per page is 100.</p>
      */
     public SyncPagingIterable<PaymentRefund> list(ListRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds");
-        if (request.getBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "begin_time", request.getBeginTime().get(), false);
-        }
-        if (request.getEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "end_time", request.getEndTime().get(), false);
-        }
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        if (request.getStatus().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "status", request.getStatus().get(), false);
-        }
-        if (request.getSourceType().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "source_type", request.getSourceType().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getUpdatedAtBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "updated_at_begin_time",
-                    request.getUpdatedAtBeginTime().get(),
-                    false);
-        }
-        if (request.getUpdatedAtEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "updated_at_end_time",
-                    request.getUpdatedAtEndTime().get(),
-                    false);
-        }
-        if (request.getSortField().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_field", request.getSortField().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListPaymentRefundsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListPaymentRefundsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListRefundsRequest nextRequest = ListRefundsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<PaymentRefund> result = parsedResponse.getRefunds().orElse(Collections.emptyList());
-                return new SyncPagingIterable<PaymentRefund>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -160,7 +67,7 @@ public class RefundsClient {
      * <a href="https://developer.squareup.com/docs/payments-api/refund-payments">Refund Payment</a>.
      */
     public RefundPaymentResponse refundPayment(RefundPaymentRequest request) {
-        return refundPayment(request, null);
+        return this.rawClient.refundPayment(request).body();
     }
 
     /**
@@ -170,82 +77,20 @@ public class RefundsClient {
      * <a href="https://developer.squareup.com/docs/payments-api/refund-payments">Refund Payment</a>.
      */
     public RefundPaymentResponse refundPayment(RefundPaymentRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RefundPaymentResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.refundPayment(request, requestOptions).body();
     }
 
     /**
      * Retrieves a specific refund using the <code>refund_id</code>.
      */
     public GetPaymentRefundResponse get(GetRefundsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Retrieves a specific refund using the <code>refund_id</code>.
      */
     public GetPaymentRefundResponse get(GetRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds")
-                .addPathSegment(request.getRefundId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetPaymentRefundResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 }

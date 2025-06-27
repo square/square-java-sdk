@@ -98,6 +98,9 @@ public final class CreateDisputeEvidenceTextResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class CreateDisputeEvidenceTextResponse {
             return this;
         }
 
+        /**
+         * <p>The newly uploaded dispute evidence metadata.</p>
+         */
         @JsonSetter(value = "evidence", nulls = Nulls.SKIP)
         public Builder evidence(Optional<DisputeEvidence> evidence) {
             this.evidence = evidence;

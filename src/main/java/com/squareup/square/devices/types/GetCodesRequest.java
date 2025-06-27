@@ -66,6 +66,9 @@ public final class GetCodesRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The unique identifier for the device code.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetCodesRequest other);
@@ -91,6 +94,7 @@ public final class GetCodesRequest {
         }
 
         /**
+         * <p>The unique identifier for the device code.</p>
          * <p>The unique identifier for the device code.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

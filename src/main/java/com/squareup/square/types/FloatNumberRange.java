@@ -116,6 +116,9 @@ public final class FloatNumberRange {
             return this;
         }
 
+        /**
+         * <p>A decimal value indicating where the range starts.</p>
+         */
         @JsonSetter(value = "start_at", nulls = Nulls.SKIP)
         public Builder startAt(Optional<String> startAt) {
             this.startAt = startAt;
@@ -138,6 +141,9 @@ public final class FloatNumberRange {
             return this;
         }
 
+        /**
+         * <p>A decimal value indicating where the range ends.</p>
+         */
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public Builder endAt(Optional<String> endAt) {
             this.endAt = endAt;

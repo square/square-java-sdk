@@ -205,6 +205,18 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>The identifier
+         * of the custom attribute definition and its corresponding custom attributes. This value
+         * can be a simple key, which is the key that is provided when the custom attribute definition
+         * is created, or a qualified key, if the requesting
+         * application is not the definition owner. The qualified key consists of the application ID
+         * of the custom attribute definition owner
+         * followed by the simple key that was provided when the definition was created. It has the
+         * format application_id:simple key.</p>
+         * <p>The value for a simple key can contain up to 60 alphanumeric characters, periods (.),
+         * underscores (_), and hyphens (-).</p>
+         */
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public Builder key(Optional<String> key) {
             this.key = key;
@@ -238,6 +250,14 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>Read only. The current version of the custom attribute. This field is incremented when the custom attribute is changed.
+         * When updating an existing custom attribute value, you can provide this field
+         * and specify the current version of the custom attribute to enable
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>.
+         * This field can also be used to enforce strong consistency for reads. For more information about strong consistency for reads,
+         * see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview">Custom Attributes Overview</a>.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -249,6 +269,10 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>A copy of the <code>visibility</code> field value for the associated custom attribute definition.
+         * See <a href="#type-customattributedefinitionvisibility">CustomAttributeDefinitionVisibility</a> for possible values</p>
+         */
         @JsonSetter(value = "visibility", nulls = Nulls.SKIP)
         public Builder visibility(Optional<CustomAttributeDefinitionVisibility> visibility) {
             this.visibility = visibility;
@@ -260,6 +284,10 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>A copy of the associated custom attribute definition object. This field is only set when
+         * the optional field is specified on the request.</p>
+         */
         @JsonSetter(value = "definition", nulls = Nulls.SKIP)
         public Builder definition(Optional<CustomAttributeDefinition> definition) {
             this.definition = definition;
@@ -271,6 +299,10 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>The timestamp that indicates when the custom attribute was created or was most recently
+         * updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -282,6 +314,9 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>The timestamp that indicates when the custom attribute was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;

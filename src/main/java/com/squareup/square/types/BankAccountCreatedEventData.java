@@ -124,6 +124,9 @@ public final class BankAccountCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;bank_account&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class BankAccountCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the affected bank account.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class BankAccountCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the created bank account.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<BankAccountCreatedEventObject> object) {
             this.object = object;

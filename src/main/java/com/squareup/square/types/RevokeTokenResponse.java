@@ -96,6 +96,9 @@ public final class RevokeTokenResponse {
             return this;
         }
 
+        /**
+         * <p>If the request is successful, this is <code>true</code>.</p>
+         */
         @JsonSetter(value = "success", nulls = Nulls.SKIP)
         public Builder success(Optional<Boolean> success) {
             this.success = success;
@@ -107,6 +110,9 @@ public final class RevokeTokenResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

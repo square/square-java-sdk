@@ -115,6 +115,9 @@ public final class ListPaymentsResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class ListPaymentsResponse {
             return this;
         }
 
+        /**
+         * <p>The requested list of payments.</p>
+         */
         @JsonSetter(value = "payments", nulls = Nulls.SKIP)
         public Builder payments(Optional<List<Payment>> payments) {
             this.payments = payments;
@@ -137,6 +143,11 @@ public final class ListPaymentsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If empty,
+         * this is the final response.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

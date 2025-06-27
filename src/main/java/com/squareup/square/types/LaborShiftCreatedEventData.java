@@ -124,6 +124,9 @@ public final class LaborShiftCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The type of object affected by the event. For this event, the value is <code>shift</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class LaborShiftCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the affected <code>Shift</code>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class LaborShiftCreatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the affected <code>Shift</code>.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<LaborShiftCreatedEventObject> object) {
             this.object = object;

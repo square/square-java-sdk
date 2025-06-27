@@ -114,6 +114,9 @@ public final class SearchScheduledShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Query conditions used to filter and sort the results.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<ScheduledShiftQuery> query) {
             this.query = query;
@@ -125,6 +128,9 @@ public final class SearchScheduledShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single response page. The default value is 50.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -136,6 +142,11 @@ public final class SearchScheduledShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor returned by the previous call to this endpoint. Provide
+         * this cursor to retrieve the next page of results for your original request. For more
+         * information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

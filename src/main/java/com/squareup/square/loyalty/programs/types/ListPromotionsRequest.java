@@ -147,6 +147,10 @@ public final class ListPromotionsRequest {
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
+         * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
+         */
         _FinalStage programId(@NotNull String programId);
 
         Builder from(ListPromotionsRequest other);
@@ -155,18 +159,33 @@ public final class ListPromotionsRequest {
     public interface _FinalStage {
         ListPromotionsRequest build();
 
+        /**
+         * <p>The status to filter the results by. If a status is provided, only loyalty promotions
+         * with the specified status are returned. Otherwise, all loyalty promotions associated with
+         * the loyalty program are returned.</p>
+         */
         _FinalStage status(Optional<LoyaltyPromotionStatus> status);
 
         _FinalStage status(LoyaltyPromotionStatus status);
 
         _FinalStage status(Nullable<LoyaltyPromotionStatus> status);
 
+        /**
+         * <p>The cursor returned in the paged response from the previous call to this endpoint.
+         * Provide this cursor to retrieve the next page of results for your original request.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
 
         _FinalStage cursor(Nullable<String> cursor);
 
+        /**
+         * <p>The maximum number of results to return in a single paged response.
+         * The minimum value is 1 and the maximum value is 30. The default value is 30.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
@@ -199,6 +218,8 @@ public final class ListPromotionsRequest {
         }
 
         /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
+         * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
          * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
          * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -240,6 +261,11 @@ public final class ListPromotionsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single paged response.
+         * The minimum value is 1 and the maximum value is 30. The default value is 30.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -277,6 +303,11 @@ public final class ListPromotionsRequest {
             return this;
         }
 
+        /**
+         * <p>The cursor returned in the paged response from the previous call to this endpoint.
+         * Provide this cursor to retrieve the next page of results for your original request.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -314,6 +345,11 @@ public final class ListPromotionsRequest {
             return this;
         }
 
+        /**
+         * <p>The status to filter the results by. If a status is provided, only loyalty promotions
+         * with the specified status are returned. Otherwise, all loyalty promotions associated with
+         * the loyalty program are returned.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<LoyaltyPromotionStatus> status) {

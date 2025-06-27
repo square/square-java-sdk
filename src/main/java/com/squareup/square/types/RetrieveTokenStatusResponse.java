@@ -147,6 +147,9 @@ public final class RetrieveTokenStatusResponse {
             return this;
         }
 
+        /**
+         * <p>The list of scopes associated with an access token.</p>
+         */
         @JsonSetter(value = "scopes", nulls = Nulls.SKIP)
         public Builder scopes(Optional<List<String>> scopes) {
             this.scopes = scopes;
@@ -158,6 +161,9 @@ public final class RetrieveTokenStatusResponse {
             return this;
         }
 
+        /**
+         * <p>The date and time when the <code>access_token</code> expires, in RFC 3339 format. Empty if the token never expires.</p>
+         */
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public Builder expiresAt(Optional<String> expiresAt) {
             this.expiresAt = expiresAt;
@@ -169,6 +175,9 @@ public final class RetrieveTokenStatusResponse {
             return this;
         }
 
+        /**
+         * <p>The Square-issued application ID associated with the access token. This is the same application ID used to obtain the token.</p>
+         */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public Builder clientId(Optional<String> clientId) {
             this.clientId = clientId;
@@ -180,6 +189,9 @@ public final class RetrieveTokenStatusResponse {
             return this;
         }
 
+        /**
+         * <p>The ID of the authorizing merchant's business.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -191,6 +203,9 @@ public final class RetrieveTokenStatusResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

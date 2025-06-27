@@ -127,6 +127,9 @@ public final class PayoutFee {
             return this;
         }
 
+        /**
+         * <p>The money amount of the payout fee.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -138,6 +141,9 @@ public final class PayoutFee {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the fee takes effect, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "effective_at", nulls = Nulls.SKIP)
         public Builder effectiveAt(Optional<String> effectiveAt) {
             this.effectiveAt = effectiveAt;
@@ -160,6 +166,10 @@ public final class PayoutFee {
             return this;
         }
 
+        /**
+         * <p>The type of fee assessed as part of the payout.
+         * See <a href="#type-payoutfeetype">PayoutFeeType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<PayoutFeeType> type) {
             this.type = type;

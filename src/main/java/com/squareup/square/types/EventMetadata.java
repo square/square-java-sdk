@@ -116,6 +116,9 @@ public final class EventMetadata {
             return this;
         }
 
+        /**
+         * <p>A unique ID for the event.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -138,6 +141,9 @@ public final class EventMetadata {
             return this;
         }
 
+        /**
+         * <p>The API version of the event. This corresponds to the default API version of the developer application at the time when the event was created.</p>
+         */
         @JsonSetter(value = "api_version", nulls = Nulls.SKIP)
         public Builder apiVersion(Optional<String> apiVersion) {
             this.apiVersion = apiVersion;

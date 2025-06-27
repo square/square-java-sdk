@@ -153,6 +153,10 @@ public final class DeviceComponentDetailsApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The type of application.
+         * See <a href="#type-applicationtype">ApplicationType</a> for possible values</p>
+         */
         @JsonSetter(value = "application_type", nulls = Nulls.SKIP)
         public Builder applicationType(Optional<String> applicationType) {
             this.applicationType = applicationType;
@@ -164,6 +168,9 @@ public final class DeviceComponentDetailsApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The version of the application.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<String> version) {
             this.version = version;
@@ -175,6 +182,9 @@ public final class DeviceComponentDetailsApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The location_id of the session for the application.</p>
+         */
         @JsonSetter(value = "session_location", nulls = Nulls.SKIP)
         public Builder sessionLocation(Optional<String> sessionLocation) {
             this.sessionLocation = sessionLocation;
@@ -197,6 +207,9 @@ public final class DeviceComponentDetailsApplicationDetails {
             return this;
         }
 
+        /**
+         * <p>The id of the device code that was used to log in to the device.</p>
+         */
         @JsonSetter(value = "device_code_id", nulls = Nulls.SKIP)
         public Builder deviceCodeId(Optional<String> deviceCodeId) {
             this.deviceCodeId = deviceCodeId;

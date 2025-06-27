@@ -100,6 +100,10 @@ public final class CustomerCustomAttributeFilter {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The <code>key</code> of the <a href="entity:CustomAttribute">custom attribute</a> to filter by. The key is the identifier of the custom attribute
+         * (and the corresponding custom attribute definition) and can be retrieved using the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>.</p>
+         */
         _FinalStage key(@NotNull String key);
 
         Builder from(CustomerCustomAttributeFilter other);
@@ -108,10 +112,21 @@ public final class CustomerCustomAttributeFilter {
     public interface _FinalStage {
         CustomerCustomAttributeFilter build();
 
+        /**
+         * <p>A filter that corresponds to the data type of the target custom attribute. For example, provide the <code>phone</code> filter to
+         * search based on the value of a <code>PhoneNumber</code>-type custom attribute. The data type is specified by the schema field of the custom attribute definition,
+         * which can be retrieved using the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>.</p>
+         * <p>You must provide this <code>filter</code> field, the <code>updated_at</code> field, or both.</p>
+         */
         _FinalStage filter(Optional<CustomerCustomAttributeFilterValue> filter);
 
         _FinalStage filter(CustomerCustomAttributeFilterValue filter);
 
+        /**
+         * <p>The date range for when the custom attribute was last updated. The date range can include <code>start_at</code>, <code>end_at</code>, or
+         * both. Range boundaries are inclusive. Dates are specified as RFC 3339 timestamps.</p>
+         * <p>You must provide this <code>updated_at</code> field, the <code>filter</code> field, or both.</p>
+         */
         _FinalStage updatedAt(Optional<TimeRange> updatedAt);
 
         _FinalStage updatedAt(TimeRange updatedAt);
@@ -141,6 +156,8 @@ public final class CustomerCustomAttributeFilter {
         /**
          * <p>The <code>key</code> of the <a href="entity:CustomAttribute">custom attribute</a> to filter by. The key is the identifier of the custom attribute
          * (and the corresponding custom attribute definition) and can be retrieved using the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>.</p>
+         * <p>The <code>key</code> of the <a href="entity:CustomAttribute">custom attribute</a> to filter by. The key is the identifier of the custom attribute
+         * (and the corresponding custom attribute definition) and can be retrieved using the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -162,6 +179,11 @@ public final class CustomerCustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>The date range for when the custom attribute was last updated. The date range can include <code>start_at</code>, <code>end_at</code>, or
+         * both. Range boundaries are inclusive. Dates are specified as RFC 3339 timestamps.</p>
+         * <p>You must provide this <code>updated_at</code> field, the <code>filter</code> field, or both.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<TimeRange> updatedAt) {
@@ -182,6 +204,12 @@ public final class CustomerCustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A filter that corresponds to the data type of the target custom attribute. For example, provide the <code>phone</code> filter to
+         * search based on the value of a <code>PhoneNumber</code>-type custom attribute. The data type is specified by the schema field of the custom attribute definition,
+         * which can be retrieved using the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>.</p>
+         * <p>You must provide this <code>filter</code> field, the <code>updated_at</code> field, or both.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public _FinalStage filter(Optional<CustomerCustomAttributeFilterValue> filter) {

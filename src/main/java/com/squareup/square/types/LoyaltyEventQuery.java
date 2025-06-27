@@ -80,6 +80,9 @@ public final class LoyaltyEventQuery {
             return this;
         }
 
+        /**
+         * <p>The query filter criteria.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<LoyaltyEventFilter> filter) {
             this.filter = filter;

@@ -78,12 +78,18 @@ public final class UpdateShiftRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the object being updated.</p>
+         */
         ShiftStage id(@NotNull String id);
 
         Builder from(UpdateShiftRequest other);
     }
 
     public interface ShiftStage {
+        /**
+         * <p>The updated <code>Shift</code> object.</p>
+         */
         _FinalStage shift(@NotNull Shift shift);
     }
 
@@ -111,6 +117,7 @@ public final class UpdateShiftRequest {
 
         /**
          * <p>The ID of the object being updated.</p>
+         * <p>The ID of the object being updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class UpdateShiftRequest {
         }
 
         /**
+         * <p>The updated <code>Shift</code> object.</p>
          * <p>The updated <code>Shift</code> object.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

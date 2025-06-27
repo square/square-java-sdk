@@ -83,6 +83,9 @@ public final class CreateInvoiceRequest {
     }
 
     public interface InvoiceStage {
+        /**
+         * <p>The invoice to create.</p>
+         */
         _FinalStage invoice(@NotNull Invoice invoice);
 
         Builder from(CreateInvoiceRequest other);
@@ -91,6 +94,12 @@ public final class CreateInvoiceRequest {
     public interface _FinalStage {
         CreateInvoiceRequest build();
 
+        /**
+         * <p>A unique string that identifies the <code>CreateInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -116,6 +125,7 @@ public final class CreateInvoiceRequest {
 
         /**
          * <p>The invoice to create.</p>
+         * <p>The invoice to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -138,6 +148,12 @@ public final class CreateInvoiceRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <code>CreateInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

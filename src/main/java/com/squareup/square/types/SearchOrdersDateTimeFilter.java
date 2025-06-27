@@ -120,6 +120,11 @@ public final class SearchOrdersDateTimeFilter {
             return this;
         }
 
+        /**
+         * <p>The time range for filtering on the <code>created_at</code> timestamp. If you use this
+         * value, you must set the <code>sort_field</code> in the <code>OrdersSearchSort</code> object to
+         * <code>CREATED_AT</code>.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;
@@ -131,6 +136,11 @@ public final class SearchOrdersDateTimeFilter {
             return this;
         }
 
+        /**
+         * <p>The time range for filtering on the <code>updated_at</code> timestamp. If you use this
+         * value, you must set the <code>sort_field</code> in the <code>OrdersSearchSort</code> object to
+         * <code>UPDATED_AT</code>.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<TimeRange> updatedAt) {
             this.updatedAt = updatedAt;
@@ -142,6 +152,11 @@ public final class SearchOrdersDateTimeFilter {
             return this;
         }
 
+        /**
+         * <p>The time range for filtering on the <code>closed_at</code> timestamp. If you use this
+         * value, you must set the <code>sort_field</code> in the <code>OrdersSearchSort</code> object to
+         * <code>CLOSED_AT</code>.</p>
+         */
         @JsonSetter(value = "closed_at", nulls = Nulls.SKIP)
         public Builder closedAt(Optional<TimeRange> closedAt) {
             this.closedAt = closedAt;

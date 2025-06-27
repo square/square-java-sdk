@@ -225,6 +225,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the evidence.</p>
+         */
         @JsonSetter(value = "evidence_id", nulls = Nulls.SKIP)
         public Builder evidenceId(Optional<String> evidenceId) {
             this.evidenceId = evidenceId;
@@ -247,6 +250,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>The Square-generated ID of the evidence.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -258,6 +264,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>The ID of the dispute the evidence is associated with.</p>
+         */
         @JsonSetter(value = "dispute_id", nulls = Nulls.SKIP)
         public Builder disputeId(Optional<String> disputeId) {
             this.disputeId = disputeId;
@@ -280,6 +289,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>Image, PDF, TXT</p>
+         */
         @JsonSetter(value = "evidence_file", nulls = Nulls.SKIP)
         public Builder evidenceFile(Optional<DisputeEvidenceFile> evidenceFile) {
             this.evidenceFile = evidenceFile;
@@ -291,6 +303,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>Raw text</p>
+         */
         @JsonSetter(value = "evidence_text", nulls = Nulls.SKIP)
         public Builder evidenceText(Optional<String> evidenceText) {
             this.evidenceText = evidenceText;
@@ -313,6 +328,9 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>The time when the evidence was uploaded, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "uploaded_at", nulls = Nulls.SKIP)
         public Builder uploadedAt(Optional<String> uploadedAt) {
             this.uploadedAt = uploadedAt;
@@ -335,6 +353,10 @@ public final class DisputeEvidence {
             return this;
         }
 
+        /**
+         * <p>The type of the evidence.
+         * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
+         */
         @JsonSetter(value = "evidence_type", nulls = Nulls.SKIP)
         public Builder evidenceType(Optional<DisputeEvidenceType> evidenceType) {
             this.evidenceType = evidenceType;

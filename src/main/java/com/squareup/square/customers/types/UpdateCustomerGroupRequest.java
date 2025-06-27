@@ -78,12 +78,18 @@ public final class UpdateCustomerGroupRequest {
     }
 
     public interface GroupIdStage {
+        /**
+         * <p>The ID of the customer group to update.</p>
+         */
         GroupStage groupId(@NotNull String groupId);
 
         Builder from(UpdateCustomerGroupRequest other);
     }
 
     public interface GroupStage {
+        /**
+         * <p>The <code>CustomerGroup</code> object including all the updates you want to make.</p>
+         */
         _FinalStage group(@NotNull CustomerGroup group);
     }
 
@@ -111,6 +117,7 @@ public final class UpdateCustomerGroupRequest {
 
         /**
          * <p>The ID of the customer group to update.</p>
+         * <p>The ID of the customer group to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class UpdateCustomerGroupRequest {
         }
 
         /**
+         * <p>The <code>CustomerGroup</code> object including all the updates you want to make.</p>
          * <p>The <code>CustomerGroup</code> object including all the updates you want to make.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

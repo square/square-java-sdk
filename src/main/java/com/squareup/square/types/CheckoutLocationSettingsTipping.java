@@ -190,6 +190,9 @@ public final class CheckoutLocationSettingsTipping {
             return this;
         }
 
+        /**
+         * <p>Set three custom percentage amounts that buyers can select at checkout. If Smart Tip is enabled, this only applies to transactions totaling $10 or more.</p>
+         */
         @JsonSetter(value = "percentages", nulls = Nulls.SKIP)
         public Builder percentages(Optional<List<Integer>> percentages) {
             this.percentages = percentages;
@@ -212,6 +215,12 @@ public final class CheckoutLocationSettingsTipping {
             return this;
         }
 
+        /**
+         * <p>Enables Smart Tip Amounts. If Smart Tip Amounts is enabled, tipping works as follows:
+         * If a transaction is less than $10, the available tipping options include No Tip, $1, $2, or $3.
+         * If a transaction is $10 or more, the available tipping options include No Tip, 15%, 20%, or 25%.
+         * You can set custom percentage amounts with the <code>percentages</code> field.</p>
+         */
         @JsonSetter(value = "smart_tipping_enabled", nulls = Nulls.SKIP)
         public Builder smartTippingEnabled(Optional<Boolean> smartTippingEnabled) {
             this.smartTippingEnabled = smartTippingEnabled;
@@ -234,6 +243,9 @@ public final class CheckoutLocationSettingsTipping {
             return this;
         }
 
+        /**
+         * <p>Set the pre-selected percentage amounts that appear at checkout. If Smart Tip is enabled, this only applies to transactions totaling $10 or more.</p>
+         */
         @JsonSetter(value = "default_percent", nulls = Nulls.SKIP)
         public Builder defaultPercent(Optional<Integer> defaultPercent) {
             this.defaultPercent = defaultPercent;
@@ -256,6 +268,9 @@ public final class CheckoutLocationSettingsTipping {
             return this;
         }
 
+        /**
+         * <p>Show the Smart Tip Amounts for this location.</p>
+         */
         @JsonSetter(value = "smart_tips", nulls = Nulls.SKIP)
         public Builder smartTips(Optional<List<Money>> smartTips) {
             this.smartTips = smartTips;
@@ -278,6 +293,9 @@ public final class CheckoutLocationSettingsTipping {
             return this;
         }
 
+        /**
+         * <p>Set the pre-selected whole amount that appears at checkout when Smart Tip is enabled and the transaction amount is less than $10.</p>
+         */
         @JsonSetter(value = "default_smart_tip", nulls = Nulls.SKIP)
         public Builder defaultSmartTip(Optional<Money> defaultSmartTip) {
             this.defaultSmartTip = defaultSmartTip;

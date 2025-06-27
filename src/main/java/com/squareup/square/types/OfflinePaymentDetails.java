@@ -80,6 +80,9 @@ public final class OfflinePaymentDetails {
             return this;
         }
 
+        /**
+         * <p>The client-side timestamp of when the offline payment was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "client_created_at", nulls = Nulls.SKIP)
         public Builder clientCreatedAt(Optional<String> clientCreatedAt) {
             this.clientCreatedAt = clientCreatedAt;

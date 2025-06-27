@@ -131,6 +131,9 @@ public final class SearchCatalogItemsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -142,6 +145,9 @@ public final class SearchCatalogItemsResponse {
             return this;
         }
 
+        /**
+         * <p>Returned items matching the specified query expressions.</p>
+         */
         @JsonSetter(value = "items", nulls = Nulls.SKIP)
         public Builder items(Optional<List<CatalogObject>> items) {
             this.items = items;
@@ -153,6 +159,9 @@ public final class SearchCatalogItemsResponse {
             return this;
         }
 
+        /**
+         * <p>Pagination token used in the next request to return more of the search result.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -164,6 +173,9 @@ public final class SearchCatalogItemsResponse {
             return this;
         }
 
+        /**
+         * <p>Ids of returned item variations matching the specified query expression.</p>
+         */
         @JsonSetter(value = "matched_variation_ids", nulls = Nulls.SKIP)
         public Builder matchedVariationIds(Optional<List<String>> matchedVariationIds) {
             this.matchedVariationIds = matchedVariationIds;

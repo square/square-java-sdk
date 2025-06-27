@@ -80,6 +80,9 @@ public final class CustomerUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated customer.</p>
+         */
         @JsonSetter(value = "customer", nulls = Nulls.SKIP)
         public Builder customer(Optional<Customer> customer) {
             this.customer = customer;

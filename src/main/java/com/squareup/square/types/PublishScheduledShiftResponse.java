@@ -98,6 +98,9 @@ public final class PublishScheduledShiftResponse {
             return this;
         }
 
+        /**
+         * <p>The published scheduled shift.</p>
+         */
         @JsonSetter(value = "scheduled_shift", nulls = Nulls.SKIP)
         public Builder scheduledShift(Optional<ScheduledShift> scheduledShift) {
             this.scheduledShift = scheduledShift;
@@ -109,6 +112,9 @@ public final class PublishScheduledShiftResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

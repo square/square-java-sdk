@@ -150,6 +150,9 @@ public final class ListCustomAttributeDefinitionsRequest {
             return this;
         }
 
+        /**
+         * <p>Filters the <code>CustomAttributeDefinition</code> results by their <code>visibility</code> values.</p>
+         */
         @JsonSetter(value = "visibility_filter", nulls = Nulls.SKIP)
         public Builder visibilityFilter(Optional<VisibilityFilter> visibilityFilter) {
             this.visibilityFilter = visibilityFilter;
@@ -172,6 +175,11 @@ public final class ListCustomAttributeDefinitionsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single paged response. This limit is advisory.
+         * The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+         * The default value is 20. For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -194,6 +202,11 @@ public final class ListCustomAttributeDefinitionsRequest {
             return this;
         }
 
+        /**
+         * <p>The cursor returned in the paged response from the previous call to this endpoint.
+         * Provide this cursor to retrieve the next page of results for your original request.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

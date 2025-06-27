@@ -407,105 +407,192 @@ public final class GiftCardActivity {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of gift card activity.
+         * See <a href="#type-type">Type</a> for possible values</p>
+         */
         LocationIdStage type(@NotNull GiftCardActivityType type);
 
         Builder from(GiftCardActivity other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Location">business location</a> where the activity occurred.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
     public interface _FinalStage {
         GiftCardActivity build();
 
+        /**
+         * <p>The Square-assigned ID of the gift card activity.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The timestamp when the gift card activity was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The gift card ID. When creating a gift card activity, <code>gift_card_id</code> is not required if
+         * <code>gift_card_gan</code> is specified.</p>
+         */
         _FinalStage giftCardId(Optional<String> giftCardId);
 
         _FinalStage giftCardId(String giftCardId);
 
         _FinalStage giftCardId(Nullable<String> giftCardId);
 
+        /**
+         * <p>The gift card account number (GAN). When creating a gift card activity, <code>gift_card_gan</code>
+         * is not required if <code>gift_card_id</code> is specified.</p>
+         */
         _FinalStage giftCardGan(Optional<String> giftCardGan);
 
         _FinalStage giftCardGan(String giftCardGan);
 
         _FinalStage giftCardGan(Nullable<String> giftCardGan);
 
+        /**
+         * <p>The final balance on the gift card after the action is completed.</p>
+         */
         _FinalStage giftCardBalanceMoney(Optional<Money> giftCardBalanceMoney);
 
         _FinalStage giftCardBalanceMoney(Money giftCardBalanceMoney);
 
+        /**
+         * <p>Additional details about a <code>LOAD</code> activity, which is used to reload money onto a gift card.</p>
+         */
         _FinalStage loadActivityDetails(Optional<GiftCardActivityLoad> loadActivityDetails);
 
         _FinalStage loadActivityDetails(GiftCardActivityLoad loadActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>ACTIVATE</code> activity, which is used to activate a gift card with
+         * an initial balance.</p>
+         */
         _FinalStage activateActivityDetails(Optional<GiftCardActivityActivate> activateActivityDetails);
 
         _FinalStage activateActivityDetails(GiftCardActivityActivate activateActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>REDEEM</code> activity, which is used to redeem a gift card for a purchase.</p>
+         * <p>For applications that process payments using the Square Payments API, Square creates a <code>REDEEM</code> activity that
+         * updates the gift card balance after the corresponding <a href="api-endpoint:Payments-CreatePayment">CreatePayment</a>
+         * request is completed. Applications that use a custom payment processing system must call
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> to create the <code>REDEEM</code> activity.</p>
+         */
         _FinalStage redeemActivityDetails(Optional<GiftCardActivityRedeem> redeemActivityDetails);
 
         _FinalStage redeemActivityDetails(GiftCardActivityRedeem redeemActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>CLEAR_BALANCE</code> activity, which is used to set the balance of a gift card to zero.</p>
+         */
         _FinalStage clearBalanceActivityDetails(Optional<GiftCardActivityClearBalance> clearBalanceActivityDetails);
 
         _FinalStage clearBalanceActivityDetails(GiftCardActivityClearBalance clearBalanceActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>DEACTIVATE</code> activity, which is used to deactivate a gift card.</p>
+         */
         _FinalStage deactivateActivityDetails(Optional<GiftCardActivityDeactivate> deactivateActivityDetails);
 
         _FinalStage deactivateActivityDetails(GiftCardActivityDeactivate deactivateActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>ADJUST_INCREMENT</code> activity, which is used to add money to a gift card
+         * outside of a typical <code>ACTIVATE</code>, <code>LOAD</code>, or <code>REFUND</code> activity flow.</p>
+         */
         _FinalStage adjustIncrementActivityDetails(
                 Optional<GiftCardActivityAdjustIncrement> adjustIncrementActivityDetails);
 
         _FinalStage adjustIncrementActivityDetails(GiftCardActivityAdjustIncrement adjustIncrementActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>ADJUST_DECREMENT</code> activity, which is used to deduct money from a gift
+         * card outside of a typical <code>REDEEM</code> activity flow.</p>
+         */
         _FinalStage adjustDecrementActivityDetails(
                 Optional<GiftCardActivityAdjustDecrement> adjustDecrementActivityDetails);
 
         _FinalStage adjustDecrementActivityDetails(GiftCardActivityAdjustDecrement adjustDecrementActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>REFUND</code> activity, which is used to add money to a gift card when
+         * refunding a payment.</p>
+         * <p>For applications that refund payments to a gift card using the Square Refunds API, Square automatically
+         * creates a <code>REFUND</code> activity that updates the gift card balance after a <a href="api-endpoint:Refunds-RefundPayment">RefundPayment</a>
+         * request is completed. Applications that use a custom processing system must call
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> to create the <code>REFUND</code> activity.</p>
+         */
         _FinalStage refundActivityDetails(Optional<GiftCardActivityRefund> refundActivityDetails);
 
         _FinalStage refundActivityDetails(GiftCardActivityRefund refundActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>UNLINKED_ACTIVITY_REFUND</code> activity. This activity is used to add money
+         * to a gift card when refunding a payment that was processed using a custom payment processing system
+         * and not linked to the gift card.</p>
+         */
         _FinalStage unlinkedActivityRefundActivityDetails(
                 Optional<GiftCardActivityUnlinkedActivityRefund> unlinkedActivityRefundActivityDetails);
 
         _FinalStage unlinkedActivityRefundActivityDetails(
                 GiftCardActivityUnlinkedActivityRefund unlinkedActivityRefundActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>IMPORT</code> activity, which Square uses to import a third-party
+         * gift card with a balance.</p>
+         */
         _FinalStage importActivityDetails(Optional<GiftCardActivityImport> importActivityDetails);
 
         _FinalStage importActivityDetails(GiftCardActivityImport importActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>BLOCK</code> activity, which Square uses to temporarily block a gift card.</p>
+         */
         _FinalStage blockActivityDetails(Optional<GiftCardActivityBlock> blockActivityDetails);
 
         _FinalStage blockActivityDetails(GiftCardActivityBlock blockActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>UNBLOCK</code> activity, which Square uses to unblock a gift card.</p>
+         */
         _FinalStage unblockActivityDetails(Optional<GiftCardActivityUnblock> unblockActivityDetails);
 
         _FinalStage unblockActivityDetails(GiftCardActivityUnblock unblockActivityDetails);
 
+        /**
+         * <p>Additional details about an <code>IMPORT_REVERSAL</code> activity, which Square uses to reverse the
+         * import of a third-party gift card.</p>
+         */
         _FinalStage importReversalActivityDetails(
                 Optional<GiftCardActivityImportReversal> importReversalActivityDetails);
 
         _FinalStage importReversalActivityDetails(GiftCardActivityImportReversal importReversalActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>TRANSFER_BALANCE_TO</code> activity, which Square uses to add money to
+         * a gift card as the result of a transfer from another gift card.</p>
+         */
         _FinalStage transferBalanceToActivityDetails(
                 Optional<GiftCardActivityTransferBalanceTo> transferBalanceToActivityDetails);
 
         _FinalStage transferBalanceToActivityDetails(
                 GiftCardActivityTransferBalanceTo transferBalanceToActivityDetails);
 
+        /**
+         * <p>Additional details about a <code>TRANSFER_BALANCE_FROM</code> activity, which Square uses to deduct money from
+         * a gift as the result of a transfer to another gift card.</p>
+         */
         _FinalStage transferBalanceFromActivityDetails(
                 Optional<GiftCardActivityTransferBalanceFrom> transferBalanceFromActivityDetails);
 
@@ -595,6 +682,8 @@ public final class GiftCardActivity {
         /**
          * <p>The type of gift card activity.
          * See <a href="#type-type">Type</a> for possible values</p>
+         * <p>The type of gift card activity.
+         * See <a href="#type-type">Type</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -605,6 +694,7 @@ public final class GiftCardActivity {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Location">business location</a> where the activity occurred.</p>
          * <p>The ID of the <a href="entity:Location">business location</a> where the activity occurred.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -627,6 +717,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>TRANSFER_BALANCE_FROM</code> activity, which Square uses to deduct money from
+         * a gift as the result of a transfer to another gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "transfer_balance_from_activity_details", nulls = Nulls.SKIP)
         public _FinalStage transferBalanceFromActivityDetails(
@@ -647,6 +741,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>TRANSFER_BALANCE_TO</code> activity, which Square uses to add money to
+         * a gift card as the result of a transfer from another gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "transfer_balance_to_activity_details", nulls = Nulls.SKIP)
         public _FinalStage transferBalanceToActivityDetails(
@@ -666,6 +764,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>IMPORT_REVERSAL</code> activity, which Square uses to reverse the
+         * import of a third-party gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "import_reversal_activity_details", nulls = Nulls.SKIP)
         public _FinalStage importReversalActivityDetails(
@@ -684,6 +786,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>UNBLOCK</code> activity, which Square uses to unblock a gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "unblock_activity_details", nulls = Nulls.SKIP)
         public _FinalStage unblockActivityDetails(Optional<GiftCardActivityUnblock> unblockActivityDetails) {
@@ -701,6 +806,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>BLOCK</code> activity, which Square uses to temporarily block a gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "block_activity_details", nulls = Nulls.SKIP)
         public _FinalStage blockActivityDetails(Optional<GiftCardActivityBlock> blockActivityDetails) {
@@ -719,6 +827,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>IMPORT</code> activity, which Square uses to import a third-party
+         * gift card with a balance.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "import_activity_details", nulls = Nulls.SKIP)
         public _FinalStage importActivityDetails(Optional<GiftCardActivityImport> importActivityDetails) {
@@ -739,6 +851,11 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>UNLINKED_ACTIVITY_REFUND</code> activity. This activity is used to add money
+         * to a gift card when refunding a payment that was processed using a custom payment processing system
+         * and not linked to the gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "unlinked_activity_refund_activity_details", nulls = Nulls.SKIP)
         public _FinalStage unlinkedActivityRefundActivityDetails(
@@ -762,6 +879,14 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>REFUND</code> activity, which is used to add money to a gift card when
+         * refunding a payment.</p>
+         * <p>For applications that refund payments to a gift card using the Square Refunds API, Square automatically
+         * creates a <code>REFUND</code> activity that updates the gift card balance after a <a href="api-endpoint:Refunds-RefundPayment">RefundPayment</a>
+         * request is completed. Applications that use a custom processing system must call
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> to create the <code>REFUND</code> activity.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "refund_activity_details", nulls = Nulls.SKIP)
         public _FinalStage refundActivityDetails(Optional<GiftCardActivityRefund> refundActivityDetails) {
@@ -781,6 +906,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>ADJUST_DECREMENT</code> activity, which is used to deduct money from a gift
+         * card outside of a typical <code>REDEEM</code> activity flow.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "adjust_decrement_activity_details", nulls = Nulls.SKIP)
         public _FinalStage adjustDecrementActivityDetails(
@@ -801,6 +930,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>ADJUST_INCREMENT</code> activity, which is used to add money to a gift card
+         * outside of a typical <code>ACTIVATE</code>, <code>LOAD</code>, or <code>REFUND</code> activity flow.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "adjust_increment_activity_details", nulls = Nulls.SKIP)
         public _FinalStage adjustIncrementActivityDetails(
@@ -819,6 +952,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>DEACTIVATE</code> activity, which is used to deactivate a gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "deactivate_activity_details", nulls = Nulls.SKIP)
         public _FinalStage deactivateActivityDetails(Optional<GiftCardActivityDeactivate> deactivateActivityDetails) {
@@ -836,6 +972,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>CLEAR_BALANCE</code> activity, which is used to set the balance of a gift card to zero.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "clear_balance_activity_details", nulls = Nulls.SKIP)
         public _FinalStage clearBalanceActivityDetails(
@@ -858,6 +997,13 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>REDEEM</code> activity, which is used to redeem a gift card for a purchase.</p>
+         * <p>For applications that process payments using the Square Payments API, Square creates a <code>REDEEM</code> activity that
+         * updates the gift card balance after the corresponding <a href="api-endpoint:Payments-CreatePayment">CreatePayment</a>
+         * request is completed. Applications that use a custom payment processing system must call
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> to create the <code>REDEEM</code> activity.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "redeem_activity_details", nulls = Nulls.SKIP)
         public _FinalStage redeemActivityDetails(Optional<GiftCardActivityRedeem> redeemActivityDetails) {
@@ -876,6 +1022,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about an <code>ACTIVATE</code> activity, which is used to activate a gift card with
+         * an initial balance.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "activate_activity_details", nulls = Nulls.SKIP)
         public _FinalStage activateActivityDetails(Optional<GiftCardActivityActivate> activateActivityDetails) {
@@ -893,6 +1043,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>Additional details about a <code>LOAD</code> activity, which is used to reload money onto a gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "load_activity_details", nulls = Nulls.SKIP)
         public _FinalStage loadActivityDetails(Optional<GiftCardActivityLoad> loadActivityDetails) {
@@ -910,6 +1063,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>The final balance on the gift card after the action is completed.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gift_card_balance_money", nulls = Nulls.SKIP)
         public _FinalStage giftCardBalanceMoney(Optional<Money> giftCardBalanceMoney) {
@@ -945,6 +1101,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>The gift card account number (GAN). When creating a gift card activity, <code>gift_card_gan</code>
+         * is not required if <code>gift_card_id</code> is specified.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gift_card_gan", nulls = Nulls.SKIP)
         public _FinalStage giftCardGan(Optional<String> giftCardGan) {
@@ -980,6 +1140,10 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>The gift card ID. When creating a gift card activity, <code>gift_card_id</code> is not required if
+         * <code>gift_card_gan</code> is specified.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gift_card_id", nulls = Nulls.SKIP)
         public _FinalStage giftCardId(Optional<String> giftCardId) {
@@ -997,6 +1161,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the gift card activity was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -1014,6 +1181,9 @@ public final class GiftCardActivity {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the gift card activity.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

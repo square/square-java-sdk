@@ -81,6 +81,10 @@ public final class GiftCardUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The gift card with the updated <code>balance_money</code>, <code>state</code>, or <code>customer_ids</code> field.
+         * Some events can affect both <code>balance_money</code> and <code>state</code>.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;

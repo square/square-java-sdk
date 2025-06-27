@@ -117,6 +117,9 @@ public final class PaymentBalanceActivityThirdPartyFeeRefundDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment associated with this activity.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -139,6 +142,9 @@ public final class PaymentBalanceActivityThirdPartyFeeRefundDetail {
             return this;
         }
 
+        /**
+         * <p>The public refund id associated with this activity.</p>
+         */
         @JsonSetter(value = "refund_id", nulls = Nulls.SKIP)
         public Builder refundId(Optional<String> refundId) {
             this.refundId = refundId;

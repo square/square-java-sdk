@@ -81,6 +81,9 @@ public final class TerminalActionCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created terminal action.</p>
+         */
         @JsonSetter(value = "action", nulls = Nulls.SKIP)
         public Builder action(Optional<TerminalAction> action) {
             this.action = action;

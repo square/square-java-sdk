@@ -97,6 +97,9 @@ public final class SearchInvoicesRequest {
     }
 
     public interface QueryStage {
+        /**
+         * <p>Describes the query criteria for searching invoices.</p>
+         */
         _FinalStage query(@NotNull InvoiceQuery query);
 
         Builder from(SearchInvoicesRequest other);
@@ -105,10 +108,19 @@ public final class SearchInvoicesRequest {
     public interface _FinalStage {
         SearchInvoicesRequest build();
 
+        /**
+         * <p>The maximum number of invoices to return (200 is the maximum <code>limit</code>).
+         * If not provided, the server uses a default limit of 100 invoices.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -137,6 +149,7 @@ public final class SearchInvoicesRequest {
 
         /**
          * <p>Describes the query criteria for searching invoices.</p>
+         * <p>Describes the query criteria for searching invoices.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -158,6 +171,11 @@ public final class SearchInvoicesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -176,6 +194,10 @@ public final class SearchInvoicesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of invoices to return (200 is the maximum <code>limit</code>).
+         * If not provided, the server uses a default limit of 100 invoices.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {

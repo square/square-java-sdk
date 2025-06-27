@@ -115,6 +115,10 @@ public final class SearchEventsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of events for your original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -126,6 +130,11 @@ public final class SearchEventsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of events to return in a single page. The response might contain fewer events. The default value is 100, which is also the maximum allowed value.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         * <p>Default: 100</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -137,6 +146,9 @@ public final class SearchEventsRequest {
             return this;
         }
 
+        /**
+         * <p>The filtering and sorting criteria for the search request. To retrieve additional pages using a cursor, you must use the original query.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<SearchEventsQuery> query) {
             this.query = query;

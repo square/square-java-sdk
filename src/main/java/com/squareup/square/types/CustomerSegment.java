@@ -16,14 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CustomerSegment.Builder.class)
 public final class CustomerSegment {
     private final Optional<String> id;
 
-    private final String name;
+    private final Optional<String> name;
 
     private final Optional<String> createdAt;
 
@@ -33,7 +32,7 @@ public final class CustomerSegment {
 
     private CustomerSegment(
             Optional<String> id,
-            String name,
+            Optional<String> name,
             Optional<String> createdAt,
             Optional<String> updatedAt,
             Map<String, Object> additionalProperties) {
@@ -56,7 +55,7 @@ public final class CustomerSegment {
      * @return The name of the segment.
      */
     @JsonProperty("name")
-    public String getName() {
+    public Optional<String> getName() {
         return name;
     }
 
@@ -104,48 +103,25 @@ public final class CustomerSegment {
         return ObjectMappers.stringify(this);
     }
 
-    public static NameStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface NameStage {
-        _FinalStage name(@NotNull String name);
-
-        Builder from(CustomerSegment other);
-    }
-
-    public interface _FinalStage {
-        CustomerSegment build();
-
-        _FinalStage id(Optional<String> id);
-
-        _FinalStage id(String id);
-
-        _FinalStage createdAt(Optional<String> createdAt);
-
-        _FinalStage createdAt(String createdAt);
-
-        _FinalStage updatedAt(Optional<String> updatedAt);
-
-        _FinalStage updatedAt(String updatedAt);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements NameStage, _FinalStage {
-        private String name;
+    public static final class Builder {
+        private Optional<String> id = Optional.empty();
 
-        private Optional<String> updatedAt = Optional.empty();
+        private Optional<String> name = Optional.empty();
 
         private Optional<String> createdAt = Optional.empty();
 
-        private Optional<String> id = Optional.empty();
+        private Optional<String> updatedAt = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(CustomerSegment other) {
             id(other.getId());
             name(other.getName());
@@ -155,68 +131,61 @@ public final class CustomerSegment {
         }
 
         /**
-         * <p>The name of the segment.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
+         * <p>A unique Square-generated ID for the segment.</p>
          */
-        @java.lang.Override
-        @JsonSetter("name")
-        public _FinalStage name(@NotNull String name) {
-            this.name = Objects.requireNonNull(name, "name must not be null");
+        @JsonSetter(value = "id", nulls = Nulls.SKIP)
+        public Builder id(Optional<String> id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = Optional.ofNullable(id);
             return this;
         }
 
         /**
-         * <p>The timestamp when the segment was last updated, in RFC 3339 format.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
+         * <p>The name of the segment.</p>
          */
-        @java.lang.Override
-        public _FinalStage updatedAt(String updatedAt) {
-            this.updatedAt = Optional.ofNullable(updatedAt);
+        @JsonSetter(value = "name", nulls = Nulls.SKIP)
+        public Builder name(Optional<String> name) {
+            this.name = name;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
-        public _FinalStage updatedAt(Optional<String> updatedAt) {
-            this.updatedAt = updatedAt;
+        public Builder name(String name) {
+            this.name = Optional.ofNullable(name);
             return this;
         }
 
         /**
          * <p>The timestamp when the segment was created, in RFC 3339 format.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        public _FinalStage createdAt(String createdAt) {
-            this.createdAt = Optional.ofNullable(createdAt);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
-        public _FinalStage createdAt(Optional<String> createdAt) {
+        public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
+        public Builder createdAt(String createdAt) {
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
         /**
-         * <p>A unique Square-generated ID for the segment.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
+         * <p>The timestamp when the segment was last updated, in RFC 3339 format.</p>
          */
-        @java.lang.Override
-        public _FinalStage id(String id) {
-            this.id = Optional.ofNullable(id);
+        @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
+        public Builder updatedAt(Optional<String> updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
-        @java.lang.Override
-        @JsonSetter(value = "id", nulls = Nulls.SKIP)
-        public _FinalStage id(Optional<String> id) {
-            this.id = id;
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = Optional.ofNullable(updatedAt);
             return this;
         }
 
-        @java.lang.Override
         public CustomerSegment build() {
             return new CustomerSegment(id, name, createdAt, updatedAt, additionalProperties);
         }

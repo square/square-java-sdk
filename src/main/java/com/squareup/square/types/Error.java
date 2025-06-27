@@ -112,22 +112,37 @@ public final class Error {
     }
 
     public interface CategoryStage {
+        /**
+         * <p>The high-level category for the error.
+         * See <a href="#type-errorcategory">ErrorCategory</a> for possible values</p>
+         */
         CodeStage category(@NotNull ErrorCategory category);
 
         Builder from(Error other);
     }
 
     public interface CodeStage {
+        /**
+         * <p>The specific code of the error.
+         * See <a href="#type-errorcode">ErrorCode</a> for possible values</p>
+         */
         _FinalStage code(@NotNull ErrorCode code);
     }
 
     public interface _FinalStage {
         Error build();
 
+        /**
+         * <p>A human-readable description of the error for debugging purposes.</p>
+         */
         _FinalStage detail(Optional<String> detail);
 
         _FinalStage detail(String detail);
 
+        /**
+         * <p>The name of the field provided in the original request (if any) that
+         * the error pertains to.</p>
+         */
         _FinalStage field(Optional<String> field);
 
         _FinalStage field(String field);
@@ -160,6 +175,8 @@ public final class Error {
         /**
          * <p>The high-level category for the error.
          * See <a href="#type-errorcategory">ErrorCategory</a> for possible values</p>
+         * <p>The high-level category for the error.
+         * See <a href="#type-errorcategory">ErrorCategory</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -170,6 +187,8 @@ public final class Error {
         }
 
         /**
+         * <p>The specific code of the error.
+         * See <a href="#type-errorcode">ErrorCode</a> for possible values</p>
          * <p>The specific code of the error.
          * See <a href="#type-errorcode">ErrorCode</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -192,6 +211,10 @@ public final class Error {
             return this;
         }
 
+        /**
+         * <p>The name of the field provided in the original request (if any) that
+         * the error pertains to.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public _FinalStage field(Optional<String> field) {
@@ -209,6 +232,9 @@ public final class Error {
             return this;
         }
 
+        /**
+         * <p>A human-readable description of the error for debugging purposes.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "detail", nulls = Nulls.SKIP)
         public _FinalStage detail(Optional<String> detail) {

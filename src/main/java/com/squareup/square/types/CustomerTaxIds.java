@@ -92,6 +92,9 @@ public final class CustomerTaxIds {
             return this;
         }
 
+        /**
+         * <p>The EU VAT identification number for the customer. For example, <code>IE3426675K</code>. The ID can contain alphanumeric characters only.</p>
+         */
         @JsonSetter(value = "eu_vat", nulls = Nulls.SKIP)
         public Builder euVat(Optional<String> euVat) {
             this.euVat = euVat;

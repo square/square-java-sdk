@@ -66,6 +66,9 @@ public final class CancelSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to cancel.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(CancelSubscriptionsRequest other);
@@ -91,6 +94,7 @@ public final class CancelSubscriptionsRequest {
         }
 
         /**
+         * <p>The ID of the subscription to cancel.</p>
          * <p>The ID of the subscription to cancel.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

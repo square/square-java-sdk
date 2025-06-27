@@ -339,6 +339,9 @@ public final class UpdateCustomerRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to update.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
 
         Builder from(UpdateCustomerRequest other);
@@ -347,68 +350,120 @@ public final class UpdateCustomerRequest {
     public interface _FinalStage {
         UpdateCustomerRequest build();
 
+        /**
+         * <p>The given name (that is, the first name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         _FinalStage givenName(Optional<String> givenName);
 
         _FinalStage givenName(String givenName);
 
         _FinalStage givenName(Nullable<String> givenName);
 
+        /**
+         * <p>The family name (that is, the last name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         _FinalStage familyName(Optional<String> familyName);
 
         _FinalStage familyName(String familyName);
 
         _FinalStage familyName(Nullable<String> familyName);
 
+        /**
+         * <p>A business name associated with the customer profile.</p>
+         * <p>The maximum length for this value is 500 characters.</p>
+         */
         _FinalStage companyName(Optional<String> companyName);
 
         _FinalStage companyName(String companyName);
 
         _FinalStage companyName(Nullable<String> companyName);
 
+        /**
+         * <p>A nickname for the customer profile.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         _FinalStage nickname(Optional<String> nickname);
 
         _FinalStage nickname(String nickname);
 
         _FinalStage nickname(Nullable<String> nickname);
 
+        /**
+         * <p>The email address associated with the customer profile.</p>
+         * <p>The maximum length for this value is 254 characters.</p>
+         */
         _FinalStage emailAddress(Optional<String> emailAddress);
 
         _FinalStage emailAddress(String emailAddress);
 
         _FinalStage emailAddress(Nullable<String> emailAddress);
 
+        /**
+         * <p>The physical address associated with the customer profile. Only new or changed fields are required in the request.</p>
+         * <p>For maximum length constraints, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#address">Customer addresses</a>.
+         * The <code>first_name</code> and <code>last_name</code> fields are ignored if they are present in the request.</p>
+         */
         _FinalStage address(Optional<Address> address);
 
         _FinalStage address(Address address);
 
+        /**
+         * <p>The phone number associated with the customer profile. The phone number must be valid and can contain
+         * 9–16 digits, with an optional <code>+</code> prefix and country code. For more information, see
+         * <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number">Customer phone numbers</a>.</p>
+         */
         _FinalStage phoneNumber(Optional<String> phoneNumber);
 
         _FinalStage phoneNumber(String phoneNumber);
 
         _FinalStage phoneNumber(Nullable<String> phoneNumber);
 
+        /**
+         * <p>An optional second ID used to associate the customer profile with an
+         * entity in another system.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         _FinalStage referenceId(Optional<String> referenceId);
 
         _FinalStage referenceId(String referenceId);
 
         _FinalStage referenceId(Nullable<String> referenceId);
 
+        /**
+         * <p>A custom note associated with the customer profile.</p>
+         */
         _FinalStage note(Optional<String> note);
 
         _FinalStage note(String note);
 
         _FinalStage note(Nullable<String> note);
 
+        /**
+         * <p>The birthday associated with the customer profile, in <code>YYYY-MM-DD</code> or <code>MM-DD</code> format. For example,
+         * specify <code>1998-09-21</code> for September 21, 1998, or <code>09-21</code> for September 21. Birthdays are returned in <code>YYYY-MM-DD</code>
+         * format, where <code>YYYY</code> is the specified birth year or <code>0000</code> if a birth year is not specified.</p>
+         */
         _FinalStage birthday(Optional<String> birthday);
 
         _FinalStage birthday(String birthday);
 
         _FinalStage birthday(Nullable<String> birthday);
 
+        /**
+         * <p>The current version of the customer profile.</p>
+         * <p>As a best practice, you should include this field to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control. For more information, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile">Update a customer profile</a>.</p>
+         */
         _FinalStage version(Optional<Long> version);
 
         _FinalStage version(Long version);
 
+        /**
+         * <p>The tax ID associated with the customer profile. This field is available only for customers of sellers
+         * in EU countries or the United Kingdom. For more information,
+         * see <a href="https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids">Customer tax IDs</a>.</p>
+         */
         _FinalStage taxIds(Optional<CustomerTaxIds> taxIds);
 
         _FinalStage taxIds(CustomerTaxIds taxIds);
@@ -467,6 +522,7 @@ public final class UpdateCustomerRequest {
 
         /**
          * <p>The ID of the customer to update.</p>
+         * <p>The ID of the customer to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -488,6 +544,11 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The tax ID associated with the customer profile. This field is available only for customers of sellers
+         * in EU countries or the United Kingdom. For more information,
+         * see <a href="https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids">Customer tax IDs</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public _FinalStage taxIds(Optional<CustomerTaxIds> taxIds) {
@@ -506,6 +567,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The current version of the customer profile.</p>
+         * <p>As a best practice, you should include this field to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control. For more information, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile">Update a customer profile</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Long> version) {
@@ -543,6 +608,11 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The birthday associated with the customer profile, in <code>YYYY-MM-DD</code> or <code>MM-DD</code> format. For example,
+         * specify <code>1998-09-21</code> for September 21, 1998, or <code>09-21</code> for September 21. Birthdays are returned in <code>YYYY-MM-DD</code>
+         * format, where <code>YYYY</code> is the specified birth year or <code>0000</code> if a birth year is not specified.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "birthday", nulls = Nulls.SKIP)
         public _FinalStage birthday(Optional<String> birthday) {
@@ -576,6 +646,9 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A custom note associated with the customer profile.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public _FinalStage note(Optional<String> note) {
@@ -613,6 +686,11 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>An optional second ID used to associate the customer profile with an
+         * entity in another system.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public _FinalStage referenceId(Optional<String> referenceId) {
@@ -650,6 +728,11 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The phone number associated with the customer profile. The phone number must be valid and can contain
+         * 9–16 digits, with an optional <code>+</code> prefix and country code. For more information, see
+         * <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#phone-number">Customer phone numbers</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public _FinalStage phoneNumber(Optional<String> phoneNumber) {
@@ -669,6 +752,11 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The physical address associated with the customer profile. Only new or changed fields are required in the request.</p>
+         * <p>For maximum length constraints, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#address">Customer addresses</a>.
+         * The <code>first_name</code> and <code>last_name</code> fields are ignored if they are present in the request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public _FinalStage address(Optional<Address> address) {
@@ -704,6 +792,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The email address associated with the customer profile.</p>
+         * <p>The maximum length for this value is 254 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public _FinalStage emailAddress(Optional<String> emailAddress) {
@@ -739,6 +831,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A nickname for the customer profile.</p>
+         * <p>The maximum length for this value is 100 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "nickname", nulls = Nulls.SKIP)
         public _FinalStage nickname(Optional<String> nickname) {
@@ -774,6 +870,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>A business name associated with the customer profile.</p>
+         * <p>The maximum length for this value is 500 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "company_name", nulls = Nulls.SKIP)
         public _FinalStage companyName(Optional<String> companyName) {
@@ -809,6 +909,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The family name (that is, the last name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public _FinalStage familyName(Optional<String> familyName) {
@@ -844,6 +948,10 @@ public final class UpdateCustomerRequest {
             return this;
         }
 
+        /**
+         * <p>The given name (that is, the first name) associated with the customer profile.</p>
+         * <p>The maximum length for this value is 300 characters.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public _FinalStage givenName(Optional<String> givenName) {

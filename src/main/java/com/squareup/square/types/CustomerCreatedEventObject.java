@@ -97,6 +97,9 @@ public final class CustomerCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The new customer.</p>
+         */
         @JsonSetter(value = "customer", nulls = Nulls.SKIP)
         public Builder customer(Optional<Customer> customer) {
             this.customer = customer;
@@ -108,6 +111,9 @@ public final class CustomerCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>Information about the change that triggered the event. This field is returned only if the customer is created by a merge operation.</p>
+         */
         @JsonSetter(value = "event_context", nulls = Nulls.SKIP)
         public Builder eventContext(Optional<CustomerCreatedEventEventContext> eventContext) {
             this.eventContext = eventContext;

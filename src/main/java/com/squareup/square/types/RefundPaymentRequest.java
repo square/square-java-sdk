@@ -349,74 +349,148 @@ public final class RefundPaymentRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>RefundPayment</code> request. The key can be any valid string
+         * but must be unique for every <code>RefundPayment</code> request.</p>
+         * <p>Keys are limited to a max of 45 characters - however, the number of allowed characters might be
+         * less than 45, if multi-byte characters are used.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         AmountMoneyStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(RefundPaymentRequest other);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money to refund.</p>
+         * <p>This amount cannot be more than the <code>total_money</code> value of the payment minus the total
+         * amount of all previously completed refunds for this payment.</p>
+         * <p>This amount must be specified in the smallest denomination of the applicable currency
+         * (for example, US dollar amounts are specified in cents). For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         * <p>The currency code must match the currency associated with the business
+         * that is charging the card.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
     }
 
     public interface _FinalStage {
         RefundPaymentRequest build();
 
+        /**
+         * <p>The amount of money the developer contributes to help cover the refunded amount.
+         * This amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents).</p>
+         * <p>The value cannot be more than the <code>amount_money</code>.</p>
+         * <p>You can specify this parameter in a refund request only if the same parameter was also included
+         * when taking the payment. This is part of the application fee scenario the API supports. For more
+         * information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
+         * <p>To set this field, <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission is required.
+         * For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees#permissions">Permissions</a>.</p>
+         */
         _FinalStage appFeeMoney(Optional<Money> appFeeMoney);
 
         _FinalStage appFeeMoney(Money appFeeMoney);
 
+        /**
+         * <p>The unique ID of the payment being refunded.
+         * Required when unlinked=false, otherwise must not be set.</p>
+         */
         _FinalStage paymentId(Optional<String> paymentId);
 
         _FinalStage paymentId(String paymentId);
 
         _FinalStage paymentId(Nullable<String> paymentId);
 
+        /**
+         * <p>The ID indicating where funds will be refunded to. Required for unlinked refunds. For more
+         * information, see <a href="https://developer.squareup.com/docs/refunds-api/unlinked-refunds">Process an Unlinked Refund</a>.</p>
+         * <p>For refunds linked to Square payments, <code>destination_id</code> is usually omitted; in this case, funds
+         * will be returned to the original payment source. The field may be specified in order to request
+         * a cross-method refund to a gift card. For more information,
+         * see <a href="https://developer.squareup.com/docs/payments-api/refund-payments#cross-method-refunds-to-gift-cards">Cross-method refunds to gift cards</a>.</p>
+         */
         _FinalStage destinationId(Optional<String> destinationId);
 
         _FinalStage destinationId(String destinationId);
 
         _FinalStage destinationId(Nullable<String> destinationId);
 
+        /**
+         * <p>Indicates that the refund is not linked to a Square payment.
+         * If set to true, <code>destination_id</code> and <code>location_id</code> must be supplied while <code>payment_id</code> must not
+         * be provided.</p>
+         */
         _FinalStage unlinked(Optional<Boolean> unlinked);
 
         _FinalStage unlinked(Boolean unlinked);
 
         _FinalStage unlinked(Nullable<Boolean> unlinked);
 
+        /**
+         * <p>The location ID associated with the unlinked refund.
+         * Required for requests specifying <code>unlinked=true</code>.
+         * Otherwise, if included when <code>unlinked=false</code>, will throw an error.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
 
         _FinalStage locationId(Nullable<String> locationId);
 
+        /**
+         * <p>The <a href="entity:Customer">Customer</a> ID of the customer associated with the refund.
+         * This is required if the <code>destination_id</code> refers to a card on file created using the Cards
+         * API. Only allowed when <code>unlinked=true</code>.</p>
+         */
         _FinalStage customerId(Optional<String> customerId);
 
         _FinalStage customerId(String customerId);
 
         _FinalStage customerId(Nullable<String> customerId);
 
+        /**
+         * <p>A description of the reason for the refund.</p>
+         */
         _FinalStage reason(Optional<String> reason);
 
         _FinalStage reason(String reason);
 
         _FinalStage reason(Nullable<String> reason);
 
+        /**
+         * <p>Used for optimistic concurrency. This opaque token identifies the current <code>Payment</code>
+         * version that the caller expects. If the server has a different version of the Payment,
+         * the update fails and a response with a VERSION_MISMATCH error is returned.
+         * If the versions match, or the field is not provided, the refund proceeds as normal.</p>
+         */
         _FinalStage paymentVersionToken(Optional<String> paymentVersionToken);
 
         _FinalStage paymentVersionToken(String paymentVersionToken);
 
         _FinalStage paymentVersionToken(Nullable<String> paymentVersionToken);
 
+        /**
+         * <p>An optional <a href="entity:TeamMember">TeamMember</a> ID to associate with this refund.</p>
+         */
         _FinalStage teamMemberId(Optional<String> teamMemberId);
 
         _FinalStage teamMemberId(String teamMemberId);
 
         _FinalStage teamMemberId(Nullable<String> teamMemberId);
 
+        /**
+         * <p>Additional details required when recording an unlinked cash refund (<code>destination_id</code> is CASH).</p>
+         */
         _FinalStage cashDetails(Optional<DestinationDetailsCashRefundDetails> cashDetails);
 
         _FinalStage cashDetails(DestinationDetailsCashRefundDetails cashDetails);
 
+        /**
+         * <p>Additional details required when recording an unlinked external refund
+         * (<code>destination_id</code> is EXTERNAL).</p>
+         */
         _FinalStage externalDetails(Optional<DestinationDetailsExternalRefundDetails> externalDetails);
 
         _FinalStage externalDetails(DestinationDetailsExternalRefundDetails externalDetails);
@@ -479,6 +553,11 @@ public final class RefundPaymentRequest {
          * <p>Keys are limited to a max of 45 characters - however, the number of allowed characters might be
          * less than 45, if multi-byte characters are used.</p>
          * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         * <p>A unique string that identifies this <code>RefundPayment</code> request. The key can be any valid string
+         * but must be unique for every <code>RefundPayment</code> request.</p>
+         * <p>Keys are limited to a max of 45 characters - however, the number of allowed characters might be
+         * less than 45, if multi-byte characters are used.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -489,6 +568,14 @@ public final class RefundPaymentRequest {
         }
 
         /**
+         * <p>The amount of money to refund.</p>
+         * <p>This amount cannot be more than the <code>total_money</code> value of the payment minus the total
+         * amount of all previously completed refunds for this payment.</p>
+         * <p>This amount must be specified in the smallest denomination of the applicable currency
+         * (for example, US dollar amounts are specified in cents). For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         * <p>The currency code must match the currency associated with the business
+         * that is charging the card.</p>
          * <p>The amount of money to refund.</p>
          * <p>This amount cannot be more than the <code>total_money</code> value of the payment minus the total
          * amount of all previously completed refunds for this payment.</p>
@@ -517,6 +604,10 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Additional details required when recording an unlinked external refund
+         * (<code>destination_id</code> is EXTERNAL).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "external_details", nulls = Nulls.SKIP)
         public _FinalStage externalDetails(Optional<DestinationDetailsExternalRefundDetails> externalDetails) {
@@ -534,6 +625,9 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Additional details required when recording an unlinked cash refund (<code>destination_id</code> is CASH).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cash_details", nulls = Nulls.SKIP)
         public _FinalStage cashDetails(Optional<DestinationDetailsCashRefundDetails> cashDetails) {
@@ -567,6 +661,9 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>An optional <a href="entity:TeamMember">TeamMember</a> ID to associate with this refund.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public _FinalStage teamMemberId(Optional<String> teamMemberId) {
@@ -606,6 +703,12 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Used for optimistic concurrency. This opaque token identifies the current <code>Payment</code>
+         * version that the caller expects. If the server has a different version of the Payment,
+         * the update fails and a response with a VERSION_MISMATCH error is returned.
+         * If the versions match, or the field is not provided, the refund proceeds as normal.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_version_token", nulls = Nulls.SKIP)
         public _FinalStage paymentVersionToken(Optional<String> paymentVersionToken) {
@@ -639,6 +742,9 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>A description of the reason for the refund.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reason", nulls = Nulls.SKIP)
         public _FinalStage reason(Optional<String> reason) {
@@ -676,6 +782,11 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Customer">Customer</a> ID of the customer associated with the refund.
+         * This is required if the <code>destination_id</code> refers to a card on file created using the Cards
+         * API. Only allowed when <code>unlinked=true</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public _FinalStage customerId(Optional<String> customerId) {
@@ -713,6 +824,11 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The location ID associated with the unlinked refund.
+         * Required for requests specifying <code>unlinked=true</code>.
+         * Otherwise, if included when <code>unlinked=false</code>, will throw an error.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {
@@ -750,6 +866,11 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates that the refund is not linked to a Square payment.
+         * If set to true, <code>destination_id</code> and <code>location_id</code> must be supplied while <code>payment_id</code> must not
+         * be provided.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "unlinked", nulls = Nulls.SKIP)
         public _FinalStage unlinked(Optional<Boolean> unlinked) {
@@ -793,6 +914,14 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The ID indicating where funds will be refunded to. Required for unlinked refunds. For more
+         * information, see <a href="https://developer.squareup.com/docs/refunds-api/unlinked-refunds">Process an Unlinked Refund</a>.</p>
+         * <p>For refunds linked to Square payments, <code>destination_id</code> is usually omitted; in this case, funds
+         * will be returned to the original payment source. The field may be specified in order to request
+         * a cross-method refund to a gift card. For more information,
+         * see <a href="https://developer.squareup.com/docs/payments-api/refund-payments#cross-method-refunds-to-gift-cards">Cross-method refunds to gift cards</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "destination_id", nulls = Nulls.SKIP)
         public _FinalStage destinationId(Optional<String> destinationId) {
@@ -828,6 +957,10 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The unique ID of the payment being refunded.
+         * Required when unlinked=false, otherwise must not be set.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public _FinalStage paymentId(Optional<String> paymentId) {
@@ -853,6 +986,17 @@ public final class RefundPaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The amount of money the developer contributes to help cover the refunded amount.
+         * This amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents).</p>
+         * <p>The value cannot be more than the <code>amount_money</code>.</p>
+         * <p>You can specify this parameter in a refund request only if the same parameter was also included
+         * when taking the payment. This is part of the application fee scenario the API supports. For more
+         * information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
+         * <p>To set this field, <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission is required.
+         * For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees#permissions">Permissions</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "app_fee_money", nulls = Nulls.SKIP)
         public _FinalStage appFeeMoney(Optional<Money> appFeeMoney) {

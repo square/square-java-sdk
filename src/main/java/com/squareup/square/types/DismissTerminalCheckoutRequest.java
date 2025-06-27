@@ -66,6 +66,9 @@ public final class DismissTerminalCheckoutRequest {
     }
 
     public interface CheckoutIdStage {
+        /**
+         * <p>Unique ID for the <code>TerminalCheckout</code> associated with the checkout to be dismissed.</p>
+         */
         _FinalStage checkoutId(@NotNull String checkoutId);
 
         Builder from(DismissTerminalCheckoutRequest other);
@@ -91,6 +94,7 @@ public final class DismissTerminalCheckoutRequest {
         }
 
         /**
+         * <p>Unique ID for the <code>TerminalCheckout</code> associated with the checkout to be dismissed.</p>
          * <p>Unique ID for the <code>TerminalCheckout</code> associated with the checkout to be dismissed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

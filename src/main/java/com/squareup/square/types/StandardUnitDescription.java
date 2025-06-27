@@ -133,6 +133,9 @@ public final class StandardUnitDescription {
             return this;
         }
 
+        /**
+         * <p>Identifies the measurement unit being described.</p>
+         */
         @JsonSetter(value = "unit", nulls = Nulls.SKIP)
         public Builder unit(Optional<MeasurementUnit> unit) {
             this.unit = unit;
@@ -144,6 +147,9 @@ public final class StandardUnitDescription {
             return this;
         }
 
+        /**
+         * <p>UI display name of the measurement unit. For example, 'Pound'.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -166,6 +172,9 @@ public final class StandardUnitDescription {
             return this;
         }
 
+        /**
+         * <p>UI display abbreviation for the measurement unit. For example, 'lb'.</p>
+         */
         @JsonSetter(value = "abbreviation", nulls = Nulls.SKIP)
         public Builder abbreviation(Optional<String> abbreviation) {
             this.abbreviation = abbreviation;

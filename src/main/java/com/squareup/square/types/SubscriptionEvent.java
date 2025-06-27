@@ -169,34 +169,56 @@ public final class SubscriptionEvent {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the subscription event.</p>
+         */
         SubscriptionEventTypeStage id(@NotNull String id);
 
         Builder from(SubscriptionEvent other);
     }
 
     public interface SubscriptionEventTypeStage {
+        /**
+         * <p>Type of the subscription event.
+         * See <a href="#type-subscriptioneventsubscriptioneventtype">SubscriptionEventSubscriptionEventType</a> for possible values</p>
+         */
         EffectiveDateStage subscriptionEventType(@NotNull SubscriptionEventSubscriptionEventType subscriptionEventType);
     }
 
     public interface EffectiveDateStage {
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date (for example, 2013-01-15) when the subscription event occurred.</p>
+         */
         PlanVariationIdStage effectiveDate(@NotNull String effectiveDate);
     }
 
     public interface PlanVariationIdStage {
+        /**
+         * <p>The ID of the subscription plan variation associated with the subscription.</p>
+         */
         _FinalStage planVariationId(@NotNull String planVariationId);
     }
 
     public interface _FinalStage {
         SubscriptionEvent build();
 
+        /**
+         * <p>The day-of-the-month the billing anchor date was changed to, if applicable.</p>
+         */
         _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate);
 
+        /**
+         * <p>Additional information about the subscription event.</p>
+         */
         _FinalStage info(Optional<SubscriptionEventInfo> info);
 
         _FinalStage info(SubscriptionEventInfo info);
 
+        /**
+         * <p>A list of Phases, to pass phase-specific information used in the swap.</p>
+         */
         _FinalStage phases(Optional<List<Phase>> phases);
 
         _FinalStage phases(List<Phase> phases);
@@ -240,6 +262,7 @@ public final class SubscriptionEvent {
 
         /**
          * <p>The ID of the subscription event.</p>
+         * <p>The ID of the subscription event.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -250,6 +273,8 @@ public final class SubscriptionEvent {
         }
 
         /**
+         * <p>Type of the subscription event.
+         * See <a href="#type-subscriptioneventsubscriptioneventtype">SubscriptionEventSubscriptionEventType</a> for possible values</p>
          * <p>Type of the subscription event.
          * See <a href="#type-subscriptioneventsubscriptioneventtype">SubscriptionEventSubscriptionEventType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -265,6 +290,7 @@ public final class SubscriptionEvent {
 
         /**
          * <p>The <code>YYYY-MM-DD</code>-formatted date (for example, 2013-01-15) when the subscription event occurred.</p>
+         * <p>The <code>YYYY-MM-DD</code>-formatted date (for example, 2013-01-15) when the subscription event occurred.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -275,6 +301,7 @@ public final class SubscriptionEvent {
         }
 
         /**
+         * <p>The ID of the subscription plan variation associated with the subscription.</p>
          * <p>The ID of the subscription plan variation associated with the subscription.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -311,6 +338,9 @@ public final class SubscriptionEvent {
             return this;
         }
 
+        /**
+         * <p>A list of Phases, to pass phase-specific information used in the swap.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(Optional<List<Phase>> phases) {
@@ -328,6 +358,9 @@ public final class SubscriptionEvent {
             return this;
         }
 
+        /**
+         * <p>Additional information about the subscription event.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "info", nulls = Nulls.SKIP)
         public _FinalStage info(Optional<SubscriptionEventInfo> info) {
@@ -345,6 +378,9 @@ public final class SubscriptionEvent {
             return this;
         }
 
+        /**
+         * <p>The day-of-the-month the billing anchor date was changed to, if applicable.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate) {

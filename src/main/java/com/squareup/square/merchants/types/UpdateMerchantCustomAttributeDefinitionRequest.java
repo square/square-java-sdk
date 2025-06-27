@@ -125,18 +125,42 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to update.</p>
+         */
         CustomAttributeDefinitionStage key(@NotNull String key);
 
         Builder from(UpdateMerchantCustomAttributeDefinitionRequest other);
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint
+         * supports sparse updates, so only new or changed fields need to be included in the request.
+         * Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.
+         * For more information, see
+         * <a href="https://developer.squareup.com/docs/merchant-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition">Update a merchant custom attribute definition</a>.
+         * The version field must match the current version of the custom attribute definition to enable
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * If this is not important for your application, version can be set to -1. For any other values, the request fails with a BAD_REQUEST error.</li>
+         * </ul>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
     }
 
     public interface _FinalStage {
         UpdateMerchantCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -167,6 +191,7 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
 
         /**
          * <p>The key of the custom attribute definition to update.</p>
+         * <p>The key of the custom attribute definition to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -177,6 +202,21 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
         }
 
         /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint
+         * supports sparse updates, so only new or changed fields need to be included in the request.
+         * Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.
+         * For more information, see
+         * <a href="https://developer.squareup.com/docs/merchant-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition">Update a merchant custom attribute definition</a>.
+         * The version field must match the current version of the custom attribute definition to enable
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * If this is not important for your application, version can be set to -1. For any other values, the request fails with a BAD_REQUEST error.</li>
+         * </ul>
          * <p>The custom attribute definition that contains the fields to update. This endpoint
          * supports sparse updates, so only new or changed fields need to be included in the request.
          * Only the following fields can be updated:</p>
@@ -230,6 +270,10 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

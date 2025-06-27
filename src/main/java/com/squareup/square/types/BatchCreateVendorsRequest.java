@@ -80,6 +80,9 @@ public final class BatchCreateVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies a set of new <a href="entity:Vendor">Vendor</a> objects as represented by a collection of idempotency-key/<code>Vendor</code>-object pairs.</p>
+         */
         @JsonSetter(value = "vendors", nulls = Nulls.SKIP)
         public Builder vendors(Map<String, Vendor> vendors) {
             this.vendors.clear();

@@ -94,6 +94,9 @@ public final class CheckoutMerchantSettingsPaymentMethodsPaymentMethod {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the payment method is enabled for the account.</p>
+         */
         @JsonSetter(value = "enabled", nulls = Nulls.SKIP)
         public Builder enabled(Optional<Boolean> enabled) {
             this.enabled = enabled;

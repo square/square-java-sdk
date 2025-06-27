@@ -111,6 +111,10 @@ public final class GiftCardCustomerUnlinkedEventObject {
             return this;
         }
 
+        /**
+         * <p>The gift card with the updated <code>customer_ids</code> field.
+         * The field is removed if the gift card is not linked to any customers.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;
@@ -122,6 +126,9 @@ public final class GiftCardCustomerUnlinkedEventObject {
             return this;
         }
 
+        /**
+         * <p>The ID of the unlinked <a href="entity:Customer">customer</a>.</p>
+         */
         @JsonSetter(value = "unlinked_customer_id", nulls = Nulls.SKIP)
         public Builder unlinkedCustomerId(Optional<String> unlinkedCustomerId) {
             this.unlinkedCustomerId = unlinkedCustomerId;

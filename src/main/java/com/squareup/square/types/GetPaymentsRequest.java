@@ -66,6 +66,9 @@ public final class GetPaymentsRequest {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>A unique ID for the desired payment.</p>
+         */
         _FinalStage paymentId(@NotNull String paymentId);
 
         Builder from(GetPaymentsRequest other);
@@ -91,6 +94,7 @@ public final class GetPaymentsRequest {
         }
 
         /**
+         * <p>A unique ID for the desired payment.</p>
          * <p>A unique ID for the desired payment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

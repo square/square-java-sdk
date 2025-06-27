@@ -96,6 +96,9 @@ public final class UpdatePaymentResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class UpdatePaymentResponse {
             return this;
         }
 
+        /**
+         * <p>The updated payment.</p>
+         */
         @JsonSetter(value = "payment", nulls = Nulls.SKIP)
         public Builder payment(Optional<Payment> payment) {
             this.payment = payment;

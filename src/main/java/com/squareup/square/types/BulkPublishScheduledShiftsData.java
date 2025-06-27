@@ -82,6 +82,11 @@ public final class BulkPublishScheduledShiftsData {
             return this;
         }
 
+        /**
+         * <p>The current version of the scheduled shift, used to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control. If the provided version doesn't match the server version, the request fails.
+         * If omitted, Square executes a blind write, potentially overwriting data from another publish request.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;

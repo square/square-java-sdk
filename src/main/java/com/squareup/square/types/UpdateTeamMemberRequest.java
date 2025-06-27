@@ -82,6 +82,11 @@ public final class UpdateTeamMemberRequest {
             return this;
         }
 
+        /**
+         * <p>The team member fields to add, change, or clear. Fields can be cleared using a null value. To update
+         * <code>wage_setting.job_assignments</code>, you must provide the complete list of job assignments. If needed, call
+         * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get the required <code>job_id</code> values.</p>
+         */
         @JsonSetter(value = "team_member", nulls = Nulls.SKIP)
         public Builder teamMember(Optional<TeamMember> teamMember) {
             this.teamMember = teamMember;

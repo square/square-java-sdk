@@ -6,29 +6,25 @@ package com.squareup.square.catalog;
 import com.squareup.square.catalog.types.CreateImagesRequest;
 import com.squareup.square.catalog.types.UpdateImagesRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.types.CreateCatalogImageResponse;
 import com.squareup.square.types.UpdateCatalogImageResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class ImagesClient {
     protected final ClientOptions clientOptions;
 
+    private final RawImagesClient rawClient;
+
     public ImagesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawImagesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawImagesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -39,7 +35,7 @@ public class ImagesClient {
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
     public CreateCatalogImageResponse create() {
-        return create(CreateImagesRequest.builder().build());
+        return this.rawClient.create().body();
     }
 
     /**
@@ -50,7 +46,7 @@ public class ImagesClient {
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
     public CreateCatalogImageResponse create(CreateImagesRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -61,56 +57,7 @@ public class ImagesClient {
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
     public CreateCatalogImageResponse create(CreateImagesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .build();
-        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        try {
-            if (request.getRequest().isPresent()) {
-                body.addFormDataPart(
-                        "request",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getRequest().get()));
-            }
-            if (request.getImageFile().isPresent()) {
-                String imageFileMimeType =
-                        Files.probeContentType(request.getImageFile().get().toPath());
-                MediaType imageFileMimeTypeMediaType =
-                        imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                body.addFormDataPart(
-                        "image_file",
-                        request.getImageFile().get().getName(),
-                        RequestBody.create(
-                                imageFileMimeTypeMediaType,
-                                request.getImageFile().get()));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body.build())
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateCatalogImageResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
@@ -119,7 +66,7 @@ public class ImagesClient {
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
     public UpdateCatalogImageResponse update(UpdateImagesRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).body();
     }
 
     /**
@@ -128,56 +75,6 @@ public class ImagesClient {
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
     public UpdateCatalogImageResponse update(UpdateImagesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .addPathSegment(request.getImageId())
-                .build();
-        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        try {
-            if (request.getRequest().isPresent()) {
-                body.addFormDataPart(
-                        "request",
-                        ObjectMappers.JSON_MAPPER.writeValueAsString(
-                                request.getRequest().get()));
-            }
-            if (request.getImageFile().isPresent()) {
-                String imageFileMimeType =
-                        Files.probeContentType(request.getImageFile().get().toPath());
-                MediaType imageFileMimeTypeMediaType =
-                        imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                body.addFormDataPart(
-                        "image_file",
-                        request.getImageFile().get().getName(),
-                        RequestBody.create(
-                                imageFileMimeTypeMediaType,
-                                request.getImageFile().get()));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body.build())
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateCatalogImageResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.update(request, requestOptions).body();
     }
 }

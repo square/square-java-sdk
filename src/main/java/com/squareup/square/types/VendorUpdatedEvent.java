@@ -201,6 +201,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of a seller associated with this event.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -223,6 +226,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of a seller location associated with this event, if the event is associated with the location.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -245,6 +251,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The type of this event. The value is <code>&quot;vendor.updated&quot;.</code></p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -267,6 +276,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>A unique ID for this webhoook event.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -289,6 +301,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339-formatted time when the underlying event data object is created.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -300,6 +315,9 @@ public final class VendorUpdatedEvent {
             return this;
         }
 
+        /**
+         * <p>The data associated with this event.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<VendorUpdatedEventData> data) {
             this.data = data;

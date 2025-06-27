@@ -80,6 +80,9 @@ public final class GiftCardCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The new gift card.</p>
+         */
         @JsonSetter(value = "gift_card", nulls = Nulls.SKIP)
         public Builder giftCard(Optional<GiftCard> giftCard) {
             this.giftCard = giftCard;

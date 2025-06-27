@@ -316,6 +316,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift unique ID.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -327,6 +330,10 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift current state.
+         * See <a href="#type-cashdrawershiftstate">CashDrawerShiftState</a> for possible values</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<CashDrawerShiftState> state) {
             this.state = state;
@@ -338,6 +345,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift start time in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "opened_at", nulls = Nulls.SKIP)
         public Builder openedAt(Optional<String> openedAt) {
             this.openedAt = openedAt;
@@ -360,6 +370,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift end time in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "ended_at", nulls = Nulls.SKIP)
         public Builder endedAt(Optional<String> endedAt) {
             this.endedAt = endedAt;
@@ -382,6 +395,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift close time in ISO 8601 format.</p>
+         */
         @JsonSetter(value = "closed_at", nulls = Nulls.SKIP)
         public Builder closedAt(Optional<String> closedAt) {
             this.closedAt = closedAt;
@@ -404,6 +420,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>An employee free-text description of a cash drawer shift.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -426,6 +445,10 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The amount of money in the cash drawer at the start of the shift. This
+         * must be a positive amount.</p>
+         */
         @JsonSetter(value = "opened_cash_money", nulls = Nulls.SKIP)
         public Builder openedCashMoney(Optional<Money> openedCashMoney) {
             this.openedCashMoney = openedCashMoney;
@@ -437,6 +460,13 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The amount of money that should be in the cash drawer at the end of the
+         * shift, based on the cash drawer events on the shift.
+         * The amount is correct if all shift employees accurately recorded their
+         * cash drawer shift events. Unrecorded events and events with the wrong amount
+         * result in an incorrect expected_cash_money amount that can be negative.</p>
+         */
         @JsonSetter(value = "expected_cash_money", nulls = Nulls.SKIP)
         public Builder expectedCashMoney(Optional<Money> expectedCashMoney) {
             this.expectedCashMoney = expectedCashMoney;
@@ -448,6 +478,10 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The amount of money found in the cash drawer at the end of the shift by
+         * an auditing employee. The amount must be greater than or equal to zero.</p>
+         */
         @JsonSetter(value = "closed_cash_money", nulls = Nulls.SKIP)
         public Builder closedCashMoney(Optional<Money> closedCashMoney) {
             this.closedCashMoney = closedCashMoney;
@@ -459,6 +493,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift start time in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -470,6 +507,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The shift updated at time in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -481,6 +521,9 @@ public final class CashDrawerShiftSummary {
             return this;
         }
 
+        /**
+         * <p>The ID of the location the cash drawer shift belongs to.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

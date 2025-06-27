@@ -100,6 +100,10 @@ public final class BulkDeleteBookingCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>A map of responses that correspond to individual delete requests. Each response has the
+         * same ID as the corresponding request and contains <code>booking_id</code> and  <code>errors</code> field.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Optional<Map<String, BookingCustomAttributeDeleteResponse>> values) {
             this.values = values;
@@ -111,6 +115,9 @@ public final class BulkDeleteBookingCustomAttributesResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

@@ -94,6 +94,11 @@ public final class ListJobsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor returned by the previous call to this endpoint. Provide this
+         * cursor to retrieve the next page of results for your original request. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

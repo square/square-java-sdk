@@ -86,6 +86,10 @@ public final class BulkDeleteMerchantCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>The data used to update the <code>CustomAttribute</code> objects.
+         * The keys must be unique and are used to map to the corresponding response.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(
                 Map<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest> values) {

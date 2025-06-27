@@ -116,6 +116,9 @@ public final class ListGiftCardsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListGiftCardsResponse {
             return this;
         }
 
+        /**
+         * <p>The requested gift cards or an empty object if none are found.</p>
+         */
         @JsonSetter(value = "gift_cards", nulls = Nulls.SKIP)
         public Builder giftCards(Optional<List<GiftCard>> giftCards) {
             this.giftCards = giftCards;
@@ -138,6 +144,12 @@ public final class ListGiftCardsResponse {
             return this;
         }
 
+        /**
+         * <p>When a response is truncated, it includes a cursor that you can use in a
+         * subsequent request to retrieve the next set of gift cards. If a cursor is not present, this is
+         * the final response.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -81,6 +81,9 @@ public final class CatalogQueryText {
             return this;
         }
 
+        /**
+         * <p>A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 alphanumeric characters are ignored.</p>
+         */
         @JsonSetter(value = "keywords", nulls = Nulls.SKIP)
         public Builder keywords(List<String> keywords) {
             this.keywords.clear();

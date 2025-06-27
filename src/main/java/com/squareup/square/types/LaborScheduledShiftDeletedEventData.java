@@ -134,6 +134,9 @@ public final class LaborScheduledShiftDeletedEventData {
             return this;
         }
 
+        /**
+         * <p>The type of object affected by the event. For this event, the value is <code>scheduled_shift</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -156,6 +159,9 @@ public final class LaborScheduledShiftDeletedEventData {
             return this;
         }
 
+        /**
+         * <p>The ID of the affected <code>ScheduledShift</code>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -167,6 +173,9 @@ public final class LaborScheduledShiftDeletedEventData {
             return this;
         }
 
+        /**
+         * <p>Is true if the affected object was deleted. Otherwise absent.</p>
+         */
         @JsonSetter(value = "deleted", nulls = Nulls.SKIP)
         public Builder deleted(Optional<Boolean> deleted) {
             this.deleted = deleted;

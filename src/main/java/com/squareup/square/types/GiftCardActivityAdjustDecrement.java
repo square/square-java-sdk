@@ -79,12 +79,19 @@ public final class GiftCardActivityAdjustDecrement {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount deducted from the gift card balance. This value is a positive integer.</p>
+         */
         ReasonStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(GiftCardActivityAdjustDecrement other);
     }
 
     public interface ReasonStage {
+        /**
+         * <p>The reason the gift card balance was adjusted.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
+         */
         _FinalStage reason(@NotNull GiftCardActivityAdjustDecrementReason reason);
     }
 
@@ -112,6 +119,7 @@ public final class GiftCardActivityAdjustDecrement {
 
         /**
          * <p>The amount deducted from the gift card balance. This value is a positive integer.</p>
+         * <p>The amount deducted from the gift card balance. This value is a positive integer.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +130,8 @@ public final class GiftCardActivityAdjustDecrement {
         }
 
         /**
+         * <p>The reason the gift card balance was adjusted.
+         * See <a href="#type-reason">Reason</a> for possible values</p>
          * <p>The reason the gift card balance was adjusted.
          * See <a href="#type-reason">Reason</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.

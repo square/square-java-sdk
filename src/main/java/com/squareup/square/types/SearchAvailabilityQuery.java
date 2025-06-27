@@ -66,6 +66,9 @@ public final class SearchAvailabilityQuery {
     }
 
     public interface FilterStage {
+        /**
+         * <p>The query filter to search for buyer-accessible availabilities of existing bookings.</p>
+         */
         _FinalStage filter(@NotNull SearchAvailabilityFilter filter);
 
         Builder from(SearchAvailabilityQuery other);
@@ -91,6 +94,7 @@ public final class SearchAvailabilityQuery {
         }
 
         /**
+         * <p>The query filter to search for buyer-accessible availabilities of existing bookings.</p>
          * <p>The query filter to search for buyer-accessible availabilities of existing bookings.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

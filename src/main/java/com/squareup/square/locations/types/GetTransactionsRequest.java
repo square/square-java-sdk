@@ -77,12 +77,18 @@ public final class GetTransactionsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the transaction's associated location.</p>
+         */
         TransactionIdStage locationId(@NotNull String locationId);
 
         Builder from(GetTransactionsRequest other);
     }
 
     public interface TransactionIdStage {
+        /**
+         * <p>The ID of the transaction to retrieve.</p>
+         */
         _FinalStage transactionId(@NotNull String transactionId);
     }
 
@@ -110,6 +116,7 @@ public final class GetTransactionsRequest {
 
         /**
          * <p>The ID of the transaction's associated location.</p>
+         * <p>The ID of the transaction's associated location.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class GetTransactionsRequest {
         }
 
         /**
+         * <p>The ID of the transaction to retrieve.</p>
          * <p>The ID of the transaction to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -67,6 +67,10 @@ public final class GetMerchantsRequest {
     }
 
     public interface MerchantIdStage {
+        /**
+         * <p>The ID of the merchant to retrieve. If the string &quot;me&quot; is supplied as the ID,
+         * then retrieve the merchant that is currently accessible to this call.</p>
+         */
         _FinalStage merchantId(@NotNull String merchantId);
 
         Builder from(GetMerchantsRequest other);
@@ -92,6 +96,8 @@ public final class GetMerchantsRequest {
         }
 
         /**
+         * <p>The ID of the merchant to retrieve. If the string &quot;me&quot; is supplied as the ID,
+         * then retrieve the merchant that is currently accessible to this call.</p>
          * <p>The ID of the merchant to retrieve. If the string &quot;me&quot; is supplied as the ID,
          * then retrieve the merchant that is currently accessible to this call.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

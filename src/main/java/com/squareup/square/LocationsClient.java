@@ -3,13 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.locations.CustomAttributeDefinitionsClient;
 import com.squareup.square.locations.CustomAttributesClient;
@@ -23,18 +18,12 @@ import com.squareup.square.types.GetLocationsRequest;
 import com.squareup.square.types.ListLocationsResponse;
 import com.squareup.square.types.UpdateLocationRequest;
 import com.squareup.square.types.UpdateLocationResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class LocationsClient {
     protected final ClientOptions clientOptions;
+
+    private final RawLocationsClient rawClient;
 
     protected final Supplier<CustomAttributeDefinitionsClient> customAttributeDefinitionsClient;
 
@@ -44,6 +33,7 @@ public class LocationsClient {
 
     public LocationsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawLocationsClient(clientOptions);
         this.customAttributeDefinitionsClient =
                 Suppliers.memoize(() -> new CustomAttributeDefinitionsClient(clientOptions));
         this.customAttributesClient = Suppliers.memoize(() -> new CustomAttributesClient(clientOptions));
@@ -51,11 +41,18 @@ public class LocationsClient {
     }
 
     /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawLocationsClient withRawResponse() {
+        return this.rawClient;
+    }
+
+    /**
      * Provides details about all of the seller's <a href="https://developer.squareup.com/docs/locations-api">locations</a>,
      * including those with an inactive status. Locations are listed alphabetically by <code>name</code>.
      */
     public ListLocationsResponse list() {
-        return list(null);
+        return this.rawClient.list().body();
     }
 
     /**
@@ -63,34 +60,7 @@ public class LocationsClient {
      * including those with an inactive status. Locations are listed alphabetically by <code>name</code>.
      */
     public ListLocationsResponse list(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/locations")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListLocationsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(requestOptions).body();
     }
 
     /**
@@ -103,7 +73,7 @@ public class LocationsClient {
      * each location has a sensible and unique name.
      */
     public CreateLocationResponse create() {
-        return create(CreateLocationRequest.builder().build());
+        return this.rawClient.create().body();
     }
 
     /**
@@ -116,7 +86,7 @@ public class LocationsClient {
      * each location has a sensible and unique name.
      */
     public CreateLocationResponse create(CreateLocationRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -129,41 +99,7 @@ public class LocationsClient {
      * each location has a sensible and unique name.
      */
     public CreateLocationResponse create(CreateLocationRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/locations")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateLocationResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
@@ -171,7 +107,7 @@ public class LocationsClient {
      * as the location ID to retrieve details of the <a href="https://developer.squareup.com/docs/locations-api#about-the-main-location">main location</a>.
      */
     public GetLocationResponse get(GetLocationsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -179,84 +115,21 @@ public class LocationsClient {
      * as the location ID to retrieve details of the <a href="https://developer.squareup.com/docs/locations-api#about-the-main-location">main location</a>.
      */
     public GetLocationResponse get(GetLocationsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/locations")
-                .addPathSegment(request.getLocationId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetLocationResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
      * Updates a <a href="https://developer.squareup.com/docs/locations-api">location</a>.
      */
     public UpdateLocationResponse update(UpdateLocationRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).body();
     }
 
     /**
      * Updates a <a href="https://developer.squareup.com/docs/locations-api">location</a>.
      */
     public UpdateLocationResponse update(UpdateLocationRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/locations")
-                .addPathSegment(request.getLocationId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateLocationResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.update(request, requestOptions).body();
     }
 
     /**
@@ -267,7 +140,7 @@ public class LocationsClient {
      * For more information, see <a href="https://developer.squareup.com/docs/checkout-api#checkout-api-highlights">Checkout API highlights</a>.</p>
      */
     public CreateCheckoutResponse checkouts(CreateCheckoutRequest request) {
-        return checkouts(request, null);
+        return this.rawClient.checkouts(request).body();
     }
 
     /**
@@ -278,43 +151,7 @@ public class LocationsClient {
      * For more information, see <a href="https://developer.squareup.com/docs/checkout-api#checkout-api-highlights">Checkout API highlights</a>.</p>
      */
     public CreateCheckoutResponse checkouts(CreateCheckoutRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/locations")
-                .addPathSegment(request.getLocationId())
-                .addPathSegments("checkouts")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateCheckoutResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.checkouts(request, requestOptions).body();
     }
 
     public CustomAttributeDefinitionsClient customAttributeDefinitions() {

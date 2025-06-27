@@ -66,6 +66,9 @@ public final class GetCardsRequest {
     }
 
     public interface CardIdStage {
+        /**
+         * <p>Unique ID for the desired Card.</p>
+         */
         _FinalStage cardId(@NotNull String cardId);
 
         Builder from(GetCardsRequest other);
@@ -91,6 +94,7 @@ public final class GetCardsRequest {
         }
 
         /**
+         * <p>Unique ID for the desired Card.</p>
          * <p>Unique ID for the desired Card.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

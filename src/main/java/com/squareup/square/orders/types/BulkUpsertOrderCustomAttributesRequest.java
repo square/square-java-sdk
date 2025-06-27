@@ -84,6 +84,9 @@ public final class BulkUpsertOrderCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>A map of requests that correspond to individual upsert operations for custom attributes.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute> values) {
             this.values.clear();

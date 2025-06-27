@@ -153,6 +153,9 @@ public final class ShiftWage {
             return this;
         }
 
+        /**
+         * <p>The name of the job performed during this shift.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -175,6 +178,10 @@ public final class ShiftWage {
             return this;
         }
 
+        /**
+         * <p>Can be a custom-set hourly wage or the calculated effective hourly
+         * wage based on the annual wage and hours worked per week.</p>
+         */
         @JsonSetter(value = "hourly_rate", nulls = Nulls.SKIP)
         public Builder hourlyRate(Optional<Money> hourlyRate) {
             this.hourlyRate = hourlyRate;
@@ -186,6 +193,10 @@ public final class ShiftWage {
             return this;
         }
 
+        /**
+         * <p>The id of the job performed during this shift. Square
+         * labor-reporting UIs might group shifts together by id.</p>
+         */
         @JsonSetter(value = "job_id", nulls = Nulls.SKIP)
         public Builder jobId(Optional<String> jobId) {
             this.jobId = jobId;
@@ -197,6 +208,9 @@ public final class ShiftWage {
             return this;
         }
 
+        /**
+         * <p>Whether team members are eligible for tips when working this job.</p>
+         */
         @JsonSetter(value = "tip_eligible", nulls = Nulls.SKIP)
         public Builder tipEligible(Optional<Boolean> tipEligible) {
             this.tipEligible = tipEligible;

@@ -113,6 +113,9 @@ public final class ListWebhookEventTypesResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -124,6 +127,9 @@ public final class ListWebhookEventTypesResponse {
             return this;
         }
 
+        /**
+         * <p>The list of event types.</p>
+         */
         @JsonSetter(value = "event_types", nulls = Nulls.SKIP)
         public Builder eventTypes(Optional<List<String>> eventTypes) {
             this.eventTypes = eventTypes;
@@ -135,6 +141,9 @@ public final class ListWebhookEventTypesResponse {
             return this;
         }
 
+        /**
+         * <p>Contains the metadata of a webhook event type. For more information, see <a href="entity:EventTypeMetadata">EventTypeMetadata</a>.</p>
+         */
         @JsonSetter(value = "metadata", nulls = Nulls.SKIP)
         public Builder metadata(Optional<List<EventTypeMetadata>> metadata) {
             this.metadata = metadata;

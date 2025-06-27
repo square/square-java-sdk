@@ -98,18 +98,29 @@ public final class UpdatePaymentRequest {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>The ID of the payment to update.</p>
+         */
         IdempotencyKeyStage paymentId(@NotNull String paymentId);
 
         Builder from(UpdatePaymentRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>UpdatePayment</code> request. Keys can be any valid string
+         * but must be unique for every <code>UpdatePayment</code> request.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface _FinalStage {
         UpdatePaymentRequest build();
 
+        /**
+         * <p>The updated <code>Payment</code> object.</p>
+         */
         _FinalStage payment(Optional<Payment> payment);
 
         _FinalStage payment(Payment payment);
@@ -138,6 +149,7 @@ public final class UpdatePaymentRequest {
 
         /**
          * <p>The ID of the payment to update.</p>
+         * <p>The ID of the payment to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -148,6 +160,9 @@ public final class UpdatePaymentRequest {
         }
 
         /**
+         * <p>A unique string that identifies this <code>UpdatePayment</code> request. Keys can be any valid string
+         * but must be unique for every <code>UpdatePayment</code> request.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
          * <p>A unique string that identifies this <code>UpdatePayment</code> request. Keys can be any valid string
          * but must be unique for every <code>UpdatePayment</code> request.</p>
          * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
@@ -170,6 +185,9 @@ public final class UpdatePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>The updated <code>Payment</code> object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment", nulls = Nulls.SKIP)
         public _FinalStage payment(Optional<Payment> payment) {

@@ -96,6 +96,9 @@ public final class UpdateWageSettingResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully updated <code>WageSetting</code> object.</p>
+         */
         @JsonSetter(value = "wage_setting", nulls = Nulls.SKIP)
         public Builder wageSetting(Optional<WageSetting> wageSetting) {
             this.wageSetting = wageSetting;
@@ -107,6 +110,9 @@ public final class UpdateWageSettingResponse {
             return this;
         }
 
+        /**
+         * <p>The errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

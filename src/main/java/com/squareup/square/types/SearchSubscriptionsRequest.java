@@ -140,6 +140,12 @@ public final class SearchSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>When the total number of resulting subscriptions exceeds the limit of a paged response,
+         * specify the cursor returned from a preceding response here to fetch the next set of results.
+         * If the cursor is unset, the response contains the last page of the results.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -151,6 +157,10 @@ public final class SearchSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>The upper limit on the number of subscriptions to return
+         * in a paged response.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -162,6 +172,10 @@ public final class SearchSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>A subscription query consisting of specified filtering conditions.</p>
+         * <p>If this <code>query</code> field is unspecified, the <code>SearchSubscriptions</code> call will return all subscriptions.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<SearchSubscriptionsQuery> query) {
             this.query = query;
@@ -173,6 +187,13 @@ public final class SearchSubscriptionsRequest {
             return this;
         }
 
+        /**
+         * <p>An option to include related information in the response.</p>
+         * <p>The supported values are:</p>
+         * <ul>
+         * <li><code>actions</code>: to include scheduled actions on the targeted subscriptions.</li>
+         * </ul>
+         */
         @JsonSetter(value = "include", nulls = Nulls.SKIP)
         public Builder include(Optional<List<String>> include) {
             this.include = include;

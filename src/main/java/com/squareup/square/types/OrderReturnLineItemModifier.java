@@ -269,6 +269,9 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the return modifier only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -291,6 +294,10 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The modifier <code>uid</code> from the order's line item that contains the
+         * original sale of this line item modifier.</p>
+         */
         @JsonSetter(value = "source_modifier_uid", nulls = Nulls.SKIP)
         public Builder sourceModifierUid(Optional<String> sourceModifierUid) {
             this.sourceModifierUid = sourceModifierUid;
@@ -313,6 +320,9 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The catalog object ID referencing <a href="entity:CatalogModifier">CatalogModifier</a>.</p>
+         */
         @JsonSetter(value = "catalog_object_id", nulls = Nulls.SKIP)
         public Builder catalogObjectId(Optional<String> catalogObjectId) {
             this.catalogObjectId = catalogObjectId;
@@ -335,6 +345,9 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The version of the catalog object that this line item modifier references.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<Long> catalogVersion) {
             this.catalogVersion = catalogVersion;
@@ -357,6 +370,9 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The name of the item modifier.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -379,6 +395,11 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The base price for the modifier.</p>
+         * <p><code>base_price_money</code> is required for ad hoc modifiers.
+         * If both <code>catalog_object_id</code> and <code>base_price_money</code> are set, <code>base_price_money</code> overrides the predefined <a href="entity:CatalogModifier">CatalogModifier</a> price.</p>
+         */
         @JsonSetter(value = "base_price_money", nulls = Nulls.SKIP)
         public Builder basePriceMoney(Optional<Money> basePriceMoney) {
             this.basePriceMoney = basePriceMoney;
@@ -390,6 +411,10 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The total price of the item modifier for its line item.
+         * This is the modifier's <code>base_price_money</code> multiplied by the line item's quantity.</p>
+         */
         @JsonSetter(value = "total_price_money", nulls = Nulls.SKIP)
         public Builder totalPriceMoney(Optional<Money> totalPriceMoney) {
             this.totalPriceMoney = totalPriceMoney;
@@ -401,6 +426,15 @@ public final class OrderReturnLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The quantity of the line item modifier. The modifier quantity can be 0 or more.
+         * For example, suppose a restaurant offers a cheeseburger on the menu. When a buyer orders
+         * this item, the restaurant records the purchase by creating an <code>Order</code> object with a line item
+         * for a burger. The line item includes a line item modifier: the name is cheese and the quantity
+         * is 1. The buyer has the option to order extra cheese (or no cheese). If the buyer chooses
+         * the extra cheese option, the modifier quantity increases to 2. If the buyer does not want
+         * any cheese, the modifier quantity is set to 0.</p>
+         */
         @JsonSetter(value = "quantity", nulls = Nulls.SKIP)
         public Builder quantity(Optional<String> quantity) {
             this.quantity = quantity;

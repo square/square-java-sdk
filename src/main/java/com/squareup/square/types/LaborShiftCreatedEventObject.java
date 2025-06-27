@@ -80,6 +80,9 @@ public final class LaborShiftCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The new <code>Shift</code>.</p>
+         */
         @JsonSetter(value = "shift", nulls = Nulls.SKIP)
         public Builder shift(Optional<Shift> shift) {
             this.shift = shift;

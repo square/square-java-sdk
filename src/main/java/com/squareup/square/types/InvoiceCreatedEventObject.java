@@ -80,6 +80,9 @@ public final class InvoiceCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The related invoice.</p>
+         */
         @JsonSetter(value = "invoice", nulls = Nulls.SKIP)
         public Builder invoice(Optional<Invoice> invoice) {
             this.invoice = invoice;

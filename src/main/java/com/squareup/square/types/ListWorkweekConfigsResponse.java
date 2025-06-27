@@ -116,6 +116,9 @@ public final class ListWorkweekConfigsResponse {
             return this;
         }
 
+        /**
+         * <p>A page of <code>WorkweekConfig</code> results.</p>
+         */
         @JsonSetter(value = "workweek_configs", nulls = Nulls.SKIP)
         public Builder workweekConfigs(Optional<List<WorkweekConfig>> workweekConfigs) {
             this.workweekConfigs = workweekConfigs;
@@ -127,6 +130,10 @@ public final class ListWorkweekConfigsResponse {
             return this;
         }
 
+        /**
+         * <p>The value supplied in the subsequent request to fetch the next page of
+         * <code>WorkweekConfig</code> results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -138,6 +145,9 @@ public final class ListWorkweekConfigsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

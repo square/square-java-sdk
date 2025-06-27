@@ -85,12 +85,24 @@ public final class UpdateWageSettingRequest {
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the team member for which to update the <code>WageSetting</code> object.</p>
+         */
         WageSettingStage teamMemberId(@NotNull String teamMemberId);
 
         Builder from(UpdateWageSettingRequest other);
     }
 
     public interface WageSettingStage {
+        /**
+         * <p>The complete <code>WageSetting</code> object. For all job assignments, specify one of the following:</p>
+         * <ul>
+         * <li><code>job_id</code> (recommended) - If needed, call <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get a list of all jobs.
+         * Requires Square API version 2024-12-18 or later.</li>
+         * <li><code>job_title</code> - Use the exact, case-sensitive spelling of an existing title unless you want to create a new job.
+         * This value is ignored if <code>job_id</code> is also provided.</li>
+         * </ul>
+         */
         _FinalStage wageSetting(@NotNull WageSetting wageSetting);
     }
 
@@ -118,6 +130,7 @@ public final class UpdateWageSettingRequest {
 
         /**
          * <p>The ID of the team member for which to update the <code>WageSetting</code> object.</p>
+         * <p>The ID of the team member for which to update the <code>WageSetting</code> object.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -128,6 +141,13 @@ public final class UpdateWageSettingRequest {
         }
 
         /**
+         * <p>The complete <code>WageSetting</code> object. For all job assignments, specify one of the following:</p>
+         * <ul>
+         * <li><code>job_id</code> (recommended) - If needed, call <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get a list of all jobs.
+         * Requires Square API version 2024-12-18 or later.</li>
+         * <li><code>job_title</code> - Use the exact, case-sensitive spelling of an existing title unless you want to create a new job.
+         * This value is ignored if <code>job_id</code> is also provided.</li>
+         * </ul>
          * <p>The complete <code>WageSetting</code> object. For all job assignments, specify one of the following:</p>
          * <ul>
          * <li><code>job_id</code> (recommended) - If needed, call <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get a list of all jobs.

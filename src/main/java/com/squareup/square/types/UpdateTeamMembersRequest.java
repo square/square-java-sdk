@@ -75,6 +75,9 @@ public final class UpdateTeamMembersRequest {
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the team member to update.</p>
+         */
         BodyStage teamMemberId(@NotNull String teamMemberId);
 
         Builder from(UpdateTeamMembersRequest other);
@@ -107,6 +110,7 @@ public final class UpdateTeamMembersRequest {
         }
 
         /**
+         * <p>The ID of the team member to update.</p>
          * <p>The ID of the team member to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

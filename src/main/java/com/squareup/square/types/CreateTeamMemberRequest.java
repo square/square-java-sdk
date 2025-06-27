@@ -101,6 +101,12 @@ public final class CreateTeamMemberRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies this <code>CreateTeamMember</code> request.
+         * Keys can be any valid string, but must be unique for every request.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         * <p>The minimum length is 1 and the maximum length is 45.</p>
+         */
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public Builder idempotencyKey(Optional<String> idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -112,6 +118,10 @@ public final class CreateTeamMemberRequest {
             return this;
         }
 
+        /**
+         * <p><strong>Required</strong> The data used to create the <code>TeamMember</code> object. If you include <code>wage_setting</code>, you must provide
+         * <code>job_id</code> for each job assignment. To get job IDs, call <a href="api-endpoint:Team-ListJobs">ListJobs</a>.</p>
+         */
         @JsonSetter(value = "team_member", nulls = Nulls.SKIP)
         public Builder teamMember(Optional<TeamMember> teamMember) {
             this.teamMember = teamMember;

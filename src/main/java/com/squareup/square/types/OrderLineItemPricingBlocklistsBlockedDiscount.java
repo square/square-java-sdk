@@ -148,6 +148,9 @@ public final class OrderLineItemPricingBlocklistsBlockedDiscount {
             return this;
         }
 
+        /**
+         * <p>A unique ID of the <code>BlockedDiscount</code> within the order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -170,6 +173,10 @@ public final class OrderLineItemPricingBlocklistsBlockedDiscount {
             return this;
         }
 
+        /**
+         * <p>The <code>uid</code> of the discount that should be blocked. Use this field to block
+         * ad hoc discounts. For catalog discounts, use the <code>discount_catalog_object_id</code> field.</p>
+         */
         @JsonSetter(value = "discount_uid", nulls = Nulls.SKIP)
         public Builder discountUid(Optional<String> discountUid) {
             this.discountUid = discountUid;
@@ -192,6 +199,11 @@ public final class OrderLineItemPricingBlocklistsBlockedDiscount {
             return this;
         }
 
+        /**
+         * <p>The <code>catalog_object_id</code> of the discount that should be blocked.
+         * Use this field to block catalog discounts. For ad hoc discounts, use the
+         * <code>discount_uid</code> field.</p>
+         */
         @JsonSetter(value = "discount_catalog_object_id", nulls = Nulls.SKIP)
         public Builder discountCatalogObjectId(Optional<String> discountCatalogObjectId) {
             this.discountCatalogObjectId = discountCatalogObjectId;

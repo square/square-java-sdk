@@ -98,6 +98,9 @@ public final class GetBusinessBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>The seller's booking profile.</p>
+         */
         @JsonSetter(value = "business_booking_profile", nulls = Nulls.SKIP)
         public Builder businessBookingProfile(Optional<BusinessBookingProfile> businessBookingProfile) {
             this.businessBookingProfile = businessBookingProfile;
@@ -109,6 +112,9 @@ public final class GetBusinessBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

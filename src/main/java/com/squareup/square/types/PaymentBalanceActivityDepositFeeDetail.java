@@ -94,6 +94,9 @@ public final class PaymentBalanceActivityDepositFeeDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payout that triggered this deposit fee activity.</p>
+         */
         @JsonSetter(value = "payout_id", nulls = Nulls.SKIP)
         public Builder payoutId(Optional<String> payoutId) {
             this.payoutId = payoutId;

@@ -98,6 +98,9 @@ public final class ListLoyaltyProgramsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class ListLoyaltyProgramsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <code>LoyaltyProgram</code> for the merchant.</p>
+         */
         @JsonSetter(value = "programs", nulls = Nulls.SKIP)
         public Builder programs(Optional<List<LoyaltyProgram>> programs) {
             this.programs = programs;

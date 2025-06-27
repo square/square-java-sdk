@@ -81,6 +81,9 @@ public final class LoyaltyAccountDeletedEventObject {
             return this;
         }
 
+        /**
+         * <p>The loyalty account that was deleted.</p>
+         */
         @JsonSetter(value = "loyalty_account", nulls = Nulls.SKIP)
         public Builder loyaltyAccount(Optional<LoyaltyAccount> loyaltyAccount) {
             this.loyaltyAccount = loyaltyAccount;

@@ -203,6 +203,10 @@ public final class Merchant {
     }
 
     public interface CountryStage {
+        /**
+         * <p>The country code associated with the merchant, in the two-letter format of ISO 3166. For example, <code>US</code> or <code>JP</code>.
+         * See <a href="#type-country">Country</a> for possible values</p>
+         */
         _FinalStage country(@NotNull Country country);
 
         Builder from(Merchant other);
@@ -211,36 +215,60 @@ public final class Merchant {
     public interface _FinalStage {
         Merchant build();
 
+        /**
+         * <p>The Square-issued ID of the merchant.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The name of the merchant's overall business.</p>
+         */
         _FinalStage businessName(Optional<String> businessName);
 
         _FinalStage businessName(String businessName);
 
         _FinalStage businessName(Nullable<String> businessName);
 
+        /**
+         * <p>The code indicating the <a href="https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences">language preferences</a> of the merchant, in <a href="https://tools.ietf.org/html/bcp47#appendix-A">BCP 47 format</a>. For example, <code>en-US</code> or <code>fr-CA</code>.</p>
+         */
         _FinalStage languageCode(Optional<String> languageCode);
 
         _FinalStage languageCode(String languageCode);
 
         _FinalStage languageCode(Nullable<String> languageCode);
 
+        /**
+         * <p>The currency associated with the merchant, in ISO 4217 format. For example, the currency code for US dollars is <code>USD</code>.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         _FinalStage currency(Optional<Currency> currency);
 
         _FinalStage currency(Currency currency);
 
+        /**
+         * <p>The merchant's status.
+         * See <a href="#type-merchantstatus">MerchantStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<MerchantStatus> status);
 
         _FinalStage status(MerchantStatus status);
 
+        /**
+         * <p>The ID of the <a href="https://developer.squareup.com/docs/locations-api#about-the-main-location">main <code>Location</code></a> for this merchant.</p>
+         */
         _FinalStage mainLocationId(Optional<String> mainLocationId);
 
         _FinalStage mainLocationId(String mainLocationId);
 
         _FinalStage mainLocationId(Nullable<String> mainLocationId);
 
+        /**
+         * <p>The time when the merchant was created, in RFC 3339 format.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Working with Dates</a>.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
@@ -285,6 +313,8 @@ public final class Merchant {
         /**
          * <p>The country code associated with the merchant, in the two-letter format of ISO 3166. For example, <code>US</code> or <code>JP</code>.
          * See <a href="#type-country">Country</a> for possible values</p>
+         * <p>The country code associated with the merchant, in the two-letter format of ISO 3166. For example, <code>US</code> or <code>JP</code>.
+         * See <a href="#type-country">Country</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -305,6 +335,10 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The time when the merchant was created, in RFC 3339 format.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Working with Dates</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -338,6 +372,9 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="https://developer.squareup.com/docs/locations-api#about-the-main-location">main <code>Location</code></a> for this merchant.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "main_location_id", nulls = Nulls.SKIP)
         public _FinalStage mainLocationId(Optional<String> mainLocationId) {
@@ -356,6 +393,10 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The merchant's status.
+         * See <a href="#type-merchantstatus">MerchantStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<MerchantStatus> status) {
@@ -374,6 +415,10 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The currency associated with the merchant, in ISO 4217 format. For example, the currency code for US dollars is <code>USD</code>.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "currency", nulls = Nulls.SKIP)
         public _FinalStage currency(Optional<Currency> currency) {
@@ -407,6 +452,9 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The code indicating the <a href="https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences">language preferences</a> of the merchant, in <a href="https://tools.ietf.org/html/bcp47#appendix-A">BCP 47 format</a>. For example, <code>en-US</code> or <code>fr-CA</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "language_code", nulls = Nulls.SKIP)
         public _FinalStage languageCode(Optional<String> languageCode) {
@@ -440,6 +488,9 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The name of the merchant's overall business.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "business_name", nulls = Nulls.SKIP)
         public _FinalStage businessName(Optional<String> businessName) {
@@ -457,6 +508,9 @@ public final class Merchant {
             return this;
         }
 
+        /**
+         * <p>The Square-issued ID of the merchant.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

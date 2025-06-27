@@ -116,6 +116,9 @@ public final class DisputeEvidenceFile {
             return this;
         }
 
+        /**
+         * <p>The file name including the file extension. For example: &quot;receipt.tiff&quot;.</p>
+         */
         @JsonSetter(value = "filename", nulls = Nulls.SKIP)
         public Builder filename(Optional<String> filename) {
             this.filename = filename;
@@ -138,6 +141,9 @@ public final class DisputeEvidenceFile {
             return this;
         }
 
+        /**
+         * <p>Dispute evidence files must be application/pdf, image/heic, image/heif, image/jpeg, image/png, or image/tiff formats.</p>
+         */
         @JsonSetter(value = "filetype", nulls = Nulls.SKIP)
         public Builder filetype(Optional<String> filetype) {
             this.filetype = filetype;

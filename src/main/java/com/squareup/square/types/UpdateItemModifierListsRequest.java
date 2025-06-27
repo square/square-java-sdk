@@ -139,6 +139,9 @@ public final class UpdateItemModifierListsRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the catalog items associated with the CatalogModifierList objects being updated.</p>
+         */
         @JsonSetter(value = "item_ids", nulls = Nulls.SKIP)
         public Builder itemIds(List<String> itemIds) {
             this.itemIds.clear();
@@ -156,6 +159,10 @@ public final class UpdateItemModifierListsRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the CatalogModifierList objects to enable for the CatalogItem.
+         * At least one of <code>modifier_lists_to_enable</code> or <code>modifier_lists_to_disable</code> must be specified.</p>
+         */
         @JsonSetter(value = "modifier_lists_to_enable", nulls = Nulls.SKIP)
         public Builder modifierListsToEnable(Optional<List<String>> modifierListsToEnable) {
             this.modifierListsToEnable = modifierListsToEnable;
@@ -178,6 +185,10 @@ public final class UpdateItemModifierListsRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the CatalogModifierList objects to disable for the CatalogItem.
+         * At least one of <code>modifier_lists_to_enable</code> or <code>modifier_lists_to_disable</code> must be specified.</p>
+         */
         @JsonSetter(value = "modifier_lists_to_disable", nulls = Nulls.SKIP)
         public Builder modifierListsToDisable(Optional<List<String>> modifierListsToDisable) {
             this.modifierListsToDisable = modifierListsToDisable;

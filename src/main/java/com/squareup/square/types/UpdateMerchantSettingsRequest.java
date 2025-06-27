@@ -67,6 +67,9 @@ public final class UpdateMerchantSettingsRequest {
     }
 
     public interface MerchantSettingsStage {
+        /**
+         * <p>Describe your updates using the <code>merchant_settings</code> object. Make sure it contains only the fields that have changed.</p>
+         */
         _FinalStage merchantSettings(@NotNull CheckoutMerchantSettings merchantSettings);
 
         Builder from(UpdateMerchantSettingsRequest other);
@@ -92,6 +95,7 @@ public final class UpdateMerchantSettingsRequest {
         }
 
         /**
+         * <p>Describe your updates using the <code>merchant_settings</code> object. Make sure it contains only the fields that have changed.</p>
          * <p>Describe your updates using the <code>merchant_settings</code> object. Make sure it contains only the fields that have changed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

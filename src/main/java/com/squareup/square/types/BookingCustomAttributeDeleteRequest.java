@@ -81,12 +81,20 @@ public final class BookingCustomAttributeDeleteRequest {
     }
 
     public interface BookingIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
+         */
         KeyStage bookingId(@NotNull String bookingId);
 
         Builder from(BookingCustomAttributeDeleteRequest other);
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute to delete. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
+         */
         _FinalStage key(@NotNull String key);
     }
 
@@ -114,6 +122,7 @@ public final class BookingCustomAttributeDeleteRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
+         * <p>The ID of the target <a href="entity:Booking">booking</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -124,6 +133,9 @@ public final class BookingCustomAttributeDeleteRequest {
         }
 
         /**
+         * <p>The key of the custom attribute to delete. This key must match the <code>key</code> of a
+         * custom attribute definition in the Square seller account. If the requesting application is not
+         * the definition owner, you must use the qualified key.</p>
          * <p>The key of the custom attribute to delete. This key must match the <code>key</code> of a
          * custom attribute definition in the Square seller account. If the requesting application is not
          * the definition owner, you must use the qualified key.</p>

@@ -229,6 +229,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations by matching their custom attributes'
+         * <code>custom_attribute_definition_id</code> property value against the the specified id.
+         * Exactly one of <code>custom_attribute_definition_id</code> or <code>key</code> must be specified.</p>
+         */
         @JsonSetter(value = "custom_attribute_definition_id", nulls = Nulls.SKIP)
         public Builder customAttributeDefinitionId(Optional<String> customAttributeDefinitionId) {
             this.customAttributeDefinitionId = customAttributeDefinitionId;
@@ -251,6 +256,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations by matching their custom attributes'
+         * <code>key</code> property value against the specified key.
+         * Exactly one of <code>custom_attribute_definition_id</code> or <code>key</code> must be specified.</p>
+         */
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public Builder key(Optional<String> key) {
             this.key = key;
@@ -273,6 +283,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations by matching their custom attributes'
+         * <code>string_value</code>  property value against the specified text.
+         * Exactly one of <code>string_filter</code>, <code>number_filter</code>, <code>selection_uids_filter</code>, or <code>bool_filter</code> must be specified.</p>
+         */
         @JsonSetter(value = "string_filter", nulls = Nulls.SKIP)
         public Builder stringFilter(Optional<String> stringFilter) {
             this.stringFilter = stringFilter;
@@ -295,6 +310,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations with their custom attributes
+         * containing a number value within the specified range.
+         * Exactly one of <code>string_filter</code>, <code>number_filter</code>, <code>selection_uids_filter</code>, or <code>bool_filter</code> must be specified.</p>
+         */
         @JsonSetter(value = "number_filter", nulls = Nulls.SKIP)
         public Builder numberFilter(Optional<Range> numberFilter) {
             this.numberFilter = numberFilter;
@@ -306,6 +326,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations by matching  their custom attributes'
+         * <code>selection_uid_values</code> values against the specified selection uids.
+         * Exactly one of <code>string_filter</code>, <code>number_filter</code>, <code>selection_uids_filter</code>, or <code>bool_filter</code> must be specified.</p>
+         */
         @JsonSetter(value = "selection_uids_filter", nulls = Nulls.SKIP)
         public Builder selectionUidsFilter(Optional<List<String>> selectionUidsFilter) {
             this.selectionUidsFilter = selectionUidsFilter;
@@ -328,6 +353,11 @@ public final class CustomAttributeFilter {
             return this;
         }
 
+        /**
+         * <p>A query expression to filter items or item variations by matching their custom attributes'
+         * <code>boolean_value</code> property values against the specified Boolean expression.
+         * Exactly one of <code>string_filter</code>, <code>number_filter</code>, <code>selection_uids_filter</code>, or <code>bool_filter</code> must be specified.</p>
+         */
         @JsonSetter(value = "bool_filter", nulls = Nulls.SKIP)
         public Builder boolFilter(Optional<Boolean> boolFilter) {
             this.boolFilter = boolFilter;

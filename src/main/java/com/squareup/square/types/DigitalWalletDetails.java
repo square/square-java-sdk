@@ -135,6 +135,10 @@ public final class DigitalWalletDetails {
             return this;
         }
 
+        /**
+         * <p>The status of the <code>WALLET</code> payment. The status can be <code>AUTHORIZED</code>, <code>CAPTURED</code>, <code>VOIDED</code>, or
+         * <code>FAILED</code>.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -157,6 +161,10 @@ public final class DigitalWalletDetails {
             return this;
         }
 
+        /**
+         * <p>The brand used for the <code>WALLET</code> payment. The brand can be <code>CASH_APP</code>, <code>PAYPAY</code>, <code>ALIPAY</code>,
+         * <code>RAKUTEN_PAY</code>, <code>AU_PAY</code>, <code>D_BARAI</code>, <code>MERPAY</code>, <code>WECHAT_PAY</code> or <code>UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "brand", nulls = Nulls.SKIP)
         public Builder brand(Optional<String> brand) {
             this.brand = brand;
@@ -179,6 +187,9 @@ public final class DigitalWalletDetails {
             return this;
         }
 
+        /**
+         * <p>Brand-specific details for payments with the <code>brand</code> of <code>CASH_APP</code>.</p>
+         */
         @JsonSetter(value = "cash_app_details", nulls = Nulls.SKIP)
         public Builder cashAppDetails(Optional<CashAppDetails> cashAppDetails) {
             this.cashAppDetails = cashAppDetails;

@@ -79,12 +79,18 @@ public final class LoyaltyAccountExpiringPointDeadline {
     }
 
     public interface PointsStage {
+        /**
+         * <p>The number of points scheduled to expire at the <code>expires_at</code> timestamp.</p>
+         */
         ExpiresAtStage points(int points);
 
         Builder from(LoyaltyAccountExpiringPointDeadline other);
     }
 
     public interface ExpiresAtStage {
+        /**
+         * <p>The timestamp of when the points are scheduled to expire, in RFC 3339 format.</p>
+         */
         _FinalStage expiresAt(@NotNull String expiresAt);
     }
 
@@ -112,6 +118,7 @@ public final class LoyaltyAccountExpiringPointDeadline {
 
         /**
          * <p>The number of points scheduled to expire at the <code>expires_at</code> timestamp.</p>
+         * <p>The number of points scheduled to expire at the <code>expires_at</code> timestamp.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +129,7 @@ public final class LoyaltyAccountExpiringPointDeadline {
         }
 
         /**
+         * <p>The timestamp of when the points are scheduled to expire, in RFC 3339 format.</p>
          * <p>The timestamp of when the points are scheduled to expire, in RFC 3339 format.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

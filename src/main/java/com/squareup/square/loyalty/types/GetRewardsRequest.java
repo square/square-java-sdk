@@ -66,6 +66,9 @@ public final class GetRewardsRequest {
     }
 
     public interface RewardIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to retrieve.</p>
+         */
         _FinalStage rewardId(@NotNull String rewardId);
 
         Builder from(GetRewardsRequest other);
@@ -91,6 +94,7 @@ public final class GetRewardsRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to retrieve.</p>
          * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

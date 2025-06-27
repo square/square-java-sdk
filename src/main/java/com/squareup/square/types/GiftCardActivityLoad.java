@@ -202,6 +202,11 @@ public final class GiftCardActivityLoad {
             return this;
         }
 
+        /**
+         * <p>The amount added to the gift card. This value is a positive integer.</p>
+         * <p>Applications that use a custom order processing system must specify this amount in the
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -213,6 +218,11 @@ public final class GiftCardActivityLoad {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Order">order</a> that contains the <code>GIFT_CARD</code> line item.</p>
+         * <p>Applications that use the Square Orders API to process orders must specify the order ID in the
+         * <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;
@@ -235,6 +245,11 @@ public final class GiftCardActivityLoad {
             return this;
         }
 
+        /**
+         * <p>The UID of the <code>GIFT_CARD</code> line item in the order that represents the additional funds for the gift card.</p>
+         * <p>Applications that use the Square Orders API to process orders must specify the line item UID
+         * in the <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.</p>
+         */
         @JsonSetter(value = "line_item_uid", nulls = Nulls.SKIP)
         public Builder lineItemUid(Optional<String> lineItemUid) {
             this.lineItemUid = lineItemUid;
@@ -257,6 +272,11 @@ public final class GiftCardActivityLoad {
             return this;
         }
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         * <p>Applications that use a custom order processing system can use this field to track information related to
+         * an order or payment.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -279,6 +299,16 @@ public final class GiftCardActivityLoad {
             return this;
         }
 
+        /**
+         * <p>The payment instrument IDs used to process the order for the additional funds, such as a credit card ID
+         * or bank account ID.</p>
+         * <p>Applications that use a custom order processing system must specify payment instrument IDs in
+         * the <a href="api-endpoint:GiftCardActivities-CreateGiftCardActivity">CreateGiftCardActivity</a> request.
+         * Square uses this information to perform compliance checks.</p>
+         * <p>For applications that use the Square Orders API to process payments, Square has the necessary
+         * instrument IDs to perform compliance checks.</p>
+         * <p>Each buyer payment instrument ID can contain a maximum of 255 characters.</p>
+         */
         @JsonSetter(value = "buyer_payment_instrument_ids", nulls = Nulls.SKIP)
         public Builder buyerPaymentInstrumentIds(Optional<List<String>> buyerPaymentInstrumentIds) {
             this.buyerPaymentInstrumentIds = buyerPaymentInstrumentIds;

@@ -211,44 +211,71 @@ public final class DeviceAttributes {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The device type.
+         * See <a href="#type-devicetype">DeviceType</a> for possible values</p>
+         */
         ManufacturerStage type(@NotNull String type);
 
         Builder from(DeviceAttributes other);
     }
 
     public interface ManufacturerStage {
+        /**
+         * <p>The maker of the device.</p>
+         */
         _FinalStage manufacturer(@NotNull String manufacturer);
     }
 
     public interface _FinalStage {
         DeviceAttributes build();
 
+        /**
+         * <p>The specific model of the device.</p>
+         */
         _FinalStage model(Optional<String> model);
 
         _FinalStage model(String model);
 
         _FinalStage model(Nullable<String> model);
 
+        /**
+         * <p>A seller-specified name for the device.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
 
         _FinalStage name(Nullable<String> name);
 
+        /**
+         * <p>The manufacturer-supplied identifier for the device (where available). In many cases,
+         * this identifier will be a serial number.</p>
+         */
         _FinalStage manufacturersId(Optional<String> manufacturersId);
 
         _FinalStage manufacturersId(String manufacturersId);
 
         _FinalStage manufacturersId(Nullable<String> manufacturersId);
 
+        /**
+         * <p>The RFC 3339-formatted value of the most recent update to the device information.
+         * (Could represent any field update on the device.)</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The current version of software installed on the device.</p>
+         */
         _FinalStage version(Optional<String> version);
 
         _FinalStage version(String version);
 
+        /**
+         * <p>The merchant_token identifying the merchant controlling the device.</p>
+         */
         _FinalStage merchantToken(Optional<String> merchantToken);
 
         _FinalStage merchantToken(String merchantToken);
@@ -295,6 +322,8 @@ public final class DeviceAttributes {
         /**
          * <p>The device type.
          * See <a href="#type-devicetype">DeviceType</a> for possible values</p>
+         * <p>The device type.
+         * See <a href="#type-devicetype">DeviceType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -305,6 +334,7 @@ public final class DeviceAttributes {
         }
 
         /**
+         * <p>The maker of the device.</p>
          * <p>The maker of the device.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -341,6 +371,9 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>The merchant_token identifying the merchant controlling the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "merchant_token", nulls = Nulls.SKIP)
         public _FinalStage merchantToken(Optional<String> merchantToken) {
@@ -358,6 +391,9 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>The current version of software installed on the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<String> version) {
@@ -376,6 +412,10 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339-formatted value of the most recent update to the device information.
+         * (Could represent any field update on the device.)</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -411,6 +451,10 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>The manufacturer-supplied identifier for the device (where available). In many cases,
+         * this identifier will be a serial number.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "manufacturers_id", nulls = Nulls.SKIP)
         public _FinalStage manufacturersId(Optional<String> manufacturersId) {
@@ -444,6 +488,9 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>A seller-specified name for the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
@@ -477,6 +524,9 @@ public final class DeviceAttributes {
             return this;
         }
 
+        /**
+         * <p>The specific model of the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "model", nulls = Nulls.SKIP)
         public _FinalStage model(Optional<String> model) {

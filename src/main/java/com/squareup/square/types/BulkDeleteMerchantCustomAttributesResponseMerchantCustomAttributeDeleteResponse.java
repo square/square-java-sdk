@@ -84,6 +84,9 @@ public final class BulkDeleteMerchantCustomAttributesResponseMerchantCustomAttri
             return this;
         }
 
+        /**
+         * <p>Errors that occurred while processing the individual MerchantCustomAttributeDeleteRequest request</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

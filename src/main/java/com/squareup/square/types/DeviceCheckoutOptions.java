@@ -156,6 +156,11 @@ public final class DeviceCheckoutOptions {
     }
 
     public interface DeviceIdStage {
+        /**
+         * <p>The unique ID of the device intended for this <code>TerminalCheckout</code>.
+         * A list of <code>DeviceCode</code> objects can be retrieved from the /v2/devices/codes endpoint.
+         * Match a <code>DeviceCode.device_id</code> value with <code>device_id</code> to get the associated device code.</p>
+         */
         _FinalStage deviceId(@NotNull String deviceId);
 
         Builder from(DeviceCheckoutOptions other);
@@ -164,22 +169,35 @@ public final class DeviceCheckoutOptions {
     public interface _FinalStage {
         DeviceCheckoutOptions build();
 
+        /**
+         * <p>Instructs the device to skip the receipt screen. Defaults to false.</p>
+         */
         _FinalStage skipReceiptScreen(Optional<Boolean> skipReceiptScreen);
 
         _FinalStage skipReceiptScreen(Boolean skipReceiptScreen);
 
         _FinalStage skipReceiptScreen(Nullable<Boolean> skipReceiptScreen);
 
+        /**
+         * <p>Indicates that signature collection is desired during checkout. Defaults to false.</p>
+         */
         _FinalStage collectSignature(Optional<Boolean> collectSignature);
 
         _FinalStage collectSignature(Boolean collectSignature);
 
         _FinalStage collectSignature(Nullable<Boolean> collectSignature);
 
+        /**
+         * <p>Tip-specific settings.</p>
+         */
         _FinalStage tipSettings(Optional<TipSettings> tipSettings);
 
         _FinalStage tipSettings(TipSettings tipSettings);
 
+        /**
+         * <p>Show the itemization screen prior to taking a payment. This field is only meaningful when the
+         * checkout includes an order ID. Defaults to true.</p>
+         */
         _FinalStage showItemizedCart(Optional<Boolean> showItemizedCart);
 
         _FinalStage showItemizedCart(Boolean showItemizedCart);
@@ -215,6 +233,9 @@ public final class DeviceCheckoutOptions {
         }
 
         /**
+         * <p>The unique ID of the device intended for this <code>TerminalCheckout</code>.
+         * A list of <code>DeviceCode</code> objects can be retrieved from the /v2/devices/codes endpoint.
+         * Match a <code>DeviceCode.device_id</code> value with <code>device_id</code> to get the associated device code.</p>
          * <p>The unique ID of the device intended for this <code>TerminalCheckout</code>.
          * A list of <code>DeviceCode</code> objects can be retrieved from the /v2/devices/codes endpoint.
          * Match a <code>DeviceCode.device_id</code> value with <code>device_id</code> to get the associated device code.</p>
@@ -255,6 +276,10 @@ public final class DeviceCheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Show the itemization screen prior to taking a payment. This field is only meaningful when the
+         * checkout includes an order ID. Defaults to true.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "show_itemized_cart", nulls = Nulls.SKIP)
         public _FinalStage showItemizedCart(Optional<Boolean> showItemizedCart) {
@@ -272,6 +297,9 @@ public final class DeviceCheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Tip-specific settings.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tip_settings", nulls = Nulls.SKIP)
         public _FinalStage tipSettings(Optional<TipSettings> tipSettings) {
@@ -305,6 +333,9 @@ public final class DeviceCheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates that signature collection is desired during checkout. Defaults to false.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "collect_signature", nulls = Nulls.SKIP)
         public _FinalStage collectSignature(Optional<Boolean> collectSignature) {
@@ -338,6 +369,9 @@ public final class DeviceCheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Instructs the device to skip the receipt screen. Defaults to false.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "skip_receipt_screen", nulls = Nulls.SKIP)
         public _FinalStage skipReceiptScreen(Optional<Boolean> skipReceiptScreen) {

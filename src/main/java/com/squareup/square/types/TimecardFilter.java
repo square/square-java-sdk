@@ -185,6 +185,9 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch timecards for the specified location.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -207,6 +210,10 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch a <code>Timecard</code> instance by <code>Timecard.status</code>.
+         * See <a href="#type-timecardfilterstatus">TimecardFilterStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TimecardFilterStatus> status) {
             this.status = status;
@@ -218,6 +225,9 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch <code>Timecard</code> instances that start in the time range - Inclusive.</p>
+         */
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
         public Builder start(Optional<TimeRange> start) {
             this.start = start;
@@ -229,6 +239,9 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch the <code>Timecard</code> instances that end in the time range - Inclusive.</p>
+         */
         @JsonSetter(value = "end", nulls = Nulls.SKIP)
         public Builder end(Optional<TimeRange> end) {
             this.end = end;
@@ -240,6 +253,9 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch the <code>Timecard</code> instances based on the workday date range.</p>
+         */
         @JsonSetter(value = "workday", nulls = Nulls.SKIP)
         public Builder workday(Optional<TimecardWorkday> workday) {
             this.workday = workday;
@@ -251,6 +267,9 @@ public final class TimecardFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch timecards for the specified team members.</p>
+         */
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(Optional<List<String>> teamMemberIds) {
             this.teamMemberIds = teamMemberIds;

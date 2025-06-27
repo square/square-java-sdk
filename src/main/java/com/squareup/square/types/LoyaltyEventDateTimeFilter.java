@@ -66,6 +66,9 @@ public final class LoyaltyEventDateTimeFilter {
     }
 
     public interface CreatedAtStage {
+        /**
+         * <p>The <code>created_at</code> date time range used to filter the result.</p>
+         */
         _FinalStage createdAt(@NotNull TimeRange createdAt);
 
         Builder from(LoyaltyEventDateTimeFilter other);
@@ -91,6 +94,7 @@ public final class LoyaltyEventDateTimeFilter {
         }
 
         /**
+         * <p>The <code>created_at</code> date time range used to filter the result.</p>
          * <p>The <code>created_at</code> date time range used to filter the result.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

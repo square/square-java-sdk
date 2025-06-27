@@ -136,6 +136,9 @@ public final class OrderEntry {
             return this;
         }
 
+        /**
+         * <p>The ID of the order.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;
@@ -158,6 +161,12 @@ public final class OrderEntry {
             return this;
         }
 
+        /**
+         * <p>The version number, which is incremented each time an update is committed to the order.
+         * Orders that were not created through the API do not include a version number and
+         * therefore cannot be updated.</p>
+         * <p><a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders">Read more about working with versions.</a></p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -169,6 +178,9 @@ public final class OrderEntry {
             return this;
         }
 
+        /**
+         * <p>The location ID the order belongs to.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

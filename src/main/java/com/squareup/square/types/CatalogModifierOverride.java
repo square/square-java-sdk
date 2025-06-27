@@ -115,6 +115,9 @@ public final class CatalogModifierOverride {
     }
 
     public interface ModifierIdStage {
+        /**
+         * <p>The ID of the <code>CatalogModifier</code> whose default behavior is being overridden.</p>
+         */
         _FinalStage modifierId(@NotNull String modifierId);
 
         Builder from(CatalogModifierOverride other);
@@ -123,6 +126,9 @@ public final class CatalogModifierOverride {
     public interface _FinalStage {
         CatalogModifierOverride build();
 
+        /**
+         * <p><strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.</p>
+         */
         _FinalStage onByDefault(Optional<Boolean> onByDefault);
 
         _FinalStage onByDefault(Boolean onByDefault);
@@ -163,6 +169,7 @@ public final class CatalogModifierOverride {
         }
 
         /**
+         * <p>The ID of the <code>CatalogModifier</code> whose default behavior is being overridden.</p>
          * <p>The ID of the <code>CatalogModifier</code> whose default behavior is being overridden.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -225,6 +232,9 @@ public final class CatalogModifierOverride {
             return this;
         }
 
+        /**
+         * <p><strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "on_by_default", nulls = Nulls.SKIP)
         public _FinalStage onByDefault(Optional<Boolean> onByDefault) {

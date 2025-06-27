@@ -77,12 +77,18 @@ public final class SelectOption {
     }
 
     public interface ReferenceIdStage {
+        /**
+         * <p>The reference id for the option.</p>
+         */
         TitleStage referenceId(@NotNull String referenceId);
 
         Builder from(SelectOption other);
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text that displays in the select option button.</p>
+         */
         _FinalStage title(@NotNull String title);
     }
 
@@ -110,6 +116,7 @@ public final class SelectOption {
 
         /**
          * <p>The reference id for the option.</p>
+         * <p>The reference id for the option.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class SelectOption {
         }
 
         /**
+         * <p>The title text that displays in the select option button.</p>
          * <p>The title text that displays in the select option button.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -85,6 +85,11 @@ public final class BulkDeleteBookingCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>A map containing 1 to 25 individual Delete requests. For each request, provide an
+         * arbitrary ID that is unique for this <code>BulkDeleteBookingCustomAttributes</code> request and the
+         * information needed to delete a custom attribute.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, BookingCustomAttributeDeleteRequest> values) {
             this.values.clear();

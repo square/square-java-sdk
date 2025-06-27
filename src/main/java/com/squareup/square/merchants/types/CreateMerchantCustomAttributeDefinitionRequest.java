@@ -92,6 +92,15 @@ public final class CreateMerchantCustomAttributeDefinitionRequest {
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition to create. Note the following:</p>
+         * <ul>
+         * <li>With the exception of the <code>Selection</code> data type, the <code>schema</code> is specified as a simple URL to the JSON schema
+         * definition hosted on the Square CDN. For more information, including supported values and constraints, see
+         * <a href="https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types">Supported data types</a>.</li>
+         * <li><code>name</code> is required unless <code>visibility</code> is set to <code>VISIBILITY_HIDDEN</code>.</li>
+         * </ul>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
 
         Builder from(CreateMerchantCustomAttributeDefinitionRequest other);
@@ -100,6 +109,10 @@ public final class CreateMerchantCustomAttributeDefinitionRequest {
     public interface _FinalStage {
         CreateMerchantCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -131,6 +144,13 @@ public final class CreateMerchantCustomAttributeDefinitionRequest {
          * <a href="https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types">Supported data types</a>.</li>
          * <li><code>name</code> is required unless <code>visibility</code> is set to <code>VISIBILITY_HIDDEN</code>.</li>
          * </ul>
+         * <p>The custom attribute definition to create. Note the following:</p>
+         * <ul>
+         * <li>With the exception of the <code>Selection</code> data type, the <code>schema</code> is specified as a simple URL to the JSON schema
+         * definition hosted on the Square CDN. For more information, including supported values and constraints, see
+         * <a href="https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types">Supported data types</a>.</li>
+         * <li><code>name</code> is required unless <code>visibility</code> is set to <code>VISIBILITY_HIDDEN</code>.</li>
+         * </ul>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -152,6 +172,10 @@ public final class CreateMerchantCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

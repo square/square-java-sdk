@@ -80,6 +80,9 @@ public final class CreateTimecardRequest {
     }
 
     public interface TimecardStage {
+        /**
+         * <p>The <code>Timecard</code> to be created.</p>
+         */
         _FinalStage timecard(@NotNull Timecard timecard);
 
         Builder from(CreateTimecardRequest other);
@@ -88,6 +91,9 @@ public final class CreateTimecardRequest {
     public interface _FinalStage {
         CreateTimecardRequest build();
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -113,6 +119,7 @@ public final class CreateTimecardRequest {
 
         /**
          * <p>The <code>Timecard</code> to be created.</p>
+         * <p>The <code>Timecard</code> to be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -132,6 +139,9 @@ public final class CreateTimecardRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

@@ -137,6 +137,10 @@ public final class SearchTeamMembersFilter {
             return this;
         }
 
+        /**
+         * <p>When present, filters by team members assigned to the specified locations.
+         * When empty, includes team members assigned to any location.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -159,6 +163,11 @@ public final class SearchTeamMembersFilter {
             return this;
         }
 
+        /**
+         * <p>When present, filters by team members who match the given status.
+         * When empty, includes team members of all statuses.
+         * See <a href="#type-teammemberstatus">TeamMemberStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TeamMemberStatus> status) {
             this.status = status;
@@ -170,6 +179,9 @@ public final class SearchTeamMembersFilter {
             return this;
         }
 
+        /**
+         * <p>When present and set to true, returns the team member who is the owner of the Square account.</p>
+         */
         @JsonSetter(value = "is_owner", nulls = Nulls.SKIP)
         public Builder isOwner(Optional<Boolean> isOwner) {
             this.isOwner = isOwner;

@@ -125,18 +125,42 @@ public final class UpdateLocationCustomAttributeDefinitionRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to update.</p>
+         */
         CustomAttributeDefinitionStage key(@NotNull String key);
 
         Builder from(UpdateLocationCustomAttributeDefinitionRequest other);
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint
+         * supports sparse updates, so only new or changed fields need to be included in the request.
+         * Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.</li>
+         * </ul>
+         * <p>For more information, see
+         * <a href="https://developer.squareup.com/docs/location-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition">Update a location custom attribute definition</a>.
+         * To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, specify the current version of the custom attribute definition.
+         * If this is not important for your application, <code>version</code> can be set to -1.</p>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
     }
 
     public interface _FinalStage {
         UpdateLocationCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -167,6 +191,7 @@ public final class UpdateLocationCustomAttributeDefinitionRequest {
 
         /**
          * <p>The key of the custom attribute definition to update.</p>
+         * <p>The key of the custom attribute definition to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -177,6 +202,21 @@ public final class UpdateLocationCustomAttributeDefinitionRequest {
         }
 
         /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint
+         * supports sparse updates, so only new or changed fields need to be included in the request.
+         * Only the following fields can be updated:</p>
+         * <ul>
+         * <li><code>name</code></li>
+         * <li><code>description</code></li>
+         * <li><code>visibility</code></li>
+         * <li><code>schema</code> for a <code>Selection</code> data type. Only changes to the named options or the maximum number of allowed
+         * selections are supported.</li>
+         * </ul>
+         * <p>For more information, see
+         * <a href="https://developer.squareup.com/docs/location-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition">Update a location custom attribute definition</a>.
+         * To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control, specify the current version of the custom attribute definition.
+         * If this is not important for your application, <code>version</code> can be set to -1.</p>
          * <p>The custom attribute definition that contains the fields to update. This endpoint
          * supports sparse updates, so only new or changed fields need to be included in the request.
          * Only the following fields can be updated:</p>
@@ -230,6 +270,10 @@ public final class UpdateLocationCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency. For more information,
+         * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

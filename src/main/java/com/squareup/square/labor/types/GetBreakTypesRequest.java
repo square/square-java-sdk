@@ -66,6 +66,9 @@ public final class GetBreakTypesRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>BreakType</code> being retrieved.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetBreakTypesRequest other);
@@ -91,6 +94,7 @@ public final class GetBreakTypesRequest {
         }
 
         /**
+         * <p>The UUID for the <code>BreakType</code> being retrieved.</p>
          * <p>The UUID for the <code>BreakType</code> being retrieved.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

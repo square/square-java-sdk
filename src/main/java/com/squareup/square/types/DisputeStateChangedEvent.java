@@ -201,6 +201,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of the target merchant associated with the event.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -223,6 +226,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of the target location associated with the event.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -245,6 +251,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>The type of event this represents.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -267,6 +276,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>A unique ID for the event.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -289,6 +301,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>Timestamp of when the event was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -300,6 +315,9 @@ public final class DisputeStateChangedEvent {
             return this;
         }
 
+        /**
+         * <p>Data associated with the event.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<DisputeStateChangedEventData> data) {
             this.data = data;

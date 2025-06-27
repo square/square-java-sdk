@@ -116,6 +116,9 @@ public final class Coordinates {
             return this;
         }
 
+        /**
+         * <p>The latitude of the coordinate expressed in degrees.</p>
+         */
         @JsonSetter(value = "latitude", nulls = Nulls.SKIP)
         public Builder latitude(Optional<Double> latitude) {
             this.latitude = latitude;
@@ -138,6 +141,9 @@ public final class Coordinates {
             return this;
         }
 
+        /**
+         * <p>The longitude of the coordinate expressed in degrees.</p>
+         */
         @JsonSetter(value = "longitude", nulls = Nulls.SKIP)
         public Builder longitude(Optional<Double> longitude) {
             this.longitude = longitude;

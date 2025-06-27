@@ -136,6 +136,9 @@ public final class LoyaltyEventAccumulatePoints {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
         @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
         public Builder loyaltyProgramId(Optional<String> loyaltyProgramId) {
             this.loyaltyProgramId = loyaltyProgramId;
@@ -147,6 +150,9 @@ public final class LoyaltyEventAccumulatePoints {
             return this;
         }
 
+        /**
+         * <p>The number of points accumulated by the event.</p>
+         */
         @JsonSetter(value = "points", nulls = Nulls.SKIP)
         public Builder points(Optional<Integer> points) {
             this.points = points;
@@ -169,6 +175,10 @@ public final class LoyaltyEventAccumulatePoints {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Order">order</a> for which the buyer accumulated the points.
+         * This field is returned only if the Orders API is used to process orders.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;

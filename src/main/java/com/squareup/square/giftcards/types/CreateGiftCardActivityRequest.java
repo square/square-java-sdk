@@ -80,12 +80,19 @@ public final class CreateGiftCardActivityRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies the <code>CreateGiftCardActivity</code> request.</p>
+         */
         GiftCardActivityStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateGiftCardActivityRequest other);
     }
 
     public interface GiftCardActivityStage {
+        /**
+         * <p>The activity to create for the gift card. This activity must specify <code>gift_card_id</code> or <code>gift_card_gan</code> for the target
+         * gift card, the <code>location_id</code> where the activity occurred, and the activity <code>type</code> along with the corresponding activity details.</p>
+         */
         _FinalStage giftCardActivity(@NotNull GiftCardActivity giftCardActivity);
     }
 
@@ -113,6 +120,7 @@ public final class CreateGiftCardActivityRequest {
 
         /**
          * <p>A unique string that identifies the <code>CreateGiftCardActivity</code> request.</p>
+         * <p>A unique string that identifies the <code>CreateGiftCardActivity</code> request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -123,6 +131,8 @@ public final class CreateGiftCardActivityRequest {
         }
 
         /**
+         * <p>The activity to create for the gift card. This activity must specify <code>gift_card_id</code> or <code>gift_card_gan</code> for the target
+         * gift card, the <code>location_id</code> where the activity occurred, and the activity <code>type</code> along with the corresponding activity details.</p>
          * <p>The activity to create for the gift card. This activity must specify <code>gift_card_id</code> or <code>gift_card_gan</code> for the target
          * gift card, the <code>location_id</code> where the activity occurred, and the activity <code>type</code> along with the corresponding activity details.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

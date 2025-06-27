@@ -77,12 +77,18 @@ public final class DeleteCardsRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer that the card on file belongs to.</p>
+         */
         CardIdStage customerId(@NotNull String customerId);
 
         Builder from(DeleteCardsRequest other);
     }
 
     public interface CardIdStage {
+        /**
+         * <p>The ID of the card on file to delete.</p>
+         */
         _FinalStage cardId(@NotNull String cardId);
     }
 
@@ -110,6 +116,7 @@ public final class DeleteCardsRequest {
 
         /**
          * <p>The ID of the customer that the card on file belongs to.</p>
+         * <p>The ID of the customer that the card on file belongs to.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class DeleteCardsRequest {
         }
 
         /**
+         * <p>The ID of the card on file to delete.</p>
          * <p>The ID of the card on file to delete.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

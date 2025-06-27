@@ -79,12 +79,19 @@ public final class DeleteCustomAttributesRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         */
         CustomAttributeKeyStage orderId(@NotNull String orderId);
 
         Builder from(DeleteCustomAttributesRequest other);
     }
 
     public interface CustomAttributeKeyStage {
+        /**
+         * <p>The key of the custom attribute to delete.  This key must match the key of an
+         * existing custom attribute definition.</p>
+         */
         _FinalStage customAttributeKey(@NotNull String customAttributeKey);
     }
 
@@ -112,6 +119,7 @@ public final class DeleteCustomAttributesRequest {
 
         /**
          * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +130,8 @@ public final class DeleteCustomAttributesRequest {
         }
 
         /**
+         * <p>The key of the custom attribute to delete.  This key must match the key of an
+         * existing custom attribute definition.</p>
          * <p>The key of the custom attribute to delete.  This key must match the key of an
          * existing custom attribute definition.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

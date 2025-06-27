@@ -81,6 +81,9 @@ public final class OrderFulfillmentUpdatedObject {
             return this;
         }
 
+        /**
+         * <p>Information about the updated order fulfillment.</p>
+         */
         @JsonSetter(value = "order_fulfillment_updated", nulls = Nulls.SKIP)
         public Builder orderFulfillmentUpdated(Optional<OrderFulfillmentUpdated> orderFulfillmentUpdated) {
             this.orderFulfillmentUpdated = orderFulfillmentUpdated;

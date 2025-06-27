@@ -82,6 +82,9 @@ public final class TeamMemberWageSettingUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated team member wage setting.</p>
+         */
         @JsonSetter(value = "wage_setting", nulls = Nulls.SKIP)
         public Builder wageSetting(Optional<WageSetting> wageSetting) {
             this.wageSetting = wageSetting;

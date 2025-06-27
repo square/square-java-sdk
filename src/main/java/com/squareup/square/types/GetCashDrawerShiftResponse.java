@@ -98,6 +98,9 @@ public final class GetCashDrawerShiftResponse {
             return this;
         }
 
+        /**
+         * <p>The cash drawer shift queried for.</p>
+         */
         @JsonSetter(value = "cash_drawer_shift", nulls = Nulls.SKIP)
         public Builder cashDrawerShift(Optional<CashDrawerShift> cashDrawerShift) {
             this.cashDrawerShift = cashDrawerShift;
@@ -109,6 +112,9 @@ public final class GetCashDrawerShiftResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

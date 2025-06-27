@@ -268,6 +268,21 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The identifier
+         * of the custom attribute definition and its corresponding custom attributes. This value
+         * can be a simple key, which is the key that is provided when the custom attribute definition
+         * is created, or a qualified key, if the requesting
+         * application is not the definition owner. The qualified key consists of the application ID
+         * of the custom attribute definition owner
+         * followed by the simple key that was provided when the definition was created. It has the
+         * format application_id:simple key.</p>
+         * <p>The value for a simple key can contain up to 60 alphanumeric characters, periods (.),
+         * underscores (_), and hyphens (-).</p>
+         * <p>This field can not be changed
+         * after the custom attribute definition is created. This field is required when creating
+         * a definition and must be unique per application, seller, and resource type.</p>
+         */
         @JsonSetter(value = "key", nulls = Nulls.SKIP)
         public Builder key(Optional<String> key) {
             this.key = key;
@@ -290,6 +305,10 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The JSON schema for the custom attribute definition, which determines the data type of the corresponding custom attributes. For more information,
+         * see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview">Custom Attributes Overview</a>. This field is required when creating a definition.</p>
+         */
         @JsonSetter(value = "schema", nulls = Nulls.SKIP)
         public Builder schema(Optional<Map<String, Object>> schema) {
             this.schema = schema;
@@ -312,6 +331,11 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The name of the custom attribute definition for API and seller-facing UI purposes. The name must
+         * be unique within the seller and application pair. This field is required if the
+         * <code>visibility</code> field is <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -334,6 +358,11 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Seller-oriented description of the custom attribute definition, including any constraints
+         * that the seller should observe. May be displayed as a tooltip in Square UIs. This field is
+         * required if the <code>visibility</code> field is <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -356,6 +385,11 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Specifies how the custom attribute definition and its values should be shared with
+         * the seller and other applications. If no value is specified, the value defaults to <code>VISIBILITY_HIDDEN</code>.
+         * See <a href="#type-visibility">Visibility</a> for possible values</p>
+         */
         @JsonSetter(value = "visibility", nulls = Nulls.SKIP)
         public Builder visibility(Optional<CustomAttributeDefinitionVisibility> visibility) {
             this.visibility = visibility;
@@ -367,6 +401,16 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>Read only. The current version of the custom attribute definition.
+         * The value is incremented each time the custom attribute definition is updated.
+         * When updating a custom attribute definition, you can provide this field
+         * and specify the current version of the custom attribute definition to enable
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>.</p>
+         * <p>On writes, this field must be set to the latest version. Stale writes are rejected.</p>
+         * <p>This field can also be used to enforce strong consistency for reads. For more information about strong consistency for reads,
+         * see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview">Custom Attributes Overview</a>.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -378,6 +422,10 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The timestamp that indicates when the custom attribute definition was created or most recently updated,
+         * in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -389,6 +437,9 @@ public final class CustomAttributeDefinition {
             return this;
         }
 
+        /**
+         * <p>The timestamp that indicates when the custom attribute definition was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;

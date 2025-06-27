@@ -129,6 +129,10 @@ public final class BuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>The brand used for the Buy Now Pay Later payment.
+         * The brand can be <code>AFTERPAY</code>, <code>CLEARPAY</code> or <code>UNKNOWN</code>.</p>
+         */
         @JsonSetter(value = "brand", nulls = Nulls.SKIP)
         public Builder brand(Optional<String> brand) {
             this.brand = brand;
@@ -151,6 +155,10 @@ public final class BuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>Details about an Afterpay payment. These details are only populated if the <code>brand</code> is
+         * <code>AFTERPAY</code>.</p>
+         */
         @JsonSetter(value = "afterpay_details", nulls = Nulls.SKIP)
         public Builder afterpayDetails(Optional<AfterpayDetails> afterpayDetails) {
             this.afterpayDetails = afterpayDetails;
@@ -162,6 +170,10 @@ public final class BuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>Details about a Clearpay payment. These details are only populated if the <code>brand</code> is
+         * <code>CLEARPAY</code>.</p>
+         */
         @JsonSetter(value = "clearpay_details", nulls = Nulls.SKIP)
         public Builder clearpayDetails(Optional<ClearpayDetails> clearpayDetails) {
             this.clearpayDetails = clearpayDetails;

@@ -97,6 +97,9 @@ public final class TerminalActionQuery {
             return this;
         }
 
+        /**
+         * <p>Options for filtering returned <code>TerminalAction</code>s</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<TerminalActionQueryFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class TerminalActionQuery {
             return this;
         }
 
+        /**
+         * <p>Option for sorting returned <code>TerminalAction</code> objects.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<TerminalActionQuerySort> sort) {
             this.sort = sort;

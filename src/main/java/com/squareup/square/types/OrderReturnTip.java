@@ -160,6 +160,9 @@ public final class OrderReturnTip {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the tip only within this order.</p>
+         */
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public Builder uid(Optional<String> uid) {
             this.uid = uid;
@@ -182,6 +185,9 @@ public final class OrderReturnTip {
             return this;
         }
 
+        /**
+         * <h2>The amount of tip being returned</h2>
+         */
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public Builder appliedMoney(Optional<Money> appliedMoney) {
             this.appliedMoney = appliedMoney;
@@ -193,6 +199,9 @@ public final class OrderReturnTip {
             return this;
         }
 
+        /**
+         * <p>The tender <code>uid</code> from the order that contains the original application of this tip.</p>
+         */
         @JsonSetter(value = "source_tender_uid", nulls = Nulls.SKIP)
         public Builder sourceTenderUid(Optional<String> sourceTenderUid) {
             this.sourceTenderUid = sourceTenderUid;
@@ -215,6 +224,9 @@ public final class OrderReturnTip {
             return this;
         }
 
+        /**
+         * <p>The tender <code>id</code> from the order that contains the original application of this tip.</p>
+         */
         @JsonSetter(value = "source_tender_id", nulls = Nulls.SKIP)
         public Builder sourceTenderId(Optional<String> sourceTenderId) {
             this.sourceTenderId = sourceTenderId;

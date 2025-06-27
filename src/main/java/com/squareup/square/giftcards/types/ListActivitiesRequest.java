@@ -292,6 +292,11 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>If a gift card ID is provided, the endpoint returns activities related
+         * to the specified gift card. Otherwise, the endpoint returns all gift card activities for
+         * the seller.</p>
+         */
         @JsonSetter(value = "gift_card_id", nulls = Nulls.SKIP)
         public Builder giftCardId(Optional<String> giftCardId) {
             this.giftCardId = giftCardId;
@@ -314,6 +319,10 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>If a <a href="entity:GiftCardActivityType">type</a> is provided, the endpoint returns gift card activities of the specified type.
+         * Otherwise, the endpoint returns all types of gift card activities.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -336,6 +345,10 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>If a location ID is provided, the endpoint returns gift card activities for the specified location.
+         * Otherwise, the endpoint returns gift card activities for all locations.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -358,6 +371,10 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>The timestamp for the beginning of the reporting period, in RFC 3339 format.
+         * This start time is inclusive. The default value is the current time minus one year.</p>
+         */
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public Builder beginTime(Optional<String> beginTime) {
             this.beginTime = beginTime;
@@ -380,6 +397,10 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>The timestamp for the end of the reporting period, in RFC 3339 format.
+         * This end time is inclusive. The default value is the current time.</p>
+         */
         @JsonSetter(value = "end_time", nulls = Nulls.SKIP)
         public Builder endTime(Optional<String> endTime) {
             this.endTime = endTime;
@@ -402,6 +423,11 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>If a limit is provided, the endpoint returns the specified number
+         * of results (or fewer) per page. The maximum value is 100. The default value is 50.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -424,6 +450,12 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * If a cursor is not provided, the endpoint returns the first page of the results.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -446,6 +478,13 @@ public final class ListActivitiesRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which the endpoint returns the activities, based on <code>created_at</code>.</p>
+         * <ul>
+         * <li><code>ASC</code> - Oldest to newest.</li>
+         * <li><code>DESC</code> - Newest to oldest (default).</li>
+         * </ul>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<String> sortOrder) {
             this.sortOrder = sortOrder;

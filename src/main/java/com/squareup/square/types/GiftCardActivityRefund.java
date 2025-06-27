@@ -158,6 +158,13 @@ public final class GiftCardActivityRefund {
             return this;
         }
 
+        /**
+         * <p>The ID of the refunded <code>REDEEM</code> gift card activity. Square populates this field if the
+         * <code>payment_id</code> in the corresponding <a href="api-endpoint:Refunds-RefundPayment">RefundPayment</a> request
+         * represents a gift card redemption.</p>
+         * <p>For applications that use a custom payment processing system, this field is required when creating
+         * a <code>REFUND</code> activity. The provided <code>REDEEM</code> activity ID must be linked to the same gift card.</p>
+         */
         @JsonSetter(value = "redeem_activity_id", nulls = Nulls.SKIP)
         public Builder redeemActivityId(Optional<String> redeemActivityId) {
             this.redeemActivityId = redeemActivityId;
@@ -180,6 +187,10 @@ public final class GiftCardActivityRefund {
             return this;
         }
 
+        /**
+         * <p>The amount added to the gift card for the refund. This value is a positive integer.</p>
+         * <p>This field is required when creating a <code>REFUND</code> activity. The amount can represent a full or partial refund.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -191,6 +202,9 @@ public final class GiftCardActivityRefund {
             return this;
         }
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -213,6 +227,11 @@ public final class GiftCardActivityRefund {
             return this;
         }
 
+        /**
+         * <p>The ID of the refunded payment. Square populates this field if the refund is for a
+         * payment processed by Square. This field matches the <code>payment_id</code> in the corresponding
+         * <a href="api-endpoint:Refunds-RefundPayment">RefundPayment</a> request.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;

@@ -134,28 +134,43 @@ public final class ConfirmationOptions {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text to display in the confirmation screen flow on the Terminal.</p>
+         */
         BodyStage title(@NotNull String title);
 
         Builder from(ConfirmationOptions other);
     }
 
     public interface BodyStage {
+        /**
+         * <p>The agreement details to display in the confirmation flow on the Terminal.</p>
+         */
         AgreeButtonTextStage body(@NotNull String body);
     }
 
     public interface AgreeButtonTextStage {
+        /**
+         * <p>The button text to display indicating the customer agrees to the displayed terms.</p>
+         */
         _FinalStage agreeButtonText(@NotNull String agreeButtonText);
     }
 
     public interface _FinalStage {
         ConfirmationOptions build();
 
+        /**
+         * <p>The button text to display indicating the customer does not agree to the displayed terms.</p>
+         */
         _FinalStage disagreeButtonText(Optional<String> disagreeButtonText);
 
         _FinalStage disagreeButtonText(String disagreeButtonText);
 
         _FinalStage disagreeButtonText(Nullable<String> disagreeButtonText);
 
+        /**
+         * <p>The result of the buyer’s actions when presented with the confirmation screen.</p>
+         */
         _FinalStage decision(Optional<ConfirmationDecision> decision);
 
         _FinalStage decision(ConfirmationDecision decision);
@@ -190,6 +205,7 @@ public final class ConfirmationOptions {
 
         /**
          * <p>The title text to display in the confirmation screen flow on the Terminal.</p>
+         * <p>The title text to display in the confirmation screen flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -201,6 +217,7 @@ public final class ConfirmationOptions {
 
         /**
          * <p>The agreement details to display in the confirmation flow on the Terminal.</p>
+         * <p>The agreement details to display in the confirmation flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -211,6 +228,7 @@ public final class ConfirmationOptions {
         }
 
         /**
+         * <p>The button text to display indicating the customer agrees to the displayed terms.</p>
          * <p>The button text to display indicating the customer agrees to the displayed terms.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -231,6 +249,9 @@ public final class ConfirmationOptions {
             return this;
         }
 
+        /**
+         * <p>The result of the buyer’s actions when presented with the confirmation screen.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "decision", nulls = Nulls.SKIP)
         public _FinalStage decision(Optional<ConfirmationDecision> decision) {
@@ -264,6 +285,9 @@ public final class ConfirmationOptions {
             return this;
         }
 
+        /**
+         * <p>The button text to display indicating the customer does not agree to the displayed terms.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "disagree_button_text", nulls = Nulls.SKIP)
         public _FinalStage disagreeButtonText(Optional<String> disagreeButtonText) {

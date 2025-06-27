@@ -81,6 +81,9 @@ public final class CatalogObjectBatch {
             return this;
         }
 
+        /**
+         * <p>A list of CatalogObjects belonging to this batch.</p>
+         */
         @JsonSetter(value = "objects", nulls = Nulls.SKIP)
         public Builder objects(List<CatalogObject> objects) {
             this.objects.clear();

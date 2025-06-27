@@ -120,6 +120,10 @@ public final class OrderPricingOptions {
             return this;
         }
 
+        /**
+         * <p>The option to determine whether pricing rule-based
+         * discounts are automatically applied to an order.</p>
+         */
         @JsonSetter(value = "auto_apply_discounts", nulls = Nulls.SKIP)
         public Builder autoApplyDiscounts(Optional<Boolean> autoApplyDiscounts) {
             this.autoApplyDiscounts = autoApplyDiscounts;
@@ -142,6 +146,10 @@ public final class OrderPricingOptions {
             return this;
         }
 
+        /**
+         * <p>The option to determine whether rule-based taxes are automatically
+         * applied to an order when the criteria of the corresponding rules are met.</p>
+         */
         @JsonSetter(value = "auto_apply_taxes", nulls = Nulls.SKIP)
         public Builder autoApplyTaxes(Optional<Boolean> autoApplyTaxes) {
             this.autoApplyTaxes = autoApplyTaxes;

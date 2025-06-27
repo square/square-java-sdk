@@ -603,6 +603,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The ID of the <code>CatalogItem</code> associated with this item variation.</p>
+         */
         @JsonSetter(value = "item_id", nulls = Nulls.SKIP)
         public Builder itemId(Optional<String> itemId) {
             this.itemId = itemId;
@@ -625,6 +628,12 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The item variation's name. This is a searchable attribute for use in applicable query filters.</p>
+         * <p>Its value has a maximum length of 255 Unicode code points. However, when the parent <a href="entity:CatalogItem">item</a>
+         * uses <a href="entity:CatalogItemOption">item options</a>, this attribute is auto-generated, read-only, and can be
+         * longer than 255 Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -647,6 +656,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The item variation's SKU, if any. This is a searchable attribute for use in applicable query filters.</p>
+         */
         @JsonSetter(value = "sku", nulls = Nulls.SKIP)
         public Builder sku(Optional<String> sku) {
             this.sku = sku;
@@ -669,6 +681,13 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The universal product code (UPC) of the item variation, if any. This is a searchable attribute for use in applicable query filters.</p>
+         * <p>The value of this attribute should be a number of 12-14 digits long.  This restriction is enforced on the Square Seller Dashboard,
+         * Square Point of Sale or Retail Point of Sale apps, where this attribute shows in the GTIN field. If a non-compliant UPC value is assigned
+         * to this attribute using the API, the value is not editable on the Seller Dashboard, Square Point of Sale or Retail Point of Sale apps
+         * unless it is updated to fit the expected format.</p>
+         */
         @JsonSetter(value = "upc", nulls = Nulls.SKIP)
         public Builder upc(Optional<String> upc) {
             this.upc = upc;
@@ -691,6 +710,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The order in which this item variation should be displayed. This value is read-only. On writes, the ordinal
+         * for each item variation within a parent <code>CatalogItem</code> is set according to the item variations's
+         * position. On reads, the value is not guaranteed to be sequential or unique.</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Integer> ordinal) {
             this.ordinal = ordinal;
@@ -702,6 +726,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the item variation's price is fixed or determined at the time
+         * of sale.
+         * See <a href="#type-catalogpricingtype">CatalogPricingType</a> for possible values</p>
+         */
         @JsonSetter(value = "pricing_type", nulls = Nulls.SKIP)
         public Builder pricingType(Optional<CatalogPricingType> pricingType) {
             this.pricingType = pricingType;
@@ -713,6 +742,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The item variation's price, if fixed pricing is used.</p>
+         */
         @JsonSetter(value = "price_money", nulls = Nulls.SKIP)
         public Builder priceMoney(Optional<Money> priceMoney) {
             this.priceMoney = priceMoney;
@@ -724,6 +756,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Per-location price and inventory overrides.</p>
+         */
         @JsonSetter(value = "location_overrides", nulls = Nulls.SKIP)
         public Builder locationOverrides(Optional<List<ItemVariationLocationOverrides>> locationOverrides) {
             this.locationOverrides = locationOverrides;
@@ -746,6 +781,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, inventory tracking is active for the variation.</p>
+         */
         @JsonSetter(value = "track_inventory", nulls = Nulls.SKIP)
         public Builder trackInventory(Optional<Boolean> trackInventory) {
             this.trackInventory = trackInventory;
@@ -768,6 +806,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the item variation displays an alert when its inventory quantity is less than or equal
+         * to its <code>inventory_alert_threshold</code>.
+         * See <a href="#type-inventoryalerttype">InventoryAlertType</a> for possible values</p>
+         */
         @JsonSetter(value = "inventory_alert_type", nulls = Nulls.SKIP)
         public Builder inventoryAlertType(Optional<InventoryAlertType> inventoryAlertType) {
             this.inventoryAlertType = inventoryAlertType;
@@ -779,6 +822,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>If the inventory quantity for the variation is less than or equal to this value and <code>inventory_alert_type</code>
+         * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard.</p>
+         * <p>This value is always an integer.</p>
+         */
         @JsonSetter(value = "inventory_alert_threshold", nulls = Nulls.SKIP)
         public Builder inventoryAlertThreshold(Optional<Long> inventoryAlertThreshold) {
             this.inventoryAlertThreshold = inventoryAlertThreshold;
@@ -801,6 +849,9 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Arbitrary user metadata to associate with the item variation. This attribute value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "user_data", nulls = Nulls.SKIP)
         public Builder userData(Optional<String> userData) {
             this.userData = userData;
@@ -823,6 +874,12 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>If the <code>CatalogItem</code> that owns this item variation is of type
+         * <code>APPOINTMENTS_SERVICE</code>, then this is the duration of the service in milliseconds. For
+         * example, a 30 minute appointment would have the value <code>1800000</code>, which is equal to
+         * 30 (minutes) * 60 (seconds per minute) * 1000 (milliseconds per second).</p>
+         */
         @JsonSetter(value = "service_duration", nulls = Nulls.SKIP)
         public Builder serviceDuration(Optional<Long> serviceDuration) {
             this.serviceDuration = serviceDuration;
@@ -845,6 +902,10 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>If the <code>CatalogItem</code> that owns this item variation is of type
+         * <code>APPOINTMENTS_SERVICE</code>, a bool representing whether this service is available for booking.</p>
+         */
         @JsonSetter(value = "available_for_booking", nulls = Nulls.SKIP)
         public Builder availableForBooking(Optional<Boolean> availableForBooking) {
             this.availableForBooking = availableForBooking;
@@ -867,6 +928,10 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>List of item option values associated with this item variation. Listed
+         * in the same order as the item options of the parent item.</p>
+         */
         @JsonSetter(value = "item_option_values", nulls = Nulls.SKIP)
         public Builder itemOptionValues(Optional<List<CatalogItemOptionValueForItemVariation>> itemOptionValues) {
             this.itemOptionValues = itemOptionValues;
@@ -889,6 +954,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity
+         * sold of this item variation. If left unset, the item will be sold in
+         * whole quantities.</p>
+         */
         @JsonSetter(value = "measurement_unit_id", nulls = Nulls.SKIP)
         public Builder measurementUnitId(Optional<String> measurementUnitId) {
             this.measurementUnitId = measurementUnitId;
@@ -911,6 +981,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Whether this variation can be sold. The inventory count of a sellable variation indicates
+         * the number of units available for sale. When a variation is both stockable and sellable,
+         * its sellable inventory count can be smaller than or equal to its stockable count.</p>
+         */
         @JsonSetter(value = "sellable", nulls = Nulls.SKIP)
         public Builder sellable(Optional<Boolean> sellable) {
             this.sellable = sellable;
@@ -933,6 +1008,11 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
+         * When a variation is both stockable and sellable, the inventory count of a stockable variation keeps track of the number of units of this variation in stock
+         * and is not an indicator of the number of units of the variation that can be sold.</p>
+         */
         @JsonSetter(value = "stockable", nulls = Nulls.SKIP)
         public Builder stockable(Optional<Boolean> stockable) {
             this.stockable = stockable;
@@ -955,6 +1035,10 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The IDs of images associated with this <code>CatalogItemVariation</code> instance.
+         * These images will be shown to customers in Square Online Store.</p>
+         */
         @JsonSetter(value = "image_ids", nulls = Nulls.SKIP)
         public Builder imageIds(Optional<List<String>> imageIds) {
             this.imageIds = imageIds;
@@ -977,6 +1061,10 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Tokens of employees that can perform the service represented by this variation. Only valid for
+         * variations of type <code>APPOINTMENTS_SERVICE</code>.</p>
+         */
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(Optional<List<String>> teamMemberIds) {
             this.teamMemberIds = teamMemberIds;
@@ -999,6 +1087,13 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>The unit conversion rule, as prescribed by the <a href="entity:CatalogStockConversion">CatalogStockConversion</a> type,
+         * that describes how this non-stockable (i.e., sellable/receivable) item variation is converted
+         * to/from the stockable item variation sharing the same parent item. With the stock conversion,
+         * you can accurately track inventory when an item variation is sold in one unit, but stocked in
+         * another unit.</p>
+         */
         @JsonSetter(value = "stockable_conversion", nulls = Nulls.SKIP)
         public Builder stockableConversion(Optional<CatalogStockConversion> stockableConversion) {
             this.stockableConversion = stockableConversion;

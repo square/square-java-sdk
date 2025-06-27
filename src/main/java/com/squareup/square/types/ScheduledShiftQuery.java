@@ -97,6 +97,9 @@ public final class ScheduledShiftQuery {
             return this;
         }
 
+        /**
+         * <p>Filtering options for the query.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<ScheduledShiftFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class ScheduledShiftQuery {
             return this;
         }
 
+        /**
+         * <p>Sorting options for the query.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<ScheduledShiftSort> sort) {
             this.sort = sort;

@@ -80,12 +80,19 @@ public final class CreateLoyaltyRewardRequest {
     }
 
     public interface RewardStage {
+        /**
+         * <p>The reward to create.</p>
+         */
         IdempotencyKeyStage reward(@NotNull LoyaltyReward reward);
 
         Builder from(CreateLoyaltyRewardRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>CreateLoyaltyReward</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
@@ -113,6 +120,7 @@ public final class CreateLoyaltyRewardRequest {
 
         /**
          * <p>The reward to create.</p>
+         * <p>The reward to create.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -123,6 +131,8 @@ public final class CreateLoyaltyRewardRequest {
         }
 
         /**
+         * <p>A unique string that identifies this <code>CreateLoyaltyReward</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
          * <p>A unique string that identifies this <code>CreateLoyaltyReward</code> request.
          * Keys can be any valid string, but must be unique for every request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

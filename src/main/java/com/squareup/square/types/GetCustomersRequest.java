@@ -66,6 +66,9 @@ public final class GetCustomersRequest {
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the customer to retrieve.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
 
         Builder from(GetCustomersRequest other);
@@ -91,6 +94,7 @@ public final class GetCustomersRequest {
         }
 
         /**
+         * <p>The ID of the customer to retrieve.</p>
          * <p>The ID of the customer to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

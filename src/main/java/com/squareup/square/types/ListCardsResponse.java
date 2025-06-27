@@ -115,6 +115,9 @@ public final class ListCardsResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class ListCardsResponse {
             return this;
         }
 
+        /**
+         * <p>The requested list of <code>Card</code>s.</p>
+         */
         @JsonSetter(value = "cards", nulls = Nulls.SKIP)
         public Builder cards(Optional<List<Card>> cards) {
             this.cards = cards;
@@ -137,6 +143,11 @@ public final class ListCardsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If empty,
+         * this is the final response.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

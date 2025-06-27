@@ -84,6 +84,9 @@ public final class BulkDeleteOrderCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>A map of requests that correspond to individual delete operations for custom attributes.</p>
+         */
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values) {
             this.values.clear();

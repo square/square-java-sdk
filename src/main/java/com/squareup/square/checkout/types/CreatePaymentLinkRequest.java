@@ -200,6 +200,12 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies this <code>CreatePaymentLinkRequest</code> request.
+         * If you do not provide a unique string (or provide an empty string as the value),
+         * the endpoint treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public Builder idempotencyKey(Optional<String> idempotencyKey) {
             this.idempotencyKey = idempotencyKey;
@@ -211,6 +217,10 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>A description of the payment link. You provide this optional description that is useful in your
+         * application context. It is not used anywhere.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -222,6 +232,11 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>Describes an ad hoc item and price for which to generate a quick pay checkout link.
+         * For more information,
+         * see <a href="https://developer.squareup.com/docs/checkout-api/quick-pay-checkout">Quick Pay Checkout</a>.</p>
+         */
         @JsonSetter(value = "quick_pay", nulls = Nulls.SKIP)
         public Builder quickPay(Optional<QuickPay> quickPay) {
             this.quickPay = quickPay;
@@ -233,6 +248,11 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>Describes the <code>Order</code> for which to create a checkout link.
+         * For more information,
+         * see <a href="https://developer.squareup.com/docs/checkout-api/square-order-checkout">Square Order Checkout</a>.</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<Order> order) {
             this.order = order;
@@ -244,6 +264,11 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>Describes optional fields to add to the resulting checkout page.
+         * For more information,
+         * see <a href="https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations">Optional Checkout Configurations</a>.</p>
+         */
         @JsonSetter(value = "checkout_options", nulls = Nulls.SKIP)
         public Builder checkoutOptions(Optional<CheckoutOptions> checkoutOptions) {
             this.checkoutOptions = checkoutOptions;
@@ -255,6 +280,10 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>Describes fields to prepopulate in the resulting checkout page.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations#prepopulate-the-shipping-address">Prepopulate the shipping address</a>.</p>
+         */
         @JsonSetter(value = "pre_populated_data", nulls = Nulls.SKIP)
         public Builder prePopulatedData(Optional<PrePopulatedData> prePopulatedData) {
             this.prePopulatedData = prePopulatedData;
@@ -266,6 +295,9 @@ public final class CreatePaymentLinkRequest {
             return this;
         }
 
+        /**
+         * <p>A note for the payment. After processing the payment, Square adds this note to the resulting <code>Payment</code>.</p>
+         */
         @JsonSetter(value = "payment_note", nulls = Nulls.SKIP)
         public Builder paymentNote(Optional<String> paymentNote) {
             this.paymentNote = paymentNote;

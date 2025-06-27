@@ -77,12 +77,18 @@ public final class GetEvidenceRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute from which you want to retrieve evidence metadata.</p>
+         */
         EvidenceIdStage disputeId(@NotNull String disputeId);
 
         Builder from(GetEvidenceRequest other);
     }
 
     public interface EvidenceIdStage {
+        /**
+         * <p>The ID of the evidence to retrieve.</p>
+         */
         _FinalStage evidenceId(@NotNull String evidenceId);
     }
 
@@ -110,6 +116,7 @@ public final class GetEvidenceRequest {
 
         /**
          * <p>The ID of the dispute from which you want to retrieve evidence metadata.</p>
+         * <p>The ID of the dispute from which you want to retrieve evidence metadata.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class GetEvidenceRequest {
         }
 
         /**
+         * <p>The ID of the evidence to retrieve.</p>
          * <p>The ID of the evidence to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

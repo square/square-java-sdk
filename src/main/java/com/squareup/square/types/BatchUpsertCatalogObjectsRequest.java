@@ -103,6 +103,16 @@ public final class BatchUpsertCatalogObjectsRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A value you specify that uniquely identifies this
+         * request among all your requests. A common way to create
+         * a valid idempotency key is to use a Universally unique
+         * identifier (UUID).</p>
+         * <p>If you're unsure whether a particular request was successful,
+         * you can reattempt it with the same idempotency key without
+         * worrying about creating duplicate objects.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> for more information.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(BatchUpsertCatalogObjectsRequest other);
@@ -111,6 +121,24 @@ public final class BatchUpsertCatalogObjectsRequest {
     public interface _FinalStage {
         BatchUpsertCatalogObjectsRequest build();
 
+        /**
+         * <p>A batch of CatalogObjects to be inserted/updated atomically.
+         * The objects within a batch will be inserted in an all-or-nothing fashion, i.e., if an error occurs
+         * attempting to insert or update an object within a batch, the entire batch will be rejected. However, an error
+         * in one batch will not affect other batches within the same request.</p>
+         * <p>For each object, its <code>updated_at</code> field is ignored and replaced with a current <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>, and its
+         * <code>is_deleted</code> field must not be set to <code>true</code>.</p>
+         * <p>To modify an existing object, supply its ID. To create a new object, use an ID starting
+         * with <code>#</code>. These IDs may be used to create relationships between an object and attributes of
+         * other objects that reference it. For example, you can create a CatalogItem with
+         * ID <code>#ABC</code> and a CatalogItemVariation with its <code>item_id</code> attribute set to
+         * <code>#ABC</code> in order to associate the CatalogItemVariation with its parent
+         * CatalogItem.</p>
+         * <p>Any <code>#</code>-prefixed IDs are valid only within a single atomic batch, and will be replaced by server-generated IDs.</p>
+         * <p>Each batch may contain up to 1,000 objects. The total number of objects across all batches for a single request
+         * may not exceed 10,000. If either of these limits is violated, an error will be returned and no objects will
+         * be inserted or updated.</p>
+         */
         _FinalStage batches(List<CatalogObjectBatch> batches);
 
         _FinalStage addBatches(CatalogObjectBatch batches);
@@ -137,6 +165,14 @@ public final class BatchUpsertCatalogObjectsRequest {
         }
 
         /**
+         * <p>A value you specify that uniquely identifies this
+         * request among all your requests. A common way to create
+         * a valid idempotency key is to use a Universally unique
+         * identifier (UUID).</p>
+         * <p>If you're unsure whether a particular request was successful,
+         * you can reattempt it with the same idempotency key without
+         * worrying about creating duplicate objects.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> for more information.</p>
          * <p>A value you specify that uniquely identifies this
          * request among all your requests. A common way to create
          * a valid idempotency key is to use a Universally unique
@@ -204,6 +240,24 @@ public final class BatchUpsertCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>A batch of CatalogObjects to be inserted/updated atomically.
+         * The objects within a batch will be inserted in an all-or-nothing fashion, i.e., if an error occurs
+         * attempting to insert or update an object within a batch, the entire batch will be rejected. However, an error
+         * in one batch will not affect other batches within the same request.</p>
+         * <p>For each object, its <code>updated_at</code> field is ignored and replaced with a current <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>, and its
+         * <code>is_deleted</code> field must not be set to <code>true</code>.</p>
+         * <p>To modify an existing object, supply its ID. To create a new object, use an ID starting
+         * with <code>#</code>. These IDs may be used to create relationships between an object and attributes of
+         * other objects that reference it. For example, you can create a CatalogItem with
+         * ID <code>#ABC</code> and a CatalogItemVariation with its <code>item_id</code> attribute set to
+         * <code>#ABC</code> in order to associate the CatalogItemVariation with its parent
+         * CatalogItem.</p>
+         * <p>Any <code>#</code>-prefixed IDs are valid only within a single atomic batch, and will be replaced by server-generated IDs.</p>
+         * <p>Each batch may contain up to 1,000 objects. The total number of objects across all batches for a single request
+         * may not exceed 10,000. If either of these limits is violated, an error will be returned and no objects will
+         * be inserted or updated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "batches", nulls = Nulls.SKIP)
         public _FinalStage batches(List<CatalogObjectBatch> batches) {

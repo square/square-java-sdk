@@ -108,18 +108,27 @@ public final class UpdateBookingRequest {
     }
 
     public interface BookingIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-updated booking.</p>
+         */
         BookingStage bookingId(@NotNull String bookingId);
 
         Builder from(UpdateBookingRequest other);
     }
 
     public interface BookingStage {
+        /**
+         * <p>The booking to be updated. Individual attributes explicitly specified here override the corresponding values of the existing booking.</p>
+         */
         _FinalStage booking(@NotNull Booking booking);
     }
 
     public interface _FinalStage {
         UpdateBookingRequest build();
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -150,6 +159,7 @@ public final class UpdateBookingRequest {
 
         /**
          * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-updated booking.</p>
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-updated booking.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -160,6 +170,7 @@ public final class UpdateBookingRequest {
         }
 
         /**
+         * <p>The booking to be updated. Individual attributes explicitly specified here override the corresponding values of the existing booking.</p>
          * <p>The booking to be updated. Individual attributes explicitly specified here override the corresponding values of the existing booking.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -196,6 +207,9 @@ public final class UpdateBookingRequest {
             return this;
         }
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

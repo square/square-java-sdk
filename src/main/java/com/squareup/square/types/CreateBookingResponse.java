@@ -96,6 +96,9 @@ public final class CreateBookingResponse {
             return this;
         }
 
+        /**
+         * <p>The booking that was created.</p>
+         */
         @JsonSetter(value = "booking", nulls = Nulls.SKIP)
         public Builder booking(Optional<Booking> booking) {
             this.booking = booking;
@@ -107,6 +110,9 @@ public final class CreateBookingResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

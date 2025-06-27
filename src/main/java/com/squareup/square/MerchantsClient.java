@@ -4,11 +4,7 @@
 package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.merchants.CustomAttributeDefinitionsClient;
@@ -16,22 +12,13 @@ import com.squareup.square.merchants.CustomAttributesClient;
 import com.squareup.square.types.GetMerchantResponse;
 import com.squareup.square.types.GetMerchantsRequest;
 import com.squareup.square.types.ListMerchantsRequest;
-import com.squareup.square.types.ListMerchantsResponse;
 import com.squareup.square.types.Merchant;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class MerchantsClient {
     protected final ClientOptions clientOptions;
+
+    private final RawMerchantsClient rawClient;
 
     protected final Supplier<CustomAttributeDefinitionsClient> customAttributeDefinitionsClient;
 
@@ -39,9 +26,17 @@ public class MerchantsClient {
 
     public MerchantsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawMerchantsClient(clientOptions);
         this.customAttributeDefinitionsClient =
                 Suppliers.memoize(() -> new CustomAttributeDefinitionsClient(clientOptions));
         this.customAttributesClient = Suppliers.memoize(() -> new CustomAttributesClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawMerchantsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -55,7 +50,7 @@ public class MerchantsClient {
      * endpoint to retrieve the merchant information.</p>
      */
     public SyncPagingIterable<Merchant> list() {
-        return list(ListMerchantsRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
@@ -69,7 +64,7 @@ public class MerchantsClient {
      * endpoint to retrieve the merchant information.</p>
      */
     public SyncPagingIterable<Merchant> list(ListMerchantsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -83,88 +78,21 @@ public class MerchantsClient {
      * endpoint to retrieve the merchant information.</p>
      */
     public SyncPagingIterable<Merchant> list(ListMerchantsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListMerchantsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListMerchantsResponse.class);
-                Optional<Integer> startingAfter = parsedResponse.getCursor();
-                ListMerchantsRequest nextRequest = ListMerchantsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<Merchant> result = parsedResponse.getMerchant().orElse(Collections.emptyList());
-                return new SyncPagingIterable<Merchant>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
      * Retrieves the <code>Merchant</code> object for the given <code>merchant_id</code>.
      */
     public GetMerchantResponse get(GetMerchantsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Retrieves the <code>Merchant</code> object for the given <code>merchant_id</code>.
      */
     public GetMerchantResponse get(GetMerchantsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/merchants")
-                .addPathSegment(request.getMerchantId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetMerchantResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     public CustomAttributeDefinitionsClient customAttributeDefinitions() {

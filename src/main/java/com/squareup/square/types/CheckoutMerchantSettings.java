@@ -100,6 +100,9 @@ public final class CheckoutMerchantSettings {
             return this;
         }
 
+        /**
+         * <p>The set of payment methods accepted for the merchant's account.</p>
+         */
         @JsonSetter(value = "payment_methods", nulls = Nulls.SKIP)
         public Builder paymentMethods(Optional<CheckoutMerchantSettingsPaymentMethods> paymentMethods) {
             this.paymentMethods = paymentMethods;
@@ -111,6 +114,12 @@ public final class CheckoutMerchantSettings {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the settings were last updated, in RFC 3339 format.
+         * Examples for January 25th, 2020 6:25:34pm Pacific Standard Time:
+         * UTC: 2020-01-26T02:25:34Z
+         * Pacific Standard Time with UTC offset: 2020-01-25T18:25:34-08:00</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

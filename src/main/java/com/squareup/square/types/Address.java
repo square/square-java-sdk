@@ -432,6 +432,13 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The first line of the address.</p>
+         * <p>Fields that start with <code>address_line</code> provide the address's most specific
+         * details, like street number, street name, and building name. They do <em>not</em>
+         * provide less specific details like city, state/province, or country (these
+         * details are provided in other fields).</p>
+         */
         @JsonSetter(value = "address_line_1", nulls = Nulls.SKIP)
         public Builder addressLine1(Optional<String> addressLine1) {
             this.addressLine1 = addressLine1;
@@ -454,6 +461,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The second line of the address, if any.</p>
+         */
         @JsonSetter(value = "address_line_2", nulls = Nulls.SKIP)
         public Builder addressLine2(Optional<String> addressLine2) {
             this.addressLine2 = addressLine2;
@@ -476,6 +486,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The third line of the address, if any.</p>
+         */
         @JsonSetter(value = "address_line_3", nulls = Nulls.SKIP)
         public Builder addressLine3(Optional<String> addressLine3) {
             this.addressLine3 = addressLine3;
@@ -498,6 +511,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The city or town of the address. For a full list of field meanings by country, see <a href="https://developer.squareup.com/docs/build-basics/working-with-addresses">Working with Addresses</a>.</p>
+         */
         @JsonSetter(value = "locality", nulls = Nulls.SKIP)
         public Builder locality(Optional<String> locality) {
             this.locality = locality;
@@ -520,6 +536,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil region within the address's <code>locality</code>, if any.</p>
+         */
         @JsonSetter(value = "sublocality", nulls = Nulls.SKIP)
         public Builder sublocality(Optional<String> sublocality) {
             this.sublocality = sublocality;
@@ -542,6 +561,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil region within the address's <code>sublocality</code>, if any.</p>
+         */
         @JsonSetter(value = "sublocality_2", nulls = Nulls.SKIP)
         public Builder sublocality2(Optional<String> sublocality2) {
             this.sublocality2 = sublocality2;
@@ -564,6 +586,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil region within the address's <code>sublocality_2</code>, if any.</p>
+         */
         @JsonSetter(value = "sublocality_3", nulls = Nulls.SKIP)
         public Builder sublocality3(Optional<String> sublocality3) {
             this.sublocality3 = sublocality3;
@@ -586,6 +611,10 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil entity within the address's country. In the US, this
+         * is the state. For a full list of field meanings by country, see <a href="https://developer.squareup.com/docs/build-basics/working-with-addresses">Working with Addresses</a>.</p>
+         */
         @JsonSetter(value = "administrative_district_level_1", nulls = Nulls.SKIP)
         public Builder administrativeDistrictLevel1(Optional<String> administrativeDistrictLevel1) {
             this.administrativeDistrictLevel1 = administrativeDistrictLevel1;
@@ -608,6 +637,10 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil entity within the address's <code>administrative_district_level_1</code>.
+         * In the US, this is the county.</p>
+         */
         @JsonSetter(value = "administrative_district_level_2", nulls = Nulls.SKIP)
         public Builder administrativeDistrictLevel2(Optional<String> administrativeDistrictLevel2) {
             this.administrativeDistrictLevel2 = administrativeDistrictLevel2;
@@ -630,6 +663,10 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>A civil entity within the address's <code>administrative_district_level_2</code>,
+         * if any.</p>
+         */
         @JsonSetter(value = "administrative_district_level_3", nulls = Nulls.SKIP)
         public Builder administrativeDistrictLevel3(Optional<String> administrativeDistrictLevel3) {
             this.administrativeDistrictLevel3 = administrativeDistrictLevel3;
@@ -652,6 +689,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The address's postal code. For a full list of field meanings by country, see <a href="https://developer.squareup.com/docs/build-basics/working-with-addresses">Working with Addresses</a>.</p>
+         */
         @JsonSetter(value = "postal_code", nulls = Nulls.SKIP)
         public Builder postalCode(Optional<String> postalCode) {
             this.postalCode = postalCode;
@@ -674,6 +714,10 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>The address's country, in the two-letter format of ISO 3166. For example, <code>US</code> or <code>FR</code>.
+         * See <a href="#type-country">Country</a> for possible values</p>
+         */
         @JsonSetter(value = "country", nulls = Nulls.SKIP)
         public Builder country(Optional<Country> country) {
             this.country = country;
@@ -685,6 +729,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>Optional first name when it's representing recipient.</p>
+         */
         @JsonSetter(value = "first_name", nulls = Nulls.SKIP)
         public Builder firstName(Optional<String> firstName) {
             this.firstName = firstName;
@@ -707,6 +754,9 @@ public final class Address {
             return this;
         }
 
+        /**
+         * <p>Optional last name when it's representing recipient.</p>
+         */
         @JsonSetter(value = "last_name", nulls = Nulls.SKIP)
         public Builder lastName(Optional<String> lastName) {
             this.lastName = lastName;

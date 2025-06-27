@@ -77,12 +77,18 @@ public final class OrderReward {
     }
 
     public interface IdStage {
+        /**
+         * <p>The identifier of the reward.</p>
+         */
         RewardTierIdStage id(@NotNull String id);
 
         Builder from(OrderReward other);
     }
 
     public interface RewardTierIdStage {
+        /**
+         * <p>The identifier of the reward tier corresponding to this reward.</p>
+         */
         _FinalStage rewardTierId(@NotNull String rewardTierId);
     }
 
@@ -110,6 +116,7 @@ public final class OrderReward {
 
         /**
          * <p>The identifier of the reward.</p>
+         * <p>The identifier of the reward.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class OrderReward {
         }
 
         /**
+         * <p>The identifier of the reward tier corresponding to this reward.</p>
          * <p>The identifier of the reward tier corresponding to this reward.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

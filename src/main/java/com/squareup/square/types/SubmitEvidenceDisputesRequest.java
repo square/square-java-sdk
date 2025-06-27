@@ -66,6 +66,9 @@ public final class SubmitEvidenceDisputesRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute for which you want to submit evidence.</p>
+         */
         _FinalStage disputeId(@NotNull String disputeId);
 
         Builder from(SubmitEvidenceDisputesRequest other);
@@ -91,6 +94,7 @@ public final class SubmitEvidenceDisputesRequest {
         }
 
         /**
+         * <p>The ID of the dispute for which you want to submit evidence.</p>
          * <p>The ID of the dispute for which you want to submit evidence.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

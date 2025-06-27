@@ -217,6 +217,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch shifts for the specified location.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -239,6 +242,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use <code>team_member_ids</code> instead.</p>
+         */
         @JsonSetter(value = "employee_ids", nulls = Nulls.SKIP)
         public Builder employeeIds(Optional<List<String>> employeeIds) {
             this.employeeIds = employeeIds;
@@ -261,6 +267,10 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch a <code>Shift</code> instance by <code>Shift.status</code>.
+         * See <a href="#type-shiftfilterstatus">ShiftFilterStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<ShiftFilterStatus> status) {
             this.status = status;
@@ -272,6 +282,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch <code>Shift</code> instances that start in the time range - Inclusive.</p>
+         */
         @JsonSetter(value = "start", nulls = Nulls.SKIP)
         public Builder start(Optional<TimeRange> start) {
             this.start = start;
@@ -283,6 +296,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch the <code>Shift</code> instances that end in the time range - Inclusive.</p>
+         */
         @JsonSetter(value = "end", nulls = Nulls.SKIP)
         public Builder end(Optional<TimeRange> end) {
             this.end = end;
@@ -294,6 +310,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch the <code>Shift</code> instances based on the workday date range.</p>
+         */
         @JsonSetter(value = "workday", nulls = Nulls.SKIP)
         public Builder workday(Optional<ShiftWorkday> workday) {
             this.workday = workday;
@@ -305,6 +324,9 @@ public final class ShiftFilter {
             return this;
         }
 
+        /**
+         * <p>Fetch shifts for the specified team members. Replaced <code>employee_ids</code> at version &quot;2020-08-26&quot;.</p>
+         */
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(Optional<List<String>> teamMemberIds) {
             this.teamMemberIds = teamMemberIds;

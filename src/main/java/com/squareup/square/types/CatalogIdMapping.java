@@ -116,6 +116,9 @@ public final class CatalogIdMapping {
             return this;
         }
 
+        /**
+         * <p>The client-supplied temporary <code>#</code>-prefixed ID for a new <code>CatalogObject</code>.</p>
+         */
         @JsonSetter(value = "client_object_id", nulls = Nulls.SKIP)
         public Builder clientObjectId(Optional<String> clientObjectId) {
             this.clientObjectId = clientObjectId;
@@ -138,6 +141,9 @@ public final class CatalogIdMapping {
             return this;
         }
 
+        /**
+         * <p>The permanent ID for the CatalogObject created by the server.</p>
+         */
         @JsonSetter(value = "object_id", nulls = Nulls.SKIP)
         public Builder objectId(Optional<String> objectId) {
             this.objectId = objectId;

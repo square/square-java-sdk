@@ -176,6 +176,9 @@ public final class BookingCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The ID of the target seller associated with the event.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -198,6 +201,9 @@ public final class BookingCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The type of this event. The value is <code>&quot;booking.created&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -220,6 +226,9 @@ public final class BookingCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>A unique ID for the event.</p>
+         */
         @JsonSetter(value = "event_id", nulls = Nulls.SKIP)
         public Builder eventId(Optional<String> eventId) {
             this.eventId = eventId;
@@ -242,6 +251,9 @@ public final class BookingCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the event was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -253,6 +265,9 @@ public final class BookingCreatedEvent {
             return this;
         }
 
+        /**
+         * <p>The data associated with the event.</p>
+         */
         @JsonSetter(value = "data", nulls = Nulls.SKIP)
         public Builder data(Optional<BookingCreatedEventData> data) {
             this.data = data;

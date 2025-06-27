@@ -77,12 +77,18 @@ public final class UpsertSnippetRequest {
     }
 
     public interface SiteIdStage {
+        /**
+         * <p>The ID of the site where you want to add or update the snippet.</p>
+         */
         SnippetStage siteId(@NotNull String siteId);
 
         Builder from(UpsertSnippetRequest other);
     }
 
     public interface SnippetStage {
+        /**
+         * <p>The snippet for the site.</p>
+         */
         _FinalStage snippet(@NotNull Snippet snippet);
     }
 
@@ -110,6 +116,7 @@ public final class UpsertSnippetRequest {
 
         /**
          * <p>The ID of the site where you want to add or update the snippet.</p>
+         * <p>The ID of the site where you want to add or update the snippet.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class UpsertSnippetRequest {
         }
 
         /**
+         * <p>The snippet for the site.</p>
          * <p>The snippet for the site.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

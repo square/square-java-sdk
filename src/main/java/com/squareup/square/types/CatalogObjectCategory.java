@@ -305,6 +305,9 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>The ID of the object's category.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -316,6 +319,9 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>The order of the object within the context of the category.</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Long> ordinal) {
             this.ordinal = ordinal;
@@ -338,6 +344,9 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>Structured data for a <code>CatalogCategory</code>, set for CatalogObjects of type <code>CATEGORY</code>.</p>
+         */
         @JsonSetter(value = "category_data", nulls = Nulls.SKIP)
         public Builder categoryData(Optional<CatalogCategory> categoryData) {
             this.categoryData = categoryData;
@@ -349,6 +358,10 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>Last modification <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> in RFC 3339 format, e.g., <code>&quot;2016-08-15T23:59:33.123Z&quot;</code>
+         * would indicate the UTC time (denoted by <code>Z</code>) of August 15, 2016 at 23:59:33 and 123 milliseconds.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -360,6 +373,10 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>The version of the object. When updating an object, the version supplied
+         * must match the version in the database, otherwise the write will be rejected as conflicting.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Long> version) {
             this.version = version;
@@ -371,6 +388,10 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, the object has been deleted from the database. Must be <code>false</code> for new objects
+         * being inserted. When deleted, the <code>updated_at</code> field will equal the deletion time.</p>
+         */
         @JsonSetter(value = "is_deleted", nulls = Nulls.SKIP)
         public Builder isDeleted(Optional<Boolean> isDeleted) {
             this.isDeleted = isDeleted;
@@ -382,6 +403,22 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>A map (key-value pairs) of application-defined custom attribute values. The value of a key-value pair
+         * is a <a href="entity:CatalogCustomAttributeValue">CatalogCustomAttributeValue</a> object. The key is the <code>key</code> attribute
+         * value defined in the associated <a href="entity:CatalogCustomAttributeDefinition">CatalogCustomAttributeDefinition</a>
+         * object defined by the application making the request.</p>
+         * <p>If the <code>CatalogCustomAttributeDefinition</code> object is
+         * defined by another application, the <code>CatalogCustomAttributeDefinition</code>'s key attribute value is prefixed by
+         * the defining application ID. For example, if the <code>CatalogCustomAttributeDefinition</code> has a <code>key</code> attribute of
+         * <code>&quot;cocoa_brand&quot;</code> and the defining application ID is <code>&quot;abcd1234&quot;</code>, the key in the map is <code>&quot;abcd1234:cocoa_brand&quot;</code>
+         * if the application making the request is different from the application defining the custom attribute definition.
+         * Otherwise, the key used in the map is simply <code>&quot;cocoa_brand&quot;</code>.</p>
+         * <p>Application-defined custom attributes are set at a global (location-independent) level.
+         * Custom attribute values are intended to store additional information about a catalog object
+         * or associations with an entity in another system. Do not use custom attributes
+         * to store any sensitive information (personally identifiable information, card details, etc.).</p>
+         */
         @JsonSetter(value = "custom_attribute_values", nulls = Nulls.SKIP)
         public Builder customAttributeValues(Optional<Map<String, CatalogCustomAttributeValue>> customAttributeValues) {
             this.customAttributeValues = customAttributeValues;
@@ -393,6 +430,11 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>The Connect v1 IDs for this object at each location where it is present, where they
+         * differ from the object's Connect V2 ID. The field will only be present for objects that
+         * have been created or modified by legacy APIs.</p>
+         */
         @JsonSetter(value = "catalog_v1_ids", nulls = Nulls.SKIP)
         public Builder catalogV1Ids(Optional<List<CatalogV1Id>> catalogV1Ids) {
             this.catalogV1Ids = catalogV1Ids;
@@ -404,6 +446,11 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, this object is present at all locations (including future locations), except where specified in
+         * the <code>absent_at_location_ids</code> field. If <code>false</code>, this object is not present at any locations (including future locations),
+         * except where specified in the <code>present_at_location_ids</code> field. If not specified, defaults to <code>true</code>.</p>
+         */
         @JsonSetter(value = "present_at_all_locations", nulls = Nulls.SKIP)
         public Builder presentAtAllLocations(Optional<Boolean> presentAtAllLocations) {
             this.presentAtAllLocations = presentAtAllLocations;
@@ -415,6 +462,10 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>A list of locations where the object is present, even if <code>present_at_all_locations</code> is <code>false</code>.
+         * This can include locations that are deactivated.</p>
+         */
         @JsonSetter(value = "present_at_location_ids", nulls = Nulls.SKIP)
         public Builder presentAtLocationIds(Optional<List<String>> presentAtLocationIds) {
             this.presentAtLocationIds = presentAtLocationIds;
@@ -426,6 +477,10 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>A list of locations where the object is not present, even if <code>present_at_all_locations</code> is <code>true</code>.
+         * This can include locations that are deactivated.</p>
+         */
         @JsonSetter(value = "absent_at_location_ids", nulls = Nulls.SKIP)
         public Builder absentAtLocationIds(Optional<List<String>> absentAtLocationIds) {
             this.absentAtLocationIds = absentAtLocationIds;
@@ -437,6 +492,9 @@ public final class CatalogObjectCategory {
             return this;
         }
 
+        /**
+         * <p>Identifies the <code>CatalogImage</code> attached to this <code>CatalogObject</code>.</p>
+         */
         @JsonSetter(value = "image_id", nulls = Nulls.SKIP)
         public Builder imageId(Optional<String> imageId) {
             this.imageId = imageId;

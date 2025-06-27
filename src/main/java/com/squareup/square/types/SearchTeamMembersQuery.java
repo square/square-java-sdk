@@ -80,6 +80,9 @@ public final class SearchTeamMembersQuery {
             return this;
         }
 
+        /**
+         * <p>The options to filter by.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<SearchTeamMembersFilter> filter) {
             this.filter = filter;

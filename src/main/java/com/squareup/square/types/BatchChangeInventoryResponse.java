@@ -113,6 +113,9 @@ public final class BatchChangeInventoryResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -124,6 +127,9 @@ public final class BatchChangeInventoryResponse {
             return this;
         }
 
+        /**
+         * <p>The current counts for all objects referenced in the request.</p>
+         */
         @JsonSetter(value = "counts", nulls = Nulls.SKIP)
         public Builder counts(Optional<List<InventoryCount>> counts) {
             this.counts = counts;
@@ -135,6 +141,9 @@ public final class BatchChangeInventoryResponse {
             return this;
         }
 
+        /**
+         * <p>Changes created for the request.</p>
+         */
         @JsonSetter(value = "changes", nulls = Nulls.SKIP)
         public Builder changes(Optional<List<InventoryChange>> changes) {
             this.changes = changes;

@@ -128,6 +128,9 @@ public final class OrderFulfillmentUpdatedUpdate {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the fulfillment only within this order.</p>
+         */
         @JsonSetter(value = "fulfillment_uid", nulls = Nulls.SKIP)
         public Builder fulfillmentUid(Optional<String> fulfillmentUid) {
             this.fulfillmentUid = fulfillmentUid;
@@ -150,6 +153,10 @@ public final class OrderFulfillmentUpdatedUpdate {
             return this;
         }
 
+        /**
+         * <p>The state of the fulfillment before the change.
+         * The state is not populated if the fulfillment is created with this new <code>Order</code> version.</p>
+         */
         @JsonSetter(value = "old_state", nulls = Nulls.SKIP)
         public Builder oldState(Optional<FulfillmentState> oldState) {
             this.oldState = oldState;
@@ -161,6 +168,10 @@ public final class OrderFulfillmentUpdatedUpdate {
             return this;
         }
 
+        /**
+         * <p>The state of the fulfillment after the change. The state might be equal to <code>old_state</code> if a non-state
+         * field was changed on the fulfillment (such as the tracking number).</p>
+         */
         @JsonSetter(value = "new_state", nulls = Nulls.SKIP)
         public Builder newState(Optional<FulfillmentState> newState) {
             this.newState = newState;

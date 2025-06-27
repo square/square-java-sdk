@@ -78,12 +78,18 @@ public final class DeleteActionSubscriptionsRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription the targeted action is to act upon.</p>
+         */
         ActionIdStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(DeleteActionSubscriptionsRequest other);
     }
 
     public interface ActionIdStage {
+        /**
+         * <p>The ID of the targeted action to be deleted.</p>
+         */
         _FinalStage actionId(@NotNull String actionId);
     }
 
@@ -111,6 +117,7 @@ public final class DeleteActionSubscriptionsRequest {
 
         /**
          * <p>The ID of the subscription the targeted action is to act upon.</p>
+         * <p>The ID of the subscription the targeted action is to act upon.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class DeleteActionSubscriptionsRequest {
         }
 
         /**
+         * <p>The ID of the targeted action to be deleted.</p>
          * <p>The ID of the targeted action to be deleted.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

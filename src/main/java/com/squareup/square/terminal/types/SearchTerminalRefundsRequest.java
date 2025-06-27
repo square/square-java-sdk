@@ -116,6 +116,11 @@ public final class SearchTerminalRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Queries the Terminal refunds based on given conditions and the sort order. Calling
+         * <code>SearchTerminalRefunds</code> without an explicit query parameter returns all available
+         * refunds with the default sort order.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<TerminalRefundQuery> query) {
             this.query = query;
@@ -127,6 +132,10 @@ public final class SearchTerminalRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -138,6 +147,9 @@ public final class SearchTerminalRefundsRequest {
             return this;
         }
 
+        /**
+         * <p>Limits the number of results returned for a single request.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

@@ -124,6 +124,9 @@ public final class LoyaltyAccountMapping {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the mapping.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -135,6 +138,9 @@ public final class LoyaltyAccountMapping {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the mapping was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -146,6 +152,9 @@ public final class LoyaltyAccountMapping {
             return this;
         }
 
+        /**
+         * <p>The phone number of the buyer, in E.164 format. For example, &quot;+14155551111&quot;.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;

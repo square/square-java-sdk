@@ -93,6 +93,10 @@ public final class OrderSource {
             return this;
         }
 
+        /**
+         * <p>The name used to identify the place (physical or digital) that an order originates.
+         * If unset, the name defaults to the name of the application that created the order.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;

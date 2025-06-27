@@ -116,6 +116,12 @@ public final class TenderCardDetails {
             return this;
         }
 
+        /**
+         * <p>The credit card payment's current state (such as <code>AUTHORIZED</code> or
+         * <code>CAPTURED</code>). See <a href="entity:TenderCardDetailsStatus">TenderCardDetailsStatus</a>
+         * for possible values.
+         * See <a href="#type-tendercarddetailsstatus">TenderCardDetailsStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TenderCardDetailsStatus> status) {
             this.status = status;
@@ -127,6 +133,9 @@ public final class TenderCardDetails {
             return this;
         }
 
+        /**
+         * <p>The credit card's non-confidential details.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;
@@ -138,6 +147,10 @@ public final class TenderCardDetails {
             return this;
         }
 
+        /**
+         * <p>The method used to enter the card's details for the transaction.
+         * See <a href="#type-tendercarddetailsentrymethod">TenderCardDetailsEntryMethod</a> for possible values</p>
+         */
         @JsonSetter(value = "entry_method", nulls = Nulls.SKIP)
         public Builder entryMethod(Optional<TenderCardDetailsEntryMethod> entryMethod) {
             this.entryMethod = entryMethod;

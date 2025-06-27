@@ -66,6 +66,9 @@ public final class GetVendorsRequest {
     }
 
     public interface VendorIdStage {
+        /**
+         * <p>ID of the <a href="entity:Vendor">Vendor</a> to retrieve.</p>
+         */
         _FinalStage vendorId(@NotNull String vendorId);
 
         Builder from(GetVendorsRequest other);
@@ -91,6 +94,7 @@ public final class GetVendorsRequest {
         }
 
         /**
+         * <p>ID of the <a href="entity:Vendor">Vendor</a> to retrieve.</p>
          * <p>ID of the <a href="entity:Vendor">Vendor</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

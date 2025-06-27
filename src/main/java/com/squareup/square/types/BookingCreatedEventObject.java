@@ -80,6 +80,9 @@ public final class BookingCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created booking.</p>
+         */
         @JsonSetter(value = "booking", nulls = Nulls.SKIP)
         public Builder booking(Optional<Booking> booking) {
             this.booking = booking;

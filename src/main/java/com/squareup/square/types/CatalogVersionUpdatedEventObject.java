@@ -82,6 +82,9 @@ public final class CatalogVersionUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The version of the object.</p>
+         */
         @JsonSetter(value = "catalog_version", nulls = Nulls.SKIP)
         public Builder catalogVersion(Optional<CatalogVersionUpdatedEventCatalogVersion> catalogVersion) {
             this.catalogVersion = catalogVersion;

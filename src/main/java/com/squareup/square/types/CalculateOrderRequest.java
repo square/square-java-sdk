@@ -97,6 +97,9 @@ public final class CalculateOrderRequest {
     }
 
     public interface OrderStage {
+        /**
+         * <p>The order to be calculated. Expects the entire order, not a sparse update.</p>
+         */
         _FinalStage order(@NotNull Order order);
 
         Builder from(CalculateOrderRequest other);
@@ -105,6 +108,13 @@ public final class CalculateOrderRequest {
     public interface _FinalStage {
         CalculateOrderRequest build();
 
+        /**
+         * <p>Identifies one or more loyalty reward tiers to apply during the order calculation.
+         * The discounts defined by the reward tiers are added to the order only to preview the
+         * effect of applying the specified rewards. The rewards do not correspond to actual
+         * redemptions; that is, no <code>reward</code>s are created. Therefore, the reward <code>id</code>s are
+         * random strings used only to reference the reward tier.</p>
+         */
         _FinalStage proposedRewards(Optional<List<OrderReward>> proposedRewards);
 
         _FinalStage proposedRewards(List<OrderReward> proposedRewards);
@@ -131,6 +141,7 @@ public final class CalculateOrderRequest {
         }
 
         /**
+         * <p>The order to be calculated. Expects the entire order, not a sparse update.</p>
          * <p>The order to be calculated. Expects the entire order, not a sparse update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -175,6 +186,13 @@ public final class CalculateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>Identifies one or more loyalty reward tiers to apply during the order calculation.
+         * The discounts defined by the reward tiers are added to the order only to preview the
+         * effect of applying the specified rewards. The rewards do not correspond to actual
+         * redemptions; that is, no <code>reward</code>s are created. Therefore, the reward <code>id</code>s are
+         * random strings used only to reference the reward tier.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "proposed_rewards", nulls = Nulls.SKIP)
         public _FinalStage proposedRewards(Optional<List<OrderReward>> proposedRewards) {

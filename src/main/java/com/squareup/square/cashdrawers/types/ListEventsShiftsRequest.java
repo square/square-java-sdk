@@ -131,24 +131,37 @@ public final class ListEventsShiftsRequest {
     }
 
     public interface ShiftIdStage {
+        /**
+         * <p>The shift ID.</p>
+         */
         LocationIdStage shiftId(@NotNull String shiftId);
 
         Builder from(ListEventsShiftsRequest other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to list cash drawer shifts for.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
     public interface _FinalStage {
         ListEventsShiftsRequest build();
 
+        /**
+         * <p>Number of resources to be returned in a page of results (200 by
+         * default, 1000 max).</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
 
         _FinalStage limit(Nullable<Integer> limit);
 
+        /**
+         * <p>Opaque cursor for fetching the next page of results.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -182,6 +195,7 @@ public final class ListEventsShiftsRequest {
 
         /**
          * <p>The shift ID.</p>
+         * <p>The shift ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -192,6 +206,7 @@ public final class ListEventsShiftsRequest {
         }
 
         /**
+         * <p>The ID of the location to list cash drawer shifts for.</p>
          * <p>The ID of the location to list cash drawer shifts for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -228,6 +243,9 @@ public final class ListEventsShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Opaque cursor for fetching the next page of results.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -263,6 +281,10 @@ public final class ListEventsShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Number of resources to be returned in a page of results (200 by
+         * default, 1000 max).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {

@@ -66,6 +66,9 @@ public final class GetTeamMemberProfilesRequest {
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the team member to retrieve.</p>
+         */
         _FinalStage teamMemberId(@NotNull String teamMemberId);
 
         Builder from(GetTeamMemberProfilesRequest other);
@@ -91,6 +94,7 @@ public final class GetTeamMemberProfilesRequest {
         }
 
         /**
+         * <p>The ID of the team member to retrieve.</p>
          * <p>The ID of the team member to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -97,6 +97,10 @@ public final class LoyaltyPromotionIncentive {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The type of points incentive.
+         * See <a href="#type-loyaltypromotionincentivetype">LoyaltyPromotionIncentiveType</a> for possible values</p>
+         */
         _FinalStage type(@NotNull LoyaltyPromotionIncentiveType type);
 
         Builder from(LoyaltyPromotionIncentive other);
@@ -105,10 +109,16 @@ public final class LoyaltyPromotionIncentive {
     public interface _FinalStage {
         LoyaltyPromotionIncentive build();
 
+        /**
+         * <p>Additional data for a <code>POINTS_MULTIPLIER</code> incentive type.</p>
+         */
         _FinalStage pointsMultiplierData(Optional<LoyaltyPromotionIncentivePointsMultiplierData> pointsMultiplierData);
 
         _FinalStage pointsMultiplierData(LoyaltyPromotionIncentivePointsMultiplierData pointsMultiplierData);
 
+        /**
+         * <p>Additional data for a <code>POINTS_ADDITION</code> incentive type.</p>
+         */
         _FinalStage pointsAdditionData(Optional<LoyaltyPromotionIncentivePointsAdditionData> pointsAdditionData);
 
         _FinalStage pointsAdditionData(LoyaltyPromotionIncentivePointsAdditionData pointsAdditionData);
@@ -138,6 +148,8 @@ public final class LoyaltyPromotionIncentive {
         /**
          * <p>The type of points incentive.
          * See <a href="#type-loyaltypromotionincentivetype">LoyaltyPromotionIncentiveType</a> for possible values</p>
+         * <p>The type of points incentive.
+         * See <a href="#type-loyaltypromotionincentivetype">LoyaltyPromotionIncentiveType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -157,6 +169,9 @@ public final class LoyaltyPromotionIncentive {
             return this;
         }
 
+        /**
+         * <p>Additional data for a <code>POINTS_ADDITION</code> incentive type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "points_addition_data", nulls = Nulls.SKIP)
         public _FinalStage pointsAdditionData(
@@ -175,6 +190,9 @@ public final class LoyaltyPromotionIncentive {
             return this;
         }
 
+        /**
+         * <p>Additional data for a <code>POINTS_MULTIPLIER</code> incentive type.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "points_multiplier_data", nulls = Nulls.SKIP)
         public _FinalStage pointsMultiplierData(

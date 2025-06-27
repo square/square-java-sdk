@@ -124,6 +124,9 @@ public final class PaymentUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;payment&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -146,6 +149,9 @@ public final class PaymentUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the affected payment.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -157,6 +163,9 @@ public final class PaymentUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>An object containing the updated payment.</p>
+         */
         @JsonSetter(value = "object", nulls = Nulls.SKIP)
         public Builder object(Optional<PaymentUpdatedEventObject> object) {
             this.object = object;

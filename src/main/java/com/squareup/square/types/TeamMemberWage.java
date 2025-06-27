@@ -202,6 +202,9 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -213,6 +216,9 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>The <code>TeamMember</code> that this wage is assigned to.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -235,6 +241,9 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>The job title that this wage relates to.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -257,6 +266,10 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>Can be a custom-set hourly wage or the calculated effective hourly
+         * wage based on the annual wage and hours worked per week.</p>
+         */
         @JsonSetter(value = "hourly_rate", nulls = Nulls.SKIP)
         public Builder hourlyRate(Optional<Money> hourlyRate) {
             this.hourlyRate = hourlyRate;
@@ -268,6 +281,9 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>An identifier for the <a href="entity:Job">job</a> that this wage relates to.</p>
+         */
         @JsonSetter(value = "job_id", nulls = Nulls.SKIP)
         public Builder jobId(Optional<String> jobId) {
             this.jobId = jobId;
@@ -290,6 +306,9 @@ public final class TeamMemberWage {
             return this;
         }
 
+        /**
+         * <p>Whether team members are eligible for tips when working this job.</p>
+         */
         @JsonSetter(value = "tip_eligible", nulls = Nulls.SKIP)
         public Builder tipEligible(Optional<Boolean> tipEligible) {
             this.tipEligible = tipEligible;

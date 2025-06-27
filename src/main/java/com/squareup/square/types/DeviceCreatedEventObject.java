@@ -80,6 +80,9 @@ public final class DeviceCreatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created device.</p>
+         */
         @JsonSetter(value = "device", nulls = Nulls.SKIP)
         public Builder device(Optional<Device> device) {
             this.device = device;

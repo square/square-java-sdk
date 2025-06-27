@@ -137,6 +137,9 @@ public final class DestinationDetailsCardRefundDetails {
             return this;
         }
 
+        /**
+         * <p>The card's non-confidential details.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;
@@ -148,6 +151,10 @@ public final class DestinationDetailsCardRefundDetails {
             return this;
         }
 
+        /**
+         * <p>The method used to enter the card's details for the refund. The method can be
+         * <code>KEYED</code>, <code>SWIPED</code>, <code>EMV</code>, <code>ON_FILE</code>, or <code>CONTACTLESS</code>.</p>
+         */
         @JsonSetter(value = "entry_method", nulls = Nulls.SKIP)
         public Builder entryMethod(Optional<String> entryMethod) {
             this.entryMethod = entryMethod;
@@ -170,6 +177,9 @@ public final class DestinationDetailsCardRefundDetails {
             return this;
         }
 
+        /**
+         * <p>The authorization code provided by the issuer when a refund is approved.</p>
+         */
         @JsonSetter(value = "auth_result_code", nulls = Nulls.SKIP)
         public Builder authResultCode(Optional<String> authResultCode) {
             this.authResultCode = authResultCode;

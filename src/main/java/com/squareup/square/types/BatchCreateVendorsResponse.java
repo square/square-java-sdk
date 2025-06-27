@@ -101,6 +101,9 @@ public final class BatchCreateVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -112,6 +115,12 @@ public final class BatchCreateVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>A set of <a href="entity:CreateVendorResponse">CreateVendorResponse</a> objects encapsulating successfully created <a href="entity:Vendor">Vendor</a>
+         * objects or error responses for failed attempts. The set is represented by
+         * a collection of idempotency-key/<code>Vendor</code>-object or idempotency-key/error-object pairs. The idempotency keys correspond to those specified
+         * in the input.</p>
+         */
         @JsonSetter(value = "responses", nulls = Nulls.SKIP)
         public Builder responses(Optional<Map<String, CreateVendorResponse>> responses) {
             this.responses = responses;

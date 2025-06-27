@@ -3,89 +3,51 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.types.DisableEventsResponse;
 import com.squareup.square.types.EnableEventsResponse;
 import com.squareup.square.types.ListEventTypesRequest;
 import com.squareup.square.types.ListEventTypesResponse;
 import com.squareup.square.types.SearchEventsRequest;
 import com.squareup.square.types.SearchEventsResponse;
-import java.io.IOException;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class EventsClient {
     protected final ClientOptions clientOptions;
 
+    private final RawEventsClient rawClient;
+
     public EventsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawEventsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawEventsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Search for Square API events that occur within a 28-day timeframe.
      */
     public SearchEventsResponse searchEvents() {
-        return searchEvents(SearchEventsRequest.builder().build());
+        return this.rawClient.searchEvents().body();
     }
 
     /**
      * Search for Square API events that occur within a 28-day timeframe.
      */
     public SearchEventsResponse searchEvents(SearchEventsRequest request) {
-        return searchEvents(request, null);
+        return this.rawClient.searchEvents(request).body();
     }
 
     /**
      * Search for Square API events that occur within a 28-day timeframe.
      */
     public SearchEventsResponse searchEvents(SearchEventsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/events")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchEventsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.searchEvents(request, requestOptions).body();
     }
 
     /**
@@ -94,7 +56,7 @@ public class EventsClient {
      * Disabling events for a specific time period prevents them from being searchable, even if you re-enable them later.
      */
     public DisableEventsResponse disableEvents() {
-        return disableEvents(null);
+        return this.rawClient.disableEvents().body();
     }
 
     /**
@@ -103,125 +65,41 @@ public class EventsClient {
      * Disabling events for a specific time period prevents them from being searchable, even if you re-enable them later.
      */
     public DisableEventsResponse disableEvents(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/events/disable")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DisableEventsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.disableEvents(requestOptions).body();
     }
 
     /**
      * Enables events to make them searchable. Only events that occur while in the enabled state are searchable.
      */
     public EnableEventsResponse enableEvents() {
-        return enableEvents(null);
+        return this.rawClient.enableEvents().body();
     }
 
     /**
      * Enables events to make them searchable. Only events that occur while in the enabled state are searchable.
      */
     public EnableEventsResponse enableEvents(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/events/enable")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), EnableEventsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.enableEvents(requestOptions).body();
     }
 
     /**
      * Lists all event types that you can subscribe to as webhooks or query using the Events API.
      */
     public ListEventTypesResponse listEventTypes() {
-        return listEventTypes(ListEventTypesRequest.builder().build());
+        return this.rawClient.listEventTypes().body();
     }
 
     /**
      * Lists all event types that you can subscribe to as webhooks or query using the Events API.
      */
     public ListEventTypesResponse listEventTypes(ListEventTypesRequest request) {
-        return listEventTypes(request, null);
+        return this.rawClient.listEventTypes(request).body();
     }
 
     /**
      * Lists all event types that you can subscribe to as webhooks or query using the Events API.
      */
     public ListEventTypesResponse listEventTypes(ListEventTypesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/events/types");
-        if (request.getApiVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "api_version", request.getApiVersion().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListEventTypesResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.listEventTypes(request, requestOptions).body();
     }
 }

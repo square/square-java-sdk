@@ -97,6 +97,9 @@ public final class CustomerDeletedEventObject {
             return this;
         }
 
+        /**
+         * <p>The deleted customer.</p>
+         */
         @JsonSetter(value = "customer", nulls = Nulls.SKIP)
         public Builder customer(Optional<Customer> customer) {
             this.customer = customer;
@@ -108,6 +111,9 @@ public final class CustomerDeletedEventObject {
             return this;
         }
 
+        /**
+         * <p>Information about the change that triggered the event. This field is returned only if the customer is deleted by a merge operation.</p>
+         */
         @JsonSetter(value = "event_context", nulls = Nulls.SKIP)
         public Builder eventContext(Optional<CustomerDeletedEventEventContext> eventContext) {
             this.eventContext = eventContext;

@@ -93,6 +93,9 @@ public final class TestWebhookSubscriptionRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to test.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(TestWebhookSubscriptionRequest other);
@@ -101,6 +104,10 @@ public final class TestWebhookSubscriptionRequest {
     public interface _FinalStage {
         TestWebhookSubscriptionRequest build();
 
+        /**
+         * <p>The event type that will be used to test the <a href="entity:WebhookSubscription">Subscription</a>. The event type must be
+         * contained in the list of event types in the <a href="entity:WebhookSubscription">Subscription</a>.</p>
+         */
         _FinalStage eventType(Optional<String> eventType);
 
         _FinalStage eventType(String eventType);
@@ -127,6 +134,7 @@ public final class TestWebhookSubscriptionRequest {
         }
 
         /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to test.</p>
          * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to test.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -165,6 +173,10 @@ public final class TestWebhookSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The event type that will be used to test the <a href="entity:WebhookSubscription">Subscription</a>. The event type must be
+         * contained in the list of event types in the <a href="entity:WebhookSubscription">Subscription</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "event_type", nulls = Nulls.SKIP)
         public _FinalStage eventType(Optional<String> eventType) {

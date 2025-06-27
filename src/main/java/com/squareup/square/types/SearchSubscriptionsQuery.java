@@ -81,6 +81,9 @@ public final class SearchSubscriptionsQuery {
             return this;
         }
 
+        /**
+         * <p>A list of query expressions.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<SearchSubscriptionsFilter> filter) {
             this.filter = filter;

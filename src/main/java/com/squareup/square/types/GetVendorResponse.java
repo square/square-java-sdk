@@ -96,6 +96,9 @@ public final class GetVendorResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered when the request fails.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetVendorResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully retrieved <a href="entity:Vendor">Vendor</a> object.</p>
+         */
         @JsonSetter(value = "vendor", nulls = Nulls.SKIP)
         public Builder vendor(Optional<Vendor> vendor) {
             this.vendor = vendor;

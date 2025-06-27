@@ -146,6 +146,9 @@ public final class OrderMoneyAmounts {
             return this;
         }
 
+        /**
+         * <p>The total money.</p>
+         */
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public Builder totalMoney(Optional<Money> totalMoney) {
             this.totalMoney = totalMoney;
@@ -157,6 +160,9 @@ public final class OrderMoneyAmounts {
             return this;
         }
 
+        /**
+         * <p>The money associated with taxes.</p>
+         */
         @JsonSetter(value = "tax_money", nulls = Nulls.SKIP)
         public Builder taxMoney(Optional<Money> taxMoney) {
             this.taxMoney = taxMoney;
@@ -168,6 +174,9 @@ public final class OrderMoneyAmounts {
             return this;
         }
 
+        /**
+         * <p>The money associated with discounts.</p>
+         */
         @JsonSetter(value = "discount_money", nulls = Nulls.SKIP)
         public Builder discountMoney(Optional<Money> discountMoney) {
             this.discountMoney = discountMoney;
@@ -179,6 +188,9 @@ public final class OrderMoneyAmounts {
             return this;
         }
 
+        /**
+         * <p>The money associated with tips.</p>
+         */
         @JsonSetter(value = "tip_money", nulls = Nulls.SKIP)
         public Builder tipMoney(Optional<Money> tipMoney) {
             this.tipMoney = tipMoney;
@@ -190,6 +202,9 @@ public final class OrderMoneyAmounts {
             return this;
         }
 
+        /**
+         * <p>The money associated with service charges.</p>
+         */
         @JsonSetter(value = "service_charge_money", nulls = Nulls.SKIP)
         public Builder serviceChargeMoney(Optional<Money> serviceChargeMoney) {
             this.serviceChargeMoney = serviceChargeMoney;

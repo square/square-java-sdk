@@ -186,6 +186,9 @@ public final class ListShiftsRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to query for a list of cash drawer shifts.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(ListShiftsRequest other);
@@ -194,30 +197,47 @@ public final class ListShiftsRequest {
     public interface _FinalStage {
         ListShiftsRequest build();
 
+        /**
+         * <p>The order in which cash drawer shifts are listed in the response,
+         * based on their opened_at field. Default value: ASC</p>
+         */
         _FinalStage sortOrder(Optional<SortOrder> sortOrder);
 
         _FinalStage sortOrder(SortOrder sortOrder);
 
         _FinalStage sortOrder(Nullable<SortOrder> sortOrder);
 
+        /**
+         * <p>The inclusive start time of the query on opened_at, in ISO 8601 format.</p>
+         */
         _FinalStage beginTime(Optional<String> beginTime);
 
         _FinalStage beginTime(String beginTime);
 
         _FinalStage beginTime(Nullable<String> beginTime);
 
+        /**
+         * <p>The exclusive end date of the query on opened_at, in ISO 8601 format.</p>
+         */
         _FinalStage endTime(Optional<String> endTime);
 
         _FinalStage endTime(String endTime);
 
         _FinalStage endTime(Nullable<String> endTime);
 
+        /**
+         * <p>Number of cash drawer shift events in a page of results (200 by
+         * default, 1000 max).</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
 
         _FinalStage limit(Nullable<Integer> limit);
 
+        /**
+         * <p>Opaque cursor for fetching the next page of results.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
@@ -257,6 +277,7 @@ public final class ListShiftsRequest {
 
         /**
          * <p>The ID of the location to query for a list of cash drawer shifts.</p>
+         * <p>The ID of the location to query for a list of cash drawer shifts.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -292,6 +313,9 @@ public final class ListShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Opaque cursor for fetching the next page of results.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -327,6 +351,10 @@ public final class ListShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>Number of cash drawer shift events in a page of results (200 by
+         * default, 1000 max).</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -360,6 +388,9 @@ public final class ListShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>The exclusive end date of the query on opened_at, in ISO 8601 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_time", nulls = Nulls.SKIP)
         public _FinalStage endTime(Optional<String> endTime) {
@@ -393,6 +424,9 @@ public final class ListShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>The inclusive start time of the query on opened_at, in ISO 8601 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public _FinalStage beginTime(Optional<String> beginTime) {
@@ -428,6 +462,10 @@ public final class ListShiftsRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which cash drawer shifts are listed in the response,
+         * based on their opened_at field. Default value: ASC</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public _FinalStage sortOrder(Optional<SortOrder> sortOrder) {

@@ -92,6 +92,9 @@ public final class ListEventTypesRequest {
             return this;
         }
 
+        /**
+         * <p>The API version for which to list event types. Setting this field overrides the default version used by the application.</p>
+         */
         @JsonSetter(value = "api_version", nulls = Nulls.SKIP)
         public Builder apiVersion(Optional<String> apiVersion) {
             this.apiVersion = apiVersion;

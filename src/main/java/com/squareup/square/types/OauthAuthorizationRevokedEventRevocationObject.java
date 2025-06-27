@@ -111,6 +111,9 @@ public final class OauthAuthorizationRevokedEventRevocationObject {
             return this;
         }
 
+        /**
+         * <p>Timestamp of when the revocation event occurred, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "revoked_at", nulls = Nulls.SKIP)
         public Builder revokedAt(Optional<String> revokedAt) {
             this.revokedAt = revokedAt;
@@ -133,6 +136,10 @@ public final class OauthAuthorizationRevokedEventRevocationObject {
             return this;
         }
 
+        /**
+         * <p>Type of client that performed the revocation, either APPLICATION, MERCHANT, or SQUARE.
+         * See <a href="#type-oauthauthorizationrevokedeventrevokertype">OauthAuthorizationRevokedEventRevokerType</a> for possible values</p>
+         */
         @JsonSetter(value = "revoker_type", nulls = Nulls.SKIP)
         public Builder revokerType(Optional<OauthAuthorizationRevokedEventRevokerType> revokerType) {
             this.revokerType = revokerType;

@@ -105,16 +105,36 @@ public final class CatalogStockConversion {
     }
 
     public interface StockableItemVariationIdStage {
+        /**
+         * <p>References to the stockable <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
+         * for this stock conversion. Selling, receiving or recounting the non-stockable <code>CatalogItemVariation</code>
+         * defined with a stock conversion results in adjustments of this stockable <code>CatalogItemVariation</code>.
+         * This immutable field must reference a stockable <code>CatalogItemVariation</code>
+         * that shares the parent <a href="entity:CatalogItem">CatalogItem</a> of the converted <code>CatalogItemVariation.</code></p>
+         */
         StockableQuantityStage stockableItemVariationId(@NotNull String stockableItemVariationId);
 
         Builder from(CatalogStockConversion other);
     }
 
     public interface StockableQuantityStage {
+        /**
+         * <p>The quantity of the stockable item variation (as identified by <code>stockable_item_variation_id</code>)
+         * equivalent to the non-stockable item variation quantity (as specified in <code>nonstockable_quantity</code>)
+         * as defined by this stock conversion.  It accepts a decimal number in a string format that can take
+         * up to 10 digits before the decimal point and up to 5 digits after the decimal point.</p>
+         */
         NonstockableQuantityStage stockableQuantity(@NotNull String stockableQuantity);
     }
 
     public interface NonstockableQuantityStage {
+        /**
+         * <p>The converted equivalent quantity of the non-stockable <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
+         * in its measurement unit. The <code>stockable_quantity</code> value and this <code>nonstockable_quantity</code> value together
+         * define the conversion ratio between stockable item variation and the non-stockable item variation.
+         * It accepts a decimal number in a string format that can take up to 10 digits before the decimal point
+         * and up to 5 digits after the decimal point.</p>
+         */
         _FinalStage nonstockableQuantity(@NotNull String nonstockableQuantity);
     }
 
@@ -150,6 +170,11 @@ public final class CatalogStockConversion {
          * defined with a stock conversion results in adjustments of this stockable <code>CatalogItemVariation</code>.
          * This immutable field must reference a stockable <code>CatalogItemVariation</code>
          * that shares the parent <a href="entity:CatalogItem">CatalogItem</a> of the converted <code>CatalogItemVariation.</code></p>
+         * <p>References to the stockable <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
+         * for this stock conversion. Selling, receiving or recounting the non-stockable <code>CatalogItemVariation</code>
+         * defined with a stock conversion results in adjustments of this stockable <code>CatalogItemVariation</code>.
+         * This immutable field must reference a stockable <code>CatalogItemVariation</code>
+         * that shares the parent <a href="entity:CatalogItem">CatalogItem</a> of the converted <code>CatalogItemVariation.</code></p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -165,6 +190,10 @@ public final class CatalogStockConversion {
          * equivalent to the non-stockable item variation quantity (as specified in <code>nonstockable_quantity</code>)
          * as defined by this stock conversion.  It accepts a decimal number in a string format that can take
          * up to 10 digits before the decimal point and up to 5 digits after the decimal point.</p>
+         * <p>The quantity of the stockable item variation (as identified by <code>stockable_item_variation_id</code>)
+         * equivalent to the non-stockable item variation quantity (as specified in <code>nonstockable_quantity</code>)
+         * as defined by this stock conversion.  It accepts a decimal number in a string format that can take
+         * up to 10 digits before the decimal point and up to 5 digits after the decimal point.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -175,6 +204,11 @@ public final class CatalogStockConversion {
         }
 
         /**
+         * <p>The converted equivalent quantity of the non-stockable <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
+         * in its measurement unit. The <code>stockable_quantity</code> value and this <code>nonstockable_quantity</code> value together
+         * define the conversion ratio between stockable item variation and the non-stockable item variation.
+         * It accepts a decimal number in a string format that can take up to 10 digits before the decimal point
+         * and up to 5 digits after the decimal point.</p>
          * <p>The converted equivalent quantity of the non-stockable <a href="entity:CatalogItemVariation">CatalogItemVariation</a>
          * in its measurement unit. The <code>stockable_quantity</code> value and this <code>nonstockable_quantity</code> value together
          * define the conversion ratio between stockable item variation and the non-stockable item variation.

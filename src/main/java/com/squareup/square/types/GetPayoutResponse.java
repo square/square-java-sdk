@@ -96,6 +96,9 @@ public final class GetPayoutResponse {
             return this;
         }
 
+        /**
+         * <p>The requested payout.</p>
+         */
         @JsonSetter(value = "payout", nulls = Nulls.SKIP)
         public Builder payout(Optional<Payout> payout) {
             this.payout = payout;
@@ -107,6 +110,9 @@ public final class GetPayoutResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

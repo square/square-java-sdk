@@ -385,6 +385,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The Terminal’s remaining battery percentage, between 1-100.</p>
+         */
         @JsonSetter(value = "battery_percentage", nulls = Nulls.SKIP)
         public Builder batteryPercentage(Optional<String> batteryPercentage) {
             this.batteryPercentage = batteryPercentage;
@@ -407,6 +410,10 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The current charging state of the Terminal.
+         * Options: <code>CHARGING</code>, <code>NOT_CHARGING</code></p>
+         */
         @JsonSetter(value = "charging_state", nulls = Nulls.SKIP)
         public Builder chargingState(Optional<String> chargingState) {
             this.chargingState = chargingState;
@@ -429,6 +436,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The ID of the Square seller business location associated with the Terminal.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -451,6 +461,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The ID of the Square merchant account that is currently signed-in to the Terminal.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -473,6 +486,10 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The Terminal’s current network connection type.
+         * Options: <code>WIFI</code>, <code>ETHERNET</code></p>
+         */
         @JsonSetter(value = "network_connection_type", nulls = Nulls.SKIP)
         public Builder networkConnectionType(Optional<String> networkConnectionType) {
             this.networkConnectionType = networkConnectionType;
@@ -495,6 +512,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The country in which the Terminal is authorized to take payments.</p>
+         */
         @JsonSetter(value = "payment_region", nulls = Nulls.SKIP)
         public Builder paymentRegion(Optional<String> paymentRegion) {
             this.paymentRegion = paymentRegion;
@@ -517,6 +537,10 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The unique identifier assigned to the Terminal, which can be found on the lower back
+         * of the device.</p>
+         */
         @JsonSetter(value = "serial_number", nulls = Nulls.SKIP)
         public Builder serialNumber(Optional<String> serialNumber) {
             this.serialNumber = serialNumber;
@@ -539,6 +563,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The current version of the Terminal’s operating system.</p>
+         */
         @JsonSetter(value = "os_version", nulls = Nulls.SKIP)
         public Builder osVersion(Optional<String> osVersion) {
             this.osVersion = osVersion;
@@ -561,6 +588,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The current version of the application running on the Terminal.</p>
+         */
         @JsonSetter(value = "app_version", nulls = Nulls.SKIP)
         public Builder appVersion(Optional<String> appVersion) {
             this.appVersion = appVersion;
@@ -583,6 +613,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The name of the Wi-Fi network to which the Terminal is connected.</p>
+         */
         @JsonSetter(value = "wifi_network_name", nulls = Nulls.SKIP)
         public Builder wifiNetworkName(Optional<String> wifiNetworkName) {
             this.wifiNetworkName = wifiNetworkName;
@@ -605,6 +638,10 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The signal strength of the Wi-FI network connection.
+         * Options: <code>POOR</code>, <code>FAIR</code>, <code>GOOD</code>, <code>EXCELLENT</code></p>
+         */
         @JsonSetter(value = "wifi_network_strength", nulls = Nulls.SKIP)
         public Builder wifiNetworkStrength(Optional<String> wifiNetworkStrength) {
             this.wifiNetworkStrength = wifiNetworkStrength;
@@ -627,6 +664,9 @@ public final class DeviceMetadata {
             return this;
         }
 
+        /**
+         * <p>The IP address of the Terminal.</p>
+         */
         @JsonSetter(value = "ip_address", nulls = Nulls.SKIP)
         public Builder ipAddress(Optional<String> ipAddress) {
             this.ipAddress = ipAddress;

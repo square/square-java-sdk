@@ -97,6 +97,9 @@ public final class BookingCustomAttributeDeleteResponse {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Booking">booking</a> associated with the custom attribute.</p>
+         */
         @JsonSetter(value = "booking_id", nulls = Nulls.SKIP)
         public Builder bookingId(Optional<String> bookingId) {
             this.bookingId = bookingId;
@@ -108,6 +111,9 @@ public final class BookingCustomAttributeDeleteResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred while processing the individual request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

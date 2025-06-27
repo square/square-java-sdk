@@ -137,6 +137,9 @@ public final class ProcessingFee {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the fee takes effect, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "effective_at", nulls = Nulls.SKIP)
         public Builder effectiveAt(Optional<String> effectiveAt) {
             this.effectiveAt = effectiveAt;
@@ -159,6 +162,9 @@ public final class ProcessingFee {
             return this;
         }
 
+        /**
+         * <p>The type of fee assessed or adjusted. The fee type can be <code>INITIAL</code> or <code>ADJUSTMENT</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -181,6 +187,11 @@ public final class ProcessingFee {
             return this;
         }
 
+        /**
+         * <p>The fee amount, which might be negative, that is assessed or adjusted by Square.</p>
+         * <p>Positive values represent funds being assessed, while negative values represent
+         * funds being returned.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;

@@ -111,6 +111,10 @@ public final class TeamMemberAssignedLocations {
             return this;
         }
 
+        /**
+         * <p>The current assignment type of the team member.
+         * See <a href="#type-teammemberassignedlocationsassignmenttype">TeamMemberAssignedLocationsAssignmentType</a> for possible values</p>
+         */
         @JsonSetter(value = "assignment_type", nulls = Nulls.SKIP)
         public Builder assignmentType(Optional<TeamMemberAssignedLocationsAssignmentType> assignmentType) {
             this.assignmentType = assignmentType;
@@ -122,6 +126,9 @@ public final class TeamMemberAssignedLocations {
             return this;
         }
 
+        /**
+         * <p>The explicit locations that the team member is assigned to.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;

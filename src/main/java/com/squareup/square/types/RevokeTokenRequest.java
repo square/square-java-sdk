@@ -174,6 +174,10 @@ public final class RevokeTokenRequest {
             return this;
         }
 
+        /**
+         * <p>The Square-issued ID for your application, which is available on the <strong>OAuth</strong> page in the
+         * <a href="https://developer.squareup.com/apps">Developer Dashboard</a>.</p>
+         */
         @JsonSetter(value = "client_id", nulls = Nulls.SKIP)
         public Builder clientId(Optional<String> clientId) {
             this.clientId = clientId;
@@ -196,6 +200,10 @@ public final class RevokeTokenRequest {
             return this;
         }
 
+        /**
+         * <p>The access token of the merchant whose token you want to revoke.
+         * Do not provide a value for <code>merchant_id</code> if you provide this parameter.</p>
+         */
         @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
         public Builder accessToken(Optional<String> accessToken) {
             this.accessToken = accessToken;
@@ -218,6 +226,10 @@ public final class RevokeTokenRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the merchant whose token you want to revoke.
+         * Do not provide a value for <code>access_token</code> if you provide this parameter.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -240,6 +252,11 @@ public final class RevokeTokenRequest {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, terminate the given single access token, but do not
+         * terminate the entire authorization.
+         * Default: <code>false</code></p>
+         */
         @JsonSetter(value = "revoke_only_access_token", nulls = Nulls.SKIP)
         public Builder revokeOnlyAccessToken(Optional<Boolean> revokeOnlyAccessToken) {
             this.revokeOnlyAccessToken = revokeOnlyAccessToken;

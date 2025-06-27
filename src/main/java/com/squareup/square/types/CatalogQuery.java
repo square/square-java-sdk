@@ -246,6 +246,9 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to sort returned query result by the given attribute.</p>
+         */
         @JsonSetter(value = "sorted_attribute_query", nulls = Nulls.SKIP)
         public Builder sortedAttributeQuery(Optional<CatalogQuerySortedAttribute> sortedAttributeQuery) {
             this.sortedAttributeQuery = sortedAttributeQuery;
@@ -257,6 +260,10 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>An exact query expression to return objects with attribute name and value
+         * matching the specified attribute name and value exactly. Value matching is case insensitive.</p>
+         */
         @JsonSetter(value = "exact_query", nulls = Nulls.SKIP)
         public Builder exactQuery(Optional<CatalogQueryExact> exactQuery) {
             this.exactQuery = exactQuery;
@@ -268,6 +275,11 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A set query expression to return objects with attribute name and value
+         * matching the specified attribute name and any of the specified attribute values exactly.
+         * Value matching is case insensitive.</p>
+         */
         @JsonSetter(value = "set_query", nulls = Nulls.SKIP)
         public Builder setQuery(Optional<CatalogQuerySet> setQuery) {
             this.setQuery = setQuery;
@@ -279,6 +291,10 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A prefix query expression to return objects with attribute values
+         * that have a prefix matching the specified string value. Value matching is case insensitive.</p>
+         */
         @JsonSetter(value = "prefix_query", nulls = Nulls.SKIP)
         public Builder prefixQuery(Optional<CatalogQueryPrefix> prefixQuery) {
             this.prefixQuery = prefixQuery;
@@ -290,6 +306,10 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A range query expression to return objects with numeric values
+         * that lie in the specified range.</p>
+         */
         @JsonSetter(value = "range_query", nulls = Nulls.SKIP)
         public Builder rangeQuery(Optional<CatalogQueryRange> rangeQuery) {
             this.rangeQuery = rangeQuery;
@@ -301,6 +321,12 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A text query expression to return objects whose searchable attributes contain all of the given
+         * keywords, irrespective of their order. For example, if a <code>CatalogItem</code> contains custom attribute values of
+         * <code>{&quot;name&quot;: &quot;t-shirt&quot;}</code> and <code>{&quot;description&quot;: &quot;Small, Purple&quot;}</code>, the query filter of <code>{&quot;keywords&quot;: [&quot;shirt&quot;, &quot;sma&quot;, &quot;purp&quot;]}</code>
+         * returns this item.</p>
+         */
         @JsonSetter(value = "text_query", nulls = Nulls.SKIP)
         public Builder textQuery(Optional<CatalogQueryText> textQuery) {
             this.textQuery = textQuery;
@@ -312,6 +338,9 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to return items that have any of the specified taxes (as identified by the corresponding <code>CatalogTax</code> object IDs) enabled.</p>
+         */
         @JsonSetter(value = "items_for_tax_query", nulls = Nulls.SKIP)
         public Builder itemsForTaxQuery(Optional<CatalogQueryItemsForTax> itemsForTaxQuery) {
             this.itemsForTaxQuery = itemsForTaxQuery;
@@ -323,6 +352,9 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to return items that have any of the given modifier list (as identified by the corresponding <code>CatalogModifierList</code>s IDs) enabled.</p>
+         */
         @JsonSetter(value = "items_for_modifier_list_query", nulls = Nulls.SKIP)
         public Builder itemsForModifierListQuery(Optional<CatalogQueryItemsForModifierList> itemsForModifierListQuery) {
             this.itemsForModifierListQuery = itemsForModifierListQuery;
@@ -334,6 +366,9 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to return items that contains the specified item options (as identified the corresponding <code>CatalogItemOption</code> IDs).</p>
+         */
         @JsonSetter(value = "items_for_item_options_query", nulls = Nulls.SKIP)
         public Builder itemsForItemOptionsQuery(Optional<CatalogQueryItemsForItemOptions> itemsForItemOptionsQuery) {
             this.itemsForItemOptionsQuery = itemsForItemOptionsQuery;
@@ -345,6 +380,10 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to return item variations (of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> type) that
+         * contain all of the specified <code>CatalogItemOption</code> IDs.</p>
+         */
         @JsonSetter(value = "item_variations_for_item_option_values_query", nulls = Nulls.SKIP)
         public Builder itemVariationsForItemOptionValuesQuery(
                 Optional<CatalogQueryItemVariationsForItemOptionValues> itemVariationsForItemOptionValuesQuery) {

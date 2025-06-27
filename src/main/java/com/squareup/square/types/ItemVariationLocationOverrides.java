@@ -244,6 +244,9 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The ID of the <code>Location</code>. This can include locations that are deactivated.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -266,6 +269,9 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The price of the <code>CatalogItemVariation</code> at the given <code>Location</code>, or blank for variable pricing.</p>
+         */
         @JsonSetter(value = "price_money", nulls = Nulls.SKIP)
         public Builder priceMoney(Optional<Money> priceMoney) {
             this.priceMoney = priceMoney;
@@ -277,6 +283,10 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The pricing type (fixed or variable) for the <code>CatalogItemVariation</code> at the given <code>Location</code>.
+         * See <a href="#type-catalogpricingtype">CatalogPricingType</a> for possible values</p>
+         */
         @JsonSetter(value = "pricing_type", nulls = Nulls.SKIP)
         public Builder pricingType(Optional<CatalogPricingType> pricingType) {
             this.pricingType = pricingType;
@@ -288,6 +298,9 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, inventory tracking is active for the <code>CatalogItemVariation</code> at this <code>Location</code>.</p>
+         */
         @JsonSetter(value = "track_inventory", nulls = Nulls.SKIP)
         public Builder trackInventory(Optional<Boolean> trackInventory) {
             this.trackInventory = trackInventory;
@@ -310,6 +323,11 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the <code>CatalogItemVariation</code> displays an alert when its inventory
+         * quantity is less than or equal to its <code>inventory_alert_threshold</code>.
+         * See <a href="#type-inventoryalerttype">InventoryAlertType</a> for possible values</p>
+         */
         @JsonSetter(value = "inventory_alert_type", nulls = Nulls.SKIP)
         public Builder inventoryAlertType(Optional<InventoryAlertType> inventoryAlertType) {
             this.inventoryAlertType = inventoryAlertType;
@@ -321,6 +339,11 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>If the inventory quantity for the variation is less than or equal to this value and <code>inventory_alert_type</code>
+         * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard.</p>
+         * <p>This value is always an integer.</p>
+         */
         @JsonSetter(value = "inventory_alert_threshold", nulls = Nulls.SKIP)
         public Builder inventoryAlertThreshold(Optional<Long> inventoryAlertThreshold) {
             this.inventoryAlertThreshold = inventoryAlertThreshold;
@@ -343,6 +366,14 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the overridden item variation is sold out at the specified location.</p>
+         * <p>When inventory tracking is enabled on the item variation either globally or at the specified location,
+         * the item variation is automatically marked as sold out when its inventory count reaches zero. The seller
+         * can manually set the item variation as sold out even when the inventory count is greater than zero.
+         * Attempts by an application to set this attribute are ignored. Regardless how the sold-out status is set,
+         * applications should treat its inventory count as zero when this attribute value is <code>true</code>.</p>
+         */
         @JsonSetter(value = "sold_out", nulls = Nulls.SKIP)
         public Builder soldOut(Optional<Boolean> soldOut) {
             this.soldOut = soldOut;
@@ -354,6 +385,11 @@ public final class ItemVariationLocationOverrides {
             return this;
         }
 
+        /**
+         * <p>The seller-assigned timestamp, of the RFC 3339 format, to indicate when this sold-out variation
+         * becomes available again at the specified location. Attempts by an application to set this attribute are ignored.
+         * When the current time is later than this attribute value, the affected item variation is no longer sold out.</p>
+         */
         @JsonSetter(value = "sold_out_valid_until", nulls = Nulls.SKIP)
         public Builder soldOutValidUntil(Optional<String> soldOutValidUntil) {
             this.soldOutValidUntil = soldOutValidUntil;

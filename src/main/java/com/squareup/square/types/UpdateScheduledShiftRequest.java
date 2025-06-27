@@ -88,12 +88,28 @@ public final class UpdateScheduledShiftRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the scheduled shift to update.</p>
+         */
         ScheduledShiftStage id(@NotNull String id);
 
         Builder from(UpdateScheduledShiftRequest other);
     }
 
     public interface ScheduledShiftStage {
+        /**
+         * <p>The scheduled shift with any updates in the <code>draft_shift_details</code> field.
+         * If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a> to get location IDs,
+         * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get job IDs, and <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a>
+         * to get team member IDs and current job assignments. Updates made to <code>published_shift_details</code>
+         * are ignored.</p>
+         * <p>If provided, the <code>start_at</code> and <code>end_at</code> timestamps must be in the time zone + offset of the
+         * shift location specified in <code>location_id</code>. Example for Pacific Standard Time: 2024-10-31T12:30:00-08:00</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for the request, provide the current version of the shift in the <code>version</code> field.
+         * If the provided version doesn't match the server version, the request fails. If <code>version</code> is
+         * omitted, Square executes a blind write, potentially overwriting data from another publish request.</p>
+         */
         _FinalStage scheduledShift(@NotNull ScheduledShift scheduledShift);
     }
 
@@ -121,6 +137,7 @@ public final class UpdateScheduledShiftRequest {
 
         /**
          * <p>The ID of the scheduled shift to update.</p>
+         * <p>The ID of the scheduled shift to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -131,6 +148,17 @@ public final class UpdateScheduledShiftRequest {
         }
 
         /**
+         * <p>The scheduled shift with any updates in the <code>draft_shift_details</code> field.
+         * If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a> to get location IDs,
+         * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get job IDs, and <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a>
+         * to get team member IDs and current job assignments. Updates made to <code>published_shift_details</code>
+         * are ignored.</p>
+         * <p>If provided, the <code>start_at</code> and <code>end_at</code> timestamps must be in the time zone + offset of the
+         * shift location specified in <code>location_id</code>. Example for Pacific Standard Time: 2024-10-31T12:30:00-08:00</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control for the request, provide the current version of the shift in the <code>version</code> field.
+         * If the provided version doesn't match the server version, the request fails. If <code>version</code> is
+         * omitted, Square executes a blind write, potentially overwriting data from another publish request.</p>
          * <p>The scheduled shift with any updates in the <code>draft_shift_details</code> field.
          * If needed, call <a href="api-endpoint:Locations-ListLocations">ListLocations</a> to get location IDs,
          * <a href="api-endpoint:Team-ListJobs">ListJobs</a> to get job IDs, and <a href="api-endpoint:Team-SearchTeamMembers">SearchTeamMembers</a>

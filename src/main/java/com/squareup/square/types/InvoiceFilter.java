@@ -112,6 +112,10 @@ public final class InvoiceFilter {
             return this;
         }
 
+        /**
+         * <p>Limits the search to the specified locations. A location is required.
+         * In the current implementation, only one location can be specified.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(List<String> locationIds) {
             this.locationIds.clear();
@@ -129,6 +133,11 @@ public final class InvoiceFilter {
             return this;
         }
 
+        /**
+         * <p>Limits the search to the specified customers, within the specified locations.
+         * Specifying a customer is optional. In the current implementation,
+         * a maximum of one customer can be specified.</p>
+         */
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(Optional<List<String>> customerIds) {
             this.customerIds = customerIds;

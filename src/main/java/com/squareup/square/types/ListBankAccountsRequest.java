@@ -148,6 +148,12 @@ public final class ListBankAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor returned by a previous call to this endpoint.
+         * Use it in the next <code>ListBankAccounts</code> request to retrieve the next set
+         * of results.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -170,6 +176,11 @@ public final class ListBankAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>Upper limit on the number of bank accounts to return in the response.
+         * Currently, 1000 is the largest supported limit. You can specify a limit
+         * of up to 1000 bank accounts. This is also the default limit.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -192,6 +203,10 @@ public final class ListBankAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>Location ID. You can specify this optional filter
+         * to retrieve only the linked bank accounts belonging to a specific location.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

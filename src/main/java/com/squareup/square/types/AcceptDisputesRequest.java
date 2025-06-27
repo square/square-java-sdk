@@ -66,6 +66,9 @@ public final class AcceptDisputesRequest {
     }
 
     public interface DisputeIdStage {
+        /**
+         * <p>The ID of the dispute you want to accept.</p>
+         */
         _FinalStage disputeId(@NotNull String disputeId);
 
         Builder from(AcceptDisputesRequest other);
@@ -91,6 +94,7 @@ public final class AcceptDisputesRequest {
         }
 
         /**
+         * <p>The ID of the dispute you want to accept.</p>
          * <p>The ID of the dispute you want to accept.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
