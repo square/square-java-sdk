@@ -110,17 +110,17 @@ public class SanityTest {
         CatalogApi api = client.getCatalogApi();
 
         CatalogImage imageData =
-                new CatalogImage.Builder().caption("Image for File Upload Test").build();
+            new CatalogImage.Builder().caption("Image for File Upload Test").build();
 
         CatalogObject image = new CatalogObject.Builder("IMAGE", "#java_sdk_test")
-                .imageData(imageData)
-                .build();
+            .imageData(imageData)
+            .build();
 
         String idempotencyKey = UUID.randomUUID().toString();
         CreateCatalogImageRequest request = new CreateCatalogImageRequest.Builder(idempotencyKey, image).build();
 
         String imgPath = Paths.get(System.getProperty("user.dir").toString(), "src/test/resources/square.png")
-                .toString();
+            .toString();
         File imageFile = new File(imgPath);
 
         CreateCatalogImageResponse result = api.createCatalogImage(request, new FileWrapper(imageFile, "image/jpeg"));
