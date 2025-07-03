@@ -39,13 +39,11 @@ public class FileStream {
         return inputStream;
     }
 
-    @Nullable
-    public String getFileName() {
+    @Nullable public String getFileName() {
         return fileName;
     }
 
-    @Nullable
-    public MediaType getContentType() {
+    @Nullable public MediaType getContentType() {
         return contentType;
     }
 

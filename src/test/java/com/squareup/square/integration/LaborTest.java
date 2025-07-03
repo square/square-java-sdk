@@ -12,11 +12,6 @@ import com.squareup.square.labor.types.ListWorkweekConfigsRequest;
 import com.squareup.square.labor.types.SearchShiftsRequest;
 import com.squareup.square.labor.types.UpdateBreakTypeRequest;
 import com.squareup.square.labor.types.UpdateShiftRequest;
-import com.squareup.square.types.Location;
-import com.squareup.square.types.SearchTeamMembersRequest;
-import com.squareup.square.types.SearchTeamMembersQuery;
-import com.squareup.square.types.SearchTeamMembersFilter;
-import com.squareup.square.types.TeamMemberStatus;
 import com.squareup.square.types.BreakType;
 import com.squareup.square.types.CreateBreakTypeResponse;
 import com.squareup.square.types.CreateShiftResponse;
@@ -24,14 +19,18 @@ import com.squareup.square.types.DeleteBreakTypeResponse;
 import com.squareup.square.types.DeleteShiftResponse;
 import com.squareup.square.types.GetBreakTypeResponse;
 import com.squareup.square.types.GetShiftResponse;
+import com.squareup.square.types.Location;
 import com.squareup.square.types.SearchShiftsResponse;
+import com.squareup.square.types.SearchTeamMembersFilter;
+import com.squareup.square.types.SearchTeamMembersQuery;
+import com.squareup.square.types.SearchTeamMembersRequest;
 import com.squareup.square.types.Shift;
 import com.squareup.square.types.ShiftWage;
 import com.squareup.square.types.TeamMember;
+import com.squareup.square.types.TeamMemberStatus;
 import com.squareup.square.types.UpdateBreakTypeResponse;
 import com.squareup.square.types.UpdateShiftResponse;
 import com.squareup.square.types.WorkweekConfig;
-
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -53,28 +52,30 @@ public class LaborTest {
     @BeforeEach
     public void before() {
         client = TestClientFactory.create();
-        
+
         // Get first available location
-        List<Location> locations = client.locations().list().getLocations()
-            .orElseThrow(() -> new RuntimeException("No locations available"));
+        List<Location> locations = client.locations()
+                .list()
+                .getLocations()
+                .orElseThrow(() -> new RuntimeException("No locations available"));
         if (locations.isEmpty()) {
             throw new RuntimeException("No locations available for testing");
         }
         locationId = locations.get(0).getId().orElseThrow(() -> new RuntimeException("Location ID not present"));
-        
+
         // Get first available team member at this location
-        List<TeamMember> teamMembers = client.teamMembers().search(
-            SearchTeamMembersRequest.builder()
-                .query(SearchTeamMembersQuery.builder()
-                    .filter(SearchTeamMembersFilter.builder()
-                        .locationIds(Collections.singletonList(locationId))
-                        .status(TeamMemberStatus.ACTIVE)
+        List<TeamMember> teamMembers = client.teamMembers()
+                .search(SearchTeamMembersRequest.builder()
+                        .query(SearchTeamMembersQuery.builder()
+                                .filter(SearchTeamMembersFilter.builder()
+                                        .locationIds(Collections.singletonList(locationId))
+                                        .status(TeamMemberStatus.ACTIVE)
+                                        .build())
+                                .build())
                         .build())
-                    .build())
-                .build()
-        ).getTeamMembers()
-         .orElseThrow(() -> new RuntimeException("Failed to get team members"));
-        
+                .getTeamMembers()
+                .orElseThrow(() -> new RuntimeException("Failed to get team members"));
+
         if (teamMembers.isEmpty()) {
             throw new RuntimeException("No team members available at location " + locationId);
         }
@@ -238,9 +239,7 @@ public class LaborTest {
                     .limit(100)
                     .build();
 
-            SearchShiftsResponse existingShifts = client.labor()
-                    .shifts()
-                    .search(searchRequest);
+            SearchShiftsResponse existingShifts = client.labor().shifts().search(searchRequest);
 
             // Delete any existing shifts
             if (existingShifts.getShifts().isPresent()) {
@@ -248,7 +247,9 @@ public class LaborTest {
                     if (existingShift.getId().isPresent()) {
                         client.labor()
                                 .shifts()
-                                .delete(DeleteShiftsRequest.builder().id(existingShift.getId().get()).build());
+                                .delete(DeleteShiftsRequest.builder()
+                                        .id(existingShift.getId().get())
+                                        .build());
                     }
                 }
             }

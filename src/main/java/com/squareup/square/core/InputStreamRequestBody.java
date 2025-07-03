@@ -40,8 +40,7 @@ public class InputStreamRequestBody extends RequestBody {
      *
      * @return the MediaType of the content, or null if not specified
      */
-    @Nullable
-    @Override
+    @Nullable @Override
     public MediaType contentType() {
         return contentType;
     }
