@@ -257,6 +257,9 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>The discount name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -279,6 +282,10 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the discount is a fixed amount or percentage, or entered at the time of sale.
+         * See <a href="#type-catalogdiscounttype">CatalogDiscountType</a> for possible values</p>
+         */
         @JsonSetter(value = "discount_type", nulls = Nulls.SKIP)
         public Builder discountType(Optional<CatalogDiscountType> discountType) {
             this.discountType = discountType;
@@ -290,6 +297,12 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>The percentage of the discount as a string representation of a decimal number, using a <code>.</code> as the decimal
+         * separator and without a <code>%</code> sign. A value of <code>7.5</code> corresponds to <code>7.5%</code>. Specify a percentage of <code>0</code> if <code>discount_type</code>
+         * is <code>VARIABLE_PERCENTAGE</code>.</p>
+         * <p>Do not use this field for amount-based or variable discounts.</p>
+         */
         @JsonSetter(value = "percentage", nulls = Nulls.SKIP)
         public Builder percentage(Optional<String> percentage) {
             this.percentage = percentage;
@@ -312,6 +325,10 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>The amount of the discount. Specify an amount of <code>0</code> if <code>discount_type</code> is <code>VARIABLE_AMOUNT</code>.</p>
+         * <p>Do not use this field for percentage-based or variable discounts.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -323,6 +340,10 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a mobile staff member needs to enter their PIN to apply the
+         * discount to a payment in the Square Point of Sale app.</p>
+         */
         @JsonSetter(value = "pin_required", nulls = Nulls.SKIP)
         public Builder pinRequired(Optional<Boolean> pinRequired) {
             this.pinRequired = pinRequired;
@@ -345,6 +366,9 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>The color of the discount display label in the Square Point of Sale app. This must be a valid hex color code.</p>
+         */
         @JsonSetter(value = "label_color", nulls = Nulls.SKIP)
         public Builder labelColor(Optional<String> labelColor) {
             this.labelColor = labelColor;
@@ -367,6 +391,17 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>Indicates whether this discount should reduce the price used to calculate tax.</p>
+         * <p>Most discounts should use <code>MODIFY_TAX_BASIS</code>. However, in some circumstances taxes must
+         * be calculated based on an item's price, ignoring a particular discount. For example,
+         * in many US jurisdictions, a manufacturer coupon or instant rebate reduces the price a
+         * customer pays but does not reduce the sale price used to calculate how much sales tax is
+         * due. In this case, the discount representing that manufacturer coupon should have
+         * <code>DO_NOT_MODIFY_TAX_BASIS</code> for this field.</p>
+         * <p>If you are unsure whether you need to use this field, consult your tax professional.
+         * See <a href="#type-catalogdiscountmodifytaxbasis">CatalogDiscountModifyTaxBasis</a> for possible values</p>
+         */
         @JsonSetter(value = "modify_tax_basis", nulls = Nulls.SKIP)
         public Builder modifyTaxBasis(Optional<CatalogDiscountModifyTaxBasis> modifyTaxBasis) {
             this.modifyTaxBasis = modifyTaxBasis;
@@ -378,6 +413,11 @@ public final class CatalogDiscount {
             return this;
         }
 
+        /**
+         * <p>For a percentage discount, the maximum absolute value of the discount. For example, if a
+         * 50% discount has a <code>maximum_amount_money</code> of $20, a $100 purchase will yield a $20 discount,
+         * not a $50 discount.</p>
+         */
         @JsonSetter(value = "maximum_amount_money", nulls = Nulls.SKIP)
         public Builder maximumAmountMoney(Optional<Money> maximumAmountMoney) {
             this.maximumAmountMoney = maximumAmountMoney;

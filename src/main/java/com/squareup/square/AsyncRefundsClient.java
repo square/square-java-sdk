@@ -3,44 +3,32 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.GetPaymentRefundResponse;
 import com.squareup.square.types.GetRefundsRequest;
-import com.squareup.square.types.ListPaymentRefundsResponse;
 import com.squareup.square.types.ListRefundsRequest;
 import com.squareup.square.types.PaymentRefund;
 import com.squareup.square.types.RefundPaymentRequest;
 import com.squareup.square.types.RefundPaymentResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncRefundsClient {
     protected final ClientOptions clientOptions;
 
+    private final AsyncRawRefundsClient rawClient;
+
     public AsyncRefundsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawRefundsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawRefundsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -50,7 +38,7 @@ public class AsyncRefundsClient {
      * <p>The maximum results per page is 100.</p>
      */
     public CompletableFuture<SyncPagingIterable<PaymentRefund>> list() {
-        return list(ListRefundsRequest.builder().build());
+        return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
@@ -60,7 +48,7 @@ public class AsyncRefundsClient {
      * <p>The maximum results per page is 100.</p>
      */
     public CompletableFuture<SyncPagingIterable<PaymentRefund>> list(ListRefundsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
@@ -71,110 +59,7 @@ public class AsyncRefundsClient {
      */
     public CompletableFuture<SyncPagingIterable<PaymentRefund>> list(
             ListRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds");
-        if (request.getBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "begin_time", request.getBeginTime().get(), false);
-        }
-        if (request.getEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "end_time", request.getEndTime().get(), false);
-        }
-        if (request.getSortOrder().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_order", request.getSortOrder().get(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getLocationId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "location_id", request.getLocationId().get(), false);
-        }
-        if (request.getStatus().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "status", request.getStatus().get(), false);
-        }
-        if (request.getSourceType().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "source_type", request.getSourceType().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getUpdatedAtBeginTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "updated_at_begin_time",
-                    request.getUpdatedAtBeginTime().get(),
-                    false);
-        }
-        if (request.getUpdatedAtEndTime().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "updated_at_end_time",
-                    request.getUpdatedAtEndTime().get(),
-                    false);
-        }
-        if (request.getSortField().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "sort_field", request.getSortField().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<PaymentRefund>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        ListPaymentRefundsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), ListPaymentRefundsResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ListRefundsRequest nextRequest = ListRefundsRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<PaymentRefund> result = parsedResponse.getRefunds().orElse(Collections.emptyList());
-                        future.complete(new SyncPagingIterable<PaymentRefund>(startingAfter.isPresent(), result, () -> {
-                            try {
-                                return list(nextRequest, requestOptions).get();
-                            } catch (InterruptedException | ExecutionException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -184,7 +69,7 @@ public class AsyncRefundsClient {
      * <a href="https://developer.squareup.com/docs/payments-api/refund-payments">Refund Payment</a>.
      */
     public CompletableFuture<RefundPaymentResponse> refundPayment(RefundPaymentRequest request) {
-        return refundPayment(request, null);
+        return this.rawClient.refundPayment(request).thenApply(response -> response.body());
     }
 
     /**
@@ -195,110 +80,20 @@ public class AsyncRefundsClient {
      */
     public CompletableFuture<RefundPaymentResponse> refundPayment(
             RefundPaymentRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<RefundPaymentResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), RefundPaymentResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.refundPayment(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves a specific refund using the <code>refund_id</code>.
      */
     public CompletableFuture<GetPaymentRefundResponse> get(GetRefundsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
      * Retrieves a specific refund using the <code>refund_id</code>.
      */
     public CompletableFuture<GetPaymentRefundResponse> get(GetRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/refunds")
-                .addPathSegment(request.getRefundId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<GetPaymentRefundResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), GetPaymentRefundResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 }

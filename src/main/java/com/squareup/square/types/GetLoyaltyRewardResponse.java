@@ -96,6 +96,9 @@ public final class GetLoyaltyRewardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetLoyaltyRewardResponse {
             return this;
         }
 
+        /**
+         * <p>The loyalty reward retrieved.</p>
+         */
         @JsonSetter(value = "reward", nulls = Nulls.SKIP)
         public Builder reward(Optional<LoyaltyReward> reward) {
             this.reward = reward;

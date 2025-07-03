@@ -90,6 +90,9 @@ public final class PhaseInput {
     }
 
     public interface OrdinalStage {
+        /**
+         * <p>index of phase in total subscription plan</p>
+         */
         _FinalStage ordinal(long ordinal);
 
         Builder from(PhaseInput other);
@@ -98,6 +101,9 @@ public final class PhaseInput {
     public interface _FinalStage {
         PhaseInput build();
 
+        /**
+         * <p>id of order to be used in billing</p>
+         */
         _FinalStage orderTemplateId(Optional<String> orderTemplateId);
 
         _FinalStage orderTemplateId(String orderTemplateId);
@@ -124,6 +130,7 @@ public final class PhaseInput {
         }
 
         /**
+         * <p>index of phase in total subscription plan</p>
          * <p>index of phase in total subscription plan</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -160,6 +167,9 @@ public final class PhaseInput {
             return this;
         }
 
+        /**
+         * <p>id of order to be used in billing</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_template_id", nulls = Nulls.SKIP)
         public _FinalStage orderTemplateId(Optional<String> orderTemplateId) {

@@ -80,6 +80,9 @@ public final class CreateShiftRequest {
     }
 
     public interface ShiftStage {
+        /**
+         * <p>The <code>Shift</code> to be created.</p>
+         */
         _FinalStage shift(@NotNull Shift shift);
 
         Builder from(CreateShiftRequest other);
@@ -88,6 +91,9 @@ public final class CreateShiftRequest {
     public interface _FinalStage {
         CreateShiftRequest build();
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -113,6 +119,7 @@ public final class CreateShiftRequest {
 
         /**
          * <p>The <code>Shift</code> to be created.</p>
+         * <p>The <code>Shift</code> to be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -132,6 +139,9 @@ public final class CreateShiftRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

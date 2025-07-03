@@ -97,6 +97,9 @@ public final class UpdateWebhookSubscriptionSignatureKeyResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -108,6 +111,9 @@ public final class UpdateWebhookSubscriptionSignatureKeyResponse {
             return this;
         }
 
+        /**
+         * <p>The new Square-generated signature key used to validate the origin of the webhook event.</p>
+         */
         @JsonSetter(value = "signature_key", nulls = Nulls.SKIP)
         public Builder signatureKey(Optional<String> signatureKey) {
             this.signatureKey = signatureKey;

@@ -272,60 +272,110 @@ public final class LoyaltyPromotion {
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of the promotion.</p>
+         */
         IncentiveStage name(@NotNull String name);
 
         Builder from(LoyaltyPromotion other);
     }
 
     public interface IncentiveStage {
+        /**
+         * <p>The points incentive for the promotion. This field defines whether promotion points
+         * are earned by multiplying base program points or by adding a specified number of points.</p>
+         */
         AvailableTimeStage incentive(@NotNull LoyaltyPromotionIncentive incentive);
     }
 
     public interface AvailableTimeStage {
+        /**
+         * <p>The scheduling information that defines when purchases can qualify to earn points from an <code>ACTIVE</code> promotion.</p>
+         */
         _FinalStage availableTime(@NotNull LoyaltyPromotionAvailableTimeData availableTime);
     }
 
     public interface _FinalStage {
         LoyaltyPromotion build();
 
+        /**
+         * <p>The Square-assigned ID of the promotion.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The number of times a buyer can earn promotion points during a specified interval.
+         * If not specified, buyers can trigger the promotion an unlimited number of times.</p>
+         */
         _FinalStage triggerLimit(Optional<LoyaltyPromotionTriggerLimit> triggerLimit);
 
         _FinalStage triggerLimit(LoyaltyPromotionTriggerLimit triggerLimit);
 
+        /**
+         * <p>The current status of the promotion.
+         * See <a href="#type-loyaltypromotionstatus">LoyaltyPromotionStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<LoyaltyPromotionStatus> status);
 
         _FinalStage status(LoyaltyPromotionStatus status);
 
+        /**
+         * <p>The timestamp of when the promotion was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp of when the promotion was canceled, in RFC 3339 format.</p>
+         */
         _FinalStage canceledAt(Optional<String> canceledAt);
 
         _FinalStage canceledAt(String canceledAt);
 
+        /**
+         * <p>The timestamp when the promotion was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a> associated with the promotion.</p>
+         */
         _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId);
 
         _FinalStage loyaltyProgramId(String loyaltyProgramId);
 
+        /**
+         * <p>The minimum purchase amount required to earn promotion points. If specified, this amount is positive.</p>
+         */
         _FinalStage minimumSpendAmountMoney(Optional<Money> minimumSpendAmountMoney);
 
         _FinalStage minimumSpendAmountMoney(Money minimumSpendAmountMoney);
 
+        /**
+         * <p>The IDs of any qualifying <code>ITEM_VARIATION</code> <a href="entity:CatalogObject">catalog objects</a>. If specified,
+         * the purchase must include at least one of these items to qualify for the promotion.</p>
+         * <p>This option is valid only if the base loyalty program uses a <code>VISIT</code> or <code>SPEND</code> accrual rule.
+         * With <code>SPEND</code> accrual rules, make sure that qualifying promotional items are not excluded.</p>
+         * <p>You can specify <code>qualifying_item_variation_ids</code> or <code>qualifying_category_ids</code> for a given promotion, but not both.</p>
+         */
         _FinalStage qualifyingItemVariationIds(Optional<List<String>> qualifyingItemVariationIds);
 
         _FinalStage qualifyingItemVariationIds(List<String> qualifyingItemVariationIds);
 
         _FinalStage qualifyingItemVariationIds(Nullable<List<String>> qualifyingItemVariationIds);
 
+        /**
+         * <p>The IDs of any qualifying <code>CATEGORY</code> <a href="entity:CatalogObject">catalog objects</a>. If specified,
+         * the purchase must include at least one item from one of these categories to qualify for the promotion.</p>
+         * <p>This option is valid only if the base loyalty program uses a <code>VISIT</code> or <code>SPEND</code> accrual rule.
+         * With <code>SPEND</code> accrual rules, make sure that qualifying promotional items are not excluded.</p>
+         * <p>You can specify <code>qualifying_category_ids</code> or <code>qualifying_item_variation_ids</code> for a promotion, but not both.</p>
+         */
         _FinalStage qualifyingCategoryIds(Optional<List<String>> qualifyingCategoryIds);
 
         _FinalStage qualifyingCategoryIds(List<String> qualifyingCategoryIds);
@@ -386,6 +436,7 @@ public final class LoyaltyPromotion {
 
         /**
          * <p>The name of the promotion.</p>
+         * <p>The name of the promotion.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -398,6 +449,8 @@ public final class LoyaltyPromotion {
         /**
          * <p>The points incentive for the promotion. This field defines whether promotion points
          * are earned by multiplying base program points or by adding a specified number of points.</p>
+         * <p>The points incentive for the promotion. This field defines whether promotion points
+         * are earned by multiplying base program points or by adding a specified number of points.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -408,6 +461,7 @@ public final class LoyaltyPromotion {
         }
 
         /**
+         * <p>The scheduling information that defines when purchases can qualify to earn points from an <code>ACTIVE</code> promotion.</p>
          * <p>The scheduling information that defines when purchases can qualify to earn points from an <code>ACTIVE</code> promotion.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -452,6 +506,13 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The IDs of any qualifying <code>CATEGORY</code> <a href="entity:CatalogObject">catalog objects</a>. If specified,
+         * the purchase must include at least one item from one of these categories to qualify for the promotion.</p>
+         * <p>This option is valid only if the base loyalty program uses a <code>VISIT</code> or <code>SPEND</code> accrual rule.
+         * With <code>SPEND</code> accrual rules, make sure that qualifying promotional items are not excluded.</p>
+         * <p>You can specify <code>qualifying_category_ids</code> or <code>qualifying_item_variation_ids</code> for a promotion, but not both.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "qualifying_category_ids", nulls = Nulls.SKIP)
         public _FinalStage qualifyingCategoryIds(Optional<List<String>> qualifyingCategoryIds) {
@@ -493,6 +554,13 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The IDs of any qualifying <code>ITEM_VARIATION</code> <a href="entity:CatalogObject">catalog objects</a>. If specified,
+         * the purchase must include at least one of these items to qualify for the promotion.</p>
+         * <p>This option is valid only if the base loyalty program uses a <code>VISIT</code> or <code>SPEND</code> accrual rule.
+         * With <code>SPEND</code> accrual rules, make sure that qualifying promotional items are not excluded.</p>
+         * <p>You can specify <code>qualifying_item_variation_ids</code> or <code>qualifying_category_ids</code> for a given promotion, but not both.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "qualifying_item_variation_ids", nulls = Nulls.SKIP)
         public _FinalStage qualifyingItemVariationIds(Optional<List<String>> qualifyingItemVariationIds) {
@@ -510,6 +578,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The minimum purchase amount required to earn promotion points. If specified, this amount is positive.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "minimum_spend_amount_money", nulls = Nulls.SKIP)
         public _FinalStage minimumSpendAmountMoney(Optional<Money> minimumSpendAmountMoney) {
@@ -527,6 +598,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a> associated with the promotion.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
         public _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId) {
@@ -544,6 +618,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the promotion was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -561,6 +638,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the promotion was canceled, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "canceled_at", nulls = Nulls.SKIP)
         public _FinalStage canceledAt(Optional<String> canceledAt) {
@@ -578,6 +658,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the promotion was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -596,6 +679,10 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The current status of the promotion.
+         * See <a href="#type-loyaltypromotionstatus">LoyaltyPromotionStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<LoyaltyPromotionStatus> status) {
@@ -614,6 +701,10 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The number of times a buyer can earn promotion points during a specified interval.
+         * If not specified, buyers can trigger the promotion an unlimited number of times.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "trigger_limit", nulls = Nulls.SKIP)
         public _FinalStage triggerLimit(Optional<LoyaltyPromotionTriggerLimit> triggerLimit) {
@@ -631,6 +722,9 @@ public final class LoyaltyPromotion {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the promotion.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

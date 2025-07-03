@@ -81,6 +81,9 @@ public final class CreateBreakTypeRequest {
     }
 
     public interface BreakTypeStage {
+        /**
+         * <p>The <code>BreakType</code> to be created.</p>
+         */
         _FinalStage breakType(@NotNull BreakType breakType);
 
         Builder from(CreateBreakTypeRequest other);
@@ -89,6 +92,9 @@ public final class CreateBreakTypeRequest {
     public interface _FinalStage {
         CreateBreakTypeRequest build();
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -114,6 +120,7 @@ public final class CreateBreakTypeRequest {
 
         /**
          * <p>The <code>BreakType</code> to be created.</p>
+         * <p>The <code>BreakType</code> to be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -133,6 +140,9 @@ public final class CreateBreakTypeRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string value to ensure the idempotency of the operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

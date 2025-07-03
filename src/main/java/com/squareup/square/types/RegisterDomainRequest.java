@@ -66,6 +66,9 @@ public final class RegisterDomainRequest {
     }
 
     public interface DomainNameStage {
+        /**
+         * <p>A domain name as described in RFC-1034 that will be registered with ApplePay.</p>
+         */
         _FinalStage domainName(@NotNull String domainName);
 
         Builder from(RegisterDomainRequest other);
@@ -91,6 +94,7 @@ public final class RegisterDomainRequest {
         }
 
         /**
+         * <p>A domain name as described in RFC-1034 that will be registered with ApplePay.</p>
          * <p>A domain name as described in RFC-1034 that will be registered with ApplePay.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

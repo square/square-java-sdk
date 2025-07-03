@@ -460,6 +460,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>A unique ID for this <code>TerminalAction</code>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -471,6 +474,10 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The unique Id of the device intended for this <code>TerminalAction</code>.
+         * The Id can be retrieved from /v2/devices api.</p>
+         */
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public Builder deviceId(Optional<String> deviceId) {
             this.deviceId = deviceId;
@@ -493,6 +500,13 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The duration as an RFC 3339 duration, after which the action will be automatically canceled.
+         * TerminalActions that are <code>PENDING</code> will be automatically <code>CANCELED</code> and have a cancellation reason
+         * of <code>TIMED_OUT</code></p>
+         * <p>Default: 5 minutes from creation</p>
+         * <p>Maximum: 5 minutes</p>
+         */
         @JsonSetter(value = "deadline_duration", nulls = Nulls.SKIP)
         public Builder deadlineDuration(Optional<String> deadlineDuration) {
             this.deadlineDuration = deadlineDuration;
@@ -515,6 +529,10 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The status of the <code>TerminalAction</code>.
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, <code>COMPLETED</code></p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -526,6 +544,10 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The reason why <code>TerminalAction</code> is canceled. Present if the status is <code>CANCELED</code>.
+         * See <a href="#type-actioncancelreason">ActionCancelReason</a> for possible values</p>
+         */
         @JsonSetter(value = "cancel_reason", nulls = Nulls.SKIP)
         public Builder cancelReason(Optional<ActionCancelReason> cancelReason) {
             this.cancelReason = cancelReason;
@@ -537,6 +559,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The time when the <code>TerminalAction</code> was created as an RFC 3339 timestamp.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -548,6 +573,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The time when the <code>TerminalAction</code> was last updated as an RFC 3339 timestamp.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -559,6 +587,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The ID of the application that created the action.</p>
+         */
         @JsonSetter(value = "app_id", nulls = Nulls.SKIP)
         public Builder appId(Optional<String> appId) {
             this.appId = appId;
@@ -570,6 +601,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The location id the action is attached to, if a link can be made.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -581,6 +615,10 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Represents the type of the action.
+         * See <a href="#type-actiontype">ActionType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<TerminalActionActionType> type) {
             this.type = type;
@@ -592,6 +630,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the QR code action. Requires <code>QR_CODE</code> type.</p>
+         */
         @JsonSetter(value = "qr_code_options", nulls = Nulls.SKIP)
         public Builder qrCodeOptions(Optional<QrCodeOptions> qrCodeOptions) {
             this.qrCodeOptions = qrCodeOptions;
@@ -603,6 +644,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the save-card action. Requires <code>SAVE_CARD</code> type.</p>
+         */
         @JsonSetter(value = "save_card_options", nulls = Nulls.SKIP)
         public Builder saveCardOptions(Optional<SaveCardOptions> saveCardOptions) {
             this.saveCardOptions = saveCardOptions;
@@ -614,6 +658,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the signature capture action. Requires <code>SIGNATURE</code> type.</p>
+         */
         @JsonSetter(value = "signature_options", nulls = Nulls.SKIP)
         public Builder signatureOptions(Optional<SignatureOptions> signatureOptions) {
             this.signatureOptions = signatureOptions;
@@ -625,6 +672,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the confirmation action. Requires <code>CONFIRMATION</code> type.</p>
+         */
         @JsonSetter(value = "confirmation_options", nulls = Nulls.SKIP)
         public Builder confirmationOptions(Optional<ConfirmationOptions> confirmationOptions) {
             this.confirmationOptions = confirmationOptions;
@@ -636,6 +686,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the receipt action. Requires <code>RECEIPT</code> type.</p>
+         */
         @JsonSetter(value = "receipt_options", nulls = Nulls.SKIP)
         public Builder receiptOptions(Optional<ReceiptOptions> receiptOptions) {
             this.receiptOptions = receiptOptions;
@@ -647,6 +700,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the data collection action. Requires <code>DATA_COLLECTION</code> type.</p>
+         */
         @JsonSetter(value = "data_collection_options", nulls = Nulls.SKIP)
         public Builder dataCollectionOptions(Optional<DataCollectionOptions> dataCollectionOptions) {
             this.dataCollectionOptions = dataCollectionOptions;
@@ -658,6 +714,9 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Describes configuration for the select action. Requires <code>SELECT</code> type.</p>
+         */
         @JsonSetter(value = "select_options", nulls = Nulls.SKIP)
         public Builder selectOptions(Optional<SelectOptions> selectOptions) {
             this.selectOptions = selectOptions;
@@ -669,6 +728,11 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Details about the Terminal that received the action request (such as battery level,
+         * operating system version, and network connection settings).</p>
+         * <p>Only available for <code>PING</code> action type.</p>
+         */
         @JsonSetter(value = "device_metadata", nulls = Nulls.SKIP)
         public Builder deviceMetadata(Optional<DeviceMetadata> deviceMetadata) {
             this.deviceMetadata = deviceMetadata;
@@ -680,6 +744,11 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>Indicates the action will be linked to another action and requires a waiting dialog to be
+         * displayed instead of returning to the idle screen on completion of the action.</p>
+         * <p>Only supported on SIGNATURE, CONFIRMATION, DATA_COLLECTION, and SELECT types.</p>
+         */
         @JsonSetter(value = "await_next_action", nulls = Nulls.SKIP)
         public Builder awaitNextAction(Optional<Boolean> awaitNextAction) {
             this.awaitNextAction = awaitNextAction;
@@ -702,6 +771,12 @@ public final class TerminalAction {
             return this;
         }
 
+        /**
+         * <p>The timeout duration of the waiting dialog as an RFC 3339 duration, after which the
+         * waiting dialog will no longer be displayed and the Terminal will return to the idle screen.</p>
+         * <p>Default: 5 minutes from when the waiting dialog is displayed</p>
+         * <p>Maximum: 5 minutes</p>
+         */
         @JsonSetter(value = "await_next_action_duration", nulls = Nulls.SKIP)
         public Builder awaitNextActionDuration(Optional<String> awaitNextActionDuration) {
             this.awaitNextActionDuration = awaitNextActionDuration;

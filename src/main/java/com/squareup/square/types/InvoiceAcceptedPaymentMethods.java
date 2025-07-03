@@ -200,6 +200,9 @@ public final class InvoiceAcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Indicates whether credit card or debit card payments are accepted. The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Boolean> card) {
             this.card = card;
@@ -222,6 +225,9 @@ public final class InvoiceAcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Indicates whether Square gift card payments are accepted. The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "square_gift_card", nulls = Nulls.SKIP)
         public Builder squareGiftCard(Optional<Boolean> squareGiftCard) {
             this.squareGiftCard = squareGiftCard;
@@ -244,6 +250,9 @@ public final class InvoiceAcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Indicates whether ACH bank transfer payments are accepted. The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
         public Builder bankAccount(Optional<Boolean> bankAccount) {
             this.bankAccount = bankAccount;
@@ -266,6 +275,14 @@ public final class InvoiceAcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Indicates whether Afterpay (also known as Clearpay) payments are accepted. The default value is <code>false</code>.</p>
+         * <p>This option is allowed only for invoices that have a single payment request of the <code>BALANCE</code> type. This payment method is
+         * supported if the seller account accepts Afterpay payments and the seller location is in a country where Afterpay
+         * invoice payments are supported. As a best practice, consider enabling an additional payment method when allowing
+         * <code>buy_now_pay_later</code> payments. For more information, including detailed requirements and processing limits, see
+         * <a href="https://developer.squareup.com/docs/invoices-api/overview#buy-now-pay-later">Buy Now Pay Later payments with Afterpay</a>.</p>
+         */
         @JsonSetter(value = "buy_now_pay_later", nulls = Nulls.SKIP)
         public Builder buyNowPayLater(Optional<Boolean> buyNowPayLater) {
             this.buyNowPayLater = buyNowPayLater;
@@ -288,6 +305,10 @@ public final class InvoiceAcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Indicates whether Cash App payments are accepted. The default value is <code>false</code>.</p>
+         * <p>This payment method is supported only for seller <a href="entity:Location">locations</a> in the United States.</p>
+         */
         @JsonSetter(value = "cash_app_pay", nulls = Nulls.SKIP)
         public Builder cashAppPay(Optional<Boolean> cashAppPay) {
             this.cashAppPay = cashAppPay;

@@ -105,6 +105,9 @@ public final class LoyaltyEventAdjustPoints {
     }
 
     public interface PointsStage {
+        /**
+         * <p>The number of points added or removed.</p>
+         */
         _FinalStage points(int points);
 
         Builder from(LoyaltyEventAdjustPoints other);
@@ -113,10 +116,16 @@ public final class LoyaltyEventAdjustPoints {
     public interface _FinalStage {
         LoyaltyEventAdjustPoints build();
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
         _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId);
 
         _FinalStage loyaltyProgramId(String loyaltyProgramId);
 
+        /**
+         * <p>The reason for the adjustment of points.</p>
+         */
         _FinalStage reason(Optional<String> reason);
 
         _FinalStage reason(String reason);
@@ -146,6 +155,7 @@ public final class LoyaltyEventAdjustPoints {
         }
 
         /**
+         * <p>The number of points added or removed.</p>
          * <p>The number of points added or removed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -182,6 +192,9 @@ public final class LoyaltyEventAdjustPoints {
             return this;
         }
 
+        /**
+         * <p>The reason for the adjustment of points.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reason", nulls = Nulls.SKIP)
         public _FinalStage reason(Optional<String> reason) {
@@ -199,6 +212,9 @@ public final class LoyaltyEventAdjustPoints {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
         public _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId) {

@@ -117,6 +117,9 @@ public final class PaymentBalanceActivityAutomaticSavingsDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment associated with this activity.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -139,6 +142,9 @@ public final class PaymentBalanceActivityAutomaticSavingsDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payout associated with this activity.</p>
+         */
         @JsonSetter(value = "payout_id", nulls = Nulls.SKIP)
         public Builder payoutId(Optional<String> payoutId) {
             this.payoutId = payoutId;

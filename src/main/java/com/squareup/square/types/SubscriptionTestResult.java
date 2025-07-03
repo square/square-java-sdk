@@ -169,6 +169,9 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>A Square-generated unique ID for the subscription test result.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -180,6 +183,9 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>The status code returned by the subscription notification URL.</p>
+         */
         @JsonSetter(value = "status_code", nulls = Nulls.SKIP)
         public Builder statusCode(Optional<Integer> statusCode) {
             this.statusCode = statusCode;
@@ -202,6 +208,9 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>An object containing the payload of the test event. For example, a <code>payment.created</code> event.</p>
+         */
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
         public Builder payload(Optional<String> payload) {
             this.payload = payload;
@@ -224,6 +233,10 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the subscription was created, in RFC 3339 format.
+         * For example, &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -235,6 +248,10 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the subscription was updated, in RFC 3339 format. For example, &quot;2016-09-04T23:59:33.123Z&quot;.
+         * Because a subscription test result is unique, this field is the same as the <code>created_at</code> field.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;

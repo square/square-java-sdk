@@ -4,143 +4,62 @@
 package com.squareup.square.labor;
 
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.labor.types.GetTeamMemberWagesRequest;
 import com.squareup.square.labor.types.ListTeamMemberWagesRequest;
 import com.squareup.square.types.GetTeamMemberWageResponse;
-import com.squareup.square.types.ListTeamMemberWagesResponse;
 import com.squareup.square.types.TeamMemberWage;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class TeamMemberWagesClient {
     protected final ClientOptions clientOptions;
 
+    private final RawTeamMemberWagesClient rawClient;
+
     public TeamMemberWagesClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawTeamMemberWagesClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawTeamMemberWagesClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
      */
     public SyncPagingIterable<TeamMemberWage> list() {
-        return list(ListTeamMemberWagesRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
      * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
      */
     public SyncPagingIterable<TeamMemberWage> list(ListTeamMemberWagesRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
      * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
      */
     public SyncPagingIterable<TeamMemberWage> list(ListTeamMemberWagesRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/team-member-wages");
-        if (request.getTeamMemberId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "team_member_id", request.getTeamMemberId().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListTeamMemberWagesResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListTeamMemberWagesResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListTeamMemberWagesRequest nextRequest = ListTeamMemberWagesRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<TeamMemberWage> result =
-                        parsedResponse.getTeamMemberWages().orElse(Collections.emptyList());
-                return new SyncPagingIterable<TeamMemberWage>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
      * Returns a single <code>TeamMemberWage</code> specified by <code>id</code>.
      */
     public GetTeamMemberWageResponse get(GetTeamMemberWagesRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Returns a single <code>TeamMemberWage</code> specified by <code>id</code>.
      */
     public GetTeamMemberWageResponse get(GetTeamMemberWagesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/team-member-wages")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetTeamMemberWageResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 }

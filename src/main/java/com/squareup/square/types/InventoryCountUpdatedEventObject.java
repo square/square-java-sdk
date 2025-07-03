@@ -94,6 +94,9 @@ public final class InventoryCountUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The inventory counts.</p>
+         */
         @JsonSetter(value = "inventory_counts", nulls = Nulls.SKIP)
         public Builder inventoryCounts(Optional<List<InventoryCount>> inventoryCounts) {
             this.inventoryCounts = inventoryCounts;

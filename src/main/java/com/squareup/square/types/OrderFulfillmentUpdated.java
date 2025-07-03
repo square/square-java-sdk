@@ -220,6 +220,9 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The order's unique ID.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;
@@ -242,6 +245,12 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The version number, which is incremented each time an update is committed to the order.
+         * Orders that were not created through the API do not include a version number and
+         * therefore cannot be updated.</p>
+         * <p><a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders">Read more about working with versions.</a></p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -253,6 +262,9 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The ID of the seller location that this order is associated with.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -275,6 +287,10 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The state of the order.
+         * See <a href="#type-orderstate">OrderState</a> for possible values</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<OrderState> state) {
             this.state = state;
@@ -286,6 +302,9 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the order was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -297,6 +316,9 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the order was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -308,6 +330,9 @@ public final class OrderFulfillmentUpdated {
             return this;
         }
 
+        /**
+         * <p>The fulfillments that were updated with this version change.</p>
+         */
         @JsonSetter(value = "fulfillment_update", nulls = Nulls.SKIP)
         public Builder fulfillmentUpdate(Optional<List<OrderFulfillmentUpdatedUpdate>> fulfillmentUpdate) {
             this.fulfillmentUpdate = fulfillmentUpdate;

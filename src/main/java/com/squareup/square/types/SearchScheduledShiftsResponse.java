@@ -116,6 +116,9 @@ public final class SearchScheduledShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>A paginated list of scheduled shifts that match the query conditions.</p>
+         */
         @JsonSetter(value = "scheduled_shifts", nulls = Nulls.SKIP)
         public Builder scheduledShifts(Optional<List<ScheduledShift>> scheduledShifts) {
             this.scheduledShifts = scheduledShifts;
@@ -127,6 +130,10 @@ public final class SearchScheduledShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor used to retrieve the next page of results. This field is present
+         * only if additional results are available.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -138,6 +145,9 @@ public final class SearchScheduledShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

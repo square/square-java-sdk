@@ -82,6 +82,9 @@ public final class CustomAttributeDefinitionEventDataObject {
             return this;
         }
 
+        /**
+         * <p>The custom attribute definition.</p>
+         */
         @JsonSetter(value = "custom_attribute_definition", nulls = Nulls.SKIP)
         public Builder customAttributeDefinition(Optional<CustomAttributeDefinition> customAttributeDefinition) {
             this.customAttributeDefinition = customAttributeDefinition;

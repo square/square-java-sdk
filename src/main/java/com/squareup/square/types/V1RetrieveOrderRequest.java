@@ -77,12 +77,18 @@ public final class V1RetrieveOrderRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the order's associated location.</p>
+         */
         OrderIdStage locationId(@NotNull String locationId);
 
         Builder from(V1RetrieveOrderRequest other);
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
     }
 
@@ -110,6 +116,7 @@ public final class V1RetrieveOrderRequest {
 
         /**
          * <p>The ID of the order's associated location.</p>
+         * <p>The ID of the order's associated location.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class V1RetrieveOrderRequest {
         }
 
         /**
+         * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
          * <p>The order's Square-issued ID. You obtain this value from Order objects returned by the List Orders endpoint</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

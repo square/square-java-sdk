@@ -83,6 +83,11 @@ public final class CreateTerminalRefundRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>CreateRefund</code> request. Keys can be any valid string but
+         * must be unique for every <code>CreateRefund</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateTerminalRefundRequest other);
@@ -91,6 +96,9 @@ public final class CreateTerminalRefundRequest {
     public interface _FinalStage {
         CreateTerminalRefundRequest build();
 
+        /**
+         * <p>The refund to create.</p>
+         */
         _FinalStage refund(Optional<TerminalRefund> refund);
 
         _FinalStage refund(TerminalRefund refund);
@@ -118,6 +126,9 @@ public final class CreateTerminalRefundRequest {
          * <p>A unique string that identifies this <code>CreateRefund</code> request. Keys can be any valid string but
          * must be unique for every <code>CreateRefund</code> request.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
+         * <p>A unique string that identifies this <code>CreateRefund</code> request. Keys can be any valid string but
+         * must be unique for every <code>CreateRefund</code> request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a> for more information.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -137,6 +148,9 @@ public final class CreateTerminalRefundRequest {
             return this;
         }
 
+        /**
+         * <p>The refund to create.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "refund", nulls = Nulls.SKIP)
         public _FinalStage refund(Optional<TerminalRefund> refund) {

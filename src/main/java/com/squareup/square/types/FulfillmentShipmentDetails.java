@@ -421,6 +421,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>Information about the person to receive this shipment fulfillment.</p>
+         */
         @JsonSetter(value = "recipient", nulls = Nulls.SKIP)
         public Builder recipient(Optional<FulfillmentRecipient> recipient) {
             this.recipient = recipient;
@@ -432,6 +435,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The shipping carrier being used to ship this fulfillment (such as UPS, FedEx, or USPS).</p>
+         */
         @JsonSetter(value = "carrier", nulls = Nulls.SKIP)
         public Builder carrier(Optional<String> carrier) {
             this.carrier = carrier;
@@ -454,6 +460,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>A note with additional information for the shipping carrier.</p>
+         */
         @JsonSetter(value = "shipping_note", nulls = Nulls.SKIP)
         public Builder shippingNote(Optional<String> shippingNote) {
             this.shippingNote = shippingNote;
@@ -476,6 +485,10 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>A description of the type of shipping product purchased from the carrier
+         * (such as First Class, Priority, or Express).</p>
+         */
         @JsonSetter(value = "shipping_type", nulls = Nulls.SKIP)
         public Builder shippingType(Optional<String> shippingType) {
             this.shippingType = shippingType;
@@ -498,6 +511,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The reference number provided by the carrier to track the shipment's progress.</p>
+         */
         @JsonSetter(value = "tracking_number", nulls = Nulls.SKIP)
         public Builder trackingNumber(Optional<String> trackingNumber) {
             this.trackingNumber = trackingNumber;
@@ -520,6 +536,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>A link to the tracking webpage on the carrier's website.</p>
+         */
         @JsonSetter(value = "tracking_url", nulls = Nulls.SKIP)
         public Builder trackingUrl(Optional<String> trackingUrl) {
             this.trackingUrl = trackingUrl;
@@ -542,6 +561,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the shipment was requested. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "placed_at", nulls = Nulls.SKIP)
         public Builder placedAt(Optional<String> placedAt) {
             this.placedAt = placedAt;
@@ -553,6 +577,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when this fulfillment was moved to the <code>RESERVED</code> state, which  indicates that preparation
+         * of this shipment has begun. The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "in_progress_at", nulls = Nulls.SKIP)
         public Builder inProgressAt(Optional<String> inProgressAt) {
             this.inProgressAt = inProgressAt;
@@ -564,6 +593,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when this fulfillment was moved to the <code>PREPARED</code> state, which indicates that the
+         * fulfillment is packaged. The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "packaged_at", nulls = Nulls.SKIP)
         public Builder packagedAt(Optional<String> packagedAt) {
             this.packagedAt = packagedAt;
@@ -575,6 +609,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the shipment is expected to be delivered to the shipping carrier.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "expected_shipped_at", nulls = Nulls.SKIP)
         public Builder expectedShippedAt(Optional<String> expectedShippedAt) {
             this.expectedShippedAt = expectedShippedAt;
@@ -597,6 +636,12 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when this fulfillment was moved to the <code>COMPLETED</code> state, which indicates that
+         * the fulfillment has been given to the shipping carrier. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "shipped_at", nulls = Nulls.SKIP)
         public Builder shippedAt(Optional<String> shippedAt) {
             this.shippedAt = shippedAt;
@@ -608,6 +653,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating the shipment was canceled.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "canceled_at", nulls = Nulls.SKIP)
         public Builder canceledAt(Optional<String> canceledAt) {
             this.canceledAt = canceledAt;
@@ -630,6 +680,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>A description of why the shipment was canceled.</p>
+         */
         @JsonSetter(value = "cancel_reason", nulls = Nulls.SKIP)
         public Builder cancelReason(Optional<String> cancelReason) {
             this.cancelReason = cancelReason;
@@ -652,6 +705,11 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the shipment failed to be completed. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "failed_at", nulls = Nulls.SKIP)
         public Builder failedAt(Optional<String> failedAt) {
             this.failedAt = failedAt;
@@ -663,6 +721,9 @@ public final class FulfillmentShipmentDetails {
             return this;
         }
 
+        /**
+         * <p>A description of why the shipment failed to be completed.</p>
+         */
         @JsonSetter(value = "failure_reason", nulls = Nulls.SKIP)
         public Builder failureReason(Optional<String> failureReason) {
             this.failureReason = failureReason;

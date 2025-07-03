@@ -3,14 +3,9 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.checkout.PaymentLinksClient;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.types.RetrieveLocationSettingsRequest;
 import com.squareup.square.types.RetrieveLocationSettingsResponse;
@@ -19,31 +14,33 @@ import com.squareup.square.types.UpdateLocationSettingsRequest;
 import com.squareup.square.types.UpdateLocationSettingsResponse;
 import com.squareup.square.types.UpdateMerchantSettingsRequest;
 import com.squareup.square.types.UpdateMerchantSettingsResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class CheckoutClient {
     protected final ClientOptions clientOptions;
+
+    private final RawCheckoutClient rawClient;
 
     protected final Supplier<PaymentLinksClient> paymentLinksClient;
 
     public CheckoutClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawCheckoutClient(clientOptions);
         this.paymentLinksClient = Suppliers.memoize(() -> new PaymentLinksClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawCheckoutClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
      * Retrieves the location-level settings for a Square-hosted checkout page.
      */
     public RetrieveLocationSettingsResponse retrieveLocationSettings(RetrieveLocationSettingsRequest request) {
-        return retrieveLocationSettings(request, null);
+        return this.rawClient.retrieveLocationSettings(request).body();
     }
 
     /**
@@ -51,43 +48,14 @@ public class CheckoutClient {
      */
     public RetrieveLocationSettingsResponse retrieveLocationSettings(
             RetrieveLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), RetrieveLocationSettingsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.retrieveLocationSettings(request, requestOptions).body();
     }
 
     /**
      * Updates the location-level settings for a Square-hosted checkout page.
      */
     public UpdateLocationSettingsResponse updateLocationSettings(UpdateLocationSettingsRequest request) {
-        return updateLocationSettings(request, null);
+        return this.rawClient.updateLocationSettings(request).body();
     }
 
     /**
@@ -95,91 +63,28 @@ public class CheckoutClient {
      */
     public UpdateLocationSettingsResponse updateLocationSettings(
             UpdateLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateLocationSettingsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.updateLocationSettings(request, requestOptions).body();
     }
 
     /**
      * Retrieves the merchant-level settings for a Square-hosted checkout page.
      */
     public RetrieveMerchantSettingsResponse retrieveMerchantSettings() {
-        return retrieveMerchantSettings(null);
+        return this.rawClient.retrieveMerchantSettings().body();
     }
 
     /**
      * Retrieves the merchant-level settings for a Square-hosted checkout page.
      */
     public RetrieveMerchantSettingsResponse retrieveMerchantSettings(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), RetrieveMerchantSettingsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.retrieveMerchantSettings(requestOptions).body();
     }
 
     /**
      * Updates the merchant-level settings for a Square-hosted checkout page.
      */
     public UpdateMerchantSettingsResponse updateMerchantSettings(UpdateMerchantSettingsRequest request) {
-        return updateMerchantSettings(request, null);
+        return this.rawClient.updateMerchantSettings(request).body();
     }
 
     /**
@@ -187,41 +92,7 @@ public class CheckoutClient {
      */
     public UpdateMerchantSettingsResponse updateMerchantSettings(
             UpdateMerchantSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateMerchantSettingsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.updateMerchantSettings(request, requestOptions).body();
     }
 
     public PaymentLinksClient paymentLinks() {

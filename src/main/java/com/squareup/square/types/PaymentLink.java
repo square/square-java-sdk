@@ -235,6 +235,9 @@ public final class PaymentLink {
     }
 
     public interface VersionStage {
+        /**
+         * <p>The Square-assigned version number, which is incremented each time an update is committed to the payment link.</p>
+         */
         _FinalStage version(int version);
 
         Builder from(PaymentLink other);
@@ -243,44 +246,78 @@ public final class PaymentLink {
     public interface _FinalStage {
         PaymentLink build();
 
+        /**
+         * <p>The Square-assigned ID of the payment link.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The optional description of the <code>payment_link</code> object.
+         * It is primarily for use by your application and is not used anywhere.</p>
+         */
         _FinalStage description(Optional<String> description);
 
         _FinalStage description(String description);
 
         _FinalStage description(Nullable<String> description);
 
+        /**
+         * <p>The ID of the order associated with the payment link.</p>
+         */
         _FinalStage orderId(Optional<String> orderId);
 
         _FinalStage orderId(String orderId);
 
+        /**
+         * <p>The checkout options configured for the payment link.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations">Optional Checkout Configurations</a>.</p>
+         */
         _FinalStage checkoutOptions(Optional<CheckoutOptions> checkoutOptions);
 
         _FinalStage checkoutOptions(CheckoutOptions checkoutOptions);
 
+        /**
+         * <p>Describes buyer data to prepopulate
+         * on the checkout page.</p>
+         */
         _FinalStage prePopulatedData(Optional<PrePopulatedData> prePopulatedData);
 
         _FinalStage prePopulatedData(PrePopulatedData prePopulatedData);
 
+        /**
+         * <p>The shortened URL of the payment link.</p>
+         */
         _FinalStage url(Optional<String> url);
 
         _FinalStage url(String url);
 
+        /**
+         * <p>The long URL of the payment link.</p>
+         */
         _FinalStage longUrl(Optional<String> longUrl);
 
         _FinalStage longUrl(String longUrl);
 
+        /**
+         * <p>The timestamp when the payment link was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp when the payment link was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>An optional note. After Square processes the payment, this note is added to the
+         * resulting <code>Payment</code>.</p>
+         */
         _FinalStage paymentNote(Optional<String> paymentNote);
 
         _FinalStage paymentNote(String paymentNote);
@@ -335,6 +372,7 @@ public final class PaymentLink {
 
         /**
          * <p>The Square-assigned version number, which is incremented each time an update is committed to the payment link.</p>
+         * <p>The Square-assigned version number, which is incremented each time an update is committed to the payment link.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -372,6 +410,10 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>An optional note. After Square processes the payment, this note is added to the
+         * resulting <code>Payment</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_note", nulls = Nulls.SKIP)
         public _FinalStage paymentNote(Optional<String> paymentNote) {
@@ -389,6 +431,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the payment link was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -406,6 +451,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the payment link was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -423,6 +471,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The long URL of the payment link.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "long_url", nulls = Nulls.SKIP)
         public _FinalStage longUrl(Optional<String> longUrl) {
@@ -440,6 +491,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The shortened URL of the payment link.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "url", nulls = Nulls.SKIP)
         public _FinalStage url(Optional<String> url) {
@@ -458,6 +512,10 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>Describes buyer data to prepopulate
+         * on the checkout page.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pre_populated_data", nulls = Nulls.SKIP)
         public _FinalStage prePopulatedData(Optional<PrePopulatedData> prePopulatedData) {
@@ -476,6 +534,10 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The checkout options configured for the payment link.
+         * For more information, see <a href="https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations">Optional Checkout Configurations</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "checkout_options", nulls = Nulls.SKIP)
         public _FinalStage checkoutOptions(Optional<CheckoutOptions> checkoutOptions) {
@@ -493,6 +555,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The ID of the order associated with the payment link.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public _FinalStage orderId(Optional<String> orderId) {
@@ -528,6 +593,10 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The optional description of the <code>payment_link</code> object.
+         * It is primarily for use by your application and is not used anywhere.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public _FinalStage description(Optional<String> description) {
@@ -545,6 +614,9 @@ public final class PaymentLink {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the payment link.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

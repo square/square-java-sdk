@@ -92,16 +92,26 @@ public final class RedeemLoyaltyRewardRequest {
     }
 
     public interface RewardIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to redeem.</p>
+         */
         IdempotencyKeyStage rewardId(@NotNull String rewardId);
 
         Builder from(RedeemLoyaltyRewardRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique string that identifies this <code>RedeemLoyaltyReward</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
+         */
         LocationIdStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Location">location</a> where the reward is redeemed.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
     }
 
@@ -132,6 +142,7 @@ public final class RedeemLoyaltyRewardRequest {
 
         /**
          * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to redeem.</p>
+         * <p>The ID of the <a href="entity:LoyaltyReward">loyalty reward</a> to redeem.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -144,6 +155,8 @@ public final class RedeemLoyaltyRewardRequest {
         /**
          * <p>A unique string that identifies this <code>RedeemLoyaltyReward</code> request.
          * Keys can be any valid string, but must be unique for every request.</p>
+         * <p>A unique string that identifies this <code>RedeemLoyaltyReward</code> request.
+         * Keys can be any valid string, but must be unique for every request.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -154,6 +167,7 @@ public final class RedeemLoyaltyRewardRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Location">location</a> where the reward is redeemed.</p>
          * <p>The ID of the <a href="entity:Location">location</a> where the reward is redeemed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

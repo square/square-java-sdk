@@ -123,6 +123,9 @@ public final class Device {
     }
 
     public interface AttributesStage {
+        /**
+         * <p>A collection of DeviceAttributes representing the device.</p>
+         */
         _FinalStage attributes(@NotNull DeviceAttributes attributes);
 
         Builder from(Device other);
@@ -131,16 +134,26 @@ public final class Device {
     public interface _FinalStage {
         Device build();
 
+        /**
+         * <p>A synthetic identifier for the device. The identifier includes a standardized prefix and
+         * is otherwise an opaque id generated from key device fields.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>A list of components applicable to the device.</p>
+         */
         _FinalStage components(Optional<List<Component>> components);
 
         _FinalStage components(List<Component> components);
 
         _FinalStage components(Nullable<List<Component>> components);
 
+        /**
+         * <p>The current status of the device.</p>
+         */
         _FinalStage status(Optional<DeviceStatus> status);
 
         _FinalStage status(DeviceStatus status);
@@ -172,6 +185,7 @@ public final class Device {
 
         /**
          * <p>A collection of DeviceAttributes representing the device.</p>
+         * <p>A collection of DeviceAttributes representing the device.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -191,6 +205,9 @@ public final class Device {
             return this;
         }
 
+        /**
+         * <p>The current status of the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<DeviceStatus> status) {
@@ -224,6 +241,9 @@ public final class Device {
             return this;
         }
 
+        /**
+         * <p>A list of components applicable to the device.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "components", nulls = Nulls.SKIP)
         public _FinalStage components(Optional<List<Component>> components) {
@@ -242,6 +262,10 @@ public final class Device {
             return this;
         }
 
+        /**
+         * <p>A synthetic identifier for the device. The identifier includes a standardized prefix and
+         * is otherwise an opaque id generated from key device fields.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

@@ -80,6 +80,9 @@ public final class InvoiceRecipientTaxIds {
             return this;
         }
 
+        /**
+         * <p>The EU VAT identification number for the invoice recipient. For example, <code>IE3426675K</code>.</p>
+         */
         @JsonSetter(value = "eu_vat", nulls = Nulls.SKIP)
         public Builder euVat(Optional<String> euVat) {
             this.euVat = euVat;

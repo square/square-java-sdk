@@ -66,6 +66,9 @@ public final class DismissTerminalActionRequest {
     }
 
     public interface ActionIdStage {
+        /**
+         * <p>Unique ID for the <code>TerminalAction</code> associated with the action to be dismissed.</p>
+         */
         _FinalStage actionId(@NotNull String actionId);
 
         Builder from(DismissTerminalActionRequest other);
@@ -91,6 +94,7 @@ public final class DismissTerminalActionRequest {
         }
 
         /**
+         * <p>Unique ID for the <code>TerminalAction</code> associated with the action to be dismissed.</p>
          * <p>Unique ID for the <code>TerminalAction</code> associated with the action to be dismissed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

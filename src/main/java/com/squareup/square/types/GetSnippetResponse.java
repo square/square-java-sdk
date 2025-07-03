@@ -96,6 +96,9 @@ public final class GetSnippetResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetSnippetResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved snippet.</p>
+         */
         @JsonSetter(value = "snippet", nulls = Nulls.SKIP)
         public Builder snippet(Optional<Snippet> snippet) {
             this.snippet = snippet;

@@ -67,6 +67,9 @@ public final class CancelPaymentByIdempotencyKeyRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>The <code>idempotency_key</code> identifying the payment to be canceled.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CancelPaymentByIdempotencyKeyRequest other);
@@ -92,6 +95,7 @@ public final class CancelPaymentByIdempotencyKeyRequest {
         }
 
         /**
+         * <p>The <code>idempotency_key</code> identifying the payment to be canceled.</p>
          * <p>The <code>idempotency_key</code> identifying the payment to be canceled.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

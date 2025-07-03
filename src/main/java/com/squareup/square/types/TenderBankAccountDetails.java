@@ -83,6 +83,11 @@ public final class TenderBankAccountDetails {
             return this;
         }
 
+        /**
+         * <p>The bank account payment's current state.</p>
+         * <p>See <a href="entity:TenderBankAccountDetailsStatus">TenderBankAccountPaymentDetailsStatus</a> for possible values.
+         * See <a href="#type-tenderbankaccountdetailsstatus">TenderBankAccountDetailsStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TenderBankAccountDetailsStatus> status) {
             this.status = status;

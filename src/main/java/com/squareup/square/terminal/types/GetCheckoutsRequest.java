@@ -66,6 +66,9 @@ public final class GetCheckoutsRequest {
     }
 
     public interface CheckoutIdStage {
+        /**
+         * <p>The unique ID for the desired <code>TerminalCheckout</code>.</p>
+         */
         _FinalStage checkoutId(@NotNull String checkoutId);
 
         Builder from(GetCheckoutsRequest other);
@@ -91,6 +94,7 @@ public final class GetCheckoutsRequest {
         }
 
         /**
+         * <p>The unique ID for the desired <code>TerminalCheckout</code>.</p>
          * <p>The unique ID for the desired <code>TerminalCheckout</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

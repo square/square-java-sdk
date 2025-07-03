@@ -128,6 +128,10 @@ public final class CheckoutLocationSettingsBranding {
             return this;
         }
 
+        /**
+         * <p>Show the location logo on the checkout page.
+         * See <a href="#type-headertype">HeaderType</a> for possible values</p>
+         */
         @JsonSetter(value = "header_type", nulls = Nulls.SKIP)
         public Builder headerType(Optional<CheckoutLocationSettingsBrandingHeaderType> headerType) {
             this.headerType = headerType;
@@ -139,6 +143,9 @@ public final class CheckoutLocationSettingsBranding {
             return this;
         }
 
+        /**
+         * <p>The HTML-supported hex color for the button on the checkout page (for example, &quot;#FFFFFF&quot;).</p>
+         */
         @JsonSetter(value = "button_color", nulls = Nulls.SKIP)
         public Builder buttonColor(Optional<String> buttonColor) {
             this.buttonColor = buttonColor;
@@ -161,6 +168,10 @@ public final class CheckoutLocationSettingsBranding {
             return this;
         }
 
+        /**
+         * <p>The shape of the button on the checkout page.
+         * See <a href="#type-buttonshape">ButtonShape</a> for possible values</p>
+         */
         @JsonSetter(value = "button_shape", nulls = Nulls.SKIP)
         public Builder buttonShape(Optional<CheckoutLocationSettingsBrandingButtonShape> buttonShape) {
             this.buttonShape = buttonShape;

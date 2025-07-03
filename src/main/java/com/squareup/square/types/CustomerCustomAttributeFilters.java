@@ -95,6 +95,10 @@ public final class CustomerCustomAttributeFilters {
             return this;
         }
 
+        /**
+         * <p>The custom attribute filters. Each filter must specify <code>key</code> and include the <code>filter</code> field with a type-specific filter,
+         * the <code>updated_at</code> field, or both. The provided keys must be unique within the list of custom attribute filters.</p>
+         */
         @JsonSetter(value = "filters", nulls = Nulls.SKIP)
         public Builder filters(Optional<List<CustomerCustomAttributeFilter>> filters) {
             this.filters = filters;

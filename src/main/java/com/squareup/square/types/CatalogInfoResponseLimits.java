@@ -369,6 +369,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of objects that may appear within a single batch in a
+         * <code>/v2/catalog/batch-upsert</code> request.</p>
+         */
         @JsonSetter(value = "batch_upsert_max_objects_per_batch", nulls = Nulls.SKIP)
         public Builder batchUpsertMaxObjectsPerBatch(Optional<Integer> batchUpsertMaxObjectsPerBatch) {
             this.batchUpsertMaxObjectsPerBatch = batchUpsertMaxObjectsPerBatch;
@@ -391,6 +395,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of objects that may appear across all batches in a
+         * <code>/v2/catalog/batch-upsert</code> request.</p>
+         */
         @JsonSetter(value = "batch_upsert_max_total_objects", nulls = Nulls.SKIP)
         public Builder batchUpsertMaxTotalObjects(Optional<Integer> batchUpsertMaxTotalObjects) {
             this.batchUpsertMaxTotalObjects = batchUpsertMaxTotalObjects;
@@ -413,6 +421,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of object IDs that may appear in a <code>/v2/catalog/batch-retrieve</code>
+         * request.</p>
+         */
         @JsonSetter(value = "batch_retrieve_max_object_ids", nulls = Nulls.SKIP)
         public Builder batchRetrieveMaxObjectIds(Optional<Integer> batchRetrieveMaxObjectIds) {
             this.batchRetrieveMaxObjectIds = batchRetrieveMaxObjectIds;
@@ -435,6 +447,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results that may be returned in a page of a
+         * <code>/v2/catalog/search</code> response.</p>
+         */
         @JsonSetter(value = "search_max_page_limit", nulls = Nulls.SKIP)
         public Builder searchMaxPageLimit(Optional<Integer> searchMaxPageLimit) {
             this.searchMaxPageLimit = searchMaxPageLimit;
@@ -457,6 +473,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of object IDs that may be included in a single
+         * <code>/v2/catalog/batch-delete</code> request.</p>
+         */
         @JsonSetter(value = "batch_delete_max_object_ids", nulls = Nulls.SKIP)
         public Builder batchDeleteMaxObjectIds(Optional<Integer> batchDeleteMaxObjectIds) {
             this.batchDeleteMaxObjectIds = batchDeleteMaxObjectIds;
@@ -479,6 +499,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of item IDs that may be included in a single
+         * <code>/v2/catalog/update-item-taxes</code> request.</p>
+         */
         @JsonSetter(value = "update_item_taxes_max_item_ids", nulls = Nulls.SKIP)
         public Builder updateItemTaxesMaxItemIds(Optional<Integer> updateItemTaxesMaxItemIds) {
             this.updateItemTaxesMaxItemIds = updateItemTaxesMaxItemIds;
@@ -501,6 +525,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of tax IDs to be enabled that may be included in a single
+         * <code>/v2/catalog/update-item-taxes</code> request.</p>
+         */
         @JsonSetter(value = "update_item_taxes_max_taxes_to_enable", nulls = Nulls.SKIP)
         public Builder updateItemTaxesMaxTaxesToEnable(Optional<Integer> updateItemTaxesMaxTaxesToEnable) {
             this.updateItemTaxesMaxTaxesToEnable = updateItemTaxesMaxTaxesToEnable;
@@ -523,6 +551,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of tax IDs to be disabled that may be included in a single
+         * <code>/v2/catalog/update-item-taxes</code> request.</p>
+         */
         @JsonSetter(value = "update_item_taxes_max_taxes_to_disable", nulls = Nulls.SKIP)
         public Builder updateItemTaxesMaxTaxesToDisable(Optional<Integer> updateItemTaxesMaxTaxesToDisable) {
             this.updateItemTaxesMaxTaxesToDisable = updateItemTaxesMaxTaxesToDisable;
@@ -545,6 +577,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of item IDs that may be included in a single
+         * <code>/v2/catalog/update-item-modifier-lists</code> request.</p>
+         */
         @JsonSetter(value = "update_item_modifier_lists_max_item_ids", nulls = Nulls.SKIP)
         public Builder updateItemModifierListsMaxItemIds(Optional<Integer> updateItemModifierListsMaxItemIds) {
             this.updateItemModifierListsMaxItemIds = updateItemModifierListsMaxItemIds;
@@ -567,6 +603,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of modifier list IDs to be enabled that may be included in
+         * a single <code>/v2/catalog/update-item-modifier-lists</code> request.</p>
+         */
         @JsonSetter(value = "update_item_modifier_lists_max_modifier_lists_to_enable", nulls = Nulls.SKIP)
         public Builder updateItemModifierListsMaxModifierListsToEnable(
                 Optional<Integer> updateItemModifierListsMaxModifierListsToEnable) {
@@ -594,6 +634,10 @@ public final class CatalogInfoResponseLimits {
             return this;
         }
 
+        /**
+         * <p>The maximum number of modifier list IDs to be disabled that may be included in
+         * a single <code>/v2/catalog/update-item-modifier-lists</code> request.</p>
+         */
         @JsonSetter(value = "update_item_modifier_lists_max_modifier_lists_to_disable", nulls = Nulls.SKIP)
         public Builder updateItemModifierListsMaxModifierListsToDisable(
                 Optional<Integer> updateItemModifierListsMaxModifierListsToDisable) {

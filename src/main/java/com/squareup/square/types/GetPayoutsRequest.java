@@ -66,6 +66,9 @@ public final class GetPayoutsRequest {
     }
 
     public interface PayoutIdStage {
+        /**
+         * <p>The ID of the payout to retrieve the information for.</p>
+         */
         _FinalStage payoutId(@NotNull String payoutId);
 
         Builder from(GetPayoutsRequest other);
@@ -91,6 +94,7 @@ public final class GetPayoutsRequest {
         }
 
         /**
+         * <p>The ID of the payout to retrieve the information for.</p>
          * <p>The ID of the payout to retrieve the information for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -92,6 +92,9 @@ public final class CatalogItemOptionForItem {
             return this;
         }
 
+        /**
+         * <p>The unique id of the item option, used to form the dimensions of the item option matrix in a specified order.</p>
+         */
         @JsonSetter(value = "item_option_id", nulls = Nulls.SKIP)
         public Builder itemOptionId(Optional<String> itemOptionId) {
             this.itemOptionId = itemOptionId;

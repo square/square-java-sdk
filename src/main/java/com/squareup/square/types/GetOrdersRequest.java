@@ -66,6 +66,9 @@ public final class GetOrdersRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the order to retrieve.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(GetOrdersRequest other);
@@ -91,6 +94,7 @@ public final class GetOrdersRequest {
         }
 
         /**
+         * <p>The ID of the order to retrieve.</p>
          * <p>The ID of the order to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

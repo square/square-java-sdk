@@ -210,6 +210,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>A custom unit of measurement defined by the seller using the Point of Sale
+         * app or ad-hoc as an order line item.</p>
+         */
         @JsonSetter(value = "custom_unit", nulls = Nulls.SKIP)
         public Builder customUnit(Optional<MeasurementUnitCustom> customUnit) {
             this.customUnit = customUnit;
@@ -221,6 +225,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents a standard area unit.
+         * See <a href="#type-measurementunitarea">MeasurementUnitArea</a> for possible values</p>
+         */
         @JsonSetter(value = "area_unit", nulls = Nulls.SKIP)
         public Builder areaUnit(Optional<MeasurementUnitArea> areaUnit) {
             this.areaUnit = areaUnit;
@@ -232,6 +240,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents a standard length unit.
+         * See <a href="#type-measurementunitlength">MeasurementUnitLength</a> for possible values</p>
+         */
         @JsonSetter(value = "length_unit", nulls = Nulls.SKIP)
         public Builder lengthUnit(Optional<MeasurementUnitLength> lengthUnit) {
             this.lengthUnit = lengthUnit;
@@ -243,6 +255,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents a standard volume unit.
+         * See <a href="#type-measurementunitvolume">MeasurementUnitVolume</a> for possible values</p>
+         */
         @JsonSetter(value = "volume_unit", nulls = Nulls.SKIP)
         public Builder volumeUnit(Optional<MeasurementUnitVolume> volumeUnit) {
             this.volumeUnit = volumeUnit;
@@ -254,6 +270,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents a standard unit of weight or mass.
+         * See <a href="#type-measurementunitweight">MeasurementUnitWeight</a> for possible values</p>
+         */
         @JsonSetter(value = "weight_unit", nulls = Nulls.SKIP)
         public Builder weightUnit(Optional<MeasurementUnitWeight> weightUnit) {
             this.weightUnit = weightUnit;
@@ -265,6 +285,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Reserved for API integrations that lack the ability to specify a real measurement unit
+         * See <a href="#type-measurementunitgeneric">MeasurementUnitGeneric</a> for possible values</p>
+         */
         @JsonSetter(value = "generic_unit", nulls = Nulls.SKIP)
         public Builder genericUnit(Optional<String> genericUnit) {
             this.genericUnit = genericUnit;
@@ -276,6 +300,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents a standard unit of time.
+         * See <a href="#type-measurementunittime">MeasurementUnitTime</a> for possible values</p>
+         */
         @JsonSetter(value = "time_unit", nulls = Nulls.SKIP)
         public Builder timeUnit(Optional<MeasurementUnitTime> timeUnit) {
             this.timeUnit = timeUnit;
@@ -287,6 +315,10 @@ public final class MeasurementUnit {
             return this;
         }
 
+        /**
+         * <p>Represents the type of the measurement unit.
+         * See <a href="#type-measurementunitunittype">MeasurementUnitUnitType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<MeasurementUnitUnitType> type) {
             this.type = type;

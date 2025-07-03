@@ -278,6 +278,13 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>An OAuth access token used to authorize Square API requests on behalf of the seller.
+         * Include this token as a bearer token in the <code>Authorization</code> header of your API requests.</p>
+         * <p>OAuth access tokens expire in 30 days (except <code>short_lived</code> access tokens). You should call
+         * <code>ObtainToken</code> and provide the returned <code>refresh_token</code> to get a new access token well before
+         * the current one expires. For more information, see <a href="https://developer.squareup.com/docs/oauth-api/walkthrough">OAuth API: Walkthrough</a>.</p>
+         */
         @JsonSetter(value = "access_token", nulls = Nulls.SKIP)
         public Builder accessToken(Optional<String> accessToken) {
             this.accessToken = accessToken;
@@ -289,6 +296,9 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>The type of access token. This value is always <code>bearer</code>.</p>
+         */
         @JsonSetter(value = "token_type", nulls = Nulls.SKIP)
         public Builder tokenType(Optional<String> tokenType) {
             this.tokenType = tokenType;
@@ -300,6 +310,9 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the <code>access_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a> format.</p>
+         */
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public Builder expiresAt(Optional<String> expiresAt) {
             this.expiresAt = expiresAt;
@@ -311,6 +324,9 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>The ID of the authorizing <a href="entity:Merchant">merchant</a> (seller), which represents a business.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -322,6 +338,10 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p><strong>LEGACY</strong> The ID of merchant's subscription.
+         * The ID is only present if the merchant signed up for a subscription plan during authorization.</p>
+         */
         @JsonSetter(value = "subscription_id", nulls = Nulls.SKIP)
         public Builder subscriptionId(Optional<String> subscriptionId) {
             this.subscriptionId = subscriptionId;
@@ -333,6 +353,11 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p><strong>LEGACY</strong> The ID of the subscription plan the merchant signed
+         * up for. The ID is only present if the merchant signed up for a subscription plan during
+         * authorization.</p>
+         */
         @JsonSetter(value = "plan_id", nulls = Nulls.SKIP)
         public Builder planId(Optional<String> planId) {
             this.planId = planId;
@@ -344,6 +369,12 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>The OpenID token that belongs to this person. This token is only present if the
+         * <code>OPENID</code> scope is included in the authorization request.</p>
+         * <p>Deprecated at version 2021-09-15. Square doesn't support OpenID or other single sign-on (SSO)
+         * protocols on top of OAuth.</p>
+         */
         @JsonSetter(value = "id_token", nulls = Nulls.SKIP)
         public Builder idToken(Optional<String> idToken) {
             this.idToken = idToken;
@@ -355,6 +386,20 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>A refresh token that can be used in an <code>ObtainToken</code> request to generate a new access token.</p>
+         * <p>With the code flow:</p>
+         * <ul>
+         * <li>For the <code>authorization_code</code> grant type, the refresh token is multi-use and never expires.</li>
+         * <li>For the <code>refresh_token</code> grant type, the response returns the same refresh token.</li>
+         * </ul>
+         * <p>With the PKCE flow:</p>
+         * <ul>
+         * <li>For the <code>authorization_code</code> grant type, the refresh token is single-use and expires in 90 days.</li>
+         * <li>For the <code>refresh_token</code> grant type, the refresh token is a new single-use refresh token that expires in 90 days.</li>
+         * </ul>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/oauth-api/refresh-revoke-limit-scope">Refresh, Revoke, and Limit the Scope of OAuth Tokens</a>.</p>
+         */
         @JsonSetter(value = "refresh_token", nulls = Nulls.SKIP)
         public Builder refreshToken(Optional<String> refreshToken) {
             this.refreshToken = refreshToken;
@@ -366,6 +411,10 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the access_token is short lived. If <code>true</code>, the access token expires
+         * in 24 hours. If <code>false</code>, the access token expires in 30 days.</p>
+         */
         @JsonSetter(value = "short_lived", nulls = Nulls.SKIP)
         public Builder shortLived(Optional<Boolean> shortLived) {
             this.shortLived = shortLived;
@@ -377,6 +426,9 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -388,6 +440,11 @@ public final class ObtainTokenResponse {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the <code>refresh_token</code> expires, in <a href="http://www.iso.org/iso/home/standards/iso8601.htm">ISO 8601</a>
+         * format.</p>
+         * <p>This field is only returned for the PKCE flow.</p>
+         */
         @JsonSetter(value = "refresh_token_expires_at", nulls = Nulls.SKIP)
         public Builder refreshTokenExpiresAt(Optional<String> refreshTokenExpiresAt) {
             this.refreshTokenExpiresAt = refreshTokenExpiresAt;

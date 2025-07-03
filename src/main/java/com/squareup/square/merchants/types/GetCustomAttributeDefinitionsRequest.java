@@ -97,6 +97,10 @@ public final class GetCustomAttributeDefinitionsRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to retrieve. If the requesting application
+         * is not the definition owner, you must use the qualified key.</p>
+         */
         _FinalStage key(@NotNull String key);
 
         Builder from(GetCustomAttributeDefinitionsRequest other);
@@ -105,6 +109,12 @@ public final class GetCustomAttributeDefinitionsRequest {
     public interface _FinalStage {
         GetCustomAttributeDefinitionsRequest build();
 
+        /**
+         * <p>The current version of the custom attribute definition, which is used for strongly consistent
+         * reads to guarantee that you receive the most up-to-date data. When included in the request,
+         * Square returns the specified version or a higher version if one exists. If the specified version
+         * is higher than the current version, Square returns a <code>BAD_REQUEST</code> error.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
@@ -131,6 +141,8 @@ public final class GetCustomAttributeDefinitionsRequest {
         }
 
         /**
+         * <p>The key of the custom attribute definition to retrieve. If the requesting application
+         * is not the definition owner, you must use the qualified key.</p>
          * <p>The key of the custom attribute definition to retrieve. If the requesting application
          * is not the definition owner, you must use the qualified key.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -174,6 +186,12 @@ public final class GetCustomAttributeDefinitionsRequest {
             return this;
         }
 
+        /**
+         * <p>The current version of the custom attribute definition, which is used for strongly consistent
+         * reads to guarantee that you receive the most up-to-date data. When included in the request,
+         * Square returns the specified version or a higher version if one exists. If the specified version
+         * is higher than the current version, Square returns a <code>BAD_REQUEST</code> error.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

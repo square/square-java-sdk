@@ -66,6 +66,9 @@ public final class GetGiftCardsRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the gift card to retrieve.</p>
+         */
         _FinalStage id(@NotNull String id);
 
         Builder from(GetGiftCardsRequest other);
@@ -91,6 +94,7 @@ public final class GetGiftCardsRequest {
         }
 
         /**
+         * <p>The ID of the gift card to retrieve.</p>
          * <p>The ID of the gift card to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

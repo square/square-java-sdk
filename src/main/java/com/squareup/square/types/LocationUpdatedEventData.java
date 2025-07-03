@@ -107,6 +107,9 @@ public final class LocationUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>Name of the affected object’s type, <code>&quot;location&quot;</code>.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -129,6 +132,9 @@ public final class LocationUpdatedEventData {
             return this;
         }
 
+        /**
+         * <p>ID of the updated <a href="entity:Location">Location</a>.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;

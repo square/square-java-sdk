@@ -98,6 +98,9 @@ public final class CreateDisputeEvidenceFileRequest {
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
 
         Builder from(CreateDisputeEvidenceFileRequest other);
@@ -106,10 +109,18 @@ public final class CreateDisputeEvidenceFileRequest {
     public interface _FinalStage {
         CreateDisputeEvidenceFileRequest build();
 
+        /**
+         * <p>The type of evidence you are uploading.
+         * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
+         */
         _FinalStage evidenceType(Optional<DisputeEvidenceType> evidenceType);
 
         _FinalStage evidenceType(DisputeEvidenceType evidenceType);
 
+        /**
+         * <p>The MIME type of the uploaded file.
+         * The type can be image/heic, image/heif, image/jpeg, application/pdf, image/png, or image/tiff.</p>
+         */
         _FinalStage contentType(Optional<String> contentType);
 
         _FinalStage contentType(String contentType);
@@ -138,6 +149,7 @@ public final class CreateDisputeEvidenceFileRequest {
 
         /**
          * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
+         * <p>A unique key identifying the request. For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/idempotency">Idempotency</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -158,6 +170,10 @@ public final class CreateDisputeEvidenceFileRequest {
             return this;
         }
 
+        /**
+         * <p>The MIME type of the uploaded file.
+         * The type can be image/heic, image/heif, image/jpeg, application/pdf, image/png, or image/tiff.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "content_type", nulls = Nulls.SKIP)
         public _FinalStage contentType(Optional<String> contentType) {
@@ -176,6 +192,10 @@ public final class CreateDisputeEvidenceFileRequest {
             return this;
         }
 
+        /**
+         * <p>The type of evidence you are uploading.
+         * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "evidence_type", nulls = Nulls.SKIP)
         public _FinalStage evidenceType(Optional<DisputeEvidenceType> evidenceType) {

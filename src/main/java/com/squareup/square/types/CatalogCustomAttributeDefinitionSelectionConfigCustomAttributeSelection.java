@@ -93,6 +93,9 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
     }
 
     public interface NameStage {
+        /**
+         * <p>Selection name, unique within <code>allowed_selections</code>.</p>
+         */
         _FinalStage name(@NotNull String name);
 
         Builder from(CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection other);
@@ -101,6 +104,9 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
     public interface _FinalStage {
         CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection build();
 
+        /**
+         * <p>Unique ID set by Square.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
@@ -127,6 +133,7 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
         }
 
         /**
+         * <p>Selection name, unique within <code>allowed_selections</code>.</p>
          * <p>Selection name, unique within <code>allowed_selections</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -163,6 +170,9 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
             return this;
         }
 
+        /**
+         * <p>Unique ID set by Square.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

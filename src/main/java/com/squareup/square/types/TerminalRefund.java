@@ -274,64 +274,115 @@ public final class TerminalRefund {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>The unique ID of the payment being refunded.</p>
+         */
         AmountMoneyStage paymentId(@NotNull String paymentId);
 
         Builder from(TerminalRefund other);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money, inclusive of <code>tax_money</code>, that the <code>TerminalRefund</code> should return.
+         * This value is limited to the amount taken in the original payment minus any completed or
+         * pending refunds.</p>
+         */
         ReasonStage amountMoney(@NotNull Money amountMoney);
     }
 
     public interface ReasonStage {
+        /**
+         * <p>A description of the reason for the refund.</p>
+         */
         DeviceIdStage reason(@NotNull String reason);
     }
 
     public interface DeviceIdStage {
+        /**
+         * <p>The unique ID of the device intended for this <code>TerminalRefund</code>.
+         * The Id can be retrieved from /v2/devices api.</p>
+         */
         _FinalStage deviceId(@NotNull String deviceId);
     }
 
     public interface _FinalStage {
         TerminalRefund build();
 
+        /**
+         * <p>A unique ID for this <code>TerminalRefund</code>.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The reference to the payment refund created by completing this <code>TerminalRefund</code>.</p>
+         */
         _FinalStage refundId(Optional<String> refundId);
 
         _FinalStage refundId(String refundId);
 
+        /**
+         * <p>The reference to the Square order ID for the payment identified by the <code>payment_id</code>.</p>
+         */
         _FinalStage orderId(Optional<String> orderId);
 
         _FinalStage orderId(String orderId);
 
+        /**
+         * <p>The RFC 3339 duration, after which the refund is automatically canceled.
+         * A <code>TerminalRefund</code> that is <code>PENDING</code> is automatically <code>CANCELED</code> and has a cancellation reason
+         * of <code>TIMED_OUT</code>.</p>
+         * <p>Default: 5 minutes from creation.</p>
+         * <p>Maximum: 5 minutes</p>
+         */
         _FinalStage deadlineDuration(Optional<String> deadlineDuration);
 
         _FinalStage deadlineDuration(String deadlineDuration);
 
         _FinalStage deadlineDuration(Nullable<String> deadlineDuration);
 
+        /**
+         * <p>The status of the <code>TerminalRefund</code>.
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, or <code>COMPLETED</code>.</p>
+         */
         _FinalStage status(Optional<String> status);
 
         _FinalStage status(String status);
 
+        /**
+         * <p>Present if the status is <code>CANCELED</code>.
+         * See <a href="#type-actioncancelreason">ActionCancelReason</a> for possible values</p>
+         */
         _FinalStage cancelReason(Optional<ActionCancelReason> cancelReason);
 
         _FinalStage cancelReason(ActionCancelReason cancelReason);
 
+        /**
+         * <p>The time when the <code>TerminalRefund</code> was created, as an RFC 3339 timestamp.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The time when the <code>TerminalRefund</code> was last updated, as an RFC 3339 timestamp.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The ID of the application that created the refund.</p>
+         */
         _FinalStage appId(Optional<String> appId);
 
         _FinalStage appId(String appId);
 
+        /**
+         * <p>The location of the device where the <code>TerminalRefund</code> was directed.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
@@ -394,6 +445,7 @@ public final class TerminalRefund {
 
         /**
          * <p>The unique ID of the payment being refunded.</p>
+         * <p>The unique ID of the payment being refunded.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -404,6 +456,9 @@ public final class TerminalRefund {
         }
 
         /**
+         * <p>The amount of money, inclusive of <code>tax_money</code>, that the <code>TerminalRefund</code> should return.
+         * This value is limited to the amount taken in the original payment minus any completed or
+         * pending refunds.</p>
          * <p>The amount of money, inclusive of <code>tax_money</code>, that the <code>TerminalRefund</code> should return.
          * This value is limited to the amount taken in the original payment minus any completed or
          * pending refunds.</p>
@@ -418,6 +473,7 @@ public final class TerminalRefund {
 
         /**
          * <p>A description of the reason for the refund.</p>
+         * <p>A description of the reason for the refund.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -428,6 +484,8 @@ public final class TerminalRefund {
         }
 
         /**
+         * <p>The unique ID of the device intended for this <code>TerminalRefund</code>.
+         * The Id can be retrieved from /v2/devices api.</p>
          * <p>The unique ID of the device intended for this <code>TerminalRefund</code>.
          * The Id can be retrieved from /v2/devices api.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -449,6 +507,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The location of the device where the <code>TerminalRefund</code> was directed.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {
@@ -466,6 +527,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The ID of the application that created the refund.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "app_id", nulls = Nulls.SKIP)
         public _FinalStage appId(Optional<String> appId) {
@@ -483,6 +547,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The time when the <code>TerminalRefund</code> was last updated, as an RFC 3339 timestamp.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -500,6 +567,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The time when the <code>TerminalRefund</code> was created, as an RFC 3339 timestamp.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -518,6 +588,10 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>Present if the status is <code>CANCELED</code>.
+         * See <a href="#type-actioncancelreason">ActionCancelReason</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cancel_reason", nulls = Nulls.SKIP)
         public _FinalStage cancelReason(Optional<ActionCancelReason> cancelReason) {
@@ -536,6 +610,10 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The status of the <code>TerminalRefund</code>.
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, or <code>COMPLETED</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<String> status) {
@@ -577,6 +655,13 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 duration, after which the refund is automatically canceled.
+         * A <code>TerminalRefund</code> that is <code>PENDING</code> is automatically <code>CANCELED</code> and has a cancellation reason
+         * of <code>TIMED_OUT</code>.</p>
+         * <p>Default: 5 minutes from creation.</p>
+         * <p>Maximum: 5 minutes</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "deadline_duration", nulls = Nulls.SKIP)
         public _FinalStage deadlineDuration(Optional<String> deadlineDuration) {
@@ -594,6 +679,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The reference to the Square order ID for the payment identified by the <code>payment_id</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public _FinalStage orderId(Optional<String> orderId) {
@@ -611,6 +699,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>The reference to the payment refund created by completing this <code>TerminalRefund</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "refund_id", nulls = Nulls.SKIP)
         public _FinalStage refundId(Optional<String> refundId) {
@@ -628,6 +719,9 @@ public final class TerminalRefund {
             return this;
         }
 
+        /**
+         * <p>A unique ID for this <code>TerminalRefund</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

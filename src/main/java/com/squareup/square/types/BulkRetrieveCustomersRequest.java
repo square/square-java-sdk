@@ -81,6 +81,9 @@ public final class BulkRetrieveCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>The IDs of the <a href="entity:Customer">customer profiles</a> to retrieve.</p>
+         */
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(List<String> customerIds) {
             this.customerIds.clear();

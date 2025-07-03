@@ -101,6 +101,11 @@ public final class CustomerSort {
             return this;
         }
 
+        /**
+         * <p>Indicates the fields to use as the sort key, which is either the default set of fields or <code>created_at</code>.</p>
+         * <p>The default value is <code>DEFAULT</code>.
+         * See <a href="#type-customersortfield">CustomerSortField</a> for possible values</p>
+         */
         @JsonSetter(value = "field", nulls = Nulls.SKIP)
         public Builder field(Optional<CustomerSortField> field) {
             this.field = field;
@@ -112,6 +117,13 @@ public final class CustomerSort {
             return this;
         }
 
+        /**
+         * <p>Indicates the order in which results should be sorted based on the
+         * sort field value. Strings use standard alphabetic comparison
+         * to determine order. Strings representing numbers are sorted as strings.</p>
+         * <p>The default value is <code>ASC</code>.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public Builder order(Optional<SortOrder> order) {
             this.order = order;

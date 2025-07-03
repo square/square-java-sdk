@@ -182,6 +182,9 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the attachment.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -193,6 +196,9 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The file name of the attachment, which is displayed on the invoice.</p>
+         */
         @JsonSetter(value = "filename", nulls = Nulls.SKIP)
         public Builder filename(Optional<String> filename) {
             this.filename = filename;
@@ -204,6 +210,10 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The description of the attachment, which is displayed on the invoice.
+         * This field maps to the seller-defined <strong>Message</strong> field.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -215,6 +225,9 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The file size of the attachment in bytes.</p>
+         */
         @JsonSetter(value = "filesize", nulls = Nulls.SKIP)
         public Builder filesize(Optional<Integer> filesize) {
             this.filesize = filesize;
@@ -226,6 +239,9 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The MD5 hash that was generated from the file contents.</p>
+         */
         @JsonSetter(value = "hash", nulls = Nulls.SKIP)
         public Builder hash(Optional<String> hash) {
             this.hash = hash;
@@ -237,6 +253,11 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The mime type of the attachment.
+         * The following mime types are supported:
+         * image/gif, image/jpeg, image/png, image/tiff, image/bmp, application/pdf.</p>
+         */
         @JsonSetter(value = "mime_type", nulls = Nulls.SKIP)
         public Builder mimeType(Optional<String> mimeType) {
             this.mimeType = mimeType;
@@ -248,6 +269,9 @@ public final class InvoiceAttachment {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the attachment was uploaded, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "uploaded_at", nulls = Nulls.SKIP)
         public Builder uploadedAt(Optional<String> uploadedAt) {
             this.uploadedAt = uploadedAt;

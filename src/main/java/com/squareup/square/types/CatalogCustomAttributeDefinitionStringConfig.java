@@ -98,6 +98,13 @@ public final class CatalogCustomAttributeDefinitionStringConfig {
             return this;
         }
 
+        /**
+         * <p>If true, each Custom Attribute instance associated with this Custom Attribute
+         * Definition must have a unique value within the seller's catalog. For
+         * example, this may be used for a value like a SKU that should not be
+         * duplicated within a seller's catalog. May not be modified after the
+         * definition has been created.</p>
+         */
         @JsonSetter(value = "enforce_uniqueness", nulls = Nulls.SKIP)
         public Builder enforceUniqueness(Optional<Boolean> enforceUniqueness) {
             this.enforceUniqueness = enforceUniqueness;

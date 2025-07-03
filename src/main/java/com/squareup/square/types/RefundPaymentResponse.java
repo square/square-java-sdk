@@ -96,6 +96,9 @@ public final class RefundPaymentResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class RefundPaymentResponse {
             return this;
         }
 
+        /**
+         * <p>The successfully created <code>PaymentRefund</code>.</p>
+         */
         @JsonSetter(value = "refund", nulls = Nulls.SKIP)
         public Builder refund(Optional<PaymentRefund> refund) {
             this.refund = refund;

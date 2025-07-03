@@ -69,6 +69,12 @@ public final class LoyaltyPromotionIncentivePointsAdditionData {
     }
 
     public interface PointsAdditionStage {
+        /**
+         * <p>The number of additional points to earn each time the promotion is triggered. For example,
+         * suppose a purchase qualifies for 5 points from the base loyalty program. If the purchase also
+         * qualifies for a <code>POINTS_ADDITION</code> promotion incentive with a <code>points_addition</code> of 3, the buyer
+         * earns a total of 8 points (5 program points + 3 promotion points = 8 points).</p>
+         */
         _FinalStage pointsAddition(int pointsAddition);
 
         Builder from(LoyaltyPromotionIncentivePointsAdditionData other);
@@ -94,6 +100,10 @@ public final class LoyaltyPromotionIncentivePointsAdditionData {
         }
 
         /**
+         * <p>The number of additional points to earn each time the promotion is triggered. For example,
+         * suppose a purchase qualifies for 5 points from the base loyalty program. If the purchase also
+         * qualifies for a <code>POINTS_ADDITION</code> promotion incentive with a <code>points_addition</code> of 3, the buyer
+         * earns a total of 8 points (5 program points + 3 promotion points = 8 points).</p>
          * <p>The number of additional points to earn each time the promotion is triggered. For example,
          * suppose a purchase qualifies for 5 points from the base loyalty program. If the purchase also
          * qualifies for a <code>POINTS_ADDITION</code> promotion incentive with a <code>points_addition</code> of 3, the buyer

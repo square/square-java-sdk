@@ -78,12 +78,19 @@ public final class GetPromotionsRequest {
     }
 
     public interface PromotionIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
+         */
         ProgramIdStage promotionId(@NotNull String promotionId);
 
         Builder from(GetPromotionsRequest other);
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
+         * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
+         */
         _FinalStage programId(@NotNull String programId);
     }
 
@@ -111,6 +118,7 @@ public final class GetPromotionsRequest {
 
         /**
          * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +129,8 @@ public final class GetPromotionsRequest {
         }
 
         /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
+         * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
          * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
          * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

@@ -231,50 +231,83 @@ public final class Refund {
     }
 
     public interface IdStage {
+        /**
+         * <p>The refund's unique ID.</p>
+         */
         LocationIdStage id(@NotNull String id);
 
         Builder from(Refund other);
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the refund's associated location.</p>
+         */
         ReasonStage locationId(@NotNull String locationId);
     }
 
     public interface ReasonStage {
+        /**
+         * <p>The reason for the refund being issued.</p>
+         */
         AmountMoneyStage reason(@NotNull String reason);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money refunded to the buyer.</p>
+         */
         StatusStage amountMoney(@NotNull Money amountMoney);
     }
 
     public interface StatusStage {
+        /**
+         * <p>The current status of the refund (<code>PENDING</code>, <code>APPROVED</code>, <code>REJECTED</code>,
+         * or <code>FAILED</code>).
+         * See <a href="#type-refundstatus">RefundStatus</a> for possible values</p>
+         */
         _FinalStage status(@NotNull RefundStatus status);
     }
 
     public interface _FinalStage {
         Refund build();
 
+        /**
+         * <p>The ID of the transaction that the refunded tender is part of.</p>
+         */
         _FinalStage transactionId(Optional<String> transactionId);
 
         _FinalStage transactionId(String transactionId);
 
         _FinalStage transactionId(Nullable<String> transactionId);
 
+        /**
+         * <p>The ID of the refunded tender.</p>
+         */
         _FinalStage tenderId(Optional<String> tenderId);
 
         _FinalStage tenderId(String tenderId);
 
         _FinalStage tenderId(Nullable<String> tenderId);
 
+        /**
+         * <p>The timestamp for when the refund was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The amount of Square processing fee money refunded to the <em>merchant</em>.</p>
+         */
         _FinalStage processingFeeMoney(Optional<Money> processingFeeMoney);
 
         _FinalStage processingFeeMoney(Money processingFeeMoney);
 
+        /**
+         * <p>Additional recipients (other than the merchant) receiving a portion of this refund.
+         * For example, fees assessed on a refund of a purchase by a third party integration.</p>
+         */
         _FinalStage additionalRecipients(Optional<List<AdditionalRecipient>> additionalRecipients);
 
         _FinalStage additionalRecipients(List<AdditionalRecipient> additionalRecipients);
@@ -327,6 +360,7 @@ public final class Refund {
 
         /**
          * <p>The refund's unique ID.</p>
+         * <p>The refund's unique ID.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -337,6 +371,7 @@ public final class Refund {
         }
 
         /**
+         * <p>The ID of the refund's associated location.</p>
          * <p>The ID of the refund's associated location.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -349,6 +384,7 @@ public final class Refund {
 
         /**
          * <p>The reason for the refund being issued.</p>
+         * <p>The reason for the refund being issued.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -360,6 +396,7 @@ public final class Refund {
 
         /**
          * <p>The amount of money refunded to the buyer.</p>
+         * <p>The amount of money refunded to the buyer.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -370,6 +407,9 @@ public final class Refund {
         }
 
         /**
+         * <p>The current status of the refund (<code>PENDING</code>, <code>APPROVED</code>, <code>REJECTED</code>,
+         * or <code>FAILED</code>).
+         * See <a href="#type-refundstatus">RefundStatus</a> for possible values</p>
          * <p>The current status of the refund (<code>PENDING</code>, <code>APPROVED</code>, <code>REJECTED</code>,
          * or <code>FAILED</code>).
          * See <a href="#type-refundstatus">RefundStatus</a> for possible values</p>
@@ -410,6 +450,10 @@ public final class Refund {
             return this;
         }
 
+        /**
+         * <p>Additional recipients (other than the merchant) receiving a portion of this refund.
+         * For example, fees assessed on a refund of a purchase by a third party integration.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "additional_recipients", nulls = Nulls.SKIP)
         public _FinalStage additionalRecipients(Optional<List<AdditionalRecipient>> additionalRecipients) {
@@ -427,6 +471,9 @@ public final class Refund {
             return this;
         }
 
+        /**
+         * <p>The amount of Square processing fee money refunded to the <em>merchant</em>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "processing_fee_money", nulls = Nulls.SKIP)
         public _FinalStage processingFeeMoney(Optional<Money> processingFeeMoney) {
@@ -444,6 +491,9 @@ public final class Refund {
             return this;
         }
 
+        /**
+         * <p>The timestamp for when the refund was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -477,6 +527,9 @@ public final class Refund {
             return this;
         }
 
+        /**
+         * <p>The ID of the refunded tender.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tender_id", nulls = Nulls.SKIP)
         public _FinalStage tenderId(Optional<String> tenderId) {
@@ -510,6 +563,9 @@ public final class Refund {
             return this;
         }
 
+        /**
+         * <p>The ID of the transaction that the refunded tender is part of.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "transaction_id", nulls = Nulls.SKIP)
         public _FinalStage transactionId(Optional<String> transactionId) {

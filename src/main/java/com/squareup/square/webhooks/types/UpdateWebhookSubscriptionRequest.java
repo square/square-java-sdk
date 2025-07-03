@@ -83,6 +83,9 @@ public final class UpdateWebhookSubscriptionRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(UpdateWebhookSubscriptionRequest other);
@@ -91,6 +94,9 @@ public final class UpdateWebhookSubscriptionRequest {
     public interface _FinalStage {
         UpdateWebhookSubscriptionRequest build();
 
+        /**
+         * <p>The <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
+         */
         _FinalStage subscription(Optional<WebhookSubscription> subscription);
 
         _FinalStage subscription(WebhookSubscription subscription);
@@ -116,6 +122,7 @@ public final class UpdateWebhookSubscriptionRequest {
 
         /**
          * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
+         * <p>[REQUIRED] The ID of the <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +142,9 @@ public final class UpdateWebhookSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:WebhookSubscription">Subscription</a> to update.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public _FinalStage subscription(Optional<WebhookSubscription> subscription) {

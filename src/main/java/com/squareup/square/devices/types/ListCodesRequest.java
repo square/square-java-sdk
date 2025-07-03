@@ -175,6 +175,11 @@ public final class ListCodesRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this to retrieve the next set of results for your original query.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Paginating results</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -197,6 +202,10 @@ public final class ListCodesRequest {
             return this;
         }
 
+        /**
+         * <p>If specified, only returns DeviceCodes of the specified location.
+         * Returns DeviceCodes of all locations if empty.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -219,6 +228,10 @@ public final class ListCodesRequest {
             return this;
         }
 
+        /**
+         * <p>If specified, only returns DeviceCodes targeting the specified product type.
+         * Returns DeviceCodes of all product types if empty.</p>
+         */
         @JsonSetter(value = "product_type", nulls = Nulls.SKIP)
         public Builder productType(Optional<String> productType) {
             this.productType = productType;
@@ -241,6 +254,10 @@ public final class ListCodesRequest {
             return this;
         }
 
+        /**
+         * <p>If specified, returns DeviceCodes with the specified statuses.
+         * Returns DeviceCodes of status <code>PAIRED</code> and <code>UNPAIRED</code> if empty.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<DeviceCodeStatus> status) {
             this.status = status;

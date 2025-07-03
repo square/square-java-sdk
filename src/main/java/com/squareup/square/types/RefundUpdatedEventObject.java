@@ -80,6 +80,9 @@ public final class RefundUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated refund.</p>
+         */
         @JsonSetter(value = "refund", nulls = Nulls.SKIP)
         public Builder refund(Optional<PaymentRefund> refund) {
             this.refund = refund;

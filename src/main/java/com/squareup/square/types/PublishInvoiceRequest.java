@@ -109,18 +109,31 @@ public final class PublishInvoiceRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the invoice to publish.</p>
+         */
         VersionStage invoiceId(@NotNull String invoiceId);
 
         Builder from(PublishInvoiceRequest other);
     }
 
     public interface VersionStage {
+        /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to publish.
+         * This must match the current version of the invoice; otherwise, the request is rejected.</p>
+         */
         _FinalStage version(int version);
     }
 
     public interface _FinalStage {
         PublishInvoiceRequest build();
 
+        /**
+         * <p>A unique string that identifies the <code>PublishInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -151,6 +164,7 @@ public final class PublishInvoiceRequest {
 
         /**
          * <p>The ID of the invoice to publish.</p>
+         * <p>The ID of the invoice to publish.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -161,6 +175,8 @@ public final class PublishInvoiceRequest {
         }
 
         /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to publish.
+         * This must match the current version of the invoice; otherwise, the request is rejected.</p>
          * <p>The version of the <a href="entity:Invoice">invoice</a> to publish.
          * This must match the current version of the invoice; otherwise, the request is rejected.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -204,6 +220,12 @@ public final class PublishInvoiceRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies the <code>PublishInvoice</code> request. If you do not
+         * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
+         * treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

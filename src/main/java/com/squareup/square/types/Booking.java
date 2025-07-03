@@ -419,6 +419,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>A unique ID of this object representing a booking.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -430,6 +433,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The revision number for the booking used for optimistic concurrency.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -441,6 +447,10 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The status of the booking, describing where the booking stands with respect to the booking state machine.
+         * See <a href="#type-bookingstatus">BookingStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<BookingStatus> status) {
             this.status = status;
@@ -452,6 +462,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the creation time of this booking.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -463,6 +476,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the most recent update time of this booking.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -474,6 +490,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the starting time of this booking.</p>
+         */
         @JsonSetter(value = "start_at", nulls = Nulls.SKIP)
         public Builder startAt(Optional<String> startAt) {
             this.startAt = startAt;
@@ -496,6 +515,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Location">Location</a> object representing the location where the booked service is provided. Once set when the booking is created, its value cannot be changed.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -518,6 +540,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">Customer</a> object representing the customer receiving the booked service.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -540,6 +565,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The free-text field for the customer to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a relevant <a href="entity:CatalogObject">CatalogObject</a> instance.</p>
+         */
         @JsonSetter(value = "customer_note", nulls = Nulls.SKIP)
         public Builder customerNote(Optional<String> customerNote) {
             this.customerNote = customerNote;
@@ -562,6 +590,10 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The free-text field for the seller to supply notes about the booking. For example, the note can be preferences that cannot be expressed by supported attributes of a specific <a href="entity:CatalogObject">CatalogObject</a> instance.
+         * This field should not be visible to customers.</p>
+         */
         @JsonSetter(value = "seller_note", nulls = Nulls.SKIP)
         public Builder sellerNote(Optional<String> sellerNote) {
             this.sellerNote = sellerNote;
@@ -584,6 +616,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>A list of appointment segments for this booking.</p>
+         */
         @JsonSetter(value = "appointment_segments", nulls = Nulls.SKIP)
         public Builder appointmentSegments(Optional<List<AppointmentSegment>> appointmentSegments) {
             this.appointmentSegments = appointmentSegments;
@@ -606,6 +641,10 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>Additional time at the end of a booking.
+         * Applications should not make this field visible to customers of a seller.</p>
+         */
         @JsonSetter(value = "transition_time_minutes", nulls = Nulls.SKIP)
         public Builder transitionTimeMinutes(Optional<Integer> transitionTimeMinutes) {
             this.transitionTimeMinutes = transitionTimeMinutes;
@@ -617,6 +656,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>Whether the booking is of a full business day.</p>
+         */
         @JsonSetter(value = "all_day", nulls = Nulls.SKIP)
         public Builder allDay(Optional<Boolean> allDay) {
             this.allDay = allDay;
@@ -628,6 +670,10 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The type of location where the booking is held.
+         * See <a href="#type-businessappointmentsettingsbookinglocationtype">BusinessAppointmentSettingsBookingLocationType</a> for possible values</p>
+         */
         @JsonSetter(value = "location_type", nulls = Nulls.SKIP)
         public Builder locationType(Optional<BusinessAppointmentSettingsBookingLocationType> locationType) {
             this.locationType = locationType;
@@ -639,6 +685,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>Information about the booking creator.</p>
+         */
         @JsonSetter(value = "creator_details", nulls = Nulls.SKIP)
         public Builder creatorDetails(Optional<BookingCreatorDetails> creatorDetails) {
             this.creatorDetails = creatorDetails;
@@ -650,6 +699,11 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>The source of the booking.
+         * Access to this field requires seller-level permissions.
+         * See <a href="#type-bookingbookingsource">BookingBookingSource</a> for possible values</p>
+         */
         @JsonSetter(value = "source", nulls = Nulls.SKIP)
         public Builder source(Optional<BookingBookingSource> source) {
             this.source = source;
@@ -661,6 +715,9 @@ public final class Booking {
             return this;
         }
 
+        /**
+         * <p>Stores a customer address if the location type is <code>CUSTOMER_LOCATION</code>.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;

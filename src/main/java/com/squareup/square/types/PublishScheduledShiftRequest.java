@@ -115,22 +115,40 @@ public final class PublishScheduledShiftRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the scheduled shift to publish.</p>
+         */
         IdempotencyKeyStage id(@NotNull String id);
 
         Builder from(PublishScheduledShiftRequest other);
     }
 
     public interface IdempotencyKeyStage {
+        /**
+         * <p>A unique identifier for the <code>PublishScheduledShift</code> request, used to ensure the
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
+         * of the operation.</p>
+         */
         _FinalStage idempotencyKey(@NotNull String idempotencyKey);
     }
 
     public interface _FinalStage {
         PublishScheduledShiftRequest build();
 
+        /**
+         * <p>The current version of the scheduled shift, used to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control. If the provided version doesn't match the server version, the request fails.
+         * If omitted, Square executes a blind write, potentially overwriting data from another publish request.</p>
+         */
         _FinalStage version(Optional<Integer> version);
 
         _FinalStage version(Integer version);
 
+        /**
+         * <p>Indicates whether Square should send an email notification to team members and
+         * which team members should receive the notification. The default value is <code>AFFECTED</code>.
+         * See <a href="#type-scheduledshiftnotificationaudience">ScheduledShiftNotificationAudience</a> for possible values</p>
+         */
         _FinalStage scheduledShiftNotificationAudience(
                 Optional<ScheduledShiftNotificationAudience> scheduledShiftNotificationAudience);
 
@@ -164,6 +182,7 @@ public final class PublishScheduledShiftRequest {
 
         /**
          * <p>The ID of the scheduled shift to publish.</p>
+         * <p>The ID of the scheduled shift to publish.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -174,6 +193,9 @@ public final class PublishScheduledShiftRequest {
         }
 
         /**
+         * <p>A unique identifier for the <code>PublishScheduledShift</code> request, used to ensure the
+         * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
+         * of the operation.</p>
          * <p>A unique identifier for the <code>PublishScheduledShift</code> request, used to ensure the
          * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
          * of the operation.</p>
@@ -199,6 +221,11 @@ public final class PublishScheduledShiftRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether Square should send an email notification to team members and
+         * which team members should receive the notification. The default value is <code>AFFECTED</code>.
+         * See <a href="#type-scheduledshiftnotificationaudience">ScheduledShiftNotificationAudience</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "scheduled_shift_notification_audience", nulls = Nulls.SKIP)
         public _FinalStage scheduledShiftNotificationAudience(
@@ -219,6 +246,11 @@ public final class PublishScheduledShiftRequest {
             return this;
         }
 
+        /**
+         * <p>The current version of the scheduled shift, used to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
+         * control. If the provided version doesn't match the server version, the request fails.
+         * If omitted, Square executes a blind write, potentially overwriting data from another publish request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public _FinalStage version(Optional<Integer> version) {

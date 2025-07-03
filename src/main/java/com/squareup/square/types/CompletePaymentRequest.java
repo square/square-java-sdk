@@ -94,6 +94,9 @@ public final class CompletePaymentRequest {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>The unique ID identifying the payment to be completed.</p>
+         */
         _FinalStage paymentId(@NotNull String paymentId);
 
         Builder from(CompletePaymentRequest other);
@@ -102,6 +105,11 @@ public final class CompletePaymentRequest {
     public interface _FinalStage {
         CompletePaymentRequest build();
 
+        /**
+         * <p>Used for optimistic concurrency. This opaque token identifies the current <code>Payment</code>
+         * version that the caller expects. If the server has a different version of the Payment,
+         * the update fails and a response with a VERSION_MISMATCH error is returned.</p>
+         */
         _FinalStage versionToken(Optional<String> versionToken);
 
         _FinalStage versionToken(String versionToken);
@@ -128,6 +136,7 @@ public final class CompletePaymentRequest {
         }
 
         /**
+         * <p>The unique ID identifying the payment to be completed.</p>
          * <p>The unique ID identifying the payment to be completed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -168,6 +177,11 @@ public final class CompletePaymentRequest {
             return this;
         }
 
+        /**
+         * <p>Used for optimistic concurrency. This opaque token identifies the current <code>Payment</code>
+         * version that the caller expects. If the server has a different version of the Payment,
+         * the update fails and a response with a VERSION_MISMATCH error is returned.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "version_token", nulls = Nulls.SKIP)
         public _FinalStage versionToken(Optional<String> versionToken) {

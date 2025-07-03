@@ -108,6 +108,10 @@ public final class V1Money {
             return this;
         }
 
+        /**
+         * <p>Amount in the lowest denominated value of this Currency. E.g. in USD
+         * these are cents, in JPY they are Yen (which do not have a 'cent' concept).</p>
+         */
         @JsonSetter(value = "amount", nulls = Nulls.SKIP)
         public Builder amount(Optional<Integer> amount) {
             this.amount = amount;
@@ -130,6 +134,9 @@ public final class V1Money {
             return this;
         }
 
+        /**
+         * <p>See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         @JsonSetter(value = "currency_code", nulls = Nulls.SKIP)
         public Builder currencyCode(Optional<Currency> currencyCode) {
             this.currencyCode = currencyCode;

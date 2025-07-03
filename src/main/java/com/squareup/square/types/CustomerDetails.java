@@ -119,6 +119,9 @@ public final class CustomerDetails {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the customer initiated the payment.</p>
+         */
         @JsonSetter(value = "customer_initiated", nulls = Nulls.SKIP)
         public Builder customerInitiated(Optional<Boolean> customerInitiated) {
             this.customerInitiated = customerInitiated;
@@ -141,6 +144,10 @@ public final class CustomerDetails {
             return this;
         }
 
+        /**
+         * <p>Indicates that the seller keyed in payment details on behalf of the customer.
+         * This is used to flag a payment as Mail Order / Telephone Order (MOTO).</p>
+         */
         @JsonSetter(value = "seller_keyed_in", nulls = Nulls.SKIP)
         public Builder sellerKeyedIn(Optional<Boolean> sellerKeyedIn) {
             this.sellerKeyedIn = sellerKeyedIn;

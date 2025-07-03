@@ -109,6 +109,9 @@ public final class GiftCardActivityUnlinkedActivityRefund {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount added to the gift card for the refund. This value is a positive integer.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(GiftCardActivityUnlinkedActivityRefund other);
@@ -117,12 +120,18 @@ public final class GiftCardActivityUnlinkedActivityRefund {
     public interface _FinalStage {
         GiftCardActivityUnlinkedActivityRefund build();
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         */
         _FinalStage referenceId(Optional<String> referenceId);
 
         _FinalStage referenceId(String referenceId);
 
         _FinalStage referenceId(Nullable<String> referenceId);
 
+        /**
+         * <p>The ID of the refunded payment. This field is not used starting in Square version 2022-06-16.</p>
+         */
         _FinalStage paymentId(Optional<String> paymentId);
 
         _FinalStage paymentId(String paymentId);
@@ -151,6 +160,7 @@ public final class GiftCardActivityUnlinkedActivityRefund {
 
         /**
          * <p>The amount added to the gift card for the refund. This value is a positive integer.</p>
+         * <p>The amount added to the gift card for the refund. This value is a positive integer.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -170,6 +180,9 @@ public final class GiftCardActivityUnlinkedActivityRefund {
             return this;
         }
 
+        /**
+         * <p>The ID of the refunded payment. This field is not used starting in Square version 2022-06-16.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public _FinalStage paymentId(Optional<String> paymentId) {
@@ -203,6 +216,9 @@ public final class GiftCardActivityUnlinkedActivityRefund {
             return this;
         }
 
+        /**
+         * <p>A client-specified ID that associates the gift card activity with an entity in another system.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public _FinalStage referenceId(Optional<String> referenceId) {

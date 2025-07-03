@@ -323,6 +323,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The category name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -345,6 +348,10 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The IDs of images associated with this <code>CatalogCategory</code> instance.
+         * Currently these images are not displayed by Square, but are free to be displayed in 3rd party applications.</p>
+         */
         @JsonSetter(value = "image_ids", nulls = Nulls.SKIP)
         public Builder imageIds(Optional<List<String>> imageIds) {
             this.imageIds = imageIds;
@@ -367,6 +374,10 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The type of the category.
+         * See <a href="#type-catalogcategorytype">CatalogCategoryType</a> for possible values</p>
+         */
         @JsonSetter(value = "category_type", nulls = Nulls.SKIP)
         public Builder categoryType(Optional<CatalogCategoryType> categoryType) {
             this.categoryType = categoryType;
@@ -378,6 +389,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The ID of the parent category of this category instance.</p>
+         */
         @JsonSetter(value = "parent_category", nulls = Nulls.SKIP)
         public Builder parentCategory(Optional<CatalogObjectCategory> parentCategory) {
             this.parentCategory = parentCategory;
@@ -389,6 +403,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>Indicates whether a category is a top level category, which does not have any parent_category.</p>
+         */
         @JsonSetter(value = "is_top_level", nulls = Nulls.SKIP)
         public Builder isTopLevel(Optional<Boolean> isTopLevel) {
             this.isTopLevel = isTopLevel;
@@ -411,6 +428,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>A list of IDs representing channels, such as a Square Online site, where the category can be made visible.</p>
+         */
         @JsonSetter(value = "channels", nulls = Nulls.SKIP)
         public Builder channels(Optional<List<String>> channels) {
             this.channels = channels;
@@ -433,6 +453,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The IDs of the <code>CatalogAvailabilityPeriod</code> objects associated with the category.</p>
+         */
         @JsonSetter(value = "availability_period_ids", nulls = Nulls.SKIP)
         public Builder availabilityPeriodIds(Optional<List<String>> availabilityPeriodIds) {
             this.availabilityPeriodIds = availabilityPeriodIds;
@@ -455,6 +478,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the category is visible (<code>true</code>) or hidden (<code>false</code>) on all of the seller's Square Online sites.</p>
+         */
         @JsonSetter(value = "online_visibility", nulls = Nulls.SKIP)
         public Builder onlineVisibility(Optional<Boolean> onlineVisibility) {
             this.onlineVisibility = onlineVisibility;
@@ -477,6 +503,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The top-level category in a category hierarchy.</p>
+         */
         @JsonSetter(value = "root_category", nulls = Nulls.SKIP)
         public Builder rootCategory(Optional<String> rootCategory) {
             this.rootCategory = rootCategory;
@@ -488,6 +517,9 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The SEO data for a seller's Square Online store.</p>
+         */
         @JsonSetter(value = "ecom_seo_data", nulls = Nulls.SKIP)
         public Builder ecomSeoData(Optional<CatalogEcomSeoData> ecomSeoData) {
             this.ecomSeoData = ecomSeoData;
@@ -499,6 +531,10 @@ public final class CatalogCategory {
             return this;
         }
 
+        /**
+         * <p>The path from the category to its root category. The first node of the path is the parent of the category
+         * and the last is the root category. The path is empty if the category is a root category.</p>
+         */
         @JsonSetter(value = "path_to_root", nulls = Nulls.SKIP)
         public Builder pathToRoot(Optional<List<CategoryPathToRootNode>> pathToRoot) {
             this.pathToRoot = pathToRoot;

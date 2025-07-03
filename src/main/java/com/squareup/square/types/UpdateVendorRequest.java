@@ -96,6 +96,9 @@ public final class UpdateVendorRequest {
     }
 
     public interface VendorStage {
+        /**
+         * <p>The specified <a href="entity:Vendor">Vendor</a> to be updated.</p>
+         */
         _FinalStage vendor(@NotNull Vendor vendor);
 
         Builder from(UpdateVendorRequest other);
@@ -104,6 +107,13 @@ public final class UpdateVendorRequest {
     public interface _FinalStage {
         UpdateVendorRequest build();
 
+        /**
+         * <p>A client-supplied, universally unique identifier (UUID) for the
+         * request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -130,6 +140,7 @@ public final class UpdateVendorRequest {
         }
 
         /**
+         * <p>The specified <a href="entity:Vendor">Vendor</a> to be updated.</p>
          * <p>The specified <a href="entity:Vendor">Vendor</a> to be updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -174,6 +185,13 @@ public final class UpdateVendorRequest {
             return this;
         }
 
+        /**
+         * <p>A client-supplied, universally unique identifier (UUID) for the
+         * request.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a> in the
+         * <a href="https://developer.squareup.com/docs/buildbasics">API Development 101</a> section for more
+         * information.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

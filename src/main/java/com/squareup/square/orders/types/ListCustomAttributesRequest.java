@@ -169,6 +169,9 @@ public final class ListCustomAttributesRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(ListCustomAttributesRequest other);
@@ -177,24 +180,43 @@ public final class ListCustomAttributesRequest {
     public interface _FinalStage {
         ListCustomAttributesRequest build();
 
+        /**
+         * <p>Requests that all of the custom attributes be returned, or only those that are read-only or read-write.</p>
+         */
         _FinalStage visibilityFilter(Optional<VisibilityFilter> visibilityFilter);
 
         _FinalStage visibilityFilter(VisibilityFilter visibilityFilter);
 
         _FinalStage visibilityFilter(Nullable<VisibilityFilter> visibilityFilter);
 
+        /**
+         * <p>The cursor returned in the paged response from the previous call to this endpoint.
+         * Provide this cursor to retrieve the next page of results for your original request.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
 
         _FinalStage cursor(Nullable<String> cursor);
 
+        /**
+         * <p>The maximum number of results to return in a single paged response. This limit is advisory.
+         * The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+         * The default value is 20.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
 
         _FinalStage limit(Nullable<Integer> limit);
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of each
+         * custom attribute. Set this parameter to <code>true</code> to get the name and description of each custom attribute,
+         * information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         _FinalStage withDefinitions(Optional<Boolean> withDefinitions);
 
         _FinalStage withDefinitions(Boolean withDefinitions);
@@ -230,6 +252,7 @@ public final class ListCustomAttributesRequest {
         }
 
         /**
+         * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * <p>The ID of the target <a href="entity:Order">order</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -270,6 +293,11 @@ public final class ListCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of each
+         * custom attribute. Set this parameter to <code>true</code> to get the name and description of each custom attribute,
+         * information about the data type, or other definition details. The default value is <code>false</code>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "with_definitions", nulls = Nulls.SKIP)
         public _FinalStage withDefinitions(Optional<Boolean> withDefinitions) {
@@ -309,6 +337,12 @@ public final class ListCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single paged response. This limit is advisory.
+         * The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+         * The default value is 20.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -346,6 +380,11 @@ public final class ListCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>The cursor returned in the paged response from the previous call to this endpoint.
+         * Provide this cursor to retrieve the next page of results for your original request.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -379,6 +418,9 @@ public final class ListCustomAttributesRequest {
             return this;
         }
 
+        /**
+         * <p>Requests that all of the custom attributes be returned, or only those that are read-only or read-write.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "visibility_filter", nulls = Nulls.SKIP)
         public _FinalStage visibilityFilter(Optional<VisibilityFilter> visibilityFilter) {

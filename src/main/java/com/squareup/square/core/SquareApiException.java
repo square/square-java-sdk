@@ -3,14 +3,19 @@
  */
 package com.squareup.square.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.square.types.Error;
 import com.squareup.square.types.ErrorCategory;
 import com.squareup.square.types.ErrorCode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import okhttp3.Response;
 
 /**
  * This exception type will be thrown for any non-2XX API responses.
@@ -36,6 +41,8 @@ public class SquareApiException extends SquareException {
      */
     private final Object body;
 
+    private final Map<String, List<String>> headers = new HashMap<>();
+
     private final List<Error> errors;
 
     public SquareApiException(String message, int statusCode, Object body) {
@@ -43,6 +50,18 @@ public class SquareApiException extends SquareException {
         this.statusCode = statusCode;
         this.body = body;
         this.errors = parseErrors(body);
+    }
+
+    public SquareApiException(String message, int statusCode, Object body, Response rawResponse) {
+        super(message);
+        this.statusCode = statusCode;
+        this.body = body;
+        this.errors = parseErrors(body);
+        rawResponse.headers().forEach(header -> {
+            String key = header.component1();
+            String value = header.component2();
+            this.headers.computeIfAbsent(key, _str -> new ArrayList<>()).add(value);
+        });
     }
 
     /**
@@ -64,6 +83,13 @@ public class SquareApiException extends SquareException {
      */
     public List<Error> errors() {
         return this.errors;
+    }
+
+    /**
+     * @return the headers
+     */
+    public Map<String, List<String>> headers() {
+        return this.headers;
     }
 
     @java.lang.Override

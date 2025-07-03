@@ -166,34 +166,60 @@ public final class Break {
     }
 
     public interface StartAtStage {
+        /**
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
+         * the minute is respected; seconds are truncated.</p>
+         */
         BreakTypeIdStage startAt(@NotNull String startAt);
 
         Builder from(Break other);
     }
 
     public interface BreakTypeIdStage {
+        /**
+         * <p>The <a href="entity:BreakType">BreakType</a> that this break was templated on.</p>
+         */
         NameStage breakTypeId(@NotNull String breakTypeId);
     }
 
     public interface NameStage {
+        /**
+         * <p>A human-readable name.</p>
+         */
         ExpectedDurationStage name(@NotNull String name);
     }
 
     public interface ExpectedDurationStage {
+        /**
+         * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
+         * the break.</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
+         */
         IsPaidStage expectedDuration(@NotNull String expectedDuration);
     }
 
     public interface IsPaidStage {
+        /**
+         * <p>Whether this break counts towards time worked for compensation
+         * purposes.</p>
+         */
         _FinalStage isPaid(boolean isPaid);
     }
 
     public interface _FinalStage {
         Break build();
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
+         * the minute is respected; seconds are truncated.</p>
+         */
         _FinalStage endAt(Optional<String> endAt);
 
         _FinalStage endAt(String endAt);
@@ -238,6 +264,8 @@ public final class Break {
         /**
          * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
          * the minute is respected; seconds are truncated.</p>
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
+         * the minute is respected; seconds are truncated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -249,6 +277,7 @@ public final class Break {
 
         /**
          * <p>The <a href="entity:BreakType">BreakType</a> that this break was templated on.</p>
+         * <p>The <a href="entity:BreakType">BreakType</a> that this break was templated on.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -259,6 +288,7 @@ public final class Break {
         }
 
         /**
+         * <p>A human-readable name.</p>
          * <p>A human-readable name.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -273,6 +303,9 @@ public final class Break {
          * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
          * the break.</p>
          * <p>Example for break expected duration of 15 minutes: PT15M</p>
+         * <p>Format: RFC-3339 P[n]Y[n]M[n]DT[n]H[n]M[n]S. The expected length of
+         * the break.</p>
+         * <p>Example for break expected duration of 15 minutes: PT15M</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -283,6 +316,8 @@ public final class Break {
         }
 
         /**
+         * <p>Whether this break counts towards time worked for compensation
+         * purposes.</p>
          * <p>Whether this break counts towards time worked for compensation
          * purposes.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -322,6 +357,10 @@ public final class Break {
             return this;
         }
 
+        /**
+         * <p>RFC 3339; follows the same timezone information as the <a href="entity:Timecard">timecard</a>. Precision up to
+         * the minute is respected; seconds are truncated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public _FinalStage endAt(Optional<String> endAt) {
@@ -339,6 +378,9 @@ public final class Break {
             return this;
         }
 
+        /**
+         * <p>The UUID for this object.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

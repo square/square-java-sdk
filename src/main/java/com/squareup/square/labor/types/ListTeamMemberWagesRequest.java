@@ -144,6 +144,10 @@ public final class ListTeamMemberWagesRequest {
             return this;
         }
 
+        /**
+         * <p>Filter the returned wages to only those that are associated with the
+         * specified team member.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -166,6 +170,10 @@ public final class ListTeamMemberWagesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of <code>TeamMemberWage</code> results to return per page. The number can range between
+         * 1 and 200. The default is 200.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -188,6 +196,9 @@ public final class ListTeamMemberWagesRequest {
             return this;
         }
 
+        /**
+         * <p>A pointer to the next page of <code>EmployeeWage</code> results to fetch.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -80,6 +80,9 @@ public final class DeviceCodePairedEventObject {
             return this;
         }
 
+        /**
+         * <p>The created terminal checkout</p>
+         */
         @JsonSetter(value = "device_code", nulls = Nulls.SKIP)
         public Builder deviceCode(Optional<DeviceCode> deviceCode) {
             this.deviceCode = deviceCode;

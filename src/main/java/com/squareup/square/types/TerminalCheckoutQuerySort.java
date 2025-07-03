@@ -82,6 +82,11 @@ public final class TerminalCheckoutQuerySort {
             return this;
         }
 
+        /**
+         * <p>The order in which results are listed.
+         * Default: <code>DESC</code>
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;

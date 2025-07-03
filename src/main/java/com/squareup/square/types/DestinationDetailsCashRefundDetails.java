@@ -83,6 +83,9 @@ public final class DestinationDetailsCashRefundDetails {
     }
 
     public interface SellerSuppliedMoneyStage {
+        /**
+         * <p>The amount and currency of the money supplied by the seller.</p>
+         */
         _FinalStage sellerSuppliedMoney(@NotNull Money sellerSuppliedMoney);
 
         Builder from(DestinationDetailsCashRefundDetails other);
@@ -91,6 +94,11 @@ public final class DestinationDetailsCashRefundDetails {
     public interface _FinalStage {
         DestinationDetailsCashRefundDetails build();
 
+        /**
+         * <p>The amount of change due back to the seller.
+         * This read-only field is calculated
+         * from the <code>amount_money</code> and <code>seller_supplied_money</code> fields.</p>
+         */
         _FinalStage changeBackMoney(Optional<Money> changeBackMoney);
 
         _FinalStage changeBackMoney(Money changeBackMoney);
@@ -116,6 +124,7 @@ public final class DestinationDetailsCashRefundDetails {
 
         /**
          * <p>The amount and currency of the money supplied by the seller.</p>
+         * <p>The amount and currency of the money supplied by the seller.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -138,6 +147,11 @@ public final class DestinationDetailsCashRefundDetails {
             return this;
         }
 
+        /**
+         * <p>The amount of change due back to the seller.
+         * This read-only field is calculated
+         * from the <code>amount_money</code> and <code>seller_supplied_money</code> fields.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "change_back_money", nulls = Nulls.SKIP)
         public _FinalStage changeBackMoney(Optional<Money> changeBackMoney) {

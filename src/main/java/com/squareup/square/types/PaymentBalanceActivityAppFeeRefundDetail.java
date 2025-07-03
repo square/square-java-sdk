@@ -145,6 +145,9 @@ public final class PaymentBalanceActivityAppFeeRefundDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment associated with this activity.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -167,6 +170,9 @@ public final class PaymentBalanceActivityAppFeeRefundDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the refund associated with this activity.</p>
+         */
         @JsonSetter(value = "refund_id", nulls = Nulls.SKIP)
         public Builder refundId(Optional<String> refundId) {
             this.refundId = refundId;
@@ -189,6 +195,9 @@ public final class PaymentBalanceActivityAppFeeRefundDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the location of the merchant associated with the payment refund activity</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;

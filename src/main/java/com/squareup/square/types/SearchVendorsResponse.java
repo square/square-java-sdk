@@ -115,6 +115,9 @@ public final class SearchVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered when the request fails.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,9 @@ public final class SearchVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Vendor">Vendor</a> objects matching the specified search filter.</p>
+         */
         @JsonSetter(value = "vendors", nulls = Nulls.SKIP)
         public Builder vendors(Optional<List<Vendor>> vendors) {
             this.vendors = vendors;
@@ -137,6 +143,11 @@ public final class SearchVendorsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent request. If unset,
+         * this is the final response.</p>
+         * <p>See the <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a> guide for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -117,6 +117,10 @@ public final class BookingCreatorDetails {
             return this;
         }
 
+        /**
+         * <p>The seller-accessible type of the creator of the booking.
+         * See <a href="#type-bookingcreatordetailscreatortype">BookingCreatorDetailsCreatorType</a> for possible values</p>
+         */
         @JsonSetter(value = "creator_type", nulls = Nulls.SKIP)
         public Builder creatorType(Optional<BookingCreatorDetailsCreatorType> creatorType) {
             this.creatorType = creatorType;
@@ -128,6 +132,10 @@ public final class BookingCreatorDetails {
             return this;
         }
 
+        /**
+         * <p>The ID of the team member who created the booking, when the booking creator is of the <code>TEAM_MEMBER</code> type.
+         * Access to this field requires seller-level permissions.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -139,6 +147,10 @@ public final class BookingCreatorDetails {
             return this;
         }
 
+        /**
+         * <p>The ID of the customer who created the booking, when the booking creator is of the <code>CUSTOMER</code> type.
+         * Access to this field requires seller-level permissions.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;

@@ -136,6 +136,9 @@ public final class CashAppDetails {
             return this;
         }
 
+        /**
+         * <p>The name of the Cash App account holder.</p>
+         */
         @JsonSetter(value = "buyer_full_name", nulls = Nulls.SKIP)
         public Builder buyerFullName(Optional<String> buyerFullName) {
             this.buyerFullName = buyerFullName;
@@ -158,6 +161,10 @@ public final class CashAppDetails {
             return this;
         }
 
+        /**
+         * <p>The country of the Cash App account holder, in ISO 3166-1-alpha-2 format.</p>
+         * <p>For possible values, see <a href="entity:Country">Country</a>.</p>
+         */
         @JsonSetter(value = "buyer_country_code", nulls = Nulls.SKIP)
         public Builder buyerCountryCode(Optional<String> buyerCountryCode) {
             this.buyerCountryCode = buyerCountryCode;
@@ -180,6 +187,9 @@ public final class CashAppDetails {
             return this;
         }
 
+        /**
+         * <p>$Cashtag of the Cash App account holder.</p>
+         */
         @JsonSetter(value = "buyer_cashtag", nulls = Nulls.SKIP)
         public Builder buyerCashtag(Optional<String> buyerCashtag) {
             this.buyerCashtag = buyerCashtag;

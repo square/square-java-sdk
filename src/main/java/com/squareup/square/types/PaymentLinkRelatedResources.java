@@ -119,6 +119,9 @@ public final class PaymentLinkRelatedResources {
             return this;
         }
 
+        /**
+         * <p>The order associated with the payment link.</p>
+         */
         @JsonSetter(value = "orders", nulls = Nulls.SKIP)
         public Builder orders(Optional<List<Order>> orders) {
             this.orders = orders;
@@ -141,6 +144,9 @@ public final class PaymentLinkRelatedResources {
             return this;
         }
 
+        /**
+         * <p>The subscription plan associated with the payment link.</p>
+         */
         @JsonSetter(value = "subscription_plans", nulls = Nulls.SKIP)
         public Builder subscriptionPlans(Optional<List<CatalogObject>> subscriptionPlans) {
             this.subscriptionPlans = subscriptionPlans;

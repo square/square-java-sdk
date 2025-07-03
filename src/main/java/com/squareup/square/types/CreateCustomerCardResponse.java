@@ -96,6 +96,9 @@ public final class CreateCustomerCardResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class CreateCustomerCardResponse {
             return this;
         }
 
+        /**
+         * <p>The created card on file.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;

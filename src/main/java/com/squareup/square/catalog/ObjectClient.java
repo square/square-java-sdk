@@ -3,34 +3,30 @@
  */
 package com.squareup.square.catalog;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.catalog.types.DeleteObjectRequest;
 import com.squareup.square.catalog.types.GetObjectRequest;
 import com.squareup.square.catalog.types.UpsertCatalogObjectRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.types.DeleteCatalogObjectResponse;
 import com.squareup.square.types.GetCatalogObjectResponse;
 import com.squareup.square.types.UpsertCatalogObjectResponse;
-import java.io.IOException;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class ObjectClient {
     protected final ClientOptions clientOptions;
 
+    private final RawObjectClient rawClient;
+
     public ObjectClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawObjectClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawObjectClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -40,7 +36,7 @@ public class ObjectClient {
      * update requests are rejected with the <code>429</code> error code.</p>
      */
     public UpsertCatalogObjectResponse upsert(UpsertCatalogObjectRequest request) {
-        return upsert(request, null);
+        return this.rawClient.upsert(request).body();
     }
 
     /**
@@ -50,41 +46,7 @@ public class ObjectClient {
      * update requests are rejected with the <code>429</code> error code.</p>
      */
     public UpsertCatalogObjectResponse upsert(UpsertCatalogObjectRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/object")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpsertCatalogObjectResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.upsert(request, requestOptions).body();
     }
 
     /**
@@ -97,7 +59,7 @@ public class ObjectClient {
      * any <a href="entity:CatalogTax">CatalogTax</a> objects that apply to it.
      */
     public GetCatalogObjectResponse get(GetObjectRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -110,55 +72,7 @@ public class ObjectClient {
      * any <a href="entity:CatalogTax">CatalogTax</a> objects that apply to it.
      */
     public GetCatalogObjectResponse get(GetObjectRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/object")
-                .addPathSegment(request.getObjectId());
-        if (request.getIncludeRelatedObjects().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "include_related_objects",
-                    request.getIncludeRelatedObjects().get().toString(),
-                    false);
-        }
-        if (request.getCatalogVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "catalog_version",
-                    request.getCatalogVersion().get().toString(),
-                    false);
-        }
-        if (request.getIncludeCategoryPathToRoot().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "include_category_path_to_root",
-                    request.getIncludeCategoryPathToRoot().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetCatalogObjectResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -173,7 +87,7 @@ public class ObjectClient {
      * delete requests are rejected with the <code>429</code> error code.</p>
      */
     public DeleteCatalogObjectResponse delete(DeleteObjectRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).body();
     }
 
     /**
@@ -188,34 +102,6 @@ public class ObjectClient {
      * delete requests are rejected with the <code>429</code> error code.</p>
      */
     public DeleteCatalogObjectResponse delete(DeleteObjectRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/object")
-                .addPathSegment(request.getObjectId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DeleteCatalogObjectResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.delete(request, requestOptions).body();
     }
 }

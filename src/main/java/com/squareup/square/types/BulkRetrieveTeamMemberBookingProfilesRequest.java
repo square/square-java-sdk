@@ -83,6 +83,9 @@ public final class BulkRetrieveTeamMemberBookingProfilesRequest {
             return this;
         }
 
+        /**
+         * <p>A non-empty list of IDs of team members whose booking profiles you want to retrieve.</p>
+         */
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(List<String> teamMemberIds) {
             this.teamMemberIds.clear();

@@ -119,6 +119,9 @@ public final class DeleteCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -130,6 +133,12 @@ public final class DeleteCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>The IDs of all catalog objects deleted by this request.
+         * Multiple IDs may be returned when associated objects are also deleted, for example
+         * a catalog item variation will be deleted (and its ID included in this field)
+         * when its parent catalog item is deleted.</p>
+         */
         @JsonSetter(value = "deleted_object_ids", nulls = Nulls.SKIP)
         public Builder deletedObjectIds(Optional<List<String>> deletedObjectIds) {
             this.deletedObjectIds = deletedObjectIds;
@@ -141,6 +150,10 @@ public final class DeleteCatalogObjectResponse {
             return this;
         }
 
+        /**
+         * <p>The database <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * of this deletion in RFC 3339 format, e.g., <code>2016-09-04T23:59:33.123Z</code>.</p>
+         */
         @JsonSetter(value = "deleted_at", nulls = Nulls.SKIP)
         public Builder deletedAt(Optional<String> deletedAt) {
             this.deletedAt = deletedAt;

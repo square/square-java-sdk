@@ -79,12 +79,18 @@ public final class GiftCardActivityTransferBalanceFrom {
     }
 
     public interface TransferToGiftCardIdStage {
+        /**
+         * <p>The ID of the gift card to which the specified amount was transferred.</p>
+         */
         AmountMoneyStage transferToGiftCardId(@NotNull String transferToGiftCardId);
 
         Builder from(GiftCardActivityTransferBalanceFrom other);
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount deducted from the gift card for the transfer. This value is a positive integer.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
     }
 
@@ -112,6 +118,7 @@ public final class GiftCardActivityTransferBalanceFrom {
 
         /**
          * <p>The ID of the gift card to which the specified amount was transferred.</p>
+         * <p>The ID of the gift card to which the specified amount was transferred.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -123,6 +130,7 @@ public final class GiftCardActivityTransferBalanceFrom {
         }
 
         /**
+         * <p>The amount deducted from the gift card for the transfer. This value is a positive integer.</p>
          * <p>The amount deducted from the gift card for the transfer. This value is a positive integer.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

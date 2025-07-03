@@ -120,6 +120,9 @@ public final class ReceiptOptions {
     }
 
     public interface PaymentIdStage {
+        /**
+         * <p>The reference to the Square payment ID for the receipt.</p>
+         */
         _FinalStage paymentId(@NotNull String paymentId);
 
         Builder from(ReceiptOptions other);
@@ -128,12 +131,21 @@ public final class ReceiptOptions {
     public interface _FinalStage {
         ReceiptOptions build();
 
+        /**
+         * <p>Instructs the device to print the receipt without displaying the receipt selection screen.
+         * Requires <code>printer_enabled</code> set to true.
+         * Defaults to false.</p>
+         */
         _FinalStage printOnly(Optional<Boolean> printOnly);
 
         _FinalStage printOnly(Boolean printOnly);
 
         _FinalStage printOnly(Nullable<Boolean> printOnly);
 
+        /**
+         * <p>Identify the receipt as a reprint rather than an original receipt.
+         * Defaults to false.</p>
+         */
         _FinalStage isDuplicate(Optional<Boolean> isDuplicate);
 
         _FinalStage isDuplicate(Boolean isDuplicate);
@@ -163,6 +175,7 @@ public final class ReceiptOptions {
         }
 
         /**
+         * <p>The reference to the Square payment ID for the receipt.</p>
          * <p>The reference to the Square payment ID for the receipt.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -201,6 +214,10 @@ public final class ReceiptOptions {
             return this;
         }
 
+        /**
+         * <p>Identify the receipt as a reprint rather than an original receipt.
+         * Defaults to false.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "is_duplicate", nulls = Nulls.SKIP)
         public _FinalStage isDuplicate(Optional<Boolean> isDuplicate) {
@@ -238,6 +255,11 @@ public final class ReceiptOptions {
             return this;
         }
 
+        /**
+         * <p>Instructs the device to print the receipt without displaying the receipt selection screen.
+         * Requires <code>printer_enabled</code> set to true.
+         * Defaults to false.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "print_only", nulls = Nulls.SKIP)
         public _FinalStage printOnly(Optional<Boolean> printOnly) {

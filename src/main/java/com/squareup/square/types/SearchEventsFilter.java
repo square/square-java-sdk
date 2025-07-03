@@ -161,6 +161,9 @@ public final class SearchEventsFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by event types.</p>
+         */
         @JsonSetter(value = "event_types", nulls = Nulls.SKIP)
         public Builder eventTypes(Optional<List<String>> eventTypes) {
             this.eventTypes = eventTypes;
@@ -183,6 +186,9 @@ public final class SearchEventsFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by merchant.</p>
+         */
         @JsonSetter(value = "merchant_ids", nulls = Nulls.SKIP)
         public Builder merchantIds(Optional<List<String>> merchantIds) {
             this.merchantIds = merchantIds;
@@ -205,6 +211,9 @@ public final class SearchEventsFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by location.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -227,6 +236,9 @@ public final class SearchEventsFilter {
             return this;
         }
 
+        /**
+         * <p>Filter events by when they were created.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;

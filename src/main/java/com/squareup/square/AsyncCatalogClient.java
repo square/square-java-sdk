@@ -3,16 +3,10 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.catalog.AsyncImagesClient;
 import com.squareup.square.catalog.AsyncObjectClient;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchDeleteCatalogObjectsRequest;
@@ -24,7 +18,6 @@ import com.squareup.square.types.BatchUpsertCatalogObjectsResponse;
 import com.squareup.square.types.CatalogInfoResponse;
 import com.squareup.square.types.CatalogObject;
 import com.squareup.square.types.ListCatalogRequest;
-import com.squareup.square.types.ListCatalogResponse;
 import com.squareup.square.types.SearchCatalogItemsRequest;
 import com.squareup.square.types.SearchCatalogItemsResponse;
 import com.squareup.square.types.SearchCatalogObjectsRequest;
@@ -33,26 +26,13 @@ import com.squareup.square.types.UpdateItemModifierListsRequest;
 import com.squareup.square.types.UpdateItemModifierListsResponse;
 import com.squareup.square.types.UpdateItemTaxesRequest;
 import com.squareup.square.types.UpdateItemTaxesResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncCatalogClient {
     protected final ClientOptions clientOptions;
+
+    private final AsyncRawCatalogClient rawClient;
 
     protected final Supplier<AsyncImagesClient> imagesClient;
 
@@ -60,8 +40,16 @@ public class AsyncCatalogClient {
 
     public AsyncCatalogClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawCatalogClient(clientOptions);
         this.imagesClient = Suppliers.memoize(() -> new AsyncImagesClient(clientOptions));
         this.objectClient = Suppliers.memoize(() -> new AsyncObjectClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawCatalogClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -79,7 +67,7 @@ public class AsyncCatalogClient {
      * delete requests are rejected with the <code>429</code> error code.</p>
      */
     public CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDelete(BatchDeleteCatalogObjectsRequest request) {
-        return batchDelete(request, null);
+        return this.rawClient.batchDelete(request).thenApply(response -> response.body());
     }
 
     /**
@@ -98,55 +86,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<BatchDeleteCatalogObjectsResponse> batchDelete(
             BatchDeleteCatalogObjectsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/batch-delete")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchDeleteCatalogObjectsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchDeleteCatalogObjectsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchDelete(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -158,7 +98,7 @@ public class AsyncCatalogClient {
      * any <a href="entity:CatalogTax">CatalogTax</a> objects that apply to it.
      */
     public CompletableFuture<BatchGetCatalogObjectsResponse> batchGet(BatchGetCatalogObjectsRequest request) {
-        return batchGet(request, null);
+        return this.rawClient.batchGet(request).thenApply(response -> response.body());
     }
 
     /**
@@ -171,55 +111,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<BatchGetCatalogObjectsResponse> batchGet(
             BatchGetCatalogObjectsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/batch-retrieve")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchGetCatalogObjectsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchGetCatalogObjectsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchGet(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -237,7 +129,7 @@ public class AsyncCatalogClient {
      * update requests are rejected with the <code>429</code> error code.</p>
      */
     public CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsert(BatchUpsertCatalogObjectsRequest request) {
-        return batchUpsert(request, null);
+        return this.rawClient.batchUpsert(request).thenApply(response -> response.body());
     }
 
     /**
@@ -256,55 +148,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsert(
             BatchUpsertCatalogObjectsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/batch-upsert")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<BatchUpsertCatalogObjectsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), BatchUpsertCatalogObjectsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.batchUpsert(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -312,7 +156,7 @@ public class AsyncCatalogClient {
      * limits that can be used by the <code>BatchUpsertCatalogObjects</code> endpoint.
      */
     public CompletableFuture<CatalogInfoResponse> info() {
-        return info(null);
+        return this.rawClient.info().thenApply(response -> response.body());
     }
 
     /**
@@ -320,48 +164,7 @@ public class AsyncCatalogClient {
      * limits that can be used by the <code>BatchUpsertCatalogObjects</code> endpoint.
      */
     public CompletableFuture<CatalogInfoResponse> info(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/info")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CatalogInfoResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CatalogInfoResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.info(requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -373,7 +176,7 @@ public class AsyncCatalogClient {
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<CatalogObject>> list() {
-        return list(ListCatalogRequest.builder().build());
+        return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
@@ -385,7 +188,7 @@ public class AsyncCatalogClient {
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
      */
     public CompletableFuture<SyncPagingIterable<CatalogObject>> list(ListCatalogRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
@@ -398,75 +201,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<SyncPagingIterable<CatalogObject>> list(
             ListCatalogRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/list");
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getTypes().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "types", request.getTypes().get(), false);
-        }
-        if (request.getCatalogVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl,
-                    "catalog_version",
-                    request.getCatalogVersion().get().toString(),
-                    false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<CatalogObject>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        ListCatalogResponse parsedResponse =
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListCatalogResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ListCatalogRequest nextRequest = ListCatalogRequest.builder()
-                                .from(request)
-                                .cursor(startingAfter)
-                                .build();
-                        List<CatalogObject> result = parsedResponse.getObjects().orElse(Collections.emptyList());
-                        future.complete(new SyncPagingIterable<CatalogObject>(startingAfter.isPresent(), result, () -> {
-                            try {
-                                return list(nextRequest, requestOptions).get();
-                            } catch (InterruptedException | ExecutionException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -482,7 +217,7 @@ public class AsyncCatalogClient {
      * </ul>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search() {
-        return search(SearchCatalogObjectsRequest.builder().build());
+        return this.rawClient.search().thenApply(response -> response.body());
     }
 
     /**
@@ -498,7 +233,7 @@ public class AsyncCatalogClient {
      * </ul>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search(SearchCatalogObjectsRequest request) {
-        return search(request, null);
+        return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
     /**
@@ -515,55 +250,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search(
             SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SearchCatalogObjectsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), SearchCatalogObjectsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -579,7 +266,7 @@ public class AsyncCatalogClient {
      * </ul>
      */
     public CompletableFuture<SearchCatalogItemsResponse> searchItems() {
-        return searchItems(SearchCatalogItemsRequest.builder().build());
+        return this.rawClient.searchItems().thenApply(response -> response.body());
     }
 
     /**
@@ -595,7 +282,7 @@ public class AsyncCatalogClient {
      * </ul>
      */
     public CompletableFuture<SearchCatalogItemsResponse> searchItems(SearchCatalogItemsRequest request) {
-        return searchItems(request, null);
+        return this.rawClient.searchItems(request).thenApply(response -> response.body());
     }
 
     /**
@@ -612,55 +299,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<SearchCatalogItemsResponse> searchItems(
             SearchCatalogItemsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/search-catalog-items")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SearchCatalogItemsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), SearchCatalogItemsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.searchItems(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -670,7 +309,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<UpdateItemModifierListsResponse> updateItemModifierLists(
             UpdateItemModifierListsRequest request) {
-        return updateItemModifierLists(request, null);
+        return this.rawClient.updateItemModifierLists(request).thenApply(response -> response.body());
     }
 
     /**
@@ -680,55 +319,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<UpdateItemModifierListsResponse> updateItemModifierLists(
             UpdateItemModifierListsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/update-item-modifier-lists")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpdateItemModifierListsResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpdateItemModifierListsResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.updateItemModifierLists(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -737,7 +328,7 @@ public class AsyncCatalogClient {
      * upsert on the entire item.
      */
     public CompletableFuture<UpdateItemTaxesResponse> updateItemTaxes(UpdateItemTaxesRequest request) {
-        return updateItemTaxes(request, null);
+        return this.rawClient.updateItemTaxes(request).thenApply(response -> response.body());
     }
 
     /**
@@ -747,55 +338,7 @@ public class AsyncCatalogClient {
      */
     public CompletableFuture<UpdateItemTaxesResponse> updateItemTaxes(
             UpdateItemTaxesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/update-item-taxes")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpdateItemTaxesResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpdateItemTaxesResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.updateItemTaxes(request, requestOptions).thenApply(response -> response.body());
     }
 
     public AsyncImagesClient images() {

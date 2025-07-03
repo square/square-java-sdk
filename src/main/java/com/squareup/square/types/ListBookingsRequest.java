@@ -251,6 +251,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results per page to return in a paged response.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -273,6 +276,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -295,6 +301,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Customer">customer</a> for whom to retrieve bookings. If this is not set, bookings for all customers are retrieved.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -317,6 +326,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The team member for whom to retrieve bookings. If this is not set, bookings of all members are retrieved.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -339,6 +351,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The location for which to retrieve bookings. If this is not set, all locations' bookings are retrieved.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -361,6 +376,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the earliest of the start time. If this is not set, the current time is used.</p>
+         */
         @JsonSetter(value = "start_at_min", nulls = Nulls.SKIP)
         public Builder startAtMin(Optional<String> startAtMin) {
             this.startAtMin = startAtMin;
@@ -383,6 +401,9 @@ public final class ListBookingsRequest {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the latest of the start time. If this is not set, the time of 31 days after <code>start_at_min</code> is used.</p>
+         */
         @JsonSetter(value = "start_at_max", nulls = Nulls.SKIP)
         public Builder startAtMax(Optional<String> startAtMax) {
             this.startAtMax = startAtMax;

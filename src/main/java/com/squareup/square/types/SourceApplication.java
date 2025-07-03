@@ -136,6 +136,10 @@ public final class SourceApplication {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The <a href="entity:Product">product</a> type of the application.
+         * See <a href="#type-product">Product</a> for possible values</p>
+         */
         @JsonSetter(value = "product", nulls = Nulls.SKIP)
         public Builder product(Optional<Product> product) {
             this.product = product;
@@ -147,6 +151,10 @@ public final class SourceApplication {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The Square-assigned ID of the application. This field is used only if the
+         * <a href="entity:Product">product</a> type is <code>EXTERNAL_API</code>.</p>
+         */
         @JsonSetter(value = "application_id", nulls = Nulls.SKIP)
         public Builder applicationId(Optional<String> applicationId) {
             this.applicationId = applicationId;
@@ -169,6 +177,10 @@ public final class SourceApplication {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The display name of the application
+         * (for example, <code>&quot;Custom Application&quot;</code> or <code>&quot;Square POS 4.74 for Android&quot;</code>).</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;

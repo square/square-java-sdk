@@ -82,6 +82,9 @@ public final class DeviceComponentDetailsCardReaderDetails {
             return this;
         }
 
+        /**
+         * <p>The version of the card reader.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<String> version) {
             this.version = version;

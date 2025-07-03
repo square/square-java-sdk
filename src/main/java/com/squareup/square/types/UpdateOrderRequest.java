@@ -140,6 +140,9 @@ public final class UpdateOrderRequest {
     }
 
     public interface OrderIdStage {
+        /**
+         * <p>The ID of the order to update.</p>
+         */
         _FinalStage orderId(@NotNull String orderId);
 
         Builder from(UpdateOrderRequest other);
@@ -148,16 +151,34 @@ public final class UpdateOrderRequest {
     public interface _FinalStage {
         UpdateOrderRequest build();
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#sparse-order-objects">sparse order</a>
+         * containing only the fields to update and the version to which the update is
+         * being applied.</p>
+         */
         _FinalStage order(Optional<Order> order);
 
         _FinalStage order(Order order);
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#identifying-fields-to-delete">dot notation paths</a>
+         * fields to clear. For example, <code>line_items[uid].note</code>.
+         * For more information, see <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#deleting-fields">Deleting fields</a>.</p>
+         */
         _FinalStage fieldsToClear(Optional<List<String>> fieldsToClear);
 
         _FinalStage fieldsToClear(List<String> fieldsToClear);
 
         _FinalStage fieldsToClear(Nullable<List<String>> fieldsToClear);
 
+        /**
+         * <p>A value you specify that uniquely identifies this update request.</p>
+         * <p>If you are unsure whether a particular update was applied to an order successfully,
+         * you can reattempt it with the same idempotency key without
+         * worrying about creating duplicate updates to the order.
+         * The latest order version is returned.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -190,6 +211,7 @@ public final class UpdateOrderRequest {
         }
 
         /**
+         * <p>The ID of the order to update.</p>
          * <p>The ID of the order to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -236,6 +258,14 @@ public final class UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>A value you specify that uniquely identifies this update request.</p>
+         * <p>If you are unsure whether a particular update was applied to an order successfully,
+         * you can reattempt it with the same idempotency key without
+         * worrying about creating duplicate updates to the order.
+         * The latest order version is returned.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {
@@ -273,6 +303,11 @@ public final class UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#identifying-fields-to-delete">dot notation paths</a>
+         * fields to clear. For example, <code>line_items[uid].note</code>.
+         * For more information, see <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#deleting-fields">Deleting fields</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "fields_to_clear", nulls = Nulls.SKIP)
         public _FinalStage fieldsToClear(Optional<List<String>> fieldsToClear) {
@@ -292,6 +327,11 @@ public final class UpdateOrderRequest {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#sparse-order-objects">sparse order</a>
+         * containing only the fields to update and the version to which the update is
+         * being applied.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public _FinalStage order(Optional<Order> order) {

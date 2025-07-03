@@ -81,6 +81,9 @@ public final class SubscriptionUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated subscription.</p>
+         */
         @JsonSetter(value = "subscription", nulls = Nulls.SKIP)
         public Builder subscription(Optional<Subscription> subscription) {
             this.subscription = subscription;

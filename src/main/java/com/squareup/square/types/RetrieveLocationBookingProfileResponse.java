@@ -99,6 +99,9 @@ public final class RetrieveLocationBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>The requested location booking profile.</p>
+         */
         @JsonSetter(value = "location_booking_profile", nulls = Nulls.SKIP)
         public Builder locationBookingProfile(Optional<LocationBookingProfile> locationBookingProfile) {
             this.locationBookingProfile = locationBookingProfile;
@@ -110,6 +113,9 @@ public final class RetrieveLocationBookingProfileResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

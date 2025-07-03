@@ -67,6 +67,10 @@ public final class GiftCardActivityImportReversal {
     }
 
     public interface AmountMoneyStage {
+        /**
+         * <p>The amount of money cleared from the third-party gift card when
+         * the import was reversed.</p>
+         */
         _FinalStage amountMoney(@NotNull Money amountMoney);
 
         Builder from(GiftCardActivityImportReversal other);
@@ -92,6 +96,8 @@ public final class GiftCardActivityImportReversal {
         }
 
         /**
+         * <p>The amount of money cleared from the third-party gift card when
+         * the import was reversed.</p>
          * <p>The amount of money cleared from the third-party gift card when
          * the import was reversed.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

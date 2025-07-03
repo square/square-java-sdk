@@ -80,6 +80,9 @@ public final class DeviceStatus {
             return this;
         }
 
+        /**
+         * <p>See <a href="#type-category">Category</a> for possible values</p>
+         */
         @JsonSetter(value = "category", nulls = Nulls.SKIP)
         public Builder category(Optional<DeviceStatusCategory> category) {
             this.category = category;

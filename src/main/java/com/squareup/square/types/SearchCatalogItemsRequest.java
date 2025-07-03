@@ -243,6 +243,11 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The text filter expression to return items or item variations containing specified text in
+         * the <code>name</code>, <code>description</code>, or <code>abbreviation</code> attribute value of an item, or in
+         * the <code>name</code>, <code>sku</code>, or <code>upc</code> attribute value of an item variation.</p>
+         */
         @JsonSetter(value = "text_filter", nulls = Nulls.SKIP)
         public Builder textFilter(Optional<String> textFilter) {
             this.textFilter = textFilter;
@@ -254,6 +259,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The category id query expression to return items containing the specified category IDs.</p>
+         */
         @JsonSetter(value = "category_ids", nulls = Nulls.SKIP)
         public Builder categoryIds(Optional<List<String>> categoryIds) {
             this.categoryIds = categoryIds;
@@ -265,6 +273,10 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The stock-level query expression to return item variations with the specified stock levels.
+         * See <a href="#type-searchcatalogitemsrequeststocklevel">SearchCatalogItemsRequestStockLevel</a> for possible values</p>
+         */
         @JsonSetter(value = "stock_levels", nulls = Nulls.SKIP)
         public Builder stockLevels(Optional<List<SearchCatalogItemsRequestStockLevel>> stockLevels) {
             this.stockLevels = stockLevels;
@@ -276,6 +288,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The enabled-location query expression to return items and item variations having specified enabled locations.</p>
+         */
         @JsonSetter(value = "enabled_location_ids", nulls = Nulls.SKIP)
         public Builder enabledLocationIds(Optional<List<String>> enabledLocationIds) {
             this.enabledLocationIds = enabledLocationIds;
@@ -287,6 +302,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination token, returned in the previous response, used to fetch the next batch of pending results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -298,6 +316,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return per page. The default value is 100.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -309,6 +330,10 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The order to sort the results by item names. The default sort order is ascending (<code>ASC</code>).
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public Builder sortOrder(Optional<SortOrder> sortOrder) {
             this.sortOrder = sortOrder;
@@ -320,6 +345,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The product types query expression to return items or item variations having the specified product types.</p>
+         */
         @JsonSetter(value = "product_types", nulls = Nulls.SKIP)
         public Builder productTypes(Optional<List<CatalogItemProductType>> productTypes) {
             this.productTypes = productTypes;
@@ -331,6 +359,11 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The customer-attribute filter to return items or item variations matching the specified
+         * custom attribute expressions. A maximum number of 10 custom attribute expressions are supported in
+         * a single call to the <a href="api-endpoint:Catalog-SearchCatalogItems">SearchCatalogItems</a> endpoint.</p>
+         */
         @JsonSetter(value = "custom_attribute_filters", nulls = Nulls.SKIP)
         public Builder customAttributeFilters(Optional<List<CustomAttributeFilter>> customAttributeFilters) {
             this.customAttributeFilters = customAttributeFilters;
@@ -342,6 +375,9 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>The query filter to return not archived (<code>ARCHIVED_STATE_NOT_ARCHIVED</code>), archived (<code>ARCHIVED_STATE_ARCHIVED</code>), or either type (<code>ARCHIVED_STATE_ALL</code>) of items.</p>
+         */
         @JsonSetter(value = "archived_state", nulls = Nulls.SKIP)
         public Builder archivedState(Optional<ArchivedState> archivedState) {
             this.archivedState = archivedState;

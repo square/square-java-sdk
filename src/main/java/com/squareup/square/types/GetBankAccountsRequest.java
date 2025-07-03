@@ -66,6 +66,9 @@ public final class GetBankAccountsRequest {
     }
 
     public interface BankAccountIdStage {
+        /**
+         * <p>Square-issued ID of the desired <code>BankAccount</code>.</p>
+         */
         _FinalStage bankAccountId(@NotNull String bankAccountId);
 
         Builder from(GetBankAccountsRequest other);
@@ -91,6 +94,7 @@ public final class GetBankAccountsRequest {
         }
 
         /**
+         * <p>Square-issued ID of the desired <code>BankAccount</code>.</p>
          * <p>Square-issued ID of the desired <code>BankAccount</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -96,6 +96,9 @@ public final class GetDisputeResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetDisputeResponse {
             return this;
         }
 
+        /**
+         * <p>Details about the requested <code>Dispute</code>.</p>
+         */
         @JsonSetter(value = "dispute", nulls = Nulls.SKIP)
         public Builder dispute(Optional<Dispute> dispute) {
             this.dispute = dispute;

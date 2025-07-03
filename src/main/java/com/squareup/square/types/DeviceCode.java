@@ -233,6 +233,9 @@ public final class DeviceCode {
     }
 
     public interface ProductTypeStage {
+        /**
+         * <p>The targeting product type of the device code.</p>
+         */
         _FinalStage productType(@NotNull String productType);
 
         Builder from(DeviceCode other);
@@ -241,46 +244,77 @@ public final class DeviceCode {
     public interface _FinalStage {
         DeviceCode build();
 
+        /**
+         * <p>The unique id for this device code.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>An optional user-defined name for the device code.</p>
+         */
         _FinalStage name(Optional<String> name);
 
         _FinalStage name(String name);
 
         _FinalStage name(Nullable<String> name);
 
+        /**
+         * <p>The unique code that can be used to login.</p>
+         */
         _FinalStage code(Optional<String> code);
 
         _FinalStage code(String code);
 
+        /**
+         * <p>The unique id of the device that used this code. Populated when the device is paired up.</p>
+         */
         _FinalStage deviceId(Optional<String> deviceId);
 
         _FinalStage deviceId(String deviceId);
 
+        /**
+         * <p>The location assigned to this code.</p>
+         */
         _FinalStage locationId(Optional<String> locationId);
 
         _FinalStage locationId(String locationId);
 
         _FinalStage locationId(Nullable<String> locationId);
 
+        /**
+         * <p>The pairing status of the device code.
+         * See <a href="#type-devicecodestatus">DeviceCodeStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<DeviceCodeStatus> status);
 
         _FinalStage status(DeviceCodeStatus status);
 
+        /**
+         * <p>When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format.</p>
+         */
         _FinalStage pairBy(Optional<String> pairBy);
 
         _FinalStage pairBy(String pairBy);
 
+        /**
+         * <p>When this DeviceCode was created. Timestamp in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>When this DeviceCode's status was last changed. Timestamp in RFC 3339 format.</p>
+         */
         _FinalStage statusChangedAt(Optional<String> statusChangedAt);
 
         _FinalStage statusChangedAt(String statusChangedAt);
 
+        /**
+         * <p>When this DeviceCode was paired. Timestamp in RFC 3339 format.</p>
+         */
         _FinalStage pairedAt(Optional<String> pairedAt);
 
         _FinalStage pairedAt(String pairedAt);
@@ -333,6 +367,7 @@ public final class DeviceCode {
 
         /**
          * <p>The targeting product type of the device code.</p>
+         * <p>The targeting product type of the device code.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -352,6 +387,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>When this DeviceCode was paired. Timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "paired_at", nulls = Nulls.SKIP)
         public _FinalStage pairedAt(Optional<String> pairedAt) {
@@ -369,6 +407,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>When this DeviceCode's status was last changed. Timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status_changed_at", nulls = Nulls.SKIP)
         public _FinalStage statusChangedAt(Optional<String> statusChangedAt) {
@@ -386,6 +427,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>When this DeviceCode was created. Timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -403,6 +447,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>When this DeviceCode will expire and no longer login. Timestamp in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "pair_by", nulls = Nulls.SKIP)
         public _FinalStage pairBy(Optional<String> pairBy) {
@@ -421,6 +468,10 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>The pairing status of the device code.
+         * See <a href="#type-devicecodestatus">DeviceCodeStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<DeviceCodeStatus> status) {
@@ -454,6 +505,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>The location assigned to this code.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public _FinalStage locationId(Optional<String> locationId) {
@@ -471,6 +525,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>The unique id of the device that used this code. Populated when the device is paired up.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public _FinalStage deviceId(Optional<String> deviceId) {
@@ -488,6 +545,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>The unique code that can be used to login.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "code", nulls = Nulls.SKIP)
         public _FinalStage code(Optional<String> code) {
@@ -521,6 +581,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>An optional user-defined name for the device code.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public _FinalStage name(Optional<String> name) {
@@ -538,6 +601,9 @@ public final class DeviceCode {
             return this;
         }
 
+        /**
+         * <p>The unique id for this device code.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

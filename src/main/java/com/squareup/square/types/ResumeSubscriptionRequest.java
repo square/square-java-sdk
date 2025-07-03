@@ -110,6 +110,9 @@ public final class ResumeSubscriptionRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to resume.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(ResumeSubscriptionRequest other);
@@ -118,12 +121,20 @@ public final class ResumeSubscriptionRequest {
     public interface _FinalStage {
         ResumeSubscriptionRequest build();
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the subscription reactivated.</p>
+         */
         _FinalStage resumeEffectiveDate(Optional<String> resumeEffectiveDate);
 
         _FinalStage resumeEffectiveDate(String resumeEffectiveDate);
 
         _FinalStage resumeEffectiveDate(Nullable<String> resumeEffectiveDate);
 
+        /**
+         * <p>The timing to resume a subscription, relative to the specified
+         * <code>resume_effective_date</code> attribute value.
+         * See <a href="#type-changetiming">ChangeTiming</a> for possible values</p>
+         */
         _FinalStage resumeChangeTiming(Optional<ChangeTiming> resumeChangeTiming);
 
         _FinalStage resumeChangeTiming(ChangeTiming resumeChangeTiming);
@@ -152,6 +163,7 @@ public final class ResumeSubscriptionRequest {
 
         /**
          * <p>The ID of the subscription to resume.</p>
+         * <p>The ID of the subscription to resume.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,6 +185,11 @@ public final class ResumeSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The timing to resume a subscription, relative to the specified
+         * <code>resume_effective_date</code> attribute value.
+         * See <a href="#type-changetiming">ChangeTiming</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "resume_change_timing", nulls = Nulls.SKIP)
         public _FinalStage resumeChangeTiming(Optional<ChangeTiming> resumeChangeTiming) {
@@ -206,6 +223,9 @@ public final class ResumeSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the subscription reactivated.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "resume_effective_date", nulls = Nulls.SKIP)
         public _FinalStage resumeEffectiveDate(Optional<String> resumeEffectiveDate) {

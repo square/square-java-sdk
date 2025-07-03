@@ -98,6 +98,9 @@ public final class CustomerAddressFilter {
             return this;
         }
 
+        /**
+         * <p>The postal code to search for. Only an <code>exact</code> match is supported.</p>
+         */
         @JsonSetter(value = "postal_code", nulls = Nulls.SKIP)
         public Builder postalCode(Optional<CustomerTextFilter> postalCode) {
             this.postalCode = postalCode;
@@ -109,6 +112,10 @@ public final class CustomerAddressFilter {
             return this;
         }
 
+        /**
+         * <p>The country code to search for.
+         * See <a href="#type-country">Country</a> for possible values</p>
+         */
         @JsonSetter(value = "country", nulls = Nulls.SKIP)
         public Builder country(Optional<Country> country) {
             this.country = country;

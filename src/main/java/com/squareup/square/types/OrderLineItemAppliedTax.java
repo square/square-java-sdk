@@ -109,6 +109,12 @@ public final class OrderLineItemAppliedTax {
     }
 
     public interface TaxUidStage {
+        /**
+         * <p>The <code>uid</code> of the tax for which this applied tax represents. It must reference
+         * a tax present in the <code>order.taxes</code> field.</p>
+         * <p>This field is immutable. To change which taxes apply to a line item, delete and add a new
+         * <code>OrderLineItemAppliedTax</code>.</p>
+         */
         _FinalStage taxUid(@NotNull String taxUid);
 
         Builder from(OrderLineItemAppliedTax other);
@@ -117,12 +123,18 @@ public final class OrderLineItemAppliedTax {
     public interface _FinalStage {
         OrderLineItemAppliedTax build();
 
+        /**
+         * <p>A unique ID that identifies the applied tax only within this order.</p>
+         */
         _FinalStage uid(Optional<String> uid);
 
         _FinalStage uid(String uid);
 
         _FinalStage uid(Nullable<String> uid);
 
+        /**
+         * <p>The amount of money applied by the tax to the line item.</p>
+         */
         _FinalStage appliedMoney(Optional<Money> appliedMoney);
 
         _FinalStage appliedMoney(Money appliedMoney);
@@ -154,6 +166,10 @@ public final class OrderLineItemAppliedTax {
          * a tax present in the <code>order.taxes</code> field.</p>
          * <p>This field is immutable. To change which taxes apply to a line item, delete and add a new
          * <code>OrderLineItemAppliedTax</code>.</p>
+         * <p>The <code>uid</code> of the tax for which this applied tax represents. It must reference
+         * a tax present in the <code>order.taxes</code> field.</p>
+         * <p>This field is immutable. To change which taxes apply to a line item, delete and add a new
+         * <code>OrderLineItemAppliedTax</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -173,6 +189,9 @@ public final class OrderLineItemAppliedTax {
             return this;
         }
 
+        /**
+         * <p>The amount of money applied by the tax to the line item.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "applied_money", nulls = Nulls.SKIP)
         public _FinalStage appliedMoney(Optional<Money> appliedMoney) {
@@ -206,6 +225,9 @@ public final class OrderLineItemAppliedTax {
             return this;
         }
 
+        /**
+         * <p>A unique ID that identifies the applied tax only within this order.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "uid", nulls = Nulls.SKIP)
         public _FinalStage uid(Optional<String> uid) {

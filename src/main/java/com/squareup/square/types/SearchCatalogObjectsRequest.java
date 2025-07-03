@@ -229,6 +229,10 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor returned in the previous response. Leave unset for an initial request.
+         * See <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -240,6 +244,19 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>The desired set of object types to appear in the search results.</p>
+         * <p>If this is unspecified, the operation returns objects of all the top level types at the version
+         * of the Square API used to make the request. Object types that are nested onto other object types
+         * are not included in the defaults.</p>
+         * <p>At the current API version the default object types are:
+         * ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST,
+         * PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,
+         * SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS.</p>
+         * <p>Note that if you wish for the query to return objects belonging to nested types (i.e., COMPONENT, IMAGE,
+         * ITEM_OPTION_VAL, ITEM_VARIATION, or MODIFIER), you must explicitly include all the types of interest
+         * in this field.</p>
+         */
         @JsonSetter(value = "object_types", nulls = Nulls.SKIP)
         public Builder objectTypes(Optional<List<CatalogObjectType>> objectTypes) {
             this.objectTypes = objectTypes;
@@ -251,6 +268,9 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, deleted objects will be included in the results. Defaults to <code>false</code>. Deleted objects will have their <code>is_deleted</code> field set to <code>true</code>. If <code>include_deleted_objects</code> is <code>true</code>, then the <code>include_category_path_to_root</code> request parameter must be <code>false</code>. Both properties cannot be <code>true</code> at the same time.</p>
+         */
         @JsonSetter(value = "include_deleted_objects", nulls = Nulls.SKIP)
         public Builder includeDeletedObjects(Optional<Boolean> includeDeletedObjects) {
             this.includeDeletedObjects = includeDeletedObjects;
@@ -262,6 +282,20 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, the response will include additional objects that are related to the
+         * requested objects. Related objects are objects that are referenced by object ID by the objects
+         * in the response. This is helpful if the objects are being fetched for immediate display to a user.
+         * This process only goes one level deep. Objects referenced by the related objects will not be included.
+         * For example:</p>
+         * <p>If the <code>objects</code> field of the response contains a CatalogItem, its associated
+         * CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+         * CatalogModifierLists will be returned in the <code>related_objects</code> field of the
+         * response. If the <code>objects</code> field of the response contains a CatalogItemVariation,
+         * its parent CatalogItem will be returned in the <code>related_objects</code> field of
+         * the response.</p>
+         * <p>Default value: <code>false</code></p>
+         */
         @JsonSetter(value = "include_related_objects", nulls = Nulls.SKIP)
         public Builder includeRelatedObjects(Optional<Boolean> includeRelatedObjects) {
             this.includeRelatedObjects = includeRelatedObjects;
@@ -273,6 +307,11 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Return objects modified after this <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>, in RFC 3339
+         * format, e.g., <code>2016-09-04T23:59:33.123Z</code>. The timestamp is exclusive - objects with a
+         * timestamp equal to <code>begin_time</code> will not be included in the response.</p>
+         */
         @JsonSetter(value = "begin_time", nulls = Nulls.SKIP)
         public Builder beginTime(Optional<String> beginTime) {
             this.beginTime = beginTime;
@@ -284,6 +323,9 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>A query to be used to filter or sort the results. If no query is specified, the entire catalog will be returned.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<CatalogQuery> query) {
             this.query = query;
@@ -295,6 +337,11 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>A limit on the number of results to be returned in a single page. The limit is advisory -
+         * the implementation may return more or fewer results. If the supplied limit is negative, zero, or
+         * is higher than the maximum limit of 1,000, it will be ignored.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -306,6 +353,9 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Specifies whether or not to include the <code>path_to_root</code> list for each returned category instance. The <code>path_to_root</code> list consists of <code>CategoryPathToRootNode</code> objects and specifies the path that starts with the immediate parent category of the returned category and ends with its root category. If the returned category is a top-level category, the <code>path_to_root</code> list is empty and is not returned in the response payload. If <code>include_category_path_to_root</code> is <code>true</code>, then the <code>include_deleted_objects</code> request parameter must be <code>false</code>. Both properties cannot be <code>true</code> at the same time.</p>
+         */
         @JsonSetter(value = "include_category_path_to_root", nulls = Nulls.SKIP)
         public Builder includeCategoryPathToRoot(Optional<Boolean> includeCategoryPathToRoot) {
             this.includeCategoryPathToRoot = includeCategoryPathToRoot;

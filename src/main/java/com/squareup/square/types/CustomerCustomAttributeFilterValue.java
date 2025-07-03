@@ -239,6 +239,15 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of an <code>Email</code>-type custom attribute. This filter is case-insensitive and can
+         * include <code>exact</code> or <code>fuzzy</code>, but not both.</p>
+         * <p>For an <code>exact</code> match, provide the complete email address.</p>
+         * <p>For a <code>fuzzy</code> match, provide a query expression containing one or more query tokens to match against the email address. Square removes
+         * any punctuation (including periods (.), underscores (_), and the @ symbol) and tokenizes the email addresses on spaces. A match is found
+         * if a tokenized email address contains all the tokens in the search query, irrespective of the token order. For example, <code>Steven gmail</code>
+         * matches steven.jones@gmail.com and mygmail@stevensbakery.com.</p>
+         */
         @JsonSetter(value = "email", nulls = Nulls.SKIP)
         public Builder email(Optional<CustomerTextFilter> email) {
             this.email = email;
@@ -250,6 +259,17 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of a <code>PhoneNumber</code>-type custom attribute. This filter is case-insensitive and
+         * can include <code>exact</code> or <code>fuzzy</code>, but not both.</p>
+         * <p>For an <code>exact</code> match, provide the complete phone number. This is always an E.164-compliant phone number that starts
+         * with the + sign followed by the country code and subscriber number. For example, the format for a US phone number is +12061112222.</p>
+         * <p>For a <code>fuzzy</code> match, provide a query expression containing one or more query tokens to match against the phone number.
+         * Square removes any punctuation and tokenizes the expression on spaces. A match is found if a tokenized phone number contains
+         * all the tokens in the search query, irrespective of the token order. For example, <code>415 123 45</code> is tokenized to <code>415</code>, <code>123</code>, and <code>45</code>,
+         * which matches +14151234567 and +12345674158, but does not match +1234156780. Similarly, the expression <code>415</code> matches
+         * +14151234567, +12345674158, and +1234156780.</p>
+         */
         @JsonSetter(value = "phone", nulls = Nulls.SKIP)
         public Builder phone(Optional<CustomerTextFilter> phone) {
             this.phone = phone;
@@ -261,6 +281,14 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of a <code>String</code>-type custom attribute. This filter is case-insensitive and
+         * can include <code>exact</code> or <code>fuzzy</code>, but not both.</p>
+         * <p>For an <code>exact</code> match, provide the complete string.</p>
+         * <p>For a <code>fuzzy</code> match, provide a query expression containing one or more query tokens in any order that contain complete words
+         * to match against the string. Square tokenizes the expression using a grammar-based tokenizer. For example, the expressions <code>quick brown</code>,
+         * <code>brown quick</code>, and <code>quick fox</code> match &quot;The quick brown fox jumps over the lazy dog&quot;. However, <code>quick foxes</code> and <code>qui</code> do not match.</p>
+         */
         @JsonSetter(value = "text", nulls = Nulls.SKIP)
         public Builder text(Optional<CustomerTextFilter> text) {
             this.text = text;
@@ -272,6 +300,16 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the display name for a <code>Selection</code>-type custom attribute value. This filter is case-sensitive
+         * and can contain <code>any</code>, <code>all</code>, or both. The <code>none</code> condition is not supported.</p>
+         * <p>Provide the display name of each item that you want to search for. To find the display names for the selection, use the
+         * <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a> to retrieve the corresponding custom attribute definition
+         * and then check the <code>schema.items.names</code> field. For more information, see
+         * <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#custom-attribute-value-filter-selection">Search based on selection</a>.</p>
+         * <p>Note that when a <code>Selection</code>-type custom attribute is assigned to a customer profile, the custom attribute value is a list of one
+         * or more UUIDs (sourced from the <code>schema.items.enum</code> field) that map to the item names. These UUIDs are unique per seller.</p>
+         */
         @JsonSetter(value = "selection", nulls = Nulls.SKIP)
         public Builder selection(Optional<FilterValue> selection) {
             this.selection = selection;
@@ -283,6 +321,11 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of a <code>Date</code>-type custom attribute.</p>
+         * <p>Provide a date range for this filter using <code>start_at</code>, <code>end_at</code>, or both. Range boundaries are inclusive. Dates can be specified
+         * in <code>YYYY-MM-DD</code> format or as RFC 3339 timestamps.</p>
+         */
         @JsonSetter(value = "date", nulls = Nulls.SKIP)
         public Builder date(Optional<TimeRange> date) {
             this.date = date;
@@ -294,6 +337,12 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of a <code>Number</code>-type custom attribute, which can be an integer or a decimal with up to
+         * 5 digits of precision.</p>
+         * <p>Provide a numerical range for this filter using <code>start_at</code>, <code>end_at</code>, or both. Range boundaries are inclusive. Numbers are specified
+         * as decimals or integers. The absolute value of range boundaries must not exceed <code>(2^63-1)/10^5</code>, or 92233720368547.</p>
+         */
         @JsonSetter(value = "number", nulls = Nulls.SKIP)
         public Builder number(Optional<FloatNumberRange> number) {
             this.number = number;
@@ -305,6 +354,9 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of a <code>Boolean</code>-type custom attribute.</p>
+         */
         @JsonSetter(value = "boolean", nulls = Nulls.SKIP)
         public Builder boolean_(Optional<Boolean> boolean_) {
             this.boolean_ = boolean_;
@@ -327,6 +379,9 @@ public final class CustomerCustomAttributeFilterValue {
             return this;
         }
 
+        /**
+         * <p>A filter for a query based on the value of an <code>Address</code>-type custom attribute. The filter can include <code>postal_code</code>, <code>country</code>, or both.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<CustomerAddressFilter> address) {
             this.address = address;

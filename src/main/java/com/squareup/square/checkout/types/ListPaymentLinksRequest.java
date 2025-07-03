@@ -122,6 +122,12 @@ public final class ListPaymentLinksRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * If a cursor is not provided, the endpoint returns the first page of the results.
+         * For more  information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -144,6 +150,12 @@ public final class ListPaymentLinksRequest {
             return this;
         }
 
+        /**
+         * <p>A limit on the number of results to return per page. The limit is advisory and
+         * the implementation might return more or less results. If the supplied limit is negative, zero, or
+         * greater than the maximum limit of 1000, it is ignored.</p>
+         * <p>Default value: <code>100</code></p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;

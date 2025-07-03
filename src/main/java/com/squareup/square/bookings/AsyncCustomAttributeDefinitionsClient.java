@@ -3,48 +3,36 @@
  */
 package com.squareup.square.bookings;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.bookings.types.CreateBookingCustomAttributeDefinitionRequest;
 import com.squareup.square.bookings.types.DeleteCustomAttributeDefinitionsRequest;
 import com.squareup.square.bookings.types.GetCustomAttributeDefinitionsRequest;
 import com.squareup.square.bookings.types.ListCustomAttributeDefinitionsRequest;
 import com.squareup.square.bookings.types.UpdateBookingCustomAttributeDefinitionRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.CreateBookingCustomAttributeDefinitionResponse;
 import com.squareup.square.types.CustomAttributeDefinition;
 import com.squareup.square.types.DeleteBookingCustomAttributeDefinitionResponse;
-import com.squareup.square.types.ListBookingCustomAttributeDefinitionsResponse;
 import com.squareup.square.types.RetrieveBookingCustomAttributeDefinitionResponse;
 import com.squareup.square.types.UpdateBookingCustomAttributeDefinitionResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncCustomAttributeDefinitionsClient {
     protected final ClientOptions clientOptions;
 
+    private final AsyncRawCustomAttributeDefinitionsClient rawClient;
+
     public AsyncCustomAttributeDefinitionsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new AsyncRawCustomAttributeDefinitionsClient(clientOptions);
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public AsyncRawCustomAttributeDefinitionsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -53,7 +41,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      * To call this endpoint with seller-level permissions, set <code>APPOINTMENTS_ALL_READ</code> and <code>APPOINTMENTS_READ</code> for the OAuth scope.</p>
      */
     public CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> list() {
-        return list(ListCustomAttributeDefinitionsRequest.builder().build());
+        return this.rawClient.list().thenApply(response -> response.body());
     }
 
     /**
@@ -63,7 +51,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> list(
             ListCustomAttributeDefinitionsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).thenApply(response -> response.body());
     }
 
     /**
@@ -73,72 +61,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> list(
             ListCustomAttributeDefinitionsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attribute-definitions");
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        ListBookingCustomAttributeDefinitionsResponse parsedResponse =
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), ListBookingCustomAttributeDefinitionsResponse.class);
-                        Optional<String> startingAfter = parsedResponse.getCursor();
-                        ListCustomAttributeDefinitionsRequest nextRequest =
-                                ListCustomAttributeDefinitionsRequest.builder()
-                                        .from(request)
-                                        .cursor(startingAfter)
-                                        .build();
-                        List<CustomAttributeDefinition> result =
-                                parsedResponse.getCustomAttributeDefinitions().orElse(Collections.emptyList());
-                        future.complete(new SyncPagingIterable<CustomAttributeDefinition>(
-                                startingAfter.isPresent(), result, () -> {
-                                    try {
-                                        return list(nextRequest, requestOptions).get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -150,7 +73,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<CreateBookingCustomAttributeDefinitionResponse> create(
             CreateBookingCustomAttributeDefinitionRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).thenApply(response -> response.body());
     }
 
     /**
@@ -162,55 +85,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<CreateBookingCustomAttributeDefinitionResponse> create(
             CreateBookingCustomAttributeDefinitionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attribute-definitions")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<CreateBookingCustomAttributeDefinitionResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), CreateBookingCustomAttributeDefinitionResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -220,7 +95,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<RetrieveBookingCustomAttributeDefinitionResponse> get(
             GetCustomAttributeDefinitionsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
@@ -230,52 +105,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<RetrieveBookingCustomAttributeDefinitionResponse> get(
             GetCustomAttributeDefinitionsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attribute-definitions")
-                .addPathSegment(request.getKey());
-        if (request.getVersion().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "version", request.getVersion().get().toString(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<RetrieveBookingCustomAttributeDefinitionResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), RetrieveBookingCustomAttributeDefinitionResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -287,7 +117,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<UpdateBookingCustomAttributeDefinitionResponse> update(
             UpdateBookingCustomAttributeDefinitionRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).thenApply(response -> response.body());
     }
 
     /**
@@ -299,56 +129,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<UpdateBookingCustomAttributeDefinitionResponse> update(
             UpdateBookingCustomAttributeDefinitionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attribute-definitions")
-                .addPathSegment(request.getKey())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<UpdateBookingCustomAttributeDefinitionResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), UpdateBookingCustomAttributeDefinitionResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.update(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -360,7 +141,7 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<DeleteBookingCustomAttributeDefinitionResponse> delete(
             DeleteCustomAttributeDefinitionsRequest request) {
-        return delete(request, null);
+        return this.rawClient.delete(request).thenApply(response -> response.body());
     }
 
     /**
@@ -372,48 +153,6 @@ public class AsyncCustomAttributeDefinitionsClient {
      */
     public CompletableFuture<DeleteBookingCustomAttributeDefinitionResponse> delete(
             DeleteCustomAttributeDefinitionsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/bookings/custom-attribute-definitions")
-                .addPathSegment(request.getKey())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<DeleteBookingCustomAttributeDefinitionResponse> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    if (response.isSuccessful()) {
-                        future.complete(ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), DeleteBookingCustomAttributeDefinitionResponse.class));
-                        return;
-                    }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class)));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
+        return this.rawClient.delete(request, requestOptions).thenApply(response -> response.body());
     }
 }

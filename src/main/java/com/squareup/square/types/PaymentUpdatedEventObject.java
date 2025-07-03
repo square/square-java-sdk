@@ -80,6 +80,9 @@ public final class PaymentUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated payment.</p>
+         */
         @JsonSetter(value = "payment", nulls = Nulls.SKIP)
         public Builder payment(Optional<Payment> payment) {
             this.payment = payment;

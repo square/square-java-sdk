@@ -115,6 +115,9 @@ public final class SearchLoyaltyRewardsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -126,6 +129,10 @@ public final class SearchLoyaltyRewardsResponse {
             return this;
         }
 
+        /**
+         * <p>The loyalty rewards that satisfy the search criteria.
+         * These are returned in descending order by <code>updated_at</code>.</p>
+         */
         @JsonSetter(value = "rewards", nulls = Nulls.SKIP)
         public Builder rewards(Optional<List<LoyaltyReward>> rewards) {
             this.rewards = rewards;
@@ -137,6 +144,10 @@ public final class SearchLoyaltyRewardsResponse {
             return this;
         }
 
+        /**
+         * <p>The pagination cursor to be used in a subsequent
+         * request. If empty, this is the final response.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

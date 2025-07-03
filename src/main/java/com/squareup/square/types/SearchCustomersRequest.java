@@ -136,6 +136,11 @@ public final class SearchCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>Include the pagination cursor in subsequent calls to this endpoint to retrieve
+         * the next set of results associated with the original query.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -147,6 +152,11 @@ public final class SearchCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
+         * If the specified limit is invalid, Square returns a <code>400 VALUE_TOO_LOW</code> or <code>400 VALUE_TOO_HIGH</code> error. The default value is 100.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Long> limit) {
             this.limit = limit;
@@ -158,6 +168,10 @@ public final class SearchCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>The filtering and sorting criteria for the search request. If a query is not specified,
+         * Square returns all customer profiles ordered alphabetically by <code>given_name</code> and <code>family_name</code>.</p>
+         */
         @JsonSetter(value = "query", nulls = Nulls.SKIP)
         public Builder query(Optional<CustomerQuery> query) {
             this.query = query;
@@ -169,6 +183,10 @@ public final class SearchCustomersRequest {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to return the total count of matching customers in the <code>count</code> field of the response.</p>
+         * <p>The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "count", nulls = Nulls.SKIP)
         public Builder count(Optional<Boolean> count) {
             this.count = count;

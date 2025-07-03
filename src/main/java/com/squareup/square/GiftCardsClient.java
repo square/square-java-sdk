@@ -3,14 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
-import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.giftcards.ActivitiesClient;
@@ -26,30 +20,28 @@ import com.squareup.square.types.GiftCard;
 import com.squareup.square.types.LinkCustomerToGiftCardRequest;
 import com.squareup.square.types.LinkCustomerToGiftCardResponse;
 import com.squareup.square.types.ListGiftCardsRequest;
-import com.squareup.square.types.ListGiftCardsResponse;
 import com.squareup.square.types.UnlinkCustomerFromGiftCardRequest;
 import com.squareup.square.types.UnlinkCustomerFromGiftCardResponse;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class GiftCardsClient {
     protected final ClientOptions clientOptions;
+
+    private final RawGiftCardsClient rawClient;
 
     protected final Supplier<ActivitiesClient> activitiesClient;
 
     public GiftCardsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawGiftCardsClient(clientOptions);
         this.activitiesClient = Suppliers.memoize(() -> new ActivitiesClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawGiftCardsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -57,7 +49,7 @@ public class GiftCardsClient {
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
     public SyncPagingIterable<GiftCard> list() {
-        return list(ListGiftCardsRequest.builder().build());
+        return this.rawClient.list().body();
     }
 
     /**
@@ -65,7 +57,7 @@ public class GiftCardsClient {
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
     public SyncPagingIterable<GiftCard> list(ListGiftCardsRequest request) {
-        return list(request, null);
+        return this.rawClient.list(request).body();
     }
 
     /**
@@ -73,62 +65,7 @@ public class GiftCardsClient {
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
     public SyncPagingIterable<GiftCard> list(ListGiftCardsRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards");
-        if (request.getType().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "type", request.getType().get(), false);
-        }
-        if (request.getState().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "state", request.getState().get(), false);
-        }
-        if (request.getLimit().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "limit", request.getLimit().get().toString(), false);
-        }
-        if (request.getCursor().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "cursor", request.getCursor().get(), false);
-        }
-        if (request.getCustomerId().isPresent()) {
-            QueryStringMapper.addQueryParameter(
-                    httpUrl, "customer_id", request.getCustomerId().get(), false);
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                ListGiftCardsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListGiftCardsResponse.class);
-                Optional<String> startingAfter = parsedResponse.getCursor();
-                ListGiftCardsRequest nextRequest = ListGiftCardsRequest.builder()
-                        .from(request)
-                        .cursor(startingAfter)
-                        .build();
-                List<GiftCard> result = parsedResponse.getGiftCards().orElse(Collections.emptyList());
-                return new SyncPagingIterable<GiftCard>(
-                        startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions));
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(request, requestOptions).body();
     }
 
     /**
@@ -139,7 +76,7 @@ public class GiftCardsClient {
      * to refund a payment to the new gift card.
      */
     public CreateGiftCardResponse create(CreateGiftCardRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -150,96 +87,28 @@ public class GiftCardsClient {
      * to refund a payment to the new gift card.
      */
     public CreateGiftCardResponse create(CreateGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateGiftCardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
      * Retrieves a gift card using the gift card account number (GAN).
      */
     public GetGiftCardFromGanResponse getFromGan(GetGiftCardFromGanRequest request) {
-        return getFromGan(request, null);
+        return this.rawClient.getFromGan(request).body();
     }
 
     /**
      * Retrieves a gift card using the gift card account number (GAN).
      */
     public GetGiftCardFromGanResponse getFromGan(GetGiftCardFromGanRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards/from-gan")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetGiftCardFromGanResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.getFromGan(request, requestOptions).body();
     }
 
     /**
      * Retrieves a gift card using a secure payment token that represents the gift card.
      */
     public GetGiftCardFromNonceResponse getFromNonce(GetGiftCardFromNonceRequest request) {
-        return getFromNonce(request, null);
+        return this.rawClient.getFromNonce(request).body();
     }
 
     /**
@@ -247,48 +116,14 @@ public class GiftCardsClient {
      */
     public GetGiftCardFromNonceResponse getFromNonce(
             GetGiftCardFromNonceRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards/from-nonce")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetGiftCardFromNonceResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.getFromNonce(request, requestOptions).body();
     }
 
     /**
      * Links a customer to a gift card, which is also referred to as adding a card on file.
      */
     public LinkCustomerToGiftCardResponse linkCustomer(LinkCustomerToGiftCardRequest request) {
-        return linkCustomer(request, null);
+        return this.rawClient.linkCustomer(request).body();
     }
 
     /**
@@ -296,50 +131,14 @@ public class GiftCardsClient {
      */
     public LinkCustomerToGiftCardResponse linkCustomer(
             LinkCustomerToGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards")
-                .addPathSegment(request.getGiftCardId())
-                .addPathSegments("link-customer")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), LinkCustomerToGiftCardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.linkCustomer(request, requestOptions).body();
     }
 
     /**
      * Unlinks a customer from a gift card, which is also referred to as removing a card on file.
      */
     public UnlinkCustomerFromGiftCardResponse unlinkCustomer(UnlinkCustomerFromGiftCardRequest request) {
-        return unlinkCustomer(request, null);
+        return this.rawClient.unlinkCustomer(request).body();
     }
 
     /**
@@ -347,86 +146,21 @@ public class GiftCardsClient {
      */
     public UnlinkCustomerFromGiftCardResponse unlinkCustomer(
             UnlinkCustomerFromGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards")
-                .addPathSegment(request.getGiftCardId())
-                .addPathSegments("unlink-customer")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), UnlinkCustomerFromGiftCardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.unlinkCustomer(request, requestOptions).body();
     }
 
     /**
      * Retrieves a gift card using the gift card ID.
      */
     public GetGiftCardResponse get(GetGiftCardsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
      * Retrieves a gift card using the gift card ID.
      */
     public GetGiftCardResponse get(GetGiftCardsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/gift-cards")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetGiftCardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     public ActivitiesClient activities() {

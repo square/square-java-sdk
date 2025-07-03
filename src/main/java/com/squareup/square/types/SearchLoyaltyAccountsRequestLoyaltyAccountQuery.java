@@ -124,6 +124,11 @@ public final class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
             return this;
         }
 
+        /**
+         * <p>The set of mappings to use in the loyalty account search.</p>
+         * <p>This cannot be combined with <code>customer_ids</code>.</p>
+         * <p>Max: 30 mappings</p>
+         */
         @JsonSetter(value = "mappings", nulls = Nulls.SKIP)
         public Builder mappings(Optional<List<LoyaltyAccountMapping>> mappings) {
             this.mappings = mappings;
@@ -146,6 +151,11 @@ public final class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
             return this;
         }
 
+        /**
+         * <p>The set of customer IDs to use in the loyalty account search.</p>
+         * <p>This cannot be combined with <code>mappings</code>.</p>
+         * <p>Max: 30 customer IDs</p>
+         */
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(Optional<List<String>> customerIds) {
             this.customerIds = customerIds;

@@ -78,12 +78,19 @@ public final class CancelPromotionsRequest {
     }
 
     public interface PromotionIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to cancel. You can cancel a
+         * promotion that has an <code>ACTIVE</code> or <code>SCHEDULED</code> status.</p>
+         */
         ProgramIdStage promotionId(@NotNull String promotionId);
 
         Builder from(CancelPromotionsRequest other);
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
         _FinalStage programId(@NotNull String programId);
     }
 
@@ -112,6 +119,8 @@ public final class CancelPromotionsRequest {
         /**
          * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to cancel. You can cancel a
          * promotion that has an <code>ACTIVE</code> or <code>SCHEDULED</code> status.</p>
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to cancel. You can cancel a
+         * promotion that has an <code>ACTIVE</code> or <code>SCHEDULED</code> status.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +131,7 @@ public final class CancelPromotionsRequest {
         }
 
         /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
          * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

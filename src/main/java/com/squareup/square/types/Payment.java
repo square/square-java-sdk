@@ -917,6 +917,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>A unique ID for the payment.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -928,6 +931,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the payment was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -939,6 +945,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The timestamp of when the payment was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -950,6 +959,12 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The amount processed for this payment, not including <code>tip_money</code>.</p>
+         * <p>The amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents). For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         */
         @JsonSetter(value = "amount_money", nulls = Nulls.SKIP)
         public Builder amountMoney(Optional<Money> amountMoney) {
             this.amountMoney = amountMoney;
@@ -961,6 +976,12 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The amount designated as a tip.</p>
+         * <p>This amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents). For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         */
         @JsonSetter(value = "tip_money", nulls = Nulls.SKIP)
         public Builder tipMoney(Optional<Money> tipMoney) {
             this.tipMoney = tipMoney;
@@ -972,6 +993,12 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The total amount for the payment, including <code>amount_money</code> and <code>tip_money</code>.
+         * This amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents). For more information, see
+         * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
+         */
         @JsonSetter(value = "total_money", nulls = Nulls.SKIP)
         public Builder totalMoney(Optional<Money> totalMoney) {
             this.totalMoney = totalMoney;
@@ -983,6 +1010,15 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The amount the developer is taking as a fee for facilitating the payment on behalf
+         * of the seller. This amount is specified in the smallest denomination of the applicable currency
+         * (for example, US dollar amounts are specified in cents). For more information,
+         * see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees">Take Payments and Collect Fees</a>.</p>
+         * <p>The amount cannot be more than 90% of the <code>total_money</code> value.</p>
+         * <p>To set this field, <code>PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS</code> OAuth permission is required.
+         * For more information, see <a href="https://developer.squareup.com/docs/payments-api/take-payments-and-collect-fees#permissions">Permissions</a>.</p>
+         */
         @JsonSetter(value = "app_fee_money", nulls = Nulls.SKIP)
         public Builder appFeeMoney(Optional<Money> appFeeMoney) {
             this.appFeeMoney = appFeeMoney;
@@ -994,6 +1030,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The amount of money approved for this payment. This value may change if Square chooses to
+         * obtain reauthorization as part of a call to <a href="api-endpoint:Payments-UpdatePayment">UpdatePayment</a>.</p>
+         */
         @JsonSetter(value = "approved_money", nulls = Nulls.SKIP)
         public Builder approvedMoney(Optional<Money> approvedMoney) {
             this.approvedMoney = approvedMoney;
@@ -1005,6 +1045,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The processing fees and fee adjustments assessed by Square for this payment.</p>
+         */
         @JsonSetter(value = "processing_fee", nulls = Nulls.SKIP)
         public Builder processingFee(Optional<List<ProcessingFee>> processingFee) {
             this.processingFee = processingFee;
@@ -1016,6 +1059,11 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The total amount of the payment refunded to date.</p>
+         * <p>This amount is specified in the smallest denomination of the applicable currency (for example,
+         * US dollar amounts are specified in cents).</p>
+         */
         @JsonSetter(value = "refunded_money", nulls = Nulls.SKIP)
         public Builder refundedMoney(Optional<Money> refundedMoney) {
             this.refundedMoney = refundedMoney;
@@ -1027,6 +1075,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the payment is APPROVED, PENDING, COMPLETED, CANCELED, or FAILED.</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;
@@ -1038,6 +1089,20 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The duration of time after the payment's creation when Square automatically applies the
+         * <code>delay_action</code> to the payment. This automatic <code>delay_action</code> applies only to payments that
+         * do not reach a terminal state (COMPLETED, CANCELED, or FAILED) before the <code>delay_duration</code>
+         * time period.</p>
+         * <p>This field is specified as a time duration, in RFC 3339 format.</p>
+         * <p>Notes:
+         * This feature is only supported for card payments.</p>
+         * <p>Default:</p>
+         * <ul>
+         * <li>Card-present payments: &quot;PT36H&quot; (36 hours) from the creation time.</li>
+         * <li>Card-not-present payments: &quot;P7D&quot; (7 days) from the creation time.</li>
+         * </ul>
+         */
         @JsonSetter(value = "delay_duration", nulls = Nulls.SKIP)
         public Builder delayDuration(Optional<String> delayDuration) {
             this.delayDuration = delayDuration;
@@ -1049,6 +1114,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The action to be applied to the payment when the <code>delay_duration</code> has elapsed.</p>
+         * <p>Current values include <code>CANCEL</code> and <code>COMPLETE</code>.</p>
+         */
         @JsonSetter(value = "delay_action", nulls = Nulls.SKIP)
         public Builder delayAction(Optional<String> delayAction) {
             this.delayAction = delayAction;
@@ -1071,6 +1140,13 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The read-only timestamp of when the <code>delay_action</code> is automatically applied,
+         * in RFC 3339 format.</p>
+         * <p>Note that this field is calculated by summing the payment's <code>delay_duration</code> and <code>created_at</code>
+         * fields. The <code>created_at</code> field is generated by Square and might not exactly match the
+         * time on your local machine.</p>
+         */
         @JsonSetter(value = "delayed_until", nulls = Nulls.SKIP)
         public Builder delayedUntil(Optional<String> delayedUntil) {
             this.delayedUntil = delayedUntil;
@@ -1082,6 +1158,12 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The source type for this payment.</p>
+         * <p>Current values include <code>CARD</code>, <code>BANK_ACCOUNT</code>, <code>WALLET</code>, <code>BUY_NOW_PAY_LATER</code>, <code>SQUARE_ACCOUNT</code>,
+         * <code>CASH</code> and <code>EXTERNAL</code>. For information about these payment source types,
+         * see <a href="https://developer.squareup.com/docs/payments-api/take-payments">Take Payments</a>.</p>
+         */
         @JsonSetter(value = "source_type", nulls = Nulls.SKIP)
         public Builder sourceType(Optional<String> sourceType) {
             this.sourceType = sourceType;
@@ -1093,6 +1175,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about a card payment. These details are only populated if the source_type is <code>CARD</code>.</p>
+         */
         @JsonSetter(value = "card_details", nulls = Nulls.SKIP)
         public Builder cardDetails(Optional<CardPaymentDetails> cardDetails) {
             this.cardDetails = cardDetails;
@@ -1104,6 +1189,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about a cash payment. These details are only populated if the source_type is <code>CASH</code>.</p>
+         */
         @JsonSetter(value = "cash_details", nulls = Nulls.SKIP)
         public Builder cashDetails(Optional<CashPaymentDetails> cashDetails) {
             this.cashDetails = cashDetails;
@@ -1115,6 +1203,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about a bank account payment. These details are only populated if the source_type is <code>BANK_ACCOUNT</code>.</p>
+         */
         @JsonSetter(value = "bank_account_details", nulls = Nulls.SKIP)
         public Builder bankAccountDetails(Optional<BankAccountPaymentDetails> bankAccountDetails) {
             this.bankAccountDetails = bankAccountDetails;
@@ -1126,6 +1217,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about an external payment. The details are only populated
+         * if the <code>source_type</code> is <code>EXTERNAL</code>.</p>
+         */
         @JsonSetter(value = "external_details", nulls = Nulls.SKIP)
         public Builder externalDetails(Optional<ExternalPaymentDetails> externalDetails) {
             this.externalDetails = externalDetails;
@@ -1137,6 +1232,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about an wallet payment. The details are only populated
+         * if the <code>source_type</code> is <code>WALLET</code>.</p>
+         */
         @JsonSetter(value = "wallet_details", nulls = Nulls.SKIP)
         public Builder walletDetails(Optional<DigitalWalletDetails> walletDetails) {
             this.walletDetails = walletDetails;
@@ -1148,6 +1247,11 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about a Buy Now Pay Later payment. The details are only populated
+         * if the <code>source_type</code> is <code>BUY_NOW_PAY_LATER</code>. For more information, see
+         * <a href="https://developer.squareup.com/docs/payments-api/take-payments/afterpay-payments">Afterpay Payments</a>.</p>
+         */
         @JsonSetter(value = "buy_now_pay_later_details", nulls = Nulls.SKIP)
         public Builder buyNowPayLaterDetails(Optional<BuyNowPayLaterDetails> buyNowPayLaterDetails) {
             this.buyNowPayLaterDetails = buyNowPayLaterDetails;
@@ -1159,6 +1263,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about a Square Account payment. The details are only populated
+         * if the <code>source_type</code> is <code>SQUARE_ACCOUNT</code>.</p>
+         */
         @JsonSetter(value = "square_account_details", nulls = Nulls.SKIP)
         public Builder squareAccountDetails(Optional<SquareAccountDetails> squareAccountDetails) {
             this.squareAccountDetails = squareAccountDetails;
@@ -1170,6 +1278,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The ID of the location associated with the payment.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -1181,6 +1292,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The ID of the order associated with the payment.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;
@@ -1192,6 +1306,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>An optional ID that associates the payment with an entity in
+         * another system.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -1203,6 +1321,21 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The ID of the customer associated with the payment. If the ID is
+         * not provided in the <code>CreatePayment</code> request that was used to create the <code>Payment</code>,
+         * Square may use information in the request
+         * (such as the billing and shipping address, email address, and payment source)
+         * to identify a matching customer profile in the Customer Directory.
+         * If found, the profile ID is used. If a profile is not found, the
+         * API attempts to create an
+         * <a href="https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles">instant profile</a>.
+         * If the API cannot create an
+         * instant profile (either because the seller has disabled it or the
+         * seller's region prevents creating it), this field remains unset. Note that
+         * this process is asynchronous and it may take some time before a
+         * customer ID is added to the payment.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -1214,6 +1347,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p><strong>Deprecated</strong>: Use <code>Payment.team_member_id</code> instead.</p>
+         * <p>An optional ID of the employee associated with taking the payment.</p>
+         */
         @JsonSetter(value = "employee_id", nulls = Nulls.SKIP)
         public Builder employeeId(Optional<String> employeeId) {
             this.employeeId = employeeId;
@@ -1225,6 +1362,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>An optional ID of the <a href="entity:TeamMember">TeamMember</a> associated with taking the payment.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -1247,6 +1387,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>A list of <code>refund_id</code>s identifying refunds for the payment.</p>
+         */
         @JsonSetter(value = "refund_ids", nulls = Nulls.SKIP)
         public Builder refundIds(Optional<List<String>> refundIds) {
             this.refundIds = refundIds;
@@ -1258,6 +1401,11 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Provides information about the risk associated with the payment, as determined by Square.
+         * This field is present for payments to sellers that have opted in to receive risk
+         * evaluations.</p>
+         */
         @JsonSetter(value = "risk_evaluation", nulls = Nulls.SKIP)
         public Builder riskEvaluation(Optional<RiskEvaluation> riskEvaluation) {
             this.riskEvaluation = riskEvaluation;
@@ -1269,6 +1417,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>An optional ID for a Terminal checkout that is associated with the payment.</p>
+         */
         @JsonSetter(value = "terminal_checkout_id", nulls = Nulls.SKIP)
         public Builder terminalCheckoutId(Optional<String> terminalCheckoutId) {
             this.terminalCheckoutId = terminalCheckoutId;
@@ -1280,6 +1431,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The buyer's email address.</p>
+         */
         @JsonSetter(value = "buyer_email_address", nulls = Nulls.SKIP)
         public Builder buyerEmailAddress(Optional<String> buyerEmailAddress) {
             this.buyerEmailAddress = buyerEmailAddress;
@@ -1291,6 +1445,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The buyer's billing address.</p>
+         */
         @JsonSetter(value = "billing_address", nulls = Nulls.SKIP)
         public Builder billingAddress(Optional<Address> billingAddress) {
             this.billingAddress = billingAddress;
@@ -1302,6 +1459,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The buyer's shipping address.</p>
+         */
         @JsonSetter(value = "shipping_address", nulls = Nulls.SKIP)
         public Builder shippingAddress(Optional<Address> shippingAddress) {
             this.shippingAddress = shippingAddress;
@@ -1313,6 +1473,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>An optional note to include when creating a payment.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -1324,6 +1487,13 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Additional payment information that gets added to the customer's card statement
+         * as part of the statement description.</p>
+         * <p>Note that the <code>statement_description_identifier</code> might get truncated on the statement description
+         * to fit the required information including the Square identifier (SQ *) and the name of the
+         * seller taking the payment.</p>
+         */
         @JsonSetter(value = "statement_description_identifier", nulls = Nulls.SKIP)
         public Builder statementDescriptionIdentifier(Optional<String> statementDescriptionIdentifier) {
             this.statementDescriptionIdentifier = statementDescriptionIdentifier;
@@ -1335,6 +1505,16 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Actions that can be performed on this payment:</p>
+         * <ul>
+         * <li><code>EDIT_AMOUNT_UP</code> - The payment amount can be edited up.</li>
+         * <li><code>EDIT_AMOUNT_DOWN</code> - The payment amount can be edited down.</li>
+         * <li><code>EDIT_TIP_AMOUNT_UP</code> - The tip amount can be edited up.</li>
+         * <li><code>EDIT_TIP_AMOUNT_DOWN</code> - The tip amount can be edited down.</li>
+         * <li><code>EDIT_DELAY_ACTION</code> - The delay_action can be edited.</li>
+         * </ul>
+         */
         @JsonSetter(value = "capabilities", nulls = Nulls.SKIP)
         public Builder capabilities(Optional<List<String>> capabilities) {
             this.capabilities = capabilities;
@@ -1346,6 +1526,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The payment's receipt number.
+         * The field is missing if a payment is canceled.</p>
+         */
         @JsonSetter(value = "receipt_number", nulls = Nulls.SKIP)
         public Builder receiptNumber(Optional<String> receiptNumber) {
             this.receiptNumber = receiptNumber;
@@ -1357,6 +1541,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>The URL for the payment's receipt.
+         * The field is only populated for COMPLETED payments.</p>
+         */
         @JsonSetter(value = "receipt_url", nulls = Nulls.SKIP)
         public Builder receiptUrl(Optional<String> receiptUrl) {
             this.receiptUrl = receiptUrl;
@@ -1368,6 +1556,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about the device that took the payment.</p>
+         */
         @JsonSetter(value = "device_details", nulls = Nulls.SKIP)
         public Builder deviceDetails(Optional<DeviceDetails> deviceDetails) {
             this.deviceDetails = deviceDetails;
@@ -1379,6 +1570,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Details about the application that took the payment.</p>
+         */
         @JsonSetter(value = "application_details", nulls = Nulls.SKIP)
         public Builder applicationDetails(Optional<ApplicationDetails> applicationDetails) {
             this.applicationDetails = applicationDetails;
@@ -1390,6 +1584,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Whether or not this payment was taken offline.</p>
+         */
         @JsonSetter(value = "is_offline_payment", nulls = Nulls.SKIP)
         public Builder isOfflinePayment(Optional<Boolean> isOfflinePayment) {
             this.isOfflinePayment = isOfflinePayment;
@@ -1401,6 +1598,9 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Additional information about the payment if it was taken offline.</p>
+         */
         @JsonSetter(value = "offline_payment_details", nulls = Nulls.SKIP)
         public Builder offlinePaymentDetails(Optional<OfflinePaymentDetails> offlinePaymentDetails) {
             this.offlinePaymentDetails = offlinePaymentDetails;
@@ -1412,6 +1612,10 @@ public final class Payment {
             return this;
         }
 
+        /**
+         * <p>Used for optimistic concurrency. This opaque token identifies a specific version of the
+         * <code>Payment</code> object.</p>
+         */
         @JsonSetter(value = "version_token", nulls = Nulls.SKIP)
         public Builder versionToken(Optional<String> versionToken) {
             this.versionToken = versionToken;

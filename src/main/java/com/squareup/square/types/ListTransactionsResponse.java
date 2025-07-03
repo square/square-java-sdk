@@ -116,6 +116,9 @@ public final class ListTransactionsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -127,6 +130,9 @@ public final class ListTransactionsResponse {
             return this;
         }
 
+        /**
+         * <p>An array of transactions that match your query.</p>
+         */
         @JsonSetter(value = "transactions", nulls = Nulls.SKIP)
         public Builder transactions(Optional<List<Transaction>> transactions) {
             this.transactions = transactions;
@@ -138,6 +144,12 @@ public final class ListTransactionsResponse {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor for retrieving the next set of results,
+         * if any remain. Provide this value as the <code>cursor</code> parameter in a subsequent
+         * request to this endpoint.</p>
+         * <p>See <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Paginating results</a> for more information.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

@@ -201,6 +201,10 @@ public final class ListGiftCardsRequest {
             return this;
         }
 
+        /**
+         * <p>If a <a href="entity:GiftCardType">type</a> is provided, the endpoint returns gift cards of the specified type.
+         * Otherwise, the endpoint returns gift cards of all types.</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<String> type) {
             this.type = type;
@@ -223,6 +227,10 @@ public final class ListGiftCardsRequest {
             return this;
         }
 
+        /**
+         * <p>If a <a href="entity:GiftCardStatus">state</a> is provided, the endpoint returns the gift cards in the specified state.
+         * Otherwise, the endpoint returns the gift cards of all states.</p>
+         */
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public Builder state(Optional<String> state) {
             this.state = state;
@@ -245,6 +253,11 @@ public final class ListGiftCardsRequest {
             return this;
         }
 
+        /**
+         * <p>If a limit is provided, the endpoint returns only the specified number of results per page.
+         * The maximum value is 200. The default value is 30.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -267,6 +280,12 @@ public final class ListGiftCardsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * If a cursor is not provided, the endpoint returns the first page of the results.
+         * For more information, see <a href="https://developer.squareup.com/docs/working-with-apis/pagination">Pagination</a>.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -289,6 +308,9 @@ public final class ListGiftCardsRequest {
             return this;
         }
 
+        /**
+         * <p>If a customer ID is provided, the endpoint returns only the gift cards linked to the specified customer.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;

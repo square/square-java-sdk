@@ -150,6 +150,9 @@ public final class SearchOrdersFilter {
             return this;
         }
 
+        /**
+         * <p>Filter by <a href="entity:OrderState">OrderState</a>.</p>
+         */
         @JsonSetter(value = "state_filter", nulls = Nulls.SKIP)
         public Builder stateFilter(Optional<SearchOrdersStateFilter> stateFilter) {
             this.stateFilter = stateFilter;
@@ -161,6 +164,12 @@ public final class SearchOrdersFilter {
             return this;
         }
 
+        /**
+         * <p>Filter for results within a time range.</p>
+         * <p><strong>Important:</strong> If you filter for orders by time range, you must set <code>SearchOrdersSort</code>
+         * to sort by the same field.
+         * <a href="https://developer.squareup.com/docs/orders-api/manage-orders/search-orders#important-note-about-filtering-orders-by-time-range">Learn more about filtering orders by time range.</a></p>
+         */
         @JsonSetter(value = "date_time_filter", nulls = Nulls.SKIP)
         public Builder dateTimeFilter(Optional<SearchOrdersDateTimeFilter> dateTimeFilter) {
             this.dateTimeFilter = dateTimeFilter;
@@ -172,6 +181,9 @@ public final class SearchOrdersFilter {
             return this;
         }
 
+        /**
+         * <p>Filter by the fulfillment type or state.</p>
+         */
         @JsonSetter(value = "fulfillment_filter", nulls = Nulls.SKIP)
         public Builder fulfillmentFilter(Optional<SearchOrdersFulfillmentFilter> fulfillmentFilter) {
             this.fulfillmentFilter = fulfillmentFilter;
@@ -183,6 +195,9 @@ public final class SearchOrdersFilter {
             return this;
         }
 
+        /**
+         * <p>Filter by the source of the order.</p>
+         */
         @JsonSetter(value = "source_filter", nulls = Nulls.SKIP)
         public Builder sourceFilter(Optional<SearchOrdersSourceFilter> sourceFilter) {
             this.sourceFilter = sourceFilter;
@@ -194,6 +209,9 @@ public final class SearchOrdersFilter {
             return this;
         }
 
+        /**
+         * <p>Filter by customers associated with the order.</p>
+         */
         @JsonSetter(value = "customer_filter", nulls = Nulls.SKIP)
         public Builder customerFilter(Optional<SearchOrdersCustomerFilter> customerFilter) {
             this.customerFilter = customerFilter;

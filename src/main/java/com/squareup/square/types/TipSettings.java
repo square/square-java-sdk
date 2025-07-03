@@ -204,6 +204,9 @@ public final class TipSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether tipping is enabled for this checkout. Defaults to false.</p>
+         */
         @JsonSetter(value = "allow_tipping", nulls = Nulls.SKIP)
         public Builder allowTipping(Optional<Boolean> allowTipping) {
             this.allowTipping = allowTipping;
@@ -226,6 +229,10 @@ public final class TipSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether tip options should be presented on the screen before presenting
+         * the signature screen during card payment. Defaults to false.</p>
+         */
         @JsonSetter(value = "separate_tip_screen", nulls = Nulls.SKIP)
         public Builder separateTipScreen(Optional<Boolean> separateTipScreen) {
             this.separateTipScreen = separateTipScreen;
@@ -248,6 +255,9 @@ public final class TipSettings {
             return this;
         }
 
+        /**
+         * <p>Indicates whether custom tip amounts are allowed during the checkout flow. Defaults to false.</p>
+         */
         @JsonSetter(value = "custom_tip_field", nulls = Nulls.SKIP)
         public Builder customTipField(Optional<Boolean> customTipField) {
             this.customTipField = customTipField;
@@ -270,6 +280,10 @@ public final class TipSettings {
             return this;
         }
 
+        /**
+         * <p>A list of tip percentages that should be presented during the checkout flow, specified as
+         * up to 3 non-negative integers from 0 to 100 (inclusive). Defaults to 15, 20, and 25.</p>
+         */
         @JsonSetter(value = "tip_percentages", nulls = Nulls.SKIP)
         public Builder tipPercentages(Optional<List<Integer>> tipPercentages) {
             this.tipPercentages = tipPercentages;
@@ -292,6 +306,15 @@ public final class TipSettings {
             return this;
         }
 
+        /**
+         * <p>Enables the &quot;Smart Tip Amounts&quot; behavior.
+         * Exact tipping options depend on the region in which the Square seller is active.</p>
+         * <p>For payments under 10.00, in the Australia, Canada, Ireland, United Kingdom, and United States, tipping options are presented as no tip, .50, 1.00 or 2.00.</p>
+         * <p>For payment amounts of 10.00 or greater, tipping options are presented as the following percentages: 0%, 5%, 10%, 15%.</p>
+         * <p>If set to true, the <code>tip_percentages</code> settings is ignored.
+         * Defaults to false.</p>
+         * <p>To learn more about smart tipping, see <a href="https://squareup.com/help/us/en/article/5069-accept-tips-with-the-square-app">Accept Tips with the Square App</a>.</p>
+         */
         @JsonSetter(value = "smart_tipping", nulls = Nulls.SKIP)
         public Builder smartTipping(Optional<Boolean> smartTipping) {
             this.smartTipping = smartTipping;

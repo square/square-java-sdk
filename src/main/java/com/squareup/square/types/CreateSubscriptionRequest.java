@@ -259,58 +259,116 @@ public final class CreateSubscriptionRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location the subscription is associated with.</p>
+         */
         CustomerIdStage locationId(@NotNull String locationId);
 
         Builder from(CreateSubscriptionRequest other);
     }
 
     public interface CustomerIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Customer">customer</a> subscribing to the subscription plan variation.</p>
+         */
         _FinalStage customerId(@NotNull String customerId);
     }
 
     public interface _FinalStage {
         CreateSubscriptionRequest build();
 
+        /**
+         * <p>A unique string that identifies this <code>CreateSubscription</code> request.
+         * If you do not provide a unique string (or provide an empty string as the value),
+         * the endpoint treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
 
+        /**
+         * <p>The ID of the <a href="https://developer.squareup.com/docs/subscriptions-api/plans-and-variations#plan-variations">subscription plan variation</a> created using the Catalog API.</p>
+         */
         _FinalStage planVariationId(Optional<String> planVariationId);
 
         _FinalStage planVariationId(String planVariationId);
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date to start the subscription.
+         * If it is unspecified, the subscription starts immediately.</p>
+         */
         _FinalStage startDate(Optional<String> startDate);
 
         _FinalStage startDate(String startDate);
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the newly created subscription is scheduled for cancellation.</p>
+         * <p>This date overrides the cancellation date set in the plan variation configuration.
+         * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
+         * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
+         * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
+         * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+         * stops through the end of the last cycle.</p>
+         */
         _FinalStage canceledDate(Optional<String> canceledDate);
 
         _FinalStage canceledDate(String canceledDate);
 
+        /**
+         * <p>The tax to add when billing the subscription.
+         * The percentage is expressed in decimal form, using a <code>'.'</code> as the decimal
+         * separator and without a <code>'%'</code> sign. For example, a value of 7.5
+         * corresponds to 7.5%.</p>
+         */
         _FinalStage taxPercentage(Optional<String> taxPercentage);
 
         _FinalStage taxPercentage(String taxPercentage);
 
+        /**
+         * <p>A custom price which overrides the cost of a subscription plan variation with <code>STATIC</code> pricing.
+         * This field does not affect itemized subscriptions with <code>RELATIVE</code> pricing. Instead,
+         * you should edit the Subscription's <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#phases-and-order-templates">order template</a>.</p>
+         */
         _FinalStage priceOverrideMoney(Optional<Money> priceOverrideMoney);
 
         _FinalStage priceOverrideMoney(Money priceOverrideMoney);
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">subscriber's</a> <a href="entity:Card">card</a> to charge.
+         * If it is not specified, the subscriber receives an invoice via email with a link to pay for their subscription.</p>
+         */
         _FinalStage cardId(Optional<String> cardId);
 
         _FinalStage cardId(String cardId);
 
+        /**
+         * <p>The timezone that is used in date calculations for the subscription. If unset, defaults to
+         * the location timezone. If a timezone is not configured for the location, defaults to &quot;America/New_York&quot;.
+         * Format: the IANA Timezone Database identifier for the location timezone. For
+         * a list of time zones, see <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a>.</p>
+         */
         _FinalStage timezone(Optional<String> timezone);
 
         _FinalStage timezone(String timezone);
 
+        /**
+         * <p>The origination details of the subscription.</p>
+         */
         _FinalStage source(Optional<SubscriptionSource> source);
 
         _FinalStage source(SubscriptionSource source);
 
+        /**
+         * <p>The day-of-the-month to change the billing date to.</p>
+         */
         _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate);
 
         _FinalStage monthlyBillingAnchorDate(Integer monthlyBillingAnchorDate);
 
+        /**
+         * <p>array of phases for this subscription</p>
+         */
         _FinalStage phases(Optional<List<Phase>> phases);
 
         _FinalStage phases(List<Phase> phases);
@@ -369,6 +427,7 @@ public final class CreateSubscriptionRequest {
 
         /**
          * <p>The ID of the location the subscription is associated with.</p>
+         * <p>The ID of the location the subscription is associated with.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -379,6 +438,7 @@ public final class CreateSubscriptionRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Customer">customer</a> subscribing to the subscription plan variation.</p>
          * <p>The ID of the <a href="entity:Customer">customer</a> subscribing to the subscription plan variation.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -399,6 +459,9 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>array of phases for this subscription</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(Optional<List<Phase>> phases) {
@@ -416,6 +479,9 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The day-of-the-month to change the billing date to.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public _FinalStage monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate) {
@@ -433,6 +499,9 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The origination details of the subscription.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "source", nulls = Nulls.SKIP)
         public _FinalStage source(Optional<SubscriptionSource> source) {
@@ -453,6 +522,12 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The timezone that is used in date calculations for the subscription. If unset, defaults to
+         * the location timezone. If a timezone is not configured for the location, defaults to &quot;America/New_York&quot;.
+         * Format: the IANA Timezone Database identifier for the location timezone. For
+         * a list of time zones, see <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public _FinalStage timezone(Optional<String> timezone) {
@@ -471,6 +546,10 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">subscriber's</a> <a href="entity:Card">card</a> to charge.
+         * If it is not specified, the subscriber receives an invoice via email with a link to pay for their subscription.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "card_id", nulls = Nulls.SKIP)
         public _FinalStage cardId(Optional<String> cardId) {
@@ -490,6 +569,11 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>A custom price which overrides the cost of a subscription plan variation with <code>STATIC</code> pricing.
+         * This field does not affect itemized subscriptions with <code>RELATIVE</code> pricing. Instead,
+         * you should edit the Subscription's <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#phases-and-order-templates">order template</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "price_override_money", nulls = Nulls.SKIP)
         public _FinalStage priceOverrideMoney(Optional<Money> priceOverrideMoney) {
@@ -510,6 +594,12 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The tax to add when billing the subscription.
+         * The percentage is expressed in decimal form, using a <code>'.'</code> as the decimal
+         * separator and without a <code>'%'</code> sign. For example, a value of 7.5
+         * corresponds to 7.5%.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "tax_percentage", nulls = Nulls.SKIP)
         public _FinalStage taxPercentage(Optional<String> taxPercentage) {
@@ -533,6 +623,15 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the newly created subscription is scheduled for cancellation.</p>
+         * <p>This date overrides the cancellation date set in the plan variation configuration.
+         * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
+         * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
+         * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
+         * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+         * stops through the end of the last cycle.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "canceled_date", nulls = Nulls.SKIP)
         public _FinalStage canceledDate(Optional<String> canceledDate) {
@@ -551,6 +650,10 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date to start the subscription.
+         * If it is unspecified, the subscription starts immediately.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "start_date", nulls = Nulls.SKIP)
         public _FinalStage startDate(Optional<String> startDate) {
@@ -568,6 +671,9 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="https://developer.squareup.com/docs/subscriptions-api/plans-and-variations#plan-variations">subscription plan variation</a> created using the Catalog API.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "plan_variation_id", nulls = Nulls.SKIP)
         public _FinalStage planVariationId(Optional<String> planVariationId) {
@@ -588,6 +694,12 @@ public final class CreateSubscriptionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique string that identifies this <code>CreateSubscription</code> request.
+         * If you do not provide a unique string (or provide an empty string as the value),
+         * the endpoint treats each request as independent.</p>
+         * <p>For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency keys</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

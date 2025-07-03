@@ -456,6 +456,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the subscription.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -467,6 +470,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The ID of the location associated with the subscription.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -478,6 +484,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The ID of the subscribed-to <a href="entity:CatalogSubscriptionPlanVariation">subscription plan variation</a>.</p>
+         */
         @JsonSetter(value = "plan_variation_id", nulls = Nulls.SKIP)
         public Builder planVariationId(Optional<String> planVariationId) {
             this.planVariationId = planVariationId;
@@ -489,6 +498,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The ID of the subscribing <a href="entity:Customer">customer</a> profile.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -500,6 +512,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date (for example, 2013-01-15) to start the subscription.</p>
+         */
         @JsonSetter(value = "start_date", nulls = Nulls.SKIP)
         public Builder startDate(Optional<String> startDate) {
             this.startDate = startDate;
@@ -511,6 +526,12 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date (for example, 2013-01-15) to cancel the subscription,
+         * when the subscription status changes to <code>CANCELED</code> and the subscription billing stops.</p>
+         * <p>If this field is not set, the subscription ends according its subscription plan.</p>
+         * <p>This field cannot be updated, other than being cleared.</p>
+         */
         @JsonSetter(value = "canceled_date", nulls = Nulls.SKIP)
         public Builder canceledDate(Optional<String> canceledDate) {
             this.canceledDate = canceledDate;
@@ -533,6 +554,16 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date up to when the subscriber is invoiced for the
+         * subscription.</p>
+         * <p>After the invoice is sent for a given billing period,
+         * this date will be the last day of the billing period.
+         * For example,
+         * suppose for the month of May a subscriber gets an invoice
+         * (or charged the card) on May 1. For the monthly billing scenario,
+         * this date is then set to May 31.</p>
+         */
         @JsonSetter(value = "charged_through_date", nulls = Nulls.SKIP)
         public Builder chargedThroughDate(Optional<String> chargedThroughDate) {
             this.chargedThroughDate = chargedThroughDate;
@@ -544,6 +575,10 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The current status of the subscription.
+         * See <a href="#type-subscriptionstatus">SubscriptionStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<SubscriptionStatus> status) {
             this.status = status;
@@ -555,6 +590,12 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The tax amount applied when billing the subscription. The
+         * percentage is expressed in decimal form, using a <code>'.'</code> as the decimal
+         * separator and without a <code>'%'</code> sign. For example, a value of <code>7.5</code>
+         * corresponds to 7.5%.</p>
+         */
         @JsonSetter(value = "tax_percentage", nulls = Nulls.SKIP)
         public Builder taxPercentage(Optional<String> taxPercentage) {
             this.taxPercentage = taxPercentage;
@@ -577,6 +618,11 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The IDs of the <a href="entity:Invoice">invoices</a> created for the
+         * subscription, listed in order when the invoices were created
+         * (newest invoices appear first).</p>
+         */
         @JsonSetter(value = "invoice_ids", nulls = Nulls.SKIP)
         public Builder invoiceIds(Optional<List<String>> invoiceIds) {
             this.invoiceIds = invoiceIds;
@@ -588,6 +634,11 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>A custom price which overrides the cost of a subscription plan variation with <code>STATIC</code> pricing.
+         * This field does not affect itemized subscriptions with <code>RELATIVE</code> pricing. Instead,
+         * you should edit the Subscription's <a href="https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#phases-and-order-templates">order template</a>.</p>
+         */
         @JsonSetter(value = "price_override_money", nulls = Nulls.SKIP)
         public Builder priceOverrideMoney(Optional<Money> priceOverrideMoney) {
             this.priceOverrideMoney = priceOverrideMoney;
@@ -599,6 +650,11 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The version of the object. When updating an object, the version
+         * supplied must match the version in the database, otherwise the write will
+         * be rejected as conflicting.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Long> version) {
             this.version = version;
@@ -610,6 +666,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the subscription was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -621,6 +680,10 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Customer">subscriber's</a> <a href="entity:Card">card</a>
+         * used to charge for the subscription.</p>
+         */
         @JsonSetter(value = "card_id", nulls = Nulls.SKIP)
         public Builder cardId(Optional<String> cardId) {
             this.cardId = cardId;
@@ -643,6 +706,11 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>Timezone that will be used in date calculations for the subscription.
+         * Defaults to the timezone of the location based on <code>location_id</code>.
+         * Format: the IANA Timezone Database identifier for the location timezone (for example, <code>America/Los_Angeles</code>).</p>
+         */
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public Builder timezone(Optional<String> timezone) {
             this.timezone = timezone;
@@ -654,6 +722,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The origination details of the subscription.</p>
+         */
         @JsonSetter(value = "source", nulls = Nulls.SKIP)
         public Builder source(Optional<SubscriptionSource> source) {
             this.source = source;
@@ -665,6 +736,13 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The list of scheduled actions on this subscription. It is set only in the response from
+         * <a href="api-endpoint:Subscriptions-RetrieveSubscription">RetrieveSubscription</a> with the query parameter
+         * of <code>include=actions</code> or from
+         * <a href="api-endpoint:Subscriptions-SearchSubscriptions">SearchSubscriptions</a> with the input parameter
+         * of <code>include:[&quot;actions&quot;]</code>.</p>
+         */
         @JsonSetter(value = "actions", nulls = Nulls.SKIP)
         public Builder actions(Optional<List<SubscriptionAction>> actions) {
             this.actions = actions;
@@ -687,6 +765,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The day of the month on which the subscription will issue invoices and publish orders.</p>
+         */
         @JsonSetter(value = "monthly_billing_anchor_date", nulls = Nulls.SKIP)
         public Builder monthlyBillingAnchorDate(Optional<Integer> monthlyBillingAnchorDate) {
             this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
@@ -698,6 +779,9 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>array of phases for this subscription</p>
+         */
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public Builder phases(Optional<List<Phase>> phases) {
             this.phases = phases;

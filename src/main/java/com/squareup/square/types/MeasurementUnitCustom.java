@@ -78,12 +78,19 @@ public final class MeasurementUnitCustom {
     }
 
     public interface NameStage {
+        /**
+         * <p>The name of the custom unit, for example &quot;bushel&quot;.</p>
+         */
         AbbreviationStage name(@NotNull String name);
 
         Builder from(MeasurementUnitCustom other);
     }
 
     public interface AbbreviationStage {
+        /**
+         * <p>The abbreviation of the custom unit, such as &quot;bsh&quot; (bushel). This appears
+         * in the cart for the Point of Sale app, and in reports.</p>
+         */
         _FinalStage abbreviation(@NotNull String abbreviation);
     }
 
@@ -111,6 +118,7 @@ public final class MeasurementUnitCustom {
 
         /**
          * <p>The name of the custom unit, for example &quot;bushel&quot;.</p>
+         * <p>The name of the custom unit, for example &quot;bushel&quot;.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +129,8 @@ public final class MeasurementUnitCustom {
         }
 
         /**
+         * <p>The abbreviation of the custom unit, such as &quot;bsh&quot; (bushel). This appears
+         * in the cart for the Point of Sale app, and in reports.</p>
          * <p>The abbreviation of the custom unit, such as &quot;bsh&quot; (bushel). This appears
          * in the cart for the Point of Sale app, and in reports.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

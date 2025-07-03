@@ -96,6 +96,9 @@ public final class DismissTerminalActionResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class DismissTerminalActionResponse {
             return this;
         }
 
+        /**
+         * <p>Current state of the action to be dismissed.</p>
+         */
         @JsonSetter(value = "action", nulls = Nulls.SKIP)
         public Builder action(Optional<TerminalAction> action) {
             this.action = action;

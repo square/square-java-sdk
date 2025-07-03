@@ -169,6 +169,9 @@ public final class AcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Whether Apple Pay is accepted at checkout.</p>
+         */
         @JsonSetter(value = "apple_pay", nulls = Nulls.SKIP)
         public Builder applePay(Optional<Boolean> applePay) {
             this.applePay = applePay;
@@ -191,6 +194,9 @@ public final class AcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Whether Google Pay is accepted at checkout.</p>
+         */
         @JsonSetter(value = "google_pay", nulls = Nulls.SKIP)
         public Builder googlePay(Optional<Boolean> googlePay) {
             this.googlePay = googlePay;
@@ -213,6 +219,9 @@ public final class AcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Whether Cash App Pay is accepted at checkout.</p>
+         */
         @JsonSetter(value = "cash_app_pay", nulls = Nulls.SKIP)
         public Builder cashAppPay(Optional<Boolean> cashAppPay) {
             this.cashAppPay = cashAppPay;
@@ -235,6 +244,9 @@ public final class AcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Whether Afterpay/Clearpay is accepted at checkout.</p>
+         */
         @JsonSetter(value = "afterpay_clearpay", nulls = Nulls.SKIP)
         public Builder afterpayClearpay(Optional<Boolean> afterpayClearpay) {
             this.afterpayClearpay = afterpayClearpay;

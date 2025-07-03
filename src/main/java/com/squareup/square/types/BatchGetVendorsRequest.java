@@ -93,6 +93,9 @@ public final class BatchGetVendorsRequest {
             return this;
         }
 
+        /**
+         * <p>IDs of the <a href="entity:Vendor">Vendor</a> objects to retrieve.</p>
+         */
         @JsonSetter(value = "vendor_ids", nulls = Nulls.SKIP)
         public Builder vendorIds(Optional<List<String>> vendorIds) {
             this.vendorIds = vendorIds;

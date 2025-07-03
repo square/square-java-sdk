@@ -96,6 +96,9 @@ public final class UpdateLocationResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class UpdateLocationResponse {
             return this;
         }
 
+        /**
+         * <p>The updated <code>Location</code> object.</p>
+         */
         @JsonSetter(value = "location", nulls = Nulls.SKIP)
         public Builder location(Optional<Location> location) {
             this.location = location;

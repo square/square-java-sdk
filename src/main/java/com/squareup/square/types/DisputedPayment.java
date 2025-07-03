@@ -92,6 +92,9 @@ public final class DisputedPayment {
             return this;
         }
 
+        /**
+         * <p>Square-generated unique ID of the payment being disputed.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;

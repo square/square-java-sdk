@@ -237,6 +237,9 @@ public final class LoyaltyAccount {
     }
 
     public interface ProgramIdStage {
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to which the account belongs.</p>
+         */
         _FinalStage programId(@NotNull String programId);
 
         Builder from(LoyaltyAccount other);
@@ -245,42 +248,78 @@ public final class LoyaltyAccount {
     public interface _FinalStage {
         LoyaltyAccount build();
 
+        /**
+         * <p>The Square-assigned ID of the loyalty account.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The available point balance in the loyalty account. If points are scheduled to expire, they are listed in the <code>expiring_point_deadlines</code> field.</p>
+         * <p>Your application should be able to handle loyalty accounts that have a negative point balance (<code>balance</code> is less than 0). This might occur if a seller makes a manual adjustment or as a result of a refund or exchange.</p>
+         */
         _FinalStage balance(Optional<Integer> balance);
 
         _FinalStage balance(Integer balance);
 
+        /**
+         * <p>The total points accrued during the lifetime of the account.</p>
+         */
         _FinalStage lifetimePoints(Optional<Integer> lifetimePoints);
 
         _FinalStage lifetimePoints(Integer lifetimePoints);
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:Customer">customer</a> that is associated with the account.</p>
+         */
         _FinalStage customerId(Optional<String> customerId);
 
         _FinalStage customerId(String customerId);
 
         _FinalStage customerId(Nullable<String> customerId);
 
+        /**
+         * <p>The timestamp when the buyer joined the loyalty program, in RFC 3339 format. This field is used to display the <strong>Enrolled On</strong> or <strong>Member Since</strong> date in first-party Square products.</p>
+         * <p>If this field is not set in a <code>CreateLoyaltyAccount</code> request, Square populates it after the buyer's first action on their account
+         * (when <code>AccumulateLoyaltyPoints</code> or <code>CreateLoyaltyReward</code> is called). In first-party flows, Square populates the field when the buyer agrees to the terms of service in Square Point of Sale.</p>
+         * <p>This field is typically specified in a <code>CreateLoyaltyAccount</code> request when creating a loyalty account for a buyer who already interacted with their account.
+         * For example, you would set this field when migrating accounts from an external system. The timestamp in the request can represent a current or previous date and time, but it cannot be set for the future.</p>
+         */
         _FinalStage enrolledAt(Optional<String> enrolledAt);
 
         _FinalStage enrolledAt(String enrolledAt);
 
         _FinalStage enrolledAt(Nullable<String> enrolledAt);
 
+        /**
+         * <p>The timestamp when the loyalty account was created, in RFC 3339 format.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The timestamp when the loyalty account was last updated, in RFC 3339 format.</p>
+         */
         _FinalStage updatedAt(Optional<String> updatedAt);
 
         _FinalStage updatedAt(String updatedAt);
 
+        /**
+         * <p>The mapping that associates the loyalty account with a buyer. Currently,
+         * a loyalty account can only be mapped to a buyer by phone number.</p>
+         * <p>To create a loyalty account, you must specify the <code>mapping</code> field, with the buyer's phone number
+         * in the <code>phone_number</code> field.</p>
+         */
         _FinalStage mapping(Optional<LoyaltyAccountMapping> mapping);
 
         _FinalStage mapping(LoyaltyAccountMapping mapping);
 
+        /**
+         * <p>The schedule for when points expire in the loyalty account balance. This field is present only if the account has points that are scheduled to expire.</p>
+         * <p>The total number of points in this field equals the number of points in the <code>balance</code> field.</p>
+         */
         _FinalStage expiringPointDeadlines(Optional<List<LoyaltyAccountExpiringPointDeadline>> expiringPointDeadlines);
 
         _FinalStage expiringPointDeadlines(List<LoyaltyAccountExpiringPointDeadline> expiringPointDeadlines);
@@ -332,6 +371,7 @@ public final class LoyaltyAccount {
 
         /**
          * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to which the account belongs.</p>
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a> to which the account belongs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -370,6 +410,10 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The schedule for when points expire in the loyalty account balance. This field is present only if the account has points that are scheduled to expire.</p>
+         * <p>The total number of points in this field equals the number of points in the <code>balance</code> field.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "expiring_point_deadlines", nulls = Nulls.SKIP)
         public _FinalStage expiringPointDeadlines(
@@ -391,6 +435,12 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The mapping that associates the loyalty account with a buyer. Currently,
+         * a loyalty account can only be mapped to a buyer by phone number.</p>
+         * <p>To create a loyalty account, you must specify the <code>mapping</code> field, with the buyer's phone number
+         * in the <code>phone_number</code> field.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "mapping", nulls = Nulls.SKIP)
         public _FinalStage mapping(Optional<LoyaltyAccountMapping> mapping) {
@@ -408,6 +458,9 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the loyalty account was last updated, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public _FinalStage updatedAt(Optional<String> updatedAt) {
@@ -425,6 +478,9 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the loyalty account was created, in RFC 3339 format.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -466,6 +522,13 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the buyer joined the loyalty program, in RFC 3339 format. This field is used to display the <strong>Enrolled On</strong> or <strong>Member Since</strong> date in first-party Square products.</p>
+         * <p>If this field is not set in a <code>CreateLoyaltyAccount</code> request, Square populates it after the buyer's first action on their account
+         * (when <code>AccumulateLoyaltyPoints</code> or <code>CreateLoyaltyReward</code> is called). In first-party flows, Square populates the field when the buyer agrees to the terms of service in Square Point of Sale.</p>
+         * <p>This field is typically specified in a <code>CreateLoyaltyAccount</code> request when creating a loyalty account for a buyer who already interacted with their account.
+         * For example, you would set this field when migrating accounts from an external system. The timestamp in the request can represent a current or previous date and time, but it cannot be set for the future.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "enrolled_at", nulls = Nulls.SKIP)
         public _FinalStage enrolledAt(Optional<String> enrolledAt) {
@@ -499,6 +562,9 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:Customer">customer</a> that is associated with the account.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public _FinalStage customerId(Optional<String> customerId) {
@@ -516,6 +582,9 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The total points accrued during the lifetime of the account.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "lifetime_points", nulls = Nulls.SKIP)
         public _FinalStage lifetimePoints(Optional<Integer> lifetimePoints) {
@@ -534,6 +603,10 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The available point balance in the loyalty account. If points are scheduled to expire, they are listed in the <code>expiring_point_deadlines</code> field.</p>
+         * <p>Your application should be able to handle loyalty accounts that have a negative point balance (<code>balance</code> is less than 0). This might occur if a seller makes a manual adjustment or as a result of a refund or exchange.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "balance", nulls = Nulls.SKIP)
         public _FinalStage balance(Optional<Integer> balance) {
@@ -551,6 +624,9 @@ public final class LoyaltyAccount {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the loyalty account.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

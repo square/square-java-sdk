@@ -453,6 +453,10 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The name of the <code>CatalogModifierList</code> instance. This is a searchable attribute for use in applicable query filters, and its value length is of
+         * Unicode code points.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -475,6 +479,9 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The position of this <code>CatalogModifierList</code> within a list of <code>CatalogModifierList</code> instances.</p>
+         */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Integer> ordinal) {
             this.ordinal = ordinal;
@@ -497,6 +504,11 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p><strong>Deprecated</strong>: Indicates whether a single (<code>SINGLE</code>) modifier or multiple (<code>MULTIPLE</code>) modifiers can be selected. Use
+         * <code>min_selected_modifiers</code> and <code>max_selected_modifiers</code> instead.
+         * See <a href="#type-catalogmodifierlistselectiontype">CatalogModifierListSelectionType</a> for possible values</p>
+         */
         @JsonSetter(value = "selection_type", nulls = Nulls.SKIP)
         public Builder selectionType(Optional<CatalogModifierListSelectionType> selectionType) {
             this.selectionType = selectionType;
@@ -508,6 +520,17 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>A non-empty list of <code>CatalogModifier</code> objects to be included in the <code>CatalogModifierList</code>,
+         * for non text-based modifiers when the <code>modifier_type</code> attribute is <code>LIST</code>. Each element of this list
+         * is a <code>CatalogObject</code> instance of the <code>MODIFIER</code> type, containing the following attributes:</p>
+         * <pre><code>{
+         * &quot;id&quot;: &quot;{{catalog_modifier_id}}&quot;,
+         * &quot;type&quot;: &quot;MODIFIER&quot;,
+         * &quot;modifier_data&quot;: {{a CatalogModifier instance&gt;}}
+         * }
+         * </code></pre>
+         */
         @JsonSetter(value = "modifiers", nulls = Nulls.SKIP)
         public Builder modifiers(Optional<List<CatalogObject>> modifiers) {
             this.modifiers = modifiers;
@@ -530,6 +553,10 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The IDs of images associated with this <code>CatalogModifierList</code> instance.
+         * Currently these images are not displayed on Square products, but may be displayed in 3rd-party applications.</p>
+         */
         @JsonSetter(value = "image_ids", nulls = Nulls.SKIP)
         public Builder imageIds(Optional<List<String>> imageIds) {
             this.imageIds = imageIds;
@@ -552,6 +579,9 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>When <code>true</code>, allows multiple quantities of the same modifier to be selected.</p>
+         */
         @JsonSetter(value = "allow_quantities", nulls = Nulls.SKIP)
         public Builder allowQuantities(Optional<Boolean> allowQuantities) {
             this.allowQuantities = allowQuantities;
@@ -574,6 +604,9 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>True if modifiers belonging to this list can be used conversationally.</p>
+         */
         @JsonSetter(value = "is_conversational", nulls = Nulls.SKIP)
         public Builder isConversational(Optional<Boolean> isConversational) {
             this.isConversational = isConversational;
@@ -596,6 +629,12 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The type of the modifier.</p>
+         * <p>When this <code>modifier_type</code> value is <code>TEXT</code>,  the <code>CatalogModifierList</code> represents a text-based modifier.
+         * When this <code>modifier_type</code> value is <code>LIST</code>, the <code>CatalogModifierList</code> contains a list of <code>CatalogModifier</code> objects.
+         * See <a href="#type-catalogmodifierlistmodifiertype">CatalogModifierListModifierType</a> for possible values</p>
+         */
         @JsonSetter(value = "modifier_type", nulls = Nulls.SKIP)
         public Builder modifierType(Optional<CatalogModifierListModifierType> modifierType) {
             this.modifierType = modifierType;
@@ -607,6 +646,10 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The maximum length, in Unicode points, of the text string of the text-based modifier as represented by
+         * this <code>CatalogModifierList</code> object with the <code>modifier_type</code> set to <code>TEXT</code>.</p>
+         */
         @JsonSetter(value = "max_length", nulls = Nulls.SKIP)
         public Builder maxLength(Optional<Integer> maxLength) {
             this.maxLength = maxLength;
@@ -629,6 +672,10 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>Whether the text string must be a non-empty string (<code>true</code>) or not (<code>false</code>) for a text-based modifier
+         * as represented by this <code>CatalogModifierList</code> object with the <code>modifier_type</code> set to <code>TEXT</code>.</p>
+         */
         @JsonSetter(value = "text_required", nulls = Nulls.SKIP)
         public Builder textRequired(Optional<Boolean> textRequired) {
             this.textRequired = textRequired;
@@ -651,6 +698,14 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>A note for internal use by the business.</p>
+         * <p>For example, for a text-based modifier applied to a T-shirt item, if the buyer-supplied text of &quot;Hello, Kitty!&quot;
+         * is to be printed on the T-shirt, this <code>internal_name</code> attribute can be &quot;Use italic face&quot; as
+         * an instruction for the business to follow.</p>
+         * <p>For non text-based modifiers, this <code>internal_name</code> attribute can be
+         * used to include SKUs, internal codes, or supplemental descriptions for internal use.</p>
+         */
         @JsonSetter(value = "internal_name", nulls = Nulls.SKIP)
         public Builder internalName(Optional<String> internalName) {
             this.internalName = internalName;
@@ -673,6 +728,16 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The minimum number of modifiers that must be selected from this list. The value can be overridden with <code>CatalogItemModifierListInfo</code>.</p>
+         * <p>Values:</p>
+         * <ul>
+         * <li>0: No selection is required.</li>
+         * <li>-1: Default value, the attribute was not set by the client. Treated as no selection required.</li>
+         * <li>&gt;0: The required minimum modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no selection required.</li>
+         * </ul>
+         */
         @JsonSetter(value = "min_selected_modifiers", nulls = Nulls.SKIP)
         public Builder minSelectedModifiers(Optional<Long> minSelectedModifiers) {
             this.minSelectedModifiers = minSelectedModifiers;
@@ -695,6 +760,16 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>The maximum number of modifiers that must be selected from this list. The value can be overridden with <code>CatalogItemModifierListInfo</code>.</p>
+         * <p>Values:</p>
+         * <ul>
+         * <li>0: No maximum limit.</li>
+         * <li>-1: Default value, the attribute was not set by the client. Treated as no maximum limit.</li>
+         * <li>&gt;0: The maximum total modifier selections. This can be larger than the total <code>CatalogModifiers</code> when <code>allow_quantities</code> is enabled.</li>
+         * <li>&lt; -1: Invalid. Treated as no maximum limit.</li>
+         * </ul>
+         */
         @JsonSetter(value = "max_selected_modifiers", nulls = Nulls.SKIP)
         public Builder maxSelectedModifiers(Optional<Long> maxSelectedModifiers) {
             this.maxSelectedModifiers = maxSelectedModifiers;
@@ -717,6 +792,10 @@ public final class CatalogModifierList {
             return this;
         }
 
+        /**
+         * <p>If <code>true</code>, modifiers from this list are hidden from customer receipts. The default value is <code>false</code>.
+         * This setting can be overridden with <code>CatalogItemModifierListInfo.hidden_from_customer_override</code>.</p>
+         */
         @JsonSetter(value = "hidden_from_customer", nulls = Nulls.SKIP)
         public Builder hiddenFromCustomer(Optional<Boolean> hiddenFromCustomer) {
             this.hiddenFromCustomer = hiddenFromCustomer;

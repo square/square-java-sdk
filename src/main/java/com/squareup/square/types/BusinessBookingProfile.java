@@ -245,6 +245,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The ID of the seller, obtainable using the Merchants API.</p>
+         */
         @JsonSetter(value = "seller_id", nulls = Nulls.SKIP)
         public Builder sellerId(Optional<String> sellerId) {
             this.sellerId = sellerId;
@@ -267,6 +270,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The RFC 3339 timestamp specifying the booking's creation time.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -278,6 +284,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the seller is open for booking.</p>
+         */
         @JsonSetter(value = "booking_enabled", nulls = Nulls.SKIP)
         public Builder bookingEnabled(Optional<Boolean> bookingEnabled) {
             this.bookingEnabled = bookingEnabled;
@@ -300,6 +309,12 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The choice of customer's time zone information of a booking.
+         * The Square online booking site and all notifications to customers uses either the seller location’s time zone
+         * or the time zone the customer chooses at booking.
+         * See <a href="#type-businessbookingprofilecustomertimezonechoice">BusinessBookingProfileCustomerTimezoneChoice</a> for possible values</p>
+         */
         @JsonSetter(value = "customer_timezone_choice", nulls = Nulls.SKIP)
         public Builder customerTimezoneChoice(
                 Optional<BusinessBookingProfileCustomerTimezoneChoice> customerTimezoneChoice) {
@@ -312,6 +327,10 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The policy for the seller to automatically accept booking requests (<code>ACCEPT_ALL</code>) or not (<code>REQUIRES_ACCEPTANCE</code>).
+         * See <a href="#type-businessbookingprofilebookingpolicy">BusinessBookingProfileBookingPolicy</a> for possible values</p>
+         */
         @JsonSetter(value = "booking_policy", nulls = Nulls.SKIP)
         public Builder bookingPolicy(Optional<BusinessBookingProfileBookingPolicy> bookingPolicy) {
             this.bookingPolicy = bookingPolicy;
@@ -323,6 +342,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Indicates whether customers can cancel or reschedule their own bookings (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "allow_user_cancel", nulls = Nulls.SKIP)
         public Builder allowUserCancel(Optional<Boolean> allowUserCancel) {
             this.allowUserCancel = allowUserCancel;
@@ -345,6 +367,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Settings for appointment-type bookings.</p>
+         */
         @JsonSetter(value = "business_appointment_settings", nulls = Nulls.SKIP)
         public Builder businessAppointmentSettings(Optional<BusinessAppointmentSettings> businessAppointmentSettings) {
             this.businessAppointmentSettings = businessAppointmentSettings;
@@ -356,6 +381,9 @@ public final class BusinessBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the seller's subscription to Square Appointments supports creating, updating or canceling an appointment through the API (<code>true</code>) or not (<code>false</code>) using seller permission.</p>
+         */
         @JsonSetter(value = "support_seller_level_writes", nulls = Nulls.SKIP)
         public Builder supportSellerLevelWrites(Optional<Boolean> supportSellerLevelWrites) {
             this.supportSellerLevelWrites = supportSellerLevelWrites;

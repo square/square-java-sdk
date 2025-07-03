@@ -111,22 +111,36 @@ public final class DataCollectionOptions {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text to display in the data collection flow on the Terminal.</p>
+         */
         BodyStage title(@NotNull String title);
 
         Builder from(DataCollectionOptions other);
     }
 
     public interface BodyStage {
+        /**
+         * <p>The body text to display under the title in the data collection screen flow on the
+         * Terminal.</p>
+         */
         InputTypeStage body(@NotNull String body);
     }
 
     public interface InputTypeStage {
+        /**
+         * <p>Represents the type of the input text.
+         * See <a href="#type-inputtype">InputType</a> for possible values</p>
+         */
         _FinalStage inputType(@NotNull DataCollectionOptionsInputType inputType);
     }
 
     public interface _FinalStage {
         DataCollectionOptions build();
 
+        /**
+         * <p>The buyer’s input text from the data collection screen.</p>
+         */
         _FinalStage collectedData(Optional<CollectedData> collectedData);
 
         _FinalStage collectedData(CollectedData collectedData);
@@ -158,6 +172,7 @@ public final class DataCollectionOptions {
 
         /**
          * <p>The title text to display in the data collection flow on the Terminal.</p>
+         * <p>The title text to display in the data collection flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -170,6 +185,8 @@ public final class DataCollectionOptions {
         /**
          * <p>The body text to display under the title in the data collection screen flow on the
          * Terminal.</p>
+         * <p>The body text to display under the title in the data collection screen flow on the
+         * Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -180,6 +197,8 @@ public final class DataCollectionOptions {
         }
 
         /**
+         * <p>Represents the type of the input text.
+         * See <a href="#type-inputtype">InputType</a> for possible values</p>
          * <p>Represents the type of the input text.
          * See <a href="#type-inputtype">InputType</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
@@ -201,6 +220,9 @@ public final class DataCollectionOptions {
             return this;
         }
 
+        /**
+         * <p>The buyer’s input text from the data collection screen.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "collected_data", nulls = Nulls.SKIP)
         public _FinalStage collectedData(Optional<CollectedData> collectedData) {

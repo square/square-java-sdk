@@ -66,6 +66,9 @@ public final class GetBookingsRequest {
     }
 
     public interface BookingIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-retrieved booking.</p>
+         */
         _FinalStage bookingId(@NotNull String bookingId);
 
         Builder from(GetBookingsRequest other);
@@ -91,6 +94,7 @@ public final class GetBookingsRequest {
         }
 
         /**
+         * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-retrieved booking.</p>
          * <p>The ID of the <a href="entity:Booking">Booking</a> object representing the to-be-retrieved booking.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

@@ -98,6 +98,9 @@ public final class SearchAvailabilityResponse {
             return this;
         }
 
+        /**
+         * <p>List of appointment slots available for booking.</p>
+         */
         @JsonSetter(value = "availabilities", nulls = Nulls.SKIP)
         public Builder availabilities(Optional<List<Availability>> availabilities) {
             this.availabilities = availabilities;
@@ -109,6 +112,9 @@ public final class SearchAvailabilityResponse {
             return this;
         }
 
+        /**
+         * <p>Errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

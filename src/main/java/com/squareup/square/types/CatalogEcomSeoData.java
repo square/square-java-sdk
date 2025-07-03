@@ -144,6 +144,9 @@ public final class CatalogEcomSeoData {
             return this;
         }
 
+        /**
+         * <p>The SEO title used for the Square Online store.</p>
+         */
         @JsonSetter(value = "page_title", nulls = Nulls.SKIP)
         public Builder pageTitle(Optional<String> pageTitle) {
             this.pageTitle = pageTitle;
@@ -166,6 +169,9 @@ public final class CatalogEcomSeoData {
             return this;
         }
 
+        /**
+         * <p>The SEO description used for the Square Online store.</p>
+         */
         @JsonSetter(value = "page_description", nulls = Nulls.SKIP)
         public Builder pageDescription(Optional<String> pageDescription) {
             this.pageDescription = pageDescription;
@@ -188,6 +194,9 @@ public final class CatalogEcomSeoData {
             return this;
         }
 
+        /**
+         * <p>The SEO permalink used for the Square Online store.</p>
+         */
         @JsonSetter(value = "permalink", nulls = Nulls.SKIP)
         public Builder permalink(Optional<String> permalink) {
             this.permalink = permalink;

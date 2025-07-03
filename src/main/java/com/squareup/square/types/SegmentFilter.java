@@ -89,6 +89,9 @@ public final class SegmentFilter {
     }
 
     public interface ServiceVariationIdStage {
+        /**
+         * <p>The ID of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> object representing the service booked in this segment.</p>
+         */
         _FinalStage serviceVariationId(@NotNull String serviceVariationId);
 
         Builder from(SegmentFilter other);
@@ -97,6 +100,15 @@ public final class SegmentFilter {
     public interface _FinalStage {
         SegmentFilter build();
 
+        /**
+         * <p>A query filter to search for buyer-accessible appointment segments with service-providing team members matching the specified list of team member IDs.  Supported query expressions are</p>
+         * <ul>
+         * <li><code>ANY</code>: return the appointment segments with team members whose IDs match any member in this list.</li>
+         * <li><code>NONE</code>: return the appointment segments with team members whose IDs are not in this list.</li>
+         * <li><code>ALL</code>: not supported.</li>
+         * </ul>
+         * <p>When no expression is specified, any service-providing team member is eligible to fulfill the Booking.</p>
+         */
         _FinalStage teamMemberIdFilter(Optional<FilterValue> teamMemberIdFilter);
 
         _FinalStage teamMemberIdFilter(FilterValue teamMemberIdFilter);
@@ -121,6 +133,7 @@ public final class SegmentFilter {
         }
 
         /**
+         * <p>The ID of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> object representing the service booked in this segment.</p>
          * <p>The ID of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> object representing the service booked in this segment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -147,6 +160,15 @@ public final class SegmentFilter {
             return this;
         }
 
+        /**
+         * <p>A query filter to search for buyer-accessible appointment segments with service-providing team members matching the specified list of team member IDs.  Supported query expressions are</p>
+         * <ul>
+         * <li><code>ANY</code>: return the appointment segments with team members whose IDs match any member in this list.</li>
+         * <li><code>NONE</code>: return the appointment segments with team members whose IDs are not in this list.</li>
+         * <li><code>ALL</code>: not supported.</li>
+         * </ul>
+         * <p>When no expression is specified, any service-providing team member is eligible to fulfill the Booking.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "team_member_id_filter", nulls = Nulls.SKIP)
         public _FinalStage teamMemberIdFilter(Optional<FilterValue> teamMemberIdFilter) {

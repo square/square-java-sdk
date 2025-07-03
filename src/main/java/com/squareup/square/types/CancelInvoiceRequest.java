@@ -79,12 +79,20 @@ public final class CancelInvoiceRequest {
     }
 
     public interface InvoiceIdStage {
+        /**
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to cancel.</p>
+         */
         VersionStage invoiceId(@NotNull String invoiceId);
 
         Builder from(CancelInvoiceRequest other);
     }
 
     public interface VersionStage {
+        /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to cancel.
+         * If you do not know the version, you can call
+         * <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or <a href="api-endpoint:Invoices-ListInvoices">ListInvoices</a>.</p>
+         */
         _FinalStage version(int version);
     }
 
@@ -112,6 +120,7 @@ public final class CancelInvoiceRequest {
 
         /**
          * <p>The ID of the <a href="entity:Invoice">invoice</a> to cancel.</p>
+         * <p>The ID of the <a href="entity:Invoice">invoice</a> to cancel.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +131,9 @@ public final class CancelInvoiceRequest {
         }
 
         /**
+         * <p>The version of the <a href="entity:Invoice">invoice</a> to cancel.
+         * If you do not know the version, you can call
+         * <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or <a href="api-endpoint:Invoices-ListInvoices">ListInvoices</a>.</p>
          * <p>The version of the <a href="entity:Invoice">invoice</a> to cancel.
          * If you do not know the version, you can call
          * <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or <a href="api-endpoint:Invoices-ListInvoices">ListInvoices</a>.</p>

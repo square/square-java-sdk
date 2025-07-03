@@ -80,6 +80,9 @@ public final class CreateBookingRequest {
     }
 
     public interface BookingStage {
+        /**
+         * <p>The details of the booking to be created.</p>
+         */
         _FinalStage booking(@NotNull Booking booking);
 
         Builder from(CreateBookingRequest other);
@@ -88,6 +91,9 @@ public final class CreateBookingRequest {
     public interface _FinalStage {
         CreateBookingRequest build();
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -113,6 +119,7 @@ public final class CreateBookingRequest {
 
         /**
          * <p>The details of the booking to be created.</p>
+         * <p>The details of the booking to be created.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -132,6 +139,9 @@ public final class CreateBookingRequest {
             return this;
         }
 
+        /**
+         * <p>A unique key to make this request an idempotent operation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

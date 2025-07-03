@@ -287,6 +287,9 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on their creation source.</p>
+         */
         @JsonSetter(value = "creation_source", nulls = Nulls.SKIP)
         public Builder creationSource(Optional<CustomerCreationSourceFilter> creationSource) {
             this.creationSource = creationSource;
@@ -298,6 +301,9 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on when they were created.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;
@@ -309,6 +315,9 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on when they were last updated.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<TimeRange> updatedAt) {
             this.updatedAt = updatedAt;
@@ -320,6 +329,24 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#search-by-email-address">select customers by their email address</a>
+         * visible to the seller.
+         * This filter is case-insensitive.</p>
+         * <p>For <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#exact-search-by-email-address">exact matching</a>, this
+         * filter causes the search to return customer profiles
+         * whose <code>email_address</code> field value are identical to the email address provided
+         * in the query.</p>
+         * <p>For <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#fuzzy-search-by-email-address">fuzzy matching</a>,
+         * this filter causes the search to return customer profiles
+         * whose <code>email_address</code> field value has a token-wise partial match against the filtering
+         * expression in the query. For example, with <code>Steven gmail</code> provided in a search
+         * query, the search returns customers whose email address is <code>steven.johnson@gmail.com</code>
+         * or <code>mygmail@stevensbakery.com</code>. Square removes any punctuation (including periods (.),
+         * underscores (_), and the @ symbol) and tokenizes the email addresses on spaces. A match is
+         * found if a tokenized email address contains all the tokens in the search query,
+         * irrespective of the token order.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<CustomerTextFilter> emailAddress) {
             this.emailAddress = emailAddress;
@@ -331,6 +358,20 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#search-by-phone-number">select customers by their phone numbers</a>
+         * visible to the seller.</p>
+         * <p>For <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#exact-search-by-phone-number">exact matching</a>,
+         * this filter returns customers whose phone number matches the specified query expression. The number in the query must be of an
+         * E.164-compliant form. In particular, it must include the leading <code>+</code> sign followed by a country code and then a subscriber number.
+         * For example, the standard E.164 form of a US phone number is <code>+12062223333</code> and an E.164-compliant variation is <code>+1 (206) 222-3333</code>.
+         * To match the query expression, stored customer phone numbers are converted to the standard E.164 form.</p>
+         * <p>For <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#fuzzy-search-by-phone-number">fuzzy matching</a>,
+         * this filter returns customers whose phone number matches the token or tokens provided in the query expression. For example, with <code>415</code>
+         * provided in a search query, the search returns customers with the phone numbers <code>+1-415-212-1200</code>, <code>+1-212-415-1234</code>, and <code>+1 (551) 234-1567</code>.
+         * Similarly, a search query of <code>415 123</code> returns customers with the phone numbers <code>+1-212-415-1234</code> and <code>+1 (551) 234-1567</code> but not
+         * <code>+1-212-415-1200</code>. A match is found if a tokenized phone number contains all the tokens in the search query, irrespective of the token order.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<CustomerTextFilter> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -342,6 +383,20 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#search-by-reference-id">select customers by their reference IDs</a>.
+         * This filter is case-insensitive.</p>
+         * <p><a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#exact-search-by-reference-id">Exact matching</a>
+         * of a customer's reference ID against a query's reference ID is evaluated as an
+         * exact match between two strings, character by character in the given order.</p>
+         * <p><a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#fuzzy-search-by-reference-id">Fuzzy matching</a>
+         * of stored reference IDs against queried reference IDs works
+         * exactly the same as fuzzy matching on email addresses. Non-alphanumeric characters
+         * are replaced by spaces to tokenize stored and queried reference IDs. A match is found
+         * if a tokenized stored reference ID contains all tokens specified in any order in the query. For example,
+         * a query of <code>NYC M</code> matches customer profiles with the <code>reference_id</code> value of <code>NYC_M_35_JOHNSON</code>
+         * and <code>NYC_27_MURRAY</code>.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<CustomerTextFilter> referenceId) {
             this.referenceId = referenceId;
@@ -353,6 +408,23 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on the <a href="entity:CustomerGroup">groups</a> they belong to.
+         * Group membership is controlled by sellers and developers.</p>
+         * <p>The <code>group_ids</code> filter has the following syntax:</p>
+         * <pre><code>&quot;group_ids&quot;: {
+         * &quot;any&quot;:  [&quot;{group_a_id}&quot;, &quot;{group_b_id}&quot;, ...],
+         * &quot;all&quot;:  [&quot;{group_1_id}&quot;, &quot;{group_2_id}&quot;, ...],
+         * &quot;none&quot;: [&quot;{group_i_id}&quot;, &quot;{group_ii_id}&quot;, ...]
+         * }
+         * </code></pre>
+         * <p>You can use any combination of the <code>any</code>, <code>all</code>, and <code>none</code> fields in the filter.
+         * With <code>any</code>, the search returns customers in groups <code>a</code> or <code>b</code> or any other group specified in the list.
+         * With <code>all</code>, the search returns customers in groups <code>1</code> and <code>2</code> and all other groups specified in the list.
+         * With <code>none</code>, the search returns customers not in groups <code>i</code> or <code>ii</code> or any other group specified in the list.</p>
+         * <p>If any of the search conditions are not met, including when an invalid or non-existent group ID is provided,
+         * the result is an empty object (<code>{}</code>).</p>
+         */
         @JsonSetter(value = "group_ids", nulls = Nulls.SKIP)
         public Builder groupIds(Optional<FilterValue> groupIds) {
             this.groupIds = groupIds;
@@ -364,6 +436,16 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on one or more custom attributes.
+         * This filter can contain up to 10 custom attribute filters. Each custom attribute filter specifies filtering criteria for a target custom
+         * attribute. If multiple custom attribute filters are provided, they are combined as an <code>AND</code> operation.</p>
+         * <p>To be valid for a search, the custom attributes must be visible to the requesting application. For more information, including example queries,
+         * see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/search-customers#search-by-custom-attribute">Search by custom attribute</a>.</p>
+         * <p>Square returns matching customer profiles, which do not contain custom attributes. To retrieve customer-related custom attributes,
+         * use the <a href="api:CustomerCustomAttributes">Customer Custom Attributes API</a>. For example, you can call
+         * <a href="api-endpoint:CustomerCustomAttributes-RetrieveCustomerCustomAttribute">RetrieveCustomerCustomAttribute</a> using a customer ID from the result set.</p>
+         */
         @JsonSetter(value = "custom_attribute", nulls = Nulls.SKIP)
         public Builder customAttribute(Optional<CustomerCustomAttributeFilters> customAttribute) {
             this.customAttribute = customAttribute;
@@ -375,6 +457,19 @@ public final class CustomerFilter {
             return this;
         }
 
+        /**
+         * <p>A filter to select customers based on the <a href="entity:CustomerSegment">segments</a> they belong to.
+         * Segment membership is dynamic and adjusts automatically based on whether customers meet the segment criteria.</p>
+         * <p>You can provide up to three segment IDs in the filter, using any combination of the <code>all</code>, <code>any</code>, and <code>none</code> fields.
+         * For the following example, the results include customers who belong to both segment A and segment B but do not belong to segment C.</p>
+         * <pre><code>&quot;segment_ids&quot;: {
+         * &quot;all&quot;:  [&quot;{segment_A_id}&quot;, &quot;{segment_B_id}&quot;],
+         * &quot;none&quot;:  [&quot;{segment_C_id}&quot;]
+         * }
+         * </code></pre>
+         * <p>If an invalid or non-existent segment ID is provided in the filter, Square stops processing the request
+         * and returns a <code>400 BAD_REQUEST</code> error that includes the segment ID.</p>
+         */
         @JsonSetter(value = "segment_ids", nulls = Nulls.SKIP)
         public Builder segmentIds(Optional<FilterValue> segmentIds) {
             this.segmentIds = segmentIds;

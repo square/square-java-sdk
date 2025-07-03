@@ -99,6 +99,12 @@ public final class CustomerQuery {
             return this;
         }
 
+        /**
+         * <p>The filtering criteria for the search query. A query can contain multiple filters in any combination.
+         * Multiple filters are combined as <code>AND</code> statements.</p>
+         * <p><strong>Note:</strong> Combining multiple filters as <code>OR</code> statements is not supported. Instead, send multiple single-filter
+         * searches and join the result sets.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<CustomerFilter> filter) {
             this.filter = filter;
@@ -110,6 +116,10 @@ public final class CustomerQuery {
             return this;
         }
 
+        /**
+         * <p>Sorting criteria for query results. The default behavior is to sort
+         * customers alphabetically by <code>given_name</code> and <code>family_name</code>.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<CustomerSort> sort) {
             this.sort = sort;

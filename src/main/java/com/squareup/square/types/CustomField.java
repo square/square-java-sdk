@@ -66,6 +66,9 @@ public final class CustomField {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title of the custom field.</p>
+         */
         _FinalStage title(@NotNull String title);
 
         Builder from(CustomField other);
@@ -91,6 +94,7 @@ public final class CustomField {
         }
 
         /**
+         * <p>The title of the custom field.</p>
          * <p>The title of the custom field.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

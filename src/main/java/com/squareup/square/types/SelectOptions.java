@@ -111,24 +111,36 @@ public final class SelectOptions {
     }
 
     public interface TitleStage {
+        /**
+         * <p>The title text to display in the select flow on the Terminal.</p>
+         */
         BodyStage title(@NotNull String title);
 
         Builder from(SelectOptions other);
     }
 
     public interface BodyStage {
+        /**
+         * <p>The body text to display in the select flow on the Terminal.</p>
+         */
         _FinalStage body(@NotNull String body);
     }
 
     public interface _FinalStage {
         SelectOptions build();
 
+        /**
+         * <p>Represents the buttons/options that should be displayed in the select flow on the Terminal.</p>
+         */
         _FinalStage options(List<SelectOption> options);
 
         _FinalStage addOptions(SelectOption options);
 
         _FinalStage addAllOptions(List<SelectOption> options);
 
+        /**
+         * <p>The buyer’s selected option.</p>
+         */
         _FinalStage selectedOption(Optional<SelectOption> selectedOption);
 
         _FinalStage selectedOption(SelectOption selectedOption);
@@ -160,6 +172,7 @@ public final class SelectOptions {
 
         /**
          * <p>The title text to display in the select flow on the Terminal.</p>
+         * <p>The title text to display in the select flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -170,6 +183,7 @@ public final class SelectOptions {
         }
 
         /**
+         * <p>The body text to display in the select flow on the Terminal.</p>
          * <p>The body text to display in the select flow on the Terminal.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -190,6 +204,9 @@ public final class SelectOptions {
             return this;
         }
 
+        /**
+         * <p>The buyer’s selected option.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "selected_option", nulls = Nulls.SKIP)
         public _FinalStage selectedOption(Optional<SelectOption> selectedOption) {
@@ -217,6 +234,9 @@ public final class SelectOptions {
             return this;
         }
 
+        /**
+         * <p>Represents the buttons/options that should be displayed in the select flow on the Terminal.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(List<SelectOption> options) {

@@ -82,6 +82,9 @@ public final class LocationSettingsUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated location settings.</p>
+         */
         @JsonSetter(value = "location_settings", nulls = Nulls.SKIP)
         public Builder locationSettings(Optional<CheckoutLocationSettings> locationSettings) {
             this.locationSettings = locationSettings;

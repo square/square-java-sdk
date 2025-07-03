@@ -67,6 +67,10 @@ public final class GetByV1IdBankAccountsRequest {
     }
 
     public interface V1BankAccountIdStage {
+        /**
+         * <p>Connect V1 ID of the desired <code>BankAccount</code>. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api#retrieve-a-bank-account-by-using-an-id-issued-by-v1-bank-accounts-api">Retrieve a bank account by using an ID issued by V1 Bank Accounts API</a>.</p>
+         */
         _FinalStage v1BankAccountId(@NotNull String v1BankAccountId);
 
         Builder from(GetByV1IdBankAccountsRequest other);
@@ -92,6 +96,8 @@ public final class GetByV1IdBankAccountsRequest {
         }
 
         /**
+         * <p>Connect V1 ID of the desired <code>BankAccount</code>. For more information, see
+         * <a href="https://developer.squareup.com/docs/bank-accounts-api#retrieve-a-bank-account-by-using-an-id-issued-by-v1-bank-accounts-api">Retrieve a bank account by using an ID issued by V1 Bank Accounts API</a>.</p>
          * <p>Connect V1 ID of the desired <code>BankAccount</code>. For more information, see
          * <a href="https://developer.squareup.com/docs/bank-accounts-api#retrieve-a-bank-account-by-using-an-id-issued-by-v1-bank-accounts-api">Retrieve a bank account by using an ID issued by V1 Bank Accounts API</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.

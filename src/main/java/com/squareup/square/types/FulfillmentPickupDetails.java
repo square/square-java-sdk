@@ -477,6 +477,10 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>Information about the person to pick up this fulfillment from a physical
+         * location.</p>
+         */
         @JsonSetter(value = "recipient", nulls = Nulls.SKIP)
         public Builder recipient(Optional<FulfillmentRecipient> recipient) {
             this.recipient = recipient;
@@ -488,6 +492,13 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when this fulfillment expires if it is not marked in progress. The timestamp must be
+         * in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;). The expiration time can only be set
+         * up to 7 days in the future. If <code>expires_at</code> is not set, any new payments attached to the order
+         * are automatically completed.</p>
+         */
         @JsonSetter(value = "expires_at", nulls = Nulls.SKIP)
         public Builder expiresAt(Optional<String> expiresAt) {
             this.expiresAt = expiresAt;
@@ -510,6 +521,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The duration of time after which an in progress pickup fulfillment is automatically moved
+         * to the <code>COMPLETED</code> state. The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>If not set, this pickup fulfillment remains in progress until it is canceled or completed.</p>
+         */
         @JsonSetter(value = "auto_complete_duration", nulls = Nulls.SKIP)
         public Builder autoCompleteDuration(Optional<String> autoCompleteDuration) {
             this.autoCompleteDuration = autoCompleteDuration;
@@ -532,6 +548,10 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The schedule type of the pickup fulfillment. Defaults to <code>SCHEDULED</code>.
+         * See <a href="#type-fulfillmentpickupdetailsscheduletype">FulfillmentPickupDetailsScheduleType</a> for possible values</p>
+         */
         @JsonSetter(value = "schedule_type", nulls = Nulls.SKIP)
         public Builder scheduleType(Optional<FulfillmentPickupDetailsScheduleType> scheduleType) {
             this.scheduleType = scheduleType;
@@ -543,6 +563,13 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * that represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
+         * &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         * <p>For fulfillments with the schedule type <code>ASAP</code>, this is automatically set
+         * to the current time plus the expected duration to prepare the fulfillment.</p>
+         */
         @JsonSetter(value = "pickup_at", nulls = Nulls.SKIP)
         public Builder pickupAt(Optional<String> pickupAt) {
             this.pickupAt = pickupAt;
@@ -565,6 +592,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The window of time in which the order should be picked up after the <code>pickup_at</code> timestamp.
+         * Must be in RFC 3339 duration format, e.g., &quot;P1W3D&quot;. Can be used as an
+         * informational guideline for merchants.</p>
+         */
         @JsonSetter(value = "pickup_window_duration", nulls = Nulls.SKIP)
         public Builder pickupWindowDuration(Optional<String> pickupWindowDuration) {
             this.pickupWindowDuration = pickupWindowDuration;
@@ -587,6 +619,10 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The duration of time it takes to prepare this fulfillment.
+         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         */
         @JsonSetter(value = "prep_time_duration", nulls = Nulls.SKIP)
         public Builder prepTimeDuration(Optional<String> prepTimeDuration) {
             this.prepTimeDuration = prepTimeDuration;
@@ -609,6 +645,10 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>A note to provide additional instructions about the pickup
+         * fulfillment displayed in the Square Point of Sale application and set by the API.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -631,6 +671,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was placed. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "placed_at", nulls = Nulls.SKIP)
         public Builder placedAt(Optional<String> placedAt) {
             this.placedAt = placedAt;
@@ -642,6 +687,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was marked in progress. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "accepted_at", nulls = Nulls.SKIP)
         public Builder acceptedAt(Optional<String> acceptedAt) {
             this.acceptedAt = acceptedAt;
@@ -653,6 +703,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was rejected. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "rejected_at", nulls = Nulls.SKIP)
         public Builder rejectedAt(Optional<String> rejectedAt) {
             this.rejectedAt = rejectedAt;
@@ -664,6 +719,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment is marked as ready for pickup. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "ready_at", nulls = Nulls.SKIP)
         public Builder readyAt(Optional<String> readyAt) {
             this.readyAt = readyAt;
@@ -675,6 +735,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment expired. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "expired_at", nulls = Nulls.SKIP)
         public Builder expiredAt(Optional<String> expiredAt) {
             this.expiredAt = expiredAt;
@@ -686,6 +751,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was picked up by the recipient. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "picked_up_at", nulls = Nulls.SKIP)
         public Builder pickedUpAt(Optional<String> pickedUpAt) {
             this.pickedUpAt = pickedUpAt;
@@ -697,6 +767,11 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was canceled. The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "canceled_at", nulls = Nulls.SKIP)
         public Builder canceledAt(Optional<String> canceledAt) {
             this.canceledAt = canceledAt;
@@ -708,6 +783,9 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>A description of why the pickup was canceled. The maximum length: 100 characters.</p>
+         */
         @JsonSetter(value = "cancel_reason", nulls = Nulls.SKIP)
         public Builder cancelReason(Optional<String> cancelReason) {
             this.cancelReason = cancelReason;
@@ -730,6 +808,9 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>If set to <code>true</code>, indicates that this pickup order is for curbside pickup, not in-store pickup.</p>
+         */
         @JsonSetter(value = "is_curbside_pickup", nulls = Nulls.SKIP)
         public Builder isCurbsidePickup(Optional<Boolean> isCurbsidePickup) {
             this.isCurbsidePickup = isCurbsidePickup;
@@ -752,6 +833,9 @@ public final class FulfillmentPickupDetails {
             return this;
         }
 
+        /**
+         * <p>Specific details for curbside pickup. These details can only be populated if <code>is_curbside_pickup</code> is set to <code>true</code>.</p>
+         */
         @JsonSetter(value = "curbside_pickup_details", nulls = Nulls.SKIP)
         public Builder curbsidePickupDetails(
                 Optional<FulfillmentPickupDetailsCurbsidePickupDetails> curbsidePickupDetails) {

@@ -100,6 +100,11 @@ public final class UpdateScheduledShiftResponse {
             return this;
         }
 
+        /**
+         * <p>The updated scheduled shift. To make the changes public, call
+         * <a href="api-endpoint:Labor-PublishScheduledShift">PublishScheduledShift</a> or
+         * <a href="api-endpoint:Labor-BulkPublishScheduledShifts">BulkPublishScheduledShifts</a>.</p>
+         */
         @JsonSetter(value = "scheduled_shift", nulls = Nulls.SKIP)
         public Builder scheduledShift(Optional<ScheduledShift> scheduledShift) {
             this.scheduledShift = scheduledShift;
@@ -111,6 +116,9 @@ public final class UpdateScheduledShiftResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

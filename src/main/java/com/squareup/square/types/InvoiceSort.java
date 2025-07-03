@@ -81,6 +81,10 @@ public final class InvoiceSort {
     }
 
     public interface FieldStage {
+        /**
+         * <p>The field to use for sorting.
+         * See <a href="#type-invoicesortfield">InvoiceSortField</a> for possible values</p>
+         */
         _FinalStage field(@NotNull String field);
 
         Builder from(InvoiceSort other);
@@ -89,6 +93,10 @@ public final class InvoiceSort {
     public interface _FinalStage {
         InvoiceSort build();
 
+        /**
+         * <p>The order to use for sorting the results.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         _FinalStage order(Optional<SortOrder> order);
 
         _FinalStage order(SortOrder order);
@@ -115,6 +123,8 @@ public final class InvoiceSort {
         /**
          * <p>The field to use for sorting.
          * See <a href="#type-invoicesortfield">InvoiceSortField</a> for possible values</p>
+         * <p>The field to use for sorting.
+         * See <a href="#type-invoicesortfield">InvoiceSortField</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +145,10 @@ public final class InvoiceSort {
             return this;
         }
 
+        /**
+         * <p>The order to use for sorting the results.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "order", nulls = Nulls.SKIP)
         public _FinalStage order(Optional<SortOrder> order) {

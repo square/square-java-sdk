@@ -98,6 +98,9 @@ public final class GetTerminalCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class GetTerminalCheckoutResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <code>TerminalCheckout</code>.</p>
+         */
         @JsonSetter(value = "checkout", nulls = Nulls.SKIP)
         public Builder checkout(Optional<TerminalCheckout> checkout) {
             this.checkout = checkout;

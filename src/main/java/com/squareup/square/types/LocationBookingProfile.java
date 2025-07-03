@@ -144,6 +144,9 @@ public final class LocationBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Location">location</a>.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -166,6 +169,9 @@ public final class LocationBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Url for the online booking site for this location.</p>
+         */
         @JsonSetter(value = "booking_site_url", nulls = Nulls.SKIP)
         public Builder bookingSiteUrl(Optional<String> bookingSiteUrl) {
             this.bookingSiteUrl = bookingSiteUrl;
@@ -188,6 +194,9 @@ public final class LocationBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the location is enabled for online booking.</p>
+         */
         @JsonSetter(value = "online_booking_enabled", nulls = Nulls.SKIP)
         public Builder onlineBookingEnabled(Optional<Boolean> onlineBookingEnabled) {
             this.onlineBookingEnabled = onlineBookingEnabled;

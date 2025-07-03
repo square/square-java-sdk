@@ -117,6 +117,9 @@ public final class PaymentBalanceActivityOpenDisputeDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the payment associated with this activity.</p>
+         */
         @JsonSetter(value = "payment_id", nulls = Nulls.SKIP)
         public Builder paymentId(Optional<String> paymentId) {
             this.paymentId = paymentId;
@@ -139,6 +142,9 @@ public final class PaymentBalanceActivityOpenDisputeDetail {
             return this;
         }
 
+        /**
+         * <p>The ID of the dispute associated with this activity.</p>
+         */
         @JsonSetter(value = "dispute_id", nulls = Nulls.SKIP)
         public Builder disputeId(Optional<String> disputeId) {
             this.disputeId = disputeId;

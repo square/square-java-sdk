@@ -120,6 +120,9 @@ public final class CustomerDeletedEventEventContextMerge {
             return this;
         }
 
+        /**
+         * <p>The IDs of the existing customers that were merged and then deleted.</p>
+         */
         @JsonSetter(value = "from_customer_ids", nulls = Nulls.SKIP)
         public Builder fromCustomerIds(Optional<List<String>> fromCustomerIds) {
             this.fromCustomerIds = fromCustomerIds;
@@ -142,6 +145,9 @@ public final class CustomerDeletedEventEventContextMerge {
             return this;
         }
 
+        /**
+         * <p>The ID of the new customer created by the merge.</p>
+         */
         @JsonSetter(value = "to_customer_id", nulls = Nulls.SKIP)
         public Builder toCustomerId(Optional<String> toCustomerId) {
             this.toCustomerId = toCustomerId;

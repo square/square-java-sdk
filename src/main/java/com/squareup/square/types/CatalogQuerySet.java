@@ -82,6 +82,9 @@ public final class CatalogQuerySet {
     }
 
     public interface AttributeNameStage {
+        /**
+         * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
+         */
         _FinalStage attributeName(@NotNull String attributeName);
 
         Builder from(CatalogQuerySet other);
@@ -90,6 +93,10 @@ public final class CatalogQuerySet {
     public interface _FinalStage {
         CatalogQuerySet build();
 
+        /**
+         * <p>The desired values of the search attribute. Matching of the attribute values is exact and case insensitive.
+         * A maximum of 250 values may be searched in a request.</p>
+         */
         _FinalStage attributeValues(List<String> attributeValues);
 
         _FinalStage addAttributeValues(String attributeValues);
@@ -116,6 +123,7 @@ public final class CatalogQuerySet {
         }
 
         /**
+         * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
          * <p>The name of the attribute to be searched. Matching of the attribute name is exact.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -148,6 +156,10 @@ public final class CatalogQuerySet {
             return this;
         }
 
+        /**
+         * <p>The desired values of the search attribute. Matching of the attribute values is exact and case insensitive.
+         * A maximum of 250 values may be searched in a request.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "attribute_values", nulls = Nulls.SKIP)
         public _FinalStage attributeValues(List<String> attributeValues) {

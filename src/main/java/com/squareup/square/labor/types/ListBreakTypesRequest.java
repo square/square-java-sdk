@@ -144,6 +144,10 @@ public final class ListBreakTypesRequest {
             return this;
         }
 
+        /**
+         * <p>Filter the returned <code>BreakType</code> results to only those that are associated with the
+         * specified location.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -166,6 +170,10 @@ public final class ListBreakTypesRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of <code>BreakType</code> results to return per page. The number can range between 1
+         * and 200. The default is 200.</p>
+         */
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public Builder limit(Optional<Integer> limit) {
             this.limit = limit;
@@ -188,6 +196,9 @@ public final class ListBreakTypesRequest {
             return this;
         }
 
+        /**
+         * <p>A pointer to the next page of <code>BreakType</code> results to fetch.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;

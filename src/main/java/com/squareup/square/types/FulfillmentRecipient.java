@@ -199,6 +199,15 @@ public final class FulfillmentRecipient {
             return this;
         }
 
+        /**
+         * <p>The ID of the customer associated with the fulfillment.</p>
+         * <p>If <code>customer_id</code> is provided, the fulfillment recipient's <code>display_name</code>,
+         * <code>email_address</code>, and <code>phone_number</code> are automatically populated from the
+         * targeted customer profile. If these fields are set in the request, the request
+         * values override the information from the customer profile. If the
+         * targeted customer profile does not contain the necessary information and
+         * these fields are left unset, the request results in an error.</p>
+         */
         @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
         public Builder customerId(Optional<String> customerId) {
             this.customerId = customerId;
@@ -221,6 +230,11 @@ public final class FulfillmentRecipient {
             return this;
         }
 
+        /**
+         * <p>The display name of the fulfillment recipient. This field is required.</p>
+         * <p>If provided, the display name overrides the corresponding customer profile value
+         * indicated by <code>customer_id</code>.</p>
+         */
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public Builder displayName(Optional<String> displayName) {
             this.displayName = displayName;
@@ -243,6 +257,11 @@ public final class FulfillmentRecipient {
             return this;
         }
 
+        /**
+         * <p>The email address of the fulfillment recipient.</p>
+         * <p>If provided, the email address overrides the corresponding customer profile value
+         * indicated by <code>customer_id</code>.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;
@@ -265,6 +284,11 @@ public final class FulfillmentRecipient {
             return this;
         }
 
+        /**
+         * <p>The phone number of the fulfillment recipient. This field is required.</p>
+         * <p>If provided, the phone number overrides the corresponding customer profile value
+         * indicated by <code>customer_id</code>.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -287,6 +311,11 @@ public final class FulfillmentRecipient {
             return this;
         }
 
+        /**
+         * <p>The address of the fulfillment recipient. This field is required.</p>
+         * <p>If provided, the address overrides the corresponding customer profile value
+         * indicated by <code>customer_id</code>.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;

@@ -175,6 +175,11 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>Indicates how the inventory change is applied. See
+         * <a href="entity:InventoryChangeType">InventoryChangeType</a> for all possible values.
+         * See <a href="#type-inventorychangetype">InventoryChangeType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<InventoryChangeType> type) {
             this.type = type;
@@ -186,6 +191,10 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>Contains details about the physical count when <code>type</code> is
+         * <code>PHYSICAL_COUNT</code>, and is unset for all other change types.</p>
+         */
         @JsonSetter(value = "physical_count", nulls = Nulls.SKIP)
         public Builder physicalCount(Optional<InventoryPhysicalCount> physicalCount) {
             this.physicalCount = physicalCount;
@@ -197,6 +206,10 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>Contains details about the inventory adjustment when <code>type</code> is
+         * <code>ADJUSTMENT</code>, and is unset for all other change types.</p>
+         */
         @JsonSetter(value = "adjustment", nulls = Nulls.SKIP)
         public Builder adjustment(Optional<InventoryAdjustment> adjustment) {
             this.adjustment = adjustment;
@@ -208,6 +221,12 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>Contains details about the inventory transfer when <code>type</code> is
+         * <code>TRANSFER</code>, and is unset for all other change types.</p>
+         * <p><em>Note:</em> An <a href="entity:InventoryTransfer">InventoryTransfer</a> object can only be set in the input to the
+         * <a href="api-endpoint:Inventory-BatchChangeInventory">BatchChangeInventory</a> endpoint when the seller has an active Retail Plus subscription.</p>
+         */
         @JsonSetter(value = "transfer", nulls = Nulls.SKIP)
         public Builder transfer(Optional<InventoryTransfer> transfer) {
             this.transfer = transfer;
@@ -219,6 +238,9 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:CatalogMeasurementUnit">CatalogMeasurementUnit</a> object representing the catalog measurement unit associated with the inventory change.</p>
+         */
         @JsonSetter(value = "measurement_unit", nulls = Nulls.SKIP)
         public Builder measurementUnit(Optional<CatalogMeasurementUnit> measurementUnit) {
             this.measurementUnit = measurementUnit;
@@ -230,6 +252,9 @@ public final class InventoryChange {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:CatalogMeasurementUnit">CatalogMeasurementUnit</a> object representing the catalog measurement unit associated with the inventory change.</p>
+         */
         @JsonSetter(value = "measurement_unit_id", nulls = Nulls.SKIP)
         public Builder measurementUnitId(Optional<String> measurementUnitId) {
             this.measurementUnitId = measurementUnitId;

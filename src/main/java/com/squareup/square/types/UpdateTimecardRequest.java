@@ -77,12 +77,18 @@ public final class UpdateTimecardRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The ID of the object being updated.</p>
+         */
         TimecardStage id(@NotNull String id);
 
         Builder from(UpdateTimecardRequest other);
     }
 
     public interface TimecardStage {
+        /**
+         * <p>The updated <code>Timecard</code> object.</p>
+         */
         _FinalStage timecard(@NotNull Timecard timecard);
     }
 
@@ -110,6 +116,7 @@ public final class UpdateTimecardRequest {
 
         /**
          * <p>The ID of the object being updated.</p>
+         * <p>The ID of the object being updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -120,6 +127,7 @@ public final class UpdateTimecardRequest {
         }
 
         /**
+         * <p>The updated <code>Timecard</code> object.</p>
          * <p>The updated <code>Timecard</code> object.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

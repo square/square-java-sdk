@@ -658,6 +658,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>A short generated string of letters and numbers that uniquely identifies this location instance.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -669,6 +672,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The name of the location.
+         * This information appears in the Seller Dashboard as the nickname.
+         * A location name must be unique within a seller account.</p>
+         */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
             this.name = name;
@@ -691,6 +699,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The physical address of the location.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;
@@ -702,6 +713,10 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://www.iana.org/time-zones">IANA time zone</a> identifier for
+         * the time zone of the location. For example, <code>America/Los_Angeles</code>.</p>
+         */
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public Builder timezone(Optional<String> timezone) {
             this.timezone = timezone;
@@ -724,6 +739,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The Square features that are enabled for the location.
+         * See <a href="entity:LocationCapability">LocationCapability</a> for possible values.
+         * See <a href="#type-locationcapability">LocationCapability</a> for possible values</p>
+         */
         @JsonSetter(value = "capabilities", nulls = Nulls.SKIP)
         public Builder capabilities(Optional<List<LocationCapability>> capabilities) {
             this.capabilities = capabilities;
@@ -735,6 +755,10 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The status of the location.
+         * See <a href="#type-locationstatus">LocationStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<LocationStatus> status) {
             this.status = status;
@@ -746,6 +770,10 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The time when the location was created, in RFC 3339 format.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Working with Dates</a>.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -757,6 +785,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The ID of the merchant that owns the location.</p>
+         */
         @JsonSetter(value = "merchant_id", nulls = Nulls.SKIP)
         public Builder merchantId(Optional<String> merchantId) {
             this.merchantId = merchantId;
@@ -768,6 +799,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The country of the location, in the two-letter format of ISO 3166. For example, <code>US</code> or <code>JP</code>.</p>
+         * <p>See <a href="entity:Country">Country</a> for possible values.
+         * See <a href="#type-country">Country</a> for possible values</p>
+         */
         @JsonSetter(value = "country", nulls = Nulls.SKIP)
         public Builder country(Optional<Country> country) {
             this.country = country;
@@ -779,6 +815,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The language associated with the location, in
+         * <a href="https://tools.ietf.org/html/bcp47#appendix-A">BCP 47 format</a>.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/general-considerations/language-preferences">Language Preferences</a>.</p>
+         */
         @JsonSetter(value = "language_code", nulls = Nulls.SKIP)
         public Builder languageCode(Optional<String> languageCode) {
             this.languageCode = languageCode;
@@ -801,6 +842,12 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The currency used for all transactions at this location,
+         * in ISO 4217 format. For example, the currency code for US dollars is <code>USD</code>.
+         * See <a href="entity:Currency">Currency</a> for possible values.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         @JsonSetter(value = "currency", nulls = Nulls.SKIP)
         public Builder currency(Optional<Currency> currency) {
             this.currency = currency;
@@ -812,6 +859,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The phone number of the location. For example, <code>+1 855-700-6000</code>.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -834,6 +884,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The name of the location's overall business. This name is present on receipts and other customer-facing branding, and can be changed no more than three times in a twelve-month period.</p>
+         */
         @JsonSetter(value = "business_name", nulls = Nulls.SKIP)
         public Builder businessName(Optional<String> businessName) {
             this.businessName = businessName;
@@ -856,6 +909,10 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The type of the location.
+         * See <a href="#type-locationtype">LocationType</a> for possible values</p>
+         */
         @JsonSetter(value = "type", nulls = Nulls.SKIP)
         public Builder type(Optional<LocationType> type) {
             this.type = type;
@@ -867,6 +924,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The website URL of the location.  For example, <code>https://squareup.com</code>.</p>
+         */
         @JsonSetter(value = "website_url", nulls = Nulls.SKIP)
         public Builder websiteUrl(Optional<String> websiteUrl) {
             this.websiteUrl = websiteUrl;
@@ -889,6 +949,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The hours of operation for the location.</p>
+         */
         @JsonSetter(value = "business_hours", nulls = Nulls.SKIP)
         public Builder businessHours(Optional<BusinessHours> businessHours) {
             this.businessHours = businessHours;
@@ -900,6 +963,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The email address of the location. This can be unique to the location and is not always the email address for the business owner or administrator.</p>
+         */
         @JsonSetter(value = "business_email", nulls = Nulls.SKIP)
         public Builder businessEmail(Optional<String> businessEmail) {
             this.businessEmail = businessEmail;
@@ -922,6 +988,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The description of the location. For example, <code>Main Street location</code>.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -944,6 +1013,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The Twitter username of the location without the '@' symbol. For example, <code>Square</code>.</p>
+         */
         @JsonSetter(value = "twitter_username", nulls = Nulls.SKIP)
         public Builder twitterUsername(Optional<String> twitterUsername) {
             this.twitterUsername = twitterUsername;
@@ -966,6 +1038,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The Instagram username of the location without the '@' symbol. For example, <code>square</code>.</p>
+         */
         @JsonSetter(value = "instagram_username", nulls = Nulls.SKIP)
         public Builder instagramUsername(Optional<String> instagramUsername) {
             this.instagramUsername = instagramUsername;
@@ -988,6 +1063,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The Facebook profile URL of the location. The URL should begin with 'facebook.com/'. For example, <code>https://www.facebook.com/square</code>.</p>
+         */
         @JsonSetter(value = "facebook_url", nulls = Nulls.SKIP)
         public Builder facebookUrl(Optional<String> facebookUrl) {
             this.facebookUrl = facebookUrl;
@@ -1010,6 +1088,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The physical coordinates (latitude and longitude) of the location.</p>
+         */
         @JsonSetter(value = "coordinates", nulls = Nulls.SKIP)
         public Builder coordinates(Optional<Coordinates> coordinates) {
             this.coordinates = coordinates;
@@ -1021,6 +1102,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The URL of the logo image for the location. When configured in the Seller
+         * Dashboard (Receipts section), the logo appears on transactions (such as receipts and invoices) that Square generates on behalf of the seller.
+         * This image should have a roughly square (1:1) aspect ratio and should be at least 200x200 pixels.</p>
+         */
         @JsonSetter(value = "logo_url", nulls = Nulls.SKIP)
         public Builder logoUrl(Optional<String> logoUrl) {
             this.logoUrl = logoUrl;
@@ -1032,6 +1118,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The URL of the Point of Sale background image for the location.</p>
+         */
         @JsonSetter(value = "pos_background_url", nulls = Nulls.SKIP)
         public Builder posBackgroundUrl(Optional<String> posBackgroundUrl) {
             this.posBackgroundUrl = posBackgroundUrl;
@@ -1043,6 +1132,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>A four-digit number that describes the kind of goods or services sold at the location.
+         * The <a href="https://developer.squareup.com/docs/locations-api#initialize-a-merchant-category-code">merchant category code (MCC)</a> of the location as standardized by ISO 18245.
+         * For example, <code>5045</code>, for a location that sells computer goods and software.</p>
+         */
         @JsonSetter(value = "mcc", nulls = Nulls.SKIP)
         public Builder mcc(Optional<String> mcc) {
             this.mcc = mcc;
@@ -1065,6 +1159,11 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The URL of a full-format logo image for the location. When configured in the Seller
+         * Dashboard (Receipts section), the logo appears on transactions (such as receipts and invoices) that Square generates on behalf of the seller.
+         * This image can be wider than it is tall and should be at least 1280x648 pixels.</p>
+         */
         @JsonSetter(value = "full_format_logo_url", nulls = Nulls.SKIP)
         public Builder fullFormatLogoUrl(Optional<String> fullFormatLogoUrl) {
             this.fullFormatLogoUrl = fullFormatLogoUrl;
@@ -1076,6 +1175,9 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The tax IDs for this location.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(Optional<TaxIds> taxIds) {
             this.taxIds = taxIds;

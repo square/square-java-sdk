@@ -146,6 +146,9 @@ public final class ListEntriesPayoutsRequest {
     }
 
     public interface PayoutIdStage {
+        /**
+         * <p>The ID of the payout to retrieve the information for.</p>
+         */
         _FinalStage payoutId(@NotNull String payoutId);
 
         Builder from(ListEntriesPayoutsRequest other);
@@ -154,18 +157,34 @@ public final class ListEntriesPayoutsRequest {
     public interface _FinalStage {
         ListEntriesPayoutsRequest build();
 
+        /**
+         * <p>The order in which payout entries are listed.</p>
+         */
         _FinalStage sortOrder(Optional<SortOrder> sortOrder);
 
         _FinalStage sortOrder(SortOrder sortOrder);
 
         _FinalStage sortOrder(Nullable<SortOrder> sortOrder);
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.
+         * If request parameters change between requests, subsequent results may contain duplicates or missing records.</p>
+         */
         _FinalStage cursor(Optional<String> cursor);
 
         _FinalStage cursor(String cursor);
 
         _FinalStage cursor(Nullable<String> cursor);
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.
+         * It is possible to receive fewer results than the specified limit on a given page.
+         * The default value of 100 is also the maximum allowed value. If the provided value is
+         * greater than 100, it is ignored and the default value is used instead.
+         * Default: <code>100</code></p>
+         */
         _FinalStage limit(Optional<Integer> limit);
 
         _FinalStage limit(Integer limit);
@@ -198,6 +217,7 @@ public final class ListEntriesPayoutsRequest {
         }
 
         /**
+         * <p>The ID of the payout to retrieve the information for.</p>
          * <p>The ID of the payout to retrieve the information for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -242,6 +262,13 @@ public final class ListEntriesPayoutsRequest {
             return this;
         }
 
+        /**
+         * <p>The maximum number of results to be returned in a single page.
+         * It is possible to receive fewer results than the specified limit on a given page.
+         * The default value of 100 is also the maximum allowed value. If the provided value is
+         * greater than 100, it is ignored and the default value is used instead.
+         * Default: <code>100</code></p>
+         */
         @java.lang.Override
         @JsonSetter(value = "limit", nulls = Nulls.SKIP)
         public _FinalStage limit(Optional<Integer> limit) {
@@ -281,6 +308,12 @@ public final class ListEntriesPayoutsRequest {
             return this;
         }
 
+        /**
+         * <p>A pagination cursor returned by a previous call to this endpoint.
+         * Provide this cursor to retrieve the next set of results for the original query.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination">Pagination</a>.
+         * If request parameters change between requests, subsequent results may contain duplicates or missing records.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public _FinalStage cursor(Optional<String> cursor) {
@@ -314,6 +347,9 @@ public final class ListEntriesPayoutsRequest {
             return this;
         }
 
+        /**
+         * <p>The order in which payout entries are listed.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public _FinalStage sortOrder(Optional<SortOrder> sortOrder) {

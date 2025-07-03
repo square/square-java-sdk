@@ -3,13 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.teammembers.WageSettingClient;
 import com.squareup.square.types.BatchCreateTeamMembersRequest;
@@ -24,24 +19,26 @@ import com.squareup.square.types.SearchTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersResponse;
 import com.squareup.square.types.UpdateTeamMemberResponse;
 import com.squareup.square.types.UpdateTeamMembersRequest;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class TeamMembersClient {
     protected final ClientOptions clientOptions;
+
+    private final RawTeamMembersClient rawClient;
 
     protected final Supplier<WageSettingClient> wageSettingClient;
 
     public TeamMembersClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawTeamMembersClient(clientOptions);
         this.wageSettingClient = Suppliers.memoize(() -> new WageSettingClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawTeamMembersClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -54,7 +51,7 @@ public class TeamMembersClient {
      * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#createteammember">Troubleshooting the Team API</a>.</p>
      */
     public CreateTeamMemberResponse create() {
-        return create(CreateTeamMemberRequest.builder().build());
+        return this.rawClient.create().body();
     }
 
     /**
@@ -67,7 +64,7 @@ public class TeamMembersClient {
      * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#createteammember">Troubleshooting the Team API</a>.</p>
      */
     public CreateTeamMemberResponse create(CreateTeamMemberRequest request) {
-        return create(request, null);
+        return this.rawClient.create(request).body();
     }
 
     /**
@@ -80,41 +77,7 @@ public class TeamMembersClient {
      * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#createteammember">Troubleshooting the Team API</a>.</p>
      */
     public CreateTeamMemberResponse create(CreateTeamMemberRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateTeamMemberResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.create(request, requestOptions).body();
     }
 
     /**
@@ -125,7 +88,7 @@ public class TeamMembersClient {
      * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#bulk-create-team-members">Troubleshooting the Team API</a>.</p>
      */
     public BatchCreateTeamMembersResponse batchCreate(BatchCreateTeamMembersRequest request) {
-        return batchCreate(request, null);
+        return this.rawClient.batchCreate(request).body();
     }
 
     /**
@@ -137,41 +100,7 @@ public class TeamMembersClient {
      */
     public BatchCreateTeamMembersResponse batchCreate(
             BatchCreateTeamMembersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members/bulk-create")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BatchCreateTeamMembersResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchCreate(request, requestOptions).body();
     }
 
     /**
@@ -182,7 +111,7 @@ public class TeamMembersClient {
      * Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#bulk-update-team-members">Troubleshooting the Team API</a>.
      */
     public BatchUpdateTeamMembersResponse batchUpdate(BatchUpdateTeamMembersRequest request) {
-        return batchUpdate(request, null);
+        return this.rawClient.batchUpdate(request).body();
     }
 
     /**
@@ -194,41 +123,7 @@ public class TeamMembersClient {
      */
     public BatchUpdateTeamMembersResponse batchUpdate(
             BatchUpdateTeamMembersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members/bulk-update")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), BatchUpdateTeamMembersResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.batchUpdate(request, requestOptions).body();
     }
 
     /**
@@ -237,7 +132,7 @@ public class TeamMembersClient {
      * the team member is the Square account owner.
      */
     public SearchTeamMembersResponse search() {
-        return search(SearchTeamMembersRequest.builder().build());
+        return this.rawClient.search().body();
     }
 
     /**
@@ -246,7 +141,7 @@ public class TeamMembersClient {
      * the team member is the Square account owner.
      */
     public SearchTeamMembersResponse search(SearchTeamMembersRequest request) {
-        return search(request, null);
+        return this.rawClient.search(request).body();
     }
 
     /**
@@ -255,41 +150,7 @@ public class TeamMembersClient {
      * the team member is the Square account owner.
      */
     public SearchTeamMembersResponse search(SearchTeamMembersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTeamMembersResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.search(request, requestOptions).body();
     }
 
     /**
@@ -297,7 +158,7 @@ public class TeamMembersClient {
      * Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#retrieve-a-team-member">Troubleshooting the Team API</a>.
      */
     public GetTeamMemberResponse get(GetTeamMembersRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -305,35 +166,7 @@ public class TeamMembersClient {
      * Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#retrieve-a-team-member">Troubleshooting the Team API</a>.
      */
     public GetTeamMemberResponse get(GetTeamMembersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members")
-                .addPathSegment(request.getTeamMemberId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetTeamMemberResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -341,7 +174,7 @@ public class TeamMembersClient {
      * Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#update-a-team-member">Troubleshooting the Team API</a>.
      */
     public UpdateTeamMemberResponse update(UpdateTeamMembersRequest request) {
-        return update(request, null);
+        return this.rawClient.update(request).body();
     }
 
     /**
@@ -349,42 +182,7 @@ public class TeamMembersClient {
      * Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#update-a-team-member">Troubleshooting the Team API</a>.
      */
     public UpdateTeamMemberResponse update(UpdateTeamMembersRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/team-members")
-                .addPathSegment(request.getTeamMemberId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request.getBody()), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateTeamMemberResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.update(request, requestOptions).body();
     }
 
     public WageSettingClient wageSetting() {

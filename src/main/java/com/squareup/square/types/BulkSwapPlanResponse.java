@@ -98,6 +98,9 @@ public final class BulkSwapPlanResponse {
             return this;
         }
 
+        /**
+         * <p>Errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class BulkSwapPlanResponse {
             return this;
         }
 
+        /**
+         * <p>The number of affected subscriptions.</p>
+         */
         @JsonSetter(value = "affected_subscriptions", nulls = Nulls.SKIP)
         public Builder affectedSubscriptions(Optional<Integer> affectedSubscriptions) {
             this.affectedSubscriptions = affectedSubscriptions;

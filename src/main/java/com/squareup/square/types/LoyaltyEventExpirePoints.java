@@ -9,23 +9,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LoyaltyEventExpirePoints.Builder.class)
 public final class LoyaltyEventExpirePoints {
-    private final String loyaltyProgramId;
+    private final Optional<String> loyaltyProgramId;
 
     private final int points;
 
     private final Map<String, Object> additionalProperties;
 
-    private LoyaltyEventExpirePoints(String loyaltyProgramId, int points, Map<String, Object> additionalProperties) {
+    private LoyaltyEventExpirePoints(
+            Optional<String> loyaltyProgramId, int points, Map<String, Object> additionalProperties) {
         this.loyaltyProgramId = loyaltyProgramId;
         this.points = points;
         this.additionalProperties = additionalProperties;
@@ -35,7 +37,7 @@ public final class LoyaltyEventExpirePoints {
      * @return The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.
      */
     @JsonProperty("loyalty_program_id")
-    public String getLoyaltyProgramId() {
+    public Optional<String> getLoyaltyProgramId() {
         return loyaltyProgramId;
     }
 
@@ -72,29 +74,35 @@ public final class LoyaltyEventExpirePoints {
         return ObjectMappers.stringify(this);
     }
 
-    public static LoyaltyProgramIdStage builder() {
+    public static PointsStage builder() {
         return new Builder();
     }
 
-    public interface LoyaltyProgramIdStage {
-        PointsStage loyaltyProgramId(@NotNull String loyaltyProgramId);
+    public interface PointsStage {
+        /**
+         * <p>The number of points expired.</p>
+         */
+        _FinalStage points(int points);
 
         Builder from(LoyaltyEventExpirePoints other);
     }
 
-    public interface PointsStage {
-        _FinalStage points(int points);
-    }
-
     public interface _FinalStage {
         LoyaltyEventExpirePoints build();
+
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
+        _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId);
+
+        _FinalStage loyaltyProgramId(String loyaltyProgramId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements LoyaltyProgramIdStage, PointsStage, _FinalStage {
-        private String loyaltyProgramId;
-
+    public static final class Builder implements PointsStage, _FinalStage {
         private int points;
+
+        private Optional<String> loyaltyProgramId = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -109,17 +117,7 @@ public final class LoyaltyEventExpirePoints {
         }
 
         /**
-         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("loyalty_program_id")
-        public PointsStage loyaltyProgramId(@NotNull String loyaltyProgramId) {
-            this.loyaltyProgramId = Objects.requireNonNull(loyaltyProgramId, "loyaltyProgramId must not be null");
-            return this;
-        }
-
-        /**
+         * <p>The number of points expired.</p>
          * <p>The number of points expired.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -127,6 +125,26 @@ public final class LoyaltyEventExpirePoints {
         @JsonSetter("points")
         public _FinalStage points(int points) {
             this.points = points;
+            return this;
+        }
+
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage loyaltyProgramId(String loyaltyProgramId) {
+            this.loyaltyProgramId = Optional.ofNullable(loyaltyProgramId);
+            return this;
+        }
+
+        /**
+         * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
+        public _FinalStage loyaltyProgramId(Optional<String> loyaltyProgramId) {
+            this.loyaltyProgramId = loyaltyProgramId;
             return this;
         }
 

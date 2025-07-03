@@ -81,6 +81,9 @@ public final class BankAccountDisabledEventObject {
             return this;
         }
 
+        /**
+         * <p>The disabled bank account.</p>
+         */
         @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
         public Builder bankAccount(Optional<BankAccount> bankAccount) {
             this.bankAccount = bankAccount;

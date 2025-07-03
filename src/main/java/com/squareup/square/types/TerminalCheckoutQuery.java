@@ -97,6 +97,9 @@ public final class TerminalCheckoutQuery {
             return this;
         }
 
+        /**
+         * <p>Options for filtering returned <code>TerminalCheckout</code> objects.</p>
+         */
         @JsonSetter(value = "filter", nulls = Nulls.SKIP)
         public Builder filter(Optional<TerminalCheckoutQueryFilter> filter) {
             this.filter = filter;
@@ -108,6 +111,9 @@ public final class TerminalCheckoutQuery {
             return this;
         }
 
+        /**
+         * <p>Option for sorting returned <code>TerminalCheckout</code> objects.</p>
+         */
         @JsonSetter(value = "sort", nulls = Nulls.SKIP)
         public Builder sort(Optional<TerminalCheckoutQuerySort> sort) {
             this.sort = sort;

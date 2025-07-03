@@ -3,13 +3,8 @@
  */
 package com.squareup.square.loyalty;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.loyalty.programs.PromotionsClient;
 import com.squareup.square.loyalty.types.CalculateLoyaltyPointsRequest;
@@ -17,24 +12,26 @@ import com.squareup.square.loyalty.types.GetProgramsRequest;
 import com.squareup.square.types.CalculateLoyaltyPointsResponse;
 import com.squareup.square.types.GetLoyaltyProgramResponse;
 import com.squareup.square.types.ListLoyaltyProgramsResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class ProgramsClient {
     protected final ClientOptions clientOptions;
+
+    private final RawProgramsClient rawClient;
 
     protected final Supplier<PromotionsClient> promotionsClient;
 
     public ProgramsClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawProgramsClient(clientOptions);
         this.promotionsClient = Suppliers.memoize(() -> new PromotionsClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawProgramsClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -43,7 +40,7 @@ public class ProgramsClient {
      * <p>Replaced with <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> when used with the keyword <code>main</code>.</p>
      */
     public ListLoyaltyProgramsResponse list() {
-        return list(null);
+        return this.rawClient.list().body();
     }
 
     /**
@@ -52,34 +49,7 @@ public class ProgramsClient {
      * <p>Replaced with <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> when used with the keyword <code>main</code>.</p>
      */
     public ListLoyaltyProgramsResponse list(RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/loyalty/programs")
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListLoyaltyProgramsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.list(requestOptions).body();
     }
 
     /**
@@ -87,7 +57,7 @@ public class ProgramsClient {
      * <p>Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see <a href="https://developer.squareup.com/docs/loyalty/overview">Loyalty Program Overview</a>.</p>
      */
     public GetLoyaltyProgramResponse get(GetProgramsRequest request) {
-        return get(request, null);
+        return this.rawClient.get(request).body();
     }
 
     /**
@@ -95,35 +65,7 @@ public class ProgramsClient {
      * <p>Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see <a href="https://developer.squareup.com/docs/loyalty/overview">Loyalty Program Overview</a>.</p>
      */
     public GetLoyaltyProgramResponse get(GetProgramsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/loyalty/programs")
-                .addPathSegment(request.getProgramId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetLoyaltyProgramResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.get(request, requestOptions).body();
     }
 
     /**
@@ -148,7 +90,7 @@ public class ProgramsClient {
      * </ul>
      */
     public CalculateLoyaltyPointsResponse calculate(CalculateLoyaltyPointsRequest request) {
-        return calculate(request, null);
+        return this.rawClient.calculate(request).body();
     }
 
     /**
@@ -174,43 +116,7 @@ public class ProgramsClient {
      */
     public CalculateLoyaltyPointsResponse calculate(
             CalculateLoyaltyPointsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/loyalty/programs")
-                .addPathSegment(request.getProgramId())
-                .addPathSegments("calculate")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CalculateLoyaltyPointsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.calculate(request, requestOptions).body();
     }
 
     public PromotionsClient promotions() {

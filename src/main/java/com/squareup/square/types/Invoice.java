@@ -655,6 +655,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the invoice.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -666,6 +669,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned version number, which is incremented each time an update is committed to the invoice.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;
@@ -677,6 +683,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The ID of the location that this invoice is associated with.</p>
+         * <p>If specified in a <code>CreateInvoice</code> request, the value must match the <code>location_id</code> of the associated order.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -699,6 +709,12 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Order">order</a> for which the invoice is created.
+         * This field is required when creating an invoice, and the order must be in the <code>OPEN</code> state.</p>
+         * <p>To view the line items and other information for the associated order, call the
+         * <a href="api-endpoint:Orders-RetrieveOrder">RetrieveOrder</a> endpoint using the order ID.</p>
+         */
         @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
         public Builder orderId(Optional<String> orderId) {
             this.orderId = orderId;
@@ -721,6 +737,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The customer who receives the invoice. This customer data is displayed on the invoice and used by Square to deliver the invoice.</p>
+         * <p>This field is required to publish an invoice, and it must specify the <code>customer_id</code>.</p>
+         */
         @JsonSetter(value = "primary_recipient", nulls = Nulls.SKIP)
         public Builder primaryRecipient(Optional<InvoiceRecipient> primaryRecipient) {
             this.primaryRecipient = primaryRecipient;
@@ -732,6 +752,21 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The payment schedule for the invoice, represented by one or more payment requests that
+         * define payment settings, such as amount due and due date. An invoice supports the following payment request combinations:</p>
+         * <ul>
+         * <li>One balance</li>
+         * <li>One deposit with one balance</li>
+         * <li>2–12 installments</li>
+         * <li>One deposit with 2–12 installments</li>
+         * </ul>
+         * <p>This field is required when creating an invoice. It must contain at least one payment request.
+         * All payment requests for the invoice must equal the total order amount. For more information, see
+         * <a href="https://developer.squareup.com/docs/invoices-api/create-publish-invoices#payment-requests">Configuring payment requests</a>.</p>
+         * <p>Adding <code>INSTALLMENT</code> payment requests to an invoice requires an
+         * <a href="https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-subscription">Invoices Plus subscription</a>.</p>
+         */
         @JsonSetter(value = "payment_requests", nulls = Nulls.SKIP)
         public Builder paymentRequests(Optional<List<InvoicePaymentRequest>> paymentRequests) {
             this.paymentRequests = paymentRequests;
@@ -754,6 +789,21 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The delivery method that Square uses to send the invoice, reminders, and receipts to
+         * the customer. After the invoice is published, Square processes the invoice based on the delivery
+         * method and payment request settings, either immediately or on the <code>scheduled_at</code> date, if specified.
+         * For example, Square might send the invoice or receipt for an automatic payment. For invoices with
+         * automatic payments, this field must be set to <code>EMAIL</code>.</p>
+         * <p>One of the following is required when creating an invoice:</p>
+         * <ul>
+         * <li>(Recommended) This <code>delivery_method</code> field. To configure an automatic payment, the
+         * <code>automatic_payment_source</code> field of the payment request is also required.</li>
+         * <li>The deprecated <code>request_method</code> field of the payment request. Note that <code>invoice</code>
+         * objects returned in responses do not include <code>request_method</code>.
+         * See <a href="#type-invoicedeliverymethod">InvoiceDeliveryMethod</a> for possible values</li>
+         * </ul>
+         */
         @JsonSetter(value = "delivery_method", nulls = Nulls.SKIP)
         public Builder deliveryMethod(Optional<InvoiceDeliveryMethod> deliveryMethod) {
             this.deliveryMethod = deliveryMethod;
@@ -765,6 +815,12 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>A user-friendly invoice number that is displayed on the invoice. The value is unique within a location.
+         * If not provided when creating an invoice, Square assigns a value.
+         * It increments from 1 and is padded with zeros making it 7 characters long
+         * (for example, 0000001 and 0000002).</p>
+         */
         @JsonSetter(value = "invoice_number", nulls = Nulls.SKIP)
         public Builder invoiceNumber(Optional<String> invoiceNumber) {
             this.invoiceNumber = invoiceNumber;
@@ -787,6 +843,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The title of the invoice, which is displayed on the invoice.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -809,6 +868,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The description of the invoice, which is displayed on the invoice.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -831,6 +893,12 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the invoice is scheduled for processing, in RFC 3339 format.
+         * After the invoice is published, Square processes the invoice on the specified date,
+         * according to the delivery method and payment request settings.</p>
+         * <p>If the field is not set, Square processes the invoice immediately after it is published.</p>
+         */
         @JsonSetter(value = "scheduled_at", nulls = Nulls.SKIP)
         public Builder scheduledAt(Optional<String> scheduledAt) {
             this.scheduledAt = scheduledAt;
@@ -853,6 +921,13 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>A temporary link to the Square-hosted payment page where the customer can pay the
+         * invoice. If the link expires, customers can provide the email address or phone number
+         * associated with the invoice and request a new link directly from the expired payment page.</p>
+         * <p>This field is added after the invoice is published and reaches the scheduled date
+         * (if one is defined).</p>
+         */
         @JsonSetter(value = "public_url", nulls = Nulls.SKIP)
         public Builder publicUrl(Optional<String> publicUrl) {
             this.publicUrl = publicUrl;
@@ -864,6 +939,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The current amount due for the invoice. In addition to the
+         * amount due on the next payment request, this includes any overdue payment amounts.</p>
+         */
         @JsonSetter(value = "next_payment_amount_money", nulls = Nulls.SKIP)
         public Builder nextPaymentAmountMoney(Optional<Money> nextPaymentAmountMoney) {
             this.nextPaymentAmountMoney = nextPaymentAmountMoney;
@@ -875,6 +954,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The status of the invoice.
+         * See <a href="#type-invoicestatus">InvoiceStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<InvoiceStatus> status) {
             this.status = status;
@@ -886,6 +969,14 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The time zone used to interpret calendar dates on the invoice, such as <code>due_date</code>.
+         * When an invoice is created, this field is set to the <code>timezone</code> specified for the seller
+         * location. The value cannot be changed.</p>
+         * <p>For example, a payment <code>due_date</code> of 2021-03-09 with a <code>timezone</code> of America/Los_Angeles
+         * becomes overdue at midnight on March 9 in America/Los_Angeles (which equals a UTC timestamp
+         * of 2021-03-10T08:00:00Z).</p>
+         */
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public Builder timezone(Optional<String> timezone) {
             this.timezone = timezone;
@@ -897,6 +988,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the invoice was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -908,6 +1002,9 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the invoice was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -919,6 +1016,11 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The payment methods that customers can use to pay the invoice on the Square-hosted
+         * invoice page. This setting is independent of any automatic payment requests for the invoice.</p>
+         * <p>This field is required when creating an invoice and must set at least one payment method to <code>true</code>.</p>
+         */
         @JsonSetter(value = "accepted_payment_methods", nulls = Nulls.SKIP)
         public Builder acceptedPaymentMethods(Optional<InvoiceAcceptedPaymentMethods> acceptedPaymentMethods) {
             this.acceptedPaymentMethods = acceptedPaymentMethods;
@@ -930,6 +1032,13 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>Additional seller-defined fields that are displayed on the invoice. For more information, see
+         * <a href="https://developer.squareup.com/docs/invoices-api/overview#custom-fields">Custom fields</a>.</p>
+         * <p>Adding custom fields to an invoice requires an
+         * <a href="https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-subscription">Invoices Plus subscription</a>.</p>
+         * <p>Max: 2 custom fields</p>
+         */
         @JsonSetter(value = "custom_fields", nulls = Nulls.SKIP)
         public Builder customFields(Optional<List<InvoiceCustomField>> customFields) {
             this.customFields = customFields;
@@ -952,6 +1061,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Subscription">subscription</a> associated with the invoice.
+         * This field is present only on subscription billing invoices.</p>
+         */
         @JsonSetter(value = "subscription_id", nulls = Nulls.SKIP)
         public Builder subscriptionId(Optional<String> subscriptionId) {
             this.subscriptionId = subscriptionId;
@@ -963,6 +1076,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The date of the sale or the date that the service is rendered, in <code>YYYY-MM-DD</code> format.
+         * This field can be used to specify a past or future date which is displayed on the invoice.</p>
+         */
         @JsonSetter(value = "sale_or_service_date", nulls = Nulls.SKIP)
         public Builder saleOrServiceDate(Optional<String> saleOrServiceDate) {
             this.saleOrServiceDate = saleOrServiceDate;
@@ -985,6 +1102,12 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p><strong>France only.</strong> The payment terms and conditions that are displayed on the invoice. For more information,
+         * see <a href="https://developer.squareup.com/docs/invoices-api/overview#payment-conditions">Payment conditions</a>.</p>
+         * <p>For countries other than France, Square returns an <code>INVALID_REQUEST_ERROR</code> with a <code>BAD_REQUEST</code> code and
+         * &quot;Payment conditions are not supported for this location's country&quot; detail if this field is included in <code>CreateInvoice</code> or <code>UpdateInvoice</code> requests.</p>
+         */
         @JsonSetter(value = "payment_conditions", nulls = Nulls.SKIP)
         public Builder paymentConditions(Optional<String> paymentConditions) {
             this.paymentConditions = paymentConditions;
@@ -1007,6 +1130,11 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>Indicates whether to allow a customer to save a credit or debit card as a card on file or a bank transfer as a
+         * bank account on file. If <code>true</code>, Square displays a <strong>Save my card on file</strong> or <strong>Save my bank on file</strong> checkbox on the
+         * invoice payment page. Stored payment information can be used for future automatic payments. The default value is <code>false</code>.</p>
+         */
         @JsonSetter(value = "store_payment_method_enabled", nulls = Nulls.SKIP)
         public Builder storePaymentMethodEnabled(Optional<Boolean> storePaymentMethodEnabled) {
             this.storePaymentMethodEnabled = storePaymentMethodEnabled;
@@ -1029,6 +1157,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>Metadata about the attachments on the invoice. Invoice attachments are managed using the
+         * <a href="api-endpoint:Invoices-CreateInvoiceAttachment">CreateInvoiceAttachment</a> and <a href="api-endpoint:Invoices-DeleteInvoiceAttachment">DeleteInvoiceAttachment</a> endpoints.</p>
+         */
         @JsonSetter(value = "attachments", nulls = Nulls.SKIP)
         public Builder attachments(Optional<List<InvoiceAttachment>> attachments) {
             this.attachments = attachments;
@@ -1040,6 +1172,10 @@ public final class Invoice {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:TeamMember">team member</a> who created the invoice.
+         * This field is present only on invoices created in the Square Dashboard or Square Invoices app by a logged-in team member.</p>
+         */
         @JsonSetter(value = "creator_team_member_id", nulls = Nulls.SKIP)
         public Builder creatorTeamMemberId(Optional<String> creatorTeamMemberId) {
             this.creatorTeamMemberId = creatorTeamMemberId;

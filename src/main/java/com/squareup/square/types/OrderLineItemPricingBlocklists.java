@@ -123,6 +123,11 @@ public final class OrderLineItemPricingBlocklists {
             return this;
         }
 
+        /**
+         * <p>A list of discounts blocked from applying to the line item.
+         * Discounts can be blocked by the <code>discount_uid</code> (for ad hoc discounts) or
+         * the <code>discount_catalog_object_id</code> (for catalog discounts).</p>
+         */
         @JsonSetter(value = "blocked_discounts", nulls = Nulls.SKIP)
         public Builder blockedDiscounts(
                 Optional<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts) {
@@ -147,6 +152,11 @@ public final class OrderLineItemPricingBlocklists {
             return this;
         }
 
+        /**
+         * <p>A list of taxes blocked from applying to the line item.
+         * Taxes can be blocked by the <code>tax_uid</code> (for ad hoc taxes) or
+         * the <code>tax_catalog_object_id</code> (for catalog taxes).</p>
+         */
         @JsonSetter(value = "blocked_taxes", nulls = Nulls.SKIP)
         public Builder blockedTaxes(Optional<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes) {
             this.blockedTaxes = blockedTaxes;

@@ -3,13 +3,8 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.labor.BreakTypesClient;
 import com.squareup.square.labor.EmployeeWagesClient;
@@ -38,18 +33,12 @@ import com.squareup.square.types.UpdateScheduledShiftRequest;
 import com.squareup.square.types.UpdateScheduledShiftResponse;
 import com.squareup.square.types.UpdateTimecardRequest;
 import com.squareup.square.types.UpdateTimecardResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class LaborClient {
     protected final ClientOptions clientOptions;
+
+    private final RawLaborClient rawClient;
 
     protected final Supplier<BreakTypesClient> breakTypesClient;
 
@@ -63,11 +52,19 @@ public class LaborClient {
 
     public LaborClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawLaborClient(clientOptions);
         this.breakTypesClient = Suppliers.memoize(() -> new BreakTypesClient(clientOptions));
         this.employeeWagesClient = Suppliers.memoize(() -> new EmployeeWagesClient(clientOptions));
         this.shiftsClient = Suppliers.memoize(() -> new ShiftsClient(clientOptions));
         this.teamMemberWagesClient = Suppliers.memoize(() -> new TeamMemberWagesClient(clientOptions));
         this.workweekConfigsClient = Suppliers.memoize(() -> new WorkweekConfigsClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawLaborClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -82,7 +79,7 @@ public class LaborClient {
      * </ul>
      */
     public CreateScheduledShiftResponse createScheduledShift(CreateScheduledShiftRequest request) {
-        return createScheduledShift(request, null);
+        return this.rawClient.createScheduledShift(request).body();
     }
 
     /**
@@ -98,41 +95,7 @@ public class LaborClient {
      */
     public CreateScheduledShiftResponse createScheduledShift(
             CreateScheduledShiftRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateScheduledShiftResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.createScheduledShift(request, requestOptions).body();
     }
 
     /**
@@ -143,7 +106,7 @@ public class LaborClient {
      * <code>BulkPublishScheduledShifts</code> request must fall within a two-week period.</p>
      */
     public BulkPublishScheduledShiftsResponse bulkPublishScheduledShifts(BulkPublishScheduledShiftsRequest request) {
-        return bulkPublishScheduledShifts(request, null);
+        return this.rawClient.bulkPublishScheduledShifts(request).body();
     }
 
     /**
@@ -155,42 +118,9 @@ public class LaborClient {
      */
     public BulkPublishScheduledShiftsResponse bulkPublishScheduledShifts(
             BulkPublishScheduledShiftsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts/bulk-publish")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(
-                        responseBody.string(), BulkPublishScheduledShiftsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient
+                .bulkPublishScheduledShifts(request, requestOptions)
+                .body();
     }
 
     /**
@@ -198,7 +128,7 @@ public class LaborClient {
      * By default, results are sorted by <code>start_at</code> in ascending order.
      */
     public SearchScheduledShiftsResponse searchScheduledShifts() {
-        return searchScheduledShifts(SearchScheduledShiftsRequest.builder().build());
+        return this.rawClient.searchScheduledShifts().body();
     }
 
     /**
@@ -206,7 +136,7 @@ public class LaborClient {
      * By default, results are sorted by <code>start_at</code> in ascending order.
      */
     public SearchScheduledShiftsResponse searchScheduledShifts(SearchScheduledShiftsRequest request) {
-        return searchScheduledShifts(request, null);
+        return this.rawClient.searchScheduledShifts(request).body();
     }
 
     /**
@@ -215,48 +145,14 @@ public class LaborClient {
      */
     public SearchScheduledShiftsResponse searchScheduledShifts(
             SearchScheduledShiftsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchScheduledShiftsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.searchScheduledShifts(request, requestOptions).body();
     }
 
     /**
      * Retrieves a scheduled shift by ID.
      */
     public RetrieveScheduledShiftResponse retrieveScheduledShift(RetrieveScheduledShiftRequest request) {
-        return retrieveScheduledShift(request, null);
+        return this.rawClient.retrieveScheduledShift(request).body();
     }
 
     /**
@@ -264,35 +160,7 @@ public class LaborClient {
      */
     public RetrieveScheduledShiftResponse retrieveScheduledShift(
             RetrieveScheduledShiftRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RetrieveScheduledShiftResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.retrieveScheduledShift(request, requestOptions).body();
     }
 
     /**
@@ -309,7 +177,7 @@ public class LaborClient {
      * </ul>
      */
     public UpdateScheduledShiftResponse updateScheduledShift(UpdateScheduledShiftRequest request) {
-        return updateScheduledShift(request, null);
+        return this.rawClient.updateScheduledShift(request).body();
     }
 
     /**
@@ -327,42 +195,7 @@ public class LaborClient {
      */
     public UpdateScheduledShiftResponse updateScheduledShift(
             UpdateScheduledShiftRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts")
-                .addPathSegment(request.getId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateScheduledShiftResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.updateScheduledShift(request, requestOptions).body();
     }
 
     /**
@@ -370,7 +203,7 @@ public class LaborClient {
      * <code>draft_shift_details</code> field as is and copies it to the <code>published_shift_details</code> field.
      */
     public PublishScheduledShiftResponse publishScheduledShift(PublishScheduledShiftRequest request) {
-        return publishScheduledShift(request, null);
+        return this.rawClient.publishScheduledShift(request).body();
     }
 
     /**
@@ -379,43 +212,7 @@ public class LaborClient {
      */
     public PublishScheduledShiftResponse publishScheduledShift(
             PublishScheduledShiftRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/scheduled-shifts")
-                .addPathSegment(request.getId())
-                .addPathSegments("publish")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), PublishScheduledShiftResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.publishScheduledShift(request, requestOptions).body();
     }
 
     /**
@@ -440,7 +237,7 @@ public class LaborClient {
      * </ul>
      */
     public CreateTimecardResponse createTimecard(CreateTimecardRequest request) {
-        return createTimecard(request, null);
+        return this.rawClient.createTimecard(request).body();
     }
 
     /**
@@ -465,41 +262,7 @@ public class LaborClient {
      * </ul>
      */
     public CreateTimecardResponse createTimecard(CreateTimecardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/timecards")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateTimecardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.createTimecard(request, requestOptions).body();
     }
 
     /**
@@ -522,7 +285,7 @@ public class LaborClient {
      * </ul>
      */
     public SearchTimecardsResponse searchTimecards() {
-        return searchTimecards(SearchTimecardsRequest.builder().build());
+        return this.rawClient.searchTimecards().body();
     }
 
     /**
@@ -545,7 +308,7 @@ public class LaborClient {
      * </ul>
      */
     public SearchTimecardsResponse searchTimecards(SearchTimecardsRequest request) {
-        return searchTimecards(request, null);
+        return this.rawClient.searchTimecards(request).body();
     }
 
     /**
@@ -568,83 +331,21 @@ public class LaborClient {
      * </ul>
      */
     public SearchTimecardsResponse searchTimecards(SearchTimecardsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/timecards/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTimecardsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.searchTimecards(request, requestOptions).body();
     }
 
     /**
      * Returns a single <code>Timecard</code> specified by <code>id</code>.
      */
     public RetrieveTimecardResponse retrieveTimecard(RetrieveTimecardRequest request) {
-        return retrieveTimecard(request, null);
+        return this.rawClient.retrieveTimecard(request).body();
     }
 
     /**
      * Returns a single <code>Timecard</code> specified by <code>id</code>.
      */
     public RetrieveTimecardResponse retrieveTimecard(RetrieveTimecardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/timecards")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RetrieveTimecardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.retrieveTimecard(request, requestOptions).body();
     }
 
     /**
@@ -655,7 +356,7 @@ public class LaborClient {
      * set on each <code>Break</code>.</p>
      */
     public UpdateTimecardResponse updateTimecard(UpdateTimecardRequest request) {
-        return updateTimecard(request, null);
+        return this.rawClient.updateTimecard(request).body();
     }
 
     /**
@@ -666,84 +367,21 @@ public class LaborClient {
      * set on each <code>Break</code>.</p>
      */
     public UpdateTimecardResponse updateTimecard(UpdateTimecardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/timecards")
-                .addPathSegment(request.getId())
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("PUT", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateTimecardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.updateTimecard(request, requestOptions).body();
     }
 
     /**
      * Deletes a <code>Timecard</code>.
      */
     public DeleteTimecardResponse deleteTimecard(DeleteTimecardRequest request) {
-        return deleteTimecard(request, null);
+        return this.rawClient.deleteTimecard(request).body();
     }
 
     /**
      * Deletes a <code>Timecard</code>.
      */
     public DeleteTimecardResponse deleteTimecard(DeleteTimecardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/labor/timecards")
-                .addPathSegment(request.getId())
-                .build();
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
-                .method("DELETE", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DeleteTimecardResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.deleteTimecard(request, requestOptions).body();
     }
 
     public BreakTypesClient breakTypes() {

@@ -98,6 +98,9 @@ public final class GetInventoryAdjustmentResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class GetInventoryAdjustmentResponse {
             return this;
         }
 
+        /**
+         * <p>The requested <a href="entity:InventoryAdjustment">InventoryAdjustment</a>.</p>
+         */
         @JsonSetter(value = "adjustment", nulls = Nulls.SKIP)
         public Builder adjustment(Optional<InventoryAdjustment> adjustment) {
             this.adjustment = adjustment;

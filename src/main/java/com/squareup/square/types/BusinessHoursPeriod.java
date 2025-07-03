@@ -140,6 +140,10 @@ public final class BusinessHoursPeriod {
             return this;
         }
 
+        /**
+         * <p>The day of the week for this time period.
+         * See <a href="#type-dayofweek">DayOfWeek</a> for possible values</p>
+         */
         @JsonSetter(value = "day_of_week", nulls = Nulls.SKIP)
         public Builder dayOfWeek(Optional<DayOfWeek> dayOfWeek) {
             this.dayOfWeek = dayOfWeek;
@@ -151,6 +155,11 @@ public final class BusinessHoursPeriod {
             return this;
         }
 
+        /**
+         * <p>The start time of a business hours period, specified in local time using partial-time
+         * RFC 3339 format. For example, <code>8:30:00</code> for a period starting at 8:30 in the morning.
+         * Note that the seconds value is always :00, but it is appended for conformance to the RFC.</p>
+         */
         @JsonSetter(value = "start_local_time", nulls = Nulls.SKIP)
         public Builder startLocalTime(Optional<String> startLocalTime) {
             this.startLocalTime = startLocalTime;
@@ -173,6 +182,11 @@ public final class BusinessHoursPeriod {
             return this;
         }
 
+        /**
+         * <p>The end time of a business hours period, specified in local time using partial-time
+         * RFC 3339 format. For example, <code>21:00:00</code> for a period ending at 9:00 in the evening.
+         * Note that the seconds value is always :00, but it is appended for conformance to the RFC.</p>
+         */
         @JsonSetter(value = "end_local_time", nulls = Nulls.SKIP)
         public Builder endLocalTime(Optional<String> endLocalTime) {
             this.endLocalTime = endLocalTime;

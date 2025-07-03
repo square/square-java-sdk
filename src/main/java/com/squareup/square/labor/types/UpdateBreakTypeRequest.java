@@ -78,12 +78,18 @@ public final class UpdateBreakTypeRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>BreakType</code> being updated.</p>
+         */
         BreakTypeStage id(@NotNull String id);
 
         Builder from(UpdateBreakTypeRequest other);
     }
 
     public interface BreakTypeStage {
+        /**
+         * <p>The updated <code>BreakType</code>.</p>
+         */
         _FinalStage breakType(@NotNull BreakType breakType);
     }
 
@@ -111,6 +117,7 @@ public final class UpdateBreakTypeRequest {
 
         /**
          * <p>The UUID for the <code>BreakType</code> being updated.</p>
+         * <p>The UUID for the <code>BreakType</code> being updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -121,6 +128,7 @@ public final class UpdateBreakTypeRequest {
         }
 
         /**
+         * <p>The updated <code>BreakType</code>.</p>
          * <p>The updated <code>BreakType</code>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */

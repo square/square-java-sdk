@@ -81,6 +81,9 @@ public final class BankAccountVerifiedEventObject {
             return this;
         }
 
+        /**
+         * <p>The verified bank account.</p>
+         */
         @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
         public Builder bankAccount(Optional<BankAccount> bankAccount) {
             this.bankAccount = bankAccount;

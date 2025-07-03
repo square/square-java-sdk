@@ -83,6 +83,9 @@ public final class OauthAuthorizationRevokedEventObject {
             return this;
         }
 
+        /**
+         * <p>The revocation event.</p>
+         */
         @JsonSetter(value = "revocation", nulls = Nulls.SKIP)
         public Builder revocation(Optional<OauthAuthorizationRevokedEventRevocationObject> revocation) {
             this.revocation = revocation;

@@ -89,6 +89,17 @@ public final class SearchOrdersSort {
     }
 
     public interface SortFieldStage {
+        /**
+         * <p>The field to sort by.</p>
+         * <p><strong>Important:</strong> When using a <a href="entity:SearchOrdersFilter">DateTimeFilter</a>,
+         * <code>sort_field</code> must match the timestamp field that the <code>DateTimeFilter</code> uses to
+         * filter. For example, if you set your <code>sort_field</code> to <code>CLOSED_AT</code> and you use a
+         * <code>DateTimeFilter</code>, your <code>DateTimeFilter</code> must filter for orders by their <code>CLOSED_AT</code> date.
+         * If this field does not match the timestamp field in <code>DateTimeFilter</code>,
+         * <code>SearchOrders</code> returns an error.</p>
+         * <p>Default: <code>CREATED_AT</code>.
+         * See <a href="#type-searchorderssortfield">SearchOrdersSortField</a> for possible values</p>
+         */
         _FinalStage sortField(@NotNull SearchOrdersSortField sortField);
 
         Builder from(SearchOrdersSort other);
@@ -97,6 +108,10 @@ public final class SearchOrdersSort {
     public interface _FinalStage {
         SearchOrdersSort build();
 
+        /**
+         * <p>The chronological order in which results are returned. Defaults to <code>DESC</code>.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         _FinalStage sortOrder(Optional<SortOrder> sortOrder);
 
         _FinalStage sortOrder(SortOrder sortOrder);
@@ -130,6 +145,15 @@ public final class SearchOrdersSort {
          * <code>SearchOrders</code> returns an error.</p>
          * <p>Default: <code>CREATED_AT</code>.
          * See <a href="#type-searchorderssortfield">SearchOrdersSortField</a> for possible values</p>
+         * <p>The field to sort by.</p>
+         * <p><strong>Important:</strong> When using a <a href="entity:SearchOrdersFilter">DateTimeFilter</a>,
+         * <code>sort_field</code> must match the timestamp field that the <code>DateTimeFilter</code> uses to
+         * filter. For example, if you set your <code>sort_field</code> to <code>CLOSED_AT</code> and you use a
+         * <code>DateTimeFilter</code>, your <code>DateTimeFilter</code> must filter for orders by their <code>CLOSED_AT</code> date.
+         * If this field does not match the timestamp field in <code>DateTimeFilter</code>,
+         * <code>SearchOrders</code> returns an error.</p>
+         * <p>Default: <code>CREATED_AT</code>.
+         * See <a href="#type-searchorderssortfield">SearchOrdersSortField</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -150,6 +174,10 @@ public final class SearchOrdersSort {
             return this;
         }
 
+        /**
+         * <p>The chronological order in which results are returned. Defaults to <code>DESC</code>.
+         * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "sort_order", nulls = Nulls.SKIP)
         public _FinalStage sortOrder(Optional<SortOrder> sortOrder) {

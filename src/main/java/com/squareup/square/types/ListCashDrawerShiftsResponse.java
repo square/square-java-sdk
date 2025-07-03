@@ -117,6 +117,10 @@ public final class ListCashDrawerShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>Opaque cursor for fetching the next page of results. Cursor is not
+         * present in the last page of results.</p>
+         */
         @JsonSetter(value = "cursor", nulls = Nulls.SKIP)
         public Builder cursor(Optional<String> cursor) {
             this.cursor = cursor;
@@ -128,6 +132,9 @@ public final class ListCashDrawerShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -139,6 +146,10 @@ public final class ListCashDrawerShiftsResponse {
             return this;
         }
 
+        /**
+         * <p>A collection of CashDrawerShiftSummary objects for shifts that match
+         * the query.</p>
+         */
         @JsonSetter(value = "cash_drawer_shifts", nulls = Nulls.SKIP)
         public Builder cashDrawerShifts(Optional<List<CashDrawerShiftSummary>> cashDrawerShifts) {
             this.cashDrawerShifts = cashDrawerShifts;

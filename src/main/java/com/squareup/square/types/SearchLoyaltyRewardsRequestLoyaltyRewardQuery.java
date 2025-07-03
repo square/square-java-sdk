@@ -82,6 +82,9 @@ public final class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     }
 
     public interface LoyaltyAccountIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the loyalty reward belongs.</p>
+         */
         _FinalStage loyaltyAccountId(@NotNull String loyaltyAccountId);
 
         Builder from(SearchLoyaltyRewardsRequestLoyaltyRewardQuery other);
@@ -90,6 +93,10 @@ public final class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
     public interface _FinalStage {
         SearchLoyaltyRewardsRequestLoyaltyRewardQuery build();
 
+        /**
+         * <p>The status of the loyalty reward.
+         * See <a href="#type-loyaltyrewardstatus">LoyaltyRewardStatus</a> for possible values</p>
+         */
         _FinalStage status(Optional<LoyaltyRewardStatus> status);
 
         _FinalStage status(LoyaltyRewardStatus status);
@@ -115,6 +122,7 @@ public final class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
 
         /**
          * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the loyalty reward belongs.</p>
+         * <p>The ID of the <a href="entity:LoyaltyAccount">loyalty account</a> to which the loyalty reward belongs.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -135,6 +143,10 @@ public final class SearchLoyaltyRewardsRequestLoyaltyRewardQuery {
             return this;
         }
 
+        /**
+         * <p>The status of the loyalty reward.
+         * See <a href="#type-loyaltyrewardstatus">LoyaltyRewardStatus</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public _FinalStage status(Optional<LoyaltyRewardStatus> status) {

@@ -80,6 +80,9 @@ public final class UpdateLocationRequest {
     }
 
     public interface LocationIdStage {
+        /**
+         * <p>The ID of the location to update.</p>
+         */
         _FinalStage locationId(@NotNull String locationId);
 
         Builder from(UpdateLocationRequest other);
@@ -88,6 +91,9 @@ public final class UpdateLocationRequest {
     public interface _FinalStage {
         UpdateLocationRequest build();
 
+        /**
+         * <p>The <code>Location</code> object with only the fields to update.</p>
+         */
         _FinalStage location(Optional<Location> location);
 
         _FinalStage location(Location location);
@@ -113,6 +119,7 @@ public final class UpdateLocationRequest {
 
         /**
          * <p>The ID of the location to update.</p>
+         * <p>The ID of the location to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -132,6 +139,9 @@ public final class UpdateLocationRequest {
             return this;
         }
 
+        /**
+         * <p>The <code>Location</code> object with only the fields to update.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "location", nulls = Nulls.SKIP)
         public _FinalStage location(Optional<Location> location) {

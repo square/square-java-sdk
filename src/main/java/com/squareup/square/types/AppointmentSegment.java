@@ -186,6 +186,9 @@ public final class AppointmentSegment {
     }
 
     public interface TeamMemberIdStage {
+        /**
+         * <p>The ID of the <a href="entity:TeamMember">TeamMember</a> object representing the team member booked in this segment.</p>
+         */
         _FinalStage teamMemberId(@NotNull String teamMemberId);
 
         Builder from(AppointmentSegment other);
@@ -194,32 +197,50 @@ public final class AppointmentSegment {
     public interface _FinalStage {
         AppointmentSegment build();
 
+        /**
+         * <p>The time span in minutes of an appointment segment.</p>
+         */
         _FinalStage durationMinutes(Optional<Integer> durationMinutes);
 
         _FinalStage durationMinutes(Integer durationMinutes);
 
         _FinalStage durationMinutes(Nullable<Integer> durationMinutes);
 
+        /**
+         * <p>The ID of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> object representing the service booked in this segment.</p>
+         */
         _FinalStage serviceVariationId(Optional<String> serviceVariationId);
 
         _FinalStage serviceVariationId(String serviceVariationId);
 
         _FinalStage serviceVariationId(Nullable<String> serviceVariationId);
 
+        /**
+         * <p>The current version of the item variation representing the service booked in this segment.</p>
+         */
         _FinalStage serviceVariationVersion(Optional<Long> serviceVariationVersion);
 
         _FinalStage serviceVariationVersion(Long serviceVariationVersion);
 
         _FinalStage serviceVariationVersion(Nullable<Long> serviceVariationVersion);
 
+        /**
+         * <p>Time between the end of this segment and the beginning of the subsequent segment.</p>
+         */
         _FinalStage intermissionMinutes(Optional<Integer> intermissionMinutes);
 
         _FinalStage intermissionMinutes(Integer intermissionMinutes);
 
+        /**
+         * <p>Whether the customer accepts any team member, instead of a specific one, to serve this segment.</p>
+         */
         _FinalStage anyTeamMember(Optional<Boolean> anyTeamMember);
 
         _FinalStage anyTeamMember(Boolean anyTeamMember);
 
+        /**
+         * <p>The IDs of the seller-accessible resources used for this appointment segment.</p>
+         */
         _FinalStage resourceIds(Optional<List<String>> resourceIds);
 
         _FinalStage resourceIds(List<String> resourceIds);
@@ -260,6 +281,7 @@ public final class AppointmentSegment {
 
         /**
          * <p>The ID of the <a href="entity:TeamMember">TeamMember</a> object representing the team member booked in this segment.</p>
+         * <p>The ID of the <a href="entity:TeamMember">TeamMember</a> object representing the team member booked in this segment.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -279,6 +301,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>The IDs of the seller-accessible resources used for this appointment segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "resource_ids", nulls = Nulls.SKIP)
         public _FinalStage resourceIds(Optional<List<String>> resourceIds) {
@@ -296,6 +321,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>Whether the customer accepts any team member, instead of a specific one, to serve this segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "any_team_member", nulls = Nulls.SKIP)
         public _FinalStage anyTeamMember(Optional<Boolean> anyTeamMember) {
@@ -313,6 +341,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>Time between the end of this segment and the beginning of the subsequent segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "intermission_minutes", nulls = Nulls.SKIP)
         public _FinalStage intermissionMinutes(Optional<Integer> intermissionMinutes) {
@@ -346,6 +377,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>The current version of the item variation representing the service booked in this segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "service_variation_version", nulls = Nulls.SKIP)
         public _FinalStage serviceVariationVersion(Optional<Long> serviceVariationVersion) {
@@ -379,6 +413,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:CatalogItemVariation">CatalogItemVariation</a> object representing the service booked in this segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "service_variation_id", nulls = Nulls.SKIP)
         public _FinalStage serviceVariationId(Optional<String> serviceVariationId) {
@@ -412,6 +449,9 @@ public final class AppointmentSegment {
             return this;
         }
 
+        /**
+         * <p>The time span in minutes of an appointment segment.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "duration_minutes", nulls = Nulls.SKIP)
         public _FinalStage durationMinutes(Optional<Integer> durationMinutes) {

@@ -138,6 +138,19 @@ public final class LoyaltyPromotionIncentivePointsMultiplierData {
             return this;
         }
 
+        /**
+         * <p>The multiplier used to calculate the number of points earned each time the promotion
+         * is triggered. For example, suppose a purchase qualifies for 5 points from the base loyalty program.
+         * If the purchase also qualifies for a <code>POINTS_MULTIPLIER</code> promotion incentive with a <code>points_multiplier</code>
+         * of 3, the buyer earns a total of 15 points (5 program points x 3 promotion multiplier = 15 points).</p>
+         * <p>DEPRECATED at version 2023-08-16. Replaced by the <code>multiplier</code> field.</p>
+         * <p>One of the following is required when specifying a points multiplier:</p>
+         * <ul>
+         * <li>(Recommended) The <code>multiplier</code> field.</li>
+         * <li>This deprecated <code>points_multiplier</code> field. If provided in the request, Square also returns <code>multiplier</code>
+         * with the equivalent value.</li>
+         * </ul>
+         */
         @JsonSetter(value = "points_multiplier", nulls = Nulls.SKIP)
         public Builder pointsMultiplier(Optional<Integer> pointsMultiplier) {
             this.pointsMultiplier = pointsMultiplier;
@@ -160,6 +173,20 @@ public final class LoyaltyPromotionIncentivePointsMultiplierData {
             return this;
         }
 
+        /**
+         * <p>The multiplier used to calculate the number of points earned each time the promotion is triggered,
+         * specified as a string representation of a decimal. Square supports multipliers up to 10x, with three
+         * point precision for decimal multipliers. For example, suppose a purchase qualifies for 4 points from the
+         * base loyalty program. If the purchase also qualifies for a <code>POINTS_MULTIPLIER</code> promotion incentive with a
+         * <code>multiplier</code> of &quot;1.5&quot;, the buyer earns a total of 6 points (4 program points x 1.5 promotion multiplier = 6 points).
+         * Fractional points are dropped.</p>
+         * <p>One of the following is required when specifying a points multiplier:</p>
+         * <ul>
+         * <li>(Recommended) This <code>multiplier</code> field.</li>
+         * <li>The deprecated <code>points_multiplier</code> field. If provided in the request, Square also returns <code>multiplier</code>
+         * with the equivalent value.</li>
+         * </ul>
+         */
         @JsonSetter(value = "multiplier", nulls = Nulls.SKIP)
         public Builder multiplier(Optional<String> multiplier) {
             this.multiplier = multiplier;

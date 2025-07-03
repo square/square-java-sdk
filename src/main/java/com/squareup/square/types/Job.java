@@ -188,6 +188,11 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The unique Square-assigned ID of the job. If you need a job ID for an API request,
+         * call <a href="api-endpoint:Team-ListJobs">ListJobs</a> or use the ID returned when you created the job.
+         * You can also get job IDs from a team member's wage setting.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -199,6 +204,9 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p>The title of the job.</p>
+         */
         @JsonSetter(value = "title", nulls = Nulls.SKIP)
         public Builder title(Optional<String> title) {
             this.title = title;
@@ -221,6 +229,9 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p>Indicates whether team members can earn tips for the job.</p>
+         */
         @JsonSetter(value = "is_tip_eligible", nulls = Nulls.SKIP)
         public Builder isTipEligible(Optional<Boolean> isTipEligible) {
             this.isTipEligible = isTipEligible;
@@ -243,6 +254,9 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the job was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -254,6 +268,9 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the job was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -265,6 +282,12 @@ public final class Job {
             return this;
         }
 
+        /**
+         * <p><strong>Read only</strong> The current version of the job. Include this field in <code>UpdateJob</code> requests to enable
+         * <a href="https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency">optimistic concurrency</a>
+         * control and avoid overwrites from concurrent requests. Requests fail if the provided version doesn't
+         * match the server version at the time of the request.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Integer> version) {
             this.version = version;

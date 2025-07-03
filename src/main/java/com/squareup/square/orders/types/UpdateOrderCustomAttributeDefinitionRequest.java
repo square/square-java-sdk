@@ -114,18 +114,31 @@ public final class UpdateOrderCustomAttributeDefinitionRequest {
     }
 
     public interface KeyStage {
+        /**
+         * <p>The key of the custom attribute definition to update.</p>
+         */
         CustomAttributeDefinitionStage key(@NotNull String key);
 
         Builder from(UpdateOrderCustomAttributeDefinitionRequest other);
     }
 
     public interface CustomAttributeDefinitionStage {
+        /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint supports sparse updates,
+         * so only new or changed fields need to be included in the request.  For more information, see
+         * <a href="https://developer.squareup.com/docs/orders-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields">Updatable definition fields</a>.</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control, include the optional <code>version</code> field and specify the current version of the custom attribute definition.</p>
+         */
         _FinalStage customAttributeDefinition(@NotNull CustomAttributeDefinition customAttributeDefinition);
     }
 
     public interface _FinalStage {
         UpdateOrderCustomAttributeDefinitionRequest build();
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         _FinalStage idempotencyKey(Optional<String> idempotencyKey);
 
         _FinalStage idempotencyKey(String idempotencyKey);
@@ -156,6 +169,7 @@ public final class UpdateOrderCustomAttributeDefinitionRequest {
 
         /**
          * <p>The key of the custom attribute definition to update.</p>
+         * <p>The key of the custom attribute definition to update.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -166,6 +180,10 @@ public final class UpdateOrderCustomAttributeDefinitionRequest {
         }
 
         /**
+         * <p>The custom attribute definition that contains the fields to update. This endpoint supports sparse updates,
+         * so only new or changed fields need to be included in the request.  For more information, see
+         * <a href="https://developer.squareup.com/docs/orders-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields">Updatable definition fields</a>.</p>
+         * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control, include the optional <code>version</code> field and specify the current version of the custom attribute definition.</p>
          * <p>The custom attribute definition that contains the fields to update. This endpoint supports sparse updates,
          * so only new or changed fields need to be included in the request.  For more information, see
          * <a href="https://developer.squareup.com/docs/orders-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields">Updatable definition fields</a>.</p>
@@ -208,6 +226,10 @@ public final class UpdateOrderCustomAttributeDefinitionRequest {
             return this;
         }
 
+        /**
+         * <p>A unique identifier for this request, used to ensure idempotency.
+         * For more information, see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "idempotency_key", nulls = Nulls.SKIP)
         public _FinalStage idempotencyKey(Optional<String> idempotencyKey) {

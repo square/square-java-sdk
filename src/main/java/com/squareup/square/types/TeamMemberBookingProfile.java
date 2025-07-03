@@ -159,6 +159,9 @@ public final class TeamMemberBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:TeamMember">TeamMember</a> object for the team member associated with the booking profile.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -170,6 +173,9 @@ public final class TeamMemberBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The description of the team member.</p>
+         */
         @JsonSetter(value = "description", nulls = Nulls.SKIP)
         public Builder description(Optional<String> description) {
             this.description = description;
@@ -181,6 +187,9 @@ public final class TeamMemberBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The display name of the team member.</p>
+         */
         @JsonSetter(value = "display_name", nulls = Nulls.SKIP)
         public Builder displayName(Optional<String> displayName) {
             this.displayName = displayName;
@@ -192,6 +201,9 @@ public final class TeamMemberBookingProfile {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the team member can be booked through the Bookings API or the seller's online booking channel or site (<code>true</code>) or not (<code>false</code>).</p>
+         */
         @JsonSetter(value = "is_bookable", nulls = Nulls.SKIP)
         public Builder isBookable(Optional<Boolean> isBookable) {
             this.isBookable = isBookable;
@@ -214,6 +226,9 @@ public final class TeamMemberBookingProfile {
             return this;
         }
 
+        /**
+         * <p>The URL of the team member's image for the bookings profile.</p>
+         */
         @JsonSetter(value = "profile_image_url", nulls = Nulls.SKIP)
         public Builder profileImageUrl(Optional<String> profileImageUrl) {
             this.profileImageUrl = profileImageUrl;

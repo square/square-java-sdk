@@ -119,6 +119,9 @@ public final class SwapPlanRequest {
     }
 
     public interface SubscriptionIdStage {
+        /**
+         * <p>The ID of the subscription to swap the subscription plan for.</p>
+         */
         _FinalStage subscriptionId(@NotNull String subscriptionId);
 
         Builder from(SwapPlanRequest other);
@@ -127,12 +130,19 @@ public final class SwapPlanRequest {
     public interface _FinalStage {
         SwapPlanRequest build();
 
+        /**
+         * <p>The ID of the new subscription plan variation.</p>
+         * <p>This field is required.</p>
+         */
         _FinalStage newPlanVariationId(Optional<String> newPlanVariationId);
 
         _FinalStage newPlanVariationId(String newPlanVariationId);
 
         _FinalStage newPlanVariationId(Nullable<String> newPlanVariationId);
 
+        /**
+         * <p>A list of PhaseInputs, to pass phase-specific information used in the swap.</p>
+         */
         _FinalStage phases(Optional<List<PhaseInput>> phases);
 
         _FinalStage phases(List<PhaseInput> phases);
@@ -162,6 +172,7 @@ public final class SwapPlanRequest {
         }
 
         /**
+         * <p>The ID of the subscription to swap the subscription plan for.</p>
          * <p>The ID of the subscription to swap the subscription plan for.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -198,6 +209,9 @@ public final class SwapPlanRequest {
             return this;
         }
 
+        /**
+         * <p>A list of PhaseInputs, to pass phase-specific information used in the swap.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(Optional<List<PhaseInput>> phases) {
@@ -233,6 +247,10 @@ public final class SwapPlanRequest {
             return this;
         }
 
+        /**
+         * <p>The ID of the new subscription plan variation.</p>
+         * <p>This field is required.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "new_plan_variation_id", nulls = Nulls.SKIP)
         public _FinalStage newPlanVariationId(Optional<String> newPlanVariationId) {

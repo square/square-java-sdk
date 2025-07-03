@@ -81,6 +81,9 @@ public final class CardAutomaticallyUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The automatically updated card.</p>
+         */
         @JsonSetter(value = "card", nulls = Nulls.SKIP)
         public Builder card(Optional<Card> card) {
             this.card = card;

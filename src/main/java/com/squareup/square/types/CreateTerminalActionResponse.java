@@ -96,6 +96,9 @@ public final class CreateTerminalActionResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class CreateTerminalActionResponse {
             return this;
         }
 
+        /**
+         * <p>The created <code>TerminalAction</code></p>
+         */
         @JsonSetter(value = "action", nulls = Nulls.SKIP)
         public Builder action(Optional<TerminalAction> action) {
             this.action = action;

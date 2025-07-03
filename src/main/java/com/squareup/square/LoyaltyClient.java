@@ -3,31 +3,20 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
-import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.core.SquareApiException;
-import com.squareup.square.core.SquareException;
 import com.squareup.square.core.Suppliers;
 import com.squareup.square.loyalty.AccountsClient;
 import com.squareup.square.loyalty.ProgramsClient;
 import com.squareup.square.loyalty.RewardsClient;
 import com.squareup.square.types.SearchLoyaltyEventsRequest;
 import com.squareup.square.types.SearchLoyaltyEventsResponse;
-import java.io.IOException;
 import java.util.function.Supplier;
-import okhttp3.Headers;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class LoyaltyClient {
     protected final ClientOptions clientOptions;
+
+    private final RawLoyaltyClient rawClient;
 
     protected final Supplier<AccountsClient> accountsClient;
 
@@ -37,9 +26,17 @@ public class LoyaltyClient {
 
     public LoyaltyClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+        this.rawClient = new RawLoyaltyClient(clientOptions);
         this.accountsClient = Suppliers.memoize(() -> new AccountsClient(clientOptions));
         this.programsClient = Suppliers.memoize(() -> new ProgramsClient(clientOptions));
         this.rewardsClient = Suppliers.memoize(() -> new RewardsClient(clientOptions));
+    }
+
+    /**
+     * Get responses with HTTP metadata like headers
+     */
+    public RawLoyaltyClient withRawResponse() {
+        return this.rawClient;
     }
 
     /**
@@ -51,7 +48,7 @@ public class LoyaltyClient {
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
     public SearchLoyaltyEventsResponse searchEvents() {
-        return searchEvents(SearchLoyaltyEventsRequest.builder().build());
+        return this.rawClient.searchEvents().body();
     }
 
     /**
@@ -63,7 +60,7 @@ public class LoyaltyClient {
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
     public SearchLoyaltyEventsResponse searchEvents(SearchLoyaltyEventsRequest request) {
-        return searchEvents(request, null);
+        return this.rawClient.searchEvents(request).body();
     }
 
     /**
@@ -75,41 +72,7 @@ public class LoyaltyClient {
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
     public SearchLoyaltyEventsResponse searchEvents(SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/loyalty/events/search")
-                .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
-                .method("POST", body)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyEventsResponse.class);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            throw new SquareApiException(
-                    "Error with status code " + response.code(),
-                    response.code(),
-                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class));
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
+        return this.rawClient.searchEvents(request, requestOptions).body();
     }
 
     public AccountsClient accounts() {

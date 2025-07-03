@@ -117,6 +117,9 @@ public final class BulkUpsertLocationCustomAttributesResponseLocationCustomAttri
             return this;
         }
 
+        /**
+         * <p>The ID of the location associated with the custom attribute.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -128,6 +131,9 @@ public final class BulkUpsertLocationCustomAttributesResponseLocationCustomAttri
             return this;
         }
 
+        /**
+         * <p>The new or updated custom attribute.</p>
+         */
         @JsonSetter(value = "custom_attribute", nulls = Nulls.SKIP)
         public Builder customAttribute(Optional<CustomAttribute> customAttribute) {
             this.customAttribute = customAttribute;
@@ -139,6 +145,9 @@ public final class BulkUpsertLocationCustomAttributesResponseLocationCustomAttri
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred while processing the individual request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

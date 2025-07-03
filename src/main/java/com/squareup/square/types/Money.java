@@ -112,6 +112,12 @@ public final class Money {
             return this;
         }
 
+        /**
+         * <p>The amount of money, in the smallest denomination of the currency
+         * indicated by <code>currency</code>. For example, when <code>currency</code> is <code>USD</code>, <code>amount</code> is
+         * in cents. Monetary amounts can be positive or negative. See the specific
+         * field description to determine the meaning of the sign in a particular case.</p>
+         */
         @JsonSetter(value = "amount", nulls = Nulls.SKIP)
         public Builder amount(Optional<Long> amount) {
             this.amount = amount;
@@ -134,6 +140,12 @@ public final class Money {
             return this;
         }
 
+        /**
+         * <p>The type of currency, in <strong>ISO 4217 format</strong>. For example, the currency
+         * code for US dollars is <code>USD</code>.</p>
+         * <p>See <a href="entity:Currency">Currency</a> for possible values.
+         * See <a href="#type-currency">Currency</a> for possible values</p>
+         */
         @JsonSetter(value = "currency", nulls = Nulls.SKIP)
         public Builder currency(Optional<Currency> currency) {
             this.currency = currency;

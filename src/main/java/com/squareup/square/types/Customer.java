@@ -498,6 +498,11 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>A unique Square-assigned ID for the customer profile.</p>
+         * <p>If you need this ID for an API request, use the ID returned when you created the customer profile or call the <a href="api-endpoint:Customers-SearchCustomers">SearchCustomers</a>
+         * or <a href="api-endpoint:Customers-ListCustomers">ListCustomers</a> endpoint.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -509,6 +514,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the customer profile was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -520,6 +528,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the customer profile was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -531,6 +542,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The given name (that is, the first name) associated with the customer profile.</p>
+         */
         @JsonSetter(value = "given_name", nulls = Nulls.SKIP)
         public Builder givenName(Optional<String> givenName) {
             this.givenName = givenName;
@@ -553,6 +567,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The family name (that is, the last name) associated with the customer profile.</p>
+         */
         @JsonSetter(value = "family_name", nulls = Nulls.SKIP)
         public Builder familyName(Optional<String> familyName) {
             this.familyName = familyName;
@@ -575,6 +592,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>A nickname for the customer profile.</p>
+         */
         @JsonSetter(value = "nickname", nulls = Nulls.SKIP)
         public Builder nickname(Optional<String> nickname) {
             this.nickname = nickname;
@@ -597,6 +617,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>A business name associated with the customer profile.</p>
+         */
         @JsonSetter(value = "company_name", nulls = Nulls.SKIP)
         public Builder companyName(Optional<String> companyName) {
             this.companyName = companyName;
@@ -619,6 +642,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The email address associated with the customer profile.</p>
+         */
         @JsonSetter(value = "email_address", nulls = Nulls.SKIP)
         public Builder emailAddress(Optional<String> emailAddress) {
             this.emailAddress = emailAddress;
@@ -641,6 +667,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The physical address associated with the customer profile.</p>
+         */
         @JsonSetter(value = "address", nulls = Nulls.SKIP)
         public Builder address(Optional<Address> address) {
             this.address = address;
@@ -652,6 +681,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The phone number associated with the customer profile.</p>
+         */
         @JsonSetter(value = "phone_number", nulls = Nulls.SKIP)
         public Builder phoneNumber(Optional<String> phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -674,6 +706,10 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The birthday associated with the customer profile, in <code>YYYY-MM-DD</code> format. For example, <code>1998-09-21</code>
+         * represents September 21, 1998, and <code>0000-09-21</code> represents September 21 (without a birth year).</p>
+         */
         @JsonSetter(value = "birthday", nulls = Nulls.SKIP)
         public Builder birthday(Optional<String> birthday) {
             this.birthday = birthday;
@@ -696,6 +732,10 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>An optional second ID used to associate the customer profile with an
+         * entity in another system.</p>
+         */
         @JsonSetter(value = "reference_id", nulls = Nulls.SKIP)
         public Builder referenceId(Optional<String> referenceId) {
             this.referenceId = referenceId;
@@ -718,6 +758,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>A custom note associated with the customer profile.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -740,6 +783,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>Represents general customer preferences.</p>
+         */
         @JsonSetter(value = "preferences", nulls = Nulls.SKIP)
         public Builder preferences(Optional<CustomerPreferences> preferences) {
             this.preferences = preferences;
@@ -751,6 +797,10 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The method used to create the customer profile.
+         * See <a href="#type-customercreationsource">CustomerCreationSource</a> for possible values</p>
+         */
         @JsonSetter(value = "creation_source", nulls = Nulls.SKIP)
         public Builder creationSource(Optional<CustomerCreationSource> creationSource) {
             this.creationSource = creationSource;
@@ -762,6 +812,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The IDs of <a href="entity:CustomerGroup">customer groups</a> the customer belongs to.</p>
+         */
         @JsonSetter(value = "group_ids", nulls = Nulls.SKIP)
         public Builder groupIds(Optional<List<String>> groupIds) {
             this.groupIds = groupIds;
@@ -784,6 +837,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The IDs of <a href="entity:CustomerSegment">customer segments</a> the customer belongs to.</p>
+         */
         @JsonSetter(value = "segment_ids", nulls = Nulls.SKIP)
         public Builder segmentIds(Optional<List<String>> segmentIds) {
             this.segmentIds = segmentIds;
@@ -806,6 +862,9 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned version number of the customer profile. The version number is incremented each time an update is committed to the customer profile, except for changes to customer segment membership.</p>
+         */
         @JsonSetter(value = "version", nulls = Nulls.SKIP)
         public Builder version(Optional<Long> version) {
             this.version = version;
@@ -817,6 +876,10 @@ public final class Customer {
             return this;
         }
 
+        /**
+         * <p>The tax ID associated with the customer profile. This field is present only for customers of sellers in EU countries or the United Kingdom.
+         * For more information, see <a href="https://developer.squareup.com/docs/customers-api/what-it-does#customer-tax-ids">Customer tax IDs</a>.</p>
+         */
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(Optional<CustomerTaxIds> taxIds) {
             this.taxIds = taxIds;

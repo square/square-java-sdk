@@ -16,12 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = LoyaltyEventRedeemReward.Builder.class)
 public final class LoyaltyEventRedeemReward {
-    private final String loyaltyProgramId;
+    private final Optional<String> loyaltyProgramId;
 
     private final Optional<String> rewardId;
 
@@ -30,7 +29,7 @@ public final class LoyaltyEventRedeemReward {
     private final Map<String, Object> additionalProperties;
 
     private LoyaltyEventRedeemReward(
-            String loyaltyProgramId,
+            Optional<String> loyaltyProgramId,
             Optional<String> rewardId,
             Optional<String> orderId,
             Map<String, Object> additionalProperties) {
@@ -44,7 +43,7 @@ public final class LoyaltyEventRedeemReward {
      * @return The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.
      */
     @JsonProperty("loyalty_program_id")
-    public String getLoyaltyProgramId() {
+    public Optional<String> getLoyaltyProgramId() {
         return loyaltyProgramId;
     }
 
@@ -93,42 +92,23 @@ public final class LoyaltyEventRedeemReward {
         return ObjectMappers.stringify(this);
     }
 
-    public static LoyaltyProgramIdStage builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    public interface LoyaltyProgramIdStage {
-        _FinalStage loyaltyProgramId(@NotNull String loyaltyProgramId);
-
-        Builder from(LoyaltyEventRedeemReward other);
-    }
-
-    public interface _FinalStage {
-        LoyaltyEventRedeemReward build();
-
-        _FinalStage rewardId(Optional<String> rewardId);
-
-        _FinalStage rewardId(String rewardId);
-
-        _FinalStage orderId(Optional<String> orderId);
-
-        _FinalStage orderId(String orderId);
-    }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements LoyaltyProgramIdStage, _FinalStage {
-        private String loyaltyProgramId;
-
-        private Optional<String> orderId = Optional.empty();
+    public static final class Builder {
+        private Optional<String> loyaltyProgramId = Optional.empty();
 
         private Optional<String> rewardId = Optional.empty();
+
+        private Optional<String> orderId = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        @java.lang.Override
         public Builder from(LoyaltyEventRedeemReward other) {
             loyaltyProgramId(other.getLoyaltyProgramId());
             rewardId(other.getRewardId());
@@ -138,52 +118,48 @@ public final class LoyaltyEventRedeemReward {
 
         /**
          * <p>The ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        @JsonSetter("loyalty_program_id")
-        public _FinalStage loyaltyProgramId(@NotNull String loyaltyProgramId) {
-            this.loyaltyProgramId = Objects.requireNonNull(loyaltyProgramId, "loyaltyProgramId must not be null");
+        @JsonSetter(value = "loyalty_program_id", nulls = Nulls.SKIP)
+        public Builder loyaltyProgramId(Optional<String> loyaltyProgramId) {
+            this.loyaltyProgramId = loyaltyProgramId;
             return this;
         }
 
-        /**
-         * <p>The ID of the <a href="entity:Order">order</a> that redeemed the reward.
-         * This field is returned only if the Orders API is used to process orders.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        public _FinalStage orderId(String orderId) {
-            this.orderId = Optional.ofNullable(orderId);
-            return this;
-        }
-
-        @java.lang.Override
-        @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
-        public _FinalStage orderId(Optional<String> orderId) {
-            this.orderId = orderId;
+        public Builder loyaltyProgramId(String loyaltyProgramId) {
+            this.loyaltyProgramId = Optional.ofNullable(loyaltyProgramId);
             return this;
         }
 
         /**
          * <p>The ID of the redeemed <a href="entity:LoyaltyReward">loyalty reward</a>.
          * This field is returned only if the event source is <code>LOYALTY_API</code>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
          */
-        @java.lang.Override
-        public _FinalStage rewardId(String rewardId) {
-            this.rewardId = Optional.ofNullable(rewardId);
-            return this;
-        }
-
-        @java.lang.Override
         @JsonSetter(value = "reward_id", nulls = Nulls.SKIP)
-        public _FinalStage rewardId(Optional<String> rewardId) {
+        public Builder rewardId(Optional<String> rewardId) {
             this.rewardId = rewardId;
             return this;
         }
 
-        @java.lang.Override
+        public Builder rewardId(String rewardId) {
+            this.rewardId = Optional.ofNullable(rewardId);
+            return this;
+        }
+
+        /**
+         * <p>The ID of the <a href="entity:Order">order</a> that redeemed the reward.
+         * This field is returned only if the Orders API is used to process orders.</p>
+         */
+        @JsonSetter(value = "order_id", nulls = Nulls.SKIP)
+        public Builder orderId(Optional<String> orderId) {
+            this.orderId = orderId;
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            this.orderId = Optional.ofNullable(orderId);
+            return this;
+        }
+
         public LoyaltyEventRedeemReward build() {
             return new LoyaltyEventRedeemReward(loyaltyProgramId, rewardId, orderId, additionalProperties);
         }

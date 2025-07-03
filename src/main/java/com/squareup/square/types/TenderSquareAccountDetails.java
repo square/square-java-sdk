@@ -84,6 +84,12 @@ public final class TenderSquareAccountDetails {
             return this;
         }
 
+        /**
+         * <p>The Square Account payment's current state (such as <code>AUTHORIZED</code> or
+         * <code>CAPTURED</code>). See <a href="entity:TenderSquareAccountDetailsStatus">TenderSquareAccountDetailsStatus</a>
+         * for possible values.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<TenderSquareAccountDetailsStatus> status) {
             this.status = status;

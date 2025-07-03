@@ -140,6 +140,10 @@ public final class UpdateItemTaxesRequest {
             return this;
         }
 
+        /**
+         * <p>IDs for the CatalogItems associated with the CatalogTax objects being updated.
+         * No more than 1,000 IDs may be provided.</p>
+         */
         @JsonSetter(value = "item_ids", nulls = Nulls.SKIP)
         public Builder itemIds(List<String> itemIds) {
             this.itemIds.clear();
@@ -157,6 +161,10 @@ public final class UpdateItemTaxesRequest {
             return this;
         }
 
+        /**
+         * <p>IDs of the CatalogTax objects to enable.
+         * At least one of <code>taxes_to_enable</code> or <code>taxes_to_disable</code> must be specified.</p>
+         */
         @JsonSetter(value = "taxes_to_enable", nulls = Nulls.SKIP)
         public Builder taxesToEnable(Optional<List<String>> taxesToEnable) {
             this.taxesToEnable = taxesToEnable;
@@ -179,6 +187,10 @@ public final class UpdateItemTaxesRequest {
             return this;
         }
 
+        /**
+         * <p>IDs of the CatalogTax objects to disable.
+         * At least one of <code>taxes_to_enable</code> or <code>taxes_to_disable</code> must be specified.</p>
+         */
         @JsonSetter(value = "taxes_to_disable", nulls = Nulls.SKIP)
         public Builder taxesToDisable(Optional<List<String>> taxesToDisable) {
             this.taxesToDisable = taxesToDisable;

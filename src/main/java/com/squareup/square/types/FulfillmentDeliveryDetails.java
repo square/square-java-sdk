@@ -637,6 +637,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The contact information for the person to receive the fulfillment.</p>
+         */
         @JsonSetter(value = "recipient", nulls = Nulls.SKIP)
         public Builder recipient(Optional<FulfillmentRecipient> recipient) {
             this.recipient = recipient;
@@ -648,6 +651,11 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>Indicates the fulfillment delivery schedule type. If <code>SCHEDULED</code>, then
+         * <code>deliver_at</code> is required. If <code>ASAP</code>, then <code>prep_time_duration</code> is required. The default is <code>SCHEDULED</code>.
+         * See <a href="#type-orderfulfillmentdeliverydetailsscheduletype">OrderFulfillmentDeliveryDetailsScheduleType</a> for possible values</p>
+         */
         @JsonSetter(value = "schedule_type", nulls = Nulls.SKIP)
         public Builder scheduleType(
                 Optional<FulfillmentDeliveryDetailsOrderFulfillmentDeliveryDetailsScheduleType> scheduleType) {
@@ -661,6 +669,12 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was placed.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         * <p>Must be in RFC 3339 timestamp format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
         @JsonSetter(value = "placed_at", nulls = Nulls.SKIP)
         public Builder placedAt(Optional<String> placedAt) {
             this.placedAt = placedAt;
@@ -672,6 +686,17 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * that represents the start of the delivery period.
+         * When the fulfillment <code>schedule_type</code> is <code>ASAP</code>, the field is automatically
+         * set to the current time plus the <code>prep_time_duration</code>.
+         * Otherwise, the application can set this field while the fulfillment <code>state</code> is
+         * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the
+         * terminal state such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).</p>
+         * <p>The timestamp must be in RFC 3339 format
+         * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "deliver_at", nulls = Nulls.SKIP)
         public Builder deliverAt(Optional<String> deliverAt) {
             this.deliverAt = deliverAt;
@@ -694,6 +719,10 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The duration of time it takes to prepare and deliver this fulfillment.
+         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         */
         @JsonSetter(value = "prep_time_duration", nulls = Nulls.SKIP)
         public Builder prepTimeDuration(Optional<String> prepTimeDuration) {
             this.prepTimeDuration = prepTimeDuration;
@@ -716,6 +745,13 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The time period after <code>deliver_at</code> in which to deliver the order.
+         * Applications can set this field when the fulfillment <code>state</code> is
+         * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the terminal state
+         * such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).</p>
+         * <p>The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         */
         @JsonSetter(value = "delivery_window_duration", nulls = Nulls.SKIP)
         public Builder deliveryWindowDuration(Optional<String> deliveryWindowDuration) {
             this.deliveryWindowDuration = deliveryWindowDuration;
@@ -738,6 +774,10 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>Provides additional instructions about the delivery fulfillment.
+         * It is displayed in the Square Point of Sale application and set by the API.</p>
+         */
         @JsonSetter(value = "note", nulls = Nulls.SKIP)
         public Builder note(Optional<String> note) {
             this.note = note;
@@ -760,6 +800,12 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicates when the seller completed the fulfillment.
+         * This field is automatically set when  fulfillment <code>state</code> changes to <code>COMPLETED</code>.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "completed_at", nulls = Nulls.SKIP)
         public Builder completedAt(Optional<String> completedAt) {
             this.completedAt = completedAt;
@@ -782,6 +828,12 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicates when the seller started processing the fulfillment.
+         * This field is automatically set when the fulfillment <code>state</code> changes to <code>RESERVED</code>.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "in_progress_at", nulls = Nulls.SKIP)
         public Builder inProgressAt(Optional<String> inProgressAt) {
             this.inProgressAt = inProgressAt;
@@ -793,6 +845,12 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was rejected. This field is
+         * automatically set when the fulfillment <code>state</code> changes to <code>FAILED</code>.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "rejected_at", nulls = Nulls.SKIP)
         public Builder rejectedAt(Optional<String> rejectedAt) {
             this.rejectedAt = rejectedAt;
@@ -804,6 +862,13 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the seller marked the fulfillment as ready for
+         * courier pickup. This field is automatically set when the fulfillment <code>state</code> changes
+         * to PREPARED.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "ready_at", nulls = Nulls.SKIP)
         public Builder readyAt(Optional<String> readyAt) {
             this.readyAt = readyAt;
@@ -815,6 +880,11 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was delivered to the recipient.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "delivered_at", nulls = Nulls.SKIP)
         public Builder deliveredAt(Optional<String> deliveredAt) {
             this.deliveredAt = deliveredAt;
@@ -826,6 +896,12 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when the fulfillment was canceled. This field is automatically
+         * set when the fulfillment <code>state</code> changes to <code>CANCELED</code>.</p>
+         * <p>The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "canceled_at", nulls = Nulls.SKIP)
         public Builder canceledAt(Optional<String> canceledAt) {
             this.canceledAt = canceledAt;
@@ -837,6 +913,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The delivery cancellation reason. Max length: 100 characters.</p>
+         */
         @JsonSetter(value = "cancel_reason", nulls = Nulls.SKIP)
         public Builder cancelReason(Optional<String> cancelReason) {
             this.cancelReason = cancelReason;
@@ -859,6 +938,11 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
+         * indicating when an order can be picked up by the courier for delivery.
+         * The timestamp must be in RFC 3339 format (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         */
         @JsonSetter(value = "courier_pickup_at", nulls = Nulls.SKIP)
         public Builder courierPickupAt(Optional<String> courierPickupAt) {
             this.courierPickupAt = courierPickupAt;
@@ -881,6 +965,10 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The time period after <code>courier_pickup_at</code> in which the courier should pick up the order.
+         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         */
         @JsonSetter(value = "courier_pickup_window_duration", nulls = Nulls.SKIP)
         public Builder courierPickupWindowDuration(Optional<String> courierPickupWindowDuration) {
             this.courierPickupWindowDuration = courierPickupWindowDuration;
@@ -903,6 +991,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>Whether the delivery is preferred to be no contact.</p>
+         */
         @JsonSetter(value = "is_no_contact_delivery", nulls = Nulls.SKIP)
         public Builder isNoContactDelivery(Optional<Boolean> isNoContactDelivery) {
             this.isNoContactDelivery = isNoContactDelivery;
@@ -925,6 +1016,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>A note to provide additional instructions about how to deliver the order.</p>
+         */
         @JsonSetter(value = "dropoff_notes", nulls = Nulls.SKIP)
         public Builder dropoffNotes(Optional<String> dropoffNotes) {
             this.dropoffNotes = dropoffNotes;
@@ -947,6 +1041,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The name of the courier provider.</p>
+         */
         @JsonSetter(value = "courier_provider_name", nulls = Nulls.SKIP)
         public Builder courierProviderName(Optional<String> courierProviderName) {
             this.courierProviderName = courierProviderName;
@@ -969,6 +1066,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The support phone number of the courier.</p>
+         */
         @JsonSetter(value = "courier_support_phone_number", nulls = Nulls.SKIP)
         public Builder courierSupportPhoneNumber(Optional<String> courierSupportPhoneNumber) {
             this.courierSupportPhoneNumber = courierSupportPhoneNumber;
@@ -991,6 +1091,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The identifier for the delivery created by Square.</p>
+         */
         @JsonSetter(value = "square_delivery_id", nulls = Nulls.SKIP)
         public Builder squareDeliveryId(Optional<String> squareDeliveryId) {
             this.squareDeliveryId = squareDeliveryId;
@@ -1013,6 +1116,9 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The identifier for the delivery created by the third-party courier service.</p>
+         */
         @JsonSetter(value = "external_delivery_id", nulls = Nulls.SKIP)
         public Builder externalDeliveryId(Optional<String> externalDeliveryId) {
             this.externalDeliveryId = externalDeliveryId;
@@ -1035,6 +1141,10 @@ public final class FulfillmentDeliveryDetails {
             return this;
         }
 
+        /**
+         * <p>The flag to indicate the delivery is managed by a third party (ie DoorDash), which means
+         * we may not receive all recipient information for PII purposes.</p>
+         */
         @JsonSetter(value = "managed_delivery", nulls = Nulls.SKIP)
         public Builder managedDelivery(Optional<Boolean> managedDelivery) {
             this.managedDelivery = managedDelivery;

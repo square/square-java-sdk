@@ -82,6 +82,9 @@ public final class TerminalCheckoutUpdatedEventObject {
             return this;
         }
 
+        /**
+         * <p>The updated terminal checkout</p>
+         */
         @JsonSetter(value = "checkout", nulls = Nulls.SKIP)
         public Builder checkout(Optional<TerminalCheckout> checkout) {
             this.checkout = checkout;

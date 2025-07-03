@@ -96,6 +96,9 @@ public final class GetCustomerGroupResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -107,6 +110,9 @@ public final class GetCustomerGroupResponse {
             return this;
         }
 
+        /**
+         * <p>The retrieved customer group.</p>
+         */
         @JsonSetter(value = "group", nulls = Nulls.SKIP)
         public Builder group(Optional<CustomerGroup> group) {
             this.group = group;

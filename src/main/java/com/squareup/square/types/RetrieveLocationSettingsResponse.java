@@ -98,6 +98,9 @@ public final class RetrieveLocationSettingsResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;
@@ -109,6 +112,9 @@ public final class RetrieveLocationSettingsResponse {
             return this;
         }
 
+        /**
+         * <p>The location settings.</p>
+         */
         @JsonSetter(value = "location_settings", nulls = Nulls.SKIP)
         public Builder locationSettings(Optional<CheckoutLocationSettings> locationSettings) {
             this.locationSettings = locationSettings;

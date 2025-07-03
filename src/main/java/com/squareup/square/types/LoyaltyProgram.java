@@ -254,6 +254,10 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the loyalty program. Updates to
+         * the loyalty program do not modify the identifier.</p>
+         */
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public Builder id(Optional<String> id) {
             this.id = id;
@@ -265,6 +269,10 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>Whether the program is currently active.
+         * See <a href="#type-loyaltyprogramstatus">LoyaltyProgramStatus</a> for possible values</p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<LoyaltyProgramStatus> status) {
             this.status = status;
@@ -276,6 +284,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>The list of rewards for buyers, sorted by ascending points.</p>
+         */
         @JsonSetter(value = "reward_tiers", nulls = Nulls.SKIP)
         public Builder rewardTiers(Optional<List<LoyaltyProgramRewardTier>> rewardTiers) {
             this.rewardTiers = rewardTiers;
@@ -298,6 +309,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>If present, details for how points expire.</p>
+         */
         @JsonSetter(value = "expiration_policy", nulls = Nulls.SKIP)
         public Builder expirationPolicy(Optional<LoyaltyProgramExpirationPolicy> expirationPolicy) {
             this.expirationPolicy = expirationPolicy;
@@ -309,6 +323,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>A cosmetic name for the “points” currency.</p>
+         */
         @JsonSetter(value = "terminology", nulls = Nulls.SKIP)
         public Builder terminology(Optional<LoyaltyProgramTerminology> terminology) {
             this.terminology = terminology;
@@ -320,6 +337,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>The <a href="entity:Location">locations</a> at which the program is active.</p>
+         */
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(Optional<List<String>> locationIds) {
             this.locationIds = locationIds;
@@ -342,6 +362,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the program was created, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<String> createdAt) {
             this.createdAt = createdAt;
@@ -353,6 +376,9 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the reward was last updated, in RFC 3339 format.</p>
+         */
         @JsonSetter(value = "updated_at", nulls = Nulls.SKIP)
         public Builder updatedAt(Optional<String> updatedAt) {
             this.updatedAt = updatedAt;
@@ -364,6 +390,11 @@ public final class LoyaltyProgram {
             return this;
         }
 
+        /**
+         * <p>Defines how buyers can earn loyalty points from the base loyalty program.
+         * To check for associated <a href="entity:LoyaltyPromotion">loyalty promotions</a> that enable
+         * buyers to earn extra points, call <a href="api-endpoint:Loyalty-ListLoyaltyPromotions">ListLoyaltyPromotions</a>.</p>
+         */
         @JsonSetter(value = "accrual_rules", nulls = Nulls.SKIP)
         public Builder accrualRules(Optional<List<LoyaltyProgramAccrualRule>> accrualRules) {
             this.accrualRules = accrualRules;

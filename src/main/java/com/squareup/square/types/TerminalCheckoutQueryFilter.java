@@ -137,6 +137,10 @@ public final class TerminalCheckoutQueryFilter {
             return this;
         }
 
+        /**
+         * <p>The <code>TerminalCheckout</code> objects associated with a specific device. If no device is specified, then all
+         * <code>TerminalCheckout</code> objects for the merchant are displayed.</p>
+         */
         @JsonSetter(value = "device_id", nulls = Nulls.SKIP)
         public Builder deviceId(Optional<String> deviceId) {
             this.deviceId = deviceId;
@@ -159,6 +163,11 @@ public final class TerminalCheckoutQueryFilter {
             return this;
         }
 
+        /**
+         * <p>The time range for the beginning of the reporting period, which is inclusive.
+         * Default value: The current time minus one day.
+         * Note that <code>TerminalCheckout</code>s are available for 30 days after creation.</p>
+         */
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public Builder createdAt(Optional<TimeRange> createdAt) {
             this.createdAt = createdAt;
@@ -170,6 +179,10 @@ public final class TerminalCheckoutQueryFilter {
             return this;
         }
 
+        /**
+         * <p>Filtered results with the desired status of the <code>TerminalCheckout</code>.
+         * Options: <code>PENDING</code>, <code>IN_PROGRESS</code>, <code>CANCEL_REQUESTED</code>, <code>CANCELED</code>, <code>COMPLETED</code></p>
+         */
         @JsonSetter(value = "status", nulls = Nulls.SKIP)
         public Builder status(Optional<String> status) {
             this.status = status;

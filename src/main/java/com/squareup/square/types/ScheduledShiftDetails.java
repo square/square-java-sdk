@@ -275,6 +275,9 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:TeamMember">team member</a> scheduled for the shift.</p>
+         */
         @JsonSetter(value = "team_member_id", nulls = Nulls.SKIP)
         public Builder teamMemberId(Optional<String> teamMemberId) {
             this.teamMemberId = teamMemberId;
@@ -297,6 +300,9 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Location">location</a> the shift is scheduled for.</p>
+         */
         @JsonSetter(value = "location_id", nulls = Nulls.SKIP)
         public Builder locationId(Optional<String> locationId) {
             this.locationId = locationId;
@@ -319,6 +325,9 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The ID of the <a href="entity:Job">job</a> the shift is scheduled for.</p>
+         */
         @JsonSetter(value = "job_id", nulls = Nulls.SKIP)
         public Builder jobId(Optional<String> jobId) {
             this.jobId = jobId;
@@ -341,6 +350,11 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The start time of the shift, in RFC 3339 format in the time zone +
+         * offset of the shift location specified in <code>location_id</code>. Precision up to the minute
+         * is respected; seconds are truncated.</p>
+         */
         @JsonSetter(value = "start_at", nulls = Nulls.SKIP)
         public Builder startAt(Optional<String> startAt) {
             this.startAt = startAt;
@@ -363,6 +377,11 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The end time for the shift, in RFC 3339 format in the time zone +
+         * offset of the shift location specified in <code>location_id</code>. Precision up to the minute
+         * is respected; seconds are truncated.</p>
+         */
         @JsonSetter(value = "end_at", nulls = Nulls.SKIP)
         public Builder endAt(Optional<String> endAt) {
             this.endAt = endAt;
@@ -385,6 +404,9 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>Optional notes for the shift.</p>
+         */
         @JsonSetter(value = "notes", nulls = Nulls.SKIP)
         public Builder notes(Optional<String> notes) {
             this.notes = notes;
@@ -407,6 +429,11 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>Indicates whether the draft shift version is deleted. If set to <code>true</code> when the shift
+         * is published, the entire scheduled shift (including the published shift) is deleted and
+         * cannot be accessed using any endpoint.</p>
+         */
         @JsonSetter(value = "is_deleted", nulls = Nulls.SKIP)
         public Builder isDeleted(Optional<Boolean> isDeleted) {
             this.isDeleted = isDeleted;
@@ -429,6 +456,10 @@ public final class ScheduledShiftDetails {
             return this;
         }
 
+        /**
+         * <p>The time zone of the shift location, calculated based on the <code>location_id</code>. This field
+         * is provided for convenience.</p>
+         */
         @JsonSetter(value = "timezone", nulls = Nulls.SKIP)
         public Builder timezone(Optional<String> timezone) {
             this.timezone = timezone;

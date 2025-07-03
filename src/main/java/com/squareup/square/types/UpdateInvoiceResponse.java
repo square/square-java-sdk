@@ -96,6 +96,9 @@ public final class UpdateInvoiceResponse {
             return this;
         }
 
+        /**
+         * <p>The updated invoice.</p>
+         */
         @JsonSetter(value = "invoice", nulls = Nulls.SKIP)
         public Builder invoice(Optional<Invoice> invoice) {
             this.invoice = invoice;
@@ -107,6 +110,9 @@ public final class UpdateInvoiceResponse {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

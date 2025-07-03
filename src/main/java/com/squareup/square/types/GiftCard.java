@@ -190,6 +190,10 @@ public final class GiftCard {
     }
 
     public interface TypeStage {
+        /**
+         * <p>The gift card type.
+         * See <a href="#type-type">Type</a> for possible values</p>
+         */
         _FinalStage type(@NotNull GiftCardType type);
 
         Builder from(GiftCard other);
@@ -198,32 +202,60 @@ public final class GiftCard {
     public interface _FinalStage {
         GiftCard build();
 
+        /**
+         * <p>The Square-assigned ID of the gift card.</p>
+         */
         _FinalStage id(Optional<String> id);
 
         _FinalStage id(String id);
 
+        /**
+         * <p>The source that generated the gift card account number (GAN). The default value is <code>SQUARE</code>.
+         * See <a href="#type-gansource">GANSource</a> for possible values</p>
+         */
         _FinalStage ganSource(Optional<GiftCardGanSource> ganSource);
 
         _FinalStage ganSource(GiftCardGanSource ganSource);
 
+        /**
+         * <p>The current gift card state.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         _FinalStage state(Optional<GiftCardStatus> state);
 
         _FinalStage state(GiftCardStatus state);
 
+        /**
+         * <p>The current gift card balance. This balance is always greater than or equal to zero.</p>
+         */
         _FinalStage balanceMoney(Optional<Money> balanceMoney);
 
         _FinalStage balanceMoney(Money balanceMoney);
 
+        /**
+         * <p>The gift card account number (GAN). Buyers can use the GAN to make purchases or check
+         * the gift card balance.</p>
+         */
         _FinalStage gan(Optional<String> gan);
 
         _FinalStage gan(String gan);
 
         _FinalStage gan(Nullable<String> gan);
 
+        /**
+         * <p>The timestamp when the gift card was created, in RFC 3339 format.
+         * In the case of a digital gift card, it is the time when you create a card
+         * (using the Square Point of Sale application, Seller Dashboard, or Gift Cards API).
+         * In the case of a plastic gift card, it is the time when Square associates the card with the
+         * seller at the time of activation.</p>
+         */
         _FinalStage createdAt(Optional<String> createdAt);
 
         _FinalStage createdAt(String createdAt);
 
+        /**
+         * <p>The IDs of the <a href="entity:Customer">customer profiles</a> to whom this gift card is linked.</p>
+         */
         _FinalStage customerIds(Optional<List<String>> customerIds);
 
         _FinalStage customerIds(List<String> customerIds);
@@ -268,6 +300,8 @@ public final class GiftCard {
         /**
          * <p>The gift card type.
          * See <a href="#type-type">Type</a> for possible values</p>
+         * <p>The gift card type.
+         * See <a href="#type-type">Type</a> for possible values</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -287,6 +321,9 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The IDs of the <a href="entity:Customer">customer profiles</a> to whom this gift card is linked.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public _FinalStage customerIds(Optional<List<String>> customerIds) {
@@ -308,6 +345,13 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The timestamp when the gift card was created, in RFC 3339 format.
+         * In the case of a digital gift card, it is the time when you create a card
+         * (using the Square Point of Sale application, Seller Dashboard, or Gift Cards API).
+         * In the case of a plastic gift card, it is the time when Square associates the card with the
+         * seller at the time of activation.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
         public _FinalStage createdAt(Optional<String> createdAt) {
@@ -343,6 +387,10 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The gift card account number (GAN). Buyers can use the GAN to make purchases or check
+         * the gift card balance.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gan", nulls = Nulls.SKIP)
         public _FinalStage gan(Optional<String> gan) {
@@ -360,6 +408,9 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The current gift card balance. This balance is always greater than or equal to zero.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "balance_money", nulls = Nulls.SKIP)
         public _FinalStage balanceMoney(Optional<Money> balanceMoney) {
@@ -378,6 +429,10 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The current gift card state.
+         * See <a href="#type-status">Status</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "state", nulls = Nulls.SKIP)
         public _FinalStage state(Optional<GiftCardStatus> state) {
@@ -396,6 +451,10 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The source that generated the gift card account number (GAN). The default value is <code>SQUARE</code>.
+         * See <a href="#type-gansource">GANSource</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "gan_source", nulls = Nulls.SKIP)
         public _FinalStage ganSource(Optional<GiftCardGanSource> ganSource) {
@@ -413,6 +472,9 @@ public final class GiftCard {
             return this;
         }
 
+        /**
+         * <p>The Square-assigned ID of the gift card.</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "id", nulls = Nulls.SKIP)
         public _FinalStage id(Optional<String> id) {

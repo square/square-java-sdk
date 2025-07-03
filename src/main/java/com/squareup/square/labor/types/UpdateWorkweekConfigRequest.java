@@ -79,12 +79,18 @@ public final class UpdateWorkweekConfigRequest {
     }
 
     public interface IdStage {
+        /**
+         * <p>The UUID for the <code>WorkweekConfig</code> object being updated.</p>
+         */
         WorkweekConfigStage id(@NotNull String id);
 
         Builder from(UpdateWorkweekConfigRequest other);
     }
 
     public interface WorkweekConfigStage {
+        /**
+         * <p>The updated <code>WorkweekConfig</code> object.</p>
+         */
         _FinalStage workweekConfig(@NotNull WorkweekConfig workweekConfig);
     }
 
@@ -112,6 +118,7 @@ public final class UpdateWorkweekConfigRequest {
 
         /**
          * <p>The UUID for the <code>WorkweekConfig</code> object being updated.</p>
+         * <p>The UUID for the <code>WorkweekConfig</code> object being updated.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -122,6 +129,7 @@ public final class UpdateWorkweekConfigRequest {
         }
 
         /**
+         * <p>The updated <code>WorkweekConfig</code> object.</p>
          * <p>The updated <code>WorkweekConfig</code> object.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
