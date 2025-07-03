@@ -3,18 +3,16 @@
  */
 package com.squareup.square.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.square.types.Error;
 import com.squareup.square.types.ErrorCategory;
 import com.squareup.square.types.ErrorCode;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import okhttp3.Response;
 
 /**
