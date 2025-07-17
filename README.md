@@ -145,6 +145,7 @@ InvoicePaymentRequest paymentRequest = InvoicePaymentRequest.builder()
         .build();
 ```
 
+
 ## Versioning
 By default, the SDK is pinned to the version 2025-03-19. If you would like to 
 override this version you can simply pass in a request option.
@@ -352,6 +353,68 @@ You can access the additional properties like so:
 ```java
 CreatePaymentResponse payments = square.payments().create(...);
 Map<String, Object> additionalProperties = payments.getAdditionalProperties();
+```
+
+### Union Types
+
+Union types represent values that can be one of several different types. The SDK supports both discriminated and undiscriminated unions to handle APIs that return different response formats.
+
+**Discriminated unions** have a special field (discriminator) that tells you exactly what type the value is. This provides compile-time type safety - you can check the type and safely cast without errors. `CatalogObject` is an example: it has a "type" field that indicates whether it contains an item, category, image, etc.
+
+**Undiscriminated unions** don't have a discriminator field. The SDK determines the type at runtime by examining the actual value. You can only work with these using the visitor pattern - there are no type checking methods available.
+
+```java
+// Discriminated union example
+CatalogObject catalogObject = CatalogObject.item(catalogItemData);
+
+// Direct type checking
+if (catalogObject.isItem()) {
+    CatalogObjectItem item = catalogObject.getItem().get();
+    System.out.println("Item name: " + item.getItemData().get().getName().orElse("Unnamed"));
+}
+
+// Visitor pattern (recommended for multiple types)
+String result = catalogObject.visit(new CatalogObject.Visitor<String>() {
+    @Override
+    public String visitItem(CatalogObjectItem item) {
+        return "Item: " + item.getItemData().get().getName().orElse("Unnamed");
+    }
+
+    @Override
+    public String visitCategory(CatalogObjectCategory category) {
+        return "Category: " + category.getCategoryData().get().getName().orElse("Unnamed");
+    }
+
+    @Override
+    public String visitImage(CatalogObjectImage image) {
+        return "Image: " + image.getId().orElse("No ID");
+    }
+
+    @Override
+    public String _visitUnknown(Object unknownType) {
+        return "Unknown catalog type";
+    }
+});
+
+// Undiscriminated union example
+PaymentSource paymentSource = PaymentSource.of("card_token_123");
+
+String sourceType = paymentSource.visit(new PaymentSource.Visitor<String>() {
+    @Override
+    public String visit(String cardToken) {
+        return "Card token: " + cardToken;
+    }
+
+    @Override
+    public String visit(BankAccount bankAccount) {
+        return "Bank account: " + bankAccount.getAccountNumber();
+    }
+
+    @Override
+    public String visit(CashDetails cashDetails) {
+        return "Cash payment";
+    }
+});
 ```
 
 ## Contributing
