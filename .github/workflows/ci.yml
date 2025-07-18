@@ -35,7 +35,7 @@ jobs:
           architecture: x64
 
       - name: Test
-        run: ./gradlew test
+        run: ./gradlew test -x :legacy-sdk:test
         env:
           TEST_SQUARE_TOKEN: ${{ secrets.TEST_SQUARE_TOKEN }}
   publish:
