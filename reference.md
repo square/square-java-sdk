@@ -15225,3 +15225,12903 @@ client.vendors().batchCreate(
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.vendors.batchGet(request) -> BatchGetVendorsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves one or more vendors of specified [Vendor](entity:Vendor) IDs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().batchGet(
+    BatchGetVendorsRequest
+        .builder()
+        .vendorIds(
+            new ArrayList<String>(
+                Arrays.asList("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
+            )
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**vendorIds:** `Optional<List<String>>` — IDs of the [Vendor](entity:Vendor) objects to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendors.batchUpdate(request) -> BatchUpdateVendorsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates one or more of existing [Vendor](entity:Vendor) objects as suppliers to a seller.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().batchUpdate(
+    BatchUpdateVendorsRequest
+        .builder()
+        .vendors(
+            new HashMap<String, UpdateVendorRequest>() {{
+                put("FMCYHBWT1TPL8MFH52PBMEN92A", UpdateVendorRequest
+                    .builder()
+                    .vendor(
+                        Vendor
+                            .builder()
+                            .build()
+                    )
+                    .build());
+                put("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4", UpdateVendorRequest
+                    .builder()
+                    .vendor(
+                        Vendor
+                            .builder()
+                            .build()
+                    )
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**vendors:** `Map<String, UpdateVendorRequest>` 
+
+A set of [UpdateVendorRequest](entity:UpdateVendorRequest) objects encapsulating to-be-updated [Vendor](entity:Vendor)
+objects. The set is represented by  a collection of `Vendor`-ID/`UpdateVendorRequest`-object pairs.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendors.create(request) -> CreateVendorResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a single [Vendor](entity:Vendor) object to represent a supplier to a seller.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().create(
+    CreateVendorRequest
+        .builder()
+        .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
+        .vendor(
+            Vendor
+                .builder()
+                .name("Joe's Fresh Seafood")
+                .address(
+                    Address
+                        .builder()
+                        .addressLine1("505 Electric Ave")
+                        .addressLine2("Suite 600")
+                        .locality("New York")
+                        .administrativeDistrictLevel1("NY")
+                        .postalCode("10003")
+                        .country(Country.US)
+                        .build()
+                )
+                .contacts(
+                    new ArrayList<VendorContact>(
+                        Arrays.asList(
+                            VendorContact
+                                .builder()
+                                .ordinal(1)
+                                .name("Joe Burrow")
+                                .emailAddress("joe@joesfreshseafood.com")
+                                .phoneNumber("1-212-555-4250")
+                                .build()
+                        )
+                    )
+                )
+                .accountNumber("4025391")
+                .note("a vendor")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A client-supplied, universally unique identifier (UUID) to make this [CreateVendor](api-endpoint:Vendors-CreateVendor) call idempotent.
+
+See [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) in the
+[API Development 101](https://developer.squareup.com/docs/buildbasics) section for more
+information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vendor:** `Optional<Vendor>` — The requested [Vendor](entity:Vendor) to be created.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendors.search(request) -> SearchVendorsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for vendors using a filter against supported [Vendor](entity:Vendor) properties and a supported sorter.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().search(
+    SearchVendorsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**filter:** `Optional<SearchVendorsRequestFilter>` — Specifies a filter used to search for vendors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `Optional<SearchVendorsRequestSort>` — Specifies a sorter used to sort the returned vendors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this to retrieve the next set of results for the original query.
+
+See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendors.get(vendorId) -> GetVendorResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the vendor of a specified [Vendor](entity:Vendor) ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().get(
+    GetVendorsRequest
+        .builder()
+        .vendorId("vendor_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**vendorId:** `String` — ID of the [Vendor](entity:Vendor) to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vendors.update(vendorId, request) -> UpdateVendorResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing [Vendor](entity:Vendor) object as a supplier to a seller.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.vendors().update(
+    UpdateVendorsRequest
+        .builder()
+        .vendorId("vendor_id")
+        .body(
+            UpdateVendorRequest
+                .builder()
+                .vendor(
+                    Vendor
+                        .builder()
+                        .id("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
+                        .name("Jack's Chicken Shack")
+                        .version(1)
+                        .status(VendorStatus.ACTIVE)
+                        .build()
+                )
+                .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**vendorId:** `String` — ID of the [Vendor](entity:Vendor) to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateVendorRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Bookings CustomAttributeDefinitions
+<details><summary><code>client.bookings.customAttributeDefinitions.list() -> ListBookingCustomAttributeDefinitionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all bookings custom attribute definitions.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributeDefinitions().list(
+    ListCustomAttributeDefinitionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributeDefinitions.create(request) -> CreateBookingCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a bookings custom attribute definition.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributeDefinitions().create(
+    CreateBookingCustomAttributeDefinitionRequest
+        .builder()
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition to create, with the following fields:
+
+- `key`
+
+- `name`. If provided, `name` must be unique (case-sensitive) across all visible booking-related custom attribute
+definitions for the seller.
+
+- `description`
+
+- `visibility`. Note that all custom attributes are visible in exported booking data, including those set to
+`VISIBILITY_HIDDEN`.
+
+- `schema`. With the exception of the `Selection` data type, the `schema` is specified as a
+simple URL to the JSON schema definition hosted on the Square CDN. For more information, see
+[Specifying the schema](https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#specify-schema).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributeDefinitions.get(key) -> RetrieveBookingCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a bookings custom attribute definition.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributeDefinitions().get(
+    GetCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute definition to retrieve. If the requesting application
+is not the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute definition, which is used for strongly consistent
+reads to guarantee that you receive the most up-to-date data. When included in the request,
+Square returns the specified version or a higher version if one exists. If the specified version
+is higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributeDefinitions.update(key, request) -> UpdateBookingCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a bookings custom attribute definition.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributeDefinitions().update(
+    UpdateBookingCustomAttributeDefinitionRequest
+        .builder()
+        .key("key")
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition that contains the fields to update. Only the following fields can be updated:
+- `name`
+- `description`
+- `visibility`
+- `schema` for a `Selection` data type. Only changes to the named options or the maximum number of allowed
+selections are supported.
+
+For more information, see
+[Updatable definition fields](https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields).
+
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control, include the optional `version` field and specify the current version of the custom attribute definition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributeDefinitions.delete(key) -> DeleteBookingCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a bookings custom attribute definition.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributeDefinitions().delete(
+    DeleteCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Bookings CustomAttributes
+<details><summary><code>client.bookings.customAttributes.batchDelete(request) -> BulkDeleteBookingCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Bulk deletes bookings custom attributes.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().batchDelete(
+    BulkDeleteBookingCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BookingCustomAttributeDeleteRequest>() {{
+                put("key", BookingCustomAttributeDeleteRequest
+                    .builder()
+                    .bookingId("booking_id")
+                    .key("key")
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BookingCustomAttributeDeleteRequest>` 
+
+A map containing 1 to 25 individual Delete requests. For each request, provide an
+arbitrary ID that is unique for this `BulkDeleteBookingCustomAttributes` request and the
+information needed to delete a custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributes.batchUpsert(request) -> BulkUpsertBookingCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Bulk upserts bookings custom attributes.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().batchUpsert(
+    BulkUpsertBookingCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BookingCustomAttributeUpsertRequest>() {{
+                put("key", BookingCustomAttributeUpsertRequest
+                    .builder()
+                    .bookingId("booking_id")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .build()
+                    )
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BookingCustomAttributeUpsertRequest>` 
+
+A map containing 1 to 25 individual upsert requests. For each request, provide an
+arbitrary ID that is unique for this `BulkUpsertBookingCustomAttributes` request and the
+information needed to create or update a custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributes.list(bookingId) -> ListBookingCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists a booking's custom attributes.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().list(
+    ListCustomAttributesRequest
+        .builder()
+        .bookingId("booking_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bookingId:** `String` — The ID of the target [booking](entity:Booking).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request. For more
+information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinitions:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each
+custom attribute. Set this parameter to `true` to get the name and description of each custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributes.get(bookingId, key) -> RetrieveBookingCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a bookings custom attribute.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and `APPOINTMENTS_READ` for the OAuth scope.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().get(
+    GetCustomAttributesRequest
+        .builder()
+        .bookingId("booking_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bookingId:** `String` — The ID of the target [booking](entity:Booking).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to retrieve. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinition:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+the custom attribute. Set this parameter to `true` to get the name and description of the custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute, which is used for strongly consistent reads to
+guarantee that you receive the most up-to-date data. When included in the request, Square
+returns the specified version or a higher version if one exists. If the specified version is
+higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributes.upsert(bookingId, key, request) -> UpsertBookingCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upserts a bookings custom attribute.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().upsert(
+    UpsertBookingCustomAttributeRequest
+        .builder()
+        .bookingId("booking_id")
+        .key("key")
+        .customAttribute(
+            CustomAttribute
+                .builder()
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bookingId:** `String` — The ID of the target [booking](entity:Booking).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to create or update. This key must match the `key` of a
+custom attribute definition in the Square seller account. If the requesting application is not
+the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttribute:** `CustomAttribute` 
+
+The custom attribute to create or update, with the following fields:
+
+- `value`. This value must conform to the `schema` specified by the definition.
+For more information, see [Value data types](https://developer.squareup.com/docs/booking-custom-attributes-api/custom-attributes#value-data-types).
+
+- `version`. To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control for an update operation, include this optional field and specify the current version
+of the custom attribute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.customAttributes.delete(bookingId, key) -> DeleteBookingCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a bookings custom attribute.
+
+To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
+To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
+
+For calls to this endpoint with seller-level permissions to succeed, the seller must have subscribed to *Appointments Plus*
+or *Appointments Premium*.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().customAttributes().delete(
+    DeleteCustomAttributesRequest
+        .builder()
+        .bookingId("booking_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bookingId:** `String` — The ID of the target [booking](entity:Booking).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to delete. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Bookings LocationProfiles
+<details><summary><code>client.bookings.locationProfiles.list() -> ListLocationBookingProfilesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists location booking profiles of a seller.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().locationProfiles().list(
+    ListLocationProfilesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The maximum number of results to return in a paged response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Bookings TeamMemberProfiles
+<details><summary><code>client.bookings.teamMemberProfiles.list() -> ListTeamMemberBookingProfilesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists booking profiles for team members.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().teamMemberProfiles().list(
+    ListTeamMemberProfilesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**bookableOnly:** `Optional<Boolean>` — Indicates whether to include only bookable team members in the returned result (`true`) or not (`false`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The maximum number of results to return in a paged response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — The pagination cursor from the preceding response to return the next page of the results. Do not set this when retrieving the first page of the results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `Optional<String>` — Indicates whether to include only team members enabled at the given location in the returned result.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.bookings.teamMemberProfiles.get(teamMemberId) -> GetTeamMemberBookingProfileResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a team member's booking profile.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.bookings().teamMemberProfiles().get(
+    GetTeamMemberProfilesRequest
+        .builder()
+        .teamMemberId("team_member_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**teamMemberId:** `String` — The ID of the team member to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## CashDrawers Shifts
+<details><summary><code>client.cashDrawers.shifts.list() -> ListCashDrawerShiftsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Provides the details for all of the cash drawer shifts for a location
+in a date range.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.cashDrawers().shifts().list(
+    ListShiftsRequest
+        .builder()
+        .locationId("location_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the location to query for a list of cash drawer shifts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sortOrder:** `Optional<SortOrder>` 
+
+The order in which cash drawer shifts are listed in the response,
+based on their opened_at field. Default value: ASC
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**beginTime:** `Optional<String>` — The inclusive start time of the query on opened_at, in ISO 8601 format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endTime:** `Optional<String>` — The exclusive end date of the query on opened_at, in ISO 8601 format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+Number of cash drawer shift events in a page of results (200 by
+default, 1000 max).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — Opaque cursor for fetching the next page of results.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.cashDrawers.shifts.get(shiftId) -> GetCashDrawerShiftResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Provides the summary details for a single cash drawer shift. See
+[ListCashDrawerShiftEvents](api-endpoint:CashDrawers-ListCashDrawerShiftEvents) for a list of cash drawer shift events.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.cashDrawers().shifts().get(
+    GetShiftsRequest
+        .builder()
+        .shiftId("shift_id")
+        .locationId("location_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**shiftId:** `String` — The shift ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the location to retrieve cash drawer shifts from.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.cashDrawers.shifts.listEvents(shiftId) -> ListCashDrawerShiftEventsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Provides a paginated list of events for a single cash drawer shift.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.cashDrawers().shifts().listEvents(
+    ListEventsShiftsRequest
+        .builder()
+        .shiftId("shift_id")
+        .locationId("location_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**shiftId:** `String` — The shift ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the location to list cash drawer shifts for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+Number of resources to be returned in a page of results (200 by
+default, 1000 max).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — Opaque cursor for fetching the next page of results.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Catalog Images
+<details><summary><code>client.catalog.images.create(request) -> CreateCatalogImageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Uploads an image file to be represented by a [CatalogImage](entity:CatalogImage) object that can be linked to an existing
+[CatalogObject](entity:CatalogObject) instance. The resulting `CatalogImage` is unattached to any `CatalogObject` if the `object_id`
+is not specified.
+
+This `CreateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.catalog().images().create(
+    CreateImagesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.catalog.images.update(imageId, request) -> UpdateCatalogImageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Uploads a new image file to replace the existing one in the specified [CatalogImage](entity:CatalogImage) object.
+
+This `UpdateCatalogImage` endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.catalog().images().update(
+    UpdateImagesRequest
+        .builder()
+        .imageId("image_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**imageId:** `String` — The ID of the `CatalogImage` object to update the encapsulated image file.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Catalog Object
+<details><summary><code>client.catalog.object.upsert(request) -> UpsertCatalogObjectResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new or updates the specified [CatalogObject](entity:CatalogObject).
+
+To ensure consistency, only one update request is processed at a time per seller account.
+While one (batch or non-batch) update request is being processed, other (batched and non-batched)
+update requests are rejected with the `429` error code.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.catalog().object().upsert(
+    UpsertCatalogObjectRequest
+        .builder()
+        .idempotencyKey("af3d1afc-7212-4300-b463-0bfc5314a5ae")
+        .object(
+            CatalogObject.item(
+                CatalogObjectItem
+                    .builder()
+                    .id("id")
+                    .build()
+            )
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A value you specify that uniquely identifies this
+request among all your requests. A common way to create
+a valid idempotency key is to use a Universally unique
+identifier (UUID).
+
+If you're unsure whether a particular request was successful,
+you can reattempt it with the same idempotency key without
+worrying about creating duplicate objects.
+
+See [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**object:** `CatalogObject` 
+
+A CatalogObject to be created or updated.
+
+- For updates, the object must be active (the `is_deleted` field is not `true`).
+- For creates, the object ID must start with `#`. The provided ID is replaced with a server-generated ID.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.catalog.object.get(objectId) -> GetCatalogObjectResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single [CatalogItem](entity:CatalogItem) as a
+[CatalogObject](entity:CatalogObject) based on the provided ID. The returned
+object includes all of the relevant [CatalogItem](entity:CatalogItem)
+information including: [CatalogItemVariation](entity:CatalogItemVariation)
+children, references to its
+[CatalogModifierList](entity:CatalogModifierList) objects, and the ids of
+any [CatalogTax](entity:CatalogTax) objects that apply to it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.catalog().object().get(
+    GetObjectRequest
+        .builder()
+        .objectId("object_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**objectId:** `String` — The object ID of any type of catalog objects to be retrieved.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeRelatedObjects:** `Optional<Boolean>` 
+
+If `true`, the response will include additional objects that are related to the
+requested objects. Related objects are defined as any objects referenced by ID by the results in the `objects` field
+of the response. These objects are put in the `related_objects` field. Setting this to `true` is
+helpful when the objects are needed for immediate display to a user.
+This process only goes one level deep. Objects referenced by the related objects will not be included. For example,
+
+if the `objects` field of the response contains a CatalogItem, its associated
+CatalogCategory objects, CatalogTax objects, CatalogImage objects and
+CatalogModifierLists will be returned in the `related_objects` field of the
+response. If the `objects` field of the response contains a CatalogItemVariation,
+its parent CatalogItem will be returned in the `related_objects` field of
+the response.
+
+Default value: `false`
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**catalogVersion:** `Optional<Integer>` 
+
+Requests objects as of a specific version of the catalog. This allows you to retrieve historical
+versions of objects. The value to retrieve a specific version of an object can be found
+in the version field of [CatalogObject](entity:CatalogObject)s. If not included, results will
+be from the current version of the catalog.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeCategoryPathToRoot:** `Optional<Boolean>` 
+
+Specifies whether or not to include the `path_to_root` list for each returned category instance. The `path_to_root` list consists
+of `CategoryPathToRootNode` objects and specifies the path that starts with the immediate parent category of the returned category
+and ends with its root category. If the returned category is a top-level category, the `path_to_root` list is empty and is not returned
+in the response payload.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.catalog.object.delete(objectId) -> DeleteCatalogObjectResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a single [CatalogObject](entity:CatalogObject) based on the
+provided ID and returns the set of successfully deleted IDs in the response.
+Deletion is a cascading event such that all children of the targeted object
+are also deleted. For example, deleting a [CatalogItem](entity:CatalogItem)
+will also delete all of its
+[CatalogItemVariation](entity:CatalogItemVariation) children.
+
+To ensure consistency, only one delete request is processed at a time per seller account.
+While one (batch or non-batch) delete request is being processed, other (batched and non-batched)
+delete requests are rejected with the `429` error code.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.catalog().object().delete(
+    DeleteObjectRequest
+        .builder()
+        .objectId("object_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**objectId:** `String` 
+
+The ID of the catalog object to be deleted. When an object is deleted, other
+objects in the graph that depend on that object will be deleted as well (for example, deleting a
+catalog item will delete its catalog item variations).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Checkout PaymentLinks
+<details><summary><code>client.checkout.paymentLinks.list() -> ListPaymentLinksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all payment links.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().paymentLinks().list(
+    ListPaymentLinksRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for the original query.
+If a cursor is not provided, the endpoint returns the first page of the results.
+For more  information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+A limit on the number of results to return per page. The limit is advisory and
+the implementation might return more or less results. If the supplied limit is negative, zero, or
+greater than the maximum limit of 1000, it is ignored.
+
+Default value: `100`
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.paymentLinks.create(request) -> CreatePaymentLinkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().paymentLinks().create(
+    CreatePaymentLinkRequest
+        .builder()
+        .idempotencyKey("cd9e25dc-d9f2-4430-aedb-61605070e95f")
+        .quickPay(
+            QuickPay
+                .builder()
+                .name("Auto Detailing")
+                .priceMoney(
+                    Money
+                        .builder()
+                        .amount(10000L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .locationId("A9Y43N9ABXZBP")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique string that identifies this `CreatePaymentLinkRequest` request.
+If you do not provide a unique string (or provide an empty string as the value),
+the endpoint treats each request as independent.
+
+For more information, see [Idempotency](https://developer.squareup.com/docs/working-with-apis/idempotency).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `Optional<String>` 
+
+A description of the payment link. You provide this optional description that is useful in your
+application context. It is not used anywhere.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quickPay:** `Optional<QuickPay>` 
+
+Describes an ad hoc item and price for which to generate a quick pay checkout link.
+For more information,
+see [Quick Pay Checkout](https://developer.squareup.com/docs/checkout-api/quick-pay-checkout).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `Optional<Order>` 
+
+Describes the `Order` for which to create a checkout link.
+For more information,
+see [Square Order Checkout](https://developer.squareup.com/docs/checkout-api/square-order-checkout).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**checkoutOptions:** `Optional<CheckoutOptions>` 
+
+Describes optional fields to add to the resulting checkout page.
+For more information,
+see [Optional Checkout Configurations](https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prePopulatedData:** `Optional<PrePopulatedData>` 
+
+Describes fields to prepopulate in the resulting checkout page.
+For more information, see [Prepopulate the shipping address](https://developer.squareup.com/docs/checkout-api/optional-checkout-configurations#prepopulate-the-shipping-address).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**paymentNote:** `Optional<String>` — A note for the payment. After processing the payment, Square adds this note to the resulting `Payment`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.paymentLinks.get(id) -> GetPaymentLinkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a payment link.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().paymentLinks().get(
+    GetPaymentLinksRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of link to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.paymentLinks.update(id, request) -> UpdatePaymentLinkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a payment link. You can update the `payment_link` fields such as
+`description`, `checkout_options`, and  `pre_populated_data`.
+You cannot update other fields such as the `order_id`, `version`, `URL`, or `timestamp` field.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().paymentLinks().update(
+    UpdatePaymentLinkRequest
+        .builder()
+        .id("id")
+        .paymentLink(
+            PaymentLink
+                .builder()
+                .version(1)
+                .checkoutOptions(
+                    CheckoutOptions
+                        .builder()
+                        .askForShippingAddress(true)
+                        .build()
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the payment link to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**paymentLink:** `PaymentLink` 
+
+The `payment_link` object describing the updates to apply.
+For more information, see [Update a payment link](https://developer.squareup.com/docs/checkout-api/manage-checkout#update-a-payment-link).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.checkout.paymentLinks.delete(id) -> DeletePaymentLinkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a payment link.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.checkout().paymentLinks().delete(
+    DeletePaymentLinksRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the payment link to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers CustomAttributeDefinitions
+<details><summary><code>client.customers.customAttributeDefinitions.list() -> ListCustomerCustomAttributeDefinitionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the customer-related [custom attribute definitions](entity:CustomAttributeDefinition) that belong to a Square seller account.
+
+When all response pages are retrieved, the results include all custom attribute definitions
+that are visible to the requesting application, including those that are created by other
+applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that
+seller-defined custom attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().list(
+    ListCustomAttributeDefinitionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributeDefinitions.create(request) -> CreateCustomerCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a customer-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+Use this endpoint to define a custom attribute that can be associated with customer profiles.
+
+A custom attribute definition specifies the `key`, `visibility`, `schema`, and other properties
+for a custom attribute. After the definition is created, you can call
+[UpsertCustomerCustomAttribute](api-endpoint:CustomerCustomAttributes-UpsertCustomerCustomAttribute) or
+[BulkUpsertCustomerCustomAttributes](api-endpoint:CustomerCustomAttributes-BulkUpsertCustomerCustomAttributes)
+to set the custom attribute for customer profiles in the seller's Customer Directory.
+
+Sellers can view all custom attributes in exported customer data, including those set to
+`VISIBILITY_HIDDEN`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().create(
+    CreateCustomerCustomAttributeDefinitionRequest
+        .builder()
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .key("favoritemovie")
+                .schema(
+                    new HashMap<String, Object>() {{
+                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                    }}
+                )
+                .name("Favorite Movie")
+                .description("The favorite movie of the customer.")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_HIDDEN)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition to create. Note the following:
+- With the exception of the `Selection` data type, the `schema` is specified as a simple URL to the JSON schema
+definition hosted on the Square CDN. For more information, including supported values and constraints, see
+[Specifying the schema](https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attribute-definitions#specify-schema).
+- If provided, `name` must be unique (case-sensitive) across all visible customer-related custom attribute definitions for the seller.
+- All custom attributes are visible in exported customer data, including those set to `VISIBILITY_HIDDEN`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributeDefinitions.get(key) -> GetCustomerCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a customer-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+
+To retrieve a custom attribute definition created by another application, the `visibility`
+setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().get(
+    GetCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute definition to retrieve. If the requesting application
+is not the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute definition, which is used for strongly consistent
+reads to guarantee that you receive the most up-to-date data. When included in the request,
+Square returns the specified version or a higher version if one exists. If the specified version
+is higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributeDefinitions.update(key, request) -> UpdateCustomerCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a customer-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+
+Use this endpoint to update the following fields: `name`, `description`, `visibility`, or the
+`schema` for a `Selection` data type.
+
+Only the definition owner can update a custom attribute definition. Note that sellers can view
+all custom attributes in exported customer data, including those set to `VISIBILITY_HIDDEN`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().update(
+    UpdateCustomerCustomAttributeDefinitionRequest
+        .builder()
+        .key("key")
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .description("Update the description as desired.")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_ONLY)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition that contains the fields to update. This endpoint
+supports sparse updates, so only new or changed fields need to be included in the request.
+Only the following fields can be updated:
+
+- `name`
+- `description`
+- `visibility`
+- `schema` for a `Selection` data type. Only changes to the named options or the maximum number of allowed
+selections are supported.
+
+For more information, see
+[Updatable definition fields](https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields).
+
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) 
+control, include the optional `version` field and specify the current version of the custom attribute definition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributeDefinitions.delete(key) -> DeleteCustomerCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a customer-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+
+Deleting a custom attribute definition also deletes the corresponding custom attribute from
+all customer profiles in the seller's Customer Directory.
+
+Only the definition owner can delete a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().delete(
+    DeleteCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributeDefinitions.batchUpsert(request) -> BatchUpsertCustomerCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates [custom attributes](entity:CustomAttribute) for customer profiles as a bulk operation.
+
+Use this endpoint to set the value of one or more custom attributes for one or more customer profiles.
+A custom attribute is based on a custom attribute definition in a Square seller account, which is
+created using the [CreateCustomerCustomAttributeDefinition](api-endpoint:CustomerCustomAttributes-CreateCustomerCustomAttributeDefinition) endpoint.
+
+This `BulkUpsertCustomerCustomAttributes` endpoint accepts a map of 1 to 25 individual upsert
+requests and returns a map of individual upsert responses. Each upsert request has a unique ID
+and provides a customer ID and custom attribute. Each upsert response is returned with the ID
+of the corresponding request.
+
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributeDefinitions().batchUpsert(
+    BatchUpsertCustomerCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest>() {{
+                put("id1", BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest
+                    .builder()
+                    .customerId("N3NCVYY3WS27HF0HKANA3R9FP8")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("favoritemovie"))
+                            .value(Optional.of("Dune"))
+                            .build()
+                    )
+                    .build());
+                put("id2", BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest
+                    .builder()
+                    .customerId("SY8EMWRNDN3TQDP2H4KS1QWMMM")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("ownsmovie"))
+                            .value(Optional.of(false))
+                            .build()
+                    )
+                    .build());
+                put("id3", BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest
+                    .builder()
+                    .customerId("SY8EMWRNDN3TQDP2H4KS1QWMMM")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("favoritemovie"))
+                            .value(Optional.of("Star Wars"))
+                            .build()
+                    )
+                    .build());
+                put("id4", BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest
+                    .builder()
+                    .customerId("N3NCVYY3WS27HF0HKANA3R9FP8")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("square:a0f1505a-2aa1-490d-91a8-8d31ff181808"))
+                            .value(Optional.of("10.5"))
+                            .build()
+                    )
+                    .build());
+                put("id5", BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest
+                    .builder()
+                    .customerId("70548QG1HN43B05G0KCZ4MMC1G")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("sq0ids-0evKIskIGaY45fCyNL66aw:backupemail"))
+                            .value(Optional.of("fake-email@squareup.com"))
+                            .build()
+                    )
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest>` 
+
+A map containing 1 to 25 individual upsert requests. For each request, provide an
+arbitrary ID that is unique for this `BulkUpsertCustomerCustomAttributes` request and the
+information needed to create or update a custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers Groups
+<details><summary><code>client.customers.groups.list() -> ListCustomerGroupsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the list of customer groups of a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().list(
+    ListGroupsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for your original query.
+
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
+If the limit is less than 1 or greater than 50, Square returns a `400 VALUE_TOO_LOW` or `400 VALUE_TOO_HIGH` error. The default value is 50.
+
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.create(request) -> CreateCustomerGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new customer group for a business.
+
+The request must include the `name` value of the group.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().create(
+    CreateCustomerGroupRequest
+        .builder()
+        .group(
+            CustomerGroup
+                .builder()
+                .name("Loyal Customers")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` — The idempotency key for the request. For more information, see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**group:** `CustomerGroup` — The customer group to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.get(groupId) -> GetCustomerGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific customer group as identified by the `group_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().get(
+    GetGroupsRequest
+        .builder()
+        .groupId("group_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `String` — The ID of the customer group to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.update(groupId, request) -> UpdateCustomerGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a customer group as identified by the `group_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().update(
+    UpdateCustomerGroupRequest
+        .builder()
+        .groupId("group_id")
+        .group(
+            CustomerGroup
+                .builder()
+                .name("Loyal Customers")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `String` — The ID of the customer group to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**group:** `CustomerGroup` — The `CustomerGroup` object including all the updates you want to make.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.delete(groupId) -> DeleteCustomerGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a customer group as identified by the `group_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().delete(
+    DeleteGroupsRequest
+        .builder()
+        .groupId("group_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `String` — The ID of the customer group to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.add(customerId, groupId) -> AddGroupToCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds a group membership to a customer.
+
+The customer is identified by the `customer_id` value
+and the customer group is identified by the `group_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().add(
+    AddGroupsRequest
+        .builder()
+        .customerId("customer_id")
+        .groupId("group_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the customer to add to a group.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**groupId:** `String` — The ID of the customer group to add the customer to.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.groups.remove(customerId, groupId) -> RemoveGroupFromCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a group membership from a customer.
+
+The customer is identified by the `customer_id` value
+and the customer group is identified by the `group_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().groups().remove(
+    RemoveGroupsRequest
+        .builder()
+        .customerId("customer_id")
+        .groupId("group_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the customer to remove from the group.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**groupId:** `String` — The ID of the customer group to remove the customer from.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers Segments
+<details><summary><code>client.customers.segments.list() -> ListCustomerSegmentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the list of customer segments of a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().segments().list(
+    ListSegmentsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by previous calls to `ListCustomerSegments`.
+This cursor is used to retrieve the next set of query results.
+
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
+If the specified limit is less than 1 or greater than 50, Square returns a `400 VALUE_TOO_LOW` or `400 VALUE_TOO_HIGH` error. The default value is 50.
+
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.segments.get(segmentId) -> GetCustomerSegmentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific customer segment as identified by the `segment_id` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().segments().get(
+    GetSegmentsRequest
+        .builder()
+        .segmentId("segment_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**segmentId:** `String` — The Square-issued ID of the customer segment.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers Cards
+<details><summary><code>client.customers.cards.create(customerId, request) -> CreateCustomerCardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds a card on file to an existing customer.
+
+As with charges, calls to `CreateCustomerCard` are idempotent. Multiple
+calls with the same card nonce return the same card record that was created
+with the provided nonce during the _first_ call.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().cards().create(
+    CreateCustomerCardRequest
+        .builder()
+        .customerId("customer_id")
+        .cardNonce("YOUR_CARD_NONCE")
+        .billingAddress(
+            Address
+                .builder()
+                .addressLine1("500 Electric Ave")
+                .addressLine2("Suite 600")
+                .locality("New York")
+                .administrativeDistrictLevel1("NY")
+                .postalCode("10003")
+                .country(Country.US)
+                .build()
+        )
+        .cardholderName("Amelia Earhart")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The Square ID of the customer profile the card is linked to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cardNonce:** `String` 
+
+A card nonce representing the credit card to link to the customer.
+
+Card nonces are generated by the Square payment form when customers enter
+their card information. For more information, see
+[Walkthrough: Integrate Square Payments in a Website](https://developer.squareup.com/docs/web-payments/take-card-payment).
+
+__NOTE:__ Card nonces generated by digital wallets (such as Apple Pay)
+cannot be used to create a customer card.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billingAddress:** `Optional<Address>` 
+
+Address information for the card on file.
+
+__NOTE:__ If a billing address is provided in the request, the
+`CreateCustomerCardRequest.billing_address.postal_code` must match
+the postal code encoded in the card nonce.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cardholderName:** `Optional<String>` — The full name printed on the credit card.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verificationToken:** `Optional<String>` 
+
+An identifying token generated by [Payments.verifyBuyer()](https://developer.squareup.com/reference/sdks/web/payments/objects/Payments#Payments.verifyBuyer).
+Verification tokens encapsulate customer device information and 3-D Secure
+challenge results to indicate that Square has verified the buyer identity.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.cards.delete(customerId, cardId) -> DeleteCustomerCardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a card on file from a customer.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().cards().delete(
+    DeleteCardsRequest
+        .builder()
+        .customerId("customer_id")
+        .cardId("card_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the customer that the card on file belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cardId:** `String` — The ID of the card on file to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers CustomAttributes
+<details><summary><code>client.customers.customAttributes.list(customerId) -> ListCustomerCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the [custom attributes](entity:CustomAttribute) associated with a customer profile.
+
+You can use the `with_definitions` query parameter to also retrieve custom attribute definitions
+in the same call.
+
+When all response pages are retrieved, the results include all custom attributes that are
+visible to the requesting application, including those that are owned by other applications
+and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributes().list(
+    ListCustomAttributesRequest
+        .builder()
+        .customerId("customer_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the target [customer profile](entity:Customer).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request. For more
+information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinitions:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each
+custom attribute. Set this parameter to `true` to get the name and description of each custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributes.get(customerId, key) -> GetCustomerCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a [custom attribute](entity:CustomAttribute) associated with a customer profile.
+
+You can use the `with_definition` query parameter to also retrieve the custom attribute definition
+in the same call.
+
+To retrieve a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributes().get(
+    GetCustomAttributesRequest
+        .builder()
+        .customerId("customer_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the target [customer profile](entity:Customer).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to retrieve. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinition:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+the custom attribute. Set this parameter to `true` to get the name and description of the custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute, which is used for strongly consistent reads to
+guarantee that you receive the most up-to-date data. When included in the request, Square
+returns the specified version or a higher version if one exists. If the specified version is
+higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributes.upsert(customerId, key, request) -> UpsertCustomerCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates a [custom attribute](entity:CustomAttribute) for a customer profile.
+
+Use this endpoint to set the value of a custom attribute for a specified customer profile.
+A custom attribute is based on a custom attribute definition in a Square seller account, which
+is created using the [CreateCustomerCustomAttributeDefinition](api-endpoint:CustomerCustomAttributes-CreateCustomerCustomAttributeDefinition) endpoint.
+
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributes().upsert(
+    UpsertCustomerCustomAttributeRequest
+        .builder()
+        .customerId("customer_id")
+        .key("key")
+        .customAttribute(
+            CustomAttribute
+                .builder()
+                .value("Dune")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the target [customer profile](entity:Customer).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to create or update. This key must match the `key` of a
+custom attribute definition in the Square seller account. If the requesting application is not
+the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttribute:** `CustomAttribute` 
+
+The custom attribute to create or update, with the following fields:
+
+- `value`. This value must conform to the `schema` specified by the definition. 
+For more information, see [Value data types](https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attributes#value-data-types).
+
+- `version`. To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control for an update operation, include this optional field and specify the current version
+of the custom attribute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.customAttributes.delete(customerId, key) -> DeleteCustomerCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a [custom attribute](entity:CustomAttribute) associated with a customer profile.
+
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.customers().customAttributes().delete(
+    DeleteCustomAttributesRequest
+        .builder()
+        .customerId("customer_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `String` — The ID of the target [customer profile](entity:Customer).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to delete. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Devices Codes
+<details><summary><code>client.devices.codes.list() -> ListDeviceCodesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all DeviceCodes associated with the merchant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.devices().codes().list(
+    ListCodesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this to retrieve the next set of results for your original query.
+
+See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `Optional<String>` 
+
+If specified, only returns DeviceCodes of the specified location.
+Returns DeviceCodes of all locations if empty.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**productType:** `Optional<String>` 
+
+If specified, only returns DeviceCodes targeting the specified product type.
+Returns DeviceCodes of all product types if empty.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<DeviceCodeStatus>` 
+
+If specified, returns DeviceCodes with the specified statuses.
+Returns DeviceCodes of status `PAIRED` and `UNPAIRED` if empty.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.devices.codes.create(request) -> CreateDeviceCodeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a DeviceCode that can be used to login to a Square Terminal device to enter the connected
+terminal mode.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.devices().codes().create(
+    CreateDeviceCodeRequest
+        .builder()
+        .idempotencyKey("01bb00a6-0c86-4770-94ed-f5fca973cd56")
+        .deviceCode(
+            DeviceCode
+                .builder()
+                .productType("TERMINAL_API")
+                .name("Counter 1")
+                .locationId("B5E4484SHHNYH")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this CreateDeviceCode request. Keys can
+be any valid string but must be unique for every CreateDeviceCode request.
+
+See [Idempotency keys](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deviceCode:** `DeviceCode` — The device code to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.devices.codes.get(id) -> GetDeviceCodeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves DeviceCode with the associated ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.devices().codes().get(
+    GetCodesRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The unique identifier for the device code.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Disputes Evidence
+<details><summary><code>client.disputes.evidence.list(disputeId) -> ListDisputeEvidenceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of evidence associated with a dispute.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.disputes().evidence().list(
+    ListEvidenceRequest
+        .builder()
+        .disputeId("dispute_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**disputeId:** `String` — The ID of the dispute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for the original query.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.disputes.evidence.get(disputeId, evidenceId) -> GetDisputeEvidenceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the metadata for the evidence specified in the request URL path.
+
+You must maintain a copy of any evidence uploaded if you want to reference it later. Evidence cannot be downloaded after you upload it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.disputes().evidence().get(
+    GetEvidenceRequest
+        .builder()
+        .disputeId("dispute_id")
+        .evidenceId("evidence_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**disputeId:** `String` — The ID of the dispute from which you want to retrieve evidence metadata.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**evidenceId:** `String` — The ID of the evidence to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.disputes.evidence.delete(disputeId, evidenceId) -> DeleteDisputeEvidenceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes specified evidence from a dispute.
+Square does not send the bank any evidence that is removed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.disputes().evidence().delete(
+    DeleteEvidenceRequest
+        .builder()
+        .disputeId("dispute_id")
+        .evidenceId("evidence_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**disputeId:** `String` — The ID of the dispute from which you want to remove evidence.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**evidenceId:** `String` — The ID of the evidence you want to remove.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## GiftCards Activities
+<details><summary><code>client.giftCards.activities.list() -> ListGiftCardActivitiesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists gift card activities. By default, you get gift card activities for all
+gift cards in the seller's account. You can optionally specify query parameters to
+filter the list. For example, you can get a list of gift card activities for a gift card,
+for all gift cards in a specific region, or for activities within a time window.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.giftCards().activities().list(
+    ListActivitiesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**giftCardId:** `Optional<String>` 
+
+If a gift card ID is provided, the endpoint returns activities related 
+to the specified gift card. Otherwise, the endpoint returns all gift card activities for 
+the seller.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `Optional<String>` 
+
+If a [type](entity:GiftCardActivityType) is provided, the endpoint returns gift card activities of the specified type. 
+Otherwise, the endpoint returns all types of gift card activities.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `Optional<String>` 
+
+If a location ID is provided, the endpoint returns gift card activities for the specified location. 
+Otherwise, the endpoint returns gift card activities for all locations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**beginTime:** `Optional<String>` 
+
+The timestamp for the beginning of the reporting period, in RFC 3339 format.
+This start time is inclusive. The default value is the current time minus one year.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endTime:** `Optional<String>` 
+
+The timestamp for the end of the reporting period, in RFC 3339 format.
+This end time is inclusive. The default value is the current time.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+If a limit is provided, the endpoint returns the specified number 
+of results (or fewer) per page. The maximum value is 100. The default value is 50.
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for the original query.
+If a cursor is not provided, the endpoint returns the first page of the results.
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sortOrder:** `Optional<String>` 
+
+The order in which the endpoint returns the activities, based on `created_at`.
+- `ASC` - Oldest to newest.
+- `DESC` - Newest to oldest (default).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.giftCards.activities.create(request) -> CreateGiftCardActivityResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a gift card activity to manage the balance or state of a [gift card](entity:GiftCard).
+For example, create an `ACTIVATE` activity to activate a gift card with an initial balance before first use.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.giftCards().activities().create(
+    CreateGiftCardActivityRequest
+        .builder()
+        .idempotencyKey("U16kfr-kA70er-q4Rsym-7U7NnY")
+        .giftCardActivity(
+            GiftCardActivity
+                .builder()
+                .type(GiftCardActivityType.ACTIVATE)
+                .locationId("81FN9BNFZTKS4")
+                .giftCardId("gftc:6d55a72470d940c6ba09c0ab8ad08d20")
+                .activateActivityDetails(
+                    GiftCardActivityActivate
+                        .builder()
+                        .orderId("jJNGHm4gLI6XkFbwtiSLqK72KkAZY")
+                        .lineItemUid("eIWl7X0nMuO9Ewbh0ChIx")
+                        .build()
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` — A unique string that identifies the `CreateGiftCardActivity` request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**giftCardActivity:** `GiftCardActivity` 
+
+The activity to create for the gift card. This activity must specify `gift_card_id` or `gift_card_gan` for the target
+gift card, the `location_id` where the activity occurred, and the activity `type` along with the corresponding activity details.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Labor BreakTypes
+<details><summary><code>client.labor.breakTypes.list() -> ListBreakTypesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of `BreakType` instances for a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().breakTypes().list(
+    ListBreakTypesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `Optional<String>` 
+
+Filter the returned `BreakType` results to only those that are associated with the
+specified location.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of `BreakType` results to return per page. The number can range between 1
+and 200. The default is 200.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — A pointer to the next page of `BreakType` results to fetch.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.breakTypes.create(request) -> CreateBreakTypeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new `BreakType`.
+
+A `BreakType` is a template for creating `Break` objects.
+You must provide the following values in your request to this
+endpoint:
+
+- `location_id`
+- `break_name`
+- `expected_duration`
+- `is_paid`
+
+You can only have three `BreakType` instances per location. If you attempt to add a fourth
+`BreakType` for a location, an `INVALID_REQUEST_ERROR` "Exceeded limit of 3 breaks per location."
+is returned.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().breakTypes().create(
+    CreateBreakTypeRequest
+        .builder()
+        .breakType(
+            BreakType
+                .builder()
+                .locationId("CGJN03P1D08GF")
+                .breakName("Lunch Break")
+                .expectedDuration("PT30M")
+                .isPaid(true)
+                .build()
+        )
+        .idempotencyKey("PAD3NG5KSN2GL")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` — A unique string value to ensure the idempotency of the operation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**breakType:** `BreakType` — The `BreakType` to be created.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.breakTypes.get(id) -> GetBreakTypeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single `BreakType` specified by `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().breakTypes().get(
+    GetBreakTypesRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `BreakType` being retrieved.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.breakTypes.update(id, request) -> UpdateBreakTypeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing `BreakType`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().breakTypes().update(
+    UpdateBreakTypeRequest
+        .builder()
+        .id("id")
+        .breakType(
+            BreakType
+                .builder()
+                .locationId("26M7H24AZ9N6R")
+                .breakName("Lunch")
+                .expectedDuration("PT50M")
+                .isPaid(true)
+                .version(1)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` —  The UUID for the `BreakType` being updated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**breakType:** `BreakType` — The updated `BreakType`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.breakTypes.delete(id) -> DeleteBreakTypeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes an existing `BreakType`.
+
+A `BreakType` can be deleted even if it is referenced from a `Shift`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().breakTypes().delete(
+    DeleteBreakTypesRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `BreakType` being deleted.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Labor EmployeeWages
+<details><summary><code>client.labor.employeeWages.list() -> ListEmployeeWagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of `EmployeeWage` instances for a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().employeeWages().list(
+    ListEmployeeWagesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**employeeId:** `Optional<String>` — Filter the returned wages to only those that are associated with the specified employee.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of `EmployeeWage` results to return per page. The number can range between
+1 and 200. The default is 200.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — A pointer to the next page of `EmployeeWage` results to fetch.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.employeeWages.get(id) -> GetEmployeeWageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single `EmployeeWage` specified by `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().employeeWages().get(
+    GetEmployeeWagesRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `EmployeeWage` being retrieved.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Labor Shifts
+<details><summary><code>client.labor.shifts.create(request) -> CreateShiftResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new `Shift`.
+
+A `Shift` represents a complete workday for a single team member.
+You must provide the following values in your request to this
+endpoint:
+
+- `location_id`
+- `team_member_id`
+- `start_at`
+
+An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
+- The `status` of the new `Shift` is `OPEN` and the team member has another
+shift with an `OPEN` status.
+- The `start_at` date is in the future.
+- The `start_at` or `end_at` date overlaps another shift for the same team member.
+- The `Break` instances are set in the request and a break `start_at`
+is before the `Shift.start_at`, a break `end_at` is after
+the `Shift.end_at`, or both.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().shifts().create(
+    CreateShiftRequest
+        .builder()
+        .shift(
+            Shift
+                .builder()
+                .locationId("PAA1RJZZKXBFG")
+                .startAt("2019-01-25T03:11:00-05:00")
+                .endAt("2019-01-25T13:11:00-05:00")
+                .wage(
+                    ShiftWage
+                        .builder()
+                        .title("Barista")
+                        .hourlyRate(
+                            Money
+                                .builder()
+                                .amount(1100L)
+                                .currency(Currency.USD)
+                                .build()
+                        )
+                        .tipEligible(true)
+                        .build()
+                )
+                .breaks(
+                    new ArrayList<Break>(
+                        Arrays.asList(
+                            Break
+                                .builder()
+                                .startAt("2019-01-25T06:11:00-05:00")
+                                .breakTypeId("REGS1EQR1TPZ5")
+                                .name("Tea Break")
+                                .expectedDuration("PT5M")
+                                .isPaid(true)
+                                .endAt("2019-01-25T06:16:00-05:00")
+                                .build()
+                        )
+                    )
+                )
+                .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
+                .declaredCashTipMoney(
+                    Money
+                        .builder()
+                        .amount(500L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .build()
+        )
+        .idempotencyKey("HIDSNG5KS478L")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` — A unique string value to ensure the idempotency of the operation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shift:** `Shift` — The `Shift` to be created.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.shifts.search(request) -> SearchShiftsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of `Shift` records for a business.
+The list to be returned can be filtered by:
+- Location IDs
+- Team member IDs
+- Shift status (`OPEN` or `CLOSED`)
+- Shift start
+- Shift end
+- Workday details
+
+The list can be sorted by:
+- `START_AT`
+- `END_AT`
+- `CREATED_AT`
+- `UPDATED_AT`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().shifts().search(
+    SearchShiftsRequest
+        .builder()
+        .query(
+            ShiftQuery
+                .builder()
+                .filter(
+                    ShiftFilter
+                        .builder()
+                        .workday(
+                            ShiftWorkday
+                                .builder()
+                                .dateRange(
+                                    DateRange
+                                        .builder()
+                                        .startDate("2019-01-20")
+                                        .endDate("2019-02-03")
+                                        .build()
+                                )
+                                .matchShiftsBy(ShiftWorkdayMatcher.START_AT)
+                                .defaultTimezone("America/Los_Angeles")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+        )
+        .limit(100)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<ShiftQuery>` — Query filters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The number of resources in a page (200 by default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — An opaque cursor for fetching the next page.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.shifts.get(id) -> GetShiftResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single `Shift` specified by `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().shifts().get(
+    GetShiftsRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `Shift` being retrieved.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.shifts.update(id, request) -> UpdateShiftResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing `Shift`.
+
+When adding a `Break` to a `Shift`, any earlier `Break` instances in the `Shift` have
+the `end_at` property set to a valid RFC-3339 datetime string.
+
+When closing a `Shift`, all `Break` instances in the `Shift` must be complete with `end_at`
+set on each `Break`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().shifts().update(
+    UpdateShiftRequest
+        .builder()
+        .id("id")
+        .shift(
+            Shift
+                .builder()
+                .locationId("PAA1RJZZKXBFG")
+                .startAt("2019-01-25T03:11:00-05:00")
+                .endAt("2019-01-25T13:11:00-05:00")
+                .wage(
+                    ShiftWage
+                        .builder()
+                        .title("Bartender")
+                        .hourlyRate(
+                            Money
+                                .builder()
+                                .amount(1500L)
+                                .currency(Currency.USD)
+                                .build()
+                        )
+                        .tipEligible(true)
+                        .build()
+                )
+                .breaks(
+                    new ArrayList<Break>(
+                        Arrays.asList(
+                            Break
+                                .builder()
+                                .startAt("2019-01-25T06:11:00-05:00")
+                                .breakTypeId("REGS1EQR1TPZ5")
+                                .name("Tea Break")
+                                .expectedDuration("PT5M")
+                                .isPaid(true)
+                                .id("X7GAQYVVRRG6P")
+                                .endAt("2019-01-25T06:16:00-05:00")
+                                .build()
+                        )
+                    )
+                )
+                .version(1)
+                .teamMemberId("ormj0jJJZ5OZIzxrZYJI")
+                .declaredCashTipMoney(
+                    Money
+                        .builder()
+                        .amount(500L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the object being updated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shift:** `Shift` — The updated `Shift` object.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.shifts.delete(id) -> DeleteShiftResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a `Shift`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().shifts().delete(
+    DeleteShiftsRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `Shift` being deleted.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Labor TeamMemberWages
+<details><summary><code>client.labor.teamMemberWages.list() -> ListTeamMemberWagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of `TeamMemberWage` instances for a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().teamMemberWages().list(
+    ListTeamMemberWagesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**teamMemberId:** `Optional<String>` 
+
+Filter the returned wages to only those that are associated with the
+specified team member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of `TeamMemberWage` results to return per page. The number can range between
+1 and 200. The default is 200.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — A pointer to the next page of `EmployeeWage` results to fetch.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.teamMemberWages.get(id) -> GetTeamMemberWageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single `TeamMemberWage` specified by `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().teamMemberWages().get(
+    GetTeamMemberWagesRequest
+        .builder()
+        .id("id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `TeamMemberWage` being retrieved.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Labor WorkweekConfigs
+<details><summary><code>client.labor.workweekConfigs.list() -> ListWorkweekConfigsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `WorkweekConfig` instances for a business.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().workweekConfigs().list(
+    ListWorkweekConfigsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The maximum number of `WorkweekConfigs` results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — A pointer to the next page of `WorkweekConfig` results to fetch.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.labor.workweekConfigs.get(id, request) -> UpdateWorkweekConfigResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `WorkweekConfig`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.labor().workweekConfigs().get(
+    UpdateWorkweekConfigRequest
+        .builder()
+        .id("id")
+        .workweekConfig(
+            WorkweekConfig
+                .builder()
+                .startOfWeek(Weekday.MON)
+                .startOfDayLocalTime("10:00")
+                .version(10)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID for the `WorkweekConfig` object being updated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**workweekConfig:** `WorkweekConfig` — The updated `WorkweekConfig` object.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Locations CustomAttributeDefinitions
+<details><summary><code>client.locations.customAttributeDefinitions.list() -> ListLocationCustomAttributeDefinitionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the location-related [custom attribute definitions](entity:CustomAttributeDefinition) that belong to a Square seller account.
+When all response pages are retrieved, the results include all custom attribute definitions
+that are visible to the requesting application, including those that are created by other
+applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributeDefinitions().list(
+    ListCustomAttributeDefinitionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Filters the `CustomAttributeDefinition` results by their `visibility` values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributeDefinitions.create(request) -> CreateLocationCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a location-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+Use this endpoint to define a custom attribute that can be associated with locations.
+A custom attribute definition specifies the `key`, `visibility`, `schema`, and other properties
+for a custom attribute. After the definition is created, you can call
+[UpsertLocationCustomAttribute](api-endpoint:LocationCustomAttributes-UpsertLocationCustomAttribute) or
+[BulkUpsertLocationCustomAttributes](api-endpoint:LocationCustomAttributes-BulkUpsertLocationCustomAttributes)
+to set the custom attribute for locations.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributeDefinitions().create(
+    CreateLocationCustomAttributeDefinitionRequest
+        .builder()
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .key("bestseller")
+                .schema(
+                    new HashMap<String, Object>() {{
+                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                    }}
+                )
+                .name("Bestseller")
+                .description("Bestselling item at location")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_WRITE_VALUES)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition to create. Note the following:
+- With the exception of the `Selection` data type, the `schema` is specified as a simple URL to the JSON schema
+definition hosted on the Square CDN. For more information, including supported values and constraints, see
+[Supported data types](https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types).
+- `name` is required unless `visibility` is set to `VISIBILITY_HIDDEN`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributeDefinitions.get(key) -> RetrieveLocationCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a location-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+To retrieve a custom attribute definition created by another application, the `visibility`
+setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributeDefinitions().get(
+    GetCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute definition to retrieve. If the requesting application
+is not the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute definition, which is used for strongly consistent
+reads to guarantee that you receive the most up-to-date data. When included in the request,
+Square returns the specified version or a higher version if one exists. If the specified version
+is higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributeDefinitions.update(key, request) -> UpdateLocationCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a location-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+Use this endpoint to update the following fields: `name`, `description`, `visibility`, or the
+`schema` for a `Selection` data type.
+Only the definition owner can update a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributeDefinitions().update(
+    UpdateLocationCustomAttributeDefinitionRequest
+        .builder()
+        .key("key")
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .description("Update the description as desired.")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_ONLY)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition that contains the fields to update. This endpoint
+supports sparse updates, so only new or changed fields need to be included in the request.
+Only the following fields can be updated:
+- `name`
+- `description`
+- `visibility`
+- `schema` for a `Selection` data type. Only changes to the named options or the maximum number of allowed
+selections are supported.
+
+For more information, see
+[Update a location custom attribute definition](https://developer.squareup.com/docs/location-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition).
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control, specify the current version of the custom attribute definition. 
+If this is not important for your application, `version` can be set to -1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributeDefinitions.delete(key) -> DeleteLocationCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a location-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+Deleting a custom attribute definition also deletes the corresponding custom attribute from
+all locations.
+Only the definition owner can delete a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributeDefinitions().delete(
+    DeleteCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Locations CustomAttributes
+<details><summary><code>client.locations.customAttributes.batchDelete(request) -> BulkDeleteLocationCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes [custom attributes](entity:CustomAttribute) for locations as a bulk operation.
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().batchDelete(
+    BulkDeleteLocationCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest>() {{
+                put("id1", BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest
+                    .builder()
+                    .key(Optional.of("bestseller"))
+                    .build());
+                put("id2", BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest
+                    .builder()
+                    .key(Optional.of("bestseller"))
+                    .build());
+                put("id3", BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest
+                    .builder()
+                    .key(Optional.of("phone-number"))
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest>` 
+
+The data used to update the `CustomAttribute` objects.
+The keys must be unique and are used to map to the corresponding response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributes.batchUpsert(request) -> BulkUpsertLocationCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates [custom attributes](entity:CustomAttribute) for locations as a bulk operation.
+Use this endpoint to set the value of one or more custom attributes for one or more locations.
+A custom attribute is based on a custom attribute definition in a Square seller account, which is
+created using the [CreateLocationCustomAttributeDefinition](api-endpoint:LocationCustomAttributes-CreateLocationCustomAttributeDefinition) endpoint.
+This `BulkUpsertLocationCustomAttributes` endpoint accepts a map of 1 to 25 individual upsert
+requests and returns a map of individual upsert responses. Each upsert request has a unique ID
+and provides a location ID and custom attribute. Each upsert response is returned with the ID
+of the corresponding request.
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().batchUpsert(
+    BulkUpsertLocationCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest>() {{
+                put("id1", BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest
+                    .builder()
+                    .locationId("L0TBCBTB7P8RQ")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("bestseller"))
+                            .value(Optional.of("hot cocoa"))
+                            .build()
+                    )
+                    .build());
+                put("id2", BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest
+                    .builder()
+                    .locationId("L9XMD04V3STJX")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("bestseller"))
+                            .value(Optional.of("berry smoothie"))
+                            .build()
+                    )
+                    .build());
+                put("id3", BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest
+                    .builder()
+                    .locationId("L0TBCBTB7P8RQ")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("phone-number"))
+                            .value(Optional.of("+12223334444"))
+                            .build()
+                    )
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest>` 
+
+A map containing 1 to 25 individual upsert requests. For each request, provide an
+arbitrary ID that is unique for this `BulkUpsertLocationCustomAttributes` request and the
+information needed to create or update a custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributes.list(locationId) -> ListLocationCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the [custom attributes](entity:CustomAttribute) associated with a location.
+You can use the `with_definitions` query parameter to also retrieve custom attribute definitions
+in the same call.
+When all response pages are retrieved, the results include all custom attributes that are
+visible to the requesting application, including those that are owned by other applications
+and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().list(
+    ListCustomAttributesRequest
+        .builder()
+        .locationId("location_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the target [location](entity:Location).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Filters the `CustomAttributeDefinition` results by their `visibility` values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request. For more
+information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinitions:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each
+custom attribute. Set this parameter to `true` to get the name and description of each custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributes.get(locationId, key) -> RetrieveLocationCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a [custom attribute](entity:CustomAttribute) associated with a location.
+You can use the `with_definition` query parameter to also retrieve the custom attribute definition
+in the same call.
+To retrieve a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().get(
+    GetCustomAttributesRequest
+        .builder()
+        .locationId("location_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the target [location](entity:Location).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to retrieve. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinition:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+the custom attribute. Set this parameter to `true` to get the name and description of the custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute, which is used for strongly consistent reads to
+guarantee that you receive the most up-to-date data. When included in the request, Square
+returns the specified version or a higher version if one exists. If the specified version is
+higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributes.upsert(locationId, key, request) -> UpsertLocationCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates a [custom attribute](entity:CustomAttribute) for a location.
+Use this endpoint to set the value of a custom attribute for a specified location.
+A custom attribute is based on a custom attribute definition in a Square seller account, which
+is created using the [CreateLocationCustomAttributeDefinition](api-endpoint:LocationCustomAttributes-CreateLocationCustomAttributeDefinition) endpoint.
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().upsert(
+    UpsertLocationCustomAttributeRequest
+        .builder()
+        .locationId("location_id")
+        .key("key")
+        .customAttribute(
+            CustomAttribute
+                .builder()
+                .value("hot cocoa")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the target [location](entity:Location).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to create or update. This key must match the `key` of a
+custom attribute definition in the Square seller account. If the requesting application is not
+the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttribute:** `CustomAttribute` 
+
+The custom attribute to create or update, with the following fields:
+- `value`. This value must conform to the `schema` specified by the definition.
+For more information, see [Supported data types](https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types).
+- `version`. To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control for an update operation, include the current version of the custom attribute.
+If this is not important for your application, version can be set to -1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.customAttributes.delete(locationId, key) -> DeleteLocationCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a [custom attribute](entity:CustomAttribute) associated with a location.
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().customAttributes().delete(
+    DeleteCustomAttributesRequest
+        .builder()
+        .locationId("location_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the target [location](entity:Location).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to delete. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Locations Transactions
+<details><summary><code>client.locations.transactions.list(locationId) -> ListTransactionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists transactions for a particular location.
+
+Transactions include payment information from sales and exchanges and refund
+information from returns and exchanges.
+
+Max results per [page](https://developer.squareup.com/docs/working-with-apis/pagination): 50
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().transactions().list(
+    ListTransactionsRequest
+        .builder()
+        .locationId("location_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the location to list transactions for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**beginTime:** `Optional<String>` 
+
+The beginning of the requested reporting period, in RFC 3339 format.
+
+See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.
+
+Default value: The current time minus one year.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endTime:** `Optional<String>` 
+
+The end of the requested reporting period, in RFC 3339 format.
+
+See [Date ranges](https://developer.squareup.com/docs/build-basics/working-with-dates) for details on date inclusivity/exclusivity.
+
+Default value: The current time.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sortOrder:** `Optional<SortOrder>` 
+
+The order in which results are listed in the response (`ASC` for
+oldest first, `DESC` for newest first).
+
+Default value: `DESC`
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this to retrieve the next set of results for your original query.
+
+See [Paginating results](https://developer.squareup.com/docs/working-with-apis/pagination) for more information.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.transactions.get(locationId, transactionId) -> GetTransactionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves details for a single transaction.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().transactions().get(
+    GetTransactionsRequest
+        .builder()
+        .locationId("location_id")
+        .transactionId("transaction_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the transaction's associated location.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transactionId:** `String` — The ID of the transaction to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.transactions.capture(locationId, transactionId) -> CaptureTransactionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Captures a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+endpoint with a `delay_capture` value of `true`.
+
+
+See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
+for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().transactions().capture(
+    CaptureTransactionsRequest
+        .builder()
+        .locationId("location_id")
+        .transactionId("transaction_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transactionId:** `String` — 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.locations.transactions.void_(locationId, transactionId) -> VoidTransactionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
+endpoint with a `delay_capture` value of `true`.
+
+
+See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
+for more information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.locations().transactions().void_(
+    VoidTransactionsRequest
+        .builder()
+        .locationId("location_id")
+        .transactionId("transaction_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**locationId:** `String` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transactionId:** `String` — 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Loyalty Accounts
+<details><summary><code>client.loyalty.accounts.create(request) -> CreateLoyaltyAccountResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a loyalty account. To create a loyalty account, you must provide the `program_id` and a `mapping` with the `phone_number` of the buyer.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().accounts().create(
+    CreateLoyaltyAccountRequest
+        .builder()
+        .loyaltyAccount(
+            LoyaltyAccount
+                .builder()
+                .programId("d619f755-2d17-41f3-990d-c04ecedd64dd")
+                .mapping(
+                    LoyaltyAccountMapping
+                        .builder()
+                        .phoneNumber("+14155551234")
+                        .build()
+                )
+                .build()
+        )
+        .idempotencyKey("ec78c477-b1c3-4899-a209-a4e71337c996")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**loyaltyAccount:** `LoyaltyAccount` — The loyalty account to create.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `CreateLoyaltyAccount` request. 
+Keys can be any valid string, but must be unique for every request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.accounts.search(request) -> SearchLoyaltyAccountsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for loyalty accounts in a loyalty program.
+
+You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty `query` object or omit it entirely.
+
+Search results are sorted by `created_at` in ascending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().accounts().search(
+    SearchLoyaltyAccountsRequest
+        .builder()
+        .query(
+            SearchLoyaltyAccountsRequestLoyaltyAccountQuery
+                .builder()
+                .mappings(
+                    new ArrayList<LoyaltyAccountMapping>(
+                        Arrays.asList(
+                            LoyaltyAccountMapping
+                                .builder()
+                                .phoneNumber("+14155551234")
+                                .build()
+                        )
+                    )
+                )
+                .build()
+        )
+        .limit(10)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<SearchLoyaltyAccountsRequestLoyaltyAccountQuery>` — The search criteria for the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The maximum number of results to include in the response. The default value is 30.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to 
+this endpoint. Provide this to retrieve the next set of 
+results for the original query.
+
+For more information, 
+see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.accounts.get(accountId) -> GetLoyaltyAccountResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a loyalty account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().accounts().get(
+    GetAccountsRequest
+        .builder()
+        .accountId("account_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**accountId:** `String` — The ID of the [loyalty account](entity:LoyaltyAccount) to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.accounts.accumulatePoints(accountId, request) -> AccumulateLoyaltyPointsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds points earned from a purchase to a [loyalty account](entity:LoyaltyAccount).
+
+- If you are using the Orders API to manage orders, provide the `order_id`. Square reads the order
+to compute the points earned from both the base loyalty program and an associated
+[loyalty promotion](entity:LoyaltyPromotion). For purchases that qualify for multiple accrual
+rules, Square computes points based on the accrual rule that grants the most points.
+For purchases that qualify for multiple promotions, Square computes points based on the most
+recently created promotion. A purchase must first qualify for program points to be eligible for promotion points.
+
+- If you are not using the Orders API to manage orders, provide `points` with the number of points to add.
+You must first perform a client-side computation of the points earned from the loyalty program and
+loyalty promotion. For spend-based and visit-based programs, you can call [CalculateLoyaltyPoints](api-endpoint:Loyalty-CalculateLoyaltyPoints)
+to compute the points earned from the base loyalty program. For information about computing points earned from a loyalty promotion, see
+[Calculating promotion points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().accounts().accumulatePoints(
+    AccumulateLoyaltyPointsRequest
+        .builder()
+        .accountId("account_id")
+        .accumulatePoints(
+            LoyaltyEventAccumulatePoints
+                .builder()
+                .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
+                .build()
+        )
+        .idempotencyKey("58b90739-c3e8-4b11-85f7-e636d48d72cb")
+        .locationId("P034NEENMD09F")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**accountId:** `String` — The ID of the target [loyalty account](entity:LoyaltyAccount).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**accumulatePoints:** `LoyaltyEventAccumulatePoints` 
+
+The points to add to the account. 
+If you are using the Orders API to manage orders, specify the order ID.
+Otherwise, specify the points to add.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies the `AccumulateLoyaltyPoints` request. 
+Keys can be any valid string but must be unique for every request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The [location](entity:Location) where the purchase was made.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.accounts.adjust(accountId, request) -> AdjustLoyaltyPointsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds points to or subtracts points from a buyer's account.
+
+Use this endpoint only when you need to manually adjust points. Otherwise, in your application flow, you call
+[AccumulateLoyaltyPoints](api-endpoint:Loyalty-AccumulateLoyaltyPoints)
+to add points when a buyer pays for the purchase.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().accounts().adjust(
+    AdjustLoyaltyPointsRequest
+        .builder()
+        .accountId("account_id")
+        .idempotencyKey("bc29a517-3dc9-450e-aa76-fae39ee849d1")
+        .adjustPoints(
+            LoyaltyEventAdjustPoints
+                .builder()
+                .points(10)
+                .reason("Complimentary points")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**accountId:** `String` — The ID of the target [loyalty account](entity:LoyaltyAccount).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `AdjustLoyaltyPoints` request. 
+Keys can be any valid string, but must be unique for every request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adjustPoints:** `LoyaltyEventAdjustPoints` 
+
+The points to add or subtract and the reason for the adjustment. To add points, specify a positive integer.
+To subtract points, specify a negative integer.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allowNegativeBalance:** `Optional<Boolean>` 
+
+Indicates whether to allow a negative adjustment to result in a negative balance. If `true`, a negative
+balance is allowed when subtracting points. If `false`, Square returns a `BAD_REQUEST` error when subtracting
+the specified number of points would result in a negative balance. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Loyalty Programs
+<details><summary><code>client.loyalty.programs.list() -> ListLoyaltyProgramsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of loyalty programs in the seller's account.
+Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
+
+
+Replaced with [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) when used with the keyword `main`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().list();
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.programs.get(programId) -> GetLoyaltyProgramResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the loyalty program in a seller's account, specified by the program ID or the keyword `main`.
+
+Loyalty programs define how buyers can earn points and redeem points for rewards. Square sellers can have only one loyalty program, which is created and managed from the Seller Dashboard. For more information, see [Loyalty Program Overview](https://developer.squareup.com/docs/loyalty/overview).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().get(
+    GetProgramsRequest
+        .builder()
+        .programId("program_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**programId:** `String` — The ID of the loyalty program or the keyword `main`. Either value can be used to retrieve the single loyalty program that belongs to the seller.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.programs.calculate(programId, request) -> CalculateLoyaltyPointsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Calculates the number of points a buyer can earn from a purchase. Applications might call this endpoint
+to display the points to the buyer.
+
+- If you are using the Orders API to manage orders, provide the `order_id` and (optional) `loyalty_account_id`.
+Square reads the order to compute the points earned from the base loyalty program and an associated
+[loyalty promotion](entity:LoyaltyPromotion).
+
+- If you are not using the Orders API to manage orders, provide `transaction_amount_money` with the
+purchase amount. Square uses this amount to calculate the points earned from the base loyalty program,
+but not points earned from a loyalty promotion. For spend-based and visit-based programs, the `tax_mode`
+setting of the accrual rule indicates how taxes should be treated for loyalty points accrual.
+If the purchase qualifies for program points, call
+[ListLoyaltyPromotions](api-endpoint:Loyalty-ListLoyaltyPromotions) and perform a client-side computation
+to calculate whether the purchase also qualifies for promotion points. For more information, see
+[Calculating promotion points](https://developer.squareup.com/docs/loyalty-api/loyalty-promotions#calculate-promotion-points).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().calculate(
+    CalculateLoyaltyPointsRequest
+        .builder()
+        .programId("program_id")
+        .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
+        .loyaltyAccountId("79b807d2-d786-46a9-933b-918028d7a8c5")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**programId:** `String` — The ID of the [loyalty program](entity:LoyaltyProgram), which defines the rules for accruing points.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orderId:** `Optional<String>` 
+
+The [order](entity:Order) ID for which to calculate the points.
+Specify this field if your application uses the Orders API to process orders.
+Otherwise, specify the `transaction_amount_money`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transactionAmountMoney:** `Optional<Money>` 
+
+The purchase amount for which to calculate the points. 
+Specify this field if your application does not use the Orders API to process orders.
+Otherwise, specify the `order_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loyaltyAccountId:** `Optional<String>` 
+
+The ID of the target [loyalty account](entity:LoyaltyAccount). Optionally specify this field
+if your application uses the Orders API to process orders.
+
+If specified, the `promotion_points` field in the response shows the number of points the buyer would
+earn from the purchase. In this case, Square uses the account ID to determine whether the promotion's
+`trigger_limit` (the maximum number of times that a buyer can trigger the promotion) has been reached.
+If not specified, the `promotion_points` field shows the number of points the purchase qualifies
+for regardless of the trigger limit.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Loyalty Rewards
+<details><summary><code>client.loyalty.rewards.create(request) -> CreateLoyaltyRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a loyalty reward. In the process, the endpoint does following:
+
+- Uses the `reward_tier_id` in the request to determine the number of points
+to lock for this reward.
+- If the request includes `order_id`, it adds the reward and related discount to the order.
+
+After a reward is created, the points are locked and
+not available for the buyer to redeem another reward.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().rewards().create(
+    CreateLoyaltyRewardRequest
+        .builder()
+        .reward(
+            LoyaltyReward
+                .builder()
+                .loyaltyAccountId("5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
+                .rewardTierId("e1b39225-9da5-43d1-a5db-782cdd8ad94f")
+                .orderId("RFZfrdtm3mhO1oGzf5Cx7fEMsmGZY")
+                .build()
+        )
+        .idempotencyKey("18c2e5ea-a620-4b1f-ad60-7b167285e451")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**reward:** `LoyaltyReward` — The reward to create.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `CreateLoyaltyReward` request. 
+Keys can be any valid string, but must be unique for every request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.rewards.search(request) -> SearchLoyaltyRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for loyalty rewards. This endpoint accepts a request with no query filters and returns results for all loyalty accounts.
+If you include a `query` object, `loyalty_account_id` is required and `status` is  optional.
+
+If you know a reward ID, use the
+[RetrieveLoyaltyReward](api-endpoint:Loyalty-RetrieveLoyaltyReward) endpoint.
+
+Search results are sorted by `updated_at` in descending order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().rewards().search(
+    SearchLoyaltyRewardsRequest
+        .builder()
+        .query(
+            SearchLoyaltyRewardsRequestLoyaltyRewardQuery
+                .builder()
+                .loyaltyAccountId("5adcb100-07f1-4ee7-b8c6-6bb9ebc474bd")
+                .build()
+        )
+        .limit(10)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<SearchLoyaltyRewardsRequestLoyaltyRewardQuery>` 
+
+The search criteria for the request. 
+If empty, the endpoint retrieves all loyalty rewards in the loyalty program.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — The maximum number of results to return in the response. The default value is 30.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to 
+this endpoint. Provide this to retrieve the next set of 
+results for the original query.
+For more information, 
+see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.rewards.get(rewardId) -> GetLoyaltyRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a loyalty reward.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().rewards().get(
+    GetRewardsRequest
+        .builder()
+        .rewardId("reward_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The ID of the [loyalty reward](entity:LoyaltyReward) to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.rewards.delete(rewardId) -> DeleteLoyaltyRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a loyalty reward by doing the following:
+
+- Returns the loyalty points back to the loyalty account.
+- If an order ID was specified when the reward was created
+(see [CreateLoyaltyReward](api-endpoint:Loyalty-CreateLoyaltyReward)),
+it updates the order by removing the reward and related
+discounts.
+
+You cannot delete a reward that has reached the terminal state (REDEEMED).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().rewards().delete(
+    DeleteRewardsRequest
+        .builder()
+        .rewardId("reward_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The ID of the [loyalty reward](entity:LoyaltyReward) to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.rewards.redeem(rewardId, request) -> RedeemLoyaltyRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redeems a loyalty reward.
+
+The endpoint sets the reward to the `REDEEMED` terminal state.
+
+If you are using your own order processing system (not using the
+Orders API), you call this endpoint after the buyer paid for the
+purchase.
+
+After the reward reaches the terminal state, it cannot be deleted.
+In other words, points used for the reward cannot be returned
+to the account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().rewards().redeem(
+    RedeemLoyaltyRewardRequest
+        .builder()
+        .rewardId("reward_id")
+        .idempotencyKey("98adc7f7-6963-473b-b29c-f3c9cdd7d994")
+        .locationId("P034NEENMD09F")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The ID of the [loyalty reward](entity:LoyaltyReward) to redeem.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `RedeemLoyaltyReward` request. 
+Keys can be any valid string, but must be unique for every request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**locationId:** `String` — The ID of the [location](entity:Location) where the reward is redeemed.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Loyalty Programs Promotions
+<details><summary><code>client.loyalty.programs.promotions.list(programId) -> ListLoyaltyPromotionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the loyalty promotions associated with a [loyalty program](entity:LoyaltyProgram).
+Results are sorted by the `created_at` date in descending order (newest to oldest).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().promotions().list(
+    ListPromotionsRequest
+        .builder()
+        .programId("program_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**programId:** `String` 
+
+The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,
+call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<LoyaltyPromotionStatus>` 
+
+The status to filter the results by. If a status is provided, only loyalty promotions
+with the specified status are returned. Otherwise, all loyalty promotions associated with
+the loyalty program are returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response.
+The minimum value is 1 and the maximum value is 30. The default value is 30.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.programs.promotions.create(programId, request) -> CreateLoyaltyPromotionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a loyalty promotion for a [loyalty program](entity:LoyaltyProgram). A loyalty promotion
+enables buyers to earn points in addition to those earned from the base loyalty program.
+
+This endpoint sets the loyalty promotion to the `ACTIVE` or `SCHEDULED` status, depending on the
+`available_time` setting. A loyalty program can have a maximum of 10 loyalty promotions with an
+`ACTIVE` or `SCHEDULED` status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().promotions().create(
+    CreateLoyaltyPromotionRequest
+        .builder()
+        .programId("program_id")
+        .loyaltyPromotion(
+            LoyaltyPromotion
+                .builder()
+                .name("Tuesday Happy Hour Promo")
+                .incentive(
+                    LoyaltyPromotionIncentive
+                        .builder()
+                        .type(LoyaltyPromotionIncentiveType.POINTS_MULTIPLIER)
+                        .pointsMultiplierData(
+                            LoyaltyPromotionIncentivePointsMultiplierData
+                                .builder()
+                                .multiplier("3.0")
+                                .build()
+                        )
+                        .build()
+                )
+                .availableTime(
+                    LoyaltyPromotionAvailableTimeData
+                        .builder()
+                        .timePeriods(
+                            new ArrayList<String>(
+                                Arrays.asList("BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT")
+                            )
+                        )
+                        .build()
+                )
+                .triggerLimit(
+                    LoyaltyPromotionTriggerLimit
+                        .builder()
+                        .times(1)
+                        .interval(LoyaltyPromotionTriggerLimitInterval.DAY)
+                        .build()
+                )
+                .minimumSpendAmountMoney(
+                    Money
+                        .builder()
+                        .amount(2000L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .qualifyingCategoryIds(
+                    new ArrayList<String>(
+                        Arrays.asList("XTQPYLR3IIU9C44VRCB3XD12")
+                    )
+                )
+                .build()
+        )
+        .idempotencyKey("ec78c477-b1c3-4899-a209-a4e71337c996")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**programId:** `String` 
+
+The ID of the [loyalty program](entity:LoyaltyProgram) to associate with the promotion.
+To get the program ID, call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram)
+using the `main` keyword.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loyaltyPromotion:** `LoyaltyPromotion` — The loyalty promotion to create.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique identifier for this request, which is used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.programs.promotions.get(promotionId, programId) -> GetLoyaltyPromotionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a loyalty promotion.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().promotions().get(
+    GetPromotionsRequest
+        .builder()
+        .promotionId("promotion_id")
+        .programId("program_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**promotionId:** `String` — The ID of the [loyalty promotion](entity:LoyaltyPromotion) to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**programId:** `String` 
+
+The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,
+call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loyalty.programs.promotions.cancel(promotionId, programId) -> CancelLoyaltyPromotionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels a loyalty promotion. Use this endpoint to cancel an `ACTIVE` promotion earlier than the
+end date, cancel an `ACTIVE` promotion when an end date is not specified, or cancel a `SCHEDULED` promotion.
+Because updating a promotion is not supported, you can also use this endpoint to cancel a promotion before
+you create a new one.
+
+This endpoint sets the loyalty promotion to the `CANCELED` state
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.loyalty().programs().promotions().cancel(
+    CancelPromotionsRequest
+        .builder()
+        .promotionId("promotion_id")
+        .programId("program_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**promotionId:** `String` 
+
+The ID of the [loyalty promotion](entity:LoyaltyPromotion) to cancel. You can cancel a
+promotion that has an `ACTIVE` or `SCHEDULED` status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**programId:** `String` — The ID of the base [loyalty program](entity:LoyaltyProgram).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Merchants CustomAttributeDefinitions
+<details><summary><code>client.merchants.customAttributeDefinitions.list() -> ListMerchantCustomAttributeDefinitionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the merchant-related [custom attribute definitions](entity:CustomAttributeDefinition) that belong to a Square seller account.
+When all response pages are retrieved, the results include all custom attribute definitions
+that are visible to the requesting application, including those that are created by other
+applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributeDefinitions().list(
+    ListCustomAttributeDefinitionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Filters the `CustomAttributeDefinition` results by their `visibility` values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request.
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributeDefinitions.create(request) -> CreateMerchantCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a merchant-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+Use this endpoint to define a custom attribute that can be associated with a merchant connecting to your application.
+A custom attribute definition specifies the `key`, `visibility`, `schema`, and other properties
+for a custom attribute. After the definition is created, you can call
+[UpsertMerchantCustomAttribute](api-endpoint:MerchantCustomAttributes-UpsertMerchantCustomAttribute) or
+[BulkUpsertMerchantCustomAttributes](api-endpoint:MerchantCustomAttributes-BulkUpsertMerchantCustomAttributes)
+to set the custom attribute for a merchant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributeDefinitions().create(
+    CreateMerchantCustomAttributeDefinitionRequest
+        .builder()
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .key("alternative_seller_name")
+                .schema(
+                    new HashMap<String, Object>() {{
+                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                    }}
+                )
+                .name("Alternative Merchant Name")
+                .description("This is the other name this merchant goes by.")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_ONLY)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition to create. Note the following:
+- With the exception of the `Selection` data type, the `schema` is specified as a simple URL to the JSON schema
+definition hosted on the Square CDN. For more information, including supported values and constraints, see
+[Supported data types](https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types).
+- `name` is required unless `visibility` is set to `VISIBILITY_HIDDEN`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributeDefinitions.get(key) -> RetrieveMerchantCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a merchant-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+To retrieve a custom attribute definition created by another application, the `visibility`
+setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributeDefinitions().get(
+    GetCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute definition to retrieve. If the requesting application
+is not the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute definition, which is used for strongly consistent
+reads to guarantee that you receive the most up-to-date data. When included in the request,
+Square returns the specified version or a higher version if one exists. If the specified version
+is higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributeDefinitions.update(key, request) -> UpdateMerchantCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a merchant-related [custom attribute definition](entity:CustomAttributeDefinition) for a Square seller account.
+Use this endpoint to update the following fields: `name`, `description`, `visibility`, or the
+`schema` for a `Selection` data type.
+Only the definition owner can update a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributeDefinitions().update(
+    UpdateMerchantCustomAttributeDefinitionRequest
+        .builder()
+        .key("key")
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .description("Update the description as desired.")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_ONLY)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition that contains the fields to update. This endpoint
+supports sparse updates, so only new or changed fields need to be included in the request.
+Only the following fields can be updated:
+- `name`
+- `description`
+- `visibility`
+- `schema` for a `Selection` data type. Only changes to the named options or the maximum number of allowed
+selections are supported.
+For more information, see
+[Update a merchant custom attribute definition](https://developer.squareup.com/docs/merchant-custom-attributes-api/custom-attribute-definitions#update-custom-attribute-definition).
+The version field must match the current version of the custom attribute definition to enable
+[optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+If this is not important for your application, version can be set to -1. For any other values, the request fails with a BAD_REQUEST error.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributeDefinitions.delete(key) -> DeleteMerchantCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a merchant-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+Deleting a custom attribute definition also deletes the corresponding custom attribute from
+the merchant.
+Only the definition owner can delete a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributeDefinitions().delete(
+    DeleteCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Merchants CustomAttributes
+<details><summary><code>client.merchants.customAttributes.batchDelete(request) -> BulkDeleteMerchantCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes [custom attributes](entity:CustomAttribute) for a merchant as a bulk operation.
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().batchDelete(
+    BulkDeleteMerchantCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest>() {{
+                put("id1", BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest
+                    .builder()
+                    .key(Optional.of("alternative_seller_name"))
+                    .build());
+                put("id2", BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest
+                    .builder()
+                    .key(Optional.of("has_seen_tutorial"))
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest>` 
+
+The data used to update the `CustomAttribute` objects.
+The keys must be unique and are used to map to the corresponding response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributes.batchUpsert(request) -> BulkUpsertMerchantCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates [custom attributes](entity:CustomAttribute) for a merchant as a bulk operation.
+Use this endpoint to set the value of one or more custom attributes for a merchant.
+A custom attribute is based on a custom attribute definition in a Square seller account, which is
+created using the [CreateMerchantCustomAttributeDefinition](api-endpoint:MerchantCustomAttributes-CreateMerchantCustomAttributeDefinition) endpoint.
+This `BulkUpsertMerchantCustomAttributes` endpoint accepts a map of 1 to 25 individual upsert
+requests and returns a map of individual upsert responses. Each upsert request has a unique ID
+and provides a merchant ID and custom attribute. Each upsert response is returned with the ID
+of the corresponding request.
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().batchUpsert(
+    BulkUpsertMerchantCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest>() {{
+                put("id1", BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest
+                    .builder()
+                    .merchantId("DM7VKY8Q63GNP")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("alternative_seller_name"))
+                            .value(Optional.of("Ultimate Sneaker Store"))
+                            .build()
+                    )
+                    .build());
+                put("id2", BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest
+                    .builder()
+                    .merchantId("DM7VKY8Q63GNP")
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("has_seen_tutorial"))
+                            .value(Optional.of(true))
+                            .build()
+                    )
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest>` 
+
+A map containing 1 to 25 individual upsert requests. For each request, provide an
+arbitrary ID that is unique for this `BulkUpsertMerchantCustomAttributes` request and the
+information needed to create or update a custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributes.list(merchantId) -> ListMerchantCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the [custom attributes](entity:CustomAttribute) associated with a merchant.
+You can use the `with_definitions` query parameter to also retrieve custom attribute definitions
+in the same call.
+When all response pages are retrieved, the results include all custom attributes that are
+visible to the requesting application, including those that are owned by other applications
+and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().list(
+    ListCustomAttributesRequest
+        .builder()
+        .merchantId("merchant_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**merchantId:** `String` — The ID of the target [merchant](entity:Merchant).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Filters the `CustomAttributeDefinition` results by their `visibility` values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory.
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
+The default value is 20. For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint.
+Provide this cursor to retrieve the next page of results for your original request. For more
+information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinitions:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each
+custom attribute. Set this parameter to `true` to get the name and description of each custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributes.get(merchantId, key) -> RetrieveMerchantCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a [custom attribute](entity:CustomAttribute) associated with a merchant.
+You can use the `with_definition` query parameter to also retrieve the custom attribute definition
+in the same call.
+To retrieve a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().get(
+    GetCustomAttributesRequest
+        .builder()
+        .merchantId("merchant_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**merchantId:** `String` — The ID of the target [merchant](entity:Merchant).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to retrieve. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinition:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of
+the custom attribute. Set this parameter to `true` to get the name and description of the custom
+attribute, information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+The current version of the custom attribute, which is used for strongly consistent reads to
+guarantee that you receive the most up-to-date data. When included in the request, Square
+returns the specified version or a higher version if one exists. If the specified version is
+higher than the current version, Square returns a `BAD_REQUEST` error.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributes.upsert(merchantId, key, request) -> UpsertMerchantCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates a [custom attribute](entity:CustomAttribute) for a merchant.
+Use this endpoint to set the value of a custom attribute for a specified merchant.
+A custom attribute is based on a custom attribute definition in a Square seller account, which
+is created using the [CreateMerchantCustomAttributeDefinition](api-endpoint:MerchantCustomAttributes-CreateMerchantCustomAttributeDefinition) endpoint.
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().upsert(
+    UpsertMerchantCustomAttributeRequest
+        .builder()
+        .merchantId("merchant_id")
+        .key("key")
+        .customAttribute(
+            CustomAttribute
+                .builder()
+                .value("Ultimate Sneaker Store")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**merchantId:** `String` — The ID of the target [merchant](entity:Merchant).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to create or update. This key must match the `key` of a
+custom attribute definition in the Square seller account. If the requesting application is not
+the definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttribute:** `CustomAttribute` 
+
+The custom attribute to create or update, with the following fields:
+- `value`. This value must conform to the `schema` specified by the definition.
+For more information, see [Supported data types](https://developer.squareup.com/docs/devtools/customattributes/overview#supported-data-types).
+- The version field must match the current version of the custom attribute definition to enable
+[optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+If this is not important for your application, version can be set to -1. For any other values, the request fails with a BAD_REQUEST error.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. For more information,
+see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.merchants.customAttributes.delete(merchantId, key) -> DeleteMerchantCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a [custom attribute](entity:CustomAttribute) associated with a merchant.
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.merchants().customAttributes().delete(
+    DeleteCustomAttributesRequest
+        .builder()
+        .merchantId("merchant_id")
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**merchantId:** `String` — The ID of the target [merchant](entity:Merchant).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` 
+
+The key of the custom attribute to delete. This key must match the `key` of a custom
+attribute definition in the Square seller account. If the requesting application is not the
+definition owner, you must use the qualified key.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Orders CustomAttributeDefinitions
+<details><summary><code>client.orders.customAttributeDefinitions.list() -> ListOrderCustomAttributeDefinitionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the order-related [custom attribute definitions](entity:CustomAttributeDefinition) that belong to a Square seller account.
+
+When all response pages are retrieved, the results include all custom attribute definitions
+that are visible to the requesting application, including those that are created by other
+applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that
+seller-defined custom attributes (also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributeDefinitions().list(
+    ListCustomAttributeDefinitionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Requests that all of the custom attributes be returned, or only those that are read-only or read-write.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint. 
+Provide this cursor to retrieve the next page of results for your original request. 
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory. 
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100. 
+The default value is 20.
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributeDefinitions.create(request) -> CreateOrderCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an order-related custom attribute definition.  Use this endpoint to
+define a custom attribute that can be associated with orders.
+
+After creating a custom attribute definition, you can set the custom attribute for orders
+in the Square seller account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributeDefinitions().create(
+    CreateOrderCustomAttributeDefinitionRequest
+        .builder()
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .key("cover-count")
+                .schema(
+                    new HashMap<String, Object>() {{
+                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.Number");
+                    }}
+                )
+                .name("Cover count")
+                .description("The number of people seated at a table")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_WRITE_VALUES)
+                .build()
+        )
+        .idempotencyKey("IDEMPOTENCY_KEY")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition to create. Note the following:
+- With the exception of the `Selection` data type, the `schema` is specified as a simple URL to the JSON schema
+definition hosted on the Square CDN. For more information, including supported values and constraints, see
+[Specifying the schema](https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attribute-definitions#specify-schema).
+- If provided, `name` must be unique (case-sensitive) across all visible customer-related custom attribute definitions for the seller.
+- All custom attributes are visible in exported customer data, including those set to `VISIBILITY_HIDDEN`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. 
+For more information, see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributeDefinitions.get(key) -> RetrieveOrderCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an order-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+
+To retrieve a custom attribute definition created by another application, the `visibility`
+setting must be `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributeDefinitions().get(
+    GetCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control, include this optional field and specify the current version of the custom attribute.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributeDefinitions.update(key, request) -> UpdateOrderCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an order-related custom attribute definition for a Square seller account.
+
+Only the definition owner can update a custom attribute definition. Note that sellers can view all custom attributes in exported customer data, including those set to `VISIBILITY_HIDDEN`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributeDefinitions().update(
+    UpdateOrderCustomAttributeDefinitionRequest
+        .builder()
+        .key("key")
+        .customAttributeDefinition(
+            CustomAttributeDefinition
+                .builder()
+                .key("cover-count")
+                .visibility(CustomAttributeDefinitionVisibility.VISIBILITY_READ_ONLY)
+                .version(1)
+                .build()
+        )
+        .idempotencyKey("IDEMPOTENCY_KEY")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeDefinition:** `CustomAttributeDefinition` 
+
+The custom attribute definition that contains the fields to update. This endpoint supports sparse updates, 
+so only new or changed fields need to be included in the request.  For more information, see 
+[Updatable definition fields](https://developer.squareup.com/docs/orders-custom-attributes-api/custom-attribute-definitions#updatable-definition-fields).
+
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) control, include the optional `version` field and specify the current version of the custom attribute definition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. 
+For more information, see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributeDefinitions.delete(key) -> DeleteOrderCustomAttributeDefinitionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes an order-related [custom attribute definition](entity:CustomAttributeDefinition) from a Square seller account.
+
+Only the definition owner can delete a custom attribute definition.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributeDefinitions().delete(
+    DeleteCustomAttributeDefinitionsRequest
+        .builder()
+        .key("key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the custom attribute definition to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Orders CustomAttributes
+<details><summary><code>client.orders.customAttributes.batchDelete(request) -> BulkDeleteOrderCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes order [custom attributes](entity:CustomAttribute) as a bulk operation.
+
+Use this endpoint to delete one or more custom attributes from one or more orders.
+A custom attribute is based on a custom attribute definition in a Square seller account.  (To create a
+custom attribute definition, use the [CreateOrderCustomAttributeDefinition](api-endpoint:OrderCustomAttributes-CreateOrderCustomAttributeDefinition) endpoint.)
+
+This `BulkDeleteOrderCustomAttributes` endpoint accepts a map of 1 to 25 individual delete
+requests and returns a map of individual delete responses. Each delete request has a unique ID
+and provides an order ID and custom attribute. Each delete response is returned with the ID
+of the corresponding request.
+
+To delete a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().batchDelete(
+    BulkDeleteOrderCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute>() {{
+                put("cover-count", BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute
+                    .builder()
+                    .orderId("7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+                    .key(Optional.of("cover-count"))
+                    .build());
+                put("table-number", BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute
+                    .builder()
+                    .orderId("7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+                    .key(Optional.of("table-number"))
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute>` — A map of requests that correspond to individual delete operations for custom attributes.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributes.batchUpsert(request) -> BulkUpsertOrderCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates order [custom attributes](entity:CustomAttribute) as a bulk operation.
+
+Use this endpoint to delete one or more custom attributes from one or more orders.
+A custom attribute is based on a custom attribute definition in a Square seller account.  (To create a
+custom attribute definition, use the [CreateOrderCustomAttributeDefinition](api-endpoint:OrderCustomAttributes-CreateOrderCustomAttributeDefinition) endpoint.)
+
+This `BulkUpsertOrderCustomAttributes` endpoint accepts a map of 1 to 25 individual upsert
+requests and returns a map of individual upsert responses. Each upsert request has a unique ID
+and provides an order ID and custom attribute. Each upsert response is returned with the ID
+of the corresponding request.
+
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().batchUpsert(
+    BulkUpsertOrderCustomAttributesRequest
+        .builder()
+        .values(
+            new HashMap<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute>() {{
+                put("cover-count", BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute
+                    .builder()
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("cover-count"))
+                            .value(Optional.of("6"))
+                            .version(Optional.of(2))
+                            .build()
+                    )
+                    .orderId("7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+                    .build());
+                put("table-number", BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute
+                    .builder()
+                    .customAttribute(
+                        CustomAttribute
+                            .builder()
+                            .key(Optional.of("table-number"))
+                            .value(Optional.of("11"))
+                            .version(Optional.of(4))
+                            .build()
+                    )
+                    .orderId("7BbXGEIWNldxAzrtGf9GPVZTwZ4F")
+                    .build());
+            }}
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**values:** `Map<String, BulkUpsertOrderCustomAttributesRequestUpsertCustomAttribute>` — A map of requests that correspond to individual upsert operations for custom attributes.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributes.list(orderId) -> ListOrderCustomAttributesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the [custom attributes](entity:CustomAttribute) associated with an order.
+
+You can use the `with_definitions` query parameter to also retrieve custom attribute definitions
+in the same call.
+
+When all response pages are retrieved, the results include all custom attributes that are
+visible to the requesting application, including those that are owned by other applications
+and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().list(
+    ListCustomAttributesRequest
+        .builder()
+        .orderId("order_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — The ID of the target [order](entity:Order).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibilityFilter:** `Optional<VisibilityFilter>` — Requests that all of the custom attributes be returned, or only those that are read-only or read-write.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+The cursor returned in the paged response from the previous call to this endpoint. 
+Provide this cursor to retrieve the next page of results for your original request. 
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to return in a single paged response. This limit is advisory. 
+The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100. 
+The default value is 20.
+For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinitions:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each
+custom attribute. Set this parameter to `true` to get the name and description of each custom attribute, 
+information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributes.get(orderId, customAttributeKey) -> RetrieveOrderCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a [custom attribute](entity:CustomAttribute) associated with an order.
+
+You can use the `with_definition` query parameter to also retrieve the custom attribute definition
+in the same call.
+
+To retrieve a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().get(
+    GetCustomAttributesRequest
+        .builder()
+        .orderId("order_id")
+        .customAttributeKey("custom_attribute_key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — The ID of the target [order](entity:Order).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeKey:** `String` 
+
+The key of the custom attribute to retrieve.  This key must match the key of an
+existing custom attribute definition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Integer>` 
+
+To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control, include this optional field and specify the current version of the custom attribute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withDefinition:** `Optional<Boolean>` 
+
+Indicates whether to return the [custom attribute definition](entity:CustomAttributeDefinition) in the `definition` field of each 
+custom attribute. Set this parameter to `true` to get the name and description of each custom attribute, 
+information about the data type, or other definition details. The default value is `false`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributes.upsert(orderId, customAttributeKey, request) -> UpsertOrderCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates a [custom attribute](entity:CustomAttribute) for an order.
+
+Use this endpoint to set the value of a custom attribute for a specific order.
+A custom attribute is based on a custom attribute definition in a Square seller account. (To create a
+custom attribute definition, use the [CreateOrderCustomAttributeDefinition](api-endpoint:OrderCustomAttributes-CreateOrderCustomAttributeDefinition) endpoint.)
+
+To create or update a custom attribute owned by another application, the `visibility` setting
+must be `VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().upsert(
+    UpsertOrderCustomAttributeRequest
+        .builder()
+        .orderId("order_id")
+        .customAttributeKey("custom_attribute_key")
+        .customAttribute(
+            CustomAttribute
+                .builder()
+                .key("table-number")
+                .value("42")
+                .version(1)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — The ID of the target [order](entity:Order).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeKey:** `String` 
+
+The key of the custom attribute to create or update.  This key must match the key 
+of an existing custom attribute definition.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttribute:** `CustomAttribute` 
+
+The custom attribute to create or update, with the following fields:
+
+- `value`. This value must conform to the `schema` specified by the definition. 
+For more information, see [Value data types](https://developer.squareup.com/docs/customer-custom-attributes-api/custom-attributes#value-data-types).
+
+- `version`. To enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency)
+control, include this optional field and specify the current version of the custom attribute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` 
+
+A unique identifier for this request, used to ensure idempotency. 
+For more information, see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.orders.customAttributes.delete(orderId, customAttributeKey) -> DeleteOrderCustomAttributeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a [custom attribute](entity:CustomAttribute) associated with a customer profile.
+
+To delete a custom attribute owned by another application, the `visibility` setting must be
+`VISIBILITY_READ_WRITE_VALUES`. Note that seller-defined custom attributes
+(also known as custom fields) are always set to `VISIBILITY_READ_WRITE_VALUES`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.orders().customAttributes().delete(
+    DeleteCustomAttributesRequest
+        .builder()
+        .orderId("order_id")
+        .customAttributeKey("custom_attribute_key")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**orderId:** `String` — The ID of the target [order](entity:Order).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customAttributeKey:** `String` 
+
+The key of the custom attribute to delete.  This key must match the key of an
+existing custom attribute definition.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TeamMembers WageSetting
+<details><summary><code>client.teamMembers.wageSetting.get(teamMemberId) -> GetWageSettingResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a `WageSetting` object for a team member specified
+by `TeamMember.id`. For more information, see
+[Troubleshooting the Team API](https://developer.squareup.com/docs/team/troubleshooting#retrievewagesetting).
+
+Square recommends using [RetrieveTeamMember](api-endpoint:Team-RetrieveTeamMember) or [SearchTeamMembers](api-endpoint:Team-SearchTeamMembers)
+to get this information directly from the `TeamMember.wage_setting` field.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.teamMembers().wageSetting().get(
+    GetWageSettingRequest
+        .builder()
+        .teamMemberId("team_member_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**teamMemberId:** `String` — The ID of the team member for which to retrieve the wage setting.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.teamMembers.wageSetting.update(teamMemberId, request) -> UpdateWageSettingResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or updates a `WageSetting` object. The object is created if a
+`WageSetting` with the specified `team_member_id` doesn't exist. Otherwise,
+it fully replaces the `WageSetting` object for the team member.
+The `WageSetting` is returned on a successful update. For more information, see
+[Troubleshooting the Team API](https://developer.squareup.com/docs/team/troubleshooting#create-or-update-a-wage-setting).
+
+Square recommends using [CreateTeamMember](api-endpoint:Team-CreateTeamMember) or [UpdateTeamMember](api-endpoint:Team-UpdateTeamMember)
+to manage the `TeamMember.wage_setting` field directly.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.teamMembers().wageSetting().update(
+    UpdateWageSettingRequest
+        .builder()
+        .teamMemberId("team_member_id")
+        .wageSetting(
+            WageSetting
+                .builder()
+                .jobAssignments(
+                    new ArrayList<JobAssignment>(
+                        Arrays.asList(
+                            JobAssignment
+                                .builder()
+                                .payType(JobAssignmentPayType.SALARY)
+                                .jobTitle("Manager")
+                                .annualRate(
+                                    Money
+                                        .builder()
+                                        .amount(3000000L)
+                                        .currency(Currency.USD)
+                                        .build()
+                                )
+                                .weeklyHours(40)
+                                .build(),
+                            JobAssignment
+                                .builder()
+                                .payType(JobAssignmentPayType.HOURLY)
+                                .jobTitle("Cashier")
+                                .hourlyRate(
+                                    Money
+                                        .builder()
+                                        .amount(2000L)
+                                        .currency(Currency.USD)
+                                        .build()
+                                )
+                                .build()
+                        )
+                    )
+                )
+                .isOvertimeExempt(true)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**teamMemberId:** `String` — The ID of the team member for which to update the `WageSetting` object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wageSetting:** `WageSetting` 
+
+The complete `WageSetting` object. For all job assignments, specify one of the following:
+- `job_id` (recommended) - If needed, call [ListJobs](api-endpoint:Team-ListJobs) to get a list of all jobs.
+Requires Square API version 2024-12-18 or later.
+- `job_title` - Use the exact, case-sensitive spelling of an existing title unless you want to create a new job.
+This value is ignored if `job_id` is also provided.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Terminal Actions
+<details><summary><code>client.terminal.actions.create(request) -> CreateTerminalActionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a Terminal action request and sends it to the specified device.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().actions().create(
+    CreateTerminalActionRequest
+        .builder()
+        .idempotencyKey("thahn-70e75c10-47f7-4ab6-88cc-aaa4076d065e")
+        .action(
+            TerminalAction
+                .builder()
+                .deviceId("{{DEVICE_ID}}")
+                .deadlineDuration("PT5M")
+                .type(TerminalActionActionType.SAVE_CARD)
+                .saveCardOptions(
+                    SaveCardOptions
+                        .builder()
+                        .customerId("{{CUSTOMER_ID}}")
+                        .referenceId("user-id-1")
+                        .build()
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `CreateAction` request. Keys can be any valid string
+but must be unique for every `CreateAction` request.
+
+See [Idempotency keys](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more
+information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action:** `TerminalAction` — The Action to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.actions.search(request) -> SearchTerminalActionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().actions().search(
+    SearchTerminalActionsRequest
+        .builder()
+        .query(
+            TerminalActionQuery
+                .builder()
+                .filter(
+                    TerminalActionQueryFilter
+                        .builder()
+                        .createdAt(
+                            TimeRange
+                                .builder()
+                                .startAt("2022-04-01T00:00:00.000Z")
+                                .build()
+                        )
+                        .build()
+                )
+                .sort(
+                    TerminalActionQuerySort
+                        .builder()
+                        .sortOrder(SortOrder.DESC)
+                        .build()
+                )
+                .build()
+        )
+        .limit(2)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<TerminalActionQuery>` 
+
+Queries terminal actions based on given conditions and sort order.
+Leaving this unset will return all actions with the default sort order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this to retrieve the next set of results for the original query.
+See [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination) for more
+information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — Limit the number of results returned for a single request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.actions.get(actionId) -> GetTerminalActionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a Terminal action request by `action_id`. Terminal action requests are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().actions().get(
+    GetActionsRequest
+        .builder()
+        .actionId("action_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**actionId:** `String` — Unique ID for the desired `TerminalAction`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.actions.cancel(actionId) -> CancelTerminalActionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels a Terminal action request if the status of the request permits it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().actions().cancel(
+    CancelActionsRequest
+        .builder()
+        .actionId("action_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**actionId:** `String` — Unique ID for the desired `TerminalAction`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Terminal Checkouts
+<details><summary><code>client.terminal.checkouts.create(request) -> CreateTerminalCheckoutResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a Terminal checkout request and sends it to the specified device to take a payment
+for the requested amount.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().checkouts().create(
+    CreateTerminalCheckoutRequest
+        .builder()
+        .idempotencyKey("28a0c3bc-7839-11ea-bc55-0242ac130003")
+        .checkout(
+            TerminalCheckout
+                .builder()
+                .amountMoney(
+                    Money
+                        .builder()
+                        .amount(2610L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .deviceOptions(
+                    DeviceCheckoutOptions
+                        .builder()
+                        .deviceId("dbb5d83a-7838-11ea-bc55-0242ac130003")
+                        .build()
+                )
+                .referenceId("id11572")
+                .note("A brief note")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `CreateCheckout` request. Keys can be any valid string but
+must be unique for every `CreateCheckout` request.
+
+See [Idempotency keys](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**checkout:** `TerminalCheckout` — The checkout to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.checkouts.search(request) -> SearchTerminalCheckoutsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().checkouts().search(
+    SearchTerminalCheckoutsRequest
+        .builder()
+        .query(
+            TerminalCheckoutQuery
+                .builder()
+                .filter(
+                    TerminalCheckoutQueryFilter
+                        .builder()
+                        .status("COMPLETED")
+                        .build()
+                )
+                .build()
+        )
+        .limit(2)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<TerminalCheckoutQuery>` 
+
+Queries Terminal checkouts based on given conditions and the sort order.
+Leaving these unset returns all checkouts with the default sort order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for the original query.
+See [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — Limits the number of results returned for a single request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.checkouts.get(checkoutId) -> GetTerminalCheckoutResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a Terminal checkout request by `checkout_id`. Terminal checkout requests are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().checkouts().get(
+    GetCheckoutsRequest
+        .builder()
+        .checkoutId("checkout_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutId:** `String` — The unique ID for the desired `TerminalCheckout`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.checkouts.cancel(checkoutId) -> CancelTerminalCheckoutResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels a Terminal checkout request if the status of the request permits it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().checkouts().cancel(
+    CancelCheckoutsRequest
+        .builder()
+        .checkoutId("checkout_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**checkoutId:** `String` — The unique ID for the desired `TerminalCheckout`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Terminal Refunds
+<details><summary><code>client.terminal.refunds.create(request) -> CreateTerminalRefundResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a request to refund an Interac payment completed on a Square Terminal. Refunds for Interac payments on a Square Terminal are supported only for Interac debit cards in Canada. Other refunds for Terminal payments should use the Refunds API. For more information, see [Refunds API](api:Refunds).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().refunds().create(
+    CreateTerminalRefundRequest
+        .builder()
+        .idempotencyKey("402a640b-b26f-401f-b406-46f839590c04")
+        .refund(
+            TerminalRefund
+                .builder()
+                .paymentId("5O5OvgkcNUhl7JBuINflcjKqUzXZY")
+                .amountMoney(
+                    Money
+                        .builder()
+                        .amount(111L)
+                        .currency(Currency.CAD)
+                        .build()
+                )
+                .reason("Returning items")
+                .deviceId("f72dfb8e-4d65-4e56-aade-ec3fb8d33291")
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this `CreateRefund` request. Keys can be any valid string but
+must be unique for every `CreateRefund` request.
+
+See [Idempotency keys](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**refund:** `Optional<TerminalRefund>` — The refund to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.refunds.search(request) -> SearchTerminalRefundsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().refunds().search(
+    SearchTerminalRefundsRequest
+        .builder()
+        .query(
+            TerminalRefundQuery
+                .builder()
+                .filter(
+                    TerminalRefundQueryFilter
+                        .builder()
+                        .status("COMPLETED")
+                        .build()
+                )
+                .build()
+        )
+        .limit(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<TerminalRefundQuery>` 
+
+Queries the Terminal refunds based on given conditions and the sort order. Calling
+`SearchTerminalRefunds` without an explicit query parameter returns all available
+refunds with the default sort order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this cursor to retrieve the next set of results for the original query.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — Limits the number of results returned for a single request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.refunds.get(terminalRefundId) -> GetTerminalRefundResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an Interac Terminal refund object by ID. Terminal refund objects are available for 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().refunds().get(
+    GetRefundsRequest
+        .builder()
+        .terminalRefundId("terminal_refund_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**terminalRefundId:** `String` — The unique ID for the desired `TerminalRefund`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.terminal.refunds.cancel(terminalRefundId) -> CancelTerminalRefundResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels an Interac Terminal refund request by refund request ID if the status of the request permits it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.terminal().refunds().cancel(
+    CancelRefundsRequest
+        .builder()
+        .terminalRefundId("terminal_refund_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**terminalRefundId:** `String` — The unique ID for the desired `TerminalRefund`.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Webhooks EventTypes
+<details><summary><code>client.webhooks.eventTypes.list() -> ListWebhookEventTypesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all webhook event types that can be subscribed to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().eventTypes().list(
+    ListEventTypesRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiVersion:** `Optional<String>` — The API version for which to list event types. Setting this field overrides the default version used by the application.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Webhooks Subscriptions
+<details><summary><code>client.webhooks.subscriptions.list() -> ListWebhookSubscriptionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all webhook subscriptions owned by your application.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().list(
+    ListSubscriptionsRequest
+        .builder()
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` 
+
+A pagination cursor returned by a previous call to this endpoint.
+Provide this to retrieve the next set of results for your original query.
+
+For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeDisabled:** `Optional<Boolean>` 
+
+Includes disabled [Subscription](entity:WebhookSubscription)s.
+By default, all enabled [Subscription](entity:WebhookSubscription)s are returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sortOrder:** `Optional<SortOrder>` 
+
+Sorts the returned list by when the [Subscription](entity:WebhookSubscription) was created with the specified order.
+This field defaults to ASC.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+The maximum number of results to be returned in a single page.
+It is possible to receive fewer results than the specified limit on a given page.
+The default value of 100 is also the maximum allowed value.
+
+Default: 100
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.create(request) -> CreateWebhookSubscriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a webhook subscription.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().create(
+    CreateWebhookSubscriptionRequest
+        .builder()
+        .subscription(
+            WebhookSubscription
+                .builder()
+                .name("Example Webhook Subscription")
+                .eventTypes(
+                    new ArrayList<String>(
+                        Arrays.asList("payment.created", "payment.updated")
+                    )
+                )
+                .notificationUrl("https://example-webhook-url.com")
+                .apiVersion("2021-12-15")
+                .build()
+        )
+        .idempotencyKey("63f84c6c-2200-4c99-846c-2670a1311fbf")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` — A unique string that identifies the [CreateWebhookSubscription](api-endpoint:WebhookSubscriptions-CreateWebhookSubscription) request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subscription:** `WebhookSubscription` — The [Subscription](entity:WebhookSubscription) to create.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.get(subscriptionId) -> GetWebhookSubscriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a webhook subscription identified by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().get(
+    GetSubscriptionsRequest
+        .builder()
+        .subscriptionId("subscription_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subscriptionId:** `String` — [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to retrieve.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.update(subscriptionId, request) -> UpdateWebhookSubscriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a webhook subscription.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().update(
+    UpdateWebhookSubscriptionRequest
+        .builder()
+        .subscriptionId("subscription_id")
+        .subscription(
+            WebhookSubscription
+                .builder()
+                .name("Updated Example Webhook Subscription")
+                .enabled(false)
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subscriptionId:** `String` — [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subscription:** `Optional<WebhookSubscription>` — The [Subscription](entity:WebhookSubscription) to update.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.delete(subscriptionId) -> DeleteWebhookSubscriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a webhook subscription.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().delete(
+    DeleteSubscriptionsRequest
+        .builder()
+        .subscriptionId("subscription_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subscriptionId:** `String` — [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to delete.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.updateSignatureKey(subscriptionId, request) -> UpdateWebhookSubscriptionSignatureKeyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a webhook subscription by replacing the existing signature key with a new one.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().updateSignatureKey(
+    UpdateWebhookSubscriptionSignatureKeyRequest
+        .builder()
+        .subscriptionId("subscription_id")
+        .idempotencyKey("ed80ae6b-0654-473b-bbab-a39aee89a60d")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subscriptionId:** `String` — [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to update.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `Optional<String>` — A unique string that identifies the [UpdateWebhookSubscriptionSignatureKey](api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey) request.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.subscriptions.test(subscriptionId, request) -> TestWebhookSubscriptionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Tests a webhook subscription by sending a test event to the notification URL.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.webhooks().subscriptions().test(
+    TestWebhookSubscriptionRequest
+        .builder()
+        .subscriptionId("subscription_id")
+        .eventType("payment.created")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subscriptionId:** `String` — [REQUIRED] The ID of the [Subscription](entity:WebhookSubscription) to test.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**eventType:** `Optional<String>` 
+
+The event type that will be used to test the [Subscription](entity:WebhookSubscription). The event type must be
+contained in the list of event types in the [Subscription](entity:WebhookSubscription).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
