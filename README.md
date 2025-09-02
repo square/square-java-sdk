@@ -12,8 +12,9 @@ Use of the Square Java SDK requires:
 
 ## Installation
 
-[!NOTE]
-Replace `VERSION` in the examples below with the version you want to use. These instructions apply to version `44.0.0.20250319` and later.
+> [!NOTE]
+> Replace `VERSION` in the examples below with the version you want to use.
+> These instructions apply to version `44.0.0.20250319` and later.
 
 ### Gradle
 
@@ -296,9 +297,9 @@ com.squareup.square.legacy.SquareClient legacyClient =
 
 We recommend migrating to the new SDK using the following steps:
 
-[!NOTE]
-Replace `VERSION` in the examples below with the version you want to use.
-These instructions apply to version `44.0.0.20250319` and later.
+> [!NOTE]
+> Replace `VERSION` in the examples below with the version you want to use.
+> These instructions apply to version `44.0.0.20250319` and later.
 
 
 1. Include the following dependencies in your project
