@@ -14,6 +14,7 @@ Use of the Square Java SDK requires:
 
 > [!NOTE]
 > Replace `VERSION` in the examples below with the version you want to use.
+>
 > These instructions apply to version `44.0.0.20250319` and later.
 
 ### Gradle
@@ -299,6 +300,7 @@ We recommend migrating to the new SDK using the following steps:
 
 > [!NOTE]
 > Replace `VERSION` in the examples below with the version you want to use.
+>
 > These instructions apply to version `44.0.0.20250319` and later.
 
 
