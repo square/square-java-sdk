@@ -12,13 +12,16 @@ Use of the Square Java SDK requires:
 
 ## Installation
 
+[!NOTE]
+Replace `VERSION` in the examples below with the version you want to use. These instructions apply to version `44.0.0.20250319` and later.
+
 ### Gradle
 
 Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:44.0.0.20250319'
+    implementation 'com.squareup:square:VERSION'
 }
 ```
 
@@ -30,7 +33,7 @@ Add the dependency in your `pom.xml`:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>44.0.0.20250319</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
@@ -293,14 +296,19 @@ com.squareup.square.legacy.SquareClient legacyClient =
 
 We recommend migrating to the new SDK using the following steps:
 
+[!NOTE]
+Replace `VERSION` in the examples below with the version you want to use.
+These instructions apply to version `44.0.0.20250319` and later.
+
+
 1. Include the following dependencies in your project
 
 Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:44.0.0.20250319'
-    implementation 'com.squareup:square-legacy:44.0.0.20250319'
+    implementation 'com.squareup:square:VERSION'
+    implementation 'com.squareup:square-legacy:VERSION'
 }
 ```
 
@@ -310,12 +318,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>44.0.0.20250319</version>
+    <version>VERSION</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>44.0.0.20250319</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
