@@ -141,7 +141,9 @@ public final class CatalogQuerySet {
          */
         @java.lang.Override
         public _FinalStage addAllAttributeValues(List<String> attributeValues) {
-            this.attributeValues.addAll(attributeValues);
+            if (attributeValues != null) {
+                this.attributeValues.addAll(attributeValues);
+            }
             return this;
         }
 

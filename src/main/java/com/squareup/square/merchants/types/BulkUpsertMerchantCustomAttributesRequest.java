@@ -102,7 +102,9 @@ public final class BulkUpsertMerchantCustomAttributesRequest {
 
         public Builder putAllValues(
                 Map<String, BulkUpsertMerchantCustomAttributesRequestMerchantCustomAttributeUpsertRequest> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

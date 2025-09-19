@@ -1327,9 +1327,7 @@ client.bookings().bulkRetrieveBookings(
     BulkRetrieveBookingsRequest
         .builder()
         .bookingIds(
-            new ArrayList<String>(
-                Arrays.asList("booking_ids")
-            )
+            Arrays.asList("booking_ids")
         )
         .build()
 );
@@ -1488,9 +1486,7 @@ client.bookings().bulkRetrieveTeamMemberBookingProfiles(
     BulkRetrieveTeamMemberBookingProfilesRequest
         .builder()
         .teamMemberIds(
-            new ArrayList<String>(
-                Arrays.asList("team_member_ids")
-            )
+            Arrays.asList("team_member_ids")
         )
         .build()
 );
@@ -2135,9 +2131,7 @@ client.catalog().batchDelete(
     BatchDeleteCatalogObjectsRequest
         .builder()
         .objectIds(
-            new ArrayList<String>(
-                Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
-            )
+            Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
         )
         .build()
 );
@@ -2207,9 +2201,7 @@ client.catalog().batchGet(
     BatchGetCatalogObjectsRequest
         .builder()
         .objectIds(
-            new ArrayList<String>(
-                Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
-            )
+            Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
         )
         .includeRelatedObjects(true)
         .build()
@@ -2259,7 +2251,7 @@ Default value: `false`
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Integer>` 
+**catalogVersion:** `Optional<Long>` 
 
 The specific version of the catalog objects to be included in the response. 
 This allows you to retrieve historical versions of objects. The specified version value is matched against
@@ -2341,42 +2333,38 @@ client.catalog().batchUpsert(
         .builder()
         .idempotencyKey("789ff020-f723-43a9-b4b5-43b5dc1fa3dc")
         .batches(
-            new ArrayList<CatalogObjectBatch>(
-                Arrays.asList(
-                    CatalogObjectBatch
-                        .builder()
-                        .objects(
-                            new ArrayList<CatalogObject>(
-                                Arrays.asList(
-                                    CatalogObject.item(
-                                        CatalogObjectItem
-                                            .builder()
-                                            .id("id")
-                                            .build()
-                                    ),
-                                    CatalogObject.item(
-                                        CatalogObjectItem
-                                            .builder()
-                                            .id("id")
-                                            .build()
-                                    ),
-                                    CatalogObject.item(
-                                        CatalogObjectItem
-                                            .builder()
-                                            .id("id")
-                                            .build()
-                                    ),
-                                    CatalogObject.tax(
-                                        CatalogObjectTax
-                                            .builder()
-                                            .id("id")
-                                            .build()
-                                    )
-                                )
+            Arrays.asList(
+                CatalogObjectBatch
+                    .builder()
+                    .objects(
+                        Arrays.asList(
+                            CatalogObject.item(
+                                CatalogObjectItem
+                                    .builder()
+                                    .id("id")
+                                    .build()
+                            ),
+                            CatalogObject.item(
+                                CatalogObjectItem
+                                    .builder()
+                                    .id("id")
+                                    .build()
+                            ),
+                            CatalogObject.item(
+                                CatalogObjectItem
+                                    .builder()
+                                    .id("id")
+                                    .build()
+                            ),
+                            CatalogObject.tax(
+                                CatalogObjectTax
+                                    .builder()
+                                    .id("id")
+                                    .build()
                             )
                         )
-                        .build()
-                )
+                    )
+                    .build()
             )
         )
         .build()
@@ -2575,7 +2563,7 @@ SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTIN
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Integer>` 
+**catalogVersion:** `Optional<Long>` 
 
 The specific version of the catalog objects to be included in the response.
 This allows you to retrieve historical versions of objects. The specified version value is matched against
@@ -2632,7 +2620,7 @@ client.catalog().search(
     SearchCatalogObjectsRequest
         .builder()
         .objectTypes(
-            new ArrayList<CatalogObjectType>(
+            Optional.of(
                 Arrays.asList(CatalogObjectType.ITEM)
             )
         )
@@ -2815,29 +2803,29 @@ client.catalog().searchItems(
         .builder()
         .textFilter("red")
         .categoryIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("WINE_CATEGORY_ID")
             )
         )
         .stockLevels(
-            new ArrayList<SearchCatalogItemsRequestStockLevel>(
+            Optional.of(
                 Arrays.asList(SearchCatalogItemsRequestStockLevel.OUT, SearchCatalogItemsRequestStockLevel.LOW)
             )
         )
         .enabledLocationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("ATL_LOCATION_ID")
             )
         )
         .limit(100)
         .sortOrder(SortOrder.ASC)
         .productTypes(
-            new ArrayList<CatalogItemProductType>(
+            Optional.of(
                 Arrays.asList(CatalogItemProductType.REGULAR)
             )
         )
         .customAttributeFilters(
-            new ArrayList<CustomAttributeFilter>(
+            Optional.of(
                 Arrays.asList(
                     CustomAttributeFilter
                         .builder()
@@ -3014,17 +3002,15 @@ client.catalog().updateItemModifierLists(
     UpdateItemModifierListsRequest
         .builder()
         .itemIds(
-            new ArrayList<String>(
-                Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
-            )
+            Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
         )
         .modifierListsToEnable(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
             )
         )
         .modifierListsToDisable(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("7WRC16CJZDVLSNDQ35PP6YAD")
             )
         )
@@ -3111,17 +3097,15 @@ client.catalog().updateItemTaxes(
     UpdateItemTaxesRequest
         .builder()
         .itemIds(
-            new ArrayList<String>(
-                Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
-            )
+            Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
         )
         .taxesToEnable(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("4WRCNHCJZDVLSNDQ35PP6YAD")
             )
         )
         .taxesToDisable(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("AQCEGCEBBQONINDOHRGZISEX")
             )
         )
@@ -3668,9 +3652,7 @@ client.customers().bulkDeleteCustomers(
     BulkDeleteCustomersRequest
         .builder()
         .customerIds(
-            new ArrayList<String>(
-                Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
-            )
+            Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
         )
         .build()
 );
@@ -3733,9 +3715,7 @@ client.customers().bulkRetrieveCustomers(
     BulkRetrieveCustomersRequest
         .builder()
         .customerIds(
-            new ArrayList<String>(
-                Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
-            )
+            Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
         )
         .build()
 );
@@ -3899,7 +3879,7 @@ client.customers().search(
                             CustomerCreationSourceFilter
                                 .builder()
                                 .values(
-                                    new ArrayList<CustomerCreationSource>(
+                                    Optional.of(
                                         Arrays.asList(CustomerCreationSource.THIRD_PARTY)
                                     )
                                 )
@@ -3923,7 +3903,7 @@ client.customers().search(
                             FilterValue
                                 .builder()
                                 .all(
-                                    new ArrayList<String>(
+                                    Optional.of(
                                         Arrays.asList("545AXB44B4XXWMVQ4W8SBT3HHF")
                                     )
                                 )
@@ -3969,7 +3949,7 @@ For more information, see [Pagination](https://developer.squareup.com/docs/build
 <dl>
 <dd>
 
-**limit:** `Optional<Integer>` 
+**limit:** `Optional<Long>` 
 
 The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
 If the specified limit is invalid, Square returns a `400 VALUE_TOO_LOW` or `400 VALUE_TOO_HIGH` error. The default value is 100.
@@ -4247,7 +4227,7 @@ format, where `YYYY` is the specified birth year or `0000` if a birth year is no
 <dl>
 <dd>
 
-**version:** `Optional<Integer>` 
+**version:** `Optional<Long>` 
 
 The current version of the customer profile.
 
@@ -4332,7 +4312,7 @@ client.customers().delete(
 <dl>
 <dd>
 
-**version:** `Optional<Integer>` 
+**version:** `Optional<Long>` 
 
 The current version of the customer profile.
 
@@ -5972,7 +5952,7 @@ client.inventory().deprecatedBatchChange(
         .builder()
         .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
         .changes(
-            new ArrayList<InventoryChange>(
+            Optional.of(
                 Arrays.asList(
                     InventoryChange
                         .builder()
@@ -6054,22 +6034,22 @@ client.inventory().deprecatedBatchGetChanges(
     BatchRetrieveInventoryChangesRequest
         .builder()
         .catalogObjectIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("C6W5YS5QM06F5")
             )
         )
         .types(
-            new ArrayList<InventoryChangeType>(
+            Optional.of(
                 Arrays.asList(InventoryChangeType.PHYSICAL_COUNT)
             )
         )
         .states(
-            new ArrayList<InventoryState>(
+            Optional.of(
                 Arrays.asList(InventoryState.IN_STOCK)
             )
         )
@@ -6135,12 +6115,12 @@ client.inventory().deprecatedBatchGetCounts(
     BatchGetInventoryCountsRequest
         .builder()
         .catalogObjectIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("59TNP9SA8VGDA")
             )
         )
@@ -6209,7 +6189,7 @@ client.inventory().batchCreateChanges(
         .builder()
         .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
         .changes(
-            new ArrayList<InventoryChange>(
+            Optional.of(
                 Arrays.asList(
                     InventoryChange
                         .builder()
@@ -6297,22 +6277,22 @@ client.inventory().batchGetChanges(
     BatchRetrieveInventoryChangesRequest
         .builder()
         .catalogObjectIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("C6W5YS5QM06F5")
             )
         )
         .types(
-            new ArrayList<InventoryChangeType>(
+            Optional.of(
                 Arrays.asList(InventoryChangeType.PHYSICAL_COUNT)
             )
         )
         .states(
-            new ArrayList<InventoryState>(
+            Optional.of(
                 Arrays.asList(InventoryState.IN_STOCK)
             )
         )
@@ -6387,12 +6367,12 @@ client.inventory().batchGetCounts(
     BatchGetInventoryCountsRequest
         .builder()
         .catalogObjectIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("59TNP9SA8VGDA")
             )
         )
@@ -6924,7 +6904,7 @@ client.invoices().create(
                         .build()
                 )
                 .paymentRequests(
-                    new ArrayList<InvoicePaymentRequest>(
+                    Optional.of(
                         Arrays.asList(
                             InvoicePaymentRequest
                                 .builder()
@@ -6933,7 +6913,7 @@ client.invoices().create(
                                 .tippingEnabled(true)
                                 .automaticPaymentSource(InvoiceAutomaticPaymentSource.NONE)
                                 .reminders(
-                                    new ArrayList<InvoicePaymentReminder>(
+                                    Optional.of(
                                         Arrays.asList(
                                             InvoicePaymentReminder
                                                 .builder()
@@ -6963,7 +6943,7 @@ client.invoices().create(
                         .build()
                 )
                 .customFields(
-                    new ArrayList<InvoiceCustomField>(
+                    Optional.of(
                         Arrays.asList(
                             InvoiceCustomField
                                 .builder()
@@ -7070,12 +7050,10 @@ client.invoices().search(
                     InvoiceFilter
                         .builder()
                         .locationIds(
-                            new ArrayList<String>(
-                                Arrays.asList("ES0RJRZYEC39A")
-                            )
+                            Arrays.asList("ES0RJRZYEC39A")
                         )
                         .customerIds(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("JDKYHBWT1D4F8MFH63DBMEN8Y4")
                             )
                         )
@@ -7241,7 +7219,7 @@ client.invoices().update(
                 .builder()
                 .version(1)
                 .paymentRequests(
-                    new ArrayList<InvoicePaymentRequest>(
+                    Optional.of(
                         Arrays.asList(
                             InvoicePaymentRequest
                                 .builder()
@@ -8331,7 +8309,7 @@ client.labor().createTimecard(
                         .build()
                 )
                 .breaks(
-                    new ArrayList<Break>(
+                    Optional.of(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -8621,7 +8599,7 @@ client.labor().updateTimecard(
                         .build()
                 )
                 .breaks(
-                    new ArrayList<Break>(
+                    Optional.of(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -8968,7 +8946,7 @@ client.locations().update(
                     BusinessHours
                         .builder()
                         .periods(
-                            new ArrayList<BusinessHoursPeriod>(
+                            Optional.of(
                                 Arrays.asList(
                                     BusinessHoursPeriod
                                         .builder()
@@ -9080,14 +9058,14 @@ client.locations().checkouts(
                         .referenceId("reference_id")
                         .customerId("customer_id")
                         .lineItems(
-                            new ArrayList<OrderLineItem>(
+                            Optional.of(
                                 Arrays.asList(
                                     OrderLineItem
                                         .builder()
                                         .quantity("2")
                                         .name("Printed T Shirt")
                                         .appliedTaxes(
-                                            new ArrayList<OrderLineItemAppliedTax>(
+                                            Optional.of(
                                                 Arrays.asList(
                                                     OrderLineItemAppliedTax
                                                         .builder()
@@ -9097,7 +9075,7 @@ client.locations().checkouts(
                                             )
                                         )
                                         .appliedDiscounts(
-                                            new ArrayList<OrderLineItemAppliedDiscount>(
+                                            Optional.of(
                                                 Arrays.asList(
                                                     OrderLineItemAppliedDiscount
                                                         .builder()
@@ -9142,7 +9120,7 @@ client.locations().checkouts(
                             )
                         )
                         .taxes(
-                            new ArrayList<OrderLineItemTax>(
+                            Optional.of(
                                 Arrays.asList(
                                     OrderLineItemTax
                                         .builder()
@@ -9155,7 +9133,7 @@ client.locations().checkouts(
                             )
                         )
                         .discounts(
-                            new ArrayList<OrderLineItemDiscount>(
+                            Optional.of(
                                 Arrays.asList(
                                     OrderLineItemDiscount
                                         .builder()
@@ -9196,7 +9174,7 @@ client.locations().checkouts(
         )
         .redirectUrl("https://merchant.website.com/order-confirm")
         .additionalRecipients(
-            new ArrayList<ChargeRequestAdditionalRecipient>(
+            Optional.of(
                 Arrays.asList(
                     ChargeRequestAdditionalRecipient
                         .builder()
@@ -9896,7 +9874,7 @@ client.orders().create(
                 .locationId("057P5VYJ4A5X1")
                 .referenceId("my-order-001")
                 .lineItems(
-                    new ArrayList<OrderLineItem>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -9915,7 +9893,7 @@ client.orders().create(
                                 .quantity("2")
                                 .catalogObjectId("BEMYCSMIJL46OCDV4KYIKXIB")
                                 .modifiers(
-                                    new ArrayList<OrderLineItemModifier>(
+                                    Optional.of(
                                         Arrays.asList(
                                             OrderLineItemModifier
                                                 .builder()
@@ -9925,7 +9903,7 @@ client.orders().create(
                                     )
                                 )
                                 .appliedDiscounts(
-                                    new ArrayList<OrderLineItemAppliedDiscount>(
+                                    Optional.of(
                                         Arrays.asList(
                                             OrderLineItemAppliedDiscount
                                                 .builder()
@@ -9939,7 +9917,7 @@ client.orders().create(
                     )
                 )
                 .taxes(
-                    new ArrayList<OrderLineItemTax>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItemTax
                                 .builder()
@@ -9952,7 +9930,7 @@ client.orders().create(
                     )
                 )
                 .discounts(
-                    new ArrayList<OrderLineItemDiscount>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItemDiscount
                                 .builder()
@@ -10047,9 +10025,7 @@ client.orders().batchGet(
     BatchGetOrdersRequest
         .builder()
         .orderIds(
-            new ArrayList<String>(
-                Arrays.asList("CAISEM82RcpmcFBM0TfOyiHV3es", "CAISENgvlJ6jLWAzERDzjyHVybY")
-            )
+            Arrays.asList("CAISEM82RcpmcFBM0TfOyiHV3es", "CAISENgvlJ6jLWAzERDzjyHVybY")
         )
         .locationId("057P5VYJ4A5X1")
         .build()
@@ -10126,7 +10102,7 @@ client.orders().calculate(
                 .builder()
                 .locationId("D7AVYMEAPJ3A3")
                 .lineItems(
-                    new ArrayList<OrderLineItem>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -10156,7 +10132,7 @@ client.orders().calculate(
                     )
                 )
                 .discounts(
-                    new ArrayList<OrderLineItemDiscount>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItemDiscount
                                 .builder()
@@ -10350,7 +10326,7 @@ client.orders().search(
     SearchOrdersRequest
         .builder()
         .locationIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("057P5VYJ4A5X1", "18YC4JDH91E1H")
             )
         )
@@ -10364,9 +10340,7 @@ client.orders().search(
                             SearchOrdersStateFilter
                                 .builder()
                                 .states(
-                                    new ArrayList<OrderState>(
-                                        Arrays.asList(OrderState.COMPLETED)
-                                    )
+                                    Arrays.asList(OrderState.COMPLETED)
                                 )
                                 .build()
                         )
@@ -10587,7 +10561,7 @@ client.orders().update(
                 .builder()
                 .locationId("location_id")
                 .lineItems(
-                    new ArrayList<OrderLineItem>(
+                    Optional.of(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -10609,7 +10583,7 @@ client.orders().update(
                 .build()
         )
         .fieldsToClear(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("discounts")
             )
         )
@@ -10729,7 +10703,7 @@ client.orders().pay(
         .orderId("order_id")
         .idempotencyKey("c043a359-7ad9-4136-82a9-c3f1d66dcbff")
         .paymentIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("EnZdNAlWCmfh6Mt5FMNST1o7taB", "0LRiVlbXVwe8ozu4KbZxd12mvaB")
             )
         )
@@ -10907,7 +10881,7 @@ for the default (main) location associated with the seller.
 <dl>
 <dd>
 
-**total:** `Optional<Integer>` — The exact amount in the `total_money` for a payment.
+**total:** `Optional<Long>` — The exact amount in the `total_money` for a payment.
     
 </dd>
 </dl>
@@ -12872,7 +12846,7 @@ client.subscriptions().create(
                 .build()
         )
         .phases(
-            new ArrayList<Phase>(
+            Optional.of(
                 Arrays.asList(
                     Phase
                         .builder()
@@ -13178,17 +13152,17 @@ client.subscriptions().search(
                     SearchSubscriptionsFilter
                         .builder()
                         .customerIds(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("CHFGVKYY8RSV93M5KCYTG4PN0G")
                             )
                         )
                         .locationIds(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("S8GWD5R9QB376")
                             )
                         )
                         .sourceNames(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("My App")
                             )
                         )
@@ -13782,7 +13756,7 @@ on the starting date of the next billing cycle.
 <dl>
 <dd>
 
-**pauseCycleDuration:** `Optional<Integer>` 
+**pauseCycleDuration:** `Optional<Long>` 
 
 The number of billing cycles the subscription will be paused before it is reactivated. 
 
@@ -13944,7 +13918,7 @@ client.subscriptions().swapPlan(
         .subscriptionId("subscription_id")
         .newPlanVariationId("FQ7CDXXWSLUJRPM3GFJSJGZ7")
         .phases(
-            new ArrayList<PhaseInput>(
+            Optional.of(
                 Arrays.asList(
                     PhaseInput
                         .builder()
@@ -14053,7 +14027,7 @@ client.teamMembers().create(
                         .builder()
                         .assignmentType(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS)
                         .locationIds(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                             )
                         )
@@ -14063,7 +14037,7 @@ client.teamMembers().create(
                     WageSetting
                         .builder()
                         .jobAssignments(
-                            new ArrayList<JobAssignment>(
+                            Optional.of(
                                 Arrays.asList(
                                     JobAssignment
                                         .builder()
@@ -14181,9 +14155,7 @@ client.teamMembers().batchCreate(
                                             .assignmentType(Optional.of(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS))
                                             .locationIds(
                                                 Optional.of(
-                                                    new ArrayList<String>(
-                                                        Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
-                                                    )
+                                                    Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                                                 )
                                             )
                                             .build()
@@ -14333,9 +14305,7 @@ client.teamMembers().batchUpdate(
                                             .assignmentType(Optional.of(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS))
                                             .locationIds(
                                                 Optional.of(
-                                                    new ArrayList<String>(
-                                                        Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
-                                                    )
+                                                    Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                                                 )
                                             )
                                             .build()
@@ -14421,7 +14391,7 @@ client.teamMembers().search(
                     SearchTeamMembersFilter
                         .builder()
                         .locationIds(
-                            new ArrayList<String>(
+                            Optional.of(
                                 Arrays.asList("0G5P3VGACMMQZ")
                             )
                         )
@@ -14587,7 +14557,7 @@ client.teamMembers().update(
                                 .builder()
                                 .assignmentType(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS)
                                 .locationIds(
-                                    new ArrayList<String>(
+                                    Optional.of(
                                         Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                                     )
                                 )
@@ -14597,7 +14567,7 @@ client.teamMembers().update(
                             WageSetting
                                 .builder()
                                 .jobAssignments(
-                                    new ArrayList<JobAssignment>(
+                                    Optional.of(
                                         Arrays.asList(
                                             JobAssignment
                                                 .builder()
@@ -15181,16 +15151,14 @@ client.vendors().batchCreate(
                     )
                     .contacts(
                         Optional.of(
-                            new ArrayList<VendorContact>(
-                                Arrays.asList(
-                                    VendorContact
-                                        .builder()
-                                        .ordinal(1)
-                                        .name("Joe Burrow")
-                                        .emailAddress("joe@joesfreshseafood.com")
-                                        .phoneNumber("1-212-555-4250")
-                                        .build()
-                                )
+                            Arrays.asList(
+                                VendorContact
+                                    .builder()
+                                    .ordinal(1)
+                                    .name("Joe Burrow")
+                                    .emailAddress("joe@joesfreshseafood.com")
+                                    .phoneNumber("1-212-555-4250")
+                                    .build()
                             )
                         )
                     )
@@ -15258,7 +15226,7 @@ client.vendors().batchGet(
     BatchGetVendorsRequest
         .builder()
         .vendorIds(
-            new ArrayList<String>(
+            Optional.of(
                 Arrays.asList("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
             )
         )
@@ -15418,7 +15386,7 @@ client.vendors().create(
                         .build()
                 )
                 .contacts(
-                    new ArrayList<VendorContact>(
+                    Optional.of(
                         Arrays.asList(
                             VendorContact
                                 .builder()
@@ -17424,7 +17392,7 @@ Default value: `false`
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Integer>` 
+**catalogVersion:** `Optional<Long>` 
 
 Requests objects as of a specific version of the catalog. This allows you to retrieve historical
 versions of objects. The value to retrieve a specific version of an object can be found
@@ -18077,7 +18045,7 @@ client.customers().customAttributeDefinitions().create(
                 .key("favoritemovie")
                 .schema(
                     new HashMap<String, Object>() {{
-                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                        put("\\$ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
                     }}
                 )
                 .name("Favorite Movie")
@@ -20982,7 +20950,7 @@ client.labor().shifts().create(
                         .build()
                 )
                 .breaks(
-                    new ArrayList<Break>(
+                    Optional.of(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -21272,7 +21240,7 @@ client.labor().shifts().update(
                         .build()
                 )
                 .breaks(
-                    new ArrayList<Break>(
+                    Optional.of(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -21803,7 +21771,7 @@ client.locations().customAttributeDefinitions().create(
                 .key("bestseller")
                 .schema(
                     new HashMap<String, Object>() {{
-                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                        put("\\$ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
                     }}
                 )
                 .name("Bestseller")
@@ -23132,7 +23100,7 @@ client.loyalty().accounts().search(
             SearchLoyaltyAccountsRequestLoyaltyAccountQuery
                 .builder()
                 .mappings(
-                    new ArrayList<LoyaltyAccountMapping>(
+                    Optional.of(
                         Arrays.asList(
                             LoyaltyAccountMapping
                                 .builder()
@@ -24245,9 +24213,7 @@ client.loyalty().programs().promotions().create(
                     LoyaltyPromotionAvailableTimeData
                         .builder()
                         .timePeriods(
-                            new ArrayList<String>(
-                                Arrays.asList("BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT")
-                            )
+                            Arrays.asList("BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT")
                         )
                         .build()
                 )
@@ -24266,7 +24232,7 @@ client.loyalty().programs().promotions().create(
                         .build()
                 )
                 .qualifyingCategoryIds(
-                    new ArrayList<String>(
+                    Optional.of(
                         Arrays.asList("XTQPYLR3IIU9C44VRCB3XD12")
                     )
                 )
@@ -24599,7 +24565,7 @@ client.merchants().customAttributeDefinitions().create(
                 .key("alternative_seller_name")
                 .schema(
                     new HashMap<String, Object>() {{
-                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
+                        put("\\$ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.String");
                     }}
                 )
                 .name("Alternative Merchant Name")
@@ -25587,7 +25553,7 @@ client.orders().customAttributeDefinitions().create(
                 .key("cover-count")
                 .schema(
                     new HashMap<String, Object>() {{
-                        put("ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.Number");
+                        put("\\$ref", "https://developer-production-s.squarecdn.com/schemas/v1/common.json#squareup.common.Number");
                     }}
                 )
                 .name("Cover count")
@@ -26565,7 +26531,7 @@ client.teamMembers().wageSetting().update(
             WageSetting
                 .builder()
                 .jobAssignments(
-                    new ArrayList<JobAssignment>(
+                    Optional.of(
                         Arrays.asList(
                             JobAssignment
                                 .builder()
@@ -27750,7 +27716,7 @@ client.webhooks().subscriptions().create(
                 .builder()
                 .name("Example Webhook Subscription")
                 .eventTypes(
-                    new ArrayList<String>(
+                    Optional.of(
                         Arrays.asList("payment.created", "payment.updated")
                     )
                 )

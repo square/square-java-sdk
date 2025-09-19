@@ -95,7 +95,9 @@ public final class BulkDeleteOrderCustomAttributesRequest {
         }
 
         public Builder putAllValues(Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

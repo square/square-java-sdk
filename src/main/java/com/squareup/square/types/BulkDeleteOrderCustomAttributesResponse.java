@@ -127,7 +127,9 @@ public final class BulkDeleteOrderCustomAttributesResponse {
         }
 
         public Builder putAllValues(Map<String, DeleteOrderCustomAttributeResponse> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

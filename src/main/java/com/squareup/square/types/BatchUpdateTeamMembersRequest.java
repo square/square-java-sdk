@@ -100,7 +100,9 @@ public final class BatchUpdateTeamMembersRequest {
         }
 
         public Builder putAllTeamMembers(Map<String, UpdateTeamMemberRequest> teamMembers) {
-            this.teamMembers.putAll(teamMembers);
+            if (teamMembers != null) {
+                this.teamMembers.putAll(teamMembers);
+            }
             return this;
         }
 

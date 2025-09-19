@@ -647,7 +647,9 @@ public final class CatalogCustomAttributeDefinition {
          */
         @java.lang.Override
         public _FinalStage addAllAllowedObjectTypes(List<CatalogObjectType> allowedObjectTypes) {
-            this.allowedObjectTypes.addAll(allowedObjectTypes);
+            if (allowedObjectTypes != null) {
+                this.allowedObjectTypes.addAll(allowedObjectTypes);
+            }
             return this;
         }
 
