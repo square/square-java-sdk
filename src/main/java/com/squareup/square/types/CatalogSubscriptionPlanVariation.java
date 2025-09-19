@@ -441,7 +441,9 @@ public final class CatalogSubscriptionPlanVariation {
          */
         @java.lang.Override
         public _FinalStage addAllPhases(List<SubscriptionPhase> phases) {
-            this.phases.addAll(phases);
+            if (phases != null) {
+                this.phases.addAll(phases);
+            }
             return this;
         }
 

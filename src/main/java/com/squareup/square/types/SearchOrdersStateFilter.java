@@ -99,7 +99,9 @@ public final class SearchOrdersStateFilter {
         }
 
         public Builder addAllStates(List<OrderState> states) {
-            this.states.addAll(states);
+            if (states != null) {
+                this.states.addAll(states);
+            }
             return this;
         }
 

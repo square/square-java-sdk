@@ -182,7 +182,9 @@ public final class LoyaltyPromotionAvailableTimeData {
         }
 
         public Builder addAllTimePeriods(List<String> timePeriods) {
-            this.timePeriods.addAll(timePeriods);
+            if (timePeriods != null) {
+                this.timePeriods.addAll(timePeriods);
+            }
             return this;
         }
 
