@@ -100,7 +100,9 @@ public final class BulkCreateCustomersRequest {
         }
 
         public Builder putAllCustomers(Map<String, BulkCreateCustomerData> customers) {
-            this.customers.putAll(customers);
+            if (customers != null) {
+                this.customers.putAll(customers);
+            }
             return this;
         }
 

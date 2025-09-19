@@ -97,7 +97,9 @@ public final class CatalogQueryItemsForModifierList {
         }
 
         public Builder addAllModifierListIds(List<String> modifierListIds) {
-            this.modifierListIds.addAll(modifierListIds);
+            if (modifierListIds != null) {
+                this.modifierListIds.addAll(modifierListIds);
+            }
             return this;
         }
 

@@ -123,7 +123,9 @@ public final class BulkPublishScheduledShiftsRequest {
         }
 
         public Builder putAllScheduledShifts(Map<String, BulkPublishScheduledShiftsData> scheduledShifts) {
-            this.scheduledShifts.putAll(scheduledShifts);
+            if (scheduledShifts != null) {
+                this.scheduledShifts.putAll(scheduledShifts);
+            }
             return this;
         }
 

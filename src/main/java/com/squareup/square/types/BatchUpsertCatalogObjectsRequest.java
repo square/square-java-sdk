@@ -211,7 +211,9 @@ public final class BatchUpsertCatalogObjectsRequest {
          */
         @java.lang.Override
         public _FinalStage addAllBatches(List<CatalogObjectBatch> batches) {
-            this.batches.addAll(batches);
+            if (batches != null) {
+                this.batches.addAll(batches);
+            }
             return this;
         }
 
