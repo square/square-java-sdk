@@ -97,7 +97,9 @@ public final class CatalogObjectBatch {
         }
 
         public Builder addAllObjects(List<CatalogObject> objects) {
-            this.objects.addAll(objects);
+            if (objects != null) {
+                this.objects.addAll(objects);
+            }
             return this;
         }
 

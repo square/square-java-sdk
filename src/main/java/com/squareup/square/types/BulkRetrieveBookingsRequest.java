@@ -97,7 +97,9 @@ public final class BulkRetrieveBookingsRequest {
         }
 
         public Builder addAllBookingIds(List<String> bookingIds) {
-            this.bookingIds.addAll(bookingIds);
+            if (bookingIds != null) {
+                this.bookingIds.addAll(bookingIds);
+            }
             return this;
         }
 

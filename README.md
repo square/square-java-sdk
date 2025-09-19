@@ -1,8 +1,9 @@
 # Square Java Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fsquare%2Fsquare-java-sdk)
+[![Maven Central](https://img.shields.io/maven-central/v/com.squareup/square)](https://central.sonatype.com/artifact/com.squareup/square)
 
-The Square Java library provides convenient access to the Square API from Java.
+The Square Java library provides convenient access to the Square APIs from Java.
 
 ## Requirements
 
@@ -14,63 +15,75 @@ Use of the Square Java SDK requires:
 
 ### Gradle
 
-Add the dependency in your `build.gradle`:
+Add the dependency in your `build.gradle` file:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:44.0.0.20250319'
+  implementation 'com.squareup:square'
 }
 ```
 
 ### Maven
 
-Add the dependency in your `pom.xml`:
+Add the dependency in your `pom.xml` file:
 
 ```xml
 <dependency>
-    <groupId>com.squareup</groupId>
-    <artifactId>square</artifactId>
-    <version>44.0.0.20250319</version>
+  <groupId>com.squareup</groupId>
+  <artifactId>square</artifactId>
+  <version>0.0.476</version>
 </dependency>
 ```
+
+## Reference
+
+A full reference for this library is available [here](https://github.com/square/square-java-sdk/blob/HEAD/./reference.md).
 
 ## Usage
 
 Instantiate and use the client with the following:
 
 ```java
-package com.square.examples;
+package com.example.usage;
 
 import com.squareup.square.SquareClient;
-import com.squareup.square.types.CashPaymentDetails;
 import com.squareup.square.types.CreatePaymentRequest;
-import com.squareup.square.types.CreatePaymentResponse;
 import com.squareup.square.types.Currency;
 import com.squareup.square.types.Money;
 
-public class QuickStart {
-
+public class Example {
     public static void main(String[] args) {
-        SquareClient square = SquareClient.builder().build();
-        CreatePaymentResponse response = square.payments()
-                .create(CreatePaymentRequest.builder()
-                        .sourceId("CASH")
-                        .idempotencyKey("4935a656-a929-4792-b97c-8848be85c27c")
-                        .amountMoney(Money.builder()
-                                .amount(100L)
-                                .currency(Currency.USD)
-                                .build())
-                        .tipMoney(Money.builder()
-                                .amount(50L)
-                                .currency(Currency.USD)
-                                .build())
-                        .cashDetails(CashPaymentDetails.builder()
-                                .buyerSuppliedMoney(Money.builder()
-                                        .amount(200L)
-                                        .currency(Currency.USD)
-                                        .build())
-                                .build())
-                        .build());
+        SquareClient client = SquareClient
+            .builder()
+            .token("<token>")
+            .build();
+
+        client.payments().create(
+            CreatePaymentRequest
+                .builder()
+                .sourceId("ccof:GaJGNaZa8x4OgDJn4GB")
+                .idempotencyKey("7b0f3ec5-086a-4871-8f13-3c81b3875218")
+                .amountMoney(
+                    Money
+                        .builder()
+                        .amount(1000L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .appFeeMoney(
+                    Money
+                        .builder()
+                        .amount(10L)
+                        .currency(Currency.USD)
+                        .build()
+                )
+                .autocomplete(true)
+                .customerId("W92WH6P11H4Z77CTET0RNTGFW8")
+                .locationId("L88917AVBK2S5")
+                .referenceId("123456")
+                .note("Brief description")
+                .build()
+        );
     }
 }
 ```
@@ -235,20 +248,44 @@ square.cards().create(..., RequestOptions.builder()
   .build());
 ```
 
-## Exception Handling
+## Environments
 
-When the API returns a non-success status code (`4xx` or `5xx` response), a `SquareApiException` will be thrown.
+This SDK allows you to configure different environments for API requests.
 
 ```java
 import com.squareup.square.SquareClient;
+import com.squareup.square.core.Environment;
+
+SquareClient client = SquareClient
+    .builder()
+    .environment(Environment.Production)
+    .build();
+```
+
+## Base Url
+
+You can set a custom base URL when constructing the client.
+
+```java
+import com.squareup.square.SquareClient;
+
+SquareClient client = SquareClient
+    .builder()
+    .url("https://example.com")
+    .build();
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), an API exception will be thrown.
+
+```java
 import com.squareup.square.core.SquareApiException;
 
 try {
-    square.payments().create(...);
+    client.payments().create(...);
 } catch (SquareApiException e) {
-    System.out.println("Square API exception occurred: " + e.getMessage());
-    System.out.println("Status code: " + e.statusCode());
-    System.out.println("Response body: " + e.body());
+    // Do something with the API exception...
 }
 ```
 
@@ -323,35 +360,94 @@ Maven:
 3. Gradually move over to use the new SDK by importing it from the `com.squareup.square` import
 ## Advanced
 
-### Custom HTTP Client
+### Custom Client
 
-This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one. However, you can pass your own client like so:
+This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one. 
+However, you can pass your own client like so:
 
 ```java
 import com.squareup.square.SquareClient;
-import com.squareup.square.core.Environment;
 import okhttp3.OkHttpClient;
 
-OkHttpClient customClient = ... ;
+OkHttpClient customClient = ...;
 
-SquareClient square =
-        SquareClient.builder()
-                .environment(Environment.PRODUCTION)
-                .token("YOUR_TOKEN")
-                .httpClient(customClient)
-                .build();
+SquareClient client = SquareClient
+    .builder()
+    .httpClient(customClient)
+    .build();
 ```
 
-### Receive Additional Properties
+### Retries
 
-Every response type includes the `getAdditionalProperties` method, which returns an array that contains any properties in the JSON response that 
-were not specified in the returned class. Similar to the use case for sending additional parameters, this can be useful for API features not present in the SDK yet.
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
 
-You can access the additional properties like so:
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` client option to configure this behavior.
 
 ```java
-CreatePaymentResponse payments = square.payments().create(...);
-Map<String, Object> additionalProperties = payments.getAdditionalProperties();
+import com.squareup.square.SquareClient;
+
+SquareClient client = SquareClient
+    .builder()
+    .maxRetries(1)
+    .build();
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.RequestOptions;
+
+// Client level
+SquareClient client = SquareClient
+    .builder()
+    .timeout(10)
+    .build();
+
+// Request level
+client.payments().create(
+    ...,
+    RequestOptions
+        .builder()
+        .timeout(10)
+        .build()
+);
+```
+
+### Custom Headers
+
+The SDK allows you to add custom headers to requests. You can configure headers at the client level or at the request level.
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.core.RequestOptions;
+
+// Client level
+SquareClient client = SquareClient
+    .builder()
+    .addHeader("X-Custom-Header", "custom-value")
+    .addHeader("X-Request-Id", "abc-123")
+    .build();
+;
+
+// Request level
+client.payments().create(
+    ...,
+    RequestOptions
+        .builder()
+        .addHeader("X-Request-Header", "request-value")
+        .build()
+);
 ```
 
 ## Contributing
