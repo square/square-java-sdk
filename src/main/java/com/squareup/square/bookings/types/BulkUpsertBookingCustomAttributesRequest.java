@@ -98,7 +98,9 @@ public final class BulkUpsertBookingCustomAttributesRequest {
         }
 
         public Builder putAllValues(Map<String, BookingCustomAttributeUpsertRequest> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

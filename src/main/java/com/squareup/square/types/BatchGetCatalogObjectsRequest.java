@@ -225,7 +225,9 @@ public final class BatchGetCatalogObjectsRequest {
         }
 
         public Builder addAllObjectIds(List<String> objectIds) {
-            this.objectIds.addAll(objectIds);
+            if (objectIds != null) {
+                this.objectIds.addAll(objectIds);
+            }
             return this;
         }
 

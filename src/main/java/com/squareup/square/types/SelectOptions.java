@@ -220,7 +220,9 @@ public final class SelectOptions {
          */
         @java.lang.Override
         public _FinalStage addAllOptions(List<SelectOption> options) {
-            this.options.addAll(options);
+            if (options != null) {
+                this.options.addAll(options);
+            }
             return this;
         }
 

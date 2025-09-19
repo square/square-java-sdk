@@ -152,7 +152,9 @@ public final class BatchGetOrdersRequest {
         }
 
         public Builder addAllOrderIds(List<String> orderIds) {
-            this.orderIds.addAll(orderIds);
+            if (orderIds != null) {
+                this.orderIds.addAll(orderIds);
+            }
             return this;
         }
 

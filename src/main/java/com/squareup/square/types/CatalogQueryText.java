@@ -97,7 +97,9 @@ public final class CatalogQueryText {
         }
 
         public Builder addAllKeywords(List<String> keywords) {
-            this.keywords.addAll(keywords);
+            if (keywords != null) {
+                this.keywords.addAll(keywords);
+            }
             return this;
         }
 
