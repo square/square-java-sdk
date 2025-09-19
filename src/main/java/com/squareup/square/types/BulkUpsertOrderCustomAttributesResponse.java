@@ -125,7 +125,9 @@ public final class BulkUpsertOrderCustomAttributesResponse {
         }
 
         public Builder putAllValues(Map<String, UpsertOrderCustomAttributeResponse> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

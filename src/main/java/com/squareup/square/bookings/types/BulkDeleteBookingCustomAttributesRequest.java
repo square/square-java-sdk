@@ -98,7 +98,9 @@ public final class BulkDeleteBookingCustomAttributesRequest {
         }
 
         public Builder putAllValues(Map<String, BookingCustomAttributeDeleteRequest> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

@@ -100,7 +100,9 @@ public final class BulkDeleteMerchantCustomAttributesRequest {
 
         public Builder putAllValues(
                 Map<String, BulkDeleteMerchantCustomAttributesRequestMerchantCustomAttributeDeleteRequest> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

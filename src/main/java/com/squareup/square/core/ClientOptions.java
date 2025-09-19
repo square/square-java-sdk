@@ -32,10 +32,9 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.squareup:square/45.0.2.20250820");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.square.fern:api-sdk");
-                put("X-Fern-SDK-Version", "45.0.2.20250820");
+                put("X-Fern-SDK-Version", "0.0.475");
             }
         });
         this.headerSuppliers = headerSuppliers;
@@ -86,7 +85,7 @@ public final class ClientOptions {
         return new Builder();
     }
 
-    public static final class Builder {
+    public static class Builder {
         private Environment environment;
 
         private final Map<String, String> headers = new HashMap<>();
@@ -166,6 +165,17 @@ public final class ClientOptions {
             this.timeout = Optional.of(httpClient.callTimeoutMillis() / 1000);
 
             return new ClientOptions(environment, headers, headerSuppliers, httpClient, this.timeout.get());
+        }
+
+        /**
+         * Create a new Builder initialized with values from an existing ClientOptions
+         */
+        public static Builder from(ClientOptions clientOptions) {
+            Builder builder = new Builder();
+            builder.environment = clientOptions.environment();
+            builder.timeout = Optional.of(clientOptions.timeout(null));
+            builder.httpClient = clientOptions.httpClient();
+            return builder;
         }
     }
 }

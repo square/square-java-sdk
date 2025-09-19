@@ -157,7 +157,9 @@ public final class UpdateItemTaxesRequest {
         }
 
         public Builder addAllItemIds(List<String> itemIds) {
-            this.itemIds.addAll(itemIds);
+            if (itemIds != null) {
+                this.itemIds.addAll(itemIds);
+            }
             return this;
         }
 

@@ -98,7 +98,9 @@ public final class BatchCreateTeamMembersRequest {
         }
 
         public Builder putAllTeamMembers(Map<String, CreateTeamMemberRequest> teamMembers) {
-            this.teamMembers.putAll(teamMembers);
+            if (teamMembers != null) {
+                this.teamMembers.putAll(teamMembers);
+            }
             return this;
         }
 

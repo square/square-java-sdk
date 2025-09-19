@@ -101,7 +101,9 @@ public final class LoyaltyEventLocationFilter {
         }
 
         public Builder addAllLocationIds(List<String> locationIds) {
-            this.locationIds.addAll(locationIds);
+            if (locationIds != null) {
+                this.locationIds.addAll(locationIds);
+            }
             return this;
         }
 
