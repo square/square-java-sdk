@@ -97,7 +97,9 @@ public final class CatalogQueryItemsForTax {
         }
 
         public Builder addAllTaxIds(List<String> taxIds) {
-            this.taxIds.addAll(taxIds);
+            if (taxIds != null) {
+                this.taxIds.addAll(taxIds);
+            }
             return this;
         }
 

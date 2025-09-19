@@ -103,7 +103,9 @@ public final class LoyaltyEventTypeFilter {
         }
 
         public Builder addAllTypes(List<LoyaltyEventType> types) {
-            this.types.addAll(types);
+            if (types != null) {
+                this.types.addAll(types);
+            }
             return this;
         }
 

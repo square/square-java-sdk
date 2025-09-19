@@ -97,7 +97,9 @@ public final class BulkDeleteCustomersRequest {
         }
 
         public Builder addAllCustomerIds(List<String> customerIds) {
-            this.customerIds.addAll(customerIds);
+            if (customerIds != null) {
+                this.customerIds.addAll(customerIds);
+            }
             return this;
         }
 

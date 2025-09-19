@@ -135,7 +135,9 @@ public final class ListOrderCustomAttributeDefinitionsResponse {
         }
 
         public Builder addAllCustomAttributeDefinitions(List<CustomAttributeDefinition> customAttributeDefinitions) {
-            this.customAttributeDefinitions.addAll(customAttributeDefinitions);
+            if (customAttributeDefinitions != null) {
+                this.customAttributeDefinitions.addAll(customAttributeDefinitions);
+            }
             return this;
         }
 
