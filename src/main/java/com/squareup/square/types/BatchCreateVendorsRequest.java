@@ -91,7 +91,9 @@ public final class BatchCreateVendorsRequest {
         }
 
         public Builder putAllVendors(Map<String, Vendor> vendors) {
-            this.vendors.putAll(vendors);
+            if (vendors != null) {
+                this.vendors.putAll(vendors);
+            }
             return this;
         }
 
