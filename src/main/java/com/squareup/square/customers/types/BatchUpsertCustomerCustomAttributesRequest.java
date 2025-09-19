@@ -102,7 +102,9 @@ public final class BatchUpsertCustomerCustomAttributesRequest {
 
         public Builder putAllValues(
                 Map<String, BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

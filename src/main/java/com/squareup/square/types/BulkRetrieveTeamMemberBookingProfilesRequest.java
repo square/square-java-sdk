@@ -99,7 +99,9 @@ public final class BulkRetrieveTeamMemberBookingProfilesRequest {
         }
 
         public Builder addAllTeamMemberIds(List<String> teamMemberIds) {
-            this.teamMemberIds.addAll(teamMemberIds);
+            if (teamMemberIds != null) {
+                this.teamMemberIds.addAll(teamMemberIds);
+            }
             return this;
         }
 

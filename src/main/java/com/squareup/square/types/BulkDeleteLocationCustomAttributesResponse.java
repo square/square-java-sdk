@@ -116,7 +116,9 @@ public final class BulkDeleteLocationCustomAttributesResponse {
 
         public Builder putAllValues(
                 Map<String, BulkDeleteLocationCustomAttributesResponseLocationCustomAttributeDeleteResponse> values) {
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

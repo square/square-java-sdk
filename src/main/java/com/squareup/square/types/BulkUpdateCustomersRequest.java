@@ -102,7 +102,9 @@ public final class BulkUpdateCustomersRequest {
         }
 
         public Builder putAllCustomers(Map<String, BulkUpdateCustomerData> customers) {
-            this.customers.putAll(customers);
+            if (customers != null) {
+                this.customers.putAll(customers);
+            }
             return this;
         }
 
