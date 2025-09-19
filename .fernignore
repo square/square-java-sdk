@@ -1,5 +1,4 @@
 # Specify files that shouldn't be modified by Fern
-README.md
 settings.gradle
 legacy-sdk
 src/test/java/com/squareup/square/integration
