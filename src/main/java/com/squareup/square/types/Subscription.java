@@ -62,6 +62,8 @@ public final class Subscription {
 
     private final Optional<List<Phase>> phases;
 
+    private final Optional<String> completedDate;
+
     private final Map<String, Object> additionalProperties;
 
     private Subscription(
@@ -84,6 +86,7 @@ public final class Subscription {
             Optional<List<SubscriptionAction>> actions,
             Optional<Integer> monthlyBillingAnchorDate,
             Optional<List<Phase>> phases,
+            Optional<String> completedDate,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.locationId = locationId;
@@ -104,6 +107,7 @@ public final class Subscription {
         this.actions = actions;
         this.monthlyBillingAnchorDate = monthlyBillingAnchorDate;
         this.phases = phases;
+        this.completedDate = completedDate;
         this.additionalProperties = additionalProperties;
     }
 
@@ -298,6 +302,17 @@ public final class Subscription {
         return phases;
     }
 
+    /**
+     * @return The <code>YYYY-MM-DD</code>-formatted date when the subscription enters a terminal state.
+     */
+    @JsonIgnore
+    public Optional<String> getCompletedDate() {
+        if (completedDate == null) {
+            return Optional.empty();
+        }
+        return completedDate;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("canceled_date")
     private Optional<String> _getCanceledDate() {
@@ -320,6 +335,12 @@ public final class Subscription {
     @JsonProperty("actions")
     private Optional<List<SubscriptionAction>> _getActions() {
         return actions;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("completed_date")
+    private Optional<String> _getCompletedDate() {
+        return completedDate;
     }
 
     @java.lang.Override
@@ -352,7 +373,8 @@ public final class Subscription {
                 && source.equals(other.source)
                 && actions.equals(other.actions)
                 && monthlyBillingAnchorDate.equals(other.monthlyBillingAnchorDate)
-                && phases.equals(other.phases);
+                && phases.equals(other.phases)
+                && completedDate.equals(other.completedDate);
     }
 
     @java.lang.Override
@@ -376,7 +398,8 @@ public final class Subscription {
                 this.source,
                 this.actions,
                 this.monthlyBillingAnchorDate,
-                this.phases);
+                this.phases,
+                this.completedDate);
     }
 
     @java.lang.Override
@@ -428,6 +451,8 @@ public final class Subscription {
 
         private Optional<List<Phase>> phases = Optional.empty();
 
+        private Optional<String> completedDate = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -453,6 +478,7 @@ public final class Subscription {
             actions(other.getActions());
             monthlyBillingAnchorDate(other.getMonthlyBillingAnchorDate());
             phases(other.getPhases());
+            completedDate(other.getCompletedDate());
             return this;
         }
 
@@ -793,6 +819,31 @@ public final class Subscription {
             return this;
         }
 
+        /**
+         * <p>The <code>YYYY-MM-DD</code>-formatted date when the subscription enters a terminal state.</p>
+         */
+        @JsonSetter(value = "completed_date", nulls = Nulls.SKIP)
+        public Builder completedDate(Optional<String> completedDate) {
+            this.completedDate = completedDate;
+            return this;
+        }
+
+        public Builder completedDate(String completedDate) {
+            this.completedDate = Optional.ofNullable(completedDate);
+            return this;
+        }
+
+        public Builder completedDate(Nullable<String> completedDate) {
+            if (completedDate.isNull()) {
+                this.completedDate = null;
+            } else if (completedDate.isEmpty()) {
+                this.completedDate = Optional.empty();
+            } else {
+                this.completedDate = Optional.of(completedDate.get());
+            }
+            return this;
+        }
+
         public Subscription build() {
             return new Subscription(
                     id,
@@ -814,6 +865,7 @@ public final class Subscription {
                     actions,
                     monthlyBillingAnchorDate,
                     phases,
+                    completedDate,
                     additionalProperties);
         }
     }

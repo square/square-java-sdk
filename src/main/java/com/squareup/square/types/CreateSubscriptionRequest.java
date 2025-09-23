@@ -131,7 +131,7 @@ public final class CreateSubscriptionRequest {
      * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
      * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
      * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
-     * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+     * occurs before the subscription plan completes, the specified <code>canceled_date</code> sets the date when the subscription
      * stops through the end of the last cycle.</p>
      */
     @JsonProperty("canceled_date")
@@ -308,7 +308,7 @@ public final class CreateSubscriptionRequest {
          * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
          * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
          * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
-         * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+         * occurs before the subscription plan completes, the specified <code>canceled_date</code> sets the date when the subscription
          * stops through the end of the last cycle.</p>
          */
         _FinalStage canceledDate(Optional<String> canceledDate);
@@ -613,7 +613,7 @@ public final class CreateSubscriptionRequest {
          * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
          * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
          * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
-         * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+         * occurs before the subscription plan completes, the specified <code>canceled_date</code> sets the date when the subscription
          * stops through the end of the last cycle.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
@@ -629,7 +629,7 @@ public final class CreateSubscriptionRequest {
          * If the cancellation date is earlier than the end date of a subscription cycle, the subscription stops
          * at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle.</p>
          * <p>When the subscription plan of the newly created subscription has a fixed number of cycles and the <code>canceled_date</code>
-         * occurs before the subscription plan expires, the specified <code>canceled_date</code> sets the date when the subscription
+         * occurs before the subscription plan completes, the specified <code>canceled_date</code> sets the date when the subscription
          * stops through the end of the last cycle.</p>
          */
         @java.lang.Override
