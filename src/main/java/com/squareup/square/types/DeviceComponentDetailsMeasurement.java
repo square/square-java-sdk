@@ -32,6 +32,9 @@ public final class DeviceComponentDetailsMeasurement {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Value of measure.
+     */
     @JsonIgnore
     public Optional<Integer> getValue() {
         if (value == null) {
@@ -89,6 +92,9 @@ public final class DeviceComponentDetailsMeasurement {
             return this;
         }
 
+        /**
+         * <p>Value of measure.</p>
+         */
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public Builder value(Optional<Integer> value) {
             this.value = value;
