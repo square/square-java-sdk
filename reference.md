@@ -505,6 +505,9 @@ client.v1Transactions().v1ListOrders(
     V1ListOrdersRequest
         .builder()
         .locationId("location_id")
+        .order(SortOrder.DESC)
+        .limit(1)
+        .batchToken("batch_token")
         .build()
 );
 ```
@@ -844,6 +847,9 @@ Returns a list of [BankAccount](entity:BankAccount) objects linked to a Square a
 client.bankAccounts().list(
     ListBankAccountsRequest
         .builder()
+        .cursor("cursor")
+        .limit(1)
+        .locationId("location_id")
         .build()
 );
 ```
@@ -1057,6 +1063,13 @@ To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ`
 client.bookings().list(
     ListBookingsRequest
         .builder()
+        .limit(1)
+        .cursor("cursor")
+        .customerId("customer_id")
+        .teamMemberId("team_member_id")
+        .locationId("location_id")
+        .startAtMin("start_at_min")
+        .startAtMax("start_at_max")
         .build()
 );
 ```
@@ -1777,6 +1790,11 @@ A max of 25 cards will be returned.
 client.cards().list(
     ListCardsRequest
         .builder()
+        .cursor("cursor")
+        .customerId("customer_id")
+        .includeDisabled(true)
+        .referenceId("reference_id")
+        .sortOrder(SortOrder.DESC)
         .build()
 );
 ```
@@ -2512,6 +2530,9 @@ and set the `include_deleted_objects` attribute value to `true`.
 client.catalog().list(
     ListCatalogRequest
         .builder()
+        .cursor("cursor")
+        .types("types")
+        .catalogVersion(1000000L)
         .build()
 );
 ```
@@ -3162,6 +3183,225 @@ At least one of `taxes_to_enable` or `taxes_to_disable` must be specified.
 </dl>
 </details>
 
+## Channels
+<details><summary><code>client.channels.list() -> ListChannelsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.channels().list(
+    ListChannelsRequest
+        .builder()
+        .referenceType(ReferenceType.UNKNOWN_TYPE)
+        .referenceId("reference_id")
+        .status(ChannelStatus.ACTIVE)
+        .cursor("cursor")
+        .limit(1)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**referenceType:** `Optional<ReferenceType>` — Type of reference associated to channel
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**referenceId:** `Optional<String>` — id of reference associated to channel
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `Optional<ChannelStatus>` — Status of channel
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — Cursor to fetch the next result
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` 
+
+Maximum number of results to return.
+When not provided the returned results will be cap at 100 channels.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.bulkRetrieve(request) -> BulkRetrieveChannelsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.channels().bulkRetrieve(
+    BulkRetrieveChannelsRequest
+        .builder()
+        .channelIds(
+            Arrays.asList("CH_9C03D0B59", "CH_6X139B5MN", "NOT_EXISTING")
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**channelIds:** `List<String>` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.channels.get(channelId) -> RetrieveChannelResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.channels().get(
+    GetChannelsRequest
+        .builder()
+        .channelId("channel_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**channelId:** `String` — A channel id
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Customers
 <details><summary><code>client.customers.list() -> ListCustomersResponse</code></summary>
 <dl>
@@ -3197,6 +3437,11 @@ profiles can take closer to one minute or longer, especially during network inci
 client.customers().list(
     ListCustomersRequest
         .builder()
+        .cursor("cursor")
+        .limit(1)
+        .sortField(CustomerSortField.DEFAULT)
+        .sortOrder(SortOrder.DESC)
+        .count(true)
         .build()
 );
 ```
@@ -4288,6 +4533,7 @@ client.customers().delete(
     DeleteCustomersRequest
         .builder()
         .customerId("customer_id")
+        .version(1000000L)
         .build()
 );
 ```
@@ -4360,6 +4606,10 @@ devices are supported.
 client.devices().list(
     ListDevicesRequest
         .builder()
+        .cursor("cursor")
+        .sortOrder(SortOrder.DESC)
+        .limit(1)
+        .locationId("location_id")
         .build()
 );
 ```
@@ -4510,6 +4760,9 @@ Returns a list of disputes associated with a particular account.
 client.disputes().list(
     ListDisputesRequest
         .builder()
+        .cursor("cursor")
+        .states(DisputeState.INQUIRY_EVIDENCE_REQUIRED)
+        .locationId("location_id")
         .build()
 );
 ```
@@ -4928,6 +5181,10 @@ client.disputes().submitEvidence(
 client.employees().list(
     ListEmployeesRequest
         .builder()
+        .locationId("location_id")
+        .status(EmployeeStatus.ACTIVE)
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -5234,6 +5491,7 @@ Lists all event types that you can subscribe to as webhooks or query using the E
 client.events().listEventTypes(
     ListEventTypesRequest
         .builder()
+        .apiVersion("api_version")
         .build()
 );
 ```
@@ -5294,6 +5552,11 @@ a subset of the gift cards. Results are sorted by `created_at` in ascending orde
 client.giftCards().list(
     ListGiftCardsRequest
         .builder()
+        .type("type")
+        .state("state")
+        .limit(1)
+        .cursor("cursor")
+        .customerId("customer_id")
         .build()
 );
 ```
@@ -6625,6 +6888,8 @@ client.inventory().get(
     GetInventoryRequest
         .builder()
         .catalogObjectId("catalog_object_id")
+        .locationIds("location_ids")
+        .cursor("cursor")
         .build()
 );
 ```
@@ -6720,6 +6985,8 @@ client.inventory().changes(
     ChangesInventoryRequest
         .builder()
         .catalogObjectId("catalog_object_id")
+        .locationIds("location_ids")
+        .cursor("cursor")
         .build()
 );
 ```
@@ -6806,6 +7073,8 @@ client.invoices().list(
     ListInvoicesRequest
         .builder()
         .locationId("location_id")
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -7332,6 +7601,7 @@ client.invoices().delete(
     DeleteInvoicesRequest
         .builder()
         .invoiceId("invoice_id")
+        .version(1)
         .build()
 );
 ```
@@ -9507,6 +9777,7 @@ endpoint to retrieve the merchant information.
 client.merchants().list(
     ListMerchantsRequest
         .builder()
+        .cursor(1)
         .build()
 );
 ```
@@ -10804,6 +11075,21 @@ The maximum results per page is 100.
 client.payments().list(
     ListPaymentsRequest
         .builder()
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .sortOrder("sort_order")
+        .cursor("cursor")
+        .locationId("location_id")
+        .total(1000000L)
+        .last4("last_4")
+        .cardBrand("card_brand")
+        .limit(1)
+        .isOfflinePayment(true)
+        .offlineBeginTime("offline_begin_time")
+        .offlineEndTime("offline_end_time")
+        .updatedAtBeginTime("updated_at_begin_time")
+        .updatedAtEndTime("updated_at_end_time")
+        .sortField(ListPaymentsRequestSortField.CREATED_AT)
         .build()
 );
 ```
@@ -11799,6 +12085,13 @@ To call this endpoint, set `PAYOUTS_READ` for the OAuth scope.
 client.payouts().list(
     ListPayoutsRequest
         .builder()
+        .locationId("location_id")
+        .status(PayoutStatus.SENT)
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .sortOrder(SortOrder.DESC)
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -11987,6 +12280,9 @@ client.payouts().listEntries(
     ListEntriesPayoutsRequest
         .builder()
         .payoutId("payout_id")
+        .sortOrder(SortOrder.DESC)
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -12086,6 +12382,17 @@ The maximum results per page is 100.
 client.refunds().list(
     ListRefundsRequest
         .builder()
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .sortOrder("sort_order")
+        .cursor("cursor")
+        .locationId("location_id")
+        .status("status")
+        .sourceType("source_type")
+        .limit(1)
+        .updatedAtBeginTime("updated_at_begin_time")
+        .updatedAtEndTime("updated_at_end_time")
+        .sortField(ListPaymentRefundsRequestSortField.CREATED_AT)
         .build()
 );
 ```
@@ -13272,6 +13579,7 @@ client.subscriptions().get(
     GetSubscriptionsRequest
         .builder()
         .subscriptionId("subscription_id")
+        .include("include")
         .build()
 );
 ```
@@ -13635,6 +13943,8 @@ client.subscriptions().listEvents(
     ListEventsSubscriptionsRequest
         .builder()
         .subscriptionId("subscription_id")
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -14671,6 +14981,7 @@ Lists jobs in a seller account. Results are sorted by title in ascending order.
 client.team().listJobs(
     ListJobsRequest
         .builder()
+        .cursor("cursor")
         .build()
 );
 ```
@@ -15089,6 +15400,793 @@ client.terminal().dismissTerminalRefund(
 <dd>
 
 **terminalRefundId:** `String` — Unique ID for the `TerminalRefund` associated with the refund to be dismissed.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TransferOrders
+<details><summary><code>client.transferOrders.create(request) -> CreateTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new transfer order in [DRAFT](entity:TransferOrderStatus) status. A transfer order represents the intent 
+to move [CatalogItemVariation](entity:CatalogItemVariation)s from one [Location](entity:Location) to another. 
+The source and destination locations must be different and must belong to your Square account.
+
+In [DRAFT](entity:TransferOrderStatus) status, you can:
+- Add or remove items
+- Modify quantities
+- Update shipping information
+- Delete the entire order via [DeleteTransferOrder](api-endpoint:TransferOrders-DeleteTransferOrder)
+
+The request requires source_location_id and destination_location_id.
+Inventory levels are not affected until the order is started via 
+[StartTransferOrder](api-endpoint:TransferOrders-StartTransferOrder).
+
+Common integration points:
+- Sync with warehouse management systems
+- Automate regular stock transfers
+- Initialize transfers from inventory optimization systems
+
+Creates a [transfer_order.created](webhook:transfer_order.created) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().create(
+    CreateTransferOrderRequest
+        .builder()
+        .idempotencyKey("65cc0586-3e82-384s-b524-3885cffd52")
+        .transferOrder(
+            CreateTransferOrderData
+                .builder()
+                .sourceLocationId("EXAMPLE_SOURCE_LOCATION_ID_123")
+                .destinationLocationId("EXAMPLE_DEST_LOCATION_ID_456")
+                .expectedAt("2025-11-09T05:00:00Z")
+                .notes("Example transfer order for inventory redistribution between locations")
+                .trackingNumber("TRACK123456789")
+                .createdByTeamMemberId("EXAMPLE_TEAM_MEMBER_ID_789")
+                .lineItems(
+                    Optional.of(
+                        Arrays.asList(
+                            CreateTransferOrderLineData
+                                .builder()
+                                .itemVariationId("EXAMPLE_ITEM_VARIATION_ID_001")
+                                .quantityOrdered("5")
+                                .build(),
+                            CreateTransferOrderLineData
+                                .builder()
+                                .itemVariationId("EXAMPLE_ITEM_VARIATION_ID_002")
+                                .quantityOrdered("3")
+                                .build()
+                        )
+                    )
+                )
+                .build()
+        )
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this CreateTransferOrder request. Keys can be
+any valid string but must be unique for every CreateTransferOrder request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transferOrder:** `CreateTransferOrderData` — The transfer order to create
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.search(request) -> SearchTransferOrdersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Searches for transfer orders using filters. Returns a paginated list of matching
+[TransferOrder](entity:TransferOrder)s sorted by creation date.
+
+Common search scenarios:
+- Find orders for a source [Location](entity:Location)
+- Find orders for a destination [Location](entity:Location)
+- Find orders in a particular [TransferOrderStatus](entity:TransferOrderStatus)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().search(
+    SearchTransferOrdersRequest
+        .builder()
+        .query(
+            TransferOrderQuery
+                .builder()
+                .filter(
+                    TransferOrderFilter
+                        .builder()
+                        .sourceLocationIds(
+                            Optional.of(
+                                Arrays.asList("EXAMPLE_SOURCE_LOCATION_ID_123")
+                            )
+                        )
+                        .destinationLocationIds(
+                            Optional.of(
+                                Arrays.asList("EXAMPLE_DEST_LOCATION_ID_456")
+                            )
+                        )
+                        .statuses(
+                            Optional.of(
+                                Arrays.asList(TransferOrderStatus.STARTED, TransferOrderStatus.PARTIALLY_RECEIVED)
+                            )
+                        )
+                        .build()
+                )
+                .sort(
+                    TransferOrderSort
+                        .builder()
+                        .field(TransferOrderSortField.UPDATED_AT)
+                        .order(SortOrder.DESC)
+                        .build()
+                )
+                .build()
+        )
+        .cursor("eyJsYXN0X3VwZGF0ZWRfYXQiOjE3NTMxMTg2NjQ4NzN9")
+        .limit(10)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query:** `Optional<TransferOrderQuery>` — The search query
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `Optional<String>` — Pagination cursor from a previous search response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Optional<Integer>` — Maximum number of results to return (1-100)
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.get(transferOrderId) -> RetrieveTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific [TransferOrder](entity:TransferOrder) by ID. Returns the complete
+order details including:
+
+- Basic information (status, dates, notes)
+- Line items with ordered and received quantities
+- Source and destination [Location](entity:Location)s
+- Tracking information (if available)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().get(
+    GetTransferOrdersRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to retrieve
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.update(transferOrderId, request) -> UpdateTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing transfer order. This endpoint supports sparse updates,
+allowing you to modify specific fields without affecting others.
+
+Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().update(
+    UpdateTransferOrderRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .idempotencyKey("f47ac10b-58cc-4372-a567-0e02b2c3d479")
+        .transferOrder(
+            UpdateTransferOrderData
+                .builder()
+                .sourceLocationId("EXAMPLE_SOURCE_LOCATION_ID_789")
+                .destinationLocationId("EXAMPLE_DEST_LOCATION_ID_101")
+                .expectedAt("2025-11-10T08:00:00Z")
+                .notes("Updated: Priority transfer due to low stock at destination")
+                .trackingNumber("TRACK987654321")
+                .lineItems(
+                    Optional.of(
+                        Arrays.asList(
+                            UpdateTransferOrderLineData
+                                .builder()
+                                .uid("1")
+                                .quantityOrdered("7")
+                                .build(),
+                            UpdateTransferOrderLineData
+                                .builder()
+                                .itemVariationId("EXAMPLE_NEW_ITEM_VARIATION_ID_003")
+                                .quantityOrdered("2")
+                                .build(),
+                            UpdateTransferOrderLineData
+                                .builder()
+                                .uid("2")
+                                .remove(true)
+                                .build()
+                        )
+                    )
+                )
+                .build()
+        )
+        .version(1753109537351L)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to update
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` — A unique string that identifies this UpdateTransferOrder request. Keys must contain only alphanumeric characters, dashes and underscores
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transferOrder:** `UpdateTransferOrderData` — The transfer order updates to apply
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Long>` — Version for optimistic concurrency
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.delete(transferOrderId) -> DeleteTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a transfer order in [DRAFT](entity:TransferOrderStatus) status.
+Only draft orders can be deleted. Once an order is started via 
+[StartTransferOrder](api-endpoint:TransferOrders-StartTransferOrder), it can no longer be deleted.
+
+Creates a [transfer_order.deleted](webhook:transfer_order.deleted) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().delete(
+    DeleteTransferOrdersRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .version(1000000L)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to delete
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Long>` — Version for optimistic concurrency
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.cancel(transferOrderId, request) -> CancelTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancels a transfer order in [STARTED](entity:TransferOrderStatus) or 
+[PARTIALLY_RECEIVED](entity:TransferOrderStatus) status. Any unreceived quantities will no
+longer be receivable and will be immediately returned to the source [Location](entity:Location)'s inventory.
+
+Common reasons for cancellation:
+- Items no longer needed at destination
+- Source location needs the inventory
+- Order created in error
+
+Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().cancel(
+    CancelTransferOrderRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .idempotencyKey("65cc0586-3e82-4d08-b524-3885cffd52")
+        .version(1753117449752L)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to cancel. Must be in STARTED or PARTIALLY_RECEIVED status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this UpdateTransferOrder request. Keys can be
+any valid string but must be unique for every UpdateTransferOrder request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Long>` — Version for optimistic concurrency
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.receive(transferOrderId, request) -> ReceiveTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Records receipt of [CatalogItemVariation](entity:CatalogItemVariation)s for a transfer order.
+This endpoint supports partial receiving - you can receive items in multiple batches.
+
+For each line item, you can specify:
+- Quantity received in good condition (added to destination inventory with [InventoryState](entity:InventoryState) of IN_STOCK)
+- Quantity damaged during transit/handling (added to destination inventory with [InventoryState](entity:InventoryState) of WASTE)
+- Quantity canceled (returned to source location's inventory)
+
+The order must be in [STARTED](entity:TransferOrderStatus) or [PARTIALLY_RECEIVED](entity:TransferOrderStatus) status.
+Received quantities are added to the destination [Location](entity:Location)'s inventory according to their condition.
+Canceled quantities are immediately returned to the source [Location](entity:Location)'s inventory.
+
+When all items are either received, damaged, or canceled, the order moves to
+[COMPLETED](entity:TransferOrderStatus) status.
+
+Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().receive(
+    ReceiveTransferOrderRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .idempotencyKey("EXAMPLE_IDEMPOTENCY_KEY_101")
+        .receipt(
+            TransferOrderGoodsReceipt
+                .builder()
+                .lineItems(
+                    Optional.of(
+                        Arrays.asList(
+                            TransferOrderGoodsReceiptLineItem
+                                .builder()
+                                .transferOrderLineUid("transfer_order_line_uid")
+                                .quantityReceived("3")
+                                .quantityDamaged("1")
+                                .quantityCanceled("1")
+                                .build(),
+                            TransferOrderGoodsReceiptLineItem
+                                .builder()
+                                .transferOrderLineUid("transfer_order_line_uid")
+                                .quantityReceived("2")
+                                .quantityCanceled("1")
+                                .build()
+                        )
+                    )
+                )
+                .build()
+        )
+        .version(1753118664873L)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to receive items for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` — A unique key to make this request idempotent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**receipt:** `TransferOrderGoodsReceipt` — The receipt details
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Long>` — Version for optimistic concurrency
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.transferOrders.start(transferOrderId, request) -> StartTransferOrderResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Changes a [DRAFT](entity:TransferOrderStatus) transfer order to [STARTED](entity:TransferOrderStatus) status.
+This decrements inventory at the source [Location](entity:Location) and marks it as in-transit.
+
+The order must be in [DRAFT](entity:TransferOrderStatus) status and have all required fields populated.
+Once started, the order can no longer be deleted, but it can be canceled via 
+[CancelTransferOrder](api-endpoint:TransferOrders-CancelTransferOrder).
+
+Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```java
+client.transferOrders().start(
+    StartTransferOrderRequest
+        .builder()
+        .transferOrderId("transfer_order_id")
+        .idempotencyKey("EXAMPLE_IDEMPOTENCY_KEY_789")
+        .version(1753109537351L)
+        .build()
+);
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**transferOrderId:** `String` — The ID of the transfer order to start. Must be in DRAFT status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `String` 
+
+A unique string that identifies this UpdateTransferOrder request. Keys can be
+any valid string but must be unique for every UpdateTransferOrder request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `Optional<Long>` — Version for optimistic concurrency
     
 </dd>
 </dl>
@@ -15698,6 +16796,8 @@ To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ`
 client.bookings().customAttributeDefinitions().list(
     ListCustomAttributeDefinitionsRequest
         .builder()
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -15872,6 +16972,7 @@ client.bookings().customAttributeDefinitions().get(
     GetCustomAttributeDefinitionsRequest
         .builder()
         .key("key")
+        .version(1)
         .build()
 );
 ```
@@ -16276,6 +17377,9 @@ client.bookings().customAttributes().list(
     ListCustomAttributesRequest
         .builder()
         .bookingId("booking_id")
+        .limit(1)
+        .cursor("cursor")
+        .withDefinitions(true)
         .build()
 );
 ```
@@ -16375,6 +17479,8 @@ client.bookings().customAttributes().get(
         .builder()
         .bookingId("booking_id")
         .key("key")
+        .withDefinition(true)
+        .version(1)
         .build()
 );
 ```
@@ -16660,6 +17766,8 @@ Lists location booking profiles of a seller.
 client.bookings().locationProfiles().list(
     ListLocationProfilesRequest
         .builder()
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -16727,6 +17835,10 @@ Lists booking profiles for team members.
 client.bookings().teamMemberProfiles().list(
     ListTeamMemberProfilesRequest
         .builder()
+        .bookableOnly(true)
+        .limit(1)
+        .cursor("cursor")
+        .locationId("location_id")
         .build()
 );
 ```
@@ -16871,6 +17983,11 @@ client.cashDrawers().shifts().list(
     ListShiftsRequest
         .builder()
         .locationId("location_id")
+        .sortOrder(SortOrder.DESC)
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -17046,6 +18163,8 @@ client.cashDrawers().shifts().listEvents(
         .builder()
         .shiftId("shift_id")
         .locationId("location_id")
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -17345,6 +18464,9 @@ client.catalog().object().get(
     GetObjectRequest
         .builder()
         .objectId("object_id")
+        .includeRelatedObjects(true)
+        .catalogVersion(1000000L)
+        .includeCategoryPathToRoot(true)
         .build()
 );
 ```
@@ -17525,6 +18647,8 @@ Lists all payment links.
 client.checkout().paymentLinks().list(
     ListPaymentLinksRequest
         .builder()
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -17955,6 +19079,8 @@ seller-defined custom attributes (also known as custom fields) are always set to
 client.customers().customAttributeDefinitions().list(
     ListCustomAttributeDefinitionsRequest
         .builder()
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -18134,6 +19260,7 @@ client.customers().customAttributeDefinitions().get(
     GetCustomAttributeDefinitionsRequest
         .builder()
         .key("key")
+        .version(1)
         .build()
 );
 ```
@@ -18514,6 +19641,8 @@ Retrieves the list of customer groups of a business.
 client.customers().groups().list(
     ListGroupsRequest
         .builder()
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -18998,6 +20127,8 @@ Retrieves the list of customer segments of a business.
 client.customers().segments().list(
     ListSegmentsRequest
         .builder()
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -19338,6 +20469,9 @@ client.customers().customAttributes().list(
     ListCustomAttributesRequest
         .builder()
         .customerId("customer_id")
+        .limit(1)
+        .cursor("cursor")
+        .withDefinitions(true)
         .build()
 );
 ```
@@ -19441,6 +20575,8 @@ client.customers().customAttributes().get(
         .builder()
         .customerId("customer_id")
         .key("key")
+        .withDefinition(true)
+        .version(1)
         .build()
 );
 ```
@@ -19727,6 +20863,10 @@ Lists all DeviceCodes associated with the merchant.
 client.devices().codes().list(
     ListCodesRequest
         .builder()
+        .cursor("cursor")
+        .locationId("location_id")
+        .productType("TERMINAL_API")
+        .status(DeviceCodeStatus.UNKNOWN)
         .build()
 );
 ```
@@ -19965,6 +21105,7 @@ client.disputes().evidence().list(
     ListEvidenceRequest
         .builder()
         .disputeId("dispute_id")
+        .cursor("cursor")
         .build()
 );
 ```
@@ -20178,6 +21319,14 @@ for all gift cards in a specific region, or for activities within a time window.
 client.giftCards().activities().list(
     ListActivitiesRequest
         .builder()
+        .giftCardId("gift_card_id")
+        .type("type")
+        .locationId("location_id")
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .limit(1)
+        .cursor("cursor")
+        .sortOrder("sort_order")
         .build()
 );
 ```
@@ -20408,6 +21557,9 @@ Returns a paginated list of `BreakType` instances for a business.
 client.labor().breakTypes().list(
     ListBreakTypesRequest
         .builder()
+        .locationId("location_id")
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -20775,6 +21927,9 @@ Returns a paginated list of `EmployeeWage` instances for a business.
 client.labor().employeeWages().list(
     ListEmployeeWagesRequest
         .builder()
+        .employeeId("employee_id")
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -21392,6 +22547,9 @@ Returns a paginated list of `TeamMemberWage` instances for a business.
 client.labor().teamMemberWages().list(
     ListTeamMemberWagesRequest
         .builder()
+        .teamMemberId("team_member_id")
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -21532,6 +22690,8 @@ Returns a list of `WorkweekConfig` instances for a business.
 client.labor().workweekConfigs().list(
     ListWorkweekConfigsRequest
         .builder()
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -21677,6 +22837,9 @@ applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`
 client.locations().customAttributeDefinitions().list(
     ListCustomAttributeDefinitionsRequest
         .builder()
+        .visibilityFilter(VisibilityFilter.ALL)
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -21857,6 +23020,7 @@ client.locations().customAttributeDefinitions().get(
     GetCustomAttributeDefinitionsRequest
         .builder()
         .key("key")
+        .version(1)
         .build()
 );
 ```
@@ -22290,6 +23454,10 @@ client.locations().customAttributes().list(
     ListCustomAttributesRequest
         .builder()
         .locationId("location_id")
+        .visibilityFilter(VisibilityFilter.ALL)
+        .limit(1)
+        .cursor("cursor")
+        .withDefinitions(true)
         .build()
 );
 ```
@@ -22398,6 +23566,8 @@ client.locations().customAttributes().get(
         .builder()
         .locationId("location_id")
         .key("key")
+        .withDefinition(true)
+        .version(1)
         .build()
 );
 ```
@@ -22683,6 +23853,10 @@ client.locations().transactions().list(
     ListTransactionsRequest
         .builder()
         .locationId("location_id")
+        .beginTime("begin_time")
+        .endTime("end_time")
+        .sortOrder(SortOrder.DESC)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -24090,6 +25264,9 @@ client.loyalty().programs().promotions().list(
     ListPromotionsRequest
         .builder()
         .programId("program_id")
+        .status(LoyaltyPromotionStatus.ACTIVE)
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -24290,7 +25467,7 @@ see [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-pa
 </dl>
 </details>
 
-<details><summary><code>client.loyalty.programs.promotions.get(promotionId, programId) -> GetLoyaltyPromotionResponse</code></summary>
+<details><summary><code>client.loyalty.programs.promotions.get(programId, promotionId) -> GetLoyaltyPromotionResponse</code></summary>
 <dl>
 <dd>
 
@@ -24320,8 +25497,8 @@ Retrieves a loyalty promotion.
 client.loyalty().programs().promotions().get(
     GetPromotionsRequest
         .builder()
-        .promotionId("promotion_id")
         .programId("program_id")
+        .promotionId("promotion_id")
         .build()
 );
 ```
@@ -24338,7 +25515,10 @@ client.loyalty().programs().promotions().get(
 <dl>
 <dd>
 
-**promotionId:** `String` — The ID of the [loyalty promotion](entity:LoyaltyPromotion) to retrieve.
+**programId:** `String` 
+
+The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,
+call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword.
     
 </dd>
 </dl>
@@ -24346,10 +25526,7 @@ client.loyalty().programs().promotions().get(
 <dl>
 <dd>
 
-**programId:** `String` 
-
-The ID of the base [loyalty program](entity:LoyaltyProgram). To get the program ID,
-call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using the `main` keyword.
+**promotionId:** `String` — The ID of the [loyalty promotion](entity:LoyaltyPromotion) to retrieve.
     
 </dd>
 </dl>
@@ -24361,7 +25538,7 @@ call [RetrieveLoyaltyProgram](api-endpoint:Loyalty-RetrieveLoyaltyProgram) using
 </dl>
 </details>
 
-<details><summary><code>client.loyalty.programs.promotions.cancel(promotionId, programId) -> CancelLoyaltyPromotionResponse</code></summary>
+<details><summary><code>client.loyalty.programs.promotions.cancel(programId, promotionId) -> CancelLoyaltyPromotionResponse</code></summary>
 <dl>
 <dd>
 
@@ -24396,8 +25573,8 @@ This endpoint sets the loyalty promotion to the `CANCELED` state
 client.loyalty().programs().promotions().cancel(
     CancelPromotionsRequest
         .builder()
-        .promotionId("promotion_id")
         .programId("program_id")
+        .promotionId("promotion_id")
         .build()
 );
 ```
@@ -24414,10 +25591,7 @@ client.loyalty().programs().promotions().cancel(
 <dl>
 <dd>
 
-**promotionId:** `String` 
-
-The ID of the [loyalty promotion](entity:LoyaltyPromotion) to cancel. You can cancel a
-promotion that has an `ACTIVE` or `SCHEDULED` status.
+**programId:** `String` — The ID of the base [loyalty program](entity:LoyaltyProgram).
     
 </dd>
 </dl>
@@ -24425,7 +25599,10 @@ promotion that has an `ACTIVE` or `SCHEDULED` status.
 <dl>
 <dd>
 
-**programId:** `String` — The ID of the base [loyalty program](entity:LoyaltyProgram).
+**promotionId:** `String` 
+
+The ID of the [loyalty promotion](entity:LoyaltyPromotion) to cancel. You can cancel a
+promotion that has an `ACTIVE` or `SCHEDULED` status.
     
 </dd>
 </dl>
@@ -24471,6 +25648,9 @@ applications and set to `VISIBILITY_READ_ONLY` or `VISIBILITY_READ_WRITE_VALUES`
 client.merchants().customAttributeDefinitions().list(
     ListCustomAttributeDefinitionsRequest
         .builder()
+        .visibilityFilter(VisibilityFilter.ALL)
+        .limit(1)
+        .cursor("cursor")
         .build()
 );
 ```
@@ -24651,6 +25831,7 @@ client.merchants().customAttributeDefinitions().get(
     GetCustomAttributeDefinitionsRequest
         .builder()
         .key("key")
+        .version(1)
         .build()
 );
 ```
@@ -25068,6 +26249,10 @@ client.merchants().customAttributes().list(
     ListCustomAttributesRequest
         .builder()
         .merchantId("merchant_id")
+        .visibilityFilter(VisibilityFilter.ALL)
+        .limit(1)
+        .cursor("cursor")
+        .withDefinitions(true)
         .build()
 );
 ```
@@ -25176,6 +26361,8 @@ client.merchants().customAttributes().get(
         .builder()
         .merchantId("merchant_id")
         .key("key")
+        .withDefinition(true)
+        .version(1)
         .build()
 );
 ```
@@ -25460,6 +26647,9 @@ seller-defined custom attributes (also known as custom fields) are always set to
 client.orders().customAttributeDefinitions().list(
     ListCustomAttributeDefinitionsRequest
         .builder()
+        .visibilityFilter(VisibilityFilter.ALL)
+        .cursor("cursor")
+        .limit(1)
         .build()
 );
 ```
@@ -25643,6 +26833,7 @@ client.orders().customAttributeDefinitions().get(
     GetCustomAttributeDefinitionsRequest
         .builder()
         .key("key")
+        .version(1)
         .build()
 );
 ```
@@ -26061,6 +27252,10 @@ client.orders().customAttributes().list(
     ListCustomAttributesRequest
         .builder()
         .orderId("order_id")
+        .visibilityFilter(VisibilityFilter.ALL)
+        .cursor("cursor")
+        .limit(1)
+        .withDefinitions(true)
         .build()
 );
 ```
@@ -26173,6 +27368,8 @@ client.orders().customAttributes().get(
         .builder()
         .orderId("order_id")
         .customAttributeKey("custom_attribute_key")
+        .version(1)
+        .withDefinition(true)
         .build()
 );
 ```
@@ -27553,6 +28750,7 @@ Lists all webhook event types that can be subscribed to.
 client.webhooks().eventTypes().list(
     ListEventTypesRequest
         .builder()
+        .apiVersion("api_version")
         .build()
 );
 ```
@@ -27612,6 +28810,10 @@ Lists all webhook subscriptions owned by your application.
 client.webhooks().subscriptions().list(
     ListSubscriptionsRequest
         .builder()
+        .cursor("cursor")
+        .includeDisabled(true)
+        .sortOrder(SortOrder.DESC)
+        .limit(1)
         .build()
 );
 ```

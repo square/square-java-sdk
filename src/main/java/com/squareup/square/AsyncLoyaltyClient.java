@@ -6,11 +6,12 @@ package com.squareup.square;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.Suppliers;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.AsyncAccountsClient;
 import com.squareup.square.loyalty.AsyncProgramsClient;
 import com.squareup.square.loyalty.AsyncRewardsClient;
+import com.squareup.square.types.LoyaltyEvent;
 import com.squareup.square.types.SearchLoyaltyEventsRequest;
-import com.squareup.square.types.SearchLoyaltyEventsResponse;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -48,7 +49,7 @@ public class AsyncLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyEventsResponse> searchEvents() {
+    public CompletableFuture<SyncPagingIterable<LoyaltyEvent>> searchEvents() {
         return this.rawClient.searchEvents().thenApply(response -> response.body());
     }
 
@@ -60,7 +61,7 @@ public class AsyncLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyEventsResponse> searchEvents(SearchLoyaltyEventsRequest request) {
+    public CompletableFuture<SyncPagingIterable<LoyaltyEvent>> searchEvents(SearchLoyaltyEventsRequest request) {
         return this.rawClient.searchEvents(request).thenApply(response -> response.body());
     }
 
@@ -72,7 +73,7 @@ public class AsyncLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyEventsResponse> searchEvents(
+    public CompletableFuture<SyncPagingIterable<LoyaltyEvent>> searchEvents(
             SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
         return this.rawClient.searchEvents(request, requestOptions).thenApply(response -> response.body());
     }

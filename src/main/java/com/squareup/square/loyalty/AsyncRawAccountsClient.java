@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.AccumulateLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.AdjustLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.CreateLoyaltyAccountRequest;
@@ -20,9 +21,14 @@ import com.squareup.square.types.AccumulateLoyaltyPointsResponse;
 import com.squareup.square.types.AdjustLoyaltyPointsResponse;
 import com.squareup.square.types.CreateLoyaltyAccountResponse;
 import com.squareup.square.types.GetLoyaltyAccountResponse;
+import com.squareup.square.types.LoyaltyAccount;
 import com.squareup.square.types.SearchLoyaltyAccountsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -113,7 +119,7 @@ public class AsyncRawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>>> search() {
         return search(SearchLoyaltyAccountsRequest.builder().build());
     }
 
@@ -122,7 +128,7 @@ public class AsyncRawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>>> search(
             SearchLoyaltyAccountsRequest request) {
         return search(request, null);
     }
@@ -132,7 +138,7 @@ public class AsyncRawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>>> search(
             SearchLoyaltyAccountsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -156,15 +162,32 @@ public class AsyncRawAccountsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchLoyaltyAccountsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchLoyaltyAccountsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchLoyaltyAccountsRequest nextRequest = SearchLoyaltyAccountsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<LoyaltyAccount> result =
+                                parsedResponse.getLoyaltyAccounts().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchLoyaltyAccountsResponse.class),
+                                new SyncPagingIterable<LoyaltyAccount>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

@@ -8,9 +8,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchChangeInventoryRequest;
 import com.squareup.square.types.BatchChangeInventoryResponse;
-import com.squareup.square.types.BatchGetInventoryChangesResponse;
 import com.squareup.square.types.BatchGetInventoryCountsRequest;
-import com.squareup.square.types.BatchGetInventoryCountsResponse;
 import com.squareup.square.types.BatchRetrieveInventoryChangesRequest;
 import com.squareup.square.types.ChangesInventoryRequest;
 import com.squareup.square.types.DeprecatedGetAdjustmentInventoryRequest;
@@ -97,7 +95,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryChangesResponse deprecatedBatchGetChanges() {
+    public SyncPagingIterable<InventoryChange> deprecatedBatchGetChanges() {
         return this.rawClient.deprecatedBatchGetChanges().body();
     }
 
@@ -105,7 +103,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryChangesResponse deprecatedBatchGetChanges(BatchRetrieveInventoryChangesRequest request) {
+    public SyncPagingIterable<InventoryChange> deprecatedBatchGetChanges(BatchRetrieveInventoryChangesRequest request) {
         return this.rawClient.deprecatedBatchGetChanges(request).body();
     }
 
@@ -113,7 +111,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryChangesResponse deprecatedBatchGetChanges(
+    public SyncPagingIterable<InventoryChange> deprecatedBatchGetChanges(
             BatchRetrieveInventoryChangesRequest request, RequestOptions requestOptions) {
         return this.rawClient.deprecatedBatchGetChanges(request, requestOptions).body();
     }
@@ -122,7 +120,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryCountsResponse deprecatedBatchGetCounts() {
+    public SyncPagingIterable<InventoryCount> deprecatedBatchGetCounts() {
         return this.rawClient.deprecatedBatchGetCounts().body();
     }
 
@@ -130,7 +128,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryCountsResponse deprecatedBatchGetCounts(BatchGetInventoryCountsRequest request) {
+    public SyncPagingIterable<InventoryCount> deprecatedBatchGetCounts(BatchGetInventoryCountsRequest request) {
         return this.rawClient.deprecatedBatchGetCounts(request).body();
     }
 
@@ -138,7 +136,7 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public BatchGetInventoryCountsResponse deprecatedBatchGetCounts(
+    public SyncPagingIterable<InventoryCount> deprecatedBatchGetCounts(
             BatchGetInventoryCountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.deprecatedBatchGetCounts(request, requestOptions).body();
     }

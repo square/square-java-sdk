@@ -33,6 +33,7 @@ import com.squareup.square.types.ResumeSubscriptionRequest;
 import com.squareup.square.types.ResumeSubscriptionResponse;
 import com.squareup.square.types.SearchSubscriptionsRequest;
 import com.squareup.square.types.SearchSubscriptionsResponse;
+import com.squareup.square.types.Subscription;
 import com.squareup.square.types.SubscriptionEvent;
 import com.squareup.square.types.SwapPlanRequest;
 import com.squareup.square.types.SwapPlanResponse;
@@ -220,7 +221,7 @@ public class AsyncRawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchSubscriptionsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Subscription>>> search() {
         return search(SearchSubscriptionsRequest.builder().build());
     }
 
@@ -238,7 +239,7 @@ public class AsyncRawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchSubscriptionsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Subscription>>> search(
             SearchSubscriptionsRequest request) {
         return search(request, null);
     }
@@ -257,7 +258,7 @@ public class AsyncRawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchSubscriptionsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Subscription>>> search(
             SearchSubscriptionsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -281,15 +282,32 @@ public class AsyncRawSubscriptionsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchSubscriptionsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Subscription>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchSubscriptionsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchSubscriptionsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchSubscriptionsRequest nextRequest = SearchSubscriptionsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Subscription> result =
+                                parsedResponse.getSubscriptions().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchSubscriptionsResponse.class),
+                                new SyncPagingIterable<Subscription>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

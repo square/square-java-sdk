@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.AccumulateLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.AdjustLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.CreateLoyaltyAccountRequest;
@@ -20,8 +21,12 @@ import com.squareup.square.types.AccumulateLoyaltyPointsResponse;
 import com.squareup.square.types.AdjustLoyaltyPointsResponse;
 import com.squareup.square.types.CreateLoyaltyAccountResponse;
 import com.squareup.square.types.GetLoyaltyAccountResponse;
+import com.squareup.square.types.LoyaltyAccount;
 import com.squareup.square.types.SearchLoyaltyAccountsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -94,7 +99,7 @@ public class RawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyAccountsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>> search() {
         return search(SearchLoyaltyAccountsRequest.builder().build());
     }
 
@@ -103,7 +108,7 @@ public class RawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyAccountsResponse> search(SearchLoyaltyAccountsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>> search(SearchLoyaltyAccountsRequest request) {
         return search(request, null);
     }
 
@@ -112,7 +117,7 @@ public class RawAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyAccountsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyAccount>> search(
             SearchLoyaltyAccountsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -139,8 +144,19 @@ public class RawAccountsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchLoyaltyAccountsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyAccountsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchLoyaltyAccountsRequest nextRequest = SearchLoyaltyAccountsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<LoyaltyAccount> result =
+                        parsedResponse.getLoyaltyAccounts().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyAccountsResponse.class),
+                        new SyncPagingIterable<LoyaltyAccount>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

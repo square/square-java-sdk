@@ -6,6 +6,7 @@ package com.squareup.square;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.Suppliers;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.teammembers.WageSettingClient;
 import com.squareup.square.types.BatchCreateTeamMembersRequest;
 import com.squareup.square.types.BatchCreateTeamMembersResponse;
@@ -16,7 +17,7 @@ import com.squareup.square.types.CreateTeamMemberResponse;
 import com.squareup.square.types.GetTeamMemberResponse;
 import com.squareup.square.types.GetTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersRequest;
-import com.squareup.square.types.SearchTeamMembersResponse;
+import com.squareup.square.types.TeamMember;
 import com.squareup.square.types.UpdateTeamMemberResponse;
 import com.squareup.square.types.UpdateTeamMembersRequest;
 import java.util.function.Supplier;
@@ -131,7 +132,7 @@ public class TeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SearchTeamMembersResponse search() {
+    public SyncPagingIterable<TeamMember> search() {
         return this.rawClient.search().body();
     }
 
@@ -140,7 +141,7 @@ public class TeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SearchTeamMembersResponse search(SearchTeamMembersRequest request) {
+    public SyncPagingIterable<TeamMember> search(SearchTeamMembersRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -149,7 +150,7 @@ public class TeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SearchTeamMembersResponse search(SearchTeamMembersRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<TeamMember> search(SearchTeamMembersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

@@ -5,6 +5,7 @@ package com.squareup.square.loyalty;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.AccumulateLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.AdjustLoyaltyPointsRequest;
 import com.squareup.square.loyalty.types.CreateLoyaltyAccountRequest;
@@ -14,7 +15,7 @@ import com.squareup.square.types.AccumulateLoyaltyPointsResponse;
 import com.squareup.square.types.AdjustLoyaltyPointsResponse;
 import com.squareup.square.types.CreateLoyaltyAccountResponse;
 import com.squareup.square.types.GetLoyaltyAccountResponse;
-import com.squareup.square.types.SearchLoyaltyAccountsResponse;
+import com.squareup.square.types.LoyaltyAccount;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncAccountsClient {
@@ -54,7 +55,7 @@ public class AsyncAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyAccountsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<LoyaltyAccount>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -63,7 +64,7 @@ public class AsyncAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyAccountsResponse> search(SearchLoyaltyAccountsRequest request) {
+    public CompletableFuture<SyncPagingIterable<LoyaltyAccount>> search(SearchLoyaltyAccountsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -72,7 +73,7 @@ public class AsyncAccountsClient {
      * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyAccountsResponse> search(
+    public CompletableFuture<SyncPagingIterable<LoyaltyAccount>> search(
             SearchLoyaltyAccountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

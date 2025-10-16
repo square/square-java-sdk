@@ -5,6 +5,7 @@ package com.squareup.square.loyalty;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.CreateLoyaltyRewardRequest;
 import com.squareup.square.loyalty.types.DeleteRewardsRequest;
 import com.squareup.square.loyalty.types.GetRewardsRequest;
@@ -13,8 +14,8 @@ import com.squareup.square.loyalty.types.SearchLoyaltyRewardsRequest;
 import com.squareup.square.types.CreateLoyaltyRewardResponse;
 import com.squareup.square.types.DeleteLoyaltyRewardResponse;
 import com.squareup.square.types.GetLoyaltyRewardResponse;
+import com.squareup.square.types.LoyaltyReward;
 import com.squareup.square.types.RedeemLoyaltyRewardResponse;
-import com.squareup.square.types.SearchLoyaltyRewardsResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncRewardsClient {
@@ -70,7 +71,7 @@ public class AsyncRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyRewardsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<LoyaltyReward>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -81,7 +82,7 @@ public class AsyncRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyRewardsResponse> search(SearchLoyaltyRewardsRequest request) {
+    public CompletableFuture<SyncPagingIterable<LoyaltyReward>> search(SearchLoyaltyRewardsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -92,7 +93,7 @@ public class AsyncRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SearchLoyaltyRewardsResponse> search(
+    public CompletableFuture<SyncPagingIterable<LoyaltyReward>> search(
             SearchLoyaltyRewardsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

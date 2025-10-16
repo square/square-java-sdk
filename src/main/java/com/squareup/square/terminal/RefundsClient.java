@@ -5,6 +5,7 @@ package com.squareup.square.terminal;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelRefundsRequest;
 import com.squareup.square.terminal.types.CreateTerminalRefundRequest;
 import com.squareup.square.terminal.types.GetRefundsRequest;
@@ -12,7 +13,7 @@ import com.squareup.square.terminal.types.SearchTerminalRefundsRequest;
 import com.squareup.square.types.CancelTerminalRefundResponse;
 import com.squareup.square.types.CreateTerminalRefundResponse;
 import com.squareup.square.types.GetTerminalRefundResponse;
-import com.squareup.square.types.SearchTerminalRefundsResponse;
+import com.squareup.square.types.TerminalRefund;
 
 public class RefundsClient {
     protected final ClientOptions clientOptions;
@@ -48,21 +49,22 @@ public class RefundsClient {
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SearchTerminalRefundsResponse search() {
+    public SyncPagingIterable<TerminalRefund> search() {
         return this.rawClient.search().body();
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SearchTerminalRefundsResponse search(SearchTerminalRefundsRequest request) {
+    public SyncPagingIterable<TerminalRefund> search(SearchTerminalRefundsRequest request) {
         return this.rawClient.search(request).body();
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SearchTerminalRefundsResponse search(SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<TerminalRefund> search(
+            SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.CreateLoyaltyRewardRequest;
 import com.squareup.square.loyalty.types.DeleteRewardsRequest;
 import com.squareup.square.loyalty.types.GetRewardsRequest;
@@ -19,9 +20,13 @@ import com.squareup.square.loyalty.types.SearchLoyaltyRewardsRequest;
 import com.squareup.square.types.CreateLoyaltyRewardResponse;
 import com.squareup.square.types.DeleteLoyaltyRewardResponse;
 import com.squareup.square.types.GetLoyaltyRewardResponse;
+import com.squareup.square.types.LoyaltyReward;
 import com.squareup.square.types.RedeemLoyaltyRewardResponse;
 import com.squareup.square.types.SearchLoyaltyRewardsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -110,7 +115,7 @@ public class RawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyRewardsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>> search() {
         return search(SearchLoyaltyRewardsRequest.builder().build());
     }
 
@@ -121,7 +126,7 @@ public class RawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyRewardsResponse> search(SearchLoyaltyRewardsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>> search(SearchLoyaltyRewardsRequest request) {
         return search(request, null);
     }
 
@@ -132,7 +137,7 @@ public class RawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyRewardsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>> search(
             SearchLoyaltyRewardsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -159,8 +164,18 @@ public class RawRewardsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchLoyaltyRewardsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyRewardsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchLoyaltyRewardsRequest nextRequest = SearchLoyaltyRewardsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<LoyaltyReward> result = parsedResponse.getRewards().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyRewardsResponse.class),
+                        new SyncPagingIterable<LoyaltyReward>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

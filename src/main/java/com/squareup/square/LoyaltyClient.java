@@ -6,11 +6,12 @@ package com.squareup.square;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.Suppliers;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.AccountsClient;
 import com.squareup.square.loyalty.ProgramsClient;
 import com.squareup.square.loyalty.RewardsClient;
+import com.squareup.square.types.LoyaltyEvent;
 import com.squareup.square.types.SearchLoyaltyEventsRequest;
-import com.squareup.square.types.SearchLoyaltyEventsResponse;
 import java.util.function.Supplier;
 
 public class LoyaltyClient {
@@ -47,7 +48,7 @@ public class LoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SearchLoyaltyEventsResponse searchEvents() {
+    public SyncPagingIterable<LoyaltyEvent> searchEvents() {
         return this.rawClient.searchEvents().body();
     }
 
@@ -59,7 +60,7 @@ public class LoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SearchLoyaltyEventsResponse searchEvents(SearchLoyaltyEventsRequest request) {
+    public SyncPagingIterable<LoyaltyEvent> searchEvents(SearchLoyaltyEventsRequest request) {
         return this.rawClient.searchEvents(request).body();
     }
 
@@ -71,7 +72,8 @@ public class LoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SearchLoyaltyEventsResponse searchEvents(SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<LoyaltyEvent> searchEvents(
+            SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
         return this.rawClient.searchEvents(request, requestOptions).body();
     }
 

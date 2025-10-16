@@ -5,6 +5,7 @@ package com.squareup.square.loyalty;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.CreateLoyaltyRewardRequest;
 import com.squareup.square.loyalty.types.DeleteRewardsRequest;
 import com.squareup.square.loyalty.types.GetRewardsRequest;
@@ -13,8 +14,8 @@ import com.squareup.square.loyalty.types.SearchLoyaltyRewardsRequest;
 import com.squareup.square.types.CreateLoyaltyRewardResponse;
 import com.squareup.square.types.DeleteLoyaltyRewardResponse;
 import com.squareup.square.types.GetLoyaltyRewardResponse;
+import com.squareup.square.types.LoyaltyReward;
 import com.squareup.square.types.RedeemLoyaltyRewardResponse;
-import com.squareup.square.types.SearchLoyaltyRewardsResponse;
 
 public class RewardsClient {
     protected final ClientOptions clientOptions;
@@ -68,7 +69,7 @@ public class RewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SearchLoyaltyRewardsResponse search() {
+    public SyncPagingIterable<LoyaltyReward> search() {
         return this.rawClient.search().body();
     }
 
@@ -79,7 +80,7 @@ public class RewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SearchLoyaltyRewardsResponse search(SearchLoyaltyRewardsRequest request) {
+    public SyncPagingIterable<LoyaltyReward> search(SearchLoyaltyRewardsRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -90,7 +91,8 @@ public class RewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public SearchLoyaltyRewardsResponse search(SearchLoyaltyRewardsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<LoyaltyReward> search(
+            SearchLoyaltyRewardsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

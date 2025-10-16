@@ -254,7 +254,8 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryChangesResponse>> deprecatedBatchGetChanges() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryChange>>>
+            deprecatedBatchGetChanges() {
         return deprecatedBatchGetChanges(
                 BatchRetrieveInventoryChangesRequest.builder().build());
     }
@@ -263,7 +264,7 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryChangesResponse>> deprecatedBatchGetChanges(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryChange>>> deprecatedBatchGetChanges(
             BatchRetrieveInventoryChangesRequest request) {
         return deprecatedBatchGetChanges(request, null);
     }
@@ -272,7 +273,7 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryChangesResponse>> deprecatedBatchGetChanges(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryChange>>> deprecatedBatchGetChanges(
             BatchRetrieveInventoryChangesRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -296,16 +297,33 @@ public class AsyncRawInventoryClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<BatchGetInventoryChangesResponse>> future =
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryChange>>> future =
                 new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        BatchGetInventoryChangesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), BatchGetInventoryChangesResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        BatchRetrieveInventoryChangesRequest nextRequest =
+                                BatchRetrieveInventoryChangesRequest.builder()
+                                        .from(request)
+                                        .cursor(startingAfter)
+                                        .build();
+                        List<InventoryChange> result =
+                                parsedResponse.getChanges().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), BatchGetInventoryChangesResponse.class),
+                                new SyncPagingIterable<InventoryChange>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return deprecatedBatchGetChanges(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }
@@ -333,7 +351,7 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryCountsResponse>> deprecatedBatchGetCounts() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryCount>>> deprecatedBatchGetCounts() {
         return deprecatedBatchGetCounts(BatchGetInventoryCountsRequest.builder().build());
     }
 
@@ -341,7 +359,7 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryCountsResponse>> deprecatedBatchGetCounts(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryCount>>> deprecatedBatchGetCounts(
             BatchGetInventoryCountsRequest request) {
         return deprecatedBatchGetCounts(request, null);
     }
@@ -350,7 +368,7 @@ public class AsyncRawInventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
-    public CompletableFuture<SquareClientHttpResponse<BatchGetInventoryCountsResponse>> deprecatedBatchGetCounts(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryCount>>> deprecatedBatchGetCounts(
             BatchGetInventoryCountsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -374,15 +392,31 @@ public class AsyncRawInventoryClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<BatchGetInventoryCountsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<InventoryCount>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        BatchGetInventoryCountsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), BatchGetInventoryCountsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        BatchGetInventoryCountsRequest nextRequest = BatchGetInventoryCountsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<InventoryCount> result = parsedResponse.getCounts().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), BatchGetInventoryCountsResponse.class),
+                                new SyncPagingIterable<InventoryCount>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return deprecatedBatchGetCounts(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

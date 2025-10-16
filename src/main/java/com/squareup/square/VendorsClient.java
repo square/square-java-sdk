@@ -5,6 +5,7 @@ package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchCreateVendorsRequest;
 import com.squareup.square.types.BatchCreateVendorsResponse;
 import com.squareup.square.types.BatchGetVendorsRequest;
@@ -16,9 +17,9 @@ import com.squareup.square.types.CreateVendorResponse;
 import com.squareup.square.types.GetVendorResponse;
 import com.squareup.square.types.GetVendorsRequest;
 import com.squareup.square.types.SearchVendorsRequest;
-import com.squareup.square.types.SearchVendorsResponse;
 import com.squareup.square.types.UpdateVendorResponse;
 import com.squareup.square.types.UpdateVendorsRequest;
+import com.squareup.square.types.Vendor;
 
 public class VendorsClient {
     protected final ClientOptions clientOptions;
@@ -103,21 +104,21 @@ public class VendorsClient {
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public SearchVendorsResponse search() {
+    public SyncPagingIterable<Vendor> search() {
         return this.rawClient.search().body();
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public SearchVendorsResponse search(SearchVendorsRequest request) {
+    public SyncPagingIterable<Vendor> search(SearchVendorsRequest request) {
         return this.rawClient.search(request).body();
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public SearchVendorsResponse search(SearchVendorsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<Vendor> search(SearchVendorsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

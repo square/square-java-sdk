@@ -23,7 +23,6 @@ import com.squareup.square.types.ListInvoicesRequest;
 import com.squareup.square.types.PublishInvoiceRequest;
 import com.squareup.square.types.PublishInvoiceResponse;
 import com.squareup.square.types.SearchInvoicesRequest;
-import com.squareup.square.types.SearchInvoicesResponse;
 import com.squareup.square.types.UpdateInvoiceRequest;
 import com.squareup.square.types.UpdateInvoiceResponse;
 
@@ -90,7 +89,7 @@ public class InvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public SearchInvoicesResponse search(SearchInvoicesRequest request) {
+    public SyncPagingIterable<Invoice> search(SearchInvoicesRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -102,7 +101,7 @@ public class InvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public SearchInvoicesResponse search(SearchInvoicesRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<Invoice> search(SearchInvoicesRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

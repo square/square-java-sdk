@@ -33,6 +33,7 @@ import com.squareup.square.types.ResumeSubscriptionRequest;
 import com.squareup.square.types.ResumeSubscriptionResponse;
 import com.squareup.square.types.SearchSubscriptionsRequest;
 import com.squareup.square.types.SearchSubscriptionsResponse;
+import com.squareup.square.types.Subscription;
 import com.squareup.square.types.SubscriptionEvent;
 import com.squareup.square.types.SwapPlanRequest;
 import com.squareup.square.types.SwapPlanResponse;
@@ -187,7 +188,7 @@ public class RawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public SquareClientHttpResponse<SearchSubscriptionsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<Subscription>> search() {
         return search(SearchSubscriptionsRequest.builder().build());
     }
 
@@ -205,7 +206,7 @@ public class RawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public SquareClientHttpResponse<SearchSubscriptionsResponse> search(SearchSubscriptionsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<Subscription>> search(SearchSubscriptionsRequest request) {
         return search(request, null);
     }
 
@@ -223,7 +224,7 @@ public class RawSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public SquareClientHttpResponse<SearchSubscriptionsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<Subscription>> search(
             SearchSubscriptionsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -250,8 +251,18 @@ public class RawSubscriptionsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchSubscriptionsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchSubscriptionsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchSubscriptionsRequest nextRequest = SearchSubscriptionsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<Subscription> result = parsedResponse.getSubscriptions().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchSubscriptionsResponse.class),
+                        new SyncPagingIterable<Subscription>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

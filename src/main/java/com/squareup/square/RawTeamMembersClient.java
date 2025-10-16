@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchCreateTeamMembersRequest;
 import com.squareup.square.types.BatchCreateTeamMembersResponse;
 import com.squareup.square.types.BatchUpdateTeamMembersRequest;
@@ -21,9 +22,13 @@ import com.squareup.square.types.GetTeamMemberResponse;
 import com.squareup.square.types.GetTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersResponse;
+import com.squareup.square.types.TeamMember;
 import com.squareup.square.types.UpdateTeamMemberResponse;
 import com.squareup.square.types.UpdateTeamMembersRequest;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -243,7 +248,7 @@ public class RawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SquareClientHttpResponse<SearchTeamMembersResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<TeamMember>> search() {
         return search(SearchTeamMembersRequest.builder().build());
     }
 
@@ -252,7 +257,7 @@ public class RawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SquareClientHttpResponse<SearchTeamMembersResponse> search(SearchTeamMembersRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<TeamMember>> search(SearchTeamMembersRequest request) {
         return search(request, null);
     }
 
@@ -261,7 +266,7 @@ public class RawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public SquareClientHttpResponse<SearchTeamMembersResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<TeamMember>> search(
             SearchTeamMembersRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -288,8 +293,18 @@ public class RawTeamMembersClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchTeamMembersResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTeamMembersResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchTeamMembersRequest nextRequest = SearchTeamMembersRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<TeamMember> result = parsedResponse.getTeamMembers().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTeamMembersResponse.class),
+                        new SyncPagingIterable<TeamMember>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

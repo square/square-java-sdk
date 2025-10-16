@@ -29,7 +29,6 @@ import com.squareup.square.types.GetCustomerResponse;
 import com.squareup.square.types.GetCustomersRequest;
 import com.squareup.square.types.ListCustomersRequest;
 import com.squareup.square.types.SearchCustomersRequest;
-import com.squareup.square.types.SearchCustomersResponse;
 import com.squareup.square.types.UpdateCustomerRequest;
 import com.squareup.square.types.UpdateCustomerResponse;
 import java.util.concurrent.CompletableFuture;
@@ -242,7 +241,7 @@ public class AsyncCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SearchCustomersResponse> search() {
+    public CompletableFuture<SyncPagingIterable<Customer>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -255,7 +254,7 @@ public class AsyncCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SearchCustomersResponse> search(SearchCustomersRequest request) {
+    public CompletableFuture<SyncPagingIterable<Customer>> search(SearchCustomersRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -268,7 +267,7 @@ public class AsyncCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SearchCustomersResponse> search(
+    public CompletableFuture<SyncPagingIterable<Customer>> search(
             SearchCustomersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

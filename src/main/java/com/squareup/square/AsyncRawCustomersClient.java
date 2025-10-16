@@ -568,7 +568,7 @@ public class AsyncRawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCustomersResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Customer>>> search() {
         return search(SearchCustomersRequest.builder().build());
     }
 
@@ -581,7 +581,8 @@ public class AsyncRawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCustomersResponse>> search(SearchCustomersRequest request) {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Customer>>> search(
+            SearchCustomersRequest request) {
         return search(request, null);
     }
 
@@ -594,7 +595,7 @@ public class AsyncRawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCustomersResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Customer>>> search(
             SearchCustomersRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -618,15 +619,30 @@ public class AsyncRawCustomersClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchCustomersResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Customer>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchCustomersResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchCustomersResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchCustomersRequest nextRequest = SearchCustomersRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Customer> result = parsedResponse.getCustomers().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchCustomersResponse.class),
+                                new SyncPagingIterable<Customer>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

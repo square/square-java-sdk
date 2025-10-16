@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.labor.types.CreateShiftRequest;
 import com.squareup.square.labor.types.DeleteShiftsRequest;
 import com.squareup.square.labor.types.GetShiftsRequest;
@@ -20,9 +21,14 @@ import com.squareup.square.types.CreateShiftResponse;
 import com.squareup.square.types.DeleteShiftResponse;
 import com.squareup.square.types.GetShiftResponse;
 import com.squareup.square.types.SearchShiftsResponse;
+import com.squareup.square.types.Shift;
 import com.squareup.square.types.UpdateShiftResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -161,7 +167,7 @@ public class AsyncRawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchShiftsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Shift>>> search() {
         return search(SearchShiftsRequest.builder().build());
     }
 
@@ -184,7 +190,7 @@ public class AsyncRawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchShiftsResponse>> search(SearchShiftsRequest request) {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Shift>>> search(SearchShiftsRequest request) {
         return search(request, null);
     }
 
@@ -207,7 +213,7 @@ public class AsyncRawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchShiftsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Shift>>> search(
             SearchShiftsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -231,14 +237,30 @@ public class AsyncRawShiftsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchShiftsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Shift>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchShiftsResponse parsedResponse =
+                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchShiftsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchShiftsRequest nextRequest = SearchShiftsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Shift> result = parsedResponse.getShifts().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchShiftsResponse.class),
+                                new SyncPagingIterable<Shift>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

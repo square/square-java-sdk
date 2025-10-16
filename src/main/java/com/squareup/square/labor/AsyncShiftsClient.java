@@ -5,6 +5,7 @@ package com.squareup.square.labor;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.labor.types.CreateShiftRequest;
 import com.squareup.square.labor.types.DeleteShiftsRequest;
 import com.squareup.square.labor.types.GetShiftsRequest;
@@ -13,7 +14,7 @@ import com.squareup.square.labor.types.UpdateShiftRequest;
 import com.squareup.square.types.CreateShiftResponse;
 import com.squareup.square.types.DeleteShiftResponse;
 import com.squareup.square.types.GetShiftResponse;
-import com.squareup.square.types.SearchShiftsResponse;
+import com.squareup.square.types.Shift;
 import com.squareup.square.types.UpdateShiftResponse;
 import java.util.concurrent.CompletableFuture;
 
@@ -103,7 +104,7 @@ public class AsyncShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SearchShiftsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<Shift>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -126,7 +127,7 @@ public class AsyncShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SearchShiftsResponse> search(SearchShiftsRequest request) {
+    public CompletableFuture<SyncPagingIterable<Shift>> search(SearchShiftsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -149,7 +150,8 @@ public class AsyncShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public CompletableFuture<SearchShiftsResponse> search(SearchShiftsRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<SyncPagingIterable<Shift>> search(
+            SearchShiftsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 

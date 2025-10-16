@@ -5,6 +5,7 @@ package com.squareup.square.labor;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.labor.types.CreateShiftRequest;
 import com.squareup.square.labor.types.DeleteShiftsRequest;
 import com.squareup.square.labor.types.GetShiftsRequest;
@@ -13,7 +14,7 @@ import com.squareup.square.labor.types.UpdateShiftRequest;
 import com.squareup.square.types.CreateShiftResponse;
 import com.squareup.square.types.DeleteShiftResponse;
 import com.squareup.square.types.GetShiftResponse;
-import com.squareup.square.types.SearchShiftsResponse;
+import com.squareup.square.types.Shift;
 import com.squareup.square.types.UpdateShiftResponse;
 
 public class ShiftsClient {
@@ -102,7 +103,7 @@ public class ShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SearchShiftsResponse search() {
+    public SyncPagingIterable<Shift> search() {
         return this.rawClient.search().body();
     }
 
@@ -125,7 +126,7 @@ public class ShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SearchShiftsResponse search(SearchShiftsRequest request) {
+    public SyncPagingIterable<Shift> search(SearchShiftsRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -148,7 +149,7 @@ public class ShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SearchShiftsResponse search(SearchShiftsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<Shift> search(SearchShiftsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

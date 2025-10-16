@@ -6,6 +6,7 @@ package com.squareup.square;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.Suppliers;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.teammembers.AsyncWageSettingClient;
 import com.squareup.square.types.BatchCreateTeamMembersRequest;
 import com.squareup.square.types.BatchCreateTeamMembersResponse;
@@ -16,7 +17,7 @@ import com.squareup.square.types.CreateTeamMemberResponse;
 import com.squareup.square.types.GetTeamMemberResponse;
 import com.squareup.square.types.GetTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersRequest;
-import com.squareup.square.types.SearchTeamMembersResponse;
+import com.squareup.square.types.TeamMember;
 import com.squareup.square.types.UpdateTeamMemberResponse;
 import com.squareup.square.types.UpdateTeamMembersRequest;
 import java.util.concurrent.CompletableFuture;
@@ -133,7 +134,7 @@ public class AsyncTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SearchTeamMembersResponse> search() {
+    public CompletableFuture<SyncPagingIterable<TeamMember>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -142,7 +143,7 @@ public class AsyncTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SearchTeamMembersResponse> search(SearchTeamMembersRequest request) {
+    public CompletableFuture<SyncPagingIterable<TeamMember>> search(SearchTeamMembersRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -151,7 +152,7 @@ public class AsyncTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SearchTeamMembersResponse> search(
+    public CompletableFuture<SyncPagingIterable<TeamMember>> search(
             SearchTeamMembersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

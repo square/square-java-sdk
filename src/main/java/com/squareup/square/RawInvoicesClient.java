@@ -188,7 +188,7 @@ public class RawInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public SquareClientHttpResponse<SearchInvoicesResponse> search(SearchInvoicesRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<Invoice>> search(SearchInvoicesRequest request) {
         return search(request, null);
     }
 
@@ -200,7 +200,7 @@ public class RawInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public SquareClientHttpResponse<SearchInvoicesResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<Invoice>> search(
             SearchInvoicesRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -227,8 +227,18 @@ public class RawInvoicesClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchInvoicesResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchInvoicesResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchInvoicesRequest nextRequest = SearchInvoicesRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<Invoice> result = parsedResponse.getInvoices().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchInvoicesResponse.class),
+                        new SyncPagingIterable<Invoice>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

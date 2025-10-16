@@ -19,24 +19,16 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GetPromotionsRequest.Builder.class)
 public final class GetPromotionsRequest {
-    private final String promotionId;
-
     private final String programId;
+
+    private final String promotionId;
 
     private final Map<String, Object> additionalProperties;
 
-    private GetPromotionsRequest(String promotionId, String programId, Map<String, Object> additionalProperties) {
-        this.promotionId = promotionId;
+    private GetPromotionsRequest(String programId, String promotionId, Map<String, Object> additionalProperties) {
         this.programId = programId;
+        this.promotionId = promotionId;
         this.additionalProperties = additionalProperties;
-    }
-
-    /**
-     * @return The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.
-     */
-    @JsonProperty("promotion_id")
-    public String getPromotionId() {
-        return promotionId;
     }
 
     /**
@@ -46,6 +38,14 @@ public final class GetPromotionsRequest {
     @JsonProperty("program_id")
     public String getProgramId() {
         return programId;
+    }
+
+    /**
+     * @return The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.
+     */
+    @JsonProperty("promotion_id")
+    public String getPromotionId() {
+        return promotionId;
     }
 
     @java.lang.Override
@@ -60,12 +60,12 @@ public final class GetPromotionsRequest {
     }
 
     private boolean equalTo(GetPromotionsRequest other) {
-        return promotionId.equals(other.promotionId) && programId.equals(other.programId);
+        return programId.equals(other.programId) && promotionId.equals(other.promotionId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.promotionId, this.programId);
+        return Objects.hash(this.programId, this.promotionId);
     }
 
     @java.lang.Override
@@ -73,17 +73,8 @@ public final class GetPromotionsRequest {
         return ObjectMappers.stringify(this);
     }
 
-    public static PromotionIdStage builder() {
+    public static ProgramIdStage builder() {
         return new Builder();
-    }
-
-    public interface PromotionIdStage {
-        /**
-         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
-         */
-        ProgramIdStage promotionId(@NotNull String promotionId);
-
-        Builder from(GetPromotionsRequest other);
     }
 
     public interface ProgramIdStage {
@@ -91,7 +82,16 @@ public final class GetPromotionsRequest {
          * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>. To get the program ID,
          * call <a href="api-endpoint:Loyalty-RetrieveLoyaltyProgram">RetrieveLoyaltyProgram</a> using the <code>main</code> keyword.</p>
          */
-        _FinalStage programId(@NotNull String programId);
+        PromotionIdStage programId(@NotNull String programId);
+
+        Builder from(GetPromotionsRequest other);
+    }
+
+    public interface PromotionIdStage {
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
+         */
+        _FinalStage promotionId(@NotNull String promotionId);
     }
 
     public interface _FinalStage {
@@ -99,10 +99,10 @@ public final class GetPromotionsRequest {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements PromotionIdStage, ProgramIdStage, _FinalStage {
-        private String promotionId;
-
+    public static final class Builder implements ProgramIdStage, PromotionIdStage, _FinalStage {
         private String programId;
+
+        private String promotionId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -111,20 +111,8 @@ public final class GetPromotionsRequest {
 
         @java.lang.Override
         public Builder from(GetPromotionsRequest other) {
-            promotionId(other.getPromotionId());
             programId(other.getProgramId());
-            return this;
-        }
-
-        /**
-         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
-         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("promotion_id")
-        public ProgramIdStage promotionId(@NotNull String promotionId) {
-            this.promotionId = Objects.requireNonNull(promotionId, "promotionId must not be null");
+            promotionId(other.getPromotionId());
             return this;
         }
 
@@ -137,14 +125,26 @@ public final class GetPromotionsRequest {
          */
         @java.lang.Override
         @JsonSetter("program_id")
-        public _FinalStage programId(@NotNull String programId) {
+        public PromotionIdStage programId(@NotNull String programId) {
             this.programId = Objects.requireNonNull(programId, "programId must not be null");
+            return this;
+        }
+
+        /**
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
+         * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to retrieve.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("promotion_id")
+        public _FinalStage promotionId(@NotNull String promotionId) {
+            this.promotionId = Objects.requireNonNull(promotionId, "promotionId must not be null");
             return this;
         }
 
         @java.lang.Override
         public GetPromotionsRequest build() {
-            return new GetPromotionsRequest(promotionId, programId, additionalProperties);
+            return new GetPromotionsRequest(programId, promotionId, additionalProperties);
         }
     }
 }

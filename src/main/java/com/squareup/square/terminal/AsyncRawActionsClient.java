@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelActionsRequest;
 import com.squareup.square.terminal.types.CreateTerminalActionRequest;
 import com.squareup.square.terminal.types.GetActionsRequest;
@@ -19,8 +20,13 @@ import com.squareup.square.types.CancelTerminalActionResponse;
 import com.squareup.square.types.CreateTerminalActionResponse;
 import com.squareup.square.types.GetTerminalActionResponse;
 import com.squareup.square.types.SearchTerminalActionsResponse;
+import com.squareup.square.types.TerminalAction;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -109,14 +115,14 @@ public class AsyncRawActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalActionsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalAction>>> search() {
         return search(SearchTerminalActionsRequest.builder().build());
     }
 
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalActionsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalAction>>> search(
             SearchTerminalActionsRequest request) {
         return search(request, null);
     }
@@ -124,7 +130,7 @@ public class AsyncRawActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalActionsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalAction>>> search(
             SearchTerminalActionsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -148,15 +154,31 @@ public class AsyncRawActionsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchTerminalActionsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalAction>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchTerminalActionsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchTerminalActionsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchTerminalActionsRequest nextRequest = SearchTerminalActionsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<TerminalAction> result = parsedResponse.getAction().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchTerminalActionsResponse.class),
+                                new SyncPagingIterable<TerminalAction>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

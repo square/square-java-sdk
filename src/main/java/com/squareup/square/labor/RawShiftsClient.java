@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.labor.types.CreateShiftRequest;
 import com.squareup.square.labor.types.DeleteShiftsRequest;
 import com.squareup.square.labor.types.GetShiftsRequest;
@@ -20,8 +21,12 @@ import com.squareup.square.types.CreateShiftResponse;
 import com.squareup.square.types.DeleteShiftResponse;
 import com.squareup.square.types.GetShiftResponse;
 import com.squareup.square.types.SearchShiftsResponse;
+import com.squareup.square.types.Shift;
 import com.squareup.square.types.UpdateShiftResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -144,7 +149,7 @@ public class RawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchShiftsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<Shift>> search() {
         return search(SearchShiftsRequest.builder().build());
     }
 
@@ -167,7 +172,7 @@ public class RawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchShiftsResponse> search(SearchShiftsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<Shift>> search(SearchShiftsRequest request) {
         return search(request, null);
     }
 
@@ -190,7 +195,7 @@ public class RawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchShiftsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<Shift>> search(
             SearchShiftsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -217,8 +222,18 @@ public class RawShiftsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchShiftsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchShiftsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchShiftsRequest nextRequest = SearchShiftsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<Shift> result = parsedResponse.getShifts().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchShiftsResponse.class),
+                        new SyncPagingIterable<Shift>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

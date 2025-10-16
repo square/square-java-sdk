@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchGetOrdersRequest;
 import com.squareup.square.types.BatchGetOrdersResponse;
 import com.squareup.square.types.CalculateOrderRequest;
@@ -21,6 +22,7 @@ import com.squareup.square.types.CreateOrderRequest;
 import com.squareup.square.types.CreateOrderResponse;
 import com.squareup.square.types.GetOrderResponse;
 import com.squareup.square.types.GetOrdersRequest;
+import com.squareup.square.types.Order;
 import com.squareup.square.types.PayOrderRequest;
 import com.squareup.square.types.PayOrderResponse;
 import com.squareup.square.types.SearchOrdersRequest;
@@ -28,7 +30,11 @@ import com.squareup.square.types.SearchOrdersResponse;
 import com.squareup.square.types.UpdateOrderRequest;
 import com.squareup.square.types.UpdateOrderResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -349,7 +355,7 @@ public class AsyncRawOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchOrdersResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Order>>> search() {
         return search(SearchOrdersRequest.builder().build());
     }
 
@@ -369,7 +375,7 @@ public class AsyncRawOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchOrdersResponse>> search(SearchOrdersRequest request) {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Order>>> search(SearchOrdersRequest request) {
         return search(request, null);
     }
 
@@ -389,7 +395,7 @@ public class AsyncRawOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchOrdersResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Order>>> search(
             SearchOrdersRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -413,14 +419,30 @@ public class AsyncRawOrdersClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchOrdersResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Order>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchOrdersResponse parsedResponse =
+                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchOrdersResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchOrdersRequest nextRequest = SearchOrdersRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Order> result = parsedResponse.getOrders().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchOrdersResponse.class),
+                                new SyncPagingIterable<Order>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

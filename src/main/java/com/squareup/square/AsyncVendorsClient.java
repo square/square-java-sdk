@@ -5,6 +5,7 @@ package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchCreateVendorsRequest;
 import com.squareup.square.types.BatchCreateVendorsResponse;
 import com.squareup.square.types.BatchGetVendorsRequest;
@@ -16,9 +17,9 @@ import com.squareup.square.types.CreateVendorResponse;
 import com.squareup.square.types.GetVendorResponse;
 import com.squareup.square.types.GetVendorsRequest;
 import com.squareup.square.types.SearchVendorsRequest;
-import com.squareup.square.types.SearchVendorsResponse;
 import com.squareup.square.types.UpdateVendorResponse;
 import com.squareup.square.types.UpdateVendorsRequest;
+import com.squareup.square.types.Vendor;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncVendorsClient {
@@ -107,21 +108,21 @@ public class AsyncVendorsClient {
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SearchVendorsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<Vendor>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SearchVendorsResponse> search(SearchVendorsRequest request) {
+    public CompletableFuture<SyncPagingIterable<Vendor>> search(SearchVendorsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SearchVendorsResponse> search(
+    public CompletableFuture<SyncPagingIterable<Vendor>> search(
             SearchVendorsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

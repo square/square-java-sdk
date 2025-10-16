@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelRefundsRequest;
 import com.squareup.square.terminal.types.CreateTerminalRefundRequest;
 import com.squareup.square.terminal.types.GetRefundsRequest;
@@ -19,8 +20,13 @@ import com.squareup.square.types.CancelTerminalRefundResponse;
 import com.squareup.square.types.CreateTerminalRefundResponse;
 import com.squareup.square.types.GetTerminalRefundResponse;
 import com.squareup.square.types.SearchTerminalRefundsResponse;
+import com.squareup.square.types.TerminalRefund;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -109,14 +115,14 @@ public class AsyncRawRefundsClient {
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>>> search() {
         return search(SearchTerminalRefundsRequest.builder().build());
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>>> search(
             SearchTerminalRefundsRequest request) {
         return search(request, null);
     }
@@ -124,7 +130,7 @@ public class AsyncRawRefundsClient {
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>>> search(
             SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -148,15 +154,32 @@ public class AsyncRawRefundsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchTerminalRefundsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchTerminalRefundsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchTerminalRefundsRequest nextRequest = SearchTerminalRefundsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<TerminalRefund> result =
+                                parsedResponse.getRefunds().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchTerminalRefundsResponse.class),
+                                new SyncPagingIterable<TerminalRefund>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

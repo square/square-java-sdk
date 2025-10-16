@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchCreateVendorsRequest;
 import com.squareup.square.types.BatchCreateVendorsResponse;
 import com.squareup.square.types.BatchGetVendorsRequest;
@@ -25,8 +26,13 @@ import com.squareup.square.types.SearchVendorsRequest;
 import com.squareup.square.types.SearchVendorsResponse;
 import com.squareup.square.types.UpdateVendorResponse;
 import com.squareup.square.types.UpdateVendorsRequest;
+import com.squareup.square.types.Vendor;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -321,21 +327,22 @@ public class AsyncRawVendorsClient {
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Vendor>>> search() {
         return search(SearchVendorsRequest.builder().build());
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> search(SearchVendorsRequest request) {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Vendor>>> search(
+            SearchVendorsRequest request) {
         return search(request, null);
     }
 
     /**
      * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Vendor>>> search(
             SearchVendorsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -359,14 +366,30 @@ public class AsyncRawVendorsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Vendor>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchVendorsResponse parsedResponse =
+                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchVendorsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchVendorsRequest nextRequest = SearchVendorsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Vendor> result = parsedResponse.getVendors().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchVendorsResponse.class),
+                                new SyncPagingIterable<Vendor>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

@@ -23,7 +23,6 @@ import com.squareup.square.types.ListInvoicesRequest;
 import com.squareup.square.types.PublishInvoiceRequest;
 import com.squareup.square.types.PublishInvoiceResponse;
 import com.squareup.square.types.SearchInvoicesRequest;
-import com.squareup.square.types.SearchInvoicesResponse;
 import com.squareup.square.types.UpdateInvoiceRequest;
 import com.squareup.square.types.UpdateInvoiceResponse;
 import java.util.concurrent.CompletableFuture;
@@ -93,7 +92,7 @@ public class AsyncInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public CompletableFuture<SearchInvoicesResponse> search(SearchInvoicesRequest request) {
+    public CompletableFuture<SyncPagingIterable<Invoice>> search(SearchInvoicesRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -105,7 +104,7 @@ public class AsyncInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public CompletableFuture<SearchInvoicesResponse> search(
+    public CompletableFuture<SyncPagingIterable<Invoice>> search(
             SearchInvoicesRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

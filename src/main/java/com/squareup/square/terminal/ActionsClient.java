@@ -5,6 +5,7 @@ package com.squareup.square.terminal;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelActionsRequest;
 import com.squareup.square.terminal.types.CreateTerminalActionRequest;
 import com.squareup.square.terminal.types.GetActionsRequest;
@@ -12,7 +13,7 @@ import com.squareup.square.terminal.types.SearchTerminalActionsRequest;
 import com.squareup.square.types.CancelTerminalActionResponse;
 import com.squareup.square.types.CreateTerminalActionResponse;
 import com.squareup.square.types.GetTerminalActionResponse;
-import com.squareup.square.types.SearchTerminalActionsResponse;
+import com.squareup.square.types.TerminalAction;
 
 public class ActionsClient {
     protected final ClientOptions clientOptions;
@@ -48,21 +49,22 @@ public class ActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SearchTerminalActionsResponse search() {
+    public SyncPagingIterable<TerminalAction> search() {
         return this.rawClient.search().body();
     }
 
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SearchTerminalActionsResponse search(SearchTerminalActionsRequest request) {
+    public SyncPagingIterable<TerminalAction> search(SearchTerminalActionsRequest request) {
         return this.rawClient.search(request).body();
     }
 
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SearchTerminalActionsResponse search(SearchTerminalActionsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<TerminalAction> search(
+            SearchTerminalActionsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

@@ -29,7 +29,6 @@ import com.squareup.square.types.GetCustomerResponse;
 import com.squareup.square.types.GetCustomersRequest;
 import com.squareup.square.types.ListCustomersRequest;
 import com.squareup.square.types.SearchCustomersRequest;
-import com.squareup.square.types.SearchCustomersResponse;
 import com.squareup.square.types.UpdateCustomerRequest;
 import com.squareup.square.types.UpdateCustomerResponse;
 import java.util.function.Supplier;
@@ -237,7 +236,7 @@ public class CustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SearchCustomersResponse search() {
+    public SyncPagingIterable<Customer> search() {
         return this.rawClient.search().body();
     }
 
@@ -250,7 +249,7 @@ public class CustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SearchCustomersResponse search(SearchCustomersRequest request) {
+    public SyncPagingIterable<Customer> search(SearchCustomersRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -263,7 +262,7 @@ public class CustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SearchCustomersResponse search(SearchCustomersRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<Customer> search(SearchCustomersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 

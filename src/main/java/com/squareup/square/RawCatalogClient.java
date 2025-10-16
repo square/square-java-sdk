@@ -409,7 +409,7 @@ public class RawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogObjectsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> search() {
         return search(SearchCatalogObjectsRequest.builder().build());
     }
 
@@ -425,7 +425,7 @@ public class RawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogObjectsResponse> search(SearchCatalogObjectsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> search(SearchCatalogObjectsRequest request) {
         return search(request, null);
     }
 
@@ -441,7 +441,7 @@ public class RawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogObjectsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> search(
             SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -468,8 +468,18 @@ public class RawCatalogClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchCatalogObjectsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCatalogObjectsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchCatalogObjectsRequest nextRequest = SearchCatalogObjectsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<CatalogObject> result = parsedResponse.getObjects().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCatalogObjectsResponse.class),
+                        new SyncPagingIterable<CatalogObject>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -495,7 +505,7 @@ public class RawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogItemsResponse> searchItems() {
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> searchItems() {
         return searchItems(SearchCatalogItemsRequest.builder().build());
     }
 
@@ -511,7 +521,7 @@ public class RawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogItemsResponse> searchItems(SearchCatalogItemsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> searchItems(SearchCatalogItemsRequest request) {
         return searchItems(request, null);
     }
 
@@ -527,7 +537,7 @@ public class RawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SquareClientHttpResponse<SearchCatalogItemsResponse> searchItems(
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> searchItems(
             SearchCatalogItemsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -554,8 +564,18 @@ public class RawCatalogClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchCatalogItemsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCatalogItemsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchCatalogItemsRequest nextRequest = SearchCatalogItemsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<CatalogObject> result = parsedResponse.getItems().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCatalogItemsResponse.class),
+                        new SyncPagingIterable<CatalogObject>(
+                                startingAfter.isPresent(), result, () -> searchItems(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

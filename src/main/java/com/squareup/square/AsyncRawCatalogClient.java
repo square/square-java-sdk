@@ -490,7 +490,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogObjectsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> search() {
         return search(SearchCatalogObjectsRequest.builder().build());
     }
 
@@ -506,7 +506,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogObjectsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> search(
             SearchCatalogObjectsRequest request) {
         return search(request, null);
     }
@@ -523,7 +523,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogObjectsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> search(
             SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -547,15 +547,31 @@ public class AsyncRawCatalogClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchCatalogObjectsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchCatalogObjectsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchCatalogObjectsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchCatalogObjectsRequest nextRequest = SearchCatalogObjectsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<CatalogObject> result = parsedResponse.getObjects().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchCatalogObjectsResponse.class),
+                                new SyncPagingIterable<CatalogObject>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }
@@ -591,7 +607,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogItemsResponse>> searchItems() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> searchItems() {
         return searchItems(SearchCatalogItemsRequest.builder().build());
     }
 
@@ -607,7 +623,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogItemsResponse>> searchItems(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> searchItems(
             SearchCatalogItemsRequest request) {
         return searchItems(request, null);
     }
@@ -624,7 +640,7 @@ public class AsyncRawCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchCatalogItemsResponse>> searchItems(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> searchItems(
             SearchCatalogItemsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -648,15 +664,31 @@ public class AsyncRawCatalogClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchCatalogItemsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<CatalogObject>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchCatalogItemsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchCatalogItemsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchCatalogItemsRequest nextRequest = SearchCatalogItemsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<CatalogObject> result = parsedResponse.getItems().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchCatalogItemsResponse.class),
+                                new SyncPagingIterable<CatalogObject>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return searchItems(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

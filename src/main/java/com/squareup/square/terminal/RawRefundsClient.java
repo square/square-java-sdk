@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelRefundsRequest;
 import com.squareup.square.terminal.types.CreateTerminalRefundRequest;
 import com.squareup.square.terminal.types.GetRefundsRequest;
@@ -19,7 +20,11 @@ import com.squareup.square.types.CancelTerminalRefundResponse;
 import com.squareup.square.types.CreateTerminalRefundResponse;
 import com.squareup.square.types.GetTerminalRefundResponse;
 import com.squareup.square.types.SearchTerminalRefundsResponse;
+import com.squareup.square.types.TerminalRefund;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -90,21 +95,21 @@ public class RawRefundsClient {
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalRefundsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>> search() {
         return search(SearchTerminalRefundsRequest.builder().build());
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalRefundsResponse> search(SearchTerminalRefundsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>> search(SearchTerminalRefundsRequest request) {
         return search(request, null);
     }
 
     /**
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalRefundsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalRefund>> search(
             SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -131,8 +136,18 @@ public class RawRefundsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchTerminalRefundsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTerminalRefundsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchTerminalRefundsRequest nextRequest = SearchTerminalRefundsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<TerminalRefund> result = parsedResponse.getRefunds().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTerminalRefundsResponse.class),
+                        new SyncPagingIterable<TerminalRefund>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

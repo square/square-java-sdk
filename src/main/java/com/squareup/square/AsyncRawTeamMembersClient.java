@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BatchCreateTeamMembersRequest;
 import com.squareup.square.types.BatchCreateTeamMembersResponse;
 import com.squareup.square.types.BatchUpdateTeamMembersRequest;
@@ -21,10 +22,15 @@ import com.squareup.square.types.GetTeamMemberResponse;
 import com.squareup.square.types.GetTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersRequest;
 import com.squareup.square.types.SearchTeamMembersResponse;
+import com.squareup.square.types.TeamMember;
 import com.squareup.square.types.UpdateTeamMemberResponse;
 import com.squareup.square.types.UpdateTeamMembersRequest;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -290,7 +296,7 @@ public class AsyncRawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTeamMembersResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TeamMember>>> search() {
         return search(SearchTeamMembersRequest.builder().build());
     }
 
@@ -299,7 +305,7 @@ public class AsyncRawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTeamMembersResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TeamMember>>> search(
             SearchTeamMembersRequest request) {
         return search(request, null);
     }
@@ -309,7 +315,7 @@ public class AsyncRawTeamMembersClient {
      * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
      * the team member is the Square account owner.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTeamMembersResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TeamMember>>> search(
             SearchTeamMembersRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -333,15 +339,31 @@ public class AsyncRawTeamMembersClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchTeamMembersResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TeamMember>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchTeamMembersResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchTeamMembersResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchTeamMembersRequest nextRequest = SearchTeamMembersRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<TeamMember> result =
+                                parsedResponse.getTeamMembers().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchTeamMembersResponse.class),
+                                new SyncPagingIterable<TeamMember>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

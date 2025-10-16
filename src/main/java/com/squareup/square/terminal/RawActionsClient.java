@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelActionsRequest;
 import com.squareup.square.terminal.types.CreateTerminalActionRequest;
 import com.squareup.square.terminal.types.GetActionsRequest;
@@ -19,7 +20,11 @@ import com.squareup.square.types.CancelTerminalActionResponse;
 import com.squareup.square.types.CreateTerminalActionResponse;
 import com.squareup.square.types.GetTerminalActionResponse;
 import com.squareup.square.types.SearchTerminalActionsResponse;
+import com.squareup.square.types.TerminalAction;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -90,21 +95,21 @@ public class RawActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalActionsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalAction>> search() {
         return search(SearchTerminalActionsRequest.builder().build());
     }
 
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalActionsResponse> search(SearchTerminalActionsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalAction>> search(SearchTerminalActionsRequest request) {
         return search(request, null);
     }
 
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalActionsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalAction>> search(
             SearchTerminalActionsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -131,8 +136,18 @@ public class RawActionsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchTerminalActionsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTerminalActionsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchTerminalActionsRequest nextRequest = SearchTerminalActionsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<TerminalAction> result = parsedResponse.getAction().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTerminalActionsResponse.class),
+                        new SyncPagingIterable<TerminalAction>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

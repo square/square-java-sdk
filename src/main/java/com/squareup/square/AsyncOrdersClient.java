@@ -6,6 +6,7 @@ package com.squareup.square;
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.Suppliers;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.orders.AsyncCustomAttributeDefinitionsClient;
 import com.squareup.square.orders.AsyncCustomAttributesClient;
 import com.squareup.square.types.BatchGetOrdersRequest;
@@ -18,10 +19,10 @@ import com.squareup.square.types.CreateOrderRequest;
 import com.squareup.square.types.CreateOrderResponse;
 import com.squareup.square.types.GetOrderResponse;
 import com.squareup.square.types.GetOrdersRequest;
+import com.squareup.square.types.Order;
 import com.squareup.square.types.PayOrderRequest;
 import com.squareup.square.types.PayOrderResponse;
 import com.squareup.square.types.SearchOrdersRequest;
-import com.squareup.square.types.SearchOrdersResponse;
 import com.squareup.square.types.UpdateOrderRequest;
 import com.squareup.square.types.UpdateOrderResponse;
 import java.util.concurrent.CompletableFuture;
@@ -148,7 +149,7 @@ public class AsyncOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SearchOrdersResponse> search() {
+    public CompletableFuture<SyncPagingIterable<Order>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -168,7 +169,7 @@ public class AsyncOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SearchOrdersResponse> search(SearchOrdersRequest request) {
+    public CompletableFuture<SyncPagingIterable<Order>> search(SearchOrdersRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -188,7 +189,8 @@ public class AsyncOrdersClient {
      * orders have a <code>created_at</code> value that reflects the time the order was created,
      * not the time it was subsequently transmitted to Square.</p>
      */
-    public CompletableFuture<SearchOrdersResponse> search(SearchOrdersRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<SyncPagingIterable<Order>> search(
+            SearchOrdersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
 

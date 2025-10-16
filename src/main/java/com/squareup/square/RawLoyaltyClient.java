@@ -11,9 +11,14 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
+import com.squareup.square.types.LoyaltyEvent;
 import com.squareup.square.types.SearchLoyaltyEventsRequest;
 import com.squareup.square.types.SearchLoyaltyEventsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -37,7 +42,7 @@ public class RawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyEventsResponse> searchEvents() {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>> searchEvents() {
         return searchEvents(SearchLoyaltyEventsRequest.builder().build());
     }
 
@@ -49,7 +54,7 @@ public class RawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyEventsResponse> searchEvents(SearchLoyaltyEventsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>> searchEvents(SearchLoyaltyEventsRequest request) {
         return searchEvents(request, null);
     }
 
@@ -61,7 +66,7 @@ public class RawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public SquareClientHttpResponse<SearchLoyaltyEventsResponse> searchEvents(
+    public SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>> searchEvents(
             SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -88,8 +93,18 @@ public class RawLoyaltyClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchLoyaltyEventsResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyEventsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchLoyaltyEventsRequest nextRequest = SearchLoyaltyEventsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<LoyaltyEvent> result = parsedResponse.getEvents().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchLoyaltyEventsResponse.class),
+                        new SyncPagingIterable<LoyaltyEvent>(
+                                startingAfter.isPresent(), result, () -> searchEvents(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

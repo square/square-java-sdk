@@ -11,10 +11,16 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
+import com.squareup.square.types.LoyaltyEvent;
 import com.squareup.square.types.SearchLoyaltyEventsRequest;
 import com.squareup.square.types.SearchLoyaltyEventsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -41,7 +47,7 @@ public class AsyncRawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> searchEvents() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>>> searchEvents() {
         return searchEvents(SearchLoyaltyEventsRequest.builder().build());
     }
 
@@ -53,7 +59,7 @@ public class AsyncRawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> searchEvents(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>>> searchEvents(
             SearchLoyaltyEventsRequest request) {
         return searchEvents(request, null);
     }
@@ -66,7 +72,7 @@ public class AsyncRawLoyaltyClient {
      * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> searchEvents(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>>> searchEvents(
             SearchLoyaltyEventsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -90,15 +96,31 @@ public class AsyncRawLoyaltyClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyEvent>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchLoyaltyEventsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchLoyaltyEventsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchLoyaltyEventsRequest nextRequest = SearchLoyaltyEventsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<LoyaltyEvent> result = parsedResponse.getEvents().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchLoyaltyEventsResponse.class),
+                                new SyncPagingIterable<LoyaltyEvent>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return searchEvents(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

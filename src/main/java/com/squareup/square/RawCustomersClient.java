@@ -472,7 +472,7 @@ public class RawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SquareClientHttpResponse<SearchCustomersResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<Customer>> search() {
         return search(SearchCustomersRequest.builder().build());
     }
 
@@ -485,7 +485,7 @@ public class RawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SquareClientHttpResponse<SearchCustomersResponse> search(SearchCustomersRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<Customer>> search(SearchCustomersRequest request) {
         return search(request, null);
     }
 
@@ -498,7 +498,7 @@ public class RawCustomersClient {
      * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
-    public SquareClientHttpResponse<SearchCustomersResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<Customer>> search(
             SearchCustomersRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -525,8 +525,18 @@ public class RawCustomersClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchCustomersResponse parsedResponse =
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCustomersResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchCustomersRequest nextRequest = SearchCustomersRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<Customer> result = parsedResponse.getCustomers().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchCustomersResponse.class),
+                        new SyncPagingIterable<Customer>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

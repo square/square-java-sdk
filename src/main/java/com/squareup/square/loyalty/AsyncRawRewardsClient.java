@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.loyalty.types.CreateLoyaltyRewardRequest;
 import com.squareup.square.loyalty.types.DeleteRewardsRequest;
 import com.squareup.square.loyalty.types.GetRewardsRequest;
@@ -19,10 +20,15 @@ import com.squareup.square.loyalty.types.SearchLoyaltyRewardsRequest;
 import com.squareup.square.types.CreateLoyaltyRewardResponse;
 import com.squareup.square.types.DeleteLoyaltyRewardResponse;
 import com.squareup.square.types.GetLoyaltyRewardResponse;
+import com.squareup.square.types.LoyaltyReward;
 import com.squareup.square.types.RedeemLoyaltyRewardResponse;
 import com.squareup.square.types.SearchLoyaltyRewardsResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -129,7 +135,7 @@ public class AsyncRawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>>> search() {
         return search(SearchLoyaltyRewardsRequest.builder().build());
     }
 
@@ -140,7 +146,7 @@ public class AsyncRawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>>> search(
             SearchLoyaltyRewardsRequest request) {
         return search(request, null);
     }
@@ -152,7 +158,7 @@ public class AsyncRawRewardsClient {
      * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>>> search(
             SearchLoyaltyRewardsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -176,15 +182,31 @@ public class AsyncRawRewardsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<LoyaltyReward>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchLoyaltyRewardsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchLoyaltyRewardsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchLoyaltyRewardsRequest nextRequest = SearchLoyaltyRewardsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<LoyaltyReward> result = parsedResponse.getRewards().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchLoyaltyRewardsResponse.class),
+                                new SyncPagingIterable<LoyaltyReward>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelCheckoutsRequest;
 import com.squareup.square.terminal.types.CreateTerminalCheckoutRequest;
 import com.squareup.square.terminal.types.GetCheckoutsRequest;
@@ -19,8 +20,13 @@ import com.squareup.square.types.CancelTerminalCheckoutResponse;
 import com.squareup.square.types.CreateTerminalCheckoutResponse;
 import com.squareup.square.types.GetTerminalCheckoutResponse;
 import com.squareup.square.types.SearchTerminalCheckoutsResponse;
+import com.squareup.square.types.TerminalCheckout;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -111,14 +117,14 @@ public class AsyncRawCheckoutsClient {
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> search() {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>>> search() {
         return search(SearchTerminalCheckoutsRequest.builder().build());
     }
 
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>>> search(
             SearchTerminalCheckoutsRequest request) {
         return search(request, null);
     }
@@ -126,7 +132,7 @@ public class AsyncRawCheckoutsClient {
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>>> search(
             SearchTerminalCheckoutsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -150,15 +156,32 @@ public class AsyncRawCheckoutsClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>>> future =
+                new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchTerminalCheckoutsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchTerminalCheckoutsResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchTerminalCheckoutsRequest nextRequest = SearchTerminalCheckoutsRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<TerminalCheckout> result =
+                                parsedResponse.getCheckouts().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchTerminalCheckoutsResponse.class),
+                                new SyncPagingIterable<TerminalCheckout>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

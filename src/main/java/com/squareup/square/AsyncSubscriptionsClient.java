@@ -24,7 +24,7 @@ import com.squareup.square.types.PauseSubscriptionResponse;
 import com.squareup.square.types.ResumeSubscriptionRequest;
 import com.squareup.square.types.ResumeSubscriptionResponse;
 import com.squareup.square.types.SearchSubscriptionsRequest;
-import com.squareup.square.types.SearchSubscriptionsResponse;
+import com.squareup.square.types.Subscription;
 import com.squareup.square.types.SubscriptionEvent;
 import com.squareup.square.types.SwapPlanRequest;
 import com.squareup.square.types.SwapPlanResponse;
@@ -105,7 +105,7 @@ public class AsyncSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SearchSubscriptionsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<Subscription>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -123,7 +123,7 @@ public class AsyncSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SearchSubscriptionsResponse> search(SearchSubscriptionsRequest request) {
+    public CompletableFuture<SyncPagingIterable<Subscription>> search(SearchSubscriptionsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -141,7 +141,7 @@ public class AsyncSubscriptionsClient {
      * first by location, within location by customer ID, and within
      * customer by subscription creation date.</p>
      */
-    public CompletableFuture<SearchSubscriptionsResponse> search(
+    public CompletableFuture<SyncPagingIterable<Subscription>> search(
             SearchSubscriptionsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }

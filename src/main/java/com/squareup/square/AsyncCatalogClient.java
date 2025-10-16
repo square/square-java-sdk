@@ -19,9 +19,7 @@ import com.squareup.square.types.CatalogInfoResponse;
 import com.squareup.square.types.CatalogObject;
 import com.squareup.square.types.ListCatalogRequest;
 import com.squareup.square.types.SearchCatalogItemsRequest;
-import com.squareup.square.types.SearchCatalogItemsResponse;
 import com.squareup.square.types.SearchCatalogObjectsRequest;
-import com.squareup.square.types.SearchCatalogObjectsResponse;
 import com.squareup.square.types.UpdateItemModifierListsRequest;
 import com.squareup.square.types.UpdateItemModifierListsResponse;
 import com.squareup.square.types.UpdateItemTaxesRequest;
@@ -216,7 +214,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogObjectsResponse> search() {
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> search() {
         return this.rawClient.search().thenApply(response -> response.body());
     }
 
@@ -232,7 +230,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogObjectsResponse> search(SearchCatalogObjectsRequest request) {
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> search(SearchCatalogObjectsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }
 
@@ -248,7 +246,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogObjectsResponse> search(
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> search(
             SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).thenApply(response -> response.body());
     }
@@ -265,7 +263,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogItemsResponse> searchItems() {
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> searchItems() {
         return this.rawClient.searchItems().thenApply(response -> response.body());
     }
 
@@ -281,7 +279,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogItemsResponse> searchItems(SearchCatalogItemsRequest request) {
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> searchItems(SearchCatalogItemsRequest request) {
         return this.rawClient.searchItems(request).thenApply(response -> response.body());
     }
 
@@ -297,7 +295,7 @@ public class AsyncCatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public CompletableFuture<SearchCatalogItemsResponse> searchItems(
+    public CompletableFuture<SyncPagingIterable<CatalogObject>> searchItems(
             SearchCatalogItemsRequest request, RequestOptions requestOptions) {
         return this.rawClient.searchItems(request, requestOptions).thenApply(response -> response.body());
     }

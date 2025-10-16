@@ -11,6 +11,7 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelCheckoutsRequest;
 import com.squareup.square.terminal.types.CreateTerminalCheckoutRequest;
 import com.squareup.square.terminal.types.GetCheckoutsRequest;
@@ -19,7 +20,11 @@ import com.squareup.square.types.CancelTerminalCheckoutResponse;
 import com.squareup.square.types.CreateTerminalCheckoutResponse;
 import com.squareup.square.types.GetTerminalCheckoutResponse;
 import com.squareup.square.types.SearchTerminalCheckoutsResponse;
+import com.squareup.square.types.TerminalCheckout;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -93,21 +98,22 @@ public class RawCheckoutsClient {
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalCheckoutsResponse> search() {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>> search() {
         return search(SearchTerminalCheckoutsRequest.builder().build());
     }
 
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalCheckoutsResponse> search(SearchTerminalCheckoutsRequest request) {
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>> search(
+            SearchTerminalCheckoutsRequest request) {
         return search(request, null);
     }
 
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SquareClientHttpResponse<SearchTerminalCheckoutsResponse> search(
+    public SquareClientHttpResponse<SyncPagingIterable<TerminalCheckout>> search(
             SearchTerminalCheckoutsRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -134,9 +140,18 @@ public class RawCheckoutsClient {
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
             if (response.isSuccessful()) {
+                SearchTerminalCheckoutsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                        responseBody.string(), SearchTerminalCheckoutsResponse.class);
+                Optional<String> startingAfter = parsedResponse.getCursor();
+                SearchTerminalCheckoutsRequest nextRequest = SearchTerminalCheckoutsRequest.builder()
+                        .from(request)
+                        .cursor(startingAfter)
+                        .build();
+                List<TerminalCheckout> result = parsedResponse.getCheckouts().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), SearchTerminalCheckoutsResponse.class),
+                        new SyncPagingIterable<TerminalCheckout>(
+                                startingAfter.isPresent(), result, () -> search(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
             String responseBodyString = responseBody != null ? responseBody.string() : "{}";

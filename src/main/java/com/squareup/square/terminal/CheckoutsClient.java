@@ -5,6 +5,7 @@ package com.squareup.square.terminal;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
+import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.terminal.types.CancelCheckoutsRequest;
 import com.squareup.square.terminal.types.CreateTerminalCheckoutRequest;
 import com.squareup.square.terminal.types.GetCheckoutsRequest;
@@ -12,7 +13,7 @@ import com.squareup.square.terminal.types.SearchTerminalCheckoutsRequest;
 import com.squareup.square.types.CancelTerminalCheckoutResponse;
 import com.squareup.square.types.CreateTerminalCheckoutResponse;
 import com.squareup.square.types.GetTerminalCheckoutResponse;
-import com.squareup.square.types.SearchTerminalCheckoutsResponse;
+import com.squareup.square.types.TerminalCheckout;
 
 public class CheckoutsClient {
     protected final ClientOptions clientOptions;
@@ -50,21 +51,21 @@ public class CheckoutsClient {
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SearchTerminalCheckoutsResponse search() {
+    public SyncPagingIterable<TerminalCheckout> search() {
         return this.rawClient.search().body();
     }
 
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SearchTerminalCheckoutsResponse search(SearchTerminalCheckoutsRequest request) {
+    public SyncPagingIterable<TerminalCheckout> search(SearchTerminalCheckoutsRequest request) {
         return this.rawClient.search(request).body();
     }
 
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
-    public SearchTerminalCheckoutsResponse search(
+    public SyncPagingIterable<TerminalCheckout> search(
             SearchTerminalCheckoutsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }

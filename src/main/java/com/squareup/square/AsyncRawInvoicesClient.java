@@ -225,7 +225,8 @@ public class AsyncRawInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchInvoicesResponse>> search(SearchInvoicesRequest request) {
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Invoice>>> search(
+            SearchInvoicesRequest request) {
         return search(request, null);
     }
 
@@ -237,7 +238,7 @@ public class AsyncRawInvoicesClient {
      * <p>The response is paginated. If truncated, the response includes a <code>cursor</code>
      * that you use in a subsequent request to retrieve the next set of invoices.</p>
      */
-    public CompletableFuture<SquareClientHttpResponse<SearchInvoicesResponse>> search(
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Invoice>>> search(
             SearchInvoicesRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -261,15 +262,30 @@ public class AsyncRawInvoicesClient {
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
             client = clientOptions.httpClientWithTimeout(requestOptions);
         }
-        CompletableFuture<SquareClientHttpResponse<SearchInvoicesResponse>> future = new CompletableFuture<>();
+        CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Invoice>>> future = new CompletableFuture<>();
         client.newCall(okhttpRequest).enqueue(new Callback() {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
+                        SearchInvoicesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), SearchInvoicesResponse.class);
+                        Optional<String> startingAfter = parsedResponse.getCursor();
+                        SearchInvoicesRequest nextRequest = SearchInvoicesRequest.builder()
+                                .from(request)
+                                .cursor(startingAfter)
+                                .build();
+                        List<Invoice> result = parsedResponse.getInvoices().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), SearchInvoicesResponse.class),
+                                new SyncPagingIterable<Invoice>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return search(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }

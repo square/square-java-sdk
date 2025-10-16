@@ -19,9 +19,7 @@ import com.squareup.square.types.CatalogInfoResponse;
 import com.squareup.square.types.CatalogObject;
 import com.squareup.square.types.ListCatalogRequest;
 import com.squareup.square.types.SearchCatalogItemsRequest;
-import com.squareup.square.types.SearchCatalogItemsResponse;
 import com.squareup.square.types.SearchCatalogObjectsRequest;
-import com.squareup.square.types.SearchCatalogObjectsResponse;
 import com.squareup.square.types.UpdateItemModifierListsRequest;
 import com.squareup.square.types.UpdateItemModifierListsResponse;
 import com.squareup.square.types.UpdateItemTaxesRequest;
@@ -214,7 +212,7 @@ public class CatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogObjectsResponse search() {
+    public SyncPagingIterable<CatalogObject> search() {
         return this.rawClient.search().body();
     }
 
@@ -230,7 +228,7 @@ public class CatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogObjectsResponse search(SearchCatalogObjectsRequest request) {
+    public SyncPagingIterable<CatalogObject> search(SearchCatalogObjectsRequest request) {
         return this.rawClient.search(request).body();
     }
 
@@ -246,7 +244,8 @@ public class CatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogObjectsResponse search(SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<CatalogObject> search(
+            SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();
     }
 
@@ -262,7 +261,7 @@ public class CatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogItemsResponse searchItems() {
+    public SyncPagingIterable<CatalogObject> searchItems() {
         return this.rawClient.searchItems().body();
     }
 
@@ -278,7 +277,7 @@ public class CatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogItemsResponse searchItems(SearchCatalogItemsRequest request) {
+    public SyncPagingIterable<CatalogObject> searchItems(SearchCatalogItemsRequest request) {
         return this.rawClient.searchItems(request).body();
     }
 
@@ -294,7 +293,8 @@ public class CatalogClient {
      * <li>The both endpoints use different call conventions, including the query filter formats.</li>
      * </ul>
      */
-    public SearchCatalogItemsResponse searchItems(SearchCatalogItemsRequest request, RequestOptions requestOptions) {
+    public SyncPagingIterable<CatalogObject> searchItems(
+            SearchCatalogItemsRequest request, RequestOptions requestOptions) {
         return this.rawClient.searchItems(request, requestOptions).body();
     }
 
