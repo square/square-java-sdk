@@ -28,6 +28,8 @@ public class SquareClient {
 
     protected final Supplier<CatalogClient> catalogClient;
 
+    protected final Supplier<ChannelsClient> channelsClient;
+
     protected final Supplier<CustomersClient> customersClient;
 
     protected final Supplier<DevicesClient> devicesClient;
@@ -74,6 +76,8 @@ public class SquareClient {
 
     protected final Supplier<TerminalClient> terminalClient;
 
+    protected final Supplier<TransferOrdersClient> transferOrdersClient;
+
     protected final Supplier<VendorsClient> vendorsClient;
 
     protected final Supplier<CashDrawersClient> cashDrawersClient;
@@ -90,6 +94,7 @@ public class SquareClient {
         this.bookingsClient = Suppliers.memoize(() -> new BookingsClient(clientOptions));
         this.cardsClient = Suppliers.memoize(() -> new CardsClient(clientOptions));
         this.catalogClient = Suppliers.memoize(() -> new CatalogClient(clientOptions));
+        this.channelsClient = Suppliers.memoize(() -> new ChannelsClient(clientOptions));
         this.customersClient = Suppliers.memoize(() -> new CustomersClient(clientOptions));
         this.devicesClient = Suppliers.memoize(() -> new DevicesClient(clientOptions));
         this.disputesClient = Suppliers.memoize(() -> new DisputesClient(clientOptions));
@@ -113,6 +118,7 @@ public class SquareClient {
         this.teamMembersClient = Suppliers.memoize(() -> new TeamMembersClient(clientOptions));
         this.teamClient = Suppliers.memoize(() -> new TeamClient(clientOptions));
         this.terminalClient = Suppliers.memoize(() -> new TerminalClient(clientOptions));
+        this.transferOrdersClient = Suppliers.memoize(() -> new TransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new VendorsClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new CashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new WebhooksClient(clientOptions));
@@ -148,6 +154,10 @@ public class SquareClient {
 
     public CatalogClient catalog() {
         return this.catalogClient.get();
+    }
+
+    public ChannelsClient channels() {
+        return this.channelsClient.get();
     }
 
     public CustomersClient customers() {
@@ -240,6 +250,10 @@ public class SquareClient {
 
     public TerminalClient terminal() {
         return this.terminalClient.get();
+    }
+
+    public TransferOrdersClient transferOrders() {
+        return this.transferOrdersClient.get();
     }
 
     public VendorsClient vendors() {

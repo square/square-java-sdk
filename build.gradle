@@ -47,7 +47,7 @@ java {
 
 group = 'com.squareup'
 
-version = '45.0.0.20250924'
+version = '45.1.0.20251016'
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
@@ -78,7 +78,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.squareup'
             artifactId = 'square'
-            version = '45.0.0.20250924'
+            version = '45.1.0.20251016'
             from components.java
             pom {
                 name = 'square'
