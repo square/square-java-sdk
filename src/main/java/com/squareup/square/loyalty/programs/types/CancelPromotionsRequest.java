@@ -19,16 +19,24 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = CancelPromotionsRequest.Builder.class)
 public final class CancelPromotionsRequest {
-    private final String promotionId;
-
     private final String programId;
+
+    private final String promotionId;
 
     private final Map<String, Object> additionalProperties;
 
-    private CancelPromotionsRequest(String promotionId, String programId, Map<String, Object> additionalProperties) {
-        this.promotionId = promotionId;
+    private CancelPromotionsRequest(String programId, String promotionId, Map<String, Object> additionalProperties) {
         this.programId = programId;
+        this.promotionId = promotionId;
         this.additionalProperties = additionalProperties;
+    }
+
+    /**
+     * @return The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.
+     */
+    @JsonProperty("program_id")
+    public String getProgramId() {
+        return programId;
     }
 
     /**
@@ -38,14 +46,6 @@ public final class CancelPromotionsRequest {
     @JsonProperty("promotion_id")
     public String getPromotionId() {
         return promotionId;
-    }
-
-    /**
-     * @return The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.
-     */
-    @JsonProperty("program_id")
-    public String getProgramId() {
-        return programId;
     }
 
     @java.lang.Override
@@ -60,12 +60,12 @@ public final class CancelPromotionsRequest {
     }
 
     private boolean equalTo(CancelPromotionsRequest other) {
-        return promotionId.equals(other.promotionId) && programId.equals(other.programId);
+        return programId.equals(other.programId) && promotionId.equals(other.promotionId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.promotionId, this.programId);
+        return Objects.hash(this.programId, this.promotionId);
     }
 
     @java.lang.Override
@@ -73,8 +73,17 @@ public final class CancelPromotionsRequest {
         return ObjectMappers.stringify(this);
     }
 
-    public static PromotionIdStage builder() {
+    public static ProgramIdStage builder() {
         return new Builder();
+    }
+
+    public interface ProgramIdStage {
+        /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         */
+        PromotionIdStage programId(@NotNull String programId);
+
+        Builder from(CancelPromotionsRequest other);
     }
 
     public interface PromotionIdStage {
@@ -82,16 +91,7 @@ public final class CancelPromotionsRequest {
          * <p>The ID of the <a href="entity:LoyaltyPromotion">loyalty promotion</a> to cancel. You can cancel a
          * promotion that has an <code>ACTIVE</code> or <code>SCHEDULED</code> status.</p>
          */
-        ProgramIdStage promotionId(@NotNull String promotionId);
-
-        Builder from(CancelPromotionsRequest other);
-    }
-
-    public interface ProgramIdStage {
-        /**
-         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         */
-        _FinalStage programId(@NotNull String programId);
+        _FinalStage promotionId(@NotNull String promotionId);
     }
 
     public interface _FinalStage {
@@ -99,10 +99,10 @@ public final class CancelPromotionsRequest {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements PromotionIdStage, ProgramIdStage, _FinalStage {
-        private String promotionId;
-
+    public static final class Builder implements ProgramIdStage, PromotionIdStage, _FinalStage {
         private String programId;
+
+        private String promotionId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -111,8 +111,20 @@ public final class CancelPromotionsRequest {
 
         @java.lang.Override
         public Builder from(CancelPromotionsRequest other) {
-            promotionId(other.getPromotionId());
             programId(other.getProgramId());
+            promotionId(other.getPromotionId());
+            return this;
+        }
+
+        /**
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("program_id")
+        public PromotionIdStage programId(@NotNull String programId) {
+            this.programId = Objects.requireNonNull(programId, "programId must not be null");
             return this;
         }
 
@@ -125,26 +137,14 @@ public final class CancelPromotionsRequest {
          */
         @java.lang.Override
         @JsonSetter("promotion_id")
-        public ProgramIdStage promotionId(@NotNull String promotionId) {
+        public _FinalStage promotionId(@NotNull String promotionId) {
             this.promotionId = Objects.requireNonNull(promotionId, "promotionId must not be null");
-            return this;
-        }
-
-        /**
-         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         * <p>The ID of the base <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
-        @java.lang.Override
-        @JsonSetter("program_id")
-        public _FinalStage programId(@NotNull String programId) {
-            this.programId = Objects.requireNonNull(programId, "programId must not be null");
             return this;
         }
 
         @java.lang.Override
         public CancelPromotionsRequest build() {
-            return new CancelPromotionsRequest(promotionId, programId, additionalProperties);
+            return new CancelPromotionsRequest(programId, promotionId, additionalProperties);
         }
     }
 }

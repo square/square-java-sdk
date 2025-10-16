@@ -78,8 +78,17 @@ public final class CustomAttribute {
         return key;
     }
 
-    @JsonProperty("value")
+    /**
+     * @return The value assigned to the custom attribute. It is validated against the custom
+     * attribute definition's schema on write operations. For more information about custom
+     * attribute values,
+     * see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview">Custom Attributes Overview</a>.
+     */
+    @JsonIgnore
     public Optional<Object> getValue() {
+        if (value == null) {
+            return Optional.empty();
+        }
         return value;
     }
 
@@ -135,6 +144,12 @@ public final class CustomAttribute {
     @JsonProperty("key")
     private Optional<String> _getKey() {
         return key;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("value")
+    private Optional<Object> _getValue() {
+        return value;
     }
 
     @java.lang.Override
@@ -239,6 +254,12 @@ public final class CustomAttribute {
             return this;
         }
 
+        /**
+         * <p>The value assigned to the custom attribute. It is validated against the custom
+         * attribute definition's schema on write operations. For more information about custom
+         * attribute values,
+         * see <a href="https://developer.squareup.com/docs/devtools/customattributes/overview">Custom Attributes Overview</a>.</p>
+         */
         @JsonSetter(value = "value", nulls = Nulls.SKIP)
         public Builder value(Optional<Object> value) {
             this.value = value;
@@ -247,6 +268,17 @@ public final class CustomAttribute {
 
         public Builder value(Object value) {
             this.value = Optional.ofNullable(value);
+            return this;
+        }
+
+        public Builder value(Nullable<Object> value) {
+            if (value.isNull()) {
+                this.value = null;
+            } else if (value.isEmpty()) {
+                this.value = Optional.empty();
+            } else {
+                this.value = Optional.of(value.get());
+            }
             return this;
         }
 
