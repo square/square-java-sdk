@@ -142,7 +142,9 @@ public final class BatchGetOrdersRequest {
         @JsonSetter(value = "order_ids", nulls = Nulls.SKIP)
         public Builder orderIds(List<String> orderIds) {
             this.orderIds.clear();
-            this.orderIds.addAll(orderIds);
+            if (orderIds != null) {
+                this.orderIds.addAll(orderIds);
+            }
             return this;
         }
 

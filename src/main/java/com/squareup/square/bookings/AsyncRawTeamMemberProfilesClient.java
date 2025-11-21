@@ -94,9 +94,10 @@ public class AsyncRawTeamMemberProfilesClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         ListTeamMemberBookingProfilesResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBody.string(), ListTeamMemberBookingProfilesResponse.class);
+                                responseBodyString, ListTeamMemberBookingProfilesResponse.class);
                         Optional<String> startingAfter = parsedResponse.getCursor();
                         ListTeamMemberProfilesRequest nextRequest = ListTeamMemberProfilesRequest.builder()
                                 .from(request)
@@ -106,7 +107,7 @@ public class AsyncRawTeamMemberProfilesClient {
                                 parsedResponse.getTeamMemberBookingProfiles().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
                                 new SyncPagingIterable<TeamMemberBookingProfile>(
-                                        startingAfter.isPresent(), result, () -> {
+                                        startingAfter.isPresent(), result, parsedResponse, () -> {
                                             try {
                                                 return list(nextRequest, requestOptions)
                                                         .get()
@@ -118,12 +119,9 @@ public class AsyncRawTeamMemberProfilesClient {
                                 response));
                         return;
                     }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
-                            response));
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
@@ -172,19 +170,17 @@ public class AsyncRawTeamMemberProfilesClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new SquareClientHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBody.string(), GetTeamMemberBookingProfileResponse.class),
+                                        responseBodyString, GetTeamMemberBookingProfileResponse.class),
                                 response));
                         return;
                     }
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(),
-                            response.code(),
-                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
-                            response));
+                            "Error with status code " + response.code(), response.code(), errorBody, response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));

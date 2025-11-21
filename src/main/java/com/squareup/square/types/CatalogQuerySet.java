@@ -166,7 +166,9 @@ public final class CatalogQuerySet {
         @JsonSetter(value = "attribute_values", nulls = Nulls.SKIP)
         public _FinalStage attributeValues(List<String> attributeValues) {
             this.attributeValues.clear();
-            this.attributeValues.addAll(attributeValues);
+            if (attributeValues != null) {
+                this.attributeValues.addAll(attributeValues);
+            }
             return this;
         }
 

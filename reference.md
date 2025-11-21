@@ -817,7 +817,7 @@ client.applePay().registerDomain(
 </details>
 
 ## BankAccounts
-<details><summary><code>client.bankAccounts.list() -> ListBankAccountsResponse</code></summary>
+<details><summary><code>client.bankAccounts.list() -> SyncPagingIterable&lt;BankAccount&gt;</code></summary>
 <dl>
 <dd>
 
@@ -1030,7 +1030,7 @@ client.bankAccounts().get(
 </details>
 
 ## Bookings
-<details><summary><code>client.bookings.list() -> ListBookingsResponse</code></summary>
+<details><summary><code>client.bookings.list() -> SyncPagingIterable&lt;Booking&gt;</code></summary>
 <dl>
 <dd>
 
@@ -1759,7 +1759,7 @@ client.bookings().cancel(
 </details>
 
 ## Cards
-<details><summary><code>client.cards.list() -> ListCardsResponse</code></summary>
+<details><summary><code>client.cards.list() -> SyncPagingIterable&lt;Card&gt;</code></summary>
 <dl>
 <dd>
 
@@ -2493,7 +2493,7 @@ client.catalog().info();
 </dl>
 </details>
 
-<details><summary><code>client.catalog.list() -> ListCatalogResponse</code></summary>
+<details><summary><code>client.catalog.list() -> SyncPagingIterable&lt;CatalogObject&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3184,7 +3184,7 @@ At least one of `taxes_to_enable` or `taxes_to_disable` must be specified.
 </details>
 
 ## Channels
-<details><summary><code>client.channels.list() -> ListChannelsResponse</code></summary>
+<details><summary><code>client.channels.list() -> SyncPagingIterable&lt;Channel&gt;</code></summary>
 <dl>
 <dd>
 
@@ -3403,7 +3403,7 @@ client.channels().get(
 </details>
 
 ## Customers
-<details><summary><code>client.customers.list() -> ListCustomersResponse</code></summary>
+<details><summary><code>client.customers.list() -> SyncPagingIterable&lt;Customer&gt;</code></summary>
 <dl>
 <dd>
 
@@ -4575,7 +4575,7 @@ As a best practice, you should include this parameter to enable [optimistic conc
 </details>
 
 ## Devices
-<details><summary><code>client.devices.list() -> ListDevicesResponse</code></summary>
+<details><summary><code>client.devices.list() -> SyncPagingIterable&lt;Device&gt;</code></summary>
 <dl>
 <dd>
 
@@ -4730,7 +4730,7 @@ client.devices().get(
 </details>
 
 ## Disputes
-<details><summary><code>client.disputes.list() -> ListDisputesResponse</code></summary>
+<details><summary><code>client.disputes.list() -> SyncPagingIterable&lt;Dispute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -5151,7 +5151,7 @@ client.disputes().submitEvidence(
 </details>
 
 ## Employees
-<details><summary><code>client.employees.list() -> ListEmployeesResponse</code></summary>
+<details><summary><code>client.employees.list() -> SyncPagingIterable&lt;Employee&gt;</code></summary>
 <dl>
 <dd>
 
@@ -5521,7 +5521,7 @@ client.events().listEventTypes(
 </details>
 
 ## GiftCards
-<details><summary><code>client.giftCards.list() -> ListGiftCardsResponse</code></summary>
+<details><summary><code>client.giftCards.list() -> SyncPagingIterable&lt;GiftCard&gt;</code></summary>
 <dl>
 <dd>
 
@@ -6502,7 +6502,7 @@ client.inventory().batchCreateChanges(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.batchGetChanges(request) -> BatchGetInventoryChangesResponse</code></summary>
+<details><summary><code>client.inventory.batchGetChanges(request) -> SyncPagingIterable&lt;InventoryChange&gt;</code></summary>
 <dl>
 <dd>
 
@@ -6589,7 +6589,7 @@ client.inventory().batchGetChanges(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.batchGetCounts(request) -> BatchGetInventoryCountsResponse</code></summary>
+<details><summary><code>client.inventory.batchGetCounts(request) -> SyncPagingIterable&lt;InventoryCount&gt;</code></summary>
 <dl>
 <dd>
 
@@ -6854,7 +6854,7 @@ client.inventory().getTransfer(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.get(catalogObjectId) -> GetInventoryCountResponse</code></summary>
+<details><summary><code>client.inventory.get(catalogObjectId) -> SyncPagingIterable&lt;InventoryCount&gt;</code></summary>
 <dl>
 <dd>
 
@@ -6942,7 +6942,7 @@ See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagin
 </dl>
 </details>
 
-<details><summary><code>client.inventory.changes(catalogObjectId) -> GetInventoryChangesResponse</code></summary>
+<details><summary><code>client.inventory.changes(catalogObjectId) -> SyncPagingIterable&lt;InventoryChange&gt;</code></summary>
 <dl>
 <dd>
 
@@ -7040,7 +7040,7 @@ See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagin
 </details>
 
 ## Invoices
-<details><summary><code>client.invoices.list() -> ListInvoicesResponse</code></summary>
+<details><summary><code>client.invoices.list() -> SyncPagingIterable&lt;Invoice&gt;</code></summary>
 <dl>
 <dd>
 
@@ -9738,7 +9738,7 @@ For more information, see [Pagination](https://developer.squareup.com/docs/build
 </details>
 
 ## Merchants
-<details><summary><code>client.merchants.list() -> ListMerchantsResponse</code></summary>
+<details><summary><code>client.merchants.list() -> SyncPagingIterable&lt;Merchant&gt;</code></summary>
 <dl>
 <dd>
 
@@ -11040,7 +11040,7 @@ The payment total must match the order total.
 </details>
 
 ## Payments
-<details><summary><code>client.payments.list() -> ListPaymentsResponse</code></summary>
+<details><summary><code>client.payments.list() -> SyncPagingIterable&lt;Payment&gt;</code></summary>
 <dl>
 <dd>
 
@@ -12053,7 +12053,7 @@ the update fails and a response with a VERSION_MISMATCH error is returned.
 </details>
 
 ## Payouts
-<details><summary><code>client.payouts.list() -> ListPayoutsResponse</code></summary>
+<details><summary><code>client.payouts.list() -> SyncPagingIterable&lt;Payout&gt;</code></summary>
 <dl>
 <dd>
 
@@ -12248,7 +12248,7 @@ client.payouts().get(
 </dl>
 </details>
 
-<details><summary><code>client.payouts.listEntries(payoutId) -> ListPayoutEntriesResponse</code></summary>
+<details><summary><code>client.payouts.listEntries(payoutId) -> SyncPagingIterable&lt;PayoutEntry&gt;</code></summary>
 <dl>
 <dd>
 
@@ -12347,7 +12347,7 @@ Default: `100`
 </details>
 
 ## Refunds
-<details><summary><code>client.refunds.list() -> ListPaymentRefundsResponse</code></summary>
+<details><summary><code>client.refunds.list() -> SyncPagingIterable&lt;PaymentRefund&gt;</code></summary>
 <dl>
 <dd>
 
@@ -13912,7 +13912,7 @@ client.subscriptions().cancel(
 </dl>
 </details>
 
-<details><summary><code>client.subscriptions.listEvents(subscriptionId) -> ListSubscriptionEventsResponse</code></summary>
+<details><summary><code>client.subscriptions.listEvents(subscriptionId) -> SyncPagingIterable&lt;SubscriptionEvent&gt;</code></summary>
 <dl>
 <dd>
 
@@ -15528,7 +15528,7 @@ any valid string but must be unique for every CreateTransferOrder request.
 </dl>
 </details>
 
-<details><summary><code>client.transferOrders.search(request) -> SearchTransferOrdersResponse</code></summary>
+<details><summary><code>client.transferOrders.search(request) -> SyncPagingIterable&lt;TransferOrder&gt;</code></summary>
 <dl>
 <dd>
 
@@ -16763,7 +16763,7 @@ client.vendors().update(
 </details>
 
 ## Bookings CustomAttributeDefinitions
-<details><summary><code>client.bookings.customAttributeDefinitions.list() -> ListBookingCustomAttributeDefinitionsResponse</code></summary>
+<details><summary><code>client.bookings.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
 <dd>
 
@@ -17343,7 +17343,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.bookings.customAttributes.list(bookingId) -> ListBookingCustomAttributesResponse</code></summary>
+<details><summary><code>client.bookings.customAttributes.list(bookingId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -17736,7 +17736,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Bookings LocationProfiles
-<details><summary><code>client.bookings.locationProfiles.list() -> ListLocationBookingProfilesResponse</code></summary>
+<details><summary><code>client.bookings.locationProfiles.list() -> SyncPagingIterable&lt;LocationBookingProfile&gt;</code></summary>
 <dl>
 <dd>
 
@@ -17805,7 +17805,7 @@ client.bookings().locationProfiles().list(
 </details>
 
 ## Bookings TeamMemberProfiles
-<details><summary><code>client.bookings.teamMemberProfiles.list() -> ListTeamMemberBookingProfilesResponse</code></summary>
+<details><summary><code>client.bookings.teamMemberProfiles.list() -> SyncPagingIterable&lt;TeamMemberBookingProfile&gt;</code></summary>
 <dl>
 <dd>
 
@@ -17951,7 +17951,7 @@ client.bookings().teamMemberProfiles().get(
 </details>
 
 ## CashDrawers Shifts
-<details><summary><code>client.cashDrawers.shifts.list() -> ListCashDrawerShiftsResponse</code></summary>
+<details><summary><code>client.cashDrawers.shifts.list() -> SyncPagingIterable&lt;CashDrawerShiftSummary&gt;</code></summary>
 <dl>
 <dd>
 
@@ -18131,7 +18131,7 @@ client.cashDrawers().shifts().get(
 </dl>
 </details>
 
-<details><summary><code>client.cashDrawers.shifts.listEvents(shiftId) -> ListCashDrawerShiftEventsResponse</code></summary>
+<details><summary><code>client.cashDrawers.shifts.listEvents(shiftId) -> SyncPagingIterable&lt;CashDrawerShiftEvent&gt;</code></summary>
 <dl>
 <dd>
 
@@ -18617,7 +18617,7 @@ catalog item will delete its catalog item variations).
 </details>
 
 ## Checkout PaymentLinks
-<details><summary><code>client.checkout.paymentLinks.list() -> ListPaymentLinksResponse</code></summary>
+<details><summary><code>client.checkout.paymentLinks.list() -> SyncPagingIterable&lt;PaymentLink&gt;</code></summary>
 <dl>
 <dd>
 
@@ -19044,7 +19044,7 @@ client.checkout().paymentLinks().delete(
 </details>
 
 ## Customers CustomAttributeDefinitions
-<details><summary><code>client.customers.customAttributeDefinitions.list() -> ListCustomerCustomAttributeDefinitionsResponse</code></summary>
+<details><summary><code>client.customers.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
 <dd>
 
@@ -19611,7 +19611,7 @@ information needed to create or update a custom attribute.
 </details>
 
 ## Customers Groups
-<details><summary><code>client.customers.groups.list() -> ListCustomerGroupsResponse</code></summary>
+<details><summary><code>client.customers.groups.list() -> SyncPagingIterable&lt;CustomerGroup&gt;</code></summary>
 <dl>
 <dd>
 
@@ -20097,7 +20097,7 @@ client.customers().groups().remove(
 </details>
 
 ## Customers Segments
-<details><summary><code>client.customers.segments.list() -> ListCustomerSegmentsResponse</code></summary>
+<details><summary><code>client.customers.segments.list() -> SyncPagingIterable&lt;CustomerSegment&gt;</code></summary>
 <dl>
 <dd>
 
@@ -20431,7 +20431,7 @@ client.customers().cards().delete(
 </details>
 
 ## Customers CustomAttributes
-<details><summary><code>client.customers.customAttributes.list(customerId) -> ListCustomerCustomAttributesResponse</code></summary>
+<details><summary><code>client.customers.customAttributes.list(customerId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -20833,7 +20833,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Devices Codes
-<details><summary><code>client.devices.codes.list() -> ListDeviceCodesResponse</code></summary>
+<details><summary><code>client.devices.codes.list() -> SyncPagingIterable&lt;DeviceCode&gt;</code></summary>
 <dl>
 <dd>
 
@@ -21074,7 +21074,7 @@ client.devices().codes().get(
 </details>
 
 ## Disputes Evidence
-<details><summary><code>client.disputes.evidence.list(disputeId) -> ListDisputeEvidenceResponse</code></summary>
+<details><summary><code>client.disputes.evidence.list(disputeId) -> SyncPagingIterable&lt;DisputeEvidence&gt;</code></summary>
 <dl>
 <dd>
 
@@ -21286,7 +21286,7 @@ client.disputes().evidence().delete(
 </details>
 
 ## GiftCards Activities
-<details><summary><code>client.giftCards.activities.list() -> ListGiftCardActivitiesResponse</code></summary>
+<details><summary><code>client.giftCards.activities.list() -> SyncPagingIterable&lt;GiftCardActivity&gt;</code></summary>
 <dl>
 <dd>
 
@@ -21527,7 +21527,7 @@ gift card, the `location_id` where the activity occurred, and the activity `type
 </details>
 
 ## Labor BreakTypes
-<details><summary><code>client.labor.breakTypes.list() -> ListBreakTypesResponse</code></summary>
+<details><summary><code>client.labor.breakTypes.list() -> SyncPagingIterable&lt;BreakType&gt;</code></summary>
 <dl>
 <dd>
 
@@ -21897,7 +21897,7 @@ client.labor().breakTypes().delete(
 </details>
 
 ## Labor EmployeeWages
-<details><summary><code>client.labor.employeeWages.list() -> ListEmployeeWagesResponse</code></summary>
+<details><summary><code>client.labor.employeeWages.list() -> SyncPagingIterable&lt;EmployeeWage&gt;</code></summary>
 <dl>
 <dd>
 
@@ -22517,7 +22517,7 @@ client.labor().shifts().delete(
 </details>
 
 ## Labor TeamMemberWages
-<details><summary><code>client.labor.teamMemberWages.list() -> ListTeamMemberWagesResponse</code></summary>
+<details><summary><code>client.labor.teamMemberWages.list() -> SyncPagingIterable&lt;TeamMemberWage&gt;</code></summary>
 <dl>
 <dd>
 
@@ -22660,7 +22660,7 @@ client.labor().teamMemberWages().get(
 </details>
 
 ## Labor WorkweekConfigs
-<details><summary><code>client.labor.workweekConfigs.list() -> ListWorkweekConfigsResponse</code></summary>
+<details><summary><code>client.labor.workweekConfigs.list() -> SyncPagingIterable&lt;WorkweekConfig&gt;</code></summary>
 <dl>
 <dd>
 
@@ -22804,7 +22804,7 @@ client.labor().workweekConfigs().get(
 </details>
 
 ## Locations CustomAttributeDefinitions
-<details><summary><code>client.locations.customAttributeDefinitions.list() -> ListLocationCustomAttributeDefinitionsResponse</code></summary>
+<details><summary><code>client.locations.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
 <dd>
 
@@ -23418,7 +23418,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.locations.customAttributes.list(locationId) -> ListLocationCustomAttributesResponse</code></summary>
+<details><summary><code>client.locations.customAttributes.list(locationId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -25232,7 +25232,7 @@ Keys can be any valid string, but must be unique for every request.
 </details>
 
 ## Loyalty Programs Promotions
-<details><summary><code>client.loyalty.programs.promotions.list(programId) -> ListLoyaltyPromotionsResponse</code></summary>
+<details><summary><code>client.loyalty.programs.promotions.list(programId) -> SyncPagingIterable&lt;LoyaltyPromotion&gt;</code></summary>
 <dl>
 <dd>
 
@@ -25615,7 +25615,7 @@ promotion that has an `ACTIVE` or `SCHEDULED` status.
 </details>
 
 ## Merchants CustomAttributeDefinitions
-<details><summary><code>client.merchants.customAttributeDefinitions.list() -> ListMerchantCustomAttributeDefinitionsResponse</code></summary>
+<details><summary><code>client.merchants.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
 <dd>
 
@@ -26213,7 +26213,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.merchants.customAttributes.list(merchantId) -> ListMerchantCustomAttributesResponse</code></summary>
+<details><summary><code>client.merchants.customAttributes.list(merchantId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -26612,7 +26612,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Orders CustomAttributeDefinitions
-<details><summary><code>client.orders.customAttributeDefinitions.list() -> ListOrderCustomAttributeDefinitionsResponse</code></summary>
+<details><summary><code>client.orders.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
 <dd>
 
@@ -27214,7 +27214,7 @@ client.orders().customAttributes().batchUpsert(
 </dl>
 </details>
 
-<details><summary><code>client.orders.customAttributes.list(orderId) -> ListOrderCustomAttributesResponse</code></summary>
+<details><summary><code>client.orders.customAttributes.list(orderId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
 <dl>
 <dd>
 
@@ -28780,7 +28780,7 @@ client.webhooks().eventTypes().list(
 </details>
 
 ## Webhooks Subscriptions
-<details><summary><code>client.webhooks.subscriptions.list() -> ListWebhookSubscriptionsResponse</code></summary>
+<details><summary><code>client.webhooks.subscriptions.list() -> SyncPagingIterable&lt;WebhookSubscription&gt;</code></summary>
 <dl>
 <dd>
 

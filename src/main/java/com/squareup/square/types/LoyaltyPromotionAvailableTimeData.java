@@ -172,7 +172,9 @@ public final class LoyaltyPromotionAvailableTimeData {
         @JsonSetter(value = "time_periods", nulls = Nulls.SKIP)
         public Builder timePeriods(List<String> timePeriods) {
             this.timePeriods.clear();
-            this.timePeriods.addAll(timePeriods);
+            if (timePeriods != null) {
+                this.timePeriods.addAll(timePeriods);
+            }
             return this;
         }
 

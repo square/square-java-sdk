@@ -264,7 +264,9 @@ public final class BatchUpsertCatalogObjectsRequest {
         @JsonSetter(value = "batches", nulls = Nulls.SKIP)
         public _FinalStage batches(List<CatalogObjectBatch> batches) {
             this.batches.clear();
-            this.batches.addAll(batches);
+            if (batches != null) {
+                this.batches.addAll(batches);
+            }
             return this;
         }
 

@@ -81,7 +81,9 @@ public final class BulkRetrieveChannelsRequest {
         @JsonSetter(value = "channel_ids", nulls = Nulls.SKIP)
         public Builder channelIds(List<String> channelIds) {
             this.channelIds.clear();
-            this.channelIds.addAll(channelIds);
+            if (channelIds != null) {
+                this.channelIds.addAll(channelIds);
+            }
             return this;
         }
 
