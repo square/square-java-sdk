@@ -87,7 +87,9 @@ public final class CatalogObjectBatch {
         @JsonSetter(value = "objects", nulls = Nulls.SKIP)
         public Builder objects(List<CatalogObject> objects) {
             this.objects.clear();
-            this.objects.addAll(objects);
+            if (objects != null) {
+                this.objects.addAll(objects);
+            }
             return this;
         }
 

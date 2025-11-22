@@ -26,7 +26,9 @@ import com.squareup.square.types.SearchInvoicesRequest;
 import com.squareup.square.types.SearchInvoicesResponse;
 import com.squareup.square.types.UpdateInvoiceRequest;
 import com.squareup.square.types.UpdateInvoiceResponse;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
+import okhttp3.MediaType;
 
 public class AsyncInvoicesClient {
     protected final ClientOptions clientOptions;
@@ -188,6 +190,32 @@ public class AsyncInvoicesClient {
     public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
             CreateInvoiceAttachmentRequest request, RequestOptions requestOptions) {
         return this.rawClient.createInvoiceAttachment(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
+            InputStream stream, String filename) {
+        return this.rawClient.createInvoiceAttachment(stream, filename).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, mediaType)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateInvoiceAttachmentResponse> createInvoiceAttachment(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, mediaType, requestOptions)
+                .thenApply(response -> response.body());
     }
 
     /**

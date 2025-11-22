@@ -20,8 +20,10 @@ import com.squareup.square.types.GetDisputesRequest;
 import com.squareup.square.types.ListDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceResponse;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
+import okhttp3.MediaType;
 
 public class AsyncDisputesClient {
     protected final ClientOptions clientOptions;
@@ -116,6 +118,30 @@ public class AsyncDisputesClient {
     public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
             CreateEvidenceFileDisputesRequest request, RequestOptions requestOptions) {
         return this.rawClient.createEvidenceFile(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
+            InputStream stream, String filename) {
+        return this.rawClient.createEvidenceFile(stream, filename).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient.createEvidenceFile(stream, filename, mediaType).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient
+                .createEvidenceFile(stream, filename, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateDisputeEvidenceFileResponse> createEvidenceFile(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .createEvidenceFile(stream, filename, mediaType, requestOptions)
+                .thenApply(response -> response.body());
     }
 
     /**

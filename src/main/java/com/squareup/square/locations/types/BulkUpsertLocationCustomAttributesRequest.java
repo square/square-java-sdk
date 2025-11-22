@@ -96,7 +96,9 @@ public final class BulkUpsertLocationCustomAttributesRequest {
         public Builder values(
                 Map<String, BulkUpsertLocationCustomAttributesRequestLocationCustomAttributeUpsertRequest> values) {
             this.values.clear();
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

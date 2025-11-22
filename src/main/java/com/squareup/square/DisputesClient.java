@@ -20,7 +20,9 @@ import com.squareup.square.types.GetDisputesRequest;
 import com.squareup.square.types.ListDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceDisputesRequest;
 import com.squareup.square.types.SubmitEvidenceResponse;
+import java.io.InputStream;
 import java.util.function.Supplier;
+import okhttp3.MediaType;
 
 public class DisputesClient {
     protected final ClientOptions clientOptions;
@@ -112,6 +114,29 @@ public class DisputesClient {
     public CreateDisputeEvidenceFileResponse createEvidenceFile(
             CreateEvidenceFileDisputesRequest request, RequestOptions requestOptions) {
         return this.rawClient.createEvidenceFile(request, requestOptions).body();
+    }
+
+    public CreateDisputeEvidenceFileResponse createEvidenceFile(InputStream stream, String filename) {
+        return this.rawClient.createEvidenceFile(stream, filename).body();
+    }
+
+    public CreateDisputeEvidenceFileResponse createEvidenceFile(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient.createEvidenceFile(stream, filename, mediaType).body();
+    }
+
+    public CreateDisputeEvidenceFileResponse createEvidenceFile(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient
+                .createEvidenceFile(stream, filename, requestOptions)
+                .body();
+    }
+
+    public CreateDisputeEvidenceFileResponse createEvidenceFile(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .createEvidenceFile(stream, filename, mediaType, requestOptions)
+                .body();
     }
 
     /**

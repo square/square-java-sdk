@@ -87,7 +87,9 @@ public final class BulkRetrieveCustomersRequest {
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(List<String> customerIds) {
             this.customerIds.clear();
-            this.customerIds.addAll(customerIds);
+            if (customerIds != null) {
+                this.customerIds.addAll(customerIds);
+            }
             return this;
         }
 
