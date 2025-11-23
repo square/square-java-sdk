@@ -243,7 +243,9 @@ public final class SelectOptions {
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(List<SelectOption> options) {
             this.options.clear();
-            this.options.addAll(options);
+            if (options != null) {
+                this.options.addAll(options);
+            }
             return this;
         }
 

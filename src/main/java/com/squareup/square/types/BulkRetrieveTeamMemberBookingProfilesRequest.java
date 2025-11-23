@@ -89,7 +89,9 @@ public final class BulkRetrieveTeamMemberBookingProfilesRequest {
         @JsonSetter(value = "team_member_ids", nulls = Nulls.SKIP)
         public Builder teamMemberIds(List<String> teamMemberIds) {
             this.teamMemberIds.clear();
-            this.teamMemberIds.addAll(teamMemberIds);
+            if (teamMemberIds != null) {
+                this.teamMemberIds.addAll(teamMemberIds);
+            }
             return this;
         }
 

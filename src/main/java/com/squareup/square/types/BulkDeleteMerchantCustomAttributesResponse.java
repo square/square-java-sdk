@@ -110,7 +110,9 @@ public final class BulkDeleteMerchantCustomAttributesResponse {
         public Builder values(
                 Map<String, BulkDeleteMerchantCustomAttributesResponseMerchantCustomAttributeDeleteResponse> values) {
             this.values.clear();
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 

@@ -147,7 +147,9 @@ public final class UpdateItemTaxesRequest {
         @JsonSetter(value = "item_ids", nulls = Nulls.SKIP)
         public Builder itemIds(List<String> itemIds) {
             this.itemIds.clear();
-            this.itemIds.addAll(itemIds);
+            if (itemIds != null) {
+                this.itemIds.addAll(itemIds);
+            }
             return this;
         }
 

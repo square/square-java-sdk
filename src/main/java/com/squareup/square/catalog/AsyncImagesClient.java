@@ -9,7 +9,9 @@ import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.types.CreateCatalogImageResponse;
 import com.squareup.square.types.UpdateCatalogImageResponse;
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
+import okhttp3.MediaType;
 
 public class AsyncImagesClient {
     protected final ClientOptions clientOptions;
@@ -62,6 +64,27 @@ public class AsyncImagesClient {
         return this.rawClient.create(request, requestOptions).thenApply(response -> response.body());
     }
 
+    public CompletableFuture<CreateCatalogImageResponse> create(InputStream stream, String filename) {
+        return this.rawClient.create(stream, filename).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateCatalogImageResponse> create(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient.create(stream, filename, mediaType).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateCatalogImageResponse> create(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient.create(stream, filename, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<CreateCatalogImageResponse> create(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .create(stream, filename, mediaType, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
     /**
      * Uploads a new image file to replace the existing one in the specified <a href="entity:CatalogImage">CatalogImage</a> object.
      * <p>This <code>UpdateCatalogImage</code> endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
@@ -79,5 +102,26 @@ public class AsyncImagesClient {
     public CompletableFuture<UpdateCatalogImageResponse> update(
             UpdateImagesRequest request, RequestOptions requestOptions) {
         return this.rawClient.update(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateCatalogImageResponse> update(InputStream stream, String filename) {
+        return this.rawClient.update(stream, filename).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateCatalogImageResponse> update(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient.update(stream, filename, mediaType).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateCatalogImageResponse> update(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient.update(stream, filename, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<UpdateCatalogImageResponse> update(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .update(stream, filename, mediaType, requestOptions)
+                .thenApply(response -> response.body());
     }
 }

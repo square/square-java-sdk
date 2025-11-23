@@ -26,6 +26,8 @@ import com.squareup.square.types.SearchInvoicesRequest;
 import com.squareup.square.types.SearchInvoicesResponse;
 import com.squareup.square.types.UpdateInvoiceRequest;
 import com.squareup.square.types.UpdateInvoiceResponse;
+import java.io.InputStream;
+import okhttp3.MediaType;
 
 public class InvoicesClient {
     protected final ClientOptions clientOptions;
@@ -181,6 +183,31 @@ public class InvoicesClient {
     public CreateInvoiceAttachmentResponse createInvoiceAttachment(
             CreateInvoiceAttachmentRequest request, RequestOptions requestOptions) {
         return this.rawClient.createInvoiceAttachment(request, requestOptions).body();
+    }
+
+    public CreateInvoiceAttachmentResponse createInvoiceAttachment(InputStream stream, String filename) {
+        return this.rawClient.createInvoiceAttachment(stream, filename).body();
+    }
+
+    public CreateInvoiceAttachmentResponse createInvoiceAttachment(
+            InputStream stream, String filename, MediaType mediaType) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, mediaType)
+                .body();
+    }
+
+    public CreateInvoiceAttachmentResponse createInvoiceAttachment(
+            InputStream stream, String filename, RequestOptions requestOptions) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, requestOptions)
+                .body();
+    }
+
+    public CreateInvoiceAttachmentResponse createInvoiceAttachment(
+            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
+        return this.rawClient
+                .createInvoiceAttachment(stream, filename, mediaType, requestOptions)
+                .body();
     }
 
     /**

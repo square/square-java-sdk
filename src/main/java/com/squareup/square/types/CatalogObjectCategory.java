@@ -28,6 +28,8 @@ public final class CatalogObjectCategory {
 
     private final Optional<Long> ordinal;
 
+    private final Optional<String> type;
+
     private final Optional<CatalogCategory> categoryData;
 
     private final Optional<String> updatedAt;
@@ -53,6 +55,7 @@ public final class CatalogObjectCategory {
     private CatalogObjectCategory(
             Optional<String> id,
             Optional<Long> ordinal,
+            Optional<String> type,
             Optional<CatalogCategory> categoryData,
             Optional<String> updatedAt,
             Optional<Long> version,
@@ -66,6 +69,7 @@ public final class CatalogObjectCategory {
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.ordinal = ordinal;
+        this.type = type;
         this.categoryData = categoryData;
         this.updatedAt = updatedAt;
         this.version = version;
@@ -96,6 +100,11 @@ public final class CatalogObjectCategory {
             return Optional.empty();
         }
         return ordinal;
+    }
+
+    @JsonProperty("type")
+    public Optional<String> getType() {
+        return type;
     }
 
     /**
@@ -220,6 +229,7 @@ public final class CatalogObjectCategory {
     private boolean equalTo(CatalogObjectCategory other) {
         return id.equals(other.id)
                 && ordinal.equals(other.ordinal)
+                && type.equals(other.type)
                 && categoryData.equals(other.categoryData)
                 && updatedAt.equals(other.updatedAt)
                 && version.equals(other.version)
@@ -237,6 +247,7 @@ public final class CatalogObjectCategory {
         return Objects.hash(
                 this.id,
                 this.ordinal,
+                this.type,
                 this.categoryData,
                 this.updatedAt,
                 this.version,
@@ -263,6 +274,8 @@ public final class CatalogObjectCategory {
         private Optional<String> id = Optional.empty();
 
         private Optional<Long> ordinal = Optional.empty();
+
+        private Optional<String> type = Optional.empty();
 
         private Optional<CatalogCategory> categoryData = Optional.empty();
 
@@ -292,6 +305,7 @@ public final class CatalogObjectCategory {
         public Builder from(CatalogObjectCategory other) {
             id(other.getId());
             ordinal(other.getOrdinal());
+            type(other.getType());
             categoryData(other.getCategoryData());
             updatedAt(other.getUpdatedAt());
             version(other.getVersion());
@@ -341,6 +355,17 @@ public final class CatalogObjectCategory {
             } else {
                 this.ordinal = Optional.of(ordinal.get());
             }
+            return this;
+        }
+
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(Optional<String> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = Optional.ofNullable(type);
             return this;
         }
 
@@ -510,6 +535,7 @@ public final class CatalogObjectCategory {
             return new CatalogObjectCategory(
                     id,
                     ordinal,
+                    type,
                     categoryData,
                     updatedAt,
                     version,
