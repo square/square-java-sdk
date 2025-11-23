@@ -1,0 +1,16 @@
+{
+  "cliVersion": "2.2.5",
+  "generatorName": "fernapi/fern-java-sdk",
+  "generatorVersion": "3.18.8",
+  "generatorConfig": {
+    "base-api-exception-class-name": "SquareApiException",
+    "base-exception-class-name": "SquareException",
+    "client-class-name": "SquareClient",
+    "inline-path-parameters": true,
+    "inline-file-properties": true,
+    "package-prefix": "com.squareup.square",
+    "package-layout": "flat",
+    "enable-forward-compatible-enums": true,
+    "publish-to": "central"
+  }
+}

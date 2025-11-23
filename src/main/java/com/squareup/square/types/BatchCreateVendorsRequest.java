@@ -86,7 +86,9 @@ public final class BatchCreateVendorsRequest {
         @JsonSetter(value = "vendors", nulls = Nulls.SKIP)
         public Builder vendors(Map<String, Vendor> vendors) {
             this.vendors.clear();
-            this.vendors.putAll(vendors);
+            if (vendors != null) {
+                this.vendors.putAll(vendors);
+            }
             return this;
         }
 
