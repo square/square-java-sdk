@@ -5,6 +5,31 @@
 
 The Square Java library provides convenient access to the Square APIs from Java.
 
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Instantiation](#instantiation)
+- [Enums](#enums)
+- [Versioning](#versioning)
+- [Automatic Pagination](#automatic-pagination)
+- [Retries](#retries)
+- [Timeouts](#timeouts)
+- [Environments](#environments)
+- [Base Url](#base-url)
+- [Exception Handling](#exception-handling)
+- [Webhook Signature Verification](#webhook-signature-verification)
+- [Reference](#reference)
+- [Legacy Sdk](#legacy-sdk)
+- [Advanced](#advanced)
+  - [Custom Client](#custom-client)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Custom Headers](#custom-headers)
+  - [Access Raw Response Data](#access-raw-response-data)
+- [Contributing](#contributing)
+
 ## Requirements
 
 Use of the Square Java SDK requires:
@@ -31,7 +56,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>45.1.0.20251016</version>
+  <version>45.2.0.20251016</version>
 </dependency>
 ```
 
@@ -278,9 +303,9 @@ When the API returns a non-success status code (4xx or 5xx response), an API exc
 ```java
 import com.squareup.square.core.SquareApiException;
 
-try {
+try{
     client.payments().create(...);
-} catch (SquareApiException e) {
+} catch (SquareApiException e){
     // Do something with the API exception...
 }
 ```
@@ -336,8 +361,8 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:45.1.0.20251016'
-    implementation 'com.squareup:square-legacy:45.1.0.20251016'
+    implementation 'com.squareup:square:45.2.0.20251016'
+    implementation 'com.squareup:square-legacy:45.2.0.20251016'
 }
 ```
 
@@ -347,12 +372,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>45.1.0.20251016</version>
+    <version>45.2.0.20251016</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>45.1.0.20251016</version>
+    <version>45.2.0.20251016</version>
 </dependency>
 ```
 
@@ -364,7 +389,7 @@ Maven:
 
 ### Custom Client
 
-This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one. 
+This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one.
 However, you can pass your own client like so:
 
 ```java
@@ -383,7 +408,9 @@ SquareClient client = SquareClient
 
 The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
 as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
-retry limit (default: 2).
+retry limit (default: 2). Before defaulting to exponential backoff, the SDK will first attempt to respect
+the `Retry-After` header (as either in seconds or as an HTTP date), and then the `X-RateLimit-Reset` header
+(as a Unix timestamp in epoch seconds); failing both of those, it will fall back to exponential backoff.
 
 A request is deemed retryable when any of the following HTTP status codes is returned:
 
@@ -450,6 +477,19 @@ client.payments().create(
         .addHeader("X-Request-Header", "request-value")
         .build()
 );
+```
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `withRawResponse()` method.
+The `withRawResponse()` method returns a raw client that wraps all responses with `body()` and `headers()` methods.
+(A normal client's `response` is identical to a raw client's `response.body()`.)
+
+```java
+CreateHttpResponse response = client.payments().withRawResponse().create(...);
+
+System.out.println(response.body());
+System.out.println(response.headers().get("X-My-Header"));
 ```
 
 ## Contributing

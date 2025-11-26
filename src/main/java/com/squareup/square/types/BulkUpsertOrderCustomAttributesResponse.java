@@ -120,7 +120,9 @@ public final class BulkUpsertOrderCustomAttributesResponse {
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, UpsertOrderCustomAttributeResponse> values) {
             this.values.clear();
-            this.values.putAll(values);
+            if (values != null) {
+                this.values.putAll(values);
+            }
             return this;
         }
 
