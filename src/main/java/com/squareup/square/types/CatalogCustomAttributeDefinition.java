@@ -674,7 +674,9 @@ public final class CatalogCustomAttributeDefinition {
         @JsonSetter(value = "allowed_object_types", nulls = Nulls.SKIP)
         public _FinalStage allowedObjectTypes(List<CatalogObjectType> allowedObjectTypes) {
             this.allowedObjectTypes.clear();
-            this.allowedObjectTypes.addAll(allowedObjectTypes);
+            if (allowedObjectTypes != null) {
+                this.allowedObjectTypes.addAll(allowedObjectTypes);
+            }
             return this;
         }
 

@@ -89,7 +89,9 @@ public final class SearchOrdersStateFilter {
         @JsonSetter(value = "states", nulls = Nulls.SKIP)
         public Builder states(List<OrderState> states) {
             this.states.clear();
-            this.states.addAll(states);
+            if (states != null) {
+                this.states.addAll(states);
+            }
             return this;
         }
 

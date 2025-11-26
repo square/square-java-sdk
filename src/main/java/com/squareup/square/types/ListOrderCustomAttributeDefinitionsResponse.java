@@ -125,7 +125,9 @@ public final class ListOrderCustomAttributeDefinitionsResponse {
         @JsonSetter(value = "custom_attribute_definitions", nulls = Nulls.SKIP)
         public Builder customAttributeDefinitions(List<CustomAttributeDefinition> customAttributeDefinitions) {
             this.customAttributeDefinitions.clear();
-            this.customAttributeDefinitions.addAll(customAttributeDefinitions);
+            if (customAttributeDefinitions != null) {
+                this.customAttributeDefinitions.addAll(customAttributeDefinitions);
+            }
             return this;
         }
 
