@@ -441,9 +441,7 @@ public final class CatalogSubscriptionPlanVariation {
          */
         @java.lang.Override
         public _FinalStage addAllPhases(List<SubscriptionPhase> phases) {
-            if (phases != null) {
-                this.phases.addAll(phases);
-            }
+            this.phases.addAll(phases);
             return this;
         }
 
@@ -464,9 +462,7 @@ public final class CatalogSubscriptionPlanVariation {
         @JsonSetter(value = "phases", nulls = Nulls.SKIP)
         public _FinalStage phases(List<SubscriptionPhase> phases) {
             this.phases.clear();
-            if (phases != null) {
-                this.phases.addAll(phases);
-            }
+            this.phases.addAll(phases);
             return this;
         }
 

@@ -9,8 +9,6 @@ import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.types.CreateCatalogImageResponse;
 import com.squareup.square.types.UpdateCatalogImageResponse;
-import java.io.InputStream;
-import okhttp3.MediaType;
 
 public class ImagesClient {
     protected final ClientOptions clientOptions;
@@ -60,25 +58,6 @@ public class ImagesClient {
      */
     public CreateCatalogImageResponse create(CreateImagesRequest request, RequestOptions requestOptions) {
         return this.rawClient.create(request, requestOptions).body();
-    }
-
-    public CreateCatalogImageResponse create(InputStream stream, String filename) {
-        return this.rawClient.create(stream, filename).body();
-    }
-
-    public CreateCatalogImageResponse create(InputStream stream, String filename, MediaType mediaType) {
-        return this.rawClient.create(stream, filename, mediaType).body();
-    }
-
-    public CreateCatalogImageResponse create(InputStream stream, String filename, RequestOptions requestOptions) {
-        return this.rawClient.create(stream, filename, requestOptions).body();
-    }
-
-    public CreateCatalogImageResponse create(
-            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
-        return this.rawClient
-                .create(stream, filename, mediaType, requestOptions)
-                .body();
     }
 
     /**

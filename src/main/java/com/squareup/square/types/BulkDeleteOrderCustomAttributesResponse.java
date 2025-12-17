@@ -122,16 +122,12 @@ public final class BulkDeleteOrderCustomAttributesResponse {
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, DeleteOrderCustomAttributeResponse> values) {
             this.values.clear();
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 
         public Builder putAllValues(Map<String, DeleteOrderCustomAttributeResponse> values) {
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 

@@ -220,9 +220,7 @@ public final class SelectOptions {
          */
         @java.lang.Override
         public _FinalStage addAllOptions(List<SelectOption> options) {
-            if (options != null) {
-                this.options.addAll(options);
-            }
+            this.options.addAll(options);
             return this;
         }
 
@@ -243,9 +241,7 @@ public final class SelectOptions {
         @JsonSetter(value = "options", nulls = Nulls.SKIP)
         public _FinalStage options(List<SelectOption> options) {
             this.options.clear();
-            if (options != null) {
-                this.options.addAll(options);
-            }
+            this.options.addAll(options);
             return this;
         }
 

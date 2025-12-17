@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = DeviceAttributes.Builder.class)
 public final class DeviceAttributes {
-    private final DeviceAttributesDeviceType type;
+    private final String type;
 
     private final String manufacturer;
 
@@ -43,7 +43,7 @@ public final class DeviceAttributes {
     private final Map<String, Object> additionalProperties;
 
     private DeviceAttributes(
-            DeviceAttributesDeviceType type,
+            String type,
             String manufacturer,
             Optional<String> model,
             Optional<String> name,
@@ -68,7 +68,7 @@ public final class DeviceAttributes {
      * See <a href="#type-devicetype">DeviceType</a> for possible values
      */
     @JsonProperty("type")
-    public DeviceAttributesDeviceType getType() {
+    public String getType() {
         return type;
     }
 
@@ -215,7 +215,7 @@ public final class DeviceAttributes {
          * <p>The device type.
          * See <a href="#type-devicetype">DeviceType</a> for possible values</p>
          */
-        ManufacturerStage type(@NotNull DeviceAttributesDeviceType type);
+        ManufacturerStage type(@NotNull String type);
 
         Builder from(DeviceAttributes other);
     }
@@ -285,7 +285,7 @@ public final class DeviceAttributes {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TypeStage, ManufacturerStage, _FinalStage {
-        private DeviceAttributesDeviceType type;
+        private String type;
 
         private String manufacturer;
 
@@ -328,7 +328,7 @@ public final class DeviceAttributes {
          */
         @java.lang.Override
         @JsonSetter("type")
-        public ManufacturerStage type(@NotNull DeviceAttributesDeviceType type) {
+        public ManufacturerStage type(@NotNull String type) {
             this.type = Objects.requireNonNull(type, "type must not be null");
             return this;
         }
