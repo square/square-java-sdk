@@ -89,16 +89,12 @@ public final class BatchUpdateVendorsRequest {
         @JsonSetter(value = "vendors", nulls = Nulls.SKIP)
         public Builder vendors(Map<String, UpdateVendorRequest> vendors) {
             this.vendors.clear();
-            if (vendors != null) {
-                this.vendors.putAll(vendors);
-            }
+            this.vendors.putAll(vendors);
             return this;
         }
 
         public Builder putAllVendors(Map<String, UpdateVendorRequest> vendors) {
-            if (vendors != null) {
-                this.vendors.putAll(vendors);
-            }
+            this.vendors.putAll(vendors);
             return this;
         }
 

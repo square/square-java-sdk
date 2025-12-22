@@ -97,16 +97,12 @@ public final class BulkUpdateCustomersRequest {
         @JsonSetter(value = "customers", nulls = Nulls.SKIP)
         public Builder customers(Map<String, BulkUpdateCustomerData> customers) {
             this.customers.clear();
-            if (customers != null) {
-                this.customers.putAll(customers);
-            }
+            this.customers.putAll(customers);
             return this;
         }
 
         public Builder putAllCustomers(Map<String, BulkUpdateCustomerData> customers) {
-            if (customers != null) {
-                this.customers.putAll(customers);
-            }
+            this.customers.putAll(customers);
             return this;
         }
 

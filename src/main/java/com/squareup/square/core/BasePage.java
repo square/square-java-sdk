@@ -4,17 +4,14 @@
 package com.squareup.square.core;
 
 import java.util.List;
-import java.util.Optional;
 
 public abstract class BasePage<T> {
     private final boolean hasNext;
     private final List<T> items;
-    private final Object response;
 
-    public BasePage(boolean hasNext, List<T> items, Object response) {
+    public BasePage(boolean hasNext, List<T> items) {
         this.hasNext = hasNext;
         this.items = items;
-        this.response = response;
     }
 
     public boolean hasNext() {
@@ -23,16 +20,5 @@ public abstract class BasePage<T> {
 
     public List<T> getItems() {
         return items;
-    }
-
-    /**
-     * Returns the full response object for accessing pagination metadata like cursor tokens.
-     *
-     * @return Optional containing the response, or empty if unavailable
-     */
-    public <R> Optional<R> getResponse() {
-        @SuppressWarnings("unchecked")
-        R typedResponse = (R) response;
-        return Optional.ofNullable(typedResponse);
     }
 }

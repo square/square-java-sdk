@@ -21,30 +21,26 @@ public final class ClientOptions {
 
     private final int timeout;
 
-    private final int maxRetries;
-
     private ClientOptions(
             Environment environment,
             Map<String, String> headers,
             Map<String, Supplier<String>> headerSuppliers,
             OkHttpClient httpClient,
-            int timeout,
-            int maxRetries) {
+            int timeout) {
         this.environment = environment;
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.squareup:square/45.2.0.20251016");
+                put("User-Agent", "com.squareup:square/AUTO");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.square.fern:api-sdk");
-                put("X-Fern-SDK-Version", "45.2.0.20251016");
+                put("X-Fern-SDK-Version", "45.2.1");
             }
         });
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
         this.timeout = timeout;
-        this.maxRetries = maxRetries;
     }
 
     public Environment environment() {
@@ -86,15 +82,11 @@ public final class ClientOptions {
                 .build();
     }
 
-    public int maxRetries() {
-        return this.maxRetries;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
-    public static class Builder {
+    public static final class Builder {
         private Environment environment;
 
         private final Map<String, String> headers = new HashMap<>();
@@ -173,19 +165,7 @@ public final class ClientOptions {
             this.httpClient = httpClientBuilder.build();
             this.timeout = Optional.of(httpClient.callTimeoutMillis() / 1000);
 
-            return new ClientOptions(
-                    environment, headers, headerSuppliers, httpClient, this.timeout.get(), this.maxRetries);
-        }
-
-        /**
-         * Create a new Builder initialized with values from an existing ClientOptions
-         */
-        public static Builder from(ClientOptions clientOptions) {
-            Builder builder = new Builder();
-            builder.environment = clientOptions.environment();
-            builder.timeout = Optional.of(clientOptions.timeout(null));
-            builder.httpClient = clientOptions.httpClient();
-            return builder;
+            return new ClientOptions(environment, headers, headerSuppliers, httpClient, this.timeout.get());
         }
     }
 }

@@ -28,8 +28,6 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncCatalogClient> catalogClient;
 
-    protected final Supplier<AsyncChannelsClient> channelsClient;
-
     protected final Supplier<AsyncCustomersClient> customersClient;
 
     protected final Supplier<AsyncDevicesClient> devicesClient;
@@ -76,8 +74,6 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncTerminalClient> terminalClient;
 
-    protected final Supplier<AsyncTransferOrdersClient> transferOrdersClient;
-
     protected final Supplier<AsyncVendorsClient> vendorsClient;
 
     protected final Supplier<AsyncCashDrawersClient> cashDrawersClient;
@@ -94,7 +90,6 @@ public class AsyncSquareClient {
         this.bookingsClient = Suppliers.memoize(() -> new AsyncBookingsClient(clientOptions));
         this.cardsClient = Suppliers.memoize(() -> new AsyncCardsClient(clientOptions));
         this.catalogClient = Suppliers.memoize(() -> new AsyncCatalogClient(clientOptions));
-        this.channelsClient = Suppliers.memoize(() -> new AsyncChannelsClient(clientOptions));
         this.customersClient = Suppliers.memoize(() -> new AsyncCustomersClient(clientOptions));
         this.devicesClient = Suppliers.memoize(() -> new AsyncDevicesClient(clientOptions));
         this.disputesClient = Suppliers.memoize(() -> new AsyncDisputesClient(clientOptions));
@@ -118,7 +113,6 @@ public class AsyncSquareClient {
         this.teamMembersClient = Suppliers.memoize(() -> new AsyncTeamMembersClient(clientOptions));
         this.teamClient = Suppliers.memoize(() -> new AsyncTeamClient(clientOptions));
         this.terminalClient = Suppliers.memoize(() -> new AsyncTerminalClient(clientOptions));
-        this.transferOrdersClient = Suppliers.memoize(() -> new AsyncTransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new AsyncVendorsClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new AsyncCashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new AsyncWebhooksClient(clientOptions));
@@ -154,10 +148,6 @@ public class AsyncSquareClient {
 
     public AsyncCatalogClient catalog() {
         return this.catalogClient.get();
-    }
-
-    public AsyncChannelsClient channels() {
-        return this.channelsClient.get();
     }
 
     public AsyncCustomersClient customers() {
@@ -250,10 +240,6 @@ public class AsyncSquareClient {
 
     public AsyncTerminalClient terminal() {
         return this.terminalClient.get();
-    }
-
-    public AsyncTransferOrdersClient transferOrders() {
-        return this.transferOrdersClient.get();
     }
 
     public AsyncVendorsClient vendors() {

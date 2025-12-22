@@ -97,10 +97,9 @@ public class AsyncRawShiftsClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         ListCashDrawerShiftsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, ListCashDrawerShiftsResponse.class);
+                                responseBody.string(), ListCashDrawerShiftsResponse.class);
                         Optional<String> startingAfter = parsedResponse.getCursor();
                         ListShiftsRequest nextRequest = ListShiftsRequest.builder()
                                 .from(request)
@@ -110,7 +109,7 @@ public class AsyncRawShiftsClient {
                                 parsedResponse.getCashDrawerShifts().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
                                 new SyncPagingIterable<CashDrawerShiftSummary>(
-                                        startingAfter.isPresent(), result, parsedResponse, () -> {
+                                        startingAfter.isPresent(), result, () -> {
                                             try {
                                                 return list(nextRequest, requestOptions)
                                                         .get()
@@ -122,9 +121,12 @@ public class AsyncRawShiftsClient {
                                 response));
                         return;
                     }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
@@ -173,17 +175,19 @@ public class AsyncRawShiftsClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new SquareClientHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, GetCashDrawerShiftResponse.class),
+                                        responseBody.string(), GetCashDrawerShiftResponse.class),
                                 response));
                         return;
                     }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
@@ -241,10 +245,9 @@ public class AsyncRawShiftsClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         ListCashDrawerShiftEventsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, ListCashDrawerShiftEventsResponse.class);
+                                responseBody.string(), ListCashDrawerShiftEventsResponse.class);
                         Optional<String> startingAfter = parsedResponse.getCursor();
                         ListEventsShiftsRequest nextRequest = ListEventsShiftsRequest.builder()
                                 .from(request)
@@ -253,22 +256,24 @@ public class AsyncRawShiftsClient {
                         List<CashDrawerShiftEvent> result =
                                 parsedResponse.getCashDrawerShiftEvents().orElse(Collections.emptyList());
                         future.complete(new SquareClientHttpResponse<>(
-                                new SyncPagingIterable<CashDrawerShiftEvent>(
-                                        startingAfter.isPresent(), result, parsedResponse, () -> {
-                                            try {
-                                                return listEvents(nextRequest, requestOptions)
-                                                        .get()
-                                                        .body();
-                                            } catch (InterruptedException | ExecutionException e) {
-                                                throw new RuntimeException(e);
-                                            }
-                                        }),
+                                new SyncPagingIterable<CashDrawerShiftEvent>(startingAfter.isPresent(), result, () -> {
+                                    try {
+                                        return listEvents(nextRequest, requestOptions)
+                                                .get()
+                                                .body();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }),
                                 response));
                         return;
                     }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));

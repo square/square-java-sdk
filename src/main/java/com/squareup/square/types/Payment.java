@@ -243,8 +243,7 @@ public final class Payment {
     }
 
     /**
-     * @return The amount designated as a tip for the seller's staff.
-     * <p>Tips for external vendors such as a 3rd party delivery courier must be recorded using Order.service_charges.</p>
+     * @return The amount designated as a tip.
      * <p>This amount is specified in the smallest denomination of the applicable currency (for example,
      * US dollar amounts are specified in cents). For more information, see
      * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
@@ -978,8 +977,7 @@ public final class Payment {
         }
 
         /**
-         * <p>The amount designated as a tip for the seller's staff.</p>
-         * <p>Tips for external vendors such as a 3rd party delivery courier must be recorded using Order.service_charges.</p>
+         * <p>The amount designated as a tip.</p>
          * <p>This amount is specified in the smallest denomination of the applicable currency (for example,
          * US dollar amounts are specified in cents). For more information, see
          * <a href="https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts">Working with Monetary Amounts</a>.</p>
