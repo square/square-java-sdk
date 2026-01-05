@@ -100,15 +100,17 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, CreateTeamMemberResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), CreateTeamMemberResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -158,15 +160,18 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, BatchCreateTeamMembersResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), BatchCreateTeamMembersResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -216,15 +221,18 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, BatchUpdateTeamMembersResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBody.string(), BatchUpdateTeamMembersResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -279,15 +287,17 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, SearchTeamMembersResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), SearchTeamMembersResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -324,14 +334,17 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetTeamMemberResponse.class), response);
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetTeamMemberResponse.class),
+                        response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -376,15 +389,17 @@ public class RawTeamMembersClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, UpdateTeamMemberResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), UpdateTeamMemberResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }

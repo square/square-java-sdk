@@ -87,9 +87,7 @@ public final class CatalogQueryItemsForTax {
         @JsonSetter(value = "tax_ids", nulls = Nulls.SKIP)
         public Builder taxIds(List<String> taxIds) {
             this.taxIds.clear();
-            if (taxIds != null) {
-                this.taxIds.addAll(taxIds);
-            }
+            this.taxIds.addAll(taxIds);
             return this;
         }
 
@@ -99,9 +97,7 @@ public final class CatalogQueryItemsForTax {
         }
 
         public Builder addAllTaxIds(List<String> taxIds) {
-            if (taxIds != null) {
-                this.taxIds.addAll(taxIds);
-            }
+            this.taxIds.addAll(taxIds);
             return this;
         }
 

@@ -85,15 +85,17 @@ public class RawApplePayClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, RegisterDomainResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), RegisterDomainResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }

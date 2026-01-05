@@ -82,10 +82,9 @@ public class RawBankAccountsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 ListBankAccountsResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ListBankAccountsResponse.class);
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListBankAccountsResponse.class);
                 Optional<String> startingAfter = parsedResponse.getCursor();
                 ListBankAccountsRequest nextRequest = ListBankAccountsRequest.builder()
                         .from(request)
@@ -94,14 +93,16 @@ public class RawBankAccountsClient {
                 List<BankAccount> result = parsedResponse.getBankAccounts().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
                         new SyncPagingIterable<BankAccount>(
-                                startingAfter.isPresent(), result, parsedResponse, () -> list(
-                                                nextRequest, requestOptions)
+                                startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions)
                                         .body()),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -136,15 +137,17 @@ public class RawBankAccountsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetBankAccountByV1IdResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetBankAccountByV1IdResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -181,15 +184,17 @@ public class RawBankAccountsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetBankAccountResponse.class),
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetBankAccountResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }

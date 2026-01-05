@@ -118,16 +118,12 @@ public final class BulkPublishScheduledShiftsRequest {
         @JsonSetter(value = "scheduled_shifts", nulls = Nulls.SKIP)
         public Builder scheduledShifts(Map<String, BulkPublishScheduledShiftsData> scheduledShifts) {
             this.scheduledShifts.clear();
-            if (scheduledShifts != null) {
-                this.scheduledShifts.putAll(scheduledShifts);
-            }
+            this.scheduledShifts.putAll(scheduledShifts);
             return this;
         }
 
         public Builder putAllScheduledShifts(Map<String, BulkPublishScheduledShiftsData> scheduledShifts) {
-            if (scheduledShifts != null) {
-                this.scheduledShifts.putAll(scheduledShifts);
-            }
+            this.scheduledShifts.putAll(scheduledShifts);
             return this;
         }
 

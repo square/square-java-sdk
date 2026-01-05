@@ -87,10 +87,9 @@ public class RawDevicesClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 ListDevicesResponse parsedResponse =
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ListDevicesResponse.class);
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), ListDevicesResponse.class);
                 Optional<String> startingAfter = parsedResponse.getCursor();
                 ListDevicesRequest nextRequest = ListDevicesRequest.builder()
                         .from(request)
@@ -98,14 +97,17 @@ public class RawDevicesClient {
                         .build();
                 List<Device> result = parsedResponse.getDevices().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
-                        new SyncPagingIterable<Device>(startingAfter.isPresent(), result, parsedResponse, () -> list(
-                                        nextRequest, requestOptions)
-                                .body()),
+                        new SyncPagingIterable<Device>(
+                                startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions)
+                                        .body()),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -139,14 +141,16 @@ public class RawDevicesClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetDeviceResponse.class), response);
+                        ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetDeviceResponse.class), response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }

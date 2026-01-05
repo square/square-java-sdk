@@ -91,9 +91,7 @@ public final class BatchDeleteCatalogObjectsRequest {
         @JsonSetter(value = "object_ids", nulls = Nulls.SKIP)
         public Builder objectIds(List<String> objectIds) {
             this.objectIds.clear();
-            if (objectIds != null) {
-                this.objectIds.addAll(objectIds);
-            }
+            this.objectIds.addAll(objectIds);
             return this;
         }
 
@@ -103,9 +101,7 @@ public final class BatchDeleteCatalogObjectsRequest {
         }
 
         public Builder addAllObjectIds(List<String> objectIds) {
-            if (objectIds != null) {
-                this.objectIds.addAll(objectIds);
-            }
+            this.objectIds.addAll(objectIds);
             return this;
         }
 

@@ -99,10 +99,9 @@ public class RawCustomAttributeDefinitionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 ListMerchantCustomAttributeDefinitionsResponse parsedResponse = ObjectMappers.JSON_MAPPER.readValue(
-                        responseBodyString, ListMerchantCustomAttributeDefinitionsResponse.class);
+                        responseBody.string(), ListMerchantCustomAttributeDefinitionsResponse.class);
                 Optional<String> startingAfter = parsedResponse.getCursor();
                 ListCustomAttributeDefinitionsRequest nextRequest = ListCustomAttributeDefinitionsRequest.builder()
                         .from(request)
@@ -112,14 +111,16 @@ public class RawCustomAttributeDefinitionsClient {
                         parsedResponse.getCustomAttributeDefinitions().orElse(Collections.emptyList());
                 return new SquareClientHttpResponse<>(
                         new SyncPagingIterable<CustomAttributeDefinition>(
-                                startingAfter.isPresent(), result, parsedResponse, () -> list(
-                                                nextRequest, requestOptions)
+                                startingAfter.isPresent(), result, () -> list(nextRequest, requestOptions)
                                         .body()),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -174,16 +175,18 @@ public class RawCustomAttributeDefinitionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, CreateMerchantCustomAttributeDefinitionResponse.class),
+                                responseBody.string(), CreateMerchantCustomAttributeDefinitionResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -226,16 +229,18 @@ public class RawCustomAttributeDefinitionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, RetrieveMerchantCustomAttributeDefinitionResponse.class),
+                                responseBody.string(), RetrieveMerchantCustomAttributeDefinitionResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -285,16 +290,18 @@ public class RawCustomAttributeDefinitionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, UpdateMerchantCustomAttributeDefinitionResponse.class),
+                                responseBody.string(), UpdateMerchantCustomAttributeDefinitionResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }
@@ -336,16 +343,18 @@ public class RawCustomAttributeDefinitionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, DeleteMerchantCustomAttributeDefinitionResponse.class),
+                                responseBody.string(), DeleteMerchantCustomAttributeDefinitionResponse.class),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
+                    "Error with status code " + response.code(),
+                    response.code(),
+                    ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                    response);
         } catch (IOException e) {
             throw new SquareException("Network error executing HTTP request", e);
         }

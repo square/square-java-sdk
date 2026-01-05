@@ -5,12 +5,15 @@ package com.squareup.square.types;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.squareup.square.core.Nullable;
+import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.List;
@@ -96,8 +99,11 @@ public final class CardPaymentDetails {
      * @return The card payment's current state. The state can be AUTHORIZED, CAPTURED, VOIDED, or
      * FAILED.
      */
-    @JsonProperty("status")
+    @JsonIgnore
     public Optional<String> getStatus() {
+        if (status == null) {
+            return Optional.empty();
+        }
         return status;
     }
 
@@ -113,8 +119,11 @@ public final class CardPaymentDetails {
      * @return The method used to enter the card's details for the payment. The method can be
      * <code>KEYED</code>, <code>SWIPED</code>, <code>EMV</code>, <code>ON_FILE</code>, or <code>CONTACTLESS</code>.
      */
-    @JsonProperty("entry_method")
+    @JsonIgnore
     public Optional<String> getEntryMethod() {
+        if (entryMethod == null) {
+            return Optional.empty();
+        }
         return entryMethod;
     }
 
@@ -122,8 +131,11 @@ public final class CardPaymentDetails {
      * @return The status code returned from the Card Verification Value (CVV) check. The code can be
      * <code>CVV_ACCEPTED</code>, <code>CVV_REJECTED</code>, or <code>CVV_NOT_CHECKED</code>.
      */
-    @JsonProperty("cvv_status")
+    @JsonIgnore
     public Optional<String> getCvvStatus() {
+        if (cvvStatus == null) {
+            return Optional.empty();
+        }
         return cvvStatus;
     }
 
@@ -131,8 +143,11 @@ public final class CardPaymentDetails {
      * @return The status code returned from the Address Verification System (AVS) check. The code can be
      * <code>AVS_ACCEPTED</code>, <code>AVS_REJECTED</code>, or <code>AVS_NOT_CHECKED</code>.
      */
-    @JsonProperty("avs_status")
+    @JsonIgnore
     public Optional<String> getAvsStatus() {
+        if (avsStatus == null) {
+            return Optional.empty();
+        }
         return avsStatus;
     }
 
@@ -140,32 +155,44 @@ public final class CardPaymentDetails {
      * @return The status code returned by the card issuer that describes the payment's
      * authorization status.
      */
-    @JsonProperty("auth_result_code")
+    @JsonIgnore
     public Optional<String> getAuthResultCode() {
+        if (authResultCode == null) {
+            return Optional.empty();
+        }
         return authResultCode;
     }
 
     /**
      * @return For EMV payments, the application ID identifies the EMV application used for the payment.
      */
-    @JsonProperty("application_identifier")
+    @JsonIgnore
     public Optional<String> getApplicationIdentifier() {
+        if (applicationIdentifier == null) {
+            return Optional.empty();
+        }
         return applicationIdentifier;
     }
 
     /**
      * @return For EMV payments, the human-readable name of the EMV application used for the payment.
      */
-    @JsonProperty("application_name")
+    @JsonIgnore
     public Optional<String> getApplicationName() {
+        if (applicationName == null) {
+            return Optional.empty();
+        }
         return applicationName;
     }
 
     /**
      * @return For EMV payments, the cryptogram generated for the payment.
      */
-    @JsonProperty("application_cryptogram")
+    @JsonIgnore
     public Optional<String> getApplicationCryptogram() {
+        if (applicationCryptogram == null) {
+            return Optional.empty();
+        }
         return applicationCryptogram;
     }
 
@@ -173,8 +200,11 @@ public final class CardPaymentDetails {
      * @return For EMV payments, the method used to verify the cardholder's identity. The method can be
      * <code>PIN</code>, <code>SIGNATURE</code>, <code>PIN_AND_SIGNATURE</code>, <code>ON_DEVICE</code>, or <code>NONE</code>.
      */
-    @JsonProperty("verification_method")
+    @JsonIgnore
     public Optional<String> getVerificationMethod() {
+        if (verificationMethod == null) {
+            return Optional.empty();
+        }
         return verificationMethod;
     }
 
@@ -182,8 +212,11 @@ public final class CardPaymentDetails {
      * @return For EMV payments, the results of the cardholder verification. The result can be
      * <code>SUCCESS</code>, <code>FAILURE</code>, or <code>UNKNOWN</code>.
      */
-    @JsonProperty("verification_results")
+    @JsonIgnore
     public Optional<String> getVerificationResults() {
+        if (verificationResults == null) {
+            return Optional.empty();
+        }
         return verificationResults;
     }
 
@@ -192,8 +225,11 @@ public final class CardPaymentDetails {
      * <p>Note: The actual statement description varies and is likely to be truncated and appended with
      * additional information on a per issuer basis.</p>
      */
-    @JsonProperty("statement_description")
+    @JsonIgnore
     public Optional<String> getStatementDescription() {
+        if (statementDescription == null) {
+            return Optional.empty();
+        }
         return statementDescription;
     }
 
@@ -218,16 +254,100 @@ public final class CardPaymentDetails {
      * @return Whether the card must be physically present for the payment to
      * be refunded.  If set to <code>true</code>, the card must be present.
      */
-    @JsonProperty("refund_requires_card_presence")
+    @JsonIgnore
     public Optional<Boolean> getRefundRequiresCardPresence() {
+        if (refundRequiresCardPresence == null) {
+            return Optional.empty();
+        }
         return refundRequiresCardPresence;
     }
 
     /**
      * @return Information about errors encountered during the request.
      */
-    @JsonProperty("errors")
+    @JsonIgnore
     public Optional<List<Error>> getErrors() {
+        if (errors == null) {
+            return Optional.empty();
+        }
+        return errors;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status")
+    private Optional<String> _getStatus() {
+        return status;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("entry_method")
+    private Optional<String> _getEntryMethod() {
+        return entryMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("cvv_status")
+    private Optional<String> _getCvvStatus() {
+        return cvvStatus;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("avs_status")
+    private Optional<String> _getAvsStatus() {
+        return avsStatus;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("auth_result_code")
+    private Optional<String> _getAuthResultCode() {
+        return authResultCode;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("application_identifier")
+    private Optional<String> _getApplicationIdentifier() {
+        return applicationIdentifier;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("application_name")
+    private Optional<String> _getApplicationName() {
+        return applicationName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("application_cryptogram")
+    private Optional<String> _getApplicationCryptogram() {
+        return applicationCryptogram;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("verification_method")
+    private Optional<String> _getVerificationMethod() {
+        return verificationMethod;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("verification_results")
+    private Optional<String> _getVerificationResults() {
+        return verificationResults;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("statement_description")
+    private Optional<String> _getStatementDescription() {
+        return statementDescription;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("refund_requires_card_presence")
+    private Optional<Boolean> _getRefundRequiresCardPresence() {
+        return refundRequiresCardPresence;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("errors")
+    private Optional<List<Error>> _getErrors() {
         return errors;
     }
 
@@ -365,6 +485,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder status(Nullable<String> status) {
+            if (status.isNull()) {
+                this.status = null;
+            } else if (status.isEmpty()) {
+                this.status = Optional.empty();
+            } else {
+                this.status = Optional.of(status.get());
+            }
+            return this;
+        }
+
         /**
          * <p>The credit card's non-confidential details.</p>
          */
@@ -394,6 +525,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder entryMethod(Nullable<String> entryMethod) {
+            if (entryMethod.isNull()) {
+                this.entryMethod = null;
+            } else if (entryMethod.isEmpty()) {
+                this.entryMethod = Optional.empty();
+            } else {
+                this.entryMethod = Optional.of(entryMethod.get());
+            }
+            return this;
+        }
+
         /**
          * <p>The status code returned from the Card Verification Value (CVV) check. The code can be
          * <code>CVV_ACCEPTED</code>, <code>CVV_REJECTED</code>, or <code>CVV_NOT_CHECKED</code>.</p>
@@ -406,6 +548,17 @@ public final class CardPaymentDetails {
 
         public Builder cvvStatus(String cvvStatus) {
             this.cvvStatus = Optional.ofNullable(cvvStatus);
+            return this;
+        }
+
+        public Builder cvvStatus(Nullable<String> cvvStatus) {
+            if (cvvStatus.isNull()) {
+                this.cvvStatus = null;
+            } else if (cvvStatus.isEmpty()) {
+                this.cvvStatus = Optional.empty();
+            } else {
+                this.cvvStatus = Optional.of(cvvStatus.get());
+            }
             return this;
         }
 
@@ -424,6 +577,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder avsStatus(Nullable<String> avsStatus) {
+            if (avsStatus.isNull()) {
+                this.avsStatus = null;
+            } else if (avsStatus.isEmpty()) {
+                this.avsStatus = Optional.empty();
+            } else {
+                this.avsStatus = Optional.of(avsStatus.get());
+            }
+            return this;
+        }
+
         /**
          * <p>The status code returned by the card issuer that describes the payment's
          * authorization status.</p>
@@ -436,6 +600,17 @@ public final class CardPaymentDetails {
 
         public Builder authResultCode(String authResultCode) {
             this.authResultCode = Optional.ofNullable(authResultCode);
+            return this;
+        }
+
+        public Builder authResultCode(Nullable<String> authResultCode) {
+            if (authResultCode.isNull()) {
+                this.authResultCode = null;
+            } else if (authResultCode.isEmpty()) {
+                this.authResultCode = Optional.empty();
+            } else {
+                this.authResultCode = Optional.of(authResultCode.get());
+            }
             return this;
         }
 
@@ -453,6 +628,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder applicationIdentifier(Nullable<String> applicationIdentifier) {
+            if (applicationIdentifier.isNull()) {
+                this.applicationIdentifier = null;
+            } else if (applicationIdentifier.isEmpty()) {
+                this.applicationIdentifier = Optional.empty();
+            } else {
+                this.applicationIdentifier = Optional.of(applicationIdentifier.get());
+            }
+            return this;
+        }
+
         /**
          * <p>For EMV payments, the human-readable name of the EMV application used for the payment.</p>
          */
@@ -467,6 +653,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder applicationName(Nullable<String> applicationName) {
+            if (applicationName.isNull()) {
+                this.applicationName = null;
+            } else if (applicationName.isEmpty()) {
+                this.applicationName = Optional.empty();
+            } else {
+                this.applicationName = Optional.of(applicationName.get());
+            }
+            return this;
+        }
+
         /**
          * <p>For EMV payments, the cryptogram generated for the payment.</p>
          */
@@ -478,6 +675,17 @@ public final class CardPaymentDetails {
 
         public Builder applicationCryptogram(String applicationCryptogram) {
             this.applicationCryptogram = Optional.ofNullable(applicationCryptogram);
+            return this;
+        }
+
+        public Builder applicationCryptogram(Nullable<String> applicationCryptogram) {
+            if (applicationCryptogram.isNull()) {
+                this.applicationCryptogram = null;
+            } else if (applicationCryptogram.isEmpty()) {
+                this.applicationCryptogram = Optional.empty();
+            } else {
+                this.applicationCryptogram = Optional.of(applicationCryptogram.get());
+            }
             return this;
         }
 
@@ -496,6 +704,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder verificationMethod(Nullable<String> verificationMethod) {
+            if (verificationMethod.isNull()) {
+                this.verificationMethod = null;
+            } else if (verificationMethod.isEmpty()) {
+                this.verificationMethod = Optional.empty();
+            } else {
+                this.verificationMethod = Optional.of(verificationMethod.get());
+            }
+            return this;
+        }
+
         /**
          * <p>For EMV payments, the results of the cardholder verification. The result can be
          * <code>SUCCESS</code>, <code>FAILURE</code>, or <code>UNKNOWN</code>.</p>
@@ -508,6 +727,17 @@ public final class CardPaymentDetails {
 
         public Builder verificationResults(String verificationResults) {
             this.verificationResults = Optional.ofNullable(verificationResults);
+            return this;
+        }
+
+        public Builder verificationResults(Nullable<String> verificationResults) {
+            if (verificationResults.isNull()) {
+                this.verificationResults = null;
+            } else if (verificationResults.isEmpty()) {
+                this.verificationResults = Optional.empty();
+            } else {
+                this.verificationResults = Optional.of(verificationResults.get());
+            }
             return this;
         }
 
@@ -524,6 +754,17 @@ public final class CardPaymentDetails {
 
         public Builder statementDescription(String statementDescription) {
             this.statementDescription = Optional.ofNullable(statementDescription);
+            return this;
+        }
+
+        public Builder statementDescription(Nullable<String> statementDescription) {
+            if (statementDescription.isNull()) {
+                this.statementDescription = null;
+            } else if (statementDescription.isEmpty()) {
+                this.statementDescription = Optional.empty();
+            } else {
+                this.statementDescription = Optional.of(statementDescription.get());
+            }
             return this;
         }
 
@@ -571,6 +812,17 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        public Builder refundRequiresCardPresence(Nullable<Boolean> refundRequiresCardPresence) {
+            if (refundRequiresCardPresence.isNull()) {
+                this.refundRequiresCardPresence = null;
+            } else if (refundRequiresCardPresence.isEmpty()) {
+                this.refundRequiresCardPresence = Optional.empty();
+            } else {
+                this.refundRequiresCardPresence = Optional.of(refundRequiresCardPresence.get());
+            }
+            return this;
+        }
+
         /**
          * <p>Information about errors encountered during the request.</p>
          */
@@ -582,6 +834,17 @@ public final class CardPaymentDetails {
 
         public Builder errors(List<Error> errors) {
             this.errors = Optional.ofNullable(errors);
+            return this;
+        }
+
+        public Builder errors(Nullable<List<Error>> errors) {
+            if (errors.isNull()) {
+                this.errors = null;
+            } else if (errors.isEmpty()) {
+                this.errors = Optional.empty();
+            } else {
+                this.errors = Optional.of(errors.get());
+            }
             return this;
         }
 

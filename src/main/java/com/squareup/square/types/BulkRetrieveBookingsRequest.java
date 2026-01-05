@@ -87,9 +87,7 @@ public final class BulkRetrieveBookingsRequest {
         @JsonSetter(value = "booking_ids", nulls = Nulls.SKIP)
         public Builder bookingIds(List<String> bookingIds) {
             this.bookingIds.clear();
-            if (bookingIds != null) {
-                this.bookingIds.addAll(bookingIds);
-            }
+            this.bookingIds.addAll(bookingIds);
             return this;
         }
 
@@ -99,9 +97,7 @@ public final class BulkRetrieveBookingsRequest {
         }
 
         public Builder addAllBookingIds(List<String> bookingIds) {
-            if (bookingIds != null) {
-                this.bookingIds.addAll(bookingIds);
-            }
+            this.bookingIds.addAll(bookingIds);
             return this;
         }
 

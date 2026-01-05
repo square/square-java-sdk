@@ -87,9 +87,7 @@ public final class CatalogQueryItemsForModifierList {
         @JsonSetter(value = "modifier_list_ids", nulls = Nulls.SKIP)
         public Builder modifierListIds(List<String> modifierListIds) {
             this.modifierListIds.clear();
-            if (modifierListIds != null) {
-                this.modifierListIds.addAll(modifierListIds);
-            }
+            this.modifierListIds.addAll(modifierListIds);
             return this;
         }
 
@@ -99,9 +97,7 @@ public final class CatalogQueryItemsForModifierList {
         }
 
         public Builder addAllModifierListIds(List<String> modifierListIds) {
-            if (modifierListIds != null) {
-                this.modifierListIds.addAll(modifierListIds);
-            }
+            this.modifierListIds.addAll(modifierListIds);
             return this;
         }
 

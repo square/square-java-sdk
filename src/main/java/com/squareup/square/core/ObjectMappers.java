@@ -4,7 +4,6 @@
 package com.squareup.square.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -32,14 +31,6 @@ public final class ObjectMappers {
                     .writeValueAsString(o);
         } catch (IOException e) {
             return o.getClass().getName() + "@" + Integer.toHexString(o.hashCode());
-        }
-    }
-
-    public static Object parseErrorBody(String responseBodyString) {
-        try {
-            return JSON_MAPPER.readValue(responseBodyString, Object.class);
-        } catch (JsonProcessingException ignored) {
-            return responseBodyString;
         }
     }
 }
