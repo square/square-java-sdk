@@ -18,8 +18,6 @@ public final class SubscriptionActionType {
 
     public static final SubscriptionActionType PAUSE = new SubscriptionActionType(Value.PAUSE, "PAUSE");
 
-    public static final SubscriptionActionType COMPLETE = new SubscriptionActionType(Value.COMPLETE, "COMPLETE");
-
     private final Value value;
 
     private final String string;
@@ -63,8 +61,6 @@ public final class SubscriptionActionType {
                 return visitor.visitSwapPlan();
             case PAUSE:
                 return visitor.visitPause();
-            case COMPLETE:
-                return visitor.visitComplete();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -84,8 +80,6 @@ public final class SubscriptionActionType {
                 return SWAP_PLAN;
             case "PAUSE":
                 return PAUSE;
-            case "COMPLETE":
-                return COMPLETE;
             default:
                 return new SubscriptionActionType(Value.UNKNOWN, value);
         }
@@ -102,8 +96,6 @@ public final class SubscriptionActionType {
 
         CHANGE_BILLING_ANCHOR_DATE,
 
-        COMPLETE,
-
         UNKNOWN
     }
 
@@ -117,8 +109,6 @@ public final class SubscriptionActionType {
         T visitSwapPlan();
 
         T visitChangeBillingAnchorDate();
-
-        T visitComplete();
 
         T visitUnknown(String unknownType);
     }

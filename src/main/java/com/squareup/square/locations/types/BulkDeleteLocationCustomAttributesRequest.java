@@ -94,17 +94,13 @@ public final class BulkDeleteLocationCustomAttributesRequest {
         public Builder values(
                 Map<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest> values) {
             this.values.clear();
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 
         public Builder putAllValues(
                 Map<String, BulkDeleteLocationCustomAttributesRequestLocationCustomAttributeDeleteRequest> values) {
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 

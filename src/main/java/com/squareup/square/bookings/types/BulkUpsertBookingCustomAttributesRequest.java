@@ -93,16 +93,12 @@ public final class BulkUpsertBookingCustomAttributesRequest {
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, BookingCustomAttributeUpsertRequest> values) {
             this.values.clear();
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 
         public Builder putAllValues(Map<String, BookingCustomAttributeUpsertRequest> values) {
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 

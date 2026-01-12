@@ -647,9 +647,7 @@ public final class CatalogCustomAttributeDefinition {
          */
         @java.lang.Override
         public _FinalStage addAllAllowedObjectTypes(List<CatalogObjectType> allowedObjectTypes) {
-            if (allowedObjectTypes != null) {
-                this.allowedObjectTypes.addAll(allowedObjectTypes);
-            }
+            this.allowedObjectTypes.addAll(allowedObjectTypes);
             return this;
         }
 
@@ -674,9 +672,7 @@ public final class CatalogCustomAttributeDefinition {
         @JsonSetter(value = "allowed_object_types", nulls = Nulls.SKIP)
         public _FinalStage allowedObjectTypes(List<CatalogObjectType> allowedObjectTypes) {
             this.allowedObjectTypes.clear();
-            if (allowedObjectTypes != null) {
-                this.allowedObjectTypes.addAll(allowedObjectTypes);
-            }
+            this.allowedObjectTypes.addAll(allowedObjectTypes);
             return this;
         }
 
