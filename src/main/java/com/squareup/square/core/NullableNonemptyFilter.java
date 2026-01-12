@@ -14,9 +14,6 @@ public final class NullableNonemptyFilter {
     }
 
     private boolean isOptionalEmpty(Object o) {
-        if (o instanceof Optional) {
-            return !((Optional<?>) o).isPresent();
-        }
-        return false;
+        return o instanceof Optional && !((Optional<?>) o).isPresent();
     }
 }

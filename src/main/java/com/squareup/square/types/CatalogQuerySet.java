@@ -141,9 +141,7 @@ public final class CatalogQuerySet {
          */
         @java.lang.Override
         public _FinalStage addAllAttributeValues(List<String> attributeValues) {
-            if (attributeValues != null) {
-                this.attributeValues.addAll(attributeValues);
-            }
+            this.attributeValues.addAll(attributeValues);
             return this;
         }
 
@@ -166,9 +164,7 @@ public final class CatalogQuerySet {
         @JsonSetter(value = "attribute_values", nulls = Nulls.SKIP)
         public _FinalStage attributeValues(List<String> attributeValues) {
             this.attributeValues.clear();
-            if (attributeValues != null) {
-                this.attributeValues.addAll(attributeValues);
-            }
+            this.attributeValues.addAll(attributeValues);
             return this;
         }
 

@@ -15,8 +15,6 @@ public final class SubscriptionStatus {
 
     public static final SubscriptionStatus ACTIVE = new SubscriptionStatus(Value.ACTIVE, "ACTIVE");
 
-    public static final SubscriptionStatus COMPLETED = new SubscriptionStatus(Value.COMPLETED, "COMPLETED");
-
     public static final SubscriptionStatus PENDING = new SubscriptionStatus(Value.PENDING, "PENDING");
 
     private final Value value;
@@ -59,8 +57,6 @@ public final class SubscriptionStatus {
                 return visitor.visitPaused();
             case ACTIVE:
                 return visitor.visitActive();
-            case COMPLETED:
-                return visitor.visitCompleted();
             case PENDING:
                 return visitor.visitPending();
             case UNKNOWN:
@@ -80,8 +76,6 @@ public final class SubscriptionStatus {
                 return PAUSED;
             case "ACTIVE":
                 return ACTIVE;
-            case "COMPLETED":
-                return COMPLETED;
             case "PENDING":
                 return PENDING;
             default:
@@ -100,8 +94,6 @@ public final class SubscriptionStatus {
 
         PAUSED,
 
-        COMPLETED,
-
         UNKNOWN
     }
 
@@ -115,8 +107,6 @@ public final class SubscriptionStatus {
         T visitDeactivated();
 
         T visitPaused();
-
-        T visitCompleted();
 
         T visitUnknown(String unknownType);
     }

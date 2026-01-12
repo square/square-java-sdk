@@ -26,8 +26,6 @@ The Square Java library provides convenient access to the Square APIs from Java.
   - [Custom Client](#custom-client)
   - [Retries](#retries)
   - [Timeouts](#timeouts)
-  - [Custom Headers](#custom-headers)
-  - [Access Raw Response Data](#access-raw-response-data)
 - [Contributing](#contributing)
 
 ## Requirements
@@ -56,7 +54,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>45.2.0.20251016</version>
+  <version>45.2.1</version>
 </dependency>
 ```
 
@@ -303,9 +301,9 @@ When the API returns a non-success status code (4xx or 5xx response), an API exc
 ```java
 import com.squareup.square.core.SquareApiException;
 
-try{
+try {
     client.payments().create(...);
-} catch (SquareApiException e){
+} catch (SquareApiException e) {
     // Do something with the API exception...
 }
 ```
@@ -389,7 +387,7 @@ Maven:
 
 ### Custom Client
 
-This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one.
+This SDK is built to work with any instance of `OkHttpClient`. By default, if no client is provided, the SDK will construct one. 
 However, you can pass your own client like so:
 
 ```java
@@ -408,9 +406,7 @@ SquareClient client = SquareClient
 
 The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
 as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
-retry limit (default: 2). Before defaulting to exponential backoff, the SDK will first attempt to respect
-the `Retry-After` header (as either in seconds or as an HTTP date), and then the `X-RateLimit-Reset` header
-(as a Unix timestamp in epoch seconds); failing both of those, it will fall back to exponential backoff.
+retry limit (default: 2).
 
 A request is deemed retryable when any of the following HTTP status codes is returned:
 
@@ -451,45 +447,6 @@ client.payments().create(
         .timeout(10)
         .build()
 );
-```
-
-### Custom Headers
-
-The SDK allows you to add custom headers to requests. You can configure headers at the client level or at the request level.
-
-```java
-import com.squareup.square.SquareClient;
-import com.squareup.square.core.RequestOptions;
-
-// Client level
-SquareClient client = SquareClient
-    .builder()
-    .addHeader("X-Custom-Header", "custom-value")
-    .addHeader("X-Request-Id", "abc-123")
-    .build();
-;
-
-// Request level
-client.payments().create(
-    ...,
-    RequestOptions
-        .builder()
-        .addHeader("X-Request-Header", "request-value")
-        .build()
-);
-```
-
-### Access Raw Response Data
-
-The SDK provides access to raw response data, including headers, through the `withRawResponse()` method.
-The `withRawResponse()` method returns a raw client that wraps all responses with `body()` and `headers()` methods.
-(A normal client's `response` is identical to a raw client's `response.body()`.)
-
-```java
-CreateHttpResponse response = client.payments().withRawResponse().create(...);
-
-System.out.println(response.body());
-System.out.println(response.headers().get("X-My-Header"));
 ```
 
 ## Contributing

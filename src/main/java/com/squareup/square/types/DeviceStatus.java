@@ -30,8 +30,7 @@ public final class DeviceStatus {
     }
 
     /**
-     * @return Category of the device status.
-     * See <a href="#type-category">Category</a> for possible values
+     * @return See <a href="#type-category">Category</a> for possible values
      */
     @JsonProperty("category")
     public Optional<DeviceStatusCategory> getCategory() {
@@ -82,8 +81,7 @@ public final class DeviceStatus {
         }
 
         /**
-         * <p>Category of the device status.
-         * See <a href="#type-category">Category</a> for possible values</p>
+         * <p>See <a href="#type-category">Category</a> for possible values</p>
          */
         @JsonSetter(value = "category", nulls = Nulls.SKIP)
         public Builder category(Optional<DeviceStatusCategory> category) {
