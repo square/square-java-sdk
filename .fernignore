@@ -6,3 +6,4 @@ src/main/java/com/squareup/square/core/SquareApiException.java
 src/main/java/com/squareup/square/utilities/WebhooksHelper.java
 src/test/resources/testdata
 .github/workflows/ci.yml
+changelog.md

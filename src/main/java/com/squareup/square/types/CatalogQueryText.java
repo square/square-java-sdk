@@ -87,9 +87,7 @@ public final class CatalogQueryText {
         @JsonSetter(value = "keywords", nulls = Nulls.SKIP)
         public Builder keywords(List<String> keywords) {
             this.keywords.clear();
-            if (keywords != null) {
-                this.keywords.addAll(keywords);
-            }
+            this.keywords.addAll(keywords);
             return this;
         }
 
@@ -99,9 +97,7 @@ public final class CatalogQueryText {
         }
 
         public Builder addAllKeywords(List<String> keywords) {
-            if (keywords != null) {
-                this.keywords.addAll(keywords);
-            }
+            this.keywords.addAll(keywords);
             return this;
         }
 

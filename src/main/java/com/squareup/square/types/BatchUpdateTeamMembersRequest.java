@@ -95,16 +95,12 @@ public final class BatchUpdateTeamMembersRequest {
         @JsonSetter(value = "team_members", nulls = Nulls.SKIP)
         public Builder teamMembers(Map<String, UpdateTeamMemberRequest> teamMembers) {
             this.teamMembers.clear();
-            if (teamMembers != null) {
-                this.teamMembers.putAll(teamMembers);
-            }
+            this.teamMembers.putAll(teamMembers);
             return this;
         }
 
         public Builder putAllTeamMembers(Map<String, UpdateTeamMemberRequest> teamMembers) {
-            if (teamMembers != null) {
-                this.teamMembers.putAll(teamMembers);
-            }
+            this.teamMembers.putAll(teamMembers);
             return this;
         }
 
