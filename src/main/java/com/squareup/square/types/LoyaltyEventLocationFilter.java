@@ -91,9 +91,7 @@ public final class LoyaltyEventLocationFilter {
         @JsonSetter(value = "location_ids", nulls = Nulls.SKIP)
         public Builder locationIds(List<String> locationIds) {
             this.locationIds.clear();
-            if (locationIds != null) {
-                this.locationIds.addAll(locationIds);
-            }
+            this.locationIds.addAll(locationIds);
             return this;
         }
 
@@ -103,9 +101,7 @@ public final class LoyaltyEventLocationFilter {
         }
 
         public Builder addAllLocationIds(List<String> locationIds) {
-            if (locationIds != null) {
-                this.locationIds.addAll(locationIds);
-            }
+            this.locationIds.addAll(locationIds);
             return this;
         }
 

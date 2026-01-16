@@ -474,7 +474,7 @@ client.oAuth().authorize();
 </details>
 
 ## V1Transactions
-<details><summary><code>client.v1Transactions.v1ListOrders(locationId) -> List&lt;V1Order&gt;</code></summary>
+<details><summary><code>client.v1Transactions.v1ListOrders(locationId) -> List&amp;lt;V1Order&amp;gt;</code></summary>
 <dl>
 <dd>
 
@@ -817,7 +817,7 @@ client.applePay().registerDomain(
 </details>
 
 ## BankAccounts
-<details><summary><code>client.bankAccounts.list() -> SyncPagingIterable&lt;BankAccount&gt;</code></summary>
+<details><summary><code>client.bankAccounts.list() -> ListBankAccountsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1030,7 +1030,7 @@ client.bankAccounts().get(
 </details>
 
 ## Bookings
-<details><summary><code>client.bookings.list() -> SyncPagingIterable&lt;Booking&gt;</code></summary>
+<details><summary><code>client.bookings.list() -> ListBookingsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1340,7 +1340,9 @@ client.bookings().bulkRetrieveBookings(
     BulkRetrieveBookingsRequest
         .builder()
         .bookingIds(
-            Arrays.asList("booking_ids")
+            new ArrayList<String>(
+                Arrays.asList("booking_ids")
+            )
         )
         .build()
 );
@@ -1499,7 +1501,9 @@ client.bookings().bulkRetrieveTeamMemberBookingProfiles(
     BulkRetrieveTeamMemberBookingProfilesRequest
         .builder()
         .teamMemberIds(
-            Arrays.asList("team_member_ids")
+            new ArrayList<String>(
+                Arrays.asList("team_member_ids")
+            )
         )
         .build()
 );
@@ -1759,7 +1763,7 @@ client.bookings().cancel(
 </details>
 
 ## Cards
-<details><summary><code>client.cards.list() -> SyncPagingIterable&lt;Card&gt;</code></summary>
+<details><summary><code>client.cards.list() -> ListCardsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2149,7 +2153,9 @@ client.catalog().batchDelete(
     BatchDeleteCatalogObjectsRequest
         .builder()
         .objectIds(
-            Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
+            new ArrayList<String>(
+                Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
+            )
         )
         .build()
 );
@@ -2219,7 +2225,9 @@ client.catalog().batchGet(
     BatchGetCatalogObjectsRequest
         .builder()
         .objectIds(
-            Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
+            new ArrayList<String>(
+                Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI", "AA27W3M2GGTF3H6AVPNB77CK")
+            )
         )
         .includeRelatedObjects(true)
         .build()
@@ -2269,7 +2277,7 @@ Default value: `false`
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Long>` 
+**catalogVersion:** `Optional<Integer>` 
 
 The specific version of the catalog objects to be included in the response. 
 This allows you to retrieve historical versions of objects. The specified version value is matched against
@@ -2351,38 +2359,42 @@ client.catalog().batchUpsert(
         .builder()
         .idempotencyKey("789ff020-f723-43a9-b4b5-43b5dc1fa3dc")
         .batches(
-            Arrays.asList(
-                CatalogObjectBatch
-                    .builder()
-                    .objects(
-                        Arrays.asList(
-                            CatalogObject.item(
-                                CatalogObjectItem
-                                    .builder()
-                                    .id("id")
-                                    .build()
-                            ),
-                            CatalogObject.item(
-                                CatalogObjectItem
-                                    .builder()
-                                    .id("id")
-                                    .build()
-                            ),
-                            CatalogObject.item(
-                                CatalogObjectItem
-                                    .builder()
-                                    .id("id")
-                                    .build()
-                            ),
-                            CatalogObject.tax(
-                                CatalogObjectTax
-                                    .builder()
-                                    .id("id")
-                                    .build()
+            new ArrayList<CatalogObjectBatch>(
+                Arrays.asList(
+                    CatalogObjectBatch
+                        .builder()
+                        .objects(
+                            new ArrayList<CatalogObject>(
+                                Arrays.asList(
+                                    CatalogObject.item(
+                                        CatalogObjectItem
+                                            .builder()
+                                            .id("id")
+                                            .build()
+                                    ),
+                                    CatalogObject.item(
+                                        CatalogObjectItem
+                                            .builder()
+                                            .id("id")
+                                            .build()
+                                    ),
+                                    CatalogObject.item(
+                                        CatalogObjectItem
+                                            .builder()
+                                            .id("id")
+                                            .build()
+                                    ),
+                                    CatalogObject.tax(
+                                        CatalogObjectTax
+                                            .builder()
+                                            .id("id")
+                                            .build()
+                                    )
+                                )
                             )
                         )
-                    )
-                    .build()
+                        .build()
+                )
             )
         )
         .build()
@@ -2493,7 +2505,7 @@ client.catalog().info();
 </dl>
 </details>
 
-<details><summary><code>client.catalog.list() -> SyncPagingIterable&lt;CatalogObject&gt;</code></summary>
+<details><summary><code>client.catalog.list() -> ListCatalogResponse</code></summary>
 <dl>
 <dd>
 
@@ -2584,7 +2596,7 @@ SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTIN
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Long>` 
+**catalogVersion:** `Optional<Integer>` 
 
 The specific version of the catalog objects to be included in the response.
 This allows you to retrieve historical versions of objects. The specified version value is matched against
@@ -2641,7 +2653,7 @@ client.catalog().search(
     SearchCatalogObjectsRequest
         .builder()
         .objectTypes(
-            Optional.of(
+            new ArrayList<CatalogObjectType>(
                 Arrays.asList(CatalogObjectType.ITEM)
             )
         )
@@ -2824,29 +2836,29 @@ client.catalog().searchItems(
         .builder()
         .textFilter("red")
         .categoryIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("WINE_CATEGORY_ID")
             )
         )
         .stockLevels(
-            Optional.of(
+            new ArrayList<SearchCatalogItemsRequestStockLevel>(
                 Arrays.asList(SearchCatalogItemsRequestStockLevel.OUT, SearchCatalogItemsRequestStockLevel.LOW)
             )
         )
         .enabledLocationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("ATL_LOCATION_ID")
             )
         )
         .limit(100)
         .sortOrder(SortOrder.ASC)
         .productTypes(
-            Optional.of(
+            new ArrayList<CatalogItemProductType>(
                 Arrays.asList(CatalogItemProductType.REGULAR)
             )
         )
         .customAttributeFilters(
-            Optional.of(
+            new ArrayList<CustomAttributeFilter>(
                 Arrays.asList(
                     CustomAttributeFilter
                         .builder()
@@ -3023,15 +3035,17 @@ client.catalog().updateItemModifierLists(
     UpdateItemModifierListsRequest
         .builder()
         .itemIds(
-            Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
+            new ArrayList<String>(
+                Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
+            )
         )
         .modifierListsToEnable(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
             )
         )
         .modifierListsToDisable(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("7WRC16CJZDVLSNDQ35PP6YAD")
             )
         )
@@ -3118,15 +3132,17 @@ client.catalog().updateItemTaxes(
     UpdateItemTaxesRequest
         .builder()
         .itemIds(
-            Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
+            new ArrayList<String>(
+                Arrays.asList("H42BRLUJ5KTZTTMPVSLFAACQ", "2JXOBJIHCWBQ4NZ3RIXQGJA6")
+            )
         )
         .taxesToEnable(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("4WRCNHCJZDVLSNDQ35PP6YAD")
             )
         )
         .taxesToDisable(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("AQCEGCEBBQONINDOHRGZISEX")
             )
         )
@@ -3183,227 +3199,8 @@ At least one of `taxes_to_enable` or `taxes_to_disable` must be specified.
 </dl>
 </details>
 
-## Channels
-<details><summary><code>client.channels.list() -> SyncPagingIterable&lt;Channel&gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.channels().list(
-    ListChannelsRequest
-        .builder()
-        .referenceType(ReferenceType.UNKNOWN_TYPE)
-        .referenceId("reference_id")
-        .status(ChannelStatus.ACTIVE)
-        .cursor("cursor")
-        .limit(1)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**referenceType:** `Optional<ReferenceType>` — Type of reference associated to channel
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**referenceId:** `Optional<String>` — id of reference associated to channel
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `Optional<ChannelStatus>` — Status of channel
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `Optional<String>` — Cursor to fetch the next result
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `Optional<Integer>` 
-
-Maximum number of results to return.
-When not provided the returned results will be cap at 100 channels.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.channels.bulkRetrieve(request) -> BulkRetrieveChannelsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.channels().bulkRetrieve(
-    BulkRetrieveChannelsRequest
-        .builder()
-        .channelIds(
-            Arrays.asList("CH_9C03D0B59", "CH_6X139B5MN", "NOT_EXISTING")
-        )
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**channelIds:** `List<String>` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.channels.get(channelId) -> RetrieveChannelResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.channels().get(
-    GetChannelsRequest
-        .builder()
-        .channelId("channel_id")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**channelId:** `String` — A channel id
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Customers
-<details><summary><code>client.customers.list() -> SyncPagingIterable&lt;Customer&gt;</code></summary>
+<details><summary><code>client.customers.list() -> ListCustomersResponse</code></summary>
 <dl>
 <dd>
 
@@ -3897,7 +3694,9 @@ client.customers().bulkDeleteCustomers(
     BulkDeleteCustomersRequest
         .builder()
         .customerIds(
-            Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
+            new ArrayList<String>(
+                Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
+            )
         )
         .build()
 );
@@ -3960,7 +3759,9 @@ client.customers().bulkRetrieveCustomers(
     BulkRetrieveCustomersRequest
         .builder()
         .customerIds(
-            Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
+            new ArrayList<String>(
+                Arrays.asList("8DDA5NZVBZFGAX0V3HPF81HHE0", "N18CPRVXR5214XPBBA6BZQWF3C", "2GYD7WNXF7BJZW1PMGNXZ3Y8M8")
+            )
         )
         .build()
 );
@@ -4124,7 +3925,7 @@ client.customers().search(
                             CustomerCreationSourceFilter
                                 .builder()
                                 .values(
-                                    Optional.of(
+                                    new ArrayList<CustomerCreationSource>(
                                         Arrays.asList(CustomerCreationSource.THIRD_PARTY)
                                     )
                                 )
@@ -4148,7 +3949,7 @@ client.customers().search(
                             FilterValue
                                 .builder()
                                 .all(
-                                    Optional.of(
+                                    new ArrayList<String>(
                                         Arrays.asList("545AXB44B4XXWMVQ4W8SBT3HHF")
                                     )
                                 )
@@ -4194,7 +3995,7 @@ For more information, see [Pagination](https://developer.squareup.com/docs/build
 <dl>
 <dd>
 
-**limit:** `Optional<Long>` 
+**limit:** `Optional<Integer>` 
 
 The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.
 If the specified limit is invalid, Square returns a `400 VALUE_TOO_LOW` or `400 VALUE_TOO_HIGH` error. The default value is 100.
@@ -4472,7 +4273,7 @@ format, where `YYYY` is the specified birth year or `0000` if a birth year is no
 <dl>
 <dd>
 
-**version:** `Optional<Long>` 
+**version:** `Optional<Integer>` 
 
 The current version of the customer profile.
 
@@ -4558,7 +4359,7 @@ client.customers().delete(
 <dl>
 <dd>
 
-**version:** `Optional<Long>` 
+**version:** `Optional<Integer>` 
 
 The current version of the customer profile.
 
@@ -4575,7 +4376,7 @@ As a best practice, you should include this parameter to enable [optimistic conc
 </details>
 
 ## Devices
-<details><summary><code>client.devices.list() -> SyncPagingIterable&lt;Device&gt;</code></summary>
+<details><summary><code>client.devices.list() -> ListDevicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -4730,7 +4531,7 @@ client.devices().get(
 </details>
 
 ## Disputes
-<details><summary><code>client.disputes.list() -> SyncPagingIterable&lt;Dispute&gt;</code></summary>
+<details><summary><code>client.disputes.list() -> ListDisputesResponse</code></summary>
 <dl>
 <dd>
 
@@ -5151,7 +4952,7 @@ client.disputes().submitEvidence(
 </details>
 
 ## Employees
-<details><summary><code>client.employees.list() -> SyncPagingIterable&lt;Employee&gt;</code></summary>
+<details><summary><code>client.employees.list() -> ListEmployeesResponse</code></summary>
 <dl>
 <dd>
 
@@ -5521,7 +5322,7 @@ client.events().listEventTypes(
 </details>
 
 ## GiftCards
-<details><summary><code>client.giftCards.list() -> SyncPagingIterable&lt;GiftCard&gt;</code></summary>
+<details><summary><code>client.giftCards.list() -> ListGiftCardsResponse</code></summary>
 <dl>
 <dd>
 
@@ -6215,7 +6016,7 @@ client.inventory().deprecatedBatchChange(
         .builder()
         .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
         .changes(
-            Optional.of(
+            new ArrayList<InventoryChange>(
                 Arrays.asList(
                     InventoryChange
                         .builder()
@@ -6297,22 +6098,22 @@ client.inventory().deprecatedBatchGetChanges(
     BatchRetrieveInventoryChangesRequest
         .builder()
         .catalogObjectIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("C6W5YS5QM06F5")
             )
         )
         .types(
-            Optional.of(
+            new ArrayList<InventoryChangeType>(
                 Arrays.asList(InventoryChangeType.PHYSICAL_COUNT)
             )
         )
         .states(
-            Optional.of(
+            new ArrayList<InventoryState>(
                 Arrays.asList(InventoryState.IN_STOCK)
             )
         )
@@ -6378,12 +6179,12 @@ client.inventory().deprecatedBatchGetCounts(
     BatchGetInventoryCountsRequest
         .builder()
         .catalogObjectIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("59TNP9SA8VGDA")
             )
         )
@@ -6452,7 +6253,7 @@ client.inventory().batchCreateChanges(
         .builder()
         .idempotencyKey("8fc6a5b0-9fe8-4b46-b46b-2ef95793abbe")
         .changes(
-            Optional.of(
+            new ArrayList<InventoryChange>(
                 Arrays.asList(
                     InventoryChange
                         .builder()
@@ -6502,7 +6303,7 @@ client.inventory().batchCreateChanges(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.batchGetChanges(request) -> SyncPagingIterable&lt;InventoryChange&gt;</code></summary>
+<details><summary><code>client.inventory.batchGetChanges(request) -> BatchGetInventoryChangesResponse</code></summary>
 <dl>
 <dd>
 
@@ -6540,22 +6341,22 @@ client.inventory().batchGetChanges(
     BatchRetrieveInventoryChangesRequest
         .builder()
         .catalogObjectIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("C6W5YS5QM06F5")
             )
         )
         .types(
-            Optional.of(
+            new ArrayList<InventoryChangeType>(
                 Arrays.asList(InventoryChangeType.PHYSICAL_COUNT)
             )
         )
         .states(
-            Optional.of(
+            new ArrayList<InventoryState>(
                 Arrays.asList(InventoryState.IN_STOCK)
             )
         )
@@ -6589,7 +6390,7 @@ client.inventory().batchGetChanges(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.batchGetCounts(request) -> SyncPagingIterable&lt;InventoryCount&gt;</code></summary>
+<details><summary><code>client.inventory.batchGetCounts(request) -> BatchGetInventoryCountsResponse</code></summary>
 <dl>
 <dd>
 
@@ -6630,12 +6431,12 @@ client.inventory().batchGetCounts(
     BatchGetInventoryCountsRequest
         .builder()
         .catalogObjectIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("W62UWFY35CWMYGVWK6TWJDNI")
             )
         )
         .locationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("59TNP9SA8VGDA")
             )
         )
@@ -6854,7 +6655,7 @@ client.inventory().getTransfer(
 </dl>
 </details>
 
-<details><summary><code>client.inventory.get(catalogObjectId) -> SyncPagingIterable&lt;InventoryCount&gt;</code></summary>
+<details><summary><code>client.inventory.get(catalogObjectId) -> GetInventoryCountResponse</code></summary>
 <dl>
 <dd>
 
@@ -6942,7 +6743,7 @@ See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagin
 </dl>
 </details>
 
-<details><summary><code>client.inventory.changes(catalogObjectId) -> SyncPagingIterable&lt;InventoryChange&gt;</code></summary>
+<details><summary><code>client.inventory.changes(catalogObjectId) -> GetInventoryChangesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7040,7 +6841,7 @@ See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagin
 </details>
 
 ## Invoices
-<details><summary><code>client.invoices.list() -> SyncPagingIterable&lt;Invoice&gt;</code></summary>
+<details><summary><code>client.invoices.list() -> ListInvoicesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7173,7 +6974,7 @@ client.invoices().create(
                         .build()
                 )
                 .paymentRequests(
-                    Optional.of(
+                    new ArrayList<InvoicePaymentRequest>(
                         Arrays.asList(
                             InvoicePaymentRequest
                                 .builder()
@@ -7182,7 +6983,7 @@ client.invoices().create(
                                 .tippingEnabled(true)
                                 .automaticPaymentSource(InvoiceAutomaticPaymentSource.NONE)
                                 .reminders(
-                                    Optional.of(
+                                    new ArrayList<InvoicePaymentReminder>(
                                         Arrays.asList(
                                             InvoicePaymentReminder
                                                 .builder()
@@ -7212,7 +7013,7 @@ client.invoices().create(
                         .build()
                 )
                 .customFields(
-                    Optional.of(
+                    new ArrayList<InvoiceCustomField>(
                         Arrays.asList(
                             InvoiceCustomField
                                 .builder()
@@ -7319,10 +7120,12 @@ client.invoices().search(
                     InvoiceFilter
                         .builder()
                         .locationIds(
-                            Arrays.asList("ES0RJRZYEC39A")
+                            new ArrayList<String>(
+                                Arrays.asList("ES0RJRZYEC39A")
+                            )
                         )
                         .customerIds(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("JDKYHBWT1D4F8MFH63DBMEN8Y4")
                             )
                         )
@@ -7488,7 +7291,7 @@ client.invoices().update(
                 .builder()
                 .version(1)
                 .paymentRequests(
-                    Optional.of(
+                    new ArrayList<InvoicePaymentRequest>(
                         Arrays.asList(
                             InvoicePaymentRequest
                                 .builder()
@@ -8579,7 +8382,7 @@ client.labor().createTimecard(
                         .build()
                 )
                 .breaks(
-                    Optional.of(
+                    new ArrayList<Break>(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -8869,7 +8672,7 @@ client.labor().updateTimecard(
                         .build()
                 )
                 .breaks(
-                    Optional.of(
+                    new ArrayList<Break>(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -9216,7 +9019,7 @@ client.locations().update(
                     BusinessHours
                         .builder()
                         .periods(
-                            Optional.of(
+                            new ArrayList<BusinessHoursPeriod>(
                                 Arrays.asList(
                                     BusinessHoursPeriod
                                         .builder()
@@ -9328,14 +9131,14 @@ client.locations().checkouts(
                         .referenceId("reference_id")
                         .customerId("customer_id")
                         .lineItems(
-                            Optional.of(
+                            new ArrayList<OrderLineItem>(
                                 Arrays.asList(
                                     OrderLineItem
                                         .builder()
                                         .quantity("2")
                                         .name("Printed T Shirt")
                                         .appliedTaxes(
-                                            Optional.of(
+                                            new ArrayList<OrderLineItemAppliedTax>(
                                                 Arrays.asList(
                                                     OrderLineItemAppliedTax
                                                         .builder()
@@ -9345,7 +9148,7 @@ client.locations().checkouts(
                                             )
                                         )
                                         .appliedDiscounts(
-                                            Optional.of(
+                                            new ArrayList<OrderLineItemAppliedDiscount>(
                                                 Arrays.asList(
                                                     OrderLineItemAppliedDiscount
                                                         .builder()
@@ -9390,7 +9193,7 @@ client.locations().checkouts(
                             )
                         )
                         .taxes(
-                            Optional.of(
+                            new ArrayList<OrderLineItemTax>(
                                 Arrays.asList(
                                     OrderLineItemTax
                                         .builder()
@@ -9403,7 +9206,7 @@ client.locations().checkouts(
                             )
                         )
                         .discounts(
-                            Optional.of(
+                            new ArrayList<OrderLineItemDiscount>(
                                 Arrays.asList(
                                     OrderLineItemDiscount
                                         .builder()
@@ -9444,7 +9247,7 @@ client.locations().checkouts(
         )
         .redirectUrl("https://merchant.website.com/order-confirm")
         .additionalRecipients(
-            Optional.of(
+            new ArrayList<ChargeRequestAdditionalRecipient>(
                 Arrays.asList(
                     ChargeRequestAdditionalRecipient
                         .builder()
@@ -9738,7 +9541,7 @@ For more information, see [Pagination](https://developer.squareup.com/docs/build
 </details>
 
 ## Merchants
-<details><summary><code>client.merchants.list() -> SyncPagingIterable&lt;Merchant&gt;</code></summary>
+<details><summary><code>client.merchants.list() -> ListMerchantsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10145,7 +9948,7 @@ client.orders().create(
                 .locationId("057P5VYJ4A5X1")
                 .referenceId("my-order-001")
                 .lineItems(
-                    Optional.of(
+                    new ArrayList<OrderLineItem>(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -10164,7 +9967,7 @@ client.orders().create(
                                 .quantity("2")
                                 .catalogObjectId("BEMYCSMIJL46OCDV4KYIKXIB")
                                 .modifiers(
-                                    Optional.of(
+                                    new ArrayList<OrderLineItemModifier>(
                                         Arrays.asList(
                                             OrderLineItemModifier
                                                 .builder()
@@ -10174,7 +9977,7 @@ client.orders().create(
                                     )
                                 )
                                 .appliedDiscounts(
-                                    Optional.of(
+                                    new ArrayList<OrderLineItemAppliedDiscount>(
                                         Arrays.asList(
                                             OrderLineItemAppliedDiscount
                                                 .builder()
@@ -10188,7 +9991,7 @@ client.orders().create(
                     )
                 )
                 .taxes(
-                    Optional.of(
+                    new ArrayList<OrderLineItemTax>(
                         Arrays.asList(
                             OrderLineItemTax
                                 .builder()
@@ -10201,7 +10004,7 @@ client.orders().create(
                     )
                 )
                 .discounts(
-                    Optional.of(
+                    new ArrayList<OrderLineItemDiscount>(
                         Arrays.asList(
                             OrderLineItemDiscount
                                 .builder()
@@ -10296,7 +10099,9 @@ client.orders().batchGet(
     BatchGetOrdersRequest
         .builder()
         .orderIds(
-            Arrays.asList("CAISEM82RcpmcFBM0TfOyiHV3es", "CAISENgvlJ6jLWAzERDzjyHVybY")
+            new ArrayList<String>(
+                Arrays.asList("CAISEM82RcpmcFBM0TfOyiHV3es", "CAISENgvlJ6jLWAzERDzjyHVybY")
+            )
         )
         .locationId("057P5VYJ4A5X1")
         .build()
@@ -10373,7 +10178,7 @@ client.orders().calculate(
                 .builder()
                 .locationId("D7AVYMEAPJ3A3")
                 .lineItems(
-                    Optional.of(
+                    new ArrayList<OrderLineItem>(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -10403,7 +10208,7 @@ client.orders().calculate(
                     )
                 )
                 .discounts(
-                    Optional.of(
+                    new ArrayList<OrderLineItemDiscount>(
                         Arrays.asList(
                             OrderLineItemDiscount
                                 .builder()
@@ -10597,7 +10402,7 @@ client.orders().search(
     SearchOrdersRequest
         .builder()
         .locationIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("057P5VYJ4A5X1", "18YC4JDH91E1H")
             )
         )
@@ -10611,7 +10416,9 @@ client.orders().search(
                             SearchOrdersStateFilter
                                 .builder()
                                 .states(
-                                    Arrays.asList(OrderState.COMPLETED)
+                                    new ArrayList<OrderState>(
+                                        Arrays.asList(OrderState.COMPLETED)
+                                    )
                                 )
                                 .build()
                         )
@@ -10832,7 +10639,7 @@ client.orders().update(
                 .builder()
                 .locationId("location_id")
                 .lineItems(
-                    Optional.of(
+                    new ArrayList<OrderLineItem>(
                         Arrays.asList(
                             OrderLineItem
                                 .builder()
@@ -10854,7 +10661,7 @@ client.orders().update(
                 .build()
         )
         .fieldsToClear(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("discounts")
             )
         )
@@ -10974,7 +10781,7 @@ client.orders().pay(
         .orderId("order_id")
         .idempotencyKey("c043a359-7ad9-4136-82a9-c3f1d66dcbff")
         .paymentIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("EnZdNAlWCmfh6Mt5FMNST1o7taB", "0LRiVlbXVwe8ozu4KbZxd12mvaB")
             )
         )
@@ -11040,7 +10847,7 @@ The payment total must match the order total.
 </details>
 
 ## Payments
-<details><summary><code>client.payments.list() -> SyncPagingIterable&lt;Payment&gt;</code></summary>
+<details><summary><code>client.payments.list() -> ListPaymentsResponse</code></summary>
 <dl>
 <dd>
 
@@ -11108,7 +10915,7 @@ client.payments().list(
 
 **beginTime:** `Optional<String>` 
 
-Indicates the start of the time range to retrieve payments for, in RFC 3339 format.
+Indicates the start of the time range to retrieve payments for, in RFC 3339 format.  
 The range is determined using the `created_at` field for each Payment.
 Inclusive. Default: The current time minus one year.
     
@@ -11120,7 +10927,7 @@ Inclusive. Default: The current time minus one year.
 
 **endTime:** `Optional<String>` 
 
-Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The
+Indicates the end of the time range to retrieve payments for, in RFC 3339 format.  The 
 range is determined using the `created_at` field for each Payment.
 
 Default: The current time.
@@ -11167,7 +10974,7 @@ for the default (main) location associated with the seller.
 <dl>
 <dd>
 
-**total:** `Optional<Long>` — The exact amount in the `total_money` for a payment.
+**total:** `Optional<Integer>` — The exact amount in the `total_money` for a payment.
     
 </dd>
 </dl>
@@ -11360,7 +11167,7 @@ This could be a payment token generated by the Web Payments SDK for any of its
 [supported methods](https://developer.squareup.com/docs/web-payments/overview#explore-payment-methods),
 including cards, bank transfers, Afterpay or Cash App Pay. If recording a payment
 that the seller received outside of Square, specify either "CASH" or "EXTERNAL".
-For more information, see
+For more information, see 
 [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
     
 </dd>
@@ -11448,10 +11255,10 @@ For more information, see [Permissions](https://developer.squareup.com/docs/paym
 
 **delayDuration:** `Optional<String>` 
 
-The duration of time after the payment's creation when Square automatically
-either completes or cancels the payment depending on the `delay_action` field value.
-For more information, see
-[Time threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold).
+The duration of time after the payment's creation when Square automatically 
+either completes or cancels the payment depending on the `delay_action` field value. 
+For more information, see 
+[Time threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold). 
 
 This parameter should be specified as a time duration, in RFC 3339 format.
 
@@ -11472,8 +11279,8 @@ Default:
 **delayAction:** `Optional<String>` 
 
 The action to be applied to the payment when the `delay_duration` has elapsed. The action must be
-CANCEL or COMPLETE. For more information, see
-[Time Threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold).
+CANCEL or COMPLETE. For more information, see 
+[Time Threshold](https://developer.squareup.com/docs/payments-api/take-payments/card-payments/delayed-capture#time-threshold). 
 
 Default: CANCEL
     
@@ -11531,7 +11338,7 @@ used.
 
 **teamMemberId:** `Optional<String>` 
 
-An optional [TeamMember](entity:TeamMember) ID to associate with
+An optional [TeamMember](entity:TeamMember) ID to associate with 
 this payment.
     
 </dd>
@@ -11544,7 +11351,7 @@ this payment.
 
 A user-defined ID to associate with the payment.
 
-You can use this field to associate the payment to an entity in an external system
+You can use this field to associate the payment to an entity in an external system 
 (for example, you might specify an order ID that is generated by a third-party shopping cart).
     
 </dd>
@@ -12038,8 +11845,8 @@ client.payments().complete(
 
 **versionToken:** `Optional<String>` 
 
-Used for optimistic concurrency. This opaque token identifies the current `Payment`
-version that the caller expects. If the server has a different version of the Payment,
+Used for optimistic concurrency. This opaque token identifies the current `Payment` 
+version that the caller expects. If the server has a different version of the Payment, 
 the update fails and a response with a VERSION_MISMATCH error is returned.
     
 </dd>
@@ -12053,7 +11860,7 @@ the update fails and a response with a VERSION_MISMATCH error is returned.
 </details>
 
 ## Payouts
-<details><summary><code>client.payouts.list() -> SyncPagingIterable&lt;Payout&gt;</code></summary>
+<details><summary><code>client.payouts.list() -> ListPayoutsResponse</code></summary>
 <dl>
 <dd>
 
@@ -12248,7 +12055,7 @@ client.payouts().get(
 </dl>
 </details>
 
-<details><summary><code>client.payouts.listEntries(payoutId) -> SyncPagingIterable&lt;PayoutEntry&gt;</code></summary>
+<details><summary><code>client.payouts.listEntries(payoutId) -> ListPayoutEntriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -12347,7 +12154,7 @@ Default: `100`
 </details>
 
 ## Refunds
-<details><summary><code>client.refunds.list() -> SyncPagingIterable&lt;PaymentRefund&gt;</code></summary>
+<details><summary><code>client.refunds.list() -> ListPaymentRefundsResponse</code></summary>
 <dl>
 <dd>
 
@@ -13153,7 +12960,7 @@ client.subscriptions().create(
                 .build()
         )
         .phases(
-            Optional.of(
+            new ArrayList<Phase>(
                 Arrays.asList(
                     Phase
                         .builder()
@@ -13237,7 +13044,7 @@ If the cancellation date is earlier than the end date of a subscription cycle, t
 at the canceled date and the subscriber is sent a prorated invoice at the beginning of the canceled cycle. 
 
 When the subscription plan of the newly created subscription has a fixed number of cycles and the `canceled_date`
-occurs before the subscription plan completes, the specified `canceled_date` sets the date when the subscription
+occurs before the subscription plan expires, the specified `canceled_date` sets the date when the subscription 
 stops through the end of the last cycle.
     
 </dd>
@@ -13459,17 +13266,17 @@ client.subscriptions().search(
                     SearchSubscriptionsFilter
                         .builder()
                         .customerIds(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("CHFGVKYY8RSV93M5KCYTG4PN0G")
                             )
                         )
                         .locationIds(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("S8GWD5R9QB376")
                             )
                         )
                         .sourceNames(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("My App")
                             )
                         )
@@ -13912,7 +13719,7 @@ client.subscriptions().cancel(
 </dl>
 </details>
 
-<details><summary><code>client.subscriptions.listEvents(subscriptionId) -> SyncPagingIterable&lt;SubscriptionEvent&gt;</code></summary>
+<details><summary><code>client.subscriptions.listEvents(subscriptionId) -> ListSubscriptionEventsResponse</code></summary>
 <dl>
 <dd>
 
@@ -14066,7 +13873,7 @@ on the starting date of the next billing cycle.
 <dl>
 <dd>
 
-**pauseCycleDuration:** `Optional<Long>` 
+**pauseCycleDuration:** `Optional<Integer>` 
 
 The number of billing cycles the subscription will be paused before it is reactivated. 
 
@@ -14228,7 +14035,7 @@ client.subscriptions().swapPlan(
         .subscriptionId("subscription_id")
         .newPlanVariationId("FQ7CDXXWSLUJRPM3GFJSJGZ7")
         .phases(
-            Optional.of(
+            new ArrayList<PhaseInput>(
                 Arrays.asList(
                     PhaseInput
                         .builder()
@@ -14337,7 +14144,7 @@ client.teamMembers().create(
                         .builder()
                         .assignmentType(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS)
                         .locationIds(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                             )
                         )
@@ -14347,7 +14154,7 @@ client.teamMembers().create(
                     WageSetting
                         .builder()
                         .jobAssignments(
-                            Optional.of(
+                            new ArrayList<JobAssignment>(
                                 Arrays.asList(
                                     JobAssignment
                                         .builder()
@@ -14465,7 +14272,9 @@ client.teamMembers().batchCreate(
                                             .assignmentType(Optional.of(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS))
                                             .locationIds(
                                                 Optional.of(
-                                                    Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
+                                                    new ArrayList<String>(
+                                                        Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
+                                                    )
                                                 )
                                             )
                                             .build()
@@ -14615,7 +14424,9 @@ client.teamMembers().batchUpdate(
                                             .assignmentType(Optional.of(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS))
                                             .locationIds(
                                                 Optional.of(
-                                                    Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
+                                                    new ArrayList<String>(
+                                                        Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
+                                                    )
                                                 )
                                             )
                                             .build()
@@ -14701,7 +14512,7 @@ client.teamMembers().search(
                     SearchTeamMembersFilter
                         .builder()
                         .locationIds(
-                            Optional.of(
+                            new ArrayList<String>(
                                 Arrays.asList("0G5P3VGACMMQZ")
                             )
                         )
@@ -14867,7 +14678,7 @@ client.teamMembers().update(
                                 .builder()
                                 .assignmentType(TeamMemberAssignedLocationsAssignmentType.EXPLICIT_LOCATIONS)
                                 .locationIds(
-                                    Optional.of(
+                                    new ArrayList<String>(
                                         Arrays.asList("YSGH2WBKG94QZ", "GA2Y9HSJ8KRYT")
                                     )
                                 )
@@ -14877,7 +14688,7 @@ client.teamMembers().update(
                             WageSetting
                                 .builder()
                                 .jobAssignments(
-                                    Optional.of(
+                                    new ArrayList<JobAssignment>(
                                         Arrays.asList(
                                             JobAssignment
                                                 .builder()
@@ -15411,793 +15222,6 @@ client.terminal().dismissTerminalRefund(
 </dl>
 </details>
 
-## TransferOrders
-<details><summary><code>client.transferOrders.create(request) -> CreateTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a new transfer order in [DRAFT](entity:TransferOrderStatus) status. A transfer order represents the intent 
-to move [CatalogItemVariation](entity:CatalogItemVariation)s from one [Location](entity:Location) to another. 
-The source and destination locations must be different and must belong to your Square account.
-
-In [DRAFT](entity:TransferOrderStatus) status, you can:
-- Add or remove items
-- Modify quantities
-- Update shipping information
-- Delete the entire order via [DeleteTransferOrder](api-endpoint:TransferOrders-DeleteTransferOrder)
-
-The request requires source_location_id and destination_location_id.
-Inventory levels are not affected until the order is started via 
-[StartTransferOrder](api-endpoint:TransferOrders-StartTransferOrder).
-
-Common integration points:
-- Sync with warehouse management systems
-- Automate regular stock transfers
-- Initialize transfers from inventory optimization systems
-
-Creates a [transfer_order.created](webhook:transfer_order.created) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().create(
-    CreateTransferOrderRequest
-        .builder()
-        .idempotencyKey("65cc0586-3e82-384s-b524-3885cffd52")
-        .transferOrder(
-            CreateTransferOrderData
-                .builder()
-                .sourceLocationId("EXAMPLE_SOURCE_LOCATION_ID_123")
-                .destinationLocationId("EXAMPLE_DEST_LOCATION_ID_456")
-                .expectedAt("2025-11-09T05:00:00Z")
-                .notes("Example transfer order for inventory redistribution between locations")
-                .trackingNumber("TRACK123456789")
-                .createdByTeamMemberId("EXAMPLE_TEAM_MEMBER_ID_789")
-                .lineItems(
-                    Optional.of(
-                        Arrays.asList(
-                            CreateTransferOrderLineData
-                                .builder()
-                                .itemVariationId("EXAMPLE_ITEM_VARIATION_ID_001")
-                                .quantityOrdered("5")
-                                .build(),
-                            CreateTransferOrderLineData
-                                .builder()
-                                .itemVariationId("EXAMPLE_ITEM_VARIATION_ID_002")
-                                .quantityOrdered("3")
-                                .build()
-                        )
-                    )
-                )
-                .build()
-        )
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**idempotencyKey:** `String` 
-
-A unique string that identifies this CreateTransferOrder request. Keys can be
-any valid string but must be unique for every CreateTransferOrder request.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transferOrder:** `CreateTransferOrderData` — The transfer order to create
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.search(request) -> SyncPagingIterable&lt;TransferOrder&gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Searches for transfer orders using filters. Returns a paginated list of matching
-[TransferOrder](entity:TransferOrder)s sorted by creation date.
-
-Common search scenarios:
-- Find orders for a source [Location](entity:Location)
-- Find orders for a destination [Location](entity:Location)
-- Find orders in a particular [TransferOrderStatus](entity:TransferOrderStatus)
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().search(
-    SearchTransferOrdersRequest
-        .builder()
-        .query(
-            TransferOrderQuery
-                .builder()
-                .filter(
-                    TransferOrderFilter
-                        .builder()
-                        .sourceLocationIds(
-                            Optional.of(
-                                Arrays.asList("EXAMPLE_SOURCE_LOCATION_ID_123")
-                            )
-                        )
-                        .destinationLocationIds(
-                            Optional.of(
-                                Arrays.asList("EXAMPLE_DEST_LOCATION_ID_456")
-                            )
-                        )
-                        .statuses(
-                            Optional.of(
-                                Arrays.asList(TransferOrderStatus.STARTED, TransferOrderStatus.PARTIALLY_RECEIVED)
-                            )
-                        )
-                        .build()
-                )
-                .sort(
-                    TransferOrderSort
-                        .builder()
-                        .field(TransferOrderSortField.UPDATED_AT)
-                        .order(SortOrder.DESC)
-                        .build()
-                )
-                .build()
-        )
-        .cursor("eyJsYXN0X3VwZGF0ZWRfYXQiOjE3NTMxMTg2NjQ4NzN9")
-        .limit(10)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**query:** `Optional<TransferOrderQuery>` — The search query
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `Optional<String>` — Pagination cursor from a previous search response
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `Optional<Integer>` — Maximum number of results to return (1-100)
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.get(transferOrderId) -> RetrieveTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves a specific [TransferOrder](entity:TransferOrder) by ID. Returns the complete
-order details including:
-
-- Basic information (status, dates, notes)
-- Line items with ordered and received quantities
-- Source and destination [Location](entity:Location)s
-- Tracking information (if available)
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().get(
-    GetTransferOrdersRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to retrieve
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.update(transferOrderId, request) -> UpdateTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an existing transfer order. This endpoint supports sparse updates,
-allowing you to modify specific fields without affecting others.
-
-Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().update(
-    UpdateTransferOrderRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .idempotencyKey("f47ac10b-58cc-4372-a567-0e02b2c3d479")
-        .transferOrder(
-            UpdateTransferOrderData
-                .builder()
-                .sourceLocationId("EXAMPLE_SOURCE_LOCATION_ID_789")
-                .destinationLocationId("EXAMPLE_DEST_LOCATION_ID_101")
-                .expectedAt("2025-11-10T08:00:00Z")
-                .notes("Updated: Priority transfer due to low stock at destination")
-                .trackingNumber("TRACK987654321")
-                .lineItems(
-                    Optional.of(
-                        Arrays.asList(
-                            UpdateTransferOrderLineData
-                                .builder()
-                                .uid("1")
-                                .quantityOrdered("7")
-                                .build(),
-                            UpdateTransferOrderLineData
-                                .builder()
-                                .itemVariationId("EXAMPLE_NEW_ITEM_VARIATION_ID_003")
-                                .quantityOrdered("2")
-                                .build(),
-                            UpdateTransferOrderLineData
-                                .builder()
-                                .uid("2")
-                                .remove(true)
-                                .build()
-                        )
-                    )
-                )
-                .build()
-        )
-        .version(1753109537351L)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to update
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**idempotencyKey:** `String` — A unique string that identifies this UpdateTransferOrder request. Keys must contain only alphanumeric characters, dashes and underscores
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transferOrder:** `UpdateTransferOrderData` — The transfer order updates to apply
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `Optional<Long>` — Version for optimistic concurrency
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.delete(transferOrderId) -> DeleteTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a transfer order in [DRAFT](entity:TransferOrderStatus) status.
-Only draft orders can be deleted. Once an order is started via 
-[StartTransferOrder](api-endpoint:TransferOrders-StartTransferOrder), it can no longer be deleted.
-
-Creates a [transfer_order.deleted](webhook:transfer_order.deleted) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().delete(
-    DeleteTransferOrdersRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .version(1000000L)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to delete
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `Optional<Long>` — Version for optimistic concurrency
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.cancel(transferOrderId, request) -> CancelTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancels a transfer order in [STARTED](entity:TransferOrderStatus) or 
-[PARTIALLY_RECEIVED](entity:TransferOrderStatus) status. Any unreceived quantities will no
-longer be receivable and will be immediately returned to the source [Location](entity:Location)'s inventory.
-
-Common reasons for cancellation:
-- Items no longer needed at destination
-- Source location needs the inventory
-- Order created in error
-
-Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().cancel(
-    CancelTransferOrderRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .idempotencyKey("65cc0586-3e82-4d08-b524-3885cffd52")
-        .version(1753117449752L)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to cancel. Must be in STARTED or PARTIALLY_RECEIVED status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**idempotencyKey:** `String` 
-
-A unique string that identifies this UpdateTransferOrder request. Keys can be
-any valid string but must be unique for every UpdateTransferOrder request.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `Optional<Long>` — Version for optimistic concurrency
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.receive(transferOrderId, request) -> ReceiveTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Records receipt of [CatalogItemVariation](entity:CatalogItemVariation)s for a transfer order.
-This endpoint supports partial receiving - you can receive items in multiple batches.
-
-For each line item, you can specify:
-- Quantity received in good condition (added to destination inventory with [InventoryState](entity:InventoryState) of IN_STOCK)
-- Quantity damaged during transit/handling (added to destination inventory with [InventoryState](entity:InventoryState) of WASTE)
-- Quantity canceled (returned to source location's inventory)
-
-The order must be in [STARTED](entity:TransferOrderStatus) or [PARTIALLY_RECEIVED](entity:TransferOrderStatus) status.
-Received quantities are added to the destination [Location](entity:Location)'s inventory according to their condition.
-Canceled quantities are immediately returned to the source [Location](entity:Location)'s inventory.
-
-When all items are either received, damaged, or canceled, the order moves to
-[COMPLETED](entity:TransferOrderStatus) status.
-
-Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().receive(
-    ReceiveTransferOrderRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .idempotencyKey("EXAMPLE_IDEMPOTENCY_KEY_101")
-        .receipt(
-            TransferOrderGoodsReceipt
-                .builder()
-                .lineItems(
-                    Optional.of(
-                        Arrays.asList(
-                            TransferOrderGoodsReceiptLineItem
-                                .builder()
-                                .transferOrderLineUid("transfer_order_line_uid")
-                                .quantityReceived("3")
-                                .quantityDamaged("1")
-                                .quantityCanceled("1")
-                                .build(),
-                            TransferOrderGoodsReceiptLineItem
-                                .builder()
-                                .transferOrderLineUid("transfer_order_line_uid")
-                                .quantityReceived("2")
-                                .quantityCanceled("1")
-                                .build()
-                        )
-                    )
-                )
-                .build()
-        )
-        .version(1753118664873L)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to receive items for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**idempotencyKey:** `String` — A unique key to make this request idempotent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**receipt:** `TransferOrderGoodsReceipt` — The receipt details
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `Optional<Long>` — Version for optimistic concurrency
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.transferOrders.start(transferOrderId, request) -> StartTransferOrderResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Changes a [DRAFT](entity:TransferOrderStatus) transfer order to [STARTED](entity:TransferOrderStatus) status.
-This decrements inventory at the source [Location](entity:Location) and marks it as in-transit.
-
-The order must be in [DRAFT](entity:TransferOrderStatus) status and have all required fields populated.
-Once started, the order can no longer be deleted, but it can be canceled via 
-[CancelTransferOrder](api-endpoint:TransferOrders-CancelTransferOrder).
-
-Creates a [transfer_order.updated](webhook:transfer_order.updated) webhook event.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.transferOrders().start(
-    StartTransferOrderRequest
-        .builder()
-        .transferOrderId("transfer_order_id")
-        .idempotencyKey("EXAMPLE_IDEMPOTENCY_KEY_789")
-        .version(1753109537351L)
-        .build()
-);
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**transferOrderId:** `String` — The ID of the transfer order to start. Must be in DRAFT status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**idempotencyKey:** `String` 
-
-A unique string that identifies this UpdateTransferOrder request. Keys can be
-any valid string but must be unique for every UpdateTransferOrder request.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**version:** `Optional<Long>` — Version for optimistic concurrency
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Vendors
 <details><summary><code>client.vendors.batchCreate(request) -> BatchCreateVendorsResponse</code></summary>
 <dl>
@@ -16249,14 +15273,16 @@ client.vendors().batchCreate(
                     )
                     .contacts(
                         Optional.of(
-                            Arrays.asList(
-                                VendorContact
-                                    .builder()
-                                    .ordinal(1)
-                                    .name("Joe Burrow")
-                                    .emailAddress("joe@joesfreshseafood.com")
-                                    .phoneNumber("1-212-555-4250")
-                                    .build()
+                            new ArrayList<VendorContact>(
+                                Arrays.asList(
+                                    VendorContact
+                                        .builder()
+                                        .ordinal(1)
+                                        .name("Joe Burrow")
+                                        .emailAddress("joe@joesfreshseafood.com")
+                                        .phoneNumber("1-212-555-4250")
+                                        .build()
+                                )
                             )
                         )
                     )
@@ -16324,7 +15350,7 @@ client.vendors().batchGet(
     BatchGetVendorsRequest
         .builder()
         .vendorIds(
-            Optional.of(
+            new ArrayList<String>(
                 Arrays.asList("INV_V_JDKYHBWT1D4F8MFH63DBMEN8Y4")
             )
         )
@@ -16484,7 +15510,7 @@ client.vendors().create(
                         .build()
                 )
                 .contacts(
-                    Optional.of(
+                    new ArrayList<VendorContact>(
                         Arrays.asList(
                             VendorContact
                                 .builder()
@@ -16763,7 +15789,7 @@ client.vendors().update(
 </details>
 
 ## Bookings CustomAttributeDefinitions
-<details><summary><code>client.bookings.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
+<details><summary><code>client.bookings.customAttributeDefinitions.list() -> ListBookingCustomAttributeDefinitionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -17343,7 +16369,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.bookings.customAttributes.list(bookingId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
+<details><summary><code>client.bookings.customAttributes.list(bookingId) -> ListBookingCustomAttributesResponse</code></summary>
 <dl>
 <dd>
 
@@ -17736,7 +16762,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Bookings LocationProfiles
-<details><summary><code>client.bookings.locationProfiles.list() -> SyncPagingIterable&lt;LocationBookingProfile&gt;</code></summary>
+<details><summary><code>client.bookings.locationProfiles.list() -> ListLocationBookingProfilesResponse</code></summary>
 <dl>
 <dd>
 
@@ -17805,7 +16831,7 @@ client.bookings().locationProfiles().list(
 </details>
 
 ## Bookings TeamMemberProfiles
-<details><summary><code>client.bookings.teamMemberProfiles.list() -> SyncPagingIterable&lt;TeamMemberBookingProfile&gt;</code></summary>
+<details><summary><code>client.bookings.teamMemberProfiles.list() -> ListTeamMemberBookingProfilesResponse</code></summary>
 <dl>
 <dd>
 
@@ -17951,7 +16977,7 @@ client.bookings().teamMemberProfiles().get(
 </details>
 
 ## CashDrawers Shifts
-<details><summary><code>client.cashDrawers.shifts.list() -> SyncPagingIterable&lt;CashDrawerShiftSummary&gt;</code></summary>
+<details><summary><code>client.cashDrawers.shifts.list() -> ListCashDrawerShiftsResponse</code></summary>
 <dl>
 <dd>
 
@@ -18131,7 +17157,7 @@ client.cashDrawers().shifts().get(
 </dl>
 </details>
 
-<details><summary><code>client.cashDrawers.shifts.listEvents(shiftId) -> SyncPagingIterable&lt;CashDrawerShiftEvent&gt;</code></summary>
+<details><summary><code>client.cashDrawers.shifts.listEvents(shiftId) -> ListCashDrawerShiftEventsResponse</code></summary>
 <dl>
 <dd>
 
@@ -18514,7 +17540,7 @@ Default value: `false`
 <dl>
 <dd>
 
-**catalogVersion:** `Optional<Long>` 
+**catalogVersion:** `Optional<Integer>` 
 
 Requests objects as of a specific version of the catalog. This allows you to retrieve historical
 versions of objects. The value to retrieve a specific version of an object can be found
@@ -18617,7 +17643,7 @@ catalog item will delete its catalog item variations).
 </details>
 
 ## Checkout PaymentLinks
-<details><summary><code>client.checkout.paymentLinks.list() -> SyncPagingIterable&lt;PaymentLink&gt;</code></summary>
+<details><summary><code>client.checkout.paymentLinks.list() -> ListPaymentLinksResponse</code></summary>
 <dl>
 <dd>
 
@@ -19044,7 +18070,7 @@ client.checkout().paymentLinks().delete(
 </details>
 
 ## Customers CustomAttributeDefinitions
-<details><summary><code>client.customers.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
+<details><summary><code>client.customers.customAttributeDefinitions.list() -> ListCustomerCustomAttributeDefinitionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -19611,7 +18637,7 @@ information needed to create or update a custom attribute.
 </details>
 
 ## Customers Groups
-<details><summary><code>client.customers.groups.list() -> SyncPagingIterable&lt;CustomerGroup&gt;</code></summary>
+<details><summary><code>client.customers.groups.list() -> ListCustomerGroupsResponse</code></summary>
 <dl>
 <dd>
 
@@ -20097,7 +19123,7 @@ client.customers().groups().remove(
 </details>
 
 ## Customers Segments
-<details><summary><code>client.customers.segments.list() -> SyncPagingIterable&lt;CustomerSegment&gt;</code></summary>
+<details><summary><code>client.customers.segments.list() -> ListCustomerSegmentsResponse</code></summary>
 <dl>
 <dd>
 
@@ -20431,7 +19457,7 @@ client.customers().cards().delete(
 </details>
 
 ## Customers CustomAttributes
-<details><summary><code>client.customers.customAttributes.list(customerId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
+<details><summary><code>client.customers.customAttributes.list(customerId) -> ListCustomerCustomAttributesResponse</code></summary>
 <dl>
 <dd>
 
@@ -20833,7 +19859,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Devices Codes
-<details><summary><code>client.devices.codes.list() -> SyncPagingIterable&lt;DeviceCode&gt;</code></summary>
+<details><summary><code>client.devices.codes.list() -> ListDeviceCodesResponse</code></summary>
 <dl>
 <dd>
 
@@ -21074,7 +20100,7 @@ client.devices().codes().get(
 </details>
 
 ## Disputes Evidence
-<details><summary><code>client.disputes.evidence.list(disputeId) -> SyncPagingIterable&lt;DisputeEvidence&gt;</code></summary>
+<details><summary><code>client.disputes.evidence.list(disputeId) -> ListDisputeEvidenceResponse</code></summary>
 <dl>
 <dd>
 
@@ -21286,7 +20312,7 @@ client.disputes().evidence().delete(
 </details>
 
 ## GiftCards Activities
-<details><summary><code>client.giftCards.activities.list() -> SyncPagingIterable&lt;GiftCardActivity&gt;</code></summary>
+<details><summary><code>client.giftCards.activities.list() -> ListGiftCardActivitiesResponse</code></summary>
 <dl>
 <dd>
 
@@ -21527,7 +20553,7 @@ gift card, the `location_id` where the activity occurred, and the activity `type
 </details>
 
 ## Labor BreakTypes
-<details><summary><code>client.labor.breakTypes.list() -> SyncPagingIterable&lt;BreakType&gt;</code></summary>
+<details><summary><code>client.labor.breakTypes.list() -> ListBreakTypesResponse</code></summary>
 <dl>
 <dd>
 
@@ -21897,7 +20923,7 @@ client.labor().breakTypes().delete(
 </details>
 
 ## Labor EmployeeWages
-<details><summary><code>client.labor.employeeWages.list() -> SyncPagingIterable&lt;EmployeeWage&gt;</code></summary>
+<details><summary><code>client.labor.employeeWages.list() -> ListEmployeeWagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -22105,7 +21131,7 @@ client.labor().shifts().create(
                         .build()
                 )
                 .breaks(
-                    Optional.of(
+                    new ArrayList<Break>(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -22395,7 +21421,7 @@ client.labor().shifts().update(
                         .build()
                 )
                 .breaks(
-                    Optional.of(
+                    new ArrayList<Break>(
                         Arrays.asList(
                             Break
                                 .builder()
@@ -22517,7 +21543,7 @@ client.labor().shifts().delete(
 </details>
 
 ## Labor TeamMemberWages
-<details><summary><code>client.labor.teamMemberWages.list() -> SyncPagingIterable&lt;TeamMemberWage&gt;</code></summary>
+<details><summary><code>client.labor.teamMemberWages.list() -> ListTeamMemberWagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -22660,7 +21686,7 @@ client.labor().teamMemberWages().get(
 </details>
 
 ## Labor WorkweekConfigs
-<details><summary><code>client.labor.workweekConfigs.list() -> SyncPagingIterable&lt;WorkweekConfig&gt;</code></summary>
+<details><summary><code>client.labor.workweekConfigs.list() -> ListWorkweekConfigsResponse</code></summary>
 <dl>
 <dd>
 
@@ -22804,7 +21830,7 @@ client.labor().workweekConfigs().get(
 </details>
 
 ## Locations CustomAttributeDefinitions
-<details><summary><code>client.locations.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
+<details><summary><code>client.locations.customAttributeDefinitions.list() -> ListLocationCustomAttributeDefinitionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -23418,7 +22444,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.locations.customAttributes.list(locationId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
+<details><summary><code>client.locations.customAttributes.list(locationId) -> ListLocationCustomAttributesResponse</code></summary>
 <dl>
 <dd>
 
@@ -24274,7 +23300,7 @@ client.loyalty().accounts().search(
             SearchLoyaltyAccountsRequestLoyaltyAccountQuery
                 .builder()
                 .mappings(
-                    Optional.of(
+                    new ArrayList<LoyaltyAccountMapping>(
                         Arrays.asList(
                             LoyaltyAccountMapping
                                 .builder()
@@ -25232,7 +24258,7 @@ Keys can be any valid string, but must be unique for every request.
 </details>
 
 ## Loyalty Programs Promotions
-<details><summary><code>client.loyalty.programs.promotions.list(programId) -> SyncPagingIterable&lt;LoyaltyPromotion&gt;</code></summary>
+<details><summary><code>client.loyalty.programs.promotions.list(programId) -> ListLoyaltyPromotionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -25390,7 +24416,9 @@ client.loyalty().programs().promotions().create(
                     LoyaltyPromotionAvailableTimeData
                         .builder()
                         .timePeriods(
-                            Arrays.asList("BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT")
+                            new ArrayList<String>(
+                                Arrays.asList("BEGIN:VEVENT\nDTSTART:20220816T160000\nDURATION:PT2H\nRRULE:FREQ=WEEKLY;BYDAY=TU\nEND:VEVENT")
+                            )
                         )
                         .build()
                 )
@@ -25409,7 +24437,7 @@ client.loyalty().programs().promotions().create(
                         .build()
                 )
                 .qualifyingCategoryIds(
-                    Optional.of(
+                    new ArrayList<String>(
                         Arrays.asList("XTQPYLR3IIU9C44VRCB3XD12")
                     )
                 )
@@ -25615,7 +24643,7 @@ promotion that has an `ACTIVE` or `SCHEDULED` status.
 </details>
 
 ## Merchants CustomAttributeDefinitions
-<details><summary><code>client.merchants.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
+<details><summary><code>client.merchants.customAttributeDefinitions.list() -> ListMerchantCustomAttributeDefinitionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -26213,7 +25241,7 @@ information needed to create or update a custom attribute.
 </dl>
 </details>
 
-<details><summary><code>client.merchants.customAttributes.list(merchantId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
+<details><summary><code>client.merchants.customAttributes.list(merchantId) -> ListMerchantCustomAttributesResponse</code></summary>
 <dl>
 <dd>
 
@@ -26612,7 +25640,7 @@ definition owner, you must use the qualified key.
 </details>
 
 ## Orders CustomAttributeDefinitions
-<details><summary><code>client.orders.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
+<details><summary><code>client.orders.customAttributeDefinitions.list() -> ListOrderCustomAttributeDefinitionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -27214,7 +26242,7 @@ client.orders().customAttributes().batchUpsert(
 </dl>
 </details>
 
-<details><summary><code>client.orders.customAttributes.list(orderId) -> SyncPagingIterable&lt;CustomAttribute&gt;</code></summary>
+<details><summary><code>client.orders.customAttributes.list(orderId) -> ListOrderCustomAttributesResponse</code></summary>
 <dl>
 <dd>
 
@@ -27728,7 +26756,7 @@ client.teamMembers().wageSetting().update(
             WageSetting
                 .builder()
                 .jobAssignments(
-                    Optional.of(
+                    new ArrayList<JobAssignment>(
                         Arrays.asList(
                             JobAssignment
                                 .builder()
@@ -28780,7 +27808,7 @@ client.webhooks().eventTypes().list(
 </details>
 
 ## Webhooks Subscriptions
-<details><summary><code>client.webhooks.subscriptions.list() -> SyncPagingIterable&lt;WebhookSubscription&gt;</code></summary>
+<details><summary><code>client.webhooks.subscriptions.list() -> ListWebhookSubscriptionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -28918,7 +27946,7 @@ client.webhooks().subscriptions().create(
                 .builder()
                 .name("Example Webhook Subscription")
                 .eventTypes(
-                    Optional.of(
+                    new ArrayList<String>(
                         Arrays.asList("payment.created", "payment.updated")
                     )
                 )

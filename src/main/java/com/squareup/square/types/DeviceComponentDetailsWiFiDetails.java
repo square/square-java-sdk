@@ -33,8 +33,6 @@ public final class DeviceComponentDetailsWiFiDetails {
 
     private final Optional<DeviceComponentDetailsMeasurement> signalStrength;
 
-    private final Optional<String> macAddress;
-
     private final Map<String, Object> additionalProperties;
 
     private DeviceComponentDetailsWiFiDetails(
@@ -43,14 +41,12 @@ public final class DeviceComponentDetailsWiFiDetails {
             Optional<String> ipAddressV4,
             Optional<String> secureConnection,
             Optional<DeviceComponentDetailsMeasurement> signalStrength,
-            Optional<String> macAddress,
             Map<String, Object> additionalProperties) {
         this.active = active;
         this.ssid = ssid;
         this.ipAddressV4 = ipAddressV4;
         this.secureConnection = secureConnection;
         this.signalStrength = signalStrength;
-        this.macAddress = macAddress;
         this.additionalProperties = additionalProperties;
     }
 
@@ -107,17 +103,6 @@ public final class DeviceComponentDetailsWiFiDetails {
         return signalStrength;
     }
 
-    /**
-     * @return The mac address of the device in this network.
-     */
-    @JsonIgnore
-    public Optional<String> getMacAddress() {
-        if (macAddress == null) {
-            return Optional.empty();
-        }
-        return macAddress;
-    }
-
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("active")
     private Optional<Boolean> _getActive() {
@@ -142,12 +127,6 @@ public final class DeviceComponentDetailsWiFiDetails {
         return secureConnection;
     }
 
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("mac_address")
-    private Optional<String> _getMacAddress() {
-        return macAddress;
-    }
-
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -164,14 +143,12 @@ public final class DeviceComponentDetailsWiFiDetails {
                 && ssid.equals(other.ssid)
                 && ipAddressV4.equals(other.ipAddressV4)
                 && secureConnection.equals(other.secureConnection)
-                && signalStrength.equals(other.signalStrength)
-                && macAddress.equals(other.macAddress);
+                && signalStrength.equals(other.signalStrength);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(
-                this.active, this.ssid, this.ipAddressV4, this.secureConnection, this.signalStrength, this.macAddress);
+        return Objects.hash(this.active, this.ssid, this.ipAddressV4, this.secureConnection, this.signalStrength);
     }
 
     @java.lang.Override
@@ -195,8 +172,6 @@ public final class DeviceComponentDetailsWiFiDetails {
 
         private Optional<DeviceComponentDetailsMeasurement> signalStrength = Optional.empty();
 
-        private Optional<String> macAddress = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -208,7 +183,6 @@ public final class DeviceComponentDetailsWiFiDetails {
             ipAddressV4(other.getIpAddressV4());
             secureConnection(other.getSecureConnection());
             signalStrength(other.getSignalStrength());
-            macAddress(other.getMacAddress());
             return this;
         }
 
@@ -327,34 +301,9 @@ public final class DeviceComponentDetailsWiFiDetails {
             return this;
         }
 
-        /**
-         * <p>The mac address of the device in this network.</p>
-         */
-        @JsonSetter(value = "mac_address", nulls = Nulls.SKIP)
-        public Builder macAddress(Optional<String> macAddress) {
-            this.macAddress = macAddress;
-            return this;
-        }
-
-        public Builder macAddress(String macAddress) {
-            this.macAddress = Optional.ofNullable(macAddress);
-            return this;
-        }
-
-        public Builder macAddress(Nullable<String> macAddress) {
-            if (macAddress.isNull()) {
-                this.macAddress = null;
-            } else if (macAddress.isEmpty()) {
-                this.macAddress = Optional.empty();
-            } else {
-                this.macAddress = Optional.of(macAddress.get());
-            }
-            return this;
-        }
-
         public DeviceComponentDetailsWiFiDetails build() {
             return new DeviceComponentDetailsWiFiDetails(
-                    active, ssid, ipAddressV4, secureConnection, signalStrength, macAddress, additionalProperties);
+                    active, ssid, ipAddressV4, secureConnection, signalStrength, additionalProperties);
         }
     }
 }

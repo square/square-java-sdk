@@ -93,9 +93,7 @@ public final class LoyaltyEventTypeFilter {
         @JsonSetter(value = "types", nulls = Nulls.SKIP)
         public Builder types(List<LoyaltyEventType> types) {
             this.types.clear();
-            if (types != null) {
-                this.types.addAll(types);
-            }
+            this.types.addAll(types);
             return this;
         }
 
@@ -105,9 +103,7 @@ public final class LoyaltyEventTypeFilter {
         }
 
         public Builder addAllTypes(List<LoyaltyEventType> types) {
-            if (types != null) {
-                this.types.addAll(types);
-            }
+            this.types.addAll(types);
             return this;
         }
 

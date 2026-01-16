@@ -27,18 +27,12 @@ public final class DeviceComponentDetailsEthernetDetails {
 
     private final Optional<String> ipAddressV4;
 
-    private final Optional<String> macAddress;
-
     private final Map<String, Object> additionalProperties;
 
     private DeviceComponentDetailsEthernetDetails(
-            Optional<Boolean> active,
-            Optional<String> ipAddressV4,
-            Optional<String> macAddress,
-            Map<String, Object> additionalProperties) {
+            Optional<Boolean> active, Optional<String> ipAddressV4, Map<String, Object> additionalProperties) {
         this.active = active;
         this.ipAddressV4 = ipAddressV4;
-        this.macAddress = macAddress;
         this.additionalProperties = additionalProperties;
     }
 
@@ -64,17 +58,6 @@ public final class DeviceComponentDetailsEthernetDetails {
         return ipAddressV4;
     }
 
-    /**
-     * @return The mac address of the device in this network.
-     */
-    @JsonIgnore
-    public Optional<String> getMacAddress() {
-        if (macAddress == null) {
-            return Optional.empty();
-        }
-        return macAddress;
-    }
-
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("active")
     private Optional<Boolean> _getActive() {
@@ -85,12 +68,6 @@ public final class DeviceComponentDetailsEthernetDetails {
     @JsonProperty("ip_address_v4")
     private Optional<String> _getIpAddressV4() {
         return ipAddressV4;
-    }
-
-    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("mac_address")
-    private Optional<String> _getMacAddress() {
-        return macAddress;
     }
 
     @java.lang.Override
@@ -106,14 +83,12 @@ public final class DeviceComponentDetailsEthernetDetails {
     }
 
     private boolean equalTo(DeviceComponentDetailsEthernetDetails other) {
-        return active.equals(other.active)
-                && ipAddressV4.equals(other.ipAddressV4)
-                && macAddress.equals(other.macAddress);
+        return active.equals(other.active) && ipAddressV4.equals(other.ipAddressV4);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.active, this.ipAddressV4, this.macAddress);
+        return Objects.hash(this.active, this.ipAddressV4);
     }
 
     @java.lang.Override
@@ -131,8 +106,6 @@ public final class DeviceComponentDetailsEthernetDetails {
 
         private Optional<String> ipAddressV4 = Optional.empty();
 
-        private Optional<String> macAddress = Optional.empty();
-
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -141,7 +114,6 @@ public final class DeviceComponentDetailsEthernetDetails {
         public Builder from(DeviceComponentDetailsEthernetDetails other) {
             active(other.getActive());
             ipAddressV4(other.getIpAddressV4());
-            macAddress(other.getMacAddress());
             return this;
         }
 
@@ -195,33 +167,8 @@ public final class DeviceComponentDetailsEthernetDetails {
             return this;
         }
 
-        /**
-         * <p>The mac address of the device in this network.</p>
-         */
-        @JsonSetter(value = "mac_address", nulls = Nulls.SKIP)
-        public Builder macAddress(Optional<String> macAddress) {
-            this.macAddress = macAddress;
-            return this;
-        }
-
-        public Builder macAddress(String macAddress) {
-            this.macAddress = Optional.ofNullable(macAddress);
-            return this;
-        }
-
-        public Builder macAddress(Nullable<String> macAddress) {
-            if (macAddress.isNull()) {
-                this.macAddress = null;
-            } else if (macAddress.isEmpty()) {
-                this.macAddress = Optional.empty();
-            } else {
-                this.macAddress = Optional.of(macAddress.get());
-            }
-            return this;
-        }
-
         public DeviceComponentDetailsEthernetDetails build() {
-            return new DeviceComponentDetailsEthernetDetails(active, ipAddressV4, macAddress, additionalProperties);
+            return new DeviceComponentDetailsEthernetDetails(active, ipAddressV4, additionalProperties);
         }
     }
 }

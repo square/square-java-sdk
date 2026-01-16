@@ -87,9 +87,7 @@ public final class BulkDeleteCustomersRequest {
         @JsonSetter(value = "customer_ids", nulls = Nulls.SKIP)
         public Builder customerIds(List<String> customerIds) {
             this.customerIds.clear();
-            if (customerIds != null) {
-                this.customerIds.addAll(customerIds);
-            }
+            this.customerIds.addAll(customerIds);
             return this;
         }
 
@@ -99,9 +97,7 @@ public final class BulkDeleteCustomersRequest {
         }
 
         public Builder addAllCustomerIds(List<String> customerIds) {
-            if (customerIds != null) {
-                this.customerIds.addAll(customerIds);
-            }
+            this.customerIds.addAll(customerIds);
             return this;
         }
 

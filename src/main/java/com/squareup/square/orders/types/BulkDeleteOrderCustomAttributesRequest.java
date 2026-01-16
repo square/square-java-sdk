@@ -90,16 +90,12 @@ public final class BulkDeleteOrderCustomAttributesRequest {
         @JsonSetter(value = "values", nulls = Nulls.SKIP)
         public Builder values(Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values) {
             this.values.clear();
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 
         public Builder putAllValues(Map<String, BulkDeleteOrderCustomAttributesRequestDeleteCustomAttribute> values) {
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 

@@ -96,17 +96,13 @@ public final class BatchUpsertCustomerCustomAttributesRequest {
         public Builder values(
                 Map<String, BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values) {
             this.values.clear();
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 
         public Builder putAllValues(
                 Map<String, BatchUpsertCustomerCustomAttributesRequestCustomerCustomAttributeUpsertRequest> values) {
-            if (values != null) {
-                this.values.putAll(values);
-            }
+            this.values.putAll(values);
             return this;
         }
 

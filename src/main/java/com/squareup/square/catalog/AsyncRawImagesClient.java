@@ -6,7 +6,6 @@ package com.squareup.square.catalog;
 import com.squareup.square.catalog.types.CreateImagesRequest;
 import com.squareup.square.catalog.types.UpdateImagesRequest;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.FileStream;
 import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
@@ -15,7 +14,6 @@ import com.squareup.square.core.SquareException;
 import com.squareup.square.types.CreateCatalogImageResponse;
 import com.squareup.square.types.UpdateCatalogImageResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
@@ -73,10 +71,10 @@ public class AsyncRawImagesClient {
                 .newBuilder()
                 .addPathSegments("v2/catalog/images")
                 .build();
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
         try {
             if (request.getRequest().isPresent()) {
-                multipartBodyBuilder.addFormDataPart(
+                body.addFormDataPart(
                         "request",
                         ObjectMappers.JSON_MAPPER.writeValueAsString(
                                 request.getRequest().get()));
@@ -86,7 +84,7 @@ public class AsyncRawImagesClient {
                         Files.probeContentType(request.getImageFile().get().toPath());
                 MediaType imageFileMimeTypeMediaType =
                         imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                multipartBodyBuilder.addFormDataPart(
+                body.addFormDataPart(
                         "image_file",
                         request.getImageFile().get().getName(),
                         RequestBody.create(request.getImageFile().get(), imageFileMimeTypeMediaType));
@@ -96,7 +94,7 @@ public class AsyncRawImagesClient {
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl)
-                .method("POST", multipartBodyBuilder.build())
+                .method("POST", body.build())
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
         Request okhttpRequest = _requestBuilder.build();
@@ -109,207 +107,19 @@ public class AsyncRawImagesClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new SquareClientHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, CreateCatalogImageResponse.class),
+                                        responseBody.string(), CreateCatalogImageResponse.class),
                                 response));
                         return;
                     }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
-    }
-
-    public CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> create(
-            InputStream stream, String filename) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .build();
-        FileStream fs = new FileStream(stream, filename, null);
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("image_file", filename, fs.toRequestBody());
-        RequestBody body = multipartBodyBuilder.build();
-        Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
-        _requestBuilder.method("POST", body);
-        _requestBuilder.headers(Headers.of(this.clientOptions.headers(null)));
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
                     String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    if (response.isSuccessful()) {
-                        future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, CreateCatalogImageResponse.class),
-                                response));
-                        return;
-                    }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
-    }
-
-    public CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> create(
-            InputStream stream, String filename, MediaType mediaType) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .build();
-        FileStream fs = new FileStream(stream, filename, mediaType);
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("image_file", filename, fs.toRequestBody());
-        RequestBody body = multipartBodyBuilder.build();
-        Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
-        _requestBuilder.method("POST", body);
-        _requestBuilder.headers(Headers.of(this.clientOptions.headers(null)));
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    if (response.isSuccessful()) {
-                        future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, CreateCatalogImageResponse.class),
-                                response));
-                        return;
-                    }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
-    }
-
-    public CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> create(
-            InputStream stream, String filename, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .build();
-        FileStream fs = new FileStream(stream, filename, null);
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("image_file", filename, fs.toRequestBody());
-        RequestBody body = multipartBodyBuilder.build();
-        Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
-        _requestBuilder.method("POST", body);
-        _requestBuilder.headers(Headers.of(this.clientOptions.headers(requestOptions)));
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    if (response.isSuccessful()) {
-                        future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, CreateCatalogImageResponse.class),
-                                response));
-                        return;
-                    }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
-                    return;
-                } catch (IOException e) {
-                    future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
-            }
-        });
-        return future;
-    }
-
-    public CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> create(
-            InputStream stream, String filename, MediaType mediaType, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/catalog/images")
-                .build();
-        FileStream fs = new FileStream(stream, filename, mediaType);
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("image_file", filename, fs.toRequestBody());
-        RequestBody body = multipartBodyBuilder.build();
-        Request.Builder _requestBuilder = new Request.Builder();
-        _requestBuilder.url(httpUrl);
-        _requestBuilder.method("POST", body);
-        _requestBuilder.headers(Headers.of(this.clientOptions.headers(requestOptions)));
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        CompletableFuture<SquareClientHttpResponse<CreateCatalogImageResponse>> future = new CompletableFuture<>();
-        client.newCall(okhttpRequest).enqueue(new Callback() {
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-                    if (response.isSuccessful()) {
-                        future.complete(new SquareClientHttpResponse<>(
-                                ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, CreateCatalogImageResponse.class),
-                                response));
-                        return;
-                    }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-                    future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));
@@ -345,10 +155,10 @@ public class AsyncRawImagesClient {
                 .addPathSegments("v2/catalog/images")
                 .addPathSegment(request.getImageId())
                 .build();
-        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        MultipartBody.Builder body = new MultipartBody.Builder().setType(MultipartBody.FORM);
         try {
             if (request.getRequest().isPresent()) {
-                multipartBodyBuilder.addFormDataPart(
+                body.addFormDataPart(
                         "request",
                         ObjectMappers.JSON_MAPPER.writeValueAsString(
                                 request.getRequest().get()));
@@ -358,7 +168,7 @@ public class AsyncRawImagesClient {
                         Files.probeContentType(request.getImageFile().get().toPath());
                 MediaType imageFileMimeTypeMediaType =
                         imageFileMimeType != null ? MediaType.parse(imageFileMimeType) : null;
-                multipartBodyBuilder.addFormDataPart(
+                body.addFormDataPart(
                         "image_file",
                         request.getImageFile().get().getName(),
                         RequestBody.create(request.getImageFile().get(), imageFileMimeTypeMediaType));
@@ -368,7 +178,7 @@ public class AsyncRawImagesClient {
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl)
-                .method("PUT", multipartBodyBuilder.build())
+                .method("PUT", body.build())
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
         Request okhttpRequest = _requestBuilder.build();
@@ -381,17 +191,19 @@ public class AsyncRawImagesClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     if (response.isSuccessful()) {
                         future.complete(new SquareClientHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(
-                                        responseBodyString, UpdateCatalogImageResponse.class),
+                                        responseBody.string(), UpdateCatalogImageResponse.class),
                                 response));
                         return;
                     }
-                    Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+                    String responseBodyString = responseBody != null ? responseBody.string() : "{}";
                     future.completeExceptionally(new SquareApiException(
-                            "Error with status code " + response.code(), response.code(), errorBody, response));
+                            "Error with status code " + response.code(),
+                            response.code(),
+                            ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class),
+                            response));
                     return;
                 } catch (IOException e) {
                     future.completeExceptionally(new SquareException("Network error executing HTTP request", e));

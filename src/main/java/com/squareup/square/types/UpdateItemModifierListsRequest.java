@@ -145,9 +145,7 @@ public final class UpdateItemModifierListsRequest {
         @JsonSetter(value = "item_ids", nulls = Nulls.SKIP)
         public Builder itemIds(List<String> itemIds) {
             this.itemIds.clear();
-            if (itemIds != null) {
-                this.itemIds.addAll(itemIds);
-            }
+            this.itemIds.addAll(itemIds);
             return this;
         }
 
@@ -157,9 +155,7 @@ public final class UpdateItemModifierListsRequest {
         }
 
         public Builder addAllItemIds(List<String> itemIds) {
-            if (itemIds != null) {
-                this.itemIds.addAll(itemIds);
-            }
+            this.itemIds.addAll(itemIds);
             return this;
         }
 

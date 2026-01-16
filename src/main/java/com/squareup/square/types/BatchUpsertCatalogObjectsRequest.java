@@ -211,9 +211,7 @@ public final class BatchUpsertCatalogObjectsRequest {
          */
         @java.lang.Override
         public _FinalStage addAllBatches(List<CatalogObjectBatch> batches) {
-            if (batches != null) {
-                this.batches.addAll(batches);
-            }
+            this.batches.addAll(batches);
             return this;
         }
 
@@ -264,9 +262,7 @@ public final class BatchUpsertCatalogObjectsRequest {
         @JsonSetter(value = "batches", nulls = Nulls.SKIP)
         public _FinalStage batches(List<CatalogObjectBatch> batches) {
             this.batches.clear();
-            if (batches != null) {
-                this.batches.addAll(batches);
-            }
+            this.batches.addAll(batches);
             return this;
         }
 
