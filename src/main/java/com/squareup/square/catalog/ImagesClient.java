@@ -47,6 +47,17 @@ public class ImagesClient {
      * <p>This <code>CreateCatalogImage</code> endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
      * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
      */
+    public CreateCatalogImageResponse create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).body();
+    }
+
+    /**
+     * Uploads an image file to be represented by a <a href="entity:CatalogImage">CatalogImage</a> object that can be linked to an existing
+     * <a href="entity:CatalogObject">CatalogObject</a> instance. The resulting <code>CatalogImage</code> is unattached to any <code>CatalogObject</code> if the <code>object_id</code>
+     * is not specified.
+     * <p>This <code>CreateCatalogImage</code> endpoint accepts HTTP multipart/form-data requests with a JSON part and an image file part in
+     * JPEG, PJPEG, PNG, or GIF format. The maximum file size is 15MB.</p>
+     */
     public CreateCatalogImageResponse create(CreateImagesRequest request) {
         return this.rawClient.create(request).body();
     }

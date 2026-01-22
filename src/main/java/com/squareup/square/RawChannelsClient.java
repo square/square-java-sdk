@@ -43,6 +43,10 @@ public class RawChannelsClient {
         return list(ListChannelsRequest.builder().build());
     }
 
+    public SquareClientHttpResponse<SyncPagingIterable<Channel>> list(RequestOptions requestOptions) {
+        return list(ListChannelsRequest.builder().build(), requestOptions);
+    }
+
     public SquareClientHttpResponse<SyncPagingIterable<Channel>> list(ListChannelsRequest request) {
         return list(request, null);
     }

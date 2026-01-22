@@ -44,6 +44,13 @@ public class RawEventsClient {
     /**
      * Search for Square API events that occur within a 28-day timeframe.
      */
+    public SquareClientHttpResponse<SearchEventsResponse> searchEvents(RequestOptions requestOptions) {
+        return searchEvents(SearchEventsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Search for Square API events that occur within a 28-day timeframe.
+     */
     public SquareClientHttpResponse<SearchEventsResponse> searchEvents(SearchEventsRequest request) {
         return searchEvents(request, null);
     }
@@ -179,6 +186,13 @@ public class RawEventsClient {
      */
     public SquareClientHttpResponse<ListEventTypesResponse> listEventTypes() {
         return listEventTypes(ListEventTypesRequest.builder().build());
+    }
+
+    /**
+     * Lists all event types that you can subscribe to as webhooks or query using the Events API.
+     */
+    public SquareClientHttpResponse<ListEventTypesResponse> listEventTypes(RequestOptions requestOptions) {
+        return listEventTypes(ListEventTypesRequest.builder().build(), requestOptions);
     }
 
     /**

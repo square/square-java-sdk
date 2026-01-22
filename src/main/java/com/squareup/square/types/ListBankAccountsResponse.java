@@ -21,31 +21,23 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = ListBankAccountsResponse.Builder.class)
 public final class ListBankAccountsResponse {
-    private final Optional<List<Error>> errors;
-
     private final Optional<List<BankAccount>> bankAccounts;
+
+    private final Optional<List<Error>> errors;
 
     private final Optional<String> cursor;
 
     private final Map<String, Object> additionalProperties;
 
     private ListBankAccountsResponse(
-            Optional<List<Error>> errors,
             Optional<List<BankAccount>> bankAccounts,
+            Optional<List<Error>> errors,
             Optional<String> cursor,
             Map<String, Object> additionalProperties) {
-        this.errors = errors;
         this.bankAccounts = bankAccounts;
+        this.errors = errors;
         this.cursor = cursor;
         this.additionalProperties = additionalProperties;
-    }
-
-    /**
-     * @return Information on errors encountered during the request.
-     */
-    @JsonProperty("errors")
-    public Optional<List<Error>> getErrors() {
-        return errors;
     }
 
     /**
@@ -54,6 +46,14 @@ public final class ListBankAccountsResponse {
     @JsonProperty("bank_accounts")
     public Optional<List<BankAccount>> getBankAccounts() {
         return bankAccounts;
+    }
+
+    /**
+     * @return Information on errors encountered during the request.
+     */
+    @JsonProperty("errors")
+    public Optional<List<Error>> getErrors() {
+        return errors;
     }
 
     /**
@@ -79,12 +79,12 @@ public final class ListBankAccountsResponse {
     }
 
     private boolean equalTo(ListBankAccountsResponse other) {
-        return errors.equals(other.errors) && bankAccounts.equals(other.bankAccounts) && cursor.equals(other.cursor);
+        return bankAccounts.equals(other.bankAccounts) && errors.equals(other.errors) && cursor.equals(other.cursor);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.bankAccounts, this.cursor);
+        return Objects.hash(this.bankAccounts, this.errors, this.cursor);
     }
 
     @java.lang.Override
@@ -98,9 +98,9 @@ public final class ListBankAccountsResponse {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<Error>> errors = Optional.empty();
-
         private Optional<List<BankAccount>> bankAccounts = Optional.empty();
+
+        private Optional<List<Error>> errors = Optional.empty();
 
         private Optional<String> cursor = Optional.empty();
 
@@ -110,23 +110,9 @@ public final class ListBankAccountsResponse {
         private Builder() {}
 
         public Builder from(ListBankAccountsResponse other) {
-            errors(other.getErrors());
             bankAccounts(other.getBankAccounts());
+            errors(other.getErrors());
             cursor(other.getCursor());
-            return this;
-        }
-
-        /**
-         * <p>Information on errors encountered during the request.</p>
-         */
-        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
-        public Builder errors(Optional<List<Error>> errors) {
-            this.errors = errors;
-            return this;
-        }
-
-        public Builder errors(List<Error> errors) {
-            this.errors = Optional.ofNullable(errors);
             return this;
         }
 
@@ -141,6 +127,20 @@ public final class ListBankAccountsResponse {
 
         public Builder bankAccounts(List<BankAccount> bankAccounts) {
             this.bankAccounts = Optional.ofNullable(bankAccounts);
+            return this;
+        }
+
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
+        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
+        public Builder errors(Optional<List<Error>> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        public Builder errors(List<Error> errors) {
+            this.errors = Optional.ofNullable(errors);
             return this;
         }
 
@@ -162,7 +162,7 @@ public final class ListBankAccountsResponse {
         }
 
         public ListBankAccountsResponse build() {
-            return new ListBankAccountsResponse(errors, bankAccounts, cursor, additionalProperties);
+            return new ListBankAccountsResponse(bankAccounts, errors, cursor, additionalProperties);
         }
     }
 }

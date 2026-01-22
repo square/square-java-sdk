@@ -121,6 +121,16 @@ public class AsyncRawAccountsClient {
      * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
      */
     public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> search(
+            RequestOptions requestOptions) {
+        return search(SearchLoyaltyAccountsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Searches for loyalty accounts in a loyalty program.
+     * <p>You can search for a loyalty account using the phone number or customer ID associated with the account. To return all loyalty accounts, specify an empty <code>query</code> object or omit it entirely.</p>
+     * <p>Search results are sorted by <code>created_at</code> in ascending order.</p>
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyAccountsResponse>> search(
             SearchLoyaltyAccountsRequest request) {
         return search(request, null);
     }

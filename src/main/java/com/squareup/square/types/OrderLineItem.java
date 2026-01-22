@@ -305,7 +305,8 @@ public final class OrderLineItem {
     }
 
     /**
-     * @return The base price for a single unit of the line item.
+     * @return The base price for a single unit of the line item. Note - If inclusive tax is set on
+     * this item it will be included in this value.
      */
     @JsonProperty("base_price_money")
     public Optional<Money> getBasePriceMoney() {
@@ -315,7 +316,8 @@ public final class OrderLineItem {
     /**
      * @return The total price of all item variations sold in this line item.
      * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code>.
-     * It does not include modifiers.
+     * It does not include modifiers. Note - If inclusive tax is set on
+     * this item it will be included in this value.
      */
     @JsonProperty("variation_total_price_money")
     public Optional<Money> getVariationTotalPriceMoney() {
@@ -678,7 +680,8 @@ public final class OrderLineItem {
         _FinalStage appliedServiceCharges(Nullable<List<OrderLineItemAppliedServiceCharge>> appliedServiceCharges);
 
         /**
-         * <p>The base price for a single unit of the line item.</p>
+         * <p>The base price for a single unit of the line item. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          */
         _FinalStage basePriceMoney(Optional<Money> basePriceMoney);
 
@@ -687,7 +690,8 @@ public final class OrderLineItem {
         /**
          * <p>The total price of all item variations sold in this line item.
          * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code>.
-         * It does not include modifiers.</p>
+         * It does not include modifiers. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          */
         _FinalStage variationTotalPriceMoney(Optional<Money> variationTotalPriceMoney);
 
@@ -974,7 +978,8 @@ public final class OrderLineItem {
         /**
          * <p>The total price of all item variations sold in this line item.
          * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code>.
-         * It does not include modifiers.</p>
+         * It does not include modifiers. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -986,7 +991,8 @@ public final class OrderLineItem {
         /**
          * <p>The total price of all item variations sold in this line item.
          * The price is calculated as <code>base_price_money</code> multiplied by <code>quantity</code>.
-         * It does not include modifiers.</p>
+         * It does not include modifiers. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "variation_total_price_money", nulls = Nulls.SKIP)
@@ -996,7 +1002,8 @@ public final class OrderLineItem {
         }
 
         /**
-         * <p>The base price for a single unit of the line item.</p>
+         * <p>The base price for a single unit of the line item. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1006,7 +1013,8 @@ public final class OrderLineItem {
         }
 
         /**
-         * <p>The base price for a single unit of the line item.</p>
+         * <p>The base price for a single unit of the line item. Note - If inclusive tax is set on
+         * this item it will be included in this value.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "base_price_money", nulls = Nulls.SKIP)

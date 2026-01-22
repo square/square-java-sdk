@@ -55,6 +55,16 @@ public class AsyncPaymentsClient {
      * seconds to appear.</p>
      * <p>The maximum results per page is 100.</p>
      */
+    public CompletableFuture<SyncPagingIterable<Payment>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves a list of payments taken by the account making the request.
+     * <p>Results are eventually consistent, and new payments or changes to payments might take several
+     * seconds to appear.</p>
+     * <p>The maximum results per page is 100.</p>
+     */
     public CompletableFuture<SyncPagingIterable<Payment>> list(ListPaymentsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

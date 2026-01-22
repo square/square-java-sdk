@@ -127,8 +127,9 @@ public final class FulfillmentPickupDetails {
     }
 
     /**
-     * @return The duration of time after which an in progress pickup fulfillment is automatically moved
-     * to the <code>COMPLETED</code> state. The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * after which an in-progress pickup fulfillment is automatically moved
+     * to the <code>COMPLETED</code> state. The duration must be in RFC 3339 format (for example, &quot;PT4H&quot; for 4 hours).
      * <p>If not set, this pickup fulfillment remains in progress until it is canceled or completed.</p>
      */
     @JsonIgnore
@@ -153,7 +154,7 @@ public final class FulfillmentPickupDetails {
      * that represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
      * &quot;2016-09-04T23:59:33.123Z&quot;.
      * <p>For fulfillments with the schedule type <code>ASAP</code>, this is automatically set
-     * to the current time plus the expected duration to prepare the fulfillment.</p>
+     * to the current time plus <code>prep_time_duration</code>, if available.</p>
      */
     @JsonIgnore
     public Optional<String> getPickupAt() {
@@ -164,9 +165,11 @@ public final class FulfillmentPickupDetails {
     }
 
     /**
-     * @return The window of time in which the order should be picked up after the <code>pickup_at</code> timestamp.
-     * Must be in RFC 3339 duration format, e.g., &quot;P1W3D&quot;. Can be used as an
-     * informational guideline for merchants.
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * in which the order should be picked up after the <code>pickup_at</code> timestamp.
+     * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+     * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.
+     * <p>Can be used as an informational guideline for merchants.</p>
      */
     @JsonIgnore
     public Optional<String> getPickupWindowDuration() {
@@ -177,8 +180,10 @@ public final class FulfillmentPickupDetails {
     }
 
     /**
-     * @return The duration of time it takes to prepare this fulfillment.
-     * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * needed to prepare this fulfillment.
+     * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+     * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.
      */
     @JsonIgnore
     public Optional<String> getPrepTimeDuration() {
@@ -522,8 +527,9 @@ public final class FulfillmentPickupDetails {
         }
 
         /**
-         * <p>The duration of time after which an in progress pickup fulfillment is automatically moved
-         * to the <code>COMPLETED</code> state. The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * after which an in-progress pickup fulfillment is automatically moved
+         * to the <code>COMPLETED</code> state. The duration must be in RFC 3339 format (for example, &quot;PT4H&quot; for 4 hours).</p>
          * <p>If not set, this pickup fulfillment remains in progress until it is canceled or completed.</p>
          */
         @JsonSetter(value = "auto_complete_duration", nulls = Nulls.SKIP)
@@ -568,7 +574,7 @@ public final class FulfillmentPickupDetails {
          * that represents the start of the pickup window. Must be in RFC 3339 timestamp format, e.g.,
          * &quot;2016-09-04T23:59:33.123Z&quot;.</p>
          * <p>For fulfillments with the schedule type <code>ASAP</code>, this is automatically set
-         * to the current time plus the expected duration to prepare the fulfillment.</p>
+         * to the current time plus <code>prep_time_duration</code>, if available.</p>
          */
         @JsonSetter(value = "pickup_at", nulls = Nulls.SKIP)
         public Builder pickupAt(Optional<String> pickupAt) {
@@ -593,9 +599,11 @@ public final class FulfillmentPickupDetails {
         }
 
         /**
-         * <p>The window of time in which the order should be picked up after the <code>pickup_at</code> timestamp.
-         * Must be in RFC 3339 duration format, e.g., &quot;P1W3D&quot;. Can be used as an
-         * informational guideline for merchants.</p>
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * in which the order should be picked up after the <code>pickup_at</code> timestamp.
+         * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+         * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
+         * <p>Can be used as an informational guideline for merchants.</p>
          */
         @JsonSetter(value = "pickup_window_duration", nulls = Nulls.SKIP)
         public Builder pickupWindowDuration(Optional<String> pickupWindowDuration) {
@@ -620,8 +628,10 @@ public final class FulfillmentPickupDetails {
         }
 
         /**
-         * <p>The duration of time it takes to prepare this fulfillment.
-         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * needed to prepare this fulfillment.
+         * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+         * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
          */
         @JsonSetter(value = "prep_time_duration", nulls = Nulls.SKIP)
         public Builder prepTimeDuration(Optional<String> prepTimeDuration) {

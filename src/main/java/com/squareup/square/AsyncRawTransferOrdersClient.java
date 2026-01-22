@@ -182,6 +182,21 @@ public class AsyncRawTransferOrdersClient {
      * </ul>
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TransferOrder>>> search(
+            RequestOptions requestOptions) {
+        return search(SearchTransferOrdersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Searches for transfer orders using filters. Returns a paginated list of matching
+     * <a href="entity:TransferOrder">TransferOrder</a>s sorted by creation date.
+     * <p>Common search scenarios:</p>
+     * <ul>
+     * <li>Find orders for a source <a href="entity:Location">Location</a></li>
+     * <li>Find orders for a destination <a href="entity:Location">Location</a></li>
+     * <li>Find orders in a particular <a href="entity:TransferOrderStatus">TransferOrderStatus</a></li>
+     * </ul>
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<TransferOrder>>> search(
             SearchTransferOrdersRequest request) {
         return search(request, null);
     }

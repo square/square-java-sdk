@@ -30,16 +30,20 @@ public final class OrderLineItemAppliedTax {
 
     private final Optional<Money> appliedMoney;
 
+    private final Optional<Boolean> autoApplied;
+
     private final Map<String, Object> additionalProperties;
 
     private OrderLineItemAppliedTax(
             Optional<String> uid,
             String taxUid,
             Optional<Money> appliedMoney,
+            Optional<Boolean> autoApplied,
             Map<String, Object> additionalProperties) {
         this.uid = uid;
         this.taxUid = taxUid;
         this.appliedMoney = appliedMoney;
+        this.autoApplied = autoApplied;
         this.additionalProperties = additionalProperties;
     }
 
@@ -73,6 +77,16 @@ public final class OrderLineItemAppliedTax {
         return appliedMoney;
     }
 
+    /**
+     * @return Indicates whether the tax was automatically applied to the order based on
+     * the catalog configuration. For an example, see
+     * <a href="https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts/auto-apply-taxes">Automatically Apply Taxes to an Order</a>.
+     */
+    @JsonProperty("auto_applied")
+    public Optional<Boolean> getAutoApplied() {
+        return autoApplied;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("uid")
     private Optional<String> _getUid() {
@@ -91,12 +105,15 @@ public final class OrderLineItemAppliedTax {
     }
 
     private boolean equalTo(OrderLineItemAppliedTax other) {
-        return uid.equals(other.uid) && taxUid.equals(other.taxUid) && appliedMoney.equals(other.appliedMoney);
+        return uid.equals(other.uid)
+                && taxUid.equals(other.taxUid)
+                && appliedMoney.equals(other.appliedMoney)
+                && autoApplied.equals(other.autoApplied);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.uid, this.taxUid, this.appliedMoney);
+        return Objects.hash(this.uid, this.taxUid, this.appliedMoney, this.autoApplied);
     }
 
     @java.lang.Override
@@ -138,11 +155,22 @@ public final class OrderLineItemAppliedTax {
         _FinalStage appliedMoney(Optional<Money> appliedMoney);
 
         _FinalStage appliedMoney(Money appliedMoney);
+
+        /**
+         * <p>Indicates whether the tax was automatically applied to the order based on
+         * the catalog configuration. For an example, see
+         * <a href="https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts/auto-apply-taxes">Automatically Apply Taxes to an Order</a>.</p>
+         */
+        _FinalStage autoApplied(Optional<Boolean> autoApplied);
+
+        _FinalStage autoApplied(Boolean autoApplied);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements TaxUidStage, _FinalStage {
         private String taxUid;
+
+        private Optional<Boolean> autoApplied = Optional.empty();
 
         private Optional<Money> appliedMoney = Optional.empty();
 
@@ -158,6 +186,7 @@ public final class OrderLineItemAppliedTax {
             uid(other.getUid());
             taxUid(other.getTaxUid());
             appliedMoney(other.getAppliedMoney());
+            autoApplied(other.getAutoApplied());
             return this;
         }
 
@@ -176,6 +205,30 @@ public final class OrderLineItemAppliedTax {
         @JsonSetter("tax_uid")
         public _FinalStage taxUid(@NotNull String taxUid) {
             this.taxUid = Objects.requireNonNull(taxUid, "taxUid must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether the tax was automatically applied to the order based on
+         * the catalog configuration. For an example, see
+         * <a href="https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts/auto-apply-taxes">Automatically Apply Taxes to an Order</a>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage autoApplied(Boolean autoApplied) {
+            this.autoApplied = Optional.ofNullable(autoApplied);
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether the tax was automatically applied to the order based on
+         * the catalog configuration. For an example, see
+         * <a href="https://developer.squareup.com/docs/orders-api/apply-taxes-and-discounts/auto-apply-taxes">Automatically Apply Taxes to an Order</a>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "auto_applied", nulls = Nulls.SKIP)
+        public _FinalStage autoApplied(Optional<Boolean> autoApplied) {
+            this.autoApplied = autoApplied;
             return this;
         }
 
@@ -237,7 +290,7 @@ public final class OrderLineItemAppliedTax {
 
         @java.lang.Override
         public OrderLineItemAppliedTax build() {
-            return new OrderLineItemAppliedTax(uid, taxUid, appliedMoney, additionalProperties);
+            return new OrderLineItemAppliedTax(uid, taxUid, appliedMoney, autoApplied, additionalProperties);
         }
     }
 }

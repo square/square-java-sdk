@@ -49,6 +49,13 @@ public class AsyncSubscriptionsClient {
     /**
      * Lists all webhook subscriptions owned by your application.
      */
+    public CompletableFuture<SyncPagingIterable<WebhookSubscription>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all webhook subscriptions owned by your application.
+     */
     public CompletableFuture<SyncPagingIterable<WebhookSubscription>> list(ListSubscriptionsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

@@ -132,7 +132,7 @@ public final class FulfillmentDeliveryDetails {
 
     /**
      * @return Indicates the fulfillment delivery schedule type. If <code>SCHEDULED</code>, then
-     * <code>deliver_at</code> is required. If <code>ASAP</code>, then <code>prep_time_duration</code> is required. The default is <code>SCHEDULED</code>.
+     * <code>deliver_at</code> is required. The default is <code>SCHEDULED</code>.
      * See <a href="#type-orderfulfillmentdeliverydetailsscheduletype">OrderFulfillmentDeliveryDetailsScheduleType</a> for possible values
      */
     @JsonProperty("schedule_type")
@@ -154,13 +154,13 @@ public final class FulfillmentDeliveryDetails {
     /**
      * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
      * that represents the start of the delivery period.
-     * When the fulfillment <code>schedule_type</code> is <code>ASAP</code>, the field is automatically
-     * set to the current time plus the <code>prep_time_duration</code>.
-     * Otherwise, the application can set this field while the fulfillment <code>state</code> is
+     * The application can set this field while the fulfillment <code>state</code> is
      * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the
      * terminal state such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).
      * <p>The timestamp must be in RFC 3339 format
      * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+     * <p>For fulfillments with the schedule type <code>ASAP</code>, this is automatically set
+     * to the current time plus <code>prep_time_duration</code>, if available.</p>
      */
     @JsonIgnore
     public Optional<String> getDeliverAt() {
@@ -171,8 +171,10 @@ public final class FulfillmentDeliveryDetails {
     }
 
     /**
-     * @return The duration of time it takes to prepare and deliver this fulfillment.
-     * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * needed to prepare and deliver this fulfillment.
+     * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+     * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.
      */
     @JsonIgnore
     public Optional<String> getPrepTimeDuration() {
@@ -183,11 +185,13 @@ public final class FulfillmentDeliveryDetails {
     }
 
     /**
-     * @return The time period after <code>deliver_at</code> in which to deliver the order.
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * after <code>deliver_at</code> in which to deliver the order.
      * Applications can set this field when the fulfillment <code>state</code> is
      * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the terminal state
      * such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).
-     * <p>The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+     * <p>The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+     * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
      */
     @JsonIgnore
     public Optional<String> getDeliveryWindowDuration() {
@@ -303,8 +307,10 @@ public final class FulfillmentDeliveryDetails {
     }
 
     /**
-     * @return The time period after <code>courier_pickup_at</code> in which the courier should pick up the order.
-     * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).
+     * @return The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+     * after <code>courier_pickup_at</code> in which the courier should pick up the order.
+     * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+     * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.
      */
     @JsonIgnore
     public Optional<String> getCourierPickupWindowDuration() {
@@ -653,7 +659,7 @@ public final class FulfillmentDeliveryDetails {
 
         /**
          * <p>Indicates the fulfillment delivery schedule type. If <code>SCHEDULED</code>, then
-         * <code>deliver_at</code> is required. If <code>ASAP</code>, then <code>prep_time_duration</code> is required. The default is <code>SCHEDULED</code>.
+         * <code>deliver_at</code> is required. The default is <code>SCHEDULED</code>.
          * See <a href="#type-orderfulfillmentdeliverydetailsscheduletype">OrderFulfillmentDeliveryDetailsScheduleType</a> for possible values</p>
          */
         @JsonSetter(value = "schedule_type", nulls = Nulls.SKIP)
@@ -689,13 +695,13 @@ public final class FulfillmentDeliveryDetails {
         /**
          * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a>
          * that represents the start of the delivery period.
-         * When the fulfillment <code>schedule_type</code> is <code>ASAP</code>, the field is automatically
-         * set to the current time plus the <code>prep_time_duration</code>.
-         * Otherwise, the application can set this field while the fulfillment <code>state</code> is
+         * The application can set this field while the fulfillment <code>state</code> is
          * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the
          * terminal state such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).</p>
          * <p>The timestamp must be in RFC 3339 format
          * (for example, &quot;2016-09-04T23:59:33.123Z&quot;).</p>
+         * <p>For fulfillments with the schedule type <code>ASAP</code>, this is automatically set
+         * to the current time plus <code>prep_time_duration</code>, if available.</p>
          */
         @JsonSetter(value = "deliver_at", nulls = Nulls.SKIP)
         public Builder deliverAt(Optional<String> deliverAt) {
@@ -720,8 +726,10 @@ public final class FulfillmentDeliveryDetails {
         }
 
         /**
-         * <p>The duration of time it takes to prepare and deliver this fulfillment.
-         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * needed to prepare and deliver this fulfillment.
+         * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+         * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
          */
         @JsonSetter(value = "prep_time_duration", nulls = Nulls.SKIP)
         public Builder prepTimeDuration(Optional<String> prepTimeDuration) {
@@ -746,11 +754,13 @@ public final class FulfillmentDeliveryDetails {
         }
 
         /**
-         * <p>The time period after <code>deliver_at</code> in which to deliver the order.
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * after <code>deliver_at</code> in which to deliver the order.
          * Applications can set this field when the fulfillment <code>state</code> is
          * <code>PROPOSED</code>, <code>RESERVED</code>, or <code>PREPARED</code> (any time before the terminal state
          * such as <code>COMPLETED</code>, <code>CANCELED</code>, and <code>FAILED</code>).</p>
-         * <p>The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+         * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
          */
         @JsonSetter(value = "delivery_window_duration", nulls = Nulls.SKIP)
         public Builder deliveryWindowDuration(Optional<String> deliveryWindowDuration) {
@@ -966,8 +976,10 @@ public final class FulfillmentDeliveryDetails {
         }
 
         /**
-         * <p>The time period after <code>courier_pickup_at</code> in which the courier should pick up the order.
-         * The duration must be in RFC 3339 format (for example, &quot;P1W3D&quot;).</p>
+         * <p>The <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">duration</a>
+         * after <code>courier_pickup_at</code> in which the courier should pick up the order.
+         * The duration must be in RFC 3339 format (for example, &quot;PT30M&quot; for 30 minutes). Don't confuse
+         * &quot;M&quot; for months with &quot;M&quot; for minutes. &quot;P5M&quot; means 5 months, while &quot;PT5M&quot; means 5 minutes.</p>
          */
         @JsonSetter(value = "courier_pickup_window_duration", nulls = Nulls.SKIP)
         public Builder courierPickupWindowDuration(Optional<String> courierPickupWindowDuration) {

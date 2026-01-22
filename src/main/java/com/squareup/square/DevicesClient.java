@@ -46,6 +46,14 @@ public class DevicesClient {
      * List devices associated with the merchant. Currently, only Terminal API
      * devices are supported.
      */
+    public SyncPagingIterable<Device> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * List devices associated with the merchant. Currently, only Terminal API
+     * devices are supported.
+     */
     public SyncPagingIterable<Device> list(ListDevicesRequest request) {
         return this.rawClient.list(request).body();
     }

@@ -58,6 +58,8 @@ public final class BankAccount {
 
     private final Optional<String> bankName;
 
+    private final Optional<String> customerId;
+
     private final Map<String, Object> additionalProperties;
 
     private BankAccount(
@@ -78,6 +80,7 @@ public final class BankAccount {
             Optional<String> fingerprint,
             Optional<Integer> version,
             Optional<String> bankName,
+            Optional<String> customerId,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.accountNumberSuffix = accountNumberSuffix;
@@ -96,6 +99,7 @@ public final class BankAccount {
         this.fingerprint = fingerprint;
         this.version = version;
         this.bankName = bankName;
+        this.customerId = customerId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -268,6 +272,14 @@ public final class BankAccount {
         return bankName;
     }
 
+    /**
+     * @return The ID of the customer who owns the bank account
+     */
+    @JsonProperty("customer_id")
+    public Optional<String> getCustomerId() {
+        return customerId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("secondary_bank_identification_number")
     private Optional<String> _getSecondaryBankIdentificationNumber() {
@@ -332,7 +344,8 @@ public final class BankAccount {
                 && debitable == other.debitable
                 && fingerprint.equals(other.fingerprint)
                 && version.equals(other.version)
-                && bankName.equals(other.bankName);
+                && bankName.equals(other.bankName)
+                && customerId.equals(other.customerId);
     }
 
     @java.lang.Override
@@ -354,7 +367,8 @@ public final class BankAccount {
                 this.debitable,
                 this.fingerprint,
                 this.version,
-                this.bankName);
+                this.bankName,
+                this.customerId);
     }
 
     @java.lang.Override
@@ -516,6 +530,13 @@ public final class BankAccount {
         _FinalStage bankName(String bankName);
 
         _FinalStage bankName(Nullable<String> bankName);
+
+        /**
+         * <p>The ID of the customer who owns the bank account</p>
+         */
+        _FinalStage customerId(Optional<String> customerId);
+
+        _FinalStage customerId(String customerId);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -550,6 +571,8 @@ public final class BankAccount {
         private boolean creditable;
 
         private boolean debitable;
+
+        private Optional<String> customerId = Optional.empty();
 
         private Optional<String> bankName = Optional.empty();
 
@@ -589,6 +612,7 @@ public final class BankAccount {
             fingerprint(other.getFingerprint());
             version(other.getVersion());
             bankName(other.getBankName());
+            customerId(other.getCustomerId());
             return this;
         }
 
@@ -729,6 +753,26 @@ public final class BankAccount {
         @JsonSetter("debitable")
         public _FinalStage debitable(boolean debitable) {
             this.debitable = debitable;
+            return this;
+        }
+
+        /**
+         * <p>The ID of the customer who owns the bank account</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage customerId(String customerId) {
+            this.customerId = Optional.ofNullable(customerId);
+            return this;
+        }
+
+        /**
+         * <p>The ID of the customer who owns the bank account</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
+        public _FinalStage customerId(Optional<String> customerId) {
+            this.customerId = customerId;
             return this;
         }
 
@@ -1006,6 +1050,7 @@ public final class BankAccount {
                     fingerprint,
                     version,
                     bankName,
+                    customerId,
                     additionalProperties);
         }
     }

@@ -38,6 +38,13 @@ public class TeamMemberProfilesClient {
     /**
      * Lists booking profiles for team members.
      */
+    public SyncPagingIterable<TeamMemberBookingProfile> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists booking profiles for team members.
+     */
     public SyncPagingIterable<TeamMemberBookingProfile> list(ListTeamMemberProfilesRequest request) {
         return this.rawClient.list(request).body();
     }

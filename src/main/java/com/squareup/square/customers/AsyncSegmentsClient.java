@@ -39,6 +39,13 @@ public class AsyncSegmentsClient {
     /**
      * Retrieves the list of customer segments of a business.
      */
+    public CompletableFuture<SyncPagingIterable<CustomerSegment>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves the list of customer segments of a business.
+     */
     public CompletableFuture<SyncPagingIterable<CustomerSegment>> list(ListSegmentsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

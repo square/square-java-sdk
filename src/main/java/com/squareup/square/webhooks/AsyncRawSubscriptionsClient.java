@@ -63,6 +63,14 @@ public class AsyncRawSubscriptionsClient {
      * Lists all webhook subscriptions owned by your application.
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<WebhookSubscription>>> list(
+            RequestOptions requestOptions) {
+        return list(ListSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all webhook subscriptions owned by your application.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<WebhookSubscription>>> list(
             ListSubscriptionsRequest request) {
         return list(request, null);
     }

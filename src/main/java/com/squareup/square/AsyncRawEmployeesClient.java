@@ -44,6 +44,11 @@ public class AsyncRawEmployeesClient {
     }
 
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Employee>>> list(
+            RequestOptions requestOptions) {
+        return list(ListEmployeesRequest.builder().build(), requestOptions);
+    }
+
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Employee>>> list(
             ListEmployeesRequest request) {
         return list(request, null);
     }

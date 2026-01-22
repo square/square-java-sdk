@@ -115,6 +115,14 @@ public class AsyncRawRefundsClient {
      * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
      */
     public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search(
+            RequestOptions requestOptions) {
+        return search(SearchTerminalRefundsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves a filtered list of Interac Terminal refund requests created by the seller making the request. Terminal refund requests are available for 30 days.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search(
             SearchTerminalRefundsRequest request) {
         return search(request, null);
     }

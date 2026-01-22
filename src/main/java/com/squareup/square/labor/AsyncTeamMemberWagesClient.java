@@ -39,6 +39,13 @@ public class AsyncTeamMemberWagesClient {
     /**
      * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
      */
+    public CompletableFuture<SyncPagingIterable<TeamMemberWage>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
+     */
     public CompletableFuture<SyncPagingIterable<TeamMemberWage>> list(ListTeamMemberWagesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

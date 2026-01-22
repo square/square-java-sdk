@@ -5,12 +5,15 @@ package com.squareup.square.types;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.squareup.square.core.Nullable;
+import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +28,30 @@ public final class TestWebhookSubscriptionResponse {
 
     private final Optional<SubscriptionTestResult> subscriptionTestResult;
 
+    private final Optional<String> notificationUrl;
+
+    private final Optional<Integer> statusCode;
+
+    private final Optional<Boolean> passesFilter;
+
+    private final Optional<Map<String, Object>> payload;
+
     private final Map<String, Object> additionalProperties;
 
     private TestWebhookSubscriptionResponse(
             Optional<List<Error>> errors,
             Optional<SubscriptionTestResult> subscriptionTestResult,
+            Optional<String> notificationUrl,
+            Optional<Integer> statusCode,
+            Optional<Boolean> passesFilter,
+            Optional<Map<String, Object>> payload,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
         this.subscriptionTestResult = subscriptionTestResult;
+        this.notificationUrl = notificationUrl;
+        this.statusCode = statusCode;
+        this.passesFilter = passesFilter;
+        this.payload = payload;
         this.additionalProperties = additionalProperties;
     }
 
@@ -52,6 +71,65 @@ public final class TestWebhookSubscriptionResponse {
         return subscriptionTestResult;
     }
 
+    /**
+     * @return The URL that was used for the webhook notification test.
+     */
+    @JsonProperty("notification_url")
+    public Optional<String> getNotificationUrl() {
+        return notificationUrl;
+    }
+
+    /**
+     * @return The HTTP status code returned by the notification URL.
+     */
+    @JsonIgnore
+    public Optional<Integer> getStatusCode() {
+        if (statusCode == null) {
+            return Optional.empty();
+        }
+        return statusCode;
+    }
+
+    /**
+     * @return Whether the notification passed any configured filters.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getPassesFilter() {
+        if (passesFilter == null) {
+            return Optional.empty();
+        }
+        return passesFilter;
+    }
+
+    /**
+     * @return The payload that was sent in the test notification.
+     */
+    @JsonIgnore
+    public Optional<Map<String, Object>> getPayload() {
+        if (payload == null) {
+            return Optional.empty();
+        }
+        return payload;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("status_code")
+    private Optional<Integer> _getStatusCode() {
+        return statusCode;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("passes_filter")
+    private Optional<Boolean> _getPassesFilter() {
+        return passesFilter;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("payload")
+    private Optional<Map<String, Object>> _getPayload() {
+        return payload;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -64,12 +142,23 @@ public final class TestWebhookSubscriptionResponse {
     }
 
     private boolean equalTo(TestWebhookSubscriptionResponse other) {
-        return errors.equals(other.errors) && subscriptionTestResult.equals(other.subscriptionTestResult);
+        return errors.equals(other.errors)
+                && subscriptionTestResult.equals(other.subscriptionTestResult)
+                && notificationUrl.equals(other.notificationUrl)
+                && statusCode.equals(other.statusCode)
+                && passesFilter.equals(other.passesFilter)
+                && payload.equals(other.payload);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.subscriptionTestResult);
+        return Objects.hash(
+                this.errors,
+                this.subscriptionTestResult,
+                this.notificationUrl,
+                this.statusCode,
+                this.passesFilter,
+                this.payload);
     }
 
     @java.lang.Override
@@ -87,6 +176,14 @@ public final class TestWebhookSubscriptionResponse {
 
         private Optional<SubscriptionTestResult> subscriptionTestResult = Optional.empty();
 
+        private Optional<String> notificationUrl = Optional.empty();
+
+        private Optional<Integer> statusCode = Optional.empty();
+
+        private Optional<Boolean> passesFilter = Optional.empty();
+
+        private Optional<Map<String, Object>> payload = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -95,6 +192,10 @@ public final class TestWebhookSubscriptionResponse {
         public Builder from(TestWebhookSubscriptionResponse other) {
             errors(other.getErrors());
             subscriptionTestResult(other.getSubscriptionTestResult());
+            notificationUrl(other.getNotificationUrl());
+            statusCode(other.getStatusCode());
+            passesFilter(other.getPassesFilter());
+            payload(other.getPayload());
             return this;
         }
 
@@ -126,8 +227,104 @@ public final class TestWebhookSubscriptionResponse {
             return this;
         }
 
+        /**
+         * <p>The URL that was used for the webhook notification test.</p>
+         */
+        @JsonSetter(value = "notification_url", nulls = Nulls.SKIP)
+        public Builder notificationUrl(Optional<String> notificationUrl) {
+            this.notificationUrl = notificationUrl;
+            return this;
+        }
+
+        public Builder notificationUrl(String notificationUrl) {
+            this.notificationUrl = Optional.ofNullable(notificationUrl);
+            return this;
+        }
+
+        /**
+         * <p>The HTTP status code returned by the notification URL.</p>
+         */
+        @JsonSetter(value = "status_code", nulls = Nulls.SKIP)
+        public Builder statusCode(Optional<Integer> statusCode) {
+            this.statusCode = statusCode;
+            return this;
+        }
+
+        public Builder statusCode(Integer statusCode) {
+            this.statusCode = Optional.ofNullable(statusCode);
+            return this;
+        }
+
+        public Builder statusCode(Nullable<Integer> statusCode) {
+            if (statusCode.isNull()) {
+                this.statusCode = null;
+            } else if (statusCode.isEmpty()) {
+                this.statusCode = Optional.empty();
+            } else {
+                this.statusCode = Optional.of(statusCode.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Whether the notification passed any configured filters.</p>
+         */
+        @JsonSetter(value = "passes_filter", nulls = Nulls.SKIP)
+        public Builder passesFilter(Optional<Boolean> passesFilter) {
+            this.passesFilter = passesFilter;
+            return this;
+        }
+
+        public Builder passesFilter(Boolean passesFilter) {
+            this.passesFilter = Optional.ofNullable(passesFilter);
+            return this;
+        }
+
+        public Builder passesFilter(Nullable<Boolean> passesFilter) {
+            if (passesFilter.isNull()) {
+                this.passesFilter = null;
+            } else if (passesFilter.isEmpty()) {
+                this.passesFilter = Optional.empty();
+            } else {
+                this.passesFilter = Optional.of(passesFilter.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>The payload that was sent in the test notification.</p>
+         */
+        @JsonSetter(value = "payload", nulls = Nulls.SKIP)
+        public Builder payload(Optional<Map<String, Object>> payload) {
+            this.payload = payload;
+            return this;
+        }
+
+        public Builder payload(Map<String, Object> payload) {
+            this.payload = Optional.ofNullable(payload);
+            return this;
+        }
+
+        public Builder payload(Nullable<Map<String, Object>> payload) {
+            if (payload.isNull()) {
+                this.payload = null;
+            } else if (payload.isEmpty()) {
+                this.payload = Optional.empty();
+            } else {
+                this.payload = Optional.of(payload.get());
+            }
+            return this;
+        }
+
         public TestWebhookSubscriptionResponse build() {
-            return new TestWebhookSubscriptionResponse(errors, subscriptionTestResult, additionalProperties);
+            return new TestWebhookSubscriptionResponse(
+                    errors,
+                    subscriptionTestResult,
+                    notificationUrl,
+                    statusCode,
+                    passesFilter,
+                    payload,
+                    additionalProperties);
         }
     }
 }

@@ -36,6 +36,13 @@ public class AsyncEventTypesClient {
     /**
      * Lists all webhook event types that can be subscribed to.
      */
+    public CompletableFuture<ListWebhookEventTypesResponse> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all webhook event types that can be subscribed to.
+     */
     public CompletableFuture<ListWebhookEventTypesResponse> list(ListEventTypesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

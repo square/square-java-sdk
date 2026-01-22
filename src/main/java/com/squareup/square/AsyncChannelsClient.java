@@ -35,6 +35,10 @@ public class AsyncChannelsClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<Channel>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<Channel>> list(ListChannelsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

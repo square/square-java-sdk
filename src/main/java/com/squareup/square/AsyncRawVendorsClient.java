@@ -121,6 +121,14 @@ public class AsyncRawVendorsClient {
      * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
      */
     public CompletableFuture<SquareClientHttpResponse<BatchGetVendorsResponse>> batchGet(
+            RequestOptions requestOptions) {
+        return batchGet(BatchGetVendorsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
+     */
+    public CompletableFuture<SquareClientHttpResponse<BatchGetVendorsResponse>> batchGet(
             BatchGetVendorsRequest request) {
         return batchGet(request, null);
     }
@@ -314,6 +322,13 @@ public class AsyncRawVendorsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> search() {
         return search(SearchVendorsRequest.builder().build());
+    }
+
+    /**
+     * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchVendorsResponse>> search(RequestOptions requestOptions) {
+        return search(SearchVendorsRequest.builder().build(), requestOptions);
     }
 
     /**

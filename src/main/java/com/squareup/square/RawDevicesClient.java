@@ -46,6 +46,14 @@ public class RawDevicesClient {
      * List devices associated with the merchant. Currently, only Terminal API
      * devices are supported.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<Device>> list(RequestOptions requestOptions) {
+        return list(ListDevicesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * List devices associated with the merchant. Currently, only Terminal API
+     * devices are supported.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<Device>> list(ListDevicesRequest request) {
         return list(request, null);
     }

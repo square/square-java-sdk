@@ -44,6 +44,13 @@ public class RawSegmentsClient {
     /**
      * Retrieves the list of customer segments of a business.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<CustomerSegment>> list(RequestOptions requestOptions) {
+        return list(ListSegmentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves the list of customer segments of a business.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<CustomerSegment>> list(ListSegmentsRequest request) {
         return list(request, null);
     }

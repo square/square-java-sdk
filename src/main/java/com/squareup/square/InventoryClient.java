@@ -105,6 +105,14 @@ public class InventoryClient {
      * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
+    public BatchGetInventoryChangesResponse deprecatedBatchGetChanges(RequestOptions requestOptions) {
+        return this.rawClient.deprecatedBatchGetChanges(requestOptions).body();
+    }
+
+    /**
+     * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryChanges">BatchRetrieveInventoryChanges</a> after the endpoint URL
+     * is updated to conform to the standard convention.
+     */
     public BatchGetInventoryChangesResponse deprecatedBatchGetChanges(BatchRetrieveInventoryChangesRequest request) {
         return this.rawClient.deprecatedBatchGetChanges(request).body();
     }
@@ -124,6 +132,14 @@ public class InventoryClient {
      */
     public BatchGetInventoryCountsResponse deprecatedBatchGetCounts() {
         return this.rawClient.deprecatedBatchGetCounts().body();
+    }
+
+    /**
+     * Deprecated version of <a href="api-endpoint:Inventory-BatchRetrieveInventoryCounts">BatchRetrieveInventoryCounts</a> after the endpoint URL
+     * is updated to conform to the standard convention.
+     */
+    public BatchGetInventoryCountsResponse deprecatedBatchGetCounts(RequestOptions requestOptions) {
+        return this.rawClient.deprecatedBatchGetCounts(requestOptions).body();
     }
 
     /**
@@ -184,6 +200,18 @@ public class InventoryClient {
      * <p>BatchRetrieveInventoryChanges is a catch-all query endpoint for queries
      * that cannot be handled by other, simpler endpoints.</p>
      */
+    public SyncPagingIterable<InventoryChange> batchGetChanges(RequestOptions requestOptions) {
+        return this.rawClient.batchGetChanges(requestOptions).body();
+    }
+
+    /**
+     * Returns historical physical counts and adjustments based on the
+     * provided filter criteria.
+     * <p>Results are paginated and sorted in ascending order according their
+     * <code>occurred_at</code> timestamp (oldest first).</p>
+     * <p>BatchRetrieveInventoryChanges is a catch-all query endpoint for queries
+     * that cannot be handled by other, simpler endpoints.</p>
+     */
     public SyncPagingIterable<InventoryChange> batchGetChanges(BatchRetrieveInventoryChangesRequest request) {
         return this.rawClient.batchGetChanges(request).body();
     }
@@ -214,6 +242,21 @@ public class InventoryClient {
      */
     public SyncPagingIterable<InventoryCount> batchGetCounts() {
         return this.rawClient.batchGetCounts().body();
+    }
+
+    /**
+     * Returns current counts for the provided
+     * <a href="entity:CatalogObject">CatalogObject</a>s at the requested
+     * <a href="entity:Location">Location</a>s.
+     * <p>Results are paginated and sorted in descending order according to their
+     * <code>calculated_at</code> timestamp (newest first).</p>
+     * <p>When <code>updated_after</code> is specified, only counts that have changed since that
+     * time (based on the server timestamp for the most recent change) are
+     * returned. This allows clients to perform a &quot;sync&quot; operation, for example
+     * in response to receiving a Webhook notification.</p>
+     */
+    public SyncPagingIterable<InventoryCount> batchGetCounts(RequestOptions requestOptions) {
+        return this.rawClient.batchGetCounts(requestOptions).body();
     }
 
     /**

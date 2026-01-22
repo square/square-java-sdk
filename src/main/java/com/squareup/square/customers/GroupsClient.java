@@ -48,6 +48,13 @@ public class GroupsClient {
     /**
      * Retrieves the list of customer groups of a business.
      */
+    public SyncPagingIterable<CustomerGroup> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves the list of customer groups of a business.
+     */
     public SyncPagingIterable<CustomerGroup> list(ListGroupsRequest request) {
         return this.rawClient.list(request).body();
     }

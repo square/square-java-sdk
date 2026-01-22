@@ -53,6 +53,14 @@ public class AsyncRawWorkweekConfigsClient {
      * Returns a list of <code>WorkweekConfig</code> instances for a business.
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<WorkweekConfig>>> list(
+            RequestOptions requestOptions) {
+        return list(ListWorkweekConfigsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a list of <code>WorkweekConfig</code> instances for a business.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<WorkweekConfig>>> list(
             ListWorkweekConfigsRequest request) {
         return list(request, null);
     }

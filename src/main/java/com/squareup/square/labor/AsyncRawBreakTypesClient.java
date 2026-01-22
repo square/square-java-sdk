@@ -59,6 +59,14 @@ public class AsyncRawBreakTypesClient {
      * Returns a paginated list of <code>BreakType</code> instances for a business.
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<BreakType>>> list(
+            RequestOptions requestOptions) {
+        return list(ListBreakTypesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a paginated list of <code>BreakType</code> instances for a business.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<BreakType>>> list(
             ListBreakTypesRequest request) {
         return list(request, null);
     }

@@ -117,6 +117,14 @@ public class AsyncRawCheckoutsClient {
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
     public CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> search(
+            RequestOptions requestOptions) {
+        return search(SearchTerminalCheckoutsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchTerminalCheckoutsResponse>> search(
             SearchTerminalCheckoutsRequest request) {
         return search(request, null);
     }

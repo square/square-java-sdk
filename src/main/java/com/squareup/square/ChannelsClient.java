@@ -34,6 +34,10 @@ public class ChannelsClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<Channel> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<Channel> list(ListChannelsRequest request) {
         return this.rawClient.list(request).body();
     }

@@ -78,7 +78,7 @@ public final class CatalogProductSet {
      * match groups of products for a bulk discount, such as a discount for an
      * entree and side combo.</p>
      * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
-     * <p>Max: 500 catalog object IDs.</p>
+     * <p>Max: 5000 catalog object IDs.</p>
      */
     @JsonIgnore
     public Optional<List<String>> getProductIdsAny() {
@@ -92,7 +92,7 @@ public final class CatalogProductSet {
      * @return Unique IDs for any <code>CatalogObject</code> included in this product set.
      * All objects in this set must be included in an order for a pricing rule to apply.
      * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
-     * <p>Max: 500 catalog object IDs.</p>
+     * <p>Max: 5000 catalog object IDs.</p>
      */
     @JsonIgnore
     public Optional<List<String>> getProductIdsAll() {
@@ -301,7 +301,7 @@ public final class CatalogProductSet {
          * match groups of products for a bulk discount, such as a discount for an
          * entree and side combo.</p>
          * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
-         * <p>Max: 500 catalog object IDs.</p>
+         * <p>Max: 5000 catalog object IDs.</p>
          */
         @JsonSetter(value = "product_ids_any", nulls = Nulls.SKIP)
         public Builder productIdsAny(Optional<List<String>> productIdsAny) {
@@ -329,7 +329,7 @@ public final class CatalogProductSet {
          * <p>Unique IDs for any <code>CatalogObject</code> included in this product set.
          * All objects in this set must be included in an order for a pricing rule to apply.</p>
          * <p>Only one of <code>product_ids_all</code>, <code>product_ids_any</code>, or <code>all_products</code> can be set.</p>
-         * <p>Max: 500 catalog object IDs.</p>
+         * <p>Max: 5000 catalog object IDs.</p>
          */
         @JsonSetter(value = "product_ids_all", nulls = Nulls.SKIP)
         public Builder productIdsAll(Optional<List<String>> productIdsAll) {

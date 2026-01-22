@@ -118,6 +118,19 @@ public class AsyncRawLocationsClient {
      * are visible to the seller for their own management. Therefore, ensure that
      * each location has a sensible and unique name.
      */
+    public CompletableFuture<SquareClientHttpResponse<CreateLocationResponse>> create(RequestOptions requestOptions) {
+        return create(CreateLocationRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Creates a <a href="https://developer.squareup.com/docs/locations-api">location</a>.
+     * Creating new locations allows for separate configuration of receipt layouts, item prices,
+     * and sales reports. Developers can use locations to separate sales activity through applications
+     * that integrate with Square from sales activity elsewhere in a seller's account.
+     * Locations created programmatically with the Locations API last forever and
+     * are visible to the seller for their own management. Therefore, ensure that
+     * each location has a sensible and unique name.
+     */
     public CompletableFuture<SquareClientHttpResponse<CreateLocationResponse>> create(CreateLocationRequest request) {
         return create(request, null);
     }

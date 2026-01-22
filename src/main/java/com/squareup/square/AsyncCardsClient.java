@@ -45,6 +45,14 @@ public class AsyncCardsClient {
      * Retrieves a list of cards owned by the account making the request.
      * A max of 25 cards will be returned.
      */
+    public CompletableFuture<SyncPagingIterable<Card>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves a list of cards owned by the account making the request.
+     * A max of 25 cards will be returned.
+     */
     public CompletableFuture<SyncPagingIterable<Card>> list(ListCardsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

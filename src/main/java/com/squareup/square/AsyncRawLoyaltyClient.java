@@ -54,6 +54,19 @@ public class AsyncRawLoyaltyClient {
      * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
      */
     public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> searchEvents(
+            RequestOptions requestOptions) {
+        return searchEvents(SearchLoyaltyEventsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Searches for loyalty events.
+     * <p>A Square loyalty program maintains a ledger of events that occur during the lifetime of a
+     * buyer's loyalty account. Each change in the point balance
+     * (for example, points earned, points redeemed, and points expired) is
+     * recorded in the ledger. Using this endpoint, you can search the ledger for events.</p>
+     * <p>Search results are sorted by <code>created_at</code> in descending order.</p>
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyEventsResponse>> searchEvents(
             SearchLoyaltyEventsRequest request) {
         return searchEvents(request, null);
     }

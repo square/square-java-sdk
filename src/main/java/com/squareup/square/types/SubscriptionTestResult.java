@@ -27,26 +27,34 @@ public final class SubscriptionTestResult {
 
     private final Optional<Integer> statusCode;
 
-    private final Optional<String> payload;
+    private final Optional<Map<String, Object>> payload;
 
     private final Optional<String> createdAt;
 
     private final Optional<String> updatedAt;
+
+    private final Optional<String> notificationUrl;
+
+    private final Optional<Boolean> passesFilter;
 
     private final Map<String, Object> additionalProperties;
 
     private SubscriptionTestResult(
             Optional<String> id,
             Optional<Integer> statusCode,
-            Optional<String> payload,
+            Optional<Map<String, Object>> payload,
             Optional<String> createdAt,
             Optional<String> updatedAt,
+            Optional<String> notificationUrl,
+            Optional<Boolean> passesFilter,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.statusCode = statusCode;
         this.payload = payload;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.notificationUrl = notificationUrl;
+        this.passesFilter = passesFilter;
         this.additionalProperties = additionalProperties;
     }
 
@@ -59,7 +67,7 @@ public final class SubscriptionTestResult {
     }
 
     /**
-     * @return The status code returned by the subscription notification URL.
+     * @return The HTTP status code returned by the notification URL.
      */
     @JsonIgnore
     public Optional<Integer> getStatusCode() {
@@ -70,10 +78,10 @@ public final class SubscriptionTestResult {
     }
 
     /**
-     * @return An object containing the payload of the test event. For example, a <code>payment.created</code> event.
+     * @return The payload that was sent in the test notification.
      */
     @JsonIgnore
-    public Optional<String> getPayload() {
+    public Optional<Map<String, Object>> getPayload() {
         if (payload == null) {
             return Optional.empty();
         }
@@ -98,6 +106,25 @@ public final class SubscriptionTestResult {
         return updatedAt;
     }
 
+    /**
+     * @return The URL that was used for the webhook notification test.
+     */
+    @JsonProperty("notification_url")
+    public Optional<String> getNotificationUrl() {
+        return notificationUrl;
+    }
+
+    /**
+     * @return Whether the notification passed any configured filters.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getPassesFilter() {
+        if (passesFilter == null) {
+            return Optional.empty();
+        }
+        return passesFilter;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("status_code")
     private Optional<Integer> _getStatusCode() {
@@ -106,8 +133,14 @@ public final class SubscriptionTestResult {
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("payload")
-    private Optional<String> _getPayload() {
+    private Optional<Map<String, Object>> _getPayload() {
         return payload;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("passes_filter")
+    private Optional<Boolean> _getPassesFilter() {
+        return passesFilter;
     }
 
     @java.lang.Override
@@ -126,12 +159,21 @@ public final class SubscriptionTestResult {
                 && statusCode.equals(other.statusCode)
                 && payload.equals(other.payload)
                 && createdAt.equals(other.createdAt)
-                && updatedAt.equals(other.updatedAt);
+                && updatedAt.equals(other.updatedAt)
+                && notificationUrl.equals(other.notificationUrl)
+                && passesFilter.equals(other.passesFilter);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.id, this.statusCode, this.payload, this.createdAt, this.updatedAt);
+        return Objects.hash(
+                this.id,
+                this.statusCode,
+                this.payload,
+                this.createdAt,
+                this.updatedAt,
+                this.notificationUrl,
+                this.passesFilter);
     }
 
     @java.lang.Override
@@ -149,11 +191,15 @@ public final class SubscriptionTestResult {
 
         private Optional<Integer> statusCode = Optional.empty();
 
-        private Optional<String> payload = Optional.empty();
+        private Optional<Map<String, Object>> payload = Optional.empty();
 
         private Optional<String> createdAt = Optional.empty();
 
         private Optional<String> updatedAt = Optional.empty();
+
+        private Optional<String> notificationUrl = Optional.empty();
+
+        private Optional<Boolean> passesFilter = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -166,6 +212,8 @@ public final class SubscriptionTestResult {
             payload(other.getPayload());
             createdAt(other.getCreatedAt());
             updatedAt(other.getUpdatedAt());
+            notificationUrl(other.getNotificationUrl());
+            passesFilter(other.getPassesFilter());
             return this;
         }
 
@@ -184,7 +232,7 @@ public final class SubscriptionTestResult {
         }
 
         /**
-         * <p>The status code returned by the subscription notification URL.</p>
+         * <p>The HTTP status code returned by the notification URL.</p>
          */
         @JsonSetter(value = "status_code", nulls = Nulls.SKIP)
         public Builder statusCode(Optional<Integer> statusCode) {
@@ -209,20 +257,20 @@ public final class SubscriptionTestResult {
         }
 
         /**
-         * <p>An object containing the payload of the test event. For example, a <code>payment.created</code> event.</p>
+         * <p>The payload that was sent in the test notification.</p>
          */
         @JsonSetter(value = "payload", nulls = Nulls.SKIP)
-        public Builder payload(Optional<String> payload) {
+        public Builder payload(Optional<Map<String, Object>> payload) {
             this.payload = payload;
             return this;
         }
 
-        public Builder payload(String payload) {
+        public Builder payload(Map<String, Object> payload) {
             this.payload = Optional.ofNullable(payload);
             return this;
         }
 
-        public Builder payload(Nullable<String> payload) {
+        public Builder payload(Nullable<Map<String, Object>> payload) {
             if (payload.isNull()) {
                 this.payload = null;
             } else if (payload.isEmpty()) {
@@ -263,8 +311,48 @@ public final class SubscriptionTestResult {
             return this;
         }
 
+        /**
+         * <p>The URL that was used for the webhook notification test.</p>
+         */
+        @JsonSetter(value = "notification_url", nulls = Nulls.SKIP)
+        public Builder notificationUrl(Optional<String> notificationUrl) {
+            this.notificationUrl = notificationUrl;
+            return this;
+        }
+
+        public Builder notificationUrl(String notificationUrl) {
+            this.notificationUrl = Optional.ofNullable(notificationUrl);
+            return this;
+        }
+
+        /**
+         * <p>Whether the notification passed any configured filters.</p>
+         */
+        @JsonSetter(value = "passes_filter", nulls = Nulls.SKIP)
+        public Builder passesFilter(Optional<Boolean> passesFilter) {
+            this.passesFilter = passesFilter;
+            return this;
+        }
+
+        public Builder passesFilter(Boolean passesFilter) {
+            this.passesFilter = Optional.ofNullable(passesFilter);
+            return this;
+        }
+
+        public Builder passesFilter(Nullable<Boolean> passesFilter) {
+            if (passesFilter.isNull()) {
+                this.passesFilter = null;
+            } else if (passesFilter.isEmpty()) {
+                this.passesFilter = Optional.empty();
+            } else {
+                this.passesFilter = Optional.of(passesFilter.get());
+            }
+            return this;
+        }
+
         public SubscriptionTestResult build() {
-            return new SubscriptionTestResult(id, statusCode, payload, createdAt, updatedAt, additionalProperties);
+            return new SubscriptionTestResult(
+                    id, statusCode, payload, createdAt, updatedAt, notificationUrl, passesFilter, additionalProperties);
         }
     }
 }

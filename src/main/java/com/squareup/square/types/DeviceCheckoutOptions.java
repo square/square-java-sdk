@@ -34,6 +34,8 @@ public final class DeviceCheckoutOptions {
 
     private final Optional<Boolean> showItemizedCart;
 
+    private final Optional<Boolean> allowAutoCardSurcharge;
+
     private final Map<String, Object> additionalProperties;
 
     private DeviceCheckoutOptions(
@@ -42,12 +44,14 @@ public final class DeviceCheckoutOptions {
             Optional<Boolean> collectSignature,
             Optional<TipSettings> tipSettings,
             Optional<Boolean> showItemizedCart,
+            Optional<Boolean> allowAutoCardSurcharge,
             Map<String, Object> additionalProperties) {
         this.deviceId = deviceId;
         this.skipReceiptScreen = skipReceiptScreen;
         this.collectSignature = collectSignature;
         this.tipSettings = tipSettings;
         this.showItemizedCart = showItemizedCart;
+        this.allowAutoCardSurcharge = allowAutoCardSurcharge;
         this.additionalProperties = additionalProperties;
     }
 
@@ -103,6 +107,20 @@ public final class DeviceCheckoutOptions {
         return showItemizedCart;
     }
 
+    /**
+     * @return Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
+     * If true, ACS is applied based on Dashboard configuration.
+     * If false, ACS is not applied regardless of that configuration.
+     * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getAllowAutoCardSurcharge() {
+        if (allowAutoCardSurcharge == null) {
+            return Optional.empty();
+        }
+        return allowAutoCardSurcharge;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("skip_receipt_screen")
     private Optional<Boolean> _getSkipReceiptScreen() {
@@ -121,6 +139,12 @@ public final class DeviceCheckoutOptions {
         return showItemizedCart;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("allow_auto_card_surcharge")
+    private Optional<Boolean> _getAllowAutoCardSurcharge() {
+        return allowAutoCardSurcharge;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -137,13 +161,19 @@ public final class DeviceCheckoutOptions {
                 && skipReceiptScreen.equals(other.skipReceiptScreen)
                 && collectSignature.equals(other.collectSignature)
                 && tipSettings.equals(other.tipSettings)
-                && showItemizedCart.equals(other.showItemizedCart);
+                && showItemizedCart.equals(other.showItemizedCart)
+                && allowAutoCardSurcharge.equals(other.allowAutoCardSurcharge);
     }
 
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.deviceId, this.skipReceiptScreen, this.collectSignature, this.tipSettings, this.showItemizedCart);
+                this.deviceId,
+                this.skipReceiptScreen,
+                this.collectSignature,
+                this.tipSettings,
+                this.showItemizedCart,
+                this.allowAutoCardSurcharge);
     }
 
     @java.lang.Override
@@ -203,11 +233,25 @@ public final class DeviceCheckoutOptions {
         _FinalStage showItemizedCart(Boolean showItemizedCart);
 
         _FinalStage showItemizedCart(Nullable<Boolean> showItemizedCart);
+
+        /**
+         * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
+         * If true, ACS is applied based on Dashboard configuration.
+         * If false, ACS is not applied regardless of that configuration.
+         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         */
+        _FinalStage allowAutoCardSurcharge(Optional<Boolean> allowAutoCardSurcharge);
+
+        _FinalStage allowAutoCardSurcharge(Boolean allowAutoCardSurcharge);
+
+        _FinalStage allowAutoCardSurcharge(Nullable<Boolean> allowAutoCardSurcharge);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements DeviceIdStage, _FinalStage {
         private String deviceId;
+
+        private Optional<Boolean> allowAutoCardSurcharge = Optional.empty();
 
         private Optional<Boolean> showItemizedCart = Optional.empty();
 
@@ -229,6 +273,7 @@ public final class DeviceCheckoutOptions {
             collectSignature(other.getCollectSignature());
             tipSettings(other.getTipSettings());
             showItemizedCart(other.getShowItemizedCart());
+            allowAutoCardSurcharge(other.getAllowAutoCardSurcharge());
             return this;
         }
 
@@ -245,6 +290,51 @@ public final class DeviceCheckoutOptions {
         @JsonSetter("device_id")
         public _FinalStage deviceId(@NotNull String deviceId) {
             this.deviceId = Objects.requireNonNull(deviceId, "deviceId must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
+         * If true, ACS is applied based on Dashboard configuration.
+         * If false, ACS is not applied regardless of that configuration.
+         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowAutoCardSurcharge(Nullable<Boolean> allowAutoCardSurcharge) {
+            if (allowAutoCardSurcharge.isNull()) {
+                this.allowAutoCardSurcharge = null;
+            } else if (allowAutoCardSurcharge.isEmpty()) {
+                this.allowAutoCardSurcharge = Optional.empty();
+            } else {
+                this.allowAutoCardSurcharge = Optional.of(allowAutoCardSurcharge.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
+         * If true, ACS is applied based on Dashboard configuration.
+         * If false, ACS is not applied regardless of that configuration.
+         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage allowAutoCardSurcharge(Boolean allowAutoCardSurcharge) {
+            this.allowAutoCardSurcharge = Optional.ofNullable(allowAutoCardSurcharge);
+            return this;
+        }
+
+        /**
+         * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
+         * If true, ACS is applied based on Dashboard configuration.
+         * If false, ACS is not applied regardless of that configuration.
+         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "allow_auto_card_surcharge", nulls = Nulls.SKIP)
+        public _FinalStage allowAutoCardSurcharge(Optional<Boolean> allowAutoCardSurcharge) {
+            this.allowAutoCardSurcharge = allowAutoCardSurcharge;
             return this;
         }
 
@@ -382,7 +472,13 @@ public final class DeviceCheckoutOptions {
         @java.lang.Override
         public DeviceCheckoutOptions build() {
             return new DeviceCheckoutOptions(
-                    deviceId, skipReceiptScreen, collectSignature, tipSettings, showItemizedCart, additionalProperties);
+                    deviceId,
+                    skipReceiptScreen,
+                    collectSignature,
+                    tipSettings,
+                    showItemizedCart,
+                    allowAutoCardSurcharge,
+                    additionalProperties);
         }
     }
 }

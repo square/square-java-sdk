@@ -36,6 +36,8 @@ public final class CatalogModifier {
 
     private final Optional<List<ModifierLocationOverrides>> locationOverrides;
 
+    private final Optional<String> kitchenName;
+
     private final Optional<String> imageId;
 
     private final Optional<Boolean> hiddenOnline;
@@ -49,6 +51,7 @@ public final class CatalogModifier {
             Optional<Integer> ordinal,
             Optional<String> modifierListId,
             Optional<List<ModifierLocationOverrides>> locationOverrides,
+            Optional<String> kitchenName,
             Optional<String> imageId,
             Optional<Boolean> hiddenOnline,
             Map<String, Object> additionalProperties) {
@@ -58,6 +61,7 @@ public final class CatalogModifier {
         this.ordinal = ordinal;
         this.modifierListId = modifierListId;
         this.locationOverrides = locationOverrides;
+        this.kitchenName = kitchenName;
         this.imageId = imageId;
         this.hiddenOnline = hiddenOnline;
         this.additionalProperties = additionalProperties;
@@ -128,6 +132,20 @@ public final class CatalogModifier {
     }
 
     /**
+     * @return (Optional) Name that the restaurant wants to display to their kitchen workers
+     * instead of the customer-facing name.
+     * e.g., customer name might be &quot;Double Baconize&quot; and the
+     * kitchen name is &quot;Add 2x bacon&quot;
+     */
+    @JsonIgnore
+    public Optional<String> getKitchenName() {
+        if (kitchenName == null) {
+            return Optional.empty();
+        }
+        return kitchenName;
+    }
+
+    /**
      * @return The ID of the image associated with this <code>CatalogModifier</code> instance.
      * Currently this image is not displayed by Square, but is free to be displayed in 3rd party applications.
      */
@@ -181,6 +199,12 @@ public final class CatalogModifier {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("kitchen_name")
+    private Optional<String> _getKitchenName() {
+        return kitchenName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("image_id")
     private Optional<String> _getImageId() {
         return imageId;
@@ -210,6 +234,7 @@ public final class CatalogModifier {
                 && ordinal.equals(other.ordinal)
                 && modifierListId.equals(other.modifierListId)
                 && locationOverrides.equals(other.locationOverrides)
+                && kitchenName.equals(other.kitchenName)
                 && imageId.equals(other.imageId)
                 && hiddenOnline.equals(other.hiddenOnline);
     }
@@ -223,6 +248,7 @@ public final class CatalogModifier {
                 this.ordinal,
                 this.modifierListId,
                 this.locationOverrides,
+                this.kitchenName,
                 this.imageId,
                 this.hiddenOnline);
     }
@@ -250,6 +276,8 @@ public final class CatalogModifier {
 
         private Optional<List<ModifierLocationOverrides>> locationOverrides = Optional.empty();
 
+        private Optional<String> kitchenName = Optional.empty();
+
         private Optional<String> imageId = Optional.empty();
 
         private Optional<Boolean> hiddenOnline = Optional.empty();
@@ -266,6 +294,7 @@ public final class CatalogModifier {
             ordinal(other.getOrdinal());
             modifierListId(other.getModifierListId());
             locationOverrides(other.getLocationOverrides());
+            kitchenName(other.getKitchenName());
             imageId(other.getImageId());
             hiddenOnline(other.getHiddenOnline());
             return this;
@@ -412,6 +441,34 @@ public final class CatalogModifier {
         }
 
         /**
+         * <p>(Optional) Name that the restaurant wants to display to their kitchen workers
+         * instead of the customer-facing name.
+         * e.g., customer name might be &quot;Double Baconize&quot; and the
+         * kitchen name is &quot;Add 2x bacon&quot;</p>
+         */
+        @JsonSetter(value = "kitchen_name", nulls = Nulls.SKIP)
+        public Builder kitchenName(Optional<String> kitchenName) {
+            this.kitchenName = kitchenName;
+            return this;
+        }
+
+        public Builder kitchenName(String kitchenName) {
+            this.kitchenName = Optional.ofNullable(kitchenName);
+            return this;
+        }
+
+        public Builder kitchenName(Nullable<String> kitchenName) {
+            if (kitchenName.isNull()) {
+                this.kitchenName = null;
+            } else if (kitchenName.isEmpty()) {
+                this.kitchenName = Optional.empty();
+            } else {
+                this.kitchenName = Optional.of(kitchenName.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>The ID of the image associated with this <code>CatalogModifier</code> instance.
          * Currently this image is not displayed by Square, but is free to be displayed in 3rd party applications.</p>
          */
@@ -470,6 +527,7 @@ public final class CatalogModifier {
                     ordinal,
                     modifierListId,
                     locationOverrides,
+                    kitchenName,
                     imageId,
                     hiddenOnline,
                     additionalProperties);

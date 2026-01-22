@@ -54,6 +54,8 @@ public final class OrderReturnServiceCharge {
 
     private final Optional<OrderServiceChargeScope> scope;
 
+    private final Optional<OrderServiceChargeType> type;
+
     private final Map<String, Object> additionalProperties;
 
     private OrderReturnServiceCharge(
@@ -72,6 +74,7 @@ public final class OrderReturnServiceCharge {
             Optional<List<OrderLineItemAppliedTax>> appliedTaxes,
             Optional<OrderServiceChargeTreatmentType> treatmentType,
             Optional<OrderServiceChargeScope> scope,
+            Optional<OrderServiceChargeType> type,
             Map<String, Object> additionalProperties) {
         this.uid = uid;
         this.sourceServiceChargeUid = sourceServiceChargeUid;
@@ -88,6 +91,7 @@ public final class OrderReturnServiceCharge {
         this.appliedTaxes = appliedTaxes;
         this.treatmentType = treatmentType;
         this.scope = scope;
+        this.type = type;
         this.additionalProperties = additionalProperties;
     }
 
@@ -240,7 +244,7 @@ public final class OrderReturnServiceCharge {
     }
 
     /**
-     * @return The treatment type of the service charge.
+     * @return Indicates whether the service charge will be treated as a value-holding line item or apportioned toward a line item.
      * See <a href="#type-orderservicechargetreatmenttype">OrderServiceChargeTreatmentType</a> for possible values
      */
     @JsonProperty("treatment_type")
@@ -261,6 +265,15 @@ public final class OrderReturnServiceCharge {
     @JsonProperty("scope")
     public Optional<OrderServiceChargeScope> getScope() {
         return scope;
+    }
+
+    /**
+     * @return The type of the service charge.
+     * See <a href="#type-orderservicechargetype">OrderServiceChargeType</a> for possible values
+     */
+    @JsonProperty("type")
+    public Optional<OrderServiceChargeType> getType() {
+        return type;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -337,7 +350,8 @@ public final class OrderReturnServiceCharge {
                 && taxable.equals(other.taxable)
                 && appliedTaxes.equals(other.appliedTaxes)
                 && treatmentType.equals(other.treatmentType)
-                && scope.equals(other.scope);
+                && scope.equals(other.scope)
+                && type.equals(other.type);
     }
 
     @java.lang.Override
@@ -357,7 +371,8 @@ public final class OrderReturnServiceCharge {
                 this.taxable,
                 this.appliedTaxes,
                 this.treatmentType,
-                this.scope);
+                this.scope,
+                this.type);
     }
 
     @java.lang.Override
@@ -401,6 +416,8 @@ public final class OrderReturnServiceCharge {
 
         private Optional<OrderServiceChargeScope> scope = Optional.empty();
 
+        private Optional<OrderServiceChargeType> type = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -422,6 +439,7 @@ public final class OrderReturnServiceCharge {
             appliedTaxes(other.getAppliedTaxes());
             treatmentType(other.getTreatmentType());
             scope(other.getScope());
+            type(other.getType());
             return this;
         }
 
@@ -716,7 +734,7 @@ public final class OrderReturnServiceCharge {
         }
 
         /**
-         * <p>The treatment type of the service charge.
+         * <p>Indicates whether the service charge will be treated as a value-holding line item or apportioned toward a line item.
          * See <a href="#type-orderservicechargetreatmenttype">OrderServiceChargeTreatmentType</a> for possible values</p>
          */
         @JsonSetter(value = "treatment_type", nulls = Nulls.SKIP)
@@ -751,6 +769,21 @@ public final class OrderReturnServiceCharge {
             return this;
         }
 
+        /**
+         * <p>The type of the service charge.
+         * See <a href="#type-orderservicechargetype">OrderServiceChargeType</a> for possible values</p>
+         */
+        @JsonSetter(value = "type", nulls = Nulls.SKIP)
+        public Builder type(Optional<OrderServiceChargeType> type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(OrderServiceChargeType type) {
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
         public OrderReturnServiceCharge build() {
             return new OrderReturnServiceCharge(
                     uid,
@@ -768,6 +801,7 @@ public final class OrderReturnServiceCharge {
                     appliedTaxes,
                     treatmentType,
                     scope,
+                    type,
                     additionalProperties);
         }
     }

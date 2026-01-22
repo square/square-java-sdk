@@ -107,7 +107,7 @@ public final class OrderServiceCharge {
     }
 
     /**
-     * @return The name of the service charge.
+     * @return The name of the service charge. This is unused and null for AUTO_GRATUITY to match the behavior on Bills.
      */
     @JsonIgnore
     public Optional<String> getName() {
@@ -270,7 +270,7 @@ public final class OrderServiceCharge {
     }
 
     /**
-     * @return The treatment type of the service charge.
+     * @return Indicates whether the service charge will be treated as a value-holding line item or apportioned toward a line item.
      * See <a href="#type-orderservicechargetreatmenttype">OrderServiceChargeTreatmentType</a> for possible values
      */
     @JsonProperty("treatment_type")
@@ -486,7 +486,7 @@ public final class OrderServiceCharge {
         }
 
         /**
-         * <p>The name of the service charge.</p>
+         * <p>The name of the service charge. This is unused and null for AUTO_GRATUITY to match the behavior on Bills.</p>
          */
         @JsonSetter(value = "name", nulls = Nulls.SKIP)
         public Builder name(Optional<String> name) {
@@ -783,7 +783,7 @@ public final class OrderServiceCharge {
         }
 
         /**
-         * <p>The treatment type of the service charge.
+         * <p>Indicates whether the service charge will be treated as a value-holding line item or apportioned toward a line item.
          * See <a href="#type-orderservicechargetreatmenttype">OrderServiceChargeTreatmentType</a> for possible values</p>
          */
         @JsonSetter(value = "treatment_type", nulls = Nulls.SKIP)

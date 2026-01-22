@@ -61,6 +61,13 @@ public class VendorsClient {
     /**
      * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
      */
+    public BatchGetVendorsResponse batchGet(RequestOptions requestOptions) {
+        return this.rawClient.batchGet(requestOptions).body();
+    }
+
+    /**
+     * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
+     */
     public BatchGetVendorsResponse batchGet(BatchGetVendorsRequest request) {
         return this.rawClient.batchGet(request).body();
     }
@@ -105,6 +112,13 @@ public class VendorsClient {
      */
     public SearchVendorsResponse search() {
         return this.rawClient.search().body();
+    }
+
+    /**
+     * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
+     */
+    public SearchVendorsResponse search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).body();
     }
 
     /**

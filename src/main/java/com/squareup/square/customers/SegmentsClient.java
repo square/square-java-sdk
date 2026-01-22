@@ -38,6 +38,13 @@ public class SegmentsClient {
     /**
      * Retrieves the list of customer segments of a business.
      */
+    public SyncPagingIterable<CustomerSegment> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves the list of customer segments of a business.
+     */
     public SyncPagingIterable<CustomerSegment> list(ListSegmentsRequest request) {
         return this.rawClient.list(request).body();
     }

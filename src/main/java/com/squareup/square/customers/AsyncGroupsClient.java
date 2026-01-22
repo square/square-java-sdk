@@ -49,6 +49,13 @@ public class AsyncGroupsClient {
     /**
      * Retrieves the list of customer groups of a business.
      */
+    public CompletableFuture<SyncPagingIterable<CustomerGroup>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves the list of customer groups of a business.
+     */
     public CompletableFuture<SyncPagingIterable<CustomerGroup>> list(ListGroupsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

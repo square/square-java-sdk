@@ -56,6 +56,15 @@ public class AsyncRawPayoutsClient {
      * You can filter payouts by location ID, status, time range, and order them in ascending or descending order.
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Payout>>> list(RequestOptions requestOptions) {
+        return list(ListPayoutsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves a list of all payouts for the default location.
+     * You can filter payouts by location ID, status, time range, and order them in ascending or descending order.
+     * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
+     */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Payout>>> list(ListPayoutsRequest request) {
         return list(request, null);
     }

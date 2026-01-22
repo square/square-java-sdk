@@ -3,16 +3,12 @@
  */
 package com.squareup.square;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
-import com.squareup.square.core.MediaTypes;
 import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
-import com.squareup.square.types.CreateMobileAuthorizationCodeRequest;
-import com.squareup.square.types.CreateMobileAuthorizationCodeResponse;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -29,67 +25,19 @@ public class RawMobileClient {
         this.clientOptions = clientOptions;
     }
 
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public SquareClientHttpResponse<CreateMobileAuthorizationCodeResponse> authorizationCode() {
-        return authorizationCode(CreateMobileAuthorizationCodeRequest.builder().build());
+    public SquareClientHttpResponse<Void> authorizationCode() {
+        return authorizationCode(null);
     }
 
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public SquareClientHttpResponse<CreateMobileAuthorizationCodeResponse> authorizationCode(
-            CreateMobileAuthorizationCodeRequest request) {
-        return authorizationCode(request, null);
-    }
-
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public SquareClientHttpResponse<CreateMobileAuthorizationCodeResponse> authorizationCode(
-            CreateMobileAuthorizationCodeRequest request, RequestOptions requestOptions) {
+    public SquareClientHttpResponse<Void> authorizationCode(RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("mobile/authorization-code")
                 .build();
-        RequestBody body;
-        try {
-            body = RequestBody.create(
-                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-        } catch (JsonProcessingException e) {
-            throw new SquareException("Failed to serialize request", e);
-        }
         Request okhttpRequest = new Request.Builder()
                 .url(httpUrl)
-                .method("POST", body)
+                .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
                 .build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -97,13 +45,10 @@ public class RawMobileClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
-                return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(
-                                responseBodyString, CreateMobileAuthorizationCodeResponse.class),
-                        response);
+                return new SquareClientHttpResponse<>(null, response);
             }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);

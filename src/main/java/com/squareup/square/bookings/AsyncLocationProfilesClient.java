@@ -37,6 +37,13 @@ public class AsyncLocationProfilesClient {
     /**
      * Lists location booking profiles of a seller.
      */
+    public CompletableFuture<SyncPagingIterable<LocationBookingProfile>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     */
     public CompletableFuture<SyncPagingIterable<LocationBookingProfile>> list(ListLocationProfilesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

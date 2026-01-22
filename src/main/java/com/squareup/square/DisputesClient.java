@@ -52,6 +52,13 @@ public class DisputesClient {
     /**
      * Returns a list of disputes associated with a particular account.
      */
+    public SyncPagingIterable<Dispute> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Returns a list of disputes associated with a particular account.
+     */
     public SyncPagingIterable<Dispute> list(ListDisputesRequest request) {
         return this.rawClient.list(request).body();
     }

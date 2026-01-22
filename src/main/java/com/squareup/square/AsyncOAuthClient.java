@@ -55,6 +55,21 @@ public class AsyncOAuthClient {
      * <p>Replace <code>APPLICATION_SECRET</code> with the application secret on the <strong>OAuth</strong>
      * page for your application in the Developer Dashboard.</p>
      */
+    public CompletableFuture<RevokeTokenResponse> revokeToken(RequestOptions requestOptions) {
+        return this.rawClient.revokeToken(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Revokes an access token generated with the OAuth flow.
+     * <p>If an account has more than one OAuth access token for your application, this
+     * endpoint revokes all of them, regardless of which token you specify.</p>
+     * <p><strong>Important:</strong> The <code>Authorization</code> header for this endpoint must have the
+     * following format:</p>
+     * <pre><code>Authorization: Client APPLICATION_SECRET
+     * </code></pre>
+     * <p>Replace <code>APPLICATION_SECRET</code> with the application secret on the <strong>OAuth</strong>
+     * page for your application in the Developer Dashboard.</p>
+     */
     public CompletableFuture<RevokeTokenResponse> revokeToken(RevokeTokenRequest request) {
         return this.rawClient.revokeToken(request).thenApply(response -> response.body());
     }

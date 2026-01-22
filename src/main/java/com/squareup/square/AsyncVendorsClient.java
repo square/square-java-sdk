@@ -63,6 +63,13 @@ public class AsyncVendorsClient {
     /**
      * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
      */
+    public CompletableFuture<BatchGetVendorsResponse> batchGet(RequestOptions requestOptions) {
+        return this.rawClient.batchGet(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves one or more vendors of specified <a href="entity:Vendor">Vendor</a> IDs.
+     */
     public CompletableFuture<BatchGetVendorsResponse> batchGet(BatchGetVendorsRequest request) {
         return this.rawClient.batchGet(request).thenApply(response -> response.body());
     }
@@ -109,6 +116,13 @@ public class AsyncVendorsClient {
      */
     public CompletableFuture<SearchVendorsResponse> search() {
         return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Searches for vendors using a filter against supported <a href="entity:Vendor">Vendor</a> properties and a supported sorter.
+     */
+    public CompletableFuture<SearchVendorsResponse> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
     }
 
     /**

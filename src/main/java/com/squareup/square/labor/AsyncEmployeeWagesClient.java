@@ -39,6 +39,13 @@ public class AsyncEmployeeWagesClient {
     /**
      * Returns a paginated list of <code>EmployeeWage</code> instances for a business.
      */
+    public CompletableFuture<SyncPagingIterable<EmployeeWage>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a paginated list of <code>EmployeeWage</code> instances for a business.
+     */
     public CompletableFuture<SyncPagingIterable<EmployeeWage>> list(ListEmployeeWagesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

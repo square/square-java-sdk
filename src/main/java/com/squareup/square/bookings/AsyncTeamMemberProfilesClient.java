@@ -39,6 +39,13 @@ public class AsyncTeamMemberProfilesClient {
     /**
      * Lists booking profiles for team members.
      */
+    public CompletableFuture<SyncPagingIterable<TeamMemberBookingProfile>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists booking profiles for team members.
+     */
     public CompletableFuture<SyncPagingIterable<TeamMemberBookingProfile>> list(ListTeamMemberProfilesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

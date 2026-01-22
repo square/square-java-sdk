@@ -139,6 +139,18 @@ public class AsyncRawRewardsClient {
      * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
      */
     public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> search(
+            RequestOptions requestOptions) {
+        return search(SearchLoyaltyRewardsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Searches for loyalty rewards. This endpoint accepts a request with no query filters and returns results for all loyalty accounts.
+     * If you include a <code>query</code> object, <code>loyalty_account_id</code> is required and <code>status</code> is  optional.
+     * <p>If you know a reward ID, use the
+     * <a href="api-endpoint:Loyalty-RetrieveLoyaltyReward">RetrieveLoyaltyReward</a> endpoint.</p>
+     * <p>Search results are sorted by <code>updated_at</code> in descending order.</p>
+     */
+    public CompletableFuture<SquareClientHttpResponse<SearchLoyaltyRewardsResponse>> search(
             SearchLoyaltyRewardsRequest request) {
         return search(request, null);
     }

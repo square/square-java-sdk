@@ -44,6 +44,13 @@ public class RawTeamMemberWagesClient {
     /**
      * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<TeamMemberWage>> list(RequestOptions requestOptions) {
+        return list(ListTeamMemberWagesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a paginated list of <code>TeamMemberWage</code> instances for a business.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<TeamMemberWage>> list(ListTeamMemberWagesRequest request) {
         return list(request, null);
     }

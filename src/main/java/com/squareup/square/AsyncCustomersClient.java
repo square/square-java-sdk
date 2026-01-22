@@ -84,6 +84,16 @@ public class AsyncCustomersClient {
      * for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
+    public CompletableFuture<SyncPagingIterable<Customer>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists customer profiles associated with a Square account.
+     * <p>Under normal operating conditions, newly created or updated customer profiles become available
+     * for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated
+     * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
+     */
     public CompletableFuture<SyncPagingIterable<Customer>> list(ListCustomersRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -113,6 +123,22 @@ public class AsyncCustomersClient {
      */
     public CompletableFuture<CreateCustomerResponse> create() {
         return this.rawClient.create().thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates a new customer for a business.
+     * <p>You must provide at least one of the following values in your request to this
+     * endpoint:</p>
+     * <ul>
+     * <li><code>given_name</code></li>
+     * <li><code>family_name</code></li>
+     * <li><code>company_name</code></li>
+     * <li><code>email_address</code></li>
+     * <li><code>phone_number</code></li>
+     * </ul>
+     */
+    public CompletableFuture<CreateCustomerResponse> create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -244,6 +270,19 @@ public class AsyncCustomersClient {
      */
     public CompletableFuture<SearchCustomersResponse> search() {
         return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Searches the customer profiles associated with a Square account using one or more supported query filters.
+     * <p>Calling <code>SearchCustomers</code> without any explicit query filter returns all
+     * customer profiles ordered alphabetically based on <code>given_name</code> and
+     * <code>family_name</code>.</p>
+     * <p>Under normal operating conditions, newly created or updated customer profiles become available
+     * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
+     * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
+     */
+    public CompletableFuture<SearchCustomersResponse> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
     }
 
     /**

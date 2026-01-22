@@ -48,6 +48,13 @@ public class SubscriptionsClient {
     /**
      * Lists all webhook subscriptions owned by your application.
      */
+    public SyncPagingIterable<WebhookSubscription> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists all webhook subscriptions owned by your application.
+     */
     public SyncPagingIterable<WebhookSubscription> list(ListSubscriptionsRequest request) {
         return this.rawClient.list(request).body();
     }
