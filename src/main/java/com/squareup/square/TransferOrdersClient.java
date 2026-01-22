@@ -116,6 +116,20 @@ public class TransferOrdersClient {
      * <li>Find orders in a particular <a href="entity:TransferOrderStatus">TransferOrderStatus</a></li>
      * </ul>
      */
+    public SyncPagingIterable<TransferOrder> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).body();
+    }
+
+    /**
+     * Searches for transfer orders using filters. Returns a paginated list of matching
+     * <a href="entity:TransferOrder">TransferOrder</a>s sorted by creation date.
+     * <p>Common search scenarios:</p>
+     * <ul>
+     * <li>Find orders for a source <a href="entity:Location">Location</a></li>
+     * <li>Find orders for a destination <a href="entity:Location">Location</a></li>
+     * <li>Find orders in a particular <a href="entity:TransferOrderStatus">TransferOrderStatus</a></li>
+     * </ul>
+     */
     public SyncPagingIterable<TransferOrder> search(SearchTransferOrdersRequest request) {
         return this.rawClient.search(request).body();
     }

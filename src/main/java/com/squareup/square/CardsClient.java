@@ -44,6 +44,14 @@ public class CardsClient {
      * Retrieves a list of cards owned by the account making the request.
      * A max of 25 cards will be returned.
      */
+    public SyncPagingIterable<Card> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves a list of cards owned by the account making the request.
+     * A max of 25 cards will be returned.
+     */
     public SyncPagingIterable<Card> list(ListCardsRequest request) {
         return this.rawClient.list(request).body();
     }

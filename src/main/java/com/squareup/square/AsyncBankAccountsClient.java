@@ -7,6 +7,10 @@ import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BankAccount;
+import com.squareup.square.types.CreateBankAccountRequest;
+import com.squareup.square.types.CreateBankAccountResponse;
+import com.squareup.square.types.DisableBankAccountRequest;
+import com.squareup.square.types.DisableBankAccountResponse;
 import com.squareup.square.types.GetBankAccountByV1IdResponse;
 import com.squareup.square.types.GetBankAccountResponse;
 import com.squareup.square.types.GetBankAccountsRequest;
@@ -41,6 +45,13 @@ public class AsyncBankAccountsClient {
     /**
      * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
      */
+    public CompletableFuture<SyncPagingIterable<BankAccount>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
+     */
     public CompletableFuture<SyncPagingIterable<BankAccount>> list(ListBankAccountsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -51,6 +62,21 @@ public class AsyncBankAccountsClient {
     public CompletableFuture<SyncPagingIterable<BankAccount>> list(
             ListBankAccountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public CompletableFuture<CreateBankAccountResponse> createBankAccount(CreateBankAccountRequest request) {
+        return this.rawClient.createBankAccount(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public CompletableFuture<CreateBankAccountResponse> createBankAccount(
+            CreateBankAccountRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBankAccount(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -69,19 +95,32 @@ public class AsyncBankAccountsClient {
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public CompletableFuture<GetBankAccountResponse> get(GetBankAccountsRequest request) {
         return this.rawClient.get(request).thenApply(response -> response.body());
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public CompletableFuture<GetBankAccountResponse> get(
             GetBankAccountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public CompletableFuture<DisableBankAccountResponse> disableBankAccount(DisableBankAccountRequest request) {
+        return this.rawClient.disableBankAccount(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public CompletableFuture<DisableBankAccountResponse> disableBankAccount(
+            DisableBankAccountRequest request, RequestOptions requestOptions) {
+        return this.rawClient.disableBankAccount(request, requestOptions).thenApply(response -> response.body());
     }
 }

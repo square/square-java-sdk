@@ -320,6 +320,18 @@ public class RawCatalogClient {
      * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
      */
+    public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> list(RequestOptions requestOptions) {
+        return list(ListCatalogRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a list of all <a href="entity:CatalogObject">CatalogObject</a>s of the specified types in the catalog.
+     * <p>The <code>types</code> parameter is specified as a comma-separated list of the <a href="entity:CatalogObjectType">CatalogObjectType</a> values,
+     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.</p>
+     * <p><strong>Important:</strong> ListCatalog does not return deleted catalog items. To retrieve
+     * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
+     * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
+     */
     public SquareClientHttpResponse<SyncPagingIterable<CatalogObject>> list(ListCatalogRequest request) {
         return list(request, null);
     }
@@ -414,6 +426,22 @@ public class RawCatalogClient {
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
      */
+    public SquareClientHttpResponse<SearchCatalogObjectsResponse> search(RequestOptions requestOptions) {
+        return search(SearchCatalogObjectsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Searches for <a href="entity:CatalogObject">CatalogObject</a> of any type by matching supported search attribute values,
+     * excluding custom attribute values on items or item variations, against one or more of the specified query filters.
+     * <p>This (<code>SearchCatalogObjects</code>) endpoint differs from the <a href="api-endpoint:Catalog-SearchCatalogItems">SearchCatalogItems</a>
+     * endpoint in the following aspects:</p>
+     * <ul>
+     * <li><code>SearchCatalogItems</code> can only search for items or item variations, whereas <code>SearchCatalogObjects</code> can search for any type of catalog objects.</li>
+     * <li><code>SearchCatalogItems</code> supports the custom attribute query filters to return items or item variations that contain custom attribute values, where <code>SearchCatalogObjects</code> does not.</li>
+     * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
+     * <li>The both endpoints have different call conventions, including the query filter formats.</li>
+     * </ul>
+     */
     public SquareClientHttpResponse<SearchCatalogObjectsResponse> search(SearchCatalogObjectsRequest request) {
         return search(request, null);
     }
@@ -484,6 +512,22 @@ public class RawCatalogClient {
      */
     public SquareClientHttpResponse<SearchCatalogItemsResponse> searchItems() {
         return searchItems(SearchCatalogItemsRequest.builder().build());
+    }
+
+    /**
+     * Searches for catalog items or item variations by matching supported search attribute values, including
+     * custom attribute values, against one or more of the specified query filters.
+     * <p>This (<code>SearchCatalogItems</code>) endpoint differs from the <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
+     * endpoint in the following aspects:</p>
+     * <ul>
+     * <li><code>SearchCatalogItems</code> can only search for items or item variations, whereas <code>SearchCatalogObjects</code> can search for any type of catalog objects.</li>
+     * <li><code>SearchCatalogItems</code> supports the custom attribute query filters to return items or item variations that contain custom attribute values, where <code>SearchCatalogObjects</code> does not.</li>
+     * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
+     * <li>The both endpoints use different call conventions, including the query filter formats.</li>
+     * </ul>
+     */
+    public SquareClientHttpResponse<SearchCatalogItemsResponse> searchItems(RequestOptions requestOptions) {
+        return searchItems(SearchCatalogItemsRequest.builder().build(), requestOptions);
     }
 
     /**

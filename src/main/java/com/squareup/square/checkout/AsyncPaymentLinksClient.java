@@ -45,6 +45,13 @@ public class AsyncPaymentLinksClient {
     /**
      * Lists all payment links.
      */
+    public CompletableFuture<SyncPagingIterable<PaymentLink>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all payment links.
+     */
     public CompletableFuture<SyncPagingIterable<PaymentLink>> list(ListPaymentLinksRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }
@@ -62,6 +69,13 @@ public class AsyncPaymentLinksClient {
      */
     public CompletableFuture<CreatePaymentLinkResponse> create() {
         return this.rawClient.create().thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
+     */
+    public CompletableFuture<CreatePaymentLinkResponse> create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).thenApply(response -> response.body());
     }
 
     /**

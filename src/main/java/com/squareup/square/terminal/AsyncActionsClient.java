@@ -57,6 +57,13 @@ public class AsyncActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
+    public CompletableFuture<SearchTerminalActionsResponse> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
+     */
     public CompletableFuture<SearchTerminalActionsResponse> search(SearchTerminalActionsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
     }

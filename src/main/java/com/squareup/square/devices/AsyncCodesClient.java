@@ -41,6 +41,13 @@ public class AsyncCodesClient {
     /**
      * Lists all DeviceCodes associated with the merchant.
      */
+    public CompletableFuture<SyncPagingIterable<DeviceCode>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all DeviceCodes associated with the merchant.
+     */
     public CompletableFuture<SyncPagingIterable<DeviceCode>> list(ListCodesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

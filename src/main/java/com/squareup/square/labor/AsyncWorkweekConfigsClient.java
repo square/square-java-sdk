@@ -39,6 +39,13 @@ public class AsyncWorkweekConfigsClient {
     /**
      * Returns a list of <code>WorkweekConfig</code> instances for a business.
      */
+    public CompletableFuture<SyncPagingIterable<WorkweekConfig>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a list of <code>WorkweekConfig</code> instances for a business.
+     */
     public CompletableFuture<SyncPagingIterable<WorkweekConfig>> list(ListWorkweekConfigsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

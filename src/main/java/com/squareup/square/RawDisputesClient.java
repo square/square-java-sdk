@@ -58,6 +58,13 @@ public class RawDisputesClient {
     /**
      * Returns a list of disputes associated with a particular account.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<Dispute>> list(RequestOptions requestOptions) {
+        return list(ListDisputesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a list of disputes associated with a particular account.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<Dispute>> list(ListDisputesRequest request) {
         return list(request, null);
     }

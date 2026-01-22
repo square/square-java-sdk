@@ -117,8 +117,11 @@ public final class OrderReturn {
      * applied tax amount to be returned. The taxes must reference a top-level tax ID from the source
      * order.
      */
-    @JsonProperty("return_taxes")
+    @JsonIgnore
     public Optional<List<OrderReturnTax>> getReturnTaxes() {
+        if (returnTaxes == null) {
+            return Optional.empty();
+        }
         return returnTaxes;
     }
 
@@ -127,8 +130,11 @@ public final class OrderReturn {
      * applied discount amount to be returned. The discounts must reference a top-level discount ID
      * from the source order.
      */
-    @JsonProperty("return_discounts")
+    @JsonIgnore
     public Optional<List<OrderReturnDiscount>> getReturnDiscounts() {
+        if (returnDiscounts == null) {
+            return Optional.empty();
+        }
         return returnDiscounts;
     }
 
@@ -183,6 +189,18 @@ public final class OrderReturn {
     @JsonProperty("return_service_charges")
     private Optional<List<OrderReturnServiceCharge>> _getReturnServiceCharges() {
         return returnServiceCharges;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("return_taxes")
+    private Optional<List<OrderReturnTax>> _getReturnTaxes() {
+        return returnTaxes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("return_discounts")
+    private Optional<List<OrderReturnDiscount>> _getReturnDiscounts() {
+        return returnDiscounts;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -392,6 +410,17 @@ public final class OrderReturn {
             return this;
         }
 
+        public Builder returnTaxes(Nullable<List<OrderReturnTax>> returnTaxes) {
+            if (returnTaxes.isNull()) {
+                this.returnTaxes = null;
+            } else if (returnTaxes.isEmpty()) {
+                this.returnTaxes = Optional.empty();
+            } else {
+                this.returnTaxes = Optional.of(returnTaxes.get());
+            }
+            return this;
+        }
+
         /**
          * <p>A collection of references to discounts being returned for an order, including the total
          * applied discount amount to be returned. The discounts must reference a top-level discount ID
@@ -405,6 +434,17 @@ public final class OrderReturn {
 
         public Builder returnDiscounts(List<OrderReturnDiscount> returnDiscounts) {
             this.returnDiscounts = Optional.ofNullable(returnDiscounts);
+            return this;
+        }
+
+        public Builder returnDiscounts(Nullable<List<OrderReturnDiscount>> returnDiscounts) {
+            if (returnDiscounts.isNull()) {
+                this.returnDiscounts = null;
+            } else if (returnDiscounts.isEmpty()) {
+                this.returnDiscounts = Optional.empty();
+            } else {
+                this.returnDiscounts = Optional.of(returnDiscounts.get());
+            }
             return this;
         }
 

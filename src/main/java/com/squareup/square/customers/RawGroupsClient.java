@@ -57,6 +57,13 @@ public class RawGroupsClient {
     /**
      * Retrieves the list of customer groups of a business.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<CustomerGroup>> list(RequestOptions requestOptions) {
+        return list(ListGroupsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves the list of customer groups of a business.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<CustomerGroup>> list(ListGroupsRequest request) {
         return list(request, null);
     }

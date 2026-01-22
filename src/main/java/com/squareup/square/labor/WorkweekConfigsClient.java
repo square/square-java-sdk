@@ -38,6 +38,13 @@ public class WorkweekConfigsClient {
     /**
      * Returns a list of <code>WorkweekConfig</code> instances for a business.
      */
+    public SyncPagingIterable<WorkweekConfig> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Returns a list of <code>WorkweekConfig</code> instances for a business.
+     */
     public SyncPagingIterable<WorkweekConfig> list(ListWorkweekConfigsRequest request) {
         return this.rawClient.list(request).body();
     }

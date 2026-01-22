@@ -55,6 +55,16 @@ public class RawRefundsClient {
      * seconds to appear.</p>
      * <p>The maximum results per page is 100.</p>
      */
+    public SquareClientHttpResponse<SyncPagingIterable<PaymentRefund>> list(RequestOptions requestOptions) {
+        return list(ListRefundsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves a list of refunds for the account making the request.
+     * <p>Results are eventually consistent, and new refunds or changes to refunds might take several
+     * seconds to appear.</p>
+     * <p>The maximum results per page is 100.</p>
+     */
     public SquareClientHttpResponse<SyncPagingIterable<PaymentRefund>> list(ListRefundsRequest request) {
         return list(request, null);
     }

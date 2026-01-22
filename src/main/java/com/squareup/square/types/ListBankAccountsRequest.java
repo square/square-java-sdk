@@ -29,16 +29,20 @@ public final class ListBankAccountsRequest {
 
     private final Optional<String> locationId;
 
+    private final Optional<String> customerId;
+
     private final Map<String, Object> additionalProperties;
 
     private ListBankAccountsRequest(
             Optional<String> cursor,
             Optional<Integer> limit,
             Optional<String> locationId,
+            Optional<String> customerId,
             Map<String, Object> additionalProperties) {
         this.cursor = cursor;
         this.limit = limit;
         this.locationId = locationId;
+        this.customerId = customerId;
         this.additionalProperties = additionalProperties;
     }
 
@@ -81,6 +85,18 @@ public final class ListBankAccountsRequest {
         return locationId;
     }
 
+    /**
+     * @return Customer ID. You can specify this optional filter
+     * to retrieve only the linked bank accounts belonging to a specific customer.
+     */
+    @JsonIgnore
+    public Optional<String> getCustomerId() {
+        if (customerId == null) {
+            return Optional.empty();
+        }
+        return customerId;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("cursor")
     private Optional<String> _getCursor() {
@@ -99,6 +115,12 @@ public final class ListBankAccountsRequest {
         return locationId;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("customer_id")
+    private Optional<String> _getCustomerId() {
+        return customerId;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -111,12 +133,15 @@ public final class ListBankAccountsRequest {
     }
 
     private boolean equalTo(ListBankAccountsRequest other) {
-        return cursor.equals(other.cursor) && limit.equals(other.limit) && locationId.equals(other.locationId);
+        return cursor.equals(other.cursor)
+                && limit.equals(other.limit)
+                && locationId.equals(other.locationId)
+                && customerId.equals(other.customerId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.cursor, this.limit, this.locationId);
+        return Objects.hash(this.cursor, this.limit, this.locationId, this.customerId);
     }
 
     @java.lang.Override
@@ -136,6 +161,8 @@ public final class ListBankAccountsRequest {
 
         private Optional<String> locationId = Optional.empty();
 
+        private Optional<String> customerId = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -145,6 +172,7 @@ public final class ListBankAccountsRequest {
             cursor(other.getCursor());
             limit(other.getLimit());
             locationId(other.getLocationId());
+            customerId(other.getCustomerId());
             return this;
         }
 
@@ -229,8 +257,34 @@ public final class ListBankAccountsRequest {
             return this;
         }
 
+        /**
+         * <p>Customer ID. You can specify this optional filter
+         * to retrieve only the linked bank accounts belonging to a specific customer.</p>
+         */
+        @JsonSetter(value = "customer_id", nulls = Nulls.SKIP)
+        public Builder customerId(Optional<String> customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        public Builder customerId(String customerId) {
+            this.customerId = Optional.ofNullable(customerId);
+            return this;
+        }
+
+        public Builder customerId(Nullable<String> customerId) {
+            if (customerId.isNull()) {
+                this.customerId = null;
+            } else if (customerId.isEmpty()) {
+                this.customerId = Optional.empty();
+            } else {
+                this.customerId = Optional.of(customerId.get());
+            }
+            return this;
+        }
+
         public ListBankAccountsRequest build() {
-            return new ListBankAccountsRequest(cursor, limit, locationId, additionalProperties);
+            return new ListBankAccountsRequest(cursor, limit, locationId, customerId, additionalProperties);
         }
     }
 }

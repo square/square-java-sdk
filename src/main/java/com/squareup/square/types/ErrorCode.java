@@ -207,6 +207,9 @@ public final class ErrorCode {
     public static final ErrorCode PLAID_ERROR_ITEM_LOGIN_REQUIRED =
             new ErrorCode(Value.PLAID_ERROR_ITEM_LOGIN_REQUIRED, "PLAID_ERROR_ITEM_LOGIN_REQUIRED");
 
+    public static final ErrorCode PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET =
+            new ErrorCode(Value.PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET, "PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET");
+
     public static final ErrorCode EXPECTED_BOOLEAN = new ErrorCode(Value.EXPECTED_BOOLEAN, "EXPECTED_BOOLEAN");
 
     public static final ErrorCode ARRAY_LENGTH_TOO_SHORT =
@@ -261,6 +264,9 @@ public final class ErrorCode {
     public static final ErrorCode GONE = new ErrorCode(Value.GONE, "GONE");
 
     public static final ErrorCode REFUND_DECLINED = new ErrorCode(Value.REFUND_DECLINED, "REFUND_DECLINED");
+
+    public static final ErrorCode PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED = new ErrorCode(
+            Value.PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED, "PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED");
 
     public static final ErrorCode INVALID_EXPIRATION_DATE =
             new ErrorCode(Value.INVALID_EXPIRATION_DATE, "INVALID_EXPIRATION_DATE");
@@ -576,6 +582,8 @@ public final class ErrorCode {
                 return visitor.visitInsufficientFunds();
             case PLAID_ERROR_ITEM_LOGIN_REQUIRED:
                 return visitor.visitPlaidErrorItemLoginRequired();
+            case PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET:
+                return visitor.visitPaymentSourceNotEnabledForTarget();
             case EXPECTED_BOOLEAN:
                 return visitor.visitExpectedBoolean();
             case ARRAY_LENGTH_TOO_SHORT:
@@ -622,6 +630,8 @@ public final class ErrorCode {
                 return visitor.visitGone();
             case REFUND_DECLINED:
                 return visitor.visitRefundDeclined();
+            case PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED:
+                return visitor.visitPartialPaymentDelayCaptureNotSupported();
             case INVALID_EXPIRATION_DATE:
                 return visitor.visitInvalidExpirationDate();
             case EXPECTED_OBJECT:
@@ -891,6 +901,8 @@ public final class ErrorCode {
                 return INSUFFICIENT_FUNDS;
             case "PLAID_ERROR_ITEM_LOGIN_REQUIRED":
                 return PLAID_ERROR_ITEM_LOGIN_REQUIRED;
+            case "PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET":
+                return PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET;
             case "EXPECTED_BOOLEAN":
                 return EXPECTED_BOOLEAN;
             case "ARRAY_LENGTH_TOO_SHORT":
@@ -937,6 +949,8 @@ public final class ErrorCode {
                 return GONE;
             case "REFUND_DECLINED":
                 return REFUND_DECLINED;
+            case "PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED":
+                return PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED;
             case "INVALID_EXPIRATION_DATE":
                 return INVALID_EXPIRATION_DATE;
             case "EXPECTED_OBJECT":
@@ -1265,6 +1279,8 @@ public final class ErrorCode {
 
         ORDER_UNPAID_NOT_RETURNABLE,
 
+        PARTIAL_PAYMENT_DELAY_CAPTURE_NOT_SUPPORTED,
+
         IDEMPOTENCY_KEY_REUSED,
 
         UNEXPECTED_VALUE,
@@ -1294,6 +1310,8 @@ public final class ErrorCode {
         PLAID_ERROR_ITEM_LOGIN_REQUIRED,
 
         PLAID_ERROR_RATE_LIMIT,
+
+        PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET,
 
         CARD_DECLINED,
 
@@ -1575,6 +1593,8 @@ public final class ErrorCode {
 
         T visitOrderUnpaidNotReturnable();
 
+        T visitPartialPaymentDelayCaptureNotSupported();
+
         T visitIdempotencyKeyReused();
 
         T visitUnexpectedValue();
@@ -1604,6 +1624,8 @@ public final class ErrorCode {
         T visitPlaidErrorItemLoginRequired();
 
         T visitPlaidErrorRateLimit();
+
+        T visitPaymentSourceNotEnabledForTarget();
 
         T visitCardDeclined();
 

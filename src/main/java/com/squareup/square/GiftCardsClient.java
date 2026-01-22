@@ -56,6 +56,14 @@ public class GiftCardsClient {
      * Lists all gift cards. You can specify optional filters to retrieve
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
+    public SyncPagingIterable<GiftCard> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists all gift cards. You can specify optional filters to retrieve
+     * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
+     */
     public SyncPagingIterable<GiftCard> list(ListGiftCardsRequest request) {
         return this.rawClient.list(request).body();
     }

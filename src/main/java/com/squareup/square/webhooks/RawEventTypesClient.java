@@ -37,6 +37,13 @@ public class RawEventTypesClient {
     /**
      * Lists all webhook event types that can be subscribed to.
      */
+    public SquareClientHttpResponse<ListWebhookEventTypesResponse> list(RequestOptions requestOptions) {
+        return list(ListEventTypesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all webhook event types that can be subscribed to.
+     */
     public SquareClientHttpResponse<ListWebhookEventTypesResponse> list(ListEventTypesRequest request) {
         return list(request, null);
     }

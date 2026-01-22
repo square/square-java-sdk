@@ -48,6 +48,14 @@ public class AsyncRawEventsClient {
     /**
      * Search for Square API events that occur within a 28-day timeframe.
      */
+    public CompletableFuture<SquareClientHttpResponse<SearchEventsResponse>> searchEvents(
+            RequestOptions requestOptions) {
+        return searchEvents(SearchEventsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Search for Square API events that occur within a 28-day timeframe.
+     */
     public CompletableFuture<SquareClientHttpResponse<SearchEventsResponse>> searchEvents(SearchEventsRequest request) {
         return searchEvents(request, null);
     }
@@ -227,6 +235,14 @@ public class AsyncRawEventsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<ListEventTypesResponse>> listEventTypes() {
         return listEventTypes(ListEventTypesRequest.builder().build());
+    }
+
+    /**
+     * Lists all event types that you can subscribe to as webhooks or query using the Events API.
+     */
+    public CompletableFuture<SquareClientHttpResponse<ListEventTypesResponse>> listEventTypes(
+            RequestOptions requestOptions) {
+        return listEventTypes(ListEventTypesRequest.builder().build(), requestOptions);
     }
 
     /**

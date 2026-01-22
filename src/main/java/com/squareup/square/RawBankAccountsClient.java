@@ -3,7 +3,9 @@
  */
 package com.squareup.square;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.square.core.ClientOptions;
+import com.squareup.square.core.MediaTypes;
 import com.squareup.square.core.ObjectMappers;
 import com.squareup.square.core.QueryStringMapper;
 import com.squareup.square.core.RequestOptions;
@@ -12,6 +14,10 @@ import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BankAccount;
+import com.squareup.square.types.CreateBankAccountRequest;
+import com.squareup.square.types.CreateBankAccountResponse;
+import com.squareup.square.types.DisableBankAccountRequest;
+import com.squareup.square.types.DisableBankAccountResponse;
 import com.squareup.square.types.GetBankAccountByV1IdResponse;
 import com.squareup.square.types.GetBankAccountResponse;
 import com.squareup.square.types.GetBankAccountsRequest;
@@ -26,6 +32,7 @@ import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -41,6 +48,13 @@ public class RawBankAccountsClient {
      */
     public SquareClientHttpResponse<SyncPagingIterable<BankAccount>> list() {
         return list(ListBankAccountsRequest.builder().build());
+    }
+
+    /**
+     * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
+     */
+    public SquareClientHttpResponse<SyncPagingIterable<BankAccount>> list(RequestOptions requestOptions) {
+        return list(ListBankAccountsRequest.builder().build(), requestOptions);
     }
 
     /**
@@ -70,6 +84,10 @@ public class RawBankAccountsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "location_id", request.getLocationId().get(), false);
         }
+        if (request.getCustomerId().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "customer_id", request.getCustomerId().get(), false);
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -97,6 +115,56 @@ public class RawBankAccountsClient {
                                 startingAfter.isPresent(), result, parsedResponse, () -> list(
                                                 nextRequest, requestOptions)
                                         .body()),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public SquareClientHttpResponse<CreateBankAccountResponse> createBankAccount(CreateBankAccountRequest request) {
+        return createBankAccount(request, null);
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public SquareClientHttpResponse<CreateBankAccountResponse> createBankAccount(
+            CreateBankAccountRequest request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/bank-accounts")
+                .build();
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl)
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, CreateBankAccountResponse.class),
                         response);
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
@@ -151,16 +219,14 @@ public class RawBankAccountsClient {
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public SquareClientHttpResponse<GetBankAccountResponse> get(GetBankAccountsRequest request) {
         return get(request, null);
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public SquareClientHttpResponse<GetBankAccountResponse> get(
             GetBankAccountsRequest request, RequestOptions requestOptions) {
@@ -185,6 +251,50 @@ public class RawBankAccountsClient {
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetBankAccountResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public SquareClientHttpResponse<DisableBankAccountResponse> disableBankAccount(DisableBankAccountRequest request) {
+        return disableBankAccount(request, null);
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public SquareClientHttpResponse<DisableBankAccountResponse> disableBankAccount(
+            DisableBankAccountRequest request, RequestOptions requestOptions) {
+        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/bank-accounts")
+                .addPathSegment(request.getBankAccountId())
+                .addPathSegments("disable")
+                .build();
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl)
+                .method("POST", RequestBody.create("", null))
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, DisableBankAccountResponse.class),
                         response);
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);

@@ -47,6 +47,16 @@ public class AsyncRefundsClient {
      * seconds to appear.</p>
      * <p>The maximum results per page is 100.</p>
      */
+    public CompletableFuture<SyncPagingIterable<PaymentRefund>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Retrieves a list of refunds for the account making the request.
+     * <p>Results are eventually consistent, and new refunds or changes to refunds might take several
+     * seconds to appear.</p>
+     * <p>The maximum results per page is 100.</p>
+     */
     public CompletableFuture<SyncPagingIterable<PaymentRefund>> list(ListRefundsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

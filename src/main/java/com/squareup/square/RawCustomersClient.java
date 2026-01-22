@@ -69,6 +69,16 @@ public class RawCustomersClient {
      * for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated
      * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
      */
+    public SquareClientHttpResponse<SyncPagingIterable<Customer>> list(RequestOptions requestOptions) {
+        return list(ListCustomersRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists customer profiles associated with a Square account.
+     * <p>Under normal operating conditions, newly created or updated customer profiles become available
+     * for the listing operation in well under 30 seconds. Occasionally, propagation of the new or updated
+     * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
+     */
     public SquareClientHttpResponse<SyncPagingIterable<Customer>> list(ListCustomersRequest request) {
         return list(request, null);
     }
@@ -154,6 +164,22 @@ public class RawCustomersClient {
      */
     public SquareClientHttpResponse<CreateCustomerResponse> create() {
         return create(CreateCustomerRequest.builder().build());
+    }
+
+    /**
+     * Creates a new customer for a business.
+     * <p>You must provide at least one of the following values in your request to this
+     * endpoint:</p>
+     * <ul>
+     * <li><code>given_name</code></li>
+     * <li><code>family_name</code></li>
+     * <li><code>company_name</code></li>
+     * <li><code>email_address</code></li>
+     * <li><code>phone_number</code></li>
+     * </ul>
+     */
+    public SquareClientHttpResponse<CreateCustomerResponse> create(RequestOptions requestOptions) {
+        return create(CreateCustomerRequest.builder().build(), requestOptions);
     }
 
     /**
@@ -462,6 +488,19 @@ public class RawCustomersClient {
      */
     public SquareClientHttpResponse<SearchCustomersResponse> search() {
         return search(SearchCustomersRequest.builder().build());
+    }
+
+    /**
+     * Searches the customer profiles associated with a Square account using one or more supported query filters.
+     * <p>Calling <code>SearchCustomers</code> without any explicit query filter returns all
+     * customer profiles ordered alphabetically based on <code>given_name</code> and
+     * <code>family_name</code>.</p>
+     * <p>Under normal operating conditions, newly created or updated customer profiles become available
+     * for the search operation in well under 30 seconds. Occasionally, propagation of the new or updated
+     * profiles can take closer to one minute or longer, especially during network incidents and outages.</p>
+     */
+    public SquareClientHttpResponse<SearchCustomersResponse> search(RequestOptions requestOptions) {
+        return search(SearchCustomersRequest.builder().build(), requestOptions);
     }
 
     /**

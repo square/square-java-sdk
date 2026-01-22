@@ -44,6 +44,15 @@ public class PayoutsClient {
      * You can filter payouts by location ID, status, time range, and order them in ascending or descending order.
      * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
      */
+    public SyncPagingIterable<Payout> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves a list of all payouts for the default location.
+     * You can filter payouts by location ID, status, time range, and order them in ascending or descending order.
+     * To call this endpoint, set <code>PAYOUTS_READ</code> for the OAuth scope.
+     */
     public SyncPagingIterable<Payout> list(ListPayoutsRequest request) {
         return this.rawClient.list(request).body();
     }

@@ -57,6 +57,13 @@ public class CheckoutsClient {
     /**
      * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
      */
+    public SearchTerminalCheckoutsResponse search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).body();
+    }
+
+    /**
+     * Returns a filtered list of Terminal checkout requests created by the application making the request. Only Terminal checkout requests created for the merchant scoped to the OAuth token are returned. Terminal checkout requests are available for 30 days.
+     */
     public SearchTerminalCheckoutsResponse search(SearchTerminalCheckoutsRequest request) {
         return this.rawClient.search(request).body();
     }

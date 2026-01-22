@@ -42,6 +42,13 @@ public class AsyncTeamClient {
     /**
      * Lists jobs in a seller account. Results are sorted by title in ascending order.
      */
+    public CompletableFuture<ListJobsResponse> listJobs(RequestOptions requestOptions) {
+        return this.rawClient.listJobs(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists jobs in a seller account. Results are sorted by title in ascending order.
+     */
     public CompletableFuture<ListJobsResponse> listJobs(ListJobsRequest request) {
         return this.rawClient.listJobs(request).thenApply(response -> response.body());
     }

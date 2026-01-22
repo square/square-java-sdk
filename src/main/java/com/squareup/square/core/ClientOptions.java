@@ -35,10 +35,10 @@ public final class ClientOptions {
         this.headers.putAll(headers);
         this.headers.putAll(new HashMap<String, String>() {
             {
-                put("User-Agent", "com.squareup:square/45.2.0.20251016");
+                put("User-Agent", "com.squareup:square/46.0.0.20260122");
                 put("X-Fern-Language", "JAVA");
                 put("X-Fern-SDK-Name", "com.square.fern:api-sdk");
-                put("X-Fern-SDK-Version", "45.2.0.20251016");
+                put("X-Fern-SDK-Version", "46.0.0.20260122");
             }
         });
         this.headerSuppliers = headerSuppliers;
@@ -185,6 +185,9 @@ public final class ClientOptions {
             builder.environment = clientOptions.environment();
             builder.timeout = Optional.of(clientOptions.timeout(null));
             builder.httpClient = clientOptions.httpClient();
+            builder.headers.putAll(clientOptions.headers);
+            builder.headerSuppliers.putAll(clientOptions.headerSuppliers);
+            builder.maxRetries = clientOptions.maxRetries();
             return builder;
         }
     }

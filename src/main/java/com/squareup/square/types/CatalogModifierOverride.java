@@ -28,17 +28,17 @@ public final class CatalogModifierOverride {
 
     private final Optional<Boolean> onByDefault;
 
-    private final Optional<Object> hiddenOnlineOverride;
+    private final Optional<CatalogModifierToggleOverrideType> hiddenOnlineOverride;
 
-    private final Optional<Object> onByDefaultOverride;
+    private final Optional<CatalogModifierToggleOverrideType> onByDefaultOverride;
 
     private final Map<String, Object> additionalProperties;
 
     private CatalogModifierOverride(
             String modifierId,
             Optional<Boolean> onByDefault,
-            Optional<Object> hiddenOnlineOverride,
-            Optional<Object> onByDefaultOverride,
+            Optional<CatalogModifierToggleOverrideType> hiddenOnlineOverride,
+            Optional<CatalogModifierToggleOverrideType> onByDefaultOverride,
             Map<String, Object> additionalProperties) {
         this.modifierId = modifierId;
         this.onByDefault = onByDefault;
@@ -66,13 +66,27 @@ public final class CatalogModifierOverride {
         return onByDefault;
     }
 
+    /**
+     * @return If <code>YES</code>, this setting overrides the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object,
+     * and the modifier is always hidden from online sales channels.
+     * If <code>NO</code>, the modifier is not hidden. It is always visible in online sales channels for this catalog item.
+     * <code>NOT_SET</code> means the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object is obeyed.
+     * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values
+     */
     @JsonProperty("hidden_online_override")
-    public Optional<Object> getHiddenOnlineOverride() {
+    public Optional<CatalogModifierToggleOverrideType> getHiddenOnlineOverride() {
         return hiddenOnlineOverride;
     }
 
+    /**
+     * @return If <code>YES</code>, this setting overrides the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object,
+     * and the modifier is always selected by default for the catalog item.
+     * <p>If <code>NO</code>, the modifier is not selected by default for this catalog item.
+     * <code>NOT_SET</code> means the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object is obeyed.
+     * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+     */
     @JsonProperty("on_by_default_override")
-    public Optional<Object> getOnByDefaultOverride() {
+    public Optional<CatalogModifierToggleOverrideType> getOnByDefaultOverride() {
         return onByDefaultOverride;
     }
 
@@ -135,22 +149,36 @@ public final class CatalogModifierOverride {
 
         _FinalStage onByDefault(Nullable<Boolean> onByDefault);
 
-        _FinalStage hiddenOnlineOverride(Optional<Object> hiddenOnlineOverride);
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always hidden from online sales channels.
+         * If <code>NO</code>, the modifier is not hidden. It is always visible in online sales channels for this catalog item.
+         * <code>NOT_SET</code> means the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         */
+        _FinalStage hiddenOnlineOverride(Optional<CatalogModifierToggleOverrideType> hiddenOnlineOverride);
 
-        _FinalStage hiddenOnlineOverride(Object hiddenOnlineOverride);
+        _FinalStage hiddenOnlineOverride(CatalogModifierToggleOverrideType hiddenOnlineOverride);
 
-        _FinalStage onByDefaultOverride(Optional<Object> onByDefaultOverride);
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always selected by default for the catalog item.</p>
+         * <p>If <code>NO</code>, the modifier is not selected by default for this catalog item.
+         * <code>NOT_SET</code> means the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         */
+        _FinalStage onByDefaultOverride(Optional<CatalogModifierToggleOverrideType> onByDefaultOverride);
 
-        _FinalStage onByDefaultOverride(Object onByDefaultOverride);
+        _FinalStage onByDefaultOverride(CatalogModifierToggleOverrideType onByDefaultOverride);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ModifierIdStage, _FinalStage {
         private String modifierId;
 
-        private Optional<Object> onByDefaultOverride = Optional.empty();
+        private Optional<CatalogModifierToggleOverrideType> onByDefaultOverride = Optional.empty();
 
-        private Optional<Object> hiddenOnlineOverride = Optional.empty();
+        private Optional<CatalogModifierToggleOverrideType> hiddenOnlineOverride = Optional.empty();
 
         private Optional<Boolean> onByDefault = Optional.empty();
 
@@ -180,28 +208,58 @@ public final class CatalogModifierOverride {
             return this;
         }
 
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always selected by default for the catalog item.</p>
+         * <p>If <code>NO</code>, the modifier is not selected by default for this catalog item.
+         * <code>NOT_SET</code> means the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage onByDefaultOverride(Object onByDefaultOverride) {
+        public _FinalStage onByDefaultOverride(CatalogModifierToggleOverrideType onByDefaultOverride) {
             this.onByDefaultOverride = Optional.ofNullable(onByDefaultOverride);
             return this;
         }
 
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always selected by default for the catalog item.</p>
+         * <p>If <code>NO</code>, the modifier is not selected by default for this catalog item.
+         * <code>NOT_SET</code> means the <code>on_by_default</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "on_by_default_override", nulls = Nulls.SKIP)
-        public _FinalStage onByDefaultOverride(Optional<Object> onByDefaultOverride) {
+        public _FinalStage onByDefaultOverride(Optional<CatalogModifierToggleOverrideType> onByDefaultOverride) {
             this.onByDefaultOverride = onByDefaultOverride;
             return this;
         }
 
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always hidden from online sales channels.
+         * If <code>NO</code>, the modifier is not hidden. It is always visible in online sales channels for this catalog item.
+         * <code>NOT_SET</code> means the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage hiddenOnlineOverride(Object hiddenOnlineOverride) {
+        public _FinalStage hiddenOnlineOverride(CatalogModifierToggleOverrideType hiddenOnlineOverride) {
             this.hiddenOnlineOverride = Optional.ofNullable(hiddenOnlineOverride);
             return this;
         }
 
+        /**
+         * <p>If <code>YES</code>, this setting overrides the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object,
+         * and the modifier is always hidden from online sales channels.
+         * If <code>NO</code>, the modifier is not hidden. It is always visible in online sales channels for this catalog item.
+         * <code>NOT_SET</code> means the <code>hidden_online</code> setting on the <code>CatalogModifier</code> object is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</p>
+         */
         @java.lang.Override
         @JsonSetter(value = "hidden_online_override", nulls = Nulls.SKIP)
-        public _FinalStage hiddenOnlineOverride(Optional<Object> hiddenOnlineOverride) {
+        public _FinalStage hiddenOnlineOverride(Optional<CatalogModifierToggleOverrideType> hiddenOnlineOverride) {
             this.hiddenOnlineOverride = hiddenOnlineOverride;
             return this;
         }

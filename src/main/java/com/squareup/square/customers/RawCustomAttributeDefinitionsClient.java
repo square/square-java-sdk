@@ -63,6 +63,17 @@ public class RawCustomAttributeDefinitionsClient {
      * applications and set to <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>. Note that
      * seller-defined custom attributes (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
      */
+    public SquareClientHttpResponse<SyncPagingIterable<CustomAttributeDefinition>> list(RequestOptions requestOptions) {
+        return list(ListCustomAttributeDefinitionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists the customer-related <a href="entity:CustomAttributeDefinition">custom attribute definitions</a> that belong to a Square seller account.
+     * <p>When all response pages are retrieved, the results include all custom attribute definitions
+     * that are visible to the requesting application, including those that are created by other
+     * applications and set to <code>VISIBILITY_READ_ONLY</code> or <code>VISIBILITY_READ_WRITE_VALUES</code>. Note that
+     * seller-defined custom attributes (also known as custom fields) are always set to <code>VISIBILITY_READ_WRITE_VALUES</code>.</p>
+     */
     public SquareClientHttpResponse<SyncPagingIterable<CustomAttributeDefinition>> list(
             ListCustomAttributeDefinitionsRequest request) {
         return list(request, null);

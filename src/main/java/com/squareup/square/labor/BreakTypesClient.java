@@ -44,6 +44,13 @@ public class BreakTypesClient {
     /**
      * Returns a paginated list of <code>BreakType</code> instances for a business.
      */
+    public SyncPagingIterable<BreakType> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Returns a paginated list of <code>BreakType</code> instances for a business.
+     */
     public SyncPagingIterable<BreakType> list(ListBreakTypesRequest request) {
         return this.rawClient.list(request).body();
     }

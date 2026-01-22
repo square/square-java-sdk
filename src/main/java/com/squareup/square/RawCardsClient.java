@@ -53,6 +53,14 @@ public class RawCardsClient {
      * Retrieves a list of cards owned by the account making the request.
      * A max of 25 cards will be returned.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<Card>> list(RequestOptions requestOptions) {
+        return list(ListCardsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves a list of cards owned by the account making the request.
+     * A max of 25 cards will be returned.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<Card>> list(ListCardsRequest request) {
         return list(request, null);
     }

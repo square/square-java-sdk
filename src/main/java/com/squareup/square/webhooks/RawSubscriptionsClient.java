@@ -57,6 +57,13 @@ public class RawSubscriptionsClient {
     /**
      * Lists all webhook subscriptions owned by your application.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<WebhookSubscription>> list(RequestOptions requestOptions) {
+        return list(ListSubscriptionsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all webhook subscriptions owned by your application.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<WebhookSubscription>> list(ListSubscriptionsRequest request) {
         return list(request, null);
     }

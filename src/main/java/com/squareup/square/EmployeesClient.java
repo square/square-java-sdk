@@ -32,6 +32,10 @@ public class EmployeesClient {
         return this.rawClient.list().body();
     }
 
+    public SyncPagingIterable<Employee> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
     public SyncPagingIterable<Employee> list(ListEmployeesRequest request) {
         return this.rawClient.list(request).body();
     }

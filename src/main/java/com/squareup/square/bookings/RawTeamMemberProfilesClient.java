@@ -44,6 +44,13 @@ public class RawTeamMemberProfilesClient {
     /**
      * Lists booking profiles for team members.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<TeamMemberBookingProfile>> list(RequestOptions requestOptions) {
+        return list(ListTeamMemberProfilesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists booking profiles for team members.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<TeamMemberBookingProfile>> list(
             ListTeamMemberProfilesRequest request) {
         return list(request, null);

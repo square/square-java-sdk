@@ -35,6 +35,13 @@ public class EventTypesClient {
     /**
      * Lists all webhook event types that can be subscribed to.
      */
+    public ListWebhookEventTypesResponse list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists all webhook event types that can be subscribed to.
+     */
     public ListWebhookEventTypesResponse list(ListEventTypesRequest request) {
         return this.rawClient.list(request).body();
     }

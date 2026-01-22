@@ -41,6 +41,13 @@ public class TeamClient {
     /**
      * Lists jobs in a seller account. Results are sorted by title in ascending order.
      */
+    public ListJobsResponse listJobs(RequestOptions requestOptions) {
+        return this.rawClient.listJobs(requestOptions).body();
+    }
+
+    /**
+     * Lists jobs in a seller account. Results are sorted by title in ascending order.
+     */
     public ListJobsResponse listJobs(ListJobsRequest request) {
         return this.rawClient.listJobs(request).body();
     }

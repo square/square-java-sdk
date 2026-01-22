@@ -59,6 +59,17 @@ public class AsyncRawActivitiesClient {
      * for all gift cards in a specific region, or for activities within a time window.
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<GiftCardActivity>>> list(
+            RequestOptions requestOptions) {
+        return list(ListActivitiesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists gift card activities. By default, you get gift card activities for all
+     * gift cards in the seller's account. You can optionally specify query parameters to
+     * filter the list. For example, you can get a list of gift card activities for a gift card,
+     * for all gift cards in a specific region, or for activities within a time window.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<GiftCardActivity>>> list(
             ListActivitiesRequest request) {
         return list(request, null);
     }

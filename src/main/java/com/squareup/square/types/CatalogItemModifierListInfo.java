@@ -37,11 +37,11 @@ public final class CatalogItemModifierListInfo {
 
     private final Optional<Integer> ordinal;
 
-    private final Optional<Object> allowQuantities;
+    private final Optional<CatalogModifierToggleOverrideType> allowQuantities;
 
-    private final Optional<Object> isConversational;
+    private final Optional<CatalogModifierToggleOverrideType> isConversational;
 
-    private final Optional<Object> hiddenFromCustomerOverride;
+    private final Optional<CatalogModifierToggleOverrideType> hiddenFromCustomerOverride;
 
     private final Map<String, Object> additionalProperties;
 
@@ -52,9 +52,9 @@ public final class CatalogItemModifierListInfo {
             Optional<Integer> maxSelectedModifiers,
             Optional<Boolean> enabled,
             Optional<Integer> ordinal,
-            Optional<Object> allowQuantities,
-            Optional<Object> isConversational,
-            Optional<Object> hiddenFromCustomerOverride,
+            Optional<CatalogModifierToggleOverrideType> allowQuantities,
+            Optional<CatalogModifierToggleOverrideType> isConversational,
+            Optional<CatalogModifierToggleOverrideType> hiddenFromCustomerOverride,
             Map<String, Object> additionalProperties) {
         this.modifierListId = modifierListId;
         this.modifierOverrides = modifierOverrides;
@@ -148,18 +148,47 @@ public final class CatalogItemModifierListInfo {
         return ordinal;
     }
 
+    /**
+     * @return Controls whether multiple quantities of the same modifier can be selected for this item.
+     * <ul>
+     * <li><code>YES</code> means that every modifier in the <code>CatalogModifierList</code> can have multiple quantities
+     * selected for this item.</li>
+     * <li><code>NO</code> means that each modifier in the <code>CatalogModifierList</code> can be selected only once for this item.</li>
+     * <li><code>NOT_SET</code> means that the <code>allow_quantities</code> setting on the <code>CatalogModifierList</code> is obeyed.
+     * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+     * </ul>
+     */
     @JsonProperty("allow_quantities")
-    public Optional<Object> getAllowQuantities() {
+    public Optional<CatalogModifierToggleOverrideType> getAllowQuantities() {
         return allowQuantities;
     }
 
+    /**
+     * @return Controls whether conversational mode is enabled for modifiers on this item.
+     * <ul>
+     * <li><code>YES</code> means conversational mode is enabled for every modifier in the <code>CatalogModifierList</code>.</li>
+     * <li><code>NO</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.</li>
+     * <li><code>NOT_SET</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.
+     * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+     * </ul>
+     */
     @JsonProperty("is_conversational")
-    public Optional<Object> getIsConversational() {
+    public Optional<CatalogModifierToggleOverrideType> getIsConversational() {
         return isConversational;
     }
 
+    /**
+     * @return Controls whether all modifiers for this item are hidden from customer receipts.
+     * <ul>
+     * <li><code>YES</code> means that all modifiers in the <code>CatalogModifierList</code> are hidden from customer
+     * receipts for this item.</li>
+     * <li><code>NO</code> means that all modifiers in the <code>CatalogModifierList</code> are visible on customer receipts for this item.</li>
+     * <li><code>NOT_SET</code> means that the <code>hidden_from_customer</code> setting on the <code>CatalogModifierList</code> is obeyed.
+     * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+     * </ul>
+     */
     @JsonProperty("hidden_from_customer_override")
-    public Optional<Object> getHiddenFromCustomerOverride() {
+    public Optional<CatalogModifierToggleOverrideType> getHiddenFromCustomerOverride() {
         return hiddenFromCustomerOverride;
     }
 
@@ -313,28 +342,57 @@ public final class CatalogItemModifierListInfo {
 
         _FinalStage ordinal(Nullable<Integer> ordinal);
 
-        _FinalStage allowQuantities(Optional<Object> allowQuantities);
+        /**
+         * <p>Controls whether multiple quantities of the same modifier can be selected for this item.</p>
+         * <ul>
+         * <li><code>YES</code> means that every modifier in the <code>CatalogModifierList</code> can have multiple quantities
+         * selected for this item.</li>
+         * <li><code>NO</code> means that each modifier in the <code>CatalogModifierList</code> can be selected only once for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>allow_quantities</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
+        _FinalStage allowQuantities(Optional<CatalogModifierToggleOverrideType> allowQuantities);
 
-        _FinalStage allowQuantities(Object allowQuantities);
+        _FinalStage allowQuantities(CatalogModifierToggleOverrideType allowQuantities);
 
-        _FinalStage isConversational(Optional<Object> isConversational);
+        /**
+         * <p>Controls whether conversational mode is enabled for modifiers on this item.</p>
+         * <ul>
+         * <li><code>YES</code> means conversational mode is enabled for every modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NO</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NOT_SET</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
+        _FinalStage isConversational(Optional<CatalogModifierToggleOverrideType> isConversational);
 
-        _FinalStage isConversational(Object isConversational);
+        _FinalStage isConversational(CatalogModifierToggleOverrideType isConversational);
 
-        _FinalStage hiddenFromCustomerOverride(Optional<Object> hiddenFromCustomerOverride);
+        /**
+         * <p>Controls whether all modifiers for this item are hidden from customer receipts.</p>
+         * <ul>
+         * <li><code>YES</code> means that all modifiers in the <code>CatalogModifierList</code> are hidden from customer
+         * receipts for this item.</li>
+         * <li><code>NO</code> means that all modifiers in the <code>CatalogModifierList</code> are visible on customer receipts for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>hidden_from_customer</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
+        _FinalStage hiddenFromCustomerOverride(Optional<CatalogModifierToggleOverrideType> hiddenFromCustomerOverride);
 
-        _FinalStage hiddenFromCustomerOverride(Object hiddenFromCustomerOverride);
+        _FinalStage hiddenFromCustomerOverride(CatalogModifierToggleOverrideType hiddenFromCustomerOverride);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder implements ModifierListIdStage, _FinalStage {
         private String modifierListId;
 
-        private Optional<Object> hiddenFromCustomerOverride = Optional.empty();
+        private Optional<CatalogModifierToggleOverrideType> hiddenFromCustomerOverride = Optional.empty();
 
-        private Optional<Object> isConversational = Optional.empty();
+        private Optional<CatalogModifierToggleOverrideType> isConversational = Optional.empty();
 
-        private Optional<Object> allowQuantities = Optional.empty();
+        private Optional<CatalogModifierToggleOverrideType> allowQuantities = Optional.empty();
 
         private Optional<Integer> ordinal = Optional.empty();
 
@@ -377,41 +435,103 @@ public final class CatalogItemModifierListInfo {
             return this;
         }
 
+        /**
+         * <p>Controls whether all modifiers for this item are hidden from customer receipts.</p>
+         * <ul>
+         * <li><code>YES</code> means that all modifiers in the <code>CatalogModifierList</code> are hidden from customer
+         * receipts for this item.</li>
+         * <li><code>NO</code> means that all modifiers in the <code>CatalogModifierList</code> are visible on customer receipts for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>hidden_from_customer</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage hiddenFromCustomerOverride(Object hiddenFromCustomerOverride) {
+        public _FinalStage hiddenFromCustomerOverride(CatalogModifierToggleOverrideType hiddenFromCustomerOverride) {
             this.hiddenFromCustomerOverride = Optional.ofNullable(hiddenFromCustomerOverride);
             return this;
         }
 
+        /**
+         * <p>Controls whether all modifiers for this item are hidden from customer receipts.</p>
+         * <ul>
+         * <li><code>YES</code> means that all modifiers in the <code>CatalogModifierList</code> are hidden from customer
+         * receipts for this item.</li>
+         * <li><code>NO</code> means that all modifiers in the <code>CatalogModifierList</code> are visible on customer receipts for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>hidden_from_customer</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
         @java.lang.Override
         @JsonSetter(value = "hidden_from_customer_override", nulls = Nulls.SKIP)
-        public _FinalStage hiddenFromCustomerOverride(Optional<Object> hiddenFromCustomerOverride) {
+        public _FinalStage hiddenFromCustomerOverride(
+                Optional<CatalogModifierToggleOverrideType> hiddenFromCustomerOverride) {
             this.hiddenFromCustomerOverride = hiddenFromCustomerOverride;
             return this;
         }
 
+        /**
+         * <p>Controls whether conversational mode is enabled for modifiers on this item.</p>
+         * <ul>
+         * <li><code>YES</code> means conversational mode is enabled for every modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NO</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NOT_SET</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage isConversational(Object isConversational) {
+        public _FinalStage isConversational(CatalogModifierToggleOverrideType isConversational) {
             this.isConversational = Optional.ofNullable(isConversational);
             return this;
         }
 
+        /**
+         * <p>Controls whether conversational mode is enabled for modifiers on this item.</p>
+         * <ul>
+         * <li><code>YES</code> means conversational mode is enabled for every modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NO</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.</li>
+         * <li><code>NOT_SET</code> means that conversational mode is not enabled for any modifier in the <code>CatalogModifierList</code>.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
         @java.lang.Override
         @JsonSetter(value = "is_conversational", nulls = Nulls.SKIP)
-        public _FinalStage isConversational(Optional<Object> isConversational) {
+        public _FinalStage isConversational(Optional<CatalogModifierToggleOverrideType> isConversational) {
             this.isConversational = isConversational;
             return this;
         }
 
+        /**
+         * <p>Controls whether multiple quantities of the same modifier can be selected for this item.</p>
+         * <ul>
+         * <li><code>YES</code> means that every modifier in the <code>CatalogModifierList</code> can have multiple quantities
+         * selected for this item.</li>
+         * <li><code>NO</code> means that each modifier in the <code>CatalogModifierList</code> can be selected only once for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>allow_quantities</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
-        public _FinalStage allowQuantities(Object allowQuantities) {
+        public _FinalStage allowQuantities(CatalogModifierToggleOverrideType allowQuantities) {
             this.allowQuantities = Optional.ofNullable(allowQuantities);
             return this;
         }
 
+        /**
+         * <p>Controls whether multiple quantities of the same modifier can be selected for this item.</p>
+         * <ul>
+         * <li><code>YES</code> means that every modifier in the <code>CatalogModifierList</code> can have multiple quantities
+         * selected for this item.</li>
+         * <li><code>NO</code> means that each modifier in the <code>CatalogModifierList</code> can be selected only once for this item.</li>
+         * <li><code>NOT_SET</code> means that the <code>allow_quantities</code> setting on the <code>CatalogModifierList</code> is obeyed.
+         * See <a href="#type-catalogmodifiertoggleoverridetype">CatalogModifierToggleOverrideType</a> for possible values</li>
+         * </ul>
+         */
         @java.lang.Override
         @JsonSetter(value = "allow_quantities", nulls = Nulls.SKIP)
-        public _FinalStage allowQuantities(Optional<Object> allowQuantities) {
+        public _FinalStage allowQuantities(Optional<CatalogModifierToggleOverrideType> allowQuantities) {
             this.allowQuantities = allowQuantities;
             return this;
         }

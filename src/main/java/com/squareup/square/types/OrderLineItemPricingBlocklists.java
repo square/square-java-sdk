@@ -28,14 +28,18 @@ public final class OrderLineItemPricingBlocklists {
 
     private final Optional<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes;
 
+    private final Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> blockedServiceCharges;
+
     private final Map<String, Object> additionalProperties;
 
     private OrderLineItemPricingBlocklists(
             Optional<List<OrderLineItemPricingBlocklistsBlockedDiscount>> blockedDiscounts,
             Optional<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes,
+            Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> blockedServiceCharges,
             Map<String, Object> additionalProperties) {
         this.blockedDiscounts = blockedDiscounts;
         this.blockedTaxes = blockedTaxes;
+        this.blockedServiceCharges = blockedServiceCharges;
         this.additionalProperties = additionalProperties;
     }
 
@@ -65,6 +69,20 @@ public final class OrderLineItemPricingBlocklists {
         return blockedTaxes;
     }
 
+    /**
+     * @return A list of service charges blocked from applying to the line item.
+     * Service charges can be blocked by the <code>service_charge_uid</code> (for ad hoc
+     * service charges) or the <code>service_charge_catalog_object_id</code> (for catalog
+     * service charges).
+     */
+    @JsonIgnore
+    public Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> getBlockedServiceCharges() {
+        if (blockedServiceCharges == null) {
+            return Optional.empty();
+        }
+        return blockedServiceCharges;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("blocked_discounts")
     private Optional<List<OrderLineItemPricingBlocklistsBlockedDiscount>> _getBlockedDiscounts() {
@@ -75,6 +93,12 @@ public final class OrderLineItemPricingBlocklists {
     @JsonProperty("blocked_taxes")
     private Optional<List<OrderLineItemPricingBlocklistsBlockedTax>> _getBlockedTaxes() {
         return blockedTaxes;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("blocked_service_charges")
+    private Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> _getBlockedServiceCharges() {
+        return blockedServiceCharges;
     }
 
     @java.lang.Override
@@ -89,12 +113,14 @@ public final class OrderLineItemPricingBlocklists {
     }
 
     private boolean equalTo(OrderLineItemPricingBlocklists other) {
-        return blockedDiscounts.equals(other.blockedDiscounts) && blockedTaxes.equals(other.blockedTaxes);
+        return blockedDiscounts.equals(other.blockedDiscounts)
+                && blockedTaxes.equals(other.blockedTaxes)
+                && blockedServiceCharges.equals(other.blockedServiceCharges);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.blockedDiscounts, this.blockedTaxes);
+        return Objects.hash(this.blockedDiscounts, this.blockedTaxes, this.blockedServiceCharges);
     }
 
     @java.lang.Override
@@ -112,6 +138,9 @@ public final class OrderLineItemPricingBlocklists {
 
         private Optional<List<OrderLineItemPricingBlocklistsBlockedTax>> blockedTaxes = Optional.empty();
 
+        private Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> blockedServiceCharges =
+                Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -120,6 +149,7 @@ public final class OrderLineItemPricingBlocklists {
         public Builder from(OrderLineItemPricingBlocklists other) {
             blockedDiscounts(other.getBlockedDiscounts());
             blockedTaxes(other.getBlockedTaxes());
+            blockedServiceCharges(other.getBlockedServiceCharges());
             return this;
         }
 
@@ -179,8 +209,40 @@ public final class OrderLineItemPricingBlocklists {
             return this;
         }
 
+        /**
+         * <p>A list of service charges blocked from applying to the line item.
+         * Service charges can be blocked by the <code>service_charge_uid</code> (for ad hoc
+         * service charges) or the <code>service_charge_catalog_object_id</code> (for catalog
+         * service charges).</p>
+         */
+        @JsonSetter(value = "blocked_service_charges", nulls = Nulls.SKIP)
+        public Builder blockedServiceCharges(
+                Optional<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> blockedServiceCharges) {
+            this.blockedServiceCharges = blockedServiceCharges;
+            return this;
+        }
+
+        public Builder blockedServiceCharges(
+                List<OrderLineItemPricingBlocklistsBlockedServiceCharge> blockedServiceCharges) {
+            this.blockedServiceCharges = Optional.ofNullable(blockedServiceCharges);
+            return this;
+        }
+
+        public Builder blockedServiceCharges(
+                Nullable<List<OrderLineItemPricingBlocklistsBlockedServiceCharge>> blockedServiceCharges) {
+            if (blockedServiceCharges.isNull()) {
+                this.blockedServiceCharges = null;
+            } else if (blockedServiceCharges.isEmpty()) {
+                this.blockedServiceCharges = Optional.empty();
+            } else {
+                this.blockedServiceCharges = Optional.of(blockedServiceCharges.get());
+            }
+            return this;
+        }
+
         public OrderLineItemPricingBlocklists build() {
-            return new OrderLineItemPricingBlocklists(blockedDiscounts, blockedTaxes, additionalProperties);
+            return new OrderLineItemPricingBlocklists(
+                    blockedDiscounts, blockedTaxes, blockedServiceCharges, additionalProperties);
         }
     }
 }

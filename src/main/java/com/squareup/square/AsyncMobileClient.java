@@ -5,8 +5,6 @@ package com.squareup.square;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.types.CreateMobileAuthorizationCodeRequest;
-import com.squareup.square.types.CreateMobileAuthorizationCodeResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncMobileClient {
@@ -26,50 +24,11 @@ public class AsyncMobileClient {
         return this.rawClient;
     }
 
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public CompletableFuture<CreateMobileAuthorizationCodeResponse> authorizationCode() {
+    public CompletableFuture<Void> authorizationCode() {
         return this.rawClient.authorizationCode().thenApply(response -> response.body());
     }
 
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public CompletableFuture<CreateMobileAuthorizationCodeResponse> authorizationCode(
-            CreateMobileAuthorizationCodeRequest request) {
-        return this.rawClient.authorizationCode(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * <strong>Note:</strong> This endpoint is used by the deprecated Reader SDK.
-     * Developers should update their integration to use the <a href="https://developer.squareup.com/docs/mobile-payments-sdk">Mobile Payments SDK</a>, which includes its own authorization methods.
-     * <p>Generates code to authorize a mobile application to connect to a Square card reader.</p>
-     * <p>Authorization codes are one-time-use codes and expire 60 minutes after being issued.</p>
-     * <p>The <code>Authorization</code> header you provide to this endpoint must have the following format:</p>
-     * <pre><code>Authorization: Bearer ACCESS_TOKEN
-     * </code></pre>
-     * <p>Replace <code>ACCESS_TOKEN</code> with a
-     * <a href="https://developer.squareup.com/docs/build-basics/access-tokens">valid production authorization credential</a>.</p>
-     */
-    public CompletableFuture<CreateMobileAuthorizationCodeResponse> authorizationCode(
-            CreateMobileAuthorizationCodeRequest request, RequestOptions requestOptions) {
-        return this.rawClient.authorizationCode(request, requestOptions).thenApply(response -> response.body());
+    public CompletableFuture<Void> authorizationCode(RequestOptions requestOptions) {
+        return this.rawClient.authorizationCode(requestOptions).thenApply(response -> response.body());
     }
 }

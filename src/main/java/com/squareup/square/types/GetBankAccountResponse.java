@@ -21,25 +21,17 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(builder = GetBankAccountResponse.Builder.class)
 public final class GetBankAccountResponse {
-    private final Optional<List<Error>> errors;
-
     private final Optional<BankAccount> bankAccount;
+
+    private final Optional<List<Error>> errors;
 
     private final Map<String, Object> additionalProperties;
 
     private GetBankAccountResponse(
-            Optional<List<Error>> errors, Optional<BankAccount> bankAccount, Map<String, Object> additionalProperties) {
-        this.errors = errors;
+            Optional<BankAccount> bankAccount, Optional<List<Error>> errors, Map<String, Object> additionalProperties) {
         this.bankAccount = bankAccount;
+        this.errors = errors;
         this.additionalProperties = additionalProperties;
-    }
-
-    /**
-     * @return Information on errors encountered during the request.
-     */
-    @JsonProperty("errors")
-    public Optional<List<Error>> getErrors() {
-        return errors;
     }
 
     /**
@@ -48,6 +40,14 @@ public final class GetBankAccountResponse {
     @JsonProperty("bank_account")
     public Optional<BankAccount> getBankAccount() {
         return bankAccount;
+    }
+
+    /**
+     * @return Information on errors encountered during the request.
+     */
+    @JsonProperty("errors")
+    public Optional<List<Error>> getErrors() {
+        return errors;
     }
 
     @java.lang.Override
@@ -62,12 +62,12 @@ public final class GetBankAccountResponse {
     }
 
     private boolean equalTo(GetBankAccountResponse other) {
-        return errors.equals(other.errors) && bankAccount.equals(other.bankAccount);
+        return bankAccount.equals(other.bankAccount) && errors.equals(other.errors);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.bankAccount);
+        return Objects.hash(this.bankAccount, this.errors);
     }
 
     @java.lang.Override
@@ -81,9 +81,9 @@ public final class GetBankAccountResponse {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<Error>> errors = Optional.empty();
-
         private Optional<BankAccount> bankAccount = Optional.empty();
+
+        private Optional<List<Error>> errors = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -91,22 +91,8 @@ public final class GetBankAccountResponse {
         private Builder() {}
 
         public Builder from(GetBankAccountResponse other) {
-            errors(other.getErrors());
             bankAccount(other.getBankAccount());
-            return this;
-        }
-
-        /**
-         * <p>Information on errors encountered during the request.</p>
-         */
-        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
-        public Builder errors(Optional<List<Error>> errors) {
-            this.errors = errors;
-            return this;
-        }
-
-        public Builder errors(List<Error> errors) {
-            this.errors = Optional.ofNullable(errors);
+            errors(other.getErrors());
             return this;
         }
 
@@ -124,8 +110,22 @@ public final class GetBankAccountResponse {
             return this;
         }
 
+        /**
+         * <p>Information on errors encountered during the request.</p>
+         */
+        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
+        public Builder errors(Optional<List<Error>> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        public Builder errors(List<Error> errors) {
+            this.errors = Optional.ofNullable(errors);
+            return this;
+        }
+
         public GetBankAccountResponse build() {
-            return new GetBankAccountResponse(errors, bankAccount, additionalProperties);
+            return new GetBankAccountResponse(bankAccount, errors, additionalProperties);
         }
     }
 }

@@ -63,6 +63,16 @@ public class RawPaymentsClient {
      * seconds to appear.</p>
      * <p>The maximum results per page is 100.</p>
      */
+    public SquareClientHttpResponse<SyncPagingIterable<Payment>> list(RequestOptions requestOptions) {
+        return list(ListPaymentsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Retrieves a list of payments taken by the account making the request.
+     * <p>Results are eventually consistent, and new payments or changes to payments might take several
+     * seconds to appear.</p>
+     * <p>The maximum results per page is 100.</p>
+     */
     public SquareClientHttpResponse<SyncPagingIterable<Payment>> list(ListPaymentsRequest request) {
         return list(request, null);
     }

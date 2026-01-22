@@ -55,6 +55,13 @@ public class ActionsClient {
     /**
      * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
      */
+    public SearchTerminalActionsResponse search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).body();
+    }
+
+    /**
+     * Retrieves a filtered list of Terminal action requests created by the account making the request. Terminal action requests are available for 30 days.
+     */
     public SearchTerminalActionsResponse search(SearchTerminalActionsRequest request) {
         return this.rawClient.search(request).body();
     }

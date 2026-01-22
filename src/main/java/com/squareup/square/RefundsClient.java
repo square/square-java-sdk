@@ -46,6 +46,16 @@ public class RefundsClient {
      * seconds to appear.</p>
      * <p>The maximum results per page is 100.</p>
      */
+    public SyncPagingIterable<PaymentRefund> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Retrieves a list of refunds for the account making the request.
+     * <p>Results are eventually consistent, and new refunds or changes to refunds might take several
+     * seconds to appear.</p>
+     * <p>The maximum results per page is 100.</p>
+     */
     public SyncPagingIterable<PaymentRefund> list(ListRefundsRequest request) {
         return this.rawClient.list(request).body();
     }

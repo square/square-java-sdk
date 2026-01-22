@@ -33,6 +33,10 @@ public class AsyncEmployeesClient {
         return this.rawClient.list().thenApply(response -> response.body());
     }
 
+    public CompletableFuture<SyncPagingIterable<Employee>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
     public CompletableFuture<SyncPagingIterable<Employee>> list(ListEmployeesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

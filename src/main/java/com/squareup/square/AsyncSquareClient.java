@@ -12,8 +12,6 @@ import java.util.function.Supplier;
 public class AsyncSquareClient {
     protected final ClientOptions clientOptions;
 
-    protected final Supplier<AsyncMobileClient> mobileClient;
-
     protected final Supplier<AsyncOAuthClient> oAuthClient;
 
     protected final Supplier<AsyncV1TransactionsClient> v1TransactionsClient;
@@ -80,13 +78,14 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncVendorsClient> vendorsClient;
 
+    protected final Supplier<AsyncMobileClient> mobileClient;
+
     protected final Supplier<AsyncCashDrawersClient> cashDrawersClient;
 
     protected final Supplier<AsyncWebhooksClient> webhooksClient;
 
     public AsyncSquareClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
-        this.mobileClient = Suppliers.memoize(() -> new AsyncMobileClient(clientOptions));
         this.oAuthClient = Suppliers.memoize(() -> new AsyncOAuthClient(clientOptions));
         this.v1TransactionsClient = Suppliers.memoize(() -> new AsyncV1TransactionsClient(clientOptions));
         this.applePayClient = Suppliers.memoize(() -> new AsyncApplePayClient(clientOptions));
@@ -120,12 +119,9 @@ public class AsyncSquareClient {
         this.terminalClient = Suppliers.memoize(() -> new AsyncTerminalClient(clientOptions));
         this.transferOrdersClient = Suppliers.memoize(() -> new AsyncTransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new AsyncVendorsClient(clientOptions));
+        this.mobileClient = Suppliers.memoize(() -> new AsyncMobileClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new AsyncCashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new AsyncWebhooksClient(clientOptions));
-    }
-
-    public AsyncMobileClient mobile() {
-        return this.mobileClient.get();
     }
 
     public AsyncOAuthClient oAuth() {
@@ -258,6 +254,10 @@ public class AsyncSquareClient {
 
     public AsyncVendorsClient vendors() {
         return this.vendorsClient.get();
+    }
+
+    public AsyncMobileClient mobile() {
+        return this.mobileClient.get();
     }
 
     public AsyncCashDrawersClient cashDrawers() {

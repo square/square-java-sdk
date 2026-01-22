@@ -36,6 +36,8 @@ public final class CatalogItem {
 
     private final Optional<String> categoryId;
 
+    private final Optional<String> buyerFacingName;
+
     private final Optional<List<String>> taxIds;
 
     private final Optional<List<CatalogItemModifierListInfo>> modifierListInfo;
@@ -62,6 +64,8 @@ public final class CatalogItem {
 
     private final Optional<String> descriptionPlaintext;
 
+    private final Optional<String> kitchenName;
+
     private final Optional<List<String>> channels;
 
     private final Optional<Boolean> isArchived;
@@ -83,6 +87,7 @@ public final class CatalogItem {
             Optional<String> labelColor,
             Optional<Boolean> isTaxable,
             Optional<String> categoryId,
+            Optional<String> buyerFacingName,
             Optional<List<String>> taxIds,
             Optional<List<CatalogItemModifierListInfo>> modifierListInfo,
             Optional<List<CatalogObject>> variations,
@@ -96,6 +101,7 @@ public final class CatalogItem {
             Optional<List<CatalogObjectCategory>> categories,
             Optional<String> descriptionHtml,
             Optional<String> descriptionPlaintext,
+            Optional<String> kitchenName,
             Optional<List<String>> channels,
             Optional<Boolean> isArchived,
             Optional<CatalogEcomSeoData> ecomSeoData,
@@ -109,6 +115,7 @@ public final class CatalogItem {
         this.labelColor = labelColor;
         this.isTaxable = isTaxable;
         this.categoryId = categoryId;
+        this.buyerFacingName = buyerFacingName;
         this.taxIds = taxIds;
         this.modifierListInfo = modifierListInfo;
         this.variations = variations;
@@ -122,6 +129,7 @@ public final class CatalogItem {
         this.categories = categories;
         this.descriptionHtml = descriptionHtml;
         this.descriptionPlaintext = descriptionPlaintext;
+        this.kitchenName = kitchenName;
         this.channels = channels;
         this.isArchived = isArchived;
         this.ecomSeoData = ecomSeoData;
@@ -201,6 +209,17 @@ public final class CatalogItem {
             return Optional.empty();
         }
         return categoryId;
+    }
+
+    /**
+     * @return The override to a product name to display to users
+     */
+    @JsonIgnore
+    public Optional<String> getBuyerFacingName() {
+        if (buyerFacingName == null) {
+            return Optional.empty();
+        }
+        return buyerFacingName;
     }
 
     /**
@@ -385,6 +404,20 @@ public final class CatalogItem {
     }
 
     /**
+     * @return (Optional) Name that the restaurant wants to display to their kitchen workers
+     * instead of the customer-facing name.
+     * e.g., customer name might be &quot;Big John's Mega Burger&quot; and the
+     * kitchen name is &quot;12oz beef burger&quot;
+     */
+    @JsonIgnore
+    public Optional<String> getKitchenName() {
+        if (kitchenName == null) {
+            return Optional.empty();
+        }
+        return kitchenName;
+    }
+
+    /**
      * @return A list of IDs representing channels, such as a Square Online site, where the item can be made visible or available.
      * This field is read only and cannot be edited.
      */
@@ -479,6 +512,12 @@ public final class CatalogItem {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("buyer_facing_name")
+    private Optional<String> _getBuyerFacingName() {
+        return buyerFacingName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("tax_ids")
     private Optional<List<String>> _getTaxIds() {
         return taxIds;
@@ -545,6 +584,12 @@ public final class CatalogItem {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("kitchen_name")
+    private Optional<String> _getKitchenName() {
+        return kitchenName;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("channels")
     private Optional<List<String>> _getChannels() {
         return channels;
@@ -580,6 +625,7 @@ public final class CatalogItem {
                 && labelColor.equals(other.labelColor)
                 && isTaxable.equals(other.isTaxable)
                 && categoryId.equals(other.categoryId)
+                && buyerFacingName.equals(other.buyerFacingName)
                 && taxIds.equals(other.taxIds)
                 && modifierListInfo.equals(other.modifierListInfo)
                 && variations.equals(other.variations)
@@ -593,6 +639,7 @@ public final class CatalogItem {
                 && categories.equals(other.categories)
                 && descriptionHtml.equals(other.descriptionHtml)
                 && descriptionPlaintext.equals(other.descriptionPlaintext)
+                && kitchenName.equals(other.kitchenName)
                 && channels.equals(other.channels)
                 && isArchived.equals(other.isArchived)
                 && ecomSeoData.equals(other.ecomSeoData)
@@ -610,6 +657,7 @@ public final class CatalogItem {
                 this.labelColor,
                 this.isTaxable,
                 this.categoryId,
+                this.buyerFacingName,
                 this.taxIds,
                 this.modifierListInfo,
                 this.variations,
@@ -623,6 +671,7 @@ public final class CatalogItem {
                 this.categories,
                 this.descriptionHtml,
                 this.descriptionPlaintext,
+                this.kitchenName,
                 this.channels,
                 this.isArchived,
                 this.ecomSeoData,
@@ -654,6 +703,8 @@ public final class CatalogItem {
 
         private Optional<String> categoryId = Optional.empty();
 
+        private Optional<String> buyerFacingName = Optional.empty();
+
         private Optional<List<String>> taxIds = Optional.empty();
 
         private Optional<List<CatalogItemModifierListInfo>> modifierListInfo = Optional.empty();
@@ -680,6 +731,8 @@ public final class CatalogItem {
 
         private Optional<String> descriptionPlaintext = Optional.empty();
 
+        private Optional<String> kitchenName = Optional.empty();
+
         private Optional<List<String>> channels = Optional.empty();
 
         private Optional<Boolean> isArchived = Optional.empty();
@@ -704,6 +757,7 @@ public final class CatalogItem {
             labelColor(other.getLabelColor());
             isTaxable(other.getIsTaxable());
             categoryId(other.getCategoryId());
+            buyerFacingName(other.getBuyerFacingName());
             taxIds(other.getTaxIds());
             modifierListInfo(other.getModifierListInfo());
             variations(other.getVariations());
@@ -717,6 +771,7 @@ public final class CatalogItem {
             categories(other.getCategories());
             descriptionHtml(other.getDescriptionHtml());
             descriptionPlaintext(other.getDescriptionPlaintext());
+            kitchenName(other.getKitchenName());
             channels(other.getChannels());
             isArchived(other.getIsArchived());
             ecomSeoData(other.getEcomSeoData());
@@ -878,6 +933,31 @@ public final class CatalogItem {
                 this.categoryId = Optional.empty();
             } else {
                 this.categoryId = Optional.of(categoryId.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>The override to a product name to display to users</p>
+         */
+        @JsonSetter(value = "buyer_facing_name", nulls = Nulls.SKIP)
+        public Builder buyerFacingName(Optional<String> buyerFacingName) {
+            this.buyerFacingName = buyerFacingName;
+            return this;
+        }
+
+        public Builder buyerFacingName(String buyerFacingName) {
+            this.buyerFacingName = Optional.ofNullable(buyerFacingName);
+            return this;
+        }
+
+        public Builder buyerFacingName(Nullable<String> buyerFacingName) {
+            if (buyerFacingName.isNull()) {
+                this.buyerFacingName = null;
+            } else if (buyerFacingName.isEmpty()) {
+                this.buyerFacingName = Optional.empty();
+            } else {
+                this.buyerFacingName = Optional.of(buyerFacingName.get());
             }
             return this;
         }
@@ -1230,6 +1310,34 @@ public final class CatalogItem {
         }
 
         /**
+         * <p>(Optional) Name that the restaurant wants to display to their kitchen workers
+         * instead of the customer-facing name.
+         * e.g., customer name might be &quot;Big John's Mega Burger&quot; and the
+         * kitchen name is &quot;12oz beef burger&quot;</p>
+         */
+        @JsonSetter(value = "kitchen_name", nulls = Nulls.SKIP)
+        public Builder kitchenName(Optional<String> kitchenName) {
+            this.kitchenName = kitchenName;
+            return this;
+        }
+
+        public Builder kitchenName(String kitchenName) {
+            this.kitchenName = Optional.ofNullable(kitchenName);
+            return this;
+        }
+
+        public Builder kitchenName(Nullable<String> kitchenName) {
+            if (kitchenName.isNull()) {
+                this.kitchenName = null;
+            } else if (kitchenName.isEmpty()) {
+                this.kitchenName = Optional.empty();
+            } else {
+                this.kitchenName = Optional.of(kitchenName.get());
+            }
+            return this;
+        }
+
+        /**
          * <p>A list of IDs representing channels, such as a Square Online site, where the item can be made visible or available.
          * This field is read only and cannot be edited.</p>
          */
@@ -1355,6 +1463,7 @@ public final class CatalogItem {
                     labelColor,
                     isTaxable,
                     categoryId,
+                    buyerFacingName,
                     taxIds,
                     modifierListInfo,
                     variations,
@@ -1368,6 +1477,7 @@ public final class CatalogItem {
                     categories,
                     descriptionHtml,
                     descriptionPlaintext,
+                    kitchenName,
                     channels,
                     isArchived,
                     ecomSeoData,

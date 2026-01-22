@@ -48,6 +48,11 @@ public class AsyncRawChannelsClient {
         return list(ListChannelsRequest.builder().build());
     }
 
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Channel>>> list(
+            RequestOptions requestOptions) {
+        return list(ListChannelsRequest.builder().build(), requestOptions);
+    }
+
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<Channel>>> list(ListChannelsRequest request) {
         return list(request, null);
     }

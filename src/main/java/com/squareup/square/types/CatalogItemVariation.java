@@ -66,6 +66,8 @@ public final class CatalogItemVariation {
 
     private final Optional<CatalogStockConversion> stockableConversion;
 
+    private final Optional<String> kitchenName;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogItemVariation(
@@ -90,6 +92,7 @@ public final class CatalogItemVariation {
             Optional<List<String>> imageIds,
             Optional<List<String>> teamMemberIds,
             Optional<CatalogStockConversion> stockableConversion,
+            Optional<String> kitchenName,
             Map<String, Object> additionalProperties) {
         this.itemId = itemId;
         this.name = name;
@@ -112,6 +115,7 @@ public final class CatalogItemVariation {
         this.imageIds = imageIds;
         this.teamMemberIds = teamMemberIds;
         this.stockableConversion = stockableConversion;
+        this.kitchenName = kitchenName;
         this.additionalProperties = additionalProperties;
     }
 
@@ -363,6 +367,20 @@ public final class CatalogItemVariation {
         return stockableConversion;
     }
 
+    /**
+     * @return (Optional) Name that the restaurant wants to display to their kitchen workers
+     * instead of the customer-facing name.
+     * e.g., customer name might be &quot;Mega-Jumbo Triplesized&quot; and the
+     * kitchen name is &quot;Large container&quot;
+     */
+    @JsonIgnore
+    public Optional<String> getKitchenName() {
+        if (kitchenName == null) {
+            return Optional.empty();
+        }
+        return kitchenName;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("item_id")
     private Optional<String> _getItemId() {
@@ -459,6 +477,12 @@ public final class CatalogItemVariation {
         return teamMemberIds;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("kitchen_name")
+    private Optional<String> _getKitchenName() {
+        return kitchenName;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -491,7 +515,8 @@ public final class CatalogItemVariation {
                 && stockable.equals(other.stockable)
                 && imageIds.equals(other.imageIds)
                 && teamMemberIds.equals(other.teamMemberIds)
-                && stockableConversion.equals(other.stockableConversion);
+                && stockableConversion.equals(other.stockableConversion)
+                && kitchenName.equals(other.kitchenName);
     }
 
     @java.lang.Override
@@ -517,7 +542,8 @@ public final class CatalogItemVariation {
                 this.stockable,
                 this.imageIds,
                 this.teamMemberIds,
-                this.stockableConversion);
+                this.stockableConversion,
+                this.kitchenName);
     }
 
     @java.lang.Override
@@ -573,6 +599,8 @@ public final class CatalogItemVariation {
 
         private Optional<CatalogStockConversion> stockableConversion = Optional.empty();
 
+        private Optional<String> kitchenName = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -600,6 +628,7 @@ public final class CatalogItemVariation {
             imageIds(other.getImageIds());
             teamMemberIds(other.getTeamMemberIds());
             stockableConversion(other.getStockableConversion());
+            kitchenName(other.getKitchenName());
             return this;
         }
 
@@ -1105,6 +1134,34 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>(Optional) Name that the restaurant wants to display to their kitchen workers
+         * instead of the customer-facing name.
+         * e.g., customer name might be &quot;Mega-Jumbo Triplesized&quot; and the
+         * kitchen name is &quot;Large container&quot;</p>
+         */
+        @JsonSetter(value = "kitchen_name", nulls = Nulls.SKIP)
+        public Builder kitchenName(Optional<String> kitchenName) {
+            this.kitchenName = kitchenName;
+            return this;
+        }
+
+        public Builder kitchenName(String kitchenName) {
+            this.kitchenName = Optional.ofNullable(kitchenName);
+            return this;
+        }
+
+        public Builder kitchenName(Nullable<String> kitchenName) {
+            if (kitchenName.isNull()) {
+                this.kitchenName = null;
+            } else if (kitchenName.isEmpty()) {
+                this.kitchenName = Optional.empty();
+            } else {
+                this.kitchenName = Optional.of(kitchenName.get());
+            }
+            return this;
+        }
+
         public CatalogItemVariation build() {
             return new CatalogItemVariation(
                     itemId,
@@ -1128,6 +1185,7 @@ public final class CatalogItemVariation {
                     imageIds,
                     teamMemberIds,
                     stockableConversion,
+                    kitchenName,
                     additionalProperties);
         }
     }

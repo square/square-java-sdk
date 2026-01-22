@@ -50,6 +50,13 @@ public class AsyncRawTeamClient {
     /**
      * Lists jobs in a seller account. Results are sorted by title in ascending order.
      */
+    public CompletableFuture<SquareClientHttpResponse<ListJobsResponse>> listJobs(RequestOptions requestOptions) {
+        return listJobs(ListJobsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists jobs in a seller account. Results are sorted by title in ascending order.
+     */
     public CompletableFuture<SquareClientHttpResponse<ListJobsResponse>> listJobs(ListJobsRequest request) {
         return listJobs(request, null);
     }

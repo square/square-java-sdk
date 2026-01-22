@@ -45,6 +45,8 @@ public final class ObtainTokenRequest {
 
     private final Optional<String> codeVerifier;
 
+    private final Optional<Boolean> useJwt;
+
     private final Map<String, Object> additionalProperties;
 
     private ObtainTokenRequest(
@@ -58,6 +60,7 @@ public final class ObtainTokenRequest {
             Optional<List<String>> scopes,
             Optional<Boolean> shortLived,
             Optional<String> codeVerifier,
+            Optional<Boolean> useJwt,
             Map<String, Object> additionalProperties) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -69,6 +72,7 @@ public final class ObtainTokenRequest {
         this.scopes = scopes;
         this.shortLived = shortLived;
         this.codeVerifier = codeVerifier;
+        this.useJwt = useJwt;
         this.additionalProperties = additionalProperties;
     }
 
@@ -206,6 +210,19 @@ public final class ObtainTokenRequest {
         return codeVerifier;
     }
 
+    /**
+     * @return Indicates whether to use a JWT (JSON Web Token) as the OAuth access token.
+     * When set to <code>true</code>, the OAuth flow returns a JWT to your application, used in the
+     * same way as a regular token. The default value is <code>false</code>.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getUseJwt() {
+        if (useJwt == null) {
+            return Optional.empty();
+        }
+        return useJwt;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("client_secret")
     private Optional<String> _getClientSecret() {
@@ -254,6 +271,12 @@ public final class ObtainTokenRequest {
         return codeVerifier;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("use_jwt")
+    private Optional<Boolean> _getUseJwt() {
+        return useJwt;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -275,7 +298,8 @@ public final class ObtainTokenRequest {
                 && migrationToken.equals(other.migrationToken)
                 && scopes.equals(other.scopes)
                 && shortLived.equals(other.shortLived)
-                && codeVerifier.equals(other.codeVerifier);
+                && codeVerifier.equals(other.codeVerifier)
+                && useJwt.equals(other.useJwt);
     }
 
     @java.lang.Override
@@ -290,7 +314,8 @@ public final class ObtainTokenRequest {
                 this.migrationToken,
                 this.scopes,
                 this.shortLived,
-                this.codeVerifier);
+                this.codeVerifier,
+                this.useJwt);
     }
 
     @java.lang.Override
@@ -422,6 +447,17 @@ public final class ObtainTokenRequest {
         _FinalStage codeVerifier(String codeVerifier);
 
         _FinalStage codeVerifier(Nullable<String> codeVerifier);
+
+        /**
+         * <p>Indicates whether to use a JWT (JSON Web Token) as the OAuth access token.
+         * When set to <code>true</code>, the OAuth flow returns a JWT to your application, used in the
+         * same way as a regular token. The default value is <code>false</code>.</p>
+         */
+        _FinalStage useJwt(Optional<Boolean> useJwt);
+
+        _FinalStage useJwt(Boolean useJwt);
+
+        _FinalStage useJwt(Nullable<Boolean> useJwt);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -429,6 +465,8 @@ public final class ObtainTokenRequest {
         private String clientId;
 
         private String grantType;
+
+        private Optional<Boolean> useJwt = Optional.empty();
 
         private Optional<String> codeVerifier = Optional.empty();
 
@@ -463,6 +501,7 @@ public final class ObtainTokenRequest {
             scopes(other.getScopes());
             shortLived(other.getShortLived());
             codeVerifier(other.getCodeVerifier());
+            useJwt(other.getUseJwt());
             return this;
         }
 
@@ -505,6 +544,48 @@ public final class ObtainTokenRequest {
         @JsonSetter("grant_type")
         public _FinalStage grantType(@NotNull String grantType) {
             this.grantType = Objects.requireNonNull(grantType, "grantType must not be null");
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether to use a JWT (JSON Web Token) as the OAuth access token.
+         * When set to <code>true</code>, the OAuth flow returns a JWT to your application, used in the
+         * same way as a regular token. The default value is <code>false</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage useJwt(Nullable<Boolean> useJwt) {
+            if (useJwt.isNull()) {
+                this.useJwt = null;
+            } else if (useJwt.isEmpty()) {
+                this.useJwt = Optional.empty();
+            } else {
+                this.useJwt = Optional.of(useJwt.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether to use a JWT (JSON Web Token) as the OAuth access token.
+         * When set to <code>true</code>, the OAuth flow returns a JWT to your application, used in the
+         * same way as a regular token. The default value is <code>false</code>.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage useJwt(Boolean useJwt) {
+            this.useJwt = Optional.ofNullable(useJwt);
+            return this;
+        }
+
+        /**
+         * <p>Indicates whether to use a JWT (JSON Web Token) as the OAuth access token.
+         * When set to <code>true</code>, the OAuth flow returns a JWT to your application, used in the
+         * same way as a regular token. The default value is <code>false</code>.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "use_jwt", nulls = Nulls.SKIP)
+        public _FinalStage useJwt(Optional<Boolean> useJwt) {
+            this.useJwt = useJwt;
             return this;
         }
 
@@ -872,6 +953,7 @@ public final class ObtainTokenRequest {
                     scopes,
                     shortLived,
                     codeVerifier,
+                    useJwt,
                     additionalProperties);
         }
     }

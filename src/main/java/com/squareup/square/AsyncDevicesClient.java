@@ -47,6 +47,14 @@ public class AsyncDevicesClient {
      * List devices associated with the merchant. Currently, only Terminal API
      * devices are supported.
      */
+    public CompletableFuture<SyncPagingIterable<Device>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * List devices associated with the merchant. Currently, only Terminal API
+     * devices are supported.
+     */
     public CompletableFuture<SyncPagingIterable<Device>> list(ListDevicesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

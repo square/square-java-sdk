@@ -54,6 +54,14 @@ public class AsyncRawCodesClient {
     /**
      * Lists all DeviceCodes associated with the merchant.
      */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<DeviceCode>>> list(
+            RequestOptions requestOptions) {
+        return list(ListCodesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all DeviceCodes associated with the merchant.
+     */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<DeviceCode>>> list(ListCodesRequest request) {
         return list(request, null);
     }

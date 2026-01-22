@@ -189,6 +189,15 @@ public class RawLaborClient {
      * By default, results are sorted by <code>start_at</code> in ascending order.
      */
     public SquareClientHttpResponse<SearchScheduledShiftsResponse> searchScheduledShifts(
+            RequestOptions requestOptions) {
+        return searchScheduledShifts(SearchScheduledShiftsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a paginated list of scheduled shifts, with optional filter and sort settings.
+     * By default, results are sorted by <code>start_at</code> in ascending order.
+     */
+    public SquareClientHttpResponse<SearchScheduledShiftsResponse> searchScheduledShifts(
             SearchScheduledShiftsRequest request) {
         return searchScheduledShifts(request, null);
     }
@@ -515,6 +524,29 @@ public class RawLaborClient {
      */
     public SquareClientHttpResponse<SearchTimecardsResponse> searchTimecards() {
         return searchTimecards(SearchTimecardsRequest.builder().build());
+    }
+
+    /**
+     * Returns a paginated list of <code>Timecard</code> records for a business.
+     * The list to be returned can be filtered by:
+     * <ul>
+     * <li>Location IDs</li>
+     * <li>Team member IDs</li>
+     * <li>Timecard status (<code>OPEN</code> or <code>CLOSED</code>)</li>
+     * <li>Timecard start</li>
+     * <li>Timecard end</li>
+     * <li>Workday details</li>
+     * </ul>
+     * <p>The list can be sorted by:</p>
+     * <ul>
+     * <li><code>START_AT</code></li>
+     * <li><code>END_AT</code></li>
+     * <li><code>CREATED_AT</code></li>
+     * <li><code>UPDATED_AT</code></li>
+     * </ul>
+     */
+    public SquareClientHttpResponse<SearchTimecardsResponse> searchTimecards(RequestOptions requestOptions) {
+        return searchTimecards(SearchTimecardsRequest.builder().build(), requestOptions);
     }
 
     /**

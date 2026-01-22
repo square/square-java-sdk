@@ -38,6 +38,13 @@ public class EmployeeWagesClient {
     /**
      * Returns a paginated list of <code>EmployeeWage</code> instances for a business.
      */
+    public SyncPagingIterable<EmployeeWage> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Returns a paginated list of <code>EmployeeWage</code> instances for a business.
+     */
     public SyncPagingIterable<EmployeeWage> list(ListEmployeeWagesRequest request) {
         return this.rawClient.list(request).body();
     }

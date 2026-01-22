@@ -26,10 +26,20 @@ import java.util.Optional;
 public final class SearchOrdersSourceFilter {
     private final Optional<List<String>> sourceNames;
 
+    private final Optional<List<String>> sourceApplicationIds;
+
+    private final Optional<List<String>> sourceClientOus;
+
     private final Map<String, Object> additionalProperties;
 
-    private SearchOrdersSourceFilter(Optional<List<String>> sourceNames, Map<String, Object> additionalProperties) {
+    private SearchOrdersSourceFilter(
+            Optional<List<String>> sourceNames,
+            Optional<List<String>> sourceApplicationIds,
+            Optional<List<String>> sourceClientOus,
+            Map<String, Object> additionalProperties) {
         this.sourceNames = sourceNames;
+        this.sourceApplicationIds = sourceApplicationIds;
+        this.sourceClientOus = sourceClientOus;
         this.additionalProperties = additionalProperties;
     }
 
@@ -46,10 +56,48 @@ public final class SearchOrdersSourceFilter {
         return sourceNames;
     }
 
+    /**
+     * @return Filters by the <a href="entity:OrderSource">Source</a> <code>applicationId</code>. The filter returns any orders
+     * with a <code>source.applicationId</code> that matches any of the listed source applicationIds.
+     * <p>Max: 100 source applicationIds.</p>
+     */
+    @JsonIgnore
+    public Optional<List<String>> getSourceApplicationIds() {
+        if (sourceApplicationIds == null) {
+            return Optional.empty();
+        }
+        return sourceApplicationIds;
+    }
+
+    /**
+     * @return Filters by the <a href="entity:OrderSource">Source</a> <code>clientOu</code>. The filter returns any orders
+     * with a <code>source.clientOu</code> that matches any of the listed source clientOus.
+     * <p>Max: 100 source clientOus.</p>
+     */
+    @JsonIgnore
+    public Optional<List<String>> getSourceClientOus() {
+        if (sourceClientOus == null) {
+            return Optional.empty();
+        }
+        return sourceClientOus;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("source_names")
     private Optional<List<String>> _getSourceNames() {
         return sourceNames;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("source_application_ids")
+    private Optional<List<String>> _getSourceApplicationIds() {
+        return sourceApplicationIds;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("source_client_ous")
+    private Optional<List<String>> _getSourceClientOus() {
+        return sourceClientOus;
     }
 
     @java.lang.Override
@@ -64,12 +112,14 @@ public final class SearchOrdersSourceFilter {
     }
 
     private boolean equalTo(SearchOrdersSourceFilter other) {
-        return sourceNames.equals(other.sourceNames);
+        return sourceNames.equals(other.sourceNames)
+                && sourceApplicationIds.equals(other.sourceApplicationIds)
+                && sourceClientOus.equals(other.sourceClientOus);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.sourceNames);
+        return Objects.hash(this.sourceNames, this.sourceApplicationIds, this.sourceClientOus);
     }
 
     @java.lang.Override
@@ -85,6 +135,10 @@ public final class SearchOrdersSourceFilter {
     public static final class Builder {
         private Optional<List<String>> sourceNames = Optional.empty();
 
+        private Optional<List<String>> sourceApplicationIds = Optional.empty();
+
+        private Optional<List<String>> sourceClientOus = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -92,6 +146,8 @@ public final class SearchOrdersSourceFilter {
 
         public Builder from(SearchOrdersSourceFilter other) {
             sourceNames(other.getSourceNames());
+            sourceApplicationIds(other.getSourceApplicationIds());
+            sourceClientOus(other.getSourceClientOus());
             return this;
         }
 
@@ -122,8 +178,63 @@ public final class SearchOrdersSourceFilter {
             return this;
         }
 
+        /**
+         * <p>Filters by the <a href="entity:OrderSource">Source</a> <code>applicationId</code>. The filter returns any orders
+         * with a <code>source.applicationId</code> that matches any of the listed source applicationIds.</p>
+         * <p>Max: 100 source applicationIds.</p>
+         */
+        @JsonSetter(value = "source_application_ids", nulls = Nulls.SKIP)
+        public Builder sourceApplicationIds(Optional<List<String>> sourceApplicationIds) {
+            this.sourceApplicationIds = sourceApplicationIds;
+            return this;
+        }
+
+        public Builder sourceApplicationIds(List<String> sourceApplicationIds) {
+            this.sourceApplicationIds = Optional.ofNullable(sourceApplicationIds);
+            return this;
+        }
+
+        public Builder sourceApplicationIds(Nullable<List<String>> sourceApplicationIds) {
+            if (sourceApplicationIds.isNull()) {
+                this.sourceApplicationIds = null;
+            } else if (sourceApplicationIds.isEmpty()) {
+                this.sourceApplicationIds = Optional.empty();
+            } else {
+                this.sourceApplicationIds = Optional.of(sourceApplicationIds.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Filters by the <a href="entity:OrderSource">Source</a> <code>clientOu</code>. The filter returns any orders
+         * with a <code>source.clientOu</code> that matches any of the listed source clientOus.</p>
+         * <p>Max: 100 source clientOus.</p>
+         */
+        @JsonSetter(value = "source_client_ous", nulls = Nulls.SKIP)
+        public Builder sourceClientOus(Optional<List<String>> sourceClientOus) {
+            this.sourceClientOus = sourceClientOus;
+            return this;
+        }
+
+        public Builder sourceClientOus(List<String> sourceClientOus) {
+            this.sourceClientOus = Optional.ofNullable(sourceClientOus);
+            return this;
+        }
+
+        public Builder sourceClientOus(Nullable<List<String>> sourceClientOus) {
+            if (sourceClientOus.isNull()) {
+                this.sourceClientOus = null;
+            } else if (sourceClientOus.isEmpty()) {
+                this.sourceClientOus = Optional.empty();
+            } else {
+                this.sourceClientOus = Optional.of(sourceClientOus.get());
+            }
+            return this;
+        }
+
         public SearchOrdersSourceFilter build() {
-            return new SearchOrdersSourceFilter(sourceNames, additionalProperties);
+            return new SearchOrdersSourceFilter(
+                    sourceNames, sourceApplicationIds, sourceClientOus, additionalProperties);
         }
     }
 }

@@ -16,6 +16,7 @@ import com.squareup.square.core.Nullable;
 import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,16 +30,20 @@ public final class DigitalWalletDetails {
 
     private final Optional<CashAppDetails> cashAppDetails;
 
+    private final Optional<List<Error>> errors;
+
     private final Map<String, Object> additionalProperties;
 
     private DigitalWalletDetails(
             Optional<String> status,
             Optional<String> brand,
             Optional<CashAppDetails> cashAppDetails,
+            Optional<List<Error>> errors,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.brand = brand;
         this.cashAppDetails = cashAppDetails;
+        this.errors = errors;
         this.additionalProperties = additionalProperties;
     }
 
@@ -56,7 +61,7 @@ public final class DigitalWalletDetails {
 
     /**
      * @return The brand used for the <code>WALLET</code> payment. The brand can be <code>CASH_APP</code>, <code>PAYPAY</code>, <code>ALIPAY</code>,
-     * <code>RAKUTEN_PAY</code>, <code>AU_PAY</code>, <code>D_BARAI</code>, <code>MERPAY</code>, <code>WECHAT_PAY</code> or <code>UNKNOWN</code>.
+     * <code>RAKUTEN_PAY</code>, <code>AU_PAY</code>, <code>D_BARAI</code>, <code>MERPAY</code>, <code>WECHAT_PAY</code>, <code>LIGHTNING</code> or <code>UNKNOWN</code>.
      */
     @JsonIgnore
     public Optional<String> getBrand() {
@@ -72,6 +77,14 @@ public final class DigitalWalletDetails {
     @JsonProperty("cash_app_details")
     public Optional<CashAppDetails> getCashAppDetails() {
         return cashAppDetails;
+    }
+
+    /**
+     * @return Information about errors encountered during the payment.
+     */
+    @JsonProperty("errors")
+    public Optional<List<Error>> getErrors() {
+        return errors;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -98,12 +111,15 @@ public final class DigitalWalletDetails {
     }
 
     private boolean equalTo(DigitalWalletDetails other) {
-        return status.equals(other.status) && brand.equals(other.brand) && cashAppDetails.equals(other.cashAppDetails);
+        return status.equals(other.status)
+                && brand.equals(other.brand)
+                && cashAppDetails.equals(other.cashAppDetails)
+                && errors.equals(other.errors);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.status, this.brand, this.cashAppDetails);
+        return Objects.hash(this.status, this.brand, this.cashAppDetails, this.errors);
     }
 
     @java.lang.Override
@@ -123,6 +139,8 @@ public final class DigitalWalletDetails {
 
         private Optional<CashAppDetails> cashAppDetails = Optional.empty();
 
+        private Optional<List<Error>> errors = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -132,6 +150,7 @@ public final class DigitalWalletDetails {
             status(other.getStatus());
             brand(other.getBrand());
             cashAppDetails(other.getCashAppDetails());
+            errors(other.getErrors());
             return this;
         }
 
@@ -163,7 +182,7 @@ public final class DigitalWalletDetails {
 
         /**
          * <p>The brand used for the <code>WALLET</code> payment. The brand can be <code>CASH_APP</code>, <code>PAYPAY</code>, <code>ALIPAY</code>,
-         * <code>RAKUTEN_PAY</code>, <code>AU_PAY</code>, <code>D_BARAI</code>, <code>MERPAY</code>, <code>WECHAT_PAY</code> or <code>UNKNOWN</code>.</p>
+         * <code>RAKUTEN_PAY</code>, <code>AU_PAY</code>, <code>D_BARAI</code>, <code>MERPAY</code>, <code>WECHAT_PAY</code>, <code>LIGHTNING</code> or <code>UNKNOWN</code>.</p>
          */
         @JsonSetter(value = "brand", nulls = Nulls.SKIP)
         public Builder brand(Optional<String> brand) {
@@ -201,8 +220,22 @@ public final class DigitalWalletDetails {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the payment.</p>
+         */
+        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
+        public Builder errors(Optional<List<Error>> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        public Builder errors(List<Error> errors) {
+            this.errors = Optional.ofNullable(errors);
+            return this;
+        }
+
         public DigitalWalletDetails build() {
-            return new DigitalWalletDetails(status, brand, cashAppDetails, additionalProperties);
+            return new DigitalWalletDetails(status, brand, cashAppDetails, errors, additionalProperties);
         }
     }
 }

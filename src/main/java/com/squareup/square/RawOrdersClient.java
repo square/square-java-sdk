@@ -61,6 +61,17 @@ public class RawOrdersClient {
      * <a href="https://developer.squareup.com/docs/orders-api/pay-for-orders">Pay for Orders</a>.</p>
      * <p>You can modify open orders using the <a href="api-endpoint:Orders-UpdateOrder">UpdateOrder</a> endpoint.</p>
      */
+    public SquareClientHttpResponse<CreateOrderResponse> create(RequestOptions requestOptions) {
+        return create(CreateOrderRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Creates a new <a href="entity:Order">order</a> that can include information about products for
+     * purchase and settings to apply to the purchase.
+     * <p>To pay for a created order, see
+     * <a href="https://developer.squareup.com/docs/orders-api/pay-for-orders">Pay for Orders</a>.</p>
+     * <p>You can modify open orders using the <a href="api-endpoint:Orders-UpdateOrder">UpdateOrder</a> endpoint.</p>
+     */
     public SquareClientHttpResponse<CreateOrderResponse> create(CreateOrderRequest request) {
         return create(request, null);
     }
@@ -282,6 +293,26 @@ public class RawOrdersClient {
      */
     public SquareClientHttpResponse<SearchOrdersResponse> search() {
         return search(SearchOrdersRequest.builder().build());
+    }
+
+    /**
+     * Search all orders for one or more locations. Orders include all sales,
+     * returns, and exchanges regardless of how or when they entered the Square
+     * ecosystem (such as Point of Sale, Invoices, and Connect APIs).
+     * <p><code>SearchOrders</code> requests need to specify which locations to search and define a
+     * <a href="entity:SearchOrdersQuery">SearchOrdersQuery</a> object that controls
+     * how to sort or filter the results. Your <code>SearchOrdersQuery</code> can:</p>
+     * <p>Set filter criteria.
+     * Set the sort order.
+     * Determine whether to return results as complete <code>Order</code> objects or as
+     * <a href="entity:OrderEntry">OrderEntry</a> objects.</p>
+     * <p>Note that details for orders processed with Square Point of Sale while in
+     * offline mode might not be transmitted to Square for up to 72 hours. Offline
+     * orders have a <code>created_at</code> value that reflects the time the order was created,
+     * not the time it was subsequently transmitted to Square.</p>
+     */
+    public SquareClientHttpResponse<SearchOrdersResponse> search(RequestOptions requestOptions) {
+        return search(SearchOrdersRequest.builder().build(), requestOptions);
     }
 
     /**

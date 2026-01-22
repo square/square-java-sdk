@@ -53,6 +53,13 @@ public class AsyncDisputesClient {
     /**
      * Returns a list of disputes associated with a particular account.
      */
+    public CompletableFuture<SyncPagingIterable<Dispute>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a list of disputes associated with a particular account.
+     */
     public CompletableFuture<SyncPagingIterable<Dispute>> list(ListDisputesRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

@@ -53,6 +53,13 @@ public class RawBreakTypesClient {
     /**
      * Returns a paginated list of <code>BreakType</code> instances for a business.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<BreakType>> list(RequestOptions requestOptions) {
+        return list(ListBreakTypesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a paginated list of <code>BreakType</code> instances for a business.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<BreakType>> list(ListBreakTypesRequest request) {
         return list(request, null);
     }

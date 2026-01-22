@@ -164,6 +164,29 @@ public class RawShiftsClient {
      * <li><code>UPDATED_AT</code></li>
      * </ul>
      */
+    public SquareClientHttpResponse<SearchShiftsResponse> search(RequestOptions requestOptions) {
+        return search(SearchShiftsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns a paginated list of <code>Shift</code> records for a business.
+     * The list to be returned can be filtered by:
+     * <ul>
+     * <li>Location IDs</li>
+     * <li>Team member IDs</li>
+     * <li>Shift status (<code>OPEN</code> or <code>CLOSED</code>)</li>
+     * <li>Shift start</li>
+     * <li>Shift end</li>
+     * <li>Workday details</li>
+     * </ul>
+     * <p>The list can be sorted by:</p>
+     * <ul>
+     * <li><code>START_AT</code></li>
+     * <li><code>END_AT</code></li>
+     * <li><code>CREATED_AT</code></li>
+     * <li><code>UPDATED_AT</code></li>
+     * </ul>
+     */
     public SquareClientHttpResponse<SearchShiftsResponse> search(SearchShiftsRequest request) {
         return search(request, null);
     }

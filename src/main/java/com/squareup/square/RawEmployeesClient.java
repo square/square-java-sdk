@@ -38,6 +38,10 @@ public class RawEmployeesClient {
         return list(ListEmployeesRequest.builder().build());
     }
 
+    public SquareClientHttpResponse<SyncPagingIterable<Employee>> list(RequestOptions requestOptions) {
+        return list(ListEmployeesRequest.builder().build(), requestOptions);
+    }
+
     public SquareClientHttpResponse<SyncPagingIterable<Employee>> list(ListEmployeesRequest request) {
         return list(request, null);
     }

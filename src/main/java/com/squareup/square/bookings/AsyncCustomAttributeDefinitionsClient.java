@@ -49,6 +49,15 @@ public class AsyncCustomAttributeDefinitionsClient {
      * <p>To call this endpoint with buyer-level permissions, set <code>APPOINTMENTS_READ</code> for the OAuth scope.
      * To call this endpoint with seller-level permissions, set <code>APPOINTMENTS_ALL_READ</code> and <code>APPOINTMENTS_READ</code> for the OAuth scope.</p>
      */
+    public CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Get all bookings custom attribute definitions.
+     * <p>To call this endpoint with buyer-level permissions, set <code>APPOINTMENTS_READ</code> for the OAuth scope.
+     * To call this endpoint with seller-level permissions, set <code>APPOINTMENTS_ALL_READ</code> and <code>APPOINTMENTS_READ</code> for the OAuth scope.</p>
+     */
     public CompletableFuture<SyncPagingIterable<CustomAttributeDefinition>> list(
             ListCustomAttributeDefinitionsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());

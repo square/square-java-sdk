@@ -36,6 +36,13 @@ public class LocationProfilesClient {
     /**
      * Lists location booking profiles of a seller.
      */
+    public SyncPagingIterable<LocationBookingProfile> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     */
     public SyncPagingIterable<LocationBookingProfile> list(ListLocationProfilesRequest request) {
         return this.rawClient.list(request).body();
     }

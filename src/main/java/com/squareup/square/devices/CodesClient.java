@@ -40,6 +40,13 @@ public class CodesClient {
     /**
      * Lists all DeviceCodes associated with the merchant.
      */
+    public SyncPagingIterable<DeviceCode> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Lists all DeviceCodes associated with the merchant.
+     */
     public SyncPagingIterable<DeviceCode> list(ListCodesRequest request) {
         return this.rawClient.list(request).body();
     }

@@ -7,6 +7,10 @@ import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SyncPagingIterable;
 import com.squareup.square.types.BankAccount;
+import com.squareup.square.types.CreateBankAccountRequest;
+import com.squareup.square.types.CreateBankAccountResponse;
+import com.squareup.square.types.DisableBankAccountRequest;
+import com.squareup.square.types.DisableBankAccountResponse;
 import com.squareup.square.types.GetBankAccountByV1IdResponse;
 import com.squareup.square.types.GetBankAccountResponse;
 import com.squareup.square.types.GetBankAccountsRequest;
@@ -40,6 +44,13 @@ public class BankAccountsClient {
     /**
      * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
      */
+    public SyncPagingIterable<BankAccount> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).body();
+    }
+
+    /**
+     * Returns a list of <a href="entity:BankAccount">BankAccount</a> objects linked to a Square account.
+     */
     public SyncPagingIterable<BankAccount> list(ListBankAccountsRequest request) {
         return this.rawClient.list(request).body();
     }
@@ -49,6 +60,21 @@ public class BankAccountsClient {
      */
     public SyncPagingIterable<BankAccount> list(ListBankAccountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.list(request, requestOptions).body();
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public CreateBankAccountResponse createBankAccount(CreateBankAccountRequest request) {
+        return this.rawClient.createBankAccount(request).body();
+    }
+
+    /**
+     * Store a bank account on file for a square account
+     */
+    public CreateBankAccountResponse createBankAccount(
+            CreateBankAccountRequest request, RequestOptions requestOptions) {
+        return this.rawClient.createBankAccount(request, requestOptions).body();
     }
 
     /**
@@ -66,18 +92,31 @@ public class BankAccountsClient {
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public GetBankAccountResponse get(GetBankAccountsRequest request) {
         return this.rawClient.get(request).body();
     }
 
     /**
-     * Returns details of a <a href="entity:BankAccount">BankAccount</a>
-     * linked to a Square account.
+     * Retrieve details of a <a href="entity:BankAccount">BankAccount</a> bank account linked to a Square account.
      */
     public GetBankAccountResponse get(GetBankAccountsRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).body();
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public DisableBankAccountResponse disableBankAccount(DisableBankAccountRequest request) {
+        return this.rawClient.disableBankAccount(request).body();
+    }
+
+    /**
+     * Disable a bank account.
+     */
+    public DisableBankAccountResponse disableBankAccount(
+            DisableBankAccountRequest request, RequestOptions requestOptions) {
+        return this.rawClient.disableBankAccount(request, requestOptions).body();
     }
 }

@@ -53,6 +53,13 @@ public class RawPaymentLinksClient {
     /**
      * Lists all payment links.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<PaymentLink>> list(RequestOptions requestOptions) {
+        return list(ListPaymentLinksRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all payment links.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<PaymentLink>> list(ListPaymentLinksRequest request) {
         return list(request, null);
     }
@@ -115,6 +122,13 @@ public class RawPaymentLinksClient {
      */
     public SquareClientHttpResponse<CreatePaymentLinkResponse> create() {
         return create(CreatePaymentLinkRequest.builder().build());
+    }
+
+    /**
+     * Creates a Square-hosted checkout page. Applications can share the resulting payment link with their buyer to pay for goods and services.
+     */
+    public SquareClientHttpResponse<CreatePaymentLinkResponse> create(RequestOptions requestOptions) {
+        return create(CreatePaymentLinkRequest.builder().build(), requestOptions);
     }
 
     /**

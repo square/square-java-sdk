@@ -57,6 +57,14 @@ public class AsyncGiftCardsClient {
      * Lists all gift cards. You can specify optional filters to retrieve
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
+    public CompletableFuture<SyncPagingIterable<GiftCard>> list(RequestOptions requestOptions) {
+        return this.rawClient.list(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Lists all gift cards. You can specify optional filters to retrieve
+     * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
+     */
     public CompletableFuture<SyncPagingIterable<GiftCard>> list(ListGiftCardsRequest request) {
         return this.rawClient.list(request).thenApply(response -> response.body());
     }

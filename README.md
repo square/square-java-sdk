@@ -56,7 +56,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>45.2.0.20251016</version>
+  <version>46.0.0.20260122</version>
 </dependency>
 ```
 
@@ -361,8 +361,8 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:45.2.0.20251016'
-    implementation 'com.squareup:square-legacy:45.2.0.20251016'
+    implementation 'com.squareup:square:46.0.0.20260122'
+    implementation 'com.squareup:square-legacy:46.0.0.20260122'
 }
 ```
 
@@ -372,12 +372,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>45.2.0.20251016</version>
+    <version>46.0.0.20260122</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>45.2.0.20251016</version>
+    <version>46.0.0.20260122</version>
 </dependency>
 ```
 
@@ -432,7 +432,6 @@ SquareClient client = SquareClient
 ### Timeouts
 
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
-
 ```java
 import com.squareup.square.SquareClient;
 import com.squareup.square.core.RequestOptions;
@@ -440,7 +439,7 @@ import com.squareup.square.core.RequestOptions;
 // Client level
 SquareClient client = SquareClient
     .builder()
-    .timeout(10)
+    .timeout(60)
     .build();
 
 // Request level
@@ -448,7 +447,7 @@ client.payments().create(
     ...,
     RequestOptions
         .builder()
-        .timeout(10)
+        .timeout(60)
         .build()
 );
 ```

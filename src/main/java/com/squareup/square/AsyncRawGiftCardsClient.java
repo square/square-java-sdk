@@ -65,6 +65,15 @@ public class AsyncRawGiftCardsClient {
      * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
      */
     public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<GiftCard>>> list(
+            RequestOptions requestOptions) {
+        return list(ListGiftCardsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists all gift cards. You can specify optional filters to retrieve
+     * a subset of the gift cards. Results are sorted by <code>created_at</code> in ascending order.
+     */
+    public CompletableFuture<SquareClientHttpResponse<SyncPagingIterable<GiftCard>>> list(
             ListGiftCardsRequest request) {
         return list(request, null);
     }

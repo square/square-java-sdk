@@ -64,6 +64,19 @@ public class AsyncTeamMembersClient {
      * </ul>
      * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#createteammember">Troubleshooting the Team API</a>.</p>
      */
+    public CompletableFuture<CreateTeamMemberResponse> create(RequestOptions requestOptions) {
+        return this.rawClient.create(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates a single <code>TeamMember</code> object. The <code>TeamMember</code> object is returned on successful creates.
+     * You must provide the following values in your request to this endpoint:
+     * <ul>
+     * <li><code>given_name</code></li>
+     * <li><code>family_name</code></li>
+     * </ul>
+     * <p>Learn about <a href="https://developer.squareup.com/docs/team/troubleshooting#createteammember">Troubleshooting the Team API</a>.</p>
+     */
     public CompletableFuture<CreateTeamMemberResponse> create(CreateTeamMemberRequest request) {
         return this.rawClient.create(request).thenApply(response -> response.body());
     }
@@ -135,6 +148,15 @@ public class AsyncTeamMembersClient {
      */
     public CompletableFuture<SearchTeamMembersResponse> search() {
         return this.rawClient.search().thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns a paginated list of <code>TeamMember</code> objects for a business.
+     * The list can be filtered by location IDs, <code>ACTIVE</code> or <code>INACTIVE</code> status, or whether
+     * the team member is the Square account owner.
+     */
+    public CompletableFuture<SearchTeamMembersResponse> search(RequestOptions requestOptions) {
+        return this.rawClient.search(requestOptions).thenApply(response -> response.body());
     }
 
     /**

@@ -16,6 +16,7 @@ import com.squareup.square.core.Nullable;
 import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,16 +30,20 @@ public final class BuyNowPayLaterDetails {
 
     private final Optional<ClearpayDetails> clearpayDetails;
 
+    private final Optional<List<Error>> errors;
+
     private final Map<String, Object> additionalProperties;
 
     private BuyNowPayLaterDetails(
             Optional<String> brand,
             Optional<AfterpayDetails> afterpayDetails,
             Optional<ClearpayDetails> clearpayDetails,
+            Optional<List<Error>> errors,
             Map<String, Object> additionalProperties) {
         this.brand = brand;
         this.afterpayDetails = afterpayDetails;
         this.clearpayDetails = clearpayDetails;
+        this.errors = errors;
         this.additionalProperties = additionalProperties;
     }
 
@@ -72,6 +77,14 @@ public final class BuyNowPayLaterDetails {
         return clearpayDetails;
     }
 
+    /**
+     * @return Information about errors encountered during the payment.
+     */
+    @JsonProperty("errors")
+    public Optional<List<Error>> getErrors() {
+        return errors;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("brand")
     private Optional<String> _getBrand() {
@@ -92,12 +105,13 @@ public final class BuyNowPayLaterDetails {
     private boolean equalTo(BuyNowPayLaterDetails other) {
         return brand.equals(other.brand)
                 && afterpayDetails.equals(other.afterpayDetails)
-                && clearpayDetails.equals(other.clearpayDetails);
+                && clearpayDetails.equals(other.clearpayDetails)
+                && errors.equals(other.errors);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.brand, this.afterpayDetails, this.clearpayDetails);
+        return Objects.hash(this.brand, this.afterpayDetails, this.clearpayDetails, this.errors);
     }
 
     @java.lang.Override
@@ -117,6 +131,8 @@ public final class BuyNowPayLaterDetails {
 
         private Optional<ClearpayDetails> clearpayDetails = Optional.empty();
 
+        private Optional<List<Error>> errors = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -126,6 +142,7 @@ public final class BuyNowPayLaterDetails {
             brand(other.getBrand());
             afterpayDetails(other.getAfterpayDetails());
             clearpayDetails(other.getClearpayDetails());
+            errors(other.getErrors());
             return this;
         }
 
@@ -185,8 +202,22 @@ public final class BuyNowPayLaterDetails {
             return this;
         }
 
+        /**
+         * <p>Information about errors encountered during the payment.</p>
+         */
+        @JsonSetter(value = "errors", nulls = Nulls.SKIP)
+        public Builder errors(Optional<List<Error>> errors) {
+            this.errors = errors;
+            return this;
+        }
+
+        public Builder errors(List<Error> errors) {
+            this.errors = Optional.ofNullable(errors);
+            return this;
+        }
+
         public BuyNowPayLaterDetails build() {
-            return new BuyNowPayLaterDetails(brand, afterpayDetails, clearpayDetails, additionalProperties);
+            return new BuyNowPayLaterDetails(brand, afterpayDetails, clearpayDetails, errors, additionalProperties);
         }
     }
 }

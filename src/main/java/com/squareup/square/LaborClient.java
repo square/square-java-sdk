@@ -135,6 +135,14 @@ public class LaborClient {
      * Returns a paginated list of scheduled shifts, with optional filter and sort settings.
      * By default, results are sorted by <code>start_at</code> in ascending order.
      */
+    public SearchScheduledShiftsResponse searchScheduledShifts(RequestOptions requestOptions) {
+        return this.rawClient.searchScheduledShifts(requestOptions).body();
+    }
+
+    /**
+     * Returns a paginated list of scheduled shifts, with optional filter and sort settings.
+     * By default, results are sorted by <code>start_at</code> in ascending order.
+     */
     public SearchScheduledShiftsResponse searchScheduledShifts(SearchScheduledShiftsRequest request) {
         return this.rawClient.searchScheduledShifts(request).body();
     }
@@ -286,6 +294,29 @@ public class LaborClient {
      */
     public SearchTimecardsResponse searchTimecards() {
         return this.rawClient.searchTimecards().body();
+    }
+
+    /**
+     * Returns a paginated list of <code>Timecard</code> records for a business.
+     * The list to be returned can be filtered by:
+     * <ul>
+     * <li>Location IDs</li>
+     * <li>Team member IDs</li>
+     * <li>Timecard status (<code>OPEN</code> or <code>CLOSED</code>)</li>
+     * <li>Timecard start</li>
+     * <li>Timecard end</li>
+     * <li>Workday details</li>
+     * </ul>
+     * <p>The list can be sorted by:</p>
+     * <ul>
+     * <li><code>START_AT</code></li>
+     * <li><code>END_AT</code></li>
+     * <li><code>CREATED_AT</code></li>
+     * <li><code>UPDATED_AT</code></li>
+     * </ul>
+     */
+    public SearchTimecardsResponse searchTimecards(RequestOptions requestOptions) {
+        return this.rawClient.searchTimecards(requestOptions).body();
     }
 
     /**

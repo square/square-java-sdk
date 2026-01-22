@@ -53,6 +53,10 @@ public final class Card {
 
     private final Optional<String> bin;
 
+    private final Optional<String> createdAt;
+
+    private final Optional<String> disabledAt;
+
     private final Optional<Long> version;
 
     private final Optional<CardCoBrand> cardCoBrand;
@@ -81,6 +85,8 @@ public final class Card {
             Optional<CardType> cardType,
             Optional<CardPrepaidType> prepaidType,
             Optional<String> bin,
+            Optional<String> createdAt,
+            Optional<String> disabledAt,
             Optional<Long> version,
             Optional<CardCoBrand> cardCoBrand,
             Optional<String> issuerAlert,
@@ -102,6 +108,8 @@ public final class Card {
         this.cardType = cardType;
         this.prepaidType = prepaidType;
         this.bin = bin;
+        this.createdAt = createdAt;
+        this.disabledAt = disabledAt;
         this.version = version;
         this.cardCoBrand = cardCoBrand;
         this.issuerAlert = issuerAlert;
@@ -257,6 +265,22 @@ public final class Card {
     }
 
     /**
+     * @return Timestamp for when the card object was created on Square’s servers. In RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.
+     */
+    @JsonProperty("created_at")
+    public Optional<String> getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @return Timestamp for when the card object was disabled on Square’s servers. In RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.
+     */
+    @JsonProperty("disabled_at")
+    public Optional<String> getDisabledAt() {
+        return disabledAt;
+    }
+
+    /**
      * @return Current version number of the card. Increments with each card update. Requests to update an
      * existing Card object will be rejected unless the version in the request matches the current
      * version for the Card.
@@ -364,6 +388,8 @@ public final class Card {
                 && cardType.equals(other.cardType)
                 && prepaidType.equals(other.prepaidType)
                 && bin.equals(other.bin)
+                && createdAt.equals(other.createdAt)
+                && disabledAt.equals(other.disabledAt)
                 && version.equals(other.version)
                 && cardCoBrand.equals(other.cardCoBrand)
                 && issuerAlert.equals(other.issuerAlert)
@@ -389,6 +415,8 @@ public final class Card {
                 this.cardType,
                 this.prepaidType,
                 this.bin,
+                this.createdAt,
+                this.disabledAt,
                 this.version,
                 this.cardCoBrand,
                 this.issuerAlert,
@@ -437,6 +465,10 @@ public final class Card {
 
         private Optional<String> bin = Optional.empty();
 
+        private Optional<String> createdAt = Optional.empty();
+
+        private Optional<String> disabledAt = Optional.empty();
+
         private Optional<Long> version = Optional.empty();
 
         private Optional<CardCoBrand> cardCoBrand = Optional.empty();
@@ -468,6 +500,8 @@ public final class Card {
             cardType(other.getCardType());
             prepaidType(other.getPrepaidType());
             bin(other.getBin());
+            createdAt(other.getCreatedAt());
+            disabledAt(other.getDisabledAt());
             version(other.getVersion());
             cardCoBrand(other.getCardCoBrand());
             issuerAlert(other.getIssuerAlert());
@@ -753,6 +787,34 @@ public final class Card {
         }
 
         /**
+         * <p>Timestamp for when the card object was created on Square’s servers. In RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
+        @JsonSetter(value = "created_at", nulls = Nulls.SKIP)
+        public Builder createdAt(Optional<String> createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder createdAt(String createdAt) {
+            this.createdAt = Optional.ofNullable(createdAt);
+            return this;
+        }
+
+        /**
+         * <p>Timestamp for when the card object was disabled on Square’s servers. In RFC 3339 format, e.g., &quot;2016-09-04T23:59:33.123Z&quot;.</p>
+         */
+        @JsonSetter(value = "disabled_at", nulls = Nulls.SKIP)
+        public Builder disabledAt(Optional<String> disabledAt) {
+            this.disabledAt = disabledAt;
+            return this;
+        }
+
+        public Builder disabledAt(String disabledAt) {
+            this.disabledAt = Optional.ofNullable(disabledAt);
+            return this;
+        }
+
+        /**
          * <p>Current version number of the card. Increments with each card update. Requests to update an
          * existing Card object will be rejected unless the version in the request matches the current
          * version for the Card.</p>
@@ -850,6 +912,8 @@ public final class Card {
                     cardType,
                     prepaidType,
                     bin,
+                    createdAt,
+                    disabledAt,
                     version,
                     cardCoBrand,
                     issuerAlert,

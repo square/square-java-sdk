@@ -12,8 +12,6 @@ import java.util.function.Supplier;
 public class SquareClient {
     protected final ClientOptions clientOptions;
 
-    protected final Supplier<MobileClient> mobileClient;
-
     protected final Supplier<OAuthClient> oAuthClient;
 
     protected final Supplier<V1TransactionsClient> v1TransactionsClient;
@@ -80,13 +78,14 @@ public class SquareClient {
 
     protected final Supplier<VendorsClient> vendorsClient;
 
+    protected final Supplier<MobileClient> mobileClient;
+
     protected final Supplier<CashDrawersClient> cashDrawersClient;
 
     protected final Supplier<WebhooksClient> webhooksClient;
 
     public SquareClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
-        this.mobileClient = Suppliers.memoize(() -> new MobileClient(clientOptions));
         this.oAuthClient = Suppliers.memoize(() -> new OAuthClient(clientOptions));
         this.v1TransactionsClient = Suppliers.memoize(() -> new V1TransactionsClient(clientOptions));
         this.applePayClient = Suppliers.memoize(() -> new ApplePayClient(clientOptions));
@@ -120,12 +119,9 @@ public class SquareClient {
         this.terminalClient = Suppliers.memoize(() -> new TerminalClient(clientOptions));
         this.transferOrdersClient = Suppliers.memoize(() -> new TransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new VendorsClient(clientOptions));
+        this.mobileClient = Suppliers.memoize(() -> new MobileClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new CashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new WebhooksClient(clientOptions));
-    }
-
-    public MobileClient mobile() {
-        return this.mobileClient.get();
     }
 
     public OAuthClient oAuth() {
@@ -258,6 +254,10 @@ public class SquareClient {
 
     public VendorsClient vendors() {
         return this.vendorsClient.get();
+    }
+
+    public MobileClient mobile() {
+        return this.mobileClient.get();
     }
 
     public CashDrawersClient cashDrawers() {

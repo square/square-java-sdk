@@ -42,6 +42,13 @@ public class RawLocationProfilesClient {
     /**
      * Lists location booking profiles of a seller.
      */
+    public SquareClientHttpResponse<SyncPagingIterable<LocationBookingProfile>> list(RequestOptions requestOptions) {
+        return list(ListLocationProfilesRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     */
     public SquareClientHttpResponse<SyncPagingIterable<LocationBookingProfile>> list(
             ListLocationProfilesRequest request) {
         return list(request, null);
