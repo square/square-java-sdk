@@ -78,8 +78,6 @@ public class SquareClient {
 
     protected final Supplier<VendorsClient> vendorsClient;
 
-    protected final Supplier<MobileClient> mobileClient;
-
     protected final Supplier<CashDrawersClient> cashDrawersClient;
 
     protected final Supplier<WebhooksClient> webhooksClient;
@@ -119,7 +117,6 @@ public class SquareClient {
         this.terminalClient = Suppliers.memoize(() -> new TerminalClient(clientOptions));
         this.transferOrdersClient = Suppliers.memoize(() -> new TransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new VendorsClient(clientOptions));
-        this.mobileClient = Suppliers.memoize(() -> new MobileClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new CashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new WebhooksClient(clientOptions));
     }
@@ -254,10 +251,6 @@ public class SquareClient {
 
     public VendorsClient vendors() {
         return this.vendorsClient.get();
-    }
-
-    public MobileClient mobile() {
-        return this.mobileClient.get();
     }
 
     public CashDrawersClient cashDrawers() {

@@ -16855,32 +16855,6 @@ client.vendors().update(
 </dl>
 </details>
 
-## Mobile
-<details><summary><code>client.mobile.authorizationCode()</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```java
-client.mobile().authorizationCode();
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Bookings CustomAttributeDefinitions
 <details><summary><code>client.bookings.customAttributeDefinitions.list() -> SyncPagingIterable&lt;CustomAttributeDefinition&gt;</code></summary>
 <dl>
