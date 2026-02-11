@@ -28,8 +28,10 @@ import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled("Skipped due to server-side SquareApiException errors")
 public final class TeamsTest {
     private SquareClient client;
     private String memberId;
