@@ -175,5 +175,15 @@ public final class OrderPricingOptions {
         public OrderPricingOptions build() {
             return new OrderPricingOptions(autoApplyDiscounts, autoApplyTaxes, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

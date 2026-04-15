@@ -138,6 +138,10 @@ public final class DataCollectionOptions {
     public interface _FinalStage {
         DataCollectionOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The buyer’s input text from the data collection screen.</p>
          */
@@ -233,6 +237,18 @@ public final class DataCollectionOptions {
         @java.lang.Override
         public DataCollectionOptions build() {
             return new DataCollectionOptions(title, body, inputType, collectedData, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

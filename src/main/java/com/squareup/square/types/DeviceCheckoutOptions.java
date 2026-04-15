@@ -199,6 +199,10 @@ public final class DeviceCheckoutOptions {
     public interface _FinalStage {
         DeviceCheckoutOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Instructs the device to skip the receipt screen. Defaults to false.</p>
          */
@@ -479,6 +483,18 @@ public final class DeviceCheckoutOptions {
                     showItemizedCart,
                     allowAutoCardSurcharge,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

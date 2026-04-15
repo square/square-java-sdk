@@ -104,6 +104,10 @@ public final class DeleteCustomersRequest {
     public interface _FinalStage {
         DeleteCustomersRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The current version of the customer profile.</p>
          * <p>As a best practice, you should include this parameter to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a> control.  For more information, see <a href="https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#delete-customer-profile">Delete a customer profile</a>.</p>
@@ -187,6 +191,18 @@ public final class DeleteCustomersRequest {
         @java.lang.Override
         public DeleteCustomersRequest build() {
             return new DeleteCustomersRequest(customerId, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

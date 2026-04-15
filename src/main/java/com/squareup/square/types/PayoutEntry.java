@@ -541,6 +541,10 @@ public final class PayoutEntry {
     public interface _FinalStage {
         PayoutEntry build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The timestamp of when the payout entry affected the balance, in RFC 3339 format.</p>
          */
@@ -1611,6 +1615,18 @@ public final class PayoutEntry {
                     typeSquarePayrollTransferDetails,
                     typeSquarePayrollTransferReversedDetails,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

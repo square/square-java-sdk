@@ -159,6 +159,10 @@ public final class ListPromotionsRequest {
     public interface _FinalStage {
         ListPromotionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The status to filter the results by. If a status is provided, only loyalty promotions
          * with the specified status are returned. Otherwise, all loyalty promotions associated with
@@ -360,6 +364,18 @@ public final class ListPromotionsRequest {
         @java.lang.Override
         public ListPromotionsRequest build() {
             return new ListPromotionsRequest(programId, status, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

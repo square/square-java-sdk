@@ -152,6 +152,10 @@ public final class CalculateLoyaltyPointsRequest {
     public interface _FinalStage {
         CalculateLoyaltyPointsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The <a href="entity:Order">order</a> ID for which to calculate the points.
          * Specify this field if your application uses the Orders API to process orders.
@@ -348,6 +352,18 @@ public final class CalculateLoyaltyPointsRequest {
         public CalculateLoyaltyPointsRequest build() {
             return new CalculateLoyaltyPointsRequest(
                     programId, orderId, transactionAmountMoney, loyaltyAccountId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

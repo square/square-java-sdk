@@ -157,6 +157,10 @@ public final class CreateCustomerCardRequest {
     public interface _FinalStage {
         CreateCustomerCardRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Address information for the card on file.</p>
          * <p><strong>NOTE:</strong> If a billing address is provided in the request, the
@@ -319,6 +323,18 @@ public final class CreateCustomerCardRequest {
         public CreateCustomerCardRequest build() {
             return new CreateCustomerCardRequest(
                     customerId, cardNonce, billingAddress, cardholderName, verificationToken, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

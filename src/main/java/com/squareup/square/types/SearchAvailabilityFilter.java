@@ -160,6 +160,10 @@ public final class SearchAvailabilityFilter {
     public interface _FinalStage {
         SearchAvailabilityFilter build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The query expression to search for buyer-accessible availabilities with their location IDs matching the specified location ID.
          * This query expression cannot be set if <code>booking_id</code> is set.</p>
@@ -360,6 +364,18 @@ public final class SearchAvailabilityFilter {
         public SearchAvailabilityFilter build() {
             return new SearchAvailabilityFilter(
                     startAtRange, locationId, segmentFilters, bookingId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -130,5 +130,15 @@ public final class UpsertCustomerCustomAttributeResponse {
         public UpsertCustomerCustomAttributeResponse build() {
             return new UpsertCustomerCustomAttributeResponse(customAttribute, errors, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

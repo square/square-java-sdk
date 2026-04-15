@@ -356,5 +356,15 @@ public final class DeviceComponentDetailsWiFiDetails {
             return new DeviceComponentDetailsWiFiDetails(
                     active, ssid, ipAddressV4, secureConnection, signalStrength, macAddress, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

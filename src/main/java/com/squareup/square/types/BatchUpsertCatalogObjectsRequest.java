@@ -121,6 +121,10 @@ public final class BatchUpsertCatalogObjectsRequest {
     public interface _FinalStage {
         BatchUpsertCatalogObjectsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A batch of CatalogObjects to be inserted/updated atomically.
          * The objects within a batch will be inserted in an all-or-nothing fashion, i.e., if an error occurs
@@ -273,6 +277,18 @@ public final class BatchUpsertCatalogObjectsRequest {
         @java.lang.Override
         public BatchUpsertCatalogObjectsRequest build() {
             return new BatchUpsertCatalogObjectsRequest(idempotencyKey, batches, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

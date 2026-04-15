@@ -105,6 +105,10 @@ public final class GetCustomAttributeDefinitionsRequest {
     public interface _FinalStage {
         GetCustomAttributeDefinitionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>To enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
          * control, include this optional field and specify the current version of the custom attribute.</p>
@@ -188,6 +192,18 @@ public final class GetCustomAttributeDefinitionsRequest {
         @java.lang.Override
         public GetCustomAttributeDefinitionsRequest build() {
             return new GetCustomAttributeDefinitionsRequest(key, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

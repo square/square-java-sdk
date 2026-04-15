@@ -149,6 +149,10 @@ public final class ListEventsShiftsRequest {
     public interface _FinalStage {
         ListEventsShiftsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Number of resources to be returned in a page of results (200 by
          * default, 1000 max).</p>
@@ -295,6 +299,18 @@ public final class ListEventsShiftsRequest {
         @java.lang.Override
         public ListEventsShiftsRequest build() {
             return new ListEventsShiftsRequest(shiftId, locationId, limit, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

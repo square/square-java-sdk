@@ -209,6 +209,10 @@ public final class Break {
     public interface _FinalStage {
         Break build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The UUID for this object.</p>
          */
@@ -391,6 +395,18 @@ public final class Break {
         @java.lang.Override
         public Break build() {
             return new Break(id, startAt, endAt, breakTypeId, name, expectedDuration, isPaid, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

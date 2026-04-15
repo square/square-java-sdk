@@ -52,10 +52,14 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<CreateTerminalRefundResponse>> create(
             CreateTerminalRefundRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/terminals/refunds")
-                .build();
+                .addPathSegments("v2/terminals/refunds");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -64,7 +68,7 @@ public class AsyncRawRefundsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -132,10 +136,14 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<SearchTerminalRefundsResponse>> search(
             SearchTerminalRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/terminals/refunds/search")
-                .build();
+                .addPathSegments("v2/terminals/refunds/search");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -144,7 +152,7 @@ public class AsyncRawRefundsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -196,13 +204,17 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetTerminalRefundResponse>> get(
             GetRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/terminals/refunds")
-                .addPathSegment(request.getTerminalRefundId())
-                .build();
+                .addPathSegment(request.getTerminalRefundId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -254,14 +266,18 @@ public class AsyncRawRefundsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<CancelTerminalRefundResponse>> cancel(
             CancelRefundsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/terminals/refunds")
                 .addPathSegment(request.getTerminalRefundId())
-                .addPathSegments("cancel")
-                .build();
+                .addPathSegments("cancel");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

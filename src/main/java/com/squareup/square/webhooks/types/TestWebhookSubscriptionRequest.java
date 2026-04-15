@@ -104,6 +104,10 @@ public final class TestWebhookSubscriptionRequest {
     public interface _FinalStage {
         TestWebhookSubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The event type that will be used to test the <a href="entity:WebhookSubscription">Subscription</a>. The event type must be
          * contained in the list of event types in the <a href="entity:WebhookSubscription">Subscription</a>.</p>
@@ -187,6 +191,18 @@ public final class TestWebhookSubscriptionRequest {
         @java.lang.Override
         public TestWebhookSubscriptionRequest build() {
             return new TestWebhookSubscriptionRequest(subscriptionId, eventType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

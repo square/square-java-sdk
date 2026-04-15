@@ -186,6 +186,10 @@ public final class VendorContact {
     public interface _FinalStage {
         VendorContact build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique Square-generated ID for the <a href="entity:VendorContact">VendorContact</a>.
          * This field is required when attempting to update a <a href="entity:VendorContact">VendorContact</a>.</p>
@@ -446,6 +450,18 @@ public final class VendorContact {
         @java.lang.Override
         public VendorContact build() {
             return new VendorContact(id, name, emailAddress, phoneNumber, removed, ordinal, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

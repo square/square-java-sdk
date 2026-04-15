@@ -127,5 +127,15 @@ public final class CreateCardResponse {
         public CreateCardResponse build() {
             return new CreateCardResponse(errors, card, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

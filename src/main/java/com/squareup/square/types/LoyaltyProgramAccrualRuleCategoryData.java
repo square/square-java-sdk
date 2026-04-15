@@ -79,6 +79,10 @@ public final class LoyaltyProgramAccrualRuleCategoryData {
 
     public interface _FinalStage {
         LoyaltyProgramAccrualRuleCategoryData build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -113,6 +117,18 @@ public final class LoyaltyProgramAccrualRuleCategoryData {
         @java.lang.Override
         public LoyaltyProgramAccrualRuleCategoryData build() {
             return new LoyaltyProgramAccrualRuleCategoryData(categoryId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

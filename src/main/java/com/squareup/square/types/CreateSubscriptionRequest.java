@@ -277,6 +277,10 @@ public final class CreateSubscriptionRequest {
     public interface _FinalStage {
         CreateSubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique string that identifies this <code>CreateSubscription</code> request.
          * If you do not provide a unique string (or provide an empty string as the value),
@@ -724,6 +728,18 @@ public final class CreateSubscriptionRequest {
                     monthlyBillingAnchorDate,
                     phases,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

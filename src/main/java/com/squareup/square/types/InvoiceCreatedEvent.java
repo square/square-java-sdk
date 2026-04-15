@@ -282,5 +282,15 @@ public final class InvoiceCreatedEvent {
         public InvoiceCreatedEvent build() {
             return new InvoiceCreatedEvent(merchantId, type, eventId, createdAt, data, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

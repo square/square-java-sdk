@@ -129,6 +129,10 @@ public final class ListInvoicesRequest {
     public interface _FinalStage {
         ListInvoicesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A pagination cursor returned by a previous call to this endpoint.
          * Provide this cursor to retrieve the next set of results for your original query.</p>
@@ -268,6 +272,18 @@ public final class ListInvoicesRequest {
         @java.lang.Override
         public ListInvoicesRequest build() {
             return new ListInvoicesRequest(locationId, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -53,14 +53,18 @@ public class AsyncRawSnippetsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetSnippetResponse>> get(
             GetSnippetsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/sites")
                 .addPathSegment(request.getSiteId())
-                .addPathSegments("snippet")
-                .build();
+                .addPathSegments("snippet");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -116,12 +120,16 @@ public class AsyncRawSnippetsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<UpsertSnippetResponse>> upsert(
             UpsertSnippetRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/sites")
                 .addPathSegment(request.getSiteId())
-                .addPathSegments("snippet")
-                .build();
+                .addPathSegments("snippet");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -130,7 +138,7 @@ public class AsyncRawSnippetsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -185,14 +193,18 @@ public class AsyncRawSnippetsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<DeleteSnippetResponse>> delete(
             DeleteSnippetsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/sites")
                 .addPathSegment(request.getSiteId())
-                .addPathSegments("snippet")
-                .build();
+                .addPathSegments("snippet");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("DELETE", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

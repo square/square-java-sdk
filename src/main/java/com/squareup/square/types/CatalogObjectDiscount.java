@@ -265,6 +265,10 @@ public final class CatalogObjectDiscount implements ICatalogObjectBase {
     public interface _FinalStage {
         CatalogObjectDiscount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Last modification <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">timestamp</a> in RFC 3339 format, e.g., <code>&quot;2016-08-15T23:59:33.123Z&quot;</code>
          * would indicate the UTC time (denoted by <code>Z</code>) of August 15, 2016 at 23:59:33 and 123 milliseconds.</p>
@@ -685,6 +689,18 @@ public final class CatalogObjectDiscount implements ICatalogObjectBase {
                     imageId,
                     discountData,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

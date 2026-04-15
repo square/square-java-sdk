@@ -162,5 +162,15 @@ public final class SearchTerminalRefundsResponse {
         public SearchTerminalRefundsResponse build() {
             return new SearchTerminalRefundsResponse(errors, refunds, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

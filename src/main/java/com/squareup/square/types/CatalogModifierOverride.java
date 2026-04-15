@@ -140,6 +140,10 @@ public final class CatalogModifierOverride {
     public interface _FinalStage {
         CatalogModifierOverride build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p><strong>Deprecated</strong>: Use <code>on_by_default_override</code> instead.</p>
          */
@@ -304,6 +308,18 @@ public final class CatalogModifierOverride {
         public CatalogModifierOverride build() {
             return new CatalogModifierOverride(
                     modifierId, onByDefault, hiddenOnlineOverride, onByDefaultOverride, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

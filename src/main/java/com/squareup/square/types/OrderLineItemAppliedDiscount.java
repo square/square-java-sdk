@@ -125,6 +125,10 @@ public final class OrderLineItemAppliedDiscount {
     public interface _FinalStage {
         OrderLineItemAppliedDiscount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique ID that identifies the applied discount only within this order.</p>
          */
@@ -240,6 +244,18 @@ public final class OrderLineItemAppliedDiscount {
         @java.lang.Override
         public OrderLineItemAppliedDiscount build() {
             return new OrderLineItemAppliedDiscount(uid, discountUid, appliedMoney, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -156,6 +156,10 @@ public final class ListCustomAttributesRequest {
     public interface _FinalStage {
         ListCustomAttributesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The maximum number of results to return in a single paged response. This limit is advisory.
          * The response might contain more or fewer results. The minimum value is 1 and the maximum value is 100.
@@ -355,6 +359,18 @@ public final class ListCustomAttributesRequest {
         @java.lang.Override
         public ListCustomAttributesRequest build() {
             return new ListCustomAttributesRequest(bookingId, limit, cursor, withDefinitions, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

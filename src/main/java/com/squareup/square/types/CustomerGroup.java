@@ -120,6 +120,10 @@ public final class CustomerGroup {
     public interface _FinalStage {
         CustomerGroup build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique Square-generated ID for the customer group.</p>
          */
@@ -241,6 +245,18 @@ public final class CustomerGroup {
         @java.lang.Override
         public CustomerGroup build() {
             return new CustomerGroup(id, name, createdAt, updatedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

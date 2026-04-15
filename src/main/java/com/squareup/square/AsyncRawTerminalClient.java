@@ -50,14 +50,18 @@ public class AsyncRawTerminalClient {
      */
     public CompletableFuture<SquareClientHttpResponse<DismissTerminalActionResponse>> dismissTerminalAction(
             DismissTerminalActionRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/terminals/actions")
                 .addPathSegment(request.getActionId())
-                .addPathSegments("dismiss")
-                .build();
+                .addPathSegments("dismiss");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -109,14 +113,18 @@ public class AsyncRawTerminalClient {
      */
     public CompletableFuture<SquareClientHttpResponse<DismissTerminalCheckoutResponse>> dismissTerminalCheckout(
             DismissTerminalCheckoutRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/terminals/checkouts")
                 .addPathSegment(request.getCheckoutId())
-                .addPathSegments("dismiss")
-                .build();
+                .addPathSegments("dismiss");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -168,14 +176,18 @@ public class AsyncRawTerminalClient {
      */
     public CompletableFuture<SquareClientHttpResponse<DismissTerminalRefundResponse>> dismissTerminalRefund(
             DismissTerminalRefundRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/terminals/refunds")
                 .addPathSegment(request.getTerminalRefundId())
-                .addPathSegments("dismiss")
-                .build();
+                .addPathSegments("dismiss");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

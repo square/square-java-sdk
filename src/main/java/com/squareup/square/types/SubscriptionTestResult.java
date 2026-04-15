@@ -354,5 +354,15 @@ public final class SubscriptionTestResult {
             return new SubscriptionTestResult(
                     id, statusCode, payload, createdAt, updatedAt, notificationUrl, passesFilter, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -157,6 +157,10 @@ public final class GetCustomAttributesRequest {
     public interface _FinalStage {
         GetCustomAttributesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates whether to return the <a href="entity:CustomAttributeDefinition">custom attribute definition</a> in the <code>definition</code> field of
          * the custom attribute. Set this parameter to <code>true</code> to get the name and description of the custom
@@ -323,6 +327,18 @@ public final class GetCustomAttributesRequest {
         @java.lang.Override
         public GetCustomAttributesRequest build() {
             return new GetCustomAttributesRequest(customerId, key, withDefinition, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -252,5 +252,15 @@ public final class OrderReturnTip {
         public OrderReturnTip build() {
             return new OrderReturnTip(uid, appliedMoney, sourceTenderUid, sourceTenderId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

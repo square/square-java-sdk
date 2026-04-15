@@ -117,6 +117,11 @@ public class AsyncRawActivitiesClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "sort_order", request.getSortOrder().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -190,10 +195,14 @@ public class AsyncRawActivitiesClient {
      */
     public CompletableFuture<SquareClientHttpResponse<CreateGiftCardActivityResponse>> create(
             CreateGiftCardActivityRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/gift-cards/activities")
-                .build();
+                .addPathSegments("v2/gift-cards/activities");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -202,7 +211,7 @@ public class AsyncRawActivitiesClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

@@ -249,6 +249,10 @@ public final class LoyaltyAccount {
     public interface _FinalStage {
         LoyaltyAccount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The Square-assigned ID of the loyalty account.</p>
          */
@@ -653,6 +657,18 @@ public final class LoyaltyAccount {
                     mapping,
                     expiringPointDeadlines,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -177,5 +177,15 @@ public final class ListGroupsRequest {
         public ListGroupsRequest build() {
             return new ListGroupsRequest(cursor, limit, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -121,6 +121,10 @@ public final class SaveCardOptions {
     public interface _FinalStage {
         SaveCardOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The id of the created card-on-file.</p>
          */
@@ -238,6 +242,18 @@ public final class SaveCardOptions {
         @java.lang.Override
         public SaveCardOptions build() {
             return new SaveCardOptions(customerId, cardId, referenceId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

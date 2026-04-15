@@ -199,6 +199,10 @@ public final class PauseSubscriptionRequest {
     public interface _FinalStage {
         PauseSubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The <code>YYYY-MM-DD</code>-formatted date when the scheduled <code>PAUSE</code> action takes place on the subscription.</p>
          * <p>When this date is unspecified or falls within the current billing cycle, the subscription is paused
@@ -489,6 +493,18 @@ public final class PauseSubscriptionRequest {
                     resumeChangeTiming,
                     pauseReason,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

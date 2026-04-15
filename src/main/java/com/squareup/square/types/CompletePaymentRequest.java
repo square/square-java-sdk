@@ -105,6 +105,10 @@ public final class CompletePaymentRequest {
     public interface _FinalStage {
         CompletePaymentRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Used for optimistic concurrency. This opaque token identifies the current <code>Payment</code>
          * version that the caller expects. If the server has a different version of the Payment,
@@ -192,6 +196,18 @@ public final class CompletePaymentRequest {
         @java.lang.Override
         public CompletePaymentRequest build() {
             return new CompletePaymentRequest(paymentId, versionToken, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

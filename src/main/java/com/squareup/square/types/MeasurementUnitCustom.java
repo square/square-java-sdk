@@ -96,6 +96,10 @@ public final class MeasurementUnitCustom {
 
     public interface _FinalStage {
         MeasurementUnitCustom build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -145,6 +149,18 @@ public final class MeasurementUnitCustom {
         @java.lang.Override
         public MeasurementUnitCustom build() {
             return new MeasurementUnitCustom(name, abbreviation, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

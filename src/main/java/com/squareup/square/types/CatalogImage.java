@@ -286,5 +286,15 @@ public final class CatalogImage {
         public CatalogImage build() {
             return new CatalogImage(name, url, caption, photoStudioOrderId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

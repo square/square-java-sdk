@@ -130,6 +130,10 @@ public final class ListEventsSubscriptionsRequest {
     public interface _FinalStage {
         ListEventsSubscriptionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>When the total number of resulting subscription events exceeds the limit of a paged response,
          * specify the cursor returned from a preceding response here to fetch the next set of results.
@@ -273,6 +277,18 @@ public final class ListEventsSubscriptionsRequest {
         @java.lang.Override
         public ListEventsSubscriptionsRequest build() {
             return new ListEventsSubscriptionsRequest(subscriptionId, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

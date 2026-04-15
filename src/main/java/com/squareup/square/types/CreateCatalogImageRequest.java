@@ -136,6 +136,10 @@ public final class CreateCatalogImageRequest {
     public interface _FinalStage {
         CreateCatalogImageRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique ID of the <code>CatalogObject</code> to attach this <code>CatalogImage</code> object to. Leave this
          * field empty to create unattached images, for example if you are building an integration
@@ -261,6 +265,18 @@ public final class CreateCatalogImageRequest {
         @java.lang.Override
         public CreateCatalogImageRequest build() {
             return new CreateCatalogImageRequest(idempotencyKey, objectId, image, isPrimary, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

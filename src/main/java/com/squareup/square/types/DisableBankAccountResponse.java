@@ -127,5 +127,15 @@ public final class DisableBankAccountResponse {
         public DisableBankAccountResponse build() {
             return new DisableBankAccountResponse(bankAccount, errors, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

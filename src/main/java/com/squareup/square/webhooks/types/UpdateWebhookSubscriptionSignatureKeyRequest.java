@@ -104,6 +104,10 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
     public interface _FinalStage {
         UpdateWebhookSubscriptionSignatureKeyRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-UpdateWebhookSubscriptionSignatureKey">UpdateWebhookSubscriptionSignatureKey</a> request.</p>
          */
@@ -184,6 +188,18 @@ public final class UpdateWebhookSubscriptionSignatureKeyRequest {
         public UpdateWebhookSubscriptionSignatureKeyRequest build() {
             return new UpdateWebhookSubscriptionSignatureKeyRequest(
                     subscriptionId, idempotencyKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -307,6 +307,10 @@ public final class Timecard {
     public interface _FinalStage {
         Timecard build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p><strong>Read only</strong> The Square-issued UUID for this object.</p>
          */
@@ -767,6 +771,18 @@ public final class Timecard {
                     teamMemberId,
                     declaredCashTipMoney,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

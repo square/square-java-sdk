@@ -153,6 +153,10 @@ public final class AdjustLoyaltyPointsRequest {
     public interface _FinalStage {
         AdjustLoyaltyPointsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Indicates whether to allow a negative adjustment to result in a negative balance. If <code>true</code>, a negative
          * balance is allowed when subtracting points. If <code>false</code>, Square returns a <code>BAD_REQUEST</code> error when subtracting
@@ -275,6 +279,18 @@ public final class AdjustLoyaltyPointsRequest {
         public AdjustLoyaltyPointsRequest build() {
             return new AdjustLoyaltyPointsRequest(
                     accountId, idempotencyKey, adjustPoints, allowNegativeBalance, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

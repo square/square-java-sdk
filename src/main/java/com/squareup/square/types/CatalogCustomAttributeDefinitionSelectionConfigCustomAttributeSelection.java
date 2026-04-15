@@ -104,6 +104,10 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
     public interface _FinalStage {
         CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Unique ID set by Square.</p>
          */
@@ -184,6 +188,18 @@ public final class CatalogCustomAttributeDefinitionSelectionConfigCustomAttribut
         public CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection build() {
             return new CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection(
                     uid, name, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

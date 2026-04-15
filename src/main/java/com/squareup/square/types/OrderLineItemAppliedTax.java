@@ -140,6 +140,10 @@ public final class OrderLineItemAppliedTax {
     public interface _FinalStage {
         OrderLineItemAppliedTax build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique ID that identifies the applied tax only within this order.</p>
          */
@@ -291,6 +295,18 @@ public final class OrderLineItemAppliedTax {
         @java.lang.Override
         public OrderLineItemAppliedTax build() {
             return new OrderLineItemAppliedTax(uid, taxUid, appliedMoney, autoApplied, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

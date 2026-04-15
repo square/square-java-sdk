@@ -112,6 +112,10 @@ public final class CustomerCustomAttributeFilter {
     public interface _FinalStage {
         CustomerCustomAttributeFilter build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A filter that corresponds to the data type of the target custom attribute. For example, provide the <code>phone</code> filter to
          * search based on the value of a <code>PhoneNumber</code>-type custom attribute. The data type is specified by the schema field of the custom attribute definition,
@@ -220,6 +224,18 @@ public final class CustomerCustomAttributeFilter {
         @java.lang.Override
         public CustomerCustomAttributeFilter build() {
             return new CustomerCustomAttributeFilter(key, filter, updatedAt, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

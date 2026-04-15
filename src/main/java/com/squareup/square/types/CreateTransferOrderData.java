@@ -227,6 +227,10 @@ public final class CreateTransferOrderData {
     public interface _FinalStage {
         CreateTransferOrderData build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Expected transfer date in RFC 3339 format (e.g. &quot;2023-10-01T12:00:00Z&quot;).</p>
          */
@@ -530,6 +534,18 @@ public final class CreateTransferOrderData {
                     createdByTeamMemberId,
                     lineItems,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

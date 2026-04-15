@@ -160,5 +160,15 @@ public final class UpsertCatalogObjectResponse {
         public UpsertCatalogObjectResponse build() {
             return new UpsertCatalogObjectResponse(errors, catalogObject, idMappings, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

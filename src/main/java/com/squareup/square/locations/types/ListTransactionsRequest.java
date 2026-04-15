@@ -181,6 +181,10 @@ public final class ListTransactionsRequest {
     public interface _FinalStage {
         ListTransactionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The beginning of the requested reporting period, in RFC 3339 format.</p>
          * <p>See <a href="https://developer.squareup.com/docs/build-basics/working-with-dates">Date ranges</a> for details on date inclusivity/exclusivity.</p>
@@ -436,6 +440,18 @@ public final class ListTransactionsRequest {
         @java.lang.Override
         public ListTransactionsRequest build() {
             return new ListTransactionsRequest(locationId, beginTime, endTime, sortOrder, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

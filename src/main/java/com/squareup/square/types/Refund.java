@@ -272,6 +272,10 @@ public final class Refund {
     public interface _FinalStage {
         Refund build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The ID of the transaction that the refunded tender is part of.</p>
          */
@@ -587,6 +591,18 @@ public final class Refund {
                     processingFeeMoney,
                     additionalRecipients,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

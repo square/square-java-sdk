@@ -113,6 +113,10 @@ public final class SignatureOptions {
     public interface _FinalStage {
         SignatureOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>An image representation of the collected signature.</p>
          */
@@ -189,6 +193,18 @@ public final class SignatureOptions {
         @java.lang.Override
         public SignatureOptions build() {
             return new SignatureOptions(title, body, signature, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

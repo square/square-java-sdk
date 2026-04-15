@@ -148,6 +148,10 @@ public final class AdditionalRecipient {
     public interface _FinalStage {
         AdditionalRecipient build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The description of the additional recipient.</p>
          */
@@ -290,6 +294,18 @@ public final class AdditionalRecipient {
         @java.lang.Override
         public AdditionalRecipient build() {
             return new AdditionalRecipient(locationId, description, amountMoney, receivableId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

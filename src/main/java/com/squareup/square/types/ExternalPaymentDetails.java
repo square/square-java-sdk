@@ -170,6 +170,10 @@ public final class ExternalPaymentDetails {
     public interface _FinalStage {
         ExternalPaymentDetails build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>An ID to associate the payment to its originating source.</p>
          */
@@ -327,6 +331,18 @@ public final class ExternalPaymentDetails {
         @java.lang.Override
         public ExternalPaymentDetails build() {
             return new ExternalPaymentDetails(type, source, sourceId, sourceFeeMoney, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

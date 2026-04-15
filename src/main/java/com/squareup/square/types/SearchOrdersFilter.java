@@ -227,5 +227,15 @@ public final class SearchOrdersFilter {
             return new SearchOrdersFilter(
                     stateFilter, dateTimeFilter, fulfillmentFilter, sourceFilter, customerFilter, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

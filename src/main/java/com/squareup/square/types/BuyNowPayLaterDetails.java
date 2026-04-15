@@ -219,5 +219,15 @@ public final class BuyNowPayLaterDetails {
         public BuyNowPayLaterDetails build() {
             return new BuyNowPayLaterDetails(brand, afterpayDetails, clearpayDetails, errors, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

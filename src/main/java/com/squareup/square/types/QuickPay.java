@@ -112,6 +112,10 @@ public final class QuickPay {
 
     public interface _FinalStage {
         QuickPay build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -174,6 +178,18 @@ public final class QuickPay {
         @java.lang.Override
         public QuickPay build() {
             return new QuickPay(name, priceMoney, locationId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

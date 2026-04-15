@@ -166,6 +166,10 @@ public final class FulfillmentFulfillmentEntry {
     public interface _FinalStage {
         FulfillmentFulfillmentEntry build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique ID that identifies the fulfillment entry only within this order.</p>
          */
@@ -362,6 +366,18 @@ public final class FulfillmentFulfillmentEntry {
         @java.lang.Override
         public FulfillmentFulfillmentEntry build() {
             return new FulfillmentFulfillmentEntry(uid, lineItemUid, quantity, metadata, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

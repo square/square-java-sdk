@@ -97,5 +97,15 @@ public final class CardForgottenEventObject {
         public CardForgottenEventObject build() {
             return new CardForgottenEventObject(card, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

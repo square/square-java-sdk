@@ -201,5 +201,15 @@ public final class SearchCustomersRequest {
         public SearchCustomersRequest build() {
             return new SearchCustomersRequest(cursor, limit, query, count, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

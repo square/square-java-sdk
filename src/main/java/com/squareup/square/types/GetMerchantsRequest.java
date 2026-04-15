@@ -78,6 +78,10 @@ public final class GetMerchantsRequest {
 
     public interface _FinalStage {
         GetMerchantsRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -112,6 +116,18 @@ public final class GetMerchantsRequest {
         @java.lang.Override
         public GetMerchantsRequest build() {
             return new GetMerchantsRequest(merchantId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

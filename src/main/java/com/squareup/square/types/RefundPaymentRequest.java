@@ -378,6 +378,10 @@ public final class RefundPaymentRequest {
     public interface _FinalStage {
         RefundPaymentRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The amount of money the developer contributes to help cover the refunded amount.
          * This amount is specified in the smallest denomination of the applicable currency (for example,
@@ -1021,6 +1025,18 @@ public final class RefundPaymentRequest {
                     cashDetails,
                     externalDetails,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

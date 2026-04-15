@@ -83,6 +83,11 @@ public class RawDevicesClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "location_id", request.getLocationId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -130,13 +135,17 @@ public class RawDevicesClient {
      * Retrieves Device with the associated <code>device_id</code>.
      */
     public SquareClientHttpResponse<GetDeviceResponse> get(GetDevicesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/devices")
-                .addPathSegment(request.getDeviceId())
-                .build();
+                .addPathSegment(request.getDeviceId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

@@ -51,13 +51,17 @@ public class AsyncRawCheckoutClient {
      */
     public CompletableFuture<SquareClientHttpResponse<RetrieveLocationSettingsResponse>> retrieveLocationSettings(
             RetrieveLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
+                .addPathSegment(request.getLocationId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -110,11 +114,15 @@ public class AsyncRawCheckoutClient {
      */
     public CompletableFuture<SquareClientHttpResponse<UpdateLocationSettingsResponse>> updateLocationSettings(
             UpdateLocationSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/online-checkout/location-settings")
-                .addPathSegment(request.getLocationId())
-                .build();
+                .addPathSegment(request.getLocationId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -123,7 +131,7 @@ public class AsyncRawCheckoutClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -175,12 +183,16 @@ public class AsyncRawCheckoutClient {
      */
     public CompletableFuture<SquareClientHttpResponse<RetrieveMerchantSettingsResponse>> retrieveMerchantSettings(
             RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
+                .addPathSegments("v2/online-checkout/merchant-settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json")
@@ -233,10 +245,14 @@ public class AsyncRawCheckoutClient {
      */
     public CompletableFuture<SquareClientHttpResponse<UpdateMerchantSettingsResponse>> updateMerchantSettings(
             UpdateMerchantSettingsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/online-checkout/merchant-settings")
-                .build();
+                .addPathSegments("v2/online-checkout/merchant-settings");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -245,7 +261,7 @@ public class AsyncRawCheckoutClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

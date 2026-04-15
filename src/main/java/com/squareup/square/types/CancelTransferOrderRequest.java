@@ -116,6 +116,10 @@ public final class CancelTransferOrderRequest {
     public interface _FinalStage {
         CancelTransferOrderRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Version for optimistic concurrency</p>
          */
@@ -194,6 +198,18 @@ public final class CancelTransferOrderRequest {
         @java.lang.Override
         public CancelTransferOrderRequest build() {
             return new CancelTransferOrderRequest(transferOrderId, idempotencyKey, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

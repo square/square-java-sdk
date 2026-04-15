@@ -230,6 +230,10 @@ public final class DeviceAttributes {
     public interface _FinalStage {
         DeviceAttributes build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The specific model of the device.</p>
          */
@@ -546,6 +550,18 @@ public final class DeviceAttributes {
                     version,
                     merchantToken,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -128,6 +128,10 @@ public final class CatalogQueryRange {
     public interface _FinalStage {
         CatalogQueryRange build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The desired minimum value for the search attribute (inclusive).</p>
          */
@@ -255,6 +259,18 @@ public final class CatalogQueryRange {
         @java.lang.Override
         public CatalogQueryRange build() {
             return new CatalogQueryRange(attributeName, attributeMinValue, attributeMaxValue, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -129,6 +129,10 @@ public final class SelectOptions {
     public interface _FinalStage {
         SelectOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Represents the buttons/options that should be displayed in the select flow on the Terminal.</p>
          */
@@ -252,6 +256,18 @@ public final class SelectOptions {
         @java.lang.Override
         public SelectOptions build() {
             return new SelectOptions(title, body, options, selectedOption, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

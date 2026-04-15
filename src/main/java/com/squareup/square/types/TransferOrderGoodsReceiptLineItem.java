@@ -153,6 +153,10 @@ public final class TransferOrderGoodsReceiptLineItem {
     public interface _FinalStage {
         TransferOrderGoodsReceiptLineItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The quantity received for this line item as a decimal string (e.g. &quot;10.5&quot;).
          * These items will be added to the destination <a href="entity:Location">Location</a>'s inventory with <a href="entity:InventoryState">InventoryState</a> of IN_STOCK.</p>
@@ -338,6 +342,18 @@ public final class TransferOrderGoodsReceiptLineItem {
         public TransferOrderGoodsReceiptLineItem build() {
             return new TransferOrderGoodsReceiptLineItem(
                     transferOrderLineUid, quantityReceived, quantityDamaged, quantityCanceled, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

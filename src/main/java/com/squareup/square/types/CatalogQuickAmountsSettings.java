@@ -132,6 +132,10 @@ public final class CatalogQuickAmountsSettings {
     public interface _FinalStage {
         CatalogQuickAmountsSettings build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Represents location's eligibility for auto amounts
          * The boolean should be consistent with whether there are AUTO amounts in the <code>amounts</code>.</p>
@@ -265,6 +269,18 @@ public final class CatalogQuickAmountsSettings {
         @java.lang.Override
         public CatalogQuickAmountsSettings build() {
             return new CatalogQuickAmountsSettings(option, eligibleForAutoAmounts, amounts, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

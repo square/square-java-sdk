@@ -151,6 +151,10 @@ public final class UpdateOrderRequest {
     public interface _FinalStage {
         UpdateOrderRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The <a href="https://developer.squareup.com/docs/orders-api/manage-orders/update-orders#sparse-order-objects">sparse order</a>
          * containing only the fields to update and the version to which the update is
@@ -342,6 +346,18 @@ public final class UpdateOrderRequest {
         @java.lang.Override
         public UpdateOrderRequest build() {
             return new UpdateOrderRequest(orderId, order, fieldsToClear, idempotencyKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

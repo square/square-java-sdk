@@ -134,6 +134,10 @@ public final class UpdateTransferOrderRequest {
     public interface _FinalStage {
         UpdateTransferOrderRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Version for optimistic concurrency</p>
          */
@@ -227,6 +231,18 @@ public final class UpdateTransferOrderRequest {
         public UpdateTransferOrderRequest build() {
             return new UpdateTransferOrderRequest(
                     transferOrderId, idempotencyKey, transferOrder, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

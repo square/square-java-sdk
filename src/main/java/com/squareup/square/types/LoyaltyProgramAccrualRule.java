@@ -167,6 +167,10 @@ public final class LoyaltyProgramAccrualRule {
     public interface _FinalStage {
         LoyaltyProgramAccrualRule build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The number of points that
          * buyers earn based on the <code>accrual_type</code>.</p>
@@ -373,6 +377,18 @@ public final class LoyaltyProgramAccrualRule {
         public LoyaltyProgramAccrualRule build() {
             return new LoyaltyProgramAccrualRule(
                     accrualType, points, visitData, spendData, itemVariationData, categoryData, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

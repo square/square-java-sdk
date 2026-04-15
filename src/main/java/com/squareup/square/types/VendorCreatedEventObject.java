@@ -128,5 +128,15 @@ public final class VendorCreatedEventObject {
         public VendorCreatedEventObject build() {
             return new VendorCreatedEventObject(operation, vendor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

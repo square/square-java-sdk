@@ -118,6 +118,10 @@ public final class CreateBankAccountRequest {
     public interface _FinalStage {
         CreateBankAccountRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The ID of the customer associated with the bank account to be stored.</p>
          */
@@ -198,6 +202,18 @@ public final class CreateBankAccountRequest {
         @java.lang.Override
         public CreateBankAccountRequest build() {
             return new CreateBankAccountRequest(idempotencyKey, sourceId, customerId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -94,6 +94,10 @@ public final class AddGroupsRequest {
 
     public interface _FinalStage {
         AddGroupsRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -141,6 +145,18 @@ public final class AddGroupsRequest {
         @java.lang.Override
         public AddGroupsRequest build() {
             return new AddGroupsRequest(customerId, groupId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -212,5 +212,15 @@ public final class CatalogAvailabilityPeriod {
         public CatalogAvailabilityPeriod build() {
             return new CatalogAvailabilityPeriod(startLocalTime, endLocalTime, dayOfWeek, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }
