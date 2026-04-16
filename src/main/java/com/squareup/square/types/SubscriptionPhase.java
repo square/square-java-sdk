@@ -178,6 +178,10 @@ public final class SubscriptionPhase {
     public interface _FinalStage {
         SubscriptionPhase build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The Square-assigned ID of the subscription phase. This field cannot be changed after a <code>SubscriptionPhase</code> is created.</p>
          */
@@ -416,6 +420,18 @@ public final class SubscriptionPhase {
         public SubscriptionPhase build() {
             return new SubscriptionPhase(
                     uid, cadence, periods, recurringPriceMoney, ordinal, pricing, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

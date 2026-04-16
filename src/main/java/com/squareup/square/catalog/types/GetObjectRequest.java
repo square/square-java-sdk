@@ -168,6 +168,10 @@ public final class GetObjectRequest {
     public interface _FinalStage {
         GetObjectRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>If <code>true</code>, the response will include additional objects that are related to the
          * requested objects. Related objects are defined as any objects referenced by ID by the results in the <code>objects</code> field
@@ -412,6 +416,18 @@ public final class GetObjectRequest {
         public GetObjectRequest build() {
             return new GetObjectRequest(
                     objectId, includeRelatedObjects, catalogVersion, includeCategoryPathToRoot, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

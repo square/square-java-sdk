@@ -169,5 +169,15 @@ public final class ListLocationProfilesRequest {
         public ListLocationProfilesRequest build() {
             return new ListLocationProfilesRequest(limit, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

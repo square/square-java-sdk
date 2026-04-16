@@ -107,6 +107,11 @@ public class AsyncRawGiftCardsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "customer_id", request.getCustomerId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -183,10 +188,14 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<CreateGiftCardResponse>> create(
             CreateGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/gift-cards")
-                .build();
+                .addPathSegments("v2/gift-cards");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -195,7 +204,7 @@ public class AsyncRawGiftCardsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -247,10 +256,14 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetGiftCardFromGanResponse>> getFromGan(
             GetGiftCardFromGanRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/gift-cards/from-gan")
-                .build();
+                .addPathSegments("v2/gift-cards/from-gan");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -259,7 +272,7 @@ public class AsyncRawGiftCardsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -312,10 +325,14 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetGiftCardFromNonceResponse>> getFromNonce(
             GetGiftCardFromNonceRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
-                .addPathSegments("v2/gift-cards/from-nonce")
-                .build();
+                .addPathSegments("v2/gift-cards/from-nonce");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -324,7 +341,7 @@ public class AsyncRawGiftCardsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -377,12 +394,16 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<LinkCustomerToGiftCardResponse>> linkCustomer(
             LinkCustomerToGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/gift-cards")
                 .addPathSegment(request.getGiftCardId())
-                .addPathSegments("link-customer")
-                .build();
+                .addPathSegments("link-customer");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -391,7 +412,7 @@ public class AsyncRawGiftCardsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -444,12 +465,16 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<UnlinkCustomerFromGiftCardResponse>> unlinkCustomer(
             UnlinkCustomerFromGiftCardRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/gift-cards")
                 .addPathSegment(request.getGiftCardId())
-                .addPathSegments("unlink-customer")
-                .build();
+                .addPathSegments("unlink-customer");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -458,7 +483,7 @@ public class AsyncRawGiftCardsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("POST", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")
@@ -511,13 +536,17 @@ public class AsyncRawGiftCardsClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetGiftCardResponse>> get(
             GetGiftCardsRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/gift-cards")
-                .addPathSegment(request.getId())
-                .build();
+                .addPathSegment(request.getId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

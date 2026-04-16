@@ -287,5 +287,15 @@ public final class ListSubscriptionsRequest {
         public ListSubscriptionsRequest build() {
             return new ListSubscriptionsRequest(cursor, includeDisabled, sortOrder, limit, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

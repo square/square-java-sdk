@@ -149,7 +149,7 @@ public final class Checkout {
      * parameters. For example, if the provided redirect_url is
      * <code>http://www.example.com/order-complete</code>, a successful transaction redirects
      * the customer to:
-     * <p>&lt;pre&gt;&lt;code&gt;http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;orderId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx&lt;/code&gt;&lt;/pre&gt;</p>
+     * <p><pre><code>http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;orderId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx</code></pre></p>
      * <p>If you do not provide a redirect URL, Square Checkout will display an order
      * confirmation page on your behalf; however Square strongly recommends that
      * you provide a redirect URL so you can verify the transaction results and
@@ -462,7 +462,7 @@ public final class Checkout {
          * parameters. For example, if the provided redirect_url is
          * <code>http://www.example.com/order-complete</code>, a successful transaction redirects
          * the customer to:</p>
-         * <p>&lt;pre&gt;&lt;code&gt;http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;orderId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx&lt;/code&gt;&lt;/pre&gt;</p>
+         * <p><pre><code>http://www.example.com/order-complete?checkoutId=xxxxxx&amp;amp;orderId=xxxxxx&amp;amp;referenceId=xxxxxx&amp;amp;transactionId=xxxxxx</code></pre></p>
          * <p>If you do not provide a redirect URL, Square Checkout will display an order
          * confirmation page on your behalf; however Square strongly recommends that
          * you provide a redirect URL so you can verify the transaction results and
@@ -557,6 +557,16 @@ public final class Checkout {
                     createdAt,
                     additionalRecipients,
                     additionalProperties);
+        }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

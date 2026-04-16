@@ -202,6 +202,10 @@ public final class CatalogSubscriptionPlan {
     public interface _FinalStage {
         CatalogSubscriptionPlan build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A list of SubscriptionPhase containing the <a href="entity:SubscriptionPhase">SubscriptionPhase</a> for this plan.
          * This field it required. Not including this field will throw a REQUIRED_FIELD_MISSING error</p>
@@ -484,6 +488,18 @@ public final class CatalogSubscriptionPlan {
                     eligibleCategoryIds,
                     allItems,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

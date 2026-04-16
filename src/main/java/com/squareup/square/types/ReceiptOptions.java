@@ -131,6 +131,10 @@ public final class ReceiptOptions {
     public interface _FinalStage {
         ReceiptOptions build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Instructs the device to print the receipt without displaying the receipt selection screen.
          * Requires <code>printer_enabled</code> set to true.
@@ -270,6 +274,18 @@ public final class ReceiptOptions {
         @java.lang.Override
         public ReceiptOptions build() {
             return new ReceiptOptions(paymentId, printOnly, isDuplicate, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

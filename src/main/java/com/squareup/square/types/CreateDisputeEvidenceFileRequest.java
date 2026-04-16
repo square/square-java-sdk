@@ -109,6 +109,10 @@ public final class CreateDisputeEvidenceFileRequest {
     public interface _FinalStage {
         CreateDisputeEvidenceFileRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The type of evidence you are uploading.
          * See <a href="#type-disputeevidencetype">DisputeEvidenceType</a> for possible values</p>
@@ -207,6 +211,18 @@ public final class CreateDisputeEvidenceFileRequest {
         public CreateDisputeEvidenceFileRequest build() {
             return new CreateDisputeEvidenceFileRequest(
                     idempotencyKey, evidenceType, contentType, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

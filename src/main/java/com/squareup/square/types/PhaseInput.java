@@ -101,6 +101,10 @@ public final class PhaseInput {
     public interface _FinalStage {
         PhaseInput build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>id of order to be used in billing</p>
          */
@@ -180,6 +184,18 @@ public final class PhaseInput {
         @java.lang.Override
         public PhaseInput build() {
             return new PhaseInput(ordinal, orderTemplateId, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

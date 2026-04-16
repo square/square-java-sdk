@@ -135,6 +135,10 @@ public final class PublishScheduledShiftRequest {
     public interface _FinalStage {
         PublishScheduledShiftRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The current version of the scheduled shift, used to enable <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency">optimistic concurrency</a>
          * control. If the provided version doesn't match the server version, the request fails.
@@ -262,6 +266,18 @@ public final class PublishScheduledShiftRequest {
         public PublishScheduledShiftRequest build() {
             return new PublishScheduledShiftRequest(
                     id, idempotencyKey, version, scheduledShiftNotificationAudience, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

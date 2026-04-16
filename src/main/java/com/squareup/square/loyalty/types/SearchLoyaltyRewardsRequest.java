@@ -168,5 +168,15 @@ public final class SearchLoyaltyRewardsRequest {
         public SearchLoyaltyRewardsRequest build() {
             return new SearchLoyaltyRewardsRequest(query, limit, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

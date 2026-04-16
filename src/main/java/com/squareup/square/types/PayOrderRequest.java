@@ -156,6 +156,10 @@ public final class PayOrderRequest {
     public interface _FinalStage {
         PayOrderRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The version of the order being paid. If not supplied, the latest version will be paid.</p>
          */
@@ -308,6 +312,18 @@ public final class PayOrderRequest {
         @java.lang.Override
         public PayOrderRequest build() {
             return new PayOrderRequest(orderId, idempotencyKey, orderVersion, paymentIds, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

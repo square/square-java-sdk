@@ -190,5 +190,15 @@ public final class ScheduledShiftWorkday {
         public ScheduledShiftWorkday build() {
             return new ScheduledShiftWorkday(dateRange, matchScheduledShiftsBy, defaultTimezone, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

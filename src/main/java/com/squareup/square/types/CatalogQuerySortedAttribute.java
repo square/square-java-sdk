@@ -122,6 +122,10 @@ public final class CatalogQuerySortedAttribute {
     public interface _FinalStage {
         CatalogQuerySortedAttribute build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The first attribute value to be returned by the query. Ascending sorts will return only
          * objects with this value or greater, while descending sorts will return only objects with this value
@@ -243,6 +247,18 @@ public final class CatalogQuerySortedAttribute {
         public CatalogQuerySortedAttribute build() {
             return new CatalogQuerySortedAttribute(
                     attributeName, initialAttributeValue, sortOrder, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

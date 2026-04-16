@@ -162,5 +162,15 @@ public final class ListCardsResponse {
         public ListCardsResponse build() {
             return new ListCardsResponse(errors, cards, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

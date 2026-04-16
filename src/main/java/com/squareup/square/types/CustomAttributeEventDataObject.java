@@ -98,5 +98,15 @@ public final class CustomAttributeEventDataObject {
         public CustomAttributeEventDataObject build() {
             return new CustomAttributeEventDataObject(customAttribute, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

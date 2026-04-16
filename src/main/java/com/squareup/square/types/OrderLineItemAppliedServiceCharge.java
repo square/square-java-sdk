@@ -125,6 +125,10 @@ public final class OrderLineItemAppliedServiceCharge {
     public interface _FinalStage {
         OrderLineItemAppliedServiceCharge build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique ID that identifies the applied service charge only within this order.</p>
          */
@@ -240,6 +244,18 @@ public final class OrderLineItemAppliedServiceCharge {
         @java.lang.Override
         public OrderLineItemAppliedServiceCharge build() {
             return new OrderLineItemAppliedServiceCharge(uid, serviceChargeUid, appliedMoney, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

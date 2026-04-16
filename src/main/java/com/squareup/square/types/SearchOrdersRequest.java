@@ -240,5 +240,15 @@ public final class SearchOrdersRequest {
         public SearchOrdersRequest build() {
             return new SearchOrdersRequest(locationIds, cursor, query, limit, returnEntries, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

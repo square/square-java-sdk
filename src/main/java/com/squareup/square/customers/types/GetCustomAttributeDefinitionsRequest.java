@@ -109,6 +109,10 @@ public final class GetCustomAttributeDefinitionsRequest {
     public interface _FinalStage {
         GetCustomAttributeDefinitionsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The current version of the custom attribute definition, which is used for strongly consistent
          * reads to guarantee that you receive the most up-to-date data. When included in the request,
@@ -202,6 +206,18 @@ public final class GetCustomAttributeDefinitionsRequest {
         @java.lang.Override
         public GetCustomAttributeDefinitionsRequest build() {
             return new GetCustomAttributeDefinitionsRequest(key, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

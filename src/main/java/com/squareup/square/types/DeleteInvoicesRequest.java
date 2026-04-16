@@ -105,6 +105,10 @@ public final class DeleteInvoicesRequest {
     public interface _FinalStage {
         DeleteInvoicesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The version of the <a href="entity:Invoice">invoice</a> to delete.
          * If you do not know the version, you can call <a href="api-endpoint:Invoices-GetInvoice">GetInvoice</a> or
@@ -192,6 +196,18 @@ public final class DeleteInvoicesRequest {
         @java.lang.Override
         public DeleteInvoicesRequest build() {
             return new DeleteInvoicesRequest(invoiceId, version, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

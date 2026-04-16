@@ -157,6 +157,10 @@ public final class ListEntriesPayoutsRequest {
     public interface _FinalStage {
         ListEntriesPayoutsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The order in which payout entries are listed.</p>
          */
@@ -360,6 +364,18 @@ public final class ListEntriesPayoutsRequest {
         @java.lang.Override
         public ListEntriesPayoutsRequest build() {
             return new ListEntriesPayoutsRequest(payoutId, sortOrder, cursor, limit, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -86,6 +86,11 @@ public class AsyncRawTeamMemberProfilesClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "location_id", request.getLocationId().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -157,13 +162,17 @@ public class AsyncRawTeamMemberProfilesClient {
      */
     public CompletableFuture<SquareClientHttpResponse<GetTeamMemberBookingProfileResponse>> get(
             GetTeamMemberProfilesRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/bookings/team-member-booking-profiles")
-                .addPathSegment(request.getTeamMemberId())
-                .build();
+                .addPathSegment(request.getTeamMemberId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");

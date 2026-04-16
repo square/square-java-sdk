@@ -167,5 +167,15 @@ public final class ApplicationDetails {
         public ApplicationDetails build() {
             return new ApplicationDetails(squareProduct, applicationId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

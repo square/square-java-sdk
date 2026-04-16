@@ -131,6 +131,10 @@ public final class ChangesInventoryRequest {
     public interface _FinalStage {
         ChangesInventoryRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The <a href="entity:Location">Location</a> IDs to look up as a comma-separated
          * list. An empty list queries all locations.</p>
@@ -270,6 +274,18 @@ public final class ChangesInventoryRequest {
         @java.lang.Override
         public ChangesInventoryRequest build() {
             return new ChangesInventoryRequest(catalogObjectId, locationIds, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

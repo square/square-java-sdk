@@ -93,6 +93,10 @@ public final class LoyaltyPromotionTriggerLimit {
     public interface _FinalStage {
         LoyaltyPromotionTriggerLimit build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The time period the limit applies to.
          * See <a href="#type-loyaltypromotiontriggerlimitinterval">LoyaltyPromotionTriggerLimitInterval</a> for possible values</p>
@@ -157,6 +161,18 @@ public final class LoyaltyPromotionTriggerLimit {
         @java.lang.Override
         public LoyaltyPromotionTriggerLimit build() {
             return new LoyaltyPromotionTriggerLimit(times, interval, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

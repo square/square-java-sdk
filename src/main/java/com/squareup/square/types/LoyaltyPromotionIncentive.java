@@ -109,6 +109,10 @@ public final class LoyaltyPromotionIncentive {
     public interface _FinalStage {
         LoyaltyPromotionIncentive build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Additional data for a <code>POINTS_MULTIPLIER</code> incentive type.</p>
          */
@@ -204,6 +208,18 @@ public final class LoyaltyPromotionIncentive {
         @java.lang.Override
         public LoyaltyPromotionIncentive build() {
             return new LoyaltyPromotionIncentive(type, pointsMultiplierData, pointsAdditionData, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

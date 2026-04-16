@@ -108,6 +108,10 @@ public final class SearchOrdersSort {
     public interface _FinalStage {
         SearchOrdersSort build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The chronological order in which results are returned. Defaults to <code>DESC</code>.
          * See <a href="#type-sortorder">SortOrder</a> for possible values</p>
@@ -188,6 +192,18 @@ public final class SearchOrdersSort {
         @java.lang.Override
         public SearchOrdersSort build() {
             return new SearchOrdersSort(sortField, sortOrder, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

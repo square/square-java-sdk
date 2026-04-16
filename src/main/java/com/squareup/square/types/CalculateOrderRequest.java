@@ -108,6 +108,10 @@ public final class CalculateOrderRequest {
     public interface _FinalStage {
         CalculateOrderRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Identifies one or more loyalty reward tiers to apply during the order calculation.
          * The discounts defined by the reward tiers are added to the order only to preview the
@@ -203,6 +207,18 @@ public final class CalculateOrderRequest {
         @java.lang.Override
         public CalculateOrderRequest build() {
             return new CalculateOrderRequest(order, proposedRewards, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

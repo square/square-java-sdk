@@ -96,6 +96,10 @@ public final class CreateTerminalRefundRequest {
     public interface _FinalStage {
         CreateTerminalRefundRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The refund to create.</p>
          */
@@ -161,6 +165,18 @@ public final class CreateTerminalRefundRequest {
         @java.lang.Override
         public CreateTerminalRefundRequest build() {
             return new CreateTerminalRefundRequest(idempotencyKey, refund, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

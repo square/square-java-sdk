@@ -179,6 +179,10 @@ public final class ListCustomAttributesRequest {
     public interface _FinalStage {
         ListCustomAttributesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Filters the <code>CustomAttributeDefinition</code> results by their <code>visibility</code> values.</p>
          */
@@ -427,6 +431,18 @@ public final class ListCustomAttributesRequest {
         public ListCustomAttributesRequest build() {
             return new ListCustomAttributesRequest(
                     locationId, visibilityFilter, limit, cursor, withDefinitions, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

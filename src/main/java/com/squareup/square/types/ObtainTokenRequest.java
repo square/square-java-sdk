@@ -355,6 +355,10 @@ public final class ObtainTokenRequest {
     public interface _FinalStage {
         ObtainTokenRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The secret key for your application, which is available as the <strong>Application secret</strong>
          * on the <strong>OAuth</strong> page in the <a href="https://developer.squareup.com/apps">Developer Console</a>.</p>
@@ -955,6 +959,18 @@ public final class ObtainTokenRequest {
                     codeVerifier,
                     useJwt,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

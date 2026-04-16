@@ -127,5 +127,15 @@ public final class GetPaymentResponse {
         public GetPaymentResponse build() {
             return new GetPaymentResponse(errors, payment, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

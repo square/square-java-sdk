@@ -100,6 +100,10 @@ public final class SegmentFilter {
     public interface _FinalStage {
         SegmentFilter build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A query filter to search for buyer-accessible appointment segments with service-providing team members matching the specified list of team member IDs.  Supported query expressions are</p>
          * <ul>
@@ -179,6 +183,18 @@ public final class SegmentFilter {
         @java.lang.Override
         public SegmentFilter build() {
             return new SegmentFilter(serviceVariationId, teamMemberIdFilter, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

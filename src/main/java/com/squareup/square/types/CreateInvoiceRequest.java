@@ -94,6 +94,10 @@ public final class CreateInvoiceRequest {
     public interface _FinalStage {
         CreateInvoiceRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique string that identifies the <code>CreateInvoice</code> request. If you do not
          * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
@@ -164,6 +168,18 @@ public final class CreateInvoiceRequest {
         @java.lang.Override
         public CreateInvoiceRequest build() {
             return new CreateInvoiceRequest(invoice, idempotencyKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

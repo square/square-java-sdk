@@ -197,6 +197,10 @@ public final class ListShiftsRequest {
     public interface _FinalStage {
         ListShiftsRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The order in which cash drawer shifts are listed in the response,
          * based on their opened_at field. Default value: ASC</p>
@@ -477,6 +481,18 @@ public final class ListShiftsRequest {
         public ListShiftsRequest build() {
             return new ListShiftsRequest(
                     locationId, sortOrder, beginTime, endTime, limit, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -167,5 +167,15 @@ public final class CatalogMeasurementUnit {
         public CatalogMeasurementUnit build() {
             return new CatalogMeasurementUnit(measurementUnit, precision, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

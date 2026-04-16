@@ -130,6 +130,10 @@ public final class SwapPlanRequest {
     public interface _FinalStage {
         SwapPlanRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The ID of the new subscription plan variation.</p>
          * <p>This field is required.</p>
@@ -261,6 +265,18 @@ public final class SwapPlanRequest {
         @java.lang.Override
         public SwapPlanRequest build() {
             return new SwapPlanRequest(subscriptionId, newPlanVariationId, phases, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

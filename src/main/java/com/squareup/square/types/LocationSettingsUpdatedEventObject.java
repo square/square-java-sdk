@@ -99,5 +99,15 @@ public final class LocationSettingsUpdatedEventObject {
         public LocationSettingsUpdatedEventObject build() {
             return new LocationSettingsUpdatedEventObject(locationSettings, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

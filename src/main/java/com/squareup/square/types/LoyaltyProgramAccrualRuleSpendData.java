@@ -158,6 +158,10 @@ public final class LoyaltyProgramAccrualRuleSpendData {
     public interface _FinalStage {
         LoyaltyProgramAccrualRuleSpendData build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The IDs of any <code>CATEGORY</code> catalog objects that are excluded from points accrual.</p>
          * <p>You can use the <a href="api-endpoint:Catalog-BatchRetrieveCatalogObjects">BatchRetrieveCatalogObjects</a>
@@ -321,6 +325,18 @@ public final class LoyaltyProgramAccrualRuleSpendData {
         public LoyaltyProgramAccrualRuleSpendData build() {
             return new LoyaltyProgramAccrualRuleSpendData(
                     amountMoney, excludedCategoryIds, excludedItemVariationIds, taxMode, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

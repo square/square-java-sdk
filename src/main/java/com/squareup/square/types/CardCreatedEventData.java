@@ -180,5 +180,15 @@ public final class CardCreatedEventData {
         public CardCreatedEventData build() {
             return new CardCreatedEventData(type, id, object, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

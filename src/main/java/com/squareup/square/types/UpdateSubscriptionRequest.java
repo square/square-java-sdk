@@ -93,6 +93,10 @@ public final class UpdateSubscriptionRequest {
     public interface _FinalStage {
         UpdateSubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The subscription object containing the current version, and fields to update.
          * Unset fields will be left at their current server values, and JSON <code>null</code> values will
@@ -160,6 +164,18 @@ public final class UpdateSubscriptionRequest {
         @java.lang.Override
         public UpdateSubscriptionRequest build() {
             return new UpdateSubscriptionRequest(subscriptionId, subscription, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

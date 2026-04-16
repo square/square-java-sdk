@@ -140,6 +140,10 @@ public final class BatchChangeInventoryRequest {
     public interface _FinalStage {
         BatchChangeInventoryRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The set of physical counts and inventory adjustments to be made.
          * Changes are applied based on the client-supplied timestamp and may be sent
@@ -288,6 +292,18 @@ public final class BatchChangeInventoryRequest {
         public BatchChangeInventoryRequest build() {
             return new BatchChangeInventoryRequest(
                     idempotencyKey, changes, ignoreUnchangedCounts, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -98,5 +98,15 @@ public final class DeleteSnippetResponse {
         public DeleteSnippetResponse build() {
             return new DeleteSnippetResponse(errors, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

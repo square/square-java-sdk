@@ -63,6 +63,11 @@ public class RawV1TransactionsClient {
             QueryStringMapper.addQueryParameter(
                     httpUrl, "batch_token", request.getBatchToken().get(), false);
         }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("GET", null)
@@ -101,15 +106,19 @@ public class RawV1TransactionsClient {
      */
     public SquareClientHttpResponse<V1Order> v1RetrieveOrder(
             V1RetrieveOrderRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v1")
                 .addPathSegment(request.getLocationId())
                 .addPathSegments("orders")
-                .addPathSegment(request.getOrderId())
-                .build();
+                .addPathSegment(request.getOrderId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Accept", "application/json");
@@ -145,13 +154,17 @@ public class RawV1TransactionsClient {
      */
     public SquareClientHttpResponse<V1Order> v1UpdateOrder(
             V1UpdateOrderRequest request, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v1")
                 .addPathSegment(request.getLocationId())
                 .addPathSegments("orders")
-                .addPathSegment(request.getOrderId())
-                .build();
+                .addPathSegment(request.getOrderId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
         RequestBody body;
         try {
             body = RequestBody.create(
@@ -160,7 +173,7 @@ public class RawV1TransactionsClient {
             throw new SquareException("Failed to serialize request", e);
         }
         Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .url(httpUrl.build())
                 .method("PUT", body)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
                 .addHeader("Content-Type", "application/json")

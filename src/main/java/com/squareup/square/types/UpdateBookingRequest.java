@@ -126,6 +126,10 @@ public final class UpdateBookingRequest {
     public interface _FinalStage {
         UpdateBookingRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique key to make this request an idempotent operation.</p>
          */
@@ -220,6 +224,18 @@ public final class UpdateBookingRequest {
         @java.lang.Override
         public UpdateBookingRequest build() {
             return new UpdateBookingRequest(bookingId, idempotencyKey, booking, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

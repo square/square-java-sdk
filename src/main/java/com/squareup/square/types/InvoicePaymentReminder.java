@@ -271,5 +271,15 @@ public final class InvoicePaymentReminder {
             return new InvoicePaymentReminder(
                     uid, relativeScheduledDays, message, status, sentAt, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

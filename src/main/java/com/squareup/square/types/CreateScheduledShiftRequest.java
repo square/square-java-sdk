@@ -103,6 +103,10 @@ public final class CreateScheduledShiftRequest {
     public interface _FinalStage {
         CreateScheduledShiftRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique identifier for the <code>CreateScheduledShift</code> request, used to ensure the
          * <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">idempotency</a>
@@ -180,6 +184,18 @@ public final class CreateScheduledShiftRequest {
         @java.lang.Override
         public CreateScheduledShiftRequest build() {
             return new CreateScheduledShiftRequest(idempotencyKey, scheduledShift, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

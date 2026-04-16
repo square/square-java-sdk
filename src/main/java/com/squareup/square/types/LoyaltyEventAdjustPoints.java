@@ -116,6 +116,10 @@ public final class LoyaltyEventAdjustPoints {
     public interface _FinalStage {
         LoyaltyEventAdjustPoints build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The Square-assigned ID of the <a href="entity:LoyaltyProgram">loyalty program</a>.</p>
          */
@@ -225,6 +229,18 @@ public final class LoyaltyEventAdjustPoints {
         @java.lang.Override
         public LoyaltyEventAdjustPoints build() {
             return new LoyaltyEventAdjustPoints(loyaltyProgramId, points, reason, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

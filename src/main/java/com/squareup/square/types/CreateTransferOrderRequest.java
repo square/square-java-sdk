@@ -97,6 +97,10 @@ public final class CreateTransferOrderRequest {
 
     public interface _FinalStage {
         CreateTransferOrderRequest build();
+
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -146,6 +150,18 @@ public final class CreateTransferOrderRequest {
         @java.lang.Override
         public CreateTransferOrderRequest build() {
             return new CreateTransferOrderRequest(idempotencyKey, transferOrder, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

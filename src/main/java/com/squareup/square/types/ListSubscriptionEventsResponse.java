@@ -166,5 +166,15 @@ public final class ListSubscriptionEventsResponse {
         public ListSubscriptionEventsResponse build() {
             return new ListSubscriptionEventsResponse(errors, subscriptionEvents, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

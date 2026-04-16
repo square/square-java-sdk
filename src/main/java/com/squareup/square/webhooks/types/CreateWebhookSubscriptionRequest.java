@@ -94,6 +94,10 @@ public final class CreateWebhookSubscriptionRequest {
     public interface _FinalStage {
         CreateWebhookSubscriptionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique string that identifies the <a href="api-endpoint:WebhookSubscriptions-CreateWebhookSubscription">CreateWebhookSubscription</a> request.</p>
          */
@@ -155,6 +159,18 @@ public final class CreateWebhookSubscriptionRequest {
         @java.lang.Override
         public CreateWebhookSubscriptionRequest build() {
             return new CreateWebhookSubscriptionRequest(idempotencyKey, subscription, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

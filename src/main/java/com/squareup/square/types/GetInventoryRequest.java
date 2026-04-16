@@ -131,6 +131,10 @@ public final class GetInventoryRequest {
     public interface _FinalStage {
         GetInventoryRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The <a href="entity:Location">Location</a> IDs to look up as a comma-separated
          * list. An empty list queries all locations.</p>
@@ -270,6 +274,18 @@ public final class GetInventoryRequest {
         @java.lang.Override
         public GetInventoryRequest build() {
             return new GetInventoryRequest(catalogObjectId, locationIds, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

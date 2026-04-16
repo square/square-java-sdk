@@ -104,6 +104,10 @@ public final class ListEvidenceRequest {
     public interface _FinalStage {
         ListEvidenceRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A pagination cursor returned by a previous call to this endpoint.
          * Provide this cursor to retrieve the next set of results for the original query.
@@ -191,6 +195,18 @@ public final class ListEvidenceRequest {
         @java.lang.Override
         public ListEvidenceRequest build() {
             return new ListEvidenceRequest(disputeId, cursor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

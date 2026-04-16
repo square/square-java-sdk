@@ -202,6 +202,10 @@ public final class SubscriptionEvent {
     public interface _FinalStage {
         SubscriptionEvent build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The day-of-the-month the billing anchor date was changed to, if applicable.</p>
          */
@@ -399,6 +403,18 @@ public final class SubscriptionEvent {
                     phases,
                     planVariationId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

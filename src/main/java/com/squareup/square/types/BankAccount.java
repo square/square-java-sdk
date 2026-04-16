@@ -464,6 +464,10 @@ public final class BankAccount {
     public interface _FinalStage {
         BankAccount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Secondary identifier for the bank. For more information, see
          * <a href="https://developer.squareup.com/docs/bank-accounts-api">Bank Accounts API</a>.</p>
@@ -1052,6 +1056,18 @@ public final class BankAccount {
                     bankName,
                     customerId,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

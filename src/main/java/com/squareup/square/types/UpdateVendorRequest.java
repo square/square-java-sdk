@@ -107,6 +107,10 @@ public final class UpdateVendorRequest {
     public interface _FinalStage {
         UpdateVendorRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A client-supplied, universally unique identifier (UUID) for the
          * request.</p>
@@ -202,6 +206,18 @@ public final class UpdateVendorRequest {
         @java.lang.Override
         public UpdateVendorRequest build() {
             return new UpdateVendorRequest(idempotencyKey, vendor, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

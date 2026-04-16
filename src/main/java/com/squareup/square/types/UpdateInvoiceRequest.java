@@ -160,6 +160,10 @@ public final class UpdateInvoiceRequest {
     public interface _FinalStage {
         UpdateInvoiceRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique string that identifies the <code>UpdateInvoice</code> request. If you do not
          * provide <code>idempotency_key</code> (or provide an empty string as the value), the endpoint
@@ -328,6 +332,18 @@ public final class UpdateInvoiceRequest {
         @java.lang.Override
         public UpdateInvoiceRequest build() {
             return new UpdateInvoiceRequest(invoiceId, invoice, idempotencyKey, fieldsToClear, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

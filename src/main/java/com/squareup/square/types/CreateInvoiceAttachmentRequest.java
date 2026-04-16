@@ -100,6 +100,10 @@ public final class CreateInvoiceAttachmentRequest {
     public interface _FinalStage {
         CreateInvoiceAttachmentRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage imageFile(Optional<File> imageFile);
 
         _FinalStage imageFile(File imageFile);
@@ -171,6 +175,18 @@ public final class CreateInvoiceAttachmentRequest {
         @java.lang.Override
         public CreateInvoiceAttachmentRequest build() {
             return new CreateInvoiceAttachmentRequest(imageFile, invoiceId, request, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

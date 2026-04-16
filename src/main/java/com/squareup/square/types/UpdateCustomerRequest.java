@@ -350,6 +350,10 @@ public final class UpdateCustomerRequest {
     public interface _FinalStage {
         UpdateCustomerRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The given name (that is, the first name) associated with the customer profile.</p>
          * <p>The maximum length for this value is 300 characters.</p>
@@ -976,6 +980,18 @@ public final class UpdateCustomerRequest {
                     version,
                     taxIds,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

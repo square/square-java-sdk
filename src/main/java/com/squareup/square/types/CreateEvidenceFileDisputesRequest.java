@@ -100,6 +100,10 @@ public final class CreateEvidenceFileDisputesRequest {
     public interface _FinalStage {
         CreateEvidenceFileDisputesRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         _FinalStage imageFile(Optional<File> imageFile);
 
         _FinalStage imageFile(File imageFile);
@@ -171,6 +175,18 @@ public final class CreateEvidenceFileDisputesRequest {
         @java.lang.Override
         public CreateEvidenceFileDisputesRequest build() {
             return new CreateEvidenceFileDisputesRequest(imageFile, disputeId, request, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

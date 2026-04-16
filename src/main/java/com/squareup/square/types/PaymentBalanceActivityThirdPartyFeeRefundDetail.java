@@ -170,5 +170,15 @@ public final class PaymentBalanceActivityThirdPartyFeeRefundDetail {
         public PaymentBalanceActivityThirdPartyFeeRefundDetail build() {
             return new PaymentBalanceActivityThirdPartyFeeRefundDetail(paymentId, refundId, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

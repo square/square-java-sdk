@@ -160,5 +160,15 @@ public final class BatchGetCatalogObjectsResponse {
         public BatchGetCatalogObjectsResponse build() {
             return new BatchGetCatalogObjectsResponse(errors, objects, relatedObjects, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

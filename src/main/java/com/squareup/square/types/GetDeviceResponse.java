@@ -127,5 +127,15 @@ public final class GetDeviceResponse {
         public GetDeviceResponse build() {
             return new GetDeviceResponse(errors, device, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

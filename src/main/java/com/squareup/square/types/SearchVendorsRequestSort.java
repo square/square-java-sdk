@@ -132,5 +132,15 @@ public final class SearchVendorsRequestSort {
         public SearchVendorsRequestSort build() {
             return new SearchVendorsRequestSort(field, order, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

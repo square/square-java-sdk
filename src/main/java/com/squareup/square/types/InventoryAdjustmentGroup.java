@@ -203,5 +203,15 @@ public final class InventoryAdjustmentGroup {
         public InventoryAdjustmentGroup build() {
             return new InventoryAdjustmentGroup(id, rootAdjustmentId, fromState, toState, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

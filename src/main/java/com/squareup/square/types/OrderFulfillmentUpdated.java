@@ -359,5 +359,15 @@ public final class OrderFulfillmentUpdated {
             return new OrderFulfillmentUpdated(
                     orderId, version, locationId, state, createdAt, updatedAt, fulfillmentUpdate, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

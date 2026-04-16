@@ -129,5 +129,15 @@ public final class UpdateMerchantSettingsResponse {
         public UpdateMerchantSettingsResponse build() {
             return new UpdateMerchantSettingsResponse(errors, merchantSettings, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

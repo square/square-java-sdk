@@ -532,6 +532,10 @@ public final class OrderLineItem {
     public interface _FinalStage {
         OrderLineItem build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique ID that identifies the line item only within this order.</p>
          */
@@ -1587,6 +1591,18 @@ public final class OrderLineItem {
                     pricingBlocklists,
                     totalServiceChargeMoney,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

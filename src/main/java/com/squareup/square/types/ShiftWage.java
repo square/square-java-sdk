@@ -236,5 +236,15 @@ public final class ShiftWage {
         public ShiftWage build() {
             return new ShiftWage(title, hourlyRate, jobId, tipEligible, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

@@ -151,6 +151,10 @@ public final class CatalogQuickAmount {
     public interface _FinalStage {
         CatalogQuickAmount build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Describes the ranking of the Quick Amount provided by machine learning model, in the range [0, 100].
          * MANUAL type amount will always have score = 100.</p>
@@ -299,6 +303,18 @@ public final class CatalogQuickAmount {
         @java.lang.Override
         public CatalogQuickAmount build() {
             return new CatalogQuickAmount(type, amount, score, ordinal, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

@@ -158,5 +158,15 @@ public final class ChangeBillingAnchorDateResponse {
         public ChangeBillingAnchorDateResponse build() {
             return new ChangeBillingAnchorDateResponse(errors, subscription, actions, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

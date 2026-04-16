@@ -334,5 +334,15 @@ public final class TeamMemberWage {
         public TeamMemberWage build() {
             return new TeamMemberWage(id, teamMemberId, title, hourlyRate, jobId, tipEligible, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

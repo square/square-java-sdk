@@ -127,5 +127,15 @@ public final class CatalogQueryItemVariationsForItemOptionValues {
         public CatalogQueryItemVariationsForItemOptionValues build() {
             return new CatalogQueryItemVariationsForItemOptionValues(itemOptionValueIds, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

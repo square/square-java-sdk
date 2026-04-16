@@ -164,5 +164,15 @@ public final class CalculateLoyaltyPointsResponse {
         public CalculateLoyaltyPointsResponse build() {
             return new CalculateLoyaltyPointsResponse(errors, points, promotionPoints, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

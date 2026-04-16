@@ -157,6 +157,10 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
     public interface _FinalStage {
         UpdateMerchantCustomAttributeDefinitionRequest build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>A unique identifier for this request, used to ensure idempotency. For more information,
          * see <a href="https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency">Idempotency</a>.</p>
@@ -285,6 +289,18 @@ public final class UpdateMerchantCustomAttributeDefinitionRequest {
         public UpdateMerchantCustomAttributeDefinitionRequest build() {
             return new UpdateMerchantCustomAttributeDefinitionRequest(
                     key, customAttributeDefinition, idempotencyKey, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

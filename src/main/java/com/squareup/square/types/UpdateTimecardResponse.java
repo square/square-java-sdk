@@ -127,5 +127,15 @@ public final class UpdateTimecardResponse {
         public UpdateTimecardResponse build() {
             return new UpdateTimecardResponse(timecard, errors, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

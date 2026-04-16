@@ -267,5 +267,15 @@ public final class OrderQuantityUnit {
             return new OrderQuantityUnit(
                     measurementUnit, precision, catalogObjectId, catalogVersion, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

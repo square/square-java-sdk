@@ -197,6 +197,10 @@ public final class AppointmentSegment {
     public interface _FinalStage {
         AppointmentSegment build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>The time span in minutes of an appointment segment.</p>
          */
@@ -470,6 +474,18 @@ public final class AppointmentSegment {
                     anyTeamMember,
                     resourceIds,
                     additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }

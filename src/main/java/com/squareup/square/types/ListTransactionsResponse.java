@@ -164,5 +164,15 @@ public final class ListTransactionsResponse {
         public ListTransactionsResponse build() {
             return new ListTransactionsResponse(errors, transactions, cursor, additionalProperties);
         }
+
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
+        }
     }
 }

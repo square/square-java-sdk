@@ -92,6 +92,10 @@ public final class InvoiceQuery {
     public interface _FinalStage {
         InvoiceQuery build();
 
+        _FinalStage additionalProperty(String key, Object value);
+
+        _FinalStage additionalProperties(Map<String, Object> additionalProperties);
+
         /**
          * <p>Describes the sort order for the search result.</p>
          */
@@ -155,6 +159,18 @@ public final class InvoiceQuery {
         @java.lang.Override
         public InvoiceQuery build() {
             return new InvoiceQuery(filter, sort, additionalProperties);
+        }
+
+        @java.lang.Override
+        public Builder additionalProperty(String key, Object value) {
+            this.additionalProperties.put(key, value);
+            return this;
+        }
+
+        @java.lang.Override
+        public Builder additionalProperties(Map<String, Object> additionalProperties) {
+            this.additionalProperties.putAll(additionalProperties);
+            return this;
         }
     }
 }
