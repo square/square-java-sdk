@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +31,8 @@ public final class CreatePaymentRequest {
     private final Optional<Money> tipMoney;
 
     private final Optional<Money> appFeeMoney;
+
+    private final Optional<List<Object>> appFeeAllocations;
 
     private final Optional<String> delayDuration;
 
@@ -79,6 +82,7 @@ public final class CreatePaymentRequest {
             Optional<Money> amountMoney,
             Optional<Money> tipMoney,
             Optional<Money> appFeeMoney,
+            Optional<List<Object>> appFeeAllocations,
             Optional<String> delayDuration,
             Optional<String> delayAction,
             Optional<Boolean> autocomplete,
@@ -105,6 +109,7 @@ public final class CreatePaymentRequest {
         this.amountMoney = amountMoney;
         this.tipMoney = tipMoney;
         this.appFeeMoney = appFeeMoney;
+        this.appFeeAllocations = appFeeAllocations;
         this.delayDuration = delayDuration;
         this.delayAction = delayAction;
         this.autocomplete = autocomplete;
@@ -199,6 +204,17 @@ public final class CreatePaymentRequest {
     @JsonProperty("app_fee_money")
     public Optional<Money> getAppFeeMoney() {
         return appFeeMoney;
+    }
+
+    /**
+     * @return Details pertaining to recipients of the application fee. The sum of the amounts in the
+     * app_fee_allocations must equal the app_fee_money amount, if present. If populated, an
+     * allocation must be present for every party that expects to receive a portion of the application
+     * fee, including the application developer.
+     */
+    @JsonProperty("app_fee_allocations")
+    public Optional<List<Object>> getAppFeeAllocations() {
+        return appFeeAllocations;
     }
 
     /**
@@ -424,6 +440,7 @@ public final class CreatePaymentRequest {
                 && amountMoney.equals(other.amountMoney)
                 && tipMoney.equals(other.tipMoney)
                 && appFeeMoney.equals(other.appFeeMoney)
+                && appFeeAllocations.equals(other.appFeeAllocations)
                 && delayDuration.equals(other.delayDuration)
                 && delayAction.equals(other.delayAction)
                 && autocomplete.equals(other.autocomplete)
@@ -454,6 +471,7 @@ public final class CreatePaymentRequest {
                 this.amountMoney,
                 this.tipMoney,
                 this.appFeeMoney,
+                this.appFeeAllocations,
                 this.delayDuration,
                 this.delayAction,
                 this.autocomplete,
@@ -561,6 +579,16 @@ public final class CreatePaymentRequest {
         _FinalStage appFeeMoney(Optional<Money> appFeeMoney);
 
         _FinalStage appFeeMoney(Money appFeeMoney);
+
+        /**
+         * <p>Details pertaining to recipients of the application fee. The sum of the amounts in the
+         * app_fee_allocations must equal the app_fee_money amount, if present. If populated, an
+         * allocation must be present for every party that expects to receive a portion of the application
+         * fee, including the application developer.</p>
+         */
+        _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations);
+
+        _FinalStage appFeeAllocations(List<Object> appFeeAllocations);
 
         /**
          * <p>The duration of time after the payment's creation when Square automatically
@@ -795,6 +823,8 @@ public final class CreatePaymentRequest {
 
         private Optional<String> delayDuration = Optional.empty();
 
+        private Optional<List<Object>> appFeeAllocations = Optional.empty();
+
         private Optional<Money> appFeeMoney = Optional.empty();
 
         private Optional<Money> tipMoney = Optional.empty();
@@ -813,6 +843,7 @@ public final class CreatePaymentRequest {
             amountMoney(other.getAmountMoney());
             tipMoney(other.getTipMoney());
             appFeeMoney(other.getAppFeeMoney());
+            appFeeAllocations(other.getAppFeeAllocations());
             delayDuration(other.getDelayDuration());
             delayAction(other.getDelayAction());
             autocomplete(other.getAutocomplete());
@@ -1373,6 +1404,32 @@ public final class CreatePaymentRequest {
         }
 
         /**
+         * <p>Details pertaining to recipients of the application fee. The sum of the amounts in the
+         * app_fee_allocations must equal the app_fee_money amount, if present. If populated, an
+         * allocation must be present for every party that expects to receive a portion of the application
+         * fee, including the application developer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage appFeeAllocations(List<Object> appFeeAllocations) {
+            this.appFeeAllocations = Optional.ofNullable(appFeeAllocations);
+            return this;
+        }
+
+        /**
+         * <p>Details pertaining to recipients of the application fee. The sum of the amounts in the
+         * app_fee_allocations must equal the app_fee_money amount, if present. If populated, an
+         * allocation must be present for every party that expects to receive a portion of the application
+         * fee, including the application developer.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "app_fee_allocations", nulls = Nulls.SKIP)
+        public _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations) {
+            this.appFeeAllocations = appFeeAllocations;
+            return this;
+        }
+
+        /**
          * <p>The amount of money that the developer is taking as a fee
          * for facilitating the payment on behalf of the seller.</p>
          * <p>The amount cannot be more than 90% of the total amount of the payment.</p>
@@ -1486,6 +1543,7 @@ public final class CreatePaymentRequest {
                     amountMoney,
                     tipMoney,
                     appFeeMoney,
+                    appFeeAllocations,
                     delayDuration,
                     delayAction,
                     autocomplete,

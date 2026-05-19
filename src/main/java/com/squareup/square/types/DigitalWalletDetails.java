@@ -30,6 +30,8 @@ public final class DigitalWalletDetails {
 
     private final Optional<CashAppDetails> cashAppDetails;
 
+    private final Optional<LightningDetails> lightningDetails;
+
     private final Optional<List<Error>> errors;
 
     private final Map<String, Object> additionalProperties;
@@ -38,11 +40,13 @@ public final class DigitalWalletDetails {
             Optional<String> status,
             Optional<String> brand,
             Optional<CashAppDetails> cashAppDetails,
+            Optional<LightningDetails> lightningDetails,
             Optional<List<Error>> errors,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.brand = brand;
         this.cashAppDetails = cashAppDetails;
+        this.lightningDetails = lightningDetails;
         this.errors = errors;
         this.additionalProperties = additionalProperties;
     }
@@ -80,6 +84,14 @@ public final class DigitalWalletDetails {
     }
 
     /**
+     * @return Brand-specific details for payments with the <code>brand</code> of <code>LIGHTNING</code>.
+     */
+    @JsonProperty("lightning_details")
+    public Optional<LightningDetails> getLightningDetails() {
+        return lightningDetails;
+    }
+
+    /**
      * @return Information about errors encountered during the payment.
      */
     @JsonProperty("errors")
@@ -114,12 +126,13 @@ public final class DigitalWalletDetails {
         return status.equals(other.status)
                 && brand.equals(other.brand)
                 && cashAppDetails.equals(other.cashAppDetails)
+                && lightningDetails.equals(other.lightningDetails)
                 && errors.equals(other.errors);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.status, this.brand, this.cashAppDetails, this.errors);
+        return Objects.hash(this.status, this.brand, this.cashAppDetails, this.lightningDetails, this.errors);
     }
 
     @java.lang.Override
@@ -139,6 +152,8 @@ public final class DigitalWalletDetails {
 
         private Optional<CashAppDetails> cashAppDetails = Optional.empty();
 
+        private Optional<LightningDetails> lightningDetails = Optional.empty();
+
         private Optional<List<Error>> errors = Optional.empty();
 
         @JsonAnySetter
@@ -150,6 +165,7 @@ public final class DigitalWalletDetails {
             status(other.getStatus());
             brand(other.getBrand());
             cashAppDetails(other.getCashAppDetails());
+            lightningDetails(other.getLightningDetails());
             errors(other.getErrors());
             return this;
         }
@@ -221,6 +237,20 @@ public final class DigitalWalletDetails {
         }
 
         /**
+         * <p>Brand-specific details for payments with the <code>brand</code> of <code>LIGHTNING</code>.</p>
+         */
+        @JsonSetter(value = "lightning_details", nulls = Nulls.SKIP)
+        public Builder lightningDetails(Optional<LightningDetails> lightningDetails) {
+            this.lightningDetails = lightningDetails;
+            return this;
+        }
+
+        public Builder lightningDetails(LightningDetails lightningDetails) {
+            this.lightningDetails = Optional.ofNullable(lightningDetails);
+            return this;
+        }
+
+        /**
          * <p>Information about errors encountered during the payment.</p>
          */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
@@ -235,7 +265,8 @@ public final class DigitalWalletDetails {
         }
 
         public DigitalWalletDetails build() {
-            return new DigitalWalletDetails(status, brand, cashAppDetails, errors, additionalProperties);
+            return new DigitalWalletDetails(
+                    status, brand, cashAppDetails, lightningDetails, errors, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

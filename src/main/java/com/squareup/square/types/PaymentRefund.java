@@ -41,6 +41,8 @@ public final class PaymentRefund {
 
     private final Optional<Money> appFeeMoney;
 
+    private final Optional<List<Object>> appFeeAllocations;
+
     private final Optional<List<ProcessingFee>> processingFee;
 
     private final Optional<String> paymentId;
@@ -68,6 +70,7 @@ public final class PaymentRefund {
             Optional<DestinationDetails> destinationDetails,
             Money amountMoney,
             Optional<Money> appFeeMoney,
+            Optional<List<Object>> appFeeAllocations,
             Optional<List<ProcessingFee>> processingFee,
             Optional<String> paymentId,
             Optional<String> orderId,
@@ -85,6 +88,7 @@ public final class PaymentRefund {
         this.destinationDetails = destinationDetails;
         this.amountMoney = amountMoney;
         this.appFeeMoney = appFeeMoney;
+        this.appFeeAllocations = appFeeAllocations;
         this.processingFee = processingFee;
         this.paymentId = paymentId;
         this.orderId = orderId;
@@ -180,6 +184,14 @@ public final class PaymentRefund {
     @JsonProperty("app_fee_money")
     public Optional<Money> getAppFeeMoney() {
         return appFeeMoney;
+    }
+
+    /**
+     * @return Details pertaining to contributors to the refund of the application fee.
+     */
+    @JsonProperty("app_fee_allocations")
+    public Optional<List<Object>> getAppFeeAllocations() {
+        return appFeeAllocations;
     }
 
     /**
@@ -320,6 +332,7 @@ public final class PaymentRefund {
                 && destinationDetails.equals(other.destinationDetails)
                 && amountMoney.equals(other.amountMoney)
                 && appFeeMoney.equals(other.appFeeMoney)
+                && appFeeAllocations.equals(other.appFeeAllocations)
                 && processingFee.equals(other.processingFee)
                 && paymentId.equals(other.paymentId)
                 && orderId.equals(other.orderId)
@@ -341,6 +354,7 @@ public final class PaymentRefund {
                 this.destinationDetails,
                 this.amountMoney,
                 this.appFeeMoney,
+                this.appFeeAllocations,
                 this.processingFee,
                 this.paymentId,
                 this.orderId,
@@ -445,6 +459,13 @@ public final class PaymentRefund {
         _FinalStage appFeeMoney(Money appFeeMoney);
 
         /**
+         * <p>Details pertaining to contributors to the refund of the application fee.</p>
+         */
+        _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations);
+
+        _FinalStage appFeeAllocations(List<Object> appFeeAllocations);
+
+        /**
          * <p>Processing fees and fee adjustments assessed by Square for this refund.</p>
          */
         _FinalStage processingFee(Optional<List<ProcessingFee>> processingFee);
@@ -531,6 +552,8 @@ public final class PaymentRefund {
 
         private Optional<List<ProcessingFee>> processingFee = Optional.empty();
 
+        private Optional<List<Object>> appFeeAllocations = Optional.empty();
+
         private Optional<Money> appFeeMoney = Optional.empty();
 
         private Optional<DestinationDetails> destinationDetails = Optional.empty();
@@ -558,6 +581,7 @@ public final class PaymentRefund {
             destinationDetails(other.getDestinationDetails());
             amountMoney(other.getAmountMoney());
             appFeeMoney(other.getAppFeeMoney());
+            appFeeAllocations(other.getAppFeeAllocations());
             processingFee(other.getProcessingFee());
             paymentId(other.getPaymentId());
             orderId(other.getOrderId());
@@ -820,6 +844,26 @@ public final class PaymentRefund {
         }
 
         /**
+         * <p>Details pertaining to contributors to the refund of the application fee.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage appFeeAllocations(List<Object> appFeeAllocations) {
+            this.appFeeAllocations = Optional.ofNullable(appFeeAllocations);
+            return this;
+        }
+
+        /**
+         * <p>Details pertaining to contributors to the refund of the application fee.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "app_fee_allocations", nulls = Nulls.SKIP)
+        public _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations) {
+            this.appFeeAllocations = appFeeAllocations;
+            return this;
+        }
+
+        /**
          * <p>The amount of money the application developer contributed to help cover the refunded amount.
          * This amount is specified in the smallest denomination of the applicable currency (for example,
          * US dollar amounts are specified in cents). For more information, see
@@ -1030,6 +1074,7 @@ public final class PaymentRefund {
                     destinationDetails,
                     amountMoney,
                     appFeeMoney,
+                    appFeeAllocations,
                     processingFee,
                     paymentId,
                     orderId,

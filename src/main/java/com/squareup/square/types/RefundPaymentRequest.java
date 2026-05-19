@@ -16,6 +16,7 @@ import com.squareup.square.core.Nullable;
 import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,6 +30,8 @@ public final class RefundPaymentRequest {
     private final Money amountMoney;
 
     private final Optional<Money> appFeeMoney;
+
+    private final Optional<List<Object>> appFeeAllocations;
 
     private final Optional<String> paymentId;
 
@@ -56,6 +59,7 @@ public final class RefundPaymentRequest {
             String idempotencyKey,
             Money amountMoney,
             Optional<Money> appFeeMoney,
+            Optional<List<Object>> appFeeAllocations,
             Optional<String> paymentId,
             Optional<String> destinationId,
             Optional<Boolean> unlinked,
@@ -70,6 +74,7 @@ public final class RefundPaymentRequest {
         this.idempotencyKey = idempotencyKey;
         this.amountMoney = amountMoney;
         this.appFeeMoney = appFeeMoney;
+        this.appFeeAllocations = appFeeAllocations;
         this.paymentId = paymentId;
         this.destinationId = destinationId;
         this.unlinked = unlinked;
@@ -124,6 +129,20 @@ public final class RefundPaymentRequest {
     @JsonProperty("app_fee_money")
     public Optional<Money> getAppFeeMoney() {
         return appFeeMoney;
+    }
+
+    /**
+     * @return Details pertaining to contributors to the refund of the application fee.
+     * The sum of the amounts in the app_fee_allocations must equal the app_fee_money amount, if
+     * present. If populated, an allocation must be present for every party that expects to contribute
+     * a portion of the refunded application fee, including the application developer.
+     */
+    @JsonIgnore
+    public Optional<List<Object>> getAppFeeAllocations() {
+        if (appFeeAllocations == null) {
+            return Optional.empty();
+        }
+        return appFeeAllocations;
     }
 
     /**
@@ -247,6 +266,12 @@ public final class RefundPaymentRequest {
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("app_fee_allocations")
+    private Optional<List<Object>> _getAppFeeAllocations() {
+        return appFeeAllocations;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("payment_id")
     private Optional<String> _getPaymentId() {
         return paymentId;
@@ -309,6 +334,7 @@ public final class RefundPaymentRequest {
         return idempotencyKey.equals(other.idempotencyKey)
                 && amountMoney.equals(other.amountMoney)
                 && appFeeMoney.equals(other.appFeeMoney)
+                && appFeeAllocations.equals(other.appFeeAllocations)
                 && paymentId.equals(other.paymentId)
                 && destinationId.equals(other.destinationId)
                 && unlinked.equals(other.unlinked)
@@ -327,6 +353,7 @@ public final class RefundPaymentRequest {
                 this.idempotencyKey,
                 this.amountMoney,
                 this.appFeeMoney,
+                this.appFeeAllocations,
                 this.paymentId,
                 this.destinationId,
                 this.unlinked,
@@ -396,6 +423,18 @@ public final class RefundPaymentRequest {
         _FinalStage appFeeMoney(Optional<Money> appFeeMoney);
 
         _FinalStage appFeeMoney(Money appFeeMoney);
+
+        /**
+         * <p>Details pertaining to contributors to the refund of the application fee.
+         * The sum of the amounts in the app_fee_allocations must equal the app_fee_money amount, if
+         * present. If populated, an allocation must be present for every party that expects to contribute
+         * a portion of the refunded application fee, including the application developer.</p>
+         */
+        _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations);
+
+        _FinalStage appFeeAllocations(List<Object> appFeeAllocations);
+
+        _FinalStage appFeeAllocations(Nullable<List<Object>> appFeeAllocations);
 
         /**
          * <p>The unique ID of the payment being refunded.
@@ -526,6 +565,8 @@ public final class RefundPaymentRequest {
 
         private Optional<String> paymentId = Optional.empty();
 
+        private Optional<List<Object>> appFeeAllocations = Optional.empty();
+
         private Optional<Money> appFeeMoney = Optional.empty();
 
         @JsonAnySetter
@@ -538,6 +579,7 @@ public final class RefundPaymentRequest {
             idempotencyKey(other.getIdempotencyKey());
             amountMoney(other.getAmountMoney());
             appFeeMoney(other.getAppFeeMoney());
+            appFeeAllocations(other.getAppFeeAllocations());
             paymentId(other.getPaymentId());
             destinationId(other.getDestinationId());
             unlinked(other.getUnlinked());
@@ -973,6 +1015,51 @@ public final class RefundPaymentRequest {
         }
 
         /**
+         * <p>Details pertaining to contributors to the refund of the application fee.
+         * The sum of the amounts in the app_fee_allocations must equal the app_fee_money amount, if
+         * present. If populated, an allocation must be present for every party that expects to contribute
+         * a portion of the refunded application fee, including the application developer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage appFeeAllocations(Nullable<List<Object>> appFeeAllocations) {
+            if (appFeeAllocations.isNull()) {
+                this.appFeeAllocations = null;
+            } else if (appFeeAllocations.isEmpty()) {
+                this.appFeeAllocations = Optional.empty();
+            } else {
+                this.appFeeAllocations = Optional.of(appFeeAllocations.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>Details pertaining to contributors to the refund of the application fee.
+         * The sum of the amounts in the app_fee_allocations must equal the app_fee_money amount, if
+         * present. If populated, an allocation must be present for every party that expects to contribute
+         * a portion of the refunded application fee, including the application developer.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        public _FinalStage appFeeAllocations(List<Object> appFeeAllocations) {
+            this.appFeeAllocations = Optional.ofNullable(appFeeAllocations);
+            return this;
+        }
+
+        /**
+         * <p>Details pertaining to contributors to the refund of the application fee.
+         * The sum of the amounts in the app_fee_allocations must equal the app_fee_money amount, if
+         * present. If populated, an allocation must be present for every party that expects to contribute
+         * a portion of the refunded application fee, including the application developer.</p>
+         */
+        @java.lang.Override
+        @JsonSetter(value = "app_fee_allocations", nulls = Nulls.SKIP)
+        public _FinalStage appFeeAllocations(Optional<List<Object>> appFeeAllocations) {
+            this.appFeeAllocations = appFeeAllocations;
+            return this;
+        }
+
+        /**
          * <p>The amount of money the developer contributes to help cover the refunded amount.
          * This amount is specified in the smallest denomination of the applicable currency (for example,
          * US dollar amounts are specified in cents).</p>
@@ -1014,6 +1101,7 @@ public final class RefundPaymentRequest {
                     idempotencyKey,
                     amountMoney,
                     appFeeMoney,
+                    appFeeAllocations,
                     paymentId,
                     destinationId,
                     unlinked,

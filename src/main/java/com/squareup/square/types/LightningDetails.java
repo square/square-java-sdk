@@ -16,46 +16,43 @@ import com.squareup.square.core.Nullable;
 import com.squareup.square.core.NullableNonemptyFilter;
 import com.squareup.square.core.ObjectMappers;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = SearchOrdersSourceFilter.Builder.class)
-public final class SearchOrdersSourceFilter {
-    private final Optional<List<String>> sourceNames;
+@JsonDeserialize(builder = LightningDetails.Builder.class)
+public final class LightningDetails {
+    private final Optional<String> paymentUrl;
 
     private final Map<String, Object> additionalProperties;
 
-    private SearchOrdersSourceFilter(Optional<List<String>> sourceNames, Map<String, Object> additionalProperties) {
-        this.sourceNames = sourceNames;
+    private LightningDetails(Optional<String> paymentUrl, Map<String, Object> additionalProperties) {
+        this.paymentUrl = paymentUrl;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Filters by the <a href="entity:OrderSource">Source</a> <code>name</code>. The filter returns any orders
-     * with a <code>source.name</code> that matches any of the listed source names.
-     * <p>Max: 10 source names.</p>
+     * @return Payment URL for the lightning payment, a.k.a. the invoice.
      */
     @JsonIgnore
-    public Optional<List<String>> getSourceNames() {
-        if (sourceNames == null) {
+    public Optional<String> getPaymentUrl() {
+        if (paymentUrl == null) {
             return Optional.empty();
         }
-        return sourceNames;
+        return paymentUrl;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
-    @JsonProperty("source_names")
-    private Optional<List<String>> _getSourceNames() {
-        return sourceNames;
+    @JsonProperty("payment_url")
+    private Optional<String> _getPaymentUrl() {
+        return paymentUrl;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof SearchOrdersSourceFilter && equalTo((SearchOrdersSourceFilter) other);
+        return other instanceof LightningDetails && equalTo((LightningDetails) other);
     }
 
     @JsonAnyGetter
@@ -63,13 +60,13 @@ public final class SearchOrdersSourceFilter {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(SearchOrdersSourceFilter other) {
-        return sourceNames.equals(other.sourceNames);
+    private boolean equalTo(LightningDetails other) {
+        return paymentUrl.equals(other.paymentUrl);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.sourceNames);
+        return Objects.hash(this.paymentUrl);
     }
 
     @java.lang.Override
@@ -83,47 +80,45 @@ public final class SearchOrdersSourceFilter {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private Optional<List<String>> sourceNames = Optional.empty();
+        private Optional<String> paymentUrl = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(SearchOrdersSourceFilter other) {
-            sourceNames(other.getSourceNames());
+        public Builder from(LightningDetails other) {
+            paymentUrl(other.getPaymentUrl());
             return this;
         }
 
         /**
-         * <p>Filters by the <a href="entity:OrderSource">Source</a> <code>name</code>. The filter returns any orders
-         * with a <code>source.name</code> that matches any of the listed source names.</p>
-         * <p>Max: 10 source names.</p>
+         * <p>Payment URL for the lightning payment, a.k.a. the invoice.</p>
          */
-        @JsonSetter(value = "source_names", nulls = Nulls.SKIP)
-        public Builder sourceNames(Optional<List<String>> sourceNames) {
-            this.sourceNames = sourceNames;
+        @JsonSetter(value = "payment_url", nulls = Nulls.SKIP)
+        public Builder paymentUrl(Optional<String> paymentUrl) {
+            this.paymentUrl = paymentUrl;
             return this;
         }
 
-        public Builder sourceNames(List<String> sourceNames) {
-            this.sourceNames = Optional.ofNullable(sourceNames);
+        public Builder paymentUrl(String paymentUrl) {
+            this.paymentUrl = Optional.ofNullable(paymentUrl);
             return this;
         }
 
-        public Builder sourceNames(Nullable<List<String>> sourceNames) {
-            if (sourceNames.isNull()) {
-                this.sourceNames = null;
-            } else if (sourceNames.isEmpty()) {
-                this.sourceNames = Optional.empty();
+        public Builder paymentUrl(Nullable<String> paymentUrl) {
+            if (paymentUrl.isNull()) {
+                this.paymentUrl = null;
+            } else if (paymentUrl.isEmpty()) {
+                this.paymentUrl = Optional.empty();
             } else {
-                this.sourceNames = Optional.of(sourceNames.get());
+                this.paymentUrl = Optional.of(paymentUrl.get());
             }
             return this;
         }
 
-        public SearchOrdersSourceFilter build() {
-            return new SearchOrdersSourceFilter(sourceNames, additionalProperties);
+        public LightningDetails build() {
+            return new LightningDetails(paymentUrl, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
