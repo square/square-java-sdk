@@ -38,6 +38,8 @@ public final class Payment {
 
     private final Optional<Money> appFeeMoney;
 
+    private final Optional<List<Object>> appFeeAllocations;
+
     private final Optional<Money> approvedMoney;
 
     private final Optional<List<ProcessingFee>> processingFee;
@@ -59,6 +61,8 @@ public final class Payment {
     private final Optional<CashPaymentDetails> cashDetails;
 
     private final Optional<BankAccountPaymentDetails> bankAccountDetails;
+
+    private final Optional<ElectronicMoneyDetails> electronicMoneyDetails;
 
     private final Optional<ExternalPaymentDetails> externalDetails;
 
@@ -106,6 +110,8 @@ public final class Payment {
 
     private final Optional<ApplicationDetails> applicationDetails;
 
+    private final Optional<Object> buyerCurrencyExchange;
+
     private final Optional<Boolean> isOfflinePayment;
 
     private final Optional<OfflinePaymentDetails> offlinePaymentDetails;
@@ -122,6 +128,7 @@ public final class Payment {
             Optional<Money> tipMoney,
             Optional<Money> totalMoney,
             Optional<Money> appFeeMoney,
+            Optional<List<Object>> appFeeAllocations,
             Optional<Money> approvedMoney,
             Optional<List<ProcessingFee>> processingFee,
             Optional<Money> refundedMoney,
@@ -133,6 +140,7 @@ public final class Payment {
             Optional<CardPaymentDetails> cardDetails,
             Optional<CashPaymentDetails> cashDetails,
             Optional<BankAccountPaymentDetails> bankAccountDetails,
+            Optional<ElectronicMoneyDetails> electronicMoneyDetails,
             Optional<ExternalPaymentDetails> externalDetails,
             Optional<DigitalWalletDetails> walletDetails,
             Optional<BuyNowPayLaterDetails> buyNowPayLaterDetails,
@@ -156,6 +164,7 @@ public final class Payment {
             Optional<String> receiptUrl,
             Optional<DeviceDetails> deviceDetails,
             Optional<ApplicationDetails> applicationDetails,
+            Optional<Object> buyerCurrencyExchange,
             Optional<Boolean> isOfflinePayment,
             Optional<OfflinePaymentDetails> offlinePaymentDetails,
             Optional<String> versionToken,
@@ -167,6 +176,7 @@ public final class Payment {
         this.tipMoney = tipMoney;
         this.totalMoney = totalMoney;
         this.appFeeMoney = appFeeMoney;
+        this.appFeeAllocations = appFeeAllocations;
         this.approvedMoney = approvedMoney;
         this.processingFee = processingFee;
         this.refundedMoney = refundedMoney;
@@ -178,6 +188,7 @@ public final class Payment {
         this.cardDetails = cardDetails;
         this.cashDetails = cashDetails;
         this.bankAccountDetails = bankAccountDetails;
+        this.electronicMoneyDetails = electronicMoneyDetails;
         this.externalDetails = externalDetails;
         this.walletDetails = walletDetails;
         this.buyNowPayLaterDetails = buyNowPayLaterDetails;
@@ -201,6 +212,7 @@ public final class Payment {
         this.receiptUrl = receiptUrl;
         this.deviceDetails = deviceDetails;
         this.applicationDetails = applicationDetails;
+        this.buyerCurrencyExchange = buyerCurrencyExchange;
         this.isOfflinePayment = isOfflinePayment;
         this.offlinePaymentDetails = offlinePaymentDetails;
         this.versionToken = versionToken;
@@ -277,6 +289,17 @@ public final class Payment {
     @JsonProperty("app_fee_money")
     public Optional<Money> getAppFeeMoney() {
         return appFeeMoney;
+    }
+
+    /**
+     * @return Details pertaining to recipients of the application fee.
+     */
+    @JsonIgnore
+    public Optional<List<Object>> getAppFeeAllocations() {
+        if (appFeeAllocations == null) {
+            return Optional.empty();
+        }
+        return appFeeAllocations;
     }
 
     /**
@@ -390,6 +413,14 @@ public final class Payment {
     @JsonProperty("bank_account_details")
     public Optional<BankAccountPaymentDetails> getBankAccountDetails() {
         return bankAccountDetails;
+    }
+
+    /**
+     * @return Details specific to electronic money payments.
+     */
+    @JsonProperty("electronic_money_details")
+    public Optional<ElectronicMoneyDetails> getElectronicMoneyDetails() {
+        return electronicMoneyDetails;
     }
 
     /**
@@ -613,6 +644,11 @@ public final class Payment {
         return applicationDetails;
     }
 
+    @JsonProperty("buyer_currency_exchange")
+    public Optional<Object> getBuyerCurrencyExchange() {
+        return buyerCurrencyExchange;
+    }
+
     /**
      * @return Whether or not this payment was taken offline.
      */
@@ -639,6 +675,12 @@ public final class Payment {
             return Optional.empty();
         }
         return versionToken;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("app_fee_allocations")
+    private Optional<List<Object>> _getAppFeeAllocations() {
+        return appFeeAllocations;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -678,6 +720,7 @@ public final class Payment {
                 && tipMoney.equals(other.tipMoney)
                 && totalMoney.equals(other.totalMoney)
                 && appFeeMoney.equals(other.appFeeMoney)
+                && appFeeAllocations.equals(other.appFeeAllocations)
                 && approvedMoney.equals(other.approvedMoney)
                 && processingFee.equals(other.processingFee)
                 && refundedMoney.equals(other.refundedMoney)
@@ -689,6 +732,7 @@ public final class Payment {
                 && cardDetails.equals(other.cardDetails)
                 && cashDetails.equals(other.cashDetails)
                 && bankAccountDetails.equals(other.bankAccountDetails)
+                && electronicMoneyDetails.equals(other.electronicMoneyDetails)
                 && externalDetails.equals(other.externalDetails)
                 && walletDetails.equals(other.walletDetails)
                 && buyNowPayLaterDetails.equals(other.buyNowPayLaterDetails)
@@ -712,6 +756,7 @@ public final class Payment {
                 && receiptUrl.equals(other.receiptUrl)
                 && deviceDetails.equals(other.deviceDetails)
                 && applicationDetails.equals(other.applicationDetails)
+                && buyerCurrencyExchange.equals(other.buyerCurrencyExchange)
                 && isOfflinePayment.equals(other.isOfflinePayment)
                 && offlinePaymentDetails.equals(other.offlinePaymentDetails)
                 && versionToken.equals(other.versionToken);
@@ -727,6 +772,7 @@ public final class Payment {
                 this.tipMoney,
                 this.totalMoney,
                 this.appFeeMoney,
+                this.appFeeAllocations,
                 this.approvedMoney,
                 this.processingFee,
                 this.refundedMoney,
@@ -738,6 +784,7 @@ public final class Payment {
                 this.cardDetails,
                 this.cashDetails,
                 this.bankAccountDetails,
+                this.electronicMoneyDetails,
                 this.externalDetails,
                 this.walletDetails,
                 this.buyNowPayLaterDetails,
@@ -761,6 +808,7 @@ public final class Payment {
                 this.receiptUrl,
                 this.deviceDetails,
                 this.applicationDetails,
+                this.buyerCurrencyExchange,
                 this.isOfflinePayment,
                 this.offlinePaymentDetails,
                 this.versionToken);
@@ -791,6 +839,8 @@ public final class Payment {
 
         private Optional<Money> appFeeMoney = Optional.empty();
 
+        private Optional<List<Object>> appFeeAllocations = Optional.empty();
+
         private Optional<Money> approvedMoney = Optional.empty();
 
         private Optional<List<ProcessingFee>> processingFee = Optional.empty();
@@ -812,6 +862,8 @@ public final class Payment {
         private Optional<CashPaymentDetails> cashDetails = Optional.empty();
 
         private Optional<BankAccountPaymentDetails> bankAccountDetails = Optional.empty();
+
+        private Optional<ElectronicMoneyDetails> electronicMoneyDetails = Optional.empty();
 
         private Optional<ExternalPaymentDetails> externalDetails = Optional.empty();
 
@@ -859,6 +911,8 @@ public final class Payment {
 
         private Optional<ApplicationDetails> applicationDetails = Optional.empty();
 
+        private Optional<Object> buyerCurrencyExchange = Optional.empty();
+
         private Optional<Boolean> isOfflinePayment = Optional.empty();
 
         private Optional<OfflinePaymentDetails> offlinePaymentDetails = Optional.empty();
@@ -878,6 +932,7 @@ public final class Payment {
             tipMoney(other.getTipMoney());
             totalMoney(other.getTotalMoney());
             appFeeMoney(other.getAppFeeMoney());
+            appFeeAllocations(other.getAppFeeAllocations());
             approvedMoney(other.getApprovedMoney());
             processingFee(other.getProcessingFee());
             refundedMoney(other.getRefundedMoney());
@@ -889,6 +944,7 @@ public final class Payment {
             cardDetails(other.getCardDetails());
             cashDetails(other.getCashDetails());
             bankAccountDetails(other.getBankAccountDetails());
+            electronicMoneyDetails(other.getElectronicMoneyDetails());
             externalDetails(other.getExternalDetails());
             walletDetails(other.getWalletDetails());
             buyNowPayLaterDetails(other.getBuyNowPayLaterDetails());
@@ -912,6 +968,7 @@ public final class Payment {
             receiptUrl(other.getReceiptUrl());
             deviceDetails(other.getDeviceDetails());
             applicationDetails(other.getApplicationDetails());
+            buyerCurrencyExchange(other.getBuyerCurrencyExchange());
             isOfflinePayment(other.getIsOfflinePayment());
             offlinePaymentDetails(other.getOfflinePaymentDetails());
             versionToken(other.getVersionToken());
@@ -1029,6 +1086,31 @@ public final class Payment {
 
         public Builder appFeeMoney(Money appFeeMoney) {
             this.appFeeMoney = Optional.ofNullable(appFeeMoney);
+            return this;
+        }
+
+        /**
+         * <p>Details pertaining to recipients of the application fee.</p>
+         */
+        @JsonSetter(value = "app_fee_allocations", nulls = Nulls.SKIP)
+        public Builder appFeeAllocations(Optional<List<Object>> appFeeAllocations) {
+            this.appFeeAllocations = appFeeAllocations;
+            return this;
+        }
+
+        public Builder appFeeAllocations(List<Object> appFeeAllocations) {
+            this.appFeeAllocations = Optional.ofNullable(appFeeAllocations);
+            return this;
+        }
+
+        public Builder appFeeAllocations(Nullable<List<Object>> appFeeAllocations) {
+            if (appFeeAllocations.isNull()) {
+                this.appFeeAllocations = null;
+            } else if (appFeeAllocations.isEmpty()) {
+                this.appFeeAllocations = Optional.empty();
+            } else {
+                this.appFeeAllocations = Optional.of(appFeeAllocations.get());
+            }
             return this;
         }
 
@@ -1216,6 +1298,20 @@ public final class Payment {
 
         public Builder bankAccountDetails(BankAccountPaymentDetails bankAccountDetails) {
             this.bankAccountDetails = Optional.ofNullable(bankAccountDetails);
+            return this;
+        }
+
+        /**
+         * <p>Details specific to electronic money payments.</p>
+         */
+        @JsonSetter(value = "electronic_money_details", nulls = Nulls.SKIP)
+        public Builder electronicMoneyDetails(Optional<ElectronicMoneyDetails> electronicMoneyDetails) {
+            this.electronicMoneyDetails = electronicMoneyDetails;
+            return this;
+        }
+
+        public Builder electronicMoneyDetails(ElectronicMoneyDetails electronicMoneyDetails) {
+            this.electronicMoneyDetails = Optional.ofNullable(electronicMoneyDetails);
             return this;
         }
 
@@ -1586,6 +1682,17 @@ public final class Payment {
             return this;
         }
 
+        @JsonSetter(value = "buyer_currency_exchange", nulls = Nulls.SKIP)
+        public Builder buyerCurrencyExchange(Optional<Object> buyerCurrencyExchange) {
+            this.buyerCurrencyExchange = buyerCurrencyExchange;
+            return this;
+        }
+
+        public Builder buyerCurrencyExchange(Object buyerCurrencyExchange) {
+            this.buyerCurrencyExchange = Optional.ofNullable(buyerCurrencyExchange);
+            return this;
+        }
+
         /**
          * <p>Whether or not this payment was taken offline.</p>
          */
@@ -1649,6 +1756,7 @@ public final class Payment {
                     tipMoney,
                     totalMoney,
                     appFeeMoney,
+                    appFeeAllocations,
                     approvedMoney,
                     processingFee,
                     refundedMoney,
@@ -1660,6 +1768,7 @@ public final class Payment {
                     cardDetails,
                     cashDetails,
                     bankAccountDetails,
+                    electronicMoneyDetails,
                     externalDetails,
                     walletDetails,
                     buyNowPayLaterDetails,
@@ -1683,6 +1792,7 @@ public final class Payment {
                     receiptUrl,
                     deviceDetails,
                     applicationDetails,
+                    buyerCurrencyExchange,
                     isOfflinePayment,
                     offlinePaymentDetails,
                     versionToken,

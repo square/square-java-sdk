@@ -53,6 +53,10 @@ public final class CardPaymentDetails {
 
     private final Optional<List<Error>> errors;
 
+    private final Optional<CardSurchargeDetails> appliedCardSurchargeDetails;
+
+    private final Optional<String> walletType;
+
     private final Map<String, Object> additionalProperties;
 
     private CardPaymentDetails(
@@ -72,6 +76,8 @@ public final class CardPaymentDetails {
             Optional<CardPaymentTimeline> cardPaymentTimeline,
             Optional<Boolean> refundRequiresCardPresence,
             Optional<List<Error>> errors,
+            Optional<CardSurchargeDetails> appliedCardSurchargeDetails,
+            Optional<String> walletType,
             Map<String, Object> additionalProperties) {
         this.status = status;
         this.card = card;
@@ -89,6 +95,8 @@ public final class CardPaymentDetails {
         this.cardPaymentTimeline = cardPaymentTimeline;
         this.refundRequiresCardPresence = refundRequiresCardPresence;
         this.errors = errors;
+        this.appliedCardSurchargeDetails = appliedCardSurchargeDetails;
+        this.walletType = walletType;
         this.additionalProperties = additionalProperties;
     }
 
@@ -231,6 +239,26 @@ public final class CardPaymentDetails {
         return errors;
     }
 
+    /**
+     * @return Additional information about a card_surcharge on the payment.
+     */
+    @JsonProperty("applied_card_surcharge_details")
+    public Optional<CardSurchargeDetails> getAppliedCardSurchargeDetails() {
+        return appliedCardSurchargeDetails;
+    }
+
+    /**
+     * @return The type of digital wallet used for this card payment, if applicable.
+     * Currently only populated for in-person Apple Pay payments. Detection has no false
+     * positives but may have false negatives (some Apple Pay payments may not be detected).
+     * <p>For payments with <code>source_type</code> of <code>WALLET</code>, see <code>DigitalWalletDetails</code> instead.</p>
+     * <p>Values: <code>APPLE_PAY</code></p>
+     */
+    @JsonProperty("wallet_type")
+    public Optional<String> getWalletType() {
+        return walletType;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -258,7 +286,9 @@ public final class CardPaymentDetails {
                 && deviceDetails.equals(other.deviceDetails)
                 && cardPaymentTimeline.equals(other.cardPaymentTimeline)
                 && refundRequiresCardPresence.equals(other.refundRequiresCardPresence)
-                && errors.equals(other.errors);
+                && errors.equals(other.errors)
+                && appliedCardSurchargeDetails.equals(other.appliedCardSurchargeDetails)
+                && walletType.equals(other.walletType);
     }
 
     @java.lang.Override
@@ -279,7 +309,9 @@ public final class CardPaymentDetails {
                 this.deviceDetails,
                 this.cardPaymentTimeline,
                 this.refundRequiresCardPresence,
-                this.errors);
+                this.errors,
+                this.appliedCardSurchargeDetails,
+                this.walletType);
     }
 
     @java.lang.Override
@@ -325,6 +357,10 @@ public final class CardPaymentDetails {
 
         private Optional<List<Error>> errors = Optional.empty();
 
+        private Optional<CardSurchargeDetails> appliedCardSurchargeDetails = Optional.empty();
+
+        private Optional<String> walletType = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -347,6 +383,8 @@ public final class CardPaymentDetails {
             cardPaymentTimeline(other.getCardPaymentTimeline());
             refundRequiresCardPresence(other.getRefundRequiresCardPresence());
             errors(other.getErrors());
+            appliedCardSurchargeDetails(other.getAppliedCardSurchargeDetails());
+            walletType(other.getWalletType());
             return this;
         }
 
@@ -585,6 +623,38 @@ public final class CardPaymentDetails {
             return this;
         }
 
+        /**
+         * <p>Additional information about a card_surcharge on the payment.</p>
+         */
+        @JsonSetter(value = "applied_card_surcharge_details", nulls = Nulls.SKIP)
+        public Builder appliedCardSurchargeDetails(Optional<CardSurchargeDetails> appliedCardSurchargeDetails) {
+            this.appliedCardSurchargeDetails = appliedCardSurchargeDetails;
+            return this;
+        }
+
+        public Builder appliedCardSurchargeDetails(CardSurchargeDetails appliedCardSurchargeDetails) {
+            this.appliedCardSurchargeDetails = Optional.ofNullable(appliedCardSurchargeDetails);
+            return this;
+        }
+
+        /**
+         * <p>The type of digital wallet used for this card payment, if applicable.
+         * Currently only populated for in-person Apple Pay payments. Detection has no false
+         * positives but may have false negatives (some Apple Pay payments may not be detected).</p>
+         * <p>For payments with <code>source_type</code> of <code>WALLET</code>, see <code>DigitalWalletDetails</code> instead.</p>
+         * <p>Values: <code>APPLE_PAY</code></p>
+         */
+        @JsonSetter(value = "wallet_type", nulls = Nulls.SKIP)
+        public Builder walletType(Optional<String> walletType) {
+            this.walletType = walletType;
+            return this;
+        }
+
+        public Builder walletType(String walletType) {
+            this.walletType = Optional.ofNullable(walletType);
+            return this;
+        }
+
         public CardPaymentDetails build() {
             return new CardPaymentDetails(
                     status,
@@ -603,6 +673,8 @@ public final class CardPaymentDetails {
                     cardPaymentTimeline,
                     refundRequiresCardPresence,
                     errors,
+                    appliedCardSurchargeDetails,
+                    walletType,
                     additionalProperties);
         }
 
