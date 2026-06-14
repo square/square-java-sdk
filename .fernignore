@@ -4,6 +4,9 @@ legacy-sdk
 src/test/java/com/squareup/square/integration
 src/main/java/com/squareup/square/core/SquareApiException.java
 src/main/java/com/squareup/square/utilities/WebhooksHelper.java
+src/main/java/com/squareup/square/utilities/ReportingHelper.java
+src/main/java/com/squareup/square/utilities/LoadAndWaitOptions.java
+src/test/java/com/squareup/square/utilities/ReportingHelperTest.java
 src/test/resources/testdata
 .github/workflows/ci.yml
 .fern/replay.lock
