@@ -38,6 +38,7 @@ jobs:
         run: ./gradlew test -x :legacy-sdk:test
         env:
           TEST_SQUARE_TOKEN: ${{ secrets.TEST_SQUARE_TOKEN }}
+          TEST_SQUARE_REPORTING: ${{ secrets.TEST_SQUARE_REPORTING }}
   publish:
     needs: [ compile ]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
