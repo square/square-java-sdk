@@ -23,15 +23,15 @@ import org.junit.jupiter.api.Test;
  *
  * <p>The Reporting API is a beta, bespoke offering served ONLY from production
  * (connect.squareup.com/reporting) — it is not routed on sandbox (returns 404 there). Validating it live therefore
- * needs a production, reporting-provisioned {@code TEST_SQUARE_TOKEN}. CI's token is sandbox-only (it 401s against
- * prod), so this suite is gated behind {@code TEST_SQUARE_REPORTING} and skips by default — keeping CI green. The
- * endpoints are read-only (schema discovery + queries). The polling <em>logic</em> is covered without a live account in
- * {@code ReportingHelperTest}.
+ * needs a production, reporting-provisioned access token. CI's {@code TEST_SQUARE_TOKEN} is sandbox-only (it 401s
+ * against prod), so this suite is gated behind {@code TEST_SQUARE_REPORTING} — which IS that prod, reporting-provisioned
+ * token — and skips by default when it is unset, keeping CI green. The endpoints are read-only (schema discovery +
+ * queries). The polling <em>logic</em> is covered without a live account in {@code ReportingHelperTest}.
  *
  * <p>Run it against a real prod account:
  *
  * <pre>{@code
- * TEST_SQUARE_REPORTING=1 TEST_SQUARE_TOKEN=<prod-access-token> ./gradlew test --tests '*ReportingTest'
+ * TEST_SQUARE_REPORTING=<prod-reporting-token> ./gradlew test --tests '*ReportingTest'
  * # override the host with TEST_SQUARE_BASE_URL=<url> if reporting moves.
  * }</pre>
  */
@@ -48,9 +48,12 @@ public final class ReportingTest {
     }
 
     private static SquareClient createReportingClient() {
-        String token = System.getenv("TEST_SQUARE_TOKEN");
+        // The reporting suite authenticates with TEST_SQUARE_REPORTING — a production, reporting-provisioned
+        // access token (distinct from the sandbox TEST_SQUARE_TOKEN used by the other integration tests).
+        String token = System.getenv("TEST_SQUARE_REPORTING");
         if (token == null || token.isEmpty()) {
-            throw new IllegalArgumentException("TEST_SQUARE_TOKEN must be set to run the reporting integration suite.");
+            throw new IllegalArgumentException(
+                    "TEST_SQUARE_REPORTING must be set to run the reporting integration suite.");
         }
         // Reporting only exists on production; allow overriding the host via TEST_SQUARE_BASE_URL.
         String baseUrl = System.getenv("TEST_SQUARE_BASE_URL");
