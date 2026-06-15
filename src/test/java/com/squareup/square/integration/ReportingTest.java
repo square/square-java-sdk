@@ -41,9 +41,11 @@ public final class ReportingTest {
     @BeforeAll
     static void setUp() {
         // Skip the entire suite (rather than fail) unless explicitly opted in.
+        // A missing CI secret resolves to an empty string (not absent), so treat blank as unset.
+        String reportingToken = System.getenv("TEST_SQUARE_REPORTING");
         Assumptions.assumeTrue(
-                System.getenv("TEST_SQUARE_REPORTING") != null,
-                "Set TEST_SQUARE_REPORTING to run the reporting integration suite.");
+                reportingToken != null && !reportingToken.isBlank(),
+                "Set TEST_SQUARE_REPORTING=<prod-reporting-token> to run the reporting integration suite.");
         client = createReportingClient();
     }
 
