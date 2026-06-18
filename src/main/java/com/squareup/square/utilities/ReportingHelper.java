@@ -87,7 +87,7 @@ public final class ReportingHelper {
     /**
      * A "Continue wait" body deserializes into a {@link LoadResponse} (validation is skipped and unknown keys pass
      * through) with the {@code error} sentinel preserved on {@link LoadResponse#getAdditionalProperties()} and
-     * {@code results} absent. That's the retry signal.
+     * {@code data} absent. That's the retry signal.
      */
     private static boolean isContinueWait(LoadResponse response) {
         return CONTINUE_WAIT.equals(response.getAdditionalProperties().get("error"));

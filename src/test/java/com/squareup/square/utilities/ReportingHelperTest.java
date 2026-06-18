@@ -97,11 +97,11 @@ public final class ReportingHelperTest {
     @Test
     public void treatsRealDeserializerContinueWaitBodyAsRetrySignal() throws Exception {
         // The crux of the design: the generated reporting.load deserializes the body with unknown-key passthrough,
-        // so the "error" sentinel survives onto a LoadResponse (in additionalProperties) and "results" stays empty.
+        // so the "error" sentinel survives onto a LoadResponse (in additionalProperties) and "data" stays empty.
         // If this ever stops being true, loadAndWait would mistake "Continue wait" for a real result.
         LoadResponse parsed = ObjectMappers.JSON_MAPPER.readValue("{\"error\":\"Continue wait\"}", LoadResponse.class);
 
         assertEquals(CONTINUE_WAIT, parsed.getAdditionalProperties().get("error"));
-        assertTrue(parsed.getResults().isEmpty());
+        assertTrue(parsed.getData().isEmpty());
     }
 }

@@ -375,7 +375,7 @@ LoadResponse response = ReportingHelper.loadAndWait(
                         .build())
                 .build());
 
-System.out.println(response.getResults());
+System.out.println(response.getData());
 ```
 
 By default it polls up to 20 times with exponential backoff (2s → 20s). Tune the behavior via `LoadAndWaitOptions`;

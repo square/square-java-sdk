@@ -107,7 +107,7 @@ public final class ReportingTest {
             // with { "error": "Continue wait" } instead of results.
             assertEquals("Continue wait", sentinel);
         } else {
-            assertNotNull(response.getResults());
+            assertTrue(response.getData().isPresent(), "Resolved query should carry data.");
         }
     }
 
@@ -131,6 +131,6 @@ public final class ReportingTest {
 
         // The polling helper must never hand back the raw "Continue wait" sentinel.
         assertNull(response.getAdditionalProperties().get("error"));
-        assertNotNull(response.getResults());
+        assertTrue(response.getData().isPresent(), "Resolved query should carry data.");
     }
 }
