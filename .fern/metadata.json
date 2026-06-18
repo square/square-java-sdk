@@ -13,5 +13,5 @@
     "enable-forward-compatible-enums": true,
     "publish-to": "central"
   },
-  "sdkVersion": "46.1.0.20260520"
+  "sdkVersion": "46.2.0-rc.0"
 }
