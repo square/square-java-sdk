@@ -78,6 +78,8 @@ public class AsyncSquareClient {
 
     protected final Supplier<AsyncVendorsClient> vendorsClient;
 
+    protected final Supplier<AsyncReportingClient> reportingClient;
+
     protected final Supplier<AsyncCashDrawersClient> cashDrawersClient;
 
     protected final Supplier<AsyncWebhooksClient> webhooksClient;
@@ -117,6 +119,7 @@ public class AsyncSquareClient {
         this.terminalClient = Suppliers.memoize(() -> new AsyncTerminalClient(clientOptions));
         this.transferOrdersClient = Suppliers.memoize(() -> new AsyncTransferOrdersClient(clientOptions));
         this.vendorsClient = Suppliers.memoize(() -> new AsyncVendorsClient(clientOptions));
+        this.reportingClient = Suppliers.memoize(() -> new AsyncReportingClient(clientOptions));
         this.cashDrawersClient = Suppliers.memoize(() -> new AsyncCashDrawersClient(clientOptions));
         this.webhooksClient = Suppliers.memoize(() -> new AsyncWebhooksClient(clientOptions));
     }
@@ -251,6 +254,10 @@ public class AsyncSquareClient {
 
     public AsyncVendorsClient vendors() {
         return this.vendorsClient.get();
+    }
+
+    public AsyncReportingClient reporting() {
+        return this.reportingClient.get();
     }
 
     public AsyncCashDrawersClient cashDrawers() {

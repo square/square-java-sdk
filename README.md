@@ -20,6 +20,7 @@ The Square Java library provides convenient access to the Square APIs from Java.
 - [Base Url](#base-url)
 - [Exception Handling](#exception-handling)
 - [Webhook Signature Verification](#webhook-signature-verification)
+- [Reporting API](#reporting-api)
 - [Reference](#reference)
 - [Legacy Sdk](#legacy-sdk)
 - [Advanced](#advanced)
@@ -56,7 +57,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>46.1.0.20260520</version>
+  <version>46.2.0-rc.0</version>
 </dependency>
 ```
 
@@ -326,6 +327,75 @@ boolean isValid = WebhooksHelper.verifySignature(
 );
 ```
 
+## Reporting API
+
+The [Reporting API](https://developer.squareup.com/docs/reporting-api/overview) lets you query aggregated reporting
+data. Call `reporting().getMetadata()` first to discover the available cubes, measures, and dimensions, then run a query
+with `reporting().load(...)`.
+
+```java
+import com.squareup.square.SquareClient;
+import com.squareup.square.types.LoadRequest;
+import com.squareup.square.types.LoadResponse;
+import com.squareup.square.types.MetadataResponse;
+import com.squareup.square.types.Query;
+import java.util.Collections;
+
+SquareClient client = SquareClient.builder().token("YOUR_TOKEN").build();
+
+// Discover what you can query.
+MetadataResponse metadata = client.reporting().getMetadata();
+
+// Run a query against the discovered schema.
+LoadResponse response = client.reporting()
+        .load(LoadRequest.builder()
+                .query(Query.builder()
+                        .measures(Collections.singletonList("Orders.count"))
+                        .build())
+                .build());
+```
+
+`load` is asynchronous: while a query is still being computed, the API returns an HTTP `200` whose body is
+`{ "error": "Continue wait" }` instead of results, and the client is expected to re-send the identical request — with
+backoff — until the results are ready. The `ReportingHelper.loadAndWait` utility owns that polling loop for you and
+returns the resolved results (never the `"Continue wait"` sentinel):
+
+```java
+import com.squareup.square.types.LoadRequest;
+import com.squareup.square.types.LoadResponse;
+import com.squareup.square.types.Query;
+import com.squareup.square.utilities.ReportingHelper;
+import java.util.Collections;
+
+LoadResponse response = ReportingHelper.loadAndWait(
+        client,
+        LoadRequest.builder()
+                .query(Query.builder()
+                        .measures(Collections.singletonList("Orders.count"))
+                        .build())
+                .build());
+
+System.out.println(response.getData());
+```
+
+By default it polls up to 20 times with exponential backoff (2s → 20s). Tune the behavior via `LoadAndWaitOptions`;
+the poll loop also honors thread interruption, so cancelling the calling thread (or its `Future`) aborts an in-flight
+wait:
+
+```java
+import com.squareup.square.utilities.LoadAndWaitOptions;
+
+LoadResponse response = ReportingHelper.loadAndWait(
+        client,
+        request,
+        LoadAndWaitOptions.builder()
+                .maxAttempts(10) // default 20
+                .initialDelayMs(1000) // default 2000
+                .maxDelayMs(20000) // default 20000
+                .backoffFactor(2) // default 2
+                .build());
+```
+
 ## Reference
 
 A full reference for this library is available [here](https://github.com/square/square-java-sdk/blob/HEAD/./reference.md).
@@ -361,8 +431,8 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:46.1.0.20260520'
-    implementation 'com.squareup:square-legacy:46.1.0.20260520'
+    implementation 'com.squareup:square:46.2.0-rc.0'
+    implementation 'com.squareup:square-legacy:46.2.0-rc.0'
 }
 ```
 
@@ -372,12 +442,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>46.1.0.20260520</version>
+    <version>46.2.0-rc.0</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>46.1.0.20260520</version>
+    <version>46.2.0-rc.0</version>
 </dependency>
 ```
 
