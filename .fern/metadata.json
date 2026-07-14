@@ -1,5 +1,5 @@
 {
-  "cliVersion": "3.98.5",
+  "cliVersion": "5.56.0",
   "generatorName": "fernapi/fern-java-sdk",
   "generatorVersion": "3.42.8",
   "generatorConfig": {
@@ -13,5 +13,6 @@
     "enable-forward-compatible-enums": true,
     "publish-to": "central"
   },
-  "sdkVersion": "46.2.0-rc.0"
+  "originGitCommit": "b2dac8b2c1b9fe87c0e1fe3eb6257b259caa0715",
+  "sdkVersion": "47.0.1.20260715"
 }

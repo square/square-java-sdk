@@ -19,25 +19,25 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = GetInventoryTransferResponse.Builder.class)
-public final class GetInventoryTransferResponse {
+@JsonDeserialize(builder = RestoreInventoryAdjustmentReasonResponse.Builder.class)
+public final class RestoreInventoryAdjustmentReasonResponse {
     private final Optional<List<Error>> errors;
 
-    private final Optional<InventoryTransfer> transfer;
+    private final Optional<InventoryAdjustmentReason> adjustmentReason;
 
     private final Map<String, Object> additionalProperties;
 
-    private GetInventoryTransferResponse(
+    private RestoreInventoryAdjustmentReasonResponse(
             Optional<List<Error>> errors,
-            Optional<InventoryTransfer> transfer,
+            Optional<InventoryAdjustmentReason> adjustmentReason,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
-        this.transfer = transfer;
+        this.adjustmentReason = adjustmentReason;
         this.additionalProperties = additionalProperties;
     }
 
     /**
-     * @return Any errors that occurred during the request.
+     * @return Errors encountered when the request fails.
      */
     @JsonProperty("errors")
     public Optional<List<Error>> getErrors() {
@@ -45,17 +45,18 @@ public final class GetInventoryTransferResponse {
     }
 
     /**
-     * @return The requested <a href="entity:InventoryTransfer">InventoryTransfer</a>.
+     * @return The successfully restored inventory adjustment reason.
      */
-    @JsonProperty("transfer")
-    public Optional<InventoryTransfer> getTransfer() {
-        return transfer;
+    @JsonProperty("adjustment_reason")
+    public Optional<InventoryAdjustmentReason> getAdjustmentReason() {
+        return adjustmentReason;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof GetInventoryTransferResponse && equalTo((GetInventoryTransferResponse) other);
+        return other instanceof RestoreInventoryAdjustmentReasonResponse
+                && equalTo((RestoreInventoryAdjustmentReasonResponse) other);
     }
 
     @JsonAnyGetter
@@ -63,13 +64,13 @@ public final class GetInventoryTransferResponse {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(GetInventoryTransferResponse other) {
-        return errors.equals(other.errors) && transfer.equals(other.transfer);
+    private boolean equalTo(RestoreInventoryAdjustmentReasonResponse other) {
+        return errors.equals(other.errors) && adjustmentReason.equals(other.adjustmentReason);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.transfer);
+        return Objects.hash(this.errors, this.adjustmentReason);
     }
 
     @java.lang.Override
@@ -85,21 +86,21 @@ public final class GetInventoryTransferResponse {
     public static final class Builder {
         private Optional<List<Error>> errors = Optional.empty();
 
-        private Optional<InventoryTransfer> transfer = Optional.empty();
+        private Optional<InventoryAdjustmentReason> adjustmentReason = Optional.empty();
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
         private Builder() {}
 
-        public Builder from(GetInventoryTransferResponse other) {
+        public Builder from(RestoreInventoryAdjustmentReasonResponse other) {
             errors(other.getErrors());
-            transfer(other.getTransfer());
+            adjustmentReason(other.getAdjustmentReason());
             return this;
         }
 
         /**
-         * <p>Any errors that occurred during the request.</p>
+         * <p>Errors encountered when the request fails.</p>
          */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
@@ -113,21 +114,21 @@ public final class GetInventoryTransferResponse {
         }
 
         /**
-         * <p>The requested <a href="entity:InventoryTransfer">InventoryTransfer</a>.</p>
+         * <p>The successfully restored inventory adjustment reason.</p>
          */
-        @JsonSetter(value = "transfer", nulls = Nulls.SKIP)
-        public Builder transfer(Optional<InventoryTransfer> transfer) {
-            this.transfer = transfer;
+        @JsonSetter(value = "adjustment_reason", nulls = Nulls.SKIP)
+        public Builder adjustmentReason(Optional<InventoryAdjustmentReason> adjustmentReason) {
+            this.adjustmentReason = adjustmentReason;
             return this;
         }
 
-        public Builder transfer(InventoryTransfer transfer) {
-            this.transfer = Optional.ofNullable(transfer);
+        public Builder adjustmentReason(InventoryAdjustmentReason adjustmentReason) {
+            this.adjustmentReason = Optional.ofNullable(adjustmentReason);
             return this;
         }
 
-        public GetInventoryTransferResponse build() {
-            return new GetInventoryTransferResponse(errors, transfer, additionalProperties);
+        public RestoreInventoryAdjustmentReasonResponse build() {
+            return new RestoreInventoryAdjustmentReasonResponse(errors, adjustmentReason, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

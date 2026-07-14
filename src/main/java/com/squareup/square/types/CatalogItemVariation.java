@@ -68,6 +68,8 @@ public final class CatalogItemVariation {
 
     private final Optional<String> kitchenName;
 
+    private final Optional<List<CatalogItemVariationVendorInformation>> vendorInformation;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogItemVariation(
@@ -93,6 +95,7 @@ public final class CatalogItemVariation {
             Optional<List<String>> teamMemberIds,
             Optional<CatalogStockConversion> stockableConversion,
             Optional<String> kitchenName,
+            Optional<List<CatalogItemVariationVendorInformation>> vendorInformation,
             Map<String, Object> additionalProperties) {
         this.itemId = itemId;
         this.name = name;
@@ -116,6 +119,7 @@ public final class CatalogItemVariation {
         this.teamMemberIds = teamMemberIds;
         this.stockableConversion = stockableConversion;
         this.kitchenName = kitchenName;
+        this.vendorInformation = vendorInformation;
         this.additionalProperties = additionalProperties;
     }
 
@@ -210,7 +214,9 @@ public final class CatalogItemVariation {
     }
 
     /**
-     * @return If <code>true</code>, inventory tracking is active for the variation.
+     * @return If <code>true</code>, inventory tracking is active for the variation at all locations by default.
+     * This value can be overridden for specific locations using <code>ItemVariationLocationOverrides.track_inventory</code>.
+     * If unset at both levels, inventory tracking is disabled.
      */
     @JsonIgnore
     public Optional<Boolean> getTrackInventory() {
@@ -223,7 +229,8 @@ public final class CatalogItemVariation {
     /**
      * @return Indicates whether the item variation displays an alert when its inventory quantity is less than or equal
      * to its <code>inventory_alert_threshold</code>.
-     * See <a href="#type-inventoryalerttype">InventoryAlertType</a> for possible values
+     * <p>Deprecated because this field has never been global.
+     * See <a href="#type-inventoryalerttype">InventoryAlertType</a> for possible values</p>
      */
     @JsonProperty("inventory_alert_type")
     public Optional<InventoryAlertType> getInventoryAlertType() {
@@ -232,8 +239,8 @@ public final class CatalogItemVariation {
 
     /**
      * @return If the inventory quantity for the variation is less than or equal to this value and <code>inventory_alert_type</code>
-     * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard.
-     * <p>This value is always an integer.</p>
+     * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard. This value is always an integer.
+     * <p>Deprecated because this field has never been global.</p>
      */
     @JsonIgnore
     public Optional<Long> getInventoryAlertThreshold() {
@@ -381,6 +388,19 @@ public final class CatalogItemVariation {
         return kitchenName;
     }
 
+    /**
+     * @return Details of the vendor this product is purchased from.
+     * This field can be set only if the seller has an active subscription
+     * to either Square for Retail Premium or Square for Restaurants Premium.
+     */
+    @JsonIgnore
+    public Optional<List<CatalogItemVariationVendorInformation>> getVendorInformation() {
+        if (vendorInformation == null) {
+            return Optional.empty();
+        }
+        return vendorInformation;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("item_id")
     private Optional<String> _getItemId() {
@@ -483,6 +503,12 @@ public final class CatalogItemVariation {
         return kitchenName;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("vendor_information")
+    private Optional<List<CatalogItemVariationVendorInformation>> _getVendorInformation() {
+        return vendorInformation;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -516,7 +542,8 @@ public final class CatalogItemVariation {
                 && imageIds.equals(other.imageIds)
                 && teamMemberIds.equals(other.teamMemberIds)
                 && stockableConversion.equals(other.stockableConversion)
-                && kitchenName.equals(other.kitchenName);
+                && kitchenName.equals(other.kitchenName)
+                && vendorInformation.equals(other.vendorInformation);
     }
 
     @java.lang.Override
@@ -543,7 +570,8 @@ public final class CatalogItemVariation {
                 this.imageIds,
                 this.teamMemberIds,
                 this.stockableConversion,
-                this.kitchenName);
+                this.kitchenName,
+                this.vendorInformation);
     }
 
     @java.lang.Override
@@ -601,6 +629,8 @@ public final class CatalogItemVariation {
 
         private Optional<String> kitchenName = Optional.empty();
 
+        private Optional<List<CatalogItemVariationVendorInformation>> vendorInformation = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -629,6 +659,7 @@ public final class CatalogItemVariation {
             teamMemberIds(other.getTeamMemberIds());
             stockableConversion(other.getStockableConversion());
             kitchenName(other.getKitchenName());
+            vendorInformation(other.getVendorInformation());
             return this;
         }
 
@@ -811,7 +842,9 @@ public final class CatalogItemVariation {
         }
 
         /**
-         * <p>If <code>true</code>, inventory tracking is active for the variation.</p>
+         * <p>If <code>true</code>, inventory tracking is active for the variation at all locations by default.
+         * This value can be overridden for specific locations using <code>ItemVariationLocationOverrides.track_inventory</code>.
+         * If unset at both levels, inventory tracking is disabled.</p>
          */
         @JsonSetter(value = "track_inventory", nulls = Nulls.SKIP)
         public Builder trackInventory(Optional<Boolean> trackInventory) {
@@ -837,7 +870,8 @@ public final class CatalogItemVariation {
 
         /**
          * <p>Indicates whether the item variation displays an alert when its inventory quantity is less than or equal
-         * to its <code>inventory_alert_threshold</code>.
+         * to its <code>inventory_alert_threshold</code>.</p>
+         * <p>Deprecated because this field has never been global.
          * See <a href="#type-inventoryalerttype">InventoryAlertType</a> for possible values</p>
          */
         @JsonSetter(value = "inventory_alert_type", nulls = Nulls.SKIP)
@@ -853,8 +887,8 @@ public final class CatalogItemVariation {
 
         /**
          * <p>If the inventory quantity for the variation is less than or equal to this value and <code>inventory_alert_type</code>
-         * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard.</p>
-         * <p>This value is always an integer.</p>
+         * is <code>LOW_QUANTITY</code>, the variation displays an alert in the merchant dashboard. This value is always an integer.</p>
+         * <p>Deprecated because this field has never been global.</p>
          */
         @JsonSetter(value = "inventory_alert_threshold", nulls = Nulls.SKIP)
         public Builder inventoryAlertThreshold(Optional<Long> inventoryAlertThreshold) {
@@ -1162,6 +1196,33 @@ public final class CatalogItemVariation {
             return this;
         }
 
+        /**
+         * <p>Details of the vendor this product is purchased from.
+         * This field can be set only if the seller has an active subscription
+         * to either Square for Retail Premium or Square for Restaurants Premium.</p>
+         */
+        @JsonSetter(value = "vendor_information", nulls = Nulls.SKIP)
+        public Builder vendorInformation(Optional<List<CatalogItemVariationVendorInformation>> vendorInformation) {
+            this.vendorInformation = vendorInformation;
+            return this;
+        }
+
+        public Builder vendorInformation(List<CatalogItemVariationVendorInformation> vendorInformation) {
+            this.vendorInformation = Optional.ofNullable(vendorInformation);
+            return this;
+        }
+
+        public Builder vendorInformation(Nullable<List<CatalogItemVariationVendorInformation>> vendorInformation) {
+            if (vendorInformation.isNull()) {
+                this.vendorInformation = null;
+            } else if (vendorInformation.isEmpty()) {
+                this.vendorInformation = Optional.empty();
+            } else {
+                this.vendorInformation = Optional.of(vendorInformation.get());
+            }
+            return this;
+        }
+
         public CatalogItemVariation build() {
             return new CatalogItemVariation(
                     itemId,
@@ -1186,6 +1247,7 @@ public final class CatalogItemVariation {
                     teamMemberIds,
                     stockableConversion,
                     kitchenName,
+                    vendorInformation,
                     additionalProperties);
         }
 

@@ -32,6 +32,9 @@ public class AsyncObjectClient {
 
     /**
      * Creates a new or updates the specified <a href="entity:CatalogObject">CatalogObject</a>.
+     * <p>This endpoint uses full-replacement semantics. The client must send the complete object, and any
+     * field absent from the request is interpreted as an intentional clear. This logic applies to
+     * nested objects as well. For example, omitting inlined children like variations will delete them.</p>
      * <p>To ensure consistency, only one update request is processed at a time per seller account.
      * While one (batch or non-batch) update request is being processed, other (batched and non-batched)
      * update requests are rejected with the <code>429</code> error code.</p>
@@ -42,6 +45,9 @@ public class AsyncObjectClient {
 
     /**
      * Creates a new or updates the specified <a href="entity:CatalogObject">CatalogObject</a>.
+     * <p>This endpoint uses full-replacement semantics. The client must send the complete object, and any
+     * field absent from the request is interpreted as an intentional clear. This logic applies to
+     * nested objects as well. For example, omitting inlined children like variations will delete them.</p>
      * <p>To ensure consistency, only one update request is processed at a time per seller account.
      * While one (batch or non-batch) update request is being processed, other (batched and non-batched)
      * update requests are rejected with the <code>429</code> error code.</p>

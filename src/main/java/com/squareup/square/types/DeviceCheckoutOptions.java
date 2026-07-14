@@ -111,7 +111,7 @@ public final class DeviceCheckoutOptions {
      * @return Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
      * If true, ACS is applied based on Dashboard configuration.
      * If false, ACS is not applied regardless of that configuration.
-     * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.
+     * For more information, see <a href="https://developer.squareup.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.
      */
     @JsonIgnore
     public Optional<Boolean> getAllowAutoCardSurcharge() {
@@ -242,7 +242,7 @@ public final class DeviceCheckoutOptions {
          * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
          * If true, ACS is applied based on Dashboard configuration.
          * If false, ACS is not applied regardless of that configuration.
-         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * For more information, see <a href="https://developer.squareup.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
          */
         _FinalStage allowAutoCardSurcharge(Optional<Boolean> allowAutoCardSurcharge);
 
@@ -301,7 +301,7 @@ public final class DeviceCheckoutOptions {
          * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
          * If true, ACS is applied based on Dashboard configuration.
          * If false, ACS is not applied regardless of that configuration.
-         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * For more information, see <a href="https://developer.squareup.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -320,7 +320,7 @@ public final class DeviceCheckoutOptions {
          * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
          * If true, ACS is applied based on Dashboard configuration.
          * If false, ACS is not applied regardless of that configuration.
-         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * For more information, see <a href="https://developer.squareup.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -333,7 +333,7 @@ public final class DeviceCheckoutOptions {
          * <p>Controls whether the mobile client applies Auto Card Surcharge (ACS) during checkout.
          * If true, ACS is applied based on Dashboard configuration.
          * If false, ACS is not applied regardless of that configuration.
-         * For more information, see <a href="https://developer.squareupstaging.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
+         * For more information, see <a href="https://developer.squareup.com/docs/terminal-api/additional-payment-checkout-features#add-a-card-surcharge">Add a Card Surcharge</a>.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "allow_auto_card_surcharge", nulls = Nulls.SKIP)

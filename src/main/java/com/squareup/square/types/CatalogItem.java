@@ -350,7 +350,8 @@ public final class CatalogItem {
     }
 
     /**
-     * @return The list of categories.
+     * @return The list of categories to which this item belongs. Each entry includes the category ID and an ordinal
+     * value that determines the item's relative position within that category.
      */
     @JsonIgnore
     public Optional<List<CatalogObjectCategory>> getCategories() {
@@ -1222,7 +1223,8 @@ public final class CatalogItem {
         }
 
         /**
-         * <p>The list of categories.</p>
+         * <p>The list of categories to which this item belongs. Each entry includes the category ID and an ordinal
+         * value that determines the item's relative position within that category.</p>
          */
         @JsonSetter(value = "categories", nulls = Nulls.SKIP)
         public Builder categories(Optional<List<CatalogObjectCategory>> categories) {

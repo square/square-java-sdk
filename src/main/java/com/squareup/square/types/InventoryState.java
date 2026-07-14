@@ -27,6 +27,8 @@ public final class InventoryState {
     public static final InventoryState SUPPORTED_BY_NEWER_VERSION =
             new InventoryState(Value.SUPPORTED_BY_NEWER_VERSION, "SUPPORTED_BY_NEWER_VERSION");
 
+    public static final InventoryState UNTRACKED = new InventoryState(Value.UNTRACKED, "UNTRACKED");
+
     public static final InventoryState SOLD_ONLINE = new InventoryState(Value.SOLD_ONLINE, "SOLD_ONLINE");
 
     public static final InventoryState IN_TRANSIT = new InventoryState(Value.IN_TRANSIT, "IN_TRANSIT");
@@ -94,6 +96,8 @@ public final class InventoryState {
                 return visitor.visitCustom();
             case SUPPORTED_BY_NEWER_VERSION:
                 return visitor.visitSupportedByNewerVersion();
+            case UNTRACKED:
+                return visitor.visitUntracked();
             case SOLD_ONLINE:
                 return visitor.visitSoldOnline();
             case IN_TRANSIT:
@@ -135,6 +139,8 @@ public final class InventoryState {
                 return CUSTOM;
             case "SUPPORTED_BY_NEWER_VERSION":
                 return SUPPORTED_BY_NEWER_VERSION;
+            case "UNTRACKED":
+                return UNTRACKED;
             case "SOLD_ONLINE":
                 return SOLD_ONLINE;
             case "IN_TRANSIT":
@@ -187,6 +193,8 @@ public final class InventoryState {
 
         IN_TRANSIT,
 
+        UNTRACKED,
+
         UNKNOWN
     }
 
@@ -222,6 +230,8 @@ public final class InventoryState {
         T visitSupportedByNewerVersion();
 
         T visitInTransit();
+
+        T visitUntracked();
 
         T visitUnknown(String unknownType);
     }

@@ -20,7 +20,7 @@ The Square Java library provides convenient access to the Square APIs from Java.
 - [Base Url](#base-url)
 - [Exception Handling](#exception-handling)
 - [Webhook Signature Verification](#webhook-signature-verification)
-- [Reporting API](#reporting-api)
+- [Reporting Api](#reporting-api)
 - [Reference](#reference)
 - [Legacy Sdk](#legacy-sdk)
 - [Advanced](#advanced)
@@ -57,7 +57,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>46.2.0-rc.0</version>
+  <version>47.0.1.20260715</version>
 </dependency>
 ```
 
@@ -431,8 +431,8 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:46.2.0-rc.0'
-    implementation 'com.squareup:square-legacy:46.2.0-rc.0'
+    implementation 'com.squareup:square:47.0.1.20260715'
+    implementation 'com.squareup:square-legacy:47.0.1.20260715'
 }
 ```
 
@@ -442,12 +442,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>46.2.0-rc.0</version>
+    <version>47.0.1.20260715</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>46.2.0-rc.0</version>
+    <version>47.0.1.20260715</version>
 </dependency>
 ```
 

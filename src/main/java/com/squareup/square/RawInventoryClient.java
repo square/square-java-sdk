@@ -20,6 +20,10 @@ import com.squareup.square.types.BatchGetInventoryCountsRequest;
 import com.squareup.square.types.BatchGetInventoryCountsResponse;
 import com.squareup.square.types.BatchRetrieveInventoryChangesRequest;
 import com.squareup.square.types.ChangesInventoryRequest;
+import com.squareup.square.types.CreateInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.CreateInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.DeleteInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.DeleteInventoryAdjustmentReasonResponse;
 import com.squareup.square.types.DeprecatedGetAdjustmentInventoryRequest;
 import com.squareup.square.types.DeprecatedGetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetAdjustmentInventoryRequest;
@@ -28,11 +32,20 @@ import com.squareup.square.types.GetInventoryChangesResponse;
 import com.squareup.square.types.GetInventoryCountResponse;
 import com.squareup.square.types.GetInventoryPhysicalCountResponse;
 import com.squareup.square.types.GetInventoryRequest;
-import com.squareup.square.types.GetInventoryTransferResponse;
 import com.squareup.square.types.GetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetTransferInventoryRequest;
 import com.squareup.square.types.InventoryChange;
 import com.squareup.square.types.InventoryCount;
+import com.squareup.square.types.ListInventoryAdjustmentReasonsRequest;
+import com.squareup.square.types.ListInventoryAdjustmentReasonsResponse;
+import com.squareup.square.types.RestoreInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.RestoreInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.RetrieveInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.RetrieveInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.UpdateInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.UpdateInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.UpdateInventoryAdjustmentRequest;
+import com.squareup.square.types.UpdateInventoryAdjustmentResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -50,6 +63,368 @@ public class RawInventoryClient {
 
     public RawInventoryClient(ClientOptions clientOptions) {
         this.clientOptions = clientOptions;
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public SquareClientHttpResponse<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons() {
+        return listInventoryAdjustmentReasons(
+                ListInventoryAdjustmentReasonsRequest.builder().build());
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public SquareClientHttpResponse<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            RequestOptions requestOptions) {
+        return listInventoryAdjustmentReasons(
+                ListInventoryAdjustmentReasonsRequest.builder().build(), requestOptions);
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public SquareClientHttpResponse<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            ListInventoryAdjustmentReasonsRequest request) {
+        return listInventoryAdjustmentReasons(request, null);
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public SquareClientHttpResponse<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            ListInventoryAdjustmentReasonsRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons");
+        if (request.getIncludeDeleted().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl, "include_deleted", request.getIncludeDeleted().get(), false);
+        }
+        if (request.getIncludeSystemCodes().isPresent()) {
+            QueryStringMapper.addQueryParameter(
+                    httpUrl,
+                    "include_system_codes",
+                    request.getIncludeSystemCodes().get(),
+                    false);
+        }
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Accept", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, ListInventoryAdjustmentReasonsResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Creates a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<CreateInventoryAdjustmentReasonResponse> createInventoryAdjustmentReason(
+            CreateInventoryAdjustmentReasonRequest request) {
+        return createInventoryAdjustmentReason(request, null);
+    }
+
+    /**
+     * Creates a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<CreateInventoryAdjustmentReasonResponse> createInventoryAdjustmentReason(
+            CreateInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons/create");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, CreateInventoryAdjustmentReasonResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Soft deletes a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<DeleteInventoryAdjustmentReasonResponse> deleteInventoryAdjustmentReason(
+            DeleteInventoryAdjustmentReasonRequest request) {
+        return deleteInventoryAdjustmentReason(request, null);
+    }
+
+    /**
+     * Soft deletes a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<DeleteInventoryAdjustmentReasonResponse> deleteInventoryAdjustmentReason(
+            DeleteInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons/delete");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, DeleteInventoryAdjustmentReasonResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Restores a soft-deleted custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<RestoreInventoryAdjustmentReasonResponse> restoreInventoryAdjustmentReason(
+            RestoreInventoryAdjustmentReasonRequest request) {
+        return restoreInventoryAdjustmentReason(request, null);
+    }
+
+    /**
+     * Restores a soft-deleted custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<RestoreInventoryAdjustmentReasonResponse> restoreInventoryAdjustmentReason(
+            RestoreInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons/restore");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, RestoreInventoryAdjustmentReasonResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Returns the inventory adjustment reason identified by the provided
+     * <code>reason_id</code>. Deleted custom reasons can be retrieved by ID.
+     */
+    public SquareClientHttpResponse<RetrieveInventoryAdjustmentReasonResponse> retrieveInventoryAdjustmentReason(
+            RetrieveInventoryAdjustmentReasonRequest request) {
+        return retrieveInventoryAdjustmentReason(request, null);
+    }
+
+    /**
+     * Returns the inventory adjustment reason identified by the provided
+     * <code>reason_id</code>. Deleted custom reasons can be retrieved by ID.
+     */
+    public SquareClientHttpResponse<RetrieveInventoryAdjustmentReasonResponse> retrieveInventoryAdjustmentReason(
+            RetrieveInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons/retrieve");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("POST", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, RetrieveInventoryAdjustmentReasonResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Updates a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<UpdateInventoryAdjustmentReasonResponse> updateInventoryAdjustmentReason(
+            UpdateInventoryAdjustmentReasonRequest request) {
+        return updateInventoryAdjustmentReason(request, null);
+    }
+
+    /**
+     * Updates a custom inventory adjustment reason.
+     */
+    public SquareClientHttpResponse<UpdateInventoryAdjustmentReasonResponse> updateInventoryAdjustmentReason(
+            UpdateInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustment-reasons/update");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, UpdateInventoryAdjustmentReasonResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
     }
 
     /**
@@ -92,6 +467,66 @@ public class RawInventoryClient {
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetInventoryAdjustmentResponse.class),
+                        response);
+            }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    /**
+     * Applies an update to the provided adjustment.
+     * <p>On success: returns the newly updated adjustment.
+     * On failure: returns a list of related errors.</p>
+     */
+    public SquareClientHttpResponse<UpdateInventoryAdjustmentResponse> updateInventoryAdjustment(
+            UpdateInventoryAdjustmentRequest request) {
+        return updateInventoryAdjustment(request, null);
+    }
+
+    /**
+     * Applies an update to the provided adjustment.
+     * <p>On success: returns the newly updated adjustment.
+     * On failure: returns a list of related errors.</p>
+     */
+    public SquareClientHttpResponse<UpdateInventoryAdjustmentResponse> updateInventoryAdjustment(
+            UpdateInventoryAdjustmentRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/adjustments/update");
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        RequestBody body;
+        try {
+            body = RequestBody.create(
+                    ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+        } catch (JsonProcessingException e) {
+            throw new SquareException("Failed to serialize request", e);
+        }
+        Request okhttpRequest = new Request.Builder()
+                .url(httpUrl.build())
+                .method("PUT", body)
+                .headers(Headers.of(clientOptions.headers(requestOptions)))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(
+                        ObjectMappers.JSON_MAPPER.readValue(
+                                responseBodyString, UpdateInventoryAdjustmentResponse.class),
                         response);
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
@@ -736,55 +1171,6 @@ public class RawInventoryClient {
     }
 
     /**
-     * Returns the <a href="entity:InventoryTransfer">InventoryTransfer</a> object
-     * with the provided <code>transfer_id</code>.
-     */
-    public SquareClientHttpResponse<GetInventoryTransferResponse> getTransfer(GetTransferInventoryRequest request) {
-        return getTransfer(request, null);
-    }
-
-    /**
-     * Returns the <a href="entity:InventoryTransfer">InventoryTransfer</a> object
-     * with the provided <code>transfer_id</code>.
-     */
-    public SquareClientHttpResponse<GetInventoryTransferResponse> getTransfer(
-            GetTransferInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/transfers")
-                .addPathSegment(request.getTransferId());
-        if (requestOptions != null) {
-            requestOptions.getQueryParameters().forEach((_key, _value) -> {
-                httpUrl.addQueryParameter(_key, _value);
-            });
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            if (response.isSuccessful()) {
-                return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, GetInventoryTransferResponse.class),
-                        response);
-            }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
-    }
-
-    /**
      * Retrieves the current calculated stock count for a given
      * <a href="entity:CatalogObject">CatalogObject</a> at a given set of
      * <a href="entity:Location">Location</a>s. Responses are paginated and unsorted.
@@ -933,6 +1319,44 @@ public class RawInventoryClient {
                                         .body()),
                         response);
             }
+            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
+            throw new SquareApiException(
+                    "Error with status code " + response.code(), response.code(), errorBody, response);
+        } catch (IOException e) {
+            throw new SquareException("Network error executing HTTP request", e);
+        }
+    }
+
+    public SquareClientHttpResponse<Void> getTransfer(GetTransferInventoryRequest request) {
+        return getTransfer(request, null);
+    }
+
+    public SquareClientHttpResponse<Void> getTransfer(
+            GetTransferInventoryRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+                .newBuilder()
+                .addPathSegments("v2/inventory/transfers")
+                .addPathSegment(request.getTransferId());
+        if (requestOptions != null) {
+            requestOptions.getQueryParameters().forEach((_key, _value) -> {
+                httpUrl.addQueryParameter(_key, _value);
+            });
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
+                .method("GET", null)
+                .headers(Headers.of(clientOptions.headers(requestOptions)));
+        Request okhttpRequest = _requestBuilder.build();
+        OkHttpClient client = clientOptions.httpClient();
+        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+            client = clientOptions.httpClientWithTimeout(requestOptions);
+        }
+        try (Response response = client.newCall(okhttpRequest).execute()) {
+            ResponseBody responseBody = response.body();
+            if (response.isSuccessful()) {
+                return new SquareClientHttpResponse<>(null, response);
+            }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);

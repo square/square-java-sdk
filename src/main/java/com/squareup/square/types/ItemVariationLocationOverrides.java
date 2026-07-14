@@ -91,7 +91,9 @@ public final class ItemVariationLocationOverrides {
     }
 
     /**
-     * @return If <code>true</code>, inventory tracking is active for the <code>CatalogItemVariation</code> at this <code>Location</code>.
+     * @return Indicates whether inventory tracking is active for the <code>CatalogItemVariation</code> at this <code>Location</code>.
+     * When set, this value explicitly overrides the global <code>track_inventory</code> setting. When unset, the location
+     * should use the global value. If both global and location-level values are unset, inventory tracking is disabled.
      */
     @JsonIgnore
     public Optional<Boolean> getTrackInventory() {
@@ -299,7 +301,9 @@ public final class ItemVariationLocationOverrides {
         }
 
         /**
-         * <p>If <code>true</code>, inventory tracking is active for the <code>CatalogItemVariation</code> at this <code>Location</code>.</p>
+         * <p>Indicates whether inventory tracking is active for the <code>CatalogItemVariation</code> at this <code>Location</code>.
+         * When set, this value explicitly overrides the global <code>track_inventory</code> setting. When unset, the location
+         * should use the global value. If both global and location-level values are unset, inventory tracking is disabled.</p>
          */
         @JsonSetter(value = "track_inventory", nulls = Nulls.SKIP)
         public Builder trackInventory(Optional<Boolean> trackInventory) {

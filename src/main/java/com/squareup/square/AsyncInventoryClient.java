@@ -13,17 +13,30 @@ import com.squareup.square.types.BatchGetInventoryCountsRequest;
 import com.squareup.square.types.BatchGetInventoryCountsResponse;
 import com.squareup.square.types.BatchRetrieveInventoryChangesRequest;
 import com.squareup.square.types.ChangesInventoryRequest;
+import com.squareup.square.types.CreateInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.CreateInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.DeleteInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.DeleteInventoryAdjustmentReasonResponse;
 import com.squareup.square.types.DeprecatedGetAdjustmentInventoryRequest;
 import com.squareup.square.types.DeprecatedGetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetAdjustmentInventoryRequest;
 import com.squareup.square.types.GetInventoryAdjustmentResponse;
 import com.squareup.square.types.GetInventoryPhysicalCountResponse;
 import com.squareup.square.types.GetInventoryRequest;
-import com.squareup.square.types.GetInventoryTransferResponse;
 import com.squareup.square.types.GetPhysicalCountInventoryRequest;
 import com.squareup.square.types.GetTransferInventoryRequest;
 import com.squareup.square.types.InventoryChange;
 import com.squareup.square.types.InventoryCount;
+import com.squareup.square.types.ListInventoryAdjustmentReasonsRequest;
+import com.squareup.square.types.ListInventoryAdjustmentReasonsResponse;
+import com.squareup.square.types.RestoreInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.RestoreInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.RetrieveInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.RetrieveInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.UpdateInventoryAdjustmentReasonRequest;
+import com.squareup.square.types.UpdateInventoryAdjustmentReasonResponse;
+import com.squareup.square.types.UpdateInventoryAdjustmentRequest;
+import com.squareup.square.types.UpdateInventoryAdjustmentResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncInventoryClient {
@@ -44,6 +57,135 @@ public class AsyncInventoryClient {
     }
 
     /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public CompletableFuture<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons() {
+        return this.rawClient.listInventoryAdjustmentReasons().thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public CompletableFuture<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            RequestOptions requestOptions) {
+        return this.rawClient.listInventoryAdjustmentReasons(requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public CompletableFuture<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            ListInventoryAdjustmentReasonsRequest request) {
+        return this.rawClient.listInventoryAdjustmentReasons(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the standard and custom inventory adjustment reasons available
+     * to the seller.
+     */
+    public CompletableFuture<ListInventoryAdjustmentReasonsResponse> listInventoryAdjustmentReasons(
+            ListInventoryAdjustmentReasonsRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .listInventoryAdjustmentReasons(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates a custom inventory adjustment reason.
+     */
+    public CompletableFuture<CreateInventoryAdjustmentReasonResponse> createInventoryAdjustmentReason(
+            CreateInventoryAdjustmentReasonRequest request) {
+        return this.rawClient.createInventoryAdjustmentReason(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Creates a custom inventory adjustment reason.
+     */
+    public CompletableFuture<CreateInventoryAdjustmentReasonResponse> createInventoryAdjustmentReason(
+            CreateInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .createInventoryAdjustmentReason(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Soft deletes a custom inventory adjustment reason.
+     */
+    public CompletableFuture<DeleteInventoryAdjustmentReasonResponse> deleteInventoryAdjustmentReason(
+            DeleteInventoryAdjustmentReasonRequest request) {
+        return this.rawClient.deleteInventoryAdjustmentReason(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Soft deletes a custom inventory adjustment reason.
+     */
+    public CompletableFuture<DeleteInventoryAdjustmentReasonResponse> deleteInventoryAdjustmentReason(
+            DeleteInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .deleteInventoryAdjustmentReason(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Restores a soft-deleted custom inventory adjustment reason.
+     */
+    public CompletableFuture<RestoreInventoryAdjustmentReasonResponse> restoreInventoryAdjustmentReason(
+            RestoreInventoryAdjustmentReasonRequest request) {
+        return this.rawClient.restoreInventoryAdjustmentReason(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Restores a soft-deleted custom inventory adjustment reason.
+     */
+    public CompletableFuture<RestoreInventoryAdjustmentReasonResponse> restoreInventoryAdjustmentReason(
+            RestoreInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .restoreInventoryAdjustmentReason(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the inventory adjustment reason identified by the provided
+     * <code>reason_id</code>. Deleted custom reasons can be retrieved by ID.
+     */
+    public CompletableFuture<RetrieveInventoryAdjustmentReasonResponse> retrieveInventoryAdjustmentReason(
+            RetrieveInventoryAdjustmentReasonRequest request) {
+        return this.rawClient.retrieveInventoryAdjustmentReason(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Returns the inventory adjustment reason identified by the provided
+     * <code>reason_id</code>. Deleted custom reasons can be retrieved by ID.
+     */
+    public CompletableFuture<RetrieveInventoryAdjustmentReasonResponse> retrieveInventoryAdjustmentReason(
+            RetrieveInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .retrieveInventoryAdjustmentReason(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
+     * Updates a custom inventory adjustment reason.
+     */
+    public CompletableFuture<UpdateInventoryAdjustmentReasonResponse> updateInventoryAdjustmentReason(
+            UpdateInventoryAdjustmentReasonRequest request) {
+        return this.rawClient.updateInventoryAdjustmentReason(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Updates a custom inventory adjustment reason.
+     */
+    public CompletableFuture<UpdateInventoryAdjustmentReasonResponse> updateInventoryAdjustmentReason(
+            UpdateInventoryAdjustmentReasonRequest request, RequestOptions requestOptions) {
+        return this.rawClient
+                .updateInventoryAdjustmentReason(request, requestOptions)
+                .thenApply(response -> response.body());
+    }
+
+    /**
      * Deprecated version of <a href="api-endpoint:Inventory-RetrieveInventoryAdjustment">RetrieveInventoryAdjustment</a> after the endpoint URL
      * is updated to conform to the standard convention.
      */
@@ -59,6 +201,26 @@ public class AsyncInventoryClient {
     public CompletableFuture<GetInventoryAdjustmentResponse> deprecatedGetAdjustment(
             DeprecatedGetAdjustmentInventoryRequest request, RequestOptions requestOptions) {
         return this.rawClient.deprecatedGetAdjustment(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    /**
+     * Applies an update to the provided adjustment.
+     * <p>On success: returns the newly updated adjustment.
+     * On failure: returns a list of related errors.</p>
+     */
+    public CompletableFuture<UpdateInventoryAdjustmentResponse> updateInventoryAdjustment(
+            UpdateInventoryAdjustmentRequest request) {
+        return this.rawClient.updateInventoryAdjustment(request).thenApply(response -> response.body());
+    }
+
+    /**
+     * Applies an update to the provided adjustment.
+     * <p>On success: returns the newly updated adjustment.
+     * On failure: returns a list of related errors.</p>
+     */
+    public CompletableFuture<UpdateInventoryAdjustmentResponse> updateInventoryAdjustment(
+            UpdateInventoryAdjustmentRequest request, RequestOptions requestOptions) {
+        return this.rawClient.updateInventoryAdjustment(request, requestOptions).thenApply(response -> response.body());
     }
 
     /**
@@ -336,23 +498,6 @@ public class AsyncInventoryClient {
     }
 
     /**
-     * Returns the <a href="entity:InventoryTransfer">InventoryTransfer</a> object
-     * with the provided <code>transfer_id</code>.
-     */
-    public CompletableFuture<GetInventoryTransferResponse> getTransfer(GetTransferInventoryRequest request) {
-        return this.rawClient.getTransfer(request).thenApply(response -> response.body());
-    }
-
-    /**
-     * Returns the <a href="entity:InventoryTransfer">InventoryTransfer</a> object
-     * with the provided <code>transfer_id</code>.
-     */
-    public CompletableFuture<GetInventoryTransferResponse> getTransfer(
-            GetTransferInventoryRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getTransfer(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    /**
      * Retrieves the current calculated stock count for a given
      * <a href="entity:CatalogObject">CatalogObject</a> at a given set of
      * <a href="entity:Location">Location</a>s. Responses are paginated and unsorted.
@@ -404,5 +549,13 @@ public class AsyncInventoryClient {
     public CompletableFuture<SyncPagingIterable<InventoryChange>> changes(
             ChangesInventoryRequest request, RequestOptions requestOptions) {
         return this.rawClient.changes(request, requestOptions).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<Void> getTransfer(GetTransferInventoryRequest request) {
+        return this.rawClient.getTransfer(request).thenApply(response -> response.body());
+    }
+
+    public CompletableFuture<Void> getTransfer(GetTransferInventoryRequest request, RequestOptions requestOptions) {
+        return this.rawClient.getTransfer(request, requestOptions).thenApply(response -> response.body());
     }
 }

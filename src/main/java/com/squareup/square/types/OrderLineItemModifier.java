@@ -39,6 +39,8 @@ public final class OrderLineItemModifier {
 
     private final Optional<Map<String, Optional<String>>> metadata;
 
+    private final Optional<String> parentModifierUid;
+
     private final Map<String, Object> additionalProperties;
 
     private OrderLineItemModifier(
@@ -50,6 +52,7 @@ public final class OrderLineItemModifier {
             Optional<Money> basePriceMoney,
             Optional<Money> totalPriceMoney,
             Optional<Map<String, Optional<String>>> metadata,
+            Optional<String> parentModifierUid,
             Map<String, Object> additionalProperties) {
         this.uid = uid;
         this.catalogObjectId = catalogObjectId;
@@ -59,6 +62,7 @@ public final class OrderLineItemModifier {
         this.basePriceMoney = basePriceMoney;
         this.totalPriceMoney = totalPriceMoney;
         this.metadata = metadata;
+        this.parentModifierUid = parentModifierUid;
         this.additionalProperties = additionalProperties;
     }
 
@@ -166,6 +170,17 @@ public final class OrderLineItemModifier {
         return metadata;
     }
 
+    /**
+     * @return The <code>uid</code> of the parent modifier, if this modifier is nested under another modifier.
+     */
+    @JsonIgnore
+    public Optional<String> getParentModifierUid() {
+        if (parentModifierUid == null) {
+            return Optional.empty();
+        }
+        return parentModifierUid;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("uid")
     private Optional<String> _getUid() {
@@ -202,6 +217,12 @@ public final class OrderLineItemModifier {
         return metadata;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("parent_modifier_uid")
+    private Optional<String> _getParentModifierUid() {
+        return parentModifierUid;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -221,7 +242,8 @@ public final class OrderLineItemModifier {
                 && quantity.equals(other.quantity)
                 && basePriceMoney.equals(other.basePriceMoney)
                 && totalPriceMoney.equals(other.totalPriceMoney)
-                && metadata.equals(other.metadata);
+                && metadata.equals(other.metadata)
+                && parentModifierUid.equals(other.parentModifierUid);
     }
 
     @java.lang.Override
@@ -234,7 +256,8 @@ public final class OrderLineItemModifier {
                 this.quantity,
                 this.basePriceMoney,
                 this.totalPriceMoney,
-                this.metadata);
+                this.metadata,
+                this.parentModifierUid);
     }
 
     @java.lang.Override
@@ -264,6 +287,8 @@ public final class OrderLineItemModifier {
 
         private Optional<Map<String, Optional<String>>> metadata = Optional.empty();
 
+        private Optional<String> parentModifierUid = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -278,6 +303,7 @@ public final class OrderLineItemModifier {
             basePriceMoney(other.getBasePriceMoney());
             totalPriceMoney(other.getTotalPriceMoney());
             metadata(other.getMetadata());
+            parentModifierUid(other.getParentModifierUid());
             return this;
         }
 
@@ -481,6 +507,31 @@ public final class OrderLineItemModifier {
             return this;
         }
 
+        /**
+         * <p>The <code>uid</code> of the parent modifier, if this modifier is nested under another modifier.</p>
+         */
+        @JsonSetter(value = "parent_modifier_uid", nulls = Nulls.SKIP)
+        public Builder parentModifierUid(Optional<String> parentModifierUid) {
+            this.parentModifierUid = parentModifierUid;
+            return this;
+        }
+
+        public Builder parentModifierUid(String parentModifierUid) {
+            this.parentModifierUid = Optional.ofNullable(parentModifierUid);
+            return this;
+        }
+
+        public Builder parentModifierUid(Nullable<String> parentModifierUid) {
+            if (parentModifierUid.isNull()) {
+                this.parentModifierUid = null;
+            } else if (parentModifierUid.isEmpty()) {
+                this.parentModifierUid = Optional.empty();
+            } else {
+                this.parentModifierUid = Optional.of(parentModifierUid.get());
+            }
+            return this;
+        }
+
         public OrderLineItemModifier build() {
             return new OrderLineItemModifier(
                     uid,
@@ -491,6 +542,7 @@ public final class OrderLineItemModifier {
                     basePriceMoney,
                     totalPriceMoney,
                     metadata,
+                    parentModifierUid,
                     additionalProperties);
         }
 

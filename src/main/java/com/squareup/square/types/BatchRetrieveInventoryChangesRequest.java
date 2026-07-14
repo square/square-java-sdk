@@ -40,6 +40,10 @@ public final class BatchRetrieveInventoryChangesRequest {
 
     private final Optional<Integer> limit;
 
+    private final Optional<BatchRetrieveInventoryChangesSort> sort;
+
+    private final Optional<List<InventoryAdjustmentReasonId>> reasonIds;
+
     private final Map<String, Object> additionalProperties;
 
     private BatchRetrieveInventoryChangesRequest(
@@ -51,6 +55,8 @@ public final class BatchRetrieveInventoryChangesRequest {
             Optional<String> updatedBefore,
             Optional<String> cursor,
             Optional<Integer> limit,
+            Optional<BatchRetrieveInventoryChangesSort> sort,
+            Optional<List<InventoryAdjustmentReasonId>> reasonIds,
             Map<String, Object> additionalProperties) {
         this.catalogObjectIds = catalogObjectIds;
         this.locationIds = locationIds;
@@ -60,6 +66,8 @@ public final class BatchRetrieveInventoryChangesRequest {
         this.updatedBefore = updatedBefore;
         this.cursor = cursor;
         this.limit = limit;
+        this.sort = sort;
+        this.reasonIds = reasonIds;
         this.additionalProperties = additionalProperties;
     }
 
@@ -162,6 +170,29 @@ public final class BatchRetrieveInventoryChangesRequest {
         return limit;
     }
 
+    /**
+     * @return Specification of how returned inventory changes should be ordered.
+     * <p>Currently, inventory changes can only be ordered by the occurred_at field.
+     * The default sort order for occurred_at is ASC (changes are returned oldest-first by default).</p>
+     */
+    @JsonProperty("sort")
+    public Optional<BatchRetrieveInventoryChangesSort> getSort() {
+        return sort;
+    }
+
+    /**
+     * @return The filter to return <code>ADJUSTMENT</code> query results by inventory
+     * adjustment reason. This filter is only applied when set. The request cannot
+     * include both <code>reason_ids</code> and <code>states</code>.
+     */
+    @JsonIgnore
+    public Optional<List<InventoryAdjustmentReasonId>> getReasonIds() {
+        if (reasonIds == null) {
+            return Optional.empty();
+        }
+        return reasonIds;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("catalog_object_ids")
     private Optional<List<String>> _getCatalogObjectIds() {
@@ -210,6 +241,12 @@ public final class BatchRetrieveInventoryChangesRequest {
         return limit;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("reason_ids")
+    private Optional<List<InventoryAdjustmentReasonId>> _getReasonIds() {
+        return reasonIds;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -230,7 +267,9 @@ public final class BatchRetrieveInventoryChangesRequest {
                 && updatedAfter.equals(other.updatedAfter)
                 && updatedBefore.equals(other.updatedBefore)
                 && cursor.equals(other.cursor)
-                && limit.equals(other.limit);
+                && limit.equals(other.limit)
+                && sort.equals(other.sort)
+                && reasonIds.equals(other.reasonIds);
     }
 
     @java.lang.Override
@@ -243,7 +282,9 @@ public final class BatchRetrieveInventoryChangesRequest {
                 this.updatedAfter,
                 this.updatedBefore,
                 this.cursor,
-                this.limit);
+                this.limit,
+                this.sort,
+                this.reasonIds);
     }
 
     @java.lang.Override
@@ -273,6 +314,10 @@ public final class BatchRetrieveInventoryChangesRequest {
 
         private Optional<Integer> limit = Optional.empty();
 
+        private Optional<BatchRetrieveInventoryChangesSort> sort = Optional.empty();
+
+        private Optional<List<InventoryAdjustmentReasonId>> reasonIds = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -287,6 +332,8 @@ public final class BatchRetrieveInventoryChangesRequest {
             updatedBefore(other.getUpdatedBefore());
             cursor(other.getCursor());
             limit(other.getLimit());
+            sort(other.getSort());
+            reasonIds(other.getReasonIds());
             return this;
         }
 
@@ -501,6 +548,49 @@ public final class BatchRetrieveInventoryChangesRequest {
             return this;
         }
 
+        /**
+         * <p>Specification of how returned inventory changes should be ordered.</p>
+         * <p>Currently, inventory changes can only be ordered by the occurred_at field.
+         * The default sort order for occurred_at is ASC (changes are returned oldest-first by default).</p>
+         */
+        @JsonSetter(value = "sort", nulls = Nulls.SKIP)
+        public Builder sort(Optional<BatchRetrieveInventoryChangesSort> sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        public Builder sort(BatchRetrieveInventoryChangesSort sort) {
+            this.sort = Optional.ofNullable(sort);
+            return this;
+        }
+
+        /**
+         * <p>The filter to return <code>ADJUSTMENT</code> query results by inventory
+         * adjustment reason. This filter is only applied when set. The request cannot
+         * include both <code>reason_ids</code> and <code>states</code>.</p>
+         */
+        @JsonSetter(value = "reason_ids", nulls = Nulls.SKIP)
+        public Builder reasonIds(Optional<List<InventoryAdjustmentReasonId>> reasonIds) {
+            this.reasonIds = reasonIds;
+            return this;
+        }
+
+        public Builder reasonIds(List<InventoryAdjustmentReasonId> reasonIds) {
+            this.reasonIds = Optional.ofNullable(reasonIds);
+            return this;
+        }
+
+        public Builder reasonIds(Nullable<List<InventoryAdjustmentReasonId>> reasonIds) {
+            if (reasonIds.isNull()) {
+                this.reasonIds = null;
+            } else if (reasonIds.isEmpty()) {
+                this.reasonIds = Optional.empty();
+            } else {
+                this.reasonIds = Optional.of(reasonIds.get());
+            }
+            return this;
+        }
+
         public BatchRetrieveInventoryChangesRequest build() {
             return new BatchRetrieveInventoryChangesRequest(
                     catalogObjectIds,
@@ -511,6 +601,8 @@ public final class BatchRetrieveInventoryChangesRequest {
                     updatedBefore,
                     cursor,
                     limit,
+                    sort,
+                    reasonIds,
                     additionalProperties);
         }
 

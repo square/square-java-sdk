@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public final class FulfillmentType {
     public static final FulfillmentType PICKUP = new FulfillmentType(Value.PICKUP, "PICKUP");
 
+    public static final FulfillmentType IN_STORE = new FulfillmentType(Value.IN_STORE, "IN_STORE");
+
     public static final FulfillmentType SHIPMENT = new FulfillmentType(Value.SHIPMENT, "SHIPMENT");
 
     public static final FulfillmentType DELIVERY = new FulfillmentType(Value.DELIVERY, "DELIVERY");
@@ -47,6 +49,8 @@ public final class FulfillmentType {
         switch (value) {
             case PICKUP:
                 return visitor.visitPickup();
+            case IN_STORE:
+                return visitor.visitInStore();
             case SHIPMENT:
                 return visitor.visitShipment();
             case DELIVERY:
@@ -62,6 +66,8 @@ public final class FulfillmentType {
         switch (value) {
             case "PICKUP":
                 return PICKUP;
+            case "IN_STORE":
+                return IN_STORE;
             case "SHIPMENT":
                 return SHIPMENT;
             case "DELIVERY":
@@ -78,6 +84,8 @@ public final class FulfillmentType {
 
         DELIVERY,
 
+        IN_STORE,
+
         UNKNOWN
     }
 
@@ -87,6 +95,8 @@ public final class FulfillmentType {
         T visitShipment();
 
         T visitDelivery();
+
+        T visitInStore();
 
         T visitUnknown(String unknownType);
     }

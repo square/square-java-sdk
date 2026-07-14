@@ -11,6 +11,9 @@ public final class ExcludeStrategy {
 
     public static final ExcludeStrategy LEAST_EXPENSIVE = new ExcludeStrategy(Value.LEAST_EXPENSIVE, "LEAST_EXPENSIVE");
 
+    public static final ExcludeStrategy MOST_EXPENSIVE_LOWEST_VALUE =
+            new ExcludeStrategy(Value.MOST_EXPENSIVE_LOWEST_VALUE, "MOST_EXPENSIVE_LOWEST_VALUE");
+
     private final Value value;
 
     private final String string;
@@ -47,6 +50,8 @@ public final class ExcludeStrategy {
                 return visitor.visitMostExpensive();
             case LEAST_EXPENSIVE:
                 return visitor.visitLeastExpensive();
+            case MOST_EXPENSIVE_LOWEST_VALUE:
+                return visitor.visitMostExpensiveLowestValue();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -60,6 +65,8 @@ public final class ExcludeStrategy {
                 return MOST_EXPENSIVE;
             case "LEAST_EXPENSIVE":
                 return LEAST_EXPENSIVE;
+            case "MOST_EXPENSIVE_LOWEST_VALUE":
+                return MOST_EXPENSIVE_LOWEST_VALUE;
             default:
                 return new ExcludeStrategy(Value.UNKNOWN, value);
         }
@@ -70,6 +77,8 @@ public final class ExcludeStrategy {
 
         MOST_EXPENSIVE,
 
+        MOST_EXPENSIVE_LOWEST_VALUE,
+
         UNKNOWN
     }
 
@@ -77,6 +86,8 @@ public final class ExcludeStrategy {
         T visitLeastExpensive();
 
         T visitMostExpensive();
+
+        T visitMostExpensiveLowestValue();
 
         T visitUnknown(String unknownType);
     }

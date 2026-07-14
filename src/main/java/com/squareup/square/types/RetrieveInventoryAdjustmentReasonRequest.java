@@ -17,26 +17,31 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
-@JsonDeserialize(builder = GetTransferInventoryRequest.Builder.class)
-public final class GetTransferInventoryRequest {
-    private final String transferId;
+@JsonDeserialize(builder = RetrieveInventoryAdjustmentReasonRequest.Builder.class)
+public final class RetrieveInventoryAdjustmentReasonRequest {
+    private final InventoryAdjustmentReasonId reasonId;
 
     private final Map<String, Object> additionalProperties;
 
-    private GetTransferInventoryRequest(String transferId, Map<String, Object> additionalProperties) {
-        this.transferId = transferId;
+    private RetrieveInventoryAdjustmentReasonRequest(
+            InventoryAdjustmentReasonId reasonId, Map<String, Object> additionalProperties) {
+        this.reasonId = reasonId;
         this.additionalProperties = additionalProperties;
     }
 
-    @JsonProperty("transfer_id")
-    public String getTransferId() {
-        return transferId;
+    /**
+     * @return The identifier of the inventory adjustment reason to retrieve.
+     */
+    @JsonProperty("reason_id")
+    public InventoryAdjustmentReasonId getReasonId() {
+        return reasonId;
     }
 
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        return other instanceof GetTransferInventoryRequest && equalTo((GetTransferInventoryRequest) other);
+        return other instanceof RetrieveInventoryAdjustmentReasonRequest
+                && equalTo((RetrieveInventoryAdjustmentReasonRequest) other);
     }
 
     @JsonAnyGetter
@@ -44,13 +49,13 @@ public final class GetTransferInventoryRequest {
         return this.additionalProperties;
     }
 
-    private boolean equalTo(GetTransferInventoryRequest other) {
-        return transferId.equals(other.transferId);
+    private boolean equalTo(RetrieveInventoryAdjustmentReasonRequest other) {
+        return reasonId.equals(other.reasonId);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.transferId);
+        return Objects.hash(this.reasonId);
     }
 
     @java.lang.Override
@@ -58,18 +63,21 @@ public final class GetTransferInventoryRequest {
         return ObjectMappers.stringify(this);
     }
 
-    public static TransferIdStage builder() {
+    public static ReasonIdStage builder() {
         return new Builder();
     }
 
-    public interface TransferIdStage {
-        _FinalStage transferId(@NotNull String transferId);
+    public interface ReasonIdStage {
+        /**
+         * <p>The identifier of the inventory adjustment reason to retrieve.</p>
+         */
+        _FinalStage reasonId(@NotNull InventoryAdjustmentReasonId reasonId);
 
-        Builder from(GetTransferInventoryRequest other);
+        Builder from(RetrieveInventoryAdjustmentReasonRequest other);
     }
 
     public interface _FinalStage {
-        GetTransferInventoryRequest build();
+        RetrieveInventoryAdjustmentReasonRequest build();
 
         _FinalStage additionalProperty(String key, Object value);
 
@@ -77,8 +85,8 @@ public final class GetTransferInventoryRequest {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Builder implements TransferIdStage, _FinalStage {
-        private String transferId;
+    public static final class Builder implements ReasonIdStage, _FinalStage {
+        private InventoryAdjustmentReasonId reasonId;
 
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
@@ -86,21 +94,26 @@ public final class GetTransferInventoryRequest {
         private Builder() {}
 
         @java.lang.Override
-        public Builder from(GetTransferInventoryRequest other) {
-            transferId(other.getTransferId());
+        public Builder from(RetrieveInventoryAdjustmentReasonRequest other) {
+            reasonId(other.getReasonId());
+            return this;
+        }
+
+        /**
+         * <p>The identifier of the inventory adjustment reason to retrieve.</p>
+         * <p>The identifier of the inventory adjustment reason to retrieve.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
+        @java.lang.Override
+        @JsonSetter("reason_id")
+        public _FinalStage reasonId(@NotNull InventoryAdjustmentReasonId reasonId) {
+            this.reasonId = Objects.requireNonNull(reasonId, "reasonId must not be null");
             return this;
         }
 
         @java.lang.Override
-        @JsonSetter("transfer_id")
-        public _FinalStage transferId(@NotNull String transferId) {
-            this.transferId = Objects.requireNonNull(transferId, "transferId must not be null");
-            return this;
-        }
-
-        @java.lang.Override
-        public GetTransferInventoryRequest build() {
-            return new GetTransferInventoryRequest(transferId, additionalProperties);
+        public RetrieveInventoryAdjustmentReasonRequest build() {
+            return new RetrieveInventoryAdjustmentReasonRequest(reasonId, additionalProperties);
         }
 
         @java.lang.Override

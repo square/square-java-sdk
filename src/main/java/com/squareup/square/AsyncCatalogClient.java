@@ -124,9 +124,14 @@ public class AsyncCatalogClient {
      * batches will be processed in order as long as the total object count for the
      * request (items, variations, modifier lists, discounts, and taxes) is no more
      * than 10,000.
+     * <p>This endpoint uses full-replacement semantics. The client must send the complete object, and any
+     * field absent from the request is interpreted as an intentional clear. This logic applies to
+     * nested objects as well. For example, omitting inlined children like variations will delete them.</p>
      * <p>To ensure consistency, only one update request is processed at a time per seller account.
      * While one (batch or non-batch) update request is being processed, other (batched and non-batched)
-     * update requests are rejected with the <code>429</code> error code.</p>
+     * update requests are rejected with the <code>429</code> error code. Prefer batching related changes into a
+     * single call rather than issuing many small writes, since each write acquires the lock separately
+     * and parallel writes to the same seller will contend with each other, producing <code>429</code> errors.</p>
      */
     public CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsert(BatchUpsertCatalogObjectsRequest request) {
         return this.rawClient.batchUpsert(request).thenApply(response -> response.body());
@@ -142,9 +147,14 @@ public class AsyncCatalogClient {
      * batches will be processed in order as long as the total object count for the
      * request (items, variations, modifier lists, discounts, and taxes) is no more
      * than 10,000.
+     * <p>This endpoint uses full-replacement semantics. The client must send the complete object, and any
+     * field absent from the request is interpreted as an intentional clear. This logic applies to
+     * nested objects as well. For example, omitting inlined children like variations will delete them.</p>
      * <p>To ensure consistency, only one update request is processed at a time per seller account.
      * While one (batch or non-batch) update request is being processed, other (batched and non-batched)
-     * update requests are rejected with the <code>429</code> error code.</p>
+     * update requests are rejected with the <code>429</code> error code. Prefer batching related changes into a
+     * single call rather than issuing many small writes, since each write acquires the lock separately
+     * and parallel writes to the same seller will contend with each other, producing <code>429</code> errors.</p>
      */
     public CompletableFuture<BatchUpsertCatalogObjectsResponse> batchUpsert(
             BatchUpsertCatalogObjectsRequest request, RequestOptions requestOptions) {
@@ -170,7 +180,9 @@ public class AsyncCatalogClient {
     /**
      * Returns a list of all <a href="entity:CatalogObject">CatalogObject</a>s of the specified types in the catalog.
      * <p>The <code>types</code> parameter is specified as a comma-separated list of the <a href="entity:CatalogObjectType">CatalogObjectType</a> values,
-     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.</p>
+     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.
+     * Always specify <code>types</code> explicitly. When upgrading to a newer API version, omitting <code>types</code> may
+     * cause new object types to appear in results that were not returned under the previous version.</p>
      * <p><strong>Important:</strong> ListCatalog does not return deleted catalog items. To retrieve
      * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
@@ -182,7 +194,9 @@ public class AsyncCatalogClient {
     /**
      * Returns a list of all <a href="entity:CatalogObject">CatalogObject</a>s of the specified types in the catalog.
      * <p>The <code>types</code> parameter is specified as a comma-separated list of the <a href="entity:CatalogObjectType">CatalogObjectType</a> values,
-     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.</p>
+     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.
+     * Always specify <code>types</code> explicitly. When upgrading to a newer API version, omitting <code>types</code> may
+     * cause new object types to appear in results that were not returned under the previous version.</p>
      * <p><strong>Important:</strong> ListCatalog does not return deleted catalog items. To retrieve
      * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
@@ -194,7 +208,9 @@ public class AsyncCatalogClient {
     /**
      * Returns a list of all <a href="entity:CatalogObject">CatalogObject</a>s of the specified types in the catalog.
      * <p>The <code>types</code> parameter is specified as a comma-separated list of the <a href="entity:CatalogObjectType">CatalogObjectType</a> values,
-     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.</p>
+     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.
+     * Always specify <code>types</code> explicitly. When upgrading to a newer API version, omitting <code>types</code> may
+     * cause new object types to appear in results that were not returned under the previous version.</p>
      * <p><strong>Important:</strong> ListCatalog does not return deleted catalog items. To retrieve
      * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
@@ -206,7 +222,9 @@ public class AsyncCatalogClient {
     /**
      * Returns a list of all <a href="entity:CatalogObject">CatalogObject</a>s of the specified types in the catalog.
      * <p>The <code>types</code> parameter is specified as a comma-separated list of the <a href="entity:CatalogObjectType">CatalogObjectType</a> values,
-     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.</p>
+     * for example, &quot;<code>ITEM</code>, <code>ITEM_VARIATION</code>, <code>MODIFIER</code>, <code>MODIFIER_LIST</code>, <code>CATEGORY</code>, <code>DISCOUNT</code>, <code>TAX</code>, <code>IMAGE</code>&quot;.
+     * Always specify <code>types</code> explicitly. When upgrading to a newer API version, omitting <code>types</code> may
+     * cause new object types to appear in results that were not returned under the previous version.</p>
      * <p><strong>Important:</strong> ListCatalog does not return deleted catalog items. To retrieve
      * deleted catalog items, use <a href="api-endpoint:Catalog-SearchCatalogObjects">SearchCatalogObjects</a>
      * and set the <code>include_deleted_objects</code> attribute value to <code>true</code>.</p>
@@ -227,6 +245,10 @@ public class AsyncCatalogClient {
      * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
+     * <p>The <code>object_types</code> parameter is specified as a list of <a href="entity:CatalogObjectType">CatalogObjectType</a> values.
+     * Always specify <code>object_types</code> explicitly. When upgrading to a newer API version, omitting
+     * <code>object_types</code> may cause new object types to appear in results that were not returned under
+     * the previous version.</p>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search() {
         return this.rawClient.search().thenApply(response -> response.body());
@@ -243,6 +265,10 @@ public class AsyncCatalogClient {
      * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
+     * <p>The <code>object_types</code> parameter is specified as a list of <a href="entity:CatalogObjectType">CatalogObjectType</a> values.
+     * Always specify <code>object_types</code> explicitly. When upgrading to a newer API version, omitting
+     * <code>object_types</code> may cause new object types to appear in results that were not returned under
+     * the previous version.</p>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search(RequestOptions requestOptions) {
         return this.rawClient.search(requestOptions).thenApply(response -> response.body());
@@ -259,6 +285,10 @@ public class AsyncCatalogClient {
      * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
+     * <p>The <code>object_types</code> parameter is specified as a list of <a href="entity:CatalogObjectType">CatalogObjectType</a> values.
+     * Always specify <code>object_types</code> explicitly. When upgrading to a newer API version, omitting
+     * <code>object_types</code> may cause new object types to appear in results that were not returned under
+     * the previous version.</p>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search(SearchCatalogObjectsRequest request) {
         return this.rawClient.search(request).thenApply(response -> response.body());
@@ -275,6 +305,10 @@ public class AsyncCatalogClient {
      * <li><code>SearchCatalogItems</code> does not support the <code>include_deleted_objects</code> filter to search for deleted items or item variations, whereas <code>SearchCatalogObjects</code> does.</li>
      * <li>The both endpoints have different call conventions, including the query filter formats.</li>
      * </ul>
+     * <p>The <code>object_types</code> parameter is specified as a list of <a href="entity:CatalogObjectType">CatalogObjectType</a> values.
+     * Always specify <code>object_types</code> explicitly. When upgrading to a newer API version, omitting
+     * <code>object_types</code> may cause new object types to appear in results that were not returned under
+     * the previous version.</p>
      */
     public CompletableFuture<SearchCatalogObjectsResponse> search(
             SearchCatalogObjectsRequest request, RequestOptions requestOptions) {
