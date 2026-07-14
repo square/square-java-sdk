@@ -185,7 +185,17 @@ public final class Order {
     }
 
     /**
-     * @return The origination details of the order.
+     * @return The latest source details of the order.
+     * <p>This field reflects the most recent source that interacted with or modified the order,
+     * and may change during the order lifecycle. For example:</p>
+     * <ul>
+     * <li>An order created via API (source.name = &quot;MyPOS&quot;) paid with Square Terminal may have
+     * source updated to reflect the Terminal application (which uses REGISTER, like POS)</li>
+     * <li>An order updated or completed by a different application may have source updated
+     * to reflect that application.</li>
+     * </ul>
+     * <p>To preserve the original source from order creation regardless of subsequent updates,
+     * use the <code>creation_source</code> field instead.</p>
      */
     @JsonProperty("source")
     public Optional<OrderSource> getSource() {
@@ -655,7 +665,17 @@ public final class Order {
         _FinalStage referenceId(Nullable<String> referenceId);
 
         /**
-         * <p>The origination details of the order.</p>
+         * <p>The latest source details of the order.</p>
+         * <p>This field reflects the most recent source that interacted with or modified the order,
+         * and may change during the order lifecycle. For example:</p>
+         * <ul>
+         * <li>An order created via API (source.name = &quot;MyPOS&quot;) paid with Square Terminal may have
+         * source updated to reflect the Terminal application (which uses REGISTER, like POS)</li>
+         * <li>An order updated or completed by a different application may have source updated
+         * to reflect that application.</li>
+         * </ul>
+         * <p>To preserve the original source from order creation regardless of subsequent updates,
+         * use the <code>creation_source</code> field instead.</p>
          */
         _FinalStage source(Optional<OrderSource> source);
 
@@ -1820,7 +1840,17 @@ public final class Order {
         }
 
         /**
-         * <p>The origination details of the order.</p>
+         * <p>The latest source details of the order.</p>
+         * <p>This field reflects the most recent source that interacted with or modified the order,
+         * and may change during the order lifecycle. For example:</p>
+         * <ul>
+         * <li>An order created via API (source.name = &quot;MyPOS&quot;) paid with Square Terminal may have
+         * source updated to reflect the Terminal application (which uses REGISTER, like POS)</li>
+         * <li>An order updated or completed by a different application may have source updated
+         * to reflect that application.</li>
+         * </ul>
+         * <p>To preserve the original source from order creation regardless of subsequent updates,
+         * use the <code>creation_source</code> field instead.</p>
          * @return Reference to {@code this} so that method calls can be chained together.
          */
         @java.lang.Override
@@ -1830,7 +1860,17 @@ public final class Order {
         }
 
         /**
-         * <p>The origination details of the order.</p>
+         * <p>The latest source details of the order.</p>
+         * <p>This field reflects the most recent source that interacted with or modified the order,
+         * and may change during the order lifecycle. For example:</p>
+         * <ul>
+         * <li>An order created via API (source.name = &quot;MyPOS&quot;) paid with Square Terminal may have
+         * source updated to reflect the Terminal application (which uses REGISTER, like POS)</li>
+         * <li>An order updated or completed by a different application may have source updated
+         * to reflect that application.</li>
+         * </ul>
+         * <p>To preserve the original source from order creation regardless of subsequent updates,
+         * use the <code>creation_source</code> field instead.</p>
          */
         @java.lang.Override
         @JsonSetter(value = "source", nulls = Nulls.SKIP)

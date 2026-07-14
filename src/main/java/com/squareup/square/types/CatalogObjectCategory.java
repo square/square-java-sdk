@@ -92,7 +92,9 @@ public final class CatalogObjectCategory {
     }
 
     /**
-     * @return The order of the object within the context of the category.
+     * @return The position of this object within the specified category. When an item is assigned to a category,
+     * the ordinal determines the item's position relative to other items in the same category. When used for a
+     * parent category reference, the ordinal determines the category's position among its sibling categories.
      */
     @JsonIgnore
     public Optional<Long> getOrdinal() {
@@ -334,7 +336,9 @@ public final class CatalogObjectCategory {
         }
 
         /**
-         * <p>The order of the object within the context of the category.</p>
+         * <p>The position of this object within the specified category. When an item is assigned to a category,
+         * the ordinal determines the item's position relative to other items in the same category. When used for a
+         * parent category reference, the ordinal determines the category's position among its sibling categories.</p>
          */
         @JsonSetter(value = "ordinal", nulls = Nulls.SKIP)
         public Builder ordinal(Optional<Long> ordinal) {

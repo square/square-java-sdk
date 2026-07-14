@@ -6,17 +6,18 @@ package com.squareup.square.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public final class InventoryChangeType {
-    public static final InventoryChangeType PHYSICAL_COUNT =
-            new InventoryChangeType(Value.PHYSICAL_COUNT, "PHYSICAL_COUNT");
+public final class InventoryAdjustmentReasonDirection {
+    public static final InventoryAdjustmentReasonDirection DECREASE =
+            new InventoryAdjustmentReasonDirection(Value.DECREASE, "DECREASE");
 
-    public static final InventoryChangeType ADJUSTMENT = new InventoryChangeType(Value.ADJUSTMENT, "ADJUSTMENT");
+    public static final InventoryAdjustmentReasonDirection INCREASE =
+            new InventoryAdjustmentReasonDirection(Value.INCREASE, "INCREASE");
 
     private final Value value;
 
     private final String string;
 
-    InventoryChangeType(Value value, String string) {
+    InventoryAdjustmentReasonDirection(Value value, String string) {
         this.value = value;
         this.string = string;
     }
@@ -34,7 +35,8 @@ public final class InventoryChangeType {
     @java.lang.Override
     public boolean equals(Object other) {
         return (this == other)
-                || (other instanceof InventoryChangeType && this.string.equals(((InventoryChangeType) other).string));
+                || (other instanceof InventoryAdjustmentReasonDirection
+                        && this.string.equals(((InventoryAdjustmentReasonDirection) other).string));
     }
 
     @java.lang.Override
@@ -44,10 +46,10 @@ public final class InventoryChangeType {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
-            case PHYSICAL_COUNT:
-                return visitor.visitPhysicalCount();
-            case ADJUSTMENT:
-                return visitor.visitAdjustment();
+            case DECREASE:
+                return visitor.visitDecrease();
+            case INCREASE:
+                return visitor.visitIncrease();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -55,29 +57,29 @@ public final class InventoryChangeType {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static InventoryChangeType valueOf(String value) {
+    public static InventoryAdjustmentReasonDirection valueOf(String value) {
         switch (value) {
-            case "PHYSICAL_COUNT":
-                return PHYSICAL_COUNT;
-            case "ADJUSTMENT":
-                return ADJUSTMENT;
+            case "DECREASE":
+                return DECREASE;
+            case "INCREASE":
+                return INCREASE;
             default:
-                return new InventoryChangeType(Value.UNKNOWN, value);
+                return new InventoryAdjustmentReasonDirection(Value.UNKNOWN, value);
         }
     }
 
     public enum Value {
-        PHYSICAL_COUNT,
+        INCREASE,
 
-        ADJUSTMENT,
+        DECREASE,
 
         UNKNOWN
     }
 
     public interface Visitor<T> {
-        T visitPhysicalCount();
+        T visitIncrease();
 
-        T visitAdjustment();
+        T visitDecrease();
 
         T visitUnknown(String unknownType);
     }

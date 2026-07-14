@@ -108,7 +108,8 @@ public final class CatalogCategory {
     }
 
     /**
-     * @return The ID of the parent category of this category instance.
+     * @return The parent category of this category instance. This includes the parent category ID and an ordinal
+     * value that determines the category's relative position among sibling categories with the same parent.
      */
     @JsonProperty("parent_category")
     public Optional<CatalogObjectCategory> getParentCategory() {
@@ -390,7 +391,8 @@ public final class CatalogCategory {
         }
 
         /**
-         * <p>The ID of the parent category of this category instance.</p>
+         * <p>The parent category of this category instance. This includes the parent category ID and an ordinal
+         * value that determines the category's relative position among sibling categories with the same parent.</p>
          */
         @JsonSetter(value = "parent_category", nulls = Nulls.SKIP)
         public Builder parentCategory(Optional<CatalogObjectCategory> parentCategory) {

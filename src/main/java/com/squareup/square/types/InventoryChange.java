@@ -26,8 +26,6 @@ public final class InventoryChange {
 
     private final Optional<InventoryAdjustment> adjustment;
 
-    private final Optional<InventoryTransfer> transfer;
-
     private final Optional<CatalogMeasurementUnit> measurementUnit;
 
     private final Optional<String> measurementUnitId;
@@ -38,14 +36,12 @@ public final class InventoryChange {
             Optional<InventoryChangeType> type,
             Optional<InventoryPhysicalCount> physicalCount,
             Optional<InventoryAdjustment> adjustment,
-            Optional<InventoryTransfer> transfer,
             Optional<CatalogMeasurementUnit> measurementUnit,
             Optional<String> measurementUnitId,
             Map<String, Object> additionalProperties) {
         this.type = type;
         this.physicalCount = physicalCount;
         this.adjustment = adjustment;
-        this.transfer = transfer;
         this.measurementUnit = measurementUnit;
         this.measurementUnitId = measurementUnitId;
         this.additionalProperties = additionalProperties;
@@ -80,17 +76,6 @@ public final class InventoryChange {
     }
 
     /**
-     * @return Contains details about the inventory transfer when <code>type</code> is
-     * <code>TRANSFER</code>, and is unset for all other change types.
-     * <p><em>Note:</em> An <a href="entity:InventoryTransfer">InventoryTransfer</a> object can only be set in the input to the
-     * <a href="api-endpoint:Inventory-BatchChangeInventory">BatchChangeInventory</a> endpoint when the seller has an active Retail Plus subscription.</p>
-     */
-    @JsonProperty("transfer")
-    public Optional<InventoryTransfer> getTransfer() {
-        return transfer;
-    }
-
-    /**
      * @return The <a href="entity:CatalogMeasurementUnit">CatalogMeasurementUnit</a> object representing the catalog measurement unit associated with the inventory change.
      */
     @JsonProperty("measurement_unit")
@@ -121,7 +106,6 @@ public final class InventoryChange {
         return type.equals(other.type)
                 && physicalCount.equals(other.physicalCount)
                 && adjustment.equals(other.adjustment)
-                && transfer.equals(other.transfer)
                 && measurementUnit.equals(other.measurementUnit)
                 && measurementUnitId.equals(other.measurementUnitId);
     }
@@ -129,12 +113,7 @@ public final class InventoryChange {
     @java.lang.Override
     public int hashCode() {
         return Objects.hash(
-                this.type,
-                this.physicalCount,
-                this.adjustment,
-                this.transfer,
-                this.measurementUnit,
-                this.measurementUnitId);
+                this.type, this.physicalCount, this.adjustment, this.measurementUnit, this.measurementUnitId);
     }
 
     @java.lang.Override
@@ -154,8 +133,6 @@ public final class InventoryChange {
 
         private Optional<InventoryAdjustment> adjustment = Optional.empty();
 
-        private Optional<InventoryTransfer> transfer = Optional.empty();
-
         private Optional<CatalogMeasurementUnit> measurementUnit = Optional.empty();
 
         private Optional<String> measurementUnitId = Optional.empty();
@@ -169,7 +146,6 @@ public final class InventoryChange {
             type(other.getType());
             physicalCount(other.getPhysicalCount());
             adjustment(other.getAdjustment());
-            transfer(other.getTransfer());
             measurementUnit(other.getMeasurementUnit());
             measurementUnitId(other.getMeasurementUnitId());
             return this;
@@ -222,23 +198,6 @@ public final class InventoryChange {
         }
 
         /**
-         * <p>Contains details about the inventory transfer when <code>type</code> is
-         * <code>TRANSFER</code>, and is unset for all other change types.</p>
-         * <p><em>Note:</em> An <a href="entity:InventoryTransfer">InventoryTransfer</a> object can only be set in the input to the
-         * <a href="api-endpoint:Inventory-BatchChangeInventory">BatchChangeInventory</a> endpoint when the seller has an active Retail Plus subscription.</p>
-         */
-        @JsonSetter(value = "transfer", nulls = Nulls.SKIP)
-        public Builder transfer(Optional<InventoryTransfer> transfer) {
-            this.transfer = transfer;
-            return this;
-        }
-
-        public Builder transfer(InventoryTransfer transfer) {
-            this.transfer = Optional.ofNullable(transfer);
-            return this;
-        }
-
-        /**
          * <p>The <a href="entity:CatalogMeasurementUnit">CatalogMeasurementUnit</a> object representing the catalog measurement unit associated with the inventory change.</p>
          */
         @JsonSetter(value = "measurement_unit", nulls = Nulls.SKIP)
@@ -268,13 +227,7 @@ public final class InventoryChange {
 
         public InventoryChange build() {
             return new InventoryChange(
-                    type,
-                    physicalCount,
-                    adjustment,
-                    transfer,
-                    measurementUnit,
-                    measurementUnitId,
-                    additionalProperties);
+                    type, physicalCount, adjustment, measurementUnit, measurementUnitId, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

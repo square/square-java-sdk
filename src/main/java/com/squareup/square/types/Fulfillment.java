@@ -42,6 +42,8 @@ public final class Fulfillment {
 
     private final Optional<FulfillmentDeliveryDetails> deliveryDetails;
 
+    private final Optional<FulfillmentInStoreDetails> inStoreDetails;
+
     private final Map<String, Object> additionalProperties;
 
     private Fulfillment(
@@ -54,6 +56,7 @@ public final class Fulfillment {
             Optional<FulfillmentPickupDetails> pickupDetails,
             Optional<FulfillmentShipmentDetails> shipmentDetails,
             Optional<FulfillmentDeliveryDetails> deliveryDetails,
+            Optional<FulfillmentInStoreDetails> inStoreDetails,
             Map<String, Object> additionalProperties) {
         this.uid = uid;
         this.type = type;
@@ -64,6 +67,7 @@ public final class Fulfillment {
         this.pickupDetails = pickupDetails;
         this.shipmentDetails = shipmentDetails;
         this.deliveryDetails = deliveryDetails;
+        this.inStoreDetails = inStoreDetails;
         this.additionalProperties = additionalProperties;
     }
 
@@ -178,6 +182,15 @@ public final class Fulfillment {
         return deliveryDetails;
     }
 
+    /**
+     * @return Contains details for an in-store fulfillment. These details are required when the fulfillment
+     * type is <code>IN_STORE</code>.
+     */
+    @JsonProperty("in_store_details")
+    public Optional<FulfillmentInStoreDetails> getInStoreDetails() {
+        return inStoreDetails;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("uid")
     private Optional<String> _getUid() {
@@ -210,7 +223,8 @@ public final class Fulfillment {
                 && metadata.equals(other.metadata)
                 && pickupDetails.equals(other.pickupDetails)
                 && shipmentDetails.equals(other.shipmentDetails)
-                && deliveryDetails.equals(other.deliveryDetails);
+                && deliveryDetails.equals(other.deliveryDetails)
+                && inStoreDetails.equals(other.inStoreDetails);
     }
 
     @java.lang.Override
@@ -224,7 +238,8 @@ public final class Fulfillment {
                 this.metadata,
                 this.pickupDetails,
                 this.shipmentDetails,
-                this.deliveryDetails);
+                this.deliveryDetails,
+                this.inStoreDetails);
     }
 
     @java.lang.Override
@@ -256,6 +271,8 @@ public final class Fulfillment {
 
         private Optional<FulfillmentDeliveryDetails> deliveryDetails = Optional.empty();
 
+        private Optional<FulfillmentInStoreDetails> inStoreDetails = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -271,6 +288,7 @@ public final class Fulfillment {
             pickupDetails(other.getPickupDetails());
             shipmentDetails(other.getShipmentDetails());
             deliveryDetails(other.getDeliveryDetails());
+            inStoreDetails(other.getInStoreDetails());
             return this;
         }
 
@@ -455,6 +473,21 @@ public final class Fulfillment {
             return this;
         }
 
+        /**
+         * <p>Contains details for an in-store fulfillment. These details are required when the fulfillment
+         * type is <code>IN_STORE</code>.</p>
+         */
+        @JsonSetter(value = "in_store_details", nulls = Nulls.SKIP)
+        public Builder inStoreDetails(Optional<FulfillmentInStoreDetails> inStoreDetails) {
+            this.inStoreDetails = inStoreDetails;
+            return this;
+        }
+
+        public Builder inStoreDetails(FulfillmentInStoreDetails inStoreDetails) {
+            this.inStoreDetails = Optional.ofNullable(inStoreDetails);
+            return this;
+        }
+
         public Fulfillment build() {
             return new Fulfillment(
                     uid,
@@ -466,6 +499,7 @@ public final class Fulfillment {
                     pickupDetails,
                     shipmentDetails,
                     deliveryDetails,
+                    inStoreDetails,
                     additionalProperties);
         }
 
