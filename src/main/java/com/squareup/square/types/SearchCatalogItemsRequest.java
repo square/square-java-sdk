@@ -41,6 +41,8 @@ public final class SearchCatalogItemsRequest {
 
     private final Optional<ArchivedState> archivedState;
 
+    private final Optional<IncludeOptions> includeOptions;
+
     private final Map<String, Object> additionalProperties;
 
     private SearchCatalogItemsRequest(
@@ -54,6 +56,7 @@ public final class SearchCatalogItemsRequest {
             Optional<List<CatalogItemProductType>> productTypes,
             Optional<List<CustomAttributeFilter>> customAttributeFilters,
             Optional<ArchivedState> archivedState,
+            Optional<IncludeOptions> includeOptions,
             Map<String, Object> additionalProperties) {
         this.textFilter = textFilter;
         this.categoryIds = categoryIds;
@@ -65,6 +68,7 @@ public final class SearchCatalogItemsRequest {
         this.productTypes = productTypes;
         this.customAttributeFilters = customAttributeFilters;
         this.archivedState = archivedState;
+        this.includeOptions = includeOptions;
         this.additionalProperties = additionalProperties;
     }
 
@@ -154,6 +158,14 @@ public final class SearchCatalogItemsRequest {
         return archivedState;
     }
 
+    /**
+     * @return Options to include related resources in the response.
+     */
+    @JsonProperty("include_options")
+    public Optional<IncludeOptions> getIncludeOptions() {
+        return includeOptions;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -175,7 +187,8 @@ public final class SearchCatalogItemsRequest {
                 && sortOrder.equals(other.sortOrder)
                 && productTypes.equals(other.productTypes)
                 && customAttributeFilters.equals(other.customAttributeFilters)
-                && archivedState.equals(other.archivedState);
+                && archivedState.equals(other.archivedState)
+                && includeOptions.equals(other.includeOptions);
     }
 
     @java.lang.Override
@@ -190,7 +203,8 @@ public final class SearchCatalogItemsRequest {
                 this.sortOrder,
                 this.productTypes,
                 this.customAttributeFilters,
-                this.archivedState);
+                this.archivedState,
+                this.includeOptions);
     }
 
     @java.lang.Override
@@ -224,6 +238,8 @@ public final class SearchCatalogItemsRequest {
 
         private Optional<ArchivedState> archivedState = Optional.empty();
 
+        private Optional<IncludeOptions> includeOptions = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -240,6 +256,7 @@ public final class SearchCatalogItemsRequest {
             productTypes(other.getProductTypes());
             customAttributeFilters(other.getCustomAttributeFilters());
             archivedState(other.getArchivedState());
+            includeOptions(other.getIncludeOptions());
             return this;
         }
 
@@ -389,6 +406,20 @@ public final class SearchCatalogItemsRequest {
             return this;
         }
 
+        /**
+         * <p>Options to include related resources in the response.</p>
+         */
+        @JsonSetter(value = "include_options", nulls = Nulls.SKIP)
+        public Builder includeOptions(Optional<IncludeOptions> includeOptions) {
+            this.includeOptions = includeOptions;
+            return this;
+        }
+
+        public Builder includeOptions(IncludeOptions includeOptions) {
+            this.includeOptions = Optional.ofNullable(includeOptions);
+            return this;
+        }
+
         public SearchCatalogItemsRequest build() {
             return new SearchCatalogItemsRequest(
                     textFilter,
@@ -401,6 +432,7 @@ public final class SearchCatalogItemsRequest {
                     productTypes,
                     customAttributeFilters,
                     archivedState,
+                    includeOptions,
                     additionalProperties);
         }
 

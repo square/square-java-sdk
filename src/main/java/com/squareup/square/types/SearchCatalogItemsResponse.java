@@ -29,6 +29,8 @@ public final class SearchCatalogItemsResponse {
 
     private final Optional<List<String>> matchedVariationIds;
 
+    private final Optional<IncludedResources> includedResources;
+
     private final Map<String, Object> additionalProperties;
 
     private SearchCatalogItemsResponse(
@@ -36,11 +38,13 @@ public final class SearchCatalogItemsResponse {
             Optional<List<CatalogObject>> items,
             Optional<String> cursor,
             Optional<List<String>> matchedVariationIds,
+            Optional<IncludedResources> includedResources,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
         this.items = items;
         this.cursor = cursor;
         this.matchedVariationIds = matchedVariationIds;
+        this.includedResources = includedResources;
         this.additionalProperties = additionalProperties;
     }
 
@@ -76,6 +80,14 @@ public final class SearchCatalogItemsResponse {
         return matchedVariationIds;
     }
 
+    /**
+     * @return Related resources included in the response as requested via include_options
+     */
+    @JsonProperty("included_resources")
+    public Optional<IncludedResources> getIncludedResources() {
+        return includedResources;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -91,12 +103,13 @@ public final class SearchCatalogItemsResponse {
         return errors.equals(other.errors)
                 && items.equals(other.items)
                 && cursor.equals(other.cursor)
-                && matchedVariationIds.equals(other.matchedVariationIds);
+                && matchedVariationIds.equals(other.matchedVariationIds)
+                && includedResources.equals(other.includedResources);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.items, this.cursor, this.matchedVariationIds);
+        return Objects.hash(this.errors, this.items, this.cursor, this.matchedVariationIds, this.includedResources);
     }
 
     @java.lang.Override
@@ -118,6 +131,8 @@ public final class SearchCatalogItemsResponse {
 
         private Optional<List<String>> matchedVariationIds = Optional.empty();
 
+        private Optional<IncludedResources> includedResources = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -128,6 +143,7 @@ public final class SearchCatalogItemsResponse {
             items(other.getItems());
             cursor(other.getCursor());
             matchedVariationIds(other.getMatchedVariationIds());
+            includedResources(other.getIncludedResources());
             return this;
         }
 
@@ -187,8 +203,23 @@ public final class SearchCatalogItemsResponse {
             return this;
         }
 
+        /**
+         * <p>Related resources included in the response as requested via include_options</p>
+         */
+        @JsonSetter(value = "included_resources", nulls = Nulls.SKIP)
+        public Builder includedResources(Optional<IncludedResources> includedResources) {
+            this.includedResources = includedResources;
+            return this;
+        }
+
+        public Builder includedResources(IncludedResources includedResources) {
+            this.includedResources = Optional.ofNullable(includedResources);
+            return this;
+        }
+
         public SearchCatalogItemsResponse build() {
-            return new SearchCatalogItemsResponse(errors, items, cursor, matchedVariationIds, additionalProperties);
+            return new SearchCatalogItemsResponse(
+                    errors, items, cursor, matchedVariationIds, includedResources, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

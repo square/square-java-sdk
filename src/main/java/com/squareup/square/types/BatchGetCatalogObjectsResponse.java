@@ -27,16 +27,20 @@ public final class BatchGetCatalogObjectsResponse {
 
     private final Optional<List<CatalogObject>> relatedObjects;
 
+    private final Optional<IncludedResources> includedResources;
+
     private final Map<String, Object> additionalProperties;
 
     private BatchGetCatalogObjectsResponse(
             Optional<List<Error>> errors,
             Optional<List<CatalogObject>> objects,
             Optional<List<CatalogObject>> relatedObjects,
+            Optional<IncludedResources> includedResources,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
         this.objects = objects;
         this.relatedObjects = relatedObjects;
+        this.includedResources = includedResources;
         this.additionalProperties = additionalProperties;
     }
 
@@ -64,6 +68,14 @@ public final class BatchGetCatalogObjectsResponse {
         return relatedObjects;
     }
 
+    /**
+     * @return A list of <a href="entity:CatalogObject">CatalogObject</a>s referenced by the object in the <code>objects</code> field and specifically requested.
+     */
+    @JsonProperty("included_resources")
+    public Optional<IncludedResources> getIncludedResources() {
+        return includedResources;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -78,12 +90,13 @@ public final class BatchGetCatalogObjectsResponse {
     private boolean equalTo(BatchGetCatalogObjectsResponse other) {
         return errors.equals(other.errors)
                 && objects.equals(other.objects)
-                && relatedObjects.equals(other.relatedObjects);
+                && relatedObjects.equals(other.relatedObjects)
+                && includedResources.equals(other.includedResources);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.objects, this.relatedObjects);
+        return Objects.hash(this.errors, this.objects, this.relatedObjects, this.includedResources);
     }
 
     @java.lang.Override
@@ -103,6 +116,8 @@ public final class BatchGetCatalogObjectsResponse {
 
         private Optional<List<CatalogObject>> relatedObjects = Optional.empty();
 
+        private Optional<IncludedResources> includedResources = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -112,6 +127,7 @@ public final class BatchGetCatalogObjectsResponse {
             errors(other.getErrors());
             objects(other.getObjects());
             relatedObjects(other.getRelatedObjects());
+            includedResources(other.getIncludedResources());
             return this;
         }
 
@@ -157,8 +173,23 @@ public final class BatchGetCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:CatalogObject">CatalogObject</a>s referenced by the object in the <code>objects</code> field and specifically requested.</p>
+         */
+        @JsonSetter(value = "included_resources", nulls = Nulls.SKIP)
+        public Builder includedResources(Optional<IncludedResources> includedResources) {
+            this.includedResources = includedResources;
+            return this;
+        }
+
+        public Builder includedResources(IncludedResources includedResources) {
+            this.includedResources = Optional.ofNullable(includedResources);
+            return this;
+        }
+
         public BatchGetCatalogObjectsResponse build() {
-            return new BatchGetCatalogObjectsResponse(errors, objects, relatedObjects, additionalProperties);
+            return new BatchGetCatalogObjectsResponse(
+                    errors, objects, relatedObjects, includedResources, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

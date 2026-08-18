@@ -153,8 +153,9 @@ public class OrdersClient {
      * <a href="entity:OrderEntry">OrderEntry</a> objects.</p>
      * <p>Note that details for orders processed with Square Point of Sale while in
      * offline mode might not be transmitted to Square for up to 72 hours. Offline
-     * orders have a <code>created_at</code> value that reflects the time the order was created,
-     * not the time it was subsequently transmitted to Square.</p>
+     * orders have a <code>created_at</code> value that reflects the time the order was
+     * transmitted to Square and created server-side, not the time the order was
+     * created on the Point of Sale device.</p>
      */
     public SearchOrdersResponse search() {
         return this.rawClient.search().body();
@@ -173,8 +174,9 @@ public class OrdersClient {
      * <a href="entity:OrderEntry">OrderEntry</a> objects.</p>
      * <p>Note that details for orders processed with Square Point of Sale while in
      * offline mode might not be transmitted to Square for up to 72 hours. Offline
-     * orders have a <code>created_at</code> value that reflects the time the order was created,
-     * not the time it was subsequently transmitted to Square.</p>
+     * orders have a <code>created_at</code> value that reflects the time the order was
+     * transmitted to Square and created server-side, not the time the order was
+     * created on the Point of Sale device.</p>
      */
     public SearchOrdersResponse search(RequestOptions requestOptions) {
         return this.rawClient.search(requestOptions).body();
@@ -193,8 +195,9 @@ public class OrdersClient {
      * <a href="entity:OrderEntry">OrderEntry</a> objects.</p>
      * <p>Note that details for orders processed with Square Point of Sale while in
      * offline mode might not be transmitted to Square for up to 72 hours. Offline
-     * orders have a <code>created_at</code> value that reflects the time the order was created,
-     * not the time it was subsequently transmitted to Square.</p>
+     * orders have a <code>created_at</code> value that reflects the time the order was
+     * transmitted to Square and created server-side, not the time the order was
+     * created on the Point of Sale device.</p>
      */
     public SearchOrdersResponse search(SearchOrdersRequest request) {
         return this.rawClient.search(request).body();
@@ -213,8 +216,9 @@ public class OrdersClient {
      * <a href="entity:OrderEntry">OrderEntry</a> objects.</p>
      * <p>Note that details for orders processed with Square Point of Sale while in
      * offline mode might not be transmitted to Square for up to 72 hours. Offline
-     * orders have a <code>created_at</code> value that reflects the time the order was created,
-     * not the time it was subsequently transmitted to Square.</p>
+     * orders have a <code>created_at</code> value that reflects the time the order was
+     * transmitted to Square and created server-side, not the time the order was
+     * created on the Point of Sale device.</p>
      */
     public SearchOrdersResponse search(SearchOrdersRequest request, RequestOptions requestOptions) {
         return this.rawClient.search(request, requestOptions).body();

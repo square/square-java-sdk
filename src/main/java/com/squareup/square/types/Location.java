@@ -78,6 +78,10 @@ public final class Location {
 
     private final Optional<TaxIds> taxIds;
 
+    private final Optional<String> customReceiptText;
+
+    private final Optional<String> returnPolicy;
+
     private final Map<String, Object> additionalProperties;
 
     private Location(
@@ -108,6 +112,8 @@ public final class Location {
             Optional<String> mcc,
             Optional<String> fullFormatLogoUrl,
             Optional<TaxIds> taxIds,
+            Optional<String> customReceiptText,
+            Optional<String> returnPolicy,
             Map<String, Object> additionalProperties) {
         this.id = id;
         this.name = name;
@@ -136,6 +142,8 @@ public final class Location {
         this.mcc = mcc;
         this.fullFormatLogoUrl = fullFormatLogoUrl;
         this.taxIds = taxIds;
+        this.customReceiptText = customReceiptText;
+        this.returnPolicy = returnPolicy;
         this.additionalProperties = additionalProperties;
     }
 
@@ -412,6 +420,30 @@ public final class Location {
         return taxIds;
     }
 
+    /**
+     * @return The custom text that appears on receipts issued for this location.
+     * This text can also be configured in the Seller Dashboard (Receipts section).
+     */
+    @JsonIgnore
+    public Optional<String> getCustomReceiptText() {
+        if (customReceiptText == null) {
+            return Optional.empty();
+        }
+        return customReceiptText;
+    }
+
+    /**
+     * @return The return policy that appears on receipts issued for this location.
+     * This text can also be configured in the Seller Dashboard (Receipts section).
+     */
+    @JsonIgnore
+    public Optional<String> getReturnPolicy() {
+        if (returnPolicy == null) {
+            return Optional.empty();
+        }
+        return returnPolicy;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
@@ -484,6 +516,18 @@ public final class Location {
         return mcc;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("custom_receipt_text")
+    private Optional<String> _getCustomReceiptText() {
+        return customReceiptText;
+    }
+
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("return_policy")
+    private Optional<String> _getReturnPolicy() {
+        return returnPolicy;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -522,7 +566,9 @@ public final class Location {
                 && posBackgroundUrl.equals(other.posBackgroundUrl)
                 && mcc.equals(other.mcc)
                 && fullFormatLogoUrl.equals(other.fullFormatLogoUrl)
-                && taxIds.equals(other.taxIds);
+                && taxIds.equals(other.taxIds)
+                && customReceiptText.equals(other.customReceiptText)
+                && returnPolicy.equals(other.returnPolicy);
     }
 
     @java.lang.Override
@@ -554,7 +600,9 @@ public final class Location {
                 this.posBackgroundUrl,
                 this.mcc,
                 this.fullFormatLogoUrl,
-                this.taxIds);
+                this.taxIds,
+                this.customReceiptText,
+                this.returnPolicy);
     }
 
     @java.lang.Override
@@ -622,6 +670,10 @@ public final class Location {
 
         private Optional<TaxIds> taxIds = Optional.empty();
 
+        private Optional<String> customReceiptText = Optional.empty();
+
+        private Optional<String> returnPolicy = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -655,6 +707,8 @@ public final class Location {
             mcc(other.getMcc());
             fullFormatLogoUrl(other.getFullFormatLogoUrl());
             taxIds(other.getTaxIds());
+            customReceiptText(other.getCustomReceiptText());
+            returnPolicy(other.getReturnPolicy());
             return this;
         }
 
@@ -1189,6 +1243,58 @@ public final class Location {
             return this;
         }
 
+        /**
+         * <p>The custom text that appears on receipts issued for this location.
+         * This text can also be configured in the Seller Dashboard (Receipts section).</p>
+         */
+        @JsonSetter(value = "custom_receipt_text", nulls = Nulls.SKIP)
+        public Builder customReceiptText(Optional<String> customReceiptText) {
+            this.customReceiptText = customReceiptText;
+            return this;
+        }
+
+        public Builder customReceiptText(String customReceiptText) {
+            this.customReceiptText = Optional.ofNullable(customReceiptText);
+            return this;
+        }
+
+        public Builder customReceiptText(Nullable<String> customReceiptText) {
+            if (customReceiptText.isNull()) {
+                this.customReceiptText = null;
+            } else if (customReceiptText.isEmpty()) {
+                this.customReceiptText = Optional.empty();
+            } else {
+                this.customReceiptText = Optional.of(customReceiptText.get());
+            }
+            return this;
+        }
+
+        /**
+         * <p>The return policy that appears on receipts issued for this location.
+         * This text can also be configured in the Seller Dashboard (Receipts section).</p>
+         */
+        @JsonSetter(value = "return_policy", nulls = Nulls.SKIP)
+        public Builder returnPolicy(Optional<String> returnPolicy) {
+            this.returnPolicy = returnPolicy;
+            return this;
+        }
+
+        public Builder returnPolicy(String returnPolicy) {
+            this.returnPolicy = Optional.ofNullable(returnPolicy);
+            return this;
+        }
+
+        public Builder returnPolicy(Nullable<String> returnPolicy) {
+            if (returnPolicy.isNull()) {
+                this.returnPolicy = null;
+            } else if (returnPolicy.isEmpty()) {
+                this.returnPolicy = Optional.empty();
+            } else {
+                this.returnPolicy = Optional.of(returnPolicy.get());
+            }
+            return this;
+        }
+
         public Location build() {
             return new Location(
                     id,
@@ -1218,6 +1324,8 @@ public final class Location {
                     mcc,
                     fullFormatLogoUrl,
                     taxIds,
+                    customReceiptText,
+                    returnPolicy,
                     additionalProperties);
         }
 

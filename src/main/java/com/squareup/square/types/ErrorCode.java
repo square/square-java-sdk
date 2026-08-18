@@ -41,6 +41,9 @@ public final class ErrorCode {
     public static final ErrorCode UNSUPPORTED_CARD_BRAND =
             new ErrorCode(Value.UNSUPPORTED_CARD_BRAND, "UNSUPPORTED_CARD_BRAND");
 
+    public static final ErrorCode PLAID_ERROR_ITEM_NOT_FOUND =
+            new ErrorCode(Value.PLAID_ERROR_ITEM_NOT_FOUND, "PLAID_ERROR_ITEM_NOT_FOUND");
+
     public static final ErrorCode MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED =
             new ErrorCode(Value.MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED, "MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED");
 
@@ -67,6 +70,9 @@ public final class ErrorCode {
     public static final ErrorCode CUSTOMER_MISSING_EMAIL =
             new ErrorCode(Value.CUSTOMER_MISSING_EMAIL, "CUSTOMER_MISSING_EMAIL");
 
+    public static final ErrorCode PLAID_ERROR_INVALID_ACCESS_TOKEN =
+            new ErrorCode(Value.PLAID_ERROR_INVALID_ACCESS_TOKEN, "PLAID_ERROR_INVALID_ACCESS_TOKEN");
+
     public static final ErrorCode CONFLICT = new ErrorCode(Value.CONFLICT, "CONFLICT");
 
     public static final ErrorCode INVALID_PAUSE_LENGTH =
@@ -74,6 +80,8 @@ public final class ErrorCode {
 
     public static final ErrorCode MERCHANT_SUBSCRIPTION_NOT_FOUND =
             new ErrorCode(Value.MERCHANT_SUBSCRIPTION_NOT_FOUND, "MERCHANT_SUBSCRIPTION_NOT_FOUND");
+
+    public static final ErrorCode AMOUNT_TOO_LOW = new ErrorCode(Value.AMOUNT_TOO_LOW, "AMOUNT_TOO_LOW");
 
     public static final ErrorCode UNSUPPORTED_SOURCE_TYPE =
             new ErrorCode(Value.UNSUPPORTED_SOURCE_TYPE, "UNSUPPORTED_SOURCE_TYPE");
@@ -137,6 +145,9 @@ public final class ErrorCode {
     public static final ErrorCode CARD_MISMATCH = new ErrorCode(Value.CARD_MISMATCH, "CARD_MISMATCH");
 
     public static final ErrorCode PLAID_ERROR = new ErrorCode(Value.PLAID_ERROR, "PLAID_ERROR");
+
+    public static final ErrorCode PLAID_ERROR_INSUFFICIENT_CREDENTIALS =
+            new ErrorCode(Value.PLAID_ERROR_INSUFFICIENT_CREDENTIALS, "PLAID_ERROR_INSUFFICIENT_CREDENTIALS");
 
     public static final ErrorCode VERIFY_CVV_FAILURE = new ErrorCode(Value.VERIFY_CVV_FAILURE, "VERIFY_CVV_FAILURE");
 
@@ -211,6 +222,9 @@ public final class ErrorCode {
             new ErrorCode(Value.PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET, "PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET");
 
     public static final ErrorCode EXPECTED_BOOLEAN = new ErrorCode(Value.EXPECTED_BOOLEAN, "EXPECTED_BOOLEAN");
+
+    public static final ErrorCode PLAID_ERROR_INVALID_ACCOUNT_ID =
+            new ErrorCode(Value.PLAID_ERROR_INVALID_ACCOUNT_ID, "PLAID_ERROR_INVALID_ACCOUNT_ID");
 
     public static final ErrorCode ARRAY_LENGTH_TOO_SHORT =
             new ErrorCode(Value.ARRAY_LENGTH_TOO_SHORT, "ARRAY_LENGTH_TOO_SHORT");
@@ -316,6 +330,9 @@ public final class ErrorCode {
     public static final ErrorCode PAYMENT_LIMIT_EXCEEDED =
             new ErrorCode(Value.PAYMENT_LIMIT_EXCEEDED, "PAYMENT_LIMIT_EXCEEDED");
 
+    public static final ErrorCode PLAID_ERROR_NO_ACCOUNTS =
+            new ErrorCode(Value.PLAID_ERROR_NO_ACCOUNTS, "PLAID_ERROR_NO_ACCOUNTS");
+
     public static final ErrorCode V_1_APPLICATION = new ErrorCode(Value.V_1_APPLICATION, "V1_APPLICATION");
 
     public static final ErrorCode CARD_DECLINED_CALL_ISSUER =
@@ -357,8 +374,14 @@ public final class ErrorCode {
     public static final ErrorCode INVALID_SQUARE_VERSION_FORMAT =
             new ErrorCode(Value.INVALID_SQUARE_VERSION_FORMAT, "INVALID_SQUARE_VERSION_FORMAT");
 
+    public static final ErrorCode PLAID_ERROR_ITEM_NOT_SUPPORTED =
+            new ErrorCode(Value.PLAID_ERROR_ITEM_NOT_SUPPORTED, "PLAID_ERROR_ITEM_NOT_SUPPORTED");
+
     public static final ErrorCode UNKNOWN_BODY_PARAMETER =
             new ErrorCode(Value.UNKNOWN_BODY_PARAMETER, "UNKNOWN_BODY_PARAMETER");
+
+    public static final ErrorCode CART_INELIGIBLE_FOR_EBT =
+            new ErrorCode(Value.CART_INELIGIBLE_FOR_EBT, "CART_INELIGIBLE_FOR_EBT");
 
     public static final ErrorCode SOURCE_USED = new ErrorCode(Value.SOURCE_USED, "SOURCE_USED");
 
@@ -388,6 +411,9 @@ public final class ErrorCode {
 
     public static final ErrorCode APPLICATION_DISABLED =
             new ErrorCode(Value.APPLICATION_DISABLED, "APPLICATION_DISABLED");
+
+    public static final ErrorCode PLAID_ERROR_PRODUCT_NOT_READY =
+            new ErrorCode(Value.PLAID_ERROR_PRODUCT_NOT_READY, "PLAID_ERROR_PRODUCT_NOT_READY");
 
     private final Value value;
 
@@ -448,6 +474,8 @@ public final class ErrorCode {
                 return visitor.visitInvalidCard();
             case UNSUPPORTED_CARD_BRAND:
                 return visitor.visitUnsupportedCardBrand();
+            case PLAID_ERROR_ITEM_NOT_FOUND:
+                return visitor.visitPlaidErrorItemNotFound();
             case MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED:
                 return visitor.visitManuallyEnteredPaymentNotSupported();
             case ACCESS_TOKEN_REVOKED:
@@ -468,12 +496,16 @@ public final class ErrorCode {
                 return visitor.visitInvalidValue();
             case CUSTOMER_MISSING_EMAIL:
                 return visitor.visitCustomerMissingEmail();
+            case PLAID_ERROR_INVALID_ACCESS_TOKEN:
+                return visitor.visitPlaidErrorInvalidAccessToken();
             case CONFLICT:
                 return visitor.visitConflict();
             case INVALID_PAUSE_LENGTH:
                 return visitor.visitInvalidPauseLength();
             case MERCHANT_SUBSCRIPTION_NOT_FOUND:
                 return visitor.visitMerchantSubscriptionNotFound();
+            case AMOUNT_TOO_LOW:
+                return visitor.visitAmountTooLow();
             case UNSUPPORTED_SOURCE_TYPE:
                 return visitor.visitUnsupportedSourceType();
             case FORBIDDEN:
@@ -526,6 +558,8 @@ public final class ErrorCode {
                 return visitor.visitCardMismatch();
             case PLAID_ERROR:
                 return visitor.visitPlaidError();
+            case PLAID_ERROR_INSUFFICIENT_CREDENTIALS:
+                return visitor.visitPlaidErrorInsufficientCredentials();
             case VERIFY_CVV_FAILURE:
                 return visitor.visitVerifyCvvFailure();
             case NOT_ACCEPTABLE:
@@ -586,6 +620,8 @@ public final class ErrorCode {
                 return visitor.visitPaymentSourceNotEnabledForTarget();
             case EXPECTED_BOOLEAN:
                 return visitor.visitExpectedBoolean();
+            case PLAID_ERROR_INVALID_ACCOUNT_ID:
+                return visitor.visitPlaidErrorInvalidAccountId();
             case ARRAY_LENGTH_TOO_SHORT:
                 return visitor.visitArrayLengthTooShort();
             case BAD_GATEWAY:
@@ -672,6 +708,8 @@ public final class ErrorCode {
                 return visitor.visitInvalidArrayValue();
             case PAYMENT_LIMIT_EXCEEDED:
                 return visitor.visitPaymentLimitExceeded();
+            case PLAID_ERROR_NO_ACCOUNTS:
+                return visitor.visitPlaidErrorNoAccounts();
             case V_1_APPLICATION:
                 return visitor.visitV1Application();
             case CARD_DECLINED_CALL_ISSUER:
@@ -706,8 +744,12 @@ public final class ErrorCode {
                 return visitor.visitValueTooLow();
             case INVALID_SQUARE_VERSION_FORMAT:
                 return visitor.visitInvalidSquareVersionFormat();
+            case PLAID_ERROR_ITEM_NOT_SUPPORTED:
+                return visitor.visitPlaidErrorItemNotSupported();
             case UNKNOWN_BODY_PARAMETER:
                 return visitor.visitUnknownBodyParameter();
+            case CART_INELIGIBLE_FOR_EBT:
+                return visitor.visitCartIneligibleForEbt();
             case SOURCE_USED:
                 return visitor.visitSourceUsed();
             case INCORRECT_TYPE:
@@ -730,6 +772,8 @@ public final class ErrorCode {
                 return visitor.visitUnsupportedEntryMethod();
             case APPLICATION_DISABLED:
                 return visitor.visitApplicationDisabled();
+            case PLAID_ERROR_PRODUCT_NOT_READY:
+                return visitor.visitPlaidErrorProductNotReady();
             case UNKNOWN:
             default:
                 return visitor.visitUnknown(string);
@@ -767,6 +811,8 @@ public final class ErrorCode {
                 return INVALID_CARD;
             case "UNSUPPORTED_CARD_BRAND":
                 return UNSUPPORTED_CARD_BRAND;
+            case "PLAID_ERROR_ITEM_NOT_FOUND":
+                return PLAID_ERROR_ITEM_NOT_FOUND;
             case "MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED":
                 return MANUALLY_ENTERED_PAYMENT_NOT_SUPPORTED;
             case "ACCESS_TOKEN_REVOKED":
@@ -787,12 +833,16 @@ public final class ErrorCode {
                 return INVALID_VALUE;
             case "CUSTOMER_MISSING_EMAIL":
                 return CUSTOMER_MISSING_EMAIL;
+            case "PLAID_ERROR_INVALID_ACCESS_TOKEN":
+                return PLAID_ERROR_INVALID_ACCESS_TOKEN;
             case "CONFLICT":
                 return CONFLICT;
             case "INVALID_PAUSE_LENGTH":
                 return INVALID_PAUSE_LENGTH;
             case "MERCHANT_SUBSCRIPTION_NOT_FOUND":
                 return MERCHANT_SUBSCRIPTION_NOT_FOUND;
+            case "AMOUNT_TOO_LOW":
+                return AMOUNT_TOO_LOW;
             case "UNSUPPORTED_SOURCE_TYPE":
                 return UNSUPPORTED_SOURCE_TYPE;
             case "FORBIDDEN":
@@ -845,6 +895,8 @@ public final class ErrorCode {
                 return CARD_MISMATCH;
             case "PLAID_ERROR":
                 return PLAID_ERROR;
+            case "PLAID_ERROR_INSUFFICIENT_CREDENTIALS":
+                return PLAID_ERROR_INSUFFICIENT_CREDENTIALS;
             case "VERIFY_CVV_FAILURE":
                 return VERIFY_CVV_FAILURE;
             case "NOT_ACCEPTABLE":
@@ -905,6 +957,8 @@ public final class ErrorCode {
                 return PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET;
             case "EXPECTED_BOOLEAN":
                 return EXPECTED_BOOLEAN;
+            case "PLAID_ERROR_INVALID_ACCOUNT_ID":
+                return PLAID_ERROR_INVALID_ACCOUNT_ID;
             case "ARRAY_LENGTH_TOO_SHORT":
                 return ARRAY_LENGTH_TOO_SHORT;
             case "BAD_GATEWAY":
@@ -991,6 +1045,8 @@ public final class ErrorCode {
                 return INVALID_ARRAY_VALUE;
             case "PAYMENT_LIMIT_EXCEEDED":
                 return PAYMENT_LIMIT_EXCEEDED;
+            case "PLAID_ERROR_NO_ACCOUNTS":
+                return PLAID_ERROR_NO_ACCOUNTS;
             case "V1_APPLICATION":
                 return V_1_APPLICATION;
             case "CARD_DECLINED_CALL_ISSUER":
@@ -1025,8 +1081,12 @@ public final class ErrorCode {
                 return VALUE_TOO_LOW;
             case "INVALID_SQUARE_VERSION_FORMAT":
                 return INVALID_SQUARE_VERSION_FORMAT;
+            case "PLAID_ERROR_ITEM_NOT_SUPPORTED":
+                return PLAID_ERROR_ITEM_NOT_SUPPORTED;
             case "UNKNOWN_BODY_PARAMETER":
                 return UNKNOWN_BODY_PARAMETER;
+            case "CART_INELIGIBLE_FOR_EBT":
+                return CART_INELIGIBLE_FOR_EBT;
             case "SOURCE_USED":
                 return SOURCE_USED;
             case "INCORRECT_TYPE":
@@ -1049,6 +1109,8 @@ public final class ErrorCode {
                 return UNSUPPORTED_ENTRY_METHOD;
             case "APPLICATION_DISABLED":
                 return APPLICATION_DISABLED;
+            case "PLAID_ERROR_PRODUCT_NOT_READY":
+                return PLAID_ERROR_PRODUCT_NOT_READY;
             default:
                 return new ErrorCode(Value.UNKNOWN, value);
         }
@@ -1251,6 +1313,8 @@ public final class ErrorCode {
 
         AMOUNT_TOO_HIGH,
 
+        AMOUNT_TOO_LOW,
+
         UNSUPPORTED_INSTRUMENT_TYPE,
 
         REFUND_AMOUNT_INVALID,
@@ -1311,6 +1375,20 @@ public final class ErrorCode {
 
         PLAID_ERROR_RATE_LIMIT,
 
+        PLAID_ERROR_INVALID_ACCESS_TOKEN,
+
+        PLAID_ERROR_INVALID_ACCOUNT_ID,
+
+        PLAID_ERROR_NO_ACCOUNTS,
+
+        PLAID_ERROR_ITEM_NOT_FOUND,
+
+        PLAID_ERROR_INSUFFICIENT_CREDENTIALS,
+
+        PLAID_ERROR_ITEM_NOT_SUPPORTED,
+
+        PLAID_ERROR_PRODUCT_NOT_READY,
+
         PAYMENT_SOURCE_NOT_ENABLED_FOR_TARGET,
 
         CARD_DECLINED,
@@ -1332,6 +1410,8 @@ public final class ErrorCode {
         RESERVATION_DECLINED,
 
         UNKNOWN_BODY_PARAMETER,
+
+        CART_INELIGIBLE_FOR_EBT,
 
         NOT_FOUND,
 
@@ -1565,6 +1645,8 @@ public final class ErrorCode {
 
         T visitAmountTooHigh();
 
+        T visitAmountTooLow();
+
         T visitUnsupportedInstrumentType();
 
         T visitRefundAmountInvalid();
@@ -1625,6 +1707,20 @@ public final class ErrorCode {
 
         T visitPlaidErrorRateLimit();
 
+        T visitPlaidErrorInvalidAccessToken();
+
+        T visitPlaidErrorInvalidAccountId();
+
+        T visitPlaidErrorNoAccounts();
+
+        T visitPlaidErrorItemNotFound();
+
+        T visitPlaidErrorInsufficientCredentials();
+
+        T visitPlaidErrorItemNotSupported();
+
+        T visitPlaidErrorProductNotReady();
+
         T visitPaymentSourceNotEnabledForTarget();
 
         T visitCardDeclined();
@@ -1646,6 +1742,8 @@ public final class ErrorCode {
         T visitReservationDeclined();
 
         T visitUnknownBodyParameter();
+
+        T visitCartIneligibleForEbt();
 
         T visitNotFound();
 

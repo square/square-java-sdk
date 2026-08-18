@@ -35,6 +35,8 @@ public final class BatchGetCatalogObjectsRequest {
 
     private final Optional<Boolean> includeCategoryPathToRoot;
 
+    private final Optional<IncludeOptions> includeOptions;
+
     private final Map<String, Object> additionalProperties;
 
     private BatchGetCatalogObjectsRequest(
@@ -43,12 +45,14 @@ public final class BatchGetCatalogObjectsRequest {
             Optional<Long> catalogVersion,
             Optional<Boolean> includeDeletedObjects,
             Optional<Boolean> includeCategoryPathToRoot,
+            Optional<IncludeOptions> includeOptions,
             Map<String, Object> additionalProperties) {
         this.objectIds = objectIds;
         this.includeRelatedObjects = includeRelatedObjects;
         this.catalogVersion = catalogVersion;
         this.includeDeletedObjects = includeDeletedObjects;
         this.includeCategoryPathToRoot = includeCategoryPathToRoot;
+        this.includeOptions = includeOptions;
         this.additionalProperties = additionalProperties;
     }
 
@@ -121,6 +125,14 @@ public final class BatchGetCatalogObjectsRequest {
         return includeCategoryPathToRoot;
     }
 
+    /**
+     * @return Options to include related resources in the response.
+     */
+    @JsonProperty("include_options")
+    public Optional<IncludeOptions> getIncludeOptions() {
+        return includeOptions;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("include_related_objects")
     private Optional<Boolean> _getIncludeRelatedObjects() {
@@ -161,7 +173,8 @@ public final class BatchGetCatalogObjectsRequest {
                 && includeRelatedObjects.equals(other.includeRelatedObjects)
                 && catalogVersion.equals(other.catalogVersion)
                 && includeDeletedObjects.equals(other.includeDeletedObjects)
-                && includeCategoryPathToRoot.equals(other.includeCategoryPathToRoot);
+                && includeCategoryPathToRoot.equals(other.includeCategoryPathToRoot)
+                && includeOptions.equals(other.includeOptions);
     }
 
     @java.lang.Override
@@ -171,7 +184,8 @@ public final class BatchGetCatalogObjectsRequest {
                 this.includeRelatedObjects,
                 this.catalogVersion,
                 this.includeDeletedObjects,
-                this.includeCategoryPathToRoot);
+                this.includeCategoryPathToRoot,
+                this.includeOptions);
     }
 
     @java.lang.Override
@@ -195,6 +209,8 @@ public final class BatchGetCatalogObjectsRequest {
 
         private Optional<Boolean> includeCategoryPathToRoot = Optional.empty();
 
+        private Optional<IncludeOptions> includeOptions = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -206,6 +222,7 @@ public final class BatchGetCatalogObjectsRequest {
             catalogVersion(other.getCatalogVersion());
             includeDeletedObjects(other.getIncludeDeletedObjects());
             includeCategoryPathToRoot(other.getIncludeCategoryPathToRoot());
+            includeOptions(other.getIncludeOptions());
             return this;
         }
 
@@ -350,6 +367,20 @@ public final class BatchGetCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Options to include related resources in the response.</p>
+         */
+        @JsonSetter(value = "include_options", nulls = Nulls.SKIP)
+        public Builder includeOptions(Optional<IncludeOptions> includeOptions) {
+            this.includeOptions = includeOptions;
+            return this;
+        }
+
+        public Builder includeOptions(IncludeOptions includeOptions) {
+            this.includeOptions = Optional.ofNullable(includeOptions);
+            return this;
+        }
+
         public BatchGetCatalogObjectsRequest build() {
             return new BatchGetCatalogObjectsRequest(
                     objectIds,
@@ -357,6 +388,7 @@ public final class BatchGetCatalogObjectsRequest {
                     catalogVersion,
                     includeDeletedObjects,
                     includeCategoryPathToRoot,
+                    includeOptions,
                     additionalProperties);
         }
 

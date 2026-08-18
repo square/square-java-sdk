@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public final class CardBrand {
+    public static final CardBrand QUICPAY = new CardBrand(Value.QUICPAY, "QUICPAY");
+
     public static final CardBrand CHINA_UNIONPAY = new CardBrand(Value.CHINA_UNIONPAY, "CHINA_UNIONPAY");
 
     public static final CardBrand INTERAC = new CardBrand(Value.INTERAC, "INTERAC");
@@ -14,6 +16,8 @@ public final class CardBrand {
     public static final CardBrand EFTPOS = new CardBrand(Value.EFTPOS, "EFTPOS");
 
     public static final CardBrand FELICA = new CardBrand(Value.FELICA, "FELICA");
+
+    public static final CardBrand ID = new CardBrand(Value.ID, "ID");
 
     public static final CardBrand SQUARE_CAPITAL_CARD = new CardBrand(Value.SQUARE_CAPITAL_CARD, "SQUARE_CAPITAL_CARD");
 
@@ -25,7 +29,11 @@ public final class CardBrand {
 
     public static final CardBrand JCB = new CardBrand(Value.JCB, "JCB");
 
+    public static final CardBrand TRANSPORTATION_IC = new CardBrand(Value.TRANSPORTATION_IC, "TRANSPORTATION_IC");
+
     public static final CardBrand VISA = new CardBrand(Value.VISA, "VISA");
+
+    public static final CardBrand CARNET = new CardBrand(Value.CARNET, "CARNET");
 
     public static final CardBrand OTHER_BRAND = new CardBrand(Value.OTHER_BRAND, "OTHER_BRAND");
 
@@ -66,6 +74,8 @@ public final class CardBrand {
 
     public <T> T visit(Visitor<T> visitor) {
         switch (value) {
+            case QUICPAY:
+                return visitor.visitQuicpay();
             case CHINA_UNIONPAY:
                 return visitor.visitChinaUnionpay();
             case INTERAC:
@@ -74,6 +84,8 @@ public final class CardBrand {
                 return visitor.visitEftpos();
             case FELICA:
                 return visitor.visitFelica();
+            case ID:
+                return visitor.visitId();
             case SQUARE_CAPITAL_CARD:
                 return visitor.visitSquareCapitalCard();
             case DISCOVER:
@@ -84,8 +96,12 @@ public final class CardBrand {
                 return visitor.visitAmericanExpress();
             case JCB:
                 return visitor.visitJcb();
+            case TRANSPORTATION_IC:
+                return visitor.visitTransportationIc();
             case VISA:
                 return visitor.visitVisa();
+            case CARNET:
+                return visitor.visitCarnet();
             case OTHER_BRAND:
                 return visitor.visitOtherBrand();
             case DISCOVER_DINERS:
@@ -103,6 +119,8 @@ public final class CardBrand {
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CardBrand valueOf(String value) {
         switch (value) {
+            case "QUICPAY":
+                return QUICPAY;
             case "CHINA_UNIONPAY":
                 return CHINA_UNIONPAY;
             case "INTERAC":
@@ -111,6 +129,8 @@ public final class CardBrand {
                 return EFTPOS;
             case "FELICA":
                 return FELICA;
+            case "ID":
+                return ID;
             case "SQUARE_CAPITAL_CARD":
                 return SQUARE_CAPITAL_CARD;
             case "DISCOVER":
@@ -121,8 +141,12 @@ public final class CardBrand {
                 return AMERICAN_EXPRESS;
             case "JCB":
                 return JCB;
+            case "TRANSPORTATION_IC":
+                return TRANSPORTATION_IC;
             case "VISA":
                 return VISA;
+            case "CARNET":
+                return CARNET;
             case "OTHER_BRAND":
                 return OTHER_BRAND;
             case "DISCOVER_DINERS":
@@ -165,6 +189,14 @@ public final class CardBrand {
 
         EBT,
 
+        QUICPAY,
+
+        ID,
+
+        TRANSPORTATION_IC,
+
+        CARNET,
+
         UNKNOWN
     }
 
@@ -196,6 +228,14 @@ public final class CardBrand {
         T visitFelica();
 
         T visitEbt();
+
+        T visitQuicpay();
+
+        T visitId();
+
+        T visitTransportationIc();
+
+        T visitCarnet();
 
         T visitUnknown(String unknownType);
     }
