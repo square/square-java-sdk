@@ -57,7 +57,7 @@ Add the dependency in your `pom.xml` file:
 <dependency>
   <groupId>com.squareup</groupId>
   <artifactId>square</artifactId>
-  <version>47.0.1.20260715</version>
+  <version>47.1.0.20260819</version>
 </dependency>
 ```
 
@@ -431,8 +431,8 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation 'com.squareup:square:47.0.1.20260715'
-    implementation 'com.squareup:square-legacy:47.0.1.20260715'
+    implementation 'com.squareup:square:47.1.0.20260819'
+    implementation 'com.squareup:square-legacy:47.1.0.20260819'
 }
 ```
 
@@ -442,12 +442,12 @@ Maven:
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square</artifactId>
-    <version>47.0.1.20260715</version>
+    <version>47.1.0.20260819</version>
 </dependency>
 <dependency>
     <groupId>com.squareup</groupId>
     <artifactId>square-legacy</artifactId>
-    <version>47.0.1.20260715</version>
+    <version>47.1.0.20260819</version>
 </dependency>
 ```
 
