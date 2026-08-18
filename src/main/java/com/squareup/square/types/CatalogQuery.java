@@ -40,6 +40,8 @@ public final class CatalogQuery {
 
     private final Optional<CatalogQueryItemVariationsForItemOptionValues> itemVariationsForItemOptionValuesQuery;
 
+    private final Optional<CatalogQueryModifiersForChildList> modifiersForChildListQuery;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogQuery(
@@ -53,6 +55,7 @@ public final class CatalogQuery {
             Optional<CatalogQueryItemsForModifierList> itemsForModifierListQuery,
             Optional<CatalogQueryItemsForItemOptions> itemsForItemOptionsQuery,
             Optional<CatalogQueryItemVariationsForItemOptionValues> itemVariationsForItemOptionValuesQuery,
+            Optional<CatalogQueryModifiersForChildList> modifiersForChildListQuery,
             Map<String, Object> additionalProperties) {
         this.sortedAttributeQuery = sortedAttributeQuery;
         this.exactQuery = exactQuery;
@@ -64,6 +67,7 @@ public final class CatalogQuery {
         this.itemsForModifierListQuery = itemsForModifierListQuery;
         this.itemsForItemOptionsQuery = itemsForItemOptionsQuery;
         this.itemVariationsForItemOptionValuesQuery = itemVariationsForItemOptionValuesQuery;
+        this.modifiersForChildListQuery = modifiersForChildListQuery;
         this.additionalProperties = additionalProperties;
     }
 
@@ -156,6 +160,14 @@ public final class CatalogQuery {
         return itemVariationsForItemOptionValuesQuery;
     }
 
+    /**
+     * @return A query expression to return <code>CatalogModifier</code> objects that nest the specified modifier lists (via <code>child_modifier_list_ids</code>)
+     */
+    @JsonProperty("modifiers_for_child_list_query")
+    public Optional<CatalogQueryModifiersForChildList> getModifiersForChildListQuery() {
+        return modifiersForChildListQuery;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -177,7 +189,8 @@ public final class CatalogQuery {
                 && itemsForTaxQuery.equals(other.itemsForTaxQuery)
                 && itemsForModifierListQuery.equals(other.itemsForModifierListQuery)
                 && itemsForItemOptionsQuery.equals(other.itemsForItemOptionsQuery)
-                && itemVariationsForItemOptionValuesQuery.equals(other.itemVariationsForItemOptionValuesQuery);
+                && itemVariationsForItemOptionValuesQuery.equals(other.itemVariationsForItemOptionValuesQuery)
+                && modifiersForChildListQuery.equals(other.modifiersForChildListQuery);
     }
 
     @java.lang.Override
@@ -192,7 +205,8 @@ public final class CatalogQuery {
                 this.itemsForTaxQuery,
                 this.itemsForModifierListQuery,
                 this.itemsForItemOptionsQuery,
-                this.itemVariationsForItemOptionValuesQuery);
+                this.itemVariationsForItemOptionValuesQuery,
+                this.modifiersForChildListQuery);
     }
 
     @java.lang.Override
@@ -227,6 +241,8 @@ public final class CatalogQuery {
         private Optional<CatalogQueryItemVariationsForItemOptionValues> itemVariationsForItemOptionValuesQuery =
                 Optional.empty();
 
+        private Optional<CatalogQueryModifiersForChildList> modifiersForChildListQuery = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -243,6 +259,7 @@ public final class CatalogQuery {
             itemsForModifierListQuery(other.getItemsForModifierListQuery());
             itemsForItemOptionsQuery(other.getItemsForItemOptionsQuery());
             itemVariationsForItemOptionValuesQuery(other.getItemVariationsForItemOptionValuesQuery());
+            modifiersForChildListQuery(other.getModifiersForChildListQuery());
             return this;
         }
 
@@ -397,6 +414,21 @@ public final class CatalogQuery {
             return this;
         }
 
+        /**
+         * <p>A query expression to return <code>CatalogModifier</code> objects that nest the specified modifier lists (via <code>child_modifier_list_ids</code>)</p>
+         */
+        @JsonSetter(value = "modifiers_for_child_list_query", nulls = Nulls.SKIP)
+        public Builder modifiersForChildListQuery(
+                Optional<CatalogQueryModifiersForChildList> modifiersForChildListQuery) {
+            this.modifiersForChildListQuery = modifiersForChildListQuery;
+            return this;
+        }
+
+        public Builder modifiersForChildListQuery(CatalogQueryModifiersForChildList modifiersForChildListQuery) {
+            this.modifiersForChildListQuery = Optional.ofNullable(modifiersForChildListQuery);
+            return this;
+        }
+
         public CatalogQuery build() {
             return new CatalogQuery(
                     sortedAttributeQuery,
@@ -409,6 +441,7 @@ public final class CatalogQuery {
                     itemsForModifierListQuery,
                     itemsForItemOptionsQuery,
                     itemVariationsForItemOptionValuesQuery,
+                    modifiersForChildListQuery,
                     additionalProperties);
         }
 

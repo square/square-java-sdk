@@ -31,6 +31,8 @@ public final class SearchCatalogObjectsResponse {
 
     private final Optional<String> latestTime;
 
+    private final Optional<IncludedResources> includedResources;
+
     private final Map<String, Object> additionalProperties;
 
     private SearchCatalogObjectsResponse(
@@ -39,12 +41,14 @@ public final class SearchCatalogObjectsResponse {
             Optional<List<CatalogObject>> objects,
             Optional<List<CatalogObject>> relatedObjects,
             Optional<String> latestTime,
+            Optional<IncludedResources> includedResources,
             Map<String, Object> additionalProperties) {
         this.errors = errors;
         this.cursor = cursor;
         this.objects = objects;
         this.relatedObjects = relatedObjects;
         this.latestTime = latestTime;
+        this.includedResources = includedResources;
         this.additionalProperties = additionalProperties;
     }
 
@@ -90,6 +94,14 @@ public final class SearchCatalogObjectsResponse {
         return latestTime;
     }
 
+    /**
+     * @return A list of <a href="entity:CatalogObject">CatalogObject</a>s referenced by the object in the <code>objects</code> field and specifically requested.
+     */
+    @JsonProperty("included_resources")
+    public Optional<IncludedResources> getIncludedResources() {
+        return includedResources;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -106,12 +118,14 @@ public final class SearchCatalogObjectsResponse {
                 && cursor.equals(other.cursor)
                 && objects.equals(other.objects)
                 && relatedObjects.equals(other.relatedObjects)
-                && latestTime.equals(other.latestTime);
+                && latestTime.equals(other.latestTime)
+                && includedResources.equals(other.includedResources);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.errors, this.cursor, this.objects, this.relatedObjects, this.latestTime);
+        return Objects.hash(
+                this.errors, this.cursor, this.objects, this.relatedObjects, this.latestTime, this.includedResources);
     }
 
     @java.lang.Override
@@ -135,6 +149,8 @@ public final class SearchCatalogObjectsResponse {
 
         private Optional<String> latestTime = Optional.empty();
 
+        private Optional<IncludedResources> includedResources = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -146,6 +162,7 @@ public final class SearchCatalogObjectsResponse {
             objects(other.getObjects());
             relatedObjects(other.getRelatedObjects());
             latestTime(other.getLatestTime());
+            includedResources(other.getIncludedResources());
             return this;
         }
 
@@ -221,9 +238,23 @@ public final class SearchCatalogObjectsResponse {
             return this;
         }
 
+        /**
+         * <p>A list of <a href="entity:CatalogObject">CatalogObject</a>s referenced by the object in the <code>objects</code> field and specifically requested.</p>
+         */
+        @JsonSetter(value = "included_resources", nulls = Nulls.SKIP)
+        public Builder includedResources(Optional<IncludedResources> includedResources) {
+            this.includedResources = includedResources;
+            return this;
+        }
+
+        public Builder includedResources(IncludedResources includedResources) {
+            this.includedResources = Optional.ofNullable(includedResources);
+            return this;
+        }
+
         public SearchCatalogObjectsResponse build() {
             return new SearchCatalogObjectsResponse(
-                    errors, cursor, objects, relatedObjects, latestTime, additionalProperties);
+                    errors, cursor, objects, relatedObjects, latestTime, includedResources, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

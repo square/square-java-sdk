@@ -37,6 +37,8 @@ public final class SearchCatalogObjectsRequest {
 
     private final Optional<Boolean> includeCategoryPathToRoot;
 
+    private final Optional<IncludeOptions> includeOptions;
+
     private final Map<String, Object> additionalProperties;
 
     private SearchCatalogObjectsRequest(
@@ -48,6 +50,7 @@ public final class SearchCatalogObjectsRequest {
             Optional<CatalogQuery> query,
             Optional<Integer> limit,
             Optional<Boolean> includeCategoryPathToRoot,
+            Optional<IncludeOptions> includeOptions,
             Map<String, Object> additionalProperties) {
         this.cursor = cursor;
         this.objectTypes = objectTypes;
@@ -57,6 +60,7 @@ public final class SearchCatalogObjectsRequest {
         this.query = query;
         this.limit = limit;
         this.includeCategoryPathToRoot = includeCategoryPathToRoot;
+        this.includeOptions = includeOptions;
         this.additionalProperties = additionalProperties;
     }
 
@@ -150,6 +154,14 @@ public final class SearchCatalogObjectsRequest {
         return includeCategoryPathToRoot;
     }
 
+    /**
+     * @return Options to include related resources in the response.
+     */
+    @JsonProperty("include_options")
+    public Optional<IncludeOptions> getIncludeOptions() {
+        return includeOptions;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -169,7 +181,8 @@ public final class SearchCatalogObjectsRequest {
                 && beginTime.equals(other.beginTime)
                 && query.equals(other.query)
                 && limit.equals(other.limit)
-                && includeCategoryPathToRoot.equals(other.includeCategoryPathToRoot);
+                && includeCategoryPathToRoot.equals(other.includeCategoryPathToRoot)
+                && includeOptions.equals(other.includeOptions);
     }
 
     @java.lang.Override
@@ -182,7 +195,8 @@ public final class SearchCatalogObjectsRequest {
                 this.beginTime,
                 this.query,
                 this.limit,
-                this.includeCategoryPathToRoot);
+                this.includeCategoryPathToRoot,
+                this.includeOptions);
     }
 
     @java.lang.Override
@@ -212,6 +226,8 @@ public final class SearchCatalogObjectsRequest {
 
         private Optional<Boolean> includeCategoryPathToRoot = Optional.empty();
 
+        private Optional<IncludeOptions> includeOptions = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -226,6 +242,7 @@ public final class SearchCatalogObjectsRequest {
             query(other.getQuery());
             limit(other.getLimit());
             includeCategoryPathToRoot(other.getIncludeCategoryPathToRoot());
+            includeOptions(other.getIncludeOptions());
             return this;
         }
 
@@ -367,6 +384,20 @@ public final class SearchCatalogObjectsRequest {
             return this;
         }
 
+        /**
+         * <p>Options to include related resources in the response.</p>
+         */
+        @JsonSetter(value = "include_options", nulls = Nulls.SKIP)
+        public Builder includeOptions(Optional<IncludeOptions> includeOptions) {
+            this.includeOptions = includeOptions;
+            return this;
+        }
+
+        public Builder includeOptions(IncludeOptions includeOptions) {
+            this.includeOptions = Optional.ofNullable(includeOptions);
+            return this;
+        }
+
         public SearchCatalogObjectsRequest build() {
             return new SearchCatalogObjectsRequest(
                     cursor,
@@ -377,6 +408,7 @@ public final class SearchCatalogObjectsRequest {
                     query,
                     limit,
                     includeCategoryPathToRoot,
+                    includeOptions,
                     additionalProperties);
         }
 

@@ -2390,6 +2390,14 @@ in the response payload.
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**includeOptions:** `Optional<IncludeOptions>` — Options to include related resources in the response.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -2879,6 +2887,14 @@ is higher than the maximum limit of 1,000, it will be ignored.
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**includeOptions:** `Optional<IncludeOptions>` — Options to include related resources in the response.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -3083,6 +3099,14 @@ a single call to the [SearchCatalogItems](api-endpoint:Catalog-SearchCatalogItem
 <dd>
 
 **archivedState:** `Optional<ArchivedState>` — The query filter to return not archived (`ARCHIVED_STATE_NOT_ARCHIVED`), archived (`ARCHIVED_STATE_ARCHIVED`), or either type (`ARCHIVED_STATE_ALL`) of items.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeOptions:** `Optional<IncludeOptions>` — Options to include related resources in the response.
     
 </dd>
 </dl>
@@ -11215,8 +11239,9 @@ how to sort or filter the results. Your `SearchOrdersQuery` can:
 
 Note that details for orders processed with Square Point of Sale while in
 offline mode might not be transmitted to Square for up to 72 hours. Offline
-orders have a `created_at` value that reflects the time the order was created,
-not the time it was subsequently transmitted to Square.
+orders have a `created_at` value that reflects the time the order was
+transmitted to Square and created server-side, not the time the order was
+created on the Point of Sale device.
 </dd>
 </dl>
 </dd>

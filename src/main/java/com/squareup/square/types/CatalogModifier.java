@@ -42,6 +42,8 @@ public final class CatalogModifier {
 
     private final Optional<Boolean> hiddenOnline;
 
+    private final Optional<List<String>> childModifierListIds;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogModifier(
@@ -54,6 +56,7 @@ public final class CatalogModifier {
             Optional<String> kitchenName,
             Optional<String> imageId,
             Optional<Boolean> hiddenOnline,
+            Optional<List<String>> childModifierListIds,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.priceMoney = priceMoney;
@@ -64,6 +67,7 @@ public final class CatalogModifier {
         this.kitchenName = kitchenName;
         this.imageId = imageId;
         this.hiddenOnline = hiddenOnline;
+        this.childModifierListIds = childModifierListIds;
         this.additionalProperties = additionalProperties;
     }
 
@@ -168,6 +172,23 @@ public final class CatalogModifier {
         return hiddenOnline;
     }
 
+    /**
+     * @return Child <code>CatalogModifierList</code>s that this <code>CatalogModifier</code> nests for multi-step choices.
+     * When a customer or staff member selects this modifier, the relevant follow-up modifier list appears.
+     * For example, selecting &quot;Hummus&quot; reveals a secondary &quot;Choose Hummus Flavor&quot; set, and selecting a flavor
+     * could reveal a third-level portion size set.
+     * <p>Each entry references a child modifier list. Each modifier can nest up to 5 child modifier list, and
+     * supports up to 3 levels of nesting depth. The order in <code>child_modifier_list_ids</code> determines display order
+     * during checkout.</p>
+     */
+    @JsonIgnore
+    public Optional<List<String>> getChildModifierListIds() {
+        if (childModifierListIds == null) {
+            return Optional.empty();
+        }
+        return childModifierListIds;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("name")
     private Optional<String> _getName() {
@@ -216,6 +237,12 @@ public final class CatalogModifier {
         return hiddenOnline;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("child_modifier_list_ids")
+    private Optional<List<String>> _getChildModifierListIds() {
+        return childModifierListIds;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -236,7 +263,8 @@ public final class CatalogModifier {
                 && locationOverrides.equals(other.locationOverrides)
                 && kitchenName.equals(other.kitchenName)
                 && imageId.equals(other.imageId)
-                && hiddenOnline.equals(other.hiddenOnline);
+                && hiddenOnline.equals(other.hiddenOnline)
+                && childModifierListIds.equals(other.childModifierListIds);
     }
 
     @java.lang.Override
@@ -250,7 +278,8 @@ public final class CatalogModifier {
                 this.locationOverrides,
                 this.kitchenName,
                 this.imageId,
-                this.hiddenOnline);
+                this.hiddenOnline,
+                this.childModifierListIds);
     }
 
     @java.lang.Override
@@ -282,6 +311,8 @@ public final class CatalogModifier {
 
         private Optional<Boolean> hiddenOnline = Optional.empty();
 
+        private Optional<List<String>> childModifierListIds = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -297,6 +328,7 @@ public final class CatalogModifier {
             kitchenName(other.getKitchenName());
             imageId(other.getImageId());
             hiddenOnline(other.getHiddenOnline());
+            childModifierListIds(other.getChildModifierListIds());
             return this;
         }
 
@@ -519,6 +551,37 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>Child <code>CatalogModifierList</code>s that this <code>CatalogModifier</code> nests for multi-step choices.
+         * When a customer or staff member selects this modifier, the relevant follow-up modifier list appears.
+         * For example, selecting &quot;Hummus&quot; reveals a secondary &quot;Choose Hummus Flavor&quot; set, and selecting a flavor
+         * could reveal a third-level portion size set.</p>
+         * <p>Each entry references a child modifier list. Each modifier can nest up to 5 child modifier list, and
+         * supports up to 3 levels of nesting depth. The order in <code>child_modifier_list_ids</code> determines display order
+         * during checkout.</p>
+         */
+        @JsonSetter(value = "child_modifier_list_ids", nulls = Nulls.SKIP)
+        public Builder childModifierListIds(Optional<List<String>> childModifierListIds) {
+            this.childModifierListIds = childModifierListIds;
+            return this;
+        }
+
+        public Builder childModifierListIds(List<String> childModifierListIds) {
+            this.childModifierListIds = Optional.ofNullable(childModifierListIds);
+            return this;
+        }
+
+        public Builder childModifierListIds(Nullable<List<String>> childModifierListIds) {
+            if (childModifierListIds.isNull()) {
+                this.childModifierListIds = null;
+            } else if (childModifierListIds.isEmpty()) {
+                this.childModifierListIds = Optional.empty();
+            } else {
+                this.childModifierListIds = Optional.of(childModifierListIds.get());
+            }
+            return this;
+        }
+
         public CatalogModifier build() {
             return new CatalogModifier(
                     name,
@@ -530,6 +593,7 @@ public final class CatalogModifier {
                     kitchenName,
                     imageId,
                     hiddenOnline,
+                    childModifierListIds,
                     additionalProperties);
         }
 
