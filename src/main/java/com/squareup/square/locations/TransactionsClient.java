@@ -5,14 +5,10 @@ package com.squareup.square.locations;
 
 import com.squareup.square.core.ClientOptions;
 import com.squareup.square.core.RequestOptions;
-import com.squareup.square.locations.types.CaptureTransactionsRequest;
 import com.squareup.square.locations.types.GetTransactionsRequest;
 import com.squareup.square.locations.types.ListTransactionsRequest;
-import com.squareup.square.locations.types.VoidTransactionsRequest;
-import com.squareup.square.types.CaptureTransactionResponse;
 import com.squareup.square.types.GetTransactionResponse;
 import com.squareup.square.types.ListTransactionsResponse;
-import com.squareup.square.types.VoidTransactionResponse;
 
 public class TransactionsClient {
     protected final ClientOptions clientOptions;
@@ -63,45 +59,5 @@ public class TransactionsClient {
      */
     public GetTransactionResponse get(GetTransactionsRequest request, RequestOptions requestOptions) {
         return this.rawClient.get(request, requestOptions).body();
-    }
-
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CaptureTransactionResponse capture(CaptureTransactionsRequest request) {
-        return this.rawClient.capture(request).body();
-    }
-
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CaptureTransactionResponse capture(CaptureTransactionsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.capture(request, requestOptions).body();
-    }
-
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public VoidTransactionResponse void_(VoidTransactionsRequest request) {
-        return this.rawClient.void_(request).body();
-    }
-
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public VoidTransactionResponse void_(VoidTransactionsRequest request, RequestOptions requestOptions) {
-        return this.rawClient.void_(request, requestOptions).body();
     }
 }

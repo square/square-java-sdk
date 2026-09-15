@@ -24,7 +24,6 @@ import com.squareup.square.types.GetInventoryAdjustmentResponse;
 import com.squareup.square.types.GetInventoryPhysicalCountResponse;
 import com.squareup.square.types.GetInventoryRequest;
 import com.squareup.square.types.GetPhysicalCountInventoryRequest;
-import com.squareup.square.types.GetTransferInventoryRequest;
 import com.squareup.square.types.InventoryChange;
 import com.squareup.square.types.InventoryCount;
 import com.squareup.square.types.ListInventoryAdjustmentReasonsRequest;
@@ -549,13 +548,5 @@ public class AsyncInventoryClient {
     public CompletableFuture<SyncPagingIterable<InventoryChange>> changes(
             ChangesInventoryRequest request, RequestOptions requestOptions) {
         return this.rawClient.changes(request, requestOptions).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<Void> getTransfer(GetTransferInventoryRequest request) {
-        return this.rawClient.getTransfer(request).thenApply(response -> response.body());
-    }
-
-    public CompletableFuture<Void> getTransfer(GetTransferInventoryRequest request, RequestOptions requestOptions) {
-        return this.rawClient.getTransfer(request, requestOptions).thenApply(response -> response.body());
     }
 }

@@ -20,7 +20,7 @@ public class AsyncSquareClientBuilder {
 
     private String token = System.getenv("SQUARE_TOKEN");
 
-    private String version = "2026-08-19";
+    private String version = "2026-09-16";
 
     private Environment environment = Environment.PRODUCTION;
 
