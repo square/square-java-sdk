@@ -33,7 +33,6 @@ import com.squareup.square.types.GetInventoryCountResponse;
 import com.squareup.square.types.GetInventoryPhysicalCountResponse;
 import com.squareup.square.types.GetInventoryRequest;
 import com.squareup.square.types.GetPhysicalCountInventoryRequest;
-import com.squareup.square.types.GetTransferInventoryRequest;
 import com.squareup.square.types.InventoryChange;
 import com.squareup.square.types.InventoryCount;
 import com.squareup.square.types.ListInventoryAdjustmentReasonsRequest;
@@ -1319,44 +1318,6 @@ public class RawInventoryClient {
                                         .body()),
                         response);
             }
-            Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
-            throw new SquareApiException(
-                    "Error with status code " + response.code(), response.code(), errorBody, response);
-        } catch (IOException e) {
-            throw new SquareException("Network error executing HTTP request", e);
-        }
-    }
-
-    public SquareClientHttpResponse<Void> getTransfer(GetTransferInventoryRequest request) {
-        return getTransfer(request, null);
-    }
-
-    public SquareClientHttpResponse<Void> getTransfer(
-            GetTransferInventoryRequest request, RequestOptions requestOptions) {
-        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
-                .newBuilder()
-                .addPathSegments("v2/inventory/transfers")
-                .addPathSegment(request.getTransferId());
-        if (requestOptions != null) {
-            requestOptions.getQueryParameters().forEach((_key, _value) -> {
-                httpUrl.addQueryParameter(_key, _value);
-            });
-        }
-        Request.Builder _requestBuilder = new Request.Builder()
-                .url(httpUrl.build())
-                .method("GET", null)
-                .headers(Headers.of(clientOptions.headers(requestOptions)));
-        Request okhttpRequest = _requestBuilder.build();
-        OkHttpClient client = clientOptions.httpClient();
-        if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-            client = clientOptions.httpClientWithTimeout(requestOptions);
-        }
-        try (Response response = client.newCall(okhttpRequest).execute()) {
-            ResponseBody responseBody = response.body();
-            if (response.isSuccessful()) {
-                return new SquareClientHttpResponse<>(null, response);
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);
