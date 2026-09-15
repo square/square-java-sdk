@@ -32,17 +32,11 @@ public final class CaptureTransactionsRequest {
         this.additionalProperties = additionalProperties;
     }
 
-    /**
-     * @return
-     */
     @JsonProperty("location_id")
     public String getLocationId() {
         return locationId;
     }
 
-    /**
-     * @return
-     */
     @JsonProperty("transaction_id")
     public String getTransactionId() {
         return transactionId;
@@ -113,9 +107,6 @@ public final class CaptureTransactionsRequest {
             return this;
         }
 
-        /**
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
         @java.lang.Override
         @JsonSetter("location_id")
         public TransactionIdStage locationId(@NotNull String locationId) {
@@ -123,9 +114,6 @@ public final class CaptureTransactionsRequest {
             return this;
         }
 
-        /**
-         * @return Reference to {@code this} so that method calls can be chained together.
-         */
         @java.lang.Override
         @JsonSetter("transaction_id")
         public _FinalStage transactionId(@NotNull String transactionId) {

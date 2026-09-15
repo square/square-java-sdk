@@ -24816,28 +24816,9 @@ client.locations().transactions().get(
 </dl>
 </details>
 
-<details><summary><code>client.locations.transactions.capture(locationId, transactionId) -> CaptureTransactionResponse</code></summary>
+<details><summary><code>client.locations.transactions.capture(locationId, transactionId)</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Captures a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
-endpoint with a `delay_capture` value of `true`.
-
-
-See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
-for more information.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -24869,7 +24850,7 @@ client.locations().transactions().capture(
 <dl>
 <dd>
 
-**locationId:** `String` — 
+**locationId:** `String` 
     
 </dd>
 </dl>
@@ -24877,7 +24858,7 @@ client.locations().transactions().capture(
 <dl>
 <dd>
 
-**transactionId:** `String` — 
+**transactionId:** `String` 
     
 </dd>
 </dl>
@@ -24889,28 +24870,9 @@ client.locations().transactions().capture(
 </dl>
 </details>
 
-<details><summary><code>client.locations.transactions.void_(locationId, transactionId) -> VoidTransactionResponse</code></summary>
+<details><summary><code>client.locations.transactions.void_(locationId, transactionId)</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancels a transaction that was created with the [Charge](api-endpoint:Transactions-Charge)
-endpoint with a `delay_capture` value of `true`.
-
-
-See [Delayed capture transactions](https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture)
-for more information.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -24942,7 +24904,7 @@ client.locations().transactions().void_(
 <dl>
 <dd>
 
-**locationId:** `String` — 
+**locationId:** `String` 
     
 </dd>
 </dl>
@@ -24950,7 +24912,7 @@ client.locations().transactions().void_(
 <dl>
 <dd>
 
-**transactionId:** `String` — 
+**transactionId:** `String` 
     
 </dd>
 </dl>

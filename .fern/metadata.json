@@ -13,6 +13,6 @@
     "enable-forward-compatible-enums": true,
     "publish-to": "central"
   },
-  "originGitCommit": "b05364cda2b85e35d8daa9ff2c24bbabbbd9652a",
-  "sdkVersion": "47.1.0.20260819"
+  "originGitCommit": "37b3f34f979590cc8d882c9ab2fe92748bfb0556",
+  "sdkVersion": "48.0.0.20260916"
 }

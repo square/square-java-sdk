@@ -14,10 +14,8 @@ import com.squareup.square.locations.types.CaptureTransactionsRequest;
 import com.squareup.square.locations.types.GetTransactionsRequest;
 import com.squareup.square.locations.types.ListTransactionsRequest;
 import com.squareup.square.locations.types.VoidTransactionsRequest;
-import com.squareup.square.types.CaptureTransactionResponse;
 import com.squareup.square.types.GetTransactionResponse;
 import com.squareup.square.types.ListTransactionsResponse;
-import com.squareup.square.types.VoidTransactionResponse;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -153,24 +151,11 @@ public class RawTransactionsClient {
         }
     }
 
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public SquareClientHttpResponse<CaptureTransactionResponse> capture(CaptureTransactionsRequest request) {
+    public SquareClientHttpResponse<Void> capture(CaptureTransactionsRequest request) {
         return capture(request, null);
     }
 
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public SquareClientHttpResponse<CaptureTransactionResponse> capture(
-            CaptureTransactionsRequest request, RequestOptions requestOptions) {
+    public SquareClientHttpResponse<Void> capture(CaptureTransactionsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/locations")
@@ -186,8 +171,7 @@ public class RawTransactionsClient {
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
+                .headers(Headers.of(clientOptions.headers(requestOptions)));
         Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -195,12 +179,10 @@ public class RawTransactionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
-                return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, CaptureTransactionResponse.class),
-                        response);
+                return new SquareClientHttpResponse<>(null, response);
             }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);
@@ -209,24 +191,11 @@ public class RawTransactionsClient {
         }
     }
 
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public SquareClientHttpResponse<VoidTransactionResponse> void_(VoidTransactionsRequest request) {
+    public SquareClientHttpResponse<Void> void_(VoidTransactionsRequest request) {
         return void_(request, null);
     }
 
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public SquareClientHttpResponse<VoidTransactionResponse> void_(
-            VoidTransactionsRequest request, RequestOptions requestOptions) {
+    public SquareClientHttpResponse<Void> void_(VoidTransactionsRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("v2/locations")
@@ -242,8 +211,7 @@ public class RawTransactionsClient {
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
                 .method("POST", RequestBody.create("", null))
-                .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Accept", "application/json");
+                .headers(Headers.of(clientOptions.headers(requestOptions)));
         Request okhttpRequest = _requestBuilder.build();
         OkHttpClient client = clientOptions.httpClient();
         if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -251,12 +219,10 @@ public class RawTransactionsClient {
         }
         try (Response response = client.newCall(okhttpRequest).execute()) {
             ResponseBody responseBody = response.body();
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             if (response.isSuccessful()) {
-                return new SquareClientHttpResponse<>(
-                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, VoidTransactionResponse.class),
-                        response);
+                return new SquareClientHttpResponse<>(null, response);
             }
+            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
                     "Error with status code " + response.code(), response.code(), errorBody, response);

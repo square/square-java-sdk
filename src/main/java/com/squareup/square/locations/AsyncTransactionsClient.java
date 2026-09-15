@@ -9,10 +9,8 @@ import com.squareup.square.locations.types.CaptureTransactionsRequest;
 import com.squareup.square.locations.types.GetTransactionsRequest;
 import com.squareup.square.locations.types.ListTransactionsRequest;
 import com.squareup.square.locations.types.VoidTransactionsRequest;
-import com.squareup.square.types.CaptureTransactionResponse;
 import com.squareup.square.types.GetTransactionResponse;
 import com.squareup.square.types.ListTransactionsResponse;
-import com.squareup.square.types.VoidTransactionResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncTransactionsClient {
@@ -68,45 +66,19 @@ public class AsyncTransactionsClient {
         return this.rawClient.get(request, requestOptions).thenApply(response -> response.body());
     }
 
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CompletableFuture<CaptureTransactionResponse> capture(CaptureTransactionsRequest request) {
+    public CompletableFuture<Void> capture(CaptureTransactionsRequest request) {
         return this.rawClient.capture(request).thenApply(response -> response.body());
     }
 
-    /**
-     * Captures a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CompletableFuture<CaptureTransactionResponse> capture(
-            CaptureTransactionsRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<Void> capture(CaptureTransactionsRequest request, RequestOptions requestOptions) {
         return this.rawClient.capture(request, requestOptions).thenApply(response -> response.body());
     }
 
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CompletableFuture<VoidTransactionResponse> void_(VoidTransactionsRequest request) {
+    public CompletableFuture<Void> void_(VoidTransactionsRequest request) {
         return this.rawClient.void_(request).thenApply(response -> response.body());
     }
 
-    /**
-     * Cancels a transaction that was created with the <a href="api-endpoint:Transactions-Charge">Charge</a>
-     * endpoint with a <code>delay_capture</code> value of <code>true</code>.
-     * <p>See <a href="https://developer.squareup.com/docs/payments/transactions/overview#delayed-capture">Delayed capture transactions</a>
-     * for more information.</p>
-     */
-    public CompletableFuture<VoidTransactionResponse> void_(
-            VoidTransactionsRequest request, RequestOptions requestOptions) {
+    public CompletableFuture<Void> void_(VoidTransactionsRequest request, RequestOptions requestOptions) {
         return this.rawClient.void_(request, requestOptions).thenApply(response -> response.body());
     }
 }
