@@ -31,6 +31,8 @@ public final class AcceptedPaymentMethods {
 
     private final Optional<Boolean> afterpayClearpay;
 
+    private final Optional<Boolean> bankAccount;
+
     private final Map<String, Object> additionalProperties;
 
     private AcceptedPaymentMethods(
@@ -38,11 +40,13 @@ public final class AcceptedPaymentMethods {
             Optional<Boolean> googlePay,
             Optional<Boolean> cashAppPay,
             Optional<Boolean> afterpayClearpay,
+            Optional<Boolean> bankAccount,
             Map<String, Object> additionalProperties) {
         this.applePay = applePay;
         this.googlePay = googlePay;
         this.cashAppPay = cashAppPay;
         this.afterpayClearpay = afterpayClearpay;
+        this.bankAccount = bankAccount;
         this.additionalProperties = additionalProperties;
     }
 
@@ -90,6 +94,23 @@ public final class AcceptedPaymentMethods {
         return afterpayClearpay;
     }
 
+    /**
+     * @return Whether ACH bank transfer payments are accepted at checkout.
+     * When enabled, buyers can pay directly from their bank account via Plaid.
+     * This payment method is supported only for seller locations in the United States.
+     * When omitted from CreatePaymentLink, ACH is enabled for eligible one-time USD
+     * payments unless the seller has disabled ACH in their merchant settings.
+     * Set this field to false to disable ACH for the link. Existing links retain
+     * their saved setting when this field is omitted from an update.
+     */
+    @JsonIgnore
+    public Optional<Boolean> getBankAccount() {
+        if (bankAccount == null) {
+            return Optional.empty();
+        }
+        return bankAccount;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("apple_pay")
     private Optional<Boolean> _getApplePay() {
@@ -114,6 +135,12 @@ public final class AcceptedPaymentMethods {
         return afterpayClearpay;
     }
 
+    @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
+    @JsonProperty("bank_account")
+    private Optional<Boolean> _getBankAccount() {
+        return bankAccount;
+    }
+
     @java.lang.Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -129,12 +156,13 @@ public final class AcceptedPaymentMethods {
         return applePay.equals(other.applePay)
                 && googlePay.equals(other.googlePay)
                 && cashAppPay.equals(other.cashAppPay)
-                && afterpayClearpay.equals(other.afterpayClearpay);
+                && afterpayClearpay.equals(other.afterpayClearpay)
+                && bankAccount.equals(other.bankAccount);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.applePay, this.googlePay, this.cashAppPay, this.afterpayClearpay);
+        return Objects.hash(this.applePay, this.googlePay, this.cashAppPay, this.afterpayClearpay, this.bankAccount);
     }
 
     @java.lang.Override
@@ -156,6 +184,8 @@ public final class AcceptedPaymentMethods {
 
         private Optional<Boolean> afterpayClearpay = Optional.empty();
 
+        private Optional<Boolean> bankAccount = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -166,6 +196,7 @@ public final class AcceptedPaymentMethods {
             googlePay(other.getGooglePay());
             cashAppPay(other.getCashAppPay());
             afterpayClearpay(other.getAfterpayClearpay());
+            bankAccount(other.getBankAccount());
             return this;
         }
 
@@ -269,8 +300,40 @@ public final class AcceptedPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Whether ACH bank transfer payments are accepted at checkout.
+         * When enabled, buyers can pay directly from their bank account via Plaid.
+         * This payment method is supported only for seller locations in the United States.
+         * When omitted from CreatePaymentLink, ACH is enabled for eligible one-time USD
+         * payments unless the seller has disabled ACH in their merchant settings.
+         * Set this field to false to disable ACH for the link. Existing links retain
+         * their saved setting when this field is omitted from an update.</p>
+         */
+        @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
+        public Builder bankAccount(Optional<Boolean> bankAccount) {
+            this.bankAccount = bankAccount;
+            return this;
+        }
+
+        public Builder bankAccount(Boolean bankAccount) {
+            this.bankAccount = Optional.ofNullable(bankAccount);
+            return this;
+        }
+
+        public Builder bankAccount(Nullable<Boolean> bankAccount) {
+            if (bankAccount.isNull()) {
+                this.bankAccount = null;
+            } else if (bankAccount.isEmpty()) {
+                this.bankAccount = Optional.empty();
+            } else {
+                this.bankAccount = Optional.of(bankAccount.get());
+            }
+            return this;
+        }
+
         public AcceptedPaymentMethods build() {
-            return new AcceptedPaymentMethods(applePay, googlePay, cashAppPay, afterpayClearpay, additionalProperties);
+            return new AcceptedPaymentMethods(
+                    applePay, googlePay, cashAppPay, afterpayClearpay, bankAccount, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {

@@ -2473,10 +2473,9 @@ client.catalog().batchUpsert(
                                     .id("id")
                                     .build()
                             ),
-                            CatalogObject.item(
-                                CatalogObjectItem
+                            CatalogObject.category(
+                                CatalogObjectCategory
                                     .builder()
-                                    .id("id")
                                     .build()
                             ),
                             CatalogObject.tax(
@@ -19593,7 +19592,7 @@ For more information, see [Prepopulate the shipping address](https://developer.s
 <dl>
 <dd>
 
-**paymentNote:** `Optional<String>` — A note for the payment. After processing the payment, Square adds this note to the resulting `Payment`.
+**paymentNote:** `Optional<String>` — A note for the payment. After processing the payment, Square adds this note to the resulting `Payment` as well as the post payment confirmation email.
     
 </dd>
 </dl>

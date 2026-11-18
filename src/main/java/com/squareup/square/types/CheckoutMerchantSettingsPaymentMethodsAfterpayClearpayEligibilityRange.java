@@ -32,11 +32,17 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibi
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return The lower bound of the range.
+     */
     @JsonProperty("min")
     public Money getMin() {
         return min;
     }
 
+    /**
+     * @return The upper bound of the range.
+     */
     @JsonProperty("max")
     public Money getMax() {
         return max;
@@ -73,12 +79,18 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibi
     }
 
     public interface MinStage {
+        /**
+         * <p>The lower bound of the range.</p>
+         */
         MaxStage min(@NotNull Money min);
 
         Builder from(CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibilityRange other);
     }
 
     public interface MaxStage {
+        /**
+         * <p>The upper bound of the range.</p>
+         */
         _FinalStage max(@NotNull Money max);
     }
 
@@ -108,6 +120,11 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibi
             return this;
         }
 
+        /**
+         * <p>The lower bound of the range.</p>
+         * <p>The lower bound of the range.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("min")
         public MaxStage min(@NotNull Money min) {
@@ -115,6 +132,11 @@ public final class CheckoutMerchantSettingsPaymentMethodsAfterpayClearpayEligibi
             return this;
         }
 
+        /**
+         * <p>The upper bound of the range.</p>
+         * <p>The upper bound of the range.</p>
+         * @return Reference to {@code this} so that method calls can be chained together.
+         */
         @java.lang.Override
         @JsonSetter("max")
         public _FinalStage max(@NotNull Money max) {

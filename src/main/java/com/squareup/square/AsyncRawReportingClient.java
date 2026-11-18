@@ -11,9 +11,12 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.errors.ClientRequestError;
+import com.squareup.square.errors.ServerError;
 import com.squareup.square.types.LoadRequest;
 import com.squareup.square.types.LoadResponse;
 import com.squareup.square.types.MetadataResponse;
+import com.squareup.square.types.ReportingError;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
@@ -74,6 +77,22 @@ public class AsyncRawReportingClient {
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, MetadataResponse.class),
                                 response));
                         return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new ClientRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                        response));
+                                return;
+                            case 500:
+                                future.completeExceptionally(new ServerError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
                     }
                     Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
                     future.completeExceptionally(new SquareApiException(
@@ -154,6 +173,22 @@ public class AsyncRawReportingClient {
                         future.complete(new SquareClientHttpResponse<>(
                                 ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LoadResponse.class), response));
                         return;
+                    }
+                    try {
+                        switch (response.code()) {
+                            case 400:
+                                future.completeExceptionally(new ClientRequestError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                        response));
+                                return;
+                            case 500:
+                                future.completeExceptionally(new ServerError(
+                                        ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                        response));
+                                return;
+                        }
+                    } catch (JsonProcessingException ignored) {
+                        // unable to map error response, throwing generic error
                     }
                     Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
                     future.completeExceptionally(new SquareApiException(

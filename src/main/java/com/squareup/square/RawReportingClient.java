@@ -11,9 +11,12 @@ import com.squareup.square.core.RequestOptions;
 import com.squareup.square.core.SquareApiException;
 import com.squareup.square.core.SquareClientHttpResponse;
 import com.squareup.square.core.SquareException;
+import com.squareup.square.errors.ClientRequestError;
+import com.squareup.square.errors.ServerError;
 import com.squareup.square.types.LoadRequest;
 import com.squareup.square.types.LoadResponse;
 import com.squareup.square.types.MetadataResponse;
+import com.squareup.square.types.ReportingError;
 import java.io.IOException;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -65,6 +68,20 @@ public class RawReportingClient {
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, MetadataResponse.class), response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new ClientRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                response);
+                    case 500:
+                        throw new ServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(
@@ -131,6 +148,20 @@ public class RawReportingClient {
             if (response.isSuccessful()) {
                 return new SquareClientHttpResponse<>(
                         ObjectMappers.JSON_MAPPER.readValue(responseBodyString, LoadResponse.class), response);
+            }
+            try {
+                switch (response.code()) {
+                    case 400:
+                        throw new ClientRequestError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                response);
+                    case 500:
+                        throw new ServerError(
+                                ObjectMappers.JSON_MAPPER.readValue(responseBodyString, ReportingError.class),
+                                response);
+                }
+            } catch (JsonProcessingException ignored) {
+                // unable to map error response, throwing generic error
             }
             Object errorBody = ObjectMappers.parseErrorBody(responseBodyString);
             throw new SquareApiException(

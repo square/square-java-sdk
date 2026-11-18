@@ -40,6 +40,9 @@ public final class DeletePaymentLinkResponse {
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Any errors that occurred during the request.
+     */
     @JsonProperty("errors")
     public Optional<List<Error>> getErrors() {
         return errors;
@@ -111,6 +114,9 @@ public final class DeletePaymentLinkResponse {
             return this;
         }
 
+        /**
+         * <p>Any errors that occurred during the request.</p>
+         */
         @JsonSetter(value = "errors", nulls = Nulls.SKIP)
         public Builder errors(Optional<List<Error>> errors) {
             this.errors = errors;

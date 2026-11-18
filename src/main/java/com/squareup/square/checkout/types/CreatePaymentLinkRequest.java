@@ -119,7 +119,7 @@ public final class CreatePaymentLinkRequest {
     }
 
     /**
-     * @return A note for the payment. After processing the payment, Square adds this note to the resulting <code>Payment</code>.
+     * @return A note for the payment. After processing the payment, Square adds this note to the resulting <code>Payment</code> as well as the post payment confirmation email.
      */
     @JsonProperty("payment_note")
     public Optional<String> getPaymentNote() {
@@ -296,7 +296,7 @@ public final class CreatePaymentLinkRequest {
         }
 
         /**
-         * <p>A note for the payment. After processing the payment, Square adds this note to the resulting <code>Payment</code>.</p>
+         * <p>A note for the payment. After processing the payment, Square adds this note to the resulting <code>Payment</code> as well as the post payment confirmation email.</p>
          */
         @JsonSetter(value = "payment_note", nulls = Nulls.SKIP)
         public Builder paymentNote(Optional<String> paymentNote) {

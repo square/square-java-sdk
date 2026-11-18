@@ -46,6 +46,8 @@ public final class CheckoutOptions {
 
     private final Optional<Boolean> enableLoyalty;
 
+    private final Optional<CheckoutOptionsPhoneCollection> phoneCollection;
+
     private final Map<String, Object> additionalProperties;
 
     private CheckoutOptions(
@@ -60,6 +62,7 @@ public final class CheckoutOptions {
             Optional<ShippingFee> shippingFee,
             Optional<Boolean> enableCoupon,
             Optional<Boolean> enableLoyalty,
+            Optional<CheckoutOptionsPhoneCollection> phoneCollection,
             Map<String, Object> additionalProperties) {
         this.allowTipping = allowTipping;
         this.customFields = customFields;
@@ -72,6 +75,7 @@ public final class CheckoutOptions {
         this.shippingFee = shippingFee;
         this.enableCoupon = enableCoupon;
         this.enableLoyalty = enableLoyalty;
+        this.phoneCollection = phoneCollection;
         this.additionalProperties = additionalProperties;
     }
 
@@ -192,6 +196,18 @@ public final class CheckoutOptions {
         return enableLoyalty;
     }
 
+    /**
+     * @return Indicates how the buyer's phone number is collected on the checkout page.
+     * When <code>REQUIRED</code> (default), the buyer must provide a phone number to complete checkout.
+     * When <code>OPTIONAL</code>, the phone field is shown but not required. When <code>HIDDEN</code>, the field
+     * is not shown. Leaving this field unset preserves the historical behavior (<code>REQUIRED</code>).
+     * See <a href="#type-phonecollection">PhoneCollection</a> for possible values
+     */
+    @JsonProperty("phone_collection")
+    public Optional<CheckoutOptionsPhoneCollection> getPhoneCollection() {
+        return phoneCollection;
+    }
+
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
     @JsonProperty("allow_tipping")
     private Optional<Boolean> _getAllowTipping() {
@@ -262,7 +278,8 @@ public final class CheckoutOptions {
                 && appFeeMoney.equals(other.appFeeMoney)
                 && shippingFee.equals(other.shippingFee)
                 && enableCoupon.equals(other.enableCoupon)
-                && enableLoyalty.equals(other.enableLoyalty);
+                && enableLoyalty.equals(other.enableLoyalty)
+                && phoneCollection.equals(other.phoneCollection);
     }
 
     @java.lang.Override
@@ -278,7 +295,8 @@ public final class CheckoutOptions {
                 this.appFeeMoney,
                 this.shippingFee,
                 this.enableCoupon,
-                this.enableLoyalty);
+                this.enableLoyalty,
+                this.phoneCollection);
     }
 
     @java.lang.Override
@@ -314,6 +332,8 @@ public final class CheckoutOptions {
 
         private Optional<Boolean> enableLoyalty = Optional.empty();
 
+        private Optional<CheckoutOptionsPhoneCollection> phoneCollection = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -331,6 +351,7 @@ public final class CheckoutOptions {
             shippingFee(other.getShippingFee());
             enableCoupon(other.getEnableCoupon());
             enableLoyalty(other.getEnableLoyalty());
+            phoneCollection(other.getPhoneCollection());
             return this;
         }
 
@@ -581,6 +602,24 @@ public final class CheckoutOptions {
             return this;
         }
 
+        /**
+         * <p>Indicates how the buyer's phone number is collected on the checkout page.
+         * When <code>REQUIRED</code> (default), the buyer must provide a phone number to complete checkout.
+         * When <code>OPTIONAL</code>, the phone field is shown but not required. When <code>HIDDEN</code>, the field
+         * is not shown. Leaving this field unset preserves the historical behavior (<code>REQUIRED</code>).
+         * See <a href="#type-phonecollection">PhoneCollection</a> for possible values</p>
+         */
+        @JsonSetter(value = "phone_collection", nulls = Nulls.SKIP)
+        public Builder phoneCollection(Optional<CheckoutOptionsPhoneCollection> phoneCollection) {
+            this.phoneCollection = phoneCollection;
+            return this;
+        }
+
+        public Builder phoneCollection(CheckoutOptionsPhoneCollection phoneCollection) {
+            this.phoneCollection = Optional.ofNullable(phoneCollection);
+            return this;
+        }
+
         public CheckoutOptions build() {
             return new CheckoutOptions(
                     allowTipping,
@@ -594,6 +633,7 @@ public final class CheckoutOptions {
                     shippingFee,
                     enableCoupon,
                     enableLoyalty,
+                    phoneCollection,
                     additionalProperties);
         }
 
