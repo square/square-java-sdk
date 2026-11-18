@@ -44,6 +44,8 @@ public final class CatalogModifier {
 
     private final Optional<List<String>> childModifierListIds;
 
+    private final Optional<CatalogModifierColor> kitchenColor;
+
     private final Map<String, Object> additionalProperties;
 
     private CatalogModifier(
@@ -57,6 +59,7 @@ public final class CatalogModifier {
             Optional<String> imageId,
             Optional<Boolean> hiddenOnline,
             Optional<List<String>> childModifierListIds,
+            Optional<CatalogModifierColor> kitchenColor,
             Map<String, Object> additionalProperties) {
         this.name = name;
         this.priceMoney = priceMoney;
@@ -68,6 +71,7 @@ public final class CatalogModifier {
         this.imageId = imageId;
         this.hiddenOnline = hiddenOnline;
         this.childModifierListIds = childModifierListIds;
+        this.kitchenColor = kitchenColor;
         this.additionalProperties = additionalProperties;
     }
 
@@ -177,7 +181,7 @@ public final class CatalogModifier {
      * When a customer or staff member selects this modifier, the relevant follow-up modifier list appears.
      * For example, selecting &quot;Hummus&quot; reveals a secondary &quot;Choose Hummus Flavor&quot; set, and selecting a flavor
      * could reveal a third-level portion size set.
-     * <p>Each entry references a child modifier list. Each modifier can nest up to 5 child modifier list, and
+     * <p>Each entry references a child modifier list. Each modifier can nest up to 15 child modifier lists, and
      * supports up to 3 levels of nesting depth. The order in <code>child_modifier_list_ids</code> determines display order
      * during checkout.</p>
      */
@@ -187,6 +191,15 @@ public final class CatalogModifier {
             return Optional.empty();
         }
         return childModifierListIds;
+    }
+
+    /**
+     * @return The text color for this modifier on Kitchen Display System (KDS) tickets. Kitchen staff use the color to identify important modifiers quickly.
+     * See <a href="#type-catalogmodifiercolor">CatalogModifierColor</a> for possible values
+     */
+    @JsonProperty("kitchen_color")
+    public Optional<CatalogModifierColor> getKitchenColor() {
+        return kitchenColor;
     }
 
     @JsonInclude(value = JsonInclude.Include.CUSTOM, valueFilter = NullableNonemptyFilter.class)
@@ -264,7 +277,8 @@ public final class CatalogModifier {
                 && kitchenName.equals(other.kitchenName)
                 && imageId.equals(other.imageId)
                 && hiddenOnline.equals(other.hiddenOnline)
-                && childModifierListIds.equals(other.childModifierListIds);
+                && childModifierListIds.equals(other.childModifierListIds)
+                && kitchenColor.equals(other.kitchenColor);
     }
 
     @java.lang.Override
@@ -279,7 +293,8 @@ public final class CatalogModifier {
                 this.kitchenName,
                 this.imageId,
                 this.hiddenOnline,
-                this.childModifierListIds);
+                this.childModifierListIds,
+                this.kitchenColor);
     }
 
     @java.lang.Override
@@ -313,6 +328,8 @@ public final class CatalogModifier {
 
         private Optional<List<String>> childModifierListIds = Optional.empty();
 
+        private Optional<CatalogModifierColor> kitchenColor = Optional.empty();
+
         @JsonAnySetter
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -329,6 +346,7 @@ public final class CatalogModifier {
             imageId(other.getImageId());
             hiddenOnline(other.getHiddenOnline());
             childModifierListIds(other.getChildModifierListIds());
+            kitchenColor(other.getKitchenColor());
             return this;
         }
 
@@ -556,7 +574,7 @@ public final class CatalogModifier {
          * When a customer or staff member selects this modifier, the relevant follow-up modifier list appears.
          * For example, selecting &quot;Hummus&quot; reveals a secondary &quot;Choose Hummus Flavor&quot; set, and selecting a flavor
          * could reveal a third-level portion size set.</p>
-         * <p>Each entry references a child modifier list. Each modifier can nest up to 5 child modifier list, and
+         * <p>Each entry references a child modifier list. Each modifier can nest up to 15 child modifier lists, and
          * supports up to 3 levels of nesting depth. The order in <code>child_modifier_list_ids</code> determines display order
          * during checkout.</p>
          */
@@ -582,6 +600,21 @@ public final class CatalogModifier {
             return this;
         }
 
+        /**
+         * <p>The text color for this modifier on Kitchen Display System (KDS) tickets. Kitchen staff use the color to identify important modifiers quickly.
+         * See <a href="#type-catalogmodifiercolor">CatalogModifierColor</a> for possible values</p>
+         */
+        @JsonSetter(value = "kitchen_color", nulls = Nulls.SKIP)
+        public Builder kitchenColor(Optional<CatalogModifierColor> kitchenColor) {
+            this.kitchenColor = kitchenColor;
+            return this;
+        }
+
+        public Builder kitchenColor(CatalogModifierColor kitchenColor) {
+            this.kitchenColor = Optional.ofNullable(kitchenColor);
+            return this;
+        }
+
         public CatalogModifier build() {
             return new CatalogModifier(
                     name,
@@ -594,6 +627,7 @@ public final class CatalogModifier {
                     imageId,
                     hiddenOnline,
                     childModifierListIds,
+                    kitchenColor,
                     additionalProperties);
         }
 

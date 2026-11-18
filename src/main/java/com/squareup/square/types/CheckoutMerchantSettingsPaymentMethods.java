@@ -26,6 +26,8 @@ public final class CheckoutMerchantSettingsPaymentMethods {
 
     private final Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> cashApp;
 
+    private final Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> bankAccount;
+
     private final Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay> afterpayClearpay;
 
     private final Map<String, Object> additionalProperties;
@@ -34,30 +36,53 @@ public final class CheckoutMerchantSettingsPaymentMethods {
             Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> applePay,
             Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> googlePay,
             Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> cashApp,
+            Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> bankAccount,
             Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay> afterpayClearpay,
             Map<String, Object> additionalProperties) {
         this.applePay = applePay;
         this.googlePay = googlePay;
         this.cashApp = cashApp;
+        this.bankAccount = bankAccount;
         this.afterpayClearpay = afterpayClearpay;
         this.additionalProperties = additionalProperties;
     }
 
+    /**
+     * @return Apple Pay.
+     */
     @JsonProperty("apple_pay")
     public Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> getApplePay() {
         return applePay;
     }
 
+    /**
+     * @return Google Pay.
+     */
     @JsonProperty("google_pay")
     public Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> getGooglePay() {
         return googlePay;
     }
 
+    /**
+     * @return Cash App Pay.
+     */
     @JsonProperty("cash_app")
     public Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> getCashApp() {
         return cashApp;
     }
 
+    /**
+     * @return Bank account (ACH). Enabled by default for eligible sellers who have
+     * not saved an ACH preference. A saved enabled or disabled choice takes precedence.
+     */
+    @JsonProperty("bank_account")
+    public Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> getBankAccount() {
+        return bankAccount;
+    }
+
+    /**
+     * @return Afterpay/Clearpay.
+     */
     @JsonProperty("afterpay_clearpay")
     public Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay> getAfterpayClearpay() {
         return afterpayClearpay;
@@ -79,12 +104,13 @@ public final class CheckoutMerchantSettingsPaymentMethods {
         return applePay.equals(other.applePay)
                 && googlePay.equals(other.googlePay)
                 && cashApp.equals(other.cashApp)
+                && bankAccount.equals(other.bankAccount)
                 && afterpayClearpay.equals(other.afterpayClearpay);
     }
 
     @java.lang.Override
     public int hashCode() {
-        return Objects.hash(this.applePay, this.googlePay, this.cashApp, this.afterpayClearpay);
+        return Objects.hash(this.applePay, this.googlePay, this.cashApp, this.bankAccount, this.afterpayClearpay);
     }
 
     @java.lang.Override
@@ -104,6 +130,8 @@ public final class CheckoutMerchantSettingsPaymentMethods {
 
         private Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> cashApp = Optional.empty();
 
+        private Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> bankAccount = Optional.empty();
+
         private Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay> afterpayClearpay = Optional.empty();
 
         @JsonAnySetter
@@ -115,10 +143,14 @@ public final class CheckoutMerchantSettingsPaymentMethods {
             applePay(other.getApplePay());
             googlePay(other.getGooglePay());
             cashApp(other.getCashApp());
+            bankAccount(other.getBankAccount());
             afterpayClearpay(other.getAfterpayClearpay());
             return this;
         }
 
+        /**
+         * <p>Apple Pay.</p>
+         */
         @JsonSetter(value = "apple_pay", nulls = Nulls.SKIP)
         public Builder applePay(Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> applePay) {
             this.applePay = applePay;
@@ -130,6 +162,9 @@ public final class CheckoutMerchantSettingsPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Google Pay.</p>
+         */
         @JsonSetter(value = "google_pay", nulls = Nulls.SKIP)
         public Builder googlePay(Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> googlePay) {
             this.googlePay = googlePay;
@@ -141,6 +176,9 @@ public final class CheckoutMerchantSettingsPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Cash App Pay.</p>
+         */
         @JsonSetter(value = "cash_app", nulls = Nulls.SKIP)
         public Builder cashApp(Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> cashApp) {
             this.cashApp = cashApp;
@@ -152,6 +190,24 @@ public final class CheckoutMerchantSettingsPaymentMethods {
             return this;
         }
 
+        /**
+         * <p>Bank account (ACH). Enabled by default for eligible sellers who have
+         * not saved an ACH preference. A saved enabled or disabled choice takes precedence.</p>
+         */
+        @JsonSetter(value = "bank_account", nulls = Nulls.SKIP)
+        public Builder bankAccount(Optional<CheckoutMerchantSettingsPaymentMethodsPaymentMethod> bankAccount) {
+            this.bankAccount = bankAccount;
+            return this;
+        }
+
+        public Builder bankAccount(CheckoutMerchantSettingsPaymentMethodsPaymentMethod bankAccount) {
+            this.bankAccount = Optional.ofNullable(bankAccount);
+            return this;
+        }
+
+        /**
+         * <p>Afterpay/Clearpay.</p>
+         */
         @JsonSetter(value = "afterpay_clearpay", nulls = Nulls.SKIP)
         public Builder afterpayClearpay(
                 Optional<CheckoutMerchantSettingsPaymentMethodsAfterpayClearpay> afterpayClearpay) {
@@ -166,7 +222,7 @@ public final class CheckoutMerchantSettingsPaymentMethods {
 
         public CheckoutMerchantSettingsPaymentMethods build() {
             return new CheckoutMerchantSettingsPaymentMethods(
-                    applePay, googlePay, cashApp, afterpayClearpay, additionalProperties);
+                    applePay, googlePay, cashApp, bankAccount, afterpayClearpay, additionalProperties);
         }
 
         public Builder additionalProperty(String key, Object value) {
